@@ -5,11 +5,14 @@ SECTIONS
     . = 0x02000000;
     gKeyState = 0x02020DF8;
     gUnkStruct_2020E10 = 0x02020E10;
-    gTrunk_2021460 = 0x02021460;
-    gTrunk = 0x02021790;
+    gTotalCardQty = 0x02021460;
+    gTrunkCardQty = 0x02021790;
     gUnk2021AB4 = 0x02021AB4;
-    gCard_2021AD0 = 0x2021AD0;
+    gCard_2021AD0 = 0x02021AD0;
+    gAnte = 0x02021B04;
+    gDeck = 0x02021C3A;
     gUnk2022EB0 = 0x02022EB0;
+    gLifePoints = 0x02024258;
     
     . = 0x08000000;
     .text :

@@ -16,3 +16,4 @@
 tools/agbcc
 build/
 *.dump
+*.ss*

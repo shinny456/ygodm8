@@ -5,17 +5,17 @@
 
 struct Card
 {
-    u32 unk0;           /*0x0*/
-    u32 unk4;           /*0x4*/
-    u32 unk8;           /*0x8*/
-    u32 cost;           /*0xC*/
-    u16 id;             /*0x10*/
-    u16 atk;            /*0x12*/
-    u16 def;            /*0x14*/
-    u8 type;            /*0x16*/
-    u8 attribute;       /*0x17*/
-    u8 level;           /*0x18*/
-    u8 color;           /*0x19*/
+    u32 unk0;                   /*0x0*/
+    u32 unk4;                   /*0x4*/
+    u32 unk8;                   /*0x8*/
+    u32 cost;                   /*0xC*/
+    u16 id;                     /*0x10*/
+    u16 atk;                    /*0x12*/
+    u16 def;                    /*0x14*/
+    u8 type;                    /*0x16*/
+    u8 attribute;               /*0x17*/
+    u8 level;                   /*0x18*/
+    u8 color;                   /*0x19*/
     u8 magicTrapRitualEffect;   /*0x1A*/     //TODO: rename
     u8 monsterEffect;           /*0x1B*/
     u8 trapEffect;              /*0x1C*/
@@ -64,7 +64,7 @@ u8 GetDeckSize(void);
 bool8 sub_801D878(u16 id);
 void sub_801D960(u16 id);
 void sub_801DB64(u16);
-u8 sub_801DB88(u16);
+u8 GetDeckCardQty(u16);
 
 bool8 sub_801F098(u16 id);
 
@@ -74,8 +74,8 @@ void sub_8034F60(u16);
 
 extern u16 gKeyState; //0x02020DF8
 extern struct UnkStruct_2020E10 gUnkStruct_2020E10; //2020E10
-extern u8 gTrunk_2021460[];
-extern u8 gTrunk[]; //2021790
+extern u8 gTotalCardQty[];
+extern u8 gTrunkCardQty[]; //2021790
 extern struct UnkStruct_2021AB4 gUnk2021AB4;
 extern struct Card gCard_2021AD0; //2021AD0
 extern struct UnkStruct_2022EB0 gUnk2022EB0;
@@ -93,23 +93,23 @@ void InitTrunkCards(void)
     u32 id;
 
     for (id = 0; id < MAX_TRUNK_SIZE; id++)
-        gTrunk[id] = gStarterTrunk[id];
+        gTrunkCardQty[id] = gStarterTrunk[id];
 }
 
 void AddCardToTrunk(u16 id, u8 qty)
 {
-    if (qty > TRUNK_CARD_LIMIT - gTrunk[id])
-        gTrunk[id] = TRUNK_CARD_LIMIT;
+    if (qty > TRUNK_CARD_LIMIT - gTrunkCardQty[id])
+        gTrunkCardQty[id] = TRUNK_CARD_LIMIT;
     else
-        gTrunk[id] += qty;
+        gTrunkCardQty[id] += qty;
 }
 /*
 void RemoveCardFromTrunk(u16 id, u8 qty)
 {
-    if (qty > gTrunk[id])
-        gTrunk[id] = 0;
+    if (qty > gTrunkCardQty[id])
+        gTrunkCardQty[id] = 0;
     else
-        gTrunk[id] -= qty;
+        gTrunkCardQty[id] -= qty;
 }*/
 NAKED
 void RemoveCardFromTrunk(u16 id, u8 qty)
@@ -139,7 +139,7 @@ _08008D1E:\n\
 /*
 bool8 ExceedsTrunkCardLimit(u16 id, u8 qty)
 {
-    if (qty > TRUNK_CARD_LIMIT - gTrunk[id])
+    if (qty > TRUNK_CARD_LIMIT - gTrunkCardQty[id])
         return FALSE;
     return TRUE;
 }*/
@@ -161,7 +161,7 @@ bool8 ExceedsTrunkCardLimit(u16 id, u8 qty)
     movs r0, #1\n\
     b _08008D46\n\
     .align 2, 0\n\
-_08008D40: .4byte gTrunk\n\
+_08008D40: .4byte gTrunkCardQty\n\
 _08008D44:\n\
     movs r0, #0\n\
 _08008D46:\n\
@@ -171,7 +171,7 @@ _08008D46:\n\
 /*
 bool8 sub_8008D48(u16 id, u8 qty)
 {
-    if (qty > gTrunk[id])
+    if (qty > gTrunkCardQty[id])
         return FALSE;
     return TRUE;
 }*/
@@ -200,26 +200,26 @@ _08008D66:\n\
 
 void SetTrunkCardQty(u16 id, u8 qty)
 {
-    gTrunk[id] = qty;
+    gTrunkCardQty[id] = qty;
 }
 
 u8 GetTrunkCardQty(u16 id)
 {
-    return gTrunk[id];
+    return gTrunkCardQty[id];
 }
 
 /*
 void sub_8008D88(u16 id)
 {
-    if (!gTrunk[id])
+    if (!gTrunkCardQty[id])
     {
-        if (sub_801DB88(id))
+        if (GetDeckCardQty(id))
             sub_801D9B8(id);
     }
-    else if (gTrunk[id] >= 1)
-        gTrunk[id]--;
+    else if (gTrunkCardQty[id] >= 1)
+        gTrunkCardQty[id]--;
     else
-        gTrunk[id] = 0;
+        gTrunkCardQty[id] = 0;
 }*/
 NAKED
 void sub_8008D88(u16 id)
@@ -241,14 +241,14 @@ void sub_8008D88(u16 id)
 	strb r0, [r1]\n\
 	b _08008DC4\n\
 	.align 2, 0\n\
-_08008DA8: .4byte gTrunk\n\
+_08008DA8: .4byte gTrunkCardQty\n\
 _08008DAC:\n\
 	subs r0, #1\n\
 	strb r0, [r1]\n\
 	b _08008DC4\n\
 _08008DB2:\n\
 	adds r0, r4, #0\n\
-	bl sub_801DB88\n\
+	bl GetDeckCardQty\n\
 	lsls r0, r0, #0x18\n\
 	cmp r0, #0\n\
 	beq _08008DC4\n\
@@ -263,7 +263,7 @@ _08008DC4:\n\
 
 void sub_8008DCC(u16 id)
 {
-    gTrunk[id] = 0;
+    gTrunkCardQty[id] = 0;
     sub_801D960(id);
 }
 
@@ -272,9 +272,9 @@ void SetTrunkCardsTo50(void)
 {
     u32 id;
     
-    gTrunk[0] = 0;
+    gTrunkCardQty[0] = 0;
     for (id = 1; id < MAX_TRUNK_SIZE; id++)
-        gTrunk[id] = 50;
+        gTrunkCardQty[id] = 50;
 }
 
 void sub_8008E0C(void)
@@ -282,7 +282,7 @@ void sub_8008E0C(void)
     bool32 r5 = 0;
     u16 id = sub_800901C(2);
 
-    if (gTrunk[id] && GetDeckSize() < 40 && sub_801F098(id) == 1)
+    if (gTrunkCardQty[id] && GetDeckSize() < 40 && sub_801F098(id) == 1)
     {
         SetCardData(id);
         if (GetDuelistLevel() < gCard_2021AD0.cost)
@@ -299,7 +299,7 @@ void sub_8008E0C(void)
     }
     else
     {
-        gTrunk[id]--;
+        gTrunkCardQty[id]--;
         sub_801DB64(id);
         sub_8034F60(55);
     }
@@ -310,7 +310,7 @@ void sub_8008EA8(void)
     u32 r5 = 0;
     u16 id = sub_800901C(2);
 
-    if (!sub_801DB88(id) || sub_801D878(id) != 1)
+    if (!GetDeckCardQty(id) || sub_801D878(id) != 1)
         r5 = 1;
 
     if (r5 == 1)
@@ -321,10 +321,10 @@ void sub_8008EA8(void)
     }
     else
     {
-        if (gTrunk[id] < 250)
-            gTrunk[id]++;
+        if (gTrunkCardQty[id] < 250)
+            gTrunkCardQty[id]++;
         else
-            gTrunk[id] = 250;
+            gTrunkCardQty[id] = 250;
         sub_8034F60(55);
     }
 }
@@ -337,7 +337,7 @@ void sub_8008F24(void)
     gUnkStruct_2020E10.unk2 = 0;
 
     for (id = 0; id < 801; id++)
-        gTrunk_2021460[id] = gTrunk[id] + sub_801DB88(id);
+        gTotalCardQty[id] = gTrunkCardQty[id] + GetDeckCardQty(id);
 
     for (id = 0; id < 800; id++)
         gUnkStruct_2020E10.unkC[id] = id + 1;
@@ -441,7 +441,7 @@ _08009052:\n\
 
 u8 sub_8009060(u16 id)
 {
-    return gTrunk[id];
+    return gTrunkCardQty[id];
 }
 
 u8 sub_8009070(void)
@@ -457,10 +457,10 @@ void sub_800907C(void)
 /*
 void sub_8009098(u16 id)
 {
-    if (gTrunk[id] < 250)
-        gTrunk[id]++;
+    if (gTrunkCardQty[id] < 250)
+        gTrunkCardQty[id]++;
     else
-        gTrunk[id] = 250;
+        gTrunkCardQty[id] = 250;
 }*/
 NAKED
 void sub_8009098(u16 id)
@@ -476,7 +476,7 @@ void sub_8009098(u16 id)
 	adds r0, #1\n\
 	b _080090B2\n\
 	.align 2, 0\n\
-_080090AC: .4byte gTrunk\n\
+_080090AC: .4byte gTrunkCardQty\n\
 _080090B0:\n\
 	movs r0, #0xfa\n\
 _080090B2:\n\

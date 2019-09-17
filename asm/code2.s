@@ -1218,7 +1218,7 @@ _08009C5E:
 	bls _08009C5E
 	ldr r2, _08009D10
 	ldrh r0, [r2, #0x10]
-	bl sub_801DB88
+	bl GetDeckCardQty
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #0
@@ -2253,7 +2253,7 @@ sub_800A4B0: @ 0x0800A4B0
 	lsls r0, r0, #7
 	b _0800A500
 	.align 2, 0
-_0800A4F4: .4byte gTrunk
+_0800A4F4: .4byte gTrunkCardQty
 _0800A4F8: .4byte 0x02021AD0
 _0800A4FC:
 	movs r0, #0x80
@@ -5473,7 +5473,7 @@ sub_800BF1C: @ 0x0800BF1C
 	strh r0, [r1]
 	bx lr
 	.align 2, 0
-_0800BF24: .4byte 0x02021B04
+_0800BF24: .4byte gAnte
 
 	THUMB_FUNC_START sub_800BF28
 sub_800BF28: @ 0x0800BF28
@@ -5492,7 +5492,7 @@ sub_800BF28: @ 0x0800BF28
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800BF50: .4byte 0x02021B04
+_0800BF50: .4byte gAnte
 
 	THUMB_FUNC_START sub_800BF54
 sub_800BF54: @ 0x0800BF54
@@ -5937,7 +5937,7 @@ _0800C2F0:
 	strh r4, [r0]
 	b _0800C31C
 	.align 2, 0
-_0800C30C: .4byte 0x02021B04
+_0800C30C: .4byte gAnte
 _0800C310:
 	movs r6, #0
 	ldr r0, _0800C328
@@ -5951,7 +5951,7 @@ _0800C31C:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0800C328: .4byte 0x02021B04
+_0800C328: .4byte gAnte
 
 	THUMB_FUNC_START sub_800C32C
 sub_800C32C: @ 0x0800C32C
@@ -7668,7 +7668,7 @@ _0800D19C:
 	bls _0800D19C
 	ldr r1, _0800D250
 	ldrh r0, [r1, #0x10]
-	bl sub_801DB88
+	bl GetDeckCardQty
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #0
@@ -8723,7 +8723,7 @@ sub_800DA48: @ 0x0800DA48
 	lsls r0, r0, #7
 	b _0800DA64
 	.align 2, 0
-_0800DA5C: .4byte gTrunk
+_0800DA5C: .4byte gTrunkCardQty
 _0800DA60:
 	movs r0, #0x80
 	lsls r0, r0, #7
@@ -11293,7 +11293,7 @@ _0800EE34:
 _0800EE80: .4byte 0x08DFF6A4
 _0800EE84: .4byte 0x02023EC0
 _0800EE88: .4byte 0x020240F0
-_0800EE8C: .4byte 0x02024258
+_0800EE8C: .4byte gLifePoints
 _0800EE90: .4byte 0x02021DB8
 
 	THUMB_FUNC_START sub_800EE94
@@ -11351,7 +11351,7 @@ _0800EEAA:
 _0800EEF8: .4byte 0x02023EC0
 _0800EEFC: .4byte 0x08DFF6A4
 _0800EF00: .4byte 0x020240F0
-_0800EF04: .4byte 0x02024258
+_0800EF04: .4byte gLifePoints
 _0800EF08: .4byte 0x02021DB8
 
 	THUMB_FUNC_START sub_800EF0C
@@ -17774,7 +17774,7 @@ sub_8012800: @ 0x08012800
 	.align 2, 0
 _0801281C: .4byte 0x08DFF6A4
 _08012820: .4byte 0x00002298
-_08012824: .4byte 0x02024258
+_08012824: .4byte gLifePoints
 
 	THUMB_FUNC_START sub_8012828
 sub_8012828: @ 0x08012828
@@ -17799,7 +17799,7 @@ sub_8012828: @ 0x08012828
 	.align 2, 0
 _08012850: .4byte 0x08DFF6A4
 _08012854: .4byte 0x00002298
-_08012858: .4byte 0x02024258
+_08012858: .4byte gLifePoints
 _0801285C: .4byte 0x7EDE89F9
 _08012860:
 	ldr r0, [r6]
@@ -17833,7 +17833,7 @@ sub_8012878: @ 0x08012878
 	.align 2, 0
 _08012894: .4byte 0x08DFF6A4
 _08012898: .4byte 0x00002298
-_0801289C: .4byte 0x02024258
+_0801289C: .4byte gLifePoints
 
 	THUMB_FUNC_START sub_80128A0
 sub_80128A0: @ 0x080128A0
@@ -17858,7 +17858,7 @@ sub_80128A0: @ 0x080128A0
 	.align 2, 0
 _080128C8: .4byte 0x08DFF6A4
 _080128CC: .4byte 0x00002298
-_080128D0: .4byte 0x02024258
+_080128D0: .4byte gLifePoints
 _080128D4: .4byte 0x7EDE89F9
 _080128D8:
 	ldr r0, [r6]
@@ -17892,7 +17892,7 @@ sub_80128F0: @ 0x080128F0
 	.align 2, 0
 _0801290C: .4byte 0x08DFF6A4
 _08012910: .4byte 0x00002298
-_08012914: .4byte 0x02024258
+_08012914: .4byte gLifePoints
 
 	THUMB_FUNC_START sub_8012918
 sub_8012918: @ 0x08012918
@@ -17917,7 +17917,7 @@ sub_8012918: @ 0x08012918
 	.align 2, 0
 _08012940: .4byte 0x08DFF6A4
 _08012944: .4byte 0x00002298
-_08012948: .4byte 0x02024258
+_08012948: .4byte gLifePoints
 _0801294C: .4byte 0x7EDE89F9
 _08012950:
 	ldr r0, [r6]
@@ -17951,7 +17951,7 @@ sub_8012968: @ 0x08012968
 	.align 2, 0
 _08012984: .4byte 0x08DFF6A4
 _08012988: .4byte 0x00002298
-_0801298C: .4byte 0x02024258
+_0801298C: .4byte gLifePoints
 
 	THUMB_FUNC_START sub_8012990
 sub_8012990: @ 0x08012990
@@ -17976,7 +17976,7 @@ sub_8012990: @ 0x08012990
 	.align 2, 0
 _080129B8: .4byte 0x08DFF6A4
 _080129BC: .4byte 0x00002298
-_080129C0: .4byte 0x02024258
+_080129C0: .4byte gLifePoints
 _080129C4: .4byte 0x7EDE89F9
 _080129C8:
 	ldr r0, [r6]
@@ -18010,7 +18010,7 @@ sub_80129E0: @ 0x080129E0
 	.align 2, 0
 _080129FC: .4byte 0x08DFF6A4
 _08012A00: .4byte 0x00002298
-_08012A04: .4byte 0x02024258
+_08012A04: .4byte gLifePoints
 
 	THUMB_FUNC_START sub_8012A08
 sub_8012A08: @ 0x08012A08
@@ -18035,7 +18035,7 @@ sub_8012A08: @ 0x08012A08
 	.align 2, 0
 _08012A30: .4byte 0x08DFF6A4
 _08012A34: .4byte 0x00002298
-_08012A38: .4byte 0x02024258
+_08012A38: .4byte gLifePoints
 _08012A3C: .4byte 0x7EDE89F9
 _08012A40:
 	ldr r0, [r6]
@@ -18071,7 +18071,7 @@ sub_8012A58: @ 0x08012A58
 	ldr r1, _08012A8C
 	b _08012A9A
 	.align 2, 0
-_08012A7C: .4byte 0x02024258
+_08012A7C: .4byte gLifePoints
 _08012A80: .4byte 0x080AED54
 _08012A84: .4byte 0x08DFF6A4
 _08012A88: .4byte 0x00002298
@@ -18113,7 +18113,7 @@ sub_8012AB4: @ 0x08012AB4
 	ldr r1, _08012AE8
 	b _08012AF6
 	.align 2, 0
-_08012AD8: .4byte 0x02024258
+_08012AD8: .4byte gLifePoints
 _08012ADC: .4byte 0x080AED54
 _08012AE0: .4byte 0x08DFF6A4
 _08012AE4: .4byte 0x00002298
@@ -18155,7 +18155,7 @@ sub_8012B10: @ 0x08012B10
 	ldr r1, _08012B44
 	b _08012B52
 	.align 2, 0
-_08012B34: .4byte 0x02024258
+_08012B34: .4byte gLifePoints
 _08012B38: .4byte 0x080AED54
 _08012B3C: .4byte 0x08DFF6A4
 _08012B40: .4byte 0x00002298
@@ -18199,7 +18199,7 @@ sub_8012B6C: @ 0x08012B6C
 	ldr r1, _08012BA4
 	b _08012BB2
 	.align 2, 0
-_08012B94: .4byte 0x02024258
+_08012B94: .4byte gLifePoints
 _08012B98: .4byte 0x080AED54
 _08012B9C: .4byte 0x08DFF6A4
 _08012BA0: .4byte 0x00002298
@@ -18243,7 +18243,7 @@ sub_8012BCC: @ 0x08012BCC
 	ldr r1, _08012C04
 	b _08012C12
 	.align 2, 0
-_08012BF4: .4byte 0x02024258
+_08012BF4: .4byte gLifePoints
 _08012BF8: .4byte 0x080AED54
 _08012BFC: .4byte 0x08DFF6A4
 _08012C00: .4byte 0x00002298
@@ -19582,7 +19582,7 @@ _080138FC:
 	ldr r1, _08013934
 	b _08013942
 	.align 2, 0
-_08013924: .4byte 0x02024258
+_08013924: .4byte gLifePoints
 _08013928: .4byte 0x080AED54
 _0801392C: .4byte 0x08DFF6A4
 _08013930: .4byte 0x00002298
@@ -21041,7 +21041,7 @@ _080166D8:
 	ldr r1, _0801670C
 	b _0801671A
 	.align 2, 0
-_080166FC: .4byte 0x02024258
+_080166FC: .4byte gLifePoints
 _08016700: .4byte 0x080AED54
 _08016704: .4byte 0x08DFF6A4
 _08016708: .4byte 0x00002298
@@ -21209,7 +21209,7 @@ _08016848:
 	ldr r1, _0801687C
 	b _0801688A
 	.align 2, 0
-_0801686C: .4byte 0x02024258
+_0801686C: .4byte gLifePoints
 _08016870: .4byte 0x080AED54
 _08016874: .4byte 0x08DFF6A4
 _08016878: .4byte 0x00002298
@@ -21295,7 +21295,7 @@ _0801690C:
 	ldr r1, _08016940
 	b _0801694E
 	.align 2, 0
-_08016930: .4byte 0x02024258
+_08016930: .4byte gLifePoints
 _08016934: .4byte 0x080AED54
 _08016938: .4byte 0x08DFF6A4
 _0801693C: .4byte 0x00002298
@@ -21340,7 +21340,7 @@ sub_8016964: @ 0x08016964
 	ldr r1, _080169A4
 	b _080169E6
 	.align 2, 0
-_08016994: .4byte 0x02024258
+_08016994: .4byte gLifePoints
 _08016998: .4byte 0x080AED54
 _0801699C: .4byte 0x08DFF6A4
 _080169A0: .4byte 0x00002298
@@ -21462,7 +21462,7 @@ _08016A88:
 	ldr r1, _08016ABC
 	b _08016ACA
 	.align 2, 0
-_08016AAC: .4byte 0x02024258
+_08016AAC: .4byte gLifePoints
 _08016AB0: .4byte 0x080AED54
 _08016AB4: .4byte 0x08DFF6A4
 _08016AB8: .4byte 0x00002298
@@ -21759,7 +21759,7 @@ _08016D24:
 	ldr r1, _08016D58
 	b _08016D66
 	.align 2, 0
-_08016D48: .4byte 0x02024258
+_08016D48: .4byte gLifePoints
 _08016D4C: .4byte 0x080AED54
 _08016D50: .4byte 0x08DFF6A4
 _08016D54: .4byte 0x00002298
@@ -22247,7 +22247,7 @@ _08017134:
 	ldr r1, _08017164
 	b _080171C6
 	.align 2, 0
-_08017154: .4byte 0x02024258
+_08017154: .4byte gLifePoints
 _08017158: .4byte 0x000003E7
 _0801715C: .4byte 0x08DFF6A4
 _08017160: .4byte 0x00002298
@@ -22265,7 +22265,7 @@ _08017168:
 	ldr r1, _08017190
 	b _080171C6
 	.align 2, 0
-_08017180: .4byte 0x02024258
+_08017180: .4byte gLifePoints
 _08017184: .4byte 0x000003E7
 _08017188: .4byte 0x08DFF6A4
 _0801718C: .4byte 0x00002298
@@ -22366,7 +22366,7 @@ _08017244:
 	ldr r1, _08017278
 	b _08017286
 	.align 2, 0
-_08017268: .4byte 0x02024258
+_08017268: .4byte gLifePoints
 _0801726C: .4byte 0x080AED54
 _08017270: .4byte 0x08DFF6A4
 _08017274: .4byte 0x00002298
@@ -22420,7 +22420,7 @@ _080172D0:
 	ldrh r0, [r0]
 	b _080172F0
 	.align 2, 0
-_080172E4: .4byte 0x02024258
+_080172E4: .4byte gLifePoints
 _080172E8:
 	ldr r0, _080173BC
 	ldrh r1, [r0]
@@ -22525,7 +22525,7 @@ _08017348:
 	mov sl, r2
 	b _080173F8
 	.align 2, 0
-_080173BC: .4byte 0x02024258
+_080173BC: .4byte gLifePoints
 _080173C0: .4byte 0x02021C00
 _080173C4: .4byte 0x02021AC0
 _080173C8: .4byte 0x02023FD0
@@ -29805,7 +29805,7 @@ _0801D986:
 	b _0801D9AE
 	.align 2, 0
 _0801D994: .4byte 0x02021C30
-_0801D998: .4byte 0x02021C3A
+_0801D998: .4byte gDeck
 _0801D99C:
 	lsls r0, r5, #1
 	adds r0, r0, r6
@@ -29865,7 +29865,7 @@ _0801D9F2:
 	adds r3, #1
 	b _0801DA16
 	.align 2, 0
-_0801DA00: .4byte 0x02021C3A
+_0801DA00: .4byte gDeck
 _0801DA04:
 	lsls r0, r5, #1
 	adds r0, r0, r6
@@ -30078,8 +30078,8 @@ sub_801DB64: @ 0x0801DB64
 	.align 2, 0
 _0801DB84: .4byte 0x02021C30
 
-	THUMB_FUNC_START sub_801DB88
-sub_801DB88: @ 0x0801DB88
+	THUMB_FUNC_START GetDeckCardQty
+GetDeckCardQty: @ 0x0801DB88
 	push {r4, lr}
 	lsls r0, r0, #0x10
 	lsrs r3, r0, #0x10
@@ -30106,7 +30106,7 @@ _0801DBA4:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0801DBB8: .4byte 0x02021C3A
+_0801DBB8: .4byte gDeck
 
 	THUMB_FUNC_START sub_801DBBC
 sub_801DBBC: @ 0x0801DBBC
@@ -30121,7 +30121,7 @@ _0801DBC0:
 	movs r0, #0
 	b _0801DBE0
 	.align 2, 0
-_0801DBD0: .4byte 0x02021C3A
+_0801DBD0: .4byte gDeck
 _0801DBD4:
 	adds r0, r1, #1
 	lsls r0, r0, #0x18
@@ -30439,7 +30439,7 @@ sub_801DDDC: @ 0x0801DDDC
 	bx r0
 	.align 2, 0
 _0801DE04: .4byte gUnk2022EB0
-_0801DE08: .4byte 0x02021C3A
+_0801DE08: .4byte gDeck
 _0801DE0C: .4byte 0x08E00AE0
 
 	THUMB_FUNC_START sub_801DE10
@@ -30461,7 +30461,7 @@ sub_801DE10: @ 0x0801DE10
 	bx r0
 	.align 2, 0
 _0801DE30: .4byte gUnk2022EB0
-_0801DE34: .4byte 0x02021C3A
+_0801DE34: .4byte gDeck
 _0801DE38: .4byte 0x08E00AE0
 
 	THUMB_FUNC_START sub_801DE3C
@@ -32690,7 +32690,7 @@ sub_801F098: @ 0x0801F098
 	lsls r0, r0, #0x10
 	lsrs r4, r0, #0x10
 	adds r0, r4, #0
-	bl sub_801DB88
+	bl GetDeckCardQty
 	lsls r0, r0, #0x18
 	lsrs r5, r0, #0x18
 	adds r6, r5, #0
@@ -34050,7 +34050,7 @@ sub_801FB58: @ 0x0801FB58
 	.align 2, 0
 _0801FBA0: .4byte 0x02021D10
 _0801FBA4: .4byte 0x08E00B30
-_0801FBA8: .4byte 0x02024258
+_0801FBA8: .4byte gLifePoints
 _0801FBAC:
 	movs r0, #1
 	bl sub_8043E70
@@ -34167,8 +34167,8 @@ _0801FC8A:
 	bl sub_80219E4
 	b _0801FCDE
 	.align 2, 0
-_0801FCAC: .4byte 0x02021B04
-_0801FCB0: .4byte 0x02024258
+_0801FCAC: .4byte gAnte
+_0801FCB0: .4byte gLifePoints
 _0801FCB4:
 	movs r0, #0
 	bl sub_8043E70
@@ -34549,7 +34549,7 @@ _0801FFD2:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801FFD8: .4byte 0x02021B04
+_0801FFD8: .4byte gAnte
 _0801FFDC: .4byte 0x02021D10
 
 	THUMB_FUNC_START sub_801FFE0
@@ -34564,7 +34564,7 @@ sub_801FFE0: @ 0x0801FFE0
 	ldr r4, [r0, #0x38]
 	b _08020000
 	.align 2, 0
-_0801FFF4: .4byte 0x02021B04
+_0801FFF4: .4byte gAnte
 _0801FFF8: .4byte 0x02021D10
 _0801FFFC:
 	ldr r0, _08020010
@@ -38600,7 +38600,7 @@ sub_80220C8: @ 0x080220C8
 	b _08022128
 	.align 2, 0
 _080220FC: .4byte 0x02021D10
-_08022100: .4byte 0x02024258
+_08022100: .4byte gLifePoints
 _08022104:
 	movs r0, #1
 	bl sub_8043E70
@@ -38672,7 +38672,7 @@ sub_8022170: @ 0x08022170
 	bl sub_80219E4
 	b _080221C8
 	.align 2, 0
-_080221A0: .4byte 0x02024258
+_080221A0: .4byte gLifePoints
 _080221A4:
 	movs r0, #0
 	bl sub_8043E70
@@ -38824,10 +38824,10 @@ _08022256:
 	bx r0
 	.align 2, 0
 _080222D8: .4byte 0x02021D10
-_080222DC: .4byte 0x02021B04
+_080222DC: .4byte gAnte
 _080222E0: .4byte 0x08E00B30
 _080222E4: .4byte 0x02021D80
-_080222E8: .4byte 0x02021C3A
+_080222E8: .4byte gDeck
 
 	THUMB_FUNC_START sub_80222EC
 sub_80222EC: @ 0x080222EC
@@ -59178,7 +59178,7 @@ _0802D0C0: .4byte 0x00000325
 _0802D0C4: .4byte 0x02022120
 _0802D0C8: .4byte 0x02021DF0
 _0802D0CC: .4byte 0x02022B80
-_0802D0D0: .4byte gTrunk
+_0802D0D0: .4byte gTrunkCardQty
 _0802D0D4: .4byte 0x00000726
 _0802D0D8: .4byte 0x0000071E
 _0802D0DC: .4byte 0x00000724
@@ -59441,7 +59441,7 @@ _0802D2A4:
 	.align 2, 0
 _0802D2C4: .4byte 0x02021DF0
 _0802D2C8: .4byte 0x02022120
-_0802D2CC: .4byte gTrunk
+_0802D2CC: .4byte gTrunkCardQty
 _0802D2D0: .4byte 0x02022B80
 
 	THUMB_FUNC_START sub_802D2D4
@@ -60666,7 +60666,7 @@ _0802DD68: .4byte 0x00000325
 _0802DD6C: .4byte 0x02022120
 _0802DD70: .4byte 0x02021DF0
 _0802DD74: .4byte 0x02022B80
-_0802DD78: .4byte gTrunk
+_0802DD78: .4byte gTrunkCardQty
 _0802DD7C: .4byte 0x00000726
 _0802DD80: .4byte 0x0000071E
 _0802DD84: .4byte 0x00000724
@@ -60705,7 +60705,7 @@ _0802DDA8:
 	.align 2, 0
 _0802DDC8: .4byte 0x02021DF0
 _0802DDCC: .4byte 0x02022120
-_0802DDD0: .4byte gTrunk
+_0802DDD0: .4byte gTrunkCardQty
 _0802DDD4: .4byte 0x02022B80
 
 	THUMB_FUNC_START sub_802DDD8
@@ -63362,7 +63362,7 @@ sub_802F7F0: @ 0x0802F7F0
 	adds r4, #2
 	movs r5, #7
 	ldrh r0, [r2, #0x10]
-	bl sub_801DB88
+	bl GetDeckCardQty
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	movs r1, #1
@@ -69223,7 +69223,7 @@ _08032A2E:
 	bx r0
 	.align 2, 0
 _08032A3C: .4byte gUnk2022EB0
-_08032A40: .4byte gTrunk
+_08032A40: .4byte gTrunkCardQty
 _08032A44: .4byte 0x08E0CC20
 _08032A48: .4byte 0x00000320
 _08032A4C: .4byte 0x00000000
@@ -69426,7 +69426,7 @@ _08032BB6:
 	bx r0
 	.align 2, 0
 _08032BC4: .4byte gUnk2022EB0
-_08032BC8: .4byte 0x02021460
+_08032BC8: .4byte gTotalCardQty
 _08032BCC: .4byte 0x08E0CC20
 _08032BD0: .4byte 0x00000320
 _08032BD4: .4byte 0x00000000
@@ -69510,7 +69510,7 @@ _08032C58:
 	.align 2, 0
 _08032C68: .4byte gUnk2022EB0
 _08032C6C: .4byte 0x02021CF8
-_08032C70: .4byte gTrunk
+_08032C70: .4byte gTrunkCardQty
 _08032C74: .4byte 0x08E0CC20
 _08032C78: .4byte 0x00000642
 _08032C7C: .4byte 0x080D0444
@@ -69768,7 +69768,7 @@ _08032E68:
 	.align 2, 0
 _08032E78: .4byte gUnk2022EB0
 _08032E7C: .4byte 0x02021CF8
-_08032E80: .4byte 0x02021460
+_08032E80: .4byte gTotalCardQty
 _08032E84: .4byte 0x08E0CC20
 _08032E88: .4byte 0x00000642
 _08032E8C: .4byte 0x080D0444
@@ -69863,7 +69863,7 @@ _08032F2C:
 	bx r0
 	.align 2, 0
 _08032F3C: .4byte gUnk2022EB0
-_08032F40: .4byte gTrunk
+_08032F40: .4byte gTrunkCardQty
 _08032F44: .4byte 0x08E0CC20
 _08032F48: .4byte gCardAtks
 _08032F4C: .4byte 0x0000FFFF
@@ -70219,7 +70219,7 @@ _080331EC:
 	bx r0
 	.align 2, 0
 _080331FC: .4byte gUnk2022EB0
-_08033200: .4byte 0x02021460
+_08033200: .4byte gTotalCardQty
 _08033204: .4byte 0x08E0CC20
 _08033208: .4byte gCardAtks
 _0803320C: .4byte 0x0000FFFF
@@ -70312,7 +70312,7 @@ _080332A4:
 	bx r0
 	.align 2, 0
 _080332B4: .4byte gUnk2022EB0
-_080332B8: .4byte gTrunk
+_080332B8: .4byte gTrunkCardQty
 _080332BC: .4byte 0x08E0CC20
 _080332C0: .4byte gCardDefs
 _080332C4: .4byte 0x0000FFFF
@@ -70668,7 +70668,7 @@ _08033564:
 	bx r0
 	.align 2, 0
 _08033574: .4byte gUnk2022EB0
-_08033578: .4byte 0x02021460
+_08033578: .4byte gTotalCardQty
 _0803357C: .4byte 0x08E0CC20
 _08033580: .4byte gCardDefs
 _08033584: .4byte 0x0000FFFF
@@ -70758,7 +70758,7 @@ _08033616:
 	bx r0
 	.align 2, 0
 _08033624: .4byte gUnk2022EB0
-_08033628: .4byte gTrunk
+_08033628: .4byte gTrunkCardQty
 _0803362C: .4byte 0x08E0CC20
 _08033630: .4byte gCardTypes
 
@@ -71098,7 +71098,7 @@ _080338A6:
 	bx r0
 	.align 2, 0
 _080338B4: .4byte gUnk2022EB0
-_080338B8: .4byte 0x02021460
+_080338B8: .4byte gTotalCardQty
 _080338BC: .4byte 0x08E0CC20
 _080338C0: .4byte gCardTypes
 
@@ -71191,7 +71191,7 @@ _0803395A:
 	bx r0
 	.align 2, 0
 _08033968: .4byte gUnk2022EB0
-_0803396C: .4byte gTrunk
+_0803396C: .4byte gTrunkCardQty
 _08033970: .4byte 0x08E0CC20
 _08033974: .4byte gCardAttr
 
@@ -71547,7 +71547,7 @@ _08033C0A:
 	bx r0
 	.align 2, 0
 _08033C18: .4byte gUnk2022EB0
-_08033C1C: .4byte 0x02021460
+_08033C1C: .4byte gTotalCardQty
 _08033C20: .4byte 0x08E0CC20
 _08033C24: .4byte gCardAttr
 
@@ -71707,7 +71707,7 @@ _08033D40:
 	bx r0
 	.align 2, 0
 _08033D50: .4byte gUnk2022EB0
-_08033D54: .4byte gTrunk
+_08033D54: .4byte gTrunkCardQty
 _08033D58: .4byte 0x08E0CC20
 _08033D5C: .4byte gCardCosts
 
@@ -72043,7 +72043,7 @@ _08033FD0:
 	bx r0
 	.align 2, 0
 _08033FE0: .4byte gUnk2022EB0
-_08033FE4: .4byte 0x02021460
+_08033FE4: .4byte gTotalCardQty
 _08033FE8: .4byte 0x08E0CC20
 _08033FEC: .4byte gCardCosts
 
@@ -72116,7 +72116,7 @@ _0803405E:
 	.align 2, 0
 _0803406C: .4byte gUnk2022EB0
 _08034070: .4byte 0x08E0CC20
-_08034074: .4byte gTrunk
+_08034074: .4byte gTrunkCardQty
 
 	THUMB_FUNC_START sub_8034078
 sub_8034078: @ 0x08034078
@@ -72460,7 +72460,7 @@ _08034306:
 	bx r0
 	.align 2, 0
 _08034314: .4byte gUnk2022EB0
-_08034318: .4byte gTrunk
+_08034318: .4byte gTrunkCardQty
 _0803431C: .4byte 0x08E0CC20
 _08034320: .4byte gCardLevels
 
@@ -72792,7 +72792,7 @@ _08034586:
 	bx r0
 	.align 2, 0
 _08034594: .4byte gUnk2022EB0
-_08034598: .4byte 0x02021460
+_08034598: .4byte gTotalCardQty
 _0803459C: .4byte 0x08E0CC20
 _080345A0: .4byte gCardLevels
 
@@ -72825,7 +72825,7 @@ _080345C0:
 	ldr r0, [r7]
 	adds r0, r6, r0
 	ldrh r0, [r0]
-	bl sub_801DB88
+	bl GetDeckCardQty
 	ldr r1, _08034628
 	ldr r1, [r1]
 	mov r8, r1
@@ -72936,7 +72936,7 @@ _0803469A:
 	.align 2, 0
 _080346A8: .4byte gUnk2022EB0
 _080346AC: .4byte 0x08E0CC20
-_080346B0: .4byte 0x02021460
+_080346B0: .4byte gTotalCardQty
 
 	THUMB_FUNC_START sub_80346B4
 sub_80346B4: @ 0x080346B4
@@ -73028,7 +73028,7 @@ _08034746:
 	.align 2, 0
 _08034754: .4byte gUnk2022EB0
 _08034758: .4byte 0x08E0CC20
-_0803475C: .4byte 0x02021460
+_0803475C: .4byte gTotalCardQty
 _08034760: .4byte 0x080942D4
 _08034764: .4byte 0x08094CC3
 _08034768: .4byte 0x00000640
@@ -81248,7 +81248,7 @@ _080389D2:
 	bx r0
 	.align 2, 0
 _08038A68: .4byte 0x02022EC0
-_08038A6C: .4byte gTrunk
+_08038A6C: .4byte gTrunkCardQty
 _08038A70: .4byte 0x00000321
 _08038A74: .4byte 0x00000642
 _08038A78: .4byte 0x00000FA4
@@ -93474,7 +93474,7 @@ sub_803F46C: @ 0x0803F46C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803F498: .4byte 0x02024258
+_0803F498: .4byte gLifePoints
 _0803F49C: .4byte 0x02023E80
 _0803F4A0: .4byte 0x02023EA0
 
@@ -93578,7 +93578,7 @@ _0803F55C: .4byte 0x02024040
 _0803F560: .4byte 0x02021AC0
 _0803F564: .4byte 0x02023EC0
 _0803F568: .4byte 0x02021AD0
-_0803F56C: .4byte 0x02024258
+_0803F56C: .4byte gLifePoints
 _0803F570: .4byte 0x02023EA0
 
 	THUMB_FUNC_START sub_803F574
@@ -93645,7 +93645,7 @@ _0803F5EC: .4byte 0x02024040
 _0803F5F0: .4byte 0x02021AC0
 _0803F5F4: .4byte 0x02023EC0
 _0803F5F8: .4byte 0x02021AD0
-_0803F5FC: .4byte 0x02024258
+_0803F5FC: .4byte gLifePoints
 _0803F600: .4byte 0x02023EA0
 
 	THUMB_FUNC_START sub_803F604
@@ -93759,7 +93759,7 @@ _0803F6E0: .4byte 0x02024040
 _0803F6E4: .4byte 0x02021AC0
 _0803F6E8: .4byte 0x02023EC0
 _0803F6EC: .4byte 0x02021AD0
-_0803F6F0: .4byte 0x02024258
+_0803F6F0: .4byte gLifePoints
 _0803F6F4: .4byte 0x02023EA0
 
 	THUMB_FUNC_START sub_803F6F8
@@ -93873,7 +93873,7 @@ _0803F7D4: .4byte 0x02024040
 _0803F7D8: .4byte 0x02021AC0
 _0803F7DC: .4byte 0x02023EC0
 _0803F7E0: .4byte 0x02021AD0
-_0803F7E4: .4byte 0x02024258
+_0803F7E4: .4byte gLifePoints
 _0803F7E8: .4byte 0x02023EA0
 
 	THUMB_FUNC_START sub_803F7EC
@@ -93988,7 +93988,7 @@ _0803F8C8: .4byte 0x02024040
 _0803F8CC: .4byte 0x02021AC0
 _0803F8D0: .4byte 0x02023EC0
 _0803F8D4: .4byte 0x02021AD0
-_0803F8D8: .4byte 0x02024258
+_0803F8D8: .4byte gLifePoints
 _0803F8DC: .4byte 0x02023EA0
 
 	THUMB_FUNC_START sub_803F8E0
@@ -94090,7 +94090,7 @@ sub_803F978: @ 0x0803F978
 	bx lr
 	.align 2, 0
 _0803F994: .4byte 0x02023E80
-_0803F998: .4byte 0x02024258
+_0803F998: .4byte gLifePoints
 
 	THUMB_FUNC_START sub_803F99C
 sub_803F99C: @ 0x0803F99C
@@ -94110,7 +94110,7 @@ sub_803F99C: @ 0x0803F99C
 	bx lr
 	.align 2, 0
 _0803F9B8: .4byte 0x02023E80
-_0803F9BC: .4byte 0x02024258
+_0803F9BC: .4byte gLifePoints
 
 	THUMB_FUNC_START sub_803F9C0
 sub_803F9C0: @ 0x0803F9C0
@@ -94130,7 +94130,7 @@ sub_803F9C0: @ 0x0803F9C0
 	bx lr
 	.align 2, 0
 _0803F9DC: .4byte 0x02023E80
-_0803F9E0: .4byte 0x02024258
+_0803F9E0: .4byte gLifePoints
 
 	THUMB_FUNC_START sub_803F9E4
 sub_803F9E4: @ 0x0803F9E4
@@ -94150,7 +94150,7 @@ sub_803F9E4: @ 0x0803F9E4
 	bx lr
 	.align 2, 0
 _0803FA00: .4byte 0x02023E80
-_0803FA04: .4byte 0x02024258
+_0803FA04: .4byte gLifePoints
 
 	THUMB_FUNC_START sub_803FA08
 sub_803FA08: @ 0x0803FA08
@@ -99521,7 +99521,7 @@ _08042770: .4byte 0x02021AD0
 _08042774: .4byte 0x02009B80
 _08042778: .4byte 0xFFFFFB00
 _0804277C: .4byte 0x02009680
-_08042780: .4byte 0x02024258
+_08042780: .4byte gLifePoints
 _08042784: .4byte 0xFFFF6D80
 _08042788: .4byte 0x000075AC
 _0804278C: .4byte 0x02021BD0
@@ -99574,7 +99574,7 @@ _080427B6:
 	lsrs r0, r0, #0x10
 	b _08042806
 	.align 2, 0
-_080427F4: .4byte 0x02024258
+_080427F4: .4byte gLifePoints
 _080427F8: .4byte 0x02000400
 _080427FC: .4byte 0x000074EC
 _08042800: .4byte 0x02021BD0
@@ -102250,7 +102250,7 @@ sub_8043E14: @ 0x08043E14
 	bl sub_8043E44
 	b _08043E3A
 	.align 2, 0
-_08043E2C: .4byte 0x02021C3A
+_08043E2C: .4byte gDeck
 _08043E30:
 	ldr r0, _08043E40
 	ldr r1, [r0, #0x34]
@@ -110917,7 +110917,7 @@ sub_8048688: @ 0x08048688
 	strh r0, [r4]
 	b _080486BE
 	.align 2, 0
-_080486A8: .4byte 0x02024258
+_080486A8: .4byte gLifePoints
 _080486AC:
 	ldr r4, _080486DC
 	ldrh r0, [r4, #2]
@@ -110942,7 +110942,7 @@ _080486D6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080486DC: .4byte 0x02024258
+_080486DC: .4byte gLifePoints
 _080486E0: .4byte 0x02021C08
 _080486E4: .4byte 0x02021C10
 _080486E8: .4byte 0x02024250
@@ -111589,7 +111589,7 @@ sub_8048C60: @ 0x08048C60
 	b _08048C9A
 	.align 2, 0
 _08048C7C: .4byte 0x020241FC
-_08048C80: .4byte 0x02024258
+_08048C80: .4byte gLifePoints
 _08048C84: .4byte 0x02021D10
 _08048C88:
 	ldr r2, _08048CA0
@@ -111605,7 +111605,7 @@ _08048C9A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08048CA0: .4byte 0x02024258
+_08048CA0: .4byte gLifePoints
 _08048CA4: .4byte 0x02021D10
 
 	THUMB_FUNC_START sub_8048CA8
@@ -111617,7 +111617,7 @@ sub_8048CA8: @ 0x08048CA8
 	strh r1, [r0]
 	bx lr
 	.align 2, 0
-_08048CB4: .4byte 0x02024258
+_08048CB4: .4byte gLifePoints
 
 	THUMB_FUNC_START sub_8048CB8
 sub_8048CB8: @ 0x08048CB8
@@ -111654,7 +111654,7 @@ _08048CFE:
 	bx lr
 	.align 2, 0
 _08048D00: .4byte 0x02024254
-_08048D04: .4byte 0x02024258
+_08048D04: .4byte gLifePoints
 
 	THUMB_FUNC_START sub_8048D08
 sub_8048D08: @ 0x08048D08
