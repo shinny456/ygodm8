@@ -8,11 +8,14 @@ SECTIONS
     gTotalCardQty = 0x02021460;
     gTrunkCardQty = 0x02021790;
     gUnk2021AB4 = 0x02021AB4;
-    gCard_2021AD0 = 0x02021AD0;
+    gCardInfo = 0x02021AD0;
     gAnte = 0x02021B04;
     gDeck = 0x02021C3A;
     gUnk2022EB0 = 0x02022EB0;
+    gPlayerGraveyard = 0x02023FB4;
+    gNumTributes = 0x02024200;
     gLifePoints = 0x02024258;
+    gCurrTurn = 0x020245A8;
     
     . = 0x08000000;
     .text :

@@ -2,7 +2,7 @@
     
     .global data3
 data3:
-    .incbin "baserom.gba", 0x942D4, 0xD663D4
+    .incbin "baserom.gba", 0x94C37, 0xD65A71
     
     .global gUnk_8DFA6A8
 gUnk_8DFA6A8:

@@ -77,7 +77,7 @@ extern struct UnkStruct_2020E10 gUnkStruct_2020E10; //2020E10
 extern u8 gTotalCardQty[];
 extern u8 gTrunkCardQty[]; //2021790
 extern struct UnkStruct_2021AB4 gUnk2021AB4;
-extern struct Card gCard_2021AD0; //2021AD0
+extern struct Card gCardInfo; //2021AD0
 extern struct UnkStruct_2022EB0 gUnk2022EB0;
 
 extern const u8 gStarterTrunk[];
@@ -282,10 +282,10 @@ void sub_8008E0C(void)
     bool32 r5 = 0;
     u16 id = sub_800901C(2);
 
-    if (gTrunkCardQty[id] && GetDeckSize() < 40 && sub_801F098(id) == 1)
+    if (gTrunkCardQty[id] && GetDeckSize() < 40 && sub_801F098(id) == TRUE)
     {
         SetCardData(id);
-        if (GetDuelistLevel() < gCard_2021AD0.cost)
+        if (GetDuelistLevel() < gCardInfo.cost)
             r5 = 1;
     }
     else 

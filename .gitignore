@@ -15,5 +15,5 @@
 *.sg1
 tools/agbcc
 build/
-*.dump
+*.dump*
 *.ss*
