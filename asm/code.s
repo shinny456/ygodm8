@@ -1,6 +1,7 @@
     .INCLUDE "asm/macro.inc"
     .SYNTAX UNIFIED
     
+    
     THUMB_FUNC_START sub_8000224
 sub_8000224: @ 0x08000224
 	push {r4, r5, r6, r7, lr}
@@ -16631,7 +16632,7 @@ sub_8008958: @ 0x08008958
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080089AC: .4byte 0x02021AC0
+_080089AC: .4byte gUnk2021AC0
 _080089B0: .4byte 0x08008A5D
 
 	THUMB_FUNC_START sub_80089B4

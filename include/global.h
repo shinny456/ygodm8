@@ -9,4 +9,9 @@
 
 #define ARRAY_COUNT(array) (size_t)(sizeof(array) / sizeof((array)[0]))
 
+#define TRUNK_CARD_LIMIT 250
+#define TRUNK_SIZE 801
+#define DECK_SIZE 40
+
+
 #endif // GUARD_GLOBAL_H

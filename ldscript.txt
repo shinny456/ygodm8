@@ -8,12 +8,21 @@ SECTIONS
     gTotalCardQty = 0x02021460;
     gTrunkCardQty = 0x02021790;
     gUnk2021AB4 = 0x02021AB4;
+    gUnk2021AC0 = 0x02021AC0;
     gCardInfo = 0x02021AD0;
     gAnte = 0x02021B04;
-    gDeck = 0x02021C3A;
+    gUnk_02021C08 = 0x02021C08;
+    gUnk_02021C10 = 0x02021C10;
+    gDeckCapacity = 0x02021C1C;
+    gDuelistLevel = 0x02021C20;
+    gDeck = 0x02021C30;
     gUnk2022EB0 = 0x02022EB0;
-    gPlayerGraveyard = 0x02023FB4;
+    gDuel = 0x02023EC0;
+    gNotSure = 0x02023FC0;
+    gBoard = 0x02023FD0;
+    gUnk2024040 = 0x2024040;
     gNumTributes = 0x02024200;
+    gMonEffect = 0x02024250;
     gLifePoints = 0x02024258;
     gCurrTurn = 0x020245A8;
     
@@ -25,6 +34,9 @@ SECTIONS
         asm/code.o(.text);
         src/trunk.o(.text);
         asm/code2.o(.text);
+        src/card_effects.o(.text)
+        asm/code3.o(.text);
+        asm/code4.o(.text);
         data/data.o(.rodata);
         src/data/starter_trunk.o(.rodata);
         data/data2.o(.rodata);
