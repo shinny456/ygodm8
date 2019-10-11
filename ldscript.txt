@@ -3,7 +3,11 @@ OUTPUT_ARCH(arm)
 SECTIONS
 {
     . = 0x02000000;
+    gUnk_2018800 = 0x02018800;
+    gUnk_201C800 = 0x0201C800;
+    gUnk_201C900 = 0x0201C900;
     gKeyState = 0x02020DF8;
+    gUnk2020DFC = 0x02020DFC;
     gUnkStruct_2020E10 = 0x02020E10;
     gTotalCardQty = 0x02021460;
     gTrunkCardQty = 0x02021790;
@@ -16,16 +20,20 @@ SECTIONS
     gDeckCapacity = 0x02021C1C;
     gDuelistLevel = 0x02021C20;
     gDeck = 0x02021C30;
+    gLanguage = 0x02021CF8;
+    gUnk2021DC8 = 0x02021DC8;
+    gUnk2021DCC = 0x02021DCC;
     gUnk2022EB0 = 0x02022EB0;
     gDuel = 0x02023EC0;
     gNotSure = 0x02023FC0;
     gBoard = 0x02023FD0;
     gUnk2024040 = 0x2024040;
+    gHands = 0x20240B0;
     gNumTributes = 0x02024200;
     gMonEffect = 0x02024250;
     gLifePoints = 0x02024258;
     gCurrTurn = 0x020245A8;
-    
+
     . = 0x08000000;
     .text :
     ALIGN(4)
@@ -43,6 +51,8 @@ SECTIONS
         src/data/cards_data.o(.rodata);
         data/data3.o(.rodata);
     } = 0
+
+    gGodCards = 0x8E01358;
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :

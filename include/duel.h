@@ -4,6 +4,23 @@
 #define MAX_ZONES 5
 #define MAX_DUELISTS 2
 
+
+/*NOTES:
+Card details:
+sub_80267E0 - Draw card border;  08938384 - 0x214; 089361F8 - 0x2000
+sub_80262B0 - Draw card art (and description?)
+sub_802634C - Draw card type
+sub_80263DC - Draw card attribute
+sub_8026864 - Draw card stars
+sub_802648C - Draw card atk
+sub_8026564 - Draw card def
+sub_802663C - Draw card name
+sub_80267B8 - Call all functions above
+*/
+
+
+//sub_08026BA4 bx lr
+
 struct Unk2021AC0
 {
     u16 id;
@@ -15,7 +32,7 @@ extern struct Unk2021AC0 gUnk2021AC0;
 
 struct CardInfo
 {
-    u32 unk0;                   /*0x0*/
+    u8* name;                   /*0x0*/
     u32 unk4;                   /*0x4*/
     u32 unk8;                   /*0x8*/
     u32 cost;                   /*0xC*/
@@ -106,10 +123,10 @@ enum Field
     NUM_FIELDS
 };
 
-enum Turn
+enum DuelistId
 {
-    TURN_PLAYER,
-    TURN_OPPONENT
+    PLAYER,
+    OPPONENT
 };
 
 enum
@@ -154,7 +171,7 @@ struct NotSureWhatToName
 };
 
 struct Duel
-{               
+{
     struct Zone opponentSpellTrapZones[MAX_ZONES];  //0x0   |2023EC0
     struct Zone opponentMonZones[MAX_ZONES];        //0x28  |2023EE8
     struct Zone playerMonZones[MAX_ZONES];          //0x50  |2023F10
@@ -168,10 +185,13 @@ struct Duel
 
 extern struct Duel gDuel;
 extern struct NotSureWhatToName* gNotSure[MAX_DUELISTS]; //2023FC0
-extern struct Zone* gBoard[5][MAX_ZONES];                //2023FD0 
+extern struct Zone* gBoard[5][MAX_ZONES];                //2023FD0
 extern struct Zone* gUnk2024040[5][MAX_ZONES];           //2024040
-extern struct Zone* hand[2][MAX_ZONES];                  //20240B0
+extern struct Zone* gHands[2][MAX_ZONES];                  //20240B0
                                                          //20240C4
+
+                   //gHand[]: 0 - curr player, 1- curr opponent
+
 /*
 gBoard[]:
 0 - Current Opponent Spell/Trap Row
@@ -212,7 +232,7 @@ extern u8 gUnk_02021C08;
 struct MonEffect
 {
     u16 id; //mon id
-    u8 row; 
+    u8 row;
     u8 zone;
 };
 
@@ -222,7 +242,100 @@ struct Unk_02021C10
 {
     u16 unk0;
     u16 unk2;
+    u16 unk4;
+    u16 unk6;
+    u16 unk8;
+    u8 unkA;
 };
 extern struct Unk_02021C10 gUnk_02021C10;
+
+enum Language
+{
+    ENGLISH,
+    FRENCH,
+    GERMAN,
+    ITALIAN,
+    SPANISH,
+    JAPANESE,
+    DEBUG //skip dialogs
+};
+
+extern u8 gLanguage; //move to another header
+
+//u8 g2021DB8[] 0 - player status, 1 - opponent status: 2 == loss, 1 == can attack, 0 == can't attack
+void sub_800B318(struct Unk2021AC0*);
+
+void sub_801CEBC(void);
+
+bool32 IsGodCard(u16); //802607C
+
+bool32 IsWingedDragonOfRa(u16 id); //80260BC
+
+void sub_803F29C(void);
+
+void sub_803F4C0(void);
+
+void sub_803F99C(u16); //sub player life points
+
+void sub_803F9E4(u16); //sub opponent life points
+
+void ClearZone(struct Zone*); //clear zone?
+
+void sub_8040340(struct Zone*); //card face up
+
+void sub_8040360(struct Zone*); //reset num perm powerups
+void sub_8040368(struct Zone*); //Inc num perm powerups
+
+void sub_804037C(struct Zone*); //dec num powerups?
+
+void sub_80403E8(struct Zone*); //reset num temp powerups
+
+s8 sub_804069C(struct Zone*); //getnumpowerups?
+
+void sub_80406C0(struct Zone*); //lock card
+
+void CopyCard(struct Zone* dst, struct Zone* src); //copy card from one zone to another (src to dst)?
+
+void sub_8041140(u8); //set field gfx
+
+u8 HighestAtkMonInRow(struct Zone** row); //get highest atk mon
+u8 HighestAtkMonInRowExceptGodCards(struct Zone** row); //get highest atk mon excluding god cards? excluding god cards?
+
+u8 sub_8043164(struct Zone**, u8);
+
+int NumCardInRow(struct Zone** row, u16 id); //num of card in a particular row
+
+u8 sub_8043468(struct Zone**);
+
+int NumEmptyZonesInRow(struct Zone** row);
+int NumEmptyZonesAndGodCardsInRow(struct Zone** row);
+
+int sub_8043584(struct Zone**, u8);
+
+int EmptyZoneInRow(struct Zone**);  //get empty zone?
+
+int sub_8043694(struct Zone**, u16 id); //get zone card is located at
+
+void sub_80406CC(struct Zone*); //clear isLocked
+
+int sub_8043930(u8, u8);
+
+void sub_8045338(struct Zone*, u8); //clear zone and send mon to graveyard?
+
+
+u32 GetCurrTurn(void); //8058744
+
+
+struct Unk2023E80
+{
+    u8 filler0[0x18];
+    u8 unk18;
+    u8 unk19;
+    
+};
+extern struct Unk2023E80 gUnk2023E80;
+//0x02023EA0 data used when cards clash
+//0x02023E80 ^
+
 
 #endif // GUARD_DUEL_H

@@ -2,7 +2,7 @@
     .SYNTAX UNIFIED
 
 
-	
+
 	.byte 0x70, 0x47, 0x00, 0x00, 0x70, 0x47, 0x00, 0x00
 
 	THUMB_FUNC_START sub_804D4E8
@@ -10,11 +10,11 @@ sub_804D4E8: @ 0x0804D4E8
 	push {r4, lr}
 	ldr r4, _0804D540
 	adds r0, r4, #0
-	bl sub_8043538
+	bl NumEmptyZonesAndGodCardsInRow
 	cmp r0, #5
 	beq _0804D50A
 	adds r0, r4, #0
-	bl sub_8042FC0
+	bl HighestAtkMonInRowExceptGodCards
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x16
 	adds r0, r0, r4
@@ -1571,7 +1571,7 @@ sub_804E1C8: @ 0x0804E1C8
 	movs r0, #6
 	b _0804E286
 	.align 2, 0
-_0804E1D8: .4byte 0x02020DFC
+_0804E1D8: .4byte gUnk2020DFC
 _0804E1DC:
 	movs r0, #0x80
 	lsls r0, r0, #1
@@ -10160,7 +10160,7 @@ _08052EC0:
 	str r1, [r6, #4]
 	b _08052F06
 	.align 2, 0
-_08052EE8: .4byte 0x08E00E30
+_08052EE8: .4byte gUnk_8E00E30
 _08052EEC:
 	adds r1, r6, #0
 	adds r1, #0x86
@@ -10194,7 +10194,7 @@ _08052F06:
 	bl sub_8020968
 	b _08052F48
 	.align 2, 0
-_08052F2C: .4byte 0x08E00E30
+_08052F2C: .4byte gUnk_8E00E30
 _08052F30: .4byte 0x0200DC40
 _08052F34: .4byte 0x00000101
 _08052F38:
@@ -10238,7 +10238,7 @@ sub_8052F60: @ 0x08052F60
 	movs r0, #0
 	b _08052F92
 	.align 2, 0
-_08052F88: .4byte 0x02020DFC
+_08052F88: .4byte gUnk2020DFC
 _08052F8C: .4byte 0x00000103
 _08052F90:
 	movs r0, #1
@@ -10352,7 +10352,7 @@ sub_8053040: @ 0x08053040
 	movs r0, #0
 	b _08053072
 	.align 2, 0
-_08053068: .4byte 0x02020DFC
+_08053068: .4byte gUnk2020DFC
 _0805306C: .4byte 0x00000103
 _08053070:
 	movs r0, #1
@@ -10402,7 +10402,7 @@ _080530C2:
 	beq _08053104
 	b _08053122
 	.align 2, 0
-_080530D0: .4byte 0x02020DFC
+_080530D0: .4byte gUnk2020DFC
 _080530D4:
 	ldr r4, _080530F4
 	ldr r1, _080530F8
@@ -10477,7 +10477,7 @@ sub_8053138: @ 0x08053138
 	adds r0, r5, #1
 	b _08053182
 	.align 2, 0
-_08053170: .4byte 0x08E00E30
+_08053170: .4byte gUnk_8E00E30
 _08053174:
 	adds r0, r5, #1
 	adds r0, r1, r0
@@ -21197,7 +21197,7 @@ _08058994: .4byte 0x00000630
 	.byte 0x01, 0x00, 0x8F, 0xE2, 0x10, 0xFF, 0x2F, 0xE1, 0x01, 0x98, 0x01, 0x38, 0x01, 0xDD, 0x40, 0x34
 	.byte 0x86, 0xE6, 0x06, 0x98, 0x04, 0x4B, 0x03, 0x60, 0x07, 0xB0, 0xFF, 0xBC, 0x80, 0x46, 0x89, 0x46
 	.byte 0x92, 0x46, 0x9B, 0x46, 0x08, 0xBC
-    
+
 
 	.GLOBAL sub_8058D36
 	.THUMB
@@ -21298,7 +21298,7 @@ _08058DD4: .4byte 0x08AEA65C
 sub_8058DD8: @ 0x08058DD8
 	ldr r2, [r1, #0x40]
 
-	
+
 sub_08058DDA: @ 0x08058DDA
 	adds r3, r2, #1
 	str r3, [r1, #0x40]
@@ -28821,5 +28821,5 @@ _0805D2A0:
 _0805D2AC:
 	adds r0, r7, #0
 	pop {r4, r5, r6, r7, pc}
-    
+
 .align 2, 0
