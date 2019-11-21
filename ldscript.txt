@@ -24,6 +24,7 @@ SECTIONS
     gUnk2021DC8 = 0x02021DC8;
     gUnk2021DCC = 0x02021DCC;
     gUnk2022EB0 = 0x02022EB0;
+    gUnk2023EA0 = 0x02023EA0;
     gDuel = 0x02023EC0;
     gNotSure = 0x02023FC0;
     gBoard = 0x02023FD0;
@@ -53,7 +54,7 @@ SECTIONS
     } = 0
 
     gGodCards = 0x8E01358;
-
+    gMonEffects = 0x8102E2C;
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :
     {

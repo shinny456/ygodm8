@@ -995,7 +995,7 @@ _08047314:\n\
 	cmp r0, #0\n\
 	beq _08047330\n\
 	adds r0, r5, #0\n\
-	bl sub_8040358\n\
+	bl CardPosition\n\
 	lsls r0, r0, #0x18\n\
 	cmp r0, #0\n\
 	bne _08047330\n\
@@ -1537,6 +1537,1443 @@ _08047780: .4byte gUnk_02021C08\n\
 _08047784: .4byte gUnk_02021C10\n\
 _08047788: .4byte 0x0000024E");
 }
+/*
+void EffectXYDragonCannon(void)
+{
+    if (NumEmptyZonesInRow(gHands[0]) < MAX_ZONES)
+    {
+        u8 i;
+        bool32 found = FALSE;
+
+        for (i = 0; i < MAX_ZONES; i++)
+        {
+            if (gBoard[0][i]->id != CARD_NONE && CardPosition(gBoard[0][i]) == FACE_UP)
+            {
+                found = TRUE;
+                break;
+            }
+        }
+
+        if (found)
+        {
+            sub_8045338(gBoard[0][i], 1);
+            sub_8045338(gHands[0][sub_8043468(gHands[0])], 0);
+        }
+    }
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = XY_DRAGON_CANNON;
+        sub_801CEBC();
+    }
+}*/
+
+NAKED
+void EffectXYDragonCannon(void)
+{
+    asm_unified("\n\
+    push {r4, r5, r6, r7, lr}\n\
+	ldr r0, _080477A0\n\
+	bl NumEmptyZonesInRow\n\
+	cmp r0, #4\n\
+	bgt _080477F0\n\
+	movs r6, #0\n\
+	movs r5, #0\n\
+	ldr r7, _080477A4\n\
+	b _080477AE\n\
+	.align 2, 0\n\
+_080477A0: .4byte gHands\n\
+_080477A4: .4byte gBoard\n\
+_080477A8:\n\
+	adds r0, r5, #1\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r5, r0, #0x18\n\
+_080477AE:\n\
+	cmp r5, #4\n\
+	bhi _080477CE\n\
+	lsls r0, r5, #2\n\
+	adds r0, r0, r7\n\
+	ldr r4, [r0]\n\
+	ldrh r0, [r4]\n\
+	cmp r0, #0\n\
+	beq _080477A8\n\
+	adds r0, r4, #0\n\
+	bl CardPosition\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r0, r0, #0x18\n\
+	cmp r0, #1\n\
+	bne _080477A8\n\
+	movs r6, #1\n\
+_080477CE:\n\
+	cmp r6, #0\n\
+	beq _080477F0\n\
+	adds r0, r4, #0\n\
+	movs r1, #1\n\
+	bl sub_8045338\n\
+	ldr r4, _08047808\n\
+	adds r0, r4, #0\n\
+	bl sub_8043468\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r0, r0, #0x16\n\
+	adds r0, r0, r4\n\
+	ldr r0, [r0]\n\
+	movs r1, #0\n\
+	bl sub_8045338\n\
+_080477F0:\n\
+	ldr r0, _0804780C\n\
+	ldrb r0, [r0]\n\
+	cmp r0, #0\n\
+	bne _08047802\n\
+	ldr r1, _08047810\n\
+	ldr r0, _08047814\n\
+	strh r0, [r1]\n\
+	bl sub_801CEBC\n\
+_08047802:\n\
+	pop {r4, r5, r6, r7}\n\
+	pop {r0}\n\
+	bx r0\n\
+	.align 2, 0\n\
+_08047808: .4byte gHands\n\
+_0804780C: .4byte gUnk_02021C08\n\
+_08047810: .4byte gUnk_02021C10\n\
+_08047814: .4byte 0x00000251");
+}
+NAKED
+void sub_8047818(void)
+{
+    asm_unified("\n\
+	push {r4, r5, r6, r7, lr}\n\
+	ldr r0, _0804782C\n\
+	bl NumEmptyZonesInRow\n\
+	cmp r0, #4\n\
+	bgt _0804787A\n\
+	movs r6, #0\n\
+	movs r5, #0\n\
+	ldr r7, _08047830\n\
+	b _0804783A\n\
+	.align 2, 0\n\
+_0804782C: .4byte gHands\n\
+_08047830: .4byte gBoard\n\
+_08047834:\n\
+	adds r0, r5, #1\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r5, r0, #0x18\n\
+_0804783A:\n\
+	cmp r5, #4\n\
+	bhi _08047858\n\
+	lsls r0, r5, #2\n\
+	adds r0, r0, r7\n\
+	ldr r4, [r0]\n\
+	ldrh r0, [r4]\n\
+	cmp r0, #0\n\
+	beq _08047834\n\
+	adds r0, r4, #0\n\
+	bl CardPosition\n\
+	lsls r0, r0, #0x18\n\
+	cmp r0, #0\n\
+	bne _08047834\n\
+	movs r6, #1\n\
+_08047858:\n\
+	cmp r6, #0\n\
+	beq _0804787A\n\
+	adds r0, r4, #0\n\
+	movs r1, #1\n\
+	bl sub_8045338\n\
+	ldr r4, _08047894\n\
+	adds r0, r4, #0\n\
+	bl sub_8043468\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r0, r0, #0x16\n\
+	adds r0, r0, r4\n\
+	ldr r0, [r0]\n\
+	movs r1, #0\n\
+	bl sub_8045338\n\
+_0804787A:\n\
+	ldr r0, _08047898\n\
+	ldrb r0, [r0]\n\
+	cmp r0, #0\n\
+	bne _0804788E\n\
+	ldr r1, _0804789C\n\
+	movs r0, #0x95\n\
+	lsls r0, r0, #2\n\
+	strh r0, [r1]\n\
+	bl sub_801CEBC\n\
+_0804788E:\n\
+	pop {r4, r5, r6, r7}\n\
+	pop {r0}\n\
+	bx r0\n\
+	.align 2, 0\n\
+_08047894: .4byte gHands\n\
+_08047898: .4byte gUnk_02021C08\n\
+_0804789C: .4byte gUnk_02021C10");
+}
+/*
+void sub_80478A0(void)
+{
+    if (NumEmptyZonesInRow(gHands[0]) < 5)
+    {
+        u8 i, i2, r8;
+        u16 r7 = 0;
+        for (i = 0; i < MAX_ZONES; i++)
+        {
+            if (gBoard[1][i]->id != CARD_NONE && IsGodCard(gBoard[1][i]->id) != TRUE && CardPosition(gBoard[1][i]) == FACE_DOWN)
+            {
+                gUnk2021AC0.id = gBoard[1][i]->id;
+                gUnk2021AC0.field = gDuel.field;
+                gUnk2021AC0.numPowerup = sub_804069C(gBoard[1][i]);
+                sub_800B318(&gUnk2021AC0);
+                if (gCardInfo.atk >= r7)
+                {
+                    r7 = gCardInfo.atk;
+                    i2 = i;
+                }
+                r8 = 1;
+            }
+        }
+
+        if (r8)
+        {
+            sub_8045338(gBoard[1][i2], 1);
+            sub_8045338(gHands[0][sub_8043468(gHands[0])], 0);
+        }
+    }
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = YZ_TANK_DRAGON;
+        sub_801CEBC();
+    }
+}
+*/
+
+NAKED
+void EffectYZTankDragon(void)
+{
+    asm_unified("\n\
+    push {r4, r5, r6, r7, lr}\n\
+	mov r7, sl\n\
+	mov r6, sb\n\
+	mov r5, r8\n\
+	push {r5, r6, r7}\n\
+	ldr r0, _08047968\n\
+	bl NumEmptyZonesInRow\n\
+	cmp r0, #4\n\
+	bgt _08047946\n\
+	movs r7, #0\n\
+	movs r0, #0\n\
+	mov sb, r0\n\
+	mov r8, r0\n\
+	movs r5, #0\n\
+	ldr r6, _0804796C\n\
+	ldr r1, _08047970\n\
+	mov sl, r1\n\
+_080478C4:\n\
+	lsls r0, r5, #2\n\
+	ldr r2, _08047974\n\
+	adds r0, r0, r2\n\
+	ldr r4, [r0]\n\
+	ldrh r0, [r4]\n\
+	cmp r0, #0\n\
+	beq _0804790E\n\
+	bl IsGodCard\n\
+	cmp r0, #1\n\
+	beq _0804790E\n\
+	adds r0, r4, #0\n\
+	bl CardPosition\n\
+	lsls r0, r0, #0x18\n\
+	cmp r0, #0\n\
+	bne _0804790E\n\
+	ldrh r0, [r4]\n\
+	strh r0, [r6]\n\
+	mov r1, sl\n\
+	ldrb r0, [r1]\n\
+	strb r0, [r6, #2]\n\
+	adds r0, r4, #0\n\
+	bl sub_804069C\n\
+	strb r0, [r6, #3]\n\
+	adds r0, r6, #0\n\
+	bl sub_800B318\n\
+	ldr r0, _08047978\n\
+	ldrh r2, [r0, #0x12]\n\
+	cmp r7, r2\n\
+	bhi _0804790A\n\
+	ldrh r7, [r0, #0x12]\n\
+	mov sb, r5\n\
+_0804790A:\n\
+	movs r0, #1\n\
+	mov r8, r0\n\
+_0804790E:\n\
+	adds r0, r5, #1\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r5, r0, #0x18\n\
+	cmp r5, #4\n\
+	bls _080478C4\n\
+	mov r1, r8\n\
+	cmp r1, #0\n\
+	beq _08047946\n\
+	ldr r0, _0804797C\n\
+	mov r2, sb\n\
+	lsls r1, r2, #2\n\
+	adds r0, #0x14\n\
+	adds r1, r1, r0\n\
+	ldr r0, [r1]\n\
+	movs r1, #1\n\
+	bl sub_8045338\n\
+	ldr r4, _08047968\n\
+	adds r0, r4, #0\n\
+	bl sub_8043468\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r0, r0, #0x16\n\
+	adds r0, r0, r4\n\
+	ldr r0, [r0]\n\
+	movs r1, #0\n\
+	bl sub_8045338\n\
+_08047946:\n\
+	ldr r0, _08047980\n\
+	ldrb r0, [r0]\n\
+	cmp r0, #0\n\
+	bne _08047958\n\
+	ldr r1, _08047984\n\
+	ldr r0, _08047988\n\
+	strh r0, [r1]\n\
+	bl sub_801CEBC\n\
+_08047958:\n\
+	pop {r3, r4, r5}\n\
+	mov r8, r3\n\
+	mov sb, r4\n\
+	mov sl, r5\n\
+	pop {r4, r5, r6, r7}\n\
+	pop {r0}\n\
+	bx r0\n\
+	.align 2, 0\n\
+_08047968: .4byte gHands\n\
+_0804796C: .4byte gUnk2021AC0\n\
+_08047970: .4byte gDuel+0xF0\n\
+_08047974: .4byte gBoard+0x14\n\
+_08047978: .4byte gCardInfo\n\
+_0804797C: .4byte gBoard\n\
+_08047980: .4byte gUnk_02021C08\n\
+_08047984: .4byte gUnk_02021C10\n\
+_08047988: .4byte 0x00000255");
+}
+
+
+void EffectXYZDragonCannon(void)
+{
+    if (NumEmptyZonesInRow(gHands[0]) < MAX_ZONES)
+    {
+        if (NumEmptyZonesAndGodCardsInRow(gBoard[1]) < MAX_ZONES)
+        {
+            sub_8045338(gBoard[1][HighestAtkMonInRowExceptGodCards(gBoard[1])], 1);
+            sub_8045338(gHands[0][sub_8043468(gHands[0])], 0);
+        }
+    }
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = XYZ_DRAGON_CANNON;
+        sub_801CEBC();
+    }
+}
+
+/*
+void EffectPuppetMaster(void)
+{
+    if (NumEmptyZonesInRow(gBoard[2]) > 0 && gNotSure[0]->graveyard == GERNIA)
+    {
+        u8 zone;
+
+        if (GetCurrTurn() == PLAYER)
+        {
+            sub_803F99C(1000);
+            sub_803F29C();
+        }
+        else
+        {
+            sub_803F9E4(1000);
+            sub_803F29C();
+        }
+        sub_803F4C0();
+        sub_804535C(0);
+
+        zone = EmptyZoneInRow(gBoard[2]);
+
+        gBoard[2][zone]->id = DARK_NECROFEAR;
+        sub_8040340(gBoard[2][zone]);
+        sub_80406CC(gBoard[2][zone]);
+        gBoard[2][zone]->battlePosition = POS_ATK;
+        gBoard[2][zone]->unkTwo = 0;
+        gBoard[2][zone]->unk4 = 2;
+        sub_8040360(gBoard[2][zone]);
+        sub_80403E8(gBoard[2][zone]);
+        gBoard[2][zone]->unkFive = 0;
+
+        if (NumEmptyZonesInRow(gBoard[2]) != 0)
+        {
+            zone = EmptyZoneInRow(gBoard[2]);
+
+            gBoard[2][zone]->id = HEADLESS_KNIGHT;
+            sub_8040340(gBoard[2][zone]);
+            sub_80406CC(gBoard[2][zone]);
+            gBoard[2][zone]->battlePosition = POS_ATK;
+            gBoard[2][zone]->unkTwo = 0;
+            gBoard[2][zone]->unk4 = 2;
+            sub_8040360(gBoard[2][zone]);
+            sub_80403E8(gBoard[2][zone]);
+            gBoard[2][zone]->unkFive = 0;
+
+            if (NumEmptyZonesInRow(gBoard[2]) != 0)
+            {
+                zone = EmptyZoneInRow(gBoard[2]);
+
+                gBoard[2][zone]->id = GERNIA;
+                sub_8040340(gBoard[2][zone]);
+                sub_80406CC(gBoard[2][zone]);
+                gBoard[2][zone]->battlePosition = POS_ATK;
+                gBoard[2][zone]->unkTwo = 0;
+                gBoard[2][zone]->unk4 = 2;
+                sub_8040360(gBoard[2][zone]);
+                sub_80403E8(gBoard[2][zone]);
+                gBoard[2][zone]->unkFive = 0;
+            }
+        }
+    }
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = gMonEffect.id;
+        sub_801CEBC();
+    }
+}
+*/
+NAKED
+void EffectPuppetMaster(void)
+{
+    asm_unified("\n\
+    	push {r4, r5, r6, r7, lr}\n\
+	mov r7, sl\n\
+	mov r6, sb\n\
+	mov r5, r8\n\
+	push {r5, r6, r7}\n\
+	ldr r0, _08047A34\n\
+	bl NumEmptyZonesInRow\n\
+	cmp r0, #0\n\
+	bgt _08047A0E\n\
+	b _08047B3E\n\
+_08047A0E:\n\
+	ldr r0, _08047A38\n\
+	ldr r0, [r0]\n\
+	ldrh r1, [r0]\n\
+	ldr r0, _08047A3C\n\
+	cmp r1, r0\n\
+	beq _08047A1C\n\
+	b _08047B3E\n\
+_08047A1C:\n\
+	bl GetCurrTurn\n\
+	cmp r0, #0\n\
+	bne _08047A40\n\
+	movs r0, #0xfa\n\
+	lsls r0, r0, #2\n\
+	bl sub_803F99C\n\
+	bl sub_803F29C\n\
+	b _08047A4C\n\
+	.align 2, 0\n\
+_08047A34: .4byte gBoard+0x28\n\
+_08047A38: .4byte gDuel+0x100\n\
+_08047A3C: .4byte 0x00000239\n\
+_08047A40:\n\
+	movs r0, #0xfa\n\
+	lsls r0, r0, #2\n\
+	bl sub_803F9E4\n\
+	bl sub_803F29C\n\
+_08047A4C:\n\
+	bl sub_803F4C0\n\
+	movs r0, #0\n\
+	bl sub_804535C\n\
+	ldr r5, _08047B60\n\
+	adds r0, r5, #0\n\
+	bl EmptyZoneInRow\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r0, r0, #0x16\n\
+	adds r0, r0, r5\n\
+	ldr r4, [r0]\n\
+	movs r0, #0\n\
+	mov sl, r0\n\
+	movs r0, #0x8a\n\
+	strh r0, [r4]\n\
+	adds r0, r4, #0\n\
+	bl sub_8040340\n\
+	adds r0, r4, #0\n\
+	bl sub_80406CC\n\
+	ldrb r1, [r4, #5]\n\
+	movs r0, #3\n\
+	rsbs r0, r0, #0\n\
+	mov sb, r0\n\
+	ands r0, r1\n\
+	movs r1, #5\n\
+	rsbs r1, r1, #0\n\
+	mov r8, r1\n\
+	ands r0, r1\n\
+	strb r0, [r4, #5]\n\
+	movs r6, #2\n\
+	strb r6, [r4, #4]\n\
+	adds r0, r4, #0\n\
+	bl sub_8040360\n\
+	adds r0, r4, #0\n\
+	bl sub_80403E8\n\
+	ldrb r1, [r4, #5]\n\
+	movs r7, #0x21\n\
+	rsbs r7, r7, #0\n\
+	adds r0, r7, #0\n\
+	ands r0, r1\n\
+	strb r0, [r4, #5]\n\
+	adds r0, r5, #0\n\
+	bl NumEmptyZonesInRow\n\
+	cmp r0, #0\n\
+	beq _08047B3E\n\
+	adds r0, r5, #0\n\
+	bl EmptyZoneInRow\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r0, r0, #0x16\n\
+	adds r0, r0, r5\n\
+	ldr r4, [r0]\n\
+	movs r0, #0x6c\n\
+	strh r0, [r4]\n\
+	adds r0, r4, #0\n\
+	bl sub_8040340\n\
+	adds r0, r4, #0\n\
+	bl sub_80406CC\n\
+	ldrb r1, [r4, #5]\n\
+	mov r0, sb\n\
+	ands r0, r1\n\
+	mov r1, r8\n\
+	ands r0, r1\n\
+	strb r0, [r4, #5]\n\
+	strb r6, [r4, #4]\n\
+	adds r0, r4, #0\n\
+	bl sub_8040360\n\
+	adds r0, r4, #0\n\
+	bl sub_80403E8\n\
+	ldrb r1, [r4, #5]\n\
+	adds r0, r7, #0\n\
+	ands r0, r1\n\
+	strb r0, [r4, #5]\n\
+	adds r0, r5, #0\n\
+	bl NumEmptyZonesInRow\n\
+	cmp r0, #0\n\
+	beq _08047B3E\n\
+	adds r0, r5, #0\n\
+	bl EmptyZoneInRow\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r0, r0, #0x16\n\
+	adds r0, r0, r5\n\
+	ldr r4, [r0]\n\
+	ldr r0, _08047B64\n\
+	strh r0, [r4]\n\
+	adds r0, r4, #0\n\
+	bl sub_8040340\n\
+	adds r0, r4, #0\n\
+	bl sub_80406CC\n\
+	ldrb r1, [r4, #5]\n\
+	mov r0, sb\n\
+	ands r0, r1\n\
+	mov r1, r8\n\
+	ands r0, r1\n\
+	strb r0, [r4, #5]\n\
+	strb r6, [r4, #4]\n\
+	adds r0, r4, #0\n\
+	bl sub_8040360\n\
+	adds r0, r4, #0\n\
+	bl sub_80403E8\n\
+	ldrb r1, [r4, #5]\n\
+	adds r0, r7, #0\n\
+	ands r0, r1\n\
+	strb r0, [r4, #5]\n\
+_08047B3E:\n\
+	ldr r0, _08047B68\n\
+	ldrb r0, [r0]\n\
+	cmp r0, #0\n\
+	bne _08047B52\n\
+	ldr r0, _08047B6C\n\
+	ldr r1, _08047B70\n\
+	ldrh r1, [r1]\n\
+	strh r1, [r0]\n\
+	bl sub_801CEBC\n\
+_08047B52:\n\
+	pop {r3, r4, r5}\n\
+	mov r8, r3\n\
+	mov sb, r4\n\
+	mov sl, r5\n\
+	pop {r4, r5, r6, r7}\n\
+	pop {r0}\n\
+	bx r0\n\
+	.align 2, 0\n\
+_08047B60: .4byte gBoard+0x28\n\
+_08047B64: .4byte 0x00000239\n\
+_08047B68: .4byte gUnk_02021C08\n\
+_08047B6C: .4byte gUnk_02021C10\n\
+_08047B70: .4byte 0x02024250");
+}
+
+void EffectPenguinTorpedo(void)
+{
+    struct Zone* zone = gBoard[2][gMonEffect.zone];
+
+    gUnk2021AC0.id = zone->id;
+    gUnk2021AC0.field = gDuel.field;
+    gUnk2021AC0.numPowerup = sub_804069C(zone);
+    sub_800B318(&gUnk2021AC0);
+
+    if (GetCurrTurn() == PLAYER)
+        sub_803F9E4(gCardInfo.atk);
+    else
+        sub_803F99C(gCardInfo.atk);
+
+    sub_803F29C();
+    sub_803F4C0();
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = PENGUIN_TORPEDO;
+        sub_801CEBC();
+    }
+}
+
+void EffectBerserkDragon(void)
+{
+    u8 i, turn = GetCurrTurn();
+
+    for (i = 0; i < MAX_ZONES; i++)
+    {
+        if (sub_8025544() == 1 || gBoard[2][gMonEffect.zone]->id == CARD_NONE)
+            break;
+
+        if (gBoard[1][i]->id != CARD_NONE)
+        {
+            sub_8040340(gBoard[1][i]);
+            if (turn == PLAYER)
+                sub_803F908(gMonEffect.zone, 4 - i);
+            else
+                sub_803F908(i, 4 - gMonEffect.zone);
+
+            sub_803F29C();
+            sub_803F224();
+            if (turn != PLAYER)
+                gUnk2023EA0.unk18 = 0;
+        }
+    }
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = BERSERK_DRAGON;
+        sub_801CEBC();
+    }
+}
+
+void sub_8047CAC(void)
+{
+    u8 i;
+    struct Zone* zone;
+
+    for (i = 0; i < MAX_ZONES; i++)
+    {
+        zone = gBoard[0][i];
+        if (zone->id != CARD_NONE)
+            sub_8045338(zone, 1);
+    }
+
+    for (i = 0; i < MAX_ZONES; i++)
+    {
+        zone = gBoard[1][i];
+        if (zone->id != CARD_NONE && IsGodCard(zone->id) != TRUE)
+            sub_8045338(zone, 1);
+    }
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = gMonEffect.id;
+        sub_801CEBC();
+    }
+}
+
+void sub_8047D28(void)
+{
+    sub_801D1A8();
+    sub_801D188(2);
+    SetCardInfo(gMonEffect.id);
+    gMonEffects[gCardInfo.monsterEffect]();
+}
+
+void sub_8047D5C(void){}
+void sub_8047D60(void){}
+
+void EffectReaperOfTheCards(void)
+{
+    if (NumEmptyZonesInRow(gBoard[0]) < MAX_ZONES)
+    {
+        u8 i;
+
+        for (i = 0; i < MAX_ZONES; i++)
+        {
+            SetCardInfo(gBoard[0][i]->id);
+            if (gCardInfo.trapEffect)
+            {
+                sub_8045338(gBoard[0][i], 1);
+                break;
+            }
+        }
+    }
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = REAPER_OF_THE_CARDS;
+        sub_801CEBC();
+    }
+}
+
+void EffectFairysGift(void)
+{
+    if (GetCurrTurn() == PLAYER)
+        sub_803F978(1000);
+    else
+        sub_803F9C0(1000);
+
+    sub_803F29C();
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = FAIRYS_GIFT;
+        sub_801CEBC();
+    }
+}
+
+void EffectSkelengel(void)
+{
+    sub_8043CE4(GetCurrTurn());
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = SKELENGEL;
+        sub_801CEBC();
+    }
+}
+
+void EffectHarpieLady(void)
+{
+    u8 i;
+
+    for (i = 0; i < MAX_ZONES; i++)
+        if (gBoard[2][i]->id == HARPIES_PET_DRAGON)
+            sub_8040368(gBoard[2][i]);
+
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = HARPIE_LADY;
+        gUnk_02021C10.unk2 = HARPIES_PET_DRAGON;
+        sub_801CEBC();
+    }
+}
+
+void EffectHarpieLadySisters(void)
+{
+    u8 i;
+
+    for (i = 0; i < MAX_ZONES; i++)
+        if (gBoard[2][i]->id == HARPIES_PET_DRAGON)
+            sub_8040394(gBoard[2][i], 2);
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = HARPIE_LADY_SISTERS;
+        gUnk_02021C10.unk2 = HARPIES_PET_DRAGON;
+        sub_801CEBC();
+    }
+}
+
+void EffectMysticalElf(void)
+{
+    u8 i;
+
+    for (i = 0; i < MAX_ZONES; i++)
+        if (gBoard[2][i]->id == BLUE_EYES_WHITE_DRAGON)
+            sub_8040368(gBoard[2][i]);
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = MYSTICAL_ELF;
+        gUnk_02021C10.unk2 = BLUE_EYES_WHITE_DRAGON;
+        sub_801CEBC();
+    }
+}
+
+void EffectCurseOfDragon(void)
+{
+    gDuel.field = FIELD_WASTELAND;
+
+    if (!gUnk_02021C08)
+    {
+        sub_8041140(FIELD_WASTELAND);
+        gUnk_02021C10.unk0 = CURSE_OF_DRAGON;
+        sub_801CEBC();
+    }
+}
+
+void EffectFlameSwordsman(void)
+{
+    u8 i;
+
+    for (i = 0; i < MAX_ZONES; i++)
+    {
+        SetCardInfo(gBoard[1][i]->id);
+        if (gCardInfo.type == TYPE_DINOSAUR)
+            sub_8045338(gBoard[1][i], 1);
+    }
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = FLAME_SWORDSMAN;
+        sub_801CEBC();
+    }
+}
+
+void EffectGiantSoldierOfStone(void)
+{
+    gDuel.field = FIELD_ARENA;
+
+    if (!gUnk_02021C08)
+    {
+        sub_8041140(FIELD_ARENA);
+        gUnk_02021C10.unk0 = GIANT_SOLDIER_OF_STONE;
+        sub_801CEBC();
+    }
+}
+
+void EffectBattleOx(void)
+{
+    u8 i;
+
+    for (i = 0; i < MAX_ZONES; i++)
+    {
+        SetCardInfo(gBoard[1][i]->id);
+        if (gCardInfo.attribute == ATTRIBUTE_PYRO)
+            sub_8045338(gBoard[1][i], 1);
+    }
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = BATTLE_OX;
+        sub_801CEBC();
+    }
+}
+
+void EffectMonsterTamer(void)
+{
+    u8 i;
+
+    for (i = 0; i < MAX_ZONES; i++)
+    {
+        if (gBoard[2][i]->id == DUNGEON_WORM)
+            sub_8040368(gBoard[2][i]);
+    }
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = MONSTER_TAMER;
+        gUnk_02021C10.unk2 = DUNGEON_WORM;
+        sub_801CEBC();
+    }
+}
+
+void EffectMammothGraveyard(void)
+{
+    u8 i;
+
+    for (i = 0; i < MAX_ZONES; i++)
+        if (gBoard[1][i]->id != CARD_NONE)
+            sub_804037C(gBoard[1][i]);
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = MAMMOTH_GRAVEYARD;
+        sub_801CEBC();
+    }
+}
+
+void EffectGoddessOfWhim(void)
+{
+    sub_8043CE4(GetCurrTurn());
+    sub_8045338(gBoard[2][gMonEffect.zone], 0);
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = GODDESS_OF_WHIM;
+        sub_801CEBC();
+    }
+}
+
+void EffectSpiritOfTheMountain(void)
+{
+    gDuel.field = FIELD_MOUNTAIN;
+
+    if (!gUnk_02021C08)
+    {
+        sub_8041140(FIELD_MOUNTAIN);
+        gUnk_02021C10.unk0 = SPIRIT_OF_THE_MOUNTAIN;
+        sub_801CEBC();
+    }
+}
+
+void EffectDragonSeeker(void)
+{
+    u8 i;
+
+    for (i = 0; i < MAX_ZONES; i++)
+    {
+        SetCardInfo(gBoard[1][i]->id);
+        if (!IsGodCard(gCardInfo.id) && gCardInfo.type == TYPE_DRAGON)
+            sub_8045338(gBoard[1][i], 1);
+    }
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = DRAGON_SEEKER;
+        sub_801CEBC();
+    }
+}
+
+void EffectFiendsHand(void)
+{
+    if (NumEmptyZonesAndGodCardsInRow(gBoard[1]) != MAX_ZONES)
+        sub_8045338(gBoard[1][HighestAtkMonInRowExceptGodCards(gBoard[1])], 1);
+
+    sub_8045338(gBoard[gMonEffect.row][gMonEffect.zone], 0);
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = FIENDS_HAND;
+        sub_801CEBC();
+    }
+}
+
+void EffectIllusionistFacelessMage(void)
+{
+    u8 i;
+
+    for (i = 0; i < MAX_ZONES; i++)
+        if (gBoard[1][i]->id != CARD_NONE)
+            gBoard[1][i]->isLocked = TRUE;
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = ILLUSIONIST_FACELESS_MAGE;
+        sub_801CEBC();
+    }
+}
+
+void EffectElectricLizard(void)
+{
+
+    if (sub_8043548(gBoard[1]))
+        gBoard[1][sub_804304C(gBoard[1])]->isLocked = TRUE;
+
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = ELECTRIC_LIZARD;
+        sub_801CEBC();
+    }
+}
+
+void EffectWodanTheResidentOfTheForest(void)
+{
+    u8 i;
+
+    for (i = 0; i < MAX_ZONES; i++)
+    {
+        SetCardInfo(gBoard[2][i]->id);
+        if (gCardInfo.type == TYPE_PLANT)
+            sub_8040368(gBoard[2][gMonEffect.zone]);
+    }
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = WODAN_THE_RESIDENT_OF_THE_FOREST;
+        sub_801CEBC();
+    }
+}
+
+void EffectMWarrior1(void)
+{
+    u8 i;
+
+    for (i = 0; i < MAX_ZONES; i++)
+        if (gBoard[2][i]->id == M_WARRIOR_2)
+            sub_8040368(gBoard[2][i]);
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = M_WARRIOR_1;
+        gUnk_02021C10.unk2 = M_WARRIOR_2;
+        sub_801CEBC();
+    }
+}
+
+void EffectMWarrior2(void)
+{
+    u8 i;
+
+    for (i = 0; i < MAX_ZONES; i++)
+        if (gBoard[2][i]->id == M_WARRIOR_1)
+            sub_8040368(gBoard[2][i]);
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = M_WARRIOR_2;
+        gUnk_02021C10.unk2 = M_WARRIOR_1;
+        sub_801CEBC();
+    }
+}
+
+void EffectRedArcheryGirl(void)
+{
+    if (sub_8043548(gBoard[1]))
+    {
+        u8 zone = sub_804304C(gBoard[1]);
+        gBoard[1][zone]->isLocked = TRUE;
+        sub_804037C(gBoard[1][zone]);
+    }
+
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = RED_ARCHERY_GIRL;
+        sub_801CEBC();
+    }
+}
+
+void EffectLadyOfFaith(void)
+{
+    if (GetCurrTurn() == PLAYER)
+        sub_803F978(500);
+    else
+        sub_803F9C0(500);
+
+    sub_803F29C();
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = LADY_OF_FAITH;
+        sub_801CEBC();
+    }
+}
+
+void EffectFireReaper(void)
+{
+    if (GetCurrTurn() == PLAYER)
+        sub_803F9E4(50);
+    else
+        sub_803F99C(50);
+
+    sub_803F29C();
+    sub_803F4C0();
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = FIRE_REAPER;
+        sub_801CEBC();
+    }
+}
+
+void EffectKairyuShin(void)
+{
+    gDuel.field = FIELD_UMI;
+
+    if (!gUnk_02021C08)
+    {
+        sub_8041140(FIELD_UMI);
+        gUnk_02021C10.unk0 = KAIRYU_SHIN;
+        sub_801CEBC();
+    }
+}
+
+void EffectMonsterEye(void)
+{
+    u8 i;
+
+    for (i = 0; i < MAX_ZONES; i++)
+        if (gHands[1][i]->id != CARD_NONE)
+            gHands[1][i]->position = FACE_UP;
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = MONSTER_EYE;
+        sub_801CEBC();
+    }
+}
+
+void EffectSwampBattleGuard(void)
+{
+    u8 i;
+
+    for (i = 0; i < MAX_ZONES; i++)
+        if (gBoard[2][i]->id == LAVA_BATTLEGUARD)
+            sub_8040368(gBoard[2][i]);
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = SWAMP_BATTLEGUARD;
+        gUnk_02021C10.unk2 = LAVA_BATTLEGUARD;
+        sub_801CEBC();
+    }
+}
+
+void EffectLavaBattleGuard(void)
+{
+    u8 i;
+
+    for (i = 0; i < MAX_ZONES; i++)
+        if (gBoard[2][i]->id == SWAMP_BATTLEGUARD)
+            sub_8040368(gBoard[2][i]);
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = LAVA_BATTLEGUARD;
+        gUnk_02021C10.unk2 = SWAMP_BATTLEGUARD;
+        sub_801CEBC();
+    }
+}
+
+void EffectTrent(void)
+{
+    gDuel.field = FIELD_FOREST;
+
+    if (!gUnk_02021C08)
+    {
+        sub_8041140(FIELD_FOREST);
+        gUnk_02021C10.unk0 = TRENT;
+        sub_801CEBC();
+    }
+}
+
+void EffectHourglassOfLife(void)
+{
+    u8 i;
+
+    for (i = 0; i < MAX_ZONES; i++)
+        if (gBoard[2][i]->id != CARD_NONE)
+            sub_8040368(gBoard[2][i]);
+
+    if (GetCurrTurn() == PLAYER)
+        sub_803F99C(1000);
+    else
+        sub_803F9E4(1000);
+
+    sub_803F29C();
+    sub_803F4C0();
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = HOURGLASS_OF_LIFE;
+        sub_801CEBC();
+    }
+}
+
+void EffectInvitationToADarkSleep(void)
+{
+    u8 i;
+
+    for (i = 0; i < MAX_ZONES; i++)
+        if (gBoard[1][i]->id != CARD_NONE)
+            gBoard[1][i]->isLocked = TRUE;
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = INVITATION_TO_A_DARK_SLEEP;
+        sub_801CEBC();
+    }
+}
+
+void EffectTheWingedDragonOfRaBattleMode(void)
+{
+    if (GetCurrTurn() == PLAYER)
+    {
+        sub_803F9E4(gLifePoints[0] - 1);
+        sub_803F29C();
+        gLifePoints[0] = 1;
+    }
+    else
+    {
+        sub_803F99C(gLifePoints[1] - 1);
+        sub_803F29C();
+        gLifePoints[1] = 1;
+    }
+    sub_803F4C0();
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = gMonEffect.id;
+        sub_801CEBC();
+    }
+}
+
+void sub_80486EC(void){}
+void sub_80486F0(void){}
+void sub_80486F4(void){}
+void sub_80486F8(void){}
+
+void sub_80486FC(void)
+{
+    u8 i;
+
+    for (i = 0; i < MAX_ZONES; i++)
+        if (gBoard[2][i]->id == HARPIES_PET_DRAGON)
+            sub_8040368(gBoard[2][i]);
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = gMonEffect.id;
+        gUnk_02021C10.unk2 = HARPIES_PET_DRAGON;
+        sub_801CEBC();
+    }
+}
+
+void sub_8048754(void) //Zombyra the dark?
+{
+    if (NumEmptyZonesAndGodCardsInRow(gBoard[1]) != MAX_ZONES)
+    {
+        u8 zone = HighestAtkMonInRowExceptGodCards(gBoard[1]);
+        sub_8045338(gBoard[1][zone], 1);
+        sub_804037C(gBoard[gMonEffect.row][gMonEffect.zone]);
+    }
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = gMonEffect.id;
+        sub_801CEBC();
+    }
+}
+
+void sub_80487BC(void){}
+
+void sub_80487C0(void)
+{
+    u8 i;
+
+    for (i = 0; i < MAX_ZONES; i++)
+        if (!IsGodCard(gBoard[1][i]->id))
+            sub_8045338(gBoard[1][i], 1);
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = gMonEffect.id;
+        sub_801CEBC();
+    }
+}
+
+void sub_8048814(void)
+{
+    if (NumEmptyZonesAndGodCardsInRow(gBoard[1]) != MAX_ZONES)
+    {
+        u8 zone = HighestAtkMonInRowExceptGodCards(gBoard[1]);
+        ClearZone(gBoard[1][zone]);
+        sub_8040368(gBoard[gMonEffect.row][gMonEffect.zone]);
+    }
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = gMonEffect.id;
+        sub_801CEBC();
+    }
+}
+
+void EffectJinzo(void)
+{
+    if (NumEmptyZonesInRow(gBoard[0]) != MAX_ZONES)
+    {
+        u8 i;
+
+        for (i = 0; i < MAX_ZONES; i++)
+        {
+            SetCardInfo(gBoard[0][i]->id);
+            if (gCardInfo.trapEffect)
+                sub_8045338(gBoard[0][i], 1);
+        }
+    }
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = JINZO;
+        sub_801CEBC();
+    }
+}
+
+void EffectBarrelDragon(void)
+{
+    u8 i;
+
+    for (i = 0; i < 3; i++)
+    {
+        if (NumEmptyZonesAndGodCardsInRow(gBoard[1]) == MAX_ZONES)
+            break;
+        if (sub_8056258(0, 1) == 1)
+            sub_8045338(gBoard[1][HighestAtkMonInRowExceptGodCards(gBoard[1])], 1);
+    }
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = BARREL_DRAGON;
+        sub_801CEBC();
+    }
+}
+
+void EffectSkullMarkLadyBug(void)
+{
+    if (GetCurrTurn() == PLAYER)
+        sub_803F978(500);
+    else
+        sub_803F9C0(500);
+
+    sub_803F29C();
+
+    sub_8045338(gBoard[gMonEffect.row][gMonEffect.zone], 0);
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = SKULL_MARK_LADY_BUG;
+        sub_801CEBC();
+    }
+}
+
+void sub_80489A4(void)
+{
+    if (NumEmptyZonesInRow(gBoard[1]) < MAX_ZONES)
+        sub_804037C(gBoard[1][HighestAtkMonInRow(gBoard[1])]);
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = gMonEffect.id;
+        sub_801CEBC();
+    }
+}
+
+void sub_80489F0(void)
+{
+    u8 i;
+
+    for (i = 0; i < MAX_ZONES; i++)
+    {
+        SetCardInfo(gBoard[2][i]->id);
+        if (gCardInfo.type == TYPE_DRAGON)
+            sub_8040368(gBoard[gMonEffect.row][gMonEffect.zone]);
+    }
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = gMonEffect.id;
+        sub_801CEBC();
+    }
+}
+
+void sub_8048A5C(void)
+{
+    sub_8040368(gBoard[gMonEffect.row][gMonEffect.zone]);
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = gMonEffect.id;
+        sub_801CEBC();
+    }
+}
+
+void sub_8048AA0(void)
+{
+    if (NumEmptyZonesAndGodCardsInRow(gBoard[1]) < MAX_ZONES)
+        sub_8045338(gBoard[1][HighestAtkMonInRowExceptGodCards(gBoard[1])], 1);
+
+    if (GetCurrTurn() == PLAYER)
+        sub_803F9E4(500);
+    else
+        sub_803F99C(500);
+
+    sub_803F29C();
+    sub_803F4C0();
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = gMonEffect.id;
+        sub_801CEBC();
+    }
+}
+
+void sub_8048B10(void){}
+
+void EffectByserShock(void)
+{
+    sub_8047304(gBoard[1][0], gHands[1][0]);
+    sub_8047304(gBoard[0][0], gHands[1][0]);
+    sub_8047304(gBoard[2][0], gHands[0][0]);
+    sub_8047304(gBoard[3][0], gHands[0][0]);
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = BYSER_SHOCK;
+        sub_801CEBC();
+    }
+}
+
+void EffectTheWingedDragonOfRaPhoenixMode(void)
+{
+    u8 i;
+
+    if (GetCurrTurn() == PLAYER)
+        sub_803F99C(1000);
+    else
+        sub_803F9E4(1000);
+
+    sub_803F29C();
+    sub_803F4C0();
+
+    for (i = 0; i < MAX_ZONES; i++)
+        sub_8045338(gBoard[1][i], 1);
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = THE_WINGED_DRAGON_OF_RA_PHOENIX_MODE;
+        sub_801CEBC();
+    }
+}
+
+void sub_8048BCC(void)
+{
+    if (NumEmptyZonesAndGodCardsInRow(gBoard[1]) < MAX_ZONES)
+        sub_8045338(gBoard[1][HighestAtkMonInRowExceptGodCards(gBoard[1])], 1);
+
+    if (!gUnk_02021C08)
+    {
+        gUnk_02021C10.unk0 = gMonEffect.id;
+        sub_801CEBC();
+    }
+}
+
+void sub_8048C18(void){}
+void sub_8048C1C(void){}
+void sub_8048C20(void){}
+void sub_8048C24(void){}
+void sub_8048C28(void){}
+void sub_8048C2C(void){}
+void sub_8048C30(void){}
+void sub_8048C34(void){}
+void sub_8048C38(void){}
+void sub_8048C3C(void){}
+void sub_8048C40(void){}
+void sub_8048C44(void){}
+void sub_8048C48(void){}
+void sub_8048C4C(void){}
+void sub_8048C50(void){}
+void sub_8048C54(void){}
+void sub_8048C58(void){}
+void sub_8048C5C(void){}
 
 
 

@@ -9591,7 +9591,7 @@ sub_800E0D4: @ 0x0800E0D4
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -9608,7 +9608,7 @@ sub_800E0F8: @ 0x0800E0F8
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -10594,7 +10594,7 @@ _0800E910:
 	.align 2, 0
 _0800E918: .4byte 0x02021C00
 _0800E91C: .4byte gBoard
-_0800E920: .4byte 0x02024250
+_0800E920: .4byte gMonEffect
 _0800E924: .4byte gDuel+0x100
 
 	THUMB_FUNC_START sub_800E928
@@ -11760,7 +11760,7 @@ sub_800F1EC: @ 0x0800F1EC
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -11782,7 +11782,7 @@ sub_800F248: @ 0x0800F248
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	ldr r0, _0800F28C
 	ldr r2, [r0]
 	ldr r0, _0800F290
@@ -16658,7 +16658,7 @@ _08011D9C:
 	cmp r0, #1
 	beq _08011DE0
 	adds r0, r4, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #1
@@ -16984,7 +16984,7 @@ _08012068:
 	cmp r0, #1
 	beq _0801209A
 	adds r0, r4, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #1
@@ -17063,7 +17063,7 @@ _080121C0:
 	cmp r0, #1
 	beq _080121F2
 	adds r0, r4, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #1
@@ -17432,7 +17432,7 @@ sub_80124D8: @ 0x080124D8
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -17465,7 +17465,7 @@ sub_80124F8: @ 0x080124F8
 	lsls r0, r0, #2
 	adds r0, r0, r2
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -19482,7 +19482,7 @@ _08013828:
 	b _0801386A
 	.align 2, 0
 _08013848: .4byte 0x08DFF6A4
-_0801384C: .4byte gDuel+0x204
+_0801384C: .4byte gHands+0x14
 _08013850: .4byte 0x00002298
 _08013854: .4byte 0x7FFFFFF0
 _08013858:
@@ -19558,7 +19558,7 @@ sub_80138CC: @ 0x080138CC
 	ldr r1, _080138F8
 	b _08013942
 	.align 2, 0
-_080138EC: .4byte gDuel+0x204
+_080138EC: .4byte gHands+0x14
 _080138F0: .4byte 0x08DFF6A4
 _080138F4: .4byte 0x00002298
 _080138F8: .4byte 0x7EDE89F9
@@ -20967,7 +20967,7 @@ _08016638:
 	ldr r1, _08016664
 	b _0801671A
 	.align 2, 0
-_08016654: .4byte 0x02024250
+_08016654: .4byte gMonEffect
 _08016658: .4byte gBoard+0x28
 _0801665C: .4byte 0x08DFF6A4
 _08016660: .4byte 0x00002298
@@ -21794,7 +21794,7 @@ sub_8016D7C: @ 0x08016D7C
 	ldr r1, _08016DA0
 	b _08016E82
 	.align 2, 0
-_08016D94: .4byte gDuel+0x204
+_08016D94: .4byte gHands+0x14
 _08016D98: .4byte 0x08DFF6A4
 _08016D9C: .4byte 0x00002298
 _08016DA0: .4byte 0x7EDE89F9
@@ -21810,7 +21810,7 @@ _08016DAA:
 	cmp r0, #0
 	beq _08016DC4
 	adds r0, r1, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08016DC4
@@ -21831,7 +21831,7 @@ _08016DD2:
 	cmp r0, #0
 	beq _08016DEC
 	adds r0, r1, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08016DEC
@@ -21874,7 +21874,7 @@ _08016E2A:
 	cmp r0, #0
 	beq _08016E48
 	adds r0, r1, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08016E48
@@ -21945,7 +21945,7 @@ _08016EC6:
 	cmp r0, #0
 	beq _08016EE6
 	adds r0, r1, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #1
@@ -22018,7 +22018,7 @@ _08016F5E:
 	cmp r0, #0
 	beq _08016F7C
 	adds r0, r1, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08016F7C
@@ -22090,7 +22090,7 @@ _08016FF6:
 	cmp r0, #0
 	beq _08017014
 	adds r0, r1, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08017014
@@ -22162,7 +22162,7 @@ _0801708E:
 	cmp r0, #0
 	beq _080170B8
 	adds r0, r4, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #1
@@ -22480,7 +22480,7 @@ _08017348:
 	cmp r0, #0
 	beq _08017410
 	adds r0, r4, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08017410
@@ -22675,7 +22675,7 @@ _080174E0:
 	cmp r0, #0
 	beq _0801750A
 	adds r0, r4, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #1
@@ -22740,7 +22740,7 @@ sub_8017568: @ 0x08017568
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -22773,7 +22773,7 @@ sub_8017588: @ 0x08017588
 	lsls r0, r0, #2
 	adds r0, r0, r2
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -23412,7 +23412,7 @@ _08019A0E:
 	cmp r0, #0
 	beq _08019AA8
 	adds r0, r4, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08019A48
@@ -23951,7 +23951,7 @@ sub_801A08C: @ 0x0801A08C
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	pop {r1}
@@ -28514,7 +28514,7 @@ sub_801CF08: @ 0x0801CF08
 	lsls r1, r1, #2
 	adds r1, r1, r0
 	ldr r0, [r1]
-	bl sub_805AAB8
+	bl _call_via_r0
 	bl sub_8022080
 _0801CF24:
 	pop {r0}
@@ -42826,7 +42826,7 @@ sub_8024548: @ 0x08024548
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -42842,7 +42842,7 @@ sub_8024568: @ 0x08024568
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -48251,7 +48251,7 @@ _08027290: .4byte 0x02021DE0
 _08027294: .4byte gUnk_02021C08
 _08027298: .4byte gHands
 _0802729C: .4byte 0x00000177
-_080272A0: .4byte gDuel+0x204
+_080272A0: .4byte gHands+0x14
 _080272A4: .4byte gDuel+0x100
 _080272A8:
 	movs r0, #2
@@ -48628,7 +48628,7 @@ _0802759A:
 	.align 2, 0
 _080275BC: .4byte 0x02021DE0
 _080275C0: .4byte gBoard
-_080275C4: .4byte gDuel+0x204
+_080275C4: .4byte gHands+0x14
 _080275C8: .4byte gUnk_02021C08
 _080275CC: .4byte gUnk_02021C10
 _080275D0:
@@ -49732,7 +49732,7 @@ _08027ED4:
 	cmp r0, #0
 	beq _08027F16
 	adds r0, r1, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08027F16
@@ -49809,7 +49809,7 @@ _08027F7A:
 	cmp r0, #0
 	beq _08027FBC
 	adds r0, r1, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08027FBC
@@ -50408,7 +50408,7 @@ _08028454:
 	cmp r0, #0
 	beq _0802848E
 	adds r0, r1, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0802848E
@@ -50483,7 +50483,7 @@ _080284F2:
 	cmp r0, #0
 	beq _0802852C
 	adds r0, r1, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0802852C
@@ -50791,7 +50791,7 @@ _0802876E:
 	cmp r0, #0
 	beq _080287B0
 	adds r0, r1, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080287B0
@@ -50830,7 +50830,7 @@ _080287BE:
 	cmp r0, #0
 	beq _08028800
 	adds r0, r1, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08028800
@@ -50915,7 +50915,7 @@ _08028870:
 	cmp r0, #0
 	beq _080288B2
 	adds r0, r1, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080288B2
@@ -51004,7 +51004,7 @@ _08028932:
 	cmp r0, #0
 	beq _08028974
 	adds r0, r1, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08028974
@@ -51101,7 +51101,7 @@ _08028A00:
 	cmp r0, #0
 	beq _08028A42
 	adds r0, r1, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08028A42
@@ -51169,7 +51169,7 @@ _08028A82:
 	cmp r0, #0
 	beq _08028AD6
 	adds r0, r1, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08028AD6
@@ -51617,7 +51617,7 @@ sub_8028E18: @ 0x08028E18
 	b _08028EC2
 	.align 2, 0
 _08028E68: .4byte 0x02021DE0
-_08028E6C: .4byte gDuel+0x204
+_08028E6C: .4byte gHands+0x14
 _08028E70: .4byte gBoard
 _08028E74: .4byte gUnk_02021C08
 _08028E78: .4byte gUnk_02021C10
@@ -52826,7 +52826,7 @@ sub_8029864: @ 0x08029864
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -53044,7 +53044,7 @@ _08029B04:
 	cmp r0, #0
 	beq _08029B2C
 	adds r0, r1, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08029B2C
@@ -53082,7 +53082,7 @@ _08029B50:
 	cmp r0, #0
 	beq _08029B78
 	adds r0, r1, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08029B78
@@ -53415,7 +53415,7 @@ _08029DAE:
 	cmp r0, #0
 	beq _08029DD0
 	adds r0, r1, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08029DD0
@@ -53453,7 +53453,7 @@ _08029DF6:
 	cmp r0, #0
 	beq _08029E18
 	adds r0, r1, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08029E18
@@ -53639,7 +53639,7 @@ _08029F54:
 	cmp r0, #0
 	beq _08029F7C
 	adds r0, r1, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08029F7C
@@ -53679,7 +53679,7 @@ _08029FA8:
 	cmp r0, #0
 	beq _08029FD0
 	adds r0, r1, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08029FD0
@@ -54308,7 +54308,7 @@ sub_802A478: @ 0x0802A478
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	pop {r1}
@@ -54331,7 +54331,7 @@ sub_802A4AC: @ 0x0802A4AC
 	b _0802A4CA
 	.align 2, 0
 _0802A4BC: .4byte 0x02021DE0
-_0802A4C0: .4byte gDuel+0x204
+_0802A4C0: .4byte gHands+0x14
 _0802A4C4:
 	cmp r0, #2
 	bne _0802A4D4
@@ -54726,7 +54726,7 @@ _0802A826:
 	movs r0, #1
 	b _0802A83A
 	.align 2, 0
-_0802A834: .4byte gDuel+0x204
+_0802A834: .4byte gHands+0x14
 _0802A838:
 	movs r0, #0
 _0802A83A:
@@ -55860,7 +55860,7 @@ _0802B054: .4byte 0x02021DE0
 _0802B058: .4byte gUnk_02021C08
 _0802B05C: .4byte gHands
 _0802B060: .4byte 0x00000177
-_0802B064: .4byte gDuel+0x204
+_0802B064: .4byte gHands+0x14
 _0802B068: .4byte gDuel+0x100
 _0802B06C:
 	ldr r1, _0802B200
@@ -56484,7 +56484,7 @@ sub_802B6D8: @ 0x0802B6D8
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -56899,7 +56899,7 @@ sub_802BBF0: @ 0x0802BBF0
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	pop {r1}
@@ -73330,7 +73330,7 @@ sub_8034A38: @ 0x08034A38
 	lsls r1, r1, #2
 	adds r1, r1, r0
 	ldr r0, [r1]
-	bl sub_805AAB8
+	bl _call_via_r0
 	bl sub_8032848
 	movs r2, #0
 	ldrh r0, [r4, #8]
@@ -75532,7 +75532,7 @@ _08035BAA:
 	lsls r0, r0, #2
 	adds r0, r0, r6
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	ldrb r0, [r4]
 	cmp r0, #3
 	bne _08035BE4
@@ -76081,7 +76081,7 @@ _08036038:
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	ldrb r0, [r5]
 	cmp r0, #3
 	bne _08036076
@@ -77530,7 +77530,7 @@ _08036B68:
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	bl sub_8034A8C
 	movs r1, #0
 	ldrh r0, [r4, #8]
@@ -77869,7 +77869,7 @@ sub_8036E64: @ 0x08036E64
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	bl sub_8034A8C
 	movs r1, #0
 	ldrh r0, [r4, #8]
@@ -78890,7 +78890,7 @@ _080376C8:
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	bl sub_8034A8C
 	movs r1, #0
 	ldrh r3, [r4, #8]
@@ -79174,7 +79174,7 @@ sub_80379D8: @ 0x080379D8
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	bl sub_8034A8C
 	movs r1, #0
 	ldrh r0, [r4, #8]
@@ -80304,7 +80304,7 @@ _080382BC:
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	bl sub_8034A8C
 	movs r1, #0
 	ldrh r3, [r4, #8]
@@ -80751,7 +80751,7 @@ sub_803867C: @ 0x0803867C
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	bl sub_8034A8C
 	movs r1, #0
 	ldrh r0, [r4, #8]
@@ -91534,7 +91534,7 @@ _0803E5E4:
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	ldrb r0, [r5]
 	cmp r0, #1
 	bne _0803E622
@@ -92072,7 +92072,7 @@ _0803E9E4:
 	lsls r0, r0, #2
 	adds r0, r0, r5
 	ldr r0, [r0]
-	bl sub_805AAB8
+	bl _call_via_r0
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #1
@@ -94983,7 +94983,7 @@ _08040034: .4byte gBoard+0x28
 _08040038: .4byte gBoard+0x3C
 _0804003C: .4byte gBoard+0x50
 _08040040: .4byte gHands
-_08040044: .4byte gDuel+0x204
+_08040044: .4byte gHands+0x14
 _08040048: .4byte gDuel+0xC8
 
 	THUMB_FUNC_START sub_804004C
@@ -95113,7 +95113,7 @@ _0804013C: .4byte gDuel+0x78
 _08040140: .4byte gBoard+0x50
 _08040144: .4byte gDuel+0xA0
 _08040148: .4byte gHands
-_0804014C: .4byte gDuel+0x204
+_0804014C: .4byte gHands+0x14
 _08040150: .4byte gDuel+0xC8
 _08040154:
 	movs r2, #0
@@ -95238,7 +95238,7 @@ _08040240: .4byte gDuel
 _08040244: .4byte gBoard+0x50
 _08040248: .4byte gDuel+0xC8
 _0804024C: .4byte gHands
-_08040250: .4byte gDuel+0x204
+_08040250: .4byte gHands+0x14
 _08040254: .4byte gDuel+0xA0
 
 	THUMB_FUNC_START sub_8040258
@@ -95354,8 +95354,8 @@ sub_804034C: @ 0x0804034C
 	strb r1, [r0, #5]
 	bx lr
 
-	THUMB_FUNC_START sub_8040358
-sub_8040358: @ 0x08040358
+	THUMB_FUNC_START CardPosition
+CardPosition: @ 0x08040358
 	ldrb r0, [r0, #5]
 	lsls r0, r0, #0x1b
 	lsrs r0, r0, #0x1f
@@ -100703,7 +100703,7 @@ _080430F2:
 	cmp r0, #0
 	beq _08043106
 	adds r0, r1, #0
-	bl sub_8040358
+	bl CardPosition
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08043114
@@ -103099,7 +103099,7 @@ _08044506:
 	bl sub_8029820
 	b _0804455C
 	.align 2, 0
-_08044520: .4byte 0x02024250
+_08044520: .4byte gMonEffect
 _08044524:
 	ldr r3, _08044564
 	ldr r2, _08044568
@@ -103936,7 +103936,7 @@ _08044BA8:
 	b _08044C16
 	.align 2, 0
 _08044C04: .4byte 0x08102E24
-_08044C08: .4byte gDuel+0x204
+_08044C08: .4byte gHands+0x14
 _08044C0C: .4byte 0x02000400
 _08044C10:
 	adds r0, r4, #0
