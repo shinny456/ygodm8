@@ -21,6 +21,7 @@ SECTIONS
     gDuelistLevel = 0x02021C20;
     gDeck = 0x02021C30;
     gLanguage = 0x02021CF8;
+    gUnk02021D10 = 0x02021D10;
     gUnk2021DC8 = 0x02021DC8;
     gUnk2021DCC = 0x02021DCC;
     gUnk2022EB0 = 0x02022EB0;
@@ -30,9 +31,13 @@ SECTIONS
     gBoard = 0x02023FD0;
     gUnk2024040 = 0x2024040;
     gHands = 0x20240B0;
+    gUnk20241FC = 0x020241FC;
     gNumTributes = 0x02024200;
     gMonEffect = 0x02024250;
+    gUnk2024260 = 0x02024260;
+    gUnk02024254 = 0x02024254;
     gLifePoints = 0x02024258;
+    gUnk020245A0 = 0x020245A0;
     gCurrTurn = 0x020245A8;
 
     . = 0x08000000;
@@ -44,7 +49,6 @@ SECTIONS
         src/trunk.o(.text);
         asm/code2.o(.text);
         src/card_effects.o(.text)
-        asm/code3.o(.text);
         asm/code4.o(.text);
         data/data.o(.rodata);
         src/data/starter_trunk.o(.rodata);
@@ -55,6 +59,9 @@ SECTIONS
 
     gGodCards = 0x8E01358;
     gMonEffects = 0x8102E2C;
+    gSpellEffects = 0x810300C;
+    gUnk8E00FA8 = 0x8E00FA8;
+
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :
     {

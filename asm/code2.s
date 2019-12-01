@@ -10577,7 +10577,7 @@ sub_800E8B4: @ 0x0800E8B4
 	strh r0, [r1]
 	strb r5, [r1, #2]
 	strb r4, [r1, #3]
-	bl sub_8047D28
+	bl ActivateMonEffect
 	ldr r0, _0800E924
 	ldr r0, [r0]
 	ldrb r1, [r0, #2]
@@ -10907,7 +10907,7 @@ sub_800EB40: @ 0x0800EB40
 	strb r3, [r1, #5]
 	strb r6, [r1, #2]
 	strb r2, [r1, #3]
-	bl sub_804D10C
+	bl ActivateSpellEffect
 	ldr r0, [r4]
 	bl ClearZone
 	pop {r4, r5, r6}
@@ -10915,7 +10915,7 @@ sub_800EB40: @ 0x0800EB40
 	bx r0
 	.align 2, 0
 _0800EB80: .4byte 0x02021C00
-_0800EB84: .4byte 0x02024260
+_0800EB84: .4byte gUnk2024260
 _0800EB88: .4byte gBoard
 
 	THUMB_FUNC_START sub_800EB8C
@@ -10944,7 +10944,7 @@ sub_800EB8C: @ 0x0800EB8C
 	strb r3, [r1, #5]
 	strb r6, [r1, #2]
 	strb r2, [r1, #3]
-	bl sub_804D10C
+	bl ActivateSpellEffect
 	ldr r0, [r4]
 	bl ClearZone
 	pop {r4, r5, r6}
@@ -10952,7 +10952,7 @@ sub_800EB8C: @ 0x0800EB8C
 	bx r0
 	.align 2, 0
 _0800EBCC: .4byte 0x02021C00
-_0800EBD0: .4byte 0x02024260
+_0800EBD0: .4byte gUnk2024260
 _0800EBD4: .4byte gBoard
 
 	THUMB_FUNC_START sub_800EBD8
@@ -11045,7 +11045,7 @@ sub_800EC68: @ 0x0800EC68
 	strh r0, [r2]
 	strb r3, [r2, #2]
 	strb r1, [r2, #3]
-	bl sub_804D10C
+	bl ActivateSpellEffect
 	ldr r0, _0800ECBC
 	ldr r0, [r0]
 	ldrb r1, [r0, #2]
@@ -11063,7 +11063,7 @@ _0800ECA4:
 	bx r0
 	.align 2, 0
 _0800ECB0: .4byte 0x02021C00
-_0800ECB4: .4byte 0x02024260
+_0800ECB4: .4byte gUnk2024260
 _0800ECB8: .4byte gBoard
 _0800ECBC: .4byte gDuel+0x100
 
@@ -11087,7 +11087,7 @@ sub_800ECC0: @ 0x0800ECC0
 	strh r0, [r2]
 	strb r3, [r2, #2]
 	strb r1, [r2, #3]
-	bl sub_804D10C
+	bl ActivateSpellEffect
 	ldr r0, [r4]
 	bl ClearZone
 	pop {r4}
@@ -11095,7 +11095,7 @@ sub_800ECC0: @ 0x0800ECC0
 	bx r0
 	.align 2, 0
 _0800ECF4: .4byte 0x02021C00
-_0800ECF8: .4byte 0x02024260
+_0800ECF8: .4byte gUnk2024260
 _0800ECFC: .4byte gBoard
 
 	THUMB_FUNC_START sub_800ED00
@@ -11202,7 +11202,7 @@ _0800EDC0:
 	mov r2, sp
 	ldrb r2, [r2]
 	strb r2, [r1, #3]
-	bl sub_804D10C
+	bl ActivateSpellEffect
 	ldr r0, [r6]
 	bl ClearZone
 	add sp, #4
@@ -11216,7 +11216,7 @@ _0800EDC0:
 	.align 2, 0
 _0800EDEC: .4byte 0x02021C00
 _0800EDF0: .4byte gBoard
-_0800EDF4: .4byte 0x02024260
+_0800EDF4: .4byte gUnk2024260
 
 	THUMB_FUNC_START sub_800EDF8
 sub_800EDF8: @ 0x0800EDF8
@@ -16383,7 +16383,7 @@ _08011B58: .4byte 0x02021C00
 _08011B5C: .4byte gBoard
 _08011B60: .4byte gCardInfo
 _08011B64: .4byte gUnk2021AC0
-_08011B68: .4byte 0x08E00FA8
+_08011B68: .4byte gUnk8E00FA8
 _08011B6C: .4byte gDuel
 _08011B70: .4byte 0x08DFF6A4
 _08011B74: .4byte 0x00002298
@@ -16561,7 +16561,7 @@ _08011C72:
 	b _08011D68
 	.align 2, 0
 _08011CDC: .4byte gUnk2021AC0
-_08011CE0: .4byte 0x08E00FA8
+_08011CE0: .4byte gUnk8E00FA8
 _08011CE4: .4byte gDuel
 _08011CE8: .4byte gCardInfo
 _08011CEC: .4byte gBoard
@@ -16789,7 +16789,7 @@ sub_8011E44: @ 0x08011E44
 _08011EC4: .4byte 0x02021C00
 _08011EC8: .4byte gBoard
 _08011ECC: .4byte gCardInfo
-_08011ED0: .4byte 0x08E00FA8
+_08011ED0: .4byte gUnk8E00FA8
 _08011ED4: .4byte 0x08DFF6A4
 _08011ED8: .4byte 0x00002298
 _08011EDC: .4byte 0x7EDE89F9
@@ -16895,7 +16895,7 @@ _08011F4C:
 	b _08012044
 	.align 2, 0
 _08011FB4: .4byte gUnk2021AC0
-_08011FB8: .4byte 0x08E00FA8
+_08011FB8: .4byte gUnk8E00FA8
 _08011FBC: .4byte gDuel
 _08011FC0: .4byte gCardInfo
 _08011FC4: .4byte gBoard
@@ -17218,7 +17218,7 @@ _080122B0:
 _08012310: .4byte 0x02021C00
 _08012314: .4byte gBoard
 _08012318: .4byte gCardInfo
-_0801231C: .4byte 0x08E00FA8
+_0801231C: .4byte gUnk8E00FA8
 _08012320: .4byte gUnk2021AC0
 _08012324: .4byte gDuel
 _08012328: .4byte 0x08DFF6A4
@@ -26214,7 +26214,7 @@ _0801BC34:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801BC40: .4byte 0x020241FC
+_0801BC40: .4byte gUnk20241FC
 _0801BC44: .4byte 0x02021D98
 _0801BC48: .4byte 0x03000C6C
 
@@ -28498,7 +28498,7 @@ _0801CEF0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801CEFC: .4byte 0x020241FC
+_0801CEFC: .4byte gUnk20241FC
 _0801CF00: .4byte 0x02021D98
 _0801CF04: .4byte 0x03000C6C
 
@@ -34139,7 +34139,7 @@ _0801FC66:
 	bx r0
 	.align 2, 0
 _0801FC70: .4byte 0x02021D10
-_0801FC74: .4byte 0x020241FC
+_0801FC74: .4byte gUnk20241FC
 
 	THUMB_FUNC_START sub_801FC78
 sub_801FC78: @ 0x0801FC78
@@ -38573,7 +38573,7 @@ _080220B6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080220C0: .4byte 0x020241FC
+_080220C0: .4byte gUnk20241FC
 _080220C4: .4byte 0x03000C6C
 
 	THUMB_FUNC_START sub_80220C8
@@ -103079,7 +103079,7 @@ _08044488:
 	strb r0, [r2, #2]
 	ldrb r0, [r4]
 	strb r0, [r2, #3]
-	bl sub_8047D28
+	bl ActivateMonEffect
 	ldr r0, [r6]
 	ldrb r1, [r0, #2]
 	movs r0, #8
@@ -103341,7 +103341,7 @@ _08044722:
 	strb r0, [r1, #2]
 	ldrb r0, [r5]
 	strb r0, [r1, #3]
-	bl sub_804D10C
+	bl ActivateSpellEffect
 	ldr r0, _08044768
 	ldr r0, [r0]
 	ldrb r1, [r0, #2]
@@ -103362,7 +103362,7 @@ _08044748:
 	bl sub_8029820
 	b _0804478E
 	.align 2, 0
-_08044764: .4byte 0x02024260
+_08044764: .4byte gUnk2024260
 _08044768: .4byte gDuel+0x100
 _0804476C:
 	movs r0, #0x37
@@ -103451,7 +103451,7 @@ _080447E8:
 	strb r0, [r2, #2]
 	ldrb r0, [r4]
 	strb r0, [r2, #3]
-	bl sub_804D10C
+	bl ActivateSpellEffect
 _08044824:
 	strb r5, [r4, #4]
 	bl sub_804411C
@@ -103463,7 +103463,7 @@ _08044832:
 	bx r0
 	.align 2, 0
 _08044838: .4byte gCardInfo
-_0804483C: .4byte 0x02024260
+_0804483C: .4byte gUnk2024260
 
 	THUMB_FUNC_START sub_8044840
 sub_8044840: @ 0x08044840
@@ -104542,7 +104542,7 @@ sub_80452D4: @ 0x080452D4
 	strb r0, [r1]
 	bx lr
 	.align 2, 0
-_080452DC: .4byte 0x020241FC
+_080452DC: .4byte gUnk20241FC
 
 	THUMB_FUNC_START sub_80452E0
 sub_80452E0: @ 0x080452E0
