@@ -6,6 +6,8 @@ SECTIONS
     gUnk_2018800 = 0x02018800;
     gUnk_201C800 = 0x0201C800;
     gUnk_201C900 = 0x0201C900;
+    gUnk201CB38 = 0x0201CB38;
+    gUnk201CB39 = 0x0201CB39;
     gKeyState = 0x02020DF8;
     gUnk2020DFC = 0x02020DFC;
     gUnkStruct_2020E10 = 0x02020E10;
@@ -28,7 +30,7 @@ SECTIONS
     gUnk2023EA0 = 0x02023EA0;
     gDuel = 0x02023EC0;
     gNotSure = 0x02023FC0;
-    gBoard = 0x02023FD0;
+    gZones = 0x02023FD0;
     gUnk2024040 = 0x2024040;
     gHands = 0x20240B0;
     gUnk20241FC = 0x020241FC;
@@ -38,7 +40,7 @@ SECTIONS
     gUnk02024254 = 0x02024254;
     gLifePoints = 0x02024258;
     gUnk020245A0 = 0x020245A0;
-    gCurrTurn = 0x020245A8;
+    gCurrentTurn = 0x020245A8;
 
     . = 0x08000000;
     .text :
@@ -47,9 +49,17 @@ SECTIONS
         asm/crt0.o(.text);
         asm/code.o(.text);
         src/trunk.o(.text);
+        asm/code_8009228.o(.text);
+        src/duel.o(.text);
         asm/code2.o(.text);
-        src/card_effects.o(.text)
+        src/monster_effects.o(.text)
+        src/life_points.o(.text)
+        src/spell_effects.o(.text)
         asm/code4.o(.text);
+        src/trap_effects.o(.text);
+        src/code_80584B4.o(.text);
+        asm/code_80584B4.o(.text);
+        
         data/data.o(.rodata);
         src/data/starter_trunk.o(.rodata);
         data/data2.o(.rodata);
@@ -58,9 +68,12 @@ SECTIONS
     } = 0
 
     gGodCards = 0x8E01358;
-    gMonEffects = 0x8102E2C;
-    gSpellEffects = 0x810300C;
     gUnk8E00FA8 = 0x8E00FA8;
+    gUnk8094C37 = 0x8094C37;
+    gUnk8094CC3 = 0x8094CC3;
+    gUnk8094FE4 = 0x8094FE4;
+    gUnk8F985E0 = 0x8F985E0;
+    gUnk8DFB654 = 0x8DFB654; /*duelist level too low text*/
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :

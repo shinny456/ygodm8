@@ -2,4349 +2,6 @@
     .SYNTAX UNIFIED
 
 
-	THUMB_FUNC_START sub_8009228
-sub_8009228: @ 0x08009228
-	push {r4, r5, lr}
-	sub sp, #4
-	ldr r0, _08009248
-	ldr r5, _0800924C
-	adds r1, r5, #0
-	bl LZ77UnCompWram
-	ldr r0, _08009250
-	ldrb r0, [r0]
-	cmp r0, #2
-	beq _08009268
-	cmp r0, #2
-	bgt _08009254
-	cmp r0, #1
-	beq _0800925E
-	b _080092FC
-	.align 2, 0
-_08009248: .4byte gUnk_808918C
-_0800924C: .4byte 0x02000400
-_08009250: .4byte gLanguage
-_08009254:
-	cmp r0, #3
-	beq _08009270
-	cmp r0, #4
-	beq _080092B8
-	b _080092FC
-_0800925E:
-	ldr r4, _08009264
-	b _08009272
-	.align 2, 0
-_08009264: .4byte 0x08DFA6B4
-_08009268:
-	ldr r4, _0800926C
-	b _08009272
-	.align 2, 0
-_0800926C: .4byte 0x08DFAB54
-_08009270:
-	ldr r4, _080092B4
-_08009272:
-	adds r0, r4, #0
-	adds r1, r5, #0
-	movs r2, #0x48
-	bl CpuFastSet
-	movs r1, #0x90
-	lsls r1, r1, #1
-	adds r0, r4, r1
-	movs r2, #0xf0
-	lsls r2, r2, #2
-	adds r1, r5, r2
-	movs r2, #0x48
-	bl CpuFastSet
-	movs r1, #0x90
-	lsls r1, r1, #2
-	adds r0, r4, r1
-	movs r2, #0xf0
-	lsls r2, r2, #3
-	adds r1, r5, r2
-	movs r2, #0x48
-	bl CpuFastSet
-	movs r1, #0xd8
-	lsls r1, r1, #2
-	adds r0, r4, r1
-	movs r2, #0xa0
-	lsls r2, r2, #1
-	adds r1, r5, r2
-	movs r2, #0x50
-	bl CpuFastSet
-	b _080092FC
-	.align 2, 0
-_080092B4: .4byte 0x08DFAFF4
-_080092B8:
-	ldr r4, _08009344
-	adds r0, r4, #0
-	adds r1, r5, #0
-	movs r2, #0x48
-	bl CpuFastSet
-	movs r1, #0x90
-	lsls r1, r1, #1
-	adds r0, r4, r1
-	movs r2, #0xf0
-	lsls r2, r2, #2
-	adds r1, r5, r2
-	movs r2, #0x48
-	bl CpuFastSet
-	movs r1, #0x90
-	lsls r1, r1, #2
-	adds r0, r4, r1
-	movs r2, #0xf0
-	lsls r2, r2, #3
-	adds r1, r5, r2
-	movs r2, #0x48
-	bl CpuFastSet
-	movs r0, #0x94
-	lsls r0, r0, #3
-	adds r4, r4, r0
-	movs r2, #0xa0
-	lsls r2, r2, #1
-	adds r1, r5, r2
-	adds r0, r4, #0
-	movs r2, #0x50
-	bl CpuFastSet
-_080092FC:
-	movs r4, #0
-_080092FE:
-	lsls r0, r4, #4
-	subs r0, r0, r4
-	lsls r0, r0, #2
-	ldr r1, _08009348
-	adds r0, r0, r1
-	lsls r1, r4, #6
-	ldr r5, _0800934C
-	adds r1, r1, r5
-	ldr r2, _08009350
-	bl CpuSet
-	adds r0, r4, #1
-	lsls r0, r0, #0x18
-	lsrs r4, r0, #0x18
-	cmp r4, #0x13
-	bls _080092FE
-	ldr r0, _08009354
-	ldr r1, _08009358
-	ldr r2, _0800935C
-	bl CpuSet
-	mov r1, sp
-	movs r0, #0
-	strh r0, [r1]
-	movs r0, #0x88
-	lsls r0, r0, #8
-	adds r1, r5, r0
-	ldr r2, _08009360
-	mov r0, sp
-	bl CpuSet
-	add sp, #4
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08009344: .4byte 0x08DFAFF4
-_08009348: .4byte gUnk_808B860
-_0800934C: .4byte 0x02003C00
-_08009350: .4byte 0x0400000F
-_08009354: .4byte gUnk_808C1C0
-_08009358: .4byte 0x02000000
-_0800935C: .4byte 0x04000020
-_08009360: .4byte 0x01000010
-
-	THUMB_FUNC_START sub_8009364
-sub_8009364: @ 0x08009364
-	push {r4, r5, r6, r7, lr}
-	mov r7, r8
-	push {r7}
-	sub sp, #4
-	movs r6, #0
-_0800936E:
-	lsls r0, r6, #4
-	subs r0, r0, r6
-	lsls r0, r0, #2
-	ldr r1, _08009428
-	adds r0, r0, r1
-	lsls r1, r6, #6
-	ldr r4, _0800942C
-	adds r1, r1, r4
-	ldr r2, _08009430
-	bl CpuSet
-	adds r0, r6, #1
-	lsls r0, r0, #0x18
-	lsrs r6, r0, #0x18
-	cmp r6, #0x13
-	bls _0800936E
-	mov r1, sp
-	movs r0, #0
-	strh r0, [r1]
-	ldr r0, _08009434
-	adds r1, r4, r0
-	ldr r2, _08009438
-	mov r0, sp
-	bl CpuSet
-	movs r4, #0xf0
-	lsls r4, r4, #7
-	movs r0, #9
-	movs r1, #9
-	adds r2, r4, #0
-	bl sub_08007FEC
-	movs r7, #0xff
-	lsls r7, r7, #8
-	ands r7, r0
-	movs r6, #0
-	mov r8, r4
-_080093B8:
-	adds r4, r6, #0
-	adds r4, #9
-	lsls r4, r4, #0x18
-	lsrs r4, r4, #0x18
-	ldr r5, _0800943C
-	adds r5, r6, r5
-	ldrb r3, [r5]
-	adds r3, #0x15
-	orrs r3, r7
-	adds r0, r4, #0
-	movs r1, #0xb
-	mov r2, r8
-	bl sub_800800C
-	ldrb r3, [r5]
-	adds r3, #0x17
-	orrs r3, r7
-	adds r0, r4, #0
-	movs r1, #0xc
-	mov r2, r8
-	bl sub_800800C
-	ldrb r3, [r5]
-	adds r3, #0x3d
-	orrs r3, r7
-	adds r0, r4, #0
-	movs r1, #0xd
-	mov r2, r8
-	bl sub_800800C
-	ldrb r3, [r5]
-	adds r3, #0x3f
-	orrs r3, r7
-	adds r0, r4, #0
-	movs r1, #0xe
-	mov r2, r8
-	bl sub_800800C
-	adds r0, r6, #1
-	lsls r0, r0, #0x18
-	lsrs r6, r0, #0x18
-	cmp r6, #0x13
-	bls _080093B8
-	ldr r0, _08009440
-	ldr r1, _08009444
-	movs r2, #0x90
-	lsls r2, r2, #4
-	bl sub_8020A3C
-	add sp, #4
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08009428: .4byte gUnk_808C240
-_0800942C: .4byte 0x02007C00
-_08009430: .4byte 0x0400000F
-_08009434: .4byte 0xFFFFC800
-_08009438: .4byte 0x01000010
-_0800943C: .4byte 0x08DF811C
-_08009440: .4byte 0x02004420
-_08009444: .4byte 0x080907E4
-
-	THUMB_FUNC_START sub_8009448
-sub_8009448: @ 0x08009448
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, sb
-	mov r5, r8
-	push {r5, r6, r7}
-	sub sp, #4
-	movs r7, #0
-_08009456:
-	lsls r0, r7, #4
-	subs r0, r0, r7
-	lsls r0, r0, #2
-	ldr r1, _08009764
-	adds r0, r0, r1
-	lsls r1, r7, #6
-	ldr r4, _08009768
-	adds r1, r1, r4
-	ldr r2, _0800976C
-	bl CpuSet
-	adds r0, r7, #1
-	lsls r0, r0, #0x18
-	lsrs r7, r0, #0x18
-	cmp r7, #0x13
-	bls _08009456
-	mov r1, sp
-	movs r0, #0
-	strh r0, [r1]
-	ldr r0, _08009770
-	adds r1, r4, r0
-	ldr r2, _08009774
-	mov r0, sp
-	bl CpuSet
-	movs r4, #0xf0
-	lsls r4, r4, #7
-	movs r0, #0
-	movs r1, #2
-	adds r2, r4, #0
-	bl sub_08007FEC
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	mov sb, r0
-	movs r0, #2
-	movs r1, #2
-	adds r2, r4, #0
-	bl sub_08007FEC
-	movs r1, #0xff
-	lsls r1, r1, #8
-	mov r8, r1
-	ands r1, r0
-	mov r8, r1
-	movs r7, #0
-	adds r6, r4, #0
-_080094B4:
-	adds r4, r7, #4
-	lsls r4, r4, #0x18
-	lsrs r4, r4, #0x18
-	ldr r5, _08009778
-	adds r5, r7, r5
-	ldrb r3, [r5]
-	adds r3, #0x1d
-	mov r0, r8
-	orrs r3, r0
-	adds r0, r4, #0
-	movs r1, #6
-	adds r2, r6, #0
-	bl sub_800800C
-	ldrb r3, [r5]
-	adds r3, #0x1f
-	mov r1, r8
-	orrs r3, r1
-	adds r0, r4, #0
-	movs r1, #7
-	adds r2, r6, #0
-	bl sub_800800C
-	ldrb r3, [r5]
-	adds r3, #0x3d
-	mov r0, r8
-	orrs r3, r0
-	adds r0, r4, #0
-	movs r1, #8
-	adds r2, r6, #0
-	bl sub_800800C
-	ldrb r3, [r5]
-	adds r3, #0x3f
-	mov r1, r8
-	orrs r3, r1
-	adds r0, r4, #0
-	movs r1, #9
-	adds r2, r6, #0
-	bl sub_800800C
-	ldrb r3, [r5]
-	adds r3, #0x5d
-	mov r0, r8
-	orrs r3, r0
-	adds r0, r4, #0
-	movs r1, #0xa
-	adds r2, r6, #0
-	bl sub_800800C
-	ldrb r3, [r5]
-	adds r3, #0x5f
-	mov r1, r8
-	orrs r3, r1
-	adds r0, r4, #0
-	movs r1, #0xb
-	adds r2, r6, #0
-	bl sub_800800C
-	adds r0, r7, #1
-	lsls r0, r0, #0x18
-	lsrs r7, r0, #0x18
-	cmp r7, #5
-	bls _080094B4
-	movs r7, #0
-	movs r0, #0xf0
-	lsls r0, r0, #7
-	mov sl, r0
-_0800953C:
-	adds r6, r7, #4
-	lsls r6, r6, #0x18
-	lsrs r6, r6, #0x18
-	ldr r5, _08009778
-	adds r5, r7, r5
-	ldrb r3, [r5]
-	adds r3, #0x7d
-	mov r1, r8
-	orrs r3, r1
-	adds r0, r6, #0
-	movs r1, #0xc
-	mov r2, sl
-	bl sub_800800C
-	ldrb r3, [r5]
-	adds r3, #0x7f
-	mov r0, r8
-	orrs r3, r0
-	adds r0, r6, #0
-	movs r1, #0xd
-	mov r2, sl
-	bl sub_800800C
-	adds r4, r7, #0
-	adds r4, #0x10
-	lsls r4, r4, #0x18
-	lsrs r4, r4, #0x18
-	ldrb r3, [r5]
-	adds r3, #0x8d
-	mov r1, r8
-	orrs r3, r1
-	adds r0, r4, #0
-	movs r1, #0xc
-	mov r2, sl
-	bl sub_800800C
-	ldrb r3, [r5]
-	adds r3, #0x8f
-	mov r0, r8
-	orrs r3, r0
-	adds r0, r4, #0
-	movs r1, #0xd
-	mov r2, sl
-	bl sub_800800C
-	ldrb r3, [r5]
-	adds r3, #0xb1
-	mov r1, r8
-	orrs r3, r1
-	adds r0, r6, #0
-	movs r1, #0x11
-	mov r2, sl
-	bl sub_800800C
-	ldrb r3, [r5]
-	adds r3, #0xb3
-	mov r0, r8
-	orrs r3, r0
-	adds r0, r6, #0
-	movs r1, #0x12
-	mov r2, sl
-	bl sub_800800C
-	adds r0, r7, #1
-	lsls r0, r0, #0x18
-	lsrs r7, r0, #0x18
-	cmp r7, #7
-	bls _0800953C
-	movs r7, #0
-	movs r5, #0xf0
-	lsls r5, r5, #7
-_080095CA:
-	adds r4, r7, #0
-	adds r4, #0xa
-	lsls r4, r4, #0x18
-	lsrs r4, r4, #0x18
-	adds r0, r4, #0
-	movs r1, #6
-	adds r2, r5, #0
-	mov r3, sb
-	bl sub_800800C
-	adds r0, r4, #0
-	movs r1, #7
-	adds r2, r5, #0
-	mov r3, sb
-	bl sub_800800C
-	adds r0, r4, #0
-	movs r1, #8
-	adds r2, r5, #0
-	mov r3, sb
-	bl sub_800800C
-	adds r0, r4, #0
-	movs r1, #9
-	adds r2, r5, #0
-	mov r3, sb
-	bl sub_800800C
-	adds r0, r4, #0
-	movs r1, #0xa
-	adds r2, r5, #0
-	mov r3, sb
-	bl sub_800800C
-	adds r0, r4, #0
-	movs r1, #0xb
-	adds r2, r5, #0
-	mov r3, sb
-	bl sub_800800C
-	adds r0, r7, #1
-	lsls r0, r0, #0x18
-	lsrs r7, r0, #0x18
-	cmp r7, #3
-	bls _080095CA
-	movs r7, #0
-	movs r5, #0xf0
-	lsls r5, r5, #7
-_0800962A:
-	adds r4, r7, #0
-	adds r4, #0xc
-	lsls r4, r4, #0x18
-	lsrs r4, r4, #0x18
-	adds r0, r4, #0
-	movs r1, #0xc
-	adds r2, r5, #0
-	mov r3, sb
-	bl sub_800800C
-	adds r0, r4, #0
-	movs r1, #0xd
-	adds r2, r5, #0
-	mov r3, sb
-	bl sub_800800C
-	adds r0, r7, #1
-	lsls r0, r0, #0x18
-	lsrs r7, r0, #0x18
-	cmp r7, #1
-	bls _0800962A
-	movs r7, #0
-	movs r6, #0xf0
-	lsls r6, r6, #7
-_0800965A:
-	adds r4, r7, #0
-	adds r4, #0x10
-	lsls r4, r4, #0x18
-	lsrs r4, r4, #0x18
-	ldr r5, _08009778
-	adds r5, r7, r5
-	ldrb r3, [r5]
-	adds r3, #0x29
-	mov r1, r8
-	orrs r3, r1
-	adds r0, r4, #0
-	movs r1, #6
-	adds r2, r6, #0
-	bl sub_800800C
-	ldrb r3, [r5]
-	adds r3, #0x2b
-	mov r0, r8
-	orrs r3, r0
-	adds r0, r4, #0
-	movs r1, #7
-	adds r2, r6, #0
-	bl sub_800800C
-	ldrb r3, [r5]
-	adds r3, #0x49
-	mov r1, r8
-	orrs r3, r1
-	adds r0, r4, #0
-	movs r1, #8
-	adds r2, r6, #0
-	bl sub_800800C
-	ldrb r3, [r5]
-	adds r3, #0x4b
-	mov r0, r8
-	orrs r3, r0
-	adds r0, r4, #0
-	movs r1, #9
-	adds r2, r6, #0
-	bl sub_800800C
-	ldrb r3, [r5]
-	adds r3, #0x69
-	mov r1, r8
-	orrs r3, r1
-	adds r0, r4, #0
-	movs r1, #0xa
-	adds r2, r6, #0
-	bl sub_800800C
-	ldrb r3, [r5]
-	adds r3, #0x6b
-	mov r0, r8
-	orrs r3, r0
-	adds r0, r4, #0
-	movs r1, #0xb
-	adds r2, r6, #0
-	bl sub_800800C
-	adds r0, r7, #1
-	lsls r0, r0, #0x18
-	lsrs r7, r0, #0x18
-	cmp r7, #9
-	bls _0800965A
-	movs r7, #0
-	movs r6, #0xf0
-	lsls r6, r6, #7
-_080096E2:
-	adds r4, r7, #0
-	adds r4, #0x10
-	lsls r4, r4, #0x18
-	lsrs r4, r4, #0x18
-	ldr r5, _08009778
-	adds r5, r7, r5
-	ldrb r3, [r5]
-	adds r3, #0xc1
-	mov r1, r8
-	orrs r3, r1
-	adds r0, r4, #0
-	movs r1, #0xe
-	adds r2, r6, #0
-	bl sub_800800C
-	ldrb r3, [r5]
-	adds r3, #0xc3
-	mov r0, r8
-	orrs r3, r0
-	adds r0, r4, #0
-	movs r1, #0xf
-	adds r2, r6, #0
-	bl sub_800800C
-	adds r4, r7, #4
-	lsls r4, r4, #0x18
-	lsrs r4, r4, #0x18
-	ldrb r3, [r5]
-	adds r3, #0x9d
-	mov r1, r8
-	orrs r3, r1
-	adds r0, r4, #0
-	movs r1, #0xe
-	adds r2, r6, #0
-	bl sub_800800C
-	ldrb r3, [r5]
-	adds r3, #0x9f
-	mov r0, r8
-	orrs r3, r0
-	adds r0, r4, #0
-	movs r1, #0xf
-	adds r2, r6, #0
-	bl sub_800800C
-	adds r0, r7, #1
-	lsls r0, r0, #0x18
-	lsrs r7, r0, #0x18
-	cmp r7, #9
-	bls _080096E2
-	ldr r0, _0800977C
-	ldr r1, _08009780
-	movs r2, #0x90
-	lsls r2, r2, #4
-	bl sub_8020A3C
-	add sp, #4
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov sb, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08009764: .4byte gUnk_808C6F0
-_08009768: .4byte 0x02007C00
-_0800976C: .4byte 0x0400000F
-_08009770: .4byte 0xFFFFC800
-_08009774: .4byte 0x01000010
-_08009778: .4byte 0x08DF811C
-_0800977C: .4byte 0x02004420
-_08009780: .4byte 0x08090920
-
-	THUMB_FUNC_START sub_8009784
-sub_8009784: @ 0x08009784
-	push {r4, r5, r6, r7, lr}
-	sub sp, #4
-	mov r0, sp
-	movs r5, #0
-	strh r5, [r0]
-	ldr r4, _08009820
-	ldr r2, _08009824
-	adds r1, r4, #0
-	bl CpuSet
-	mov r0, sp
-	adds r0, #2
-	strh r5, [r0]
-	movs r2, #0xe0
-	lsls r2, r2, #6
-	adds r1, r4, r2
-	ldr r2, _08009828
-	bl CpuSet
-	adds r0, r4, #0
-	adds r0, #0x20
-	ldr r1, _0800982C
-	ldr r2, _08009830
-	bl sub_8020A3C
-	adds r0, r4, #0
-	adds r0, #0x40
-	ldr r1, _08009834
-	ldr r2, _08009838
-	bl sub_8020A3C
-	ldr r0, _0800983C
-	adds r1, r4, r0
-	ldr r0, _08009840
-	strh r0, [r1]
-	bl GetDeckCapacity
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	movs r1, #0
-	bl sub_800DDA0
-	movs r2, #0
-	ldr r0, _08009844
-	adds r4, r4, r0
-	ldr r7, _08009848
-	ldr r6, _0800984C
-	ldr r0, _08009850
-	adds r5, r0, #0
-	adds r3, r4, #0
-_080097E8:
-	adds r1, r2, r7
-	lsls r1, r1, #1
-	adds r1, r1, r4
-	adds r0, r2, r6
-	ldrb r0, [r0]
-	adds r0, r5, r0
-	strh r0, [r1]
-	adds r0, r2, #1
-	lsls r0, r0, #0x18
-	lsrs r2, r0, #0x18
-	cmp r2, #4
-	bls _080097E8
-	ldr r2, _08009854
-	adds r1, r3, r2
-	ldr r0, _08009840
-	strh r0, [r1]
-	ldr r0, _08009858
-	adds r1, r3, r0
-	ldr r0, _0800985C
-	strh r0, [r1]
-	adds r2, #4
-	adds r1, r3, r2
-	subs r0, #4
-	strh r0, [r1]
-	add sp, #4
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08009820: .4byte 0x02008400
-_08009824: .4byte 0x01000010
-_08009828: .4byte 0x01000400
-_0800982C: .4byte 0x08090B94
-_08009830: .4byte 0x00000801
-_08009834: .4byte 0x08090B98
-_08009838: .4byte 0x00000901
-_0800983C: .4byte 0x0000385E
-_08009840: .4byte 0x00005001
-_08009844: .4byte 0xFFFF8000
-_08009848: .4byte 0x00005C30
-_0800984C: .4byte 0x02021BD0
-_08009850: .4byte 0x00005209
-_08009854: .4byte 0x0000B870
-_08009858: .4byte 0x0000B872
-_0800985C: .4byte 0x0000520D
-
-	THUMB_FUNC_START sub_8009860
-sub_8009860: @ 0x08009860
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, sb
-	mov r5, r8
-	push {r5, r6, r7}
-	sub sp, #8
-	ldr r0, _08009928
-	ldr r4, _0800992C
-	ldr r5, _08009930
-	adds r1, r4, #0
-	adds r2, r5, #0
-	bl CpuSet
-	ldr r0, _08009934
-	subs r4, #0x20
-	adds r1, r4, #0
-	adds r2, r5, #0
-	bl CpuSet
-	ldr r0, _08009938
-	ldr r4, _0800993C
-	adds r1, r4, #0
-	adds r2, r5, #0
-	bl CpuSet
-	ldr r0, _08009940
-	adds r1, r4, #0
-	adds r1, #0x20
-	adds r2, r5, #0
-	bl CpuSet
-	ldr r0, _08009944
-	adds r1, r4, #0
-	adds r1, #0x40
-	adds r2, r5, #0
-	bl CpuSet
-	adds r0, r4, #0
-	adds r0, #0x60
-	ldr r1, _08009948
-	ldr r2, _0800994C
-	bl sub_8020A3C
-	movs r1, #0x80
-	lsls r1, r1, #1
-	adds r0, r4, r1
-	ldr r1, _08009950
-	ldr r2, _08009954
-	bl sub_8020A3C
-	movs r5, #0
-	ldr r4, _08009958
-_080098C8:
-	ldr r6, _0800995C
-	lsls r1, r5, #2
-	adds r0, r1, r5
-	ldrb r2, [r6]
-	adds r0, r0, r2
-	lsls r0, r0, #2
-	adds r0, r0, r4
-	ldr r0, [r0]
-	adds r1, #0x13
-	lsls r1, r1, #5
-	ldr r2, _08009960
-	adds r1, r1, r2
-	ldr r2, _08009964
-	bl CpuSet
-	adds r0, r5, #1
-	lsls r0, r0, #0x18
-	lsrs r5, r0, #0x18
-	cmp r5, #0xb
-	bls _080098C8
-	movs r4, #0
-	movs r5, #0
-	ldr r7, _08009968
-_080098F6:
-	adds r0, r5, #0
-	subs r0, #0x15
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	cmp r0, #2
-	bhi _08009970
-	lsls r0, r5, #2
-	adds r0, r0, r5
-	ldrb r1, [r6]
-	adds r0, r0, r1
-	lsls r0, r0, #2
-	adds r0, r0, r7
-	ldr r0, [r0]
-	adds r1, r4, #0
-	adds r1, #0x43
-	lsls r1, r1, #5
-	ldr r2, _08009960
-	adds r1, r1, r2
-	ldr r2, _0800996C
-	bl CpuSet
-	adds r0, r4, #0
-	adds r0, #8
-	b _08009990
-	.align 2, 0
-_08009928: .4byte gUnk_808ECD0
-_0800992C: .4byte 0x020000A0
-_08009930: .4byte 0x04000008
-_08009934: .4byte gUnk_808ECF0
-_08009938: .4byte gUnk_808E310
-_0800993C: .4byte 0x0200C420
-_08009940: .4byte gUnk_808E330
-_08009944: .4byte gUnk_808E350
-_08009948: .4byte 0x08090C20
-_0800994C: .4byte 0x00000801
-_08009950: .4byte 0x08090C50
-_08009954: .4byte 0x00001801
-_08009958: .4byte 0x08DFA5B8
-_0800995C: .4byte gLanguage
-_08009960: .4byte 0x0200C400
-_08009964: .4byte 0x04000020
-_08009968: .4byte 0x08DFA3A8
-_0800996C: .4byte 0x04000040
-_08009970:
-	lsls r0, r5, #2
-	adds r0, r0, r5
-	ldrb r2, [r6]
-	adds r0, r0, r2
-	lsls r0, r0, #2
-	adds r0, r0, r7
-	ldr r0, [r0]
-	adds r1, r4, #0
-	adds r1, #0x43
-	lsls r1, r1, #5
-	ldr r2, _08009A6C
-	adds r1, r1, r2
-	ldr r2, _08009A70
-	bl CpuSet
-	adds r0, r4, #4
-_08009990:
-	lsls r0, r0, #0x18
-	lsrs r4, r0, #0x18
-	adds r0, r5, #1
-	lsls r0, r0, #0x18
-	lsrs r5, r0, #0x18
-	cmp r5, #0x17
-	bls _080098F6
-	movs r5, #0
-_080099A0:
-	lsls r0, r5, #4
-	subs r0, r0, r5
-	lsls r0, r0, #2
-	ldr r1, _08009A74
-	adds r0, r0, r1
-	lsls r1, r5, #6
-	ldr r4, _08009A78
-	adds r1, r1, r4
-	ldr r2, _08009A7C
-	bl CpuSet
-	adds r0, r5, #1
-	lsls r0, r0, #0x18
-	lsrs r5, r0, #0x18
-	cmp r5, #0x13
-	bls _080099A0
-	movs r7, #0
-	ldr r0, _08009A80
-	adds r0, r0, r4
-	mov r8, r0
-_080099C8:
-	movs r5, #0
-	lsls r1, r7, #1
-	lsls r0, r7, #2
-	adds r2, r7, #1
-	str r2, [sp]
-	adds r1, r1, r7
-	mov ip, r1
-	adds r0, r0, r7
-	lsls r0, r0, #3
-	mov sb, r0
-	ldr r0, _08009A84
-	add r0, sb
-	mov sl, r0
-_080099E2:
-	movs r6, #0
-	cmp r7, #1
-	bls _080099F0
-	movs r6, #2
-	cmp r7, #2
-	bne _080099F0
-	movs r6, #1
-_080099F0:
-	lsls r3, r5, #1
-	adds r2, r6, #3
-	add r2, ip
-	lsls r2, r2, #5
-	ldr r0, _08009A88
-	adds r1, r2, r0
-	adds r1, r3, r1
-	lsls r1, r1, #1
-	add r1, r8
-	str r1, [sp, #4]
-	lsls r4, r5, #2
-	ldr r1, _08009A84
-	adds r0, r4, r1
-	add r0, sb
-	ldr r1, [sp, #4]
-	strh r0, [r1]
-	ldr r0, _08009A8C
-	adds r2, r2, r0
-	adds r2, r3, r2
-	lsls r2, r2, #1
-	add r2, r8
-	add r4, sl
-	adds r0, r4, #1
-	strh r0, [r2]
-	adds r2, r6, #4
-	add r2, ip
-	lsls r2, r2, #5
-	ldr r1, _08009A88
-	adds r0, r2, r1
-	adds r0, r3, r0
-	lsls r0, r0, #1
-	add r0, r8
-	adds r1, r4, #2
-	strh r1, [r0]
-	ldr r0, _08009A8C
-	adds r2, r2, r0
-	adds r3, r3, r2
-	lsls r3, r3, #1
-	add r3, r8
-	adds r4, #3
-	strh r4, [r3]
-	adds r0, r5, #1
-	lsls r0, r0, #0x18
-	lsrs r5, r0, #0x18
-	cmp r5, #6
-	bls _080099E2
-	ldr r1, [sp]
-	lsls r0, r1, #0x18
-	lsrs r7, r0, #0x18
-	cmp r7, #4
-	bls _080099C8
-	ldr r0, _08009A90
-	bl sub_8057418
-	add sp, #8
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov sb, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08009A6C: .4byte 0x0200C400
-_08009A70: .4byte 0x04000020
-_08009A74: .4byte 0x0808E820
-_08009A78: .4byte 0x0200FC00
-_08009A7C: .4byte 0x0400000F
-_08009A80: .4byte 0xFFFF0800
-_08009A84: .4byte 0x000050F8
-_08009A88: .4byte 0x00007C02
-_08009A8C: .4byte 0x00007C03
-_08009A90: .4byte 0x02000200
-
-	THUMB_FUNC_START sub_8009A94
-sub_8009A94: @ 0x08009A94
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, sb
-	mov r5, r8
-	push {r5, r6, r7}
-	sub sp, #0x48
-	movs r0, #0
-	str r0, [sp, #0x2c]
-	add r0, sp, #0x2c
-	ldr r1, _08009B44
-	ldr r2, _08009B48
-	bl CpuSet
-	movs r7, #0
-_08009AB0:
-	adds r0, r7, #0
-	bl sub_800901C
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	bl SetCardInfo
-	movs r4, #0
-	cmp r7, #1
-	bls _08009ACC
-	movs r4, #2
-	cmp r7, #2
-	bne _08009ACC
-	movs r4, #1
-_08009ACC:
-	ldr r1, _08009B4C
-	ldrh r0, [r1, #0x10]
-	movs r1, #1
-	bl sub_800DDA0
-	movs r3, #0
-	lsls r2, r7, #1
-	mov r8, r2
-	adds r0, r4, #2
-	mov sb, r0
-	lsls r1, r7, #2
-	mov sl, r1
-	adds r2, r4, #3
-	str r2, [sp, #0x40]
-	adds r4, #4
-	str r4, [sp, #0x44]
-	lsrs r4, r7, #2
-	str r4, [sp, #0x34]
-	lsls r0, r7, #3
-	str r0, [sp, #0x30]
-	lsls r1, r7, #5
-	str r1, [sp, #0x38]
-	adds r2, r7, #1
-	str r2, [sp, #0x3c]
-	ldr r6, _08009B50
-	mov r4, r8
-	adds r0, r4, r7
-	add r0, sb
-	lsls r0, r0, #5
-	ldr r1, _08009B54
-	adds r2, r0, r1
-	ldr r5, _08009B58
-	movs r0, #0xa0
-	lsls r0, r0, #7
-	adds r4, r0, #0
-_08009B12:
-	adds r1, r3, r2
-	lsls r1, r1, #1
-	adds r1, r1, r6
-	adds r0, r3, r5
-	ldrb r0, [r0]
-	adds r0, #9
-	orrs r0, r4
-	strh r0, [r1]
-	adds r0, r3, #1
-	lsls r0, r0, #0x18
-	lsrs r3, r0, #0x18
-	cmp r3, #3
-	bls _08009B12
-	ldr r2, _08009B4C
-	ldr r5, [r2]
-	adds r0, r5, #0
-	bl sub_8020824
-	adds r5, r0, #0
-	movs r6, #0
-	movs r3, #0
-	movs r4, #0
-	ldrb r0, [r5]
-	b _08009BA8
-	.align 2, 0
-_08009B44: .4byte 0x0200E300
-_08009B48: .4byte 0x05000640
-_08009B4C: .4byte gCardInfo
-_08009B50: .4byte 0x02000400
-_08009B54: .4byte 0x00007C01
-_08009B58: .4byte 0x02021BD0
-_08009B5C:
-	adds r2, r5, r3
-	ldrb r1, [r2]
-	movs r0, #0
-	ldrsb r0, [r2, r0]
-	cmp r0, #0
-	blt _08009B7C
-	cmp r6, #0x13
-	bhi _08009B78
-	mov r2, sp
-	adds r0, r2, r4
-	strb r1, [r0]
-	adds r0, r4, #1
-	lsls r0, r0, #0x18
-	lsrs r4, r0, #0x18
-_08009B78:
-	adds r0, r3, #1
-	b _08009B9A
-_08009B7C:
-	cmp r6, #0x13
-	bhi _08009B98
-	mov r0, sp
-	adds r0, r0, r4
-	strb r1, [r0]
-	adds r0, r4, #1
-	add r0, sp
-	mov ip, r0
-	ldrb r0, [r2, #1]
-	mov r1, ip
-	strb r0, [r1]
-	adds r0, r4, #2
-	lsls r0, r0, #0x18
-	lsrs r4, r0, #0x18
-_08009B98:
-	adds r0, r3, #2
-_08009B9A:
-	lsls r0, r0, #0x18
-	lsrs r3, r0, #0x18
-	adds r0, r6, #1
-	lsls r0, r0, #0x18
-	lsrs r6, r0, #0x18
-	adds r0, r5, r3
-	ldrb r0, [r0]
-_08009BA8:
-	cmp r0, #0
-	beq _08009BB0
-	cmp r0, #0x24
-	bne _08009B5C
-_08009BB0:
-	mov r2, sp
-	adds r1, r2, r4
-	movs r0, #0
-	strb r0, [r1]
-	mov r4, sl
-	adds r0, r4, r7
-	lsls r0, r0, #8
-	movs r1, #0xf8
-	lsls r1, r1, #5
-	adds r0, r0, r1
-	ldr r4, _08009BF8
-	adds r0, r0, r4
-	mov r1, sp
-	ldr r2, _08009BFC
-	bl sub_8020A3C
-	movs r3, #0
-	ldr r2, _08009C00
-	adds r4, r4, r2
-	mov r1, r8
-	adds r0, r1, r7
-	add r0, sb
-	lsls r0, r0, #5
-	ldr r1, _08009C04
-	adds r2, r0, r1
-	ldr r5, _08009C08
-_08009BE4:
-	ldr r0, _08009C0C
-	ldrb r0, [r0, #0x18]
-	cmp r3, r0
-	bhs _08009C10
-	subs r0, r2, r3
-	lsls r0, r0, #1
-	adds r0, r0, r4
-	strh r5, [r0]
-	b _08009C1C
-	.align 2, 0
-_08009BF8: .4byte 0x0200C400
-_08009BFC: .4byte 0x00000901
-_08009C00: .4byte 0xFFFF4000
-_08009C04: .4byte 0x00007C10
-_08009C08: .4byte 0x00005001
-_08009C0C: .4byte gCardInfo
-_08009C10:
-	subs r0, r2, r3
-	lsls r0, r0, #1
-	adds r0, r0, r4
-	movs r1, #0xa0
-	lsls r1, r1, #7
-	strh r1, [r0]
-_08009C1C:
-	adds r0, r3, #1
-	lsls r0, r0, #0x18
-	lsrs r3, r0, #0x18
-	cmp r3, #0xb
-	bls _08009BE4
-	adds r0, r7, #0
-	bl sub_800901C
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	bl sub_800A4B0
-	lsls r0, r0, #0x10
-	lsrs r4, r0, #0x10
-	ldr r1, _08009D10
-	ldrh r0, [r1, #0x10]
-	bl sub_8009060
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	movs r1, #1
-	bl sub_800DDA0
-	movs r3, #0
-	ldr r6, _08009D14
-	mov r2, r8
-	adds r0, r2, r7
-	ldr r1, [sp, #0x40]
-	adds r0, r0, r1
-	lsls r0, r0, #5
-	ldr r1, _08009D18
-	adds r2, r0, r1
-	ldr r5, _08009D1C
-_08009C5E:
-	adds r1, r3, r2
-	lsls r1, r1, #1
-	adds r1, r1, r6
-	adds r0, r3, r5
-	ldrb r0, [r0]
-	adds r0, #9
-	orrs r0, r4
-	strh r0, [r1]
-	adds r0, r3, #1
-	lsls r0, r0, #0x18
-	lsrs r3, r0, #0x18
-	cmp r3, #2
-	bls _08009C5E
-	ldr r2, _08009D10
-	ldrh r0, [r2, #0x10]
-	bl GetDeckCardQty
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	movs r1, #0
-	bl sub_800DDA0
-	movs r3, #0
-	ldr r6, _08009D14
-	mov r4, r8
-	adds r0, r4, r7
-	ldr r1, [sp, #0x44]
-	adds r0, r0, r1
-	lsls r0, r0, #5
-	ldr r4, _08009D18
-	adds r2, r0, r4
-	ldr r5, _08009D1C
-	movs r0, #0xa0
-	lsls r0, r0, #7
-	adds r4, r0, #0
-_08009CA4:
-	adds r1, r3, r2
-	lsls r1, r1, #1
-	adds r1, r1, r6
-	adds r0, r3, #2
-	adds r0, r0, r5
-	ldrb r0, [r0]
-	adds r0, #9
-	orrs r0, r4
-	strh r0, [r1]
-	adds r0, r3, #1
-	lsls r0, r0, #0x18
-	lsrs r3, r0, #0x18
-	cmp r3, #2
-	bls _08009CA4
-	movs r0, #3
-	ands r0, r7
-	lsls r0, r0, #8
-	ldr r2, [sp, #0x34]
-	lsls r1, r2, #0xc
-	movs r4, #0x82
-	lsls r4, r4, #9
-	adds r1, r1, r4
-	orrs r0, r1
-	ldr r1, _08009D14
-	adds r0, r0, r1
-	ldr r2, _08009D10
-	ldrh r1, [r2, #0x10]
-	bl sub_80573D0
-	ldr r0, _08009D20
-	ldr r4, [sp, #0x30]
-	adds r3, r4, r0
-	ldrb r1, [r3, #1]
-	movs r0, #0x3f
-	adds r2, r0, #0
-	ands r2, r1
-	strb r2, [r3, #1]
-	ldrb r1, [r3, #3]
-	ands r0, r1
-	movs r1, #0x80
-	orrs r0, r1
-	strb r0, [r3, #3]
-	cmp r7, #2
-	bne _08009D24
-	movs r1, #0xd
-	rsbs r1, r1, #0
-	adds r0, r1, #0
-	adds r1, r2, #0
-	ands r1, r0
-	movs r0, #4
-	orrs r1, r0
-	strb r1, [r3, #1]
-	b _08009D30
-	.align 2, 0
-_08009D10: .4byte gCardInfo
-_08009D14: .4byte 0x02000400
-_08009D18: .4byte 0x00007C17
-_08009D1C: .4byte 0x02021BD0
-_08009D20: .4byte 0x02018400
-_08009D24:
-	movs r4, #0xd
-	rsbs r4, r4, #0
-	adds r1, r4, #0
-	adds r0, r2, #0
-	ands r0, r1
-	strb r0, [r3, #1]
-_08009D30:
-	ldrb r0, [r3, #1]
-	movs r1, #0x20
-	orrs r0, r1
-	strb r0, [r3, #1]
-	ldrb r1, [r3, #5]
-	movs r2, #0xd
-	rsbs r2, r2, #0
-	adds r0, r2, #0
-	ands r1, r0
-	movs r0, #8
-	orrs r1, r0
-	strb r1, [r3, #5]
-	ldr r0, [sp, #0x38]
-	adds r0, #0xc
-	strb r0, [r3]
-	ldrh r1, [r3, #2]
-	ldr r4, _08009E1C
-	adds r0, r4, #0
-	ands r1, r0
-	movs r0, #0xd2
-	orrs r1, r0
-	strh r1, [r3, #2]
-	movs r0, #3
-	ands r7, r0
-	lsls r2, r7, #3
-	adds r2, #0x20
-	ldr r1, [sp, #0x34]
-	lsls r0, r1, #7
-	adds r2, r2, r0
-	ldr r4, _08009E20
-	adds r0, r4, #0
-	ands r2, r0
-	ldrh r0, [r3, #4]
-	ldr r4, _08009E24
-	adds r1, r4, #0
-	ands r0, r1
-	orrs r0, r2
-	strh r0, [r3, #4]
-	ldr r1, [sp, #0x3c]
-	lsls r0, r1, #0x18
-	lsrs r7, r0, #0x18
-	cmp r7, #4
-	bhi _08009D88
-	b _08009AB0
-_08009D88:
-	bl sub_800A508
-	lsls r0, r0, #0x10
-	lsrs r4, r0, #0x10
-	bl GetDeckCost
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	movs r1, #0
-	bl sub_800DDA0
-	movs r3, #0
-	ldr r7, _08009E28
-	ldr r6, _08009E2C
-	ldr r5, _08009E30
-	ldr r0, _08009E34
-	adds r2, r0, #0
-_08009DAA:
-	adds r1, r3, r6
-	lsls r1, r1, #1
-	adds r1, r1, r7
-	adds r0, r3, r5
-	ldrb r0, [r0]
-	adds r0, r2, r0
-	adds r0, r4, r0
-	strh r0, [r1]
-	adds r0, r3, #1
-	lsls r0, r0, #0x18
-	lsrs r3, r0, #0x18
-	cmp r3, #4
-	bls _08009DAA
-	bl sub_800A528
-	lsls r0, r0, #0x10
-	lsrs r4, r0, #0x10
-	bl GetDeckSize
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	movs r1, #0
-	bl sub_800DDA0
-	movs r3, #0
-	ldr r7, _08009E28
-	ldr r6, _08009E38
-	ldr r5, _08009E30
-	ldr r1, _08009E34
-	adds r2, r1, #0
-_08009DE6:
-	adds r1, r3, r6
-	lsls r1, r1, #1
-	adds r1, r1, r7
-	adds r0, r3, #3
-	adds r0, r0, r5
-	ldrb r0, [r0]
-	adds r0, r2, r0
-	adds r0, r4, r0
-	strh r0, [r1]
-	adds r0, r3, #1
-	lsls r0, r0, #0x18
-	lsrs r3, r0, #0x18
-	cmp r3, #1
-	bls _08009DE6
-	bl sub_800907C
-	bl sub_800A544
-	add sp, #0x48
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov sb, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08009E1C: .4byte 0xFFFFFE00
-_08009E20: .4byte 0x000003FF
-_08009E24: .4byte 0xFFFFFC00
-_08009E28: .4byte 0x02000400
-_08009E2C: .4byte 0x00005C2A
-_08009E30: .4byte 0x02021BD0
-_08009E34: .4byte 0x00000209
-_08009E38: .4byte 0x00005C36
-
-	THUMB_FUNC_START sub_8009E3C
-sub_8009E3C: @ 0x08009E3C
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, sb
-	mov r5, r8
-	push {r5, r6, r7}
-	sub sp, #0xc
-	movs r4, #0
-	movs r0, #0xa0
-	lsls r0, r0, #7
-	mov r8, r0
-_08009E50:
-	movs r1, #0
-	cmp r4, #1
-	bls _08009E5E
-	movs r1, #2
-	cmp r4, #2
-	bne _08009E5E
-	movs r1, #1
-_08009E5E:
-	movs r5, #0
-	lsls r0, r4, #1
-	adds r3, r1, #3
-	adds r6, r1, #4
-	ldr r7, _08009F48
-	adds r0, r0, r4
-	adds r1, r0, r3
-	lsls r1, r1, #5
-	ldr r2, _08009F4C
-	adds r3, r1, r2
-	adds r0, r0, r6
-	lsls r0, r0, #5
-	adds r1, r0, r2
-_08009E78:
-	adds r0, r5, r3
-	lsls r0, r0, #1
-	adds r0, r0, r7
-	mov r2, r8
-	strh r2, [r0]
-	adds r0, r5, r1
-	lsls r0, r0, #1
-	adds r0, r0, r7
-	strh r2, [r0]
-	adds r0, r5, #1
-	lsls r0, r0, #0x18
-	lsrs r5, r0, #0x18
-	cmp r5, #5
-	bls _08009E78
-	adds r0, r4, #1
-	lsls r0, r0, #0x18
-	lsrs r4, r0, #0x18
-	cmp r4, #4
-	bls _08009E50
-	movs r4, #0
-_08009EA0:
-	movs r1, #0
-	cmp r4, #1
-	bls _08009EAE
-	movs r1, #2
-	cmp r4, #2
-	bne _08009EAE
-	movs r1, #1
-_08009EAE:
-	movs r5, #0
-	lsls r0, r4, #1
-	adds r3, r1, #3
-	adds r6, r1, #4
-	adds r1, r4, #1
-	str r1, [sp, #4]
-	lsls r2, r4, #2
-	ldr r7, _08009F48
-	adds r1, r0, r4
-	adds r0, r1, r3
-	lsls r0, r0, #5
-	mov r8, r0
-	ldr r3, _08009F4C
-	mov sb, r3
-	ldr r0, _08009F50
-	mov r3, r8
-	adds r3, r3, r0
-	str r3, [sp]
-	adds r2, r2, r4
-	lsls r2, r2, #3
-	mov ip, r2
-	ldr r2, _08009F54
-	add r2, ip
-	mov sl, r2
-	adds r1, r1, r6
-	lsls r4, r1, #5
-	adds r0, r4, r0
-	str r0, [sp, #8]
-_08009EE6:
-	lsls r2, r5, #1
-	mov r1, r8
-	add r1, sb
-	adds r1, r2, r1
-	lsls r1, r1, #1
-	adds r1, r1, r7
-	lsls r3, r5, #2
-	ldr r6, _08009F54
-	adds r0, r3, r6
-	add r0, ip
-	strh r0, [r1]
-	ldr r1, [sp]
-	adds r0, r2, r1
-	lsls r0, r0, #1
-	adds r0, r0, r7
-	add r3, sl
-	adds r1, r3, #1
-	strh r1, [r0]
-	mov r6, sb
-	adds r0, r4, r6
-	adds r0, r2, r0
-	lsls r0, r0, #1
-	adds r0, r0, r7
-	adds r1, r3, #2
-	strh r1, [r0]
-	ldr r0, [sp, #8]
-	adds r2, r2, r0
-	lsls r2, r2, #1
-	adds r2, r2, r7
-	adds r3, #3
-	strh r3, [r2]
-	adds r0, r5, #1
-	lsls r0, r0, #0x18
-	lsrs r5, r0, #0x18
-	cmp r5, #2
-	bls _08009EE6
-	ldr r1, [sp, #4]
-	lsls r0, r1, #0x18
-	lsrs r4, r0, #0x18
-	cmp r4, #4
-	bls _08009EA0
-	add sp, #0xc
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov sb, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08009F48: .4byte 0x02000400
-_08009F4C: .4byte 0x00007C10
-_08009F50: .4byte 0x00007C11
-_08009F54: .4byte 0x00005114
-
-	THUMB_FUNC_START sub_8009F58
-sub_8009F58: @ 0x08009F58
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, sb
-	mov r5, r8
-	push {r5, r6, r7}
-	movs r6, #0
-	ldr r0, _0800A030
-	mov sl, r0
-_08009F68:
-	adds r0, r6, #0
-	bl sub_800901C
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	bl SetCardInfo
-	movs r7, #0
-	cmp r6, #1
-	bls _08009F84
-	movs r7, #2
-	cmp r6, #2
-	bne _08009F84
-	movs r7, #1
-_08009F84:
-	lsls r5, r6, #1
-	adds r4, r5, r6
-	adds r0, r7, #3
-	adds r4, r4, r0
-	lsls r4, r4, #5
-	ldr r1, _0800A034
-	adds r0, r4, r1
-	lsls r0, r0, #1
-	add r0, sl
-	ldr r1, _0800A038
-	strh r1, [r0]
-	ldr r0, _0800A03C
-	ldrh r0, [r0, #0x12]
-	movs r1, #0
-	bl sub_800DDA0
-	movs r2, #0
-	adds r3, r5, #0
-	adds r5, r7, #4
-	adds r7, r6, #1
-	mov sb, r7
-	ldr r0, _0800A030
-	mov r8, r0
-	ldr r1, _0800A040
-	adds r4, r4, r1
-	ldr r7, _0800A044
-	mov ip, r7
-_08009FBA:
-	adds r0, r2, r4
-	lsls r0, r0, #1
-	add r0, r8
-	mov r7, ip
-	adds r1, r2, r7
-	ldr r7, _0800A048
-	ldrb r1, [r1]
-	adds r1, r7, r1
-	strh r1, [r0]
-	adds r0, r2, #1
-	lsls r0, r0, #0x18
-	lsrs r2, r0, #0x18
-	cmp r2, #4
-	bls _08009FBA
-	adds r4, r3, r6
-	adds r4, r4, r5
-	lsls r4, r4, #5
-	ldr r1, _0800A034
-	adds r0, r4, r1
-	lsls r0, r0, #1
-	add r0, sl
-	ldr r1, _0800A04C
-	strh r1, [r0]
-	ldr r0, _0800A03C
-	ldrh r0, [r0, #0x14]
-	movs r1, #0
-	bl sub_800DDA0
-	movs r2, #0
-	ldr r6, _0800A030
-	ldr r7, _0800A040
-	adds r4, r4, r7
-	ldr r5, _0800A044
-	ldr r0, _0800A050
-	adds r3, r0, #0
-_0800A000:
-	adds r0, r2, r4
-	lsls r0, r0, #1
-	adds r0, r0, r6
-	adds r1, r2, r5
-	ldrb r1, [r1]
-	adds r1, r3, r1
-	strh r1, [r0]
-	adds r0, r2, #1
-	lsls r0, r0, #0x18
-	lsrs r2, r0, #0x18
-	cmp r2, #4
-	bls _0800A000
-	mov r1, sb
-	lsls r0, r1, #0x18
-	lsrs r6, r0, #0x18
-	cmp r6, #4
-	bls _08009F68
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov sb, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800A030: .4byte 0x02000400
-_0800A034: .4byte 0x00007C10
-_0800A038: .4byte 0x00005002
-_0800A03C: .4byte gCardInfo
-_0800A040: .4byte 0x00007C11
-_0800A044: .4byte 0x02021BD0
-_0800A048: .4byte 0x00002009
-_0800A04C: .4byte 0x00005003
-_0800A050: .4byte 0x00001009
-
-	THUMB_FUNC_START sub_800A054
-sub_800A054: @ 0x0800A054
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, sb
-	mov r5, r8
-	push {r5, r6, r7}
-	sub sp, #0xc
-	movs r0, #0
-	mov r8, r0
-_0800A064:
-	mov r0, r8
-	bl sub_800901C
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	bl SetCardInfo
-	movs r4, #0
-	mov r1, r8
-	cmp r1, #1
-	bls _0800A082
-	movs r4, #2
-	cmp r1, #2
-	bne _0800A082
-	movs r4, #1
-_0800A082:
-	ldr r7, _0800A1CC
-	mov r2, r8
-	lsls r3, r2, #1
-	add r3, r8
-	adds r0, r4, #3
-	adds r0, r3, r0
-	lsls r5, r0, #5
-	ldr r2, _0800A1D0
-	adds r0, r5, r2
-	lsls r0, r0, #1
-	adds r0, r0, r7
-	movs r6, #0xa0
-	lsls r6, r6, #7
-	strh r6, [r0]
-	ldr r1, _0800A1D4
-	adds r0, r5, r1
-	lsls r0, r0, #1
-	adds r0, r0, r7
-	strh r6, [r0]
-	adds r0, r4, #4
-	adds r3, r3, r0
-	lsls r3, r3, #5
-	adds r2, r3, r2
-	lsls r2, r2, #1
-	adds r2, r2, r7
-	adds r0, r6, #0
-	strh r0, [r2]
-	adds r1, r3, r1
-	lsls r1, r1, #1
-	adds r1, r1, r7
-	adds r2, r6, #0
-	strh r2, [r1]
-	ldr r6, _0800A1D8
-	ldrb r0, [r6, #0x17]
-	mov r4, r8
-	adds r4, #0xb
-	lsls r1, r4, #5
-	ldr r2, _0800A1DC
-	adds r1, r1, r2
-	str r3, [sp, #8]
-	bl sub_8008BC0
-	ldr r1, _0800A1E0
-	adds r0, r5, r1
-	lsls r0, r0, #1
-	adds r0, r0, r7
-	mov sl, r0
-	lsls r4, r4, #0xc
-	ldrb r0, [r6, #0x17]
-	lsls r0, r0, #2
-	adds r0, #0x13
-	orrs r0, r4
-	mov r2, sl
-	strh r0, [r2]
-	adds r1, #1
-	adds r0, r5, r1
-	lsls r0, r0, #1
-	adds r0, r0, r7
-	mov sb, r0
-	ldrb r0, [r6, #0x17]
-	lsls r0, r0, #2
-	adds r0, #0x14
-	orrs r0, r4
-	mov r2, sb
-	strh r0, [r2]
-	ldr r3, [sp, #8]
-	ldr r2, _0800A1E0
-	adds r0, r3, r2
-	lsls r0, r0, #1
-	adds r0, r0, r7
-	str r0, [sp]
-	ldrb r0, [r6, #0x17]
-	lsls r0, r0, #2
-	adds r0, #0x15
-	orrs r0, r4
-	ldr r2, [sp]
-	strh r0, [r2]
-	adds r1, r3, r1
-	lsls r1, r1, #1
-	adds r1, r1, r7
-	str r1, [sp, #4]
-	ldrb r0, [r6, #0x17]
-	lsls r0, r0, #2
-	adds r0, #0x16
-	orrs r4, r0
-	strh r4, [r1]
-	ldrb r0, [r6, #0x16]
-	mov r4, r8
-	adds r4, #6
-	lsls r1, r4, #5
-	ldr r2, _0800A1DC
-	adds r1, r1, r2
-	str r3, [sp, #8]
-	bl sub_8008B44
-	ldrb r0, [r6, #0x16]
-	subs r0, #0x15
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	ldr r3, [sp, #8]
-	cmp r0, #2
-	bhi _0800A1EC
-	ldr r0, _0800A1E4
-	adds r1, r5, r0
-	lsls r1, r1, #1
-	adds r1, r1, r7
-	lsls r2, r4, #0xc
-	ldrb r0, [r6, #0x16]
-	lsls r0, r0, #3
-	subs r0, #0x11
-	orrs r0, r2
-	strh r0, [r1]
-	ldr r0, _0800A1E8
-	adds r1, r5, r0
-	lsls r1, r1, #1
-	adds r1, r1, r7
-	ldrb r0, [r6, #0x16]
-	lsls r0, r0, #3
-	subs r0, #0x10
-	orrs r0, r2
-	strh r0, [r1]
-	ldrb r0, [r6, #0x16]
-	lsls r0, r0, #3
-	subs r0, #0xf
-	orrs r0, r2
-	mov r1, sl
-	strh r0, [r1]
-	ldrb r0, [r6, #0x16]
-	lsls r0, r0, #3
-	subs r0, #0xe
-	orrs r0, r2
-	mov r1, sb
-	strh r0, [r1]
-	ldr r0, _0800A1E4
-	adds r1, r3, r0
-	lsls r1, r1, #1
-	adds r1, r1, r7
-	ldrb r0, [r6, #0x16]
-	lsls r0, r0, #3
-	subs r0, #0xd
-	orrs r0, r2
-	strh r0, [r1]
-	ldr r0, _0800A1E8
-	adds r1, r3, r0
-	lsls r1, r1, #1
-	adds r1, r1, r7
-	ldrb r0, [r6, #0x16]
-	lsls r0, r0, #3
-	subs r0, #0xc
-	orrs r0, r2
-	strh r0, [r1]
-	ldrb r0, [r6, #0x16]
-	lsls r0, r0, #3
-	subs r0, #0xb
-	orrs r0, r2
-	ldr r1, [sp]
-	strh r0, [r1]
-	ldrb r0, [r6, #0x16]
-	lsls r0, r0, #3
-	subs r0, #0xa
-	orrs r2, r0
-	ldr r6, [sp, #4]
-	strh r2, [r6]
-	b _0800A236
-	.align 2, 0
-_0800A1CC: .4byte 0x02000400
-_0800A1D0: .4byte 0x00007C10
-_0800A1D4: .4byte 0x00007C15
-_0800A1D8: .4byte gCardInfo
-_0800A1DC: .4byte 0x02000000
-_0800A1E0: .4byte 0x00007C13
-_0800A1E4: .4byte 0x00007C11
-_0800A1E8: .4byte 0x00007C12
-_0800A1EC:
-	ldr r0, _0800A258
-	adds r1, r5, r0
-	lsls r1, r1, #1
-	adds r1, r1, r7
-	lsls r2, r4, #0xc
-	ldrb r0, [r6, #0x16]
-	lsls r0, r0, #2
-	adds r0, #0x43
-	orrs r0, r2
-	strh r0, [r1]
-	ldr r0, _0800A25C
-	adds r1, r5, r0
-	lsls r1, r1, #1
-	adds r1, r1, r7
-	ldrb r0, [r6, #0x16]
-	lsls r0, r0, #2
-	adds r0, #0x44
-	orrs r0, r2
-	strh r0, [r1]
-	ldr r0, _0800A258
-	adds r1, r3, r0
-	lsls r1, r1, #1
-	adds r1, r1, r7
-	ldrb r0, [r6, #0x16]
-	lsls r0, r0, #2
-	adds r0, #0x45
-	orrs r0, r2
-	strh r0, [r1]
-	ldr r0, _0800A25C
-	adds r1, r3, r0
-	lsls r1, r1, #1
-	adds r1, r1, r7
-	ldrb r0, [r6, #0x16]
-	lsls r0, r0, #2
-	adds r0, #0x46
-	orrs r2, r0
-	strh r2, [r1]
-_0800A236:
-	mov r0, r8
-	adds r0, #1
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	mov r8, r0
-	cmp r0, #4
-	bhi _0800A246
-	b _0800A064
-_0800A246:
-	add sp, #0xc
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov sb, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800A258: .4byte 0x00007C11
-_0800A25C: .4byte 0x00007C12
-
-	THUMB_FUNC_START sub_800A260
-sub_800A260: @ 0x0800A260
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, sb
-	mov r5, r8
-	push {r5, r6, r7}
-	movs r5, #0
-	ldr r0, _0800A344
-	mov r8, r0
-	ldr r1, _0800A348
-	mov sl, r1
-	movs r0, #0xa0
-	lsls r0, r0, #7
-	mov sb, r0
-_0800A27A:
-	movs r3, #0
-	cmp r5, #1
-	bls _0800A288
-	movs r3, #2
-	cmp r5, #2
-	bne _0800A288
-	movs r3, #1
-_0800A288:
-	lsls r4, r5, #1
-	adds r4, r4, r5
-	adds r2, r3, #3
-	adds r2, r4, r2
-	lsls r2, r2, #5
-	mov r1, sl
-	adds r0, r2, r1
-	lsls r0, r0, #1
-	add r0, r8
-	mov r1, sb
-	strh r1, [r0]
-	ldr r1, _0800A34C
-	adds r0, r2, r1
-	lsls r0, r0, #1
-	add r0, r8
-	ldr r1, _0800A350
-	strh r1, [r0]
-	ldr r1, _0800A354
-	adds r0, r2, r1
-	lsls r0, r0, #1
-	add r0, r8
-	ldr r1, _0800A358
-	strh r1, [r0]
-	ldr r1, _0800A35C
-	adds r0, r2, r1
-	lsls r0, r0, #1
-	add r0, r8
-	ldr r1, _0800A360
-	strh r1, [r0]
-	ldr r1, _0800A364
-	adds r0, r2, r1
-	lsls r0, r0, #1
-	add r0, r8
-	ldr r1, _0800A368
-	strh r1, [r0]
-	ldr r0, _0800A36C
-	adds r2, r2, r0
-	lsls r2, r2, #1
-	add r2, r8
-	ldr r0, _0800A370
-	strh r0, [r2]
-	adds r0, r3, #4
-	adds r4, r4, r0
-	lsls r4, r4, #5
-	mov r1, sl
-	adds r0, r4, r1
-	lsls r0, r0, #1
-	add r0, r8
-	mov r1, sb
-	strh r1, [r0]
-	adds r0, r5, #0
-	bl sub_800901C
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	bl SetCardInfo
-	ldr r0, _0800A374
-	ldrh r0, [r0, #0xc]
-	movs r1, #0
-	bl sub_800DDA0
-	movs r3, #0
-	adds r5, #1
-	ldr r7, _0800A344
-	ldr r0, _0800A34C
-	adds r2, r4, r0
-	ldr r6, _0800A378
-	ldr r1, _0800A37C
-	adds r4, r1, #0
-_0800A314:
-	adds r0, r3, r2
-	lsls r0, r0, #1
-	adds r0, r0, r7
-	adds r1, r3, r6
-	ldrb r1, [r1]
-	adds r1, r4, r1
-	strh r1, [r0]
-	adds r0, r3, #1
-	lsls r0, r0, #0x18
-	lsrs r3, r0, #0x18
-	cmp r3, #4
-	bls _0800A314
-	lsls r0, r5, #0x18
-	lsrs r5, r0, #0x18
-	cmp r5, #4
-	bls _0800A27A
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov sb, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800A344: .4byte 0x02000400
-_0800A348: .4byte 0x00007C10
-_0800A34C: .4byte 0x00007C11
-_0800A350: .4byte 0x00005004
-_0800A354: .4byte 0x00007C12
-_0800A358: .4byte 0x00005005
-_0800A35C: .4byte 0x00007C13
-_0800A360: .4byte 0x00005006
-_0800A364: .4byte 0x00007C14
-_0800A368: .4byte 0x00005007
-_0800A36C: .4byte 0x00007C15
-_0800A370: .4byte 0x00005008
-_0800A374: .4byte gCardInfo
-_0800A378: .4byte 0x02021BD0
-_0800A37C: .4byte 0x00005009
-
-	THUMB_FUNC_START sub_800A380
-sub_800A380: @ 0x0800A380
-	push {r4, lr}
-	lsls r0, r0, #0x18
-	ldr r3, _0800A3BC
-	lsrs r0, r0, #0x16
-	ldr r2, _0800A3C0
-	adds r1, r2, #0
-	adds r1, r0, r1
-	ldr r4, _0800A3C4
-	adds r2, r3, r4
-	strh r1, [r2]
-	ldr r2, _0800A3C8
-	adds r1, r2, #0
-	adds r1, r0, r1
-	adds r4, #2
-	adds r2, r3, r4
-	strh r1, [r2]
-	ldr r1, _0800A3CC
-	adds r2, r0, r1
-	adds r4, #0x3e
-	adds r1, r3, r4
-	strh r2, [r1]
-	ldr r1, _0800A3D0
-	adds r0, r0, r1
-	ldr r2, _0800A3D4
-	adds r3, r3, r2
-	strh r0, [r3]
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800A3BC: .4byte 0x02000400
-_0800A3C0: .4byte 0x00005002
-_0800A3C4: .4byte 0x0000B838
-_0800A3C8: .4byte 0x00005003
-_0800A3CC: .4byte 0x00005004
-_0800A3D0: .4byte 0x00005005
-_0800A3D4: .4byte 0x0000B87A
-
-	THUMB_FUNC_START sub_800A3D8
-sub_800A3D8: @ 0x0800A3D8
-	push {lr}
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	cmp r0, #7
-	bhi _0800A472
-	lsls r0, r0, #2
-	ldr r1, _0800A3EC
-	adds r0, r0, r1
-	ldr r0, [r0]
-	mov pc, r0
-	.align 2, 0
-_0800A3EC: .4byte 0x0800A3F0
-_0800A3F0: @ jump table
-	.4byte _0800A410 @ case 0
-	.4byte _0800A472 @ case 1
-	.4byte _0800A418 @ case 2
-	.4byte _0800A440 @ case 3
-	.4byte _0800A45C @ case 4
-	.4byte _0800A46C @ case 5
-	.4byte _0800A472 @ case 6
-	.4byte _0800A446 @ case 7
-_0800A410:
-	movs r0, #0
-	bl sub_800A5F0
-	b _0800A472
-_0800A418:
-	bl sub_8009228
-	bl sub_8009784
-	bl sub_8009860
-	bl sub_8009A94
-	bl sub_800A478
-	ldr r0, _0800A43C
-	ldrb r0, [r0, #2]
-	bl sub_800A380
-	movs r0, #1
-	bl sub_800A5F0
-	b _0800A472
-	.align 2, 0
-_0800A43C: .4byte gUnkStruct_2020E10
-_0800A440:
-	bl sub_8009A94
-	b _0800A45C
-_0800A446:
-	bl sub_8009A94
-	bl sub_800A478
-	ldr r0, _0800A468
-	ldrb r0, [r0, #2]
-	bl sub_800A380
-	movs r0, #3
-	bl sub_800A5F0
-_0800A45C:
-	bl sub_800A478
-	movs r0, #3
-	bl sub_800A5F0
-	b _0800A472
-	.align 2, 0
-_0800A468: .4byte gUnkStruct_2020E10
-_0800A46C:
-	movs r0, #3
-	bl sub_800A5F0
-_0800A472:
-	pop {r0}
-	bx r0
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_800A478
-sub_800A478: @ 0x0800A478
-	push {lr}
-	bl sub_8009010
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	cmp r0, #1
-	beq _0800A494
-	cmp r0, #1
-	ble _0800A4A6
-	cmp r0, #2
-	beq _0800A49A
-	cmp r0, #3
-	beq _0800A4A0
-	b _0800A4A6
-_0800A494:
-	bl sub_8009F58
-	b _0800A4AA
-_0800A49A:
-	bl sub_800A054
-	b _0800A4AA
-_0800A4A0:
-	bl sub_800A260
-	b _0800A4AA
-_0800A4A6:
-	bl sub_8009E3C
-_0800A4AA:
-	pop {r0}
-	bx r0
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_800A4B0
-sub_800A4B0: @ 0x0800A4B0
-	push {r4, lr}
-	lsls r0, r0, #0x10
-	lsrs r1, r0, #0x10
-	adds r4, r1, #0
-	ldr r0, _0800A4F4
-	adds r0, r1, r0
-	ldrb r0, [r0]
-	cmp r0, #0
-	beq _0800A4FC
-	adds r0, r1, #0
-	bl sub_801F098
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	cmp r0, #1
-	bne _0800A4FC
-	bl GetDeckSize
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	cmp r0, #0x28
-	beq _0800A4FC
-	adds r0, r4, #0
-	bl SetCardInfo
-	bl GetDuelistLevel
-	ldr r1, _0800A4F8
-	ldr r1, [r1, #0xc]
-	cmp r0, r1
-	blo _0800A4FC
-	movs r0, #0xa0
-	lsls r0, r0, #7
-	b _0800A500
-	.align 2, 0
-_0800A4F4: .4byte gTrunkCardQty
-_0800A4F8: .4byte gCardInfo
-_0800A4FC:
-	movs r0, #0x80
-	lsls r0, r0, #7
-_0800A500:
-	pop {r4}
-	pop {r1}
-	bx r1
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_800A508
-sub_800A508: @ 0x0800A508
-	push {r4, lr}
-	bl GetDeckCost
-	adds r4, r0, #0
-	bl GetDeckCapacity
-	cmp r4, r0
-	bhi _0800A51E
-	movs r0, #0xa0
-	lsls r0, r0, #7
-	b _0800A522
-_0800A51E:
-	movs r0, #0x80
-	lsls r0, r0, #7
-_0800A522:
-	pop {r4}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_START sub_800A528
-sub_800A528: @ 0x0800A528
-	push {lr}
-	bl GetDeckSize
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	cmp r0, #0x27
-	bls _0800A53C
-	movs r0, #0xa0
-	lsls r0, r0, #7
-	b _0800A540
-_0800A53C:
-	movs r0, #0x80
-	lsls r0, r0, #7
-_0800A540:
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_START sub_800A544
-sub_800A544: @ 0x0800A544
-	push {r4, r5, r6, lr}
-	ldr r2, _0800A568
-	ldrh r0, [r2]
-	ldrh r1, [r2, #2]
-	cmp r0, r1
-	bhi _0800A56C
-	cmp r1, #0
-	beq _0800A56C
-	adds r1, r0, #0
-	lsls r0, r1, #5
-	subs r0, r0, r1
-	lsls r0, r0, #2
-	ldrh r1, [r2, #2]
-	bl sub_805AF28
-	lsls r0, r0, #0x10
-	lsrs r3, r0, #0x10
-	b _0800A56E
-	.align 2, 0
-_0800A568: .4byte 0x02021AB4
-_0800A56C:
-	movs r3, #0
-_0800A56E:
-	ldr r2, _0800A5D8
-	ldr r1, _0800A5DC
-	ldrh r0, [r1]
-	strh r0, [r2, #0x28]
-	ldrh r0, [r1, #2]
-	strh r0, [r2, #0x2a]
-	ldrh r0, [r1, #4]
-	strh r0, [r2, #0x2c]
-	adds r2, #0x28
-	ldrb r0, [r2]
-	adds r0, #0x19
-	adds r0, r0, r3
-	strb r0, [r2]
-	ldrb r0, [r2, #1]
-	movs r1, #0x20
-	orrs r0, r1
-	movs r3, #0xd
-	rsbs r3, r3, #0
-	ands r0, r3
-	movs r5, #4
-	orrs r0, r5
-	strb r0, [r2, #1]
-	ldrh r4, [r2, #2]
-	lsls r1, r4, #0x17
-	lsrs r1, r1, #0x17
-	ldr r0, _0800A5E0
-	adds r1, r1, r0
-	ands r1, r0
-	ldr r0, _0800A5E4
-	ands r0, r4
-	orrs r0, r1
-	strh r0, [r2, #2]
-	ldrh r4, [r2, #4]
-	lsls r1, r4, #0x16
-	lsrs r1, r1, #0x16
-	movs r0, #0x88
-	lsls r0, r0, #2
-	adds r1, r1, r0
-	ldr r6, _0800A5E8
-	adds r0, r6, #0
-	ands r1, r0
-	ldr r0, _0800A5EC
-	ands r0, r4
-	orrs r0, r1
-	strh r0, [r2, #4]
-	ldrb r0, [r2, #5]
-	ands r3, r0
-	orrs r3, r5
-	strb r3, [r2, #5]
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800A5D8: .4byte 0x02018400
-_0800A5DC: .4byte 0x08DFB5FC
-_0800A5E0: .4byte 0x000001FF
-_0800A5E4: .4byte 0xFFFFFE00
-_0800A5E8: .4byte 0x000003FF
-_0800A5EC: .4byte 0xFFFFFC00
-
-	THUMB_FUNC_START sub_800A5F0
-sub_800A5F0: @ 0x0800A5F0
-	push {lr}
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	adds r1, r0, #0
-	cmp r0, #1
-	beq _0800A616
-	cmp r0, #1
-	bgt _0800A606
-	cmp r0, #0
-	beq _0800A610
-	b _0800A62E
-_0800A606:
-	cmp r1, #2
-	beq _0800A624
-	cmp r1, #3
-	beq _0800A62A
-	b _0800A62E
-_0800A610:
-	bl sub_800A634
-	b _0800A62E
-_0800A616:
-	bl sub_800A658
-	bl sub_0800A6C8
-	bl sub_0800A6CC
-	b _0800A62E
-_0800A624:
-	bl sub_0800A6C8
-	b _0800A62E
-_0800A62A:
-	bl sub_0800A6C8
-_0800A62E:
-	pop {r0}
-	bx r0
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_800A634
-sub_800A634: @ 0x0800A634
-	push {lr}
-	sub sp, #4
-	mov r1, sp
-	movs r0, #0
-	strh r0, [r1]
-	ldr r1, _0800A650
-	ldr r2, _0800A654
-	mov r0, sp
-	bl CpuSet
-	add sp, #4
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800A650: .4byte 0x02018400
-_0800A654: .4byte 0x01000200
-
-	THUMB_FUNC_START sub_800A658
-sub_800A658: @ 0x0800A658
-	push {r4, r5, lr}
-	ldr r0, _0800A6A4
-	ldr r4, _0800A6A8
-	adds r1, r4, #0
-	movs r2, #0x10
-	bl CpuSet
-	ldr r0, _0800A6AC
-	ldr r5, _0800A6B0
-	ldr r2, _0800A6B4
-	adds r1, r5, #0
-	bl CpuSet
-	ldr r0, _0800A6B8
-	adds r4, #0x1e
-	adds r1, r4, #0
-	movs r2, #0x10
-	bl CpuSet
-	ldr r4, _0800A6BC
-	ldr r0, _0800A6C0
-	adds r1, r5, r0
-	adds r0, r4, #0
-	movs r2, #0x20
-	bl CpuSet
-	adds r4, #0x40
-	ldr r0, _0800A6C4
-	adds r5, r5, r0
-	adds r0, r4, #0
-	adds r1, r5, #0
-	movs r2, #0x20
-	bl CpuSet
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800A6A4: .4byte 0x08091C68
-_0800A6A8: .4byte 0x02000362
-_0800A6AC: .4byte 0x08090C68
-_0800A6B0: .4byte 0x02014800
-_0800A6B4: .4byte 0x04000400
-_0800A6B8: .4byte 0x08091D28
-_0800A6BC: .4byte 0x08091CA8
-_0800A6C0: .4byte 0xFFFFE000
-_0800A6C4: .4byte 0xFFFFE400
-
-	THUMB_FUNC_START sub_0800A6C8
-sub_0800A6C8: @ 0x0800A6C8
-	bx lr
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_0800A6CC
-sub_0800A6CC: @ 0x0800A6CC
-	bx lr
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_800A6D0
-sub_800A6D0: @ 0x0800A6D0
-	push {r4, lr}
-	ldr r0, _0800A710
-	ldrb r1, [r0, #2]
-	strb r1, [r0, #4]
-	bl sub_8009448
-	bl sub_800A8D8
-	bl sub_8045658
-	movs r0, #0x37
-	bl sub_8034F60
-	ldr r0, _0800A714
-	bl sub_80081DC
-	bl sub_8008220
-	movs r4, #1
-_0800A6F6:
-	bl sub_80086D8
-	cmp r0, #0x10
-	beq _0800A744
-	cmp r0, #0x10
-	bgt _0800A71E
-	cmp r0, #2
-	beq _0800A752
-	cmp r0, #2
-	bgt _0800A718
-	cmp r0, #1
-	beq _0800A74A
-	b _0800A75C
-	.align 2, 0
-_0800A710: .4byte gUnkStruct_2020E10
-_0800A714: .4byte 0x0800A949
-_0800A718:
-	cmp r0, #8
-	beq _0800A752
-	b _0800A75C
-_0800A71E:
-	cmp r0, #0x40
-	beq _0800A732
-	cmp r0, #0x40
-	bgt _0800A72C
-	cmp r0, #0x20
-	beq _0800A73E
-	b _0800A75C
-_0800A72C:
-	cmp r0, #0x80
-	beq _0800A738
-	b _0800A75C
-_0800A732:
-	bl sub_800A778
-	b _0800A760
-_0800A738:
-	bl sub_800A7C8
-	b _0800A760
-_0800A73E:
-	bl sub_800A818
-	b _0800A760
-_0800A744:
-	bl sub_800A868
-	b _0800A760
-_0800A74A:
-	bl sub_800A8B8
-	movs r4, #0
-	b _0800A760
-_0800A752:
-	movs r0, #0x38
-	bl sub_8034F60
-	movs r4, #0
-	b _0800A760
-_0800A75C:
-	bl sub_8008220
-_0800A760:
-	cmp r4, #1
-	beq _0800A6F6
-	movs r0, #7
-	bl sub_800A3D8
-	bl sub_800ABA8
-	bl sub_800A934
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_START sub_800A778
-sub_800A778: @ 0x0800A778
-	push {lr}
-	ldr r2, _0800A798
-	ldr r0, _0800A79C
-	ldrb r1, [r2, #4]
-	adds r1, r1, r0
-	ldrb r0, [r1]
-	strb r0, [r2, #4]
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	cmp r0, #9
-	bhi _0800A7A0
-	ldrb r0, [r2, #4]
-	bl sub_800A380
-	b _0800A7A6
-	.align 2, 0
-_0800A798: .4byte gUnkStruct_2020E10
-_0800A79C: .4byte 0x08DFB610
-_0800A7A0:
-	ldrb r0, [r2, #2]
-	bl sub_800A380
-_0800A7A6:
-	bl sub_800A8D8
-	movs r0, #0x36
-	bl sub_8034F60
-	ldr r0, _0800A7C4
-	bl sub_80081DC
-	bl sub_8008220
-	bl sub_8045674
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800A7C4: .4byte 0x080454C9
-
-	THUMB_FUNC_START sub_800A7C8
-sub_800A7C8: @ 0x0800A7C8
-	push {lr}
-	ldr r2, _0800A7E8
-	ldr r0, _0800A7EC
-	ldrb r1, [r2, #4]
-	adds r1, r1, r0
-	ldrb r0, [r1]
-	strb r0, [r2, #4]
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	cmp r0, #9
-	bhi _0800A7F0
-	ldrb r0, [r2, #4]
-	bl sub_800A380
-	b _0800A7F6
-	.align 2, 0
-_0800A7E8: .4byte gUnkStruct_2020E10
-_0800A7EC: .4byte 0x08DFB61B
-_0800A7F0:
-	ldrb r0, [r2, #2]
-	bl sub_800A380
-_0800A7F6:
-	bl sub_800A8D8
-	movs r0, #0x36
-	bl sub_8034F60
-	ldr r0, _0800A814
-	bl sub_80081DC
-	bl sub_8008220
-	bl sub_8045674
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800A814: .4byte 0x080454C9
-
-	THUMB_FUNC_START sub_800A818
-sub_800A818: @ 0x0800A818
-	push {lr}
-	ldr r2, _0800A838
-	ldr r0, _0800A83C
-	ldrb r1, [r2, #4]
-	adds r1, r1, r0
-	ldrb r0, [r1]
-	strb r0, [r2, #4]
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	cmp r0, #9
-	bhi _0800A840
-	ldrb r0, [r2, #4]
-	bl sub_800A380
-	b _0800A846
-	.align 2, 0
-_0800A838: .4byte gUnkStruct_2020E10
-_0800A83C: .4byte 0x08DFB626
-_0800A840:
-	ldrb r0, [r2, #2]
-	bl sub_800A380
-_0800A846:
-	bl sub_800A8D8
-	movs r0, #0x36
-	bl sub_8034F60
-	ldr r0, _0800A864
-	bl sub_80081DC
-	bl sub_8008220
-	bl sub_8045674
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800A864: .4byte 0x080454C9
-
-	THUMB_FUNC_START sub_800A868
-sub_800A868: @ 0x0800A868
-	push {lr}
-	ldr r2, _0800A888
-	ldr r0, _0800A88C
-	ldrb r1, [r2, #4]
-	adds r1, r1, r0
-	ldrb r0, [r1]
-	strb r0, [r2, #4]
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	cmp r0, #9
-	bhi _0800A890
-	ldrb r0, [r2, #4]
-	bl sub_800A380
-	b _0800A896
-	.align 2, 0
-_0800A888: .4byte gUnkStruct_2020E10
-_0800A88C: .4byte 0x08DFB631
-_0800A890:
-	ldrb r0, [r2, #2]
-	bl sub_800A380
-_0800A896:
-	bl sub_800A8D8
-	movs r0, #0x36
-	bl sub_8034F60
-	ldr r0, _0800A8B4
-	bl sub_80081DC
-	bl sub_8008220
-	bl sub_8045674
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800A8B4: .4byte 0x080454C9
-
-	THUMB_FUNC_START sub_800A8B8
-sub_800A8B8: @ 0x0800A8B8
-	push {lr}
-	movs r0, #0x37
-	bl sub_8034F60
-	ldr r0, _0800A8D4
-	ldrb r1, [r0, #4]
-	cmp r1, #9
-	bhi _0800A8D0
-	strb r1, [r0, #2]
-	ldrb r0, [r0, #2]
-	bl sub_80091EC
-_0800A8D0:
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800A8D4: .4byte gUnkStruct_2020E10
-
-	THUMB_FUNC_START sub_800A8D8
-sub_800A8D8: @ 0x0800A8D8
-	push {r4, r5, lr}
-	ldr r3, _0800A91C
-	ldr r2, _0800A920
-	ldr r5, _0800A924
-	ldrb r0, [r5, #4]
-	adds r1, r0, r2
-	ldrb r1, [r1]
-	ldr r4, _0800A928
-	adds r0, r0, r4
-	ldrb r0, [r0]
-	lsls r0, r0, #0x10
-	orrs r1, r0
-	movs r0, #0x80
-	lsls r0, r0, #0x17
-	orrs r1, r0
-	str r1, [r3]
-	ldr r0, _0800A92C
-	str r0, [r3, #4]
-	ldrb r0, [r5, #4]
-	adds r2, r0, r2
-	ldrb r1, [r2]
-	adds r0, r0, r4
-	ldrb r0, [r0]
-	lsls r0, r0, #0x10
-	orrs r1, r0
-	ldr r0, _0800A930
-	orrs r1, r0
-	str r1, [r3, #8]
-	movs r0, #0x90
-	lsls r0, r0, #1
-	str r0, [r3, #0xc]
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800A91C: .4byte 0x02018430
-_0800A920: .4byte 0x08DFB63C
-_0800A924: .4byte gUnkStruct_2020E10
-_0800A928: .4byte 0x08DFB647
-_0800A92C: .4byte 0x0000C120
-_0800A930: .4byte 0x40000800
-
-	THUMB_FUNC_START sub_800A934
-sub_800A934: @ 0x0800A934
-	ldr r1, _0800A944
-	movs r0, #0
-	str r0, [r1]
-	str r0, [r1, #4]
-	str r0, [r1, #8]
-	str r0, [r1, #0xc]
-	bx lr
-	.align 2, 0
-_0800A944: .4byte 0x02018430
-
-	THUMB_FUNC_START sub_800A948
-sub_800A948: @ 0x0800A948
-	push {lr}
-	bl sub_80454C8
-	movs r1, #0x80
-	lsls r1, r1, #0x13
-	movs r2, #0xbf
-	lsls r2, r2, #8
-	adds r0, r2, #0
-	strh r0, [r1]
-	adds r1, #0x52
-	movs r0, #6
-	strh r0, [r1]
-	adds r1, #2
-	movs r0, #0xa
-	strh r0, [r1]
-	ldr r2, _0800A974
-	ldrh r0, [r2]
-	movs r1, #8
-	orrs r0, r1
-	strh r0, [r2]
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800A974: .4byte 0x04000050
-
-	THUMB_FUNC_START sub_800A978
-sub_800A978: @ 0x0800A978
-	push {lr}
-	bl sub_8045718
-	ldr r1, _0800AA10
-	movs r0, #0xf0
-	strh r0, [r1]
-	adds r1, #4
-	movs r0, #0x18
-	strh r0, [r1]
-	subs r1, #2
-	movs r2, #0xf5
-	lsls r2, r2, #2
-	adds r0, r2, #0
-	strh r0, [r1]
-	adds r1, #4
-	ldr r2, _0800AA14
-	adds r0, r2, #0
-	strh r0, [r1]
-	adds r1, #2
-	ldr r2, _0800AA18
-	adds r0, r2, #0
-	strh r0, [r1]
-	adds r1, #2
-	ldr r2, _0800AA1C
-	adds r0, r2, #0
-	strh r0, [r1]
-	adds r1, #6
-	ldr r2, _0800AA20
-	adds r0, r2, #0
-	strh r0, [r1]
-	adds r1, #2
-	movs r0, #0x10
-	strh r0, [r1]
-	ldr r0, _0800AA24
-	movs r3, #4
-	strh r3, [r0]
-	subs r1, #0x4a
-	ldr r2, _0800AA28
-	adds r0, r2, #0
-	strh r0, [r1]
-	adds r1, #2
-	ldr r2, _0800AA2C
-	adds r0, r2, #0
-	strh r0, [r1]
-	adds r1, #2
-	ldr r2, _0800AA30
-	adds r0, r2, #0
-	strh r0, [r1]
-	adds r1, #2
-	ldr r2, _0800AA34
-	adds r0, r2, #0
-	strh r0, [r1]
-	ldr r0, _0800AA38
-	movs r2, #0
-	strh r2, [r0]
-	ldr r0, _0800AA3C
-	strh r2, [r0]
-	ldr r1, _0800AA40
-	movs r0, #0xf8
-	strh r0, [r1]
-	ldr r0, _0800AA44
-	strh r2, [r0]
-	ldr r1, _0800AA48
-	movs r0, #0xfd
-	strh r0, [r1]
-	ldr r0, _0800AA4C
-	strh r3, [r0]
-	ldr r0, _0800AA50
-	strh r2, [r0]
-	ldr r0, _0800AA54
-	strh r2, [r0]
-	bl sub_8045434
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800AA10: .4byte 0x04000040
-_0800AA14: .4byte 0x0000486F
-_0800AA18: .4byte 0x00001E0E
-_0800AA1C: .4byte 0x0000103F
-_0800AA20: .4byte 0x000028D2
-_0800AA24: .4byte 0x04000054
-_0800AA28: .4byte 0x00000F04
-_0800AA2C: .4byte 0x00001F0D
-_0800AA30: .4byte 0x0000170A
-_0800AA34: .4byte 0x00000703
-_0800AA38: .4byte 0x02024240
-_0800AA3C: .4byte 0x02024214
-_0800AA40: .4byte 0x0202422C
-_0800AA44: .4byte 0x02024248
-_0800AA48: .4byte 0x0202420C
-_0800AA4C: .4byte 0x0202424C
-_0800AA50: .4byte 0x02024218
-_0800AA54: .4byte 0x02024204
-
-	THUMB_FUNC_START sub_800AA58
-sub_800AA58: @ 0x0800AA58
-	push {lr}
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	subs r0, #1
-	cmp r0, #8
-	bhi _0800AAFE
-	lsls r0, r0, #2
-	ldr r1, _0800AA70
-	adds r0, r0, r1
-	ldr r0, [r0]
-	mov pc, r0
-	.align 2, 0
-_0800AA70: .4byte 0x0800AA74
-_0800AA74: @ jump table
-	.4byte _0800AA98 @ case 0
-	.4byte _0800AAA4 @ case 1
-	.4byte _0800AAB0 @ case 2
-	.4byte _0800AABC @ case 3
-	.4byte _0800AAD4 @ case 4
-	.4byte _0800AAC8 @ case 5
-	.4byte _0800AAE0 @ case 6
-	.4byte _0800AAEC @ case 7
-	.4byte _0800AAF8 @ case 8
-_0800AA98:
-	ldr r0, _0800AAA0
-	bl sub_80081DC
-	b _0800AAFE
-	.align 2, 0
-_0800AAA0: .4byte 0x0800A979
-_0800AAA4:
-	ldr r0, _0800AAAC
-	bl sub_80081DC
-	b _0800AAFE
-	.align 2, 0
-_0800AAAC: .4byte 0x0800AB0D
-_0800AAB0:
-	ldr r0, _0800AAB8
-	bl sub_80081DC
-	b _0800AAFE
-	.align 2, 0
-_0800AAB8: .4byte 0x0800AB11
-_0800AABC:
-	ldr r0, _0800AAC4
-	bl sub_80081DC
-	b _0800AAFE
-	.align 2, 0
-_0800AAC4: .4byte 0x0800AB2D
-_0800AAC8:
-	ldr r0, _0800AAD0
-	bl sub_80081DC
-	b _0800AAFE
-	.align 2, 0
-_0800AAD0: .4byte 0x0800AB31
-_0800AAD4:
-	ldr r0, _0800AADC
-	bl sub_80081DC
-	b _0800AAFE
-	.align 2, 0
-_0800AADC: .4byte 0x0800AB35
-_0800AAE0:
-	ldr r0, _0800AAE8
-	bl sub_80081DC
-	b _0800AAFE
-	.align 2, 0
-_0800AAE8: .4byte 0x0800AB39
-_0800AAEC:
-	ldr r0, _0800AAF4
-	bl sub_80081DC
-	b _0800AAFE
-	.align 2, 0
-_0800AAF4: .4byte 0x0800AB75
-_0800AAF8:
-	ldr r0, _0800AB08
-	bl sub_80081DC
-_0800AAFE:
-	bl sub_8008220
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800AB08: .4byte 0x0800AB65
-	.byte 0x70, 0x47, 0x00, 0x00
-
-	THUMB_FUNC_START sub_800AB10
-sub_800AB10: @ 0x0800AB10
-	push {lr}
-	bl sub_80454C8
-	bl sub_80454E0
-	movs r1, #0x80
-	lsls r1, r1, #0x13
-	movs r2, #0xfc
-	lsls r2, r2, #7
-	adds r0, r2, #0
-	strh r0, [r1]
-	pop {r0}
-	bx r0
-	.byte 0x00, 0x00, 0x70, 0x47, 0x00, 0x00
-	.byte 0x70, 0x47, 0x00, 0x00, 0x70, 0x47, 0x00, 0x00
-
-	THUMB_FUNC_START sub_800AB38
-sub_800AB38: @ 0x0800AB38
-	push {lr}
-	bl sub_80454C8
-	bl sub_800ABF8
-	movs r2, #0x80
-	lsls r2, r2, #0x13
-	ldrh r0, [r2]
-	movs r3, #0x80
-	lsls r3, r3, #7
-	adds r1, r3, #0
-	orrs r0, r1
-	strh r0, [r2]
-	ldrh r1, [r2]
-	ldr r0, _0800AB60
-	ands r0, r1
-	strh r0, [r2]
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800AB60: .4byte 0x0000FEFF
-
-	THUMB_FUNC_START sub_800AB64
-sub_800AB64: @ 0x0800AB64
-	push {lr}
-	bl sub_80454C8
-	bl sub_80454E0
-	pop {r0}
-	bx r0
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_800AB74
-sub_800AB74: @ 0x0800AB74
-	push {lr}
-	bl sub_80454C8
-	bl sub_80454E0
-	bl sub_800ABF8
-	movs r2, #0x80
-	lsls r2, r2, #0x13
-	ldrh r0, [r2]
-	movs r3, #0x80
-	lsls r3, r3, #7
-	adds r1, r3, #0
-	orrs r0, r1
-	strh r0, [r2]
-	ldrh r1, [r2]
-	ldr r0, _0800ABA0
-	ands r0, r1
-	strh r0, [r2]
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800ABA0: .4byte 0x0000FEFF
-
-	THUMB_FUNC_START sub_0800ABA4
-sub_0800ABA4: @ 0x0800ABA4
-	bx lr
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_800ABA8
-sub_800ABA8: @ 0x0800ABA8
-	push {lr}
-	bl sub_80454F8
-	pop {r0}
-	bx r0
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_800ABB4
-sub_800ABB4: @ 0x0800ABB4
-	push {lr}
-	bl sub_80454E0
-	bl sub_8045674
-	bl sub_8045690
-	bl sub_80456E0
-	bl sub_80454C8
-	pop {r0}
-	bx r0
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_800ABD0
-sub_800ABD0: @ 0x0800ABD0
-	push {lr}
-	bl sub_8045674
-	bl sub_8045690
-	pop {r0}
-	bx r0
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_0800ABE0
-sub_0800ABE0: @ 0x0800ABE0
-	bx lr
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_800ABE4
-sub_800ABE4: @ 0x0800ABE4
-	push {lr}
-	bl sub_8045674
-	bl sub_8045690
-	bl sub_80456E0
-	pop {r0}
-	bx r0
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_800ABF8
-sub_800ABF8: @ 0x0800ABF8
-	ldr r1, _0800AC3C
-	movs r0, #0xf0
-	strh r0, [r1]
-	adds r1, #4
-	movs r0, #0x18
-	strh r0, [r1]
-	subs r1, #2
-	movs r2, #0xf5
-	lsls r2, r2, #2
-	adds r0, r2, #0
-	strh r0, [r1]
-	adds r1, #4
-	ldr r2, _0800AC40
-	adds r0, r2, #0
-	strh r0, [r1]
-	adds r1, #2
-	ldr r2, _0800AC44
-	adds r0, r2, #0
-	strh r0, [r1]
-	adds r1, #2
-	ldr r2, _0800AC48
-	adds r0, r2, #0
-	strh r0, [r1]
-	adds r1, #6
-	ldr r2, _0800AC4C
-	adds r0, r2, #0
-	strh r0, [r1]
-	adds r1, #2
-	movs r0, #0x10
-	strh r0, [r1]
-	adds r1, #2
-	movs r0, #4
-	strh r0, [r1]
-	bx lr
-	.align 2, 0
-_0800AC3C: .4byte 0x04000040
-_0800AC40: .4byte 0x0000486F
-_0800AC44: .4byte 0x00001E0E
-_0800AC48: .4byte 0x0000103F
-_0800AC4C: .4byte 0x000028D2
-
-	THUMB_FUNC_START sub_800AC50
-sub_800AC50: @ 0x0800AC50
-	push {lr}
-	bl sub_8045674
-	bl sub_8045690
-	bl sub_80456E0
-	pop {r0}
-	bx r0
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_800AC64
-sub_800AC64: @ 0x0800AC64
-	push {r4, lr}
-	movs r4, #0xff
-	bl sub_800B194
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	bne _0800AC76
-_0800AC72:
-	movs r0, #0
-	b _0800ACE2
-_0800AC76:
-	bl sub_800B088
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	cmp r0, #2
-	bhi _0800AC9E
-	lsls r4, r0, #2
-	movs r0, #0xc
-	ands r4, r0
-	bl sub_800B0E4
-	lsls r0, r0, #1
-	movs r1, #2
-	ands r0, r1
-	orrs r4, r0
-	bl sub_800B10C
-	movs r1, #1
-	ands r1, r0
-	orrs r4, r1
-_0800AC9E:
-	cmp r4, #6
-	beq _0800AC72
-	cmp r4, #6
-	bgt _0800ACC4
-	cmp r4, #2
-	beq _0800ACD8
-	cmp r4, #2
-	bgt _0800ACB8
-	cmp r4, #0
-	beq _0800AC72
-	cmp r4, #1
-	beq _0800ACDC
-	b _0800ACE0
-_0800ACB8:
-	cmp r4, #4
-	beq _0800AC72
-	cmp r4, #4
-	bgt _0800ACDC
-	movs r0, #1
-	b _0800ACE2
-_0800ACC4:
-	cmp r4, #9
-	bgt _0800ACCE
-	cmp r4, #8
-	bge _0800AC72
-	b _0800ACDC
-_0800ACCE:
-	cmp r4, #0xb
-	ble _0800ACD8
-	cmp r4, #0xff
-	beq _0800AC72
-	b _0800ACE0
-_0800ACD8:
-	movs r0, #2
-	b _0800ACE2
-_0800ACDC:
-	movs r0, #3
-	b _0800ACE2
-_0800ACE0:
-	movs r0, #0
-_0800ACE2:
-	pop {r4}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_START sub_800ACE8
-sub_800ACE8: @ 0x0800ACE8
-	push {lr}
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	adds r1, r0, #0
-	cmp r0, #1
-	beq _0800AD1E
-	cmp r0, #1
-	bgt _0800ACFE
-	cmp r0, #0
-	beq _0800AD14
-	b _0800AD1A
-_0800ACFE:
-	cmp r1, #2
-	beq _0800AD08
-	cmp r1, #3
-	beq _0800AD0E
-	b _0800AD1A
-_0800AD08:
-	bl sub_800AE1C
-	b _0800AD1E
-_0800AD0E:
-	bl sub_800AE70
-	b _0800AD1E
-_0800AD14:
-	bl sub_800AED0
-	b _0800AD1E
-_0800AD1A:
-	bl sub_800AED0
-_0800AD1E:
-	pop {r0}
-	bx r0
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_800AD24
-sub_800AD24: @ 0x0800AD24
-	push {lr}
-	bl sub_800AC64
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	cmp r0, #2
-	beq _0800AD3C
-	cmp r0, #2
-	ble _0800AD46
-	cmp r0, #3
-	beq _0800AD42
-	b _0800AD46
-_0800AD3C:
-	bl sub_800AE1C
-	b _0800AD46
-_0800AD42:
-	bl sub_800AE70
-_0800AD46:
-	pop {r0}
-	bx r0
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_800AD4C
-sub_800AD4C: @ 0x0800AD4C
-	push {r4, lr}
-	bl sub_80351F8
-	bl sub_8035170
-	adds r4, r0, #0
-	lsls r4, r4, #0x10
-	lsrs r4, r4, #0x10
-	bl sub_800B050
-	bl sub_800AD84
-	adds r0, r4, #0
-	bl sub_800B0AC
-	bl sub_800B06C
-	bl sub_800ADA4
-	adds r0, r4, #0
-	bl sub_800B0C8
-	bl sub_800B034
-	pop {r4}
-	pop {r0}
-	bx r0
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_800AD84
-sub_800AD84: @ 0x0800AD84
-	push {lr}
-	ldr r1, _0800AD98
-	ldr r0, _0800AD9C
-	ldr r0, [r0]
-	ldr r2, _0800ADA0
-	bl sub_80588C4
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0800AD98: .4byte 0x0E000040
-_0800AD9C: .4byte 0x08E0CD10
-_0800ADA0: .4byte 0x00000747
-
-	THUMB_FUNC_START sub_800ADA4
-sub_800ADA4: @ 0x0800ADA4
-	push {lr}
-	ldr r1, _0800ADB8
-	ldr r0, _0800ADBC
-	ldr r0, [r0]
-	ldr r2, _0800ADC0
-	bl sub_80588C4
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0800ADB8: .4byte 0x0E004020
-_0800ADBC: .4byte 0x08E0CD10
-_0800ADC0: .4byte 0x00000747
-
-	THUMB_FUNC_START sub_800ADC4
-sub_800ADC4: @ 0x0800ADC4
-	push {lr}
-	ldr r0, _0800ADE0
-	ldr r1, [r0]
-	ldr r0, _0800ADE4
-	ldr r3, _0800ADE8
-	ldr r2, _0800ADEC
-	ldr r3, [r3]
-	bl sub_805AAC4
-	bl sub_803519C
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800ADE0: .4byte 0x08E0CD10
-_0800ADE4: .4byte 0x0E000040
-_0800ADE8: .4byte 0x020245AC
-_0800ADEC: .4byte 0x00000747
-
-	THUMB_FUNC_START sub_800ADF0
-sub_800ADF0: @ 0x0800ADF0
-	push {lr}
-	ldr r0, _0800AE0C
-	ldr r1, [r0]
-	ldr r0, _0800AE10
-	ldr r3, _0800AE14
-	ldr r2, _0800AE18
-	ldr r3, [r3]
-	bl sub_805AAC4
-	bl sub_803519C
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800AE0C: .4byte 0x08E0CD10
-_0800AE10: .4byte 0x0E004020
-_0800AE14: .4byte 0x020245AC
-_0800AE18: .4byte 0x00000747
-
-	THUMB_FUNC_START sub_800AE1C
-sub_800AE1C: @ 0x0800AE1C
-	push {r4, r5, lr}
-	ldr r5, _0800AE5C
-	ldr r1, [r5]
-	ldr r0, _0800AE60
-	ldr r3, [r0]
-	ldr r0, _0800AE64
-	ldr r2, _0800AE68
-	bl sub_805AAC4
-	bl sub_803519C
-	bl sub_800B134
-	adds r4, r0, #0
-	lsls r4, r4, #0x10
-	lsrs r4, r4, #0x10
-	bl sub_800B06C
-	ldr r0, [r5]
-	ldr r1, _0800AE6C
-	ldr r2, _0800AE68
-	bl sub_80588C4
-	adds r0, r4, #0
-	bl sub_800B0C8
-	bl sub_800B034
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800AE5C: .4byte 0x08E0CD10
-_0800AE60: .4byte 0x020245AC
-_0800AE64: .4byte 0x0E000040
-_0800AE68: .4byte 0x00000747
-_0800AE6C: .4byte 0x0E004020
-
-	THUMB_FUNC_START sub_800AE70
-sub_800AE70: @ 0x0800AE70
-	push {r4, r5, lr}
-	ldr r5, _0800AEB0
-	ldr r1, [r5]
-	ldr r0, _0800AEB4
-	ldr r3, [r0]
-	ldr r0, _0800AEB8
-	ldr r2, _0800AEBC
-	bl sub_805AAC4
-	bl sub_803519C
-	bl sub_800B158
-	adds r4, r0, #0
-	lsls r4, r4, #0x10
-	lsrs r4, r4, #0x10
-	bl sub_800B050
-	ldr r0, [r5]
-	ldr r1, _0800AEC0
-	ldr r2, _0800AEBC
-	bl sub_80588C4
-	adds r0, r4, #0
-	bl sub_800B0AC
-	bl sub_800B034
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800AEB0: .4byte 0x08E0CD10
-_0800AEB4: .4byte 0x020245AC
-_0800AEB8: .4byte 0x0E004020
-_0800AEBC: .4byte 0x00000747
-_0800AEC0: .4byte 0x0E000040
-
-	THUMB_FUNC_START sub_800AEC4
-sub_800AEC4: @ 0x0800AEC4
-	push {lr}
-	bl sub_805882C
-	pop {r0}
-	bx r0
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_800AED0
-sub_800AED0: @ 0x0800AED0
-	push {r4, r5, r6, lr}
-	sub sp, #4
-	ldr r0, _0800AF60
-	ldr r6, [r0]
-	movs r5, #0xe0
-	lsls r5, r5, #0x14
-	mov r1, sp
-	movs r0, #0
-	strh r0, [r1]
-	ldr r2, _0800AF64
-	mov r0, sp
-	adds r1, r6, #0
-	bl CpuSet
-	movs r4, #0x80
-	lsls r4, r4, #6
-	adds r0, r6, #0
-	adds r1, r5, #0
-	adds r2, r4, #0
-	bl sub_80588C4
-	adds r5, r5, r4
-	adds r0, r6, #0
-	adds r1, r5, #0
-	adds r2, r4, #0
-	bl sub_80588C4
-	adds r5, r5, r4
-	adds r0, r6, #0
-	adds r1, r5, #0
-	adds r2, r4, #0
-	bl sub_80588C4
-	adds r5, r5, r4
-	adds r0, r6, #0
-	adds r1, r5, #0
-	adds r2, r4, #0
-	bl sub_80588C4
-	bl sub_800AFF0
-	bl sub_80351F8
-	bl sub_8035170
-	adds r4, r0, #0
-	lsls r4, r4, #0x10
-	lsrs r4, r4, #0x10
-	bl sub_800B050
-	bl sub_800AD84
-	adds r0, r4, #0
-	bl sub_800B0AC
-	bl sub_800B06C
-	bl sub_800ADA4
-	adds r0, r4, #0
-	bl sub_800B0C8
-	bl sub_800B1E4
-	bl sub_800B17C
-	bl sub_800B034
-	add sp, #4
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800AF60: .4byte 0x08E0CD10
-_0800AF64: .4byte 0x01001000
-
-	THUMB_FUNC_START sub_800AF68
-sub_800AF68: @ 0x0800AF68
-	push {r4, r5, r6, lr}
-	sub sp, #4
-	ldr r0, _0800AFE4
-	ldr r6, [r0]
-	movs r5, #0xe0
-	lsls r5, r5, #0x14
-	mov r1, sp
-	movs r0, #0
-	strh r0, [r1]
-	ldr r2, _0800AFE8
-	mov r0, sp
-	adds r1, r6, #0
-	bl CpuSet
-	movs r4, #0x80
-	lsls r4, r4, #6
-	adds r0, r6, #0
-	adds r1, r5, #0
-	adds r2, r4, #0
-	bl sub_80588C4
-	adds r5, r5, r4
-	adds r0, r6, #0
-	adds r1, r5, #0
-	adds r2, r4, #0
-	bl sub_80588C4
-	adds r5, r5, r4
-	adds r0, r6, #0
-	adds r1, r5, #0
-	adds r2, r4, #0
-	bl sub_80588C4
-	adds r5, r5, r4
-	adds r0, r6, #0
-	adds r1, r5, #0
-	adds r2, r4, #0
-	bl sub_80588C4
-	bl sub_800AFF0
-	bl sub_800B050
-	ldr r4, _0800AFEC
-	adds r0, r4, #0
-	bl sub_800B0AC
-	bl sub_800B06C
-	adds r0, r4, #0
-	bl sub_800B0C8
-	bl sub_800B1E4
-	bl sub_800B17C
-	bl sub_800B034
-	add sp, #4
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800AFE4: .4byte 0x08E0CD10
-_0800AFE8: .4byte 0x01001000
-_0800AFEC: .4byte 0x0000FFFF
-
-	THUMB_FUNC_START sub_800AFF0
-sub_800AFF0: @ 0x0800AFF0
-	push {lr}
-	bl sub_800759C
-	bl InitTrunkCards
-	bl sub_801DA58
-	bl sub_801D6C0
-	bl sub_801D724
-	bl sub_8020168
-	bl sub_802712C
-	bl sub_802D9F0
-	bl sub_8026F3C
-	bl sub_80561FC
-	bl sub_80554EC
-	bl sub_8055FD0
-	ldr r0, _0800B030
-	bl sub_801FB44
-	bl sub_8048CB8
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800B030: .4byte 0x02021C8C
-
-	THUMB_FUNC_START sub_800B034
-sub_800B034: @ 0x0800B034
-	push {lr}
-	sub sp, #4
-	movs r1, #0
-	mov r0, sp
-	strb r1, [r0]
-	movs r1, #0xe0
-	lsls r1, r1, #0x14
-	movs r2, #1
-	bl sub_80588C4
-	add sp, #4
-	pop {r1}
-	bx r1
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_800B050
-sub_800B050: @ 0x0800B050
-	push {lr}
-	sub sp, #4
-	movs r1, #1
-	mov r0, sp
-	strb r1, [r0]
-	movs r1, #0xe0
-	lsls r1, r1, #0x14
-	movs r2, #1
-	bl sub_80588C4
-	add sp, #4
-	pop {r1}
-	bx r1
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_800B06C
-sub_800B06C: @ 0x0800B06C
-	push {lr}
-	sub sp, #4
-	movs r1, #2
-	mov r0, sp
-	strb r1, [r0]
-	movs r1, #0xe0
-	lsls r1, r1, #0x14
-	movs r2, #1
-	bl sub_80588C4
-	add sp, #4
-	pop {r1}
-	bx r1
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_800B088
-sub_800B088: @ 0x0800B088
-	push {lr}
-	sub sp, #4
-	movs r0, #0xe0
-	lsls r0, r0, #0x14
-	ldr r1, _0800B0A8
-	ldr r3, [r1]
-	mov r1, sp
-	movs r2, #1
-	bl sub_805AAC4
-	mov r0, sp
-	ldrb r0, [r0]
-	add sp, #4
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0800B0A8: .4byte 0x020245AC
-
-	THUMB_FUNC_START sub_800B0AC
-sub_800B0AC: @ 0x0800B0AC
-	push {lr}
-	sub sp, #4
-	mov r1, sp
-	strh r0, [r1]
-	ldr r1, _0800B0C4
-	mov r0, sp
-	movs r2, #2
-	bl sub_80588C4
-	add sp, #4
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0800B0C4: .4byte 0x0E00401E
-
-	THUMB_FUNC_START sub_800B0C8
-sub_800B0C8: @ 0x0800B0C8
-	push {lr}
-	sub sp, #4
-	mov r1, sp
-	strh r0, [r1]
-	ldr r1, _0800B0E0
-	mov r0, sp
-	movs r2, #2
-	bl sub_80588C4
-	add sp, #4
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0800B0E0: .4byte 0x0E007FFE
-
-	THUMB_FUNC_START sub_800B0E4
-sub_800B0E4: @ 0x0800B0E4
-	push {r4, r5, lr}
-	movs r5, #0
-	bl sub_800ADC4
-	bl sub_8035170
-	adds r4, r0, #0
-	lsls r4, r4, #0x10
-	lsrs r4, r4, #0x10
-	bl sub_800B134
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	cmp r4, r0
-	bne _0800B104
-	movs r5, #1
-_0800B104:
-	adds r0, r5, #0
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_START sub_800B10C
-sub_800B10C: @ 0x0800B10C
-	push {r4, r5, lr}
-	movs r5, #0
-	bl sub_800ADF0
-	bl sub_8035170
-	adds r4, r0, #0
-	lsls r4, r4, #0x10
-	lsrs r4, r4, #0x10
-	bl sub_800B158
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	cmp r4, r0
-	bne _0800B12C
-	movs r5, #1
-_0800B12C:
-	adds r0, r5, #0
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_START sub_800B134
-sub_800B134: @ 0x0800B134
-	push {lr}
-	sub sp, #4
-	ldr r0, _0800B150
-	ldr r1, _0800B154
-	ldr r3, [r1]
-	mov r1, sp
-	movs r2, #2
-	bl sub_805AAC4
-	mov r0, sp
-	ldrh r0, [r0]
-	add sp, #4
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0800B150: .4byte 0x0E00401E
-_0800B154: .4byte 0x020245AC
-
-	THUMB_FUNC_START sub_800B158
-sub_800B158: @ 0x0800B158
-	push {lr}
-	sub sp, #4
-	ldr r0, _0800B174
-	ldr r1, _0800B178
-	ldr r3, [r1]
-	mov r1, sp
-	movs r2, #2
-	bl sub_805AAC4
-	mov r0, sp
-	ldrh r0, [r0]
-	add sp, #4
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0800B174: .4byte 0x0E007FFE
-_0800B178: .4byte 0x020245AC
-
-	THUMB_FUNC_START sub_800B17C
-sub_800B17C: @ 0x0800B17C
-	push {lr}
-	ldr r0, _0800B18C
-	ldr r1, _0800B190
-	movs r2, #0xf
-	bl sub_80588C4
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0800B18C: .4byte 0x080D2CF0
-_0800B190: .4byte 0x0E000001
-
-	THUMB_FUNC_START sub_800B194
-sub_800B194: @ 0x0800B194
-	push {r4, lr}
-	sub sp, #0x10
-	movs r4, #1
-	ldr r0, _0800B1B0
-	ldr r1, _0800B1B4
-	ldr r3, [r1]
-	mov r1, sp
-	movs r2, #0xf
-	bl sub_805AAC4
-	movs r2, #0
-	mov r0, sp
-	ldr r1, _0800B1B8
-	b _0800B1CA
-	.align 2, 0
-_0800B1B0: .4byte 0x0E000001
-_0800B1B4: .4byte 0x020245AC
-_0800B1B8: .4byte 0x080D2CF0
-_0800B1BC:
-	adds r2, #1
-	cmp r2, #0xe
-	bhi _0800B1D4
-	mov r1, sp
-	adds r0, r1, r2
-	ldr r1, _0800B1E0
-	adds r1, r2, r1
-_0800B1CA:
-	ldrb r0, [r0]
-	ldrb r1, [r1]
-	cmp r0, r1
-	beq _0800B1BC
-	movs r4, #0
-_0800B1D4:
-	adds r0, r4, #0
-	add sp, #0x10
-	pop {r4}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0800B1E0: .4byte 0x080D2CF0
-
-	THUMB_FUNC_START sub_800B1E4
-sub_800B1E4: @ 0x0800B1E4
-	push {lr}
-	sub sp, #4
-	movs r1, #3
-	mov r0, sp
-	strb r1, [r0]
-	movs r1, #0xe0
-	lsls r1, r1, #0x14
-	movs r2, #1
-	bl sub_80588C4
-	add sp, #4
-	pop {r1}
-	bx r1
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_800B200
-sub_800B200: @ 0x0800B200
-	push {r4, r5, r6, r7, lr}
-	bl sub_80267B8
-	movs r4, #0
-	ldr r5, _0800B268
-_0800B20A:
-	lsls r1, r4, #3
-	subs r1, r1, r4
-	lsls r1, r1, #2
-	ldr r0, [r5]
-	adds r0, r0, r1
-	lsls r1, r4, #6
-	ldr r2, _0800B26C
-	adds r1, r1, r2
-	ldr r2, _0800B270
-	bl CpuSet
-	adds r0, r4, #1
-	lsls r0, r0, #0x10
-	lsrs r4, r0, #0x10
-	cmp r4, #0x12
-	bls _0800B20A
-	movs r4, #0x40
-	ldr r6, _0800B274
-	ldr r7, _0800B278
-	ldr r5, _0800B27C
-	movs r3, #0x80
-	ldr r2, _0800B280
-_0800B236:
-	ldr r0, [r5]
-	adds r0, r0, r4
-	ldrb r1, [r0]
-	orrs r1, r3
-	strb r1, [r0]
-	adds r0, r4, #1
-	lsls r0, r0, #0x10
-	lsrs r4, r0, #0x10
-	cmp r4, r2
-	bls _0800B236
-	ldr r0, [r6]
-	adds r1, r7, #0
-	movs r2, #0x80
-	bl CpuSet
-	ldr r0, _0800B27C
-	ldr r0, [r0]
-	ldr r1, _0800B284
-	movs r2, #0x80
-	lsls r2, r2, #6
-	bl CpuSet
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800B268: .4byte gUnk_8E0136C
-_0800B26C: .4byte 0x0200FC62
-_0800B270: .4byte 0x04000007
-_0800B274: .4byte gUnk_8E01368
-_0800B278: .4byte 0x02000100
-_0800B27C: .4byte gUnk_8E01364
-_0800B280: .4byte 0x00003FFF
-_0800B284: .4byte 0x02004400
-
-	THUMB_FUNC_START sub_800B288
-sub_800B288: @ 0x0800B288
-	push {r4, lr}
-	lsls r0, r0, #0x18
-	lsrs r4, r0, #0x18
-	cmp r4, #0
-	beq _0800B296
-	cmp r4, #2
-	bne _0800B29A
-_0800B296:
-	bl sub_800B200
-_0800B29A:
-	subs r0, r4, #1
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	cmp r0, #1
-	bhi _0800B2A8
-	bl sub_800B2B0
-_0800B2A8:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_800B2B0
-sub_800B2B0: @ 0x0800B2B0
-	push {r4, r5, r6, lr}
-	bl sub_80267B8
-	movs r4, #0
-	ldr r6, _0800B2FC
-_0800B2BA:
-	lsls r1, r4, #3
-	subs r1, r1, r4
-	lsls r1, r1, #2
-	ldr r0, [r6]
-	adds r0, r0, r1
-	lsls r1, r4, #6
-	ldr r5, _0800B300
-	adds r1, r1, r5
-	ldr r2, _0800B304
-	bl CpuSet
-	adds r0, r4, #1
-	lsls r0, r0, #0x18
-	lsrs r4, r0, #0x18
-	cmp r4, #0x12
-	bls _0800B2BA
-	ldr r0, _0800B308
-	ldr r0, [r0]
-	ldr r1, _0800B30C
-	movs r2, #0x80
-	bl CpuSet
-	ldr r0, _0800B310
-	ldr r0, [r0]
-	ldr r2, _0800B314
-	adds r1, r5, r2
-	movs r2, #0x80
-	lsls r2, r2, #6
-	bl CpuSet
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800B2FC: .4byte gUnk_8E0136C
-_0800B300: .4byte 0x0200F440
-_0800B304: .4byte 0x04000007
-_0800B308: .4byte gUnk_8E01368
-_0800B30C: .4byte 0x02000000
-_0800B310: .4byte gUnk_8E01364
-_0800B314: .4byte 0xFFFF0FC0
-
-	THUMB_FUNC_START sub_800B318
-sub_800B318: @ 0x0800B318
-	push {r4, r5, r6, lr}
-	adds r6, r0, #0
-	ldrh r0, [r6]
-	bl SetCardInfo
-	ldr r5, _0800B37C
-	ldrb r0, [r5, #0x1a]
-	cmp r0, #2
-	bne _0800B374
-	ldrh r0, [r5, #0x12]
-	ldr r4, _0800B380
-	ldrb r2, [r6, #2]
-	lsls r1, r2, #1
-	adds r1, r1, r2
-	lsls r1, r1, #3
-	ldrb r2, [r5, #0x16]
-	adds r1, r1, r2
-	adds r1, r1, r4
-	ldrb r1, [r1]
-	bl sub_800B594
-	strh r0, [r5, #0x12]
-	ldrh r0, [r5, #0x14]
-	ldrb r2, [r6, #2]
-	lsls r1, r2, #1
-	adds r1, r1, r2
-	lsls r1, r1, #3
-	ldrb r2, [r5, #0x16]
-	adds r1, r1, r2
-	adds r1, r1, r4
-	ldrb r1, [r1]
-	bl sub_800B594
-	strh r0, [r5, #0x14]
-	ldrh r0, [r5, #0x12]
-	movs r1, #3
-	ldrsb r1, [r6, r1]
-	bl sub_800B560
-	strh r0, [r5, #0x12]
-	ldrh r0, [r5, #0x14]
-	movs r1, #3
-	ldrsb r1, [r6, r1]
-	bl sub_800B560
-	strh r0, [r5, #0x14]
-_0800B374:
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800B37C: .4byte gCardInfo
-_0800B380: .4byte 0x08094FE4
-
-	THUMB_FUNC_START sub_800B384
-sub_800B384: @ 0x0800B384
-	push {r4, lr}
-	movs r0, #0
-	bl sub_800BD14
-	ldr r4, _0800B3D0
-	str r0, [r4]
-	movs r0, #0
-	bl sub_800BD14
-	str r0, [r4, #4]
-	ldr r0, _0800B3D4
-	ldr r0, [r0]
-	str r0, [r4, #8]
-	movs r1, #0
-	str r1, [r4, #0xc]
-	movs r0, #0
-	strh r1, [r4, #0x10]
-	ldr r1, _0800B3D8
-	strh r1, [r4, #0x12]
-	movs r1, #1
-	rsbs r1, r1, #0
-	strh r1, [r4, #0x14]
-	strb r0, [r4, #0x16]
-	strb r0, [r4, #0x17]
-	strb r0, [r4, #0x18]
-	strb r0, [r4, #0x19]
-	strb r0, [r4, #0x1a]
-	strb r0, [r4, #0x1b]
-	strb r0, [r4, #0x1c]
-	strb r0, [r4, #0x1d]
-	strb r0, [r4, #0x1e]
-	ldr r1, _0800B3DC
-	strb r0, [r1]
-	ldr r1, _0800B3E0
-	strb r0, [r1]
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800B3D0: .4byte gCardInfo
-_0800B3D4: .4byte 0x08F985E0
-_0800B3D8: .4byte 0x0000FFFF
-_0800B3DC: .4byte 0x0201CB38
-_0800B3E0: .4byte 0x0201CB39
-
-	THUMB_FUNC_START SetCardInfo
-SetCardInfo: @ 0x0800B3E4
-	push {r4, r5, r6, lr}
-	adds r4, r0, #0
-	lsls r4, r4, #0x10
-	lsrs r4, r4, #0x10
-	ldr r5, _0800B474
-	strh r4, [r5, #0x10]
-	ldr r0, _0800B478
-	lsls r1, r4, #1
-	adds r0, r1, r0
-	ldrh r0, [r0]
-	strh r0, [r5, #0x12]
-	ldr r0, _0800B47C
-	adds r1, r1, r0
-	ldrh r0, [r1]
-	strh r0, [r5, #0x14]
-	ldr r0, _0800B480
-	lsls r6, r4, #2
-	adds r0, r6, r0
-	ldr r0, [r0]
-	str r0, [r5, #0xc]
-	ldr r0, _0800B484
-	adds r0, r4, r0
-	ldrb r0, [r0]
-	strb r0, [r5, #0x17]
-	ldr r0, _0800B488
-	adds r0, r4, r0
-	ldrb r0, [r0]
-	strb r0, [r5, #0x18]
-	ldr r0, _0800B48C
-	adds r0, r4, r0
-	ldrb r0, [r0]
-	strb r0, [r5, #0x16]
-	ldr r0, _0800B490
-	adds r0, r4, r0
-	ldrb r0, [r0]
-	strb r0, [r5, #0x19]
-	ldr r0, _0800B494
-	adds r0, r4, r0
-	ldrb r0, [r0]
-	strb r0, [r5, #0x1a]
-	ldr r0, _0800B498
-	adds r0, r4, r0
-	ldrb r0, [r0]
-	strb r0, [r5, #0x1b]
-	ldr r0, _0800B49C
-	adds r0, r4, r0
-	ldrb r0, [r0]
-	strb r0, [r5, #0x1c]
-	ldr r1, _0800B4A0
-	ldrb r0, [r5, #0x1a]
-	adds r0, r0, r1
-	ldrb r0, [r0]
-	strb r0, [r5, #0x1d]
-	ldr r0, _0800B4A4
-	adds r0, r4, r0
-	ldrb r0, [r0]
-	strb r0, [r5, #0x1e]
-	adds r0, r4, #0
-	bl sub_800BD14
-	str r0, [r5]
-	adds r0, r4, #0
-	bl sub_800BD14
-	str r0, [r5, #4]
-	ldr r0, _0800B4A8
-	adds r6, r6, r0
-	ldr r0, [r6]
-	str r0, [r5, #8]
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800B474: .4byte gCardInfo
-_0800B478: .4byte gCardAtks
-_0800B47C: .4byte gCardDefs
-_0800B480: .4byte gCardCosts
-_0800B484: .4byte gCardAttr
-_0800B488: .4byte gCardLevels
-_0800B48C: .4byte gCardTypes
-_0800B490: .4byte gCardColors
-_0800B494: .4byte gCardMagicEffect
-_0800B498: .4byte gCardMonsterEffects
-_0800B49C: .4byte gCardTrapEffect
-_0800B4A0: .4byte 0x08094C37
-_0800B4A4: .4byte 0x08094CC3
-_0800B4A8: .4byte 0x08F985E0
-
-	THUMB_FUNC_START sub_800B4AC
-sub_800B4AC: @ 0x0800B4AC
-	push {r4, r5, r6, lr}
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	bl SetCardInfo
-	ldr r6, _0800B514
-	ldrb r0, [r6, #0x1a]
-	cmp r0, #2
-	bne _0800B50C
-	ldrh r0, [r6, #0x12]
-	ldr r5, _0800B518
-	ldr r4, _0800B51C
-	ldrb r2, [r4]
-	lsls r1, r2, #1
-	adds r1, r1, r2
-	lsls r1, r1, #3
-	ldrb r2, [r6, #0x16]
-	adds r1, r1, r2
-	adds r1, r1, r5
-	ldrb r1, [r1]
-	bl sub_800B594
-	strh r0, [r6, #0x12]
-	ldrh r0, [r6, #0x14]
-	ldrb r2, [r4]
-	lsls r1, r2, #1
-	adds r1, r1, r2
-	lsls r1, r1, #3
-	ldrb r2, [r6, #0x16]
-	adds r1, r1, r2
-	adds r1, r1, r5
-	ldrb r1, [r1]
-	bl sub_800B594
-	strh r0, [r6, #0x14]
-	ldrh r0, [r6, #0x12]
-	ldr r4, _0800B520
-	movs r1, #0
-	ldrsb r1, [r4, r1]
-	bl sub_800B560
-	strh r0, [r6, #0x12]
-	ldrh r0, [r6, #0x14]
-	movs r1, #0
-	ldrsb r1, [r4, r1]
-	bl sub_800B560
-	strh r0, [r6, #0x14]
-_0800B50C:
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800B514: .4byte gCardInfo
-_0800B518: .4byte 0x08094FE4
-_0800B51C: .4byte 0x0201CB38
-_0800B520: .4byte 0x0201CB39
-
-	THUMB_FUNC_START sub_800B524
-sub_800B524: @ 0x0800B524
-	ldr r2, _0800B530
-	strb r0, [r2]
-	ldr r0, _0800B534
-	strb r1, [r0]
-	bx lr
-	.align 2, 0
-_0800B530: .4byte 0x0201CB38
-_0800B534: .4byte 0x0201CB39
-
-	THUMB_FUNC_START sub_800B538
-sub_800B538: @ 0x0800B538
-	push {r4, lr}
-	ldrh r0, [r0]
-	bl SetCardInfo
-	ldr r4, _0800B558
-	bl GetDuelistLevel
-	ldr r1, [r4, #0xc]
-	cmp r1, r0
-	bls _0800B550
-	ldr r0, _0800B55C
-	str r0, [r4, #8]
-_0800B550:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800B558: .4byte gCardInfo
-_0800B55C: .4byte 0x08DFB654
-
-	THUMB_FUNC_START sub_800B560
-sub_800B560: @ 0x0800B560
-	lsls r0, r0, #0x10
-	lsrs r2, r0, #0x10
-	lsls r1, r1, #0x18
-	asrs r1, r1, #0x18
-	lsls r0, r1, #5
-	subs r0, r0, r1
-	lsls r0, r0, #2
-	adds r0, r0, r1
-	lsls r0, r0, #2
-	adds r0, r0, r2
-	cmp r0, #0
-	bgt _0800B57C
-	movs r2, #0
-	b _0800B590
-_0800B57C:
-	ldr r1, _0800B588
-	cmp r0, r1
-	ble _0800B58C
-	adds r2, r1, #0
-	b _0800B590
-	.align 2, 0
-_0800B588: .4byte 0x0000FFFE
-_0800B58C:
-	lsls r0, r0, #0x10
-	lsrs r2, r0, #0x10
-_0800B590:
-	adds r0, r2, #0
-	bx lr
-
-	THUMB_FUNC_START sub_800B594
-sub_800B594: @ 0x0800B594
-	push {lr}
-	lsls r0, r0, #0x10
-	lsrs r2, r0, #0x10
-	lsls r1, r1, #0x18
-	lsrs r0, r1, #0x18
-	cmp r0, #4
-	bhi _0800B602
-	lsls r0, r0, #2
-	ldr r1, _0800B5AC
-	adds r0, r0, r1
-	ldr r0, [r0]
-	mov pc, r0
-	.align 2, 0
-_0800B5AC: .4byte 0x0800B5B0
-_0800B5B0: @ jump table
-	.4byte _0800B602 @ case 0
-	.4byte _0800B5C4 @ case 1
-	.4byte _0800B602 @ case 2
-	.4byte _0800B5E4 @ case 3
-	.4byte _0800B602 @ case 4
-_0800B5C4:
-	adds r0, r2, #0
-	bl sub_805C618
-	ldr r3, _0800B5E0
-	ldr r2, _0800B5DC
-	bl sub_805BEF4
-	bl sub_805AFC0
-	lsls r0, r0, #0x10
-	lsrs r2, r0, #0x10
-	b _0800B602
-	.align 2, 0
-_0800B5DC: .4byte 0x3FE66666
-_0800B5E0: .4byte 0x66666666
-_0800B5E4:
-	adds r0, r2, #0
-	bl sub_805C618
-	ldr r3, _0800B60C
-	ldr r2, _0800B608
-	bl sub_805BEF4
-	bl sub_805AFC0
-	lsls r0, r0, #0x10
-	lsrs r2, r0, #0x10
-	ldr r0, _0800B610
-	cmp r2, r0
-	bls _0800B602
-	ldr r2, _0800B614
-_0800B602:
-	adds r0, r2, #0
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0800B608: .4byte 0x3FF4CCCC
-_0800B60C: .4byte 0xCCCCCCCD
-_0800B610: .4byte 0x0000FFFD
-_0800B614: .4byte 0x0000FFFE
-
 	THUMB_FUNC_START sub_800B618
 sub_800B618: @ 0x0800B618
 	push {r4, r5, r6, lr}
@@ -9652,7 +5309,7 @@ sub_800E11C: @ 0x0800E11C
 	bx r0
 	.align 2, 0
 _0800E168: .4byte 0x02021C00
-_0800E16C: .4byte gBoard
+_0800E16C: .4byte gZones
 
 	THUMB_FUNC_START sub_800E170
 sub_800E170: @ 0x0800E170
@@ -9691,7 +5348,7 @@ sub_800E170: @ 0x0800E170
 	bx r0
 	.align 2, 0
 _0800E1BC: .4byte 0x02021C00
-_0800E1C0: .4byte gBoard
+_0800E1C0: .4byte gZones
 
 	THUMB_FUNC_START sub_800E1C4
 sub_800E1C4: @ 0x0800E1C4
@@ -9739,7 +5396,7 @@ sub_800E1C4: @ 0x0800E1C4
 	bx r0
 	.align 2, 0
 _0800E224: .4byte 0x02021C00
-_0800E228: .4byte gBoard
+_0800E228: .4byte gZones
 
 	THUMB_FUNC_START sub_800E22C
 sub_800E22C: @ 0x0800E22C
@@ -9787,7 +5444,7 @@ sub_800E22C: @ 0x0800E22C
 	bx r0
 	.align 2, 0
 _0800E28C: .4byte 0x02021C00
-_0800E290: .4byte gBoard
+_0800E290: .4byte gZones
 
 	THUMB_FUNC_START sub_800E294
 sub_800E294: @ 0x0800E294
@@ -9855,7 +5512,7 @@ sub_800E294: @ 0x0800E294
 	bx r0
 	.align 2, 0
 _0800E31C: .4byte 0x02021C00
-_0800E320: .4byte gBoard
+_0800E320: .4byte gZones
 
 	THUMB_FUNC_START sub_800E324
 sub_800E324: @ 0x0800E324
@@ -9923,7 +5580,7 @@ sub_800E324: @ 0x0800E324
 	bx r0
 	.align 2, 0
 _0800E3AC: .4byte 0x02021C00
-_0800E3B0: .4byte gBoard
+_0800E3B0: .4byte gZones
 
 	THUMB_FUNC_START sub_800E3B4
 sub_800E3B4: @ 0x0800E3B4
@@ -10003,7 +5660,7 @@ sub_800E3B4: @ 0x0800E3B4
 	bx r0
 	.align 2, 0
 _0800E458: .4byte 0x02021C00
-_0800E45C: .4byte gBoard
+_0800E45C: .4byte gZones
 
 	THUMB_FUNC_START sub_800E460
 sub_800E460: @ 0x0800E460
@@ -10083,7 +5740,7 @@ sub_800E460: @ 0x0800E460
 	bx r0
 	.align 2, 0
 _0800E504: .4byte 0x02021C00
-_0800E508: .4byte gBoard
+_0800E508: .4byte gZones
 
 	THUMB_FUNC_START sub_800E50C
 sub_800E50C: @ 0x0800E50C
@@ -10117,7 +5774,7 @@ sub_800E50C: @ 0x0800E50C
 	bx lr
 	.align 2, 0
 _0800E544: .4byte 0x02021C00
-_0800E548: .4byte gBoard
+_0800E548: .4byte gZones
 
 	THUMB_FUNC_START sub_800E54C
 sub_800E54C: @ 0x0800E54C
@@ -10151,7 +5808,7 @@ sub_800E54C: @ 0x0800E54C
 	bx lr
 	.align 2, 0
 _0800E584: .4byte 0x02021C00
-_0800E588: .4byte gBoard
+_0800E588: .4byte gZones
 
 	THUMB_FUNC_START sub_800E58C
 sub_800E58C: @ 0x0800E58C
@@ -10193,7 +5850,7 @@ sub_800E58C: @ 0x0800E58C
 	bx r0
 	.align 2, 0
 _0800E5DC: .4byte 0x02021C00
-_0800E5E0: .4byte gBoard
+_0800E5E0: .4byte gZones
 
 	THUMB_FUNC_START sub_800E5E4
 sub_800E5E4: @ 0x0800E5E4
@@ -10235,7 +5892,7 @@ sub_800E5E4: @ 0x0800E5E4
 	bx r0
 	.align 2, 0
 _0800E634: .4byte 0x02021C00
-_0800E638: .4byte gBoard
+_0800E638: .4byte gZones
 
 	THUMB_FUNC_START sub_800E63C
 sub_800E63C: @ 0x0800E63C
@@ -10295,7 +5952,7 @@ sub_800E63C: @ 0x0800E63C
 	bx r0
 	.align 2, 0
 _0800E6B0: .4byte 0x02021C00
-_0800E6B4: .4byte gBoard
+_0800E6B4: .4byte gZones
 
 	THUMB_FUNC_START sub_800E6B8
 sub_800E6B8: @ 0x0800E6B8
@@ -10355,7 +6012,7 @@ sub_800E6B8: @ 0x0800E6B8
 	bx r0
 	.align 2, 0
 _0800E72C: .4byte 0x02021C00
-_0800E730: .4byte gBoard
+_0800E730: .4byte gZones
 
 	THUMB_FUNC_START sub_800E734
 sub_800E734: @ 0x0800E734
@@ -10400,8 +6057,8 @@ sub_800E734: @ 0x0800E734
 	bx r0
 	.align 2, 0
 _0800E788: .4byte 0x02021C00
-_0800E78C: .4byte gBoard
-_0800E790: .4byte 0x020245A0
+_0800E78C: .4byte gZones
+_0800E790: .4byte gUnk020245A0
 
 	THUMB_FUNC_START sub_800E794
 sub_800E794: @ 0x0800E794
@@ -10446,8 +6103,8 @@ sub_800E794: @ 0x0800E794
 	bx r0
 	.align 2, 0
 _0800E7E8: .4byte 0x02021C00
-_0800E7EC: .4byte gBoard
-_0800E7F0: .4byte 0x020245A0
+_0800E7EC: .4byte gZones
+_0800E7F0: .4byte gUnk020245A0
 
 	THUMB_FUNC_START sub_800E7F4
 sub_800E7F4: @ 0x0800E7F4
@@ -10492,8 +6149,8 @@ sub_800E7F4: @ 0x0800E7F4
 	bx r0
 	.align 2, 0
 _0800E848: .4byte 0x02021C00
-_0800E84C: .4byte gBoard
-_0800E850: .4byte 0x020245A0
+_0800E84C: .4byte gZones
+_0800E850: .4byte gUnk020245A0
 
 	THUMB_FUNC_START sub_800E854
 sub_800E854: @ 0x0800E854
@@ -10538,8 +6195,8 @@ sub_800E854: @ 0x0800E854
 	bx r0
 	.align 2, 0
 _0800E8A8: .4byte 0x02021C00
-_0800E8AC: .4byte gBoard
-_0800E8B0: .4byte 0x020245A0
+_0800E8AC: .4byte gZones
+_0800E8B0: .4byte gUnk020245A0
 
 	THUMB_FUNC_START sub_800E8B4
 sub_800E8B4: @ 0x0800E8B4
@@ -10593,7 +6250,7 @@ _0800E910:
 	bx r0
 	.align 2, 0
 _0800E918: .4byte 0x02021C00
-_0800E91C: .4byte gBoard
+_0800E91C: .4byte gZones
 _0800E920: .4byte gMonEffect
 _0800E924: .4byte gDuel+0x100
 
@@ -10623,7 +6280,7 @@ sub_800E92C: @ 0x0800E92C
 	bx r0
 	.align 2, 0
 _0800E950: .4byte 0x02021C00
-_0800E954: .4byte gBoard
+_0800E954: .4byte gZones
 
 	THUMB_FUNC_START sub_800E958
 sub_800E958: @ 0x0800E958
@@ -10651,7 +6308,7 @@ sub_800E958: @ 0x0800E958
 	bx lr
 	.align 2, 0
 _0800E984: .4byte 0x02021C00
-_0800E988: .4byte gBoard
+_0800E988: .4byte gZones
 
 	THUMB_FUNC_START sub_800E98C
 sub_800E98C: @ 0x0800E98C
@@ -10690,7 +6347,7 @@ sub_800E9A4: @ 0x0800E9A4
 	bx r0
 	.align 2, 0
 _0800E9C8: .4byte 0x02021C00
-_0800E9CC: .4byte gBoard
+_0800E9CC: .4byte gZones
 
 	THUMB_FUNC_START sub_800E9D0
 sub_800E9D0: @ 0x0800E9D0
@@ -10718,7 +6375,7 @@ sub_800E9D0: @ 0x0800E9D0
 	bx lr
 	.align 2, 0
 _0800E9FC: .4byte 0x02021C00
-_0800EA00: .4byte gBoard
+_0800EA00: .4byte gZones
 
 	THUMB_FUNC_START sub_800EA04
 sub_800EA04: @ 0x0800EA04
@@ -10774,7 +6431,7 @@ sub_800EA20: @ 0x0800EA20
 	bx r0
 	.align 2, 0
 _0800EA60: .4byte 0x02021C00
-_0800EA64: .4byte gBoard
+_0800EA64: .4byte gZones
 
 	THUMB_FUNC_START sub_800EA68
 sub_800EA68: @ 0x0800EA68
@@ -10809,7 +6466,7 @@ sub_800EA68: @ 0x0800EA68
 	bx r0
 	.align 2, 0
 _0800EAA8: .4byte 0x02021C00
-_0800EAAC: .4byte gBoard
+_0800EAAC: .4byte gZones
 
 	THUMB_FUNC_START sub_800EAB0
 sub_800EAB0: @ 0x0800EAB0
@@ -10844,7 +6501,7 @@ sub_800EAB0: @ 0x0800EAB0
 	bx r0
 	.align 2, 0
 _0800EAF0: .4byte 0x02021C00
-_0800EAF4: .4byte gBoard
+_0800EAF4: .4byte gZones
 
 	THUMB_FUNC_START sub_800EAF8
 sub_800EAF8: @ 0x0800EAF8
@@ -10879,7 +6536,7 @@ sub_800EAF8: @ 0x0800EAF8
 	bx r0
 	.align 2, 0
 _0800EB38: .4byte 0x02021C00
-_0800EB3C: .4byte gBoard
+_0800EB3C: .4byte gZones
 
 	THUMB_FUNC_START sub_800EB40
 sub_800EB40: @ 0x0800EB40
@@ -10916,7 +6573,7 @@ sub_800EB40: @ 0x0800EB40
 	.align 2, 0
 _0800EB80: .4byte 0x02021C00
 _0800EB84: .4byte gUnk2024260
-_0800EB88: .4byte gBoard
+_0800EB88: .4byte gZones
 
 	THUMB_FUNC_START sub_800EB8C
 sub_800EB8C: @ 0x0800EB8C
@@ -10953,7 +6610,7 @@ sub_800EB8C: @ 0x0800EB8C
 	.align 2, 0
 _0800EBCC: .4byte 0x02021C00
 _0800EBD0: .4byte gUnk2024260
-_0800EBD4: .4byte gBoard
+_0800EBD4: .4byte gZones
 
 	THUMB_FUNC_START sub_800EBD8
 sub_800EBD8: @ 0x0800EBD8
@@ -10988,7 +6645,7 @@ sub_800EBD8: @ 0x0800EBD8
 	bx r0
 	.align 2, 0
 _0800EC18: .4byte 0x02021C00
-_0800EC1C: .4byte gBoard
+_0800EC1C: .4byte gZones
 
 	THUMB_FUNC_START sub_800EC20
 sub_800EC20: @ 0x0800EC20
@@ -11023,7 +6680,7 @@ sub_800EC20: @ 0x0800EC20
 	bx r0
 	.align 2, 0
 _0800EC60: .4byte 0x02021C00
-_0800EC64: .4byte gBoard
+_0800EC64: .4byte gZones
 
 	THUMB_FUNC_START sub_800EC68
 sub_800EC68: @ 0x0800EC68
@@ -11064,7 +6721,7 @@ _0800ECA4:
 	.align 2, 0
 _0800ECB0: .4byte 0x02021C00
 _0800ECB4: .4byte gUnk2024260
-_0800ECB8: .4byte gBoard
+_0800ECB8: .4byte gZones
 _0800ECBC: .4byte gDuel+0x100
 
 	THUMB_FUNC_START sub_800ECC0
@@ -11096,7 +6753,7 @@ sub_800ECC0: @ 0x0800ECC0
 	.align 2, 0
 _0800ECF4: .4byte 0x02021C00
 _0800ECF8: .4byte gUnk2024260
-_0800ECFC: .4byte gBoard
+_0800ECFC: .4byte gZones
 
 	THUMB_FUNC_START sub_800ED00
 sub_800ED00: @ 0x0800ED00
@@ -11131,7 +6788,7 @@ sub_800ED00: @ 0x0800ED00
 	bx r0
 	.align 2, 0
 _0800ED40: .4byte 0x02021C00
-_0800ED44: .4byte gBoard
+_0800ED44: .4byte gZones
 
 	THUMB_FUNC_START sub_800ED48
 sub_800ED48: @ 0x0800ED48
@@ -11215,7 +6872,7 @@ _0800EDC0:
 	bx r0
 	.align 2, 0
 _0800EDEC: .4byte 0x02021C00
-_0800EDF0: .4byte gBoard
+_0800EDF0: .4byte gZones
 _0800EDF4: .4byte gUnk2024260
 
 	THUMB_FUNC_START sub_800EDF8
@@ -11239,7 +6896,7 @@ sub_800EDF8: @ 0x0800EDF8
 	bx r0
 	.align 2, 0
 _0800EE1C: .4byte 0x02021C00
-_0800EE20: .4byte gBoard
+_0800EE20: .4byte gZones
 
 	THUMB_FUNC_START sub_800EE24
 sub_800EE24: @ 0x0800EE24
@@ -11852,7 +7509,7 @@ _0800F2D2:
 	b _0800F3C8
 	.align 2, 0
 _0800F2E8: .4byte 0x02021C00
-_0800F2EC: .4byte gBoard
+_0800F2EC: .4byte gZones
 _0800F2F0: .4byte gCardInfo
 _0800F2F4:
 	cmp r0, #2
@@ -11996,7 +7653,7 @@ _0800F3E0:
 	b _0800F454
 	.align 2, 0
 _0800F42C: .4byte gUnk2021AC0
-_0800F430: .4byte gBoard
+_0800F430: .4byte gZones
 _0800F434: .4byte gDuel
 _0800F438: .4byte 0x08DFF6A4
 _0800F43C: .4byte 0x00002298
@@ -12064,7 +7721,7 @@ _0800F4A6:
 	b _0800F59C
 	.align 2, 0
 _0800F4BC: .4byte 0x02021C00
-_0800F4C0: .4byte gBoard
+_0800F4C0: .4byte gZones
 _0800F4C4: .4byte gCardInfo
 _0800F4C8:
 	cmp r0, #2
@@ -12208,7 +7865,7 @@ _0800F5B4:
 	b _0800F628
 	.align 2, 0
 _0800F600: .4byte gUnk2021AC0
-_0800F604: .4byte gBoard
+_0800F604: .4byte gZones
 _0800F608: .4byte gDuel
 _0800F60C: .4byte 0x08DFF6A4
 _0800F610: .4byte 0x00002298
@@ -12278,7 +7935,7 @@ sub_800F640: @ 0x0800F640
 	b _0800F812
 	.align 2, 0
 _0800F694: .4byte 0x02021C00
-_0800F698: .4byte gBoard
+_0800F698: .4byte gZones
 _0800F69C: .4byte gCardInfo
 _0800F6A0: .4byte 0x08DFF6A4
 _0800F6A4: .4byte 0x00002298
@@ -12350,7 +8007,7 @@ _0800F716:
 	ldr r1, _0800F748
 	b _0800F812
 	.align 2, 0
-_0800F73C: .4byte gBoard
+_0800F73C: .4byte gZones
 _0800F740: .4byte 0x08DFF6A4
 _0800F744: .4byte 0x00002298
 _0800F748: .4byte 0x7F3D9A1C
@@ -12489,7 +8146,7 @@ sub_800F830: @ 0x0800F830
 	b _0800F942
 	.align 2, 0
 _0800F86C: .4byte 0x02021C00
-_0800F870: .4byte gBoard
+_0800F870: .4byte gZones
 _0800F874: .4byte 0x08DFF6A4
 _0800F878: .4byte 0x00002298
 _0800F87C: .4byte 0x7F1D8EFC
@@ -12630,7 +8287,7 @@ sub_800F95C: @ 0x0800F95C
 	b _0800FAE6
 	.align 2, 0
 _0800F9A8: .4byte 0x02021C00
-_0800F9AC: .4byte gBoard
+_0800F9AC: .4byte gZones
 _0800F9B0: .4byte gCardInfo
 _0800F9B4: .4byte 0x08DFF6A4
 _0800F9B8: .4byte 0x00002298
@@ -12819,7 +8476,7 @@ sub_800FB00: @ 0x0800FB00
 	b _0800FC4A
 	.align 2, 0
 _0800FB4C: .4byte 0x02021C00
-_0800FB50: .4byte gBoard
+_0800FB50: .4byte gZones
 _0800FB54: .4byte gCardInfo
 _0800FB58: .4byte 0x08DFF6A4
 _0800FB5C: .4byte 0x00002298
@@ -12977,7 +8634,7 @@ sub_800FC64: @ 0x0800FC64
 	b _0800FDAE
 	.align 2, 0
 _0800FCB0: .4byte 0x02021C00
-_0800FCB4: .4byte gBoard
+_0800FCB4: .4byte gZones
 _0800FCB8: .4byte gCardInfo
 _0800FCBC: .4byte 0x08DFF6A4
 _0800FCC0: .4byte 0x00002298
@@ -13140,7 +8797,7 @@ sub_800FDC8: @ 0x0800FDC8
 	b _0800FF92
 	.align 2, 0
 _0800FE1C: .4byte 0x02021C00
-_0800FE20: .4byte gBoard
+_0800FE20: .4byte gZones
 _0800FE24: .4byte gCardInfo
 _0800FE28: .4byte 0x08DFF6A4
 _0800FE2C: .4byte 0x00002298
@@ -13360,7 +9017,7 @@ sub_800FFB0: @ 0x0800FFB0
 	b _0801017A
 	.align 2, 0
 _08010004: .4byte 0x02021C00
-_08010008: .4byte gBoard
+_08010008: .4byte gZones
 _0801000C: .4byte gCardInfo
 _08010010: .4byte 0x08DFF6A4
 _08010014: .4byte 0x00002298
@@ -13585,7 +9242,7 @@ sub_8010198: @ 0x08010198
 	b _080103BE
 	.align 2, 0
 _080101FC: .4byte 0x02021C00
-_08010200: .4byte gBoard
+_08010200: .4byte gZones
 _08010204: .4byte gCardInfo
 _08010208: .4byte 0x08DFF6A4
 _0801020C: .4byte 0x00002298
@@ -13640,7 +9297,7 @@ _0801025C:
 	ldr r1, _0801028C
 	b _080103BE
 	.align 2, 0
-_08010280: .4byte gBoard
+_08010280: .4byte gZones
 _08010284: .4byte 0x08DFF6A4
 _08010288: .4byte 0x00002298
 _0801028C: .4byte 0x7EDE89F9
@@ -13663,7 +9320,7 @@ _08010290:
 	ldr r1, _080102C0
 	b _080103BE
 	.align 2, 0
-_080102B4: .4byte gBoard
+_080102B4: .4byte gZones
 _080102B8: .4byte 0x08DFF6A4
 _080102BC: .4byte 0x00002298
 _080102C0: .4byte 0x7EDE89F9
@@ -13767,7 +9424,7 @@ _08010368:
 	ldr r1, _080103B0
 	b _080103BE
 	.align 2, 0
-_080103A4: .4byte gBoard
+_080103A4: .4byte gZones
 _080103A8: .4byte 0x08DFF6A4
 _080103AC: .4byte 0x00002298
 _080103B0: .4byte 0x7EDE89F9
@@ -13845,7 +9502,7 @@ sub_80103DC: @ 0x080103DC
 	b _08010602
 	.align 2, 0
 _08010440: .4byte 0x02021C00
-_08010444: .4byte gBoard
+_08010444: .4byte gZones
 _08010448: .4byte gCardInfo
 _0801044C: .4byte 0x08DFF6A4
 _08010450: .4byte 0x00002298
@@ -13900,7 +9557,7 @@ _080104A0:
 	ldr r1, _080104D0
 	b _08010602
 	.align 2, 0
-_080104C4: .4byte gBoard
+_080104C4: .4byte gZones
 _080104C8: .4byte 0x08DFF6A4
 _080104CC: .4byte 0x00002298
 _080104D0: .4byte 0x7EDE89F9
@@ -13923,7 +9580,7 @@ _080104D4:
 	ldr r1, _08010504
 	b _08010602
 	.align 2, 0
-_080104F8: .4byte gBoard
+_080104F8: .4byte gZones
 _080104FC: .4byte 0x08DFF6A4
 _08010500: .4byte 0x00002298
 _08010504: .4byte 0x7EDE89F9
@@ -14027,7 +9684,7 @@ _080105AC:
 	ldr r1, _080105F4
 	b _08010602
 	.align 2, 0
-_080105E8: .4byte gBoard
+_080105E8: .4byte gZones
 _080105EC: .4byte 0x08DFF6A4
 _080105F0: .4byte 0x00002298
 _080105F4: .4byte 0x7EDE89F9
@@ -14097,7 +9754,7 @@ sub_8010620: @ 0x08010620
 	.align 2, 0
 _08010674: .4byte 0x02021C00
 _08010678: .4byte gUnk2021AC0
-_0801067C: .4byte gBoard
+_0801067C: .4byte gZones
 _08010680: .4byte gDuel
 _08010684: .4byte gCardInfo
 _08010688: .4byte 0x08DFF6A4
@@ -14270,7 +9927,7 @@ sub_8010798: @ 0x08010798
 	.align 2, 0
 _080107EC: .4byte 0x02021C00
 _080107F0: .4byte gUnk2021AC0
-_080107F4: .4byte gBoard
+_080107F4: .4byte gZones
 _080107F8: .4byte gDuel
 _080107FC: .4byte gCardInfo
 _08010800: .4byte 0x08DFF6A4
@@ -14443,7 +10100,7 @@ _08010954:
 	.align 2, 0
 _08010964: .4byte 0x02021C00
 _08010968: .4byte gUnk2021AC0
-_0801096C: .4byte gBoard
+_0801096C: .4byte gZones
 _08010970: .4byte gDuel
 _08010974: .4byte gCardInfo
 _08010978: .4byte 0x08DFF6A4
@@ -14513,7 +10170,7 @@ _080109EC:
 	.align 2, 0
 _080109FC: .4byte 0x02021C00
 _08010A00: .4byte gUnk2021AC0
-_08010A04: .4byte gBoard
+_08010A04: .4byte gZones
 _08010A08: .4byte gDuel
 _08010A0C: .4byte gCardInfo
 _08010A10: .4byte 0x08DFF6A4
@@ -14578,7 +10235,7 @@ sub_8010A40: @ 0x08010A40
 	b _08010AE8
 	.align 2, 0
 _08010A8C: .4byte 0x02021C00
-_08010A90: .4byte gBoard
+_08010A90: .4byte gZones
 _08010A94: .4byte gCardInfo
 _08010A98: .4byte 0x08DFF6A4
 _08010A9C: .4byte 0x00002298
@@ -14669,7 +10326,7 @@ _08010B46:
 	lsrs r0, r0, #0x18
 	cmp r0, #1
 	bne _08010B94
-	bl GetCurrTurn
+	bl WhoseTurn
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	bl sub_8025534
@@ -14720,7 +10377,7 @@ _08010B94:
 	adds r0, r2, r1
 	b _08010C62
 	.align 2, 0
-_08010BC0: .4byte gBoard
+_08010BC0: .4byte gZones
 _08010BC4: .4byte 0x0000229C
 _08010BC8:
 	ldr r4, _08010BDC
@@ -14849,7 +10506,7 @@ sub_8010C78: @ 0x08010C78
 	b _08010D20
 	.align 2, 0
 _08010CC4: .4byte 0x02021C00
-_08010CC8: .4byte gBoard
+_08010CC8: .4byte gZones
 _08010CCC: .4byte gCardInfo
 _08010CD0: .4byte 0x08DFF6A4
 _08010CD4: .4byte 0x00002298
@@ -14940,7 +10597,7 @@ _08010D7E:
 	lsrs r0, r0, #0x18
 	cmp r0, #1
 	bne _08010DCC
-	bl GetCurrTurn
+	bl WhoseTurn
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	bl sub_8025534
@@ -14991,7 +10648,7 @@ _08010DCC:
 	adds r0, r2, r1
 	b _08010E9A
 	.align 2, 0
-_08010DF8: .4byte gBoard
+_08010DF8: .4byte gZones
 _08010DFC: .4byte 0x0000229C
 _08010E00:
 	ldr r4, _08010E14
@@ -15119,7 +10776,7 @@ sub_8010EB0: @ 0x08010EB0
 	.align 2, 0
 _08010EF8: .4byte 0x02021C00
 _08010EFC: .4byte gUnk2021AC0
-_08010F00: .4byte gBoard
+_08010F00: .4byte gZones
 _08010F04: .4byte gDuel
 _08010F08: .4byte gCardInfo
 _08010F0C: .4byte 0x08DFF6A4
@@ -15197,7 +10854,7 @@ sub_8010F58: @ 0x08010F58
 	.align 2, 0
 _08010FA0: .4byte 0x02021C00
 _08010FA4: .4byte gUnk2021AC0
-_08010FA8: .4byte gBoard
+_08010FA8: .4byte gZones
 _08010FAC: .4byte gDuel
 _08010FB0: .4byte gCardInfo
 _08010FB4: .4byte 0x08DFF6A4
@@ -15381,7 +11038,7 @@ sub_8011120: @ 0x08011120
 	b _08011176
 	.align 2, 0
 _08011154: .4byte 0x02021C00
-_08011158: .4byte gBoard
+_08011158: .4byte gZones
 _0801115C: .4byte gCardInfo
 _08011160: .4byte 0x08DFF6A4
 _08011164: .4byte 0x00002298
@@ -15418,7 +11075,7 @@ sub_8011190: @ 0x08011190
 	lsrs r0, r0, #0x18
 	cmp r0, #1
 	bne _080111E0
-	bl GetCurrTurn
+	bl WhoseTurn
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	bl sub_8025534
@@ -15472,7 +11129,7 @@ sub_80111FC: @ 0x080111FC
 	lsrs r0, r0, #0x18
 	cmp r0, #1
 	bne _0801124E
-	bl GetCurrTurn
+	bl WhoseTurn
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	bl sub_8025534
@@ -15670,7 +11327,7 @@ sub_8011368: @ 0x08011368
 	b _080113BE
 	.align 2, 0
 _0801139C: .4byte 0x02021C00
-_080113A0: .4byte gBoard
+_080113A0: .4byte gZones
 _080113A4: .4byte gCardInfo
 _080113A8: .4byte 0x08DFF6A4
 _080113AC: .4byte 0x00002298
@@ -15707,7 +11364,7 @@ sub_80113D8: @ 0x080113D8
 	lsrs r0, r0, #0x18
 	cmp r0, #1
 	bne _08011428
-	bl GetCurrTurn
+	bl WhoseTurn
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	bl sub_8025534
@@ -15760,7 +11417,7 @@ sub_8011440: @ 0x08011440
 	lsrs r0, r0, #0x18
 	cmp r0, #1
 	bne _08011492
-	bl GetCurrTurn
+	bl WhoseTurn
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	bl sub_8025534
@@ -15862,7 +11519,7 @@ sub_8011528: @ 0x08011528
 	b _0801161E
 	.align 2, 0
 _08011574: .4byte 0x02021C00
-_08011578: .4byte gBoard
+_08011578: .4byte gZones
 _0801157C: .4byte 0x00000247
 _08011580: .4byte 0x08DFF6A4
 _08011584: .4byte 0x00002298
@@ -15888,7 +11545,7 @@ _0801158C:
 	ldr r1, _080115C0
 	b _0801161E
 	.align 2, 0
-_080115B4: .4byte gBoard+0x3C
+_080115B4: .4byte gZones+0x3C
 _080115B8: .4byte 0x08DFF6A4
 _080115BC: .4byte 0x00002298
 _080115C0: .4byte 0x7EDE89F9
@@ -16001,7 +11658,7 @@ sub_80116F0: @ 0x080116F0
 	b _08011762
 	.align 2, 0
 _08011740: .4byte 0x02021C00
-_08011744: .4byte gBoard
+_08011744: .4byte gZones
 _08011748: .4byte gCardInfo
 _0801174C: .4byte 0x08DFF6A4
 _08011750: .4byte 0x00002298
@@ -16056,7 +11713,7 @@ sub_8011778: @ 0x08011778
 	b _08011806
 	.align 2, 0
 _080117B8: .4byte 0x02021C00
-_080117BC: .4byte gBoard
+_080117BC: .4byte gZones
 _080117C0: .4byte gCardInfo
 _080117C4: .4byte 0x08DFF6A4
 _080117C8: .4byte 0x00002298
@@ -16149,7 +11806,7 @@ _080118B6:
 	bx r0
 	.align 2, 0
 _080118C8: .4byte 0x02021C00
-_080118CC: .4byte gBoard
+_080118CC: .4byte gZones
 _080118D0: .4byte gCardInfo
 _080118D4: .4byte 0x08DFF6A4
 _080118D8: .4byte 0x00002298
@@ -16222,7 +11879,7 @@ sub_8011940: @ 0x08011940
 	.align 2, 0
 _08011990: .4byte 0x02021C00
 _08011994: .4byte gUnk2021AC0
-_08011998: .4byte gBoard
+_08011998: .4byte gZones
 _0801199C: .4byte gDuel
 _080119A0: .4byte 0x08DFF6A4
 _080119A4: .4byte 0x00002298
@@ -16272,7 +11929,7 @@ sub_80119AC: @ 0x080119AC
 	.align 2, 0
 _08011A00: .4byte 0x02021C00
 _08011A04: .4byte gUnk2021AC0
-_08011A08: .4byte gBoard
+_08011A08: .4byte gZones
 _08011A0C: .4byte gDuel
 _08011A10: .4byte 0x08DFF6A4
 _08011A14: .4byte 0x00002298
@@ -16380,7 +12037,7 @@ sub_8011AB0: @ 0x08011AB0
 	b _08011BEA
 	.align 2, 0
 _08011B58: .4byte 0x02021C00
-_08011B5C: .4byte gBoard
+_08011B5C: .4byte gZones
 _08011B60: .4byte gCardInfo
 _08011B64: .4byte gUnk2021AC0
 _08011B68: .4byte gUnk8E00FA8
@@ -16564,7 +12221,7 @@ _08011CDC: .4byte gUnk2021AC0
 _08011CE0: .4byte gUnk8E00FA8
 _08011CE4: .4byte gDuel
 _08011CE8: .4byte gCardInfo
-_08011CEC: .4byte gBoard
+_08011CEC: .4byte gZones
 _08011CF0: .4byte 0x08DFF6A4
 _08011CF4: .4byte 0x00002298
 _08011CF8: .4byte 0x7EDE89F9
@@ -16693,7 +12350,7 @@ _08011DE0:
 	ldr r1, _08011E18
 	b _08011E26
 	.align 2, 0
-_08011DFC: .4byte gBoard+0x14
+_08011DFC: .4byte gZones+0x14
 _08011E00: .4byte gUnk2021AC0
 _08011E04: .4byte gDuel+0xF0
 _08011E08: .4byte 0x000005DB
@@ -16787,7 +12444,7 @@ sub_8011E44: @ 0x08011E44
 	b _08012044
 	.align 2, 0
 _08011EC4: .4byte 0x02021C00
-_08011EC8: .4byte gBoard
+_08011EC8: .4byte gZones
 _08011ECC: .4byte gCardInfo
 _08011ED0: .4byte gUnk8E00FA8
 _08011ED4: .4byte 0x08DFF6A4
@@ -16898,7 +12555,7 @@ _08011FB4: .4byte gUnk2021AC0
 _08011FB8: .4byte gUnk8E00FA8
 _08011FBC: .4byte gDuel
 _08011FC0: .4byte gCardInfo
-_08011FC4: .4byte gBoard
+_08011FC4: .4byte gZones
 _08011FC8: .4byte 0x08DFF6A4
 _08011FCC: .4byte 0x00002298
 _08011FD0: .4byte 0x7EDE89F9
@@ -16942,7 +12599,7 @@ _08011FD4:
 _08012020: .4byte 0x08DFF6A4
 _08012024: .4byte 0x00002298
 _08012028: .4byte 0x0000FFFE
-_0801202C: .4byte gBoard
+_0801202C: .4byte gZones
 _08012030: .4byte 0x7EDE89F9
 _08012034:
 	ldr r0, [r5]
@@ -17011,7 +12668,7 @@ _0801209A:
 	ldr r1, _080120C4
 	b _080120D2
 	.align 2, 0
-_080120B4: .4byte gBoard+0x14
+_080120B4: .4byte gZones+0x14
 _080120B8: .4byte gCardInfo
 _080120BC: .4byte 0x08DFF6A4
 _080120C0: .4byte 0x00002298
@@ -17090,7 +12747,7 @@ _080121F2:
 	ldr r1, _0801221C
 	b _0801222A
 	.align 2, 0
-_0801220C: .4byte gBoard+0x14
+_0801220C: .4byte gZones+0x14
 _08012210: .4byte gCardInfo
 _08012214: .4byte 0x08DFF6A4
 _08012218: .4byte 0x00002298
@@ -17216,7 +12873,7 @@ _080122B0:
 	b _080123A2
 	.align 2, 0
 _08012310: .4byte 0x02021C00
-_08012314: .4byte gBoard
+_08012314: .4byte gZones
 _08012318: .4byte gCardInfo
 _0801231C: .4byte gUnk8E00FA8
 _08012320: .4byte gUnk2021AC0
@@ -17332,7 +12989,7 @@ _080123CE:
 	ldr r1, _0801242C
 	b _08012444
 	.align 2, 0
-_08012410: .4byte gBoard+0x14
+_08012410: .4byte gZones+0x14
 _08012414: .4byte gUnk2021AC0
 _08012418: .4byte gDuel+0xF0
 _0801241C: .4byte 0x000005DB
@@ -17397,7 +13054,7 @@ _08012462:
 	ldr r1, _080124AC
 	b _080124C4
 	.align 2, 0
-_0801249C: .4byte gBoard+0x28
+_0801249C: .4byte gZones+0x28
 _080124A0: .4byte gCardInfo
 _080124A4: .4byte 0x08DFF6A4
 _080124A8: .4byte 0x00002298
@@ -17470,7 +13127,7 @@ sub_80124F8: @ 0x080124F8
 	bx r0
 	.align 2, 0
 _08012534: .4byte 0x02021C00
-_08012538: .4byte gBoard
+_08012538: .4byte gZones
 _0801253C: .4byte 0x0201CB3C
 _08012540: .4byte gCardInfo
 _08012544: .4byte 0x08DFF7F0
@@ -17759,7 +13416,7 @@ _080127FC: .4byte 0x7FC874FF
 	THUMB_FUNC_START sub_8012800
 sub_8012800: @ 0x08012800
 	push {lr}
-	bl GetCurrTurn
+	bl WhoseTurn
 	ldr r1, _0801281C
 	ldr r1, [r1]
 	ldr r2, _08012820
@@ -17784,7 +13441,7 @@ sub_8012828: @ 0x08012828
 	ldr r0, _08012854
 	adds r4, r4, r0
 	ldr r5, _08012858
-	bl GetCurrTurn
+	bl WhoseTurn
 	lsls r0, r0, #1
 	adds r0, r0, r5
 	ldr r1, [r4]
@@ -17818,7 +13475,7 @@ _08012874: .4byte 0x7FF99742
 	THUMB_FUNC_START sub_8012878
 sub_8012878: @ 0x08012878
 	push {lr}
-	bl GetCurrTurn
+	bl WhoseTurn
 	ldr r1, _08012894
 	ldr r1, [r1]
 	ldr r2, _08012898
@@ -17843,7 +13500,7 @@ sub_80128A0: @ 0x080128A0
 	ldr r0, _080128CC
 	adds r4, r4, r0
 	ldr r5, _080128D0
-	bl GetCurrTurn
+	bl WhoseTurn
 	lsls r0, r0, #1
 	adds r0, r0, r5
 	ldr r1, [r4]
@@ -17877,7 +13534,7 @@ _080128EC: .4byte 0x7FF99742
 	THUMB_FUNC_START sub_80128F0
 sub_80128F0: @ 0x080128F0
 	push {lr}
-	bl GetCurrTurn
+	bl WhoseTurn
 	ldr r1, _0801290C
 	ldr r1, [r1]
 	ldr r2, _08012910
@@ -17902,7 +13559,7 @@ sub_8012918: @ 0x08012918
 	ldr r0, _08012944
 	adds r4, r4, r0
 	ldr r5, _08012948
-	bl GetCurrTurn
+	bl WhoseTurn
 	lsls r0, r0, #1
 	adds r0, r0, r5
 	ldr r1, [r4]
@@ -17936,7 +13593,7 @@ _08012964: .4byte 0x7FF99742
 	THUMB_FUNC_START sub_8012968
 sub_8012968: @ 0x08012968
 	push {lr}
-	bl GetCurrTurn
+	bl WhoseTurn
 	ldr r1, _08012984
 	ldr r1, [r1]
 	ldr r2, _08012988
@@ -17961,7 +13618,7 @@ sub_8012990: @ 0x08012990
 	ldr r0, _080129BC
 	adds r4, r4, r0
 	ldr r5, _080129C0
-	bl GetCurrTurn
+	bl WhoseTurn
 	lsls r0, r0, #1
 	adds r0, r0, r5
 	ldr r1, [r4]
@@ -17995,7 +13652,7 @@ _080129DC: .4byte 0x7FF99742
 	THUMB_FUNC_START sub_80129E0
 sub_80129E0: @ 0x080129E0
 	push {lr}
-	bl GetCurrTurn
+	bl WhoseTurn
 	ldr r1, _080129FC
 	ldr r1, [r1]
 	ldr r2, _08012A00
@@ -18020,7 +13677,7 @@ sub_8012A08: @ 0x08012A08
 	ldr r0, _08012A34
 	adds r4, r4, r0
 	ldr r5, _08012A38
-	bl GetCurrTurn
+	bl WhoseTurn
 	lsls r0, r0, #1
 	adds r0, r0, r5
 	ldr r1, [r4]
@@ -18055,7 +13712,7 @@ _08012A54: .4byte 0x7FF99742
 sub_8012A58: @ 0x08012A58
 	push {r4, lr}
 	ldr r4, _08012A7C
-	bl GetCurrTurn
+	bl WhoseTurn
 	ldr r1, _08012A80
 	adds r0, r0, r1
 	ldrb r0, [r0]
@@ -18097,7 +13754,7 @@ _08012AAC: .4byte 0x7FF99743
 sub_8012AB4: @ 0x08012AB4
 	push {r4, lr}
 	ldr r4, _08012AD8
-	bl GetCurrTurn
+	bl WhoseTurn
 	ldr r1, _08012ADC
 	adds r0, r0, r1
 	ldrb r0, [r0]
@@ -18139,7 +13796,7 @@ _08012B08: .4byte 0x7FF99743
 sub_8012B10: @ 0x08012B10
 	push {r4, lr}
 	ldr r4, _08012B34
-	bl GetCurrTurn
+	bl WhoseTurn
 	ldr r1, _08012B38
 	adds r0, r0, r1
 	ldrb r0, [r0]
@@ -18181,7 +13838,7 @@ _08012B64: .4byte 0x7FF99743
 sub_8012B6C: @ 0x08012B6C
 	push {r4, lr}
 	ldr r4, _08012B94
-	bl GetCurrTurn
+	bl WhoseTurn
 	ldr r1, _08012B98
 	adds r0, r0, r1
 	ldrb r0, [r0]
@@ -18225,7 +13882,7 @@ _08012BC4: .4byte 0x7FF99743
 sub_8012BCC: @ 0x08012BCC
 	push {r4, lr}
 	ldr r4, _08012BF4
-	bl GetCurrTurn
+	bl WhoseTurn
 	ldr r1, _08012BF8
 	adds r0, r0, r1
 	ldrb r0, [r0]
@@ -18280,7 +13937,7 @@ sub_8012C2C: @ 0x08012C2C
 	ldr r1, _08012C54
 	b _08012C86
 	.align 2, 0
-_08012C48: .4byte gBoard+0x28
+_08012C48: .4byte gZones+0x28
 _08012C4C: .4byte 0x08DFF6A4
 _08012C50: .4byte 0x00002298
 _08012C54: .4byte 0x7EDE89F9
@@ -18331,7 +13988,7 @@ sub_8012CA0: @ 0x08012CA0
 	ldr r1, _08012CC4
 	b _08012CD2
 	.align 2, 0
-_08012CB8: .4byte gBoard+0x14
+_08012CB8: .4byte gZones+0x14
 _08012CBC: .4byte 0x08DFF6A4
 _08012CC0: .4byte 0x00002298
 _08012CC4: .4byte 0x7EDE89F9
@@ -18836,7 +14493,7 @@ _08013058:
 	b _0801309A
 	.align 2, 0
 _08013078: .4byte 0x08DFF6A4
-_0801307C: .4byte gBoard+0x14
+_0801307C: .4byte gZones+0x14
 _08013080: .4byte 0x00002298
 _08013084: .4byte 0x7FFFFFF1
 _08013088:
@@ -18874,7 +14531,7 @@ sub_80130B0: @ 0x080130B0
 	str r1, [r0]
 	b _080130EC
 	.align 2, 0
-_080130CC: .4byte gBoard+0x14
+_080130CC: .4byte gZones+0x14
 _080130D0: .4byte 0x08DFF6A4
 _080130D4: .4byte 0x00002298
 _080130D8: .4byte 0x7EDE89F9
@@ -19038,7 +14695,7 @@ sub_8013444: @ 0x08013444
 _08013464: .4byte 0x08DFF6A4
 _08013468: .4byte 0x00002298
 _0801346C: .4byte 0x7EDE89F9
-_08013470: .4byte gBoard
+_08013470: .4byte gZones
 _08013474: .4byte 0x7FF99744
 _08013478:
 	adds r0, r3, #1
@@ -19117,7 +14774,7 @@ sub_8013510: @ 0x08013510
 	str r1, [r0]
 	b _0801354C
 	.align 2, 0
-_0801352C: .4byte gBoard+0x14
+_0801352C: .4byte gZones+0x14
 _08013530: .4byte 0x08DFF6A4
 _08013534: .4byte 0x00002298
 _08013538: .4byte 0x7EDE89F9
@@ -19274,7 +14931,7 @@ _0801366E:
 _08013694: .4byte 0x08DFF6A4
 _08013698: .4byte 0x00002298
 _0801369C: .4byte 0x7EDE89F9
-_080136A0: .4byte gBoard+0x28
+_080136A0: .4byte gZones+0x28
 _080136A4: .4byte 0x7FF5516A
 _080136A8:
 	adds r0, r4, #1
@@ -19520,7 +15177,7 @@ sub_8013884: @ 0x08013884
 	ldr r1, _080138A8
 	b _080138B6
 	.align 2, 0
-_0801389C: .4byte gBoard+0x50
+_0801389C: .4byte gZones+0x50
 _080138A0: .4byte 0x08DFF6A4
 _080138A4: .4byte 0x00002298
 _080138A8: .4byte 0x7EDE89F9
@@ -19564,7 +15221,7 @@ _080138F4: .4byte 0x00002298
 _080138F8: .4byte 0x7EDE89F9
 _080138FC:
 	ldr r4, _08013924
-	bl GetCurrTurn
+	bl WhoseTurn
 	ldr r1, _08013928
 	adds r0, r0, r1
 	ldrb r0, [r0]
@@ -19696,7 +15353,7 @@ sub_80139F4: @ 0x080139F4
 	ldr r1, _08013A1C
 	b _08013A4E
 	.align 2, 0
-_08013A10: .4byte gBoard+0x28
+_08013A10: .4byte gZones+0x28
 _08013A14: .4byte 0x08DFF6A4
 _08013A18: .4byte 0x00002298
 _08013A1C: .4byte 0x7EDE89F9
@@ -19747,7 +15404,7 @@ sub_8013A68: @ 0x08013A68
 	ldr r1, _08013A90
 	b _08013AC2
 	.align 2, 0
-_08013A84: .4byte gBoard+0x28
+_08013A84: .4byte gZones+0x28
 _08013A88: .4byte 0x08DFF6A4
 _08013A8C: .4byte 0x00002298
 _08013A90: .4byte 0x7EDE89F9
@@ -19811,7 +15468,7 @@ sub_8013B24: @ 0x08013B24
 	ldr r1, _08013B4C
 	b _08013B7E
 	.align 2, 0
-_08013B40: .4byte gBoard+0x28
+_08013B40: .4byte gZones+0x28
 _08013B44: .4byte 0x08DFF6A4
 _08013B48: .4byte 0x00002298
 _08013B4C: .4byte 0x7EDE89F9
@@ -19879,7 +15536,7 @@ _08013BC0:
 	ldr r1, _08013BE4
 	b _08013BF2
 	.align 2, 0
-_08013BD8: .4byte gBoard+0x28
+_08013BD8: .4byte gZones+0x28
 _08013BDC: .4byte 0x08DFF6A4
 _08013BE0: .4byte 0x00002298
 _08013BE4: .4byte 0x7EDE89F9
@@ -19925,7 +15582,7 @@ sub_8013C58: @ 0x08013C58
 	ldr r1, _08013C7C
 	b _08013C8A
 	.align 2, 0
-_08013C70: .4byte gBoard+0x14
+_08013C70: .4byte gZones+0x14
 _08013C74: .4byte 0x08DFF6A4
 _08013C78: .4byte 0x00002298
 _08013C7C: .4byte 0x7EDE89F9
@@ -19968,7 +15625,7 @@ sub_8013D20: @ 0x08013D20
 	ldr r1, _08013D48
 	b _08013D86
 	.align 2, 0
-_08013D3C: .4byte gBoard+0x28
+_08013D3C: .4byte gZones+0x28
 _08013D40: .4byte 0x08DFF6A4
 _08013D44: .4byte 0x00002298
 _08013D48: .4byte 0x7EDE89F9
@@ -20025,7 +15682,7 @@ sub_8013DA0: @ 0x08013DA0
 	ldr r1, _08013DC8
 	b _08013E06
 	.align 2, 0
-_08013DBC: .4byte gBoard+0x28
+_08013DBC: .4byte gZones+0x28
 _08013DC0: .4byte 0x08DFF6A4
 _08013DC4: .4byte 0x00002298
 _08013DC8: .4byte 0x7EDE89F9
@@ -20191,7 +15848,7 @@ sub_8014354: @ 0x08014354
 	bx r0
 	.align 2, 0
 _08014384: .4byte 0x02021C00
-_08014388: .4byte gBoard
+_08014388: .4byte gZones
 _0801438C: .4byte 0x0201CB40
 _08014390: .4byte gCardInfo
 	.byte 0x03, 0x48, 0x00, 0x68, 0x03, 0x49, 0x40, 0x18, 0x03, 0x49, 0x01, 0x60
@@ -20738,7 +16395,7 @@ sub_8016464: @ 0x08016464
 	ldr r1, _08016490
 	b _080164DE
 	.align 2, 0
-_08016484: .4byte gBoard+0x14
+_08016484: .4byte gZones+0x14
 _08016488: .4byte 0x08DFF6A4
 _0801648C: .4byte 0x00002298
 _08016490: .4byte 0x7EDE89F9
@@ -20807,7 +16464,7 @@ sub_80164F4: @ 0x080164F4
 	ldr r1, _08016520
 	b _0801656E
 	.align 2, 0
-_08016514: .4byte gBoard+0x14
+_08016514: .4byte gZones+0x14
 _08016518: .4byte 0x08DFF6A4
 _0801651C: .4byte 0x00002298
 _08016520: .4byte 0x7EDE89F9
@@ -20903,7 +16560,7 @@ _080165B4:
 	b _080165F4
 	.align 2, 0
 _080165D0: .4byte gDuel
-_080165D4: .4byte gBoard+0x28
+_080165D4: .4byte gZones+0x28
 _080165D8: .4byte 0x08DFF6A4
 _080165DC: .4byte 0x00002298
 _080165E0: .4byte 0x7EDE89F9
@@ -20968,7 +16625,7 @@ _08016638:
 	b _0801671A
 	.align 2, 0
 _08016654: .4byte gMonEffect
-_08016658: .4byte gBoard+0x28
+_08016658: .4byte gZones+0x28
 _0801665C: .4byte 0x08DFF6A4
 _08016660: .4byte 0x00002298
 _08016664: .4byte 0x7EDE89F9
@@ -21016,7 +16673,7 @@ _080166A2:
 	ldr r1, _080166D4
 	b _0801671A
 	.align 2, 0
-_080166BC: .4byte gBoard+0x28
+_080166BC: .4byte gZones+0x28
 _080166C0: .4byte gUnk2021AC0
 _080166C4: .4byte gDuel+0xF0
 _080166C8: .4byte gCardInfo
@@ -21025,7 +16682,7 @@ _080166D0: .4byte 0x00002298
 _080166D4: .4byte 0x7EDE89F9
 _080166D8:
 	ldr r4, _080166FC
-	bl GetCurrTurn
+	bl WhoseTurn
 	ldr r1, _08016700
 	adds r0, r0, r1
 	ldrb r0, [r0]
@@ -21118,7 +16775,7 @@ _08016780:
 	ldr r1, _080167B4
 	b _080167C2
 	.align 2, 0
-_0801679C: .4byte gBoard+0x28
+_0801679C: .4byte gZones+0x28
 _080167A0: .4byte gUnk2021AC0
 _080167A4: .4byte gDuel+0xF0
 _080167A8: .4byte gCardInfo
@@ -21184,7 +16841,7 @@ sub_80167DC: @ 0x080167DC
 	.align 2, 0
 _08016828: .4byte 0x02021C00
 _0801682C: .4byte gUnk2021AC0
-_08016830: .4byte gBoard
+_08016830: .4byte gZones
 _08016834: .4byte gDuel
 _08016838: .4byte gCardInfo
 _0801683C: .4byte 0x08DFF6A4
@@ -21192,7 +16849,7 @@ _08016840: .4byte 0x00002298
 _08016844: .4byte 0x7EDE89F9
 _08016848:
 	ldr r4, _0801686C
-	bl GetCurrTurn
+	bl WhoseTurn
 	ldr r1, _08016870
 	adds r0, r0, r1
 	ldrb r0, [r0]
@@ -21270,7 +16927,7 @@ sub_80168A0: @ 0x080168A0
 	.align 2, 0
 _080168EC: .4byte 0x02021C00
 _080168F0: .4byte gUnk2021AC0
-_080168F4: .4byte gBoard
+_080168F4: .4byte gZones
 _080168F8: .4byte gDuel
 _080168FC: .4byte gCardInfo
 _08016900: .4byte 0x08DFF6A4
@@ -21278,7 +16935,7 @@ _08016904: .4byte 0x00002298
 _08016908: .4byte 0x7EDE89F9
 _0801690C:
 	ldr r4, _08016930
-	bl GetCurrTurn
+	bl WhoseTurn
 	ldr r1, _08016934
 	adds r0, r0, r1
 	ldrb r0, [r0]
@@ -21320,13 +16977,13 @@ _08016960: .4byte 0x7FFFFFEA
 sub_8016964: @ 0x08016964
 	push {r4, r5, r6, lr}
 	ldr r5, _08016994
-	bl GetCurrTurn
+	bl WhoseTurn
 	ldr r6, _08016998
 	adds r0, r0, r6
 	ldrb r4, [r0]
 	lsls r4, r4, #1
 	adds r4, r4, r5
-	bl GetCurrTurn
+	bl WhoseTurn
 	lsls r0, r0, #1
 	adds r0, r0, r5
 	ldrh r1, [r4]
@@ -21346,12 +17003,12 @@ _0801699C: .4byte 0x08DFF6A4
 _080169A0: .4byte 0x00002298
 _080169A4: .4byte 0x7FFFFFFF
 _080169A8:
-	bl GetCurrTurn
+	bl WhoseTurn
 	adds r0, r0, r6
 	ldrb r4, [r0]
 	lsls r4, r4, #1
 	adds r4, r4, r5
-	bl GetCurrTurn
+	bl WhoseTurn
 	lsls r0, r0, #1
 	adds r0, r0, r5
 	ldrh r1, [r4]
@@ -21399,7 +17056,7 @@ sub_80169FC: @ 0x080169FC
 	ldr r1, _08016A24
 	b _08016ACA
 	.align 2, 0
-_08016A18: .4byte gBoard+0x14
+_08016A18: .4byte gZones+0x14
 _08016A1C: .4byte 0x08DFF6A4
 _08016A20: .4byte 0x00002298
 _08016A24: .4byte 0x7EDE89F9
@@ -21445,7 +17102,7 @@ _08016A80: .4byte 0x00002298
 _08016A84: .4byte 0x7EDE89F9
 _08016A88:
 	ldr r4, _08016AAC
-	bl GetCurrTurn
+	bl WhoseTurn
 	ldr r1, _08016AB0
 	adds r0, r0, r1
 	ldrb r0, [r0]
@@ -21500,7 +17157,7 @@ sub_8016AE0: @ 0x08016AE0
 	ldr r1, _08016B0C
 	b _08016BB2
 	.align 2, 0
-_08016B00: .4byte gBoard+0x14
+_08016B00: .4byte gZones+0x14
 _08016B04: .4byte 0x08DFF6A4
 _08016B08: .4byte 0x00002298
 _08016B0C: .4byte 0x7EDE89F9
@@ -21607,7 +17264,7 @@ sub_8016BCC: @ 0x08016BCC
 	ldr r1, _08016BFC
 	b _08016C9E
 	.align 2, 0
-_08016BF0: .4byte gBoard+0x50
+_08016BF0: .4byte gZones+0x50
 _08016BF4: .4byte 0x08DFF6A4
 _08016BF8: .4byte 0x00002298
 _08016BFC: .4byte 0x7EDE89F9
@@ -21734,7 +17391,7 @@ sub_8016CB8: @ 0x08016CB8
 	.align 2, 0
 _08016D04: .4byte 0x02021C00
 _08016D08: .4byte gUnk2021AC0
-_08016D0C: .4byte gBoard
+_08016D0C: .4byte gZones
 _08016D10: .4byte gDuel
 _08016D14: .4byte gCardInfo
 _08016D18: .4byte 0x08DFF6A4
@@ -21742,7 +17399,7 @@ _08016D1C: .4byte 0x00002298
 _08016D20: .4byte 0x7EDE89F9
 _08016D24:
 	ldr r4, _08016D48
-	bl GetCurrTurn
+	bl WhoseTurn
 	ldr r1, _08016D4C
 	adds r0, r0, r1
 	ldrb r0, [r0]
@@ -21851,8 +17508,8 @@ _08016DEC:
 	ldr r1, _08016E18
 	b _08016E82
 	.align 2, 0
-_08016E08: .4byte gBoard+0x14
-_08016E0C: .4byte gBoard
+_08016E08: .4byte gZones+0x14
+_08016E0C: .4byte gZones
 _08016E10: .4byte 0x08DFF6A4
 _08016E14: .4byte 0x00002298
 _08016E18: .4byte 0x7EDE89F9
@@ -21895,7 +17552,7 @@ _08016E48:
 	b _08016E82
 	.align 2, 0
 _08016E64: .4byte 0x02021C00
-_08016E68: .4byte gBoard+0x28
+_08016E68: .4byte gZones+0x28
 _08016E6C: .4byte 0x08DFF6A4
 _08016E70: .4byte 0x00002298
 _08016E74: .4byte 0x7EDE89F9
@@ -21968,7 +17625,7 @@ _08016EE6:
 	ldr r1, _08016F0C
 	b _08016F1A
 	.align 2, 0
-_08016F00: .4byte gBoard
+_08016F00: .4byte gZones
 _08016F04: .4byte 0x08DFF6A4
 _08016F08: .4byte 0x00002298
 _08016F0C: .4byte 0x7EDE89F9
@@ -22040,7 +17697,7 @@ _08016F7C:
 	ldr r1, _08016FA4
 	b _08016FB2
 	.align 2, 0
-_08016F98: .4byte gBoard
+_08016F98: .4byte gZones
 _08016F9C: .4byte 0x08DFF6A4
 _08016FA0: .4byte 0x00002298
 _08016FA4: .4byte 0x7EDE89F9
@@ -22112,7 +17769,7 @@ _08017014:
 	ldr r1, _0801703C
 	b _0801704A
 	.align 2, 0
-_08017030: .4byte gBoard+0x14
+_08017030: .4byte gZones+0x14
 _08017034: .4byte 0x08DFF6A4
 _08017038: .4byte 0x00002298
 _0801703C: .4byte 0x7EDE89F9
@@ -22190,7 +17847,7 @@ _080170B8:
 	ldr r1, _080170E0
 	b _080170EE
 	.align 2, 0
-_080170D4: .4byte gBoard+0x14
+_080170D4: .4byte gZones+0x14
 _080170D8: .4byte 0x08DFF6A4
 _080170DC: .4byte 0x00002298
 _080170E0: .4byte 0x7EDE89F9
@@ -22232,7 +17889,7 @@ _08017128: .4byte 0x08DFF6A4
 _0801712C: .4byte 0x00002298
 _08017130: .4byte 0x7EDE89F9
 _08017134:
-	bl GetCurrTurn
+	bl WhoseTurn
 	cmp r0, #0
 	bne _08017168
 	ldr r0, _08017154
@@ -22282,7 +17939,7 @@ _08017194:
 	ldr r1, _080171B8
 	b _080171C6
 	.align 2, 0
-_080171AC: .4byte gBoard+0x28
+_080171AC: .4byte gZones+0x28
 _080171B0: .4byte 0x08DFF6A4
 _080171B4: .4byte 0x00002298
 _080171B8: .4byte 0x7EDE89F9
@@ -22341,7 +17998,7 @@ sub_80171D8: @ 0x080171D8
 	.align 2, 0
 _08017224: .4byte 0x02021C00
 _08017228: .4byte gUnk2021AC0
-_0801722C: .4byte gBoard
+_0801722C: .4byte gZones
 _08017230: .4byte gDuel
 _08017234: .4byte gCardInfo
 _08017238: .4byte 0x08DFF6A4
@@ -22349,7 +18006,7 @@ _0801723C: .4byte 0x00002298
 _08017240: .4byte 0x7EDE89F9
 _08017244:
 	ldr r4, _08017268
-	bl GetCurrTurn
+	bl WhoseTurn
 	ldr r1, _0801726C
 	adds r0, r0, r1
 	ldrb r0, [r0]
@@ -22406,12 +18063,12 @@ sub_801729C: @ 0x0801729C
 	ldr r1, _080172CC
 	b _080174BA
 	.align 2, 0
-_080172C0: .4byte gBoard+0x14
+_080172C0: .4byte gZones+0x14
 _080172C4: .4byte 0x08DFF6A4
 _080172C8: .4byte 0x00002298
 _080172CC: .4byte 0x7EDE89F9
 _080172D0:
-	bl GetCurrTurn
+	bl WhoseTurn
 	cmp r0, #0
 	bne _080172E8
 	ldr r0, _080172E4
@@ -22528,7 +18185,7 @@ _08017348:
 _080173BC: .4byte gLifePoints
 _080173C0: .4byte 0x02021C00
 _080173C4: .4byte gUnk2021AC0
-_080173C8: .4byte gBoard
+_080173C8: .4byte gZones
 _080173CC: .4byte gDuel
 _080173D0: .4byte gCardInfo
 _080173D4:
@@ -22710,8 +18367,8 @@ _0801750A:
 	ldr r1, _08017544
 	b _08017552
 	.align 2, 0
-_08017534: .4byte gBoard+0x14
-_08017538: .4byte gBoard
+_08017534: .4byte gZones+0x14
+_08017538: .4byte gZones
 _0801753C: .4byte 0x08DFF6A4
 _08017540: .4byte 0x00002298
 _08017544: .4byte 0x7EDE89F9
@@ -22778,7 +18435,7 @@ sub_8017588: @ 0x08017588
 	bx r0
 	.align 2, 0
 _080175C4: .4byte 0x02021C00
-_080175C8: .4byte gBoard
+_080175C8: .4byte gZones
 _080175CC: .4byte 0x0201CB44
 _080175D0: .4byte gCardInfo
 _080175D4: .4byte 0x08E00150
@@ -23419,12 +19076,12 @@ _08019A0E:
 	ldrb r0, [r6, #2]
 	b _08019AA6
 	.align 2, 0
-_08019A30: .4byte gBoard+0x28
+_08019A30: .4byte gZones+0x28
 _08019A34: .4byte gUnk2021AC0
 _08019A38: .4byte gDuel+0xF0
 _08019A3C: .4byte gCardInfo
 _08019A40: .4byte 0x08E00534
-_08019A44: .4byte gBoard+0x14
+_08019A44: .4byte gZones+0x14
 _08019A48:
 	ldrh r0, [r4]
 	mov r1, sb
@@ -23561,7 +19218,7 @@ sub_8019CE4: @ 0x08019CE4
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08019D1C: .4byte gBoard+0x28
+_08019D1C: .4byte gZones+0x28
 _08019D20: .4byte 0x08E00510
 
 	THUMB_FUNC_START sub_8019D24
@@ -23780,7 +19437,7 @@ _08019EF0:
 	.align 2, 0
 _08019F20: .4byte 0x02021D10
 _08019F24: .4byte 0xFFFF0000
-_08019F28: .4byte gBoard
+_08019F28: .4byte gZones
 _08019F2C: .4byte 0x0000FFFF
 _08019F30:
 	ldr r0, _08019F58
@@ -23805,7 +19462,7 @@ _08019F50:
 	bx r0
 	.align 2, 0
 _08019F58: .4byte 0x02021D10
-_08019F5C: .4byte gBoard
+_08019F5C: .4byte gZones
 
 	THUMB_FUNC_START sub_8019F60
 sub_8019F60: @ 0x08019F60
@@ -23994,7 +19651,7 @@ sub_801A0B0: @ 0x0801A0B0
 	b _0801A0FE
 	.align 2, 0
 _0801A0F0: .4byte 0x02021C00
-_0801A0F4: .4byte gBoard
+_0801A0F4: .4byte gZones
 _0801A0F8: .4byte gCardInfo
 _0801A0FC:
 	movs r0, #0
@@ -24062,7 +19719,7 @@ _0801A1BC:
 	b _0801A1CE
 	.align 2, 0
 _0801A1C0: .4byte 0x02021C00
-_0801A1C4: .4byte gBoard
+_0801A1C4: .4byte gZones
 _0801A1C8: .4byte gCardInfo
 _0801A1CC:
 	movs r0, #1
@@ -24127,7 +19784,7 @@ sub_801A250: @ 0x0801A250
 	b _0801A2BE
 	.align 2, 0
 _0801A2B0: .4byte 0x02021C00
-_0801A2B4: .4byte gBoard
+_0801A2B4: .4byte gZones
 _0801A2B8: .4byte gCardInfo
 _0801A2BC:
 	movs r0, #0
@@ -24212,7 +19869,7 @@ sub_801A338: @ 0x0801A338
 	b _0801A3D2
 	.align 2, 0
 _0801A3C4: .4byte 0x02021C00
-_0801A3C8: .4byte gBoard
+_0801A3C8: .4byte gZones
 _0801A3CC: .4byte gCardInfo
 _0801A3D0:
 	movs r0, #0
@@ -24323,7 +19980,7 @@ sub_801A488: @ 0x0801A488
 	b _0801A54A
 	.align 2, 0
 _0801A53C: .4byte 0x02021C00
-_0801A540: .4byte gBoard
+_0801A540: .4byte gZones
 _0801A544: .4byte gCardInfo
 _0801A548:
 	movs r0, #0
@@ -24386,7 +20043,7 @@ _0801A668:
 	.align 2, 0
 _0801A66C: .4byte gDuel+0x100
 _0801A670: .4byte 0x02021C00
-_0801A674: .4byte gBoard
+_0801A674: .4byte gZones
 _0801A678: .4byte gCardInfo
 _0801A67C:
 	ldr r0, [r4]
@@ -24436,7 +20093,7 @@ sub_801A6EC: @ 0x0801A6EC
 	b _0801A732
 	.align 2, 0
 _0801A724: .4byte 0x02021C00
-_0801A728: .4byte gBoard
+_0801A728: .4byte gZones
 _0801A72C: .4byte gCardInfo
 _0801A730:
 	movs r0, #0
@@ -24459,7 +20116,7 @@ sub_801A784: @ 0x0801A784
 	lsrs r5, r0, #4
 	movs r6, #0xf
 	ands r6, r0
-	bl GetCurrTurn
+	bl WhoseTurn
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	bl sub_8025534
@@ -24508,9 +20165,9 @@ sub_801A784: @ 0x0801A784
 	.align 2, 0
 _0801A7F8: .4byte 0x02021C00
 _0801A7FC: .4byte gDuel+0x100
-_0801A800: .4byte gBoard
+_0801A800: .4byte gZones
 _0801A804: .4byte gCardInfo
-_0801A808: .4byte 0x020245A0
+_0801A808: .4byte gUnk020245A0
 _0801A80C:
 	movs r0, #0
 _0801A80E:
@@ -24545,7 +20202,7 @@ sub_801A8A4: @ 0x0801A8A4
 	mov r8, r2
 	adds r7, r1, #0
 	ands r7, r0
-	bl GetCurrTurn
+	bl WhoseTurn
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	bl sub_8025534
@@ -24612,9 +20269,9 @@ sub_801A8A4: @ 0x0801A8A4
 	.align 2, 0
 _0801A950: .4byte 0x02021C00
 _0801A954: .4byte gDuel+0x100
-_0801A958: .4byte gBoard
+_0801A958: .4byte gZones
 _0801A95C: .4byte gCardInfo
-_0801A960: .4byte 0x020245A0
+_0801A960: .4byte gUnk020245A0
 _0801A964:
 	movs r0, #0
 _0801A966:
@@ -24671,7 +20328,7 @@ sub_801AA44: @ 0x0801AA44
 	ldrb r0, [r0, #0x1e]
 	cmp r0, #0
 	bne _0801AB04
-	bl GetCurrTurn
+	bl WhoseTurn
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	bl sub_8025534
@@ -24722,10 +20379,10 @@ sub_801AA44: @ 0x0801AA44
 	b _0801AB06
 	.align 2, 0
 _0801AAF0: .4byte 0x02021C00
-_0801AAF4: .4byte gBoard
+_0801AAF4: .4byte gZones
 _0801AAF8: .4byte gCardInfo
 _0801AAFC: .4byte gDuel+0x100
-_0801AB00: .4byte 0x020245A0
+_0801AB00: .4byte gUnk020245A0
 _0801AB04:
 	movs r0, #0
 _0801AB06:
@@ -24758,7 +20415,7 @@ sub_801ABE4: @ 0x0801ABE4
 	lsrs r5, r0, #4
 	movs r6, #0xf
 	ands r6, r0
-	bl GetCurrTurn
+	bl WhoseTurn
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	bl sub_8025534
@@ -24807,9 +20464,9 @@ sub_801ABE4: @ 0x0801ABE4
 	.align 2, 0
 _0801AC58: .4byte 0x02021C00
 _0801AC5C: .4byte gDuel+0x100
-_0801AC60: .4byte gBoard
+_0801AC60: .4byte gZones
 _0801AC64: .4byte gCardInfo
-_0801AC68: .4byte 0x020245A0
+_0801AC68: .4byte gUnk020245A0
 _0801AC6C:
 	movs r0, #0
 _0801AC6E:
@@ -24844,7 +20501,7 @@ sub_801AD04: @ 0x0801AD04
 	mov r8, r2
 	adds r7, r1, #0
 	ands r7, r0
-	bl GetCurrTurn
+	bl WhoseTurn
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	bl sub_8025534
@@ -24911,9 +20568,9 @@ sub_801AD04: @ 0x0801AD04
 	.align 2, 0
 _0801ADB0: .4byte 0x02021C00
 _0801ADB4: .4byte gDuel+0x100
-_0801ADB8: .4byte gBoard
+_0801ADB8: .4byte gZones
 _0801ADBC: .4byte gCardInfo
-_0801ADC0: .4byte 0x020245A0
+_0801ADC0: .4byte gUnk020245A0
 _0801ADC4:
 	movs r0, #0
 _0801ADC6:
@@ -24970,7 +20627,7 @@ sub_801AEA4: @ 0x0801AEA4
 	ldrb r0, [r0, #0x1e]
 	cmp r0, #0
 	bne _0801AF64
-	bl GetCurrTurn
+	bl WhoseTurn
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	bl sub_8025534
@@ -25021,10 +20678,10 @@ sub_801AEA4: @ 0x0801AEA4
 	b _0801AF66
 	.align 2, 0
 _0801AF50: .4byte 0x02021C00
-_0801AF54: .4byte gBoard
+_0801AF54: .4byte gZones
 _0801AF58: .4byte gCardInfo
 _0801AF5C: .4byte gDuel+0x100
-_0801AF60: .4byte 0x020245A0
+_0801AF60: .4byte gUnk020245A0
 _0801AF64:
 	movs r0, #0
 _0801AF66:
@@ -25087,7 +20744,7 @@ sub_801B084: @ 0x0801B084
 	b _0801B0D6
 	.align 2, 0
 _0801B0C8: .4byte 0x02021C00
-_0801B0CC: .4byte gBoard
+_0801B0CC: .4byte gZones
 _0801B0D0: .4byte gCardInfo
 _0801B0D4:
 	movs r0, #0
@@ -25129,7 +20786,7 @@ sub_801B178: @ 0x0801B178
 	b _0801B1AA
 	.align 2, 0
 _0801B1A0: .4byte 0x02021C00
-_0801B1A4: .4byte gBoard
+_0801B1A4: .4byte gZones
 _0801B1A8:
 	movs r0, #0
 _0801B1AA:
@@ -25190,8 +20847,8 @@ sub_801B1B0: @ 0x0801B1B0
 	b _0801B226
 	.align 2, 0
 _0801B218: .4byte 0x02021C00
-_0801B21C: .4byte gBoard
-_0801B220: .4byte 0x020245A0
+_0801B21C: .4byte gZones
+_0801B220: .4byte gUnk020245A0
 _0801B224:
 	movs r0, #0
 _0801B226:
@@ -25256,8 +20913,8 @@ sub_801B234: @ 0x0801B234
 	b _0801B2AA
 	.align 2, 0
 _0801B29C: .4byte 0x02021C00
-_0801B2A0: .4byte gBoard
-_0801B2A4: .4byte 0x020245A0
+_0801B2A0: .4byte gZones
+_0801B2A4: .4byte gUnk020245A0
 _0801B2A8:
 	movs r0, #0
 _0801B2AA:
@@ -25298,7 +20955,7 @@ sub_801B2B8: @ 0x0801B2B8
 	b _0801B2FE
 	.align 2, 0
 _0801B2F0: .4byte 0x02021C00
-_0801B2F4: .4byte gBoard
+_0801B2F4: .4byte gZones
 _0801B2F8: .4byte gCardInfo
 _0801B2FC:
 	movs r0, #0
@@ -25344,8 +21001,8 @@ sub_801B35C: @ 0x0801B35C
 	b _0801B3A6
 	.align 2, 0
 _0801B398: .4byte 0x02021C00
-_0801B39C: .4byte gBoard
-_0801B3A0: .4byte 0x020245A0
+_0801B39C: .4byte gZones
+_0801B3A0: .4byte gUnk020245A0
 _0801B3A4:
 	movs r0, #0
 _0801B3A6:
@@ -25384,8 +21041,8 @@ sub_801B3AC: @ 0x0801B3AC
 	b _0801B3F6
 	.align 2, 0
 _0801B3E8: .4byte 0x02021C00
-_0801B3EC: .4byte gBoard
-_0801B3F0: .4byte 0x020245A0
+_0801B3EC: .4byte gZones
+_0801B3F0: .4byte gUnk020245A0
 _0801B3F4:
 	movs r0, #0
 _0801B3F6:
@@ -25415,7 +21072,7 @@ sub_801B3FC: @ 0x0801B3FC
 	b _0801B42E
 	.align 2, 0
 _0801B424: .4byte 0x02021C00
-_0801B428: .4byte gBoard
+_0801B428: .4byte gZones
 _0801B42C:
 	movs r0, #0
 _0801B42E:
@@ -25467,7 +21124,7 @@ sub_801B5BC: @ 0x0801B5BC
 	movs r0, #1
 	b _0801B5EA
 	.align 2, 0
-_0801B5E4: .4byte gBoard+0x28
+_0801B5E4: .4byte gZones+0x28
 _0801B5E8:
 	movs r0, #0
 _0801B5EA:
@@ -35099,7 +30756,7 @@ _080205F4:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08020618: .4byte gBoard+0x50
+_08020618: .4byte gZones+0x50
 
 	THUMB_FUNC_START sub_802061C
 sub_802061C: @ 0x0802061C
@@ -35145,7 +30802,7 @@ _0802065E:
 sub_8020664: @ 0x08020664
 	push {lr}
 	sub sp, #0xc
-	bl GetCurrTurn
+	bl WhoseTurn
 	movs r1, #0
 	cmp r0, #0
 	bne _08020674
@@ -37463,7 +33120,7 @@ sub_8021718: @ 0x08021718
 	bl sub_8021B80
 	bl sub_802183C
 _08021724:
-	bl GetCurrTurn
+	bl WhoseTurn
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x18
 	bl sub_8041104
@@ -37528,7 +33185,7 @@ _080217A4:
 	bl sub_8040A40
 	b _080217D4
 	.align 2, 0
-_080217CC: .4byte gBoard+0x50
+_080217CC: .4byte gZones+0x50
 _080217D0:
 	bl sub_8019D84
 _080217D4:
@@ -37653,7 +33310,7 @@ _080218B0:
 	.align 2, 0
 _080218D4: .4byte 0x02021D10
 _080218D8: .4byte 0x08E00B30
-_080218DC: .4byte gCurrTurn
+_080218DC: .4byte gCurrentTurn
 _080218E0:
 	ldr r1, _0802190C
 	movs r0, #1
@@ -37673,7 +33330,7 @@ _080218E6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0802190C: .4byte gCurrTurn
+_0802190C: .4byte gCurrentTurn
 _08021910: .4byte gUnk_02021C08
 _08021914: .4byte 0x02021D10
 
@@ -38220,7 +33877,7 @@ sub_8021D20: @ 0x08021D20
 	bl sub_8022040
 	mov r5, sp
 _08021D48:
-	bl GetCurrTurn
+	bl WhoseTurn
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x18
 	bl sub_8041104
@@ -38345,7 +34002,7 @@ _08021E54:
 	b _08021EC6
 	.align 2, 0
 _08021E60: .4byte 0x03000C38
-_08021E64: .4byte gBoard+0x50
+_08021E64: .4byte gZones+0x50
 _08021E68: .4byte 0x02021D98
 _08021E6C:
 	movs r0, #0x3b
@@ -38563,7 +34220,7 @@ _080220A0:
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne _080220A0
-	bl GetCurrTurn
+	bl WhoseTurn
 	cmp r0, #0
 	bne _080220B6
 	bl sub_8041D54
@@ -42489,7 +38146,7 @@ _080241FE:
 	strb r0, [r1]
 	b _08024210
 	.align 2, 0
-_08024208: .4byte gCurrTurn
+_08024208: .4byte gCurrentTurn
 _0802420C:
 	ldr r0, _08024218
 	strb r7, [r0]
@@ -42498,7 +38155,7 @@ _08024210:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08024218: .4byte gCurrTurn
+_08024218: .4byte gCurrentTurn
 	.byte 0x10, 0xB5, 0x0E, 0xF0
 	.byte 0xD9, 0xF9, 0x00, 0x20, 0x01, 0x21, 0x32, 0xF0, 0x17, 0xF8, 0x01, 0x1C, 0x13, 0x48, 0x01, 0x70
 	.byte 0x13, 0x4A, 0x11, 0x78, 0x41, 0x70, 0x51, 0x78, 0x81, 0x70, 0x91, 0x78, 0xC1, 0x70, 0xD1, 0x78
@@ -46451,7 +42108,7 @@ _08026266:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08026274: .4byte gBoard+0x14
+_08026274: .4byte gZones+0x14
 
 	THUMB_FUNC_START sub_8026278
 sub_8026278: @ 0x08026278
@@ -46482,7 +42139,7 @@ _0802629A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080262AC: .4byte gBoard+0x28
+_080262AC: .4byte gZones+0x28
 
 	THUMB_FUNC_START sub_80262B0
 sub_80262B0: @ 0x080262B0
@@ -48040,7 +43697,7 @@ _0802708C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080270A4: .4byte gBoard+0x28
+_080270A4: .4byte gZones+0x28
 _080270A8: .4byte gUnk_02021C10
 _080270AC: .4byte 0x08E0C6B8
 _080270B0: .4byte 0x08E0C6B0
@@ -48442,7 +44099,7 @@ _0802742C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08027434: .4byte gBoard
+_08027434: .4byte gZones
 _08027438: .4byte 0x00000177
 _0802743C: .4byte 0x02021DE0
 _08027440: .4byte gUnk_02021C08
@@ -48496,7 +44153,7 @@ _08027482:
 	b _0802750C
 	.align 2, 0
 _080274A4: .4byte 0x02021DE0
-_080274A8: .4byte gBoard
+_080274A8: .4byte gZones
 _080274AC: .4byte gCardInfo
 _080274B0: .4byte gUnk_02021C08
 _080274B4: .4byte gUnk_02021C10
@@ -48546,7 +44203,7 @@ _0802750C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08027514: .4byte gBoard
+_08027514: .4byte gZones
 _08027518: .4byte gCardInfo
 _0802751C: .4byte gUnk_02021C08
 _08027520: .4byte gUnk_02021C10
@@ -48627,7 +44284,7 @@ _0802759A:
 	b _08027658
 	.align 2, 0
 _080275BC: .4byte 0x02021DE0
-_080275C0: .4byte gBoard
+_080275C0: .4byte gZones
 _080275C4: .4byte gHands+0x14
 _080275C8: .4byte gUnk_02021C08
 _080275CC: .4byte gUnk_02021C10
@@ -48704,7 +44361,7 @@ _08027658:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08027664: .4byte gBoard
+_08027664: .4byte gZones
 _08027668: .4byte gHands
 _0802766C: .4byte gUnk_02021C08
 _08027670: .4byte gUnk_02021C10
@@ -48770,7 +44427,7 @@ _080276D2:
 	b _0802777E
 	.align 2, 0
 _080276F0: .4byte 0x02021DE0
-_080276F4: .4byte gBoard
+_080276F4: .4byte gZones
 _080276F8: .4byte gCardInfo
 _080276FC: .4byte gUnk_02021C08
 _08027700: .4byte gUnk_02021C10
@@ -48838,7 +44495,7 @@ _0802777E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08027788: .4byte gBoard
+_08027788: .4byte gZones
 _0802778C: .4byte gCardInfo
 _08027790: .4byte gUnk_02021C08
 _08027794: .4byte gUnk_02021C10
@@ -48873,7 +44530,7 @@ _080277C8:
 	b _080277E0
 	.align 2, 0
 _080277D0: .4byte 0x02021DE0
-_080277D4: .4byte gBoard
+_080277D4: .4byte gZones
 _080277D8:
 	cmp r1, #0x62
 	bne _080277E0
@@ -48906,7 +44563,7 @@ _080277E0:
 	.align 2, 0
 _08027814: .4byte gUnk_02021C08
 _08027818: .4byte gUnk_02021C10
-_0802781C: .4byte gBoard
+_0802781C: .4byte gZones
 _08027820: .4byte 0x02021DE0
 _08027824:
 	cmp r0, #2
@@ -48932,7 +44589,7 @@ _0802784A:
 	bl sub_80403F0
 	b _0802785C
 	.align 2, 0
-_08027850: .4byte gBoard
+_08027850: .4byte gZones
 _08027854:
 	cmp r1, #0x62
 	bne _0802785C
@@ -48968,7 +44625,7 @@ _0802788C:
 	.align 2, 0
 _08027894: .4byte gUnk_02021C08
 _08027898: .4byte gUnk_02021C10
-_0802789C: .4byte gBoard
+_0802789C: .4byte gZones
 _080278A0: .4byte 0x02021DE0
 
 	THUMB_FUNC_START sub_80278A4
@@ -49025,7 +44682,7 @@ _080278D8:
 	b _0802797A
 	.align 2, 0
 _0802790C: .4byte 0x02021DE0
-_08027910: .4byte gBoard
+_08027910: .4byte gZones
 _08027914: .4byte gUnk_02021C08
 _08027918: .4byte gUnk_02021C10
 _0802791C:
@@ -49080,7 +44737,7 @@ _0802797A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08027980: .4byte gBoard
+_08027980: .4byte gZones
 _08027984: .4byte gUnk_02021C08
 _08027988: .4byte gUnk_02021C10
 _0802798C: .4byte 0x02021DE0
@@ -49141,7 +44798,7 @@ _080279CA:
 	b _08027A70
 	.align 2, 0
 _080279FC: .4byte 0x02021DE0
-_08027A00: .4byte gBoard
+_08027A00: .4byte gZones
 _08027A04: .4byte gUnk_02021C08
 _08027A08: .4byte gUnk_02021C10
 _08027A0C:
@@ -49198,7 +44855,7 @@ _08027A70:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08027A78: .4byte gBoard
+_08027A78: .4byte gZones
 _08027A7C: .4byte gUnk_02021C08
 _08027A80: .4byte gUnk_02021C10
 _08027A84: .4byte 0x02021DE0
@@ -49254,7 +44911,7 @@ _08027AB6:
 	b _08027B3E
 	.align 2, 0
 _08027AE8: .4byte 0x02021DE0
-_08027AEC: .4byte gBoard
+_08027AEC: .4byte gZones
 _08027AF0: .4byte gUnk_02021C08
 _08027AF4: .4byte gUnk_02021C10
 _08027AF8:
@@ -49297,7 +44954,7 @@ _08027B3E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08027B44: .4byte gBoard
+_08027B44: .4byte gZones
 _08027B48: .4byte gUnk_02021C08
 _08027B4C: .4byte gUnk_02021C10
 _08027B50: .4byte 0x02021DE0
@@ -49355,7 +45012,7 @@ _08027B86:
 	b _08027C28
 	.align 2, 0
 _08027BB8: .4byte 0x02021DE0
-_08027BBC: .4byte gBoard
+_08027BBC: .4byte gZones
 _08027BC0: .4byte 0x00000177
 _08027BC4: .4byte gUnk_02021C08
 _08027BC8: .4byte gUnk_02021C10
@@ -49410,7 +45067,7 @@ _08027C28:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08027C30: .4byte gBoard
+_08027C30: .4byte gZones
 _08027C34: .4byte 0x00000177
 _08027C38: .4byte gUnk_02021C08
 _08027C3C: .4byte gUnk_02021C10
@@ -49469,7 +45126,7 @@ _08027C76:
 	b _08027D14
 	.align 2, 0
 _08027CA8: .4byte 0x02021DE0
-_08027CAC: .4byte gBoard
+_08027CAC: .4byte gZones
 _08027CB0: .4byte gUnk_02021C08
 _08027CB4: .4byte gUnk_02021C10
 _08027CB8:
@@ -49523,7 +45180,7 @@ _08027D14:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08027D1C: .4byte gBoard
+_08027D1C: .4byte gZones
 _08027D20: .4byte gUnk_02021C08
 _08027D24: .4byte gUnk_02021C10
 _08027D28: .4byte 0x02021DE0
@@ -49556,7 +45213,7 @@ sub_8027D2C: @ 0x08027D2C
 	b _08027D7E
 	.align 2, 0
 _08027D60: .4byte 0x02021DE0
-_08027D64: .4byte gBoard
+_08027D64: .4byte gZones
 _08027D68: .4byte gDuel+0x100
 _08027D6C:
 	ldr r0, _08027D9C
@@ -49585,7 +45242,7 @@ _08027D7E:
 	.align 2, 0
 _08027D9C: .4byte 0x000002D1
 _08027DA0: .4byte gDuel+0x100
-_08027DA4: .4byte gBoard
+_08027DA4: .4byte gZones
 _08027DA8: .4byte 0x02021DE0
 _08027DAC:
 	ldr r0, _08027DDC
@@ -49612,7 +45269,7 @@ _08027DC4:
 	b _08027E94
 	.align 2, 0
 _08027DDC: .4byte 0x000002D1
-_08027DE0: .4byte gBoard
+_08027DE0: .4byte gZones
 _08027DE4: .4byte 0x02021DE0
 _08027DE8: .4byte gUnk_02021C08
 _08027DEC: .4byte gUnk_02021C10
@@ -49639,7 +45296,7 @@ _08027DF0:
 	bl sub_80403F0
 	b _08027E3A
 	.align 2, 0
-_08027E20: .4byte gBoard
+_08027E20: .4byte gZones
 _08027E24: .4byte gDuel+0x100
 _08027E28:
 	ldr r0, _08027E58
@@ -49668,7 +45325,7 @@ _08027E3A:
 	.align 2, 0
 _08027E58: .4byte 0x000002D1
 _08027E5C: .4byte gDuel+0x100
-_08027E60: .4byte gBoard
+_08027E60: .4byte gZones
 _08027E64: .4byte 0x02021DE0
 _08027E68:
 	ldr r0, _08027E9C
@@ -49698,7 +45355,7 @@ _08027E94:
 	bx r0
 	.align 2, 0
 _08027E9C: .4byte 0x000002D1
-_08027EA0: .4byte gBoard
+_08027EA0: .4byte gZones
 _08027EA4: .4byte 0x02021DE0
 _08027EA8: .4byte gUnk_02021C08
 _08027EAC: .4byte gUnk_02021C10
@@ -49780,7 +45437,7 @@ _08027F16:
 	b _08027FEC
 	.align 2, 0
 _08027F48: .4byte 0x02021DE0
-_08027F4C: .4byte gBoard
+_08027F4C: .4byte gZones
 _08027F50: .4byte gCardInfo
 _08027F54: .4byte gUnk_02021C08
 _08027F58: .4byte gUnk_02021C10
@@ -49859,7 +45516,7 @@ _08027FEC:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08027FF4: .4byte gBoard
+_08027FF4: .4byte gZones
 _08027FF8: .4byte gCardInfo
 _08027FFC: .4byte 0x02021DE0
 _08028000: .4byte gUnk_02021C08
@@ -49931,7 +45588,7 @@ _08028054:
 	b _08028112
 	.align 2, 0
 _08028088: .4byte 0x02021DE0
-_0802808C: .4byte gBoard
+_0802808C: .4byte gZones
 _08028090: .4byte 0x0000022A
 _08028094: .4byte gUnk_02021C08
 _08028098: .4byte gUnk_02021C10
@@ -49999,7 +45656,7 @@ _08028112:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08028118: .4byte gBoard
+_08028118: .4byte gZones
 _0802811C: .4byte 0x0000022A
 _08028120: .4byte gUnk_02021C08
 _08028124: .4byte gUnk_02021C10
@@ -50070,7 +45727,7 @@ _08028176:
 	b _0802822C
 	.align 2, 0
 _080281A8: .4byte 0x02021DE0
-_080281AC: .4byte gBoard
+_080281AC: .4byte gZones
 _080281B0: .4byte gUnk_02021C08
 _080281B4: .4byte gUnk_02021C10
 _080281B8:
@@ -50136,7 +45793,7 @@ _0802822C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08028234: .4byte gBoard
+_08028234: .4byte gZones
 _08028238: .4byte gUnk_02021C08
 _0802823C: .4byte gUnk_02021C10
 _08028240: .4byte 0x02021DE0
@@ -50197,7 +45854,7 @@ _0802827C:
 	b _08028322
 	.align 2, 0
 _080282B0: .4byte 0x02021DE0
-_080282B4: .4byte gBoard
+_080282B4: .4byte gZones
 _080282B8: .4byte gUnk_02021C08
 _080282BC: .4byte gUnk_02021C10
 _080282C0:
@@ -50254,7 +45911,7 @@ _08028322:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08028328: .4byte gBoard
+_08028328: .4byte gZones
 _0802832C: .4byte gUnk_02021C08
 _08028330: .4byte gUnk_02021C10
 _08028334: .4byte 0x02021DE0
@@ -50315,7 +45972,7 @@ _08028370:
 	b _08028416
 	.align 2, 0
 _080283A4: .4byte 0x02021DE0
-_080283A8: .4byte gBoard
+_080283A8: .4byte gZones
 _080283AC: .4byte gUnk_02021C08
 _080283B0: .4byte gUnk_02021C10
 _080283B4:
@@ -50372,7 +46029,7 @@ _08028416:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0802841C: .4byte gBoard
+_0802841C: .4byte gZones
 _08028420: .4byte gUnk_02021C08
 _08028424: .4byte gUnk_02021C10
 _08028428: .4byte 0x02021DE0
@@ -50453,7 +46110,7 @@ _0802848E:
 	b _0802855C
 	.align 2, 0
 _080284C0: .4byte 0x02021DE0
-_080284C4: .4byte gBoard
+_080284C4: .4byte gZones
 _080284C8: .4byte gUnk_02021C08
 _080284CC: .4byte gUnk_02021C10
 _080284D0:
@@ -50530,7 +46187,7 @@ _0802855C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08028564: .4byte gBoard
+_08028564: .4byte gZones
 _08028568: .4byte 0x02021DE0
 _0802856C: .4byte gUnk_02021C08
 _08028570: .4byte gUnk_02021C10
@@ -50575,7 +46232,7 @@ _080285A0:
 	b _080285D6
 	.align 2, 0
 _080285C0: .4byte 0x02021DE0
-_080285C4: .4byte gBoard
+_080285C4: .4byte gZones
 _080285C8: .4byte gCardInfo
 _080285CC:
 	cmp r0, #2
@@ -50606,7 +46263,7 @@ _080285E4:
 	bl sub_8040404
 	b _08028616
 	.align 2, 0
-_08028604: .4byte gBoard+0x28
+_08028604: .4byte gZones+0x28
 _08028608: .4byte gCardInfo
 _0802860C:
 	cmp r0, #2
@@ -50644,7 +46301,7 @@ _08028646:
 	.align 2, 0
 _0802864C: .4byte gUnk_02021C08
 _08028650: .4byte gUnk_02021C10
-_08028654: .4byte gBoard
+_08028654: .4byte gZones
 _08028658: .4byte 0x02021DE0
 
 	THUMB_FUNC_START sub_802865C
@@ -50687,7 +46344,7 @@ _08028688:
 	b _080286BE
 	.align 2, 0
 _080286A8: .4byte 0x02021DE0
-_080286AC: .4byte gBoard
+_080286AC: .4byte gZones
 _080286B0: .4byte gCardInfo
 _080286B4:
 	cmp r0, #2
@@ -50718,7 +46375,7 @@ _080286CC:
 	bl sub_80403F0
 	b _080286FE
 	.align 2, 0
-_080286EC: .4byte gBoard+0x28
+_080286EC: .4byte gZones+0x28
 _080286F0: .4byte gCardInfo
 _080286F4:
 	cmp r0, #2
@@ -50756,7 +46413,7 @@ _0802872E:
 	.align 2, 0
 _08028734: .4byte gUnk_02021C08
 _08028738: .4byte gUnk_02021C10
-_0802873C: .4byte gBoard
+_0802873C: .4byte gZones
 _08028740: .4byte 0x02021DE0
 
 	THUMB_FUNC_START sub_8028744
@@ -50881,7 +46538,7 @@ _08028830:
 	bx r0
 	.align 2, 0
 _08028838: .4byte 0x02021DE0
-_0802883C: .4byte gBoard
+_0802883C: .4byte gZones
 _08028840: .4byte gCardInfo
 _08028844: .4byte gUnk_02021C08
 _08028848: .4byte gUnk_02021C10
@@ -50974,7 +46631,7 @@ _080288E6:
 	b _080289BC
 	.align 2, 0
 _080288FC: .4byte 0x02021DE0
-_08028900: .4byte gBoard
+_08028900: .4byte gZones
 _08028904: .4byte gCardInfo
 _08028908: .4byte gDuel+0x100
 _0802890C: .4byte gUnk_02021C08
@@ -51065,7 +46722,7 @@ _080289BC:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080289C4: .4byte gBoard
+_080289C4: .4byte gZones
 _080289C8: .4byte gCardInfo
 _080289CC: .4byte 0x02021DE0
 _080289D0: .4byte gDuel+0x100
@@ -51140,7 +46797,7 @@ _08028A42:
 	b _08028AF4
 	.align 2, 0
 _08028A64: .4byte 0x02021DE0
-_08028A68: .4byte gBoard
+_08028A68: .4byte gZones
 _08028A6C: .4byte gCardInfo
 _08028A70: .4byte gUnk_02021C08
 _08028A74: .4byte gUnk_02021C10
@@ -51209,7 +46866,7 @@ _08028AF4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08028AFC: .4byte gBoard
+_08028AFC: .4byte gZones
 _08028B00: .4byte gCardInfo
 _08028B04: .4byte gUnk_02021C08
 _08028B08: .4byte gUnk_02021C10
@@ -51244,7 +46901,7 @@ sub_8028B10: @ 0x08028B10
 	b _08028B86
 	.align 2, 0
 _08028B48: .4byte 0x02021DE0
-_08028B4C: .4byte gBoard
+_08028B4C: .4byte gZones
 _08028B50: .4byte gUnk_02021C08
 _08028B54: .4byte gUnk_02021C10
 _08028B58:
@@ -51274,7 +46931,7 @@ _08028B86:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08028B8C: .4byte gBoard
+_08028B8C: .4byte gZones
 _08028B90: .4byte gUnk_02021C08
 _08028B94: .4byte gUnk_02021C10
 
@@ -51400,12 +47057,12 @@ _08028C7C:
 	bx r0
 	.align 2, 0
 _08028C88: .4byte 0x02021DE0
-_08028C8C: .4byte gBoard
+_08028C8C: .4byte gZones
 _08028C90: .4byte gUnk2021AC0
 _08028C94: .4byte gDuel+0xF0
 _08028C98: .4byte 0x000005DB
 _08028C9C: .4byte gCardInfo
-_08028CA0: .4byte gBoard+0x28
+_08028CA0: .4byte gZones+0x28
 _08028CA4: .4byte gUnk_02021C08
 _08028CA8: .4byte gUnk_02021C10
 
@@ -51500,7 +47157,7 @@ _08028D54:
 	bx r0
 	.align 2, 0
 _08028D60: .4byte 0x02021DE0
-_08028D64: .4byte gBoard+0x14
+_08028D64: .4byte gZones+0x14
 _08028D68: .4byte 0x0000025D
 _08028D6C: .4byte gUnk_02021C08
 _08028D70: .4byte gUnk_02021C10
@@ -51539,7 +47196,7 @@ sub_8028D74: @ 0x08028D74
 	b _08028E04
 	.align 2, 0
 _08028DB8: .4byte 0x02021DE0
-_08028DBC: .4byte gBoard
+_08028DBC: .4byte gZones
 _08028DC0: .4byte gUnk_02021C08
 _08028DC4: .4byte gUnk_02021C10
 _08028DC8:
@@ -51574,7 +47231,7 @@ _08028E04:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08028E0C: .4byte gBoard
+_08028E0C: .4byte gZones
 _08028E10: .4byte gUnk_02021C08
 _08028E14: .4byte gUnk_02021C10
 
@@ -51618,7 +47275,7 @@ sub_8028E18: @ 0x08028E18
 	.align 2, 0
 _08028E68: .4byte 0x02021DE0
 _08028E6C: .4byte gHands+0x14
-_08028E70: .4byte gBoard
+_08028E70: .4byte gZones
 _08028E74: .4byte gUnk_02021C08
 _08028E78: .4byte gUnk_02021C10
 _08028E7C:
@@ -51659,7 +47316,7 @@ _08028EC2:
 	bx r0
 	.align 2, 0
 _08028EC8: .4byte gHands
-_08028ECC: .4byte gBoard
+_08028ECC: .4byte gZones
 _08028ED0: .4byte gUnk_02021C08
 _08028ED4: .4byte gUnk_02021C10
 
@@ -51802,7 +47459,7 @@ _08028FE2:
 	bx r0
 	.align 2, 0
 _08028FEC: .4byte 0x02021DE0
-_08028FF0: .4byte gBoard
+_08028FF0: .4byte gZones
 _08028FF4: .4byte gCardInfo
 _08028FF8: .4byte gDuel+0x100
 _08028FFC: .4byte gUnk_02021C08
@@ -51885,7 +47542,7 @@ _0802902C:
 	.align 2, 0
 _080290A0: .4byte 0x02021DE0
 _080290A4: .4byte gDuel+0x100
-_080290A8: .4byte gBoard+0x14
+_080290A8: .4byte gZones+0x14
 _080290AC: .4byte gUnk_02021C08
 _080290B0: .4byte gUnk_02021C10
 _080290B4:
@@ -51959,7 +47616,7 @@ _08029142:
 	bx r0
 	.align 2, 0
 _08029148: .4byte gDuel+0x100
-_0802914C: .4byte gBoard+0x28
+_0802914C: .4byte gZones+0x28
 _08029150: .4byte gUnk_02021C08
 _08029154: .4byte gUnk_02021C10
 
@@ -52069,7 +47726,7 @@ _08029220:
 	bx r0
 	.align 2, 0
 _08029228: .4byte 0x02021DE0
-_0802922C: .4byte gBoard
+_0802922C: .4byte gZones
 _08029230: .4byte gCardInfo
 _08029234: .4byte gUnk_02021C08
 _08029238: .4byte gUnk_02021C10
@@ -52200,7 +47857,7 @@ _08029330:
 	bx r0
 	.align 2, 0
 _08029338: .4byte 0x02021DE0
-_0802933C: .4byte gBoard
+_0802933C: .4byte gZones
 _08029340: .4byte gCardInfo
 _08029344: .4byte gUnk_02021C08
 _08029348: .4byte gUnk_02021C10
@@ -52262,7 +47919,7 @@ _08029388:
 	b _08029436
 	.align 2, 0
 _080293BC: .4byte 0x02021DE0
-_080293C0: .4byte gBoard
+_080293C0: .4byte gZones
 _080293C4: .4byte gCardInfo
 _080293C8: .4byte gUnk_02021C08
 _080293CC: .4byte gUnk_02021C10
@@ -52321,7 +47978,7 @@ _08029436:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0802943C: .4byte gBoard
+_0802943C: .4byte gZones
 _08029440: .4byte gCardInfo
 _08029444: .4byte gUnk_02021C08
 _08029448: .4byte gUnk_02021C10
@@ -52394,7 +48051,7 @@ _0802949E:
 	b _0802955C
 	.align 2, 0
 _080294D0: .4byte 0x02021DE0
-_080294D4: .4byte gBoard
+_080294D4: .4byte gZones
 _080294D8: .4byte gCardInfo
 _080294DC: .4byte gUnk_02021C08
 _080294E0: .4byte gUnk_02021C10
@@ -52463,7 +48120,7 @@ _0802955C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08029564: .4byte gBoard
+_08029564: .4byte gZones
 _08029568: .4byte gCardInfo
 _0802956C: .4byte gUnk_02021C08
 _08029570: .4byte gUnk_02021C10
@@ -52537,7 +48194,7 @@ _080295EE:
 _08029600: .4byte 0x02021DE0
 _08029604: .4byte gDuel+0x100
 _08029608: .4byte 0x00000285
-_0802960C: .4byte gBoard+0x14
+_0802960C: .4byte gZones+0x14
 _08029610: .4byte 0x00000286
 _08029614: .4byte gUnk_02021C08
 _08029618: .4byte gUnk_02021C10
@@ -52605,7 +48262,7 @@ _0802969A:
 	.align 2, 0
 _080296A0: .4byte gDuel+0x100
 _080296A4: .4byte 0x00000285
-_080296A8: .4byte gBoard+0x28
+_080296A8: .4byte gZones+0x28
 _080296AC: .4byte 0x00000286
 _080296B0: .4byte gUnk_02021C08
 _080296B4: .4byte gUnk_02021C10
@@ -52647,7 +48304,7 @@ _080296E8:
 	.align 2, 0
 _080296FC: .4byte 0x02021DE0
 _08029700: .4byte gDuel+0x100
-_08029704: .4byte gBoard
+_08029704: .4byte gZones
 _08029708: .4byte gUnk_02021C08
 _0802970C: .4byte gUnk_02021C10
 _08029710:
@@ -52685,7 +48342,7 @@ _0802974C:
 	bx r0
 	.align 2, 0
 _08029754: .4byte gDuel+0x100
-_08029758: .4byte gBoard
+_08029758: .4byte gZones
 _0802975C: .4byte gUnk_02021C08
 _08029760: .4byte gUnk_02021C10
 
@@ -52731,7 +48388,7 @@ _08029792:
 	b _0802980A
 	.align 2, 0
 _080297B4: .4byte 0x02021DE0
-_080297B8: .4byte gBoard
+_080297B8: .4byte gZones
 _080297BC: .4byte gUnk_02021C08
 _080297C0: .4byte gUnk_02021C10
 _080297C4:
@@ -52774,7 +48431,7 @@ _0802980A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08029810: .4byte gBoard+0x3C
+_08029810: .4byte gZones+0x3C
 _08029814: .4byte gUnk_02021C08
 _08029818: .4byte gUnk_02021C10
 _0802981C: .4byte 0x02021DE0
@@ -52782,7 +48439,7 @@ _0802981C: .4byte 0x02021DE0
 	THUMB_FUNC_START sub_8029820
 sub_8029820: @ 0x08029820
 	push {r4, lr}
-	bl GetCurrTurn
+	bl WhoseTurn
 	ldr r1, _0802985C
 	strb r0, [r1, #4]
 	ldr r4, _08029860
@@ -52895,7 +48552,7 @@ _08029912:
 	bx r0
 	.align 2, 0
 _08029918: .4byte 0x02021DE0
-_0802991C: .4byte gBoard
+_0802991C: .4byte gZones
 _08029920: .4byte gUnk_02021C08
 _08029924: .4byte gUnk_02021C10
 	.byte 0x70, 0x47, 0x00, 0x00, 0x70, 0x47, 0x00, 0x00
@@ -52971,7 +48628,7 @@ _08029A12:
 	b _08029A70
 	.align 2, 0
 _08029A20: .4byte 0x02021DE0
-_08029A24: .4byte gBoard+0x14
+_08029A24: .4byte gZones+0x14
 _08029A28: .4byte gCardInfo
 _08029A2C:
 	cmp r0, #2
@@ -52988,7 +48645,7 @@ _08029A2C:
 	subs r5, #0x28
 	b _08029A52
 	.align 2, 0
-_08029A48: .4byte gBoard+0x28
+_08029A48: .4byte gZones+0x28
 _08029A4C:
 	adds r0, r4, #1
 	lsls r0, r0, #0x18
@@ -53064,7 +48721,7 @@ _08029B2C:
 	b _08029B82
 	.align 2, 0
 _08029B38: .4byte 0x02021DE0
-_08029B3C: .4byte gBoard+0x14
+_08029B3C: .4byte gZones+0x14
 _08029B40: .4byte gCardInfo
 _08029B44:
 	movs r6, #1
@@ -53105,7 +48762,7 @@ _08029B82:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08029B8C: .4byte gBoard+0x28
+_08029B8C: .4byte gZones+0x28
 _08029B90: .4byte gCardInfo
 
 	THUMB_FUNC_START sub_8029B94
@@ -53137,7 +48794,7 @@ _08029BB6:
 	b _08029BF8
 	.align 2, 0
 _08029BC4: .4byte 0x02021DE0
-_08029BC8: .4byte gBoard+0x14
+_08029BC8: .4byte gZones+0x14
 _08029BCC: .4byte 0x0000022A
 _08029BD0:
 	movs r4, #1
@@ -53169,7 +48826,7 @@ _08029BF8:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08029C00: .4byte gBoard+0x28
+_08029C00: .4byte gZones+0x28
 _08029C04: .4byte 0x0000022A
 
 	THUMB_FUNC_START sub_8029C08
@@ -53208,7 +48865,7 @@ _08029C26:
 	b _08029C82
 	.align 2, 0
 _08029C48: .4byte 0x02021DE0
-_08029C4C: .4byte gBoard
+_08029C4C: .4byte gZones
 _08029C50:
 	cmp r0, #2
 	bne _08029C84
@@ -53219,7 +48876,7 @@ _08029C50:
 	adds r3, r1, #0
 	b _08029C7A
 	.align 2, 0
-_08029C60: .4byte gBoard
+_08029C60: .4byte gZones
 _08029C64:
 	adds r0, r2, #1
 	lsls r0, r0, #0x18
@@ -53281,7 +48938,7 @@ _08029CAA:
 	b _08029D06
 	.align 2, 0
 _08029CCC: .4byte 0x02021DE0
-_08029CD0: .4byte gBoard
+_08029CD0: .4byte gZones
 _08029CD4:
 	cmp r0, #2
 	bne _08029D08
@@ -53292,7 +48949,7 @@ _08029CD4:
 	adds r3, r1, #0
 	b _08029CFE
 	.align 2, 0
-_08029CE4: .4byte gBoard
+_08029CE4: .4byte gZones
 _08029CE8:
 	adds r0, r2, #1
 	lsls r0, r0, #0x18
@@ -53354,7 +49011,7 @@ _08029D2E:
 	b _08029D8A
 	.align 2, 0
 _08029D50: .4byte 0x02021DE0
-_08029D54: .4byte gBoard
+_08029D54: .4byte gZones
 _08029D58:
 	cmp r0, #2
 	bne _08029D8C
@@ -53365,7 +49022,7 @@ _08029D58:
 	adds r3, r1, #0
 	b _08029D82
 	.align 2, 0
-_08029D68: .4byte gBoard
+_08029D68: .4byte gZones
 _08029D6C:
 	adds r0, r2, #1
 	lsls r0, r0, #0x18
@@ -53432,7 +49089,7 @@ _08029DD0:
 	b _08029E22
 	.align 2, 0
 _08029DDC: .4byte 0x02021DE0
-_08029DE0: .4byte gBoard+0x14
+_08029DE0: .4byte gZones+0x14
 _08029DE4:
 	movs r7, #1
 	b _08029E22
@@ -53475,7 +49132,7 @@ _08029E22:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08029E30: .4byte gBoard+0x28
+_08029E30: .4byte gZones+0x28
 
 	THUMB_FUNC_START sub_8029E34
 sub_8029E34: @ 0x08029E34
@@ -53533,9 +49190,9 @@ _08029E94:
 	b _08029EB2
 	.align 2, 0
 _08029E98: .4byte 0x02021DE0
-_08029E9C: .4byte gBoard+0x14
+_08029E9C: .4byte gZones+0x14
 _08029EA0: .4byte gCardInfo
-_08029EA4: .4byte gBoard+0x28
+_08029EA4: .4byte gZones+0x28
 _08029EA8:
 	adds r0, r4, #1
 	lsls r0, r0, #0x18
@@ -53605,9 +49262,9 @@ _08029F1C:
 	b _08029F3A
 	.align 2, 0
 _08029F20: .4byte 0x02021DE0
-_08029F24: .4byte gBoard+0x14
+_08029F24: .4byte gZones+0x14
 _08029F28: .4byte gCardInfo
-_08029F2C: .4byte gBoard+0x28
+_08029F2C: .4byte gZones+0x28
 _08029F30:
 	adds r0, r4, #1
 	lsls r0, r0, #0x18
@@ -53663,7 +49320,7 @@ _08029F7C:
 	b _08029FE2
 	.align 2, 0
 _08029F90: .4byte 0x02021DE0
-_08029F94: .4byte gBoard+0x28
+_08029F94: .4byte gZones+0x28
 _08029F98: .4byte gCardInfo
 _08029F9C: .4byte gDuel+0x100
 _08029FA0:
@@ -53715,7 +49372,7 @@ _08029FF2:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08029FFC: .4byte gBoard+0x14
+_08029FFC: .4byte gZones+0x14
 _0802A000: .4byte gCardInfo
 _0802A004: .4byte gDuel+0x100
 
@@ -53750,7 +49407,7 @@ _0802A030:
 	b _0802A076
 	.align 2, 0
 _0802A03C: .4byte 0x02021DE0
-_0802A040: .4byte gBoard+0x14
+_0802A040: .4byte gZones+0x14
 _0802A044: .4byte gCardInfo
 _0802A048:
 	movs r6, #1
@@ -53784,7 +49441,7 @@ _0802A076:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0802A080: .4byte gBoard+0x28
+_0802A080: .4byte gZones+0x28
 _0802A084: .4byte gCardInfo
 
 	THUMB_FUNC_START sub_802A088
@@ -53897,12 +49554,12 @@ _0802A152:
 	b _0802A240
 	.align 2, 0
 _0802A160: .4byte 0x02021DE0
-_0802A164: .4byte gBoard
+_0802A164: .4byte gZones
 _0802A168: .4byte gUnk2021AC0
 _0802A16C: .4byte gDuel+0xF0
 _0802A170: .4byte 0x000005DB
 _0802A174: .4byte gCardInfo
-_0802A178: .4byte gBoard+0x28
+_0802A178: .4byte gZones+0x28
 _0802A17C:
 	movs r7, #1
 	b _0802A240
@@ -54010,12 +49667,12 @@ _0802A240:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0802A250: .4byte gBoard+0x3C
+_0802A250: .4byte gZones+0x3C
 _0802A254: .4byte gUnk2021AC0
 _0802A258: .4byte gDuel+0xF0
 _0802A25C: .4byte 0x000005DB
 _0802A260: .4byte gCardInfo
-_0802A264: .4byte gBoard+0x28
+_0802A264: .4byte gZones+0x28
 
 	THUMB_FUNC_START sub_802A268
 sub_802A268: @ 0x0802A268
@@ -54089,9 +49746,9 @@ _0802A2E4:
 	b _0802A302
 	.align 2, 0
 _0802A2EC: .4byte 0x02021DE0
-_0802A2F0: .4byte gBoard+0x14
+_0802A2F0: .4byte gZones+0x14
 _0802A2F4: .4byte gCardInfo
-_0802A2F8: .4byte gBoard+0x28
+_0802A2F8: .4byte gZones+0x28
 _0802A2FC: .4byte gDuel+0x100
 _0802A300:
 	movs r0, #0
@@ -54119,7 +49776,7 @@ sub_802A308: @ 0x0802A308
 	.align 2, 0
 _0802A324: .4byte 0x02021DE0
 _0802A328: .4byte gDuel+0x100
-_0802A32C: .4byte gBoard+0x14
+_0802A32C: .4byte gZones+0x14
 _0802A330:
 	cmp r0, #6
 	bne _0802A358
@@ -54139,7 +49796,7 @@ _0802A344:
 	b _0802A35A
 	.align 2, 0
 _0802A350: .4byte gDuel+0x100
-_0802A354: .4byte gBoard+0x28
+_0802A354: .4byte gZones+0x28
 _0802A358:
 	movs r0, #0
 _0802A35A:
@@ -54177,7 +49834,7 @@ _0802A386:
 	b _0802A3CE
 	.align 2, 0
 _0802A394: .4byte 0x02021DE0
-_0802A398: .4byte gBoard+0x14
+_0802A398: .4byte gZones+0x14
 _0802A39C: .4byte gCardInfo
 _0802A3A0:
 	movs r0, #1
@@ -54212,7 +49869,7 @@ _0802A3D0:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0802A3D8: .4byte gBoard+0x28
+_0802A3D8: .4byte gZones+0x28
 _0802A3DC: .4byte gCardInfo
 
 	THUMB_FUNC_START sub_802A3E0
@@ -54251,7 +49908,7 @@ _0802A412:
 	b _0802A46E
 	.align 2, 0
 _0802A420: .4byte 0x02021DE0
-_0802A424: .4byte gBoard+0x14
+_0802A424: .4byte gZones+0x14
 _0802A428: .4byte gCardInfo
 _0802A42C:
 	cmp r0, #2
@@ -54280,7 +49937,7 @@ _0802A458:
 	movs r0, #1
 	b _0802A470
 	.align 2, 0
-_0802A45C: .4byte gBoard+0x28
+_0802A45C: .4byte gZones+0x28
 _0802A460: .4byte gCardInfo
 _0802A464:
 	adds r0, r4, #1
@@ -54369,7 +50026,7 @@ sub_802A4E0: @ 0x0802A4E0
 	b _0802A516
 	.align 2, 0
 _0802A504: .4byte 0x02021DE0
-_0802A508: .4byte gBoard
+_0802A508: .4byte gZones
 _0802A50C: .4byte 0x00000149
 _0802A510:
 	adds r0, r5, #1
@@ -54435,8 +50092,8 @@ _0802A580:
 	bx r1
 	.align 2, 0
 _0802A588: .4byte 0x02021DE0
-_0802A58C: .4byte gBoard+0x14
-_0802A590: .4byte gBoard+0x28
+_0802A58C: .4byte gZones+0x14
+_0802A590: .4byte gZones+0x28
 
 	THUMB_FUNC_START sub_802A594
 sub_802A594: @ 0x0802A594
@@ -54472,8 +50129,8 @@ _0802A5C8:
 	bx r1
 	.align 2, 0
 _0802A5D0: .4byte 0x02021DE0
-_0802A5D4: .4byte gBoard+0x14
-_0802A5D8: .4byte gBoard+0x28
+_0802A5D4: .4byte gZones+0x14
+_0802A5D8: .4byte gZones+0x28
 
 	THUMB_FUNC_START sub_802A5DC
 sub_802A5DC: @ 0x0802A5DC
@@ -54509,8 +50166,8 @@ _0802A610:
 	bx r1
 	.align 2, 0
 _0802A618: .4byte 0x02021DE0
-_0802A61C: .4byte gBoard+0x14
-_0802A620: .4byte gBoard+0x28
+_0802A61C: .4byte gZones+0x14
+_0802A620: .4byte gZones+0x28
 
 	THUMB_FUNC_START sub_802A624
 sub_802A624: @ 0x0802A624
@@ -54524,7 +50181,7 @@ sub_802A624: @ 0x0802A624
 	b _0802A642
 	.align 2, 0
 _0802A634: .4byte 0x02021DE0
-_0802A638: .4byte gBoard+0x14
+_0802A638: .4byte gZones+0x14
 _0802A63C:
 	cmp r0, #2
 	bne _0802A64E
@@ -54541,7 +50198,7 @@ _0802A64E:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0802A658: .4byte gBoard+0x28
+_0802A658: .4byte gZones+0x28
 
 	THUMB_FUNC_START sub_802A65C
 sub_802A65C: @ 0x0802A65C
@@ -54575,9 +50232,9 @@ _0802A68C:
 	bx r1
 	.align 2, 0
 _0802A694: .4byte 0x02021DE0
-_0802A698: .4byte gBoard+0x14
+_0802A698: .4byte gZones+0x14
 _0802A69C: .4byte 0x00000177
-_0802A6A0: .4byte gBoard+0x28
+_0802A6A0: .4byte gZones+0x28
 
 	THUMB_FUNC_START sub_802A6A4
 sub_802A6A4: @ 0x0802A6A4
@@ -54591,7 +50248,7 @@ sub_802A6A4: @ 0x0802A6A4
 	b _0802A6C2
 	.align 2, 0
 _0802A6B4: .4byte 0x02021DE0
-_0802A6B8: .4byte gBoard+0x28
+_0802A6B8: .4byte gZones+0x28
 _0802A6BC:
 	cmp r0, #2
 	bne _0802A6CC
@@ -54607,7 +50264,7 @@ _0802A6CC:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0802A6D4: .4byte gBoard+0x14
+_0802A6D4: .4byte gZones+0x14
 	.byte 0x00, 0x21, 0x08, 0x4B, 0x58, 0x68, 0x00, 0x88
 	.byte 0x23, 0x28, 0x08, 0xD0, 0x06, 0x4A, 0x90, 0x42, 0x05, 0xD0, 0x18, 0x68, 0x00, 0x88, 0x23, 0x28
 	.byte 0x01, 0xD0, 0x90, 0x42, 0x00, 0xD1, 0x01, 0x21, 0x08, 0x1C, 0x70, 0x47, 0xC0, 0x3F, 0x02, 0x02
@@ -54670,7 +50327,7 @@ _0802A7B8:
 	bx r1
 	.align 2, 0
 _0802A7C8: .4byte 0x02021DE0
-_0802A7CC: .4byte gBoard+0x14
+_0802A7CC: .4byte gZones+0x14
 _0802A7D0: .4byte 0x0000025D
 
 	THUMB_FUNC_START sub_802A7D4
@@ -54685,7 +50342,7 @@ sub_802A7D4: @ 0x0802A7D4
 	b _0802A7F2
 	.align 2, 0
 _0802A7E4: .4byte 0x02021DE0
-_0802A7E8: .4byte gBoard+0x28
+_0802A7E8: .4byte gZones+0x28
 _0802A7EC:
 	cmp r0, #2
 	bne _0802A7FC
@@ -54701,7 +50358,7 @@ _0802A7FC:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0802A804: .4byte gBoard+0x14
+_0802A804: .4byte gZones+0x14
 
 	THUMB_FUNC_START sub_802A808
 sub_802A808: @ 0x0802A808
@@ -54754,7 +50411,7 @@ sub_802A840: @ 0x0802A840
 	b _0802A872
 	.align 2, 0
 _0802A864: .4byte 0x02021DE0
-_0802A868: .4byte gBoard+0x3C
+_0802A868: .4byte gZones+0x3C
 _0802A86C:
 	adds r0, r5, #1
 	lsls r0, r0, #0x18
@@ -54832,7 +50489,7 @@ sub_802A8E8: @ 0x0802A8E8
 _0802A904: .4byte 0x02021DE0
 _0802A908: .4byte gDuel+0x100
 _0802A90C: .4byte 0x00000285
-_0802A910: .4byte gBoard+0x14
+_0802A910: .4byte gZones+0x14
 _0802A914:
 	cmp r0, #6
 	bne _0802A940
@@ -54852,7 +50509,7 @@ _0802A926:
 	.align 2, 0
 _0802A934: .4byte gDuel+0x100
 _0802A938: .4byte 0x00000285
-_0802A93C: .4byte gBoard+0x28
+_0802A93C: .4byte gZones+0x28
 _0802A940:
 	movs r0, #0
 _0802A942:
@@ -54915,7 +50572,7 @@ sub_802A98C: @ 0x0802A98C
 	b _0802A9AA
 	.align 2, 0
 _0802A99C: .4byte 0x02021DE0
-_0802A9A0: .4byte gBoard
+_0802A9A0: .4byte gZones
 _0802A9A4:
 	cmp r0, #3
 	bne _0802A9C0
@@ -54928,7 +50585,7 @@ _0802A9AA:
 	movs r0, #1
 	b _0802A9C2
 	.align 2, 0
-_0802A9B8: .4byte gBoard+0x3C
+_0802A9B8: .4byte gZones+0x3C
 _0802A9BC: .4byte 0x00000247
 _0802A9C0:
 	movs r0, #0
@@ -54948,7 +50605,7 @@ sub_802A9C8: @ 0x0802A9C8
 	b _0802A9E6
 	.align 2, 0
 _0802A9D8: .4byte 0x02021DE0
-_0802A9DC: .4byte gBoard
+_0802A9DC: .4byte gZones
 _0802A9E0:
 	cmp r0, #3
 	bne _0802A9FC
@@ -54961,7 +50618,7 @@ _0802A9E6:
 	movs r0, #1
 	b _0802A9FE
 	.align 2, 0
-_0802A9F4: .4byte gBoard+0x3C
+_0802A9F4: .4byte gZones+0x3C
 _0802A9F8: .4byte 0x00000247
 _0802A9FC:
 	movs r0, #0
@@ -54981,7 +50638,7 @@ sub_802AA04: @ 0x0802AA04
 	b _0802AA22
 	.align 2, 0
 _0802AA14: .4byte 0x02021DE0
-_0802AA18: .4byte gBoard
+_0802AA18: .4byte gZones
 _0802AA1C:
 	cmp r0, #3
 	bne _0802AA38
@@ -54994,7 +50651,7 @@ _0802AA22:
 	movs r0, #1
 	b _0802AA3A
 	.align 2, 0
-_0802AA30: .4byte gBoard+0x3C
+_0802AA30: .4byte gZones+0x3C
 _0802AA34: .4byte 0x00000247
 _0802AA38:
 	movs r0, #0
@@ -55014,7 +50671,7 @@ sub_802AA40: @ 0x0802AA40
 	b _0802AA5E
 	.align 2, 0
 _0802AA50: .4byte 0x02021DE0
-_0802AA54: .4byte gBoard
+_0802AA54: .4byte gZones
 _0802AA58:
 	cmp r0, #3
 	bne _0802AA74
@@ -55027,7 +50684,7 @@ _0802AA5E:
 	movs r0, #1
 	b _0802AA76
 	.align 2, 0
-_0802AA6C: .4byte gBoard+0x3C
+_0802AA6C: .4byte gZones+0x3C
 _0802AA70: .4byte 0x00000247
 _0802AA74:
 	movs r0, #0
@@ -56056,7 +51713,7 @@ _0802B1FA:
 	bx r0
 	.align 2, 0
 _0802B200: .4byte 0x02021DE0
-_0802B204: .4byte gBoard
+_0802B204: .4byte gZones
 _0802B208: .4byte gUnk_02021C08
 _0802B20C: .4byte 0x00000177
 
@@ -56112,8 +51769,8 @@ _0802B238:
 	.align 2, 0
 _0802B274: .4byte gDuel
 _0802B278: .4byte 0x02021DE0
-_0802B27C: .4byte gBoard+0x14
-_0802B280: .4byte gBoard
+_0802B27C: .4byte gZones+0x14
+_0802B280: .4byte gZones
 _0802B284: .4byte gUnk_02021C08
 _0802B288: .4byte gUnk_02021C10
 _0802B28C:
@@ -56161,8 +51818,8 @@ _0802B2DE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0802B2E4: .4byte gBoard+0x28
-_0802B2E8: .4byte gBoard
+_0802B2E4: .4byte gZones+0x28
+_0802B2E8: .4byte gZones
 _0802B2EC: .4byte 0x02021DE0
 _0802B2F0: .4byte gUnk_02021C08
 _0802B2F4: .4byte gDuel
@@ -56204,7 +51861,7 @@ sub_802B2FC: @ 0x0802B2FC
 	b _0802B38C
 	.align 2, 0
 _0802B344: .4byte 0x02021DE0
-_0802B348: .4byte gBoard+0x3C
+_0802B348: .4byte gZones+0x3C
 _0802B34C:
 	movs r0, #4
 	ands r0, r1
@@ -56273,7 +51930,7 @@ _0802B3C6:
 	bx r0
 	.align 2, 0
 _0802B3CC: .4byte 0x0000024B
-_0802B3D0: .4byte gBoard+0x3C
+_0802B3D0: .4byte gZones+0x3C
 _0802B3D4: .4byte gUnk_02021C08
 _0802B3D8: .4byte gUnk_02021C10
 _0802B3DC: .4byte 0x02021DE0
@@ -56343,7 +52000,7 @@ _0802B454:
 	bx r0
 	.align 2, 0
 _0802B45C: .4byte 0x02021DE0
-_0802B460: .4byte gBoard
+_0802B460: .4byte gZones
 _0802B464: .4byte 0x00000121
 _0802B468: .4byte gUnk_02021C08
 _0802B46C: .4byte gUnk_02021C10
@@ -56444,14 +52101,14 @@ _0802B68E:
 	.align 2, 0
 _0802B694: .4byte 0x02021DE0
 _0802B698: .4byte gDuel+0x100
-_0802B69C: .4byte gBoard+0x28
+_0802B69C: .4byte gZones+0x28
 _0802B6A0: .4byte gUnk_02021C08
 _0802B6A4: .4byte gUnk_02021C10
 
 	THUMB_FUNC_START sub_802B6A8
 sub_802B6A8: @ 0x0802B6A8
 	push {lr}
-	bl GetCurrTurn
+	bl WhoseTurn
 	ldr r1, _0802B6D0
 	strb r0, [r1, #4]
 	ldr r0, _0802B6D4
@@ -56527,7 +52184,7 @@ sub_802B770: @ 0x0802B770
 	b _0802B7C0
 	.align 2, 0
 _0802B7A8: .4byte 0x02021DE0
-_0802B7AC: .4byte gBoard
+_0802B7AC: .4byte gZones
 _0802B7B0:
 	movs r0, #0xfa
 	lsls r0, r0, #2
@@ -56616,7 +52273,7 @@ sub_802B83C: @ 0x0802B83C
 	b _0802B888
 	.align 2, 0
 _0802B870: .4byte 0x02021DE0
-_0802B874: .4byte gBoard
+_0802B874: .4byte gZones
 _0802B878:
 	movs r0, #0xaf
 	lsls r0, r0, #2
@@ -56683,7 +52340,7 @@ _0802B906:
 	bx r0
 	.align 2, 0
 _0802B90C: .4byte 0x02021DE0
-_0802B910: .4byte gBoard+0x14
+_0802B910: .4byte gZones+0x14
 _0802B914: .4byte gUnk_02021C08
 _0802B918: .4byte gUnk_02021C10
 	.byte 0x70, 0x47, 0x00, 0x00
@@ -56724,7 +52381,7 @@ _0802B962:
 	bx r0
 	.align 2, 0
 _0802B968: .4byte 0x02021DE0
-_0802B96C: .4byte gBoard+0x14
+_0802B96C: .4byte gZones+0x14
 _0802B970: .4byte gUnk_02021C08
 _0802B974: .4byte gUnk_02021C10
 	.byte 0x70, 0x47, 0x00, 0x00, 0x70, 0x47, 0x00, 0x00
@@ -56776,7 +52433,7 @@ _0802B9DA:
 	bx r0
 	.align 2, 0
 _0802B9E0: .4byte 0x02021DE0
-_0802B9E4: .4byte gBoard
+_0802B9E4: .4byte gZones
 _0802B9E8: .4byte gUnk_02021C08
 _0802B9EC: .4byte gUnk_02021C10
 	.byte 0x70, 0x47, 0x00, 0x00
@@ -56812,7 +52469,7 @@ _0802BA28:
 	bx r0
 	.align 2, 0
 _0802BA30: .4byte 0x02021DE0
-_0802BA34: .4byte gBoard
+_0802BA34: .4byte gZones
 _0802BA38: .4byte gUnk_02021C08
 _0802BA3C: .4byte gUnk_02021C10
 	.byte 0x70, 0x47, 0x00, 0x00, 0x70, 0x47, 0x00, 0x00, 0x70, 0x47, 0x00, 0x00, 0x70, 0x47, 0x00, 0x00
@@ -56836,7 +52493,7 @@ sub_802BA50: @ 0x0802BA50
 	b _0802BA84
 	.align 2, 0
 _0802BA70: .4byte 0x02021DE0
-_0802BA74: .4byte gBoard
+_0802BA74: .4byte gZones
 _0802BA78:
 	adds r0, r4, #0
 	bl sub_8040368
@@ -56961,7 +52618,7 @@ sub_802BE00: @ 0x0802BE00
 	.align 2, 0
 _0802BE24: .4byte 0x02021DE0
 _0802BE28: .4byte gDuel+0x100
-_0802BE2C: .4byte gBoard+0x28
+_0802BE2C: .4byte gZones+0x28
 _0802BE30:
 	movs r0, #0
 _0802BE32:
@@ -56991,7 +52648,7 @@ sub_802BE38: @ 0x0802BE38
 	.align 2, 0
 _0802BE5C: .4byte 0x02021DE0
 _0802BE60: .4byte gDuel+0x100
-_0802BE64: .4byte gBoard+0x28
+_0802BE64: .4byte gZones+0x28
 _0802BE68:
 	movs r0, #0
 _0802BE6A:
@@ -57064,7 +52721,7 @@ sub_802BEAC: @ 0x0802BEAC
 	b _0802BEDA
 	.align 2, 0
 _0802BED0: .4byte 0x02021DE0
-_0802BED4: .4byte gBoard
+_0802BED4: .4byte gZones
 _0802BED8:
 	movs r0, #0
 _0802BEDA:
@@ -71193,7 +66850,7 @@ _0803395A:
 _08033968: .4byte gUnk2022EB0
 _0803396C: .4byte gTrunkCardQty
 _08033970: .4byte 0x08E0CC20
-_08033974: .4byte gCardAttr
+_08033974: .4byte gCardAttributes
 
 	THUMB_FUNC_START sub_8033978
 sub_8033978: @ 0x08033978
@@ -71286,7 +66943,7 @@ _08033A0E:
 _08033A1C: .4byte gUnk2022EB0
 _08033A20: .4byte 0x02022120
 _08033A24: .4byte 0x08E0CC20
-_08033A28: .4byte gCardAttr
+_08033A28: .4byte gCardAttributes
 
 	THUMB_FUNC_START sub_8033A2C
 sub_8033A2C: @ 0x08033A2C
@@ -71379,7 +67036,7 @@ _08033AC2:
 _08033AD0: .4byte gUnk2022EB0
 _08033AD4: .4byte 0x02022B80
 _08033AD8: .4byte 0x08E0CC20
-_08033ADC: .4byte gCardAttr
+_08033ADC: .4byte gCardAttributes
 
 	THUMB_FUNC_START sub_8033AE0
 sub_8033AE0: @ 0x08033AE0
@@ -71456,7 +67113,7 @@ _08033B5A:
 	.align 2, 0
 _08033B68: .4byte gUnk2022EB0
 _08033B6C: .4byte 0x08E0CC20
-_08033B70: .4byte gCardAttr
+_08033B70: .4byte gCardAttributes
 
 	THUMB_FUNC_START sub_8033B74
 sub_8033B74: @ 0x08033B74
@@ -71549,7 +67206,7 @@ _08033C0A:
 _08033C18: .4byte gUnk2022EB0
 _08033C1C: .4byte gTotalCardQty
 _08033C20: .4byte 0x08E0CC20
-_08033C24: .4byte gCardAttr
+_08033C24: .4byte gCardAttributes
 
 	THUMB_FUNC_START sub_8033C28
 sub_8033C28: @ 0x08033C28
@@ -73030,7 +68687,7 @@ _08034754: .4byte gUnk2022EB0
 _08034758: .4byte 0x08E0CC20
 _0803475C: .4byte gTotalCardQty
 _08034760: .4byte gCardMonsterEffects
-_08034764: .4byte 0x08094CC3
+_08034764: .4byte gUnk8094CC3
 _08034768: .4byte 0x00000640
 _0803476C: .4byte 0x00000000
 _08034770: .4byte 0x00000320
@@ -73108,7 +68765,7 @@ _080347E6:
 _080347F4: .4byte gUnk2022EB0
 _080347F8: .4byte 0x08E0CC20
 _080347FC: .4byte gCardMonsterEffects
-_08034800: .4byte 0x08094CC3
+_08034800: .4byte gUnk8094CC3
 _08034804: .4byte 0x00000320
 _08034808: .4byte 0x00000000
 
@@ -73201,7 +68858,7 @@ _0803489C:
 	.align 2, 0
 _080348AC: .4byte gUnk2022EB0
 _080348B0: .4byte 0x08E0CC20
-_080348B4: .4byte 0x08094CC3
+_080348B4: .4byte gUnk8094CC3
 _080348B8: .4byte 0x02022B80
 _080348BC: .4byte gCardMonsterEffects
 _080348C0: .4byte 0x00000320
@@ -73298,7 +68955,7 @@ _08034960:
 	.align 2, 0
 _08034970: .4byte gUnk2022EB0
 _08034974: .4byte 0x08E0CC20
-_08034978: .4byte 0x08094CC3
+_08034978: .4byte gUnk8094CC3
 _0803497C: .4byte 0x02022120
 _08034980: .4byte gCardMonsterEffects
 _08034984: .4byte 0x00000320
@@ -77120,7 +72777,7 @@ _0803683A:
 	.align 2, 0
 _08036848: .4byte gUnk2022EB0
 _0803684C: .4byte 0x02022EC0
-_08036850: .4byte gCardAttr
+_08036850: .4byte gCardAttributes
 _08036854: .4byte 0x00000964
 _08036858: .4byte 0x08E0CC20
 _0803685C: .4byte 0x020231E1
@@ -77488,7 +73145,7 @@ _08036B2C: .4byte 0x02022EC0
 _08036B30: .4byte 0x00000964
 _08036B34: .4byte 0x08E0CC20
 _08036B38: .4byte gCardMonsterEffects
-_08036B3C: .4byte 0x08094CC3
+_08036B3C: .4byte gUnk8094CC3
 _08036B40: .4byte 0x00000320
 _08036B44: .4byte 0x00000000
 _08036B48: .4byte 0x020231E1
@@ -78494,7 +74151,7 @@ _0803739E:
 _080373AC: .4byte gUnk2022EB0
 _080373B0: .4byte 0x02022EC0
 _080373B4: .4byte 0x08E0CC20
-_080373B8: .4byte gCardAttr
+_080373B8: .4byte gCardAttributes
 _080373BC: .4byte 0x00000964
 _080373C0: .4byte 0x02023502
 _080373C4: .4byte 0x00032000
@@ -78843,7 +74500,7 @@ _08037678: .4byte 0x08E0CC20
 _0803767C: .4byte 0x00000964
 _08037680: .4byte 0x00000642
 _08037684: .4byte gCardMonsterEffects
-_08037688: .4byte 0x08094CC3
+_08037688: .4byte gUnk8094CC3
 _0803768C: .4byte 0x00000320
 _08037690: .4byte 0x00000000
 _08037694: .4byte 0x00000640
@@ -79906,7 +75563,7 @@ _08037F8E:
 _08037F9C: .4byte gUnk2022EB0
 _08037FA0: .4byte 0x02022EC0
 _08037FA4: .4byte 0x08E0CC20
-_08037FA8: .4byte gCardAttr
+_08037FA8: .4byte gCardAttributes
 _08037FAC: .4byte 0x00000964
 _08037FB0: .4byte 0x020231E1
 _08037FB4: .4byte 0x00032000
@@ -80257,7 +75914,7 @@ _0803826C: .4byte 0x08E0CC20
 _08038270: .4byte 0x00000964
 _08038274: .4byte 0x00000321
 _08038278: .4byte gCardMonsterEffects
-_0803827C: .4byte 0x08094CC3
+_0803827C: .4byte gUnk8094CC3
 _08038280: .4byte 0x00000320
 _08038284: .4byte 0x00000000
 _08038288: .4byte 0x00000640
@@ -92811,7 +88468,7 @@ _0803EF84:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0803EFA8: .4byte gBoard+0x3C
+_0803EFA8: .4byte gZones+0x3C
 
 	THUMB_FUNC_START sub_803EFAC
 sub_803EFAC: @ 0x0803EFAC
@@ -92859,7 +88516,7 @@ _0803EFF2:
 sub_803EFF8: @ 0x0803EFF8
 	push {lr}
 	sub sp, #0xc
-	bl GetCurrTurn
+	bl WhoseTurn
 	movs r1, #0
 	cmp r0, #0
 	bne _0803F008
@@ -93996,7 +89653,7 @@ sub_803F8E0: @ 0x0803F8E0
 	push {r4, lr}
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x18
-	bl GetCurrTurn
+	bl WhoseTurn
 	cmp r0, #0
 	beq _0803F8F4
 	cmp r0, #1
@@ -94021,7 +89678,7 @@ sub_803F908: @ 0x0803F908
 	lsrs r4, r0, #0x18
 	lsls r1, r1, #0x18
 	lsrs r5, r1, #0x18
-	bl GetCurrTurn
+	bl WhoseTurn
 	cmp r0, #0
 	beq _0803F920
 	cmp r0, #1
@@ -94976,12 +90633,12 @@ _08040018: .4byte 0x0202407C
 _0804001C: .4byte gDuel+0x78
 _08040020: .4byte 0x02024090
 _08040024: .4byte gDuel+0xA0
-_08040028: .4byte gBoard
+_08040028: .4byte gZones
 _0804002C: .4byte gDuel
-_08040030: .4byte gBoard+0x14
-_08040034: .4byte gBoard+0x28
-_08040038: .4byte gBoard+0x3C
-_0804003C: .4byte gBoard+0x50
+_08040030: .4byte gZones+0x14
+_08040034: .4byte gZones+0x28
+_08040038: .4byte gZones+0x3C
+_0804003C: .4byte gZones+0x50
 _08040040: .4byte gHands
 _08040044: .4byte gHands+0x14
 _08040048: .4byte gDuel+0xC8
@@ -95103,14 +90760,14 @@ _08040106:
 	.align 2, 0
 _0804011C: .4byte gDuel+0x100
 _08040120: .4byte gDuel+0xF4
-_08040124: .4byte gBoard
-_08040128: .4byte gBoard+0x14
+_08040124: .4byte gZones
+_08040128: .4byte gZones+0x14
 _0804012C: .4byte gDuel+0x28
-_08040130: .4byte gBoard+0x28
+_08040130: .4byte gZones+0x28
 _08040134: .4byte gDuel+0x50
-_08040138: .4byte gBoard+0x3C
+_08040138: .4byte gZones+0x3C
 _0804013C: .4byte gDuel+0x78
-_08040140: .4byte gBoard+0x50
+_08040140: .4byte gZones+0x50
 _08040144: .4byte gDuel+0xA0
 _08040148: .4byte gHands
 _0804014C: .4byte gHands+0x14
@@ -95228,14 +90885,14 @@ _08040218:
 	.align 2, 0
 _08040220: .4byte gDuel+0x100
 _08040224: .4byte gDuel+0xF8
-_08040228: .4byte gBoard
-_0804022C: .4byte gBoard+0x14
+_08040228: .4byte gZones
+_0804022C: .4byte gZones+0x14
 _08040230: .4byte gDuel+0x50
-_08040234: .4byte gBoard+0x28
+_08040234: .4byte gZones+0x28
 _08040238: .4byte gDuel+0x28
-_0804023C: .4byte gBoard+0x3C
+_0804023C: .4byte gZones+0x3C
 _08040240: .4byte gDuel
-_08040244: .4byte gBoard+0x50
+_08040244: .4byte gZones+0x50
 _08040248: .4byte gDuel+0xC8
 _0804024C: .4byte gHands
 _08040250: .4byte gHands+0x14
@@ -95559,7 +91216,7 @@ _08040570:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08040580: .4byte gBoard
+_08040580: .4byte gZones
 
 	THUMB_FUNC_START sub_8040584
 sub_8040584: @ 0x08040584
@@ -95595,7 +91252,7 @@ _080405AE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080405C0: .4byte gBoard
+_080405C0: .4byte gZones
 	.byte 0xF0, 0xB5, 0x00, 0x21, 0x0F, 0x4E, 0x02, 0x27, 0x7F, 0x42, 0x00, 0x23
 	.byte 0x88, 0x00, 0x4D, 0x1C, 0x40, 0x18, 0x84, 0x00, 0x98, 0x00, 0x00, 0x19, 0x80, 0x19, 0x02, 0x68
 	.byte 0x10, 0x88, 0x00, 0x28, 0x03, 0xD0, 0x51, 0x79, 0x38, 0x1C, 0x08, 0x40, 0x50, 0x71, 0x58, 0x1C
@@ -95639,7 +91296,7 @@ _0804063C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0804064C: .4byte gBoard
+_0804064C: .4byte gZones
 	.byte 0x00, 0x06, 0x09, 0x06, 0x09, 0x0E, 0x07, 0x4B, 0x40, 0x0D, 0x8A, 0x00, 0x52, 0x18, 0xD2, 0x00
 	.byte 0x80, 0x18, 0xC2, 0x18, 0x51, 0x79, 0x88, 0x07, 0x00, 0x28, 0x05, 0xDB, 0x02, 0x20, 0x08, 0x43
 	.byte 0x05, 0xE0, 0x00, 0x00, 0xC0, 0x3E, 0x02, 0x02, 0x03, 0x20, 0x40, 0x42, 0x08, 0x40, 0x50, 0x71
@@ -99804,7 +95461,7 @@ _080429B2:
 	ldr r0, _080429D4
 	b _08042A18
 	.align 2, 0
-_080429C8: .4byte gBoard
+_080429C8: .4byte gZones
 _080429CC: .4byte 0x020241F0
 _080429D0: .4byte 0x02020DF4
 _080429D4: .4byte 0x08E0D922
@@ -100904,7 +96561,7 @@ _0804332C:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08043348: .4byte gBoard
+_08043348: .4byte gZones
 _0804334C: .4byte gUnk2021AC0
 _08043350: .4byte gDuel+0xF0
 _08043354: .4byte gCardInfo
@@ -100972,7 +96629,7 @@ _080433BA:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080433D4: .4byte gBoard
+_080433D4: .4byte gZones
 _080433D8: .4byte gUnk2021AC0
 _080433DC: .4byte gDuel
 _080433E0: .4byte gCardInfo
@@ -101487,7 +97144,7 @@ _080437FA:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0804380C: .4byte gBoard
+_0804380C: .4byte gZones
 
 	THUMB_FUNC_START sub_8043810
 sub_8043810: @ 0x08043810
@@ -101528,7 +97185,7 @@ _08043842:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08043854: .4byte gBoard
+_08043854: .4byte gZones
 	.byte 0x70, 0xB5, 0x00, 0x06, 0x00, 0x0E, 0x00, 0x23
 	.byte 0x00, 0x22, 0x0E, 0x4E, 0x81, 0x00, 0x09, 0x18, 0x8C, 0x00, 0x10, 0x25, 0x90, 0x00, 0x00, 0x19
 	.byte 0x80, 0x19, 0x01, 0x68, 0x08, 0x88, 0x00, 0x28, 0x07, 0xD0, 0x49, 0x79, 0x28, 0x1C, 0x08, 0x40
@@ -101571,7 +97228,7 @@ _080438CE:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080438E0: .4byte gBoard
+_080438E0: .4byte gZones
 _080438E4: .4byte gCardInfo
 
 	THUMB_FUNC_START sub_80438E8
@@ -101613,7 +97270,7 @@ _0804391A:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0804392C: .4byte gBoard
+_0804392C: .4byte gZones
 
 	THUMB_FUNC_START sub_8043930
 sub_8043930: @ 0x08043930
@@ -101660,7 +97317,7 @@ _0804396C:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08043984: .4byte gBoard
+_08043984: .4byte gZones
 _08043988: .4byte gCardInfo
 
 	THUMB_FUNC_START sub_804398C
@@ -101714,7 +97371,7 @@ _080439D4:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080439EC: .4byte gBoard
+_080439EC: .4byte gZones
 _080439F0: .4byte gCardInfo
 
 	THUMB_FUNC_START sub_80439F4
@@ -101768,7 +97425,7 @@ _08043A3C:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08043A54: .4byte gBoard
+_08043A54: .4byte gZones
 _08043A58: .4byte gCardInfo
 
 	THUMB_FUNC_START sub_8043A5C
@@ -101810,7 +97467,7 @@ _08043A8E:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08043AA0: .4byte gBoard
+_08043AA0: .4byte gZones
 
 	THUMB_FUNC_START sub_8043AA4
 sub_8043AA4: @ 0x08043AA4
@@ -102066,7 +97723,7 @@ sub_8043BC8: @ 0x08043BC8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08043CA4: .4byte gBoard
+_08043CA4: .4byte gZones
 _08043CA8: .4byte 0x020241F0
 	.byte 0x00, 0xB5, 0xFD, 0xF7
 	.byte 0x43, 0xFF, 0x01, 0xBC, 0x00, 0x47, 0x00, 0x00, 0x70, 0x47, 0x00, 0x00, 0x00, 0xB5, 0x81, 0xB0
@@ -103141,7 +98798,7 @@ _0804456C: .4byte gDuel+0x100
 	THUMB_FUNC_START sub_8044570
 sub_8044570: @ 0x08044570
 	push {r4, r5, r6, lr}
-	bl GetCurrTurn
+	bl WhoseTurn
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	bl sub_8025534
@@ -103253,8 +98910,8 @@ _080445C8:
 	bl sub_8022080
 	b _08044688
 	.align 2, 0
-_0804466C: .4byte gBoard+0x14
-_08044670: .4byte 0x020245A0
+_0804466C: .4byte gZones+0x14
+_08044670: .4byte gUnk020245A0
 _08044674: .4byte 0x020241F0
 _08044678: .4byte 0x02024040
 _0804467C:
@@ -103574,7 +99231,7 @@ _08044878:
 	bl sub_8022080
 	b _0804493E
 	.align 2, 0
-_0804492C: .4byte 0x020245A0
+_0804492C: .4byte gUnk020245A0
 _08044930:
 	bl sub_80581DC
 	strb r6, [r4, #4]
@@ -105097,3 +100754,203 @@ sub_8045718: @ 0x08045718
 	.byte 0x13, 0xF0, 0x0E, 0xF8, 0x01, 0xBC, 0x00, 0x47, 0x90, 0x86, 0x01, 0x02, 0x90, 0x02, 0x00, 0x07
 
 .align 2, 0
+
+
+/*
+extern u16 gGodCards[];
+
+bool32 IsGodCard(u16 id)
+{
+    u8 i;
+
+    for (i = 0; gGodCards[i]; i++)
+        if (gGodCards[i] == id)
+            return TRUE;
+
+    return FALSE;
+}
+
+int sub_8043418(struct DuelCard** monZones, u16 id) num cards excluding god cards
+{
+    u8 i;
+    s8 c = 0;
+
+    for (i = 0; i < 5; i++)
+    {
+        u16 monId = (*monZones++)->id;
+        if (IsGodCard(monId) == TRUE)
+            monId = CARD_NONE;
+
+        if (monId == id)
+            c++;
+    }
+    return c;
+}
+
+int NumEmptyZonesAndGodCardsInRow(struct DuelCard** monZones) //NumGodCardsAndEmptyZones
+{
+    return sub_8043418(monZones, 0);
+}
+
+
+
+
+/*
+#define FLAG_EXODIA_RIGHT_LEG (1 << 0)
+#define FLAG_EXODIA_LEFT_LEG  (1 << 1)
+#define FLAG_EXODIA_RIGHT_ARM (1 << 2)
+#define FLAG_EXODIA_LEFT_ARM  (1 << 3)
+#define FLAG_EXODIA_HEAD      (1 << 4)
+#define FLAG_EXODIA_ALL \
+(FLAG_EXODIA_RIGHT_LEG | FLAG_EXODIA_LEFT_LEG | FLAG_EXODIA_RIGHT_ARM | FLAG_EXODIA_LEFT_ARM | FLAG_EXODIA_HEAD)
+
+
+
+void sub_801D1A8(void);
+u8 sub_80205EC(void);
+u8 sub_802061C(u16 id);
+void sub_8020664(void);
+void sub_8025520(u8);
+void sub_801D188(u8);
+
+
+void sub_80205D4(void)
+{
+    if ((sub_80205EC() & FLAG_EXODIA_ALL) == FLAG_EXODIA_ALL)
+        sub_8020664();
+}
+
+u8 sub_80205EC(void)  //ExodiaFlags
+{
+    u8 i;
+    u8 r5 = 0;
+
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++)
+        r5 |= sub_802061C(gZones[4][i]->id);
+
+    return r5;
+}
+
+u8 sub_802061C(u16 id) //ExodiaFlag
+{
+    u8 flag = 0;
+
+    switch (id)
+    {
+    case RIGHT_LEG_OF_THE_FORBIDDEN_ONE:
+        flag = FLAG_EXODIA_RIGHT_LEG;
+        break;
+    case LEFT_LEG_OF_THE_FORBIDDEN_ONE:
+        flag = FLAG_EXODIA_LEFT_LEG;
+        break;
+    case RIGHT_ARM_OF_THE_FORBIDDEN_ONE:
+        flag = FLAG_EXODIA_RIGHT_ARM;
+        break;
+    case LEFT_ARM_OF_THE_FORBIDDEN_ONE:
+        flag = FLAG_EXODIA_LEFT_ARM;
+        break;
+    case EXODIA_THE_FORBIDDEN_ONE:
+        flag = FLAG_EXODIA_HEAD;
+    }
+
+    return flag;
+}
+
+
+void sub_8020664(void)
+{
+    u8 unk[0xC];
+    u8 loser;
+
+    if (WhoseTurn() == PLAYER)
+        loser = OPPONENT;
+    else
+        loser = PLAYER;
+
+    sub_8025520(loser);
+    sub_801D1A8();
+    gUnk_02021C10.unk8 = 0x11;
+    sub_801D188(5);
+    sub_801CEBC();
+}
+
+u16 sub_8020698(u8* name) //card name
+{
+    u16 i = 0;
+
+    if (name[0] != '$')
+    {
+        u8 r4 = 1;
+        while (r4 != 0)
+        {
+            switch (name[i])
+            {
+            case '0':
+                if (gLanguage == ENGLISH)
+                    return ++i;
+                else if (name[i] != '$')
+                {
+                    if (name[i])
+                }
+            }
+        }
+    }
+}
+
+/*
+void sub_803FEA4(void)
+{
+    u8 i;
+
+    for (i = 0; i < 5; i++)
+        gUnk2024040[0][i] = &gDuel.opBackRow[4-i];
+
+    for (i = 0; i < 5; i++)
+        gUnk2024040[1][i] = &gDuel.opMonRow[4-i];
+
+    for (i = 0; i < 5; i++)
+        gUnk2024040[2][i] = &gDuel.plMonRow[i];
+
+    for (i = 0; i < 5; i++)
+        gUnk2024040[3][i] = &gDuel.plBackRow[i];
+
+    for (i = 0; i < 5; i++)
+        gUnk2024040[4][i] = &gDuel.hands[0][i];
+
+    for (i = 0; i < 5; i++)
+        boardPtrs[0][i] = &gDuel.opBackRow[i];
+
+    for (i = 0; i < 5; i++)
+        boardPtrs[1][i] = &gDuel.opMonRow[i];
+
+    for (i = 0; i < 5; i++)
+        boardPtrs[2][i] = &gDuel.plMonRow[i];
+
+    for (i = 0; i < 5; i++)
+        boardPtrs[3][i] = &gDuel.plBackRow[i];
+
+    for (i = 0; i < 5; i++)
+        boardPtrs[4][i] = &gDuel.hands[0][i];
+
+    gNotSure[0] = &gDuel.player;
+    gNotSure[1] = &gDuel.opponent;
+
+    for (i = 0; i < 5; i++)
+        handCurrPlayer[i] = &gDuel.hands[0][i];
+
+    for (i = 0; i < 5; i++)
+        handCurrEnemy[i] = &gDuel.hands[1][i];
+}
+
+void sub_800E11C(void)
+{
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
+    u8 row3 = gUnk2021C00.unk3 >> 4;
+    u8 col3 = gUnk2021C00.unk3 & 0xF;
+
+    CopyCard(boardPtrs[row3][col3], boardPtrs[row2][col2]);
+    ClearZone(boardPtrs[row2][col2]);
+    sub_80404F0(0);
+    sub_8040540(4);
+}*/

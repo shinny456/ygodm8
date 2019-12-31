@@ -374,7 +374,287 @@ gUnk_80BED1C:
 
     .global gUnk_80BED20
 gUnk_80BED20:
-    .incbin "baserom.gba", 0xBED20, 0x53DEF4
+    .incbin "baserom.gba", 0xBED20, 0x4410C
+
+    .global gMonEffects
+gMonEffects:
+    .4byte sub_8047D60
+    .4byte EffectReaperOfTheCards
+    .4byte EffectFairysGift
+    .4byte EffectRelinquished
+    .4byte EffectThousandEyesRestrict
+    .4byte EffectSkelengel
+    .4byte EffectHarpieLady
+    .4byte EffectHarpieLadySisters
+    .4byte EffectTimeWizard
+    .4byte EffectCastleOfDarkIllusions
+    .4byte EffectMysticalElf
+    .4byte EffectCurseOfDragon
+    .4byte EffectFlameSwordsman
+    .4byte EffectGiantSoldierOfStone
+    .4byte EffectBattleOx
+    .4byte EffectMonsterTamer
+    .4byte EffectPumpkingTheKingOfGhosts
+    .4byte EffectMammothGraveyard
+    .4byte EffectCatapultTurtle
+    .4byte EffectGoddessOfWhim
+    .4byte EffectSpiritOfTheMountain
+    .4byte EffectDragonSeeker
+    .4byte EffectTrapMaster
+    .4byte EffectFiendsHand
+    .4byte EffectIllusionistFacelessMage
+    .4byte EffectElectricLizard
+    .4byte EffectDarkMagicianGirl
+    .4byte EffectWodanTheResidentOfTheForest
+    .4byte EffectMWarrior1
+    .4byte EffectMWarrior2
+    .4byte EffectRedArcheryGirl
+    .4byte EffectLadyOfFaith
+    .4byte EffectFireReaper
+    .4byte EffectKairyuShin
+    .4byte EffectGyakutennoMegami
+    .4byte EffectMonsterEye
+    .4byte EffectDoron
+    .4byte EffectSwampBattleGuard
+    .4byte EffectLavaBattleGuard
+    .4byte EffectTrent
+    .4byte EffectLabyrinthTank
+    .4byte EffectSpiritOfTheBooks
+    .4byte EffectHourglassOfLife
+    .4byte EffectBeastKingOfTheSwamps
+    .4byte EffectNemuriko
+    .4byte EffectToadMaster
+    .4byte EffectHoshiningen
+    .4byte EffectInvitationToADarkSleep
+    .4byte EffectWitchsApprentice
+    .4byte EffectMysticLamp
+    .4byte EffectLeghul
+    .4byte EffectInsectQueen
+    .4byte EffectObeliskTheTormentor
+    .4byte EffectSliferTheSkyDragon
+    .4byte EffectTheWingedDragonOfRaBattleMode
+    .4byte sub_80486EC
+    .4byte sub_80486F0
+    .4byte sub_80486F4
+    .4byte sub_80486F8
+    .4byte sub_80486FC
+    .4byte EffectDarkMagicianGirl2
+    .4byte EffectAlphaTheMagnetWarrior
+    .4byte EffectBetaTheMagnetWarrior
+    .4byte EffectGammaTheMagnetWarrior
+    .4byte EffectValkyrionTheMagnaWarrior
+    .4byte EffectBeastOfGilfer
+    .4byte EffectDarkNecrofear
+    .4byte sub_8048754  @Zombyra the dark?
+    .4byte sub_80487BC
+    .4byte sub_80487C0
+    .4byte sub_8048814
+    .4byte EffectJinzo
+    .4byte sub_8046D38
+    .4byte EffectBarrelDragon
+    .4byte EffectReflectBounder
+    .4byte EffectParasiteParacide
+    .4byte EffectSkullMarkLadyBug
+    .4byte EffectPinchHopper
+    .4byte sub_80489A4
+    .4byte sub_804703C
+    .4byte sub_80489F0
+    .4byte sub_8048A5C
+    .4byte EffectAncientLamp
+    .4byte sub_8048AA0
+    .4byte sub_80471BC
+    .4byte EffectDarkPaladin
+    .4byte sub_8048B10
+    .4byte EffectByserShock
+    .4byte EffectKingsKnight
+    .4byte sub_804745C
+    .4byte sub_804757C
+    .4byte sub_8047684
+    .4byte EffectXYDragonCannon
+    .4byte sub_8047818
+    .4byte EffectYZTankDragon
+    .4byte EffectXYZDragonCannon
+    .4byte EffectPuppetMaster
+    .4byte EffectTheWingedDragonOfRaPhoenixMode
+    .4byte EffectPenguinTorpedo
+    .4byte EffectBerserkDragon
+    .4byte sub_8047CAC
+    .4byte sub_8048BCC
+    .4byte sub_8048C18
+    .4byte sub_8048C1C
+    .4byte sub_8048C20
+    .4byte sub_8048C24
+    .4byte sub_8048C28
+    .4byte sub_8048C2C
+    .4byte sub_8048C30
+    .4byte sub_8048C34
+    .4byte sub_8048C38
+    .4byte sub_8048C3C
+    .4byte sub_8048C40
+    .4byte sub_8048C44
+    .4byte sub_8048C48
+    .4byte sub_8048C4C
+    .4byte sub_8048C50
+    .4byte sub_8048C54
+    .4byte sub_8048C58
+    .4byte sub_8048C5C
+
+    .global gSpellEffects
+gSpellEffects:
+    .4byte sub_804D144
+    .4byte sub_804D148
+    .4byte sub_804D14C
+    .4byte EffectForest
+    .4byte EffectWasteland
+    .4byte EffectMountain
+    .4byte EffectSogen
+    .4byte EffectUmi
+    .4byte EffectYami
+    .4byte EffectMooyanCurry
+    .4byte EffectRedMedicine
+    .4byte EffectGoblinsSecretRemedy
+    .4byte EffectSoulOfThePure
+    .4byte EffectDianKetoTheCureMaster
+    .4byte EffectSparks
+    .4byte EffectHinotama
+    .4byte EffectFinalFlame
+    .4byte EffectOokazi
+    .4byte EffectTremendousFire
+    .4byte EffectDarkHole
+    .4byte EffectRaigeki
+    .4byte EffectLegendarySword
+    .4byte EffectSwordOfDarkDestruction
+    .4byte EffectDarkEnergy
+    .4byte EffectAxeOfDespair
+    .4byte EffectLaserCannonArmor
+    .4byte EffectInsectArmorWithLaserCannon
+    .4byte EffectElfsLight
+    .4byte EffectBeastFangs
+    .4byte EffectSteelShell
+    .4byte EffectVileGerms
+    .4byte EffectBlackPendant
+    .4byte EffectSilverBowAndArrow
+    .4byte EffectHornOfLight
+    .4byte EffectHornOfTheUnicorn
+    .4byte EffectDragonTreasure
+    .4byte EffectElectroWhip
+    .4byte EffectCyberShield
+    .4byte EffectMysticalMoon
+    .4byte EffectMalevolentNuzzler
+    .4byte EffectVioletCrystal
+    .4byte EffectBookOfSecretArts
+    .4byte EffectInvigoration
+    .4byte EffectMachineConversionFactory
+    .4byte EffectRaiseBodyHeat
+    .4byte EffectFollowWind
+    .4byte EffectPowerOfKaishin
+    .4byte sub_804D378
+    .4byte EffectStopDefense
+    .4byte sub_804D37C
+    .4byte EffectSwordsOfRevealingLight
+    .4byte EffectDarkPiercingLight
+    .4byte EffectSpellBindingCircle
+    .4byte EffectElegantEgotist
+    .4byte sub_804D380
+    .4byte sub_804D384
+    .4byte sub_804D388
+    .4byte sub_804D38C
+    .4byte sub_804D390
+    .4byte sub_804D394
+    .4byte sub_804D398
+    .4byte sub_804D39C
+    .4byte sub_804D3A0
+    .4byte sub_804D3A4
+    .4byte sub_804D3A8
+    .4byte EffectBlackLusterRitual
+    .4byte sub_804AED8
+    .4byte sub_804AF58
+    .4byte sub_804AFD8
+    .4byte sub_804B058
+    .4byte sub_804B20C
+    .4byte sub_804B294
+    .4byte sub_804B31C
+    .4byte sub_804B3A4
+    .4byte sub_804B42C
+    .4byte sub_804B4B4
+    .4byte EffectHarpiesFeatherDuster
+    .4byte EffectMagicalLabyrinth
+    .4byte EffectSalamandra
+    .4byte EffectKunaiWithChain
+    .4byte EffectBrightCastle
+    .4byte EffectCrushCard
+    .4byte EffectShadowSpell
+    .4byte sub_804B9D0
+    .4byte sub_804BA58
+    .4byte sub_804BAE0
+    .4byte sub_804BB68
+    .4byte sub_804BBF0
+    .4byte sub_804BC78
+    .4byte sub_804BD00
+    .4byte sub_804BD88
+    .4byte sub_804BE10
+    .4byte sub_804BE98
+    .4byte sub_804BF18
+    .4byte sub_804BF98
+    .4byte EffectWarriorElimination
+    .4byte EffectCurseBreaker
+    .4byte EffectEternalRest
+    .4byte EffectMegamorph
+    .4byte EffectMetalmorph
+    .4byte EffectWingedTrumpeter
+    .4byte EffectStainStorm
+    .4byte EffectEradicatingAerosol
+    .4byte EffectBreathOfLight
+    .4byte EffectEternalDrought
+    .4byte EffectTheInexperiencedSpy
+    .4byte sub_804C6B4
+    .4byte EffectPotOfGreed
+    .4byte EffectRestructerRevolution
+    .4byte EffectLastDayOfWitch
+    .4byte EffectExileOfTheWicked
+    .4byte EffectMultiply
+    .4byte EffectChangeOfHeart
+    .4byte EffectBlackIllusionRitual
+    .4byte sub_804D4E0
+    .4byte EffectBrainControl
+    .4byte sub_804CBBC
+    .4byte sub_804D4E4
+    .4byte sub_804CC7C
+    .4byte EffectBeckonToDarkness
+    .4byte sub_804D550
+    .4byte EffectGravediggerGhoul
+    .4byte EffectHeavyStorm
+    .4byte EffectFinalDestiny
+    .4byte EffectMessengerOfPeaceTSC
+    .4byte EffectDarknessApproaches
+    .4byte sub_804D5A4
+    .4byte sub_804D5A8
+    .4byte sub_804D5AC
+    .4byte sub_804D5B0
+    .4byte sub_804D5B4
+    .4byte sub_804D5B8
+    .4byte sub_804D5BC
+    .4byte EffectCyclonLaser
+    .4byte sub_804D5C0
+    .4byte sub_804D5C4
+    .4byte sub_804D5C8
+    .4byte sub_804D5CC
+    .4byte sub_804D5D0
+    .4byte sub_804D5D4
+    .4byte sub_804D5D8
+    .4byte sub_804D5DC
+    .4byte sub_804D5E0
+    .4byte sub_804D5E4
+    .4byte sub_804D5E8
+    .4byte sub_804D5EC
+    .4byte sub_804D5F0
+    .4byte sub_804D5F4
+    .4byte sub_804D5F8
+    .4byte sub_804D5FC
+
+    .global gUnk_8103264 //u16 []
+gUnk_8103264:
+    .incbin "baserom.gba", 0x103264, 0x4F99B0
 
     .global gUnk_85fcc14
 gUnk_85fcc14:
@@ -7547,7 +7827,23 @@ gUnk_8E0136C:
 
     .global gUnk_8E01370
 gUnk_8E01370:
-    .incbin "baserom.gba", 0xE01370, 0x10B48
+    .incbin "baserom.gba", 0xE01370, 0x103BC
+
+    .global gUnk_8E1172C
+gUnk_8E1172C:
+    .incbin "baserom.gba", 0xE1172C, 0xC
+
+    .global gUnk_8E11738
+gUnk_8E11738:
+    .incbin "baserom.gba", 0xE11738, 0xC
+
+    .global gUnk_8E11744
+gUnk_8E11744:
+    .incbin "baserom.gba", 0xE11744, 0x44
+
+    .global gUnk_8E11788
+gUnk_8E11788:
+    .incbin "baserom.gba", 0xE11788, 0x730
 
     .global gUnk_8E11EB8
 gUnk_8E11EB8:

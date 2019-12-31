@@ -806,7 +806,7 @@ const u16 gCardDefs[] =
     [TALONS_OF_SHURILANE] = 2050
 };
 
-const u16 gCardAtks[] = 
+const u16 gCardAtks[] =
 {
     [CARD_NONE] = 0xFFFF,
     [BLUE_EYES_WHITE_DRAGON] = 3000,
@@ -2416,7 +2416,7 @@ const u32 gCardCosts[] =
     [TALONS_OF_SHURILANE] = 116,
 };
 //TODO: make defines/enums for attributes
-const u8 gCardAttr[] =
+const u8 gCardAttributes[] =
 {
     [CARD_NONE] = 0,
     [BLUE_EYES_WHITE_DRAGON] = 2,

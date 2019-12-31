@@ -1,23 +1,7 @@
 #ifndef GUARD_DUEL_H
 #define GUARD_DUEL_H
 
-#define MAX_ZONES 5
-#define MAX_DUELISTS 2
-
-
-/*NOTES:
-Card details:
-sub_80267E0 - Draw card border;  08938384 - 0x214; 089361F8 - 0x2000
-sub_80262B0 - Draw card art (and description?)
-sub_802634C - Draw card type
-sub_80263DC - Draw card attribute
-sub_8026864 - Draw card stars
-sub_802648C - Draw card atk
-sub_8026564 - Draw card def
-sub_802663C - Draw card name
-sub_80267B8 - Call all functions above
-*/
-
+#define MAX_ZONES_IN_ROW 5
 
 //sub_08026BA4 bx lr
 
@@ -25,94 +9,12 @@ struct Unk2021AC0
 {
     u16 id;
     u8 field;
-    s8 numPowerup;
+    s8 stage;
 };
 
 extern struct Unk2021AC0 gUnk2021AC0;
 extern void (*gMonEffects[])(void);
 extern void (*gSpellEffects[])(void);
-
-
-struct CardInfo
-{
-    u8* name;                   /*0x0*/
-    u32 unk4;                   /*0x4*/
-    u32 unk8;                   /*0x8*/
-    u32 cost;                   /*0xC*/
-    u16 id;                     /*0x10*/
-    u16 atk;                    /*0x12*/
-    u16 def;                    /*0x14*/
-    u8 type;                    /*0x16*/
-    u8 attribute;               /*0x17*/
-    u8 level;                   /*0x18*/
-    u8 color;                   /*0x19*/
-    u8 spellEffect;             /*0x1A*/     //TODO: rename
-    u8 monsterEffect;           /*0x1B*/
-    u8 trapEffect;              /*0x1C*/
-    u8 ritualEffect;
-    u8 unk1E;
-};
-extern struct CardInfo gCardInfo;
-void SetCardInfo(u16 id);
-enum CardType
-{
-    TYPE_NONE,
-    TYPE_DRAGON,
-    TYPE_MAGICIAN,
-    TYPE_ZOMBIE,
-    TYPE_WARRIOR,
-    TYPE_BEAST_WAR, //?
-    TYPE_BEAST,
-    TYPE_WNG_BEAST,
-    TYPE_FIEND,
-    TYPE_FAIRY,
-    TYPE_INSECT,
-    TYPE_DINOSAUR,
-    TYPE_REPTILE,
-    TYPE_FISH,
-    TYPE_SEA_DRAGON,
-    TYPE_MACHINE,
-    TYPE_THUNDER,
-    TYPE_AQUA,
-    TYPE_PYRO,
-    TYPE_ROCK,
-    TYPE_PLANT,
-    TYPE_SPELL,
-    TYPE_TRAP,
-    TYPE_RITUAL,
-    NUM_TYPES
-};
-
-enum CardAttribute
-{
-    ATTRIBUTE_NONE,
-    ATTRIBUTE_SHADOW,
-    ATTRIBUTE_LIGHT,
-    ATTRIBUTE_FIEND,
-    ATTRIBUTE_DREAMS,
-    ATTRIBUTE_PYRO,
-    ATTRIBUTE_FOREST,
-    ATTRIBUTE_WIND,
-    ATTRIBUTE_EARTH,
-    ATTRIBUTE_THUNDER,
-    ATTRIBUTE_AQUA,
-    ATTRIBUTE_DIVINE,
-    NUM_ATTRIBUTES,
-};
-
-enum CardColor
-{
-    COLOR_NORMAL,
-    COLOR_EFFECT,
-    COLOR_FUSION,
-    COLOR_SPELL,
-    COLOR_TRAP,
-    COLOR_RITUAL,
-    COLOR_OBELISK,
-    COLOR_SLIFER,
-    COLOR_RA,
-    NUM_COLORS
-};
 
 enum Field
 {
@@ -132,10 +34,10 @@ enum DuelistId
     OPPONENT
 };
 
-enum
+enum TurnDuelistId
 {
-    CUR_PLAYER,
-    CUR_OPPONENT
+    TURN_PLAYER,
+    TURN_OPPONENT
 };
 
 enum CardPosition
@@ -153,14 +55,14 @@ enum CardBattlePosition
 struct DuelCard
 {
     u16 id;
-    s8 numPermPowerup; //change name to stage like in the pokemon games
-    s8 numTempPowerup; //^
+    s8 permStage;
+    s8 tempStage;
     u8 unk4;
     u8 isLocked : 1;
     u8 battlePosition : 1;  //atk/def
     u8 unkTwo : 1;
     u8 unkThree : 1;
-    u8 position : 1;  //face up/down (cardPosition?)
+    u8 position : 1;  //face up/down
     u8 unkFive : 1;  //give back to opponent at the end of turn (used by brain control)
     u8 filler6[2];
 };
@@ -183,11 +85,11 @@ extern struct Unk2023EA0 gUnk2023EA0;
 
 struct Duel
 {
-    struct DuelCard opponentSpellTrapZones[MAX_ZONES];  //0x0   |2023EC0
-    struct DuelCard opponentMonZones[MAX_ZONES];        //0x28  |2023EE8
-    struct DuelCard playerMonZones[MAX_ZONES];          //0x50  |2023F10
-    struct DuelCard playerSpellTrapZones[MAX_ZONES];    //0x78  |2023F38
-    struct DuelCard hands[2][MAX_ZONES];                //0xA0  |2023F60
+    struct DuelCard opponentSpellTrapZones[MAX_ZONES_IN_ROW];  //0x0   |2023EC0
+    struct DuelCard opponentMonZones[MAX_ZONES_IN_ROW];        //0x28  |2023EE8
+    struct DuelCard playerMonZones[MAX_ZONES_IN_ROW];          //0x50  |2023F10
+    struct DuelCard playerSpellTrapZones[MAX_ZONES_IN_ROW];    //0x78  |2023F38
+    struct DuelCard hands[2][MAX_ZONES_IN_ROW];                //0xA0  |2023F60
     u8 field;                                       //0xF0  |2023FB0
     u8 filler_F1[3];                                //0xF1  |2023FB1
     struct NotSureWhatToName notSure[2];                //0xF4  |2023FB4
@@ -195,10 +97,10 @@ struct Duel
 };
 
 extern struct Duel gDuel;
-extern struct NotSureWhatToName* gNotSure[MAX_DUELISTS]; //2023FC0
-extern struct DuelCard* gBoard[5][MAX_ZONES];                //2023FD0
-extern struct DuelCard* gUnk2024040[5][MAX_ZONES];           //2024040
-extern struct DuelCard* gHands[2][MAX_ZONES];                  //20240B0
+extern struct NotSureWhatToName* gNotSure[2]; //2023FC0
+extern struct DuelCard* gZones[5][MAX_ZONES_IN_ROW];                //2023FD0
+extern struct DuelCard* gUnk2024040[5][MAX_ZONES_IN_ROW];           //2024040
+extern struct DuelCard* gHands[2][MAX_ZONES_IN_ROW];                  //20240B0
                                                          //20240C4
 
                    //gHand[]: 0 - curr player, 1- curr opponent
@@ -248,7 +150,7 @@ struct MonEffect
     u8 zone;
 };
 
-struct MagicEffect
+struct SpellEffect
 {
     u16 id;
     u8 unk2;
@@ -258,8 +160,8 @@ struct MagicEffect
 };
 
 extern struct MonEffect gMonEffect;
-extern struct MagicEffect gUnk020245A0;
-extern struct MagicEffect gUnk2024260;
+extern struct SpellEffect gUnk020245A0;
+extern struct SpellEffect gUnk2024260;
 
 
 
@@ -301,9 +203,7 @@ void sub_801D188(u8);
 
 u8 sub_8025544(void);
 
-bool32 IsGodCard(u16); //802607C
 
-bool32 IsWingedDragonOfRa(u16 id); //80260BC
 
 void sub_803F224(void);
 
@@ -368,7 +268,7 @@ u32 sub_8055BD4(u16);
 
 
 void sub_8034F60(u16);
-
+int sub_803FCBC(u16);
 void sub_804034C(struct DuelCard*);
 void sub_8040394(struct DuelCard*, u8);
 
@@ -420,12 +320,12 @@ void sub_8040744(u8);
 void sub_804D600(struct DuelCard*, u16 id);
 
 void ResetNumTributes(void);
-u32 GetCurrTurn(void); //8058744
+u32 WhoseTurn(void); //8058744
 
 int sub_8056258(u8, u8);
 u32 sub_80586DC(void);
 
-void sub_80581DC();
+
 void sub_80452E0(u8);
 
 struct Unk2023E80
