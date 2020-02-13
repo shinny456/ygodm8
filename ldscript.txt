@@ -59,12 +59,14 @@ SECTIONS
         src/trap_effects.o(.text);
         src/code_80584B4.o(.text);
         asm/code_80584B4.o(.text);
-        
+
         data/data.o(.rodata);
         src/data/starter_trunk.o(.rodata);
         data/data2.o(.rodata);
         src/data/cards_data.o(.rodata);
         data/data3.o(.rodata);
+        src/data/decks.o(.rodata);
+        data/data4.o(.rodata);
     } = 0
 
     gGodCards = 0x8E01358;

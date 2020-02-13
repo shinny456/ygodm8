@@ -33655,7 +33655,24 @@ _08021B2A:
 	.align 2, 0
 _08021B78: .4byte 0x02021D10
 _08021B7C: .4byte 0x08E00B30
+/*
+extern struct Duelist* gUnk8E00B30[];
+void sub_8021B10(void)
+{
+    u8 i;
 
+    gUnk02021D10.unk0 = 0;
+    gUnk02021D10.unk4 = 0;
+    gUnk02021D10.unkC = 0;
+    for (i = 0; i < 10; i++)
+        gUnk02021D10.unk14[i] = 0;
+    gUnk02021D10.unk8 = 0;
+    gUnk02021D10.unk2A = 0;
+    gUnk02021D10.unk2B = 2;
+    gUnk02021D10.unk2c = 0;
+    gUnk02021D10.unk2d = 1;
+    gUnk02021D10.duelist = *gUnk8E00B30[0];
+}*/
 	THUMB_FUNC_START sub_8021B80
 sub_8021B80: @ 0x08021B80
 	push {r4, r5, r6, r7, lr}

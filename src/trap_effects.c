@@ -32,7 +32,7 @@ void EffectWideSpreadRuin(void)
     }
     else
     {
-        gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->position = FACE_UP;
+        gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->isFaceUp = TRUE;
         if (!gUnk_02021C08)
         {
             sub_801D188(4);
@@ -59,7 +59,7 @@ void EffectHouseOfAdhesiveTape(void)
     }
     else
     {
-        gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->position = FACE_UP;
+        gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->isFaceUp = TRUE;
         if (!gUnk_02021C08)
         {
             sub_801D188(4);
@@ -86,7 +86,7 @@ void EffectEatgaboon(void)
     }
     else
     {
-        gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->position = FACE_UP;
+        gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->isFaceUp = TRUE;
         if (!gUnk_02021C08)
         {
             sub_801D188(4);
@@ -113,7 +113,7 @@ void EffectBearTrap(void)
     }
     else
     {
-        gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->position = FACE_UP;
+        gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->isFaceUp = TRUE;
         if (!gUnk_02021C08)
         {
             sub_801D188(4);
@@ -140,7 +140,7 @@ void EffectInvisibleWire(void)
     }
     else
     {
-        gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->position = FACE_UP;
+        gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->isFaceUp = TRUE;
         if (!gUnk_02021C08)
         {
             sub_801D188(4);
@@ -167,7 +167,7 @@ void EffectAcidTrapHole(void)
     }
     else
     {
-        gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->position = FACE_UP;
+        gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->isFaceUp = TRUE;
         if (!gUnk_02021C08)
         {
             sub_801D188(4);
@@ -198,7 +198,7 @@ void EffectAntiRaigeki(void)
 
 void EffectInfiniteDismissal(void)
 {
-    gZones[2][gUnk020245A0.unk3]->position = FACE_UP;
+    gZones[2][gUnk020245A0.unk3]->isFaceUp = TRUE;
     gZones[2][gUnk020245A0.unk3]->isLocked = TRUE;
 
     sub_8045338(gZones[0][gUnk020245A0.unk4], 1);
@@ -214,7 +214,7 @@ void EffectInfiniteDismissal(void)
 void EffectAmazonArchers(void)
 {
     sub_804037C(gZones[2][gUnk020245A0.unk3]);
-    gZones[2][gUnk020245A0.unk3]->position = FACE_UP;
+    gZones[2][gUnk020245A0.unk3]->isFaceUp = TRUE;
     gZones[2][gUnk020245A0.unk3]->isLocked = TRUE;
 
     sub_8045338(gZones[0][gUnk020245A0.unk4], 1);

@@ -15,6 +15,7 @@ struct Unk2021AC0
 extern struct Unk2021AC0 gUnk2021AC0;
 extern void (*gMonEffects[])(void);
 extern void (*gSpellEffects[])(void);
+extern u8 gCurrentTurn;
 
 enum Field
 {
@@ -28,29 +29,18 @@ enum Field
     NUM_FIELDS
 };
 
-enum DuelistId
+enum
 {
     PLAYER,
     OPPONENT
 };
 
-enum TurnDuelistId
+enum
 {
     TURN_PLAYER,
     TURN_OPPONENT
 };
 
-enum CardPosition
-{
-    FACE_DOWN,
-    FACE_UP
-};
-
-enum CardBattlePosition
-{
-    POS_ATK,
-    POS_DEF
-};
 
 struct DuelCard
 {
@@ -59,11 +49,11 @@ struct DuelCard
     s8 tempStage;
     u8 unk4;
     u8 isLocked : 1;
-    u8 battlePosition : 1;  //atk/def
+    u8 isDefending : 1;
     u8 unkTwo : 1;
     u8 unkThree : 1;
-    u8 position : 1;  //face up/down
-    u8 unkFive : 1;  //give back to opponent at the end of turn (used by brain control)
+    u8 isFaceUp : 1;
+    u8 willChangeSides : 1;  //give back to opponent at the end of the turn (used by brain control)
     u8 filler6[2];
 };
 
@@ -85,15 +75,15 @@ extern struct Unk2023EA0 gUnk2023EA0;
 
 struct Duel
 {
-    struct DuelCard opponentSpellTrapZones[MAX_ZONES_IN_ROW];  //0x0   |2023EC0
-    struct DuelCard opponentMonZones[MAX_ZONES_IN_ROW];        //0x28  |2023EE8
-    struct DuelCard playerMonZones[MAX_ZONES_IN_ROW];          //0x50  |2023F10
-    struct DuelCard playerSpellTrapZones[MAX_ZONES_IN_ROW];    //0x78  |2023F38
-    struct DuelCard hands[2][MAX_ZONES_IN_ROW];                //0xA0  |2023F60
-    u8 field;                                       //0xF0  |2023FB0
-    u8 filler_F1[3];                                //0xF1  |2023FB1
-    struct NotSureWhatToName notSure[2];                //0xF4  |2023FB4
-                                                    //0xF8  |2023FB8
+    struct DuelCard opponentSpellTrapZones[MAX_ZONES_IN_ROW];   //0x00  |2023EC0
+    struct DuelCard opponentMonsterZones[MAX_ZONES_IN_ROW];     //0x28  |2023EE8
+    struct DuelCard playerMonsterZones[MAX_ZONES_IN_ROW];       //0x50  |2023F10
+    struct DuelCard playerSpellTrapZones[MAX_ZONES_IN_ROW];     //0x78  |2023F38
+    struct DuelCard hands[2][MAX_ZONES_IN_ROW];                 //0xA0  |2023F60
+    u8 field;                                                   //0xF0  |2023FB0
+    u8 filler_F1[3];                                            //0xF1  |2023FB1
+    struct NotSureWhatToName notSure[2];                        //0xF4  |2023FB4
+                                                                //0xF8  |2023FB8
 };
 
 extern struct Duel gDuel;
@@ -319,11 +309,14 @@ u32 sub_8048CE0(void);
 void sub_8040744(u8);
 void sub_804D600(struct DuelCard*, u16 id);
 
+s8 sub_8057894(u16 id);
+
 void ResetNumTributes(void);
-u32 WhoseTurn(void); //8058744
+int WhoseTurn(void); //8058744
 
 int sub_8056258(u8, u8);
-u32 sub_80586DC(void);
+
+bool32 sub_80586DC(void);
 
 
 void sub_80452E0(u8);
@@ -369,7 +362,8 @@ struct UnkStruct02021D10
     u8 unk2A;
     u8 unk2B;
     /*2C-2F bitfields?*/
-    u8 unk2C;
+    u8 unk2c : 1;
+    u8 unk2d : 1;
     u8 filler2D[3];
     struct Duelist duelist;
 };

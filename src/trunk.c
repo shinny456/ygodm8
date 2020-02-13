@@ -1,24 +1,5 @@
 #include "global.h"
-
-struct CardInfo
-{
-    u32 unk0;                   /*0x0*/
-    u32 unk4;                   /*0x4*/
-    u32 unk8;                   /*0x8*/
-    u32 cost;                   /*0xC*/
-    u16 id;                     /*0x10*/
-    u16 atk;                    /*0x12*/
-    u16 def;                    /*0x14*/
-    u8 type;                    /*0x16*/
-    u8 attribute;               /*0x17*/
-    u8 level;                   /*0x18*/
-    u8 color;                   /*0x19*/
-    u8 magicTrapRitualEffect;   /*0x1A*/     //TODO: rename
-    u8 monsterEffect;           /*0x1B*/
-    u8 trapEffect;              /*0x1C*/
-    u8 ritualEffect;
-    u8 unk1E;
-};
+#include "card.h"
 
 struct UnkStruct_2020E10
 {
@@ -102,99 +83,27 @@ void AddCardToTrunk(u16 id, u8 qty)
     else
         gTrunkCardQty[id] += qty;
 }
-/*
+
 void RemoveCardFromTrunk(u16 id, u8 qty)
 {
     if (qty > gTrunkCardQty[id])
         gTrunkCardQty[id] = 0;
     else
         gTrunkCardQty[id] -= qty;
-}*/
-NAKED
-void RemoveCardFromTrunk(u16 id, u8 qty)
-{
-    asm_unified("\n\
-    lsls r0, r0, #0x10\n\
-	lsrs r0, r0, #0x10\n\
-	lsls r1, r1, #0x18\n\
-	lsrs r2, r1, #0x18\n\
-	ldr r1, _08008D18\n\
-	adds r1, r0, r1\n\
-	ldrb r0, [r1]\n\
-	cmp r2, r0\n\
-	bls _08008D1C\n\
-	movs r0, #0\n\
-	b _08008D1E\n\
-	.align 2, 0\n\
-_08008D18: .4byte 0x02021790\n\
-_08008D1C:\n\
-	subs r0, r0, r2\n\
-_08008D1E:\n\
-	strb r0, [r1]\n\
-	bx lr\n\
-	.byte 0x00, 0x00");
 }
 
-/*
 bool8 ExceedsTrunkCardLimit(u16 id, u8 qty)
 {
     if (qty > TRUNK_CARD_LIMIT - gTrunkCardQty[id])
         return FALSE;
     return TRUE;
-}*/
-NAKED
-bool8 ExceedsTrunkCardLimit(u16 id, u8 qty)
-{
-    asm_unified("\n\
-    lsls r0, r0, #0x10\n\
-    lsrs r0, r0, #0x10\n\
-    lsls r1, r1, #0x18\n\
-    lsrs r1, r1, #0x18\n\
-    ldr r2, _08008D40\n\
-    adds r0, r0, r2\n\
-    ldrb r2, [r0]\n\
-    movs r0, #0xfa\n\
-    subs r0, r0, r2\n\
-    cmp r1, r0\n\
-    bgt _08008D44\n\
-    movs r0, #1\n\
-    b _08008D46\n\
-    .align 2, 0\n\
-_08008D40: .4byte gTrunkCardQty\n\
-_08008D44:\n\
-    movs r0, #0\n\
-_08008D46:\n\
-    bx lr");
 }
 
-/*
 bool8 sub_8008D48(u16 id, u8 qty)
 {
     if (qty > gTrunkCardQty[id])
         return FALSE;
     return TRUE;
-}*/
-NAKED
-bool8 sub_8008D48(u16 id, u8 qty)
-{
-    asm_unified("\n\
-    lsls r0, r0, #0x10\n\
-	lsrs r0, r0, #0x10\n\
-	lsls r1, r1, #0x18\n\
-	lsrs r1, r1, #0x18\n\
-	ldr r2, _08008D60\n\
-	adds r0, r0, r2\n\
-	ldrb r0, [r0]\n\
-	cmp r1, r0\n\
-	bhi _08008D64\n\
-	movs r0, #1\n\
-	b _08008D66\n\
-	.align 2, 0\n\
-_08008D60: .4byte 0x02021790\n\
-_08008D64:\n\
-	movs r0, #0\n\
-_08008D66:\n\
-	bx lr");
 }
 
 void SetTrunkCardQty(u16 id, u8 qty)
@@ -386,7 +295,7 @@ u8 sub_8009010(void)
 {
     return gUnkStruct_2020E10.unk3;
 }
-/*
+
 u16 sub_800901C(u8 val)
 { 
     s16 r2 = gUnkStruct_2020E10.unk0 + val - 2;
@@ -397,45 +306,6 @@ u16 sub_800901C(u8 val)
         r2 += 800;
 
     return gUnkStruct_2020E10.unkC[r2];
-}*/
-NAKED
-u16 sub_800901C(u8 val)
-{
-    asm_unified("\n\
-    lsls r0, r0, #0x18\n\
-	ldr r1, _08009038\n\
-	lsrs r0, r0, #0x18\n\
-	ldrh r2, [r1]\n\
-	adds r0, r0, r2\n\
-	subs r0, #2\n\
-	lsls r0, r0, #0x10\n\
-	lsrs r3, r0, #0x10\n\
-	asrs r2, r0, #0x10\n\
-	ldr r0, _0800903C\n\
-	cmp r2, r0\n\
-	ble _08009044\n\
-	ldr r3, _08009040\n\
-	b _0800904C\n\
-	.align 2, 0\n\
-_08009038: .4byte gUnkStruct_2020E10\n\
-_0800903C: .4byte 0x0000031F\n\
-_08009040: .4byte 0xFFFFFCE0\n\
-_08009044:\n\
-	cmp r2, #0\n\
-	bge _08009052\n\
-	movs r3, #0xc8\n\
-	lsls r3, r3, #2\n\
-_0800904C:\n\
-	adds r0, r2, r3\n\
-	lsls r0, r0, #0x10\n\
-	lsrs r3, r0, #0x10\n\
-_08009052:\n\
-	lsls r0, r3, #0x10\n\
-	asrs r0, r0, #0xf\n\
-	adds r1, #0xc\n\
-	adds r0, r0, r1\n\
-	ldrh r0, [r0]\n\
-	bx lr");
 }
 
 u8 sub_8009060(u16 id)
@@ -453,35 +323,13 @@ void sub_800907C(void)
     gUnk2021AB4.unk0 = gUnkStruct_2020E10.unk0;
     gUnk2021AB4.unk2 = TRUNK_SIZE - 2;
 }
-/*
+
 void sub_8009098(u16 id)
 {
     if (gTrunkCardQty[id] < 250)
         gTrunkCardQty[id]++;
     else
         gTrunkCardQty[id] = 250;
-}*/
-NAKED
-void sub_8009098(u16 id)
-{
-    asm_unified("\n\
-    lsls r0, r0, #0x10\n\
-	lsrs r0, r0, #0x10\n\
-	ldr r1, _080090AC\n\
-	adds r1, r0, r1\n\
-	ldrb r0, [r1]\n\
-	cmp r0, #0xf9\n\
-	bhi _080090B0\n\
-	adds r0, #1\n\
-	b _080090B2\n\
-	.align 2, 0\n\
-_080090AC: .4byte gTrunkCardQty\n\
-_080090B0:\n\
-	movs r0, #0xfa\n\
-_080090B2:\n\
-	strb r0, [r1]\n\
-	bx lr\n\
-    .byte 0x00");
 }
 
 void sub_80090B8(void)

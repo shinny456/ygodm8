@@ -218,7 +218,7 @@
 #define KAGEMUSHA_OF_THE_BLUE_FLAME                 0x00D6
 #define FLAME_GHOST                                 0x00D7
 #define NIGHTMARE_PENGUIN                           0x00D8
-#define B__SKULL_DRAGON                             0x00D9
+#define B_SKULL_DRAGON                              0x00D9
 #define TWO_MOUTH_DARKRULER                         0x00DA
 #define SOLITUDE                                    0x00DB
 #define MASKED_SORCERER                             0x00DC
@@ -287,7 +287,7 @@
 #define HOLOGRAH                                    0x011B
 #define TAO_THE_CHANTER                             0x011C
 #define SERPENT_MARAUDER                            0x011D
-#define MR__VOLCANO                                 0x011E
+#define MR_VOLCANO                                  0x011E
 #define OGRE_OF_THE_BLACK_SHADOW                    0x011F
 #define DARKFIRE_SOLDIER_2                          0x0120
 #define CHANGE_SLIME                                0x0121
@@ -390,7 +390,7 @@
 #define HARPIES_PET_DRAGON                          0x0182
 #define MYSTIC_LAMP                                 0x0183
 #define PENDULUM_MACHINE                            0x0184
-#define GILTIA_THE_D__KNIGHT                        0x0185
+#define GILTIA_THE_D_KNIGHT                         0x0185
 #define LAUNCHER_SPIDER                             0x0186
 #define ZOA                                         0x0187
 #define METALZOA                                    0x0188
@@ -572,7 +572,7 @@
 #define BLADE_KNIGHT                                0x0238
 #define GERNIA                                      0x0239
 #define TRAKADON                                    0x023A
-#define B__DRAGON_JUNGLE_KING                       0x023B
+#define B_DRAGON_JUNGLE_KING                        0x023B
 #define EMPRESS_JUDGE                               0x023C
 #define LITTLE_D                                    0x023D
 #define WITCH_OF_THE_BLACK_FOREST                   0x023E
@@ -714,7 +714,7 @@
 #define CRAB_TURTLE                                 0x02C6
 #define MIKAZUKINOYAIBA                             0x02C7
 #define METEOR_DRAGON                               0x02C8
-#define METEOR_B__DRAGON                            0x02C9
+#define METEOR_B_DRAGON                             0x02C9
 #define FIREWING_PEGASUS                            0x02CA
 #define PSYCHO_PUPPET                               0x02CB
 #define GARMA_SWORD                                 0x02CC

@@ -11,12 +11,12 @@ void EffectRelinquished(void)
 
         CopyCard(gZones[gMonEffect.row][gMonEffect.zone], gZones[1][zone]);
 
-        gZones[gMonEffect.row][gMonEffect.zone]->position = FACE_UP;
+        gZones[gMonEffect.row][gMonEffect.zone]->isFaceUp = TRUE;
         gZones[gMonEffect.row][gMonEffect.zone]->isLocked = FALSE;
-        gZones[gMonEffect.row][gMonEffect.zone]->battlePosition = POS_ATK;
+        gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
         gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
         gZones[gMonEffect.row][gMonEffect.zone]->unk4 = 0;
-        gZones[gMonEffect.row][gMonEffect.zone]->unkFive = 0;
+        gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
 
         ClearZone(gZones[1][zone]);
     }
@@ -36,12 +36,12 @@ void EffectThousandEyesRestrict(void)
 
         CopyCard(gZones[gMonEffect.row][gMonEffect.zone], gZones[1][zone]);
 
-        gZones[gMonEffect.row][gMonEffect.zone]->position = FACE_UP;
+        gZones[gMonEffect.row][gMonEffect.zone]->isFaceUp = TRUE;
         gZones[gMonEffect.row][gMonEffect.zone]->isLocked = FALSE;
-        gZones[gMonEffect.row][gMonEffect.zone]->battlePosition = POS_ATK;
+        gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
         gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
         gZones[gMonEffect.row][gMonEffect.zone]->unk4 = 0;
-        gZones[gMonEffect.row][gMonEffect.zone]->unkFive = 0;
+        gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
         sub_8040368(gZones[gMonEffect.row][gMonEffect.zone]);
         sub_8040368(gZones[gMonEffect.row][gMonEffect.zone]);
 
@@ -83,11 +83,11 @@ void EffectCastleOfDarkIllusions(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (gZones[2][i]->id != CARD_NONE)
-            gZones[2][i]->position = FACE_DOWN;
+            gZones[2][i]->isFaceUp = FALSE;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (gZones[2][i]->id == CASTLE_OF_DARK_ILLUSIONS)
-            gZones[2][i]->position = FACE_UP;
+            gZones[2][i]->isFaceUp = TRUE;
 
     if (!gUnk_02021C08)
     {
@@ -156,14 +156,14 @@ void EffectTrapMaster(void)
     {
         u8 zone = EmptyZoneInRow(gZones[3]); //return empty zone
         gZones[3][zone]->id = ACID_TRAP_HOLE;
-        gZones[3][zone]->position = FACE_DOWN;
+        gZones[3][zone]->isFaceUp = FALSE;
         gZones[3][zone]->isLocked = FALSE;
-        gZones[3][zone]->battlePosition = POS_ATK;
+        gZones[3][zone]->isDefending = FALSE;
         gZones[3][zone]->unkTwo = 0;
         gZones[3][zone]->unk4 = 0;
         sub_8040360(gZones[3][zone]);
         sub_80403E8(gZones[3][zone]);
-        gZones[3][zone]->unkFive = 0;
+        gZones[3][zone]->willChangeSides = FALSE;
     }
 
     if (!gUnk_02021C08)
@@ -220,7 +220,7 @@ void EffectDoron(void)
         u8 zone = EmptyZoneInRow(gZones[2]);
 
         CopyCard(gZones[2][zone], gZones[gMonEffect.row][gMonEffect.zone]);
-        gZones[2][zone]->unkFive = 0;
+        gZones[2][zone]->willChangeSides = FALSE;
     }
 
     if (!gUnk_02021C08)
@@ -253,14 +253,14 @@ void EffectSpiritOfTheBooks(void)
         u8 zone = EmptyZoneInRow(gZones[2]);
 
         gZones[gMonEffect.row][zone]->id = BOO_KOO;
-        gZones[gMonEffect.row][zone]->position = FACE_UP;
+        gZones[gMonEffect.row][zone]->isFaceUp = TRUE;
         gZones[gMonEffect.row][zone]->isLocked = FALSE;
-        gZones[gMonEffect.row][zone]->battlePosition = POS_ATK;
+        gZones[gMonEffect.row][zone]->isDefending = FALSE;
         gZones[gMonEffect.row][zone]->unkTwo = 0;
         gZones[gMonEffect.row][zone]->unk4 = 0;
         sub_8040360(gZones[gMonEffect.row][zone]);
         sub_80403E8(gZones[gMonEffect.row][zone]);
-        gZones[gMonEffect.row][zone]->unkFive = 0;
+        gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
     }
 
     if (!gUnk_02021C08)
@@ -319,14 +319,14 @@ void EffectToadMaster(void)
         u8 zone = EmptyZoneInRow(gZones[2]);
 
         gZones[gMonEffect.row][zone]->id = FROG_THE_JAM;
-        gZones[gMonEffect.row][zone]->position = FACE_UP;
+        gZones[gMonEffect.row][zone]->isFaceUp = TRUE;
         gZones[gMonEffect.row][zone]->isLocked = FALSE;
-        gZones[gMonEffect.row][zone]->battlePosition = POS_ATK;
+        gZones[gMonEffect.row][zone]->isDefending = FALSE;
         gZones[gMonEffect.row][zone]->unkTwo = 0;
         gZones[gMonEffect.row][zone]->unk4 = 0;
         sub_8040360(gZones[gMonEffect.row][zone]);
         sub_80403E8(gZones[gMonEffect.row][zone]);
-        gZones[gMonEffect.row][zone]->unkFive = 0;
+        gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
     }
 
     if (!gUnk_02021C08)
@@ -512,13 +512,13 @@ void EffectAlphaTheMagnetWarrior(void)
         if (NumCardInRow(gZones[2], GAMMA_THE_MAGNET_WARRIOR) > 0)
         {
            gZones[gMonEffect.row][gMonEffect.zone]->id = VALKYRION_THE_MAGNA_WARRIOR;
-           gZones[gMonEffect.row][gMonEffect.zone]->position = FACE_UP;
+           gZones[gMonEffect.row][gMonEffect.zone]->isFaceUp = TRUE;
            gZones[gMonEffect.row][gMonEffect.zone]->isLocked = TRUE;
-           gZones[gMonEffect.row][gMonEffect.zone]->battlePosition = POS_ATK;
+           gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
            gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
            sub_8040360(gZones[gMonEffect.row][gMonEffect.zone]);
            sub_80403E8(gZones[gMonEffect.row][gMonEffect.zone]);
-           gZones[gMonEffect.row][gMonEffect.zone]->unkFive = 0;
+           gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
            ClearZone(gZones[gMonEffect.row][sub_8043694(gZones[gMonEffect.row], BETA_THE_MAGNET_WARRIOR)]);
            ClearZone(gZones[gMonEffect.row][sub_8043694(gZones[gMonEffect.row], GAMMA_THE_MAGNET_WARRIOR)]);
         }
@@ -539,13 +539,13 @@ void EffectBetaTheMagnetWarrior(void)
         if (NumCardInRow(gZones[2], GAMMA_THE_MAGNET_WARRIOR) > 0)
         {
            gZones[gMonEffect.row][gMonEffect.zone]->id = VALKYRION_THE_MAGNA_WARRIOR;
-           gZones[gMonEffect.row][gMonEffect.zone]->position = FACE_UP;
+           gZones[gMonEffect.row][gMonEffect.zone]->isFaceUp = TRUE;
            gZones[gMonEffect.row][gMonEffect.zone]->isLocked = TRUE;
-           gZones[gMonEffect.row][gMonEffect.zone]->battlePosition = POS_ATK;
+           gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
            gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
            sub_8040360(gZones[gMonEffect.row][gMonEffect.zone]);
            sub_80403E8(gZones[gMonEffect.row][gMonEffect.zone]);
-           gZones[gMonEffect.row][gMonEffect.zone]->unkFive = 0;
+           gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
            ClearZone(gZones[gMonEffect.row][sub_8043694(gZones[gMonEffect.row], ALPHA_THE_MAGNET_WARRIOR)]);
            ClearZone(gZones[gMonEffect.row][sub_8043694(gZones[gMonEffect.row], GAMMA_THE_MAGNET_WARRIOR)]);
         }
@@ -566,13 +566,13 @@ void EffectGammaTheMagnetWarrior(void)
         if (NumCardInRow(gZones[2], BETA_THE_MAGNET_WARRIOR) > 0)
         {
            gZones[gMonEffect.row][gMonEffect.zone]->id = VALKYRION_THE_MAGNA_WARRIOR;
-           gZones[gMonEffect.row][gMonEffect.zone]->position = FACE_UP;
+           gZones[gMonEffect.row][gMonEffect.zone]->isFaceUp = TRUE;
            gZones[gMonEffect.row][gMonEffect.zone]->isLocked = TRUE;
-           gZones[gMonEffect.row][gMonEffect.zone]->battlePosition = POS_ATK;
+           gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
            gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
            sub_8040360(gZones[gMonEffect.row][gMonEffect.zone]);
            sub_80403E8(gZones[gMonEffect.row][gMonEffect.zone]);
-           gZones[gMonEffect.row][gMonEffect.zone]->unkFive = 0;
+           gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
            ClearZone(gZones[gMonEffect.row][sub_8043694(gZones[gMonEffect.row], ALPHA_THE_MAGNET_WARRIOR)]);
            ClearZone(gZones[gMonEffect.row][sub_8043694(gZones[gMonEffect.row], BETA_THE_MAGNET_WARRIOR)]);
         }
@@ -593,33 +593,33 @@ void EffectValkyrionTheMagnaWarrior(void)
         u8 zone;
 
         gZones[gMonEffect.row][gMonEffect.zone]->id = ALPHA_THE_MAGNET_WARRIOR;
-        gZones[gMonEffect.row][gMonEffect.zone]->position = FACE_UP;
+        gZones[gMonEffect.row][gMonEffect.zone]->isFaceUp = TRUE;
         gZones[gMonEffect.row][gMonEffect.zone]->isLocked = TRUE;
-        gZones[gMonEffect.row][gMonEffect.zone]->battlePosition = POS_ATK;
+        gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
         gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
         sub_8040360(gZones[gMonEffect.row][gMonEffect.zone]);
         sub_80403E8(gZones[gMonEffect.row][gMonEffect.zone]);
-        gZones[gMonEffect.row][gMonEffect.zone]->unkFive = 0;
+        gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
 
         zone = sub_8043694(gZones[gMonEffect.row], CARD_NONE);
         gZones[gMonEffect.row][zone]->id = BETA_THE_MAGNET_WARRIOR;
-        gZones[gMonEffect.row][zone]->position = FACE_UP;
+        gZones[gMonEffect.row][zone]->isFaceUp = TRUE;
         gZones[gMonEffect.row][zone]->isLocked = TRUE;
-        gZones[gMonEffect.row][zone]->battlePosition = POS_ATK;
+        gZones[gMonEffect.row][zone]->isDefending = FALSE;
         gZones[gMonEffect.row][zone]->unkTwo = 0;
         sub_8040360(gZones[gMonEffect.row][zone]);
         sub_80403E8(gZones[gMonEffect.row][zone]);
-        gZones[gMonEffect.row][zone]->unkFive = 0;
+        gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
 
         zone = sub_8043694(gZones[gMonEffect.row], CARD_NONE);
         gZones[gMonEffect.row][zone]->id = GAMMA_THE_MAGNET_WARRIOR;
-        gZones[gMonEffect.row][zone]->position = FACE_UP;
+        gZones[gMonEffect.row][zone]->isFaceUp = TRUE;
         gZones[gMonEffect.row][zone]->isLocked = TRUE;
-        gZones[gMonEffect.row][zone]->battlePosition = POS_ATK;
+        gZones[gMonEffect.row][zone]->isDefending = FALSE;
         gZones[gMonEffect.row][zone]->unkTwo = 0;
         sub_8040360(gZones[gMonEffect.row][zone]);
         sub_80403E8(gZones[gMonEffect.row][zone]);
-        gZones[gMonEffect.row][zone]->unkFive = 0;
+        gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
     }
 
     if (!gUnk_02021C08)
@@ -656,12 +656,12 @@ void EffectDarkNecrofear(void)
         u8 emptyZone = sub_8043694(gZones[2], CARD_NONE);
 
         CopyCard(gZones[gMonEffect.row][emptyZone], gZones[1][highestAtkZone]);
-        gZones[gMonEffect.row][emptyZone]->position = FACE_UP;
+        gZones[gMonEffect.row][emptyZone]->isFaceUp = TRUE;
         gZones[gMonEffect.row][emptyZone]->isLocked = FALSE;
-        gZones[gMonEffect.row][emptyZone]->battlePosition = POS_ATK;
+        gZones[gMonEffect.row][emptyZone]->isDefending = FALSE;
         gZones[gMonEffect.row][emptyZone]->unkTwo = 0;
         gZones[gMonEffect.row][emptyZone]->unk4 = 0;
-        gZones[gMonEffect.row][emptyZone]->unkFive = 0;
+        gZones[gMonEffect.row][emptyZone]->willChangeSides = FALSE;
 
         ClearZone(gZones[1][highestAtkZone]);
     }
@@ -730,12 +730,12 @@ void EffectParasiteParacide(void)
         u8 zone = HighestAtkMonInRowExceptGodCards(gZones[1]);
 
         CopyCard(gZones[1][zone], gZones[gMonEffect.row][gMonEffect.zone]);
-        gZones[1][zone]->position = FACE_UP;
+        gZones[1][zone]->isFaceUp = TRUE;
         gZones[1][zone]->isLocked = FALSE;
-        gZones[1][zone]->battlePosition = POS_ATK;
+        gZones[1][zone]->isDefending = FALSE;
         gZones[1][zone]->unkTwo = 0;
         gZones[1][zone]->unk4 = 0;
-        gZones[1][zone]->unkFive = 0;
+        gZones[1][zone]->willChangeSides = FALSE;
 
         ClearZone(gZones[gMonEffect.row][gMonEffect.zone]);
     }
@@ -758,12 +758,12 @@ void EffectPinchHopper(void)
         if (zone != 5)
         {
             CopyCard(gZones[gMonEffect.row][gMonEffect.zone], gZones[4][zone]);
-            gZones[gMonEffect.row][gMonEffect.zone]->position = FACE_UP;
+            gZones[gMonEffect.row][gMonEffect.zone]->isFaceUp = TRUE;
             gZones[gMonEffect.row][gMonEffect.zone]->isLocked = FALSE;
-            gZones[gMonEffect.row][gMonEffect.zone]->battlePosition = POS_ATK;
+            gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
             gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
             gZones[gMonEffect.row][gMonEffect.zone]->unk4 = 0;
-            gZones[gMonEffect.row][gMonEffect.zone]->unkFive = 0;
+            gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
             ClearZone(gZones[4][zone]);
         }
     }
@@ -782,7 +782,7 @@ void sub_804703C(void)
         u8 zone = EmptyZoneInRow(gZones[2]);
 
         CopyCard(gZones[2][zone], gZones[gMonEffect.row][gMonEffect.zone]);
-        gZones[2][zone]->unkFive = 0;
+        gZones[2][zone]->willChangeSides = FALSE;
      }
 
      if (!gUnk_02021C08)
@@ -799,14 +799,14 @@ void EffectAncientLamp(void)
         u8 zone = EmptyZoneInRow(gZones[2]);
 
         gZones[gMonEffect.row][zone]->id = LA_JINN_THE_MYSTICAL_GENIE_OF_THE_LAMP;
-        gZones[gMonEffect.row][zone]->position = FACE_UP;
+        gZones[gMonEffect.row][zone]->isFaceUp = TRUE;
         gZones[gMonEffect.row][zone]->isLocked = FALSE;
-        gZones[gMonEffect.row][zone]->battlePosition = POS_ATK;
+        gZones[gMonEffect.row][zone]->isDefending = FALSE;
         gZones[gMonEffect.row][zone]->unkTwo = 0;
         gZones[gMonEffect.row][zone]->unk4 = 0;
         sub_8040360(gZones[gMonEffect.row][zone]);
         sub_80403E8(gZones[gMonEffect.row][zone]);
-        gZones[gMonEffect.row][zone]->unkFive = 0;
+        gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
     }
 
     if (!gUnk_02021C08)
@@ -1043,13 +1043,13 @@ void EffectKingsKnight(void)
         gZones[2][zone]->id = JACKS_KNIGHT;
         sub_8040340(gZones[2][zone]);
         sub_80406CC(gZones[2][zone]);
-        gZones[2][zone]->battlePosition = POS_ATK;
+        gZones[2][zone]->isDefending = FALSE;
         gZones[2][zone]->unkTwo = 0;
         gZones[2][zone]->unkThree = 0;
         sub_8040360(gZones[2][zone]);
         sub_80403E8(gZones[2][zone]);
         gZones[2][zone]->unk4 = 0;
-        gZones[2][zone]->unkFive = 0;
+        gZones[2][zone]->willChangeSides = FALSE;
     }
 
     if (!gUnk_02021C08)
@@ -1078,13 +1078,13 @@ void sub_804745C(void)
             gZones[2][gMonEffect.zone]->id = newMon;
             sub_8040340(gZones[2][gMonEffect.zone]);
             sub_80406C0(gZones[2][gMonEffect.zone]);
-            gZones[2][gMonEffect.zone]->battlePosition = POS_ATK;
+            gZones[2][gMonEffect.zone]->isDefending = FALSE;
             gZones[2][gMonEffect.zone]->unkTwo = 0;
             gZones[2][gMonEffect.zone]->unkThree = 0;
             sub_8040360(gZones[2][gMonEffect.zone]);
             sub_80403E8(gZones[2][gMonEffect.zone]);
             gZones[2][gMonEffect.zone]->unk4 = 0;
-            gZones[2][gMonEffect.zone]->unkFive = 0;
+            gZones[2][gMonEffect.zone]->willChangeSides = FALSE;
         }
     }
     else if (zQty == 0) //_08047528
@@ -1863,12 +1863,12 @@ void EffectPuppetMaster(void)
         gZones[2][zone]->id = DARK_NECROFEAR;
         sub_8040340(gZones[2][zone]);
         sub_80406CC(gZones[2][zone]);
-        gZones[2][zone]->battlePosition = POS_ATK;
+        gZones[2][zone]->isDefending = FALSE;
         gZones[2][zone]->unkTwo = 0;
         gZones[2][zone]->unk4 = 2;
         sub_8040360(gZones[2][zone]);
         sub_80403E8(gZones[2][zone]);
-        gZones[2][zone]->unkFive = 0;
+        gZones[2][zone]->willChangeSides = FALSE;
 
         if (NumEmptyZonesInRow(gZones[2]) != 0)
         {
@@ -1877,12 +1877,12 @@ void EffectPuppetMaster(void)
             gZones[2][zone]->id = HEADLESS_KNIGHT;
             sub_8040340(gZones[2][zone]);
             sub_80406CC(gZones[2][zone]);
-            gZones[2][zone]->battlePosition = POS_ATK;
+            gZones[2][zone]->isDefending = FALSE;
             gZones[2][zone]->unkTwo = 0;
             gZones[2][zone]->unk4 = 2;
             sub_8040360(gZones[2][zone]);
             sub_80403E8(gZones[2][zone]);
-            gZones[2][zone]->unkFive = 0;
+            gZones[2][zone]->willChangeSides = FALSE;
 
             if (NumEmptyZonesInRow(gZones[2]) != 0)
             {
@@ -1891,12 +1891,12 @@ void EffectPuppetMaster(void)
                 gZones[2][zone]->id = GERNIA;
                 sub_8040340(gZones[2][zone]);
                 sub_80406CC(gZones[2][zone]);
-                gZones[2][zone]->battlePosition = POS_ATK;
+                gZones[2][zone]->isDefending = FALSE;
                 gZones[2][zone]->unkTwo = 0;
                 gZones[2][zone]->unk4 = 2;
                 sub_8040360(gZones[2][zone]);
                 sub_80403E8(gZones[2][zone]);
-                gZones[2][zone]->unkFive = 0;
+                gZones[2][zone]->willChangeSides = FALSE;
             }
         }
     }
@@ -2565,7 +2565,7 @@ void EffectMonsterEye(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (gHands[1][i]->id != CARD_NONE)
-            gHands[1][i]->position = FACE_UP;
+            gHands[1][i]->isFaceUp = TRUE;
 
     if (!gUnk_02021C08)
     {

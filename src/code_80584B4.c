@@ -7,6 +7,7 @@ extern s16 gUnk_8E1172C[];
 extern s16 gUnk_8E11738[];
 extern s16 gUnk_8E11744[];
 extern s16 gUnk_8E11788[];
+extern u8 gUnk_8E1178C[];
 
 u8 sub_80584B4(void)
 {
@@ -157,4 +158,33 @@ u8 sub_80586D4(void)
 u8 sub_80586D8(void)
 {
     return 0;
+}
+
+bool32 sub_80586DC(void)
+{
+    u8 i;
+    
+    gUnk020245A0.unk5 = 0;
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++)
+    {
+        gUnk020245A0.unk4 = i;
+        if (sub_8057894(gZones[0][i]->id) == 1)
+            return TRUE;
+    }
+    return FALSE;
+}
+
+void sub_8058720(void)
+{
+    gCurrentTurn = 0;
+}
+
+void sub_805872C(void)
+{
+    gCurrentTurn = gUnk_8E1178C[gCurrentTurn];
+}
+
+int WhoseTurn(void)
+{
+    return gCurrentTurn;
 }

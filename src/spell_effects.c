@@ -1096,8 +1096,8 @@ void EffectStopDefense(void)
     {
         if (gZones[1][i]->id != CARD_NONE)
         {
-            gZones[1][i]->battlePosition = POS_ATK;
-            gZones[1][i]->position = FACE_UP;
+            gZones[1][i]->isDefending = FALSE;
+            gZones[1][i]->isFaceUp = TRUE;
         }
     }
 
@@ -1118,7 +1118,7 @@ void EffectSwordsOfRevealingLight(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (gZones[1][i]->id != CARD_NONE)
-            gZones[1][i]->position = FACE_UP;
+            gZones[1][i]->isFaceUp = TRUE;
 
     sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
@@ -1135,7 +1135,7 @@ void EffectDarkPiercingLight(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (gZones[1][i]->id != CARD_NONE)
-            gZones[1][i]->position = FACE_UP;
+            gZones[1][i]->isFaceUp = TRUE;
 
     sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
@@ -2085,7 +2085,7 @@ void EffectTheInexperiencedSpy(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (gHands[1][i]->id != CARD_NONE)
-            gHands[1][i]->position = FACE_UP;
+            gHands[1][i]->isFaceUp = TRUE;
 
     sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
@@ -2173,20 +2173,20 @@ void EffectMultiply(void)
             if (gZones[2][i]->id == CARD_NONE)
             {
                 gZones[2][i]->id = KURIBOH;
-                gZones[2][i]->position = FACE_UP;
+                gZones[2][i]->isFaceUp = TRUE;
                 gZones[2][i]->isLocked = TRUE;
-                gZones[2][i]->battlePosition = POS_ATK;
+                gZones[2][i]->isDefending = FALSE;
                 gZones[2][i]->unkTwo = 0;
                 gZones[2][i]->unk4 = 0;
                 sub_8040360(gZones[2][i]);
                 sub_80403E8(gZones[2][i]);
-                gZones[2][i]->unkFive = 0;
+                gZones[2][i]->willChangeSides = FALSE;
             }
             else if (gZones[2][i]->id == KURIBOH)
             {
-                gZones[2][i]->position = FACE_UP;
+                gZones[2][i]->isFaceUp = TRUE;
                 gZones[2][i]->isLocked = TRUE;
-                gZones[2][i]->battlePosition = POS_ATK;
+                gZones[2][i]->isDefending = FALSE;
             }
         }
     }
@@ -2208,14 +2208,14 @@ void EffectChangeOfHeart(void)
         u8 highestAtkZone = HighestAtkMonInRowExceptGodCards(gZones[1]);
 
         gZones[2][emptyZone]->id = gZones[1][highestAtkZone]->id;
-        gZones[2][emptyZone]->position = FACE_UP;
+        gZones[2][emptyZone]->isFaceUp = TRUE;
         gZones[2][emptyZone]->isLocked = FALSE;
-        gZones[2][emptyZone]->battlePosition = POS_ATK;
+        gZones[2][emptyZone]->isDefending = FALSE;
         gZones[2][emptyZone]->unkTwo = gZones[1][highestAtkZone]->unkTwo;
         gZones[2][emptyZone]->unk4 = 2;
 
         sub_8040684(gZones[2][emptyZone], sub_8040688(gZones[1][highestAtkZone]));
-        gZones[2][emptyZone]->unkFive = 0;
+        gZones[2][emptyZone]->willChangeSides = FALSE;
         ClearZone(gZones[1][highestAtkZone]);
     }
 
@@ -2255,14 +2255,14 @@ void EffectBrainControl(void)
         u8 highestAtkZone = HighestAtkMonInRowExceptGodCards(gZones[1]);
 
         gZones[2][emptyZone]->id = gZones[1][highestAtkZone]->id;
-        gZones[2][emptyZone]->position = FACE_UP;
+        gZones[2][emptyZone]->isFaceUp = TRUE;
         gZones[2][emptyZone]->isLocked = FALSE;
-        gZones[2][emptyZone]->battlePosition = POS_ATK;
+        gZones[2][emptyZone]->isDefending = FALSE;
         gZones[2][emptyZone]->unkTwo = gZones[1][highestAtkZone]->unkTwo;
         gZones[2][emptyZone]->unk4 = 2;
 
         sub_8040684(gZones[2][emptyZone], sub_8040688(gZones[1][highestAtkZone]));
-        gZones[2][emptyZone]->unkFive = 1;
+        gZones[2][emptyZone]->willChangeSides = TRUE;
         ClearZone(gZones[1][highestAtkZone]);
     }
 
@@ -2285,14 +2285,14 @@ void sub_804CBBC(void)
         if (id != CARD_NONE)
         {
             gZones[2][emptyZone]->id = id;
-            gZones[2][emptyZone]->position = FACE_UP;
+            gZones[2][emptyZone]->isFaceUp = TRUE;
             gZones[2][emptyZone]->isLocked = FALSE;
-            gZones[2][emptyZone]->battlePosition = POS_ATK;
+            gZones[2][emptyZone]->isDefending = FALSE;
             gZones[2][emptyZone]->unkTwo = 0;
             gZones[2][emptyZone]->unk4 = 2;
             sub_8040360(gZones[2][emptyZone]);
             sub_80403E8(gZones[2][emptyZone]);
-            gZones[2][emptyZone]->unkFive = 0;
+            gZones[2][emptyZone]->willChangeSides = FALSE;
 
         }
     }
