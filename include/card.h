@@ -98,6 +98,25 @@ sub_802648C - Draw card atk
 sub_8026564 - Draw card def
 sub_802663C - Draw card name
 sub_80267B8 - Call all functions above
+
+
+2018400 - OAM buffer
+overworld sprite palettes: 0x82AD06C
+overworld sprite tiles RAM?: 0x2010400
+bg palette buffer: 0x02000000
+object palette buffer: 0x02000200
+
+08E11790 - sprite pointers
+
+each row is composed of 4 tiles == 0x80 bytes
+player front: (each row is 0x200 bytes apart)
+152E4C -first row 
+15304C -second row
+15324C -third row
+15344C -fourth row
+
+
+(code4.s overworld code)
 */
 
 

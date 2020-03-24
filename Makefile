@@ -17,7 +17,7 @@ else
 EXE :=
 endif
 
-BUILD_NAME := yugiohdm8
+BUILD_NAME := ygodm8
 
 CC1      := tools/agbcc/bin/agbcc$(EXE)
 CC1_OLD  := tools/agbcc/bin/old_agbcc$(EXE)

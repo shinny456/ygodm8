@@ -2793,7 +2793,7 @@ _0800A944: .4byte 0x02018430
 	THUMB_FUNC_START sub_800A948
 sub_800A948: @ 0x0800A948
 	push {lr}
-	bl sub_80454C8
+	bl LoadOam
 	movs r1, #0x80
 	lsls r1, r1, #0x13
 	movs r2, #0xbf
@@ -2902,7 +2902,7 @@ _0800AA28: .4byte 0x00000F04
 _0800AA2C: .4byte 0x00001F0D
 _0800AA30: .4byte 0x0000170A
 _0800AA34: .4byte 0x00000703
-_0800AA38: .4byte 0x02024240
+_0800AA38: .4byte gUnk2024240
 _0800AA3C: .4byte 0x02024214
 _0800AA40: .4byte 0x0202422C
 _0800AA44: .4byte 0x02024248
@@ -2998,7 +2998,7 @@ _0800AB08: .4byte 0x0800AB65
 	THUMB_FUNC_START sub_800AB10
 sub_800AB10: @ 0x0800AB10
 	push {lr}
-	bl sub_80454C8
+	bl LoadOam
 	bl sub_80454E0
 	movs r1, #0x80
 	lsls r1, r1, #0x13
@@ -3014,7 +3014,7 @@ sub_800AB10: @ 0x0800AB10
 	THUMB_FUNC_START sub_800AB38
 sub_800AB38: @ 0x0800AB38
 	push {lr}
-	bl sub_80454C8
+	bl LoadOam
 	bl sub_800ABF8
 	movs r2, #0x80
 	lsls r2, r2, #0x13
@@ -3036,7 +3036,7 @@ _0800AB60: .4byte 0x0000FEFF
 	THUMB_FUNC_START sub_800AB64
 sub_800AB64: @ 0x0800AB64
 	push {lr}
-	bl sub_80454C8
+	bl LoadOam
 	bl sub_80454E0
 	pop {r0}
 	bx r0
@@ -3045,7 +3045,7 @@ sub_800AB64: @ 0x0800AB64
 	THUMB_FUNC_START sub_800AB74
 sub_800AB74: @ 0x0800AB74
 	push {lr}
-	bl sub_80454C8
+	bl LoadOam
 	bl sub_80454E0
 	bl sub_800ABF8
 	movs r2, #0x80
@@ -3085,7 +3085,7 @@ sub_800ABB4: @ 0x0800ABB4
 	bl sub_8045674
 	bl sub_8045690
 	bl sub_80456E0
-	bl sub_80454C8
+	bl LoadOam
 	pop {r0}
 	bx r0
 	.byte 0x00, 0x00
@@ -3985,3 +3985,5 @@ _0800B308: .4byte gUnk_8E01368
 _0800B30C: .4byte 0x02000000
 _0800B310: .4byte gUnk_8E01364
 _0800B314: .4byte 0xFFFF0FC0
+
+.align 2, 0

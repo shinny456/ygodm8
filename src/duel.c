@@ -35,9 +35,9 @@ u64 sub_805C618(u16);
 u64 sub_805BEF4(u64, u64);
 u64 sub_805AFC0(u64);
 
-void sub_800B318(struct Unk2021AC0* ptr)
+void sub_800B318(struct StatMod* ptr)
 {
-    SetCardInfo(ptr->id);
+    SetCardInfo(ptr->card);
     if (gCardInfo.spellEffect == 2)
     {
         gCardInfo.atk = sub_800B594(gCardInfo.atk, gUnk8094FE4[ptr->field][gCardInfo.type]);
@@ -116,7 +116,7 @@ void sub_800B538(u16* id)
 /*
 u16 sub_800B560(u16 stat, s8 stage)
 {
-    int finalStat = stage * 500 + stat;
+    s32 finalStat = stage * 500 + stat;
 
     if (finalStat <= 0)
         return 0;

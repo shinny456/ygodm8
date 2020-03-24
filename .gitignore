@@ -9,8 +9,7 @@
 *.elf
 *.map
 *.gba
-*.sav
-*.sa1
+*.sa*
 *.sgm
 *.sg1
 tools/agbcc

@@ -127,12 +127,12 @@ void EffectCatapultTurtle(void)
     {
         if (gMonEffect.zone != i && gZones[2][i]->id != CARD_NONE && !gZones[2][i]->isLocked)
         {
-            gUnk2021AC0.id = gZones[2][i]->id;
-            gUnk2021AC0.field = gDuel.field;
-            gUnk2021AC0.stage = sub_804069C(gZones[2][i]);
-            sub_800B318(&gUnk2021AC0);
+            gStatMod.card = gZones[2][i]->id;
+            gStatMod.field = gDuel.field;
+            gStatMod.stage = sub_804069C(gZones[2][i]);
+            sub_800B318(&gStatMod);
             totalAtk += gCardInfo.atk;
-            sub_8045338(gZones[2][i], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[2][i], 0);
         }
     }
     if (WhoseTurn() == PLAYER)
@@ -197,10 +197,10 @@ void EffectGyakutennoMegami(void)
     {
         if (gZones[2][i]->id != CARD_NONE)
         {
-            gUnk2021AC0.id = gZones[2][i]->id;
-            gUnk2021AC0.field = gDuel.field;
-            gUnk2021AC0.stage = sub_804069C(gZones[2][i]);
-            sub_800B318(&gUnk2021AC0);
+            gStatMod.card = gZones[2][i]->id;
+            gStatMod.field = gDuel.field;
+            gStatMod.stage = sub_804069C(gZones[2][i]);
+            sub_800B318(&gStatMod);
             if (gCardInfo.atk <= 500)
                 sub_8040368(gZones[2][i]);
         }
@@ -277,11 +277,11 @@ void EffectBeastKingOfTheSwamps(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (IsGodCard(gZones[1][i]->id) != TRUE)
-            sub_8045338(gZones[1][i], 1);
+            ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (IsGodCard(gZones[2][i]->id) != TRUE)
-            sub_8045338(gZones[2][i], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[2][i], 0);
 
     if (!gUnk_02021C08)
     {
@@ -379,10 +379,10 @@ void EffectWitchsApprentice(void)
 
 void EffectMysticLamp(void)
 {
-    gUnk2021AC0.id = gZones[gMonEffect.row][gMonEffect.zone]->id;
-    gUnk2021AC0.field = gDuel.field;
-    gUnk2021AC0.stage = sub_804069C(gZones[gMonEffect.row][gMonEffect.zone]);
-    sub_800B318(&gUnk2021AC0);
+    gStatMod.card = gZones[gMonEffect.row][gMonEffect.zone]->id;
+    gStatMod.field = gDuel.field;
+    gStatMod.stage = sub_804069C(gZones[gMonEffect.row][gMonEffect.zone]);
+    sub_800B318(&gStatMod);
 
     if (WhoseTurn() == PLAYER)
         sub_803F9E4(gCardInfo.atk);
@@ -401,10 +401,10 @@ void EffectMysticLamp(void)
 
 void EffectLeghul(void)
 {
-    gUnk2021AC0.id = gZones[gMonEffect.row][gMonEffect.zone]->id;
-    gUnk2021AC0.field = gDuel.field;
-    gUnk2021AC0.stage = sub_804069C(gZones[gMonEffect.row][gMonEffect.zone]);
-    sub_800B318(&gUnk2021AC0);
+    gStatMod.card = gZones[gMonEffect.row][gMonEffect.zone]->id;
+    gStatMod.field = gDuel.field;
+    gStatMod.stage = sub_804069C(gZones[gMonEffect.row][gMonEffect.zone]);
+    sub_800B318(&gStatMod);
 
     if (WhoseTurn() == PLAYER)
         sub_803F9E4(gCardInfo.atk);
@@ -452,7 +452,7 @@ void EffectObeliskTheTormentor(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (IsWingedDragonOfRa(gZones[1][i]->id) != TRUE)
-            sub_8045338(gZones[1][i], 1);
+            ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
 
     if (WhoseTurn() == PLAYER)
         sub_803F9E4(4000);
@@ -639,7 +639,7 @@ void EffectBeastOfGilfer(void)
             if (gZones[1][i]->id != CARD_NONE)
                 sub_804037C(gZones[1][i]);
     }
-    sub_8045338(gZones[gMonEffect.row][gMonEffect.zone], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gMonEffect.row][gMonEffect.zone], 0);
 
     if (!gUnk_02021C08)
     {
@@ -700,10 +700,10 @@ void EffectReflectBounder(void)
     {
         u8 zone = HighestAtkMonInRow(gZones[1]);
 
-        gUnk2021AC0.id = gZones[1][zone]->id;
-        gUnk2021AC0.field = gDuel.field;
-        gUnk2021AC0.stage = sub_804069C(gZones[1][zone]);
-        sub_800B318(&gUnk2021AC0);
+        gStatMod.card = gZones[1][zone]->id;
+        gStatMod.field = gDuel.field;
+        gStatMod.stage = sub_804069C(gZones[1][zone]);
+        sub_800B318(&gStatMod);
 
         if (WhoseTurn() == PLAYER)
             sub_803F9E4(gCardInfo.atk);
@@ -714,7 +714,7 @@ void EffectReflectBounder(void)
         sub_803F4C0();
     }
 
-    sub_8045338(gZones[gMonEffect.row][gMonEffect.zone], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gMonEffect.row][gMonEffect.zone], 0);
 
     if (!gUnk_02021C08)
     {
@@ -749,7 +749,7 @@ void EffectParasiteParacide(void)
 
 void EffectPinchHopper(void)
 {
-    sub_8045338(gZones[gMonEffect.row][gMonEffect.zone], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gMonEffect.row][gMonEffect.zone], 0);
 
     if (sub_8043584(gZones[4], 10) > 0)
     {
@@ -819,10 +819,10 @@ void EffectAncientLamp(void)
 
 void sub_80471BC(void)
 {
-    gUnk2021AC0.id = gZones[gMonEffect.row][gMonEffect.zone]->id;
-    gUnk2021AC0.field = gDuel.field;
-    gUnk2021AC0.stage = sub_804069C(gZones[gMonEffect.row][gMonEffect.zone]);
-    sub_800B318(&gUnk2021AC0);
+    gStatMod.card = gZones[gMonEffect.row][gMonEffect.zone]->id;
+    gStatMod.field = gDuel.field;
+    gStatMod.stage = sub_804069C(gZones[gMonEffect.row][gMonEffect.zone]);
+    sub_800B318(&gStatMod);
 
     if (WhoseTurn() == PLAYER)
         sub_803F9E4(gCardInfo.atk);
@@ -846,7 +846,7 @@ void EffectDarkPaladin(void)
     if (NumEmptyZonesInRow(gHands[0]) < 5 && sub_8043930(0, TYPE_SPELL) > 0)
     {
         u8 i;
-        sub_8045338(gHands[0][sub_8043468(gHands[0])], 0);
+        ClearZoneAndSendMonToGraveyard(gHands[0][sub_8043468(gHands[0])], 0);
 
         for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         {
@@ -855,7 +855,7 @@ void EffectDarkPaladin(void)
                 SetCardInfo(gZones[0][i]->id);
                 if (gCardInfo.type == TYPE_SPELL)
                 {
-                    sub_8045338(gZones[0][i], 1);
+                    ClearZoneAndSendMonToGraveyard(gZones[0][i], 1);
                     break;
                 }
             }
@@ -892,7 +892,7 @@ void EffectDarkPaladin(void)
 	adds r0, r0, r4\n\
 	ldr r0, [r0]\n\
 	movs r1, #0\n\
-	bl sub_8045338\n\
+	bl ClearZoneAndSendMonToGraveyard\n\
 	movs r5, #0\n\
 	ldr r6, _080472B0\n\
 	b _080472BA\n\
@@ -919,7 +919,7 @@ _080472BA:\n\
 	bne _080472B4\n\
 	ldr r0, [r4]\n\
 	movs r1, #1\n\
-	bl sub_8045338\n\
+	bl ClearZoneAndSendMonToGraveyard\n\
 _080472DE:\n\
 	ldr r0, _080472FC\n\
 	ldrb r0, [r0]\n\
@@ -1042,7 +1042,7 @@ void EffectKingsKnight(void)
 
         gZones[2][zone]->id = JACKS_KNIGHT;
         sub_8040340(gZones[2][zone]);
-        sub_80406CC(gZones[2][zone]);
+        UnlockCard(gZones[2][zone]);
         gZones[2][zone]->isDefending = FALSE;
         gZones[2][zone]->unkTwo = 0;
         gZones[2][zone]->unkThree = 0;
@@ -1077,7 +1077,7 @@ void sub_804745C(void)
             ClearZone(gZones[2][sub_8043694(gZones[2], clearZone)]);
             gZones[2][gMonEffect.zone]->id = newMon;
             sub_8040340(gZones[2][gMonEffect.zone]);
-            sub_80406C0(gZones[2][gMonEffect.zone]);
+            LockCard(gZones[2][gMonEffect.zone]);
             gZones[2][gMonEffect.zone]->isDefending = FALSE;
             gZones[2][gMonEffect.zone]->unkTwo = 0;
             gZones[2][gMonEffect.zone]->unkThree = 0;
@@ -1152,7 +1152,7 @@ _08047498:\n\
 	adds r0, r4, #0\n\
 	bl sub_8040340\n\
 	adds r0, r4, #0\n\
-	bl sub_80406C0\n\
+	bl LockCard\n\
 	ldrb r1, [r4, #5]\n\
 	movs r0, #3\n\
 	rsbs r0, r0, #0\n\
@@ -1284,7 +1284,7 @@ _080475B0:\n\
 	adds r0, r4, #0\n\
 	bl sub_8040340\n\
 	adds r0, r4, #0\n\
-	bl sub_80406C0\n\
+	bl LockCard\n\
 	ldrb r1, [r4, #5]\n\
 	movs r0, #3\n\
 	rsbs r0, r0, #0\n\
@@ -1412,7 +1412,7 @@ _080476B8:\n\
 	adds r0, r4, #0\n\
 	bl sub_8040340\n\
 	adds r0, r4, #0\n\
-	bl sub_80406C0\n\
+	bl LockCard\n\
 	ldrb r1, [r4, #5]\n\
 	movs r0, #3\n\
 	rsbs r0, r0, #0\n\
@@ -1518,8 +1518,8 @@ void EffectXYDragonCannon(void)
 
         if (found)
         {
-            sub_8045338(gZones[0][i], 1);
-            sub_8045338(gHands[0][sub_8043468(gHands[0])], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[0][i], 1);
+            ClearZoneAndSendMonToGraveyard(gHands[0][sub_8043468(gHands[0])], 0);
         }
     }
 
@@ -1571,7 +1571,7 @@ _080477CE:\n\
 	beq _080477F0\n\
 	adds r0, r4, #0\n\
 	movs r1, #1\n\
-	bl sub_8045338\n\
+	bl ClearZoneAndSendMonToGraveyard\n\
 	ldr r4, _08047808\n\
 	adds r0, r4, #0\n\
 	bl sub_8043468\n\
@@ -1580,7 +1580,7 @@ _080477CE:\n\
 	adds r0, r0, r4\n\
 	ldr r0, [r0]\n\
 	movs r1, #0\n\
-	bl sub_8045338\n\
+	bl ClearZoneAndSendMonToGraveyard\n\
 _080477F0:\n\
 	ldr r0, _0804780C\n\
 	ldrb r0, [r0]\n\
@@ -1640,7 +1640,7 @@ _08047858:\n\
 	beq _0804787A\n\
 	adds r0, r4, #0\n\
 	movs r1, #1\n\
-	bl sub_8045338\n\
+	bl ClearZoneAndSendMonToGraveyard\n\
 	ldr r4, _08047894\n\
 	adds r0, r4, #0\n\
 	bl sub_8043468\n\
@@ -1649,7 +1649,7 @@ _08047858:\n\
 	adds r0, r0, r4\n\
 	ldr r0, [r0]\n\
 	movs r1, #0\n\
-	bl sub_8045338\n\
+	bl ClearZoneAndSendMonToGraveyard\n\
 _0804787A:\n\
 	ldr r0, _08047898\n\
 	ldrb r0, [r0]\n\
@@ -1680,10 +1680,10 @@ void sub_80478A0(void)
         {
             if (gZones[1][i]->id != CARD_NONE && IsGodCard(gZones[1][i]->id) != TRUE && CardPosition(gZones[1][i]) == FACE_DOWN)
             {
-                gUnk2021AC0.id = gZones[1][i]->id;
-                gUnk2021AC0.field = gDuel.field;
-                gUnk2021AC0.stage = sub_804069C(gZones[1][i]);
-                sub_800B318(&gUnk2021AC0);
+                gStatMod.card = gZones[1][i]->id;
+                gStatMod.field = gDuel.field;
+                gStatMod.stage = sub_804069C(gZones[1][i]);
+                sub_800B318(&gStatMod);
                 if (gCardInfo.atk >= r7)
                 {
                     r7 = gCardInfo.atk;
@@ -1695,8 +1695,8 @@ void sub_80478A0(void)
 
         if (r8)
         {
-            sub_8045338(gZones[1][i2], 1);
-            sub_8045338(gHands[0][sub_8043468(gHands[0])], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[1][i2], 1);
+            ClearZoneAndSendMonToGraveyard(gHands[0][sub_8043468(gHands[0])], 0);
         }
     }
 
@@ -1780,7 +1780,7 @@ _0804790E:\n\
 	adds r1, r1, r0\n\
 	ldr r0, [r1]\n\
 	movs r1, #1\n\
-	bl sub_8045338\n\
+	bl ClearZoneAndSendMonToGraveyard\n\
 	ldr r4, _08047968\n\
 	adds r0, r4, #0\n\
 	bl sub_8043468\n\
@@ -1789,7 +1789,7 @@ _0804790E:\n\
 	adds r0, r0, r4\n\
 	ldr r0, [r0]\n\
 	movs r1, #0\n\
-	bl sub_8045338\n\
+	bl ClearZoneAndSendMonToGraveyard\n\
 _08047946:\n\
 	ldr r0, _08047980\n\
 	ldrb r0, [r0]\n\
@@ -1809,7 +1809,7 @@ _08047958:\n\
 	bx r0\n\
 	.align 2, 0\n\
 _08047968: .4byte gHands\n\
-_0804796C: .4byte gUnk2021AC0\n\
+_0804796C: .4byte gStatMod\n\
 _08047970: .4byte gDuel+0xF0\n\
 _08047974: .4byte gZones+0x14\n\
 _08047978: .4byte gCardInfo\n\
@@ -1826,8 +1826,8 @@ void EffectXYZDragonCannon(void)
     {
         if (NumEmptyZonesAndGodCardsInRow(gZones[1]) < MAX_ZONES_IN_ROW)
         {
-            sub_8045338(gZones[1][HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
-            sub_8045338(gHands[0][sub_8043468(gHands[0])], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[1][HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
+            ClearZoneAndSendMonToGraveyard(gHands[0][sub_8043468(gHands[0])], 0);
         }
     }
 
@@ -1862,7 +1862,7 @@ void EffectPuppetMaster(void)
 
         gZones[2][zone]->id = DARK_NECROFEAR;
         sub_8040340(gZones[2][zone]);
-        sub_80406CC(gZones[2][zone]);
+        UnlockCard(gZones[2][zone]);
         gZones[2][zone]->isDefending = FALSE;
         gZones[2][zone]->unkTwo = 0;
         gZones[2][zone]->unk4 = 2;
@@ -1876,7 +1876,7 @@ void EffectPuppetMaster(void)
 
             gZones[2][zone]->id = HEADLESS_KNIGHT;
             sub_8040340(gZones[2][zone]);
-            sub_80406CC(gZones[2][zone]);
+            UnlockCard(gZones[2][zone]);
             gZones[2][zone]->isDefending = FALSE;
             gZones[2][zone]->unkTwo = 0;
             gZones[2][zone]->unk4 = 2;
@@ -1890,7 +1890,7 @@ void EffectPuppetMaster(void)
 
                 gZones[2][zone]->id = GERNIA;
                 sub_8040340(gZones[2][zone]);
-                sub_80406CC(gZones[2][zone]);
+                UnlockCard(gZones[2][zone]);
                 gZones[2][zone]->isDefending = FALSE;
                 gZones[2][zone]->unkTwo = 0;
                 gZones[2][zone]->unk4 = 2;
@@ -1966,7 +1966,7 @@ _08047A4C:\n\
 	adds r0, r4, #0\n\
 	bl sub_8040340\n\
 	adds r0, r4, #0\n\
-	bl sub_80406CC\n\
+	bl UnlockCard\n\
 	ldrb r1, [r4, #5]\n\
 	movs r0, #3\n\
 	rsbs r0, r0, #0\n\
@@ -2004,7 +2004,7 @@ _08047A4C:\n\
 	adds r0, r4, #0\n\
 	bl sub_8040340\n\
 	adds r0, r4, #0\n\
-	bl sub_80406CC\n\
+	bl UnlockCard\n\
 	ldrb r1, [r4, #5]\n\
 	mov r0, sb\n\
 	ands r0, r1\n\
@@ -2035,7 +2035,7 @@ _08047A4C:\n\
 	adds r0, r4, #0\n\
 	bl sub_8040340\n\
 	adds r0, r4, #0\n\
-	bl sub_80406CC\n\
+	bl UnlockCard\n\
 	ldrb r1, [r4, #5]\n\
 	mov r0, sb\n\
 	ands r0, r1\n\
@@ -2081,10 +2081,10 @@ void EffectPenguinTorpedo(void)
 {
     struct DuelCard* zone = gZones[2][gMonEffect.zone];
 
-    gUnk2021AC0.id = zone->id;
-    gUnk2021AC0.field = gDuel.field;
-    gUnk2021AC0.stage = sub_804069C(zone);
-    sub_800B318(&gUnk2021AC0);
+    gStatMod.card = zone->id;
+    gStatMod.field = gDuel.field;
+    gStatMod.stage = sub_804069C(zone);
+    sub_800B318(&gStatMod);
 
     if (WhoseTurn() == PLAYER)
         sub_803F9E4(gCardInfo.atk);
@@ -2141,14 +2141,14 @@ void sub_8047CAC(void)
     {
         zone = gZones[0][i];
         if (zone->id != CARD_NONE)
-            sub_8045338(zone, 1);
+            ClearZoneAndSendMonToGraveyard(zone, 1);
     }
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
         zone = gZones[1][i];
         if (zone->id != CARD_NONE && IsGodCard(zone->id) != TRUE)
-            sub_8045338(zone, 1);
+            ClearZoneAndSendMonToGraveyard(zone, 1);
     }
 
     if (!gUnk_02021C08)
@@ -2180,7 +2180,7 @@ void EffectReaperOfTheCards(void)
             SetCardInfo(gZones[0][i]->id);
             if (gCardInfo.trapEffect)
             {
-                sub_8045338(gZones[0][i], 1);
+                ClearZoneAndSendMonToGraveyard(gZones[0][i], 1);
                 break;
             }
         }
@@ -2289,7 +2289,7 @@ void EffectFlameSwordsman(void)
     {
         SetCardInfo(gZones[1][i]->id);
         if (gCardInfo.type == TYPE_DINOSAUR)
-            sub_8045338(gZones[1][i], 1);
+            ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
     }
 
     if (!gUnk_02021C08)
@@ -2319,7 +2319,7 @@ void EffectBattleOx(void)
     {
         SetCardInfo(gZones[1][i]->id);
         if (gCardInfo.attribute == ATTRIBUTE_PYRO)
-            sub_8045338(gZones[1][i], 1);
+            ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
     }
 
     if (!gUnk_02021C08)
@@ -2365,7 +2365,7 @@ void EffectMammothGraveyard(void)
 void EffectGoddessOfWhim(void)
 {
     sub_8043CE4(WhoseTurn());
-    sub_8045338(gZones[2][gMonEffect.zone], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[2][gMonEffect.zone], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2394,7 +2394,7 @@ void EffectDragonSeeker(void)
     {
         SetCardInfo(gZones[1][i]->id);
         if (!IsGodCard(gCardInfo.id) && gCardInfo.type == TYPE_DRAGON)
-            sub_8045338(gZones[1][i], 1);
+            ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
     }
 
     if (!gUnk_02021C08)
@@ -2407,9 +2407,9 @@ void EffectDragonSeeker(void)
 void EffectFiendsHand(void)
 {
     if (NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
-        sub_8045338(gZones[1][HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
+        ClearZoneAndSendMonToGraveyard(gZones[1][HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
 
-    sub_8045338(gZones[gMonEffect.row][gMonEffect.zone], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gMonEffect.row][gMonEffect.zone], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2505,7 +2505,6 @@ void EffectRedArcheryGirl(void)
         gZones[1][zone]->isLocked = TRUE;
         sub_804037C(gZones[1][zone]);
     }
-
 
     if (!gUnk_02021C08)
     {
@@ -2705,7 +2704,7 @@ void sub_8048754(void) //Zombyra the dark?
     if (NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
     {
         u8 zone = HighestAtkMonInRowExceptGodCards(gZones[1]);
-        sub_8045338(gZones[1][zone], 1);
+        ClearZoneAndSendMonToGraveyard(gZones[1][zone], 1);
         sub_804037C(gZones[gMonEffect.row][gMonEffect.zone]);
     }
 
@@ -2724,7 +2723,7 @@ void sub_80487C0(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (!IsGodCard(gZones[1][i]->id))
-            sub_8045338(gZones[1][i], 1);
+            ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
 
     if (!gUnk_02021C08)
     {
@@ -2759,7 +2758,7 @@ void EffectJinzo(void)
         {
             SetCardInfo(gZones[0][i]->id);
             if (gCardInfo.trapEffect)
-                sub_8045338(gZones[0][i], 1);
+                ClearZoneAndSendMonToGraveyard(gZones[0][i], 1);
         }
     }
 
@@ -2779,7 +2778,7 @@ void EffectBarrelDragon(void)
         if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == MAX_ZONES_IN_ROW)
             break;
         if (sub_8056258(0, 1) == 1)
-            sub_8045338(gZones[1][HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
+            ClearZoneAndSendMonToGraveyard(gZones[1][HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
     }
 
     if (!gUnk_02021C08)
@@ -2798,7 +2797,7 @@ void EffectSkullMarkLadyBug(void)
 
     sub_803F29C();
 
-    sub_8045338(gZones[gMonEffect.row][gMonEffect.zone], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gMonEffect.row][gMonEffect.zone], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2851,7 +2850,7 @@ void sub_8048A5C(void)
 void sub_8048AA0(void)
 {
     if (NumEmptyZonesAndGodCardsInRow(gZones[1]) < MAX_ZONES_IN_ROW)
-        sub_8045338(gZones[1][HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
+        ClearZoneAndSendMonToGraveyard(gZones[1][HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
 
     if (WhoseTurn() == PLAYER)
         sub_803F9E4(500);
@@ -2897,7 +2896,7 @@ void EffectTheWingedDragonOfRaPhoenixMode(void)
     sub_803F4C0();
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        sub_8045338(gZones[1][i], 1);
+        ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
 
     if (!gUnk_02021C08)
     {
@@ -2909,7 +2908,7 @@ void EffectTheWingedDragonOfRaPhoenixMode(void)
 void sub_8048BCC(void)
 {
     if (NumEmptyZonesAndGodCardsInRow(gZones[1]) < MAX_ZONES_IN_ROW)
-        sub_8045338(gZones[1][HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
+        ClearZoneAndSendMonToGraveyard(gZones[1][HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
 
     if (!gUnk_02021C08)
     {

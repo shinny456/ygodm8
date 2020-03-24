@@ -5,17 +5,17 @@
 
 //sub_08026BA4 bx lr
 
-struct Unk2021AC0
+struct StatMod
 {
-    u16 id;
+    u16 card;
     u8 field;
     s8 stage;
 };
 
-extern struct Unk2021AC0 gUnk2021AC0;
+extern struct StatMod gStatMod;
 extern void (*gMonEffects[])(void);
 extern void (*gSpellEffects[])(void);
-extern u8 gCurrentTurn;
+extern u8 gWhoseTurn; //gWhoseTurn?
 
 enum Field
 {
@@ -73,6 +73,7 @@ struct Unk2023EA0
 
 extern struct Unk2023EA0 gUnk2023EA0;
 
+//Zones to Cards
 struct Duel
 {
     struct DuelCard opponentSpellTrapZones[MAX_ZONES_IN_ROW];   //0x00  |2023EC0
@@ -175,23 +176,22 @@ enum Language
     GERMAN,
     ITALIAN,
     SPANISH,
-    JAPANESE,
-    DEBUG //skip dialogs
+    JAPANESE
 };
 
 
 
 extern u8 gLanguage; //move to another header
 
-//u8 g2021DB8[] 0 - player status, 1 - opponent status: 2 == loss, 1 == can attack, 0 == can't attack
-void sub_800B318(struct Unk2021AC0*);
+extern u8 gDuelistStatus[]; //0 - player status, 1 - opponent status: 2 == loss, 1 == can attack, 0 == can't attack
+void sub_800B318(struct StatMod*);
 
 void sub_801CEBC(void);
 
 void sub_801D1A8(void);
 void sub_801D188(u8);
 
-u8 sub_8025544(void);
+bool8 sub_8025544(void);
 
 
 
@@ -201,7 +201,7 @@ void sub_803F29C(void);
 
 void sub_803F4C0(void);
 
-void sub_803F908(int, int);
+void sub_803F908(s32, s32);
 
 void sub_803F978(u16);
 void sub_803F9C0(u16);
@@ -210,15 +210,15 @@ void sub_803F99C(u32); //sub player life points
 
 void sub_803F9E4(u32); //sub opponent life points
 
-void ClearZone(struct DuelCard*); //clear zone?
+void ClearZone(struct DuelCard*);
 
-void sub_8040340(struct DuelCard*); //card face up
+void sub_8040340(struct DuelCard*); //flip card face up
 u8 CardPosition(struct DuelCard*);
 void sub_8040360(struct DuelCard*); //reset num perm powerups
 void sub_8040368(struct DuelCard*); //Inc num perm powerups
 
 void sub_804037C(struct DuelCard*); //dec num powerups?
-void sub_8040684(struct DuelCard*, int);
+void sub_8040684(struct DuelCard*, s32);
 
 //change to bool32
 u32 sub_80555A4(u16);
@@ -258,49 +258,50 @@ u32 sub_8055BD4(u16);
 
 
 void sub_8034F60(u16);
-int sub_803FCBC(u16);
+s32 sub_803FCBC(u16);
 void sub_804034C(struct DuelCard*);
 void sub_8040394(struct DuelCard*, u8);
 
 void sub_80403E8(struct DuelCard*); //reset num temp powerups
 
-int sub_8040688(struct DuelCard*);
+s32 sub_8040688(struct DuelCard*);
 s8 sub_804069C(struct DuelCard*); //getnumpowerups?
 
-void sub_80406C0(struct DuelCard*); //lock card
+void LockCard(struct DuelCard*); //lock card
+void UnlockCard(struct DuelCard*); //clear isLocked
 
-void CopyCard(struct DuelCard* dst, struct DuelCard* src); //copy (zone??) from one zone to another (src to dst)?
+void CopyCard(struct DuelCard* dst, struct DuelCard* src);
 
 void sub_8041140(u8); //set field gfx
 
 u8 HighestAtkMonInRow(struct DuelCard** row); //get highest atk mon
-u8 HighestAtkMonInRowExceptGodCards(struct DuelCard** row); //get highest atk mon excluding god cards? excluding god cards?
+u8 HighestAtkMonInRowExceptGodCards(struct DuelCard** row); //get highest atk mon excluding god cards?
 
 bool32 sub_804366C(struct DuelCard** row, u16 id);
 u8 sub_8043164(struct DuelCard**, u8);
 
-int NumCardInRow(struct DuelCard** row, u16 id); //num of card in a particular row
+s32 NumCardInRow(struct DuelCard** row, u16 id); //num of card in a particular row
 
 u8 sub_8043468(struct DuelCard**);
 
-int NumEmptyZonesInRow(struct DuelCard** row);
-int NumEmptyZonesAndGodCardsInRow(struct DuelCard** row);
+s32 NumEmptyZonesInRow(struct DuelCard** row);
+s32 NumEmptyZonesAndGodCardsInRow(struct DuelCard** row);
 
 u8 sub_804304C(struct DuelCard**);
-int sub_8043548(struct DuelCard**);
-int sub_8043584(struct DuelCard**, u8);
+s32 sub_8043548(struct DuelCard**);
+s32 sub_8043584(struct DuelCard**, u8);
 
-int EmptyZoneInRow(struct DuelCard**);  //get empty zone?
+s32 EmptyZoneInRow(struct DuelCard**);  //get empty zone?
 
-int sub_8043694(struct DuelCard**, u16 id); //get zone card is located at
+s32 sub_8043694(struct DuelCard**, u16 card); //get zone card is located at
 
-void sub_80406CC(struct DuelCard*); //clear isLocked
 
-int sub_8043930(u8, u8);
+
+s32 sub_8043930(u8, u8);
 
 void sub_8043CE4(u32);
 
-void sub_8045338(struct DuelCard*, u8); //clear zone and send mon to graveyard?
+void ClearZoneAndSendMonToGraveyard(struct DuelCard* zone, u8 graveyard);
 
 u16 sub_804535C(u8);
 
@@ -312,9 +313,9 @@ void sub_804D600(struct DuelCard*, u16 id);
 s8 sub_8057894(u16 id);
 
 void ResetNumTributes(void);
-int WhoseTurn(void); //8058744
+s32 WhoseTurn(void); //8058744
 
-int sub_8056258(u8, u8);
+s32 sub_8056258(u8, u8);
 
 bool32 sub_80586DC(void);
 
@@ -335,7 +336,7 @@ extern struct Unk2023E80 gUnk2023E80;
 struct Duelist
 {
     u16 id;                //0x0
-    u16 fieldId;           //0x2 u8?
+    u16 field;             //0x2 u8?
     u16* deck;             //0x4
     u16* cardDrops;        //0x8
     u16* shopCards;        //0xC
@@ -345,34 +346,47 @@ struct Duelist
     u32 capacityYield;     //0x18
     u16 minDomino;         //0x1C
     u16 maxDomino;         //0x1E
-    u8 filler20[0xC];      //0x20
+    u8 filler20[0x4];      //0x20
+    u16 unk24;             //0x24
+    u16 unk26;             //0x26
+    u16 unk28;             //0x28
+    u16 unk2A;             //0x2A
 };
 
 struct UnkStruct02021D10
 {
-    u32 unk0;
-    u32 unk4;
-    u32 unk8;     //capacityYield
-    u16 unkC;     //
+    u64 unk0; //money?
+    u32 capacityYield;
+    u16 unkC;
     u16 unkE;
     u16 unk10;
-    u16 unk12;     //duelist ID?
+    u16 opponent;
     u16 unk14[10];
-    u16 unk28;     //ante
+    u16 ante;
     u8 unk2A;
     u8 unk2B;
     /*2C-2F bitfields?*/
     u8 unk2c : 1;
     u8 unk2d : 1;
     u8 filler2D[3];
-    struct Duelist duelist;
+    struct Duelist duelist; //duelistData?
 };
 
 extern u32 gUnk02024254;
 extern struct UnkStruct02021D10 gUnk02021D10;
 
 bool8 sub_804B144(u8*, u16*);
+extern u16 gAnte;
 
+struct Deck
+{
+    u32 cost;
+    u32 unk4;
+    u16 size;     //count
+    u16 cards[40];
+};
+
+extern struct Deck gDeck;
 
 extern u16 gUnk8E00FA8[][4]; //ritual
 //[][0] == sacrifice 1

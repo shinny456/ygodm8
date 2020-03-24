@@ -21,7 +21,7 @@ void EffectMooyanCurry(void)
         sub_803F29C();
         sub_803F4C0();
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
         if (!gUnk_02021C08)
         {
@@ -49,7 +49,7 @@ void EffectRedMedicine(void)
         sub_803F29C();
         sub_803F4C0();
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
         if (!gUnk_02021C08)
         {
@@ -77,7 +77,7 @@ void EffectGoblinsSecretRemedy(void)
         sub_803F29C();
         sub_803F4C0();
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
         if (!gUnk_02021C08)
         {
@@ -105,7 +105,7 @@ void EffectSoulOfThePure(void)
         sub_803F29C();
         sub_803F4C0();
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
         if (!gUnk_02021C08)
         {
@@ -133,7 +133,7 @@ void EffectDianKetoTheCureMaster(void)
         sub_803F29C();
         sub_803F4C0();
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
         if (!gUnk_02021C08)
         {
@@ -161,7 +161,7 @@ void EffectSparks(void)
         sub_803F29C();
         sub_803F4C0();
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
         if (!gUnk_02021C08)
         {
@@ -189,7 +189,7 @@ void EffectHinotama(void)
         sub_803F29C();
         sub_803F4C0();
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
         if (!gUnk_02021C08)
         {
@@ -217,7 +217,7 @@ void EffectFinalFlame(void)
         sub_803F29C();
         sub_803F4C0();
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
         if (!gUnk_02021C08)
         {
@@ -245,7 +245,7 @@ void EffectOokazi(void)
         sub_803F29C();
         sub_803F4C0();
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
         if (!gUnk_02021C08)
         {
@@ -273,7 +273,7 @@ void EffectTremendousFire(void)
         sub_803F29C();
         sub_803F4C0();
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
         if (!gUnk_02021C08)
         {
@@ -291,13 +291,13 @@ void EffectDarkHole(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (!IsGodCard(gZones[1][i]->id))
-            sub_8045338(gZones[1][i], 1);
+            ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (!IsGodCard(gZones[2][i]->id))
-            sub_8045338(gZones[2][i], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[2][i], 0);
 
-     sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+     ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -318,9 +318,9 @@ void EffectRaigeki(void)
 
         for (i = 0; i < MAX_ZONES_IN_ROW; i++)
             if (!IsGodCard(gZones[1][i]->id))
-                sub_8045338(gZones[1][i], 1);
+                ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
         if (!gUnk_02021C08)
         {
@@ -343,7 +343,7 @@ void EffectLegendarySword(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -372,7 +372,7 @@ void EffectSwordOfDarkDestruction(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -401,7 +401,7 @@ void EffectDarkEnergy(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -430,7 +430,7 @@ void EffectAxeOfDespair(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -459,7 +459,7 @@ void EffectLaserCannonArmor(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -488,7 +488,7 @@ void EffectInsectArmorWithLaserCannon(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -517,7 +517,7 @@ void EffectElfsLight(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -546,7 +546,7 @@ void EffectBeastFangs(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -575,7 +575,7 @@ void EffectSteelShell(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -604,7 +604,7 @@ void EffectVileGerms(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -633,7 +633,7 @@ void EffectBlackPendant(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -662,7 +662,7 @@ void EffectSilverBowAndArrow(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -691,7 +691,7 @@ void EffectHornOfLight(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -720,7 +720,7 @@ void EffectHornOfTheUnicorn(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -749,7 +749,7 @@ void EffectDragonTreasure(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -778,7 +778,7 @@ void EffectElectroWhip(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -807,7 +807,7 @@ void EffectCyberShield(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -836,7 +836,7 @@ void EffectMysticalMoon(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -865,7 +865,7 @@ void EffectMalevolentNuzzler(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -894,7 +894,7 @@ void EffectVioletCrystal(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -923,7 +923,7 @@ void EffectBookOfSecretArts(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -952,7 +952,7 @@ void EffectInvigoration(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -981,7 +981,7 @@ void EffectMachineConversionFactory(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -1010,7 +1010,7 @@ void EffectRaiseBodyHeat(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -1039,7 +1039,7 @@ void EffectFollowWind(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -1068,7 +1068,7 @@ void EffectPowerOfKaishin(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -1101,7 +1101,7 @@ void EffectStopDefense(void)
         }
     }
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -1120,7 +1120,7 @@ void EffectSwordsOfRevealingLight(void)
         if (gZones[1][i]->id != CARD_NONE)
             gZones[1][i]->isFaceUp = TRUE;
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -1137,7 +1137,7 @@ void EffectDarkPiercingLight(void)
         if (gZones[1][i]->id != CARD_NONE)
             gZones[1][i]->isFaceUp = TRUE;
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -1154,7 +1154,7 @@ void EffectSpellBindingCircle(void)
         if (gZones[1][i]->id != CARD_NONE)
             sub_804037C(gZones[1][i]);
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -1169,7 +1169,7 @@ void EffectElegantEgotist(void)
     {
 
         gZones[gUnk2024260.unk2][gUnk2024260.unk3]->id = HARPIE_LADY_SISTERS;
-        sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
         if (!gUnk_02021C08)
         {
@@ -1182,7 +1182,7 @@ void EffectElegantEgotist(void)
     if (gZones[gUnk2024260.unk2][gUnk2024260.unk3]->id == CYBER_HARPIE)
     {
         gZones[gUnk2024260.unk2][gUnk2024260.unk3]->id = HARPIE_LADY_SISTERS;
-        sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
         if (!gUnk_02021C08)
         {
@@ -1199,7 +1199,7 @@ void EffectBlackLusterRitual(void)
     {
         u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[1][0]);
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
         sub_804D600(gZones[2][zone], gUnk8E00FA8[1][1]);
         ResetNumTributes();
 
@@ -1221,7 +1221,7 @@ void sub_804AED8(void)
     {
         u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[2][0]);
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
         sub_804D600(gZones[2][zone], gUnk8E00FA8[2][1]);
         ResetNumTributes();
 
@@ -1240,7 +1240,7 @@ void sub_804AF58(void)
     {
         u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[3][0]);
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
         sub_804D600(gZones[2][zone], gUnk8E00FA8[3][1]);
         ResetNumTributes();
 
@@ -1259,7 +1259,7 @@ void sub_804AFD8(void)
     {
         u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[4][0]);
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
         sub_804D600(gZones[2][zone], gUnk8E00FA8[4][1]);
         ResetNumTributes();
 
@@ -1288,7 +1288,7 @@ void sub_804B058(void)
     else
         return;
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
     sub_804D600(gZones[2][zones[0]], gUnk8E00FA8[ritualId][1]);
 
     ClearZone(gZones[2][zones[1]]);
@@ -1342,7 +1342,7 @@ void sub_804B20C(void)
     {
         u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[9][0]);
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
         sub_804D600(gZones[2][zone], gUnk8E00FA8[9][1]);
         ResetNumTributes();
 
@@ -1361,7 +1361,7 @@ void sub_804B294(void)
     {
         u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[10][0]);
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
         sub_804D600(gZones[2][zone], gUnk8E00FA8[10][1]);
         ResetNumTributes();
 
@@ -1380,7 +1380,7 @@ void sub_804B31C(void)
     {
         u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[11][0]);
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
         sub_804D600(gZones[2][zone], gUnk8E00FA8[11][1]);
         ResetNumTributes();
 
@@ -1399,7 +1399,7 @@ void sub_804B3A4(void)
     {
         u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[12][0]);
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
         sub_804D600(gZones[2][zone], gUnk8E00FA8[12][1]);
         ResetNumTributes();
 
@@ -1418,7 +1418,7 @@ void sub_804B42C(void)
     {
         u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[13][0]);
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
         sub_804D600(gZones[2][zone], gUnk8E00FA8[13][1]);
         ResetNumTributes();
 
@@ -1437,7 +1437,7 @@ void sub_804B4B4(void)
     {
         u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[14][0]);
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
         sub_804D600(gZones[2][zone], gUnk8E00FA8[14][1]);
         ResetNumTributes();
 
@@ -1461,7 +1461,7 @@ void EffectMagicalLabyrinth(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -1490,7 +1490,7 @@ void EffectSalamandra(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -1519,7 +1519,7 @@ void EffectKunaiWithChain(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -1548,7 +1548,7 @@ void EffectBrightCastle(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -1574,16 +1574,16 @@ void EffectCrushCard(void)
     {
         if (gZones[1][i]->id != CARD_NONE && IsGodCard(gZones[1][i]->id) != TRUE)
         {
-            gUnk2021AC0.id = gZones[1][i]->id;
-            gUnk2021AC0.field = gDuel.field;
-            gUnk2021AC0.stage = sub_804069C(gZones[1][i]);
-            sub_800B318(&gUnk2021AC0);
+            gStatMod.card = gZones[1][i]->id;
+            gStatMod.field = gDuel.field;
+            gStatMod.stage = sub_804069C(gZones[1][i]);
+            sub_800B318(&gStatMod);
             if (gCardInfo.atk >= 1500)
-                sub_8045338(gZones[1][i], 1);
+                ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
         }
     }
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -1605,7 +1605,7 @@ void EffectShadowSpell(void)
         }
     }
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -1620,7 +1620,7 @@ void sub_804B9D0(void)
     {
         u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[15][0]);
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
         sub_804D600(gZones[2][zone], gUnk8E00FA8[15][1]);
         ResetNumTributes();
 
@@ -1639,7 +1639,7 @@ void sub_804BA58(void)
     {
         u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[16][0]);
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
         sub_804D600(gZones[2][zone], gUnk8E00FA8[16][1]);
         ResetNumTributes();
 
@@ -1658,7 +1658,7 @@ void sub_804BAE0(void)
     {
         u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[17][0]);
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
         sub_804D600(gZones[2][zone], gUnk8E00FA8[17][1]);
         ResetNumTributes();
 
@@ -1677,7 +1677,7 @@ void sub_804BB68(void)
     {
         u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[18][0]);
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
         sub_804D600(gZones[2][zone], gUnk8E00FA8[18][1]);
         ResetNumTributes();
 
@@ -1696,7 +1696,7 @@ void sub_804BBF0(void)
     {
         u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[19][0]);
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
         sub_804D600(gZones[2][zone], gUnk8E00FA8[19][1]);
         ResetNumTributes();
 
@@ -1715,7 +1715,7 @@ void sub_804BC78(void)
     {
         u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[20][0]);
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
         sub_804D600(gZones[2][zone], gUnk8E00FA8[20][1]);
         ResetNumTributes();
 
@@ -1734,7 +1734,7 @@ void sub_804BD00(void)
     {
         u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[21][0]);
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
         sub_804D600(gZones[2][zone], gUnk8E00FA8[21][1]);
         ResetNumTributes();
 
@@ -1753,7 +1753,7 @@ void sub_804BD88(void)
     {
         u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[22][0]);
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
         sub_804D600(gZones[2][zone], gUnk8E00FA8[22][1]);
         ResetNumTributes();
 
@@ -1772,7 +1772,7 @@ void sub_804BE10(void)
     {
         u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[23][0]);
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
         sub_804D600(gZones[2][zone], gUnk8E00FA8[23][1]);
         ResetNumTributes();
 
@@ -1791,7 +1791,7 @@ void sub_804BE98(void)
     {
         u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[6][0]);
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
         sub_804D600(gZones[2][zone], gUnk8E00FA8[6][1]);
         ResetNumTributes();
 
@@ -1810,7 +1810,7 @@ void sub_804BF18(void)
     {
         u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[7][0]);
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
         sub_804D600(gZones[2][zone], gUnk8E00FA8[7][1]);
         ResetNumTributes();
 
@@ -1831,7 +1831,7 @@ void sub_804BF98(void)
     {
         u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[8][0]);
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
         sub_804D600(gZones[2][zone], gUnk8E00FA8[8][1]);
 
         zone = sub_8043694(gZones[2], gUnk8E00FA8[8][2]);
@@ -1861,11 +1861,11 @@ void EffectWarriorElimination(void)
         {
             SetCardInfo(gZones[1][i]->id);
             if (gCardInfo.type == TYPE_WARRIOR)
-                sub_8045338(gZones[1][i], 1);
+                ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
         }
     }
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -1882,7 +1882,7 @@ void EffectCurseBreaker(void)
         if (gZones[2][i]->id != CARD_NONE && sub_8040688(gZones[2][i]) < 0)
             sub_8040360(gZones[2][i]);
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -1899,10 +1899,10 @@ void EffectEternalRest(void)
     {
         SetCardInfo(gZones[1][i]->id);
         if (gCardInfo.type == TYPE_ZOMBIE)
-            sub_8045338(gZones[1][i], 1);
+            ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
     }
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -1922,7 +1922,7 @@ void EffectMegamorph(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -1945,7 +1945,7 @@ void EffectMetalmorph(void)
     if (gZones[gUnk2024260.unk2][gUnk2024260.unk3]->id == ZOA)
     {
         gZones[gUnk2024260.unk2][gUnk2024260.unk3]->id = METALZOA;
-        sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
         if (!gUnk_02021C08)
         {
@@ -1957,7 +1957,7 @@ void EffectMetalmorph(void)
     if (gZones[gUnk2024260.unk2][gUnk2024260.unk3]->id == RED_EYES_B_DRAGON)
     {
         gZones[gUnk2024260.unk2][gUnk2024260.unk3]->id = RED_EYES_BLACK_METAL_DRAGON;
-        sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
         if (!gUnk_02021C08)
         {
@@ -1978,7 +1978,7 @@ void EffectWingedTrumpeter(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -2006,11 +2006,11 @@ void EffectStainStorm(void)
         {
             SetCardInfo(gZones[1][i]->id);
             if (gCardInfo.type == TYPE_MACHINE)
-                sub_8045338(gZones[1][i], 1);
+                ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
         }
     }
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2027,10 +2027,10 @@ void EffectEradicatingAerosol(void)
     {
         SetCardInfo(gZones[1][i]->id);
         if (gCardInfo.type == TYPE_INSECT)
-            sub_8045338(gZones[1][i], 1);
+            ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
     }
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2047,10 +2047,10 @@ void EffectBreathOfLight(void)
     {
         SetCardInfo(gZones[1][i]->id);
         if (gCardInfo.type == TYPE_ROCK)
-            sub_8045338(gZones[1][i], 1);
+            ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
     }
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2067,10 +2067,10 @@ void EffectEternalDrought(void)
     {
         SetCardInfo(gZones[1][i]->id);
         if (gCardInfo.type == TYPE_FISH)
-            sub_8045338(gZones[1][i], 1);
+            ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
     }
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2087,7 +2087,7 @@ void EffectTheInexperiencedSpy(void)
         if (gHands[1][i]->id != CARD_NONE)
             gHands[1][i]->isFaceUp = TRUE;
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2110,7 +2110,7 @@ void sub_804C6B4(void)
 
     zone = sub_8043694(gZones[2], gUnk8E00FA8[ritualId][0]);
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
     sub_804D600(gZones[2][zone], gUnk8E00FA8[ritualId][1]);
     ResetNumTributes();
 
@@ -2130,10 +2130,10 @@ void EffectLastDayOfWitch(void)
     {
         SetCardInfo(gZones[1][i]->id);
         if (gCardInfo.type == TYPE_MAGICIAN)
-            sub_8045338(gZones[1][i], 1);
+            ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
     }
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2150,10 +2150,10 @@ void EffectExileOfTheWicked(void)
     {
         SetCardInfo(gZones[1][i]->id);
         if (gCardInfo.type == TYPE_FIEND)
-            sub_8045338(gZones[1][i], 1);
+            ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
     }
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2191,7 +2191,7 @@ void EffectMultiply(void)
         }
     }
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2219,7 +2219,7 @@ void EffectChangeOfHeart(void)
         ClearZone(gZones[1][highestAtkZone]);
     }
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2234,7 +2234,7 @@ void EffectBlackIllusionRitual(void)
     {
         u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[25][0]);
 
-        sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
         sub_804D600(gZones[2][zone], gUnk8E00FA8[25][1]);
         ResetNumTributes();
 
@@ -2266,7 +2266,7 @@ void EffectBrainControl(void)
         ClearZone(gZones[1][highestAtkZone]);
     }
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2297,7 +2297,7 @@ void sub_804CBBC(void)
         }
     }
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2317,7 +2317,7 @@ void sub_804CC7C(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -2344,7 +2344,7 @@ void EffectHeavyStorm(void)
         for (j = 0; j < MAX_ZONES_IN_ROW; j++)
         {
             if (!IsGodCard(gZones[i][j]->id))
-                sub_8045338(gZones[i][j], 1);
+                ClearZoneAndSendMonToGraveyard(gZones[i][j], 1);
         }
     }
 
@@ -2353,7 +2353,7 @@ void EffectHeavyStorm(void)
         for (j = 0; j < MAX_ZONES_IN_ROW; j++)
         {
             if (!IsGodCard(gZones[i][j]->id))
-                sub_8045338(gZones[i][j], 0);
+                ClearZoneAndSendMonToGraveyard(gZones[i][j], 0);
         }
     }
 
@@ -2373,7 +2373,7 @@ void EffectFinalDestiny(void)
         for (j = 0; j < MAX_ZONES_IN_ROW; j++)
         {
             if (!IsGodCard(gZones[i][j]->id))
-                sub_8045338(gZones[i][j], 1);
+                ClearZoneAndSendMonToGraveyard(gZones[i][j], 1);
         }
     }
 
@@ -2382,16 +2382,16 @@ void EffectFinalDestiny(void)
         for (j = 0; j < MAX_ZONES_IN_ROW; j++)
         {
             if (!IsGodCard(gZones[i][j]->id))
-                sub_8045338(gZones[i][j], 0);
+                ClearZoneAndSendMonToGraveyard(gZones[i][j], 0);
         }
     }
 
     for (j = 0; j < MAX_ZONES_IN_ROW; j++)
     {
         if (!IsGodCard(gHands[0][j]->id))
-            sub_8045338(gHands[0][j], 0);
+            ClearZoneAndSendMonToGraveyard(gHands[0][j], 0);
         if (!IsGodCard(gHands[1][j]->id))
-            sub_8045338(gHands[1][j], 1);
+            ClearZoneAndSendMonToGraveyard(gHands[1][j], 1);
     }
 
     if (!gUnk_02021C08)
@@ -2409,16 +2409,16 @@ void EffectMessengerOfPeaceTSC(void)
     {
         if (gZones[1][i]->id != CARD_NONE)
         {
-            gUnk2021AC0.id = gZones[1][i]->id;
-            gUnk2021AC0.field = gDuel.field;
-            gUnk2021AC0.stage = sub_804069C(gZones[1][i]);
-            sub_800B318(&gUnk2021AC0);
+            gStatMod.card = gZones[1][i]->id;
+            gStatMod.field = gDuel.field;
+            gStatMod.stage = sub_804069C(gZones[1][i]);
+            sub_800B318(&gStatMod);
             if (gCardInfo.atk >= 1500)
                 gZones[1][i]->isLocked = TRUE;
         }
     }
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2439,7 +2439,7 @@ void EffectDarknessApproaches(void)
         if (gZones[3][i]->id != CARD_NONE)
             sub_804034C(gZones[3][i]);
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2459,7 +2459,7 @@ void EffectCyclonLaser(void)
         if (sub_80586DC() != 1 || gUnk_02021C08)
         {
             sub_8040368(gZones[gUnk2024260.unk2][gUnk2024260.unk3]);
-            sub_8045338(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk4][gUnk2024260.unk5], 0);
 
             if (!gUnk_02021C08)
             {
@@ -2494,7 +2494,7 @@ void EffectForest(void)
 {
     gDuel.field = FIELD_FOREST;
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2508,7 +2508,7 @@ void EffectWasteland(void)
 {
     gDuel.field = FIELD_WASTELAND;
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2522,7 +2522,7 @@ void EffectMountain(void)
 {
     gDuel.field = FIELD_MOUNTAIN;
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2536,7 +2536,7 @@ void EffectSogen(void)
 {
     gDuel.field = FIELD_SOGEN;
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2550,7 +2550,7 @@ void EffectUmi(void)
 {
     gDuel.field = FIELD_UMI;
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2564,7 +2564,7 @@ void EffectYami(void)
 {
     gDuel.field = FIELD_YAMI;
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2593,9 +2593,9 @@ void EffectHarpiesFeatherDuster(void)
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        sub_8045338(gZones[0][i], 1);
+        ClearZoneAndSendMonToGraveyard(gZones[0][i], 1);
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2610,7 +2610,7 @@ void EffectPotOfGreed(void)
     sub_8043CE4(WhoseTurn());
     sub_8043CE4(WhoseTurn());
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2631,7 +2631,7 @@ void EffectRestructerRevolution(void)
     sub_803F29C();
     sub_803F4C0();
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2646,9 +2646,9 @@ void sub_804D4E4(void){}
 void EffectBeckonToDarkness(void)
 {
     if (NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
-        sub_8045338(gZones[1][HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
+        ClearZoneAndSendMonToGraveyard(gZones[1][HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2664,7 +2664,7 @@ void EffectGravediggerGhoul(void)
     sub_80452E0(0);
     sub_80452E0(1);
 
-    sub_8045338(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
     if (!gUnk_02021C08)
     {
@@ -2696,3 +2696,16 @@ void sub_804D5F0(void){}
 void sub_804D5F4(void){}
 void sub_804D5F8(void){}
 void sub_804D5FC(void){}
+
+void sub_804D600(struct DuelCard* zone, u16 id)
+{
+    zone->id = id;
+    zone->isFaceUp = FALSE;
+    zone->isLocked = FALSE;
+    zone->isDefending = FALSE;
+    zone->unkTwo = 0;
+    zone->unk4 = 0;
+    sub_8040360(zone);
+    sub_80403E8(zone);
+    zone->willChangeSides = FALSE;
+}
