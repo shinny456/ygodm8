@@ -347,7 +347,7 @@ struct Duelist
     u16 minDomino;         //0x1C
     u16 maxDomino;         //0x1E
     u8 filler20[0x4];      //0x20
-    u16 unk24;             //0x24
+    u16 unk24;             //0x24  music
     u16 unk26;             //0x26
     u16 unk28;             //0x28
     u16 unk2A;             //0x2A

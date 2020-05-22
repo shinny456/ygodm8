@@ -3,6 +3,7 @@ OUTPUT_ARCH(arm)
 SECTIONS
 {
     g02000000 = 0x02000000;
+    gBgVram = 0x02000400;
     gOamBuffer = 0x02018400;
     gUnk_2018800 = 0x02018800;
     gUnk_201C800 = 0x0201C800;
@@ -18,6 +19,7 @@ SECTIONS
     gUnk2021AB4 = 0x02021AB4;
     gStatMod = 0x02021AC0;
     gCardInfo = 0x02021AD0;
+    g2021AF0 = 0x2021AF0;
     gAnte = 0x02021B04;
     gUnk_02021C08 = 0x02021C08;
     gUnk_02021C10 = 0x02021C10;
@@ -56,7 +58,7 @@ SECTIONS
     gUnk2024270 = 0x02024270;
     gUnk020245A0 = 0x020245A0;
     gWhoseTurn = 0x020245A8;
-
+    g2021BD0 = 0x2021BD0;
 
     g3000C38 = 0x03000C38;
     g3000C6C = 0x03000C6C;
@@ -94,8 +96,7 @@ SECTIONS
         data/data4.o(.rodata);
     } = 0
 
-    gGodCards = 0x8E01358;
-    gUnk8E00FA8 = 0x8E00FA8;
+
     gUnk8094C37 = 0x8094C37;
     gUnk8094CC3 = 0x8094CC3;
     gUnk8094FE4 = 0x8094FE4;
@@ -112,6 +113,35 @@ SECTIONS
     g80C1891 = 0x80C1891;
     g80C1857 = 0x80C1857;
     g80C1872 = 0x80C1872;
+    gUnk8DFB8A8 = 0x8DFB8A8;
+    gUnk8DFBAE8 = 0x8DFBAE8;
+    gUnk8DFBDE8 = 0x8DFBDE8;
+    g0809553C = 0x809553C;
+    gUnk8097D94 = 0x8097D94;
+    g08097C94 = 0x8097C94;
+    g809508C = 0x809508C;
+    g8DFC288 = 0x8DFC288; /*card name ptrs*/
+    g8DFCF0C = 0x8DFCF0C;
+    g8DFDB90 = 0x8DFDB90;
+    g8DFF498 = 0x8DFF498;
+    g8DFF49B = 0x8DFF49B;
+    g8DFF4A4 = 0x8DFF4A4;
+    g8DFF4A6 = 0x8DFF4A6;
+    g80ADEFC = 0x80ADEFC;
+    g8DF811C = 0x8DF811C;
+    g80AE02C = 0x80AE02C;
+    g80AE1A8 = 0x80AE1A8;
+    g80AE370 = 0x80AE370;
+    g8DFF4AC = 0x8DFF4AC;
+    g8DFF4AE = 0x8DFF4AE;
+    g80AE544 = 0x80AE544;
+    g8DFAB54 = 0x8DFAB54;
+    g8DFAFF4 = 0x8DFAFF4;
+    g8DFA6B4 = 0x8DFA6B4;
+    g80AE800 = 0x80AE800;
+    g80AEA74 = 0x80AEA74;
+    g80AEA78 = 0x80AEA78;
+
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :
     {

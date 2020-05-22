@@ -6,7 +6,8 @@ struct UnkStruct_2020E10
     s16 unk0; //current card position in trunk?
     u8 unk2;
     u8 unk3;            //show: nothing, atk/def, attribute(summon), cost, 
-    u8 filler_4[8];
+    u8 unk4;
+    u8 filler5[7];
     u16 unkC[TRUNK_SIZE - 1]; //trunk_layout?
 };
 

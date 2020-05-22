@@ -30,8 +30,8 @@ struct Bruh
 extern struct CursorPosition gCursorPosition;
 extern struct Duelist* gUnk8E00B30[];
 extern u16 g02000000[]; //bg palette buffer
-extern u8* g8FA2BAC[]; //duel text pos32ers
-extern u8* g8FA2C14[]; //duel text pos32ers
+extern u8* g8FA2BAC[]; //duel text pointers
+extern u8* g8FA2C14[]; //duel text pointers
 extern struct Bruh g80C180C[];
 extern struct OamData gOamBuffer[];
 extern u8 g80C1824[];

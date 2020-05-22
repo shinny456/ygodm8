@@ -7809,9 +7809,58 @@ gUnk_8E00E30:
     .4byte gUnk_80BEBB4
     .4byte gUnk_80BEBB0
 
-    .global gUnk_8E00FA8
-gUnk_8E00FA8:
-    .incbin "baserom.gba", 0xE00FA8, 0x3BC
+    .global gUnk8E00FA8 @ritual components
+gUnk8E00FA8:
+    .incbin "baserom.gba", 0xE00FA8, 0xF0
+
+    .global gUnk_8E01098
+gUnk_8E01098:
+    .incbin "baserom.gba", 0xE01098, 0x8
+
+    .global gUnk_8E010A0
+gUnk_8E010A0:
+    .4byte gUnk_2018800
+
+    .global gUnk_8E010A4
+gUnk_8E010A4:
+    .4byte sub_8024324
+    .4byte sub_8024324
+    .4byte sub_8024324
+    .4byte sub_8024384
+    .4byte sub_8024414
+    .4byte sub_80244B8
+    .4byte sub_8024324
+    .4byte sub_8024324
+    .4byte sub_8024324
+    .4byte sub_8024324
+    .4byte sub_8024324
+    .4byte sub_8024324
+    .4byte sub_8024324
+    .4byte sub_80243CC
+    .4byte sub_802445C
+    .4byte sub_8024500
+    .4byte sub_8024324
+    .4byte sub_8024324
+    .4byte sub_8024324
+    .4byte sub_8024324
+
+    .global gUnk_8E010F4
+gUnk_8E010F4:
+    .4byte gUnk_2018800
+
+    .global gUnk_8E010F8
+gUnk_8E010F8:
+    .4byte gUnk_2018800
+    .incbin "baserom.gba", 0xE010FC, 0x25C
+
+    .global gGodCards @E01358
+gGodCards:
+    .2byte 0xEA
+    .2byte 0xEE
+    .2byte 0xF0
+    .2byte 0x129
+    .2byte 0x19C
+    .2byte 0x0
 
     .global gUnk_8E01364
 gUnk_8E01364:
@@ -8653,7 +8702,7 @@ gUnk_8E11EB8:
     .4byte gUnk_891a944
     .4byte gUnk_891b9b0
 
-    .global gUnk_8E12B3C
+    .global gUnk_8E12B3C @card art palettes
 gUnk_8E12B3C:
     .4byte gUnk_89360b0
     .4byte gUnk_891cd78

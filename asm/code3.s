@@ -1671,7 +1671,7 @@ sub_8023998: @ 0x08023998
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08023A04: .4byte 0x080454C9
+_08023A04: .4byte LoadOam
 _08023A08: .4byte 0x0400000C
 _08023A0C: .4byte 0x00001902
 _08023A10: .4byte 0x00001F03
@@ -1692,7 +1692,7 @@ sub_8023A14: @ 0x08023A14
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08023A40: .4byte 0x080454C9
+_08023A40: .4byte LoadOam
 
 	THUMB_FUNC_START sub_8023A44
 sub_8023A44: @ 0x08023A44
@@ -1725,7 +1725,7 @@ sub_8023A44: @ 0x08023A44
 	.align 2, 0
 _08023A88: .4byte 0x02018410
 _08023A8C: .4byte 0x08FC4A8C
-_08023A90: .4byte 0x080454C9
+_08023A90: .4byte LoadOam
 _08023A94: .4byte 0x0000FDFF
 
 	THUMB_FUNC_START sub_8023A98
@@ -1757,7 +1757,7 @@ sub_8023A98: @ 0x08023A98
 	.align 2, 0
 _08023AD8: .4byte 0x0400000A
 _08023ADC: .4byte 0x00001A09
-_08023AE0: .4byte 0x080454C9
+_08023AE0: .4byte LoadOam
 
 	THUMB_FUNC_START sub_8023AE4
 sub_8023AE4: @ 0x08023AE4
@@ -1788,7 +1788,7 @@ sub_8023AE4: @ 0x08023AE4
 	.align 2, 0
 _08023B24: .4byte 0x0400000A
 _08023B28: .4byte 0x00001C09
-_08023B2C: .4byte 0x080454C9
+_08023B2C: .4byte LoadOam
 
 	THUMB_FUNC_START sub_8023B30
 sub_8023B30: @ 0x08023B30
@@ -1819,7 +1819,7 @@ sub_8023B30: @ 0x08023B30
 	.align 2, 0
 _08023B70: .4byte 0x0400000A
 _08023B74: .4byte 0x00001D09
-_08023B78: .4byte 0x080454C9
+_08023B78: .4byte LoadOam
 
 	THUMB_FUNC_START sub_8023B7C
 sub_8023B7C: @ 0x08023B7C
@@ -1850,7 +1850,7 @@ sub_8023B7C: @ 0x08023B7C
 	.align 2, 0
 _08023BBC: .4byte 0x0400000A
 _08023BC0: .4byte 0x00001B09
-_08023BC4: .4byte 0x080454C9
+_08023BC4: .4byte LoadOam
 
 	THUMB_FUNC_START sub_8023BC8
 sub_8023BC8: @ 0x08023BC8
@@ -1881,7 +1881,7 @@ sub_8023BC8: @ 0x08023BC8
 	.align 2, 0
 _08023C08: .4byte 0x0400000A
 _08023C0C: .4byte 0x00001E09
-_08023C10: .4byte 0x080454C9
+_08023C10: .4byte LoadOam
 
 	THUMB_FUNC_START sub_8023C14
 sub_8023C14: @ 0x08023C14
@@ -1910,7 +1910,7 @@ sub_8023C14: @ 0x08023C14
 	.align 2, 0
 _08023C4C: .4byte 0x0400000A
 _08023C50: .4byte 0x00001809
-_08023C54: .4byte 0x080454C9
+_08023C54: .4byte LoadOam
 
 	THUMB_FUNC_START sub_8023C58
 sub_8023C58: @ 0x08023C58
@@ -2155,7 +2155,7 @@ sub_8023E28: @ 0x08023E28
 	bx r0
 	.align 2, 0
 _08023E50: .4byte 0x08DF0928
-_08023E54: .4byte 0x08E010A0
+_08023E54: .4byte gUnk_8E010A0
 _08023E58: .4byte 0x08DF1430
 _08023E5C: .4byte 0x02000200
 	.byte 0xF0, 0xB5, 0x07, 0x1C, 0x0C, 0x1C, 0x12, 0x06, 0x12, 0x0E, 0x1B, 0x06, 0x1B, 0x0E, 0x00, 0x26
@@ -2577,7 +2577,7 @@ sub_802417C: @ 0x0802417C
 	b _080241FE
 	.align 2, 0
 _080241E4: .4byte 0x03000C78
-_080241E8: .4byte 0x08E01098
+_080241E8: .4byte gUnk_8E01098
 _080241EC: .4byte 0x03000C38
 _080241F0: .4byte 0x03001078
 _080241F4:
@@ -2602,24 +2602,139 @@ _08024210:
 	bx r0
 	.align 2, 0
 _08024218: .4byte gWhoseTurn
-	.byte 0x10, 0xB5, 0x0E, 0xF0
-	.byte 0xD9, 0xF9, 0x00, 0x20, 0x01, 0x21, 0x32, 0xF0, 0x17, 0xF8, 0x01, 0x1C, 0x13, 0x48, 0x01, 0x70
-	.byte 0x13, 0x4A, 0x11, 0x78, 0x41, 0x70, 0x51, 0x78, 0x81, 0x70, 0x91, 0x78, 0xC1, 0x70, 0xD1, 0x78
-	.byte 0x01, 0x71, 0x11, 0x79, 0x41, 0x71, 0x51, 0x79, 0x81, 0x71, 0x0E, 0x4C, 0xE0, 0x60, 0x0E, 0x49
-	.byte 0x21, 0x61, 0x07, 0x21, 0x21, 0x60, 0x0E, 0xF0, 0xF5, 0xF9, 0x20, 0x85, 0x0C, 0xF0, 0x48, 0xFE
-	.byte 0x20, 0x1C, 0x34, 0x30, 0x00, 0x78, 0x00, 0x28, 0x15, 0xD1, 0x20, 0x1C, 0x31, 0x30, 0x00, 0x78
-	.byte 0x00, 0x28, 0x0D, 0xD1, 0x05, 0x49, 0x00, 0x20, 0x0C, 0xE0, 0x00, 0x00, 0x78, 0x0C, 0x00, 0x03
-	.byte 0x98, 0x10, 0xE0, 0x08, 0x38, 0x0C, 0x00, 0x03, 0x78, 0x10, 0x00, 0x03, 0xA8, 0x45, 0x02, 0x02
-	.byte 0x02, 0x49, 0x01, 0x20, 0x08, 0x70, 0x10, 0xBC, 0x01, 0xBC, 0x00, 0x47, 0xA8, 0x45, 0x02, 0x02
-	.byte 0x10, 0xB5, 0x0E, 0xF0, 0x97, 0xF9, 0x00, 0x20, 0x01, 0x21, 0x31, 0xF0, 0xD5, 0xFF, 0x01, 0x1C
-	.byte 0x13, 0x48, 0x01, 0x70, 0x13, 0x4A, 0x11, 0x78, 0x41, 0x70, 0x51, 0x78, 0x81, 0x70, 0x91, 0x78
-	.byte 0xC1, 0x70, 0xD1, 0x78, 0x01, 0x71, 0x11, 0x79, 0x41, 0x71, 0x51, 0x79, 0x81, 0x71, 0x0E, 0x4C
-	.byte 0xE0, 0x60, 0x0E, 0x49, 0x21, 0x61, 0x07, 0x21, 0x21, 0x60, 0x0E, 0xF0, 0xB3, 0xF9, 0x20, 0x85
-	.byte 0x0C, 0xF0, 0x06, 0xFE, 0x20, 0x1C, 0x34, 0x30, 0x00, 0x78, 0x00, 0x28, 0x15, 0xD1, 0x20, 0x1C
-	.byte 0x31, 0x30, 0x00, 0x78, 0x00, 0x28, 0x0D, 0xD1, 0x05, 0x49, 0x01, 0x20, 0x0C, 0xE0, 0x00, 0x00
-	.byte 0x78, 0x0C, 0x00, 0x03, 0x98, 0x10, 0xE0, 0x08, 0x38, 0x0C, 0x00, 0x03, 0x78, 0x10, 0x00, 0x03
-	.byte 0xA8, 0x45, 0x02, 0x02, 0x02, 0x49, 0x00, 0x20, 0x08, 0x70, 0x10, 0xBC, 0x01, 0xBC, 0x00, 0x47
-	.byte 0xA8, 0x45, 0x02, 0x02, 0x70, 0x47, 0x00, 0x00, 0x70, 0x47, 0x00, 0x00
+		thumb_func_start sub_802421C
+sub_802421C: @ 0x0802421C
+	push {r4, lr}
+	bl sub_80325D4
+	movs r0, #0
+	movs r1, #1
+	bl sub_8056258
+	adds r1, r0, #0
+	ldr r0, _0802427C @ =0x03000C78
+	strb r1, [r0]
+	ldr r2, _08024280 @ =0x08E01098
+	ldrb r1, [r2]
+	strb r1, [r0, #1]
+	ldrb r1, [r2, #1]
+	strb r1, [r0, #2]
+	ldrb r1, [r2, #2]
+	strb r1, [r0, #3]
+	ldrb r1, [r2, #3]
+	strb r1, [r0, #4]
+	ldrb r1, [r2, #4]
+	strb r1, [r0, #5]
+	ldrb r1, [r2, #5]
+	strb r1, [r0, #6]
+	ldr r4, _08024284 @ =0x03000C38
+	str r0, [r4, #0xc]
+	ldr r1, _08024288 @ =0x03001078
+	str r1, [r4, #0x10]
+	movs r1, #7
+	str r1, [r4]
+	bl sub_8032644
+	strh r0, [r4, #0x28]
+	bl sub_8030EF0
+	adds r0, r4, #0
+	adds r0, #0x34
+	ldrb r0, [r0]
+	cmp r0, #0
+	bne _08024296
+	adds r0, r4, #0
+	adds r0, #0x31
+	ldrb r0, [r0]
+	cmp r0, #0
+	bne _08024290
+	ldr r1, _0802428C @ =0x020245A8
+	movs r0, #0
+	b _08024294
+	.align 2, 0
+_0802427C: .4byte 0x03000C78
+_08024280: .4byte 0x08E01098
+_08024284: .4byte 0x03000C38
+_08024288: .4byte 0x03001078
+_0802428C: .4byte 0x020245A8
+_08024290:
+	ldr r1, _0802429C @ =0x020245A8
+	movs r0, #1
+_08024294:
+	strb r0, [r1]
+_08024296:
+	pop {r4}
+	pop {r0}
+	bx r0
+	.align 2, 0
+_0802429C: .4byte 0x020245A8
+
+	thumb_func_start sub_80242A0
+sub_80242A0: @ 0x080242A0
+	push {r4, lr}
+	bl sub_80325D4
+	movs r0, #0
+	movs r1, #1
+	bl sub_8056258
+	adds r1, r0, #0
+	ldr r0, _08024300 @ =0x03000C78
+	strb r1, [r0]
+	ldr r2, _08024304 @ =0x08E01098
+	ldrb r1, [r2]
+	strb r1, [r0, #1]
+	ldrb r1, [r2, #1]
+	strb r1, [r0, #2]
+	ldrb r1, [r2, #2]
+	strb r1, [r0, #3]
+	ldrb r1, [r2, #3]
+	strb r1, [r0, #4]
+	ldrb r1, [r2, #4]
+	strb r1, [r0, #5]
+	ldrb r1, [r2, #5]
+	strb r1, [r0, #6]
+	ldr r4, _08024308 @ =0x03000C38
+	str r0, [r4, #0xc]
+	ldr r1, _0802430C @ =0x03001078
+	str r1, [r4, #0x10]
+	movs r1, #7
+	str r1, [r4]
+	bl sub_8032644
+	strh r0, [r4, #0x28]
+	bl sub_8030EF0
+	adds r0, r4, #0
+	adds r0, #0x34
+	ldrb r0, [r0]
+	cmp r0, #0
+	bne _0802431A
+	adds r0, r4, #0
+	adds r0, #0x31
+	ldrb r0, [r0]
+	cmp r0, #0
+	bne _08024314
+	ldr r1, _08024310 @ =0x020245A8
+	movs r0, #1
+	b _08024318
+	.align 2, 0
+_08024300: .4byte 0x03000C78
+_08024304: .4byte 0x08E01098
+_08024308: .4byte 0x03000C38
+_0802430C: .4byte 0x03001078
+_08024310: .4byte 0x020245A8
+_08024314:
+	ldr r1, _08024320 @ =0x020245A8
+	movs r0, #0
+_08024318:
+	strb r0, [r1]
+_0802431A:
+	pop {r4}
+	pop {r0}
+	bx r0
+	.align 2, 0
+_08024320: .4byte 0x020245A8
+
+	thumb_func_start sub_8024324
+sub_8024324: @ 0x08024324
+	bx lr
+
+	thumb_func_start sub_8024328
+sub_8024328: @ 0x08024324
+	bx lr
 
 	THUMB_FUNC_START sub_802432C
 sub_802432C: @ 0x0802432C
@@ -2933,7 +3048,7 @@ sub_8024548: @ 0x08024548
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08024560: .4byte 0x08E010A4
+_08024560: .4byte gUnk_8E010A4
 _08024564: .4byte g2021D98
 
 	THUMB_FUNC_START sub_8024568
@@ -4187,7 +4302,7 @@ sub_8024ECC: @ 0x08024ECC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08024F34: .4byte 0x080454C9
+_08024F34: .4byte LoadOam
 _08024F38: .4byte 0x0400000E
 _08024F3C: .4byte 0x00001F03
 
@@ -4208,7 +4323,7 @@ sub_8024F40: @ 0x08024F40
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08024F68: .4byte 0x080454C9
+_08024F68: .4byte LoadOam
 
 	THUMB_FUNC_START sub_8024F6C
 sub_8024F6C: @ 0x08024F6C
@@ -4239,7 +4354,7 @@ sub_8024F6C: @ 0x08024F6C
 	.align 2, 0
 _08024FA8: .4byte 0x0400000C
 _08024FAC: .4byte 0x00001E0A
-_08024FB0: .4byte 0x080454C9
+_08024FB0: .4byte LoadOam
 	.byte 0x70, 0x47, 0x00, 0x00
 
 	THUMB_FUNC_START sub_8024FB8
@@ -4271,7 +4386,7 @@ sub_8024FB8: @ 0x08024FB8
 	.align 2, 0
 _08024FF4: .4byte 0x0400000C
 _08024FF8: .4byte 0x00001D0A
-_08024FFC: .4byte 0x080454C9
+_08024FFC: .4byte LoadOam
 
 	THUMB_FUNC_START sub_8025000
 sub_8025000: @ 0x08025000
@@ -4302,7 +4417,7 @@ sub_8025000: @ 0x08025000
 	.align 2, 0
 _0802503C: .4byte 0x0400000C
 _08025040: .4byte 0x00001D0A
-_08025044: .4byte 0x080454C9
+_08025044: .4byte LoadOam
 
 	THUMB_FUNC_START sub_8025048
 sub_8025048: @ 0x08025048
@@ -4342,7 +4457,7 @@ sub_8025048: @ 0x08025048
 _08025094: .4byte 0x02018410
 _08025098: .4byte 0x08FC488C
 _0802509C: .4byte 0x080C1D04
-_080250A0: .4byte 0x080454C9
+_080250A0: .4byte LoadOam
 _080250A4: .4byte 0x0000FBFF
 	.byte 0x70, 0xB5, 0x06, 0x1C, 0x11, 0x4D, 0x12, 0x49
 	.byte 0x12, 0x48, 0x04, 0x78, 0xA4, 0x00, 0x64, 0x18, 0x20, 0x68, 0x29, 0x1C, 0x32, 0x1C, 0x00, 0xF0
@@ -4390,7 +4505,7 @@ sub_8025108: @ 0x08025108
 _08025154: .4byte 0x02018410
 _08025158: .4byte 0x08FC488C
 _0802515C: .4byte 0x080C1D06
-_08025160: .4byte 0x080454C9
+_08025160: .4byte LoadOam
 _08025164: .4byte 0x0000FBFF
 	.byte 0x70, 0x47, 0x00, 0x00, 0x70, 0x47, 0x00, 0x00
 
@@ -4497,7 +4612,7 @@ sub_8025228: @ 0x08025228
 	bx r0
 	.align 2, 0
 _08025250: .4byte 0x08DE200C
-_08025254: .4byte 0x08E010F4
+_08025254: .4byte gUnk_8E010F4
 _08025258: .4byte 0x08DE2B98
 _0802525C: .4byte 0x02000200
 	.byte 0xF0, 0xB5, 0x02, 0x1C, 0x0C, 0x1C, 0x05, 0x98, 0x1B, 0x06, 0x1B, 0x0E, 0x00, 0x06, 0x00, 0x0E
@@ -6602,12 +6717,15 @@ sub_80262B0: @ 0x080262B0
 	ldr r1, [r4]
 	adds r1, #0x40
 	bl sub_800E08C
-	mov r0, sp
+    
+@clear first tile in VRAM
+    mov r0, sp
 	movs r6, #0
 	strh r6, [r0]
 	ldr r1, [r4]
 	ldr r2, _08026330
 	bl CpuSet
+    
 	ldr r1, _08026334
 	ldrh r0, [r5, #0x10]
 	lsls r0, r0, #2
@@ -15663,7 +15781,7 @@ sub_802ADCC: @ 0x0802ADCC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0802ADF0: .4byte 0x080454C9
+_0802ADF0: .4byte LoadOam
 
 	THUMB_FUNC_START sub_802ADF4
 sub_802ADF4: @ 0x0802ADF4
@@ -15703,7 +15821,7 @@ sub_802ADF4: @ 0x0802ADF4
 	bx r0
 	.align 2, 0
 _0802AE3C: .4byte 0x02018710
-_0802AE40: .4byte 0x080454C9
+_0802AE40: .4byte LoadOam
 
 	THUMB_FUNC_START sub_802AE44
 sub_802AE44: @ 0x0802AE44
@@ -15744,7 +15862,7 @@ sub_802AE44: @ 0x0802AE44
 	bx r0
 	.align 2, 0
 _0802AE90: .4byte 0x02018710
-_0802AE94: .4byte 0x080454C9
+_0802AE94: .4byte LoadOam
 
 	THUMB_FUNC_START sub_802AE98
 sub_802AE98: @ 0x0802AE98
@@ -21488,7 +21606,7 @@ _0802E2F8: .4byte 0x00000901
 _0802E2FC: .4byte 0x080CAF24
 _0802E300: .4byte 0x0200B400
 _0802E304: .4byte 0x0000FEFF
-_0802E308: .4byte 0x080454C9
+_0802E308: .4byte LoadOam
 _0802E30C: .4byte 0x04000008
 _0802E310: .4byte 0x0000160C
 	.byte 0xF0, 0xB5, 0x30, 0x48, 0x41, 0x68, 0x00, 0x68, 0x00, 0x22, 0xDF, 0xF7
@@ -24010,7 +24128,7 @@ _0802FCD4: .4byte 0x0200D400
 _0802FCD8: .4byte 0x080CD778
 _0802FCDC: .4byte 0x00000901
 _0802FCE0: .4byte 0x0000FEFF
-_0802FCE4: .4byte 0x080454C9
+_0802FCE4: .4byte LoadOam
 _0802FCE8: .4byte 0x04000008
 _0802FCEC: .4byte 0x0000140C
 
@@ -41711,7 +41829,7 @@ _08038CE8:
 _08038D8C: .4byte 0x08E0CE90
 _08038D90: .4byte 0x02023E69
 _08038D94: .4byte 0x02024230
-_08038D98: .4byte 0x080454C9
+_08038D98: .4byte LoadOam
 _08038D9C: .4byte 0x0000FEFF
 
 	THUMB_FUNC_START sub_8038DA0
@@ -43383,7 +43501,7 @@ sub_8039B24: @ 0x08039B24
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08039B78: .4byte 0x080454C9
+_08039B78: .4byte LoadOam
 _08039B7C: .4byte 0x0400000A
 _08039B80: .4byte 0x00001F0D
 _08039B84: .4byte 0x00000E06
@@ -43422,7 +43540,7 @@ _08039B90:
 	.align 2, 0
 _08039BD0: .4byte 0x08E0CE90
 _08039BD4: .4byte 0x02023E69
-_08039BD8: .4byte 0x080454C9
+_08039BD8: .4byte LoadOam
 
 	THUMB_FUNC_START sub_8039BDC
 sub_8039BDC: @ 0x08039BDC
@@ -43475,7 +43593,7 @@ _08039BE4:
 	.align 2, 0
 _08039C5C: .4byte 0x08E0CE90
 _08039C60: .4byte 0x02023E69
-_08039C64: .4byte 0x080454C9
+_08039C64: .4byte LoadOam
 
 	THUMB_FUNC_START sub_8039C68
 sub_8039C68: @ 0x08039C68
@@ -43525,7 +43643,7 @@ _08039C70:
 	.align 2, 0
 _08039CDC: .4byte 0x08E0CE90
 _08039CE0: .4byte 0x02023E69
-_08039CE4: .4byte 0x080454C9
+_08039CE4: .4byte LoadOam
 
 	THUMB_FUNC_START sub_8039CE8
 sub_8039CE8: @ 0x08039CE8
@@ -43575,7 +43693,7 @@ _08039CF0:
 	.align 2, 0
 _08039D5C: .4byte 0x08E0CE90
 _08039D60: .4byte 0x02023E69
-_08039D64: .4byte 0x080454C9
+_08039D64: .4byte LoadOam
 
 	THUMB_FUNC_START sub_8039D68
 sub_8039D68: @ 0x08039D68
@@ -43596,7 +43714,7 @@ sub_8039D68: @ 0x08039D68
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08039D98: .4byte 0x080454C9
+_08039D98: .4byte LoadOam
 
 	THUMB_FUNC_START sub_8039D9C
 sub_8039D9C: @ 0x08039D9C
@@ -43621,7 +43739,7 @@ sub_8039D9C: @ 0x08039D9C
 	bx r0
 	.align 2, 0
 _08039DD0: .4byte 0x02024230
-_08039DD4: .4byte 0x080454C9
+_08039DD4: .4byte LoadOam
 _08039DD8: .4byte 0x0000FEFF
 
 	THUMB_FUNC_START sub_8039DDC
@@ -43660,7 +43778,7 @@ sub_8039DDC: @ 0x08039DDC
 	bx r0
 	.align 2, 0
 _08039E34: .4byte 0x0000FEFF
-_08039E38: .4byte 0x080454C9
+_08039E38: .4byte LoadOam
 _08039E3C: .4byte 0x04000008
 _08039E40: .4byte 0x00001708
 
@@ -43675,7 +43793,7 @@ sub_8039E44: @ 0x08039E44
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08039E5C: .4byte 0x080454C9
+_08039E5C: .4byte LoadOam
 
 	THUMB_FUNC_START sub_8039E60
 sub_8039E60: @ 0x08039E60
@@ -43719,7 +43837,7 @@ sub_8039E60: @ 0x08039E60
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08039EC8: .4byte 0x080454C9
+_08039EC8: .4byte LoadOam
 _08039ECC: .4byte 0x04000008
 _08039ED0: .4byte 0x00001708
 _08039ED4: .4byte 0x00001F0D
@@ -43759,7 +43877,7 @@ sub_8039EDC: @ 0x08039EDC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08039F30: .4byte 0x080454C9
+_08039F30: .4byte LoadOam
 _08039F34: .4byte 0x04000008
 _08039F38: .4byte 0x00001708
 _08039F3C: .4byte 0x0000BFFF
@@ -43777,7 +43895,7 @@ sub_8039F40: @ 0x08039F40
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08039F60: .4byte 0x080454C9
+_08039F60: .4byte LoadOam
 
 	THUMB_FUNC_START sub_8039F64
 sub_8039F64: @ 0x08039F64
@@ -43819,7 +43937,7 @@ sub_8039F64: @ 0x08039F64
 	bx r0
 	.align 2, 0
 _08039FC4: .4byte 0x0000FEFF
-_08039FC8: .4byte 0x080454C9
+_08039FC8: .4byte LoadOam
 _08039FCC: .4byte 0x04000008
 _08039FD0: .4byte 0x00001708
 _08039FD4: .4byte 0x0000BFFF
@@ -44730,7 +44848,7 @@ _0803A700:
 _0803A7A0: .4byte 0x08E0CEA0
 _0803A7A4: .4byte 0x02023E79
 _0803A7A8: .4byte 0x02024230
-_0803A7AC: .4byte 0x080454C9
+_0803A7AC: .4byte LoadOam
 _0803A7B0: .4byte 0x0000FEFF
 
 	THUMB_FUNC_START sub_803A7B4
@@ -46579,7 +46697,7 @@ sub_803B71C: @ 0x0803B71C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803B770: .4byte 0x080454C9
+_0803B770: .4byte LoadOam
 _0803B774: .4byte 0x0400000A
 _0803B778: .4byte 0x00001F0D
 _0803B77C: .4byte 0x00000E06
@@ -46630,7 +46748,7 @@ _0803B7D8: .4byte 0x02022EC0
 _0803B7DC: .4byte 0x08E0CEA0
 _0803B7E0: .4byte 0x00000FB9
 _0803B7E4: .4byte 0x00000642
-_0803B7E8: .4byte 0x080454C9
+_0803B7E8: .4byte LoadOam
 
 	THUMB_FUNC_START sub_803B7EC
 sub_803B7EC: @ 0x0803B7EC
@@ -46649,7 +46767,7 @@ sub_803B7EC: @ 0x0803B7EC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803B81C: .4byte 0x080454C9
+_0803B81C: .4byte LoadOam
 	.byte 0x70, 0xB5, 0x00, 0x24, 0x1D, 0x4E, 0x1E, 0x4D, 0x20, 0x1C, 0xFB, 0xF7, 0xB5, 0xFF, 0x00, 0x04
 	.byte 0x00, 0x0C, 0xCF, 0xF7, 0xD7, 0xFD, 0x28, 0x78, 0x80, 0x00, 0x80, 0x19, 0x01, 0x68, 0x20, 0x1C
 	.byte 0x1F, 0xF0, 0x3C, 0xF9, 0x20, 0x1C, 0xFF, 0xF7, 0xE5, 0xF8, 0x20, 0x1C, 0x00, 0xF0, 0x1C, 0xFA
@@ -46691,7 +46809,7 @@ sub_803B924: @ 0x0803B924
 	bx r0
 	.align 2, 0
 _0803B958: .4byte 0x02024230
-_0803B95C: .4byte 0x080454C9
+_0803B95C: .4byte LoadOam
 _0803B960: .4byte 0x0000FEFF
 
 	THUMB_FUNC_START sub_803B964
@@ -46723,7 +46841,7 @@ sub_803B964: @ 0x0803B964
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803B9AC: .4byte 0x080454C9
+_0803B9AC: .4byte LoadOam
 _0803B9B0: .4byte 0x04000008
 _0803B9B4: .4byte 0x00001708
 
@@ -46738,7 +46856,7 @@ sub_803B9B8: @ 0x0803B9B8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803B9D0: .4byte 0x080454C9
+_0803B9D0: .4byte LoadOam
 
 	THUMB_FUNC_START sub_803B9D4
 sub_803B9D4: @ 0x0803B9D4
@@ -46782,7 +46900,7 @@ sub_803B9D4: @ 0x0803B9D4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803BA3C: .4byte 0x080454C9
+_0803BA3C: .4byte LoadOam
 _0803BA40: .4byte 0x04000008
 _0803BA44: .4byte 0x00001708
 _0803BA48: .4byte 0x00001F0D
@@ -46822,7 +46940,7 @@ sub_803BA50: @ 0x0803BA50
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803BAA4: .4byte 0x080454C9
+_0803BAA4: .4byte LoadOam
 _0803BAA8: .4byte 0x04000008
 _0803BAAC: .4byte 0x00001708
 _0803BAB0: .4byte 0x0000BFFF
@@ -46840,7 +46958,7 @@ sub_803BAB4: @ 0x0803BAB4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803BAD4: .4byte 0x080454C9
+_0803BAD4: .4byte LoadOam
 
 	THUMB_FUNC_START sub_803BAD8
 sub_803BAD8: @ 0x0803BAD8
@@ -47652,7 +47770,7 @@ _0803C130:
 _0803C1D0: .4byte 0x08E0CEB0
 _0803C1D4: .4byte 0x02023E71
 _0803C1D8: .4byte 0x02024230
-_0803C1DC: .4byte 0x080454C9
+_0803C1DC: .4byte LoadOam
 _0803C1E0: .4byte 0x0000FEFF
 
 	THUMB_FUNC_START sub_803C1E4
@@ -49546,7 +49664,7 @@ sub_803D1A4: @ 0x0803D1A4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803D1F8: .4byte 0x080454C9
+_0803D1F8: .4byte LoadOam
 _0803D1FC: .4byte 0x0400000A
 _0803D200: .4byte 0x00001F0D
 _0803D204: .4byte 0x00000E06
@@ -49597,7 +49715,7 @@ _0803D260: .4byte 0x02022EC0
 _0803D264: .4byte 0x08E0CEB0
 _0803D268: .4byte 0x00000FB1
 _0803D26C: .4byte 0x00000321
-_0803D270: .4byte 0x080454C9
+_0803D270: .4byte LoadOam
 
 	THUMB_FUNC_START sub_803D274
 sub_803D274: @ 0x0803D274
@@ -49616,7 +49734,7 @@ sub_803D274: @ 0x0803D274
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803D2A4: .4byte 0x080454C9
+_0803D2A4: .4byte LoadOam
 	.byte 0x70, 0xB5, 0x00, 0x24, 0x1A, 0x4E, 0x1B, 0x4D
 	.byte 0x20, 0x1C, 0xFB, 0xF7, 0x97, 0xF8, 0x00, 0x04, 0x00, 0x0C, 0xCE, 0xF7, 0x93, 0xF8, 0x20, 0x1C
 	.byte 0xFF, 0xF7, 0xF0, 0xF8, 0x20, 0x1C, 0x00, 0xF0, 0x4F, 0xFA, 0x20, 0x1C, 0xFF, 0xF7, 0xF6, 0xF9
@@ -49660,7 +49778,7 @@ sub_803D3CC: @ 0x0803D3CC
 	bx r0
 	.align 2, 0
 _0803D400: .4byte 0x02024230
-_0803D404: .4byte 0x080454C9
+_0803D404: .4byte LoadOam
 _0803D408: .4byte 0x0000FEFF
 
 	THUMB_FUNC_START sub_803D40C
@@ -49679,7 +49797,7 @@ sub_803D40C: @ 0x0803D40C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803D438: .4byte 0x080454C9
+_0803D438: .4byte LoadOam
 
 	THUMB_FUNC_START sub_803D43C
 sub_803D43C: @ 0x0803D43C
@@ -49710,7 +49828,7 @@ sub_803D43C: @ 0x0803D43C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803D484: .4byte 0x080454C9
+_0803D484: .4byte LoadOam
 _0803D488: .4byte 0x04000008
 _0803D48C: .4byte 0x00001708
 
@@ -49725,7 +49843,7 @@ sub_803D490: @ 0x0803D490
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803D4A8: .4byte 0x080454C9
+_0803D4A8: .4byte LoadOam
 
 	THUMB_FUNC_START sub_803D4AC
 sub_803D4AC: @ 0x0803D4AC
@@ -49769,7 +49887,7 @@ sub_803D4AC: @ 0x0803D4AC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803D514: .4byte 0x080454C9
+_0803D514: .4byte LoadOam
 _0803D518: .4byte 0x04000008
 _0803D51C: .4byte 0x00001708
 _0803D520: .4byte 0x00001F0D
@@ -49812,7 +49930,7 @@ sub_803D528: @ 0x0803D528
 	bx r0
 	.align 2, 0
 _0803D580: .4byte 0x02024230
-_0803D584: .4byte 0x080454C9
+_0803D584: .4byte LoadOam
 _0803D588: .4byte 0x04000008
 _0803D58C: .4byte 0x00001708
 _0803D590: .4byte 0x0000BFFF
@@ -49830,7 +49948,7 @@ sub_803D594: @ 0x0803D594
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803D5B4: .4byte 0x080454C9
+_0803D5B4: .4byte LoadOam
 
 	THUMB_FUNC_START sub_803D5B8
 sub_803D5B8: @ 0x0803D5B8
@@ -50692,7 +50810,7 @@ _0803DD4C: .4byte 0x08A42BCC
 _0803DD50: .4byte 0x020000A0
 _0803DD54: .4byte 0x08A42BEC
 _0803DD58: .4byte 0x08A44BEC
-_0803DD5C: .4byte 0x080454C9
+_0803DD5C: .4byte LoadOam
 _0803DD60: .4byte 0x0400000E
 _0803DD64: .4byte 0x00001F03
 
@@ -50914,7 +51032,7 @@ _0803DF28: .4byte 0x02024228
 _0803DF2C: .4byte 0x02024230
 _0803DF30: .4byte 0x0400000C
 _0803DF34: .4byte 0x00001D0A
-_0803DF38: .4byte 0x080454C9
+_0803DF38: .4byte LoadOam
 
 	THUMB_FUNC_START sub_803DF3C
 sub_803DF3C: @ 0x0803DF3C
@@ -50990,7 +51108,7 @@ _0803DFD4: .4byte 0x02024228
 _0803DFD8: .4byte 0x02024230
 _0803DFDC: .4byte 0x0400000C
 _0803DFE0: .4byte 0x00001C0A
-_0803DFE4: .4byte 0x080454C9
+_0803DFE4: .4byte LoadOam
 
 	THUMB_FUNC_START sub_803DFE8
 sub_803DFE8: @ 0x0803DFE8
@@ -51066,7 +51184,7 @@ _0803E080: .4byte 0x02024228
 _0803E084: .4byte 0x02024230
 _0803E088: .4byte 0x0400000C
 _0803E08C: .4byte 0x00001A0A
-_0803E090: .4byte 0x080454C9
+_0803E090: .4byte LoadOam
 
 	THUMB_FUNC_START sub_803E094
 sub_803E094: @ 0x0803E094
@@ -51142,7 +51260,7 @@ _0803E12C: .4byte 0x02024228
 _0803E130: .4byte 0x02024230
 _0803E134: .4byte 0x0400000C
 _0803E138: .4byte 0x00001B0A
-_0803E13C: .4byte 0x080454C9
+_0803E13C: .4byte LoadOam
 
 	THUMB_FUNC_START sub_803E140
 sub_803E140: @ 0x0803E140
@@ -51282,7 +51400,7 @@ _0803E240: .4byte gUnk2024238
 _0803E244: .4byte 0x080DD688
 _0803E248: .4byte 0x02022EC0
 _0803E24C: .4byte 0x00000FBC
-_0803E250: .4byte 0x080454C9
+_0803E250: .4byte LoadOam
 
 	THUMB_FUNC_START sub_803E254
 sub_803E254: @ 0x0803E254
@@ -51308,7 +51426,7 @@ _0803E27C: .4byte gUnk2024238
 _0803E280: .4byte 0x080DD698
 _0803E284: .4byte 0x02022EC0
 _0803E288: .4byte 0x00000FBC
-_0803E28C: .4byte 0x080454C9
+_0803E28C: .4byte LoadOam
 	.byte 0x08, 0x49, 0x09, 0x48, 0x09, 0x4A, 0x80, 0x18, 0x00, 0x78, 0x00, 0x01, 0x41, 0x18, 0x08, 0x68
 	.byte 0xC0, 0x22, 0x12, 0x01, 0x10, 0x43, 0x08, 0x60, 0x08, 0x31, 0x08, 0x68, 0x10, 0x43, 0x08, 0x60
 	.byte 0x70, 0x47, 0x00, 0x00, 0x08, 0x84, 0x01, 0x02, 0xC0, 0x2E, 0x02, 0x02, 0xBB, 0x0F, 0x00, 0x00
@@ -51393,7 +51511,7 @@ _0803E3E8: .4byte 0x02024228
 _0803E3EC: .4byte 0x02024230
 _0803E3F0: .4byte 0x0400000C
 _0803E3F4: .4byte 0x00001E0A
-_0803E3F8: .4byte 0x080454C9
+_0803E3F8: .4byte LoadOam
 
 	THUMB_FUNC_START sub_803E3FC
 sub_803E3FC: @ 0x0803E3FC
@@ -51456,7 +51574,7 @@ _0803E474: .4byte 0x00000FBB
 _0803E478: .4byte 0x02024228
 _0803E47C: .4byte 0x0000FBFF
 _0803E480: .4byte 0x02024230
-_0803E484: .4byte 0x080454C9
+_0803E484: .4byte LoadOam
 
 	THUMB_FUNC_START sub_803E488
 sub_803E488: @ 0x0803E488
@@ -60037,7 +60155,7 @@ _08042AC8:
 	bl sub_8008220
 	b _080429B2
 	.align 2, 0
-_08042AD0: .4byte 0x080454C9
+_08042AD0: .4byte LoadOam
 _08042AD4:
 	pop {r4, r5, r6}
 	pop {r1}
@@ -65209,7 +65327,7 @@ bool32 IsGodCard(u16 id)
 {
     u8 i;
 
-    for (i = 0; gGodCards[i]; i++)
+    for (i = 0; gGodCards[i] != CARD_NONE; i++)
         if (gGodCards[i] == id)
             return TRUE;
 
