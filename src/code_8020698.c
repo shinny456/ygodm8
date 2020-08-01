@@ -266,7 +266,7 @@ void sub_8020968(u32* arg0, u16 arg1, u16 arg2)
 {
     u8 bhai = arg1;
     arg1 = (bhai << 8) | (arg1 >> 8);
-    
+
     switch (arg2 & 0x1F00)
     {
     case 0:
@@ -416,7 +416,7 @@ void sub_8020A3C(u32* arg0, u8* name, u16 arg2)
     bool32 r7;
     name = sub_8020824(name);
     r7 = 0;
-    
+
     switch (arg2 & 0x1F00)
     {
     case 0: //_08020AB4
@@ -1085,7 +1085,7 @@ void sub_8020DB8(u32 arg0, u8* name, u16 arg2)
     bool32 r7;
     name = sub_8020824(name);
     r7 = 0;
-    
+
     switch (arg2 & 0x1F00)
     {
     case 0: //_08020AB4
@@ -1679,27 +1679,27 @@ _080210AE:\n\
 u16 sub_80210B8(u16 arg0)
 {
     u16 r2;
-    
+
     if (arg0 < 0x8140)
         arg0 = 0x8140;
-    
+
     r2 = arg0 += 0x7EC0;
-    
+
     if (arg0 > 0x400)
         arg0 -= 0x200;
-    
+
     if (r2 > 0x700)
         arg0 -= 0x100;
-    
+
     if (r2 > 0x5F00)
         arg0 -= 0x4000;
-    
+
     r2 = arg0;
     arg0 = arg0 - arg0 / 256 * 68;
-    
+
     if (r2 % 256 >= 64)
         arg0--;
-        
+
     return arg0;
 }
 
@@ -1707,7 +1707,7 @@ void sub_8021138(u8* r7, u32* r8, u16 r6)
 {
     u8 i, j, r2;
     u32 r4;
-    
+
     r6 &= 0xFF;
 
     for (i = 0; i < 8; i++)
@@ -1722,7 +1722,7 @@ void sub_8021138(u8* r7, u32* r8, u16 r6)
             r2 <<= 1;
         }
         *r8++ = r4;
-        
+
         r4 = 0;
         for (j = 0; j < 4; j++)
         {
@@ -1737,7 +1737,7 @@ void sub_8021138(u8* r7, u32* r8, u16 r6)
 void sub_80211D4(u8 /*?*arg0, u32* arg1, u32 /*?* arg2)
 {
     u8 i, j, b;
-    
+
     for (b = 0; b < 2; b++)
         for (i = 0; i < 8; i++)
         {

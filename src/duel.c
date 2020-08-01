@@ -188,65 +188,7 @@ extern u32 g0809553C[]; //tileset
 
 extern u16 g809508C[][30];
 
-struct BgVram
-{
-    u8 cbb0[0x4000];
-    u8 cbb1[0x4000];
-    u8 cbb2[0x4000]; //tileset
-    u16 sbb18[32][32];
-    u16 sbb19[32][32];
-    u16 sbb1A[32][32];
-    u16 sbb1B[32][32];
-    u16 sbb1C[32][32];
-    u16 sbb1D[32][32];
-    u16 sbb1E[32][32];
-    u16 sbb1F[32][32]; //tilemap
-};
 
-
-struct Cbb
-{
-    u8 cbb0[0x4000];
-    u8 cbb1[0x4000];
-    u8 cbb2[0x4000];
-    u8 cbb3[0x4000];
-};
-
-struct Sbb
-{
-    u16 sbb0[32][32];
-    u16 sbb1[32][32];
-    u16 sbb2[32][32];
-    u16 sbb3[32][32];
-    u16 sbb4[32][32];
-    u16 sbb5[32][32];
-    u16 sbb6[32][32];
-    u16 sbb7[32][32];
-    u16 sbb8[32][32];
-    u16 sbb9[32][32];
-    u16 sbbA[32][32];
-    u16 sbbB[32][32];
-    u16 sbbC[32][32];
-    u16 sbbD[32][32];
-    u16 sbbE[32][32];
-    u16 sbbF[32][32];
-    u16 sbb10[32][32];
-    u16 sbb11[32][32];
-    u16 sbb12[32][32];
-    u16 sbb13[32][32];
-    u16 sbb14[32][32];
-    u16 sbb15[32][32];
-    u16 sbb16[32][32];
-    u16 sbb17[32][32];
-    u16 sbb18[32][32];
-    u16 sbb19[32][32];
-    u16 sbb1A[32][32];
-    u16 sbb1B[32][32];
-    u16 sbb1C[32][32];
-    u16 sbb1D[32][32];
-    u16 sbb1E[32][32];
-    u16 sbb1F[32][32];
-};
 
 void sub_800BA04(void);
 void sub_800BC24(void);
@@ -255,8 +197,7 @@ void sub_800BCC4(void);
 void sub_800BCB0(void *);
 void sub_80267B8(void);
 
-extern struct BgVram gBgVram;
-extern u16 g02000000[];
+
 extern u16 g08097C94[];
 extern u16 (*gUnk_8E0136C)[][14];
 extern u16 **gUnk_8E01368;
@@ -309,7 +250,7 @@ void sub_800B618(void *r6) //card details screen gfx
         break;
     }
 
-    CpuSet(g08097C94, &g02000000[8 * 16], 0x04000040); //copy palette
+    CpuSet(g08097C94, &g02000000.bg[8 * 16], 0x04000040); //copy palette
 
     for (i = 0; i < 20; i++)
         CpuSet(g809508C[i], gBgVram.sbb1E[i], 0x0400000F);
@@ -324,7 +265,7 @@ void sub_800B618(void *r6) //card details screen gfx
     for (i = 0; i < 19; i++)
         CpuSet((*gUnk_8E0136C)[i], &gBgVram.sbb1D[i][32], 0xE);
 
-    CpuSet(gUnk_8E01368, g02000000, 0x80); //copy palette
+    CpuSet(gUnk_8E01368, g02000000.bg, 0x80); //copy palette
     CpuSet(gUnk_8E01364, gBgVram.cbb0, 0x2000);
 }
 
@@ -1877,9 +1818,9 @@ extern u16 gUnk_808B860[][30];
 void sub_800C834(void)
 {
     u8 i;
-    
+
     LZ77UnCompWram(gUnk_808918C, gBgVram.cbb0);
-    
+
     switch (gLanguage)
     {
     case FRENCH:
@@ -1907,11 +1848,11 @@ void sub_800C834(void)
         CpuFastSet(&g8DFAFF4[32*37], &gBgVram.cbb0[32*10], 0x50);
         break;
     }
-    
+
     for (i = 0; i < 20; i++)
         CpuSet(gUnk_808B860[i], &((struct Sbb*)&gBgVram)->sbb7[i], 0x0400000F);
-    
-    CpuSet(gUnk_808C1C0, g02000000, 0x04000020);
+
+    CpuSet(gUnk_808C1C0, g02000000.bg, 0x04000020);
     CpuFill16(0, gBgVram.sbb18, 32);
 }
 
@@ -1922,15 +1863,15 @@ void sub_800C970(void)
 {
     u8 i;
     u16 r8, sb;
-    
+
     for (i = 0; i < 20; i++)
         CpuSet(gUnk_808C6F0[i], &(((struct Sbb*)&gBgVram)->sbbF[i])/*fix*/, 0x0400000F);
-    
+
     CpuFill16(0, gBgVram.cbb1, 32);
-    
+
     sb = sub_08007FEC(0, 2, 0x7800);
     r8 = sub_08007FEC(2, 2, 0x7800) & 0xFF00;
-    
+
     for (i = 0; i < 6; i++)
     {
         sub_800800C(i + 4, 6, 0x7800, (g8DF811C[i] + 29) | r8);
@@ -1960,13 +1901,13 @@ void sub_800C970(void)
         sub_800800C(i + 10, 10, 0x7800, sb);
         sub_800800C(i + 10, 11, 0x7800, sb);
     }
-    
+
     for (i = 0; i < 2; i++)
     {
         sub_800800C(i + 12, 12, 0x7800, sb);
         sub_800800C(i + 12, 13, 0x7800, sb);
     }
-    
+
     for (i = 0; i < 10; i++)
     {
         sub_800800C(i + 16, 6, 0x7800, (g8DF811C[i] + 41) | r8);
@@ -1976,7 +1917,7 @@ void sub_800C970(void)
         sub_800800C(i + 16, 10, 0x7800, (g8DF811C[i] + 105) | r8);
         sub_800800C(i + 16, 11, 0x7800, (g8DF811C[i] + 107) | r8);
     }
-    
+
     for (i = 0; i < 10; i++)
     {
         sub_800800C(i + 16, 14, 0x7800, (g8DF811C[i] + 193) | r8);
@@ -1991,25 +1932,26 @@ extern u8 g80AEA74[];
 extern u8 g80AEA78[];
 u32 GetDeckCapacity(void);
 
-/*
 
+/*
 void sub_800CCAC(void)
 {
     u8 i;
-    
+
     CpuFill16(0, gBgVram.cbb2, 32);
-    CpuFill16(0, ((struct Sbb*)&gBgVram)->sbb17, 32);
+    CpuFill16(0, ((struct Sbb*)&gBgVram)->sbb17, 0x800);
     sub_8020A3C(&gBgVram.cbb2[32], g80AEA74, 0x801);
     sub_8020A3C(&gBgVram.cbb2[64], g80AEA78, 0x901);
-    ((struct Sbb*)&gBgVram)->sbb17[1][15] = 0x5001;
+    ((struct Sbb*)&gBgVram)->sbb17[1][15] = 0x5001; //slash
     sub_800DDA0(GetDeckCapacity(), 0);
-    
+
     for (i = 0; i < 5; i++)
     {
-        ((struct Sbb*)&gBgVram)->sbb17[1][i+16] = g2021BD0[i] + 0x5209; //deck capacity digits
+
+        gBgVram.cbb0[i + 0x2e18] = g2021BD0[i] + 0x5209; //deck capacity digits
     }
         //(i + 0x5C30) * 2
-    ((struct Sbb*)&gBgVram)->sbb17[1][24] = 0x5001;
-    ((struct Sbb*)&gBgVram)->sbb17[1][25] = 0x520D;
-    ((struct Sbb*)&gBgVram)->sbb17[1][26] = 0x5209;
+    ((struct Sbb*)&gBgVram)->sbb17[1][24] = 0x5001; //slash
+    ((struct Sbb*)&gBgVram)->sbb17[1][25] = 0x520D; //4
+    ((struct Sbb*)&gBgVram)->sbb17[1][26] = 0x5209; //0
 }*/

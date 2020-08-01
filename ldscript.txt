@@ -4,12 +4,16 @@ SECTIONS
 {
     g02000000 = 0x02000000;
     gBgVram = 0x02000400;
+    gObjVram = 0x02010400;
     gOamBuffer = 0x02018400;
     gUnk_2018800 = 0x02018800;
     gUnk_201C800 = 0x0201C800;
     gUnk_201C900 = 0x0201C900;
     gUnk201CB38 = 0x0201CB38;
     gUnk201CB39 = 0x0201CB39;
+    g2020DC8 = 0x02020DC8;
+    g2020DCC = 0x02020DCC;
+    g2020DD0 = 0x02020DD0;
     g2020DF4 = 0x02020DF4;
     gKeyState = 0x02020DF8;
     gUnk2020DFC = 0x02020DFC;
@@ -21,6 +25,8 @@ SECTIONS
     gCardInfo = 0x02021AD0;
     g2021AF0 = 0x2021AF0;
     gAnte = 0x02021B04;
+    g2021BF8 = 0x02021BF8;
+    gUnk2021C00 = 0x02021C00;
     gUnk_02021C08 = 0x02021C08;
     gUnk_02021C10 = 0x02021C10;
     gDeckCapacity = 0x02021C1C;
@@ -45,6 +51,7 @@ SECTIONS
     gZones = 0x02023FD0;
     gUnk2024040 = 0x2024040;
     gHands = 0x20240B0;
+    gUnk20240F0 = 0x20240F0;
     gUnk20241FC = 0x020241FC;
     gCursorPosition = 0x020241F0;
     gNumTributes = 0x02024200;
@@ -55,7 +62,7 @@ SECTIONS
     gUnk02024254 = 0x02024254;
     gLifePoints = 0x02024258;
     gUnk2024260 = 0x02024260;
-    gUnk2024270 = 0x02024270;
+    gOverworld = 0x02024270;
     gUnk020245A0 = 0x020245A0;
     gWhoseTurn = 0x020245A8;
     g2021BD0 = 0x2021BD0;
@@ -72,6 +79,8 @@ SECTIONS
         src/trunk.o(.text);
         asm/code_8009228.o(.text);
         src/duel.o(.text);
+        asm/code1.o(.text);
+        src/code2.o(.text);
         asm/code2.o(.text);
         src/main.o(.text);
         src/exodia.o(.text);
@@ -82,6 +91,7 @@ SECTIONS
         src/monster_effects.o(.text)
         src/life_points.o(.text)
         src/spell_effects.o(.text)
+        src/code4.o(.text);
         asm/code4.o(.text);
         src/trap_effects.o(.text);
         src/turn.o(.text);
@@ -120,11 +130,8 @@ SECTIONS
     gUnk8097D94 = 0x8097D94;
     g08097C94 = 0x8097C94;
     g809508C = 0x809508C;
-    g8DFC288 = 0x8DFC288; /*card name ptrs*/
     g8DFCF0C = 0x8DFCF0C;
     g8DFDB90 = 0x8DFDB90;
-    g8DFF498 = 0x8DFF498;
-    g8DFF49B = 0x8DFF49B;
     g8DFF4A4 = 0x8DFF4A4;
     g8DFF4A6 = 0x8DFF4A6;
     g80ADEFC = 0x80ADEFC;
@@ -141,6 +148,23 @@ SECTIONS
     g80AE800 = 0x80AE800;
     g80AEA74 = 0x80AEA74;
     g80AEA78 = 0x80AEA78;
+    g8F04040 = 0x8F04040;
+    g8E0D9C4 = 0x8E0D9C4;
+    g8E119F4 = 0x8E119F4; /*pointers to lz compressed overworld map tileset*/
+    g8E11AE8 = 0x8E11AE8; /*pointers to overworld map tilemap*/
+    g84C9FBC = 0x84C9FBC;
+    g82AD06C = 0x82AD06C;
+    g82ADC8C = 0x82ADC8C;
+    g84D0CE0 = 0x84D0CE0;
+    g84CFCE0 = 0x84CFCE0;
+    g84D04E0 = 0x84D04E0;
+    g84D0EC0 = 0x84D0EC0;
+    g84D69D0 = 0x84D69D0;
+    g84D59D0 = 0x84D59D0;
+    g84D61D0 = 0x84D61D0;
+    g8E11BDC = 0x8E11BDC;
+    g841D91C = 0x841D91C;
+    gUnk_8DFF74C = 0x8DFF74C;
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :

@@ -29,7 +29,6 @@ struct Bruh
 
 extern struct CursorPosition gCursorPosition;
 extern struct Duelist* gUnk8E00B30[];
-extern u16 g02000000[]; //bg palette buffer
 extern u8* g8FA2BAC[]; //duel text pointers
 extern u8* g8FA2C14[]; //duel text pointers
 extern struct Bruh g80C180C[];
@@ -205,7 +204,7 @@ void sub_8021918(void)
     {
         for (j = 0; j < 512; j++)
         {
-            pltt = (struct PlttData*)&g02000000[j];
+            pltt = (struct PlttData*)&g02000000.bg[j];
             if (pltt->r)
                 pltt->r--;
             if (pltt->g)
@@ -307,7 +306,7 @@ void sub_8021B80(void)
     {
         for (j = 0; j < 512; j++)
         {
-            pltt = (struct PlttData*)&g02000000[j];
+            pltt = (struct PlttData*)&g02000000.bg[j];
             if (pltt->r)
                 pltt->r--;
             if (pltt->g)
@@ -947,7 +946,7 @@ void sub_8022340(void)  //fade to black
     {
         for (j = 0; j < 512; j++)
         {
-            pltt = (struct PlttData*)&g02000000[j];
+            pltt = (struct PlttData*)&g02000000.bg[j];
             if (pltt->r)
                 pltt->r--;
             if (pltt->g)

@@ -15,6 +15,8 @@ struct StatMod
 extern struct StatMod gStatMod;
 extern void (*gMonEffects[])(void);
 extern void (*gSpellEffects[])(void);
+extern void (*g8DFF600[])(void);
+extern void (*g8DFF55C[])(void);
 extern u8 gWhoseTurn; //gWhoseTurn?
 
 enum Field
@@ -57,7 +59,7 @@ struct DuelCard
     u8 filler6[2];
 };
 
-struct NotSureWhatToName
+struct NotSureWhatToName //rename to duelist status?
 {
     u16 graveyard;
     u8 sorlTurns : 2;
@@ -393,6 +395,97 @@ extern u16 gUnk8E00FA8[][4]; //ritual
 //[][1] == target monster
 //[][2] == sacrifice 2
 //[][3] == sacrifice 3
+
+void sub_80404F0(u8);
+void sub_8040540(u8);
+void sub_803F8E0(int);
+void ActivateMonEffect(void);
+void ActivateSpellEffect(void);
+u8 sub_8021D00(u16 id);
+void sub_805D150(void*, void*, u32);
+
+
+struct DuelDeck
+{
+    u16 cards[41];
+    u8 cardsDrawn;
+};
+
+struct DuelDeck gUnk20240F0[2];
+
+struct BgVram
+{
+    u8 cbb0[0x4000];
+    u8 cbb1[0x4000];
+    u8 cbb2[0x4000]; //tileset
+    u16 sbb18[32][32];
+    u16 sbb19[32][32];
+    u16 sbb1A[32][32];
+    u16 sbb1B[32][32];
+    u16 sbb1C[32][32];
+    u16 sbb1D[32][32];
+    u16 sbb1E[32][32];
+    u16 sbb1F[32][32]; //tilemap
+};
+
+
+struct Cbb
+{
+    u8 cbb0[0x4000];
+    u8 cbb1[0x4000];
+    u8 cbb2[0x4000];
+    u8 cbb3[0x4000];
+};
+
+struct Sbb
+{
+    u16 sbb0[32][32];
+    u16 sbb1[32][32];
+    u16 sbb2[32][32];
+    u16 sbb3[32][32];
+    u16 sbb4[32][32];
+    u16 sbb5[32][32];
+    u16 sbb6[32][32];
+    u16 sbb7[32][32];
+    u16 sbb8[32][32];
+    u16 sbb9[32][32];
+    u16 sbbA[32][32];
+    u16 sbbB[32][32];
+    u16 sbbC[32][32];
+    u16 sbbD[32][32];
+    u16 sbbE[32][32];
+    u16 sbbF[32][32];
+    u16 sbb10[32][32];
+    u16 sbb11[32][32];
+    u16 sbb12[32][32];
+    u16 sbb13[32][32];
+    u16 sbb14[32][32];
+    u16 sbb15[32][32];
+    u16 sbb16[32][32];
+    u16 sbb17[32][32];
+    u16 sbb18[32][32];
+    u16 sbb19[32][32];
+    u16 sbb1A[32][32];
+    u16 sbb1B[32][32];
+    u16 sbb1C[32][32];
+    u16 sbb1D[32][32];
+    u16 sbb1E[32][32];
+    u16 sbb1F[32][32];
+};
+
+struct PaletteBuffer
+{
+    u16 bg[256];
+    u16 obj[256];
+};
+
+extern struct BgVram gBgVram;
+extern struct PaletteBuffer g02000000; //palette buffer
+extern u8 gObjVram[];
+
+extern u16 g2021BF8;
+int sub_8045390(u16);
+bool32 sub_80436EC(struct DuelCard*);
 
 
 

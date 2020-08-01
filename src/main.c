@@ -16,11 +16,11 @@ void sub_800AD24(void);
 void sub_80561FC(void);
 void sub_80327C8(void);
 void sub_803276C(void);
-void sub_80268D8(void);
-void sub_8035444(void);
+void sub_80268D8(void); //nintendo and konami screens
+void sub_8035444(void); //title screen and continue screen
 void sub_804DC48(void);
 
-s32 AgbMain(void)
+int AgbMain(void)
 {
     gUnk2021D04 = 0;
     gUnk2021D00 = 0;
