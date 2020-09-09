@@ -42,6 +42,7 @@ SECTIONS
     g2021D9C = 0x02021D9C;
     g2021DA0 = 0x02021DA0;
     gDuelistStatus = 0x02021DB8;
+    g2021DC0 = 0x02021DC0;
     gUnk2021DC8 = 0x02021DC8;
     gUnk2021DCC = 0x02021DCC;
     gUnk2022EB0 = 0x02022EB0;
@@ -63,6 +64,7 @@ SECTIONS
     gLifePoints = 0x02024258;
     gUnk2024260 = 0x02024260;
     gOverworld = 0x02024270;
+    g2024510 = 0x2024510;
     gUnk020245A0 = 0x020245A0;
     gWhoseTurn = 0x020245A8;
     g2021BD0 = 0x2021BD0;
@@ -93,6 +95,8 @@ SECTIONS
         src/spell_effects.o(.text)
         src/code4.o(.text);
         asm/code4.o(.text);
+        src/spell_effects_util.o(.text);
+        asm/code5.o(.text);
         src/trap_effects.o(.text);
         src/turn.o(.text);
         asm/code_80584B4.o(.text);
@@ -165,6 +169,46 @@ SECTIONS
     g8E11BDC = 0x8E11BDC;
     g841D91C = 0x841D91C;
     gUnk_8DFF74C = 0x8DFF74C;
+    g81060A8 = 0x81060A8;
+    g810610D = 0x810610D;
+    g8106172 = 0x8106172;
+    g81061D7 = 0x81061D7;
+    g810623C = 0x810623C;
+    g81062A1 = 0x81062A1;
+    g8106306 = 0x8106306;
+    g810636B = 0x810636B;
+    g81063D0 = 0x81063D0;
+    g8106435 = 0x8106435;
+    g810649A = 0x810649A;
+    g81064FF = 0x81064FF;
+    g8106564 = 0x8106564;
+    g81065C9 = 0x81065C9;
+    g810662E = 0x810662E;
+    g8106693 = 0x8106693;
+    g81066F8 = 0x81066F8;
+    g810675D = 0x810675D;
+    g81067C2 = 0x81067C2;
+    g8106827 = 0x8106827;
+    g810688C = 0x810688C;
+    g81068F1 = 0x81068F1;
+    g8106956 = 0x8106956;
+    g81069BB = 0x81069BB;
+    g8106A20 = 0x8106A20;
+    g8106A85 = 0x8106A85;
+    g8106AEA = 0x8106AEA;
+    g8106B4F = 0x8106B4F;
+    g8106BB4 = 0x8106BB4;
+    g8106C19 = 0x8106C19;
+    g8106C7E = 0x8106C7E;
+    g8106CE3 = 0x8106CE3;
+    g8106D48 = 0x8106D48;
+    g8106DAD = 0x8106DAD;
+
+    g8E0FD4C = 0x8E0FD4C;
+    g8E1165C = 0x8E1165C;
+    g8E11664 = 0x8E11664;
+    g8E1167C = 0x8E1167C;
+    g8E11684 = 0x8E11684;
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :

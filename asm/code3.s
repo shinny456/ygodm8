@@ -4938,8 +4938,8 @@ _0802550A:
 	.align 2, 0
 _0802551C: .4byte gDuelistStatus
 
-	THUMB_FUNC_START sub_8025520
-sub_8025520: @ 0x08025520
+	THUMB_FUNC_START DeclareLoser
+DeclareLoser: @ 0x08025520
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	ldr r1, _08025530
@@ -5763,7 +5763,7 @@ _08025B6E:
 	bx r0
 	.align 2, 0
 _08025B98: .4byte gUnk_8E010F8
-_08025B9C: .4byte 0x02021DC0
+_08025B9C: .4byte g2021DC0
 	.byte 0x70, 0x47, 0x00, 0x00
 
 	THUMB_FUNC_START sub_8025BA4
@@ -5827,7 +5827,7 @@ _08025BFE:
 	bx lr
 	.align 2, 0
 _08025C00: .4byte gUnk_8E010F8
-_08025C04: .4byte 0x02021DC0
+_08025C04: .4byte g2021DC0
 
 	THUMB_FUNC_START sub_8025C08
 sub_8025C08: @ 0x08025C08
@@ -6165,7 +6165,7 @@ _08025DD4:
 	bx r0
 	.align 2, 0
 _08025E6C: .4byte gOamBuffer
-_08025E70: .4byte 0x02021DC0
+_08025E70: .4byte g2021DC0
 _08025E74: .4byte 0x08E0119C
 _08025E78: .4byte 0x000001FF
 _08025E7C: .4byte 0x00000FFF
@@ -6253,7 +6253,7 @@ sub_8025E80: @ 0x08025E80
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08025F24: .4byte 0x02021DC0
+_08025F24: .4byte g2021DC0
 _08025F28: .4byte 0x08E0119C
 _08025F2C: .4byte gOamBuffer
 _08025F30: .4byte 0x000001FF
@@ -52993,6 +52993,8 @@ _0803EF5A:
 	.align 2, 0
 _0803EF60: .4byte 0x02010400
 
+
+@F I N A L effect
 	THUMB_FUNC_START sub_803EF64
 sub_803EF64: @ 0x0803EF64
 	push {lr}
@@ -53087,7 +53089,7 @@ sub_803EFF8: @ 0x0803EFF8
 	movs r1, #1
 _0803F008:
 	adds r0, r1, #0
-	bl sub_8025520
+	bl DeclareLoser
 	bl sub_801D1A8
 	ldr r1, _0803F028
 	movs r0, #0x12
@@ -53100,6 +53102,8 @@ _0803F008:
 	bx r0
 	.align 2, 0
 _0803F028: .4byte gUnk_02021C10
+
+@F I N A L effect end
 
 	THUMB_FUNC_START sub_803F02C
 sub_803F02C: @ 0x0803F02C
@@ -53404,7 +53408,7 @@ _0803F26C:
 	cmp r0, #0
 	beq _0803F27C
 	movs r0, #0
-	bl sub_8025520
+	bl DeclareLoser
 _0803F27C:
 	ldrb r1, [r4, #0x19]
 	movs r0, #0x10
@@ -53412,7 +53416,7 @@ _0803F27C:
 	cmp r0, #0
 	beq _0803F28C
 	movs r0, #1
-	bl sub_8025520
+	bl DeclareLoser
 _0803F28C:
 	pop {r4}
 	pop {r0}
@@ -53725,7 +53729,7 @@ sub_803F4C0: @ 0x0803F4C0
 	cmp r0, #0
 	beq _0803F4D4
 	movs r0, #0
-	bl sub_8025520
+	bl DeclareLoser
 _0803F4D4:
 	ldrb r1, [r4, #0x19]
 	movs r0, #0x10
@@ -53733,7 +53737,7 @@ _0803F4D4:
 	cmp r0, #0
 	beq _0803F4E4
 	movs r0, #1
-	bl sub_8025520
+	bl DeclareLoser
 _0803F4E4:
 	pop {r4}
 	pop {r0}
@@ -56426,11 +56430,11 @@ _08040B0E:
 	b _08040B2C
 _08040B18:
 	movs r0, #0
-	bl sub_8025520
+	bl DeclareLoser
 	b _08040B2C
 _08040B20:
 	movs r0, #1
-	bl sub_8025520
+	bl DeclareLoser
 	b _08040B2C
 _08040B28:
 	bl sub_8008220
@@ -62355,7 +62359,7 @@ _08043D3E:
 _08043D50: .4byte gDuel
 _08043D54:
 	adds r0, r4, #0
-	bl sub_8025520
+	bl DeclareLoser
 	b _08043D66
 _08043D5C:
 	adds r0, r2, #1

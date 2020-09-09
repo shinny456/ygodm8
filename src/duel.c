@@ -1379,7 +1379,6 @@ void sub_800C0D8(void)
 }
 
 u16 sub_800901C(u8);
-void sub_801F6B0(void);
 
 void sub_800C1BC(void)
 {

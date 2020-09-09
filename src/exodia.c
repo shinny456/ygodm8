@@ -14,7 +14,7 @@
 u8 sub_80205EC(void);
 u8 sub_802061C(u16 id);
 void sub_8020664(void);
-void sub_8025520(u8);
+void DeclareLoser(u8);
 
 void sub_80205D4(void)
 {
@@ -68,7 +68,7 @@ void sub_8020664(void)
     else
         loser = PLAYER;
 
-    sub_8025520(loser);
+    DeclareLoser(loser);
     sub_801D1A8();
     gUnk_02021C10.unk8 = 0x11;
     sub_801D188(5);

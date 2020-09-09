@@ -192,7 +192,7 @@ void sub_801CEBC(void);
 
 void sub_801D1A8(void);
 void sub_801D188(u8);
-
+void sub_801F6B0(void);
 bool8 sub_8025544(void);
 
 
