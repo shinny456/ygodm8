@@ -1707,7 +1707,7 @@ sub_800DAA4: @ 0x0800DAA4
 	bl sub_800DCAC
 	bl sub_8045658
 	movs r0, #0x37
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r0, _0800DAE8
 	bl sub_80081DC
 	bl sub_8008220
@@ -1762,7 +1762,7 @@ _0800DB1E:
 	b _0800DB34
 _0800DB26:
 	movs r0, #0x38
-	bl sub_8034F60
+	bl PlayMusic
 	movs r4, #0
 	b _0800DB34
 _0800DB30:
@@ -1803,7 +1803,7 @@ _0800DB74:
 _0800DB7A:
 	bl sub_800DCAC
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r0, _0800DB98
 	bl sub_80081DC
 	bl sub_8008220
@@ -1838,7 +1838,7 @@ _0800DBC4:
 _0800DBCA:
 	bl sub_800DCAC
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r0, _0800DBE8
 	bl sub_80081DC
 	bl sub_8008220
@@ -1873,7 +1873,7 @@ _0800DC14:
 _0800DC1A:
 	bl sub_800DCAC
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r0, _0800DC38
 	bl sub_80081DC
 	bl sub_8008220
@@ -1908,7 +1908,7 @@ _0800DC64:
 _0800DC6A:
 	bl sub_800DCAC
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r0, _0800DC88
 	bl sub_80081DC
 	bl sub_8008220
@@ -1922,7 +1922,7 @@ _0800DC88: .4byte LoadOam
 sub_800DC8C: @ 0x0800DC8C
 	push {lr}
 	movs r0, #0x37
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r0, _0800DCA8
 	ldrb r1, [r0, #4]
 	cmp r1, #9

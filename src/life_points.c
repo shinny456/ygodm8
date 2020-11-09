@@ -6,12 +6,12 @@ void sub_8048C60(void)
     if (!gUnk20241FC)
     {
         gLifePoints[0] = sub_8048CE0();
-        gLifePoints[1] = gUnk02021D10.duelist.lifePoints;
+        gLifePoints[1] = gDuelData.duelist.lifePoints;
     }
     else
     {
-        gLifePoints[0] = gUnk02021D10.duelist.playerLp;
-        gLifePoints[1] = gUnk02021D10.duelist.lifePoints;
+        gLifePoints[0] = gDuelData.duelist.playerLp;
+        gLifePoints[1] = gDuelData.duelist.lifePoints;
     }
 }
 

@@ -612,7 +612,7 @@ _0804E326:
 	b _0804E4F8
 _0804E330:
 	movs r0, #0x37
-	bl sub_8034F60
+	bl PlayMusic
 	bl sub_8005B18
 	movs r0, #0x80
 	lsls r0, r0, #0x13
@@ -2802,7 +2802,7 @@ sub_804F770: @ 0x0804F770
 	ldr r1, _0804F788
 	adds r0, r0, r1
 	ldrh r0, [r0]
-	bl sub_8034F60
+	bl PlayMusic
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -3481,7 +3481,7 @@ sub_804FC84: @ 0x0804FC84
 	rsbs r4, r4, #0
 	cmp r0, r4
 	beq _0804FCDE
-	bl sub_8034F60
+	bl PlayMusic
 _0804FCDE:
 	ldr r3, _0804FE5C
 	movs r1, #4
@@ -3840,7 +3840,7 @@ _0804FFA0:
 	bne _0804FFBA
 	movs r0, #0xa7
 	lsls r0, r0, #1
-	bl sub_8034F60
+	bl PlayMusic
 _0804FFBA:
 	mov r2, r8
 	ldrb r0, [r2]
@@ -4084,7 +4084,7 @@ _08050162:
 	bne _08050196
 	movs r0, #0xa7
 	lsls r0, r0, #1
-	bl sub_8034F60
+	bl PlayMusic
 _08050196:
 	movs r4, #0
 	ldrb r0, [r5]
@@ -4213,7 +4213,7 @@ _0805027E:
 	bne _0805029E
 	movs r0, #0xa7
 	lsls r0, r0, #1
-	bl sub_8034F60
+	bl PlayMusic
 _0805029E:
 	ldr r0, _080503C4
 	adds r4, r7, r0
@@ -7319,7 +7319,7 @@ sub_8051F70: @ 0x08051F70
 	cmp r4, r0
 	beq _08051FE4
 	movs r0, #0xca
-	bl sub_8034F60
+	bl PlayMusic
 	lsls r5, r4, #5
 	adds r2, r5, r6
 	adds r0, r2, #0
@@ -7383,7 +7383,7 @@ sub_8051FFC: @ 0x08051FFC
 	cmp r4, r0
 	beq _08052070
 	movs r0, #0xca
-	bl sub_8034F60
+	bl PlayMusic
 	lsls r5, r4, #5
 	adds r2, r5, r6
 	adds r0, r2, #0
@@ -7978,8 +7978,8 @@ sub_805254C: @ 0x0805254C
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_START sub_80525B4
-sub_80525B4: @ 0x080525B4
+	THUMB_FUNC_START DisplayPortrait
+DisplayPortrait: @ 0x080525B4
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -8222,7 +8222,7 @@ _08052798:
 	adds r0, #0x84
 	strb r1, [r0]
 	adds r0, r4, #0
-	bl sub_80525B4
+	bl DisplayPortrait
 	ldr r1, _080527DC
 	ldr r2, _080527E0
 	adds r0, r2, #0
@@ -8240,6 +8240,7 @@ _080527DC: .4byte 0x0400004A
 _080527E0: .4byte 0x00003D3E
 _080527E4: .4byte 0x04000050
 
+    .section ight
 	THUMB_FUNC_START sub_80527E8
 sub_80527E8: @ 0x080527E8
 	push {r4, r5, r6, lr}
@@ -8374,7 +8375,7 @@ _080528C6:
 	adds r1, #0x85
 	strb r0, [r1]
 	adds r0, r6, #0
-	bl sub_80525B4
+	bl DisplayPortrait
 	b _08052CE2
 _080528EE:
 	adds r0, r6, #0
@@ -8450,7 +8451,7 @@ _08052980:
 	adds r0, r0, r1
 	ldrb r0, [r0, #1]
 	strh r0, [r4, #0x12]
-	bl sub_8021718
+	bl DuelMain
 	adds r4, #0x2b
 	ldrb r0, [r4]
 	cmp r0, #1
@@ -8482,7 +8483,7 @@ _08052980:
 	strh r0, [r1]
 	b _080529F0
 	.align 2, 0
-_080529D4: .4byte 0x02021D10
+_080529D4: .4byte gDuelData
 _080529D8: .4byte 0x04000042
 _080529DC: .4byte 0x000003ED
 _080529E0: .4byte 0x0000739D
@@ -8513,7 +8514,7 @@ _08052A0C:
 	ldrb r1, [r1, #2]
 	lsls r1, r1, #8
 	adds r0, r0, r1
-	bl sub_8034F60
+	bl PlayMusic
 	b _08052C98
 _08052A20:
 	ldr r3, _08052A3C
@@ -9086,7 +9087,7 @@ _08052F4E:
 	.align 2, 0
 _08052F58: .4byte 0x0200DC20
 _08052F5C: .4byte 0x00000101
-
+.section .text2
 	THUMB_FUNC_START sub_8052F60
 sub_8052F60: @ 0x08052F60
 	push {r4, lr}
@@ -9098,7 +9099,7 @@ sub_8052F60: @ 0x08052F60
 	cmp r2, #0
 	beq _08052FB0
 	movs r0, #0xca
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r0, [r4, #4]
 	adds r0, #1
 	str r0, [r4, #4]
@@ -9212,7 +9213,7 @@ sub_8053040: @ 0x08053040
 	cmp r5, #0
 	beq _08053090
 	movs r0, #0x37
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r0, [r4, #4]
 	adds r0, #2
 	str r0, [r4, #4]
@@ -9248,7 +9249,7 @@ _08053090:
 	cmp r0, #1
 	bne _080530A6
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	strb r5, [r4, #0x1e]
 _080530A6:
 	ldr r0, _080530D0
@@ -9261,7 +9262,7 @@ _080530A6:
 	cmp r0, #0
 	bne _080530C2
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	movs r0, #1
 	strb r0, [r4, #0x1e]
 _080530C2:
@@ -10330,7 +10331,7 @@ _080539D8:
 	cmp r0, #0
 	bne _080539F6
 	ldr r0, _08053A68
-	bl sub_8034F60
+	bl PlayMusic
 _080539F6:
 	ldr r1, _08053A6C
 	ldrb r0, [r4, #0x12]

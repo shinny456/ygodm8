@@ -2432,7 +2432,7 @@ sub_8010B08: @ 0x08010B08
 	bne _08010B46
 	b _08010C66
 _08010B46:
-	bl sub_8025544
+	bl IsDuelOver
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #1
@@ -2703,7 +2703,7 @@ sub_8010D40: @ 0x08010D40
 	bne _08010D7E
 	b _08010E9E
 _08010D7E:
-	bl sub_8025544
+	bl IsDuelOver
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #1
@@ -3181,7 +3181,7 @@ sub_8011190: @ 0x08011190
 	ldr r0, _080111D4
 	cmp r1, r0
 	beq _080111E0
-	bl sub_8025544
+	bl IsDuelOver
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #1
@@ -3235,7 +3235,7 @@ sub_80111FC: @ 0x080111FC
 	ldr r0, _08011240
 	cmp r1, r0
 	beq _0801124E
-	bl sub_8025544
+	bl IsDuelOver
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #1
@@ -3470,7 +3470,7 @@ sub_80113D8: @ 0x080113D8
 	ldr r0, _0801141C
 	cmp r1, r0
 	beq _08011428
-	bl sub_8025544
+	bl IsDuelOver
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #1
@@ -3523,7 +3523,7 @@ sub_8011440: @ 0x08011440
 	ldr r0, _08011484
 	cmp r1, r0
 	beq _08011492
-	bl sub_8025544
+	bl IsDuelOver
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #1
@@ -11385,13 +11385,13 @@ _08019D80: .4byte 0x02021C00
 sub_8019D84: @ 0x08019D84
 	push {r4, r5, r6, lr}
 	bl sub_802B6A8
-	bl sub_8025544
+	bl IsDuelOver
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #1
 	beq _08019E5C
 	bl sub_8029820
-	bl sub_8025544
+	bl IsDuelOver
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #1
@@ -11452,10 +11452,10 @@ _08019E2C:
 _08019E30:
 	bl sub_8019F60
 	bl sub_803EF64
-	bl sub_80205D4
+	bl ExodiaWinCondition
 	bl sub_8029820
 _08019E40:
-	bl sub_8025544
+	bl IsDuelOver
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #1
@@ -11546,7 +11546,7 @@ _08019EF0:
 	bl sub_801A008
 	b _08019F50
 	.align 2, 0
-_08019F20: .4byte 0x02021D10
+_08019F20: .4byte gDuelData
 _08019F24: .4byte 0xFFFF0000
 _08019F28: .4byte gZones
 _08019F2C: .4byte 0x0000FFFF
@@ -11572,7 +11572,7 @@ _08019F50:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08019F58: .4byte 0x02021D10
+_08019F58: .4byte gDuelData
 _08019F5C: .4byte gZones
 
 	THUMB_FUNC_START sub_8019F60
@@ -11618,15 +11618,15 @@ _08019F7C: @ jump table
 	.4byte _08019FF6 @ case 24
 _08019FE0:
 	movs r0, #0x3e
-	bl sub_8034F60
+	bl PlayMusic
 	b _08019FF6
 _08019FE8:
 	movs r0, #0x3a
-	bl sub_8034F60
+	bl PlayMusic
 	b _08019FF6
 _08019FF0:
 	movs r0, #0x3c
-	bl sub_8034F60
+	bl PlayMusic
 _08019FF6:
 	pop {r0}
 	bx r0
@@ -11643,7 +11643,7 @@ sub_801A008: @ 0x0801A008
 	cmp r0, #0
 	beq _0801A01E
 	ldrh r0, [r4, #4]
-	bl sub_8034F60
+	bl PlayMusic
 _0801A01E:
 	pop {r4}
 	pop {r0}
@@ -11661,7 +11661,7 @@ sub_801A028: @ 0x0801A028
 	cmp r0, #0
 	beq _0801A03E
 	ldrh r0, [r4, #4]
-	bl sub_8034F60
+	bl PlayMusic
 _0801A03E:
 	pop {r4}
 	pop {r0}
@@ -14754,7 +14754,7 @@ sub_801C218: @ 0x0801C218
 	bl sub_801C3C0
 	movs r4, #1
 	movs r0, #0x46
-	bl sub_8034F60
+	bl PlayMusic
 _0801C238:
 	cmp r5, #0
 	bne _0801C254
@@ -14810,7 +14810,7 @@ sub_801C2A0: @ 0x0801C2A0
 	bl sub_801C3C0
 	movs r4, #1
 	movs r0, #0x46
-	bl sub_8034F60
+	bl PlayMusic
 _0801C2C0:
 	cmp r5, #0
 	bne _0801C2DC
@@ -15235,7 +15235,7 @@ sub_801C6BC: @ 0x0801C6BC
 	bl sub_8008220
 	bl sub_801C7AC
 	movs r0, #0x44
-	bl sub_8034F60
+	bl PlayMusic
 _0801C6DC:
 	adds r0, r4, #0
 	bl sub_801C3E4
@@ -15388,7 +15388,7 @@ _0801C804:
 	cmp r0, #0
 	bne _0801C826
 	movs r0, #0x47
-	bl sub_8034F60
+	bl PlayMusic
 _0801C826:
 	adds r0, r4, #1
 	lsls r0, r0, #0x10
@@ -16140,7 +16140,7 @@ sub_801CDEC: @ 0x0801CDEC
 	bl sub_8008220
 	bl sub_801CE6C
 	movs r0, #0x45
-	bl sub_8034F60
+	bl PlayMusic
 _0801CE0A:
 	bl sub_801CC50
 	ldr r0, _0801CE3C
@@ -16296,7 +16296,7 @@ _0801CF2C: .4byte 0x08E00AA4
 sub_801CF38: @ 0x0801CF38
 	push {r4, lr}
 	movs r0, #0x41
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r4, _0801CF68
 	ldrh r0, [r4]
 	ldrh r1, [r4, #2]
@@ -16309,7 +16309,7 @@ sub_801CF38: @ 0x0801CF38
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	ldrh r0, [r0]
-	bl sub_8034F60
+	bl PlayMusic
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -16322,7 +16322,7 @@ _0801CF70: .4byte gCardInfo
 sub_801CF74: @ 0x0801CF74
 	push {r4, lr}
 	movs r0, #0x40
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r4, _0801CFA4
 	ldrh r0, [r4]
 	ldrh r1, [r4, #2]
@@ -16335,7 +16335,7 @@ sub_801CF74: @ 0x0801CF74
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	ldrh r0, [r0]
-	bl sub_8034F60
+	bl PlayMusic
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -16348,7 +16348,7 @@ _0801CFAC: .4byte gCardInfo
 sub_801CFB0: @ 0x0801CFB0
 	push {r4, lr}
 	movs r0, #0x42
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r4, _0801CFE0
 	ldrh r0, [r4]
 	ldrh r1, [r4, #2]
@@ -16361,7 +16361,7 @@ sub_801CFB0: @ 0x0801CFB0
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	ldrh r0, [r0]
-	bl sub_8034F60
+	bl PlayMusic
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -16374,7 +16374,7 @@ _0801CFE8: .4byte gCardInfo
 sub_801CFEC: @ 0x0801CFEC
 	push {lr}
 	movs r0, #0x42
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r1, _0801D004
 	ldrh r0, [r1]
 	ldrh r1, [r1, #2]
@@ -16391,7 +16391,7 @@ sub_801D008: @ 0x0801D008
 	movs r0, #4
 	bl sub_8035020
 	movs r0, #0x52
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r1, _0801D03C
 	ldr r3, _0801D040
 	ldrh r0, [r3, #8]
@@ -16419,7 +16419,7 @@ sub_801D044: @ 0x0801D044
 	movs r0, #4
 	bl sub_8035020
 	movs r0, #0x52
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r1, _0801D078
 	ldr r3, _0801D07C
 	ldrh r0, [r3, #8]
@@ -16469,7 +16469,7 @@ sub_801D0B0: @ 0x0801D0B0
 	push {r4, lr}
 	sub sp, #4
 	movs r0, #0x41
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r2, _0801D0F0
 	ldr r4, _0801D0F4
 	ldrh r1, [r4]
@@ -16488,7 +16488,7 @@ sub_801D0B0: @ 0x0801D0B0
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	ldrh r0, [r0]
-	bl sub_8034F60
+	bl PlayMusic
 	add sp, #4
 	pop {r4}
 	pop {r0}
@@ -16504,7 +16504,7 @@ sub_801D100: @ 0x0801D100
 	push {r4, lr}
 	sub sp, #4
 	movs r0, #0x41
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r2, _0801D140
 	ldr r4, _0801D144
 	ldrh r1, [r4]
@@ -16523,7 +16523,7 @@ sub_801D100: @ 0x0801D100
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	ldrh r0, [r0]
-	bl sub_8034F60
+	bl PlayMusic
 	add sp, #4
 	pop {r4}
 	pop {r0}
@@ -16539,7 +16539,7 @@ sub_801D150: @ 0x0801D150
 	push {lr}
 	sub sp, #4
 	movs r0, #0x41
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r1, _0801D180
 	ldr r2, _0801D184
 	ldrh r0, [r2, #8]
@@ -16552,7 +16552,7 @@ sub_801D150: @ 0x0801D150
 	str r3, [sp]
 	bl sub_8041C94
 	movs r0, #0x5a
-	bl sub_8034F60
+	bl PlayMusic
 	add sp, #4
 	pop {r0}
 	bx r0
@@ -16671,7 +16671,7 @@ _0801D248:
 _0801D254:
 	movs r4, #0
 	movs r0, #0x38
-	bl sub_8034F60
+	bl PlayMusic
 	b _0801D2A0
 _0801D25E:
 	bl sub_801F120
@@ -16686,7 +16686,7 @@ _0801D274:
 	movs r0, #6
 	bl sub_801EF30
 	movs r0, #0x37
-	bl sub_8034F60
+	bl PlayMusic
 	movs r0, #8
 	bl sub_801F4A0
 	bl sub_801F630
@@ -16990,7 +16990,7 @@ sub_801D4B8: @ 0x0801D4B8
 	movs r1, #0
 	strb r1, [r0]
 	movs r0, #0x37
-	bl sub_8034F60
+	bl PlayMusic
 	bl sub_801DE5C
 	bl sub_801D61C
 	bl sub_8045658
@@ -17041,7 +17041,7 @@ _0801D526:
 _0801D52C:
 	movs r4, #0
 	movs r0, #0x38
-	bl sub_8034F60
+	bl PlayMusic
 	b _0801D53A
 _0801D536:
 	bl sub_8008220
@@ -17065,7 +17065,7 @@ sub_801D548: @ 0x0801D548
 	strb r0, [r2]
 	bl sub_801D61C
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r0, _0801D578
 	bl sub_80081DC
 	bl sub_8008220
@@ -17087,7 +17087,7 @@ sub_801D57C: @ 0x0801D57C
 	strb r0, [r2]
 	bl sub_801D61C
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r0, _0801D5AC
 	bl sub_80081DC
 	bl sub_8008220
@@ -17107,7 +17107,7 @@ sub_801D5B0: @ 0x0801D5B0
 	lsrs r0, r0, #0x10
 	bl SetCardInfo
 	movs r0, #0x37
-	bl sub_8034F60
+	bl PlayMusic
 	bl sub_801F6B0
 	movs r0, #0
 	bl sub_801EF30
@@ -17233,8 +17233,8 @@ sub_801D6C0: @ 0x0801D6C0
 	.align 2, 0
 _0801D6CC: .4byte gDeckCapacity
 
-	THUMB_FUNC_START sub_801D6D0
-sub_801D6D0: @ 0x0801D6D0
+	THUMB_FUNC_START IncreaseDeckCapacity
+IncreaseDeckCapacity: @ 0x0801D6D0
 	push {r4, lr}
 	adds r3, r0, #0
 	ldr r2, _0801D6E4
@@ -17335,7 +17335,7 @@ _0801D78C: .4byte gDuelistLevel
 _0801D790: .4byte 0x000003E6
 _0801D794: .4byte 0x080B8974
 _0801D798: .4byte gDeckCapacity
-_0801D79C: .4byte 0x02021D10
+_0801D79C: .4byte gDuelData
 _0801D7A0:
 	movs r0, #0
 _0801D7A2:
@@ -17354,7 +17354,7 @@ sub_801D7D0: @ 0x0801D7D0
 	cmp r4, #0
 	bne _0801D7E8
 	movs r0, #0x39
-	bl sub_8034F60
+	bl PlayMusic
 	b _0801D868
 _0801D7E8:
 	adds r0, r4, #0
@@ -17387,7 +17387,7 @@ _0801D820:
 _0801D822:
 	strb r0, [r4, #4]
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	b _0801D85A
 _0801D82C:
 	bl GetDeckSize
@@ -17395,7 +17395,7 @@ _0801D82C:
 	cmp r0, #0
 	beq _0801D85A
 	movs r0, #0x39
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r2, _0801D870
 	ldrh r1, [r2]
 	movs r0, #0x40
@@ -17416,7 +17416,7 @@ _0801D85A:
 	ldr r0, [r0, #0xc]
 	bl sub_801DD34
 	movs r0, #0x37
-	bl sub_8034F60
+	bl PlayMusic
 _0801D868:
 	pop {r4, r5}
 	pop {r0}
@@ -17472,7 +17472,7 @@ _0801D8D0:
 _0801D8D2:
 	strb r0, [r4, #4]
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	b _0801D90A
 _0801D8DC:
 	bl GetDeckSize
@@ -17480,7 +17480,7 @@ _0801D8DC:
 	cmp r0, #0
 	beq _0801D90A
 	movs r0, #0x39
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r2, _0801D914
 	ldrh r1, [r2]
 	movs r0, #0x40
@@ -17945,11 +17945,11 @@ _0801DC2C:
 	strb r3, [r2, #4]
 _0801DC2E:
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	b _0801DC5A
 _0801DC36:
 	movs r0, #0x39
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r2, _0801DC60
 	ldrh r1, [r2]
 	movs r0, #0x80
@@ -17994,7 +17994,7 @@ _0801DC84:
 _0801DC86:
 	strb r0, [r1, #4]
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	b _0801DCBE
 _0801DC90:
 	bl GetDeckSize
@@ -18002,7 +18002,7 @@ _0801DC90:
 	cmp r0, #0
 	beq _0801DCBE
 	movs r0, #0x39
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r2, _0801DCC4
 	ldrh r1, [r2]
 	movs r0, #0x40
@@ -18040,7 +18040,7 @@ sub_801DCC8: @ 0x0801DCC8
 	strb r0, [r1, #6]
 _0801DCDE:
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -20541,7 +20541,7 @@ sub_801F120: @ 0x0801F120
 	bl sub_801F320
 	bl sub_8045658
 	movs r0, #0x37
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r0, _0801F164
 	bl sub_80081DC
 	bl sub_8008220
@@ -20596,7 +20596,7 @@ _0801F19A:
 	b _0801F1B0
 _0801F1A2:
 	movs r0, #0x38
-	bl sub_8034F60
+	bl PlayMusic
 	movs r4, #0
 	b _0801F1B0
 _0801F1AC:
@@ -20635,7 +20635,7 @@ _0801F1E8:
 _0801F1EE:
 	bl sub_801F320
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r0, _0801F20C
 	bl sub_80081DC
 	bl sub_8008220
@@ -20670,7 +20670,7 @@ _0801F238:
 _0801F23E:
 	bl sub_801F320
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r0, _0801F25C
 	bl sub_80081DC
 	bl sub_8008220
@@ -20705,7 +20705,7 @@ _0801F288:
 _0801F28E:
 	bl sub_801F320
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r0, _0801F2AC
 	bl sub_80081DC
 	bl sub_8008220
@@ -20740,7 +20740,7 @@ _0801F2D8:
 _0801F2DE:
 	bl sub_801F320
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r0, _0801F2FC
 	bl sub_80081DC
 	bl sub_8008220
@@ -20754,7 +20754,7 @@ _0801F2FC: .4byte LoadOam
 sub_801F300: @ 0x0801F300
 	push {lr}
 	movs r0, #0x37
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r0, _0801F31C
 	ldrb r1, [r0, #7]
 	cmp r1, #9
@@ -21603,7 +21603,7 @@ _0801F9B8:
 	subs r0, #1
 	strb r0, [r4]
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	ldrb r1, [r4]
 	lsls r0, r1, #3
 	adds r0, r0, r1
@@ -21632,7 +21632,7 @@ _0801F9F4:
 	adds r0, r1, #1
 	strb r0, [r4]
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	ldrb r1, [r4]
 	lsls r0, r1, #3
 	adds r0, r0, r1
@@ -21665,7 +21665,7 @@ _0801FA60: .4byte 0x0801FB15
 _0801FA64: .4byte gUnk2020DFC
 _0801FA68:
 	movs r0, #0x38
-	bl sub_8034F60
+	bl PlayMusic
 	bl sub_801FB2C
 	add sp, #0x94
 	pop {r3, r4, r5}
@@ -21785,8 +21785,8 @@ sub_801FB50: @ 0x0801FB50
 	bx lr
 	.byte 0x00, 0x78, 0x70, 0x47
 
-	THUMB_FUNC_START sub_801FB58
-sub_801FB58: @ 0x0801FB58
+	THUMB_FUNC_START HandleWin
+HandleWin: @ 0x0801FB58
 	push {r4, r5, r6, r7, lr}
 	sub sp, #0xc
 	ldr r2, _0801FBA0
@@ -21797,7 +21797,7 @@ sub_801FB58: @ 0x0801FB58
 	ldr r0, [r0]
 	ldr r0, [r0, #0x18]
 	str r0, [r2, #8]
-	bl sub_801D6D0
+	bl IncreaseDeckCapacity
 	bl sub_801FF90
 	bl sub_8020030
 	bl sub_801FD14
@@ -21816,7 +21816,7 @@ sub_801FB58: @ 0x0801FB58
 	bl sub_80219E4
 	b _0801FBD6
 	.align 2, 0
-_0801FBA0: .4byte 0x02021D10
+_0801FBA0: .4byte gDuelData
 _0801FBA4: .4byte 0x08E00B30
 _0801FBA8: .4byte gLifePoints
 _0801FBAC:
@@ -21847,7 +21847,7 @@ _0801FBD6:
 	cmp r0, #0
 	beq _0801FC5A
 	ldrh r0, [r4, #0xe]
-	bl sub_8034F60
+	bl PlayMusic
 	mov r0, sp
 	bl sub_8021A14
 	mov r0, sp
@@ -21906,11 +21906,11 @@ _0801FC66:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801FC70: .4byte 0x02021D10
+_0801FC70: .4byte gDuelData
 _0801FC74: .4byte gUnk20241FC
 
-	THUMB_FUNC_START sub_801FC78
-sub_801FC78: @ 0x0801FC78
+	THUMB_FUNC_START HandleLoss
+HandleLoss: @ 0x0801FC78
 	push {r4, lr}
 	sub sp, #0xc
 	ldr r1, _0801FCAC
@@ -21964,7 +21964,7 @@ _0801FCDE:
 	cmp r0, #0
 	beq _0801FD06
 	ldrh r0, [r2, #0x10]
-	bl sub_8034F60
+	bl PlayMusic
 	mov r0, sp
 	bl sub_8021A14
 	mov r1, sp
@@ -21978,7 +21978,7 @@ _0801FD06:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801FD10: .4byte 0x02021D10
+_0801FD10: .4byte gDuelData
 
 	THUMB_FUNC_START sub_801FD14
 sub_801FD14: @ 0x0801FD14
@@ -22004,7 +22004,7 @@ _0801FD30:
 	mov pc, r0
 	.align 2, 0
 _0801FD3C: .4byte 0x08E00B30
-_0801FD40: .4byte 0x02021D10
+_0801FD40: .4byte gDuelData
 _0801FD44: .4byte 0x0801FD48
 _0801FD48: @ jump table
 	.4byte _0801FE64 @ case 0
@@ -22164,7 +22164,7 @@ sub_801FE98: @ 0x0801FE98
 	movs r0, #0xc
 	b _0801FECC
 	.align 2, 0
-_0801FEB4: .4byte 0x02021D10
+_0801FEB4: .4byte gDuelData
 _0801FEB8:
 	cmp r1, #0
 	bhi _0801FEDC
@@ -22209,7 +22209,7 @@ _0801FEF2:
 	ldr r3, _0801FF10
 	b _0801FF54
 	.align 2, 0
-_0801FF04: .4byte 0x02021D10
+_0801FF04: .4byte gDuelData
 _0801FF08: .4byte 0x05F5E0FF
 _0801FF0C: .4byte 0x00002710
 _0801FF10: .4byte 0x00000000
@@ -22260,20 +22260,20 @@ _0801FF5A:
 _0801FF68: .4byte 0xD4A51000
 _0801FF6C: .4byte 0x000000E8
 
-	THUMB_FUNC_START sub_801FF70
-sub_801FF70: @ 0x0801FF70
+	THUMB_FUNC_START HandleOutcome
+HandleOutcome: @ 0x0801FF70
 	push {lr}
 	ldr r0, _0801FF84
 	adds r0, #0x2b
 	ldrb r0, [r0]
 	cmp r0, #1
 	bne _0801FF88
-	bl sub_801FB58
+	bl HandleWin
 	b _0801FF8C
 	.align 2, 0
-_0801FF84: .4byte 0x02021D10
+_0801FF84: .4byte gDuelData
 _0801FF88:
-	bl sub_801FC78
+	bl HandleLoss
 _0801FF8C:
 	pop {r0}
 	bx r0
@@ -22318,7 +22318,7 @@ _0801FFD2:
 	bx r0
 	.align 2, 0
 _0801FFD8: .4byte gAnte
-_0801FFDC: .4byte 0x02021D10
+_0801FFDC: .4byte gDuelData
 
 	THUMB_FUNC_START sub_801FFE0
 sub_801FFE0: @ 0x0801FFE0
@@ -22333,7 +22333,7 @@ sub_801FFE0: @ 0x0801FFE0
 	b _08020000
 	.align 2, 0
 _0801FFF4: .4byte gAnte
-_0801FFF8: .4byte 0x02021D10
+_0801FFF8: .4byte gDuelData
 _0801FFFC:
 	ldr r0, _08020010
 	ldr r4, [r0, #0x40]
@@ -22345,7 +22345,7 @@ _08020000:
 	lsrs r1, r0, #0x10
 	b _0802001A
 	.align 2, 0
-_08020010: .4byte 0x02021D10
+_08020010: .4byte gDuelData
 _08020014: .4byte 0x000007FF
 _08020018:
 	adds r4, #4
@@ -22393,7 +22393,7 @@ sub_8020050: @ 0x08020050
 	lsrs r1, r0, #0x10
 	b _0802006E
 	.align 2, 0
-_08020064: .4byte 0x02021D10
+_08020064: .4byte gDuelData
 _08020068: .4byte 0x0000752F
 _0802006C:
 	adds r4, #4

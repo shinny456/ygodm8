@@ -12,147 +12,148 @@ void sub_80215BC();
 void sub_80214BC();
 //TODO change u32 to u32*
 
-u16 sub_8020698(u8* name) //card name
+u16 sub_8020698(u8* name) //text parser
 {
+    u8 r4;
     u16 i = 0;
 
-    if (*name == '$')
+    if (*name != '$')
+        goto end;
+    r4 = 1;
+    while (r4)
     {
-        u8 r4 = 1;
-        while (r4)
+        name++;
+        i++;
+        switch (*name)
         {
+        case '0':
+            if (gLanguage == ENGLISH)
+            {
+                i++;
+                goto end;
+            }
+            while (*name != '$')
+            {
+                if ((s8)*name >= 0)
+                {
+                    name++;
+                    i++;
+                }
+                else
+                {
+                    name += 2;
+                    i += 2;
+                }
+            }
+            break;
+        case '1':
+            if (gLanguage == FRENCH)
+            {
+                i++;
+                goto end;
+            }
+            while (*name != '$')
+            {
+                if ((s8)*name >= 0)
+                {
+                    name++;
+                    i++;
+                }
+                else
+                {
+                    name += 2;
+                    i += 2;
+                }
+            }
+            break;
+        case '2':
+            if (gLanguage == GERMAN)
+            {
+                i++;
+                goto end;
+            }
+            while (*name != '$')
+            {
+                if ((s8)*name >= 0)
+                {
+                    name++;
+                    i++;
+                }
+                else
+                {
+                    name += 2;
+                    i += 2;
+                }
+            }
+            break;
+        case '3':
+            if (gLanguage == ITALIAN)
+            {
+                i++;
+                goto end;
+            }
+            while (*name != '$')
+            {
+                if ((s8)*name >= 0)
+                {
+                    name++;
+                    i++;
+                }
+                else
+                {
+                    name += 2;
+                    i += 2;
+                }
+            }
+            break;
+        case '4':
+            if (gLanguage == SPANISH)
+            {
+                i++;
+                goto end;
+            }
+            while (*name != '$')
+            {
+                if ((s8)*name >= 0)
+                {
+                    name++;
+                    i++;
+                }
+                else
+                {
+                    name += 2;
+                    i += 2;
+                }
+            }
+            break;
+        case '5':
+            if (gLanguage == JAPANESE)
+            {
+                i++;
+                goto end;
+            }
+            while (*name != '$')
+            {
+                if ((s8)*name >= 0)
+                {
+                    name++;
+                    i++;
+                }
+                else
+                {
+                    name += 2;
+                    i += 2;
+                }
+            }
+            break;
+        case '6':
             name++;
             i++;
-            switch (*name)
-            {
-            case '0':
-                if (gLanguage == ENGLISH)
-                {
-                    i++;
-                    goto end;
-                }
-                while (*name != '$')
-                {
-                    if ((s8)*name >= 0)
-                    {
-                        name++;
-                        i++;
-                    }
-                    else
-                    {
-                        name += 2;
-                        i += 2;
-                    }
-                }
-                break;
-            case '1':
-                if (gLanguage == FRENCH)
-                {
-                    i++;
-                    goto end;
-                }
-                while (*name != '$')
-                {
-                    if ((s8)*name >= 0)
-                    {
-                        name++;
-                        i++;
-                    }
-                    else
-                    {
-                        name += 2;
-                        i += 2;
-                    }
-                }
-                break;
-            case '2':
-                if (gLanguage == GERMAN)
-                {
-                    i++;
-                    goto end;
-                }
-                while (*name != '$')
-                {
-                    if ((s8)*name >= 0)
-                    {
-                        name++;
-                        i++;
-                    }
-                    else
-                    {
-                        name += 2;
-                        i += 2;
-                    }
-                }
-                break;
-            case '3':
-                if (gLanguage == ITALIAN)
-                {
-                    i++;
-                    goto end;
-                }
-                while (*name != '$')
-                {
-                    if ((s8)*name >= 0)
-                    {
-                        name++;
-                        i++;
-                    }
-                    else
-                    {
-                        name += 2;
-                        i += 2;
-                    }
-                }
-                break;
-            case '4':
-                if (gLanguage == SPANISH)
-                {
-                    i++;
-                    goto end;
-                }
-                while (*name != '$')
-                {
-                    if ((s8)*name >= 0)
-                    {
-                        name++;
-                        i++;
-                    }
-                    else
-                    {
-                        name += 2;
-                        i += 2;
-                    }
-                }
-                break;
-            case '5':
-                if (gLanguage == JAPANESE)
-                {
-                    i++;
-                    goto end;
-                }
-                while (*name != '$')
-                {
-                    if ((s8)*name >= 0)
-                    {
-                        name++;
-                        i++;
-                    }
-                    else
-                    {
-                        name += 2;
-                        i += 2;
-                    }
-                }
-                break;
-            case '6':
-                name++;
-                i++;
-                r4 = 0;
-                break;
-            }
+            r4 = 0;
+            break;
         }
     }
+
     end:
     return i;
 }

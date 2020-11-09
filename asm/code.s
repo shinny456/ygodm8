@@ -627,7 +627,7 @@ sub_8000724: @ 0x08000724
 	bl sub_80454F8
 	bl sub_8045718
 	movs r0, #0x31
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r0, _080007EC
 	ldr r1, _080007F0
 	movs r2, #0x80
@@ -921,9 +921,9 @@ sub_80009BC: @ 0x080009BC
 	movs r7, #0x10
 	movs r0, #0x96
 	lsls r0, r0, #2
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r0, _080009EC
-	bl sub_8034F60
+	bl PlayMusic
 	bl sub_8000D74
 _080009D4:
 	ldr r0, _080009F0
@@ -3362,7 +3362,7 @@ _08001D50:
 sub_8001D58: @ 0x08001D58
 	push {r4, r5, lr}
 	movs r0, #0
-	bl sub_8034F60
+	bl PlayMusic
 	bl sub_8002E98
 	ldr r2, _08001D90
 	ldr r1, [r2]
@@ -3552,7 +3552,7 @@ _08001EB8: @ jump table
 _08001EDC:
 	movs r0, #0xb1
 	lsls r0, r0, #1
-	bl sub_8034F60
+	bl PlayMusic
 	bl sub_8002E98
 	ldr r4, _08001F28
 	ldr r0, [r4]
@@ -3821,7 +3821,7 @@ _080020FC: @ jump table
 	.4byte _08002760 @ case 7
 _0800211C:
 	ldr r0, _0800212C
-	bl sub_8034F60
+	bl PlayMusic
 	bl sub_8003020
 	ldr r0, _08002130
 	ldr r1, [r0]
@@ -4678,7 +4678,7 @@ _08002814: @ jump table
 	.4byte _08002998 @ case 6
 _08002830:
 	ldr r0, _08002888
-	bl sub_8034F60
+	bl PlayMusic
 	bl sub_8003268
 	ldr r4, _0800288C
 	ldr r0, [r4]
@@ -4903,7 +4903,7 @@ _080029F8: @ jump table
 _08002A18:
 	movs r0, #0xb2
 	lsls r0, r0, #1
-	bl sub_8034F60
+	bl PlayMusic
 	bl sub_8003444
 	ldr r3, _08002A38
 	ldr r1, [r3]
@@ -9344,7 +9344,7 @@ sub_8004E60: @ 0x08004E60
 	adds r1, r7, #0
 	bl sub_8004F90
 	movs r0, #3
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r6, _08004E98
 	ldr r0, _08004E9C
 	mov r8, r0
@@ -9385,7 +9385,7 @@ _08004ED4:
 	movs r4, #0xc
 _08004ED6:
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	ldrh r0, [r5]
 	adds r1, r4, r6
 	ldrb r1, [r1]
@@ -9414,7 +9414,7 @@ _08004F08:
 	movs r4, #0
 _08004F0A:
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	ldrh r0, [r5]
 	adds r1, r4, r6
 	ldrb r1, [r1]
@@ -9446,7 +9446,7 @@ _08004F4A:
 	cmp r0, #0
 	beq _08004EA0
 	movs r0, #0x37
-	bl sub_8034F60
+	bl PlayMusic
 	bl sub_80056F8
 	bl sub_803ED78
 	bl LoadOam
@@ -10412,7 +10412,7 @@ _08005772:
 	cmp r0, #0
 	bne _0800579C
 	movs r0, #0x39
-	bl sub_8034F60
+	bl PlayMusic
 	bl sub_8005C9C
 	bl sub_8005BE0
 	b _080057C8
@@ -10433,7 +10433,7 @@ _0800579C:
 	b _08005882
 _080057BA:
 	movs r0, #0x39
-	bl sub_8034F60
+	bl PlayMusic
 	bl sub_8005C80
 	bl sub_8005BE0
 _080057C8:
@@ -10445,7 +10445,7 @@ _080057C8:
 	cmp r4, #0
 	beq _080057E2
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	subs r0, r4, #1
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x18
@@ -10459,7 +10459,7 @@ _080057E2:
 	cmp r4, #1
 	bhi _08005802
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	adds r0, r4, #1
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x18
@@ -10485,7 +10485,7 @@ _08005816:
 	cmp r0, #0
 	beq _08005872
 	movs r0, #0x37
-	bl sub_8034F60
+	bl PlayMusic
 	bl sub_80075DC
 	bl sub_8005BE0
 	b _08005872
@@ -10496,7 +10496,7 @@ _08005830:
 	cmp r0, #0
 	beq _08005872
 	movs r0, #0x37
-	bl sub_8034F60
+	bl PlayMusic
 	bl sub_8008548
 	bl sub_8005B48
 	b _08005872
@@ -10510,13 +10510,13 @@ _0800584A:
 	cmp r0, #1
 	bne _0800586C
 	movs r0, #0x37
-	bl sub_8034F60
+	bl PlayMusic
 	bl sub_801D1C0
 	bl sub_8005B48
 	b _08005872
 _0800586C:
 	movs r0, #0x39
-	bl sub_8034F60
+	bl PlayMusic
 _08005872:
 	adds r0, r4, #0
 	bl sub_8005C60
@@ -10525,7 +10525,7 @@ _08005872:
 	b _08005772
 _08005882:
 	movs r0, #0x38
-	bl sub_8034F60
+	bl PlayMusic
 	bl sub_8045718
 	pop {r4, r5, r6}
 	pop {r0}
@@ -10820,7 +10820,7 @@ sub_8005B18: @ 0x08005B18
 	bl sub_8035020
 	bl sub_8005D08
 	movs r0, #0x2f
-	bl sub_8034F60
+	bl PlayMusic
 	bl sub_800576C
 	movs r0, #1
 	bl sub_8035020
@@ -11055,7 +11055,7 @@ sub_8005D1C: @ 0x08005D1C
 	bl sub_803ED78
 	bl sub_800604C
 	movs r0, #0x2e
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r0, _08005DE8
 	ldr r1, _08005DEC
 	bl LZ77UnCompWram
@@ -11132,7 +11132,7 @@ _08005DC4:
 	cmp r0, #5
 	beq _08005E28
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r1, [r4]
 	movs r0, #5
 	strh r0, [r1, #0x32]
@@ -11159,7 +11159,7 @@ _08005E28:
 	cmp r0, r8
 	beq _08005E40
 	movs r0, #0x37
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r1, [r4]
 	movs r0, #1
 	strb r0, [r1, #9]
@@ -11167,7 +11167,7 @@ _08005E28:
 	b _08006040
 _08005E40:
 	movs r0, #0x39
-	bl sub_8034F60
+	bl PlayMusic
 _08005E46:
 	ldr r0, [r7]
 	movs r1, #0xb5
@@ -11191,7 +11191,7 @@ _08005E54:
 	cmp r0, r8
 	beq _08005E88
 	movs r0, #0x37
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r0, [r4]
 	strb r6, [r0, #9]
 	bl sub_8006B40
@@ -11201,7 +11201,7 @@ _08005E80: .4byte gUnk_8DF8114
 _08005E84: .4byte gUnk2020DFC
 _08005E88:
 	movs r0, #0x39
-	bl sub_8034F60
+	bl PlayMusic
 _08005E8E:
 	ldr r0, _08005EB8
 	ldrh r1, [r0]
@@ -11217,7 +11217,7 @@ _08005E8E:
 	cmp r0, #7
 	bhi _08005EE4
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r1, [r4]
 	ldrb r0, [r1, #2]
 	adds r0, #1
@@ -11238,7 +11238,7 @@ _08005EC0:
 	cmp r0, #0
 	beq _08005EE4
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r1, [r4]
 	ldrb r0, [r1, #2]
 	subs r0, #1
@@ -11269,7 +11269,7 @@ _08005F02:
 	cmp r0, #5
 	beq _08005F18
 	movs r0, #0x37
-	bl sub_8034F60
+	bl PlayMusic
 _08005F18:
 	ldr r0, [r4]
 	strb r5, [r0]
@@ -11290,7 +11290,7 @@ _08005F24:
 	cmp r0, #5
 	bne _08005F68
 	movs r0, #0x38
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r1, [r4]
 	movs r0, #3
 	strh r0, [r1, #0x32]
@@ -11311,7 +11311,7 @@ _08005F60: .4byte gUnk2020DFC
 _08005F64: .4byte gUnk_8DF8114
 _08005F68:
 	movs r0, #0x37
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r0, [r4]
 	strb r5, [r0]
 	ldr r0, [r4]
@@ -12028,7 +12028,7 @@ sub_80064F4: @ 0x080064F4
 	cmp r0, #0
 	beq _08006558
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r5, _08006520
 	ldr r2, [r5]
 	ldrb r0, [r2, #1]
@@ -12077,7 +12077,7 @@ _08006558:
 	cmp r0, #0
 	beq _080065C2
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r6, _0800658C
 	ldr r2, [r6]
 	ldrb r3, [r2, #1]
@@ -12129,7 +12129,7 @@ _080065C2:
 	cmp r0, #0
 	beq _08006628
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r3, _080065FC
 	ldr r1, [r3]
 	ldrb r4, [r1]
@@ -12176,7 +12176,7 @@ _08006628:
 	cmp r0, #0
 	beq _0800667C
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r3, _08006658
 	ldr r1, [r3]
 	ldrb r4, [r1]
@@ -12220,7 +12220,7 @@ _0800667C:
 	cmp r0, #0
 	beq _08006718
 	movs r0, #0x37
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r7, _080066DC
 	ldr r4, [r7]
 	ldrh r0, [r4, #0x32]
@@ -12509,7 +12509,7 @@ sub_80068C4: @ 0x080068C4
 	cmp r0, #0
 	beq _080068E4
 	movs r0, #0x38
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r1, [r4]
 	ldrb r0, [r1, #2]
 	subs r0, #1
@@ -14595,7 +14595,7 @@ _080079A4:
 	cmp r0, #0
 	beq _080079A0
 	movs r0, #0x38
-	bl sub_8034F60
+	bl PlayMusic
 	pop {r3, r4, r5}
 	mov r8, r3
 	mov sb, r4
@@ -16439,7 +16439,7 @@ sub_80087E4: @ 0x080087E4
 	movs r0, #8
 	bl sub_801DA7C
 	movs r0, #0x38
-	bl sub_8034F60
+	bl PlayMusic
 	pop {r0}
 	bx r0
 	.byte 0x00, 0x00
@@ -16496,7 +16496,7 @@ sub_8008854: @ 0x08008854
 	bl sub_80081DC
 	bl sub_8008220
 	movs r0, #0x37
-	bl sub_8034F60
+	bl PlayMusic
 	movs r4, #1
 _0800887A:
 	bl sub_80086D8
@@ -16554,7 +16554,7 @@ _080088DC:
 	bne _0800887A
 _080088E0:
 	movs r0, #0x38
-	bl sub_8034F60
+	bl PlayMusic
 	bl sub_8008A48
 	pop {r4}
 	pop {r0}
@@ -16571,7 +16571,7 @@ sub_80088F0: @ 0x080088F0
 	strb r0, [r2, #4]
 	bl sub_80089EC
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r0, _08008920
 	bl sub_80081DC
 	bl sub_8008220
@@ -16593,7 +16593,7 @@ sub_8008924: @ 0x08008924
 	strb r0, [r2, #4]
 	bl sub_80089EC
 	movs r0, #0x36
-	bl sub_8034F60
+	bl PlayMusic
 	ldr r0, _08008954
 	bl sub_80081DC
 	bl sub_8008220
@@ -16617,7 +16617,7 @@ sub_8008958: @ 0x08008958
 	strb r1, [r0, #3]
 	bl sub_800B538
 	movs r0, #0x37
-	bl sub_8034F60
+	bl PlayMusic
 	bl sub_801F6B0
 	movs r0, #0
 	bl sub_800A3D8

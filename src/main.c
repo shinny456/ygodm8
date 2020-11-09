@@ -17,7 +17,7 @@ void sub_80561FC(void);
 void sub_80327C8(void);
 void sub_803276C(void);
 void sub_80268D8(void); //nintendo and konami screens
-void sub_8035444(void); //title screen and continue screen
+void TitleScreen(void); //title screen and continue screen
 void sub_804DC48(void);
 
 int AgbMain(void)
@@ -40,6 +40,6 @@ int AgbMain(void)
     sub_80327C8();
     sub_803276C();
     sub_80268D8();
-    sub_8035444();
+    TitleScreen();
     sub_804DC48();
 }

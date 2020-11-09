@@ -193,7 +193,7 @@ void sub_801CEBC(void);
 void sub_801D1A8(void);
 void sub_801D188(u8);
 void sub_801F6B0(void);
-bool8 sub_8025544(void);
+bool8 IsDuelOver(void);
 
 
 
@@ -259,7 +259,7 @@ u32 sub_8055BA4(u16);
 u32 sub_8055BD4(u16);
 
 
-void sub_8034F60(u16);
+void PlayMusic(u16);
 s32 sub_803FCBC(u16);
 void sub_804034C(struct DuelCard*);
 void sub_8040394(struct DuelCard*, u8);
@@ -301,7 +301,7 @@ s32 sub_8043694(struct DuelCard**, u16 card); //get zone card is located at
 
 s32 sub_8043930(u8, u8);
 
-void sub_8043CE4(u32);
+void DrawCard(u32);
 
 void ClearZoneAndSendMonToGraveyard(struct DuelCard* zone, u8 graveyard);
 
@@ -355,13 +355,13 @@ struct Duelist
     u16 unk2A;             //0x2A
 };
 
-struct UnkStruct02021D10
+struct DuelData
 {
     u64 unk0; //money?
     u32 capacityYield;
     u16 unkC;
     u16 unkE;
-    u16 unk10;
+    u16 music;
     u16 opponent;
     u16 unk14[10];
     u16 ante;
@@ -375,7 +375,7 @@ struct UnkStruct02021D10
 };
 
 extern u32 gUnk02024254;
-extern struct UnkStruct02021D10 gUnk02021D10;
+extern struct DuelData gDuelData;
 
 bool8 sub_804B144(u8*, u16*);
 extern u16 gAnte;
@@ -411,7 +411,7 @@ struct DuelDeck
     u8 cardsDrawn;
 };
 
-struct DuelDeck gUnk20240F0[2];
+extern struct DuelDeck gUnk20240F0[2];
 
 struct BgVram
 {

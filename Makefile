@@ -23,7 +23,7 @@ CC1      := tools/agbcc/bin/agbcc$(EXE)
 CC1_OLD  := tools/agbcc/bin/old_agbcc$(EXE)
 
 CPPFLAGS := -I tools/agbcc/include -I tools/agbcc -iquote include -Wno-trigraphs
-CFLAGS   := -mthumb-interwork -Wimplicit -Wparentheses -Werror -O2 -fhex-asm
+CFLAGS   := -mthumb-interwork -Wimplicit -Werror -O2 -fhex-asm
 ASFLAGS  := -mcpu=arm7tdmi
 
 
@@ -72,16 +72,16 @@ $(C_BUILDDIR)/%.o: $(C_SUBDIR)/%.c
 	$(CPP) $(CPPFLAGS) $< -o $(C_BUILDDIR)/$*.i
 	$(CC1) $(CFLAGS) $(C_BUILDDIR)/$*.i -o $(C_BUILDDIR)/$*.s
 	echo -e ".text\n\t.align\t2, 0\n" >> $(C_BUILDDIR)/$*.s
-	$(AS) $(ASFLAGS) $(C_BUILDDIR)/$*.s -o $@ 
+	$(AS) $(ASFLAGS) $(C_BUILDDIR)/$*.s -o $@
 
 $(ASM_BUILDDIR)/%.o: $(ASM_SUBDIR)/%.s
 	$(AS) $(ASFLAGS) $< -o $@
-    
+
 $(DATA_ASM_BUILDDIR)/%.o: $(DATA_ASM_SUBDIR)/%.s
 	$(AS) $(ASFLAGS) $< -o $@
 
 clean:
-	rm -f $(ROM) $(ELF) $(MAP) 
+	rm -f $(ROM) $(ELF) $(MAP)
 	rm -r $(BUILD_DIR)/
 
 compare: $(ROM)

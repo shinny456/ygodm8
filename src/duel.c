@@ -1111,12 +1111,12 @@ void sub_800BE0C(void)
     u8 r4;
 
     sub_8035038(2);
-    sub_8034F60(213);
+    PlayMusic(213);
     sub_8021B80();
     sub_8008F24();
     sub_801DA20();
     sub_80090B8();
-    sub_8034F60(143);
+    PlayMusic(143);
     sub_800BF28();
 
     r4 = 1;
@@ -1239,7 +1239,7 @@ bool32 sub_800BF54(void)   //handle trunk input?
 
     sub_800C0D8();
     sub_800C208();
-    sub_8034F60(55);
+    PlayMusic(55);
     sub_80081DC(sub_800C4F8);
     sub_8008220();
 
@@ -1251,14 +1251,14 @@ bool32 sub_800BF54(void)   //handle trunk input?
         case 0x40:
             gUnkStruct_2020E10.unk4 = g8DFF498[gUnkStruct_2020E10.unk4];
             sub_800C208();
-            sub_8034F60(54);
+            PlayMusic(54);
             sub_80081DC(LoadOam);
             sub_8008220();
             break;
         case 0x80:
             gUnkStruct_2020E10.unk4 = g8DFF49B[gUnkStruct_2020E10.unk4];
             sub_800C208();
-            sub_8034F60(54);
+            PlayMusic(54);
             sub_80081DC(LoadOam);
             sub_8008220();
             break;
@@ -1273,7 +1273,7 @@ bool32 sub_800BF54(void)   //handle trunk input?
                     r5 = 0;
                 goto end;
             case 2:  //EXIT
-                sub_8034F60(55);
+                PlayMusic(55);
                 goto end;
             default:
                 sub_8008220();
@@ -1281,7 +1281,7 @@ bool32 sub_800BF54(void)   //handle trunk input?
             }
             break;
         case 2:
-            sub_8034F60(56);
+            PlayMusic(56);
             goto end;
         default:
             sub_8008220();
@@ -1301,7 +1301,7 @@ bool8 sub_800C020(void)   //handle trunk input?
 
     sub_800C3C4();
     sub_800C264();
-    sub_8034F60(55);
+    PlayMusic(55);
     sub_80081DC(sub_800C4F8);
     sub_8008220();
 
@@ -1313,14 +1313,14 @@ bool8 sub_800C020(void)   //handle trunk input?
         case 0x40:
             gUnkStruct_2020E10.unk4 = g8DFF4A4[gUnkStruct_2020E10.unk4];
             sub_800C264();
-            sub_8034F60(54);
+            PlayMusic(54);
             sub_80081DC(LoadOam);
             sub_8008220();
             break;
         case 0x80:
             gUnkStruct_2020E10.unk4 = g8DFF4A6[gUnkStruct_2020E10.unk4];
             sub_800C264();
-            sub_8034F60(54);
+            PlayMusic(54);
             sub_80081DC(LoadOam);
             sub_8008220();
             break;
@@ -1328,10 +1328,10 @@ bool8 sub_800C020(void)   //handle trunk input?
             switch (gUnkStruct_2020E10.unk4)
             {
             case 0:
-                sub_8034F60(55);
+                PlayMusic(55);
                 goto end;
             case 1:
-                sub_8034F60(222);
+                PlayMusic(222);
                 r5 = 0;
                 goto end;
             default:
@@ -1340,7 +1340,7 @@ bool8 sub_800C020(void)   //handle trunk input?
             }
             break;
         case 2:
-            sub_8034F60(56);
+            PlayMusic(56);
             goto end;
         default:
             sub_8008220();
@@ -1383,7 +1383,7 @@ u16 sub_800901C(u8);
 void sub_800C1BC(void)
 {
     SetCardInfo(sub_800901C(2));
-    sub_8034F60(55);
+    PlayMusic(55);
     sub_801F6B0();
     sub_800D904(0);
     sub_800D904(2);
@@ -1519,7 +1519,7 @@ bool8 sub_800C2C0(void)
             {
                 r6 = 0;
                 gAnte = r4;
-                sub_8034F60(222);
+                PlayMusic(222);
             }
         }
     }
@@ -1538,7 +1538,7 @@ void sub_800C32C(void)
 
     gUnkStruct_2020E10.unk4 = 0;
     sub_800C430();
-    sub_8034F60(57);
+    PlayMusic(57);
     sub_800C530();
     sub_80081DC(sub_800C4F8);
     sub_8008220();
@@ -1550,7 +1550,7 @@ void sub_800C32C(void)
             sub_8008220();
     }
 
-    sub_8034F60(56);
+    PlayMusic(56);
 }
 
 void sub_800C378(void)
@@ -1558,7 +1558,7 @@ void sub_800C378(void)
 
     gUnkStruct_2020E10.unk4 = 0;
     sub_800C494();
-    sub_8034F60(57);
+    PlayMusic(57);
     sub_800C530();
     sub_80081DC(sub_800C4F8);
     sub_8008220();
@@ -1570,7 +1570,7 @@ void sub_800C378(void)
             sub_8008220();
     }
 
-    sub_8034F60(56);
+    PlayMusic(56);
 }
 
 extern u16 gUnk_808D050[][30];
@@ -1661,7 +1661,7 @@ bool32 sub_800C558(void)
     r5 = 1;
     sub_800C608();
     sub_800C7A0();
-    sub_8034F60(55);
+    PlayMusic(55);
     sub_80081DC(sub_800C7FC);
     sub_8008220();
 
@@ -1672,14 +1672,14 @@ bool32 sub_800C558(void)
         {
         case 0x40:
             gUnkStruct_2020E10.unk4 = g8DFF4AC[gUnkStruct_2020E10.unk4];
-            sub_8034F60(54);
+            PlayMusic(54);
             sub_800C7A0();
             sub_80081DC(LoadOam);
             sub_8008220();
             break;
         case 0x80:
             gUnkStruct_2020E10.unk4 = g8DFF4AE[gUnkStruct_2020E10.unk4];
-            sub_8034F60(54);
+            PlayMusic(54);
             sub_800C7A0();
             sub_80081DC(LoadOam);
             sub_8008220();
@@ -1689,15 +1689,15 @@ bool32 sub_800C558(void)
             {
             case 1:
                 r5 = 0;
-                sub_8034F60(222);
+                PlayMusic(222);
                 break;
             default:
-                sub_8034F60(55);
+                PlayMusic(55);
                 break;
             }
             goto end;
         case 2:
-            sub_8034F60(56);
+            PlayMusic(56);
             goto end;
         default:
             sub_8008220();

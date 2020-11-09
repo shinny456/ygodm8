@@ -1,7 +1,46 @@
 #include "global.h"
 #include "gba/syscall.h"
 #include "duel.h"
+#include "gba/io_reg.h"
 
+
+//script structs
+struct Unk10
+{
+    u8 *unk0;
+    struct Unk10 *unk4;
+    struct Unk10 *unk8;
+};
+
+struct Unk88
+{
+    u16 unk0;
+    u8 filler2[2];
+    u32 unk4; //TODO: fix type?  (script offset)
+    u32 unk8; //TODO: fix type?
+    u8 unkC;
+    u8 unkD;
+    u8 fillerE[2];
+    struct Unk10 unk10;
+    u16 unk1C;
+    u8 unk1E;
+    u8 filler1F[3];
+    s8 unk22[0x52];
+    u16 unk74;
+    u16 unk76;
+    u8 unk78;
+    u8 filler79;
+    u16 unk7A;
+    u16 unk7C;
+    u16 unk7E;
+    u16 unk80;
+    u16 unk82;
+    u8 unk84;
+    u8 unk85; //filler?
+    u8 unk86;
+};
+
+//overworld structs
 struct Map //MapHeader?
 {
     u16 id;
@@ -50,8 +89,8 @@ struct Overworld
     u8 unk1F1;
     u8 unk1F2;
     u8 unk1F3;
-    u8 **unk1F4[5]; //TODO:fix type?
-    u8 **unk208[5]; //TODO:fix type?
+    struct Unk10 *unk1F4[5];
+    struct Unk10 *unk208[5];
     u8 unk21C[16][2];
     u32 *unk23C;
     u8 unk240;
@@ -76,10 +115,10 @@ struct ObjectInitialState //object data?
     u8 unk10n : 1;
     u8 unk11;
 };
-
+//9AAE98 D0 A0 9A
 struct UnkOhk
 {
-    u8 **unk0;
+    struct Unk10 *unk0;
     u32 unk4;
 };
 
@@ -865,11 +904,11 @@ void sub_8055508(int); //todo: u32?
 void sub_800AD4C(void);
 void sub_80554C4(void);
 void sub_804ED08(void);
-void sub_805254C(u8**); //todo: fix type?
+void sub_805254C(struct Unk10 *); //todo: fix type?
 void sub_804F770(void);
 void sub_804E288(void);
 void sub_804F5D8(void);
-
+void sub_804DF5C(u8);
 
 void sub_804DB28(void) //world map stuff
 {
@@ -986,35 +1025,38 @@ void sub_804DCE8(void) //load overworld map(bg)
     }
 }
 
-extern u8 g82A8E4C[];
+extern u8 g82A8E4C[][0x1C0];
 /*
+static inline void test(u8 *src, u8 *dest)
+{
+    u32 i;
+
+    for (i = 0; i < 64; i++)
+        *dest++ = *src++;
+}
+
 void sub_804DE74(void)
 {
     u32 i, j;
-    u8 *objVram, *ight;
+    //u8 *objVram;
 
     for (i = 0; i < 15; i++)
         sub_804DF5C(gOverworld.unk21C[i][0]);
 
-    objVram = &gObjVram[gUnk08103264[15] * 32];
-    ight = g82A8E4C;
+    //objVram = &gObjVram[gUnk08103264[15] * 32];
+
     for (i = 0; i < 2; i++)
     {
-        for (j = 0; j < 64; j++)
-        {
-            *objVram = *ight;
-            ight++;
-            objVram++;
-        }
-        objVram += 0x3C0;
-        ight += 0x1C0;
+        test(g82A8E4C[i], &gObjVram[gUnk08103264[15] * 32]);
+
+
     }
     for (i = 0; i < 15; i++)
     {
 
     }
 }
-
+/*
 //r3 = gUnk8E19274
 
 //  9AAE98
@@ -1047,50 +1089,62 @@ dir * 3 + gUnk8E0DA12[gOverworld.objects[personId].unk1E]
 
 gUnk08103264[personId]*/
 
-struct Unk88
-{
-    u16 unk0;
-    u8 filler2[2];
-    u32 unk4; //TODO: fix type?  (script offset)
-    u32 unk8; //TODO: fix type?
-    u8 unkC;
-    u8 unkD;
-    u8 fillerE[2];
-    u8 *unk10; //TODO: fix type? (script starting pointer?)
-    u32 unk14; //TODO: fix type?
-    u32 unk18; //TODO: fix type?
-    u16 unk1C;
-    u8 unk1E;
 
-
-    u16 unk74;
-    u16 unk76;
-    u8 unk78;
-
-    u16 unk7A;
-    u16 unk7C;
-    u16 unk7E;
-    u16 unk80;
-    u16 unk82;
-    u8 unk84;
-    u8 unk85;
-    u8 unk86;
-};
 
 //3007e54
 //related to scripting (printing text etc) sub_80526D0
 //E2AEC2...
+/*
+void sub_8053274(struct Unk88 *script, struct Unk10 *unk10);
+
+void sub_805254C(struct Unk10 *unk10)
+{
+    struct Unk88 script;
+    script.unk0 = 0;
+    script.unk4 = 0;
+    script.unk8 = 0;
+    script.unkC = 0;
+    script.unkD = 1;
+    script.unk1C = 0;
+    script.unk78 = 0;
+    script.unk74 = 0;
+    script.unk76 = 0;
+    script.unk7A = 0x1D;
+    script.unk7C = 1;
+    script.unk7E = 3;
+    script.unk80 = 1;
+    script.unk82 = 0;
+    script.unk86 = 0;
+    sub_8053274(&script, unk10);
+    sub_80532A8(&script); //argument doesn't get used
+    sub_80526D0(&script);
+    script.unk4 = 0;
+    script.unk8 = 0;
+}
+
 
 /*
 void sub_80526D0(struct Unk88 *script)
 {
+    u8 var1;
     while (1)
     {
-        if (script->unk10[script->unk4] == 0)
+        if (script->unk10.unk0[script->unk4] == 0)
         {
+            struct Unk10 *var;
+            if (!script->unk1E)
+                var = script->unk10.unk4;
+            else
+                var = script->unk10.unk8;
 
+            script->unk10.unk0 = var->unk0;
+            script->unk10.unk4 = var->unk4;
+            script->unk10.unk8 = var->unk8;
+            script->unk4 = 0;
+            script->unk1E = 0;
+            sub_8053388(script);
         }
-        if (script->unk10[0] == 0x5D)
+        if (*script->unk10.unk0 == 0x5D)
             break;
         switch (script->unkC)
         {
@@ -1109,13 +1163,466 @@ void sub_80526D0(struct Unk88 *script)
         }
         if (script->unk86 == 1)
         {
-            REG_WIN1H = 0x3ED;
+            REG_WIN1H = 0x03ED;
+            REG_WIN1V = 0x739D;
+            (*(vu8 *)(REG_BASE + 0x49)) = 0x3F; //TODO
+            REG_WINOUT = 0x1D1E;
+            sub_804F544();
+            REG_BLDCNT = 0xDE;
+            REG_BLDY = 7;
         }
         sub_804F218();
     }
+    var1 = gOverworld.unk240 & 2;
+    if (var1)
+        return;
+    sub_804F770();
+    script->unk0 = var1;
+    script->unk84 = 0;
+    DisplayPortrait(script);
+    REG_WINOUT = 0x3D3E;
+    sub_804F508();
+    REG_BLDCNT = var1;
+}*/
+
+
+extern const u32 g8E0E4CC[];
+extern const u32 g8E0E53C[];
+extern const u8 *gUnk_8E00E30[];
+
+void DisplayPortrait(struct Unk88 *script);
+void sub_80532E8(struct Unk88 *script);
+void sub_8055534(u32); //int?
+void sub_8048D08(void);
+u16 sub_8020698(u8 *text);
+void sub_800BE0C(void);
+void DuelMain(void);
+void sub_804F544(void);
+void sub_8005B38(void);
+void sub_8034FEC(u32);
+void sub_8035020(u32);
+void sub_805345C(u8, u8, u8, u8, struct Unk88 *script);
+void sub_8034FE0(void);
+void sub_8053CF0(u8, u8, u8, u8, struct Unk88 *script);
+void sub_8053520(u8, u16, u16, u16, u8, u8, struct Unk88 *script);
+void sub_8053984(u8, u8, struct Unk88 *script);
+void sub_8053A74(u8, u8, struct Unk88 *script);
+void sub_8053D88(u8, u8, u8, struct Unk88 *script);
+void sub_8053884(u16, u8, struct Unk88 *script);
+void sub_8054AB0(u8, struct Unk88 *script);
+void sub_804F218(void);
+void AddCardToTrunk(u32 id, u8 qty);
+void sub_8008D88(u32 id);
+void sub_8053C18(struct Unk88 *script, u8);
+u16 sub_80520E0(u8 x, u8 y);
+int sub_80524A4(u16);
+void sub_8053E34(u8);
+void sub_8035038(u16);
+void sub_805339C(void);
+void sub_804F508(void);
+void sub_8053D50(u8, u8, struct Unk88 *script);
+void sub_8053B40(u8, u16, struct Unk88 *script);
+void sub_80553F8(struct Unk88 *script, u8);
+void sub_80512E0(struct Unk88 *script, u8);
+void sub_8020968(void *arg0, u16 arg1, u16 arg2);
+void sub_8053284(struct Unk88 *script);
+void PlayMusic();
+
+/*
+__attribute__((section("ight")))
+void sub_80527E8(struct Unk88 *script)
+{
+    u16 var;
+    int i;
+    u8 temp;
+    switch (script->unk10.unk0[script->unk4])
+    {
+    case 0x23:
+        switch (script->unk10.unk0[++script->unk4])
+        {
+        case '0':
+            script->unk4++;
+            if (script->unkD == 1)
+            {
+                if (script->unk8 > 0x1B)
+                    script->unk8 = 0x1B;
+                script->unk8 = g8E0E4CC[script->unk8];
+            }
+            else
+                script->unk8 = g8E0E53C[script->unk8];
+            break;
+        case '1':
+            script->unk82 = 0;
+            script->unkC = 1;
+            break;
+        case '2':
+            script->unkD = 0;
+            script->unk1E = 0;
+            script->unk4++;
+            script->unk8 = 1;
+            break;
+        case '3':
+            script->unk82 = 0;
+            script->unkD = 1;
+            script->unkC = 3;
+            script->unk4++;
+            break;
+        case '4':
+            script->unk0 = script->unk10.unk0[script->unk4 + 1];
+            script->unk84 = script->unk10.unk0[script->unk4 + 2];
+            script->unk85 = script->unk10.unk0[script->unk4 + 3];
+            DisplayPortrait(script);
+            script->unk4 += 4;
+            break;
+        case '5':
+            sub_80532E8(script);
+            script->unk4++;
+            break;
+        case '6':
+            sub_8055508(script->unk10.unk0[script->unk4 + 1]);
+            script->unk4 += 2;
+            break;
+        case '7':
+            script->unk1E = sub_8055554(script->unk10.unk0[script->unk4 + 1]);
+            script->unk4 += 2;
+            break;
+        case '8':
+            sub_8055534(script->unk10.unk0[script->unk4 + 1]);
+            script->unk4 += 2;
+            break;
+        case '9':
+            sub_8048D08();
+            script->unk4++;
+            break;
+        }
+        break;
+    case 0x24:
+        script->unk4 += sub_8020698(&script->unk10.unk0[script->unk4]);
+        break;
+    case 0x40:
+        switch (script->unk10.unk0[++script->unk4])
+        {
+        case '0': //duel
+            sub_800BE0C();
+            gDuelData.opponent = script->unk10.unk0[script->unk4 + 1];
+            DuelMain();
+            if (gDuelData.unk2B == 1)
+            {
+                script->unk1E = 0;
+                sub_804ED08();
+                REG_WIN1H = 0x03ED;
+                REG_WIN1V = 0x739D;
+                (*(vu8 *)(REG_BASE + 0x49)) = 0x3F; //TODO
+                REG_WINOUT = 0x1D1E;
+                sub_804F544();
+                REG_BLDCNT = 0xDE;
+                REG_BLDY = 7;
+            }
+            else
+                script->unk1E = 1;
+            script->unk4 += 2;
+            script->unk0 = 0;
+            break;
+        case '1':
+            sub_8005B38();
+            sub_804ED08();
+            script->unk4 += 2;
+            break;
+        case '2':
+            sub_800AD4C();
+            script->unk4++;
+            break;
+        case '3':
+            PlayMusic(script->unk10.unk0[script->unk4 + 1] +
+                       (script->unk10.unk0[script->unk4 + 2] << 8));
+            script->unk4 += 3;
+            break;
+        case '4':
+            gOverworld.music = script->unk10.unk0[script->unk4 + 1] +
+                              (script->unk10.unk0[script->unk4 + 2] << 8);
+            script->unk4 += 3;
+            break;
+        case '5':
+            sub_8034FEC(script->unk10.unk0[script->unk4 + 1] +
+                       (script->unk10.unk0[script->unk4 + 2] << 8));
+            script->unk4 += 3;
+            break;
+        case '6':
+            sub_8035020(script->unk10.unk0[script->unk4 + 1] +
+                       (script->unk10.unk0[script->unk4 + 2] << 8));
+            script->unk4 += 3;
+            break;
+        case '7':
+            sub_805345C(script->unk10.unk0[script->unk4 + 1],
+                        script->unk10.unk0[script->unk4 + 2],
+                        script->unk10.unk0[script->unk4 + 3],
+                        script->unk10.unk0[script->unk4 + 4],
+                        script);
+            script->unk4 += 5;
+            break;
+        case '8':
+            sub_8034FE0();
+            script->unk4++;
+            break;
+        case '9':
+            sub_8053CF0(script->unk10.unk0[script->unk4 + 1],
+                        script->unk10.unk0[script->unk4 + 2],
+                        script->unk10.unk0[script->unk4 + 3],
+                        script->unk10.unk0[script->unk4 + 4],
+                        script);
+            script->unk4 += 5;
+            break;
+        }
+        break;
+    case 0x5E:
+        switch (script->unk10.unk0[++script->unk4])
+        {
+        case '0':
+            sub_8053520(script->unk10.unk0[script->unk4 + 1],
+                        script->unk10.unk0[script->unk4 + 2],
+                        script->unk10.unk0[script->unk4 + 3],
+                        script->unk10.unk0[script->unk4 + 4],
+                        script->unk10.unk0[script->unk4 + 5],
+                        script->unk10.unk0[script->unk4 + 6],
+                        script);
+            script->unk4 += 7;
+            break;
+        case '1':
+            sub_8053984(script->unk10.unk0[script->unk4 + 1],
+                        script->unk10.unk0[script->unk4 + 2],
+                        script);
+            script->unk4 += 3;
+            break;
+        case '2':
+            sub_8053A74(script->unk10.unk0[script->unk4 + 1],
+                        script->unk10.unk0[script->unk4 + 2],
+                        script);
+            script->unk4 += 3;
+            break;
+        case '3':
+            sub_8053D88(script->unk10.unk0[script->unk4 + 1],
+                        script->unk10.unk0[script->unk4 + 2],
+                        script->unk10.unk0[script->unk4 + 3],
+                        script);
+            script->unk4 += 4;
+            break;
+        case '4':
+            i = (script->unk10.unk0[script->unk4 + 1] << 8) |
+                        script->unk10.unk0[script->unk4 + 2];
+            sub_8053884(i,
+                        script->unk10.unk0[script->unk4 + 3],
+                        script);
+            script->unk4 += 4;
+            break;
+        case '5':
+            sub_8054AB0(script->unk10.unk0[script->unk4 + 1], script);
+            script->unk4 += 2;
+            break;
+        case '6':
+            for (i = script->unk10.unk0[script->unk4 + 1]; i; i--)
+                sub_804F218();
+            script->unk4 += 2;
+            break;
+        case '7':
+            AddCardToTrunk(script->unk10.unk0[script->unk4 + 1] +
+                          (script->unk10.unk0[script->unk4 + 2] << 8),
+                           1);
+            script->unk4 += 3;
+            break;
+        case '8':
+            sub_8008D88(script->unk10.unk0[script->unk4 + 1] +
+                       (script->unk10.unk0[script->unk4 + 2] << 8));
+            script->unk4 += 3;
+            break;
+        case '9':
+            sub_8053C18(script, script->unk10.unk0[script->unk4 + 1]);
+            script->unk4 += 2;
+            break;
+        }
+        break;
+    case 0x7C:
+        switch (script->unk10.unk0[++script->unk4])
+        {
+        case '0':
+            var = sub_80520E0(gOverworld.objects[0].x, gOverworld.objects[0].y);
+            var = sub_80524A4(var);
+            script->unk1E = 1;
+            if (var == script->unk10.unk0[script->unk4 + 1] >> 2)
+                script->unk1E = 0;
+            script->unk4 += 2;
+            break;
+        case '1':
+            sub_8053E34(script->unk10.unk0[script->unk4 + 1]);
+            script->unk86 = 0;
+            script->unk4 += 2;
+            break;
+        case '2':
+            sub_8035038(script->unk10.unk0[script->unk4 + 1]);
+            script->unk4 += 2;
+            break;
+        case '3':
+            script->unk86 = 0;
+            sub_805339C();
+            REG_WINOUT = 0x3D3E;
+            sub_804F508();
+            REG_BLDCNT = 0;
+            script->unk4++;
+            break;
+        case '4':
+            sub_8053D50(script->unk10.unk0[script->unk4 + 1],
+                        script->unk10.unk0[script->unk4 + 2],
+                        script);
+            script->unk4 += 3;
+            break;
+        case '5':
+            gOverworld.unk240 |= 2;
+            sub_80523EC(script->unk10.unk0[script->unk4 + 1],
+                        script->unk10.unk0[script->unk4 + 2],
+                        script->unk10.unk0[script->unk4 + 3]);
+            script->unk4 += 5;
+            break;
+        case '6':
+            temp = script->unk10.unk0[script->unk4 + 1];
+            i = (script->unk10.unk0[script->unk4 + 2] << 8) +
+                        script->unk10.unk0[script->unk4 + 3];
+            sub_8053B40(temp,
+                        i,
+                        script);
+            script->unk4 += 4;
+            break;
+        case '7':
+            sub_80553F8(script, script->unk10.unk0[script->unk4 + 1]);
+            script->unk4 += 2;
+            break;
+        case '8':
+            sub_80512E0(script, script->unk10.unk0[script->unk4 + 1]);
+            script->unk4 += 2;
+            break;
+        }
+        break;
+    default:
+        if (script->unk10.unk0[script->unk4] & 0x80) //special chars
+        {
+            script->unk86 = 1;
+            var = script->unk10.unk0[script->unk4 + 1] << 8 | script->unk10.unk0[script->unk4];
+            script->unk4 += 2;
+        }
+        else //printable chars
+            switch (script->unk10.unk0[script->unk4])
+            {
+            case ' ': case '!': case '"': case '%': case '\'':
+            case ',': case '-': case '.': case ':': case ';': case '?':
+            case 'A' ... 'Z': case 'a' ... 'z':
+                script->unk86 = 1;
+                var = gUnk_8E00E30[script->unk10.unk0[script->unk4] - ' '][1] << 8 |
+                      gUnk_8E00E30[script->unk10.unk0[script->unk4] - ' '][0];
+                script->unk4++;
+                break;
+            default:
+                script->unk86 = 1;
+                var = gUnk_8E00E30[0][1] << 8 |
+                      gUnk_8E00E30[0][0];
+                script->unk4++;
+                break;
+            }
+        script->unk82 = 1;
+        if (script->unk8 & 1)
+            sub_8020968(&gBgVram.sbb1B[1][0] + ((script->unk8 >> 1) << 6), var, 0x101);
+        else
+            sub_8020968(&gBgVram.sbb1B[0][16] + ((script->unk8 >> 1) << 6), var, 0x101);
+        sub_8053284(script);
+    }
+}*/
+
+extern const u32 g82AD2D0[];
+extern u16 gUnk2020DFC;
+/*
+void sub_8052F60 (struct Unk88 *script) {
+  if (gUnk2020DFC & 259) {
+    PlayMusic(202);
+    script->unk4++;
+    if (script->unkD == 1)
+      script->unk8 = 0;
+    else
+      script->unk8 = 1;
+    script->unk1C = 0;
+    script->unkC = 0;
+    LZ77UnCompWram(g82AD2D0, gBgVram.sbb1B);
+    return;
+  }
+  switch (script->unk1C++) {
+    case 0:
+      if (script->unk8 & 1)
+        sub_8020968(&gBgVram.sbb1B[1][0] + ((script->unk8 >> 1) << 6), 0xA081, 0x101);
+      else
+        sub_8020968(&gBgVram.sbb1B[0][16] + ((script->unk8 >> 1) << 6), 0xA081, 0x101);
+      break;
+    case 15:
+      if (script->unk8 & 1)
+        sub_8020968(&gBgVram.sbb1B[1][0] + ((script->unk8 >> 1) << 6), 0x4081, 0x101);
+      else
+        sub_8020968(&gBgVram.sbb1B[0][16] + ((script->unk8 >> 1) << 6), 0x4081, 0x101);
+      break;
+    case 29:
+      script->unk1C = 0;
+      break;
+  }
+}
+
+void sub_8053040 (struct Unk88 *script) {
+  int temp;
+  if ((temp = gUnk2020DFC & 259)) {
+    PlayMusic(55);
+    script->unk4 += 2;
+    if (script->unkD == 1)
+      script->unk8 = 0;
+    else
+      script->unk8 = 1;
+    script->unk1C = 0;
+    script->unkC = 0;
+    LZ77UnCompWram(g82AD2D0, gBgVram.sbb1B);
+    return;
+  }
+  if (gUnk2020DFC & 96 && script->unk1E == 1) {
+    PlayMusic(54);
+    script->unk1E = temp;
+  }
+  if (gUnk2020DFC & 144 && !script->unk1E) {
+    PlayMusic(54);
+    script->unk1E = 1;
+  }
+  switch (script->unk1E) {
+    case 0:
+      sub_8020968(&gBgVram.sbb1B[0][16], 0x7281, 0x101);
+      sub_8020968(&gBgVram.sbb1B[28][16], 0x4081, 0x101);
+      break;
+    case 1:
+      sub_8020968(&gBgVram.sbb1B[0][16], 0x4081, 0x101);
+      sub_8020968(&gBgVram.sbb1B[28][16], 0x7281, 0x101);
+      break;
+  }
+}*/
+/*
+void sub_8053138 (struct Unk88 *script) {
+  script->unk86 = 1;
+  if (script->unk22[script->unk78] >= 0)
 
 }*/
 
+/*
+void sub_8053274 (struct Unk88 *script, struct Unk10 *unk10) {
+  script->unk10.unk0 = unk10->unk0;
+  script->unk10.unk4 = unk10->unk4;
+  script->unk10.unk8 = unk10->unk8;
+}
+
+void sub_8053388(struct Unk88 *script)
+{
+    if (script->unkD == 1)
+        script->unk8 = 0;
+    else
+        script->unk8 = 1;
+}*/
 
 //0xE2FB95 text data..
 //byte 0 and 1  (?)

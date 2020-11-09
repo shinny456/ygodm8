@@ -5,7 +5,7 @@ struct UnkStruct_2020E10
 {
     s16 unk0; //current card position in trunk?
     u8 unk2;
-    u8 unk3;            //show: nothing, atk/def, attribute(summon), cost, 
+    u8 unk3;            //show: nothing, atk/def, attribute(summon), cost,
     u8 unk4;
     u8 filler5[7];
     u16 unkC[TRUNK_SIZE - 1]; //trunk_layout?
@@ -50,7 +50,7 @@ u8 GetDeckCardQty(u16);
 bool8 sub_801F098(u16 id);
 
 void sub_8034A38(void);
-void sub_8034F60(u16);
+void PlayMusic(u16);
 
 
 extern u16 gKeyState; //0x02020DF8
@@ -180,7 +180,7 @@ void sub_8008DCC(u16 id)
 void SetTrunkCardsTo50(void)
 {
     u32 id;
-    
+
     gTrunkCardQty[0] = 0;
     for (id = 1; id < TRUNK_SIZE; id++)
         gTrunkCardQty[id] = 50;
@@ -197,12 +197,12 @@ void sub_8008E0C(void)
         if (GetDuelistLevel() < gCardInfo.cost)
             r5 = 1;
     }
-    else 
+    else
         r5 = 1;
 
     if (r5 == 1)
     {
-        sub_8034F60(57);
+        PlayMusic(57);
         while (gKeyState & 0x10 /*right*/)
             sub_8008220();
     }
@@ -210,7 +210,7 @@ void sub_8008E0C(void)
     {
         gTrunkCardQty[id]--;
         sub_801DB64(id);
-        sub_8034F60(55);
+        PlayMusic(55);
     }
 }
 
@@ -224,7 +224,7 @@ void sub_8008EA8(void)
 
     if (r5 == 1)
     {
-        sub_8034F60(57);
+        PlayMusic(57);
         while (gKeyState & 0x20 /*left*/)
             sub_8008220();
     }
@@ -234,7 +234,7 @@ void sub_8008EA8(void)
             gTrunkCardQty[id]++;
         else
             gTrunkCardQty[id] = 250;
-        sub_8034F60(55);
+        PlayMusic(55);
     }
 }
 
@@ -298,9 +298,9 @@ u8 sub_8009010(void)
 }
 
 u16 sub_800901C(u8 val)
-{ 
+{
     s16 r2 = gUnkStruct_2020E10.unk0 + val - 2;
-    
+
     if (r2 > 799)
         r2 -= 800;
     else if (r2 < 0)
@@ -345,14 +345,14 @@ void sub_80090E8(void)
 {
     if (--gUnkStruct_2020E10.unk0 < 0)
         gUnkStruct_2020E10.unk0 += TRUNK_SIZE - 1;
-    sub_8034F60(54);
+    PlayMusic(54);
 }
 
 void sub_8009110(void)
 {
     if (++gUnkStruct_2020E10.unk0 > TRUNK_SIZE - 2)
         gUnkStruct_2020E10.unk0 -= TRUNK_SIZE - 1;
-    sub_8034F60(54);
+    PlayMusic(54);
 }
 
 void sub_8009140(void)
@@ -360,7 +360,7 @@ void sub_8009140(void)
     gUnkStruct_2020E10.unk0 -= 50;
     if (gUnkStruct_2020E10.unk0 < 0)
         gUnkStruct_2020E10.unk0 += TRUNK_SIZE - 1;
-    sub_8034F60(54);
+    PlayMusic(54);
 }
 
 void sub_800916C(void)
@@ -368,14 +368,14 @@ void sub_800916C(void)
     gUnkStruct_2020E10.unk0 += 50;
     if (gUnkStruct_2020E10.unk0 > TRUNK_SIZE - 2)
         gUnkStruct_2020E10.unk0 -= TRUNK_SIZE - 1;
-    sub_8034F60(54);
+    PlayMusic(54);
 }
 
 void sub_800919C(void)
 {
     if (++gUnkStruct_2020E10.unk3 > 3)
         gUnkStruct_2020E10.unk3 = 0;
-    sub_8034F60(54);
+    PlayMusic(54);
 }
 
 void sub_80091C0(void)
@@ -383,7 +383,7 @@ void sub_80091C0(void)
     if (++gUnkStruct_2020E10.unk2 > 9)
         gUnkStruct_2020E10.unk2 = 0;
     sub_80091EC(gUnkStruct_2020E10.unk2);
-    sub_8034F60(54);
+    PlayMusic(54);
 }
 
 void sub_80091EC(u8 val)

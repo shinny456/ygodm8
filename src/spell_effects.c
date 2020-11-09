@@ -358,7 +358,7 @@ void EffectLegendarySword(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectSwordOfDarkDestruction(void)
@@ -387,7 +387,7 @@ void EffectSwordOfDarkDestruction(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectDarkEnergy(void)
@@ -416,7 +416,7 @@ void EffectDarkEnergy(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectAxeOfDespair(void)
@@ -445,7 +445,7 @@ void EffectAxeOfDespair(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectLaserCannonArmor(void)
@@ -474,7 +474,7 @@ void EffectLaserCannonArmor(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectInsectArmorWithLaserCannon(void)
@@ -503,7 +503,7 @@ void EffectInsectArmorWithLaserCannon(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectElfsLight(void)
@@ -532,7 +532,7 @@ void EffectElfsLight(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectBeastFangs(void)
@@ -561,7 +561,7 @@ void EffectBeastFangs(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectSteelShell(void)
@@ -590,7 +590,7 @@ void EffectSteelShell(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectVileGerms(void)
@@ -619,7 +619,7 @@ void EffectVileGerms(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectBlackPendant(void)
@@ -648,7 +648,7 @@ void EffectBlackPendant(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectSilverBowAndArrow(void)
@@ -677,7 +677,7 @@ void EffectSilverBowAndArrow(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectHornOfLight(void)
@@ -706,7 +706,7 @@ void EffectHornOfLight(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectHornOfTheUnicorn(void)
@@ -735,7 +735,7 @@ void EffectHornOfTheUnicorn(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectDragonTreasure(void)
@@ -764,7 +764,7 @@ void EffectDragonTreasure(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectElectroWhip(void)
@@ -793,7 +793,7 @@ void EffectElectroWhip(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectCyberShield(void)
@@ -822,7 +822,7 @@ void EffectCyberShield(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectMysticalMoon(void)
@@ -851,7 +851,7 @@ void EffectMysticalMoon(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectMalevolentNuzzler(void)
@@ -880,7 +880,7 @@ void EffectMalevolentNuzzler(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectVioletCrystal(void)
@@ -909,7 +909,7 @@ void EffectVioletCrystal(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectBookOfSecretArts(void)
@@ -938,7 +938,7 @@ void EffectBookOfSecretArts(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectInvigoration(void)
@@ -967,7 +967,7 @@ void EffectInvigoration(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectMachineConversionFactory(void)
@@ -996,7 +996,7 @@ void EffectMachineConversionFactory(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectRaiseBodyHeat(void)
@@ -1025,7 +1025,7 @@ void EffectRaiseBodyHeat(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectFollowWind(void)
@@ -1054,7 +1054,7 @@ void EffectFollowWind(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectPowerOfKaishin(void)
@@ -1083,7 +1083,7 @@ void EffectPowerOfKaishin(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectStopDefense(void)
@@ -1476,7 +1476,7 @@ void EffectMagicalLabyrinth(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectSalamandra(void)
@@ -1505,7 +1505,7 @@ void EffectSalamandra(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectKunaiWithChain(void)
@@ -1534,7 +1534,7 @@ void EffectKunaiWithChain(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectBrightCastle(void)
@@ -1563,7 +1563,7 @@ void EffectBrightCastle(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectCrushCard(void)
@@ -1937,7 +1937,7 @@ void EffectMegamorph(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectMetalmorph(void)
@@ -1993,7 +1993,7 @@ void EffectWingedTrumpeter(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectStainStorm(void)
@@ -2332,7 +2332,7 @@ void sub_804CC7C(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void EffectHeavyStorm(void)
@@ -2474,7 +2474,7 @@ void EffectCyclonLaser(void)
         }
     }
     else if (!gUnk_02021C08)
-        sub_8034F60(57);
+        PlayMusic(57);
 }
 
 void ActivateSpellEffect(void)
@@ -2607,8 +2607,8 @@ void EffectHarpiesFeatherDuster(void)
 //not sure what this does
 void EffectPotOfGreed(void)
 {
-    sub_8043CE4(WhoseTurn());
-    sub_8043CE4(WhoseTurn());
+    DrawCard(WhoseTurn());
+    DrawCard(WhoseTurn());
 
     ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 

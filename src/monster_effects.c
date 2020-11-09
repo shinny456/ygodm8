@@ -2107,7 +2107,7 @@ void EffectBerserkDragon(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
-        if (sub_8025544() == 1 || gZones[2][gMonEffect.zone]->id == CARD_NONE)
+        if (IsDuelOver() == 1 || gZones[2][gMonEffect.zone]->id == CARD_NONE)
             break;
 
         if (gZones[1][i]->id != CARD_NONE)
@@ -2211,7 +2211,7 @@ void EffectFairysGift(void)
 
 void EffectSkelengel(void)
 {
-    sub_8043CE4(WhoseTurn());
+    DrawCard(WhoseTurn());
 
     if (!gUnk_02021C08)
     {
@@ -2364,7 +2364,7 @@ void EffectMammothGraveyard(void)
 
 void EffectGoddessOfWhim(void)
 {
-    sub_8043CE4(WhoseTurn());
+    DrawCard(WhoseTurn());
     ClearZoneAndSendMonToGraveyard(gZones[2][gMonEffect.zone], 0);
 
     if (!gUnk_02021C08)

@@ -32,15 +32,17 @@ SECTIONS
     gDeckCapacity = 0x02021C1C;
     gDuelistLevel = 0x02021C20;
     gDeck = 0x02021C30;
+    g2021C8C = 0x02021C8C;
     gLanguage = 0x02021CF8;
     gUnk2021D00 = 0x02021D00;
     gUnk2021D04 = 0x02021D04;
-    gUnk02021D10 = 0x02021D10;
+    gDuelData = 0x02021D10;
     g2021D70 = 0x02021D70;
     g2021D80 = 0x02021D80;
     g2021D98 = 0x02021D98;
     g2021D9C = 0x02021D9C;
     g2021DA0 = 0x02021DA0;
+    g2021DB0 = 0x02021DB0;
     gDuelistStatus = 0x02021DB8;
     g2021DC0 = 0x02021DC0;
     gUnk2021DC8 = 0x02021DC8;
@@ -90,11 +92,16 @@ SECTIONS
         asm/code_8020698.o(.text);
         src/code3.o(.text);
         asm/code3.o(.text);
+        src/main_menu.o(.text);
+        asm/code3.o(.main_menu);
         src/monster_effects.o(.text)
         src/life_points.o(.text)
         src/spell_effects.o(.text)
         src/code4.o(.text);
         asm/code4.o(.text);
+        /*src/code4.o(ight);*/
+        asm/code4.o(ight);
+        asm/code4.o(.text2);
         src/spell_effects_util.o(.text);
         asm/code5.o(.text);
         src/trap_effects.o(.text);
@@ -203,13 +210,14 @@ SECTIONS
     g8106CE3 = 0x8106CE3;
     g8106D48 = 0x8106D48;
     g8106DAD = 0x8106DAD;
-
+    g82AD2D0 = 0x82AD2D0;
     g8E0FD4C = 0x8E0FD4C;
     g8E1165C = 0x8E1165C;
     g8E11664 = 0x8E11664;
     g8E1167C = 0x8E1167C;
     g8E11684 = 0x8E11684;
-
+    g8E0E4CC = 0x8E0E4CC;
+    g8E0E53C = 0x8E0E53C;
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :
     {
