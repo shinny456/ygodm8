@@ -30,9 +30,9 @@ extern s8 gUnk201CB39;
 u16 sub_800B594(u16, u8);
 u16 sub_800B560(u16, s8);
 u8 *sub_800BD14(u16);
-u64 sub_805C618(u16);
-u64 sub_805BEF4(u64, u64);
-u64 sub_805AFC0(u64);
+u64 __floatsidf(u16);
+u64 __muldf3(u64, u64);
+u64 __fixunsdfsi(u64);
 
 void sub_800B318(struct StatMod* ptr)
 {
@@ -168,10 +168,10 @@ u16 sub_800B594(u16 stat, u8 fieldMod)
     case 4:
         break;
     case 1:
-        stat = sub_805AFC0(sub_805BEF4(sub_805C618(stat), 0x666666663FE66666));
+        stat = __fixunsdfsi(__muldf3(__floatsidf(stat), 0x666666663FE66666));
         break;
     case 3:
-        stat = sub_805AFC0(sub_805BEF4(sub_805C618(stat), 0xCCCCCCCD3FF4CCCC));
+        stat = __fixunsdfsi(__muldf3(__floatsidf(stat), 0xCCCCCCCD3FF4CCCC));
         if (stat > 0xFFFD)
             stat = 0xFFFE;
     }
@@ -293,12 +293,12 @@ _0800B8A0:\n\
 	lsls r4, r4, #2\n\
 	adds r0, r6, #0\n\
 	adds r1, r4, #0\n\
-	bl sub_805B940\n\
+	bl __umodsi3\n\
 	lsls r0, r0, #0x10\n\
 	lsrs r0, r0, #0x10\n\
 	subs r0, r6, r0\n\
 	adds r1, r4, #0\n\
-	bl sub_805AF28\n\
+	bl _divsi3\n\
 	adds r4, r0, #0\n\
 	lsls r4, r4, #0x18\n\
 	lsrs r4, r4, #0x18\n\
@@ -313,12 +313,12 @@ _0800B8A0:\n\
 	movs r5, #0x64\n\
 	adds r0, r6, #0\n\
 	movs r1, #0x64\n\
-	bl sub_805B940\n\
+	bl __umodsi3\n\
 	lsls r0, r0, #0x10\n\
 	lsrs r0, r0, #0x10\n\
 	subs r0, r6, r0\n\
 	movs r1, #0x64\n\
-	bl sub_805AF28\n\
+	bl _divsi3\n\
 	lsls r0, r0, #0x18\n\
 	lsrs r7, r0, #0x18\n\
 	adds r0, r7, #0\n\
@@ -328,12 +328,12 @@ _0800B8A0:\n\
 	lsrs r6, r0, #0x10\n\
 	adds r0, r6, #0\n\
 	movs r1, #0xa\n\
-	bl sub_805B940\n\
+	bl __umodsi3\n\
 	lsls r0, r0, #0x10\n\
 	lsrs r0, r0, #0x10\n\
 	subs r0, r6, r0\n\
 	movs r1, #0xa\n\
-	bl sub_805AF28\n\
+	bl _divsi3\n\
 	lsls r0, r0, #0x18\n\
 	lsrs r5, r0, #0x18\n\
 	lsls r0, r5, #2\n\
@@ -960,8 +960,8 @@ struct Unk2021AF0
 
 extern struct Unk2021AF0 g2021AF0;
 extern u64 g8DFDB90[];
-u64 sub_805B0D4(u64, s32, s32);
-u64 sub_805B144(u64, s32, s32);
+u64 __muldi3(u64, s32, s32);
+u64 __udivdi3(u64, s32, s32);
 
 /*
 void sub_800BD44(void)
@@ -970,7 +970,7 @@ void sub_800BD44(void)
 
     if (val < 250)
     {
-        g2021AF0.unk0 = sub_805B144(sub_805B0D4(g8DFDB90[g2021AF0.unk10], 251 - g2021AF0.unk12, (251 - g2021AF0.unk12) >> 31), 250, 0);
+        g2021AF0.unk0 = __udivdi3(__muldi3(g8DFDB90[g2021AF0.unk10], 251 - g2021AF0.unk12, (251 - g2021AF0.unk12) >> 31), 250, 0);
         if (!g2021AF0.unk0)
             g2021AF0.unk0 = 1;
     }
@@ -1001,10 +1001,10 @@ void sub_800BD44(void)
 	asrs r3, r2, #0x1f\n\
 	ldr r1, [r0, #4]\n\
 	ldr r0, [r0]\n\
-	bl sub_805B0D4\n\
+	bl __muldi3\n\
 	movs r2, #0xfa\n\
 	movs r3, #0\n\
-	bl sub_805B144\n\
+	bl __udivdi3\n\
 	str r0, [r4]\n\
 	str r1, [r4, #4]\n\
 	ldr r0, [r4]\n\
@@ -1051,7 +1051,7 @@ void sub_800BDA0(void)
 	asrs r3, r2, #0x1f\n\
 	ldr r1, [r0, #4]\n\
 	ldr r0, [r0]\n\
-	bl sub_805B0D4\n\
+	bl __muldi3\n\
 	b _0800BDDC\n\
 	.align 2, 0\n\
 _0800BDC8: .4byte 0x02021AF0\n\
@@ -1066,7 +1066,7 @@ _0800BDD0:\n\
 _0800BDDC:\n\
 	ldr r2, _0800BE04\n\
 	ldr r3, _0800BE08\n\
-	bl sub_805B144\n\
+	bl __udivdi3\n\
 	str r0, [r4, #8]\n\
 	str r1, [r4, #0xc]\n\
 	ldr r0, [r4, #8]\n\

@@ -220,7 +220,7 @@ void sub_8040360(struct DuelCard*); //reset num perm powerups
 void sub_8040368(struct DuelCard*); //Inc num perm powerups
 
 void sub_804037C(struct DuelCard*); //dec num powerups?
-void sub_8040684(struct DuelCard*, s32);
+void SetPermStage(struct DuelCard*, s32);
 
 //change to bool32
 u32 sub_80555A4(u16);
@@ -264,9 +264,9 @@ s32 sub_803FCBC(u16);
 void sub_804034C(struct DuelCard*);
 void sub_8040394(struct DuelCard*, u8);
 
-void sub_80403E8(struct DuelCard*); //reset num temp powerups
+void ResetTempStage(struct DuelCard*); //reset num temp powerups
 
-s32 sub_8040688(struct DuelCard*);
+s32 PermStage(struct DuelCard*);
 s8 sub_804069C(struct DuelCard*); //getnumpowerups?
 
 void LockCard(struct DuelCard*); //lock card
@@ -402,7 +402,7 @@ void sub_803F8E0(int);
 void ActivateMonEffect(void);
 void ActivateSpellEffect(void);
 u8 sub_8021D00(u16 id);
-void sub_805D150(void*, void*, u32);
+//void memcpy(void*, void*, u32);
 
 
 struct DuelDeck

@@ -170,7 +170,7 @@ _08008DC4:\n\
 	");
 }
 
-void sub_8008DCC(u16 id)
+void RemoveCardFromDeckAndTrunk(u16 id)
 {
     gTrunkCardQty[id] = 0;
     sub_801D960(id);

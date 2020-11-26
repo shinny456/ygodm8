@@ -613,7 +613,7 @@ _0804E326:
 _0804E330:
 	movs r0, #0x37
 	bl PlayMusic
-	bl sub_8005B18
+	bl StartMenu
 	movs r0, #0x80
 	lsls r0, r0, #0x13
 	movs r1, #0
@@ -2824,7 +2824,7 @@ sub_804F78C: @ 0x0804F78C
 	mov sb, r0
 	mov r0, r8
 	movs r1, #0x1d
-	bl sub_805B940
+	bl __umodsi3
 	mov sl, r0
 _0804F7AC:
 	adds r1, r5, #0
@@ -3579,7 +3579,7 @@ _0804FD94:
 	ldr r4, _0804FE54
 	ldr r0, [sp]
 	movs r1, #3
-	bl sub_805AF28
+	bl _divsi3
 	adds r0, r0, r4
 	ldrb r0, [r0]
 	lsls r0, r0, #8
@@ -4913,7 +4913,7 @@ _08050872:
 _08050880:
 	adds r0, r5, #0
 	movs r1, #0x1d
-	bl sub_805AF28
+	bl _divsi3
 	add r0, sl
 	ldrb r0, [r0]
 	lsls r0, r0, #0x18
@@ -4925,7 +4925,7 @@ _08050880:
 _08050898:
 	adds r0, r5, #0
 	movs r1, #0x1d
-	bl sub_805AF28
+	bl _divsi3
 	adds r0, r0, r7
 	ldrb r0, [r0]
 	lsls r0, r0, #0x18
@@ -10327,7 +10327,7 @@ _080539D8:
 	bhi _080539F6
 	adds r0, r6, #0
 	movs r1, #0xf
-	bl sub_805B004
+	bl __modsi3
 	cmp r0, #0
 	bne _080539F6
 	ldr r0, _08053A68
@@ -10996,7 +10996,7 @@ _08053FF8:
 	adds r6, r7, #1
 	ldr r4, _08054038
 	adds r0, r4, #0
-	bl sub_805D1B0
+	bl strcpy
 	mov r3, sb
 	cmp r3, #0x1b
 	bgt _08054024
@@ -11014,7 +11014,7 @@ _08054024:
 	adds r0, r7, r0
 	ldr r1, _08054034
 	adds r1, r6, r1
-	bl sub_805D1B0
+	bl strcpy
 	b _08054044
 	.align 2, 0
 _08054034: .4byte 0x0201EF50
@@ -11022,7 +11022,7 @@ _08054038: .4byte 0x0201EFC0
 _0805403C:
 	ldr r0, _080540A8
 	ldr r1, _080540AC
-	bl sub_805D1B0
+	bl strcpy
 _08054044:
 	movs r4, #0
 	mov ip, r4
@@ -11912,7 +11912,7 @@ _08054718:
 	adds r6, r7, #1
 	ldr r4, _08054758
 	adds r0, r4, #0
-	bl sub_805D1B0
+	bl strcpy
 	mov r3, sb
 	cmp r3, #0x1b
 	bgt _08054744
@@ -11930,7 +11930,7 @@ _08054744:
 	adds r0, r7, r0
 	ldr r1, _08054754
 	adds r1, r6, r1
-	bl sub_805D1B0
+	bl strcpy
 	b _08054764
 	.align 2, 0
 _08054754: .4byte 0x0201EF50
@@ -11938,7 +11938,7 @@ _08054758: .4byte 0x0201EFC0
 _0805475C:
 	ldr r0, _080547C8
 	ldr r1, _080547CC
-	bl sub_805D1B0
+	bl strcpy
 _08054764:
 	movs r4, #0
 	mov ip, r4
@@ -13024,7 +13024,7 @@ _08055352:
 	adds r0, r5, r0
 	ldr r1, [r0]
 	adds r0, r6, #0
-	bl sub_805B004
+	bl __modsi3
 	ldr r1, [r4]
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -13040,7 +13040,7 @@ _08055352:
 	adds r5, r5, r0
 	ldr r1, [r5]
 	adds r0, r6, #0
-	bl sub_805B004
+	bl __modsi3
 	ldr r1, [r4]
 	lsls r0, r0, #1
 	adds r0, r0, r1

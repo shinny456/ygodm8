@@ -50,7 +50,7 @@ void sub_802549C(void);
 void sub_802703C(void);
 void sub_8040A40(void);
 void sub_8019D84(void);
-void sub_8026278(void);
+void ReturnMonstersToOwner(void);
 void sub_804060C(u8);
 void sub_80254F8(void);
 void sub_805872C(void);
@@ -127,7 +127,7 @@ void DuelMain (void) {
   else
     sub_8019D84();
   if (IsDuelOver() == TRUE) break;
-  sub_8026278();
+  ReturnMonstersToOwner();
   sub_804060C(2);
   sub_80254F8();
   sub_805872C();
@@ -534,7 +534,7 @@ void sub_8021D20 (void) {
     else
       sub_8021ED8();
     if (IsDuelOver() == TRUE) break;
-    sub_8026278();
+    ReturnMonstersToOwner();
     sub_804060C(2);
     sub_80254F8();
     sub_805872C();
@@ -864,17 +864,17 @@ void sub_8022A24(void);
 void sub_8022C10(int);
 void sub_8023998(void);
 int sub_8056208(void);
-bool8 sub_801DBBC(void);
-s32 sub_801DBE4(void);
+bool8 IsDeckFull(void);
+s32 IsCostWithinCapacity(void);
 void sub_8022B7C(u8);
 void sub_8022AA0(void);
 void sub_8023AE4(void);
 void sub_8023A98(void);
-void sub_8008548(void);
+void TrunkMenu(void);
 void sub_8022A94(u8);
 s32 sub_801D3FC(void);
 void sub_80226D8(void);
-void sub_801D1C0(void);
+void DeckMenu(void);
 u32 GetDeckCost(void);
 void sub_8023B30(void);
 void sub_8023C14(void);
@@ -905,12 +905,12 @@ void LinkDuelMenu (void) {
   while (1) {
   sub_8056208();
   if (g2021DA0.unk9 == 1)
-    if (sub_801DBBC() != 1) {
+    if (IsDeckFull() != 1) {
     sub_8022B7C(5);
     sub_8022AA0();
     PlayMusic(57);
     sub_8023A98();
-    } else if (sub_801DBE4() != 1) {
+    } else if (IsCostWithinCapacity() != 1) {
     sub_8022B7C(7);
     sub_8022AA0();
     PlayMusic(57);
@@ -918,7 +918,7 @@ void LinkDuelMenu (void) {
     } else break;
   else if (g2021DA0.unk9 == 2) { //TRUNK
     PlayMusic(55);
-    sub_8008548();
+    TrunkMenu();
     sub_8022B7C(0);
     sub_8022A24();
     sub_8022A94(0);
@@ -932,19 +932,19 @@ void LinkDuelMenu (void) {
     }
     else {
     PlayMusic(55);
-    sub_801D1C0();
+    DeckMenu();
     sub_8022B7C(0);
     sub_8022A24();
     sub_8022A94(1);
     sub_8023998();
     }
   else if (g2021DA0.unk9 == 4)
-    if (sub_801DBBC() != 1) {
+    if (IsDeckFull() != 1) {
     sub_8022B7C(5);
     sub_8022AA0();
     PlayMusic(57);
     sub_8023A98();
-    } else if (sub_801DBE4() != 1) {
+    } else if (IsCostWithinCapacity() != 1) {
     sub_8022B7C(7);
     sub_8022AA0();
     PlayMusic(57);

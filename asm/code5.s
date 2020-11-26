@@ -461,7 +461,7 @@ _08056270:
 	bls _08056270
 	adds r0, r4, #0
 	adds r1, r7, #1
-	bl sub_805B004
+	bl __modsi3
 	adds r0, r6, r0
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
@@ -485,7 +485,7 @@ sub_805629C: @ 0x0805629C
 	subs r4, r4, r5
 	adds r4, #1
 	adds r1, r4, #0
-	bl sub_805B004
+	bl __modsi3
 	adds r5, r5, r0
 	lsls r5, r5, #0x10
 	lsrs r5, r5, #0x10
@@ -2694,7 +2694,7 @@ sub_80572A8: @ 0x080572A8
 	bne _08057328
 	ldrh r0, [r1, #0x12]
 	movs r1, #0x64
-	bl sub_805B51C
+	bl __udivsi3
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	cmp r0, #0x63
@@ -2761,7 +2761,7 @@ sub_805733C: @ 0x0805733C
 	bne _080573BC
 	ldrh r0, [r1, #0x14]
 	movs r1, #0x64
-	bl sub_805B51C
+	bl __udivsi3
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	cmp r0, #0x63

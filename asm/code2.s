@@ -7028,7 +7028,7 @@ _0801366E:
 	cmp r0, #0
 	beq _080136A8
 	adds r0, r1, #0
-	bl sub_8040688
+	bl PermStage
 	cmp r0, #0
 	bge _080136A8
 	ldr r0, _08013694
@@ -14138,7 +14138,7 @@ sub_801BD50: @ 0x0801BD50
 	movs r7, #0
 	ldr r4, _0801BD78
 	movs r1, #3
-	bl sub_805B940
+	bl __umodsi3
 	adds r2, r0, #0
 _0801BD66:
 	ldr r1, [r4]
@@ -14544,7 +14544,7 @@ _0801C066:
 	subs r0, r0, r6
 	lsls r0, r0, #4
 	movs r1, #3
-	bl sub_805AF28
+	bl _divsi3
 	movs r2, #0x5e
 	subs r1, r2, r0
 	cmp r1, #0
@@ -14686,7 +14686,7 @@ _0801C18A:
 	adds r4, r7, r4
 	adds r4, r4, r5
 	movs r1, #0x28
-	bl sub_805B004
+	bl __modsi3
 	movs r1, #0x14
 	subs r1, r1, r0
 	strb r1, [r4, #5]
@@ -14869,7 +14869,7 @@ sub_801C334: @ 0x0801C334
 	push {r4, lr}
 	ldr r4, _0801C360
 	movs r1, #3
-	bl sub_805B940
+	bl __umodsi3
 	adds r0, r0, r4
 	ldrb r2, [r0]
 	movs r0, #0x10
@@ -16595,8 +16595,8 @@ sub_801D1A8: @ 0x0801D1A8
 	.align 2, 0
 _0801D1BC: .4byte gUnk_02021C10
 
-	THUMB_FUNC_START sub_801D1C0
-sub_801D1C0: @ 0x0801D1C0
+	THUMB_FUNC_START DeckMenu
+DeckMenu: @ 0x0801D1C0
 	push {r4, lr}
 	movs r4, #1
 	bl sub_801D3FC
@@ -16881,7 +16881,7 @@ _0801D3F0: .4byte gUnk2020DFC
 _0801D3F4: .4byte 0x02020DF4
 _0801D3F8: .4byte gKeyState
 
-	THUMB_FUNC_START sub_801D3FC
+	THUMB_FUNC_START sub_801D3FC @ternary?
 sub_801D3FC: @ 0x0801D3FC
 	push {lr}
 	bl GetDeckSize
@@ -17876,8 +17876,8 @@ _0801DBA4:
 	.align 2, 0
 _0801DBB8: .4byte gDeck+0xA
 
-	THUMB_FUNC_START sub_801DBBC
-sub_801DBBC: @ 0x0801DBBC
+	THUMB_FUNC_START IsDeckFull
+IsDeckFull: @ 0x0801DBBC
 	movs r1, #0
 	ldr r2, _0801DBD0
 _0801DBC0:
@@ -17901,8 +17901,8 @@ _0801DBE0:
 	bx lr
 	.byte 0x00, 0x00
 
-	THUMB_FUNC_START sub_801DBE4
-sub_801DBE4: @ 0x0801DBE4
+	THUMB_FUNC_START IsCostWithinCapacity
+IsCostWithinCapacity: @ 0x0801DBE4
 	push {lr}
 	bl GetDeckCapacity
 	ldr r1, _0801DBF8
@@ -22139,7 +22139,7 @@ _0801FE68:
 	movs r1, #0
 	adds r3, r5, #0
 	adds r2, r4, #0
-	bl sub_805B0D4
+	bl __muldi3
 	str r0, [r6]
 	str r1, [r6, #4]
 	bl sub_8026F60
@@ -22247,7 +22247,7 @@ _0801FF44:
 	ldr r3, _0801FF6C
 	ldr r2, _0801FF68
 _0801FF54:
-	bl sub_805B144
+	bl __udivdi3
 	strh r0, [r4, #4]
 _0801FF5A:
 	mov r0, sp

@@ -3011,236 +3011,6 @@ _08024584: .4byte 0x03001078
 
 .section .main_menu
 
-
-	THUMB_FUNC_START sub_80249C8
-sub_80249C8: @ 0x080249C8
-	push {r4, lr}
-	adds r2, r0, #0
-	ldrb r0, [r2, #5]
-	cmp r0, #0
-	bne _08024A1C
-	ldr r4, _08024A14
-	ldrb r0, [r2, #1]
-	adds r0, r0, r4
-	ldrb r1, [r0]
-	ldrb r0, [r2, #4]
-	adds r0, #1
-	strb r0, [r2, #4]
-	ldr r3, _08024A18
-	lsls r1, r1, #2
-	adds r1, r1, r3
-	ldrb r0, [r2, #4]
-	ldr r1, [r1]
-	lsls r0, r0, #3
-	adds r0, r0, r1
-	ldrb r0, [r0]
-	ldrb r1, [r2, #1]
-	cmp r0, #0
-	bne _080249F8
-	strb r0, [r2, #4]
-_080249F8:
-	ldrb r0, [r2, #5]
-	cmp r0, #0
-	bne _08024A1C
-	adds r0, r1, r4
-	ldrb r0, [r0]
-	lsls r0, r0, #2
-	adds r0, r0, r3
-	ldrb r1, [r2, #4]
-	ldr r0, [r0]
-	lsls r1, r1, #3
-	adds r1, r1, r0
-	ldrb r0, [r1]
-	b _08024A20
-	.align 2, 0
-_08024A14: .4byte 0x080C1D00
-_08024A18: .4byte 0x08FC488C
-_08024A1C:
-	ldrb r0, [r2, #5]
-	subs r0, #1
-_08024A20:
-	strb r0, [r2, #5]
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_START sub_8024A28
-sub_8024A28: @ 0x08024A28
-	movs r1, #0
-	strb r1, [r0]
-	movs r1, #1
-	strb r1, [r0, #1]
-	bx lr
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_8024A34
-sub_8024A34: @ 0x08024A34
-	ldr r2, _08024A40
-	ldrb r1, [r0, #1]
-	adds r1, r1, r2
-	ldrb r1, [r1]
-	strb r1, [r0, #1]
-	bx lr
-	.align 2, 0
-_08024A40: .4byte 0x080C1D3E
-
-	THUMB_FUNC_START sub_8024A44
-sub_8024A44: @ 0x08024A44
-	ldr r2, _08024A50
-	ldrb r1, [r0, #1]
-	adds r1, r1, r2
-	ldrb r1, [r1]
-	strb r1, [r0, #1]
-	bx lr
-	.align 2, 0
-_08024A50: .4byte 0x080C1D42
-
-	THUMB_FUNC_START sub_8024A54
-sub_8024A54: @ 0x08024A54
-	ldr r2, _08024A60
-	ldrb r1, [r0, #1]
-	adds r1, r1, r2
-	ldrb r1, [r1]
-	strb r1, [r0, #1]
-	bx lr
-	.align 2, 0
-_08024A60: .4byte 0x080C1D56
-
-	THUMB_FUNC_START sub_8024A64
-sub_8024A64: @ 0x08024A64
-	ldr r2, _08024A70
-	ldrb r1, [r0, #1]
-	adds r1, r1, r2
-	ldrb r1, [r1]
-	strb r1, [r0, #1]
-	bx lr
-	.align 2, 0
-_08024A70: .4byte 0x080C1D58
-
-	THUMB_FUNC_START sub_8024A74
-sub_8024A74: @ 0x08024A74
-	movs r1, #0
-	strb r1, [r0, #2]
-	movs r1, #3
-	strb r1, [r0, #3]
-	bx lr
-	.byte 0x00, 0x00
-	.byte 0x01, 0x1C, 0xC8, 0x78, 0x00, 0x28, 0x01, 0xD1, 0x03, 0x20, 0x00, 0xE0, 0x01, 0x38, 0xC8, 0x70
-	.byte 0x70, 0x47, 0x00, 0x00
-
-	THUMB_FUNC_START sub_8024A94
-sub_8024A94: @ 0x08024A94
-	adds r2, r0, #0
-	ldrb r0, [r2, #3]
-	cmp r0, #0
-	bne _08024AB0
-	ldr r1, _08024AAC
-	ldrb r0, [r2, #2]
-	adds r0, r0, r1
-	ldrb r0, [r0]
-	strb r0, [r2, #2]
-	movs r0, #3
-	b _08024AB2
-	.align 2, 0
-_08024AAC: .4byte 0x080C1D09
-_08024AB0:
-	subs r0, #1
-_08024AB2:
-	strb r0, [r2, #3]
-	bx lr
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_8024AB8
-sub_8024AB8: @ 0x08024AB8
-	adds r2, r0, #0
-	ldrb r0, [r2, #3]
-	cmp r0, #0
-	bne _08024AD4
-	ldr r1, _08024AD0
-	ldrb r0, [r2, #2]
-	adds r0, r0, r1
-	ldrb r0, [r0]
-	strb r0, [r2, #2]
-	movs r0, #3
-	b _08024AD6
-	.align 2, 0
-_08024AD0: .4byte 0x080C1D24
-_08024AD4:
-	subs r0, #1
-_08024AD6:
-	strb r0, [r2, #3]
-	bx lr
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_8024ADC
-sub_8024ADC: @ 0x08024ADC
-	ldr r2, _08024AF8
-	ldrb r1, [r0, #1]
-	adds r1, r1, r2
-	ldrb r1, [r1]
-	movs r2, #0
-	strb r2, [r0, #4]
-	ldr r2, _08024AFC
-	lsls r1, r1, #2
-	adds r1, r1, r2
-	ldr r1, [r1]
-	ldrb r1, [r1]
-	strb r1, [r0, #5]
-	bx lr
-	.align 2, 0
-_08024AF8: .4byte 0x080C1D00
-_08024AFC: .4byte 0x08FC488C
-	.byte 0x02, 0x1C, 0x50, 0x79, 0x00, 0x28, 0x11, 0xD1, 0x06, 0x49, 0x50, 0x78, 0x40, 0x18, 0x01, 0x78
-	.byte 0x05, 0x48, 0x89, 0x00, 0x09, 0x18, 0x10, 0x79, 0x09, 0x68, 0xC0, 0x00, 0x40, 0x18, 0x00, 0x78
-	.byte 0x05, 0xE0, 0x00, 0x00, 0x00, 0x1D, 0x0C, 0x08, 0x8C, 0x48, 0xFC, 0x08, 0x01, 0x38, 0x50, 0x71
-	.byte 0x70, 0x47, 0x00, 0x00, 0x02, 0x4A, 0x41, 0x78, 0x89, 0x18, 0x09, 0x78, 0x41, 0x70, 0x70, 0x47
-	.byte 0x62, 0x1D, 0x0C, 0x08, 0x02, 0x4A, 0x41, 0x78, 0x89, 0x18, 0x09, 0x78, 0x41, 0x70, 0x70, 0x47
-	.byte 0x65, 0x1D, 0x0C, 0x08
-
-	THUMB_FUNC_START sub_8024B54
-sub_8024B54: @ 0x08024B54
-	ldr r2, _08024B60
-	ldrb r1, [r0, #1]
-	adds r1, r1, r2
-	ldrb r1, [r1]
-	strb r1, [r0, #1]
-	bx lr
-	.align 2, 0
-_08024B60: .4byte 0x080C1D68
-
-	THUMB_FUNC_START sub_8024B64
-sub_8024B64: @ 0x08024B64
-	ldr r2, _08024B70
-	ldrb r1, [r0, #1]
-	adds r1, r1, r2
-	ldrb r1, [r1]
-	strb r1, [r0, #1]
-	bx lr
-	.align 2, 0
-_08024B70: .4byte 0x080C1D6B
-
-	THUMB_FUNC_START sub_8024B74
-sub_8024B74: @ 0x08024B74
-	ldr r2, _08024B80
-	ldrb r1, [r0, #1]
-	adds r1, r1, r2
-	ldrb r1, [r1]
-	strb r1, [r0, #1]
-	bx lr
-	.align 2, 0
-_08024B80: .4byte 0x080C1D6E
-
-	THUMB_FUNC_START sub_8024B84
-sub_8024B84: @ 0x08024B84
-	ldr r2, _08024B90
-	ldrb r1, [r0, #1]
-	adds r1, r1, r2
-	ldrb r1, [r1]
-	strb r1, [r0, #1]
-	bx lr
-	.align 2, 0
-_08024B90: .4byte 0x080C1D71
-
 	THUMB_FUNC_START sub_8024B94
 sub_8024B94: @ 0x08024B94
 	push {r4, r5, r6, r7, lr}
@@ -5814,107 +5584,9 @@ sub_8026070: @ 0x08026070
 	bx r0
 	.byte 0x00, 0x00
 
-	THUMB_FUNC_START IsGodCard
-IsGodCard: @ 0x0802607C
-	push {r4, lr}
-	lsls r0, r0, #0x10
-	lsrs r4, r0, #0x10
-	movs r2, #0
-	ldr r0, _080260A0
-	ldrh r1, [r0]
-	adds r3, r0, #0
-	cmp r1, #0
-	beq _080260B4
-	adds r1, r3, #0
-_08026090:
-	lsls r0, r2, #1
-	adds r0, r0, r1
-	ldrh r0, [r0]
-	cmp r0, r4
-	bne _080260A4
-	movs r0, #1
-	b _080260B6
-	.align 2, 0
-_080260A0: .4byte gGodCards
-_080260A4:
-	adds r0, r2, #1
-	lsls r0, r0, #0x18
-	lsrs r2, r0, #0x18
-	lsls r0, r2, #1
-	adds r0, r0, r3
-	ldrh r0, [r0]
-	cmp r0, #0
-	bne _08026090
-_080260B4:
-	movs r0, #0
-_080260B6:
-	pop {r4}
-	pop {r1}
-	bx r1
 
-	THUMB_FUNC_START IsWingedDragonOfRa
-IsWingedDragonOfRa: @ 0x080260BC
-	lsls r0, r0, #0x10
-	lsrs r1, r0, #0x10
-	adds r2, r1, #0
-	ldr r0, _080260D8
-	cmp r1, r0
-	beq _080260DC
-	cmp r1, #0xf0
-	beq _080260DC
-	movs r0, #0xce
-	lsls r0, r0, #1
-	cmp r2, r0
-	beq _080260DC
-	movs r0, #0
-	b _080260DE
-	.align 2, 0
-_080260D8: .4byte 0x00000129
-_080260DC:
-	movs r0, #1
-_080260DE:
-	bx lr
+.section .Split_2
 
-	THUMB_FUNC_START sub_80260E0
-sub_80260E0: @ 0x080260E0
-	push {lr}
-	bl sub_80260F4
-	bl sub_8026100
-	bl sub_802610C
-	pop {r0}
-	bx r0
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_80260F4
-sub_80260F4: @ 0x080260F4
-	push {lr}
-	movs r0, #0xea
-	bl sub_8008DCC
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_START sub_8026100
-sub_8026100: @ 0x08026100
-	push {lr}
-	movs r0, #0xee
-	bl sub_8008DCC
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_START sub_802610C
-sub_802610C: @ 0x0802610C
-	push {lr}
-	ldr r0, _08026128
-	bl sub_8008DCC
-	movs r0, #0xf0
-	bl sub_8008DCC
-	movs r0, #0xce
-	lsls r0, r0, #1
-	bl sub_8008DCC
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08026128: .4byte 0x00000129
 
 	THUMB_FUNC_START sub_802612C
 sub_802612C: @ 0x0802612C
@@ -6009,7 +5681,7 @@ _080261D8:
 _080261DC: .4byte gUnk2021DCC
 _080261E0: .4byte gKeyState
 
-	THUMB_FUNC_START sub_80261E4
+	THUMB_FUNC_START sub_80261E4 @decomped, go to bottom of file
 sub_80261E4: @ 0x080261E4
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
@@ -6059,12 +5731,12 @@ sub_80261E4: @ 0x080261E4
 	strb r0, [r1, #4]
 	ldr r5, [r4]
 	adds r0, r6, #0
-	bl sub_8040688
+	bl PermStage
 	adds r1, r0, #0
 	adds r0, r5, #0
-	bl sub_8040684
+	bl SetPermStage
 	ldr r0, [r4]
-	bl sub_80403E8
+	bl ResetTempStage
 	ldr r2, [r4]
 	ldrb r1, [r2, #5]
 	movs r0, #0x21
@@ -6080,8 +5752,8 @@ _08026266:
 	.align 2, 0
 _08026274: .4byte gZones+0x14
 
-	THUMB_FUNC_START sub_8026278
-sub_8026278: @ 0x08026278
+	THUMB_FUNC_START ReturnMonstersToOwner @decomped, go to bottom of file
+ReturnMonstersToOwner: @ 0x08026278
 	push {r4, r5, lr}
 	movs r4, #0
 	ldr r5, _080262AC
@@ -11502,7 +11174,7 @@ _0802902C:
 	ldr r0, [r4]
 	bl sub_8040360
 	ldr r0, [r4]
-	bl sub_80403E8
+	bl ResetTempStage
 	ldr r0, _080290AC
 	ldrb r0, [r0]
 	cmp r0, #0
@@ -11574,7 +11246,7 @@ _080290B4:
 	ldr r0, [r4]
 	bl sub_8040360
 	ldr r0, [r4]
-	bl sub_80403E8
+	bl ResetTempStage
 	ldr r0, _08029150
 	ldrb r0, [r0]
 	cmp r0, #0
@@ -12133,7 +11805,7 @@ _08029590:
 	adds r0, r5, #0
 	bl sub_8040360
 	adds r0, r5, #0
-	bl sub_80403E8
+	bl ResetTempStage
 	strb r4, [r5, #4]
 	adds r0, r5, #0
 	bl UnlockCard
@@ -12199,7 +11871,7 @@ _0802961C:
 	adds r0, r5, #0
 	bl sub_8040360
 	adds r0, r5, #0
-	bl sub_80403E8
+	bl ResetTempStage
 	strb r4, [r5, #4]
 	adds r0, r5, #0
 	bl UnlockCard
@@ -16038,7 +15710,7 @@ sub_802B604: @ 0x0802B604
 	adds r0, r4, #0
 	bl sub_8040360
 	adds r0, r4, #0
-	bl sub_80403E8
+	bl ResetTempStage
 	strb r6, [r4, #4]
 	adds r0, r4, #0
 	bl UnlockCard
@@ -23853,7 +23525,7 @@ sub_802FF78: @ 0x0802FF78
 	bne _0802FFDC
 	ldrh r0, [r1, #0x12]
 	movs r1, #0x64
-	bl sub_805B51C
+	bl __udivsi3
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	cmp r0, #0x63
@@ -23909,7 +23581,7 @@ sub_802FFF0: @ 0x0802FFF0
 	bne _08030054
 	ldrh r0, [r1, #0x14]
 	movs r1, #0x64
-	bl sub_805B51C
+	bl __udivsi3
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	cmp r0, #0x63
@@ -24222,7 +23894,7 @@ sub_803028C: @ 0x0803028C
 	movs r0, #0
 	ldrsh r1, [r4, r0]
 	adds r0, r2, #0
-	bl sub_805AF28
+	bl _divsi3
 	adds r0, #1
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
@@ -33636,7 +33308,7 @@ _08034F4E:
 	bne _08034F58
 _08034F52:
 	adds r0, r4, #0
-	bl sub_8059674
+	bl m4aSongNumStartOrChange
 _08034F58:
 	pop {r4}
 	pop {r0}
@@ -33677,17 +33349,17 @@ _08034F94: @ jump table
 	.4byte _08034FC8 @ case 5
 _08034FAC:
 	adds r0, r4, #0
-	bl sub_8059648
+	bl m4aSongNumStart
 	b _08034FCE
 _08034FB4:
 	ldr r0, _08034FBC
-	bl sub_8059E60
+	bl m4aMPlayStop
 	b _08034FCE
 	.align 2, 0
 _08034FBC: .4byte 0x02025840
 _08034FC0:
 	adds r0, r4, #0
-	bl sub_8059674
+	bl m4aSongNumStartOrChange
 	b _08034FCE
 _08034FC8:
 	adds r0, r4, #0
@@ -33730,7 +33402,7 @@ _08035012:
 	cmp r0, #0
 	bne _0803501C
 	adds r0, r1, #0
-	bl sub_8059714
+	bl m4aSongNumStop
 _0803501C:
 	pop {r0}
 	bx r0
@@ -33742,7 +33414,7 @@ sub_8035020: @ 0x08035020
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
 	ldr r0, _08035034
-	bl sub_80597E0
+	bl m4aMPlayFadeOut
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -33764,7 +33436,7 @@ sub_8035038: @ 0x08035038
 _0803504E:
 	ldr r0, [r4]
 	adds r1, r7, #0
-	bl sub_80597E0
+	bl m4aMPlayFadeOut
 	adds r4, #0xc
 	adds r5, #1
 	cmp r5, r6
@@ -33818,7 +33490,7 @@ _08035096:
 	bne _080350BE
 	adds r0, r3, #0
 	adds r1, r4, #0
-	bl sub_80597E0
+	bl m4aMPlayFadeOut
 _080350BE:
 	pop {r4}
 	pop {r0}
@@ -40628,7 +40300,7 @@ sub_8038860: @ 0x08038860
 	ldr r1, _080388EC
 	mov r0, sp
 	movs r2, #6
-	bl sub_805D150
+	bl memcpy
 	bl sub_80325D4
 	ldr r1, _080388F0
 	movs r0, #0
@@ -41196,7 +40868,7 @@ _08038CE8:
 	adds r0, r0, r7
 	ldr r1, [r0]
 	adds r0, r4, #0
-	bl sub_805AABC
+	bl _call_via_r1
 	adds r0, r4, #0
 	bl sub_803A34C
 	adds r5, #1
@@ -42562,7 +42234,7 @@ sub_8039870: @ 0x08039870
 	adds r1, r2, r3
 	ldrh r1, [r1]
 	subs r1, #1
-	bl sub_805AF28
+	bl _divsi3
 	adds r0, #0x18
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
@@ -42932,7 +42604,7 @@ _08039B90:
 	adds r0, r0, r6
 	ldr r1, [r0]
 	adds r0, r4, #0
-	bl sub_805AABC
+	bl _call_via_r1
 	adds r0, r4, #1
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x18
@@ -42978,7 +42650,7 @@ _08039BE4:
 	adds r0, r0, r6
 	ldr r1, [r0]
 	adds r0, r4, #0
-	bl sub_805AABC
+	bl _call_via_r1
 	adds r0, r4, #0
 	bl sub_803A34C
 	adds r0, r4, #1
@@ -43029,7 +42701,7 @@ _08039C70:
 	adds r0, r0, r6
 	ldr r1, [r0]
 	adds r0, r4, #0
-	bl sub_805AABC
+	bl _call_via_r1
 	adds r0, r4, #0
 	bl sub_803A34C
 	adds r0, r4, #1
@@ -43079,7 +42751,7 @@ _08039CF0:
 	adds r0, r0, r6
 	ldr r1, [r0]
 	adds r0, r4, #0
-	bl sub_805AABC
+	bl _call_via_r1
 	adds r0, r4, #0
 	bl sub_803A34C
 	adds r0, r4, #1
@@ -43473,7 +43145,7 @@ _0803A0B4:
 	adds r0, r0, r6
 	ldr r1, [r0]
 	adds r0, r4, #0
-	bl sub_805AABC
+	bl _call_via_r1
 	adds r0, r4, #0
 	bl sub_803A34C
 	adds r0, r4, #1
@@ -44215,7 +43887,7 @@ _0803A700:
 	adds r0, r0, r7
 	ldr r1, [r0]
 	adds r0, r4, #0
-	bl sub_805AABC
+	bl _call_via_r1
 	adds r0, r4, #0
 	bl sub_803BD18
 	adds r5, #1
@@ -45758,7 +45430,7 @@ sub_803B468: @ 0x0803B468
 	adds r1, r2, r3
 	ldrh r1, [r1]
 	subs r1, #1
-	bl sub_805AF28
+	bl _divsi3
 	adds r0, #0x18
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
@@ -46137,7 +45809,7 @@ _0803B78C:
 	adds r0, r0, r7
 	ldr r1, [r0]
 	adds r0, r4, #0
-	bl sub_805AABC
+	bl _call_via_r1
 _0803B7B6:
 	adds r0, r4, #1
 	lsls r0, r0, #0x18
@@ -46446,7 +46118,7 @@ _0803BB54:
 	adds r0, r0, r6
 	ldr r1, [r0]
 	adds r0, r4, #0
-	bl sub_805AABC
+	bl _call_via_r1
 	adds r0, r4, #0
 	bl sub_803BD18
 	adds r0, r4, #1
@@ -47137,7 +46809,7 @@ _0803C130:
 	adds r0, r0, r7
 	ldr r1, [r0]
 	adds r0, r4, #0
-	bl sub_805AABC
+	bl _call_via_r1
 	adds r0, r4, #0
 	bl sub_803D7F8
 	adds r5, #1
@@ -48725,7 +48397,7 @@ sub_803CEF8: @ 0x0803CEF8
 	adds r1, r2, r3
 	ldrh r1, [r1]
 	subs r1, #1
-	bl sub_805AF28
+	bl _divsi3
 	adds r0, #0x18
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
@@ -49104,7 +48776,7 @@ _0803D214:
 	adds r0, r0, r7
 	ldr r1, [r0]
 	adds r0, r4, #0
-	bl sub_805AABC
+	bl _call_via_r1
 _0803D23E:
 	adds r0, r4, #1
 	lsls r0, r0, #0x18
@@ -49436,7 +49108,7 @@ _0803D634:
 	adds r0, r0, r6
 	ldr r1, [r0]
 	adds r0, r4, #0
-	bl sub_805AABC
+	bl _call_via_r1
 	adds r0, r4, #0
 	bl sub_803D7F8
 	adds r0, r4, #1
@@ -54954,7 +54626,7 @@ ClearZone: @ 0x080402BC
 	adds r0, r4, #0
 	bl sub_8040360
 	adds r0, r4, #0
-	bl sub_80403E8
+	bl ResetTempStage
 	strb r5, [r4, #4]
 	ldrb r1, [r4, #5]
 	movs r0, #0x21
@@ -55060,8 +54732,8 @@ _080403B6:
 	.byte 0x01, 0xDD, 0x50, 0x1E, 0x98, 0x70, 0x48, 0x1E, 0x00, 0x06, 0x01, 0x0E, 0x00, 0x29, 0xF3, 0xD1
 	.byte 0x10, 0xBC, 0x01, 0xBC, 0x00, 0x47, 0x00, 0x00
 
-	THUMB_FUNC_START sub_80403E8
-sub_80403E8: @ 0x080403E8
+	THUMB_FUNC_START ResetTempStage
+ResetTempStage: @ 0x080403E8
 	movs r1, #0
 	strb r1, [r0, #3]
 	bx lr
@@ -55279,13 +54951,13 @@ _0804064C: .4byte gZones
 	.byte 0x05, 0xE0, 0x00, 0x00, 0xC0, 0x3E, 0x02, 0x02, 0x03, 0x20, 0x40, 0x42, 0x08, 0x40, 0x50, 0x71
 	.byte 0x70, 0x47, 0x00, 0x00
 
-	THUMB_FUNC_START sub_8040684
-sub_8040684: @ 0x08040684
+	THUMB_FUNC_START SetPermStage
+SetPermStage: @ 0x08040684
 	strb r1, [r0, #2]
 	bx lr
 
-	THUMB_FUNC_START sub_8040688
-sub_8040688: @ 0x08040688
+	THUMB_FUNC_START PermStage
+PermStage: @ 0x08040688
 	ldrb r0, [r0, #2]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -55602,12 +55274,12 @@ CopyCard: @ 0x08040928
 	ldrh r0, [r4]
 	strh r0, [r5]
 	adds r0, r4, #0
-	bl sub_8040688
+	bl PermStage
 	adds r1, r0, #0
 	adds r0, r5, #0
-	bl sub_8040684
+	bl SetPermStage
 	adds r0, r5, #0
-	bl sub_80403E8
+	bl ResetTempStage
 	ldrb r0, [r4, #4]
 	strb r0, [r5, #4]
 	ldrb r3, [r4, #5]
@@ -56723,12 +56395,12 @@ _080412F0:
 	ldr r4, [r5, #4]
 	adds r0, r4, #0
 	movs r1, #0x1c
-	bl sub_805B940
+	bl __umodsi3
 	cmp r0, #0
 	beq _08041316
 	adds r0, r4, #0
 	movs r1, #0x1c
-	bl sub_805B51C
+	bl __udivsi3
 	adds r0, #1
 	lsls r1, r0, #3
 	subs r1, r1, r0
@@ -57241,7 +56913,7 @@ _08041784:
 	lsrs r4, r0, #0x10
 	ldr r6, _080417D0
 	adds r0, r6, #0
-	bl sub_805D1B0
+	bl strcpy
 	mov r2, sb
 	cmp r2, #0x1b
 	bhi _080417BC
@@ -57263,7 +56935,7 @@ _080417BC:
 	adds r0, r5, r0
 	ldr r1, _080417CC
 	adds r1, r4, r1
-	bl sub_805D1B0
+	bl strcpy
 	b _080417DC
 	.align 2, 0
 _080417CC: .4byte 0x0201EE70
@@ -57271,7 +56943,7 @@ _080417D0: .4byte 0x0201EEE0
 _080417D4:
 	ldr r0, _08041804
 	ldr r1, _08041808
-	bl sub_805D1B0
+	bl strcpy
 _080417DC:
 	ldr r1, _08041804
 	ldrb r4, [r7, #0x1c]
@@ -61682,7 +61354,7 @@ sub_8043BC8: @ 0x08043BC8
 	lsls r0, r0, #2
 	adds r0, r0, r5
 	ldr r0, [r0]
-	bl sub_80403E8
+	bl ResetTempStage
 	ldrb r1, [r4, #1]
 	lsls r0, r1, #2
 	adds r0, r0, r1
@@ -63522,7 +63194,7 @@ sub_8044B90: @ 0x08044B90
 	ldr r1, _08044C04
 	mov r0, sp
 	movs r2, #5
-	bl sub_805D150
+	bl memcpy
 	movs r6, #0
 	ldr r0, _08044C08
 	mov r8, r0
@@ -64734,18 +64406,30 @@ sub_8045718: @ 0x08045718
 
 
 /*
-extern u16 gGodCards[];
 
-bool32 IsGodCard(u16 id)
-{
-    u8 i;
-
-    for (i = 0; gGodCards[i] != CARD_NONE; i++)
-        if (gGodCards[i] == id)
-            return TRUE;
-
-    return FALSE;
+void sub_80261E4 (struct DuelCard *zone) {
+  if (NumEmptyZonesInRow(gZones[1]) != 0) {
+    u8 emptyZoneId = EmptyZoneInRow(gZones[1]);
+    gZones[1][emptyZoneId]->id = zone->id;
+    gZones[1][emptyZoneId]->isFaceUp = TRUE;
+    gZones[1][emptyZoneId]->isLocked = FALSE;
+    gZones[1][emptyZoneId]->isDefending = FALSE;
+    gZones[1][emptyZoneId]->unkTwo = zone->unkTwo;
+    gZones[1][emptyZoneId]->unk4 = 2;
+    SetPermStage(gZones[1][emptyZoneId], PermStage(zone));
+    ResetTempStage(gZones[1][emptyZoneId]);
+    gZones[1][emptyZoneId]->willChangeSides = FALSE;
+  }
+  ClearZone(zone);
 }
+
+void ReturnMonstersToOwner (void) {
+  u8 i;
+  for (i = 0; i < 5; i++)
+    if (gZones[2][i]->id != CARD_NONE && gZones[2][i]->willChangeSides)
+      sub_80261E4(gZones[2][i]);
+}
+
 
 s32 sub_8043418(struct DuelCard** monZones, u16 id) num cards excluding god cards
 {

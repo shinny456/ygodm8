@@ -162,7 +162,7 @@ void EffectTrapMaster(void)
         gZones[3][zone]->unkTwo = 0;
         gZones[3][zone]->unk4 = 0;
         sub_8040360(gZones[3][zone]);
-        sub_80403E8(gZones[3][zone]);
+        ResetTempStage(gZones[3][zone]);
         gZones[3][zone]->willChangeSides = FALSE;
     }
 
@@ -259,7 +259,7 @@ void EffectSpiritOfTheBooks(void)
         gZones[gMonEffect.row][zone]->unkTwo = 0;
         gZones[gMonEffect.row][zone]->unk4 = 0;
         sub_8040360(gZones[gMonEffect.row][zone]);
-        sub_80403E8(gZones[gMonEffect.row][zone]);
+        ResetTempStage(gZones[gMonEffect.row][zone]);
         gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
     }
 
@@ -325,7 +325,7 @@ void EffectToadMaster(void)
         gZones[gMonEffect.row][zone]->unkTwo = 0;
         gZones[gMonEffect.row][zone]->unk4 = 0;
         sub_8040360(gZones[gMonEffect.row][zone]);
-        sub_80403E8(gZones[gMonEffect.row][zone]);
+        ResetTempStage(gZones[gMonEffect.row][zone]);
         gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
     }
 
@@ -517,7 +517,7 @@ void EffectAlphaTheMagnetWarrior(void)
            gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
            gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
            sub_8040360(gZones[gMonEffect.row][gMonEffect.zone]);
-           sub_80403E8(gZones[gMonEffect.row][gMonEffect.zone]);
+           ResetTempStage(gZones[gMonEffect.row][gMonEffect.zone]);
            gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
            ClearZone(gZones[gMonEffect.row][sub_8043694(gZones[gMonEffect.row], BETA_THE_MAGNET_WARRIOR)]);
            ClearZone(gZones[gMonEffect.row][sub_8043694(gZones[gMonEffect.row], GAMMA_THE_MAGNET_WARRIOR)]);
@@ -544,7 +544,7 @@ void EffectBetaTheMagnetWarrior(void)
            gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
            gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
            sub_8040360(gZones[gMonEffect.row][gMonEffect.zone]);
-           sub_80403E8(gZones[gMonEffect.row][gMonEffect.zone]);
+           ResetTempStage(gZones[gMonEffect.row][gMonEffect.zone]);
            gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
            ClearZone(gZones[gMonEffect.row][sub_8043694(gZones[gMonEffect.row], ALPHA_THE_MAGNET_WARRIOR)]);
            ClearZone(gZones[gMonEffect.row][sub_8043694(gZones[gMonEffect.row], GAMMA_THE_MAGNET_WARRIOR)]);
@@ -571,7 +571,7 @@ void EffectGammaTheMagnetWarrior(void)
            gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
            gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
            sub_8040360(gZones[gMonEffect.row][gMonEffect.zone]);
-           sub_80403E8(gZones[gMonEffect.row][gMonEffect.zone]);
+           ResetTempStage(gZones[gMonEffect.row][gMonEffect.zone]);
            gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
            ClearZone(gZones[gMonEffect.row][sub_8043694(gZones[gMonEffect.row], ALPHA_THE_MAGNET_WARRIOR)]);
            ClearZone(gZones[gMonEffect.row][sub_8043694(gZones[gMonEffect.row], BETA_THE_MAGNET_WARRIOR)]);
@@ -598,7 +598,7 @@ void EffectValkyrionTheMagnaWarrior(void)
         gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
         gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
         sub_8040360(gZones[gMonEffect.row][gMonEffect.zone]);
-        sub_80403E8(gZones[gMonEffect.row][gMonEffect.zone]);
+        ResetTempStage(gZones[gMonEffect.row][gMonEffect.zone]);
         gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
 
         zone = sub_8043694(gZones[gMonEffect.row], CARD_NONE);
@@ -608,7 +608,7 @@ void EffectValkyrionTheMagnaWarrior(void)
         gZones[gMonEffect.row][zone]->isDefending = FALSE;
         gZones[gMonEffect.row][zone]->unkTwo = 0;
         sub_8040360(gZones[gMonEffect.row][zone]);
-        sub_80403E8(gZones[gMonEffect.row][zone]);
+        ResetTempStage(gZones[gMonEffect.row][zone]);
         gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
 
         zone = sub_8043694(gZones[gMonEffect.row], CARD_NONE);
@@ -618,7 +618,7 @@ void EffectValkyrionTheMagnaWarrior(void)
         gZones[gMonEffect.row][zone]->isDefending = FALSE;
         gZones[gMonEffect.row][zone]->unkTwo = 0;
         sub_8040360(gZones[gMonEffect.row][zone]);
-        sub_80403E8(gZones[gMonEffect.row][zone]);
+        ResetTempStage(gZones[gMonEffect.row][zone]);
         gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
     }
 
@@ -805,7 +805,7 @@ void EffectAncientLamp(void)
         gZones[gMonEffect.row][zone]->unkTwo = 0;
         gZones[gMonEffect.row][zone]->unk4 = 0;
         sub_8040360(gZones[gMonEffect.row][zone]);
-        sub_80403E8(gZones[gMonEffect.row][zone]);
+        ResetTempStage(gZones[gMonEffect.row][zone]);
         gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
     }
 
@@ -981,7 +981,7 @@ _0804733A:\n\
 	adds r0, r6, #0\n\
 	bl sub_8040360\n\
 	adds r0, r6, #0\n\
-	bl sub_80403E8\n\
+	bl ResetTempStage\n\
 	ldrb r1, [r6, #5]\n\
 	movs r2, #3\n\
 	rsbs r2, r2, #0\n\
@@ -1047,7 +1047,7 @@ void EffectKingsKnight(void)
         gZones[2][zone]->unkTwo = 0;
         gZones[2][zone]->unkThree = 0;
         sub_8040360(gZones[2][zone]);
-        sub_80403E8(gZones[2][zone]);
+        ResetTempStage(gZones[2][zone]);
         gZones[2][zone]->unk4 = 0;
         gZones[2][zone]->willChangeSides = FALSE;
     }
@@ -1082,7 +1082,7 @@ void sub_804745C(void)
             gZones[2][gMonEffect.zone]->unkTwo = 0;
             gZones[2][gMonEffect.zone]->unkThree = 0;
             sub_8040360(gZones[2][gMonEffect.zone]);
-            sub_80403E8(gZones[2][gMonEffect.zone]);
+            ResetTempStage(gZones[2][gMonEffect.zone]);
             gZones[2][gMonEffect.zone]->unk4 = 0;
             gZones[2][gMonEffect.zone]->willChangeSides = FALSE;
         }
@@ -1166,7 +1166,7 @@ _08047498:\n\
 	adds r0, r4, #0\n\
 	bl sub_8040360\n\
 	adds r0, r4, #0\n\
-	bl sub_80403E8\n\
+	bl ResetTempStage\n\
 	strb r5, [r4, #4]\n\
 	ldrb r1, [r4, #5]\n\
 	movs r0, #0x21\n\
@@ -1298,7 +1298,7 @@ _080475B0:\n\
 	adds r0, r4, #0\n\
 	bl sub_8040360\n\
 	adds r0, r4, #0\n\
-	bl sub_80403E8\n\
+	bl ResetTempStage\n\
 	strb r5, [r4, #4]\n\
 	ldrb r1, [r4, #5]\n\
 	movs r0, #0x21\n\
@@ -1426,7 +1426,7 @@ _080476B8:\n\
 	adds r0, r4, #0\n\
 	bl sub_8040360\n\
 	adds r0, r4, #0\n\
-	bl sub_80403E8\n\
+	bl ResetTempStage\n\
 	strb r5, [r4, #4]\n\
 	ldrb r1, [r4, #5]\n\
 	movs r0, #0x21\n\
@@ -1867,7 +1867,7 @@ void EffectPuppetMaster(void)
         gZones[2][zone]->unkTwo = 0;
         gZones[2][zone]->unk4 = 2;
         sub_8040360(gZones[2][zone]);
-        sub_80403E8(gZones[2][zone]);
+        ResetTempStage(gZones[2][zone]);
         gZones[2][zone]->willChangeSides = FALSE;
 
         if (NumEmptyZonesInRow(gZones[2]) != 0)
@@ -1881,7 +1881,7 @@ void EffectPuppetMaster(void)
             gZones[2][zone]->unkTwo = 0;
             gZones[2][zone]->unk4 = 2;
             sub_8040360(gZones[2][zone]);
-            sub_80403E8(gZones[2][zone]);
+            ResetTempStage(gZones[2][zone]);
             gZones[2][zone]->willChangeSides = FALSE;
 
             if (NumEmptyZonesInRow(gZones[2]) != 0)
@@ -1895,7 +1895,7 @@ void EffectPuppetMaster(void)
                 gZones[2][zone]->unkTwo = 0;
                 gZones[2][zone]->unk4 = 2;
                 sub_8040360(gZones[2][zone]);
-                sub_80403E8(gZones[2][zone]);
+                ResetTempStage(gZones[2][zone]);
                 gZones[2][zone]->willChangeSides = FALSE;
             }
         }
@@ -1982,7 +1982,7 @@ _08047A4C:\n\
 	adds r0, r4, #0\n\
 	bl sub_8040360\n\
 	adds r0, r4, #0\n\
-	bl sub_80403E8\n\
+	bl ResetTempStage\n\
 	ldrb r1, [r4, #5]\n\
 	movs r7, #0x21\n\
 	rsbs r7, r7, #0\n\
@@ -2015,7 +2015,7 @@ _08047A4C:\n\
 	adds r0, r4, #0\n\
 	bl sub_8040360\n\
 	adds r0, r4, #0\n\
-	bl sub_80403E8\n\
+	bl ResetTempStage\n\
 	ldrb r1, [r4, #5]\n\
 	adds r0, r7, #0\n\
 	ands r0, r1\n\
@@ -2046,7 +2046,7 @@ _08047A4C:\n\
 	adds r0, r4, #0\n\
 	bl sub_8040360\n\
 	adds r0, r4, #0\n\
-	bl sub_80403E8\n\
+	bl ResetTempStage\n\
 	ldrb r1, [r4, #5]\n\
 	adds r0, r7, #0\n\
 	ands r0, r1\n\

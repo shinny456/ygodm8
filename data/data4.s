@@ -8136,11 +8136,11 @@ gUnk_8E01364:
 
     .global gUnk_8E01368
 gUnk_8E01368:
-    .4byte gUnk_201C800
+    .4byte gUnk_2018800+0x4000
 
     .global gUnk_8E0136C
 gUnk_8E0136C:
-    .4byte gUnk_201C900
+    .4byte gUnk_2018800+0x4100
 
     .global gUnk_8E01370
 gUnk_8E01370:

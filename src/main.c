@@ -10,7 +10,7 @@ extern u8 gLanguage;
 void sub_8057854(void);
 void sub_80082C0(void);
 void sub_80595C4(void);
-void sub_8059B60(u32);
+void m4aSoundMode(u32);
 void sub_800AEC4(void);
 void sub_800AD24(void);
 void sub_80561FC(void);
@@ -33,7 +33,7 @@ int AgbMain(void)
     REG_IME = 1;
     REG_DISPCNT = DISPCNT_FORCED_BLANK;
     sub_80595C4();
-    sub_8059B60(0x0097FC00);
+    m4aSoundMode(0x0097FC00);
     sub_800AEC4();
     sub_800AD24();
     sub_80561FC();

@@ -147,9 +147,9 @@ sub_805882C: @ 0x0805882C
 	lsls r0, r0, #0xf
 	b _08058858
 	.align 2, 0
-_08058840: .4byte 0x08058761
+_08058840: .4byte sub_8058760
 _08058844: .4byte 0x0201F0D0
-_08058848: .4byte 0x080587A1
+_08058848: .4byte sub_80587A0
 _0805884C:
 	ldrh r0, [r2]
 	strh r0, [r3]
@@ -176,7 +176,7 @@ _08058858:
 	.align 2, 0
 _08058878: .4byte 0x020245AC
 _0805887C: .4byte 0x0201F0D1
-_08058880: .4byte 0x080587E1
+_08058880: .4byte sub_80587E0
 _08058884: .4byte 0x0201F030
 _08058888: .4byte 0x0805882D
 _0805888C:
@@ -231,7 +231,7 @@ _080588D6:
 	adds r0, r6, #0
 	adds r1, r5, #0
 	adds r2, r4, #0
-	bl sub_805AAC4
+	bl _call_via_r3
 	adds r3, r0, #0
 	cmp r3, #0
 	bne _080588D0
@@ -243,6 +243,12 @@ _080588F8:
 	.align 2, 0
 _08058900: .4byte 0x020245B0
 
+
+
+
+
+
+
 	THUMB_FUNC_START sub_8058904
 sub_8058904: @ 0x08058904
 	add r2, pc, #0x0
@@ -250,8 +256,8 @@ sub_8058904: @ 0x08058904
 	.byte 0x90, 0x21, 0x83, 0xE0, 0x00, 0x00, 0x83, 0xE2
 	.byte 0x1E, 0xFF, 0x2F, 0xE1
 
-	THUMB_FUNC_START sub_8058914
-sub_8058914: @ 0x08058914
+	THUMB_FUNC_START SoundMain
+SoundMain: @ 0x08058914
 	ldr r0, _08058980
 	ldr r0, [r0]
 	ldr r2, _08058984
@@ -699,8 +705,8 @@ sub_8058F3C: @ 0x08058F3C
 	strb r3, [r1]
 	bx ip
 
-	THUMB_FUNC_START sub_8058F50
-sub_8058F50: @ 0x08058F50
+	THUMB_FUNC_START ply_port
+ply_port: @ 0x08058F50
 	mov ip, lr
 	ldr r2, [r1, #0x40]
 	ldrb r3, [r2]
@@ -713,8 +719,8 @@ sub_8058F50: @ 0x08058F50
 	.align 2, 0
 _08058F64: .4byte 0x04000060
 
-	THUMB_FUNC_START sub_8058F68
-sub_8058F68: @ 0x08058F68
+	THUMB_FUNC_START m4aSoundVSync
+m4aSoundVSync: @ 0x08058F68
 	ldr r0, _08059214
 	ldr r0, [r0]
 	ldr r2, _08059218
@@ -1310,8 +1316,8 @@ _0805959A:
 _0805959C: .4byte 0x68736D53
 _080595A0: .4byte 0x7FFFFFFF
 
-	THUMB_FUNC_START sub_80595A4
-sub_80595A4: @ 0x080595A4
+	THUMB_FUNC_START MPlayFadeOut
+MPlayFadeOut: @ 0x080595A4
 	adds r2, r0, #0
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
@@ -1344,7 +1350,7 @@ sub_80595C4: @ 0x080595C4
 	ldr r0, _08059628
 	bl sub_8059880
 	ldr r0, _0805962C
-	bl sub_8059B60
+	bl m4aSoundMode
 	ldr r0, _08059630
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
@@ -1381,16 +1387,16 @@ _08059630: .4byte 0x00000012
 _08059634: .4byte 0x08AFBD0C
 _08059638: .4byte 0x02025AC0
 
-	THUMB_FUNC_START sub_805963C
-sub_805963C: @ 0x0805963C
+	THUMB_FUNC_START m4aSoundMain
+m4aSoundMain: @ 0x0805963C
 	push {lr}
-	bl sub_8058914
+	bl SoundMain
 	pop {r0}
 	bx r0
 	.byte 0x00, 0x00
 
-	THUMB_FUNC_START sub_8059648
-sub_8059648: @ 0x08059648
+	THUMB_FUNC_START m4aSongNumStart
+m4aSongNumStart: @ 0x08059648
 	push {lr}
 	lsls r0, r0, #0x10
 	ldr r2, _0805966C
@@ -1412,8 +1418,8 @@ sub_8059648: @ 0x08059648
 _0805966C: .4byte 0x08AFBD0C
 _08059670: .4byte 0x08AFBDE4
 
-	THUMB_FUNC_START sub_8059674
-sub_8059674: @ 0x08059674
+	THUMB_FUNC_START m4aSongNumStartOrChange
+m4aSongNumStartOrChange: @ 0x08059674
 	push {lr}
 	lsls r0, r0, #0x10
 	ldr r2, _080596A0
@@ -1458,8 +1464,8 @@ _080596BC:
 	.byte 0x00, 0xF0, 0x3C, 0xFB, 0x04, 0xE0, 0x00, 0x2A, 0x02, 0xDA, 0x08, 0x1C, 0xFF, 0xF7, 0x3C, 0xFF
 	.byte 0x01, 0xBC, 0x00, 0x47
 
-	THUMB_FUNC_START sub_8059714
-sub_8059714: @ 0x08059714
+	THUMB_FUNC_START m4aSongNumStop
+m4aSongNumStop: @ 0x08059714
 	push {lr}
 	lsls r0, r0, #0x10
 	ldr r2, _08059740
@@ -1477,7 +1483,7 @@ sub_8059714: @ 0x08059714
 	cmp r1, r0
 	bne _0805973A
 	adds r0, r2, #0
-	bl sub_8059E60
+	bl m4aMPlayStop
 _0805973A:
 	pop {r0}
 	bx r0
@@ -1501,7 +1507,7 @@ sub_805977C: @ 0x0805977C
 	adds r4, r0, #0
 _0805978C:
 	ldr r0, [r5]
-	bl sub_8059E60
+	bl m4aMPlayStop
 	adds r5, #0xc
 	subs r4, #1
 	cmp r4, #0
@@ -1518,12 +1524,12 @@ _080597A4: .4byte 0x08AFBD0C
 	.byte 0x06, 0x4D, 0x04, 0x1C, 0x28, 0x68, 0xFF, 0xF7, 0xDF, 0xFE, 0x0C, 0x35, 0x01, 0x3C, 0x00, 0x2C
 	.byte 0xF8, 0xD1, 0x30, 0xBC, 0x01, 0xBC, 0x00, 0x47, 0x12, 0x00, 0x00, 0x00, 0x0C, 0xBD, 0xAF, 0x08
 
-	THUMB_FUNC_START sub_80597E0
-sub_80597E0: @ 0x080597E0
+	THUMB_FUNC_START m4aMPlayFadeOut
+m4aMPlayFadeOut: @ 0x080597E0
 	push {lr}
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
-	bl sub_80595A4
+	bl MPlayFadeOut
 	pop {r0}
 	bx r0
 	.byte 0x00, 0x00
@@ -1667,7 +1673,7 @@ sub_805999C: @ 0x0805999C
 	push {lr}
 	ldr r1, _080599AC
 	ldr r1, [r1]
-	bl sub_805AABC
+	bl _call_via_r1
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -1678,7 +1684,7 @@ sub_80599B0: @ 0x080599B0
 	push {lr}
 	ldr r1, _080599C0
 	ldr r1, [r1]
-	bl sub_805AABC
+	bl _call_via_r1
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -1790,7 +1796,7 @@ _08059A9C: .4byte 0x040000A0
 _08059AA0: .4byte 0x040000A4
 _08059AA4: .4byte 0x03007FF0
 _08059AA8: .4byte 0x050003EC
-_08059AAC: .4byte 0x08059291
+_08059AAC: .4byte sub_8059290
 _08059AB0: .4byte 0x0805AAB5
 _08059AB4: .4byte 0x02025570
 _08059AB8: .4byte 0x68736D53
@@ -1816,19 +1822,19 @@ sub_8059ABC: @ 0x08059ABC
 	movs r0, #0xc6
 	lsls r0, r0, #3
 	adds r1, r5, #0
-	bl sub_805AF28
+	bl _divsi3
 	strb r0, [r4, #0xb]
 	ldr r0, _08059B44
 	muls r0, r5, r0
 	ldr r1, _08059B48
 	adds r0, r0, r1
 	ldr r1, _08059B4C
-	bl sub_805AF28
+	bl _divsi3
 	adds r1, r0, #0
 	str r1, [r4, #0x14]
 	movs r0, #0x80
 	lsls r0, r0, #0x11
-	bl sub_805AF28
+	bl _divsi3
 	adds r0, #1
 	asrs r0, r0, #1
 	str r0, [r4, #0x18]
@@ -1837,7 +1843,7 @@ sub_8059ABC: @ 0x08059ABC
 	ldr r4, _08059B54
 	ldr r0, _08059B58
 	adds r1, r5, #0
-	bl sub_805AF28
+	bl _divsi3
 	rsbs r0, r0, #0
 	strh r0, [r4]
 	bl sub_8059CC8
@@ -1868,8 +1874,8 @@ _08059B54: .4byte 0x04000100
 _08059B58: .4byte 0x00044940
 _08059B5C: .4byte 0x04000006
 
-	THUMB_FUNC_START sub_8059B60
-sub_8059B60: @ 0x08059B60
+	THUMB_FUNC_START m4aSoundMode
+m4aSoundMode: @ 0x08059B60
 	push {r4, r5, lr}
 	adds r3, r0, #0
 	ldr r0, _08059BEC
@@ -2221,7 +2227,7 @@ _08059E3E:
 	cmp r0, #0
 	beq _08059E4E
 	ldrb r0, [r7, #3]
-	bl sub_8059B60
+	bl m4aSoundMode
 _08059E4E:
 	ldr r0, _08059E5C
 	str r0, [r5, #0x34]
@@ -2234,8 +2240,8 @@ _08059E52:
 	.align 2, 0
 _08059E5C: .4byte 0x68736D53
 
-	THUMB_FUNC_START sub_8059E60
-sub_8059E60: @ 0x08059E60
+	THUMB_FUNC_START m4aMPlayStop
+m4aMPlayStop: @ 0x08059E60
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r1, [r6, #0x34]
@@ -3541,7 +3547,7 @@ _0805A974:
 	ldr r2, [r0]
 	adds r0, r4, #0
 	adds r1, r6, #0
-	bl sub_805AAC0
+	bl _call_via_r2
 	b _0805A98E
 	.align 2, 0
 _0805A984: .4byte 0x02025574
@@ -3565,7 +3571,7 @@ sub_805A994: @ 0x0805A994
 	lsls r3, r3, #2
 	adds r3, r3, r2
 	ldr r2, [r3]
-	bl sub_805AAC0
+	bl _call_via_r2
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -3593,26 +3599,78 @@ _call_via_r0: @ 0x0805AAB8
 	bx r0
 	.byte 0xC0, 0x46
 
-	THUMB_FUNC_START sub_805AABC
-sub_805AABC: @ 0x0805AABC
+	THUMB_FUNC_START _call_via_r1
+_call_via_r1: @ 0x0805AABC
 	bx r1
 	.byte 0xC0, 0x46
 
-	THUMB_FUNC_START sub_805AAC0
-sub_805AAC0: @ 0x0805AAC0
+	THUMB_FUNC_START _call_via_r2
+_call_via_r2: @ 0x0805AAC0
 	bx r2
 	.byte 0xC0, 0x46
 
-	THUMB_FUNC_START sub_805AAC4
-sub_805AAC4: @ 0x0805AAC4
+	THUMB_FUNC_START _call_via_r3
+_call_via_r3: @ 0x0805AAC4
 	bx r3
-	.byte 0xC0, 0x46, 0x20, 0x47, 0xC0, 0x46, 0x28, 0x47, 0xC0, 0x46
-	.byte 0x30, 0x47, 0xC0, 0x46, 0x38, 0x47, 0xC0, 0x46, 0x40, 0x47, 0xC0, 0x46, 0x48, 0x47, 0xC0, 0x46
-	.byte 0x50, 0x47, 0xC0, 0x46, 0x58, 0x47, 0xC0, 0x46, 0x60, 0x47, 0xC0, 0x46, 0x68, 0x47, 0xC0, 0x46
-	.byte 0x70, 0x47, 0xC0, 0x46
+	.byte 0xC0, 0x46
 
-	THUMB_FUNC_START sub_805AAF4
-sub_805AAF4: @ 0x0805AAF4
+	THUMB_FUNC_START _call_via_r4
+_call_via_r4: @ 0x0805AAC4
+	bx r4
+	.byte 0xC0, 0x46
+
+	THUMB_FUNC_START _call_via_r5
+_call_via_r5: @ 0x0805AAC4
+	bx r5
+	.byte 0xC0, 0x46
+
+	THUMB_FUNC_START _call_via_r6
+_call_via_r6: @ 0x0805AAC4
+	bx r6
+	.byte 0xC0, 0x46
+
+	THUMB_FUNC_START _call_via_r7
+_call_via_r7: @ 0x0805AAC4
+	bx r7
+	.byte 0xC0, 0x46
+
+	THUMB_FUNC_START _call_via_r8
+_call_via_r8: @ 0x0805AAC4
+	bx r8
+	.byte 0xC0, 0x46
+
+	THUMB_FUNC_START _call_via_r9
+_call_via_r9: @ 0x0805AAC4
+	bx sb
+	.byte 0xC0, 0x46
+
+	THUMB_FUNC_START _call_via_r10
+_call_via_r10: @ 0x0805AAC4
+	bx sl
+	.byte 0xC0, 0x46
+
+	THUMB_FUNC_START _call_via_r11
+_call_via_r11: @ 0x0805AAC4
+	bx fp
+	.byte 0xC0, 0x46
+
+	THUMB_FUNC_START _call_via_r12
+_call_via_r12: @ 0x0805AAC4
+	bx ip
+	.byte 0xC0, 0x46
+
+	THUMB_FUNC_START _call_via_r13
+_call_via_r13: @ 0x0805AAC4
+	bx sp
+	.byte 0xC0, 0x46
+
+	THUMB_FUNC_START _call_via_r14
+_call_via_r14: @ 0x0805AAC4
+	bx lr
+	.byte 0xC0, 0x46
+
+	THUMB_FUNC_START __divdi3
+__divdi3: @ 0x0805AAF4
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -3710,11 +3768,11 @@ _0805AB9A:
 	str r1, [sp, #0xc]
 	mov r0, r8
 	mov r1, sb
-	bl sub_805B940
+	bl __umodsi3
 	adds r4, r0, #0
 	mov r0, r8
 	mov r1, sb
-	bl sub_805B51C
+	bl __udivsi3
 	adds r6, r0, #0
 	ldr r3, [sp, #0xc]
 	adds r2, r6, #0
@@ -3737,11 +3795,11 @@ _0805ABDA:
 	subs r4, r4, r2
 	adds r0, r4, #0
 	mov r1, sb
-	bl sub_805B940
+	bl __umodsi3
 	adds r5, r0, #0
 	adds r0, r4, #0
 	mov r1, sb
-	bl sub_805B51C
+	bl __udivsi3
 	adds r1, r0, #0
 	ldr r3, [sp, #0xc]
 	adds r2, r1, #0
@@ -3775,7 +3833,7 @@ _0805AC28:
 	bne _0805AC36
 	movs r0, #1
 	movs r1, #0
-	bl sub_805B51C
+	bl __udivsi3
 	adds r7, r0, #0
 _0805AC36:
 	adds r1, r7, #0
@@ -3835,11 +3893,11 @@ _0805AC7C:
 	str r1, [sp, #0x14]
 	adds r0, r5, #0
 	mov r1, sb
-	bl sub_805B940
+	bl __umodsi3
 	adds r4, r0, #0
 	adds r0, r5, #0
 	mov r1, sb
-	bl sub_805B51C
+	bl __udivsi3
 	adds r6, r0, #0
 	ldr r2, [sp, #0x14]
 	adds r1, r6, #0
@@ -3862,11 +3920,11 @@ _0805ACD6:
 	subs r4, r4, r1
 	adds r0, r4, #0
 	mov r1, sb
-	bl sub_805B940
+	bl __umodsi3
 	adds r5, r0, #0
 	adds r0, r4, #0
 	mov r1, sb
-	bl sub_805B51C
+	bl __udivsi3
 	adds r2, r0, #0
 	ldr r4, [sp, #0x14]
 	adds r1, r2, #0
@@ -3900,11 +3958,11 @@ _0805AD1A:
 	str r0, [sp, #0x18]
 	mov r0, r8
 	mov r1, sb
-	bl sub_805B940
+	bl __umodsi3
 	adds r4, r0, #0
 	mov r0, r8
 	mov r1, sb
-	bl sub_805B51C
+	bl __udivsi3
 	adds r6, r0, #0
 	ldr r1, [sp, #0x18]
 	adds r2, r6, #0
@@ -3927,11 +3985,11 @@ _0805AD5A:
 	subs r4, r4, r2
 	adds r0, r4, #0
 	mov r1, sb
-	bl sub_805B940
+	bl __umodsi3
 	adds r5, r0, #0
 	adds r0, r4, #0
 	mov r1, sb
-	bl sub_805B51C
+	bl __udivsi3
 	adds r1, r0, #0
 	ldr r4, [sp, #0x18]
 	adds r2, r1, #0
@@ -4030,11 +4088,11 @@ _0805ADF8:
 	str r1, [sp, #0x1c]
 	adds r0, r5, #0
 	mov r1, sb
-	bl sub_805B940
+	bl __umodsi3
 	adds r4, r0, #0
 	adds r0, r5, #0
 	mov r1, sb
-	bl sub_805B51C
+	bl __udivsi3
 	adds r3, r0, #0
 	ldr r2, [sp, #0x1c]
 	adds r1, r3, #0
@@ -4058,11 +4116,11 @@ _0805AE5A:
 	adds r0, r4, #0
 	mov r1, sb
 	str r3, [sp, #0x30]
-	bl sub_805B940
+	bl __umodsi3
 	adds r5, r0, #0
 	adds r0, r4, #0
 	mov r1, sb
-	bl sub_805B51C
+	bl __udivsi3
 	adds r2, r0, #0
 	ldr r4, [sp, #0x1c]
 	adds r1, r2, #0
@@ -4164,8 +4222,8 @@ _0805AF14:
 	.align 2, 0
 _0805AF24: .4byte 0x0000FFFF
 
-	THUMB_FUNC_START sub_805AF28
-sub_805AF28: @ 0x0805AF28
+	THUMB_FUNC_START _divsi3
+_divsi3: @ 0x0805AF28
 	cmp r1, #0
 	beq _0805AFB0
 	push {r4}
@@ -4258,8 +4316,8 @@ sub_0805AFBC: @ 0x0805AFBC
 	mov pc, lr
 	.byte 0x00, 0x00
 
-	THUMB_FUNC_START sub_805AFC0
-sub_805AFC0: @ 0x0805AFC0
+	THUMB_FUNC_START __fixunsdfsi
+__fixunsdfsi: @ 0x0805AFC0
 	push {r4, r5, lr}
 	adds r5, r1, #0
 	adds r4, r0, #0
@@ -4291,8 +4349,8 @@ _0805AFFA:
 _0805AFFC: .4byte 0xC1E00000
 _0805B000: .4byte 0x00000000
 
-	THUMB_FUNC_START sub_805B004
-sub_805B004: @ 0x0805B004
+	THUMB_FUNC_START __modsi3
+__modsi3: @ 0x0805B004
 	movs r3, #1
 	cmp r1, #0
 	beq _0805B0C8
@@ -4413,8 +4471,8 @@ _0805B0C8:
 	pop {pc}
 	.byte 0x00, 0x00
 
-	THUMB_FUNC_START sub_805B0D4
-sub_805B0D4: @ 0x0805B0D4
+	THUMB_FUNC_START __muldi3
+__muldi3: @ 0x0805B0D4
 	push {r4, r5, r6, r7, lr}
 	sub sp, #0x10
 	str r0, [sp]
@@ -4473,8 +4531,8 @@ _0805B114:
 	.align 2, 0
 _0805B140: .4byte 0x0000FFFF
 
-	THUMB_FUNC_START sub_805B144
-sub_805B144: @ 0x0805B144
+	THUMB_FUNC_START __udivdi3
+__udivdi3: @ 0x0805B144
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -4538,11 +4596,11 @@ _0805B1AE:
 	str r0, [sp]
 	mov r0, r8
 	mov r1, sb
-	bl sub_805B940
+	bl __umodsi3
 	adds r4, r0, #0
 	mov r0, r8
 	mov r1, sb
-	bl sub_805B51C
+	bl __udivsi3
 	adds r6, r0, #0
 	ldr r1, [sp]
 	adds r2, r6, #0
@@ -4565,11 +4623,11 @@ _0805B1EE:
 	subs r4, r4, r2
 	adds r0, r4, #0
 	mov r1, sb
-	bl sub_805B940
+	bl __umodsi3
 	adds r5, r0, #0
 	adds r0, r4, #0
 	mov r1, sb
-	bl sub_805B51C
+	bl __udivsi3
 	adds r1, r0, #0
 	ldr r4, [sp]
 	adds r2, r1, #0
@@ -4601,7 +4659,7 @@ _0805B238:
 	bne _0805B246
 	movs r0, #1
 	movs r1, #0
-	bl sub_805B51C
+	bl __udivsi3
 	adds r7, r0, #0
 _0805B246:
 	adds r1, r7, #0
@@ -4661,11 +4719,11 @@ _0805B28C:
 	str r1, [sp, #8]
 	adds r0, r5, #0
 	mov r1, sb
-	bl sub_805B940
+	bl __umodsi3
 	adds r4, r0, #0
 	adds r0, r5, #0
 	mov r1, sb
-	bl sub_805B51C
+	bl __udivsi3
 	adds r6, r0, #0
 	ldr r2, [sp, #8]
 	adds r1, r6, #0
@@ -4688,11 +4746,11 @@ _0805B2E6:
 	subs r4, r4, r1
 	adds r0, r4, #0
 	mov r1, sb
-	bl sub_805B940
+	bl __umodsi3
 	adds r5, r0, #0
 	adds r0, r4, #0
 	mov r1, sb
-	bl sub_805B51C
+	bl __udivsi3
 	adds r2, r0, #0
 	ldr r4, [sp, #8]
 	adds r1, r2, #0
@@ -4726,11 +4784,11 @@ _0805B32A:
 	str r0, [sp, #0xc]
 	mov r0, r8
 	mov r1, sb
-	bl sub_805B940
+	bl __umodsi3
 	adds r4, r0, #0
 	mov r0, r8
 	mov r1, sb
-	bl sub_805B51C
+	bl __udivsi3
 	adds r6, r0, #0
 	ldr r1, [sp, #0xc]
 	adds r2, r6, #0
@@ -4753,11 +4811,11 @@ _0805B36A:
 	subs r4, r4, r2
 	adds r0, r4, #0
 	mov r1, sb
-	bl sub_805B940
+	bl __umodsi3
 	adds r5, r0, #0
 	adds r0, r4, #0
 	mov r1, sb
-	bl sub_805B51C
+	bl __udivsi3
 	adds r1, r0, #0
 	ldr r4, [sp, #0xc]
 	adds r2, r1, #0
@@ -4857,11 +4915,11 @@ _0805B408:
 	str r1, [sp, #0x10]
 	adds r0, r5, #0
 	mov r1, sb
-	bl sub_805B940
+	bl __umodsi3
 	adds r4, r0, #0
 	adds r0, r5, #0
 	mov r1, sb
-	bl sub_805B51C
+	bl __udivsi3
 	adds r3, r0, #0
 	ldr r2, [sp, #0x10]
 	adds r1, r3, #0
@@ -4885,11 +4943,11 @@ _0805B46A:
 	adds r0, r4, #0
 	mov r1, sb
 	str r3, [sp, #0x1c]
-	bl sub_805B940
+	bl __umodsi3
 	adds r5, r0, #0
 	adds r0, r4, #0
 	mov r1, sb
-	bl sub_805B51C
+	bl __udivsi3
 	adds r2, r0, #0
 	ldr r4, [sp, #0x10]
 	adds r1, r2, #0
@@ -4975,8 +5033,8 @@ _0805B502:
 	.align 2, 0
 _0805B518: .4byte 0x0000FFFF
 
-	THUMB_FUNC_START sub_805B51C
-sub_805B51C: @ 0x0805B51C
+	THUMB_FUNC_START __udivsi3
+__udivsi3: @ 0x0805B51C
 	cmp r1, #0
 	beq _0805B58A
 	movs r3, #1
@@ -5047,8 +5105,8 @@ _0805B58A:
 	movs r0, #0
 	pop {pc}
 
-	THUMB_FUNC_START sub_805B594
-sub_805B594: @ 0x0805B594
+	THUMB_FUNC_START _umoddi3
+_umoddi3: @ 0x0805B594
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -5122,7 +5180,7 @@ _0805B61C:
 	bne _0805B62A
 	movs r0, #1
 	movs r1, #0
-	bl sub_805B51C
+	bl __udivsi3
 	adds r7, r0, #0
 _0805B62A:
 	adds r1, r7, #0
@@ -5179,11 +5237,11 @@ _0805B66C:
 	ands r3, r7
 	mov sb, r3
 	adds r0, r5, #0
-	bl sub_805B940
+	bl __umodsi3
 	adds r4, r0, #0
 	adds r0, r5, #0
 	mov r1, r8
-	bl sub_805B51C
+	bl __udivsi3
 	mov r1, sb
 	muls r1, r0, r1
 	lsls r4, r4, #0x10
@@ -5201,11 +5259,11 @@ _0805B6BC:
 	subs r4, r4, r1
 	adds r0, r4, #0
 	mov r1, r8
-	bl sub_805B940
+	bl __umodsi3
 	adds r5, r0, #0
 	adds r0, r4, #0
 	mov r1, r8
-	bl sub_805B51C
+	bl __udivsi3
 	mov r1, sb
 	muls r1, r0, r1
 	lsls r5, r5, #0x10
@@ -5233,11 +5291,11 @@ _0805B6EE:
 _0805B6FC:
 	adds r0, r6, #0
 	mov r1, r8
-	bl sub_805B940
+	bl __umodsi3
 	adds r4, r0, #0
 	adds r0, r6, #0
 	mov r1, r8
-	bl sub_805B51C
+	bl __udivsi3
 	mov r1, sb
 	muls r1, r0, r1
 	lsls r4, r4, #0x10
@@ -5256,11 +5314,11 @@ _0805B72A:
 	subs r4, r4, r1
 	adds r0, r4, #0
 	mov r1, r8
-	bl sub_805B940
+	bl __umodsi3
 	adds r5, r0, #0
 	adds r0, r4, #0
 	mov r1, r8
-	bl sub_805B51C
+	bl __udivsi3
 	mov r1, sb
 	muls r1, r0, r1
 	lsls r5, r5, #0x10
@@ -5390,11 +5448,11 @@ _0805B7F8:
 	str r1, [sp, #0x20]
 	adds r0, r5, #0
 	mov r1, sl
-	bl sub_805B940
+	bl __umodsi3
 	adds r4, r0, #0
 	adds r0, r5, #0
 	mov r1, sl
-	bl sub_805B51C
+	bl __udivsi3
 	mov sb, r0
 	ldr r3, [sp, #0x20]
 	mov r2, sb
@@ -5418,11 +5476,11 @@ _0805B862:
 	subs r4, r4, r2
 	adds r0, r4, #0
 	mov r1, sl
-	bl sub_805B940
+	bl __umodsi3
 	adds r5, r0, #0
 	adds r0, r4, #0
 	mov r1, sl
-	bl sub_805B51C
+	bl __udivsi3
 	adds r3, r0, #0
 	ldr r1, [sp, #0x20]
 	adds r2, r3, #0
@@ -5533,8 +5591,8 @@ _0805B92A:
 	.align 2, 0
 _0805B93C: .4byte 0x0000FFFF
 
-	THUMB_FUNC_START sub_805B940
-sub_805B940: @ 0x0805B940
+	THUMB_FUNC_START __umodsi3
+__umodsi3: @ 0x0805B940
 	cmp r1, #0
 	beq _0805B9F6
 	movs r3, #1
@@ -5646,8 +5704,8 @@ _0805B9F6:
 	movs r0, #0
 	pop {pc}
 
-	THUMB_FUNC_START sub_805BA00
-sub_805BA00: @ 0x0805BA00
+	THUMB_FUNC_START __pack_d
+__pack_d: @ 0x0805BA00
 	push {r4, r5, r6, r7, lr}
 	sub sp, #8
 	adds r1, r0, #0
@@ -5712,7 +5770,7 @@ _0805BA74: .4byte 0xFFFFFC02
 _0805BA78:
 	adds r1, r5, #0
 	adds r0, r4, #0
-	bl sub_805D0E8
+	bl __lshrdi3
 	adds r5, r1, #0
 	adds r4, r0, #0
 	b _0805BAE6
@@ -5818,8 +5876,8 @@ _0805BB3C: .4byte 0xFFF00000
 _0805BB40: .4byte 0x000007FF
 _0805BB44: .4byte 0xFFFF800F
 
-	THUMB_FUNC_START sub_805BB48
-sub_805BB48: @ 0x0805BB48
+	THUMB_FUNC_START __unpack_d
+__unpack_d: @ 0x0805BB48
 	push {r4, r5, r6, r7, lr}
 	sub sp, #8
 	adds r2, r0, #0
@@ -6142,7 +6200,7 @@ _0805BD84:
 	beq _0805BDA6
 	adds r1, r7, #0
 	adds r0, r6, #0
-	bl sub_805D11C
+	bl __negdi2
 	adds r3, r1, #0
 	adds r2, r0, #0
 	ldr r4, [sp]
@@ -6177,7 +6235,7 @@ _0805BDC8:
 	str r0, [r6, #8]
 	adds r1, r3, #0
 	adds r0, r2, #0
-	bl sub_805D11C
+	bl __negdi2
 	mov r2, sl
 	str r0, [r2, #0xc]
 	str r1, [r2, #0x10]
@@ -6284,16 +6342,16 @@ sub_805BE8C: @ 0x0805BE8C
 	str r3, [sp, #0x48]
 	add r0, sp, #0x3c
 	mov r1, sp
-	bl sub_805BB48
+	bl __unpack_d
 	add r0, sp, #0x44
 	add r4, sp, #0x14
 	adds r1, r4, #0
-	bl sub_805BB48
+	bl __unpack_d
 	add r2, sp, #0x28
 	mov r0, sp
 	adds r1, r4, #0
 	bl sub_805BC20
-	bl sub_805BA00
+	bl __pack_d
 	add sp, #0x4c
 	pop {r4, pc}
 	.byte 0x10, 0xB5, 0x93, 0xB0
@@ -6302,8 +6360,8 @@ sub_805BE8C: @ 0x0805BE8C
 	.byte 0x60, 0x60, 0x0A, 0xAA, 0x68, 0x46, 0x21, 0x1C, 0xFF, 0xF7, 0x9A, 0xFE, 0xFF, 0xF7, 0x88, 0xFD
 	.byte 0x13, 0xB0, 0x10, 0xBD
 
-	THUMB_FUNC_START sub_805BEF4
-sub_805BEF4: @ 0x0805BEF4
+	THUMB_FUNC_START __muldf3
+__muldf3: @ 0x0805BEF4
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -6316,11 +6374,11 @@ sub_805BEF4: @ 0x0805BEF4
 	str r3, [sp, #0x48]
 	add r0, sp, #0x3c
 	mov r1, sp
-	bl sub_805BB48
+	bl __unpack_d
 	add r0, sp, #0x44
 	add r4, sp, #0x14
 	adds r1, r4, #0
-	bl sub_805BB48
+	bl __unpack_d
 	mov r8, sp
 	add r0, sp, #0x28
 	mov sl, r0
@@ -6438,28 +6496,28 @@ _0805BFC0:
 	adds r0, r4, #0
 	adds r3, r7, #0
 	adds r2, r6, #0
-	bl sub_805B0D4
+	bl __muldi3
 	str r0, [sp, #0x5c]
 	str r1, [sp, #0x60]
 	ldr r0, [sp, #0x54]
 	ldr r1, [sp, #0x58]
 	adds r3, r7, #0
 	adds r2, r6, #0
-	bl sub_805B0D4
+	bl __muldi3
 	adds r7, r1, #0
 	adds r6, r0, #0
 	adds r1, r5, #0
 	adds r0, r4, #0
 	ldr r2, [sp, #0x4c]
 	ldr r3, [sp, #0x50]
-	bl sub_805B0D4
+	bl __muldi3
 	adds r5, r1, #0
 	adds r4, r0, #0
 	ldr r0, [sp, #0x54]
 	ldr r1, [sp, #0x58]
 	ldr r2, [sp, #0x4c]
 	ldr r3, [sp, #0x50]
-	bl sub_805B0D4
+	bl __muldi3
 	str r0, [sp, #0x64]
 	str r1, [sp, #0x68]
 	movs r1, #0
@@ -6650,7 +6708,7 @@ _0805C16E:
 	str r0, [r2]
 	add r0, sp, #0x28
 _0805C17A:
-	bl sub_805BA00
+	bl __pack_d
 	add sp, #0x74
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -6873,11 +6931,11 @@ sub_805C534: @ 0x0805C534
 	str r3, [sp, #0x34]
 	add r0, sp, #0x28
 	mov r1, sp
-	bl sub_805BB48
+	bl __unpack_d
 	add r0, sp, #0x30
 	add r4, sp, #0x14
 	adds r1, r4, #0
-	bl sub_805BB48
+	bl __unpack_d
 	movs r1, #0
 	ldr r0, [sp]
 	cmp r0, #1
@@ -6916,8 +6974,8 @@ _0805C57C:
 	.byte 0x01, 0x21, 0x00, 0x29, 0x01, 0xD0, 0x01, 0x20, 0x03, 0xE0, 0x68, 0x46, 0x21, 0x1C, 0xFF, 0xF7
 	.byte 0x89, 0xFE, 0x0E, 0xB0, 0x10, 0xBD, 0x00, 0x00
 
-	THUMB_FUNC_START sub_805C618
-sub_805C618: @ 0x0805C618
+	THUMB_FUNC_START __floatsidf
+__floatsidf: @ 0x0805C618
 	push {r4, r5, lr}
 	sub sp, #0x14
 	adds r2, r0, #0
@@ -6978,7 +7036,7 @@ _0805C66A:
 	str r4, [sp, #8]
 _0805C686:
 	mov r0, sp
-	bl sub_805BA00
+	bl __pack_d
 _0805C68C:
 	add sp, #0x14
 	pop {r4, r5, pc}
@@ -6993,7 +7051,7 @@ sub_805C694: @ 0x0805C694
 	str r1, [sp, #0x18]
 	add r0, sp, #0x14
 	mov r1, sp
-	bl sub_805BB48
+	bl __unpack_d
 	movs r1, #0
 	ldr r0, [sp]
 	cmp r0, #2
@@ -7039,7 +7097,7 @@ _0805C6E6:
 	subs r2, r2, r0
 	ldr r0, [sp, #0xc]
 	ldr r1, [sp, #0x10]
-	bl sub_805D0E8
+	bl __lshrdi3
 	adds r1, r0, #0
 	ldr r0, [sp, #4]
 	cmp r0, #0
@@ -7068,7 +7126,7 @@ sub_805C730: @ 0x0805C730
 	str r3, [sp, #0xc]
 	str r4, [sp, #0x10]
 	mov r0, sp
-	bl sub_805BA00
+	bl __pack_d
 	add sp, #0x14
 	pop {r4}
 	pop {r3}
@@ -7524,8 +7582,8 @@ _0805CA44:
 	.byte 0x08, 0x40, 0x00, 0x28, 0x01, 0xD1, 0x00, 0x2A, 0x00, 0xD0, 0x40, 0x31, 0xE1, 0x60, 0x21, 0x1C
 	.byte 0x08, 0x1C, 0xFF, 0xF7, 0x53, 0xFD, 0x0A, 0xB0, 0x70, 0xBD, 0x00, 0x00
 
-	THUMB_FUNC_START sub_805CCFC
-sub_805CCFC: @ 0x0805CCFC
+	THUMB_FUNC_START __fpcmp_parts_f
+__fpcmp_parts_f: @ 0x0805CCFC
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r0, #0
@@ -7711,8 +7769,8 @@ _0805CDDE:
 	.byte 0x01, 0x98, 0x00, 0x28, 0x00, 0xD1, 0x01, 0x21, 0x01, 0x91, 0x68, 0x46, 0xFF, 0xF7, 0x7E, 0xFB
 	.byte 0x05, 0xB0, 0x00, 0xBD
 
-	THUMB_FUNC_START sub_805D0A4
-sub_805D0A4: @ 0x0805D0A4
+	THUMB_FUNC_START __make_fp
+__make_fp: @ 0x0805D0A4
 	push {lr}
 	sub sp, #0x10
 	str r0, [sp]
@@ -7723,13 +7781,15 @@ sub_805D0A4: @ 0x0805D0A4
 	bl sub_805C79C
 	add sp, #0x10
 	pop {pc}
+
+  @__extendsfdf2
 	.byte 0x00, 0x00, 0x70, 0xB5, 0x86, 0xB0
 	.byte 0x05, 0x90, 0x05, 0xA8, 0x01, 0xA9, 0xFF, 0xF7, 0xC5, 0xFB, 0x01, 0x98, 0x02, 0x99, 0x03, 0x9A
 	.byte 0x04, 0x9B, 0x00, 0x24, 0x9E, 0x08, 0xA5, 0x07, 0x34, 0x1C, 0x2C, 0x43, 0x9B, 0x07, 0x00, 0x94
 	.byte 0xFF, 0xF7, 0x26, 0xFB, 0x06, 0xB0, 0x70, 0xBD
 
-	THUMB_FUNC_START sub_805D0E8
-sub_805D0E8: @ 0x0805D0E8
+	THUMB_FUNC_START __lshrdi3
+__lshrdi3: @ 0x0805D0E8
 	push {r4, r5, r6, lr}
 	adds r6, r1, #0
 	adds r5, r0, #0
@@ -7760,8 +7820,8 @@ _0805D118:
 	pop {r4, r5, r6, pc}
 	.byte 0x00, 0x00
 
-	THUMB_FUNC_START sub_805D11C
-sub_805D11C: @ 0x0805D11C
+	THUMB_FUNC_START __negdi2
+__negdi2: @ 0x0805D11C
 	push {r4, lr}
 	rsbs r2, r0, #0
 	adds r3, r2, #0
@@ -7776,8 +7836,8 @@ _0805D12A:
 	pop {r4, pc}
 	.byte 0x00, 0x00
 
-	THUMB_FUNC_START sub_805D134
-sub_805D134: @ 0x0805D134
+	THUMB_FUNC_START bzero
+bzero: @ 0x0805D134
 	adds r2, r0, #0
 	adds r0, r1, #0
 	subs r1, #1
@@ -7795,8 +7855,8 @@ _0805D14C:
 	bx lr
 	.byte 0x00, 0x00
 
-	THUMB_FUNC_START sub_805D150
-sub_805D150: @ 0x0805D150
+	THUMB_FUNC_START memcpy
+memcpy: @ 0x0805D150
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	adds r4, r5, #0
@@ -7852,8 +7912,8 @@ _0805D1AA:
 	pop {r4, r5, pc}
 	.byte 0x00, 0x00
 
-	THUMB_FUNC_START sub_805D1B0
-sub_805D1B0: @ 0x0805D1B0
+	THUMB_FUNC_START strcpy
+strcpy: @ 0x0805D1B0
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	adds r3, r6, #0
@@ -7895,8 +7955,8 @@ _0805D1E8:
 	pop {r4, r5, r6, pc}
 	.byte 0x00, 0x00
 
-	THUMB_FUNC_START sub_805D1FC
-sub_805D1FC: @ 0x0805D1FC
+	THUMB_FUNC_START strlen
+strlen: @ 0x0805D1FC
 	push {r4, r5, lr}
 	adds r1, r0, #0
 	adds r5, r1, #0
@@ -7935,8 +7995,8 @@ _0805D234:
 	pop {r4, r5, pc}
 	.byte 0x00, 0x00
 
-	THUMB_FUNC_START sub_805D240
-sub_805D240: @ 0x0805D240
+	THUMB_FUNC_START strncpy
+strncpy: @ 0x0805D240
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	adds r4, r7, #0

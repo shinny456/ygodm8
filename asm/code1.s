@@ -2114,7 +2114,7 @@ _0800DDE6:
 _0800DDEE:
 	adds r0, r5, #0
 	adds r1, r7, #0
-	bl sub_805B51C
+	bl __udivsi3
 	lsls r0, r0, #0x10
 	lsrs r1, r0, #0x10
 	cmp r1, #0
@@ -2174,7 +2174,7 @@ _0800DE4E:
 	lsrs r5, r0, #0x10
 	adds r0, r7, #0
 	movs r1, #0xa
-	bl sub_805B51C
+	bl __udivsi3
 	lsls r0, r0, #0x10
 	lsrs r7, r0, #0x10
 	mov r1, sb
@@ -2259,7 +2259,7 @@ _0800DEF8:
 	ldr r1, [sp, #4]
 	adds r3, r6, #0
 	adds r2, r5, #0
-	bl sub_805B144
+	bl __udivdi3
 	adds r2, r1, #0
 	adds r1, r0, #0
 	adds r0, r2, #0
@@ -2320,7 +2320,7 @@ _0800DF62:
 	adds r1, r2, #0
 	adds r3, r6, #0
 	adds r2, r5, #0
-	bl sub_805B0D4
+	bl __muldi3
 	ldr r2, [sp]
 	ldr r3, [sp, #4]
 	subs r2, r2, r0
@@ -2331,7 +2331,7 @@ _0800DF62:
 	adds r0, r5, #0
 	movs r2, #0xa
 	movs r3, #0
-	bl sub_805B144
+	bl __udivdi3
 	adds r6, r1, #0
 	adds r5, r0, #0
 	mov r3, sb
@@ -2404,12 +2404,12 @@ sub_800DFF0: @ 0x0800DFF0
 	ldr r1, _0800E06C
 	mov r0, sp
 	movs r2, #8
-	bl sub_805D150
+	bl memcpy
 	add r7, sp, #8
 	ldr r1, _0800E070
 	adds r0, r7, #0
 	movs r2, #0x10
-	bl sub_805D150
+	bl memcpy
 	movs r2, #0
 	lsls r4, r4, #3
 	cmp r2, r4

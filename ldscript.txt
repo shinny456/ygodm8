@@ -94,6 +94,8 @@ SECTIONS
         asm/code3.o(.text);
         src/main_menu.o(.text);
         asm/code3.o(.main_menu);
+        src/god_cards.o(.text);
+        asm/code3.o(.Split_2);
         src/monster_effects.o(.text)
         src/life_points.o(.text)
         src/spell_effects.o(.text)
@@ -218,6 +220,20 @@ SECTIONS
     g8E11684 = 0x8E11684;
     g8E0E4CC = 0x8E0E4CC;
     g8E0E53C = 0x8E0E53C;
+    g80C1D00 = 0x80C1D00;
+    g80C1D09 = 0x80C1D09;
+    g80C1D24 = 0x80C1D24;
+    g80C1D3E = 0x80C1D3E;
+    g80C1D42 = 0x80C1D42;
+    g80C1D56 = 0x80C1D56;
+    g80C1D58 = 0x80C1D58;
+    g80C1D62 = 0x80C1D62;
+    g80C1D65 = 0x80C1D65;
+    g80C1D68 = 0x80C1D68;
+    g80C1D6B = 0x80C1D6B;
+    g80C1D6E = 0x80C1D6E;
+    g80C1D71 = 0x80C1D71;
+    g8FC488C = 0x8FC488C;
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :
     {

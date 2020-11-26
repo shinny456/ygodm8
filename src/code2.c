@@ -655,7 +655,7 @@ void sub_800EE24(void)
 {
     u8 i;
 
-    sub_805D150(&gUnk_8DFF6A4->duel, &gDuel, sizeof(gDuel));
+    gUnk_8DFF6A4->duel = gDuel;
     for (i = 0; i < 2; i++)
     {
         gUnk_8DFF6A4->duelDeck[i].cardsDrawn = gUnk20240F0[i].cardsDrawn;
@@ -668,7 +668,7 @@ void sub_800EE94(void)
 {
     u8 i;
 
-    sub_805D150(&gDuel, &gUnk_8DFF6A4->duel, sizeof(gDuel));
+    gDuel = gUnk_8DFF6A4->duel;
     for (i = 0; i < 2; i++)
     {
         gUnk20240F0[i].cardsDrawn = gUnk_8DFF6A4->duelDeck[i].cardsDrawn;

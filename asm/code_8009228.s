@@ -2316,7 +2316,7 @@ sub_800A544: @ 0x0800A544
 	subs r0, r0, r1
 	lsls r0, r0, #2
 	ldrh r1, [r2, #2]
-	bl sub_805AF28
+	bl _divsi3
 	lsls r0, r0, #0x10
 	lsrs r3, r0, #0x10
 	b _0800A56E
@@ -3374,7 +3374,7 @@ sub_800ADC4: @ 0x0800ADC4
 	ldr r3, _0800ADE8
 	ldr r2, _0800ADEC
 	ldr r3, [r3]
-	bl sub_805AAC4
+	bl _call_via_r3
 	bl sub_803519C
 	pop {r0}
 	bx r0
@@ -3393,7 +3393,7 @@ sub_800ADF0: @ 0x0800ADF0
 	ldr r3, _0800AE14
 	ldr r2, _0800AE18
 	ldr r3, [r3]
-	bl sub_805AAC4
+	bl _call_via_r3
 	bl sub_803519C
 	pop {r0}
 	bx r0
@@ -3412,7 +3412,7 @@ sub_800AE1C: @ 0x0800AE1C
 	ldr r3, [r0]
 	ldr r0, _0800AE64
 	ldr r2, _0800AE68
-	bl sub_805AAC4
+	bl _call_via_r3
 	bl sub_803519C
 	bl sub_800B134
 	adds r4, r0, #0
@@ -3445,7 +3445,7 @@ sub_800AE70: @ 0x0800AE70
 	ldr r3, [r0]
 	ldr r0, _0800AEB8
 	ldr r2, _0800AEBC
-	bl sub_805AAC4
+	bl _call_via_r3
 	bl sub_803519C
 	bl sub_800B158
 	adds r4, r0, #0
@@ -3675,7 +3675,7 @@ sub_800B088: @ 0x0800B088
 	ldr r3, [r1]
 	mov r1, sp
 	movs r2, #1
-	bl sub_805AAC4
+	bl _call_via_r3
 	mov r0, sp
 	ldrb r0, [r0]
 	add sp, #4
@@ -3767,7 +3767,7 @@ sub_800B134: @ 0x0800B134
 	ldr r3, [r1]
 	mov r1, sp
 	movs r2, #2
-	bl sub_805AAC4
+	bl _call_via_r3
 	mov r0, sp
 	ldrh r0, [r0]
 	add sp, #4
@@ -3786,7 +3786,7 @@ sub_800B158: @ 0x0800B158
 	ldr r3, [r1]
 	mov r1, sp
 	movs r2, #2
-	bl sub_805AAC4
+	bl _call_via_r3
 	mov r0, sp
 	ldrh r0, [r0]
 	add sp, #4
@@ -3819,7 +3819,7 @@ sub_800B194: @ 0x0800B194
 	ldr r3, [r1]
 	mov r1, sp
 	movs r2, #0xf
-	bl sub_805AAC4
+	bl _call_via_r3
 	movs r2, #0
 	mov r0, sp
 	ldr r1, _0800B1B8

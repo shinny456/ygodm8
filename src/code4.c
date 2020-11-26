@@ -119,7 +119,7 @@ struct ObjectInitialState //object data?
 struct UnkOhk
 {
     struct Unk10 *unk0;
-    u32 unk4;
+    u32 unk4; //mapid, map connection
 };
 
 struct Unk1F8
@@ -1056,7 +1056,7 @@ void sub_804DE74(void)
 
     }
 }
-/*
+*/
 //r3 = gUnk8E19274
 
 //  9AAE98
@@ -1065,6 +1065,115 @@ void sub_804DE74(void)
 // 805247E
 //00 21
 //line 9801
+
+enum {
+  UNK0,
+  WALK_UP,
+  WALK_DOWN,
+  WALK_LEFT,
+  WALK_RIGHT,
+  TRY_DUELING,
+  TALK,
+  START_MENU,
+  UNK8,
+  UNK9,
+  UNKA,
+  RUN_UP,
+  RUN_DOWN,
+  RUN_LEFT,
+  RUN_RIGHT
+};
+/*
+void sub_804E288 (void) {
+  while (!(gOverworld.unk240 & 3)) {
+    gOverworld.objects[0].unk18 = 0;
+    switch (sub_804E1C8()) {
+      case WALK_UP:
+        sub_80521D0(2);
+        sub_804F2F0();
+        sub_804EF10();
+        break;
+      case WALK_DOWN:
+        sub_80521D0(0);
+        sub_804F2F0();
+        sub_804EF10();
+        break;
+      case WALK_LEFT:
+        sub_80521D0(1);
+        sub_804F2F0();
+        sub_804EF10();
+        break;
+      case WALK_RIGHT:
+        sub_80521D0(3);
+        sub_804F2F0();
+        sub_804EF10();
+        break;
+      case TRY_DUELING:
+        sub_8051FFC();
+        sub_804EEE0();
+        break;
+      case TALK:
+        sub_8051F70();
+        sub_804EEE0();
+        break;
+      case START_MENU:
+        PlayMusic(0x37);
+        StartMenu();
+        REG_DISPCNT = 0;
+        REG_BLDCNT = 0;
+        sub_804DCE8();
+        sub_804EDA0();
+        sub_804EDC8();
+        sub_804EDF0();
+        sub_804EE18();
+        sub_804EE6C();
+        if (sub_8055554(0xF3))
+          sub_8044E50(g02000000, 0x10, 0x1FF);
+        if (sub_8055554(0xF0))
+          sub_8044EC8(g02000000, 0x10, 0x1FF, 6);
+        if (sub_8055554(0xEF))
+          sub_8045284(g02000000, 0x10, 0xFF);
+        REG_BLDY = 7;
+        sub_8008220();
+        sub_804EC4C();
+        REG_WINOUT = 0x3D3F;
+        sub_804F508();
+        sub_804F770();
+        break;
+      case UNK8: //_0804E3D0
+        break;
+      case UNK9:
+        sub_804F2F0();
+        sub_804EF10();
+        break;
+      case UNKA: // _0804E478
+        break;
+      case RUN_UP:
+        sub_80521E8(2);
+        sub_804F2F0();
+        sub_804EF10();
+        break;
+      case RUN_DOWN:
+        sub_80521E8(0);
+        sub_804F2F0();
+        sub_804EF10();
+        break;
+      case RUN_LEFT:
+        sub_80521E8(1);
+        sub_804F2F0();
+        sub_804EF10();
+        break;
+      case RUN_RIGHT:
+        sub_80521E8(3);
+        sub_804F2F0();
+        sub_804EF10();
+        break;
+    }
+  }
+}*/
+
+
+
 
 
 
@@ -1088,7 +1197,33 @@ void sub_804DF5C(u8 personId)
 dir * 3 + gUnk8E0DA12[gOverworld.objects[personId].unk1E]
 
 gUnk08103264[personId]*/
+/*
+struct Unk8103314 {
+  u16 unk0;
+  u16 unk2;
+  u16 unk4[8];
+  u16 unk14;
+};
 
+extern struct Unk8103314 g8103314[];
+
+void sub_804EF84 (u16, u16, u16);
+
+void sub_80523EC (u16 id, u16 arg1, u16 arg2) {
+  int i;
+  for (i = -1; g8103314[++i].unk0 != 0xFFFF; ) {
+    if (g8103314[i].unk0 == id && g8103314[i].unk2 == arg1) {
+      int j;
+      bool32 r7 = 0;
+      for (j = 0; j < 8; j++)
+        if (g8103314[i].unk4[j] != 0xFFFF && !sub_8055554(g8103314[i].unk4[j]))
+          r7 = 1;
+      if (!r7)
+        arg1 = g8103314[i].unk14;
+    }
+  }
+  sub_804EF84(id, arg1, arg2);
+}
 
 
 //3007e54
@@ -1126,7 +1261,6 @@ void sub_805254C(struct Unk10 *unk10)
 /*
 void sub_80526D0(struct Unk88 *script)
 {
-    u8 var1;
     while (1)
     {
         if (script->unk10.unk0[script->unk4] == 0)
@@ -1173,16 +1307,15 @@ void sub_80526D0(struct Unk88 *script)
         }
         sub_804F218();
     }
-    var1 = gOverworld.unk240 & 2;
-    if (var1)
+    if (gOverworld.unk240 & 2)
         return;
     sub_804F770();
-    script->unk0 = var1;
+    script->unk0 = NULL;
     script->unk84 = 0;
     DisplayPortrait(script);
     REG_WINOUT = 0x3D3E;
     sub_804F508();
-    REG_BLDCNT = var1;
+    REG_BLDCNT = 0;
 }*/
 
 

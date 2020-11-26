@@ -1879,7 +1879,7 @@ void EffectCurseBreaker(void)
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (gZones[2][i]->id != CARD_NONE && sub_8040688(gZones[2][i]) < 0)
+        if (gZones[2][i]->id != CARD_NONE && PermStage(gZones[2][i]) < 0)
             sub_8040360(gZones[2][i]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
@@ -2179,7 +2179,7 @@ void EffectMultiply(void)
                 gZones[2][i]->unkTwo = 0;
                 gZones[2][i]->unk4 = 0;
                 sub_8040360(gZones[2][i]);
-                sub_80403E8(gZones[2][i]);
+                ResetTempStage(gZones[2][i]);
                 gZones[2][i]->willChangeSides = FALSE;
             }
             else if (gZones[2][i]->id == KURIBOH)
@@ -2214,7 +2214,7 @@ void EffectChangeOfHeart(void)
         gZones[2][emptyZone]->unkTwo = gZones[1][highestAtkZone]->unkTwo;
         gZones[2][emptyZone]->unk4 = 2;
 
-        sub_8040684(gZones[2][emptyZone], sub_8040688(gZones[1][highestAtkZone]));
+        SetPermStage(gZones[2][emptyZone], PermStage(gZones[1][highestAtkZone]));
         gZones[2][emptyZone]->willChangeSides = FALSE;
         ClearZone(gZones[1][highestAtkZone]);
     }
@@ -2261,7 +2261,7 @@ void EffectBrainControl(void)
         gZones[2][emptyZone]->unkTwo = gZones[1][highestAtkZone]->unkTwo;
         gZones[2][emptyZone]->unk4 = 2;
 
-        sub_8040684(gZones[2][emptyZone], sub_8040688(gZones[1][highestAtkZone]));
+        SetPermStage(gZones[2][emptyZone], PermStage(gZones[1][highestAtkZone]));
         gZones[2][emptyZone]->willChangeSides = TRUE;
         ClearZone(gZones[1][highestAtkZone]);
     }
@@ -2291,7 +2291,7 @@ void sub_804CBBC(void)
             gZones[2][emptyZone]->unkTwo = 0;
             gZones[2][emptyZone]->unk4 = 2;
             sub_8040360(gZones[2][emptyZone]);
-            sub_80403E8(gZones[2][emptyZone]);
+            ResetTempStage(gZones[2][emptyZone]);
             gZones[2][emptyZone]->willChangeSides = FALSE;
 
         }
@@ -2706,6 +2706,6 @@ void sub_804D600(struct DuelCard* zone, u16 id)
     zone->unkTwo = 0;
     zone->unk4 = 0;
     sub_8040360(zone);
-    sub_80403E8(zone);
+    ResetTempStage(zone);
     zone->willChangeSides = FALSE;
 }
