@@ -172,7 +172,7 @@ _0800F794:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r6, _0800F7F8
 	ldrh r0, [r6, #0x12]
 	mov r8, r0
@@ -185,7 +185,7 @@ _0800F794:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldrh r6, [r6, #0x12]
 	cmp r8, r6
 	bhi _0800F808
@@ -310,7 +310,7 @@ _0800F8C8:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r6, _0800F928
 	ldrh r0, [r6, #0x12]
 	mov r8, r0
@@ -323,7 +323,7 @@ _0800F8C8:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldrh r6, [r6, #0x12]
 	cmp r8, r6
 	bhi _0800F938
@@ -499,7 +499,7 @@ _0800FA78:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	mov r0, r8
 	ldrh r6, [r0, #0x12]
 	ldr r0, [r7]
@@ -511,7 +511,7 @@ _0800FA78:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	mov r1, r8
 	ldrh r1, [r1, #0x12]
 	cmp r6, r1
@@ -657,7 +657,7 @@ _0800FBDC:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	mov r0, r8
 	ldrh r6, [r0, #0x12]
 	ldr r0, [r7]
@@ -669,7 +669,7 @@ _0800FBDC:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	mov r1, r8
 	ldrh r1, [r1, #0x12]
 	cmp r6, r1
@@ -815,7 +815,7 @@ _0800FD40:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	mov r0, r8
 	ldrh r6, [r0, #0x12]
 	ldr r0, [r7]
@@ -827,7 +827,7 @@ _0800FD40:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	mov r1, r8
 	ldrh r1, [r1, #0x12]
 	cmp r6, r1
@@ -1002,7 +1002,7 @@ _0800FEDC:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, _0800FF38
 	ldrh r5, [r0, #0x12]
 	ldr r0, [r6]
@@ -1015,7 +1015,7 @@ _0800FEDC:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r2, _0800FF38
 	ldrh r2, [r2, #0x12]
 	cmp r5, r2
@@ -1047,7 +1047,7 @@ _0800FF48:
 	THUMB_FUNC_START sub_800FF5C
 sub_800FF5C: @ 0x0800FF5C
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r2, _0800FF78
 	ldrh r2, [r2, #0x12]
 	cmp r5, r2
@@ -1222,7 +1222,7 @@ _080100C4:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, _08010120
 	ldrh r5, [r0, #0x12]
 	ldr r0, [r6]
@@ -1235,7 +1235,7 @@ _080100C4:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r2, _08010120
 	ldrh r2, [r2, #0x12]
 	cmp r5, r2
@@ -1264,7 +1264,7 @@ _08010130:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r2, _08010160
 	ldrh r2, [r2, #0x12]
 	cmp r5, r2
@@ -1449,7 +1449,7 @@ _080102C4:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	mov r0, sl
 	ldrh r5, [r0, #0x12]
 	ldr r0, [r6]
@@ -1462,7 +1462,7 @@ _080102C4:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	mov r2, sl
 	ldrh r2, [r2, #0x12]
 	cmp r5, r2
@@ -1490,7 +1490,7 @@ _0801032C:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	mov r2, sl
 	ldrh r2, [r2, #0x12]
 	cmp r5, r2
@@ -1523,7 +1523,7 @@ _08010368:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	mov r0, sl
 	ldrh r0, [r0, #0x12]
 	cmp r5, r0
@@ -1709,7 +1709,7 @@ _08010508:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	mov r0, sl
 	ldrh r5, [r0, #0x12]
 	ldr r0, [r6]
@@ -1722,7 +1722,7 @@ _08010508:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	mov r2, sl
 	ldrh r2, [r2, #0x12]
 	cmp r5, r2
@@ -1750,7 +1750,7 @@ _08010570:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	mov r2, sl
 	ldrh r2, [r2, #0x12]
 	cmp r5, r2
@@ -1783,7 +1783,7 @@ _080105AC:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	mov r0, sl
 	ldrh r0, [r0, #0x12]
 	cmp r5, r0
@@ -1851,7 +1851,7 @@ sub_8010620: @ 0x08010620
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r1, _08010684
 	ldrb r0, [r1, #0x1e]
 	cmp r0, #0
@@ -1939,7 +1939,7 @@ _080106FA:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, _08010740
 	ldrh r0, [r0, #0x12]
 	cmp r6, r0
@@ -2024,7 +2024,7 @@ sub_8010798: @ 0x08010798
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r1, _080107FC
 	ldrb r0, [r1, #0x1e]
 	cmp r0, #0
@@ -2112,7 +2112,7 @@ _08010872:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, _080108B8
 	ldrh r0, [r0, #0x12]
 	cmp r6, r0
@@ -2192,7 +2192,7 @@ sub_8010910: @ 0x08010910
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r3, _08010974
 	ldrb r0, [r3, #0x1e]
 	cmp r0, #0
@@ -2262,7 +2262,7 @@ sub_80109A8: @ 0x080109A8
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r3, _08010A0C
 	ldrb r0, [r3, #0x1e]
 	cmp r0, #0
@@ -2370,7 +2370,7 @@ _08010AA4:
 	bl sub_804069C
 	strb r0, [r5, #3]
 	adds r0, r5, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, _08010AFC
 	ldr r2, [r0]
 	ldr r0, _08010B00
@@ -2524,7 +2524,7 @@ _08010BF6:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	mov r4, r8
 	ldr r2, [r4]
 	add r2, sb
@@ -2641,7 +2641,7 @@ _08010CDC:
 	bl sub_804069C
 	strb r0, [r5, #3]
 	adds r0, r5, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, _08010D34
 	ldr r2, [r0]
 	ldr r0, _08010D38
@@ -2795,7 +2795,7 @@ _08010E2E:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	mov r4, r8
 	ldr r2, [r4]
 	add r2, sb
@@ -2874,7 +2874,7 @@ sub_8010EB0: @ 0x08010EB0
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r2, _08010F08
 	ldrb r0, [r2, #0x1e]
 	cmp r0, #0
@@ -2952,7 +2952,7 @@ sub_8010F58: @ 0x08010F58
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r2, _08010FB0
 	ldrb r0, [r2, #0x1e]
 	cmp r0, #0
@@ -3974,7 +3974,7 @@ sub_8011940: @ 0x08011940
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, _080119A0
 	ldr r2, [r0]
 	ldr r0, _080119A4
@@ -4022,7 +4022,7 @@ sub_80119AC: @ 0x080119AC
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, _08011A10
 	ldr r0, [r0]
 	ldr r1, _08011A14
@@ -4115,7 +4115,7 @@ sub_8011AB0: @ 0x08011AB0
 	strb r0, [r5, #2]
 	strb r1, [r5, #3]
 	adds r0, r5, #0
-	bl sub_800B318
+	bl SetFinalStat
 	mov r2, r8
 	ldrh r2, [r2, #0x12]
 	str r2, [sp, #4]
@@ -4134,7 +4134,7 @@ sub_8011AB0: @ 0x08011AB0
 	bl sub_804069C
 	strb r0, [r5, #3]
 	adds r0, r5, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r1, [sp, #4]
 	mov r0, r8
 	ldrh r0, [r0, #0x12]
@@ -4182,7 +4182,7 @@ _08011B7C:
 	bl sub_804069C
 	strb r0, [r5, #3]
 	adds r0, r5, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, [sp, #4]
 	mov r3, r8
 	ldrh r3, [r3, #0x12]
@@ -4292,7 +4292,7 @@ _08011C72:
 	strb r0, [r4, #2]
 	strb r1, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r7, _08011CE8
 	ldrh r2, [r7, #0x12]
 	mov sb, r2
@@ -4317,7 +4317,7 @@ _08011C72:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldrh r2, [r7, #0x12]
 	cmp sb, r2
 	bhi _08011CFC
@@ -4363,7 +4363,7 @@ _08011CFC:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldrh r2, [r7, #0x12]
 	cmp sb, r2
 	bhs _08011D58
@@ -4426,7 +4426,7 @@ _08011D9C:
 	cmp r0, #1
 	beq _08011DE0
 	adds r0, r4, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #1
@@ -4440,7 +4440,7 @@ _08011D9C:
 	bl sub_804069C
 	strb r0, [r5, #3]
 	adds r0, r5, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, _08011E0C
 	ldrh r0, [r0, #0x12]
 	cmp r0, r8
@@ -4629,7 +4629,7 @@ _08011F4C:
 	strb r0, [r4, #2]
 	strb r1, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r6, _08011FC0
 	ldrh r5, [r6, #0x12]
 	str r5, [sp]
@@ -4650,7 +4650,7 @@ _08011F4C:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, [sp]
 	ldrh r1, [r6, #0x12]
 	cmp r0, r1
@@ -4696,7 +4696,7 @@ _08011FD4:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r4, [sp]
 	ldrh r0, [r6, #0x12]
 	cmp r4, r0
@@ -4752,7 +4752,7 @@ _08012068:
 	cmp r0, #1
 	beq _0801209A
 	adds r0, r4, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #1
@@ -4831,7 +4831,7 @@ _080121C0:
 	cmp r0, #1
 	beq _080121F2
 	adds r0, r4, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #1
@@ -4951,7 +4951,7 @@ _080122B0:
 	strb r0, [r4, #2]
 	strb r1, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	mov r0, sb
 	ldrh r0, [r0, #0x12]
 	str r0, [sp, #8]
@@ -4970,7 +4970,7 @@ _080122B0:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r3, [sp, #8]
 	mov r2, sb
 	ldrh r2, [r2, #0x12]
@@ -5017,7 +5017,7 @@ _08012334:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r3, [sp, #8]
 	mov r2, sb
 	ldrh r2, [r2, #0x12]
@@ -5088,7 +5088,7 @@ _080123CE:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, _08012420
 	ldrh r0, [r0, #0x12]
 	cmp r0, r6
@@ -8765,7 +8765,7 @@ _08016674:
 	bl sub_804069C
 	strb r0, [r5, #3]
 	adds r0, r5, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, _080166C8
 	ldrh r0, [r0, #0x12]
 	adds r6, r6, r0
@@ -8863,7 +8863,7 @@ _0801674E:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, _080167A8
 	ldrh r0, [r0, #0x12]
 	cmp r0, r7
@@ -8938,7 +8938,7 @@ sub_80167DC: @ 0x080167DC
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r5, _08016838
 	ldrh r0, [r5, #0x12]
 	cmp r0, #0
@@ -9024,7 +9024,7 @@ sub_80168A0: @ 0x080168A0
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r5, _080168FC
 	ldrh r0, [r5, #0x12]
 	cmp r0, #0
@@ -9193,7 +9193,7 @@ _08016A28:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r5, _08016A78
 	ldrh r0, [r5, #0x12]
 	cmp r0, #0
@@ -9297,7 +9297,7 @@ _08016B10:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r6, _08016B94
 	ldrh r0, [r6, #0x12]
 	mov r8, r0
@@ -9320,7 +9320,7 @@ _08016B10:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldrh r6, [r6, #0x12]
 	cmp r8, r6
 	bhi _08016BA8
@@ -9402,7 +9402,7 @@ _08016C00:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r6, _08016C80
 	ldrh r0, [r6, #0x12]
 	mov r8, r0
@@ -9425,7 +9425,7 @@ _08016C00:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldrh r6, [r6, #0x12]
 	cmp r8, r6
 	bhi _08016C94
@@ -9488,7 +9488,7 @@ sub_8016CB8: @ 0x08016CB8
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r5, _08016D14
 	ldrh r0, [r5, #0x12]
 	cmp r0, #0
@@ -9578,7 +9578,7 @@ _08016DAA:
 	cmp r0, #0
 	beq _08016DC4
 	adds r0, r1, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08016DC4
@@ -9599,7 +9599,7 @@ _08016DD2:
 	cmp r0, #0
 	beq _08016DEC
 	adds r0, r1, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08016DEC
@@ -9642,7 +9642,7 @@ _08016E2A:
 	cmp r0, #0
 	beq _08016E48
 	adds r0, r1, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08016E48
@@ -9713,7 +9713,7 @@ _08016EC6:
 	cmp r0, #0
 	beq _08016EE6
 	adds r0, r1, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #1
@@ -9786,7 +9786,7 @@ _08016F5E:
 	cmp r0, #0
 	beq _08016F7C
 	adds r0, r1, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08016F7C
@@ -9858,7 +9858,7 @@ _08016FF6:
 	cmp r0, #0
 	beq _08017014
 	adds r0, r1, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08017014
@@ -9930,7 +9930,7 @@ _0801708E:
 	cmp r0, #0
 	beq _080170B8
 	adds r0, r4, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #1
@@ -10095,7 +10095,7 @@ sub_80171D8: @ 0x080171D8
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r5, _08017234
 	ldrh r0, [r5, #0x12]
 	cmp r0, #0
@@ -10219,7 +10219,7 @@ _080172F0:
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, _080173D0
 	ldrh r2, [r0, #0x12]
 	mov sb, r2
@@ -10248,7 +10248,7 @@ _08017348:
 	cmp r0, #0
 	beq _08017410
 	adds r0, r4, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08017410
@@ -10264,7 +10264,7 @@ _08017348:
 	ldr r2, _080173C4
 	strb r0, [r2, #3]
 	adds r0, r2, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, _080173D0
 	ldrh r5, [r0, #0x12]
 	adds r7, r5, #0
@@ -10443,7 +10443,7 @@ _080174E0:
 	cmp r0, #0
 	beq _0801750A
 	adds r0, r4, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #1
@@ -11157,7 +11157,7 @@ _080199C8:
 	ldr r1, _08019A34
 	strb r0, [r1, #3]
 	adds r0, r1, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r2, _08019A3C
 	ldrh r2, [r2, #0x12]
 	mov r8, r2
@@ -11180,7 +11180,7 @@ _08019A0E:
 	cmp r0, #0
 	beq _08019AA8
 	adds r0, r4, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08019A48
@@ -11205,7 +11205,7 @@ _08019A48:
 	mov r1, sb
 	strb r0, [r1, #3]
 	mov r0, sb
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r2, _08019A88
 	ldrh r4, [r2, #0x12]
 	ldrb r0, [r2, #0x17]
@@ -22325,7 +22325,7 @@ sub_801FFE0: @ 0x0801FFE0
 	push {r4, lr}
 	ldr r0, _0801FFF4
 	ldrh r0, [r0]
-	bl sub_8025568
+	bl IsGoodAnte
 	cmp r0, #1
 	bne _0801FFFC
 	ldr r0, _0801FFF8

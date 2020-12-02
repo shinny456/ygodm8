@@ -1022,7 +1022,7 @@ void sub_800F298(void)
         gStatMod.card = gZones[row2][col2]->id;
         gStatMod.field = gDuel.field;
         gStatMod.stage = sub_804069C(gZones[row2][col2]);
-        sub_800B318(&gStatMod);
+        SetFinalStat(&gStatMod);
         gUnk_8DFF6A4->unk2298 += 0xFFFE - gCardInfo.atk;
         gUnk_8DFF6A4->unk2298 += 0xFFFE - gCardInfo.def;
     }
@@ -1200,7 +1200,7 @@ _0800F3E0:\n\
 	bl sub_804069C\n\
 	strb r0, [r4, #3]\n\
 	adds r0, r4, #0\n\
-	bl sub_800B318\n\
+	bl SetFinalStat\n\
 	ldr r0, _0800F438\n\
 	ldr r2, [r0]\n\
 	ldr r0, _0800F43C\n\
@@ -1282,7 +1282,7 @@ void sub_800F46C(void)
         gStatMod.card = gZones[row2][col2]->id;
         gStatMod.field = gDuel.field;
         gStatMod.stage = sub_804069C(gZones[row2][col2]);
-        sub_800B318(&gStatMod);
+        SetFinalStat(&gStatMod);
         gUnk_8DFF6A4->unk2298 += 0xFFFE - gCardInfo.atk;
         gUnk_8DFF6A4->unk2298 += 0xFFFE - gCardInfo.def;
     }
@@ -1459,7 +1459,7 @@ _0800F5B4:\n\
 	bl sub_804069C\n\
 	strb r0, [r4, #3]\n\
 	adds r0, r4, #0\n\
-	bl sub_800B318\n\
+	bl SetFinalStat\n\
 	ldr r0, _0800F60C\n\
 	ldr r2, [r0]\n\
 	ldr r0, _0800F610\n\
@@ -1535,12 +1535,12 @@ void sub_800F640(void)
             gStatMod.card = gZones[row2][col2]->id;
             gStatMod.field = gDuel.field;
             gStatMod.stage = sub_804069C(gZones[row2][col2]);
-            sub_800B318(&gStatMod);
+            SetFinalStat(&gStatMod);
             atk = gCardInfo.atk;
             gStatMod.card = gZones[row3][col3]->id;
             gStatMod.field = gDuel.field;
             gStatMod.stage = sub_804069C(gZones[row2][col2]);
-            sub_800B318(&gStatMod);
+            SetFinalStat(&gStatMod);
             atk2 = gCardInfo.atk;
             if (atk <= atk2)
                 gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;

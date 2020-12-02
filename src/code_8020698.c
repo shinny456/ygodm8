@@ -418,7 +418,7 @@ void sub_8020A3C(u32* arg0, u8* name, u16 arg2)
     name = sub_8020824(name);
     r7 = 0;
 
-    switch (arg2 & 0x1F00)
+    switch (arg2 & 0x1F00) //font flags?
     {
     case 0: //_08020AB4
         while (*name != 0 && *name != '$')

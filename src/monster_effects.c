@@ -130,15 +130,15 @@ void EffectCatapultTurtle(void)
             gStatMod.card = gZones[2][i]->id;
             gStatMod.field = gDuel.field;
             gStatMod.stage = sub_804069C(gZones[2][i]);
-            sub_800B318(&gStatMod);
+            SetFinalStat(&gStatMod);
             totalAtk += gCardInfo.atk;
             ClearZoneAndSendMonToGraveyard(gZones[2][i], 0);
         }
     }
     if (WhoseTurn() == PLAYER)
-        sub_803F9E4(totalAtk);
+        SubtractOpponentLifePoints(totalAtk);
     else
-        sub_803F99C(totalAtk);
+        SubtractPlayerLifePoints(totalAtk);
 
     sub_803F29C();
     sub_803F4C0();
@@ -161,7 +161,7 @@ void EffectTrapMaster(void)
         gZones[3][zone]->isDefending = FALSE;
         gZones[3][zone]->unkTwo = 0;
         gZones[3][zone]->unk4 = 0;
-        sub_8040360(gZones[3][zone]);
+        ResetPermStage(gZones[3][zone]);
         ResetTempStage(gZones[3][zone]);
         gZones[3][zone]->willChangeSides = FALSE;
     }
@@ -200,7 +200,7 @@ void EffectGyakutennoMegami(void)
             gStatMod.card = gZones[2][i]->id;
             gStatMod.field = gDuel.field;
             gStatMod.stage = sub_804069C(gZones[2][i]);
-            sub_800B318(&gStatMod);
+            SetFinalStat(&gStatMod);
             if (gCardInfo.atk <= 500)
                 sub_8040368(gZones[2][i]);
         }
@@ -258,7 +258,7 @@ void EffectSpiritOfTheBooks(void)
         gZones[gMonEffect.row][zone]->isDefending = FALSE;
         gZones[gMonEffect.row][zone]->unkTwo = 0;
         gZones[gMonEffect.row][zone]->unk4 = 0;
-        sub_8040360(gZones[gMonEffect.row][zone]);
+        ResetPermStage(gZones[gMonEffect.row][zone]);
         ResetTempStage(gZones[gMonEffect.row][zone]);
         gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
     }
@@ -324,7 +324,7 @@ void EffectToadMaster(void)
         gZones[gMonEffect.row][zone]->isDefending = FALSE;
         gZones[gMonEffect.row][zone]->unkTwo = 0;
         gZones[gMonEffect.row][zone]->unk4 = 0;
-        sub_8040360(gZones[gMonEffect.row][zone]);
+        ResetPermStage(gZones[gMonEffect.row][zone]);
         ResetTempStage(gZones[gMonEffect.row][zone]);
         gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
     }
@@ -382,12 +382,12 @@ void EffectMysticLamp(void)
     gStatMod.card = gZones[gMonEffect.row][gMonEffect.zone]->id;
     gStatMod.field = gDuel.field;
     gStatMod.stage = sub_804069C(gZones[gMonEffect.row][gMonEffect.zone]);
-    sub_800B318(&gStatMod);
+    SetFinalStat(&gStatMod);
 
     if (WhoseTurn() == PLAYER)
-        sub_803F9E4(gCardInfo.atk);
+        SubtractOpponentLifePoints(gCardInfo.atk);
     else
-        sub_803F99C(gCardInfo.atk);
+        SubtractPlayerLifePoints(gCardInfo.atk);
 
     sub_803F29C();
     sub_803F4C0();
@@ -404,12 +404,12 @@ void EffectLeghul(void)
     gStatMod.card = gZones[gMonEffect.row][gMonEffect.zone]->id;
     gStatMod.field = gDuel.field;
     gStatMod.stage = sub_804069C(gZones[gMonEffect.row][gMonEffect.zone]);
-    sub_800B318(&gStatMod);
+    SetFinalStat(&gStatMod);
 
     if (WhoseTurn() == PLAYER)
-        sub_803F9E4(gCardInfo.atk);
+        SubtractOpponentLifePoints(gCardInfo.atk);
     else
-        sub_803F99C(gCardInfo.atk);
+        SubtractPlayerLifePoints(gCardInfo.atk);
 
     sub_803F29C();
     sub_803F4C0();
@@ -455,9 +455,9 @@ void EffectObeliskTheTormentor(void)
             ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
 
     if (WhoseTurn() == PLAYER)
-        sub_803F9E4(4000);
+        SubtractOpponentLifePoints(4000);
     else
-        sub_803F99C(4000);
+        SubtractPlayerLifePoints(4000);
 
     sub_803F29C();
     sub_803F4C0();
@@ -516,7 +516,7 @@ void EffectAlphaTheMagnetWarrior(void)
            gZones[gMonEffect.row][gMonEffect.zone]->isLocked = TRUE;
            gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
            gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
-           sub_8040360(gZones[gMonEffect.row][gMonEffect.zone]);
+           ResetPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
            ResetTempStage(gZones[gMonEffect.row][gMonEffect.zone]);
            gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
            ClearZone(gZones[gMonEffect.row][sub_8043694(gZones[gMonEffect.row], BETA_THE_MAGNET_WARRIOR)]);
@@ -543,7 +543,7 @@ void EffectBetaTheMagnetWarrior(void)
            gZones[gMonEffect.row][gMonEffect.zone]->isLocked = TRUE;
            gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
            gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
-           sub_8040360(gZones[gMonEffect.row][gMonEffect.zone]);
+           ResetPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
            ResetTempStage(gZones[gMonEffect.row][gMonEffect.zone]);
            gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
            ClearZone(gZones[gMonEffect.row][sub_8043694(gZones[gMonEffect.row], ALPHA_THE_MAGNET_WARRIOR)]);
@@ -570,7 +570,7 @@ void EffectGammaTheMagnetWarrior(void)
            gZones[gMonEffect.row][gMonEffect.zone]->isLocked = TRUE;
            gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
            gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
-           sub_8040360(gZones[gMonEffect.row][gMonEffect.zone]);
+           ResetPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
            ResetTempStage(gZones[gMonEffect.row][gMonEffect.zone]);
            gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
            ClearZone(gZones[gMonEffect.row][sub_8043694(gZones[gMonEffect.row], ALPHA_THE_MAGNET_WARRIOR)]);
@@ -597,7 +597,7 @@ void EffectValkyrionTheMagnaWarrior(void)
         gZones[gMonEffect.row][gMonEffect.zone]->isLocked = TRUE;
         gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
         gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
-        sub_8040360(gZones[gMonEffect.row][gMonEffect.zone]);
+        ResetPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
         ResetTempStage(gZones[gMonEffect.row][gMonEffect.zone]);
         gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
 
@@ -607,7 +607,7 @@ void EffectValkyrionTheMagnaWarrior(void)
         gZones[gMonEffect.row][zone]->isLocked = TRUE;
         gZones[gMonEffect.row][zone]->isDefending = FALSE;
         gZones[gMonEffect.row][zone]->unkTwo = 0;
-        sub_8040360(gZones[gMonEffect.row][zone]);
+        ResetPermStage(gZones[gMonEffect.row][zone]);
         ResetTempStage(gZones[gMonEffect.row][zone]);
         gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
 
@@ -617,7 +617,7 @@ void EffectValkyrionTheMagnaWarrior(void)
         gZones[gMonEffect.row][zone]->isLocked = TRUE;
         gZones[gMonEffect.row][zone]->isDefending = FALSE;
         gZones[gMonEffect.row][zone]->unkTwo = 0;
-        sub_8040360(gZones[gMonEffect.row][zone]);
+        ResetPermStage(gZones[gMonEffect.row][zone]);
         ResetTempStage(gZones[gMonEffect.row][zone]);
         gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
     }
@@ -703,12 +703,12 @@ void EffectReflectBounder(void)
         gStatMod.card = gZones[1][zone]->id;
         gStatMod.field = gDuel.field;
         gStatMod.stage = sub_804069C(gZones[1][zone]);
-        sub_800B318(&gStatMod);
+        SetFinalStat(&gStatMod);
 
         if (WhoseTurn() == PLAYER)
-            sub_803F9E4(gCardInfo.atk);
+            SubtractOpponentLifePoints(gCardInfo.atk);
         else
-            sub_803F99C(gCardInfo.atk);
+            SubtractPlayerLifePoints(gCardInfo.atk);
 
         sub_803F29C();
         sub_803F4C0();
@@ -804,7 +804,7 @@ void EffectAncientLamp(void)
         gZones[gMonEffect.row][zone]->isDefending = FALSE;
         gZones[gMonEffect.row][zone]->unkTwo = 0;
         gZones[gMonEffect.row][zone]->unk4 = 0;
-        sub_8040360(gZones[gMonEffect.row][zone]);
+        ResetPermStage(gZones[gMonEffect.row][zone]);
         ResetTempStage(gZones[gMonEffect.row][zone]);
         gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
     }
@@ -822,12 +822,12 @@ void sub_80471BC(void)
     gStatMod.card = gZones[gMonEffect.row][gMonEffect.zone]->id;
     gStatMod.field = gDuel.field;
     gStatMod.stage = sub_804069C(gZones[gMonEffect.row][gMonEffect.zone]);
-    sub_800B318(&gStatMod);
+    SetFinalStat(&gStatMod);
 
     if (WhoseTurn() == PLAYER)
-        sub_803F9E4(gCardInfo.atk);
+        SubtractOpponentLifePoints(gCardInfo.atk);
     else
-        sub_803F99C(gCardInfo.atk);
+        SubtractPlayerLifePoints(gCardInfo.atk);
 
     sub_803F29C();
     sub_803F4C0();
@@ -841,14 +841,28 @@ void sub_80471BC(void)
     }
 }
 /*
+static inline u32 RemoveSpellCard(struct DuelCard* zone)
+{
+    if (zone->id != CARD_NONE)
+    {
+        SetCardInfo(zone->id);
+        if (gCardInfo.type == TYPE_SPELL)
+        {
+            ClearZoneAndSendMonToGraveyard(zone, 1);
+            return 1;
+        }
+
+    }
+    return 0;
+}
+
 void EffectDarkPaladin(void)
 {
     if (NumEmptyZonesInRow(gHands[0]) < 5 && sub_8043930(0, TYPE_SPELL) > 0)
     {
         u8 i;
         ClearZoneAndSendMonToGraveyard(gHands[0][sub_8043468(gHands[0])], 0);
-
-        for (i = 0; i < MAX_ZONES_IN_ROW; i++)
+        for (i = 0; i < MAX_ZONES_IN_ROW &&?; i++)
         {
             if (gZones[0][i]->id != CARD_NONE)
             {
@@ -861,7 +875,6 @@ void EffectDarkPaladin(void)
             }
         }
     }
-
     if (!gUnk_02021C08)
     {
         gUnk_02021C10.unk0 = DARK_PALADIN;
@@ -939,9 +952,37 @@ _080472F8: .4byte gCardInfo\n\
 _080472FC: .4byte gUnk_02021C08\n\
 _08047300: .4byte gUnk_02021C10");
 }
+/*
+void ReturnFaceDownCardsToHand(struct DuelCard* fieldZone, struct DuelCard* handZone) {
+  u8 r7 = 0, r8 = 0;
+  while (r7 < MAX_ZONES_IN_ROW && r8 < MAX_ZONES_IN_ROW) {
+    if (fieldZone->id == CARD_NONE || IsCardFaceUp(fieldZone) || fieldZone->willChangeSides) {
+      r7++;
+      fieldZone++;
+      continue;
+    }
+    for (; r8 < MAX_ZONES_IN_ROW; r8++, handZone++) {
+      if (handZone->id == CARD_NONE) {
+        CopyCard(handZone, fieldZone);
+        ClearZone(fieldZone);
+        ResetPermStage(handZone);
+        ResetTempStage(handZone);
+        handZone->isDefending = FALSE;
+        handZone->unk4 = 0;
+        handZone->unkTwo = 0;
+        r7++;
+        fieldZone++;
+        r8++;
+        handZone++;
+        break;
+      }
+    }
+  }
+}*/
+
 
 NAKED
-void sub_8047304(struct DuelCard* zone, struct DuelCard* zone2)
+void ReturnFaceDownCardsToHand(struct DuelCard* zone, struct DuelCard* zone2)
 {
     asm_unified("\n\
 	push {r4, r5, r6, r7, lr}\n\
@@ -957,7 +998,7 @@ _08047314:\n\
 	cmp r0, #0\n\
 	beq _08047330\n\
 	adds r0, r5, #0\n\
-	bl CardPosition\n\
+	bl IsCardFaceUp\n\
 	lsls r0, r0, #0x18\n\
 	cmp r0, #0\n\
 	bne _08047330\n\
@@ -979,7 +1020,7 @@ _0804733A:\n\
 	adds r0, r5, #0\n\
 	bl ClearZone\n\
 	adds r0, r6, #0\n\
-	bl sub_8040360\n\
+	bl ResetPermStage\n\
 	adds r0, r6, #0\n\
 	bl ResetTempStage\n\
 	ldrb r1, [r6, #5]\n\
@@ -1046,7 +1087,7 @@ void EffectKingsKnight(void)
         gZones[2][zone]->isDefending = FALSE;
         gZones[2][zone]->unkTwo = 0;
         gZones[2][zone]->unkThree = 0;
-        sub_8040360(gZones[2][zone]);
+        ResetPermStage(gZones[2][zone]);
         ResetTempStage(gZones[2][zone]);
         gZones[2][zone]->unk4 = 0;
         gZones[2][zone]->willChangeSides = FALSE;
@@ -1081,7 +1122,7 @@ void sub_804745C(void)
             gZones[2][gMonEffect.zone]->isDefending = FALSE;
             gZones[2][gMonEffect.zone]->unkTwo = 0;
             gZones[2][gMonEffect.zone]->unkThree = 0;
-            sub_8040360(gZones[2][gMonEffect.zone]);
+            ResetPermStage(gZones[2][gMonEffect.zone]);
             ResetTempStage(gZones[2][gMonEffect.zone]);
             gZones[2][gMonEffect.zone]->unk4 = 0;
             gZones[2][gMonEffect.zone]->willChangeSides = FALSE;
@@ -1164,7 +1205,7 @@ _08047498:\n\
 	ands r0, r1\n\
 	strb r0, [r4, #5]\n\
 	adds r0, r4, #0\n\
-	bl sub_8040360\n\
+	bl ResetPermStage\n\
 	adds r0, r4, #0\n\
 	bl ResetTempStage\n\
 	strb r5, [r4, #4]\n\
@@ -1296,7 +1337,7 @@ _080475B0:\n\
 	ands r0, r1\n\
 	strb r0, [r4, #5]\n\
 	adds r0, r4, #0\n\
-	bl sub_8040360\n\
+	bl ResetPermStage\n\
 	adds r0, r4, #0\n\
 	bl ResetTempStage\n\
 	strb r5, [r4, #4]\n\
@@ -1424,7 +1465,7 @@ _080476B8:\n\
 	ands r0, r1\n\
 	strb r0, [r4, #5]\n\
 	adds r0, r4, #0\n\
-	bl sub_8040360\n\
+	bl ResetPermStage\n\
 	adds r0, r4, #0\n\
 	bl ResetTempStage\n\
 	strb r5, [r4, #4]\n\
@@ -1509,7 +1550,7 @@ void EffectXYDragonCannon(void)
 
         for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         {
-            if (gZones[0][i]->id != CARD_NONE && CardPosition(gZones[0][i]) == FACE_UP)
+            if (gZones[0][i]->id != CARD_NONE && IsCardFaceUp(gZones[0][i]) == TRUE)
             {
                 found = TRUE;
                 break;
@@ -1560,7 +1601,7 @@ _080477AE:\n\
 	cmp r0, #0\n\
 	beq _080477A8\n\
 	adds r0, r4, #0\n\
-	bl CardPosition\n\
+	bl IsCardFaceUp\n\
 	lsls r0, r0, #0x18\n\
 	lsrs r0, r0, #0x18\n\
 	cmp r0, #1\n\
@@ -1630,7 +1671,7 @@ _0804783A:\n\
 	cmp r0, #0\n\
 	beq _08047834\n\
 	adds r0, r4, #0\n\
-	bl CardPosition\n\
+	bl IsCardFaceUp\n\
 	lsls r0, r0, #0x18\n\
 	cmp r0, #0\n\
 	bne _08047834\n\
@@ -1678,12 +1719,12 @@ void sub_80478A0(void)
         u16 r7 = 0;
         for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         {
-            if (gZones[1][i]->id != CARD_NONE && IsGodCard(gZones[1][i]->id) != TRUE && CardPosition(gZones[1][i]) == FACE_DOWN)
+            if (gZones[1][i]->id != CARD_NONE && IsGodCard(gZones[1][i]->id) != TRUE && IsCardFaceUp(gZones[1][i]) == FACE_DOWN)
             {
                 gStatMod.card = gZones[1][i]->id;
                 gStatMod.field = gDuel.field;
                 gStatMod.stage = sub_804069C(gZones[1][i]);
-                sub_800B318(&gStatMod);
+                SetFinalStat(&gStatMod);
                 if (gCardInfo.atk >= r7)
                 {
                     r7 = gCardInfo.atk;
@@ -1741,7 +1782,7 @@ _080478C4:\n\
 	cmp r0, #1\n\
 	beq _0804790E\n\
 	adds r0, r4, #0\n\
-	bl CardPosition\n\
+	bl IsCardFaceUp\n\
 	lsls r0, r0, #0x18\n\
 	cmp r0, #0\n\
 	bne _0804790E\n\
@@ -1754,7 +1795,7 @@ _080478C4:\n\
 	bl sub_804069C\n\
 	strb r0, [r6, #3]\n\
 	adds r0, r6, #0\n\
-	bl sub_800B318\n\
+	bl SetFinalStat\n\
 	ldr r0, _08047978\n\
 	ldrh r2, [r0, #0x12]\n\
 	cmp r7, r2\n\
@@ -1847,12 +1888,12 @@ void EffectPuppetMaster(void)
 
         if (WhoseTurn() == PLAYER)
         {
-            sub_803F99C(1000);
+            SubtractPlayerLifePoints(1000);
             sub_803F29C();
         }
         else
         {
-            sub_803F9E4(1000);
+            SubtractOpponentLifePoints(1000);
             sub_803F29C();
         }
         sub_803F4C0();
@@ -1866,7 +1907,7 @@ void EffectPuppetMaster(void)
         gZones[2][zone]->isDefending = FALSE;
         gZones[2][zone]->unkTwo = 0;
         gZones[2][zone]->unk4 = 2;
-        sub_8040360(gZones[2][zone]);
+        ResetPermStage(gZones[2][zone]);
         ResetTempStage(gZones[2][zone]);
         gZones[2][zone]->willChangeSides = FALSE;
 
@@ -1880,7 +1921,7 @@ void EffectPuppetMaster(void)
             gZones[2][zone]->isDefending = FALSE;
             gZones[2][zone]->unkTwo = 0;
             gZones[2][zone]->unk4 = 2;
-            sub_8040360(gZones[2][zone]);
+            ResetPermStage(gZones[2][zone]);
             ResetTempStage(gZones[2][zone]);
             gZones[2][zone]->willChangeSides = FALSE;
 
@@ -1894,7 +1935,7 @@ void EffectPuppetMaster(void)
                 gZones[2][zone]->isDefending = FALSE;
                 gZones[2][zone]->unkTwo = 0;
                 gZones[2][zone]->unk4 = 2;
-                sub_8040360(gZones[2][zone]);
+                ResetPermStage(gZones[2][zone]);
                 ResetTempStage(gZones[2][zone]);
                 gZones[2][zone]->willChangeSides = FALSE;
             }
@@ -1936,7 +1977,7 @@ _08047A1C:\n\
 	bne _08047A40\n\
 	movs r0, #0xfa\n\
 	lsls r0, r0, #2\n\
-	bl sub_803F99C\n\
+	bl SubtractPlayerLifePoints\n\
 	bl sub_803F29C\n\
 	b _08047A4C\n\
 	.align 2, 0\n\
@@ -1946,7 +1987,7 @@ _08047A3C: .4byte 0x00000239\n\
 _08047A40:\n\
 	movs r0, #0xfa\n\
 	lsls r0, r0, #2\n\
-	bl sub_803F9E4\n\
+	bl SubtractOpponentLifePoints\n\
 	bl sub_803F29C\n\
 _08047A4C:\n\
 	bl sub_803F4C0\n\
@@ -1980,7 +2021,7 @@ _08047A4C:\n\
 	movs r6, #2\n\
 	strb r6, [r4, #4]\n\
 	adds r0, r4, #0\n\
-	bl sub_8040360\n\
+	bl ResetPermStage\n\
 	adds r0, r4, #0\n\
 	bl ResetTempStage\n\
 	ldrb r1, [r4, #5]\n\
@@ -2013,7 +2054,7 @@ _08047A4C:\n\
 	strb r0, [r4, #5]\n\
 	strb r6, [r4, #4]\n\
 	adds r0, r4, #0\n\
-	bl sub_8040360\n\
+	bl ResetPermStage\n\
 	adds r0, r4, #0\n\
 	bl ResetTempStage\n\
 	ldrb r1, [r4, #5]\n\
@@ -2044,7 +2085,7 @@ _08047A4C:\n\
 	strb r0, [r4, #5]\n\
 	strb r6, [r4, #4]\n\
 	adds r0, r4, #0\n\
-	bl sub_8040360\n\
+	bl ResetPermStage\n\
 	adds r0, r4, #0\n\
 	bl ResetTempStage\n\
 	ldrb r1, [r4, #5]\n\
@@ -2084,12 +2125,12 @@ void EffectPenguinTorpedo(void)
     gStatMod.card = zone->id;
     gStatMod.field = gDuel.field;
     gStatMod.stage = sub_804069C(zone);
-    sub_800B318(&gStatMod);
+    SetFinalStat(&gStatMod);
 
     if (WhoseTurn() == PLAYER)
-        sub_803F9E4(gCardInfo.atk);
+        SubtractOpponentLifePoints(gCardInfo.atk);
     else
-        sub_803F99C(gCardInfo.atk);
+        SubtractPlayerLifePoints(gCardInfo.atk);
 
     sub_803F29C();
     sub_803F4C0();
@@ -2532,9 +2573,9 @@ void EffectLadyOfFaith(void)
 void EffectFireReaper(void)
 {
     if (WhoseTurn() == PLAYER)
-        sub_803F9E4(50);
+        SubtractOpponentLifePoints(50);
     else
-        sub_803F99C(50);
+        SubtractPlayerLifePoints(50);
 
     sub_803F29C();
     sub_803F4C0();
@@ -2626,9 +2667,9 @@ void EffectHourglassOfLife(void)
             sub_8040368(gZones[2][i]);
 
     if (WhoseTurn() == PLAYER)
-        sub_803F99C(1000);
+        SubtractPlayerLifePoints(1000);
     else
-        sub_803F9E4(1000);
+        SubtractOpponentLifePoints(1000);
 
     sub_803F29C();
     sub_803F4C0();
@@ -2659,13 +2700,13 @@ void EffectTheWingedDragonOfRaBattleMode(void)
 {
     if (WhoseTurn() == PLAYER)
     {
-        sub_803F9E4(gLifePoints[0] - 1);
+        SubtractOpponentLifePoints(gLifePoints[0] - 1);
         sub_803F29C();
         gLifePoints[0] = 1;
     }
     else
     {
-        sub_803F99C(gLifePoints[1] - 1);
+        SubtractPlayerLifePoints(gLifePoints[1] - 1);
         sub_803F29C();
         gLifePoints[1] = 1;
     }
@@ -2853,9 +2894,9 @@ void sub_8048AA0(void)
         ClearZoneAndSendMonToGraveyard(gZones[1][HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
 
     if (WhoseTurn() == PLAYER)
-        sub_803F9E4(500);
+        SubtractOpponentLifePoints(500);
     else
-        sub_803F99C(500);
+        SubtractPlayerLifePoints(500);
 
     sub_803F29C();
     sub_803F4C0();
@@ -2871,10 +2912,10 @@ void sub_8048B10(void){}
 
 void EffectByserShock(void)
 {
-    sub_8047304(gZones[1][0], gHands[1][0]);
-    sub_8047304(gZones[0][0], gHands[1][0]);
-    sub_8047304(gZones[2][0], gHands[0][0]);
-    sub_8047304(gZones[3][0], gHands[0][0]);
+    ReturnFaceDownCardsToHand(gZones[1][0], gHands[1][0]);
+    ReturnFaceDownCardsToHand(gZones[0][0], gHands[1][0]);
+    ReturnFaceDownCardsToHand(gZones[2][0], gHands[0][0]);
+    ReturnFaceDownCardsToHand(gZones[3][0], gHands[0][0]);
 
     if (!gUnk_02021C08)
     {
@@ -2888,9 +2929,9 @@ void EffectTheWingedDragonOfRaPhoenixMode(void)
     u8 i;
 
     if (WhoseTurn() == PLAYER)
-        sub_803F99C(1000);
+        SubtractPlayerLifePoints(1000);
     else
-        sub_803F9E4(1000);
+        SubtractOpponentLifePoints(1000);
 
     sub_803F29C();
     sub_803F4C0();

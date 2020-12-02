@@ -4043,6 +4043,7 @@ _08025490: .4byte 0x080C1D1A
 _08025494: .4byte 0x080C1D11
 _08025498: .4byte 0x02024230
 
+@decomped: duel_status.c
 	THUMB_FUNC_START sub_802549C
 sub_802549C: @ 0x0802549C
 	push {r4, lr}
@@ -4073,7 +4074,7 @@ _080254CC:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080254D4: .4byte gDuel+0x100
+_080254D4: .4byte gNotSure
 _080254D8: .4byte 0x080C1D80
 
 	THUMB_FUNC_START sub_80254DC
@@ -4162,8 +4163,9 @@ _08025554:
 	.align 2, 0
 _08025564: .4byte gDuelistStatus
 
-	THUMB_FUNC_START sub_8025568
-sub_8025568: @ 0x08025568
+@decomped bad_ante.c
+	THUMB_FUNC_START IsGoodAnte
+IsGoodAnte: @ 0x08025568
 	push {r4, lr}
 	lsls r0, r0, #0x10
 	lsrs r4, r0, #0x10
@@ -4183,7 +4185,7 @@ _0802557C:
 	movs r0, #0
 	b _080255A2
 	.align 2, 0
-_0802558C: .4byte 0x080C1D84
+_0802558C: .4byte gLowLevelAnte
 _08025590:
 	adds r0, r2, #1
 	lsls r0, r0, #0x10
@@ -4199,7 +4201,7 @@ _080255A2:
 	pop {r4}
 	pop {r1}
 	bx r1
-
+@bad_ante.c end
 	THUMB_FUNC_START sub_80255A8
 sub_80255A8: @ 0x080255A8
 	push {r4, r5, lr}
@@ -7554,7 +7556,7 @@ _08027294: .4byte gUnk_02021C08
 _08027298: .4byte gHands
 _0802729C: .4byte 0x00000177
 _080272A0: .4byte gHands+0x14
-_080272A4: .4byte gDuel+0x100
+_080272A4: .4byte gNotSure
 _080272A8:
 	movs r0, #2
 	strb r0, [r5, #2]
@@ -8859,7 +8861,7 @@ sub_8027D2C: @ 0x08027D2C
 	.align 2, 0
 _08027D60: .4byte 0x02021DE0
 _08027D64: .4byte gZones
-_08027D68: .4byte gDuel+0x100
+_08027D68: .4byte gNotSure
 _08027D6C:
 	ldr r0, _08027D9C
 	cmp r1, r0
@@ -8886,7 +8888,7 @@ _08027D7E:
 	b _08027DC4
 	.align 2, 0
 _08027D9C: .4byte 0x000002D1
-_08027DA0: .4byte gDuel+0x100
+_08027DA0: .4byte gNotSure
 _08027DA4: .4byte gZones
 _08027DA8: .4byte 0x02021DE0
 _08027DAC:
@@ -8942,7 +8944,7 @@ _08027DF0:
 	b _08027E3A
 	.align 2, 0
 _08027E20: .4byte gZones
-_08027E24: .4byte gDuel+0x100
+_08027E24: .4byte gNotSure
 _08027E28:
 	ldr r0, _08027E58
 	cmp r1, r0
@@ -8969,7 +8971,7 @@ _08027E3A:
 	b _08027E80
 	.align 2, 0
 _08027E58: .4byte 0x000002D1
-_08027E5C: .4byte gDuel+0x100
+_08027E5C: .4byte gNotSure
 _08027E60: .4byte gZones
 _08027E64: .4byte 0x02021DE0
 _08027E68:
@@ -9034,7 +9036,7 @@ _08027ED4:
 	cmp r0, #0
 	beq _08027F16
 	adds r0, r1, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08027F16
@@ -9111,7 +9113,7 @@ _08027F7A:
 	cmp r0, #0
 	beq _08027FBC
 	adds r0, r1, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08027FBC
@@ -9710,7 +9712,7 @@ _08028454:
 	cmp r0, #0
 	beq _0802848E
 	adds r0, r1, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0802848E
@@ -9785,7 +9787,7 @@ _080284F2:
 	cmp r0, #0
 	beq _0802852C
 	adds r0, r1, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0802852C
@@ -10093,7 +10095,7 @@ _0802876E:
 	cmp r0, #0
 	beq _080287B0
 	adds r0, r1, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080287B0
@@ -10132,7 +10134,7 @@ _080287BE:
 	cmp r0, #0
 	beq _08028800
 	adds r0, r1, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08028800
@@ -10217,7 +10219,7 @@ _08028870:
 	cmp r0, #0
 	beq _080288B2
 	adds r0, r1, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080288B2
@@ -10278,7 +10280,7 @@ _080288E6:
 _080288FC: .4byte 0x02021DE0
 _08028900: .4byte gZones
 _08028904: .4byte gCardInfo
-_08028908: .4byte gDuel+0x100
+_08028908: .4byte gNotSure
 _0802890C: .4byte gUnk_02021C08
 _08028910: .4byte gUnk_02021C10
 _08028914:
@@ -10306,7 +10308,7 @@ _08028932:
 	cmp r0, #0
 	beq _08028974
 	adds r0, r1, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08028974
@@ -10370,7 +10372,7 @@ _080289BC:
 _080289C4: .4byte gZones
 _080289C8: .4byte gCardInfo
 _080289CC: .4byte 0x02021DE0
-_080289D0: .4byte gDuel+0x100
+_080289D0: .4byte gNotSure
 _080289D4: .4byte gUnk_02021C08
 _080289D8: .4byte gUnk_02021C10
 
@@ -10403,7 +10405,7 @@ _08028A00:
 	cmp r0, #0
 	beq _08028A42
 	adds r0, r1, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08028A42
@@ -10471,7 +10473,7 @@ _08028A82:
 	cmp r0, #0
 	beq _08028AD6
 	adds r0, r1, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08028AD6
@@ -10626,7 +10628,7 @@ _08028BD0:
 	bl sub_804069C
 	strb r0, [r6, #3]
 	adds r0, r6, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, _08028C9C
 	ldrh r0, [r0, #0x12]
 	cmp r0, r7
@@ -10662,7 +10664,7 @@ _08028C1A:
 	bl sub_804069C
 	strb r0, [r6, #3]
 	adds r0, r6, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, _08028C9C
 	ldrh r0, [r0, #0x12]
 	cmp r0, r7
@@ -11106,7 +11108,7 @@ _08028FE2:
 _08028FEC: .4byte 0x02021DE0
 _08028FF0: .4byte gZones
 _08028FF4: .4byte gCardInfo
-_08028FF8: .4byte gDuel+0x100
+_08028FF8: .4byte gNotSure
 _08028FFC: .4byte gUnk_02021C08
 _08029000: .4byte gUnk_02021C10
 
@@ -11172,7 +11174,7 @@ _0802902C:
 	ldr r0, [r4]
 	bl sub_804034C
 	ldr r0, [r4]
-	bl sub_8040360
+	bl ResetPermStage
 	ldr r0, [r4]
 	bl ResetTempStage
 	ldr r0, _080290AC
@@ -11186,7 +11188,7 @@ _0802902C:
 	b _08029142
 	.align 2, 0
 _080290A0: .4byte 0x02021DE0
-_080290A4: .4byte gDuel+0x100
+_080290A4: .4byte gNotSure
 _080290A8: .4byte gZones+0x14
 _080290AC: .4byte gUnk_02021C08
 _080290B0: .4byte gUnk_02021C10
@@ -11244,7 +11246,7 @@ _080290B4:
 	ldr r0, [r4]
 	bl sub_804034C
 	ldr r0, [r4]
-	bl sub_8040360
+	bl ResetPermStage
 	ldr r0, [r4]
 	bl ResetTempStage
 	ldr r0, _08029150
@@ -11260,7 +11262,7 @@ _08029142:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08029148: .4byte gDuel+0x100
+_08029148: .4byte gNotSure
 _0802914C: .4byte gZones+0x28
 _08029150: .4byte gUnk_02021C08
 _08029154: .4byte gUnk_02021C10
@@ -11803,7 +11805,7 @@ _08029590:
 	ldr r0, _08029610
 	strh r0, [r5]
 	adds r0, r5, #0
-	bl sub_8040360
+	bl ResetPermStage
 	adds r0, r5, #0
 	bl ResetTempStage
 	strb r4, [r5, #4]
@@ -11837,7 +11839,7 @@ _080295EE:
 	b _0802969A
 	.align 2, 0
 _08029600: .4byte 0x02021DE0
-_08029604: .4byte gDuel+0x100
+_08029604: .4byte gNotSure
 _08029608: .4byte 0x00000285
 _0802960C: .4byte gZones+0x14
 _08029610: .4byte 0x00000286
@@ -11869,7 +11871,7 @@ _0802961C:
 	ldr r0, _080296AC
 	strh r0, [r5]
 	adds r0, r5, #0
-	bl sub_8040360
+	bl ResetPermStage
 	adds r0, r5, #0
 	bl ResetTempStage
 	strb r4, [r5, #4]
@@ -11905,7 +11907,7 @@ _0802969A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080296A0: .4byte gDuel+0x100
+_080296A0: .4byte gNotSure
 _080296A4: .4byte 0x00000285
 _080296A8: .4byte gZones+0x28
 _080296AC: .4byte 0x00000286
@@ -11948,7 +11950,7 @@ _080296E8:
 	b _0802974C
 	.align 2, 0
 _080296FC: .4byte 0x02021DE0
-_08029700: .4byte gDuel+0x100
+_08029700: .4byte gNotSure
 _08029704: .4byte gZones
 _08029708: .4byte gUnk_02021C08
 _0802970C: .4byte gUnk_02021C10
@@ -11986,7 +11988,7 @@ _0802974C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08029754: .4byte gDuel+0x100
+_08029754: .4byte gNotSure
 _08029758: .4byte gZones
 _0802975C: .4byte gUnk_02021C08
 _08029760: .4byte gUnk_02021C10
@@ -12346,7 +12348,7 @@ _08029B04:
 	cmp r0, #0
 	beq _08029B2C
 	adds r0, r1, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08029B2C
@@ -12384,7 +12386,7 @@ _08029B50:
 	cmp r0, #0
 	beq _08029B78
 	adds r0, r1, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08029B78
@@ -12717,7 +12719,7 @@ _08029DAE:
 	cmp r0, #0
 	beq _08029DD0
 	adds r0, r1, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08029DD0
@@ -12755,7 +12757,7 @@ _08029DF6:
 	cmp r0, #0
 	beq _08029E18
 	adds r0, r1, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08029E18
@@ -12941,7 +12943,7 @@ _08029F54:
 	cmp r0, #0
 	beq _08029F7C
 	adds r0, r1, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08029F7C
@@ -12967,7 +12969,7 @@ _08029F7C:
 _08029F90: .4byte 0x02021DE0
 _08029F94: .4byte gZones+0x28
 _08029F98: .4byte gCardInfo
-_08029F9C: .4byte gDuel+0x100
+_08029F9C: .4byte gNotSure
 _08029FA0:
 	cmp r0, #2
 	bne _08029FF2
@@ -12981,7 +12983,7 @@ _08029FA8:
 	cmp r0, #0
 	beq _08029FD0
 	adds r0, r1, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08029FD0
@@ -13019,7 +13021,7 @@ _08029FF2:
 	.align 2, 0
 _08029FFC: .4byte gZones+0x14
 _0802A000: .4byte gCardInfo
-_0802A004: .4byte gDuel+0x100
+_0802A004: .4byte gNotSure
 
 	THUMB_FUNC_START sub_802A008
 sub_802A008: @ 0x0802A008
@@ -13140,7 +13142,7 @@ _0802A0BE:
 	bl sub_804069C
 	strb r0, [r6, #3]
 	adds r0, r6, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, _0802A174
 	ldrh r0, [r0, #0x12]
 	cmp r0, r8
@@ -13185,7 +13187,7 @@ _0802A118:
 	bl sub_804069C
 	strb r0, [r6, #3]
 	adds r0, r6, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, _0802A174
 	ldrh r0, [r0, #0x12]
 	cmp r0, r8
@@ -13248,7 +13250,7 @@ _0802A1A4:
 	bl sub_804069C
 	strb r0, [r6, #3]
 	adds r0, r6, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, _0802A260
 	ldrh r0, [r0, #0x12]
 	cmp r0, r8
@@ -13291,7 +13293,7 @@ _0802A1FC:
 	bl sub_804069C
 	strb r0, [r6, #3]
 	adds r0, r6, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, _0802A260
 	ldrh r0, [r0, #0x12]
 	cmp r0, r8
@@ -13394,7 +13396,7 @@ _0802A2EC: .4byte 0x02021DE0
 _0802A2F0: .4byte gZones+0x14
 _0802A2F4: .4byte gCardInfo
 _0802A2F8: .4byte gZones+0x28
-_0802A2FC: .4byte gDuel+0x100
+_0802A2FC: .4byte gNotSure
 _0802A300:
 	movs r0, #0
 _0802A302:
@@ -13420,7 +13422,7 @@ sub_802A308: @ 0x0802A308
 	b _0802A344
 	.align 2, 0
 _0802A324: .4byte 0x02021DE0
-_0802A328: .4byte gDuel+0x100
+_0802A328: .4byte gNotSure
 _0802A32C: .4byte gZones+0x14
 _0802A330:
 	cmp r0, #6
@@ -13440,7 +13442,7 @@ _0802A344:
 	movs r0, #1
 	b _0802A35A
 	.align 2, 0
-_0802A350: .4byte gDuel+0x100
+_0802A350: .4byte gNotSure
 _0802A354: .4byte gZones+0x28
 _0802A358:
 	movs r0, #0
@@ -14132,7 +14134,7 @@ sub_802A8E8: @ 0x0802A8E8
 	b _0802A926
 	.align 2, 0
 _0802A904: .4byte 0x02021DE0
-_0802A908: .4byte gDuel+0x100
+_0802A908: .4byte gNotSure
 _0802A90C: .4byte 0x00000285
 _0802A910: .4byte gZones+0x14
 _0802A914:
@@ -14152,7 +14154,7 @@ _0802A926:
 	movs r0, #1
 	b _0802A942
 	.align 2, 0
-_0802A934: .4byte gDuel+0x100
+_0802A934: .4byte gNotSure
 _0802A938: .4byte 0x00000285
 _0802A93C: .4byte gZones+0x28
 _0802A940:
@@ -14184,7 +14186,7 @@ sub_802A950: @ 0x0802A950
 	b _0802A970
 	.align 2, 0
 _0802A960: .4byte 0x02021DE0
-_0802A964: .4byte gDuel+0x100
+_0802A964: .4byte gNotSure
 _0802A968:
 	cmp r0, #2
 	bne _0802A984
@@ -14198,7 +14200,7 @@ _0802A970:
 	movs r0, #1
 	b _0802A986
 	.align 2, 0
-_0802A980: .4byte gDuel+0x100
+_0802A980: .4byte gNotSure
 _0802A984:
 	movs r0, #0
 _0802A986:
@@ -15163,7 +15165,7 @@ _0802B058: .4byte gUnk_02021C08
 _0802B05C: .4byte gHands
 _0802B060: .4byte 0x00000177
 _0802B064: .4byte gHands+0x14
-_0802B068: .4byte gDuel+0x100
+_0802B068: .4byte gNotSure
 _0802B06C:
 	ldr r1, _0802B200
 	movs r0, #2
@@ -15708,7 +15710,7 @@ sub_802B604: @ 0x0802B604
 	movs r6, #0
 	strh r5, [r4]
 	adds r0, r4, #0
-	bl sub_8040360
+	bl ResetPermStage
 	adds r0, r4, #0
 	bl ResetTempStage
 	strb r6, [r4, #4]
@@ -15745,7 +15747,7 @@ _0802B68E:
 	bx r0
 	.align 2, 0
 _0802B694: .4byte 0x02021DE0
-_0802B698: .4byte gDuel+0x100
+_0802B698: .4byte gNotSure
 _0802B69C: .4byte gZones+0x28
 _0802B6A0: .4byte gUnk_02021C08
 _0802B6A4: .4byte gUnk_02021C10
@@ -15823,7 +15825,7 @@ sub_802B770: @ 0x0802B770
 	bne _0802B7B0
 	movs r0, #0xfa
 	lsls r0, r0, #2
-	bl sub_803F99C
+	bl SubtractPlayerLifePoints
 	bl sub_803F29C
 	bl sub_803F4C0
 	b _0802B7C0
@@ -15833,7 +15835,7 @@ _0802B7AC: .4byte gZones
 _0802B7B0:
 	movs r0, #0xfa
 	lsls r0, r0, #2
-	bl sub_803F9E4
+	bl SubtractOpponentLifePoints
 	bl sub_803F29C
 	bl sub_803F4C0
 _0802B7C0:
@@ -15912,7 +15914,7 @@ sub_802B83C: @ 0x0802B83C
 	bne _0802B878
 	movs r0, #0xaf
 	lsls r0, r0, #2
-	bl sub_803F99C
+	bl SubtractPlayerLifePoints
 	bl sub_803F29C
 	bl sub_803F4C0
 	b _0802B888
@@ -15922,7 +15924,7 @@ _0802B874: .4byte gZones
 _0802B878:
 	movs r0, #0xaf
 	lsls r0, r0, #2
-	bl sub_803F9E4
+	bl SubtractOpponentLifePoints
 	bl sub_803F29C
 	bl sub_803F4C0
 _0802B888:
@@ -16262,7 +16264,7 @@ sub_802BE00: @ 0x0802BE00
 	b _0802BE32
 	.align 2, 0
 _0802BE24: .4byte 0x02021DE0
-_0802BE28: .4byte gDuel+0x100
+_0802BE28: .4byte gNotSure
 _0802BE2C: .4byte gZones+0x28
 _0802BE30:
 	movs r0, #0
@@ -16292,7 +16294,7 @@ sub_802BE38: @ 0x0802BE38
 	b _0802BE6A
 	.align 2, 0
 _0802BE5C: .4byte 0x02021DE0
-_0802BE60: .4byte gDuel+0x100
+_0802BE60: .4byte gNotSure
 _0802BE64: .4byte gZones+0x28
 _0802BE68:
 	movs r0, #0
@@ -16318,7 +16320,7 @@ sub_802BE70: @ 0x0802BE70
 	b _0802BE96
 	.align 2, 0
 _0802BE8C: .4byte 0x02021DE0
-_0802BE90: .4byte gDuel+0x100
+_0802BE90: .4byte gNotSure
 _0802BE94:
 	movs r0, #0
 _0802BE96:
@@ -52858,7 +52860,7 @@ sub_803F4F0: @ 0x0803F4F0
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r1, _0803F568
 	ldrh r0, [r1, #0x12]
 	strh r0, [r5, #2]
@@ -52923,7 +52925,7 @@ sub_803F574: @ 0x0803F574
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r1, _0803F5F8
 	ldrh r0, [r1, #0x12]
 	strh r0, [r5, #0xe]
@@ -53000,7 +53002,7 @@ sub_803F604: @ 0x0803F604
 	bl sub_804069C
 	strb r0, [r5, #3]
 	adds r0, r5, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r6, _0803F6EC
 	ldrh r0, [r6, #0x12]
 	strh r0, [r4, #2]
@@ -53035,7 +53037,7 @@ sub_803F604: @ 0x0803F604
 	bl sub_804069C
 	strb r0, [r5, #3]
 	adds r0, r5, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldrh r0, [r6, #0x12]
 	strh r0, [r4, #0xe]
 	ldrh r0, [r6, #0x14]
@@ -53114,7 +53116,7 @@ sub_803F6F8: @ 0x0803F6F8
 	bl sub_804069C
 	strb r0, [r5, #3]
 	adds r0, r5, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r6, _0803F7E0
 	ldrh r0, [r6, #0x12]
 	strh r0, [r4, #2]
@@ -53149,7 +53151,7 @@ sub_803F6F8: @ 0x0803F6F8
 	bl sub_804069C
 	strb r0, [r5, #3]
 	adds r0, r5, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldrh r0, [r6, #0x12]
 	strh r0, [r4, #0xe]
 	ldrh r0, [r6, #0x14]
@@ -53229,7 +53231,7 @@ sub_803F7EC: @ 0x0803F7EC
 	bl sub_804069C
 	strb r0, [r5, #3]
 	adds r0, r5, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r6, _0803F8D4
 	ldrh r0, [r6, #0x12]
 	strh r0, [r4, #2]
@@ -53264,7 +53266,7 @@ sub_803F7EC: @ 0x0803F7EC
 	bl sub_804069C
 	strb r0, [r5, #3]
 	adds r0, r5, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldrh r0, [r6, #0x12]
 	strh r0, [r4, #0xe]
 	ldrh r0, [r6, #0x14]
@@ -53398,8 +53400,8 @@ sub_803F978: @ 0x0803F978
 _0803F994: .4byte 0x02023E80
 _0803F998: .4byte gLifePoints
 
-	THUMB_FUNC_START sub_803F99C
-sub_803F99C: @ 0x0803F99C
+	THUMB_FUNC_START SubtractPlayerLifePoints
+SubtractPlayerLifePoints: @ 0x0803F99C
 	ldr r2, _0803F9B8
 	movs r3, #0
 	movs r1, #8
@@ -53438,8 +53440,8 @@ sub_803F9C0: @ 0x0803F9C0
 _0803F9DC: .4byte 0x02023E80
 _0803F9E0: .4byte gLifePoints
 
-	THUMB_FUNC_START sub_803F9E4
-sub_803F9E4: @ 0x0803F9E4
+	THUMB_FUNC_START SubtractOpponentLifePoints
+SubtractOpponentLifePoints: @ 0x0803F9E4
 	ldr r2, _0803FA00
 	movs r3, #0
 	movs r1, #9
@@ -54271,7 +54273,7 @@ _0803FFE0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803FFFC: .4byte gDuel+0x100
+_0803FFFC: .4byte gNotSure
 _08040000: .4byte gDuel+0xF4
 _08040004: .4byte 0x02024040
 _08040008: .4byte 0x02024054
@@ -54407,7 +54409,7 @@ _08040106:
 	bls _08040106
 	b _08040218
 	.align 2, 0
-_0804011C: .4byte gDuel+0x100
+_0804011C: .4byte gNotSure
 _08040120: .4byte gDuel+0xF4
 _08040124: .4byte gZones
 _08040128: .4byte gZones+0x14
@@ -54532,7 +54534,7 @@ _08040218:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08040220: .4byte gDuel+0x100
+_08040220: .4byte gNotSure
 _08040224: .4byte gDuel+0xF8
 _08040228: .4byte gZones
 _0804022C: .4byte gZones+0x14
@@ -54624,7 +54626,7 @@ ClearZone: @ 0x080402BC
 	ands r0, r1
 	strb r0, [r4, #5]
 	adds r0, r4, #0
-	bl sub_8040360
+	bl ResetPermStage
 	adds r0, r4, #0
 	bl ResetTempStage
 	strb r5, [r4, #4]
@@ -54660,15 +54662,15 @@ sub_804034C: @ 0x0804034C
 	strb r1, [r0, #5]
 	bx lr
 
-	THUMB_FUNC_START CardPosition
-CardPosition: @ 0x08040358
+	THUMB_FUNC_START IsCardFaceUp
+IsCardFaceUp: @ 0x08040358
 	ldrb r0, [r0, #5]
 	lsls r0, r0, #0x1b
 	lsrs r0, r0, #0x1f
 	bx lr
 
-	THUMB_FUNC_START sub_8040360
-sub_8040360: @ 0x08040360
+	THUMB_FUNC_START ResetPermStage
+ResetPermStage: @ 0x08040360
 	movs r1, #0
 	strb r1, [r0, #2]
 	bx lr
@@ -54795,7 +54797,7 @@ sub_80404F0: @ 0x080404F0
 	strb r0, [r2, #2]
 	bx lr
 	.align 2, 0
-_08040504: .4byte gDuel+0x100
+_08040504: .4byte gNotSure
 
 	THUMB_FUNC_START sub_8040508
 sub_8040508: @ 0x08040508
@@ -54827,7 +54829,7 @@ sub_8040524: @ 0x08040524
 	strb r0, [r2, #2]
 	bx lr
 	.align 2, 0
-_0804053C: .4byte gDuel+0x100
+_0804053C: .4byte gNotSure
 
 	THUMB_FUNC_START sub_8040540
 sub_8040540: @ 0x08040540
@@ -55032,7 +55034,7 @@ sub_8040744: @ 0x08040744
 	strb r0, [r2, #2]
 	bx lr
 	.align 2, 0
-_08040758: .4byte gDuel+0x100
+_08040758: .4byte gNotSure
 
 	THUMB_FUNC_START sub_804075C
 sub_804075C: @ 0x0804075C
@@ -55060,7 +55062,7 @@ sub_804075C: @ 0x0804075C
 _08040786:
 	bx lr
 	.align 2, 0
-_08040788: .4byte gDuel+0x100
+_08040788: .4byte gNotSure
 
 	THUMB_FUNC_START sub_804078C
 sub_804078C: @ 0x0804078C
@@ -57823,7 +57825,7 @@ sub_8041EC8: @ 0x08041EC8
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	b _08041F2E
 	.align 2, 0
 _08041F18: .4byte gCursorPosition
@@ -58275,7 +58277,7 @@ _08042282:
 	bl sub_804069C
 	strb r0, [r6, #3]
 	adds r0, r6, #0
-	bl sub_800B318
+	bl SetFinalStat
 	bl sub_801F6B0
 	bl sub_80410B4
 	b _08042390
@@ -59600,7 +59602,7 @@ _08042D76:
 	mov r1, sb
 	strb r0, [r1, #3]
 	mov r0, sb
-	bl sub_800B318
+	bl SetFinalStat
 	b _08042DF2
 	.align 2, 0
 _08042DC8: .4byte 0x080F1D30
@@ -59813,7 +59815,7 @@ _08042F74:
 	bl sub_804069C
 	strb r0, [r5, #3]
 	adds r0, r5, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, _08042FBC
 	ldrh r1, [r0, #0x12]
 	lsls r0, r6, #0x18
@@ -59885,7 +59887,7 @@ _08042FFC:
 	bl sub_804069C
 	strb r0, [r6, #3]
 	adds r0, r6, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, _08043048
 	ldrh r1, [r0, #0x12]
 	lsls r0, r5, #0x18
@@ -59957,7 +59959,7 @@ _08043088:
 	bl sub_804069C
 	strb r0, [r6, #3]
 	adds r0, r6, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, _080430D4
 	ldrh r1, [r0, #0x12]
 	lsls r0, r5, #0x18
@@ -60009,7 +60011,7 @@ _080430F2:
 	cmp r0, #0
 	beq _08043106
 	adds r0, r1, #0
-	bl CardPosition
+	bl IsCardFaceUp
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08043114
@@ -60030,7 +60032,7 @@ _08043114:
 	bl sub_804069C
 	strb r0, [r6, #3]
 	adds r0, r6, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r0, _08043160
 	ldrh r1, [r0, #0x12]
 	lsls r0, r5, #0x18
@@ -60093,7 +60095,7 @@ _08043186:
 	bl sub_804069C
 	strb r0, [r6, #3]
 	adds r0, r6, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r1, _080431BC
 	ldrb r0, [r1, #0x16]
 	cmp r0, sb
@@ -60189,7 +60191,7 @@ _080432F4:
 	bl sub_804069C
 	strb r0, [r5, #3]
 	adds r0, r5, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r1, _08043354
 	ldrh r0, [r1, #0x12]
 	adds r0, r7, r0
@@ -60258,7 +60260,7 @@ _08043376:
 	bl sub_804069C
 	strb r0, [r5, #3]
 	adds r0, r5, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r1, _080433E0
 	ldrh r0, [r1, #0x12]
 	adds r0, r7, r0
@@ -61345,7 +61347,7 @@ sub_8043BC8: @ 0x08043BC8
 	lsls r0, r0, #2
 	adds r0, r0, r5
 	ldr r0, [r0]
-	bl sub_8040360
+	bl ResetPermStage
 	ldrb r1, [r4, #1]
 	lsls r0, r1, #2
 	adds r0, r0, r1
@@ -62229,7 +62231,7 @@ _08044356:
 	orrs r0, r1
 	b _080443CE
 	.align 2, 0
-_080443A0: .4byte gDuel+0x100
+_080443A0: .4byte gNotSure
 _080443A4: .4byte 0x02024040
 _080443A8: .4byte gCursorPosition
 _080443AC:
@@ -62328,7 +62330,7 @@ _0804446A:
 	bl sub_8041104
 	b _0804455C
 	.align 2, 0
-_08044478: .4byte gDuel+0x100
+_08044478: .4byte gNotSure
 _0804447C: .4byte 0x02024040
 _08044480: .4byte gCursorPosition
 _08044484: .4byte gCardInfo
@@ -62442,7 +62444,7 @@ _0804455C:
 	.align 2, 0
 _08044564: .4byte 0x02024040
 _08044568: .4byte gCursorPosition
-_0804456C: .4byte gDuel+0x100
+_0804456C: .4byte gNotSure
 
 	THUMB_FUNC_START sub_8044570
 sub_8044570: @ 0x08044570
@@ -62481,7 +62483,7 @@ _08044592:
 	bl sub_8041104
 	b _080446D2
 	.align 2, 0
-_080445BC: .4byte gDuel+0x100
+_080445BC: .4byte gNotSure
 _080445C0: .4byte 0x02024040
 _080445C4: .4byte gCursorPosition
 _080445C8:
@@ -62669,7 +62671,7 @@ _08044748:
 	b _0804478E
 	.align 2, 0
 _08044764: .4byte gUnk2024260
-_08044768: .4byte gDuel+0x100
+_08044768: .4byte gNotSure
 _0804476C:
 	movs r0, #0x37
 	bl PlayMusic
@@ -63917,7 +63919,7 @@ ClearZoneAndSendMonToGraveyard: @ 0x08045338
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08045358: .4byte gDuel+0x100
+_08045358: .4byte gNotSure
 
 	THUMB_FUNC_START sub_804535C
 sub_804535C: @ 0x0804535C
@@ -63931,7 +63933,7 @@ sub_804535C: @ 0x0804535C
 	strh r1, [r2]
 	bx lr
 	.align 2, 0
-_08045370: .4byte gDuel+0x100
+_08045370: .4byte gNotSure
 
 	THUMB_FUNC_START ResetNumTributes
 ResetNumTributes: @ 0x08045374

@@ -27,22 +27,19 @@ extern u8 gUnk8DFB654[];
 extern u8 gUnk201CB38;
 extern s8 gUnk201CB39;
 
-u16 sub_800B594(u16, u8);
-u16 sub_800B560(u16, s8);
+static u16 GetFieldModifiedStat(u16 stat, u8 fieldMod);
+static u16 GetStageModifiedStat(u16 stat, s8 stageMod);
 u8 *sub_800BD14(u16);
-u64 __floatsidf(u16);
-u64 __muldf3(u64, u64);
-u64 __fixunsdfsi(u64);
 
-void sub_800B318(struct StatMod* ptr)
+void SetFinalStat(struct StatMod* ptr)
 {
     SetCardInfo(ptr->card);
     if (gCardInfo.spellEffect == 2)
     {
-        gCardInfo.atk = sub_800B594(gCardInfo.atk, gUnk8094FE4[ptr->field][gCardInfo.type]);
-        gCardInfo.def = sub_800B594(gCardInfo.def, gUnk8094FE4[ptr->field][gCardInfo.type]);
-        gCardInfo.atk = sub_800B560(gCardInfo.atk, ptr->stage);
-        gCardInfo.def = sub_800B560(gCardInfo.def, ptr->stage);
+        gCardInfo.atk = GetFieldModifiedStat(gCardInfo.atk, gUnk8094FE4[ptr->field][gCardInfo.type]);
+        gCardInfo.def = GetFieldModifiedStat(gCardInfo.def, gUnk8094FE4[ptr->field][gCardInfo.type]);
+        gCardInfo.atk = GetStageModifiedStat(gCardInfo.atk, ptr->stage);
+        gCardInfo.def = GetStageModifiedStat(gCardInfo.def, ptr->stage);
     }
 }
 
@@ -93,10 +90,10 @@ void sub_800B4AC(u16 id)
     SetCardInfo(id);
     if (gCardInfo.spellEffect == 2)
     {
-        gCardInfo.atk = sub_800B594(gCardInfo.atk, gUnk8094FE4[gUnk201CB38][gCardInfo.type]);
-        gCardInfo.def = sub_800B594(gCardInfo.def, gUnk8094FE4[gUnk201CB38][gCardInfo.type]);
-        gCardInfo.atk = sub_800B560(gCardInfo.atk, gUnk201CB39);
-        gCardInfo.def = sub_800B560(gCardInfo.def, gUnk201CB39);
+        gCardInfo.atk = GetFieldModifiedStat(gCardInfo.atk, gUnk8094FE4[gUnk201CB38][gCardInfo.type]);
+        gCardInfo.def = GetFieldModifiedStat(gCardInfo.def, gUnk8094FE4[gUnk201CB38][gCardInfo.type]);
+        gCardInfo.atk = GetStageModifiedStat(gCardInfo.atk, gUnk201CB39);
+        gCardInfo.def = GetStageModifiedStat(gCardInfo.def, gUnk201CB39);
     }
 }
 
@@ -112,54 +109,22 @@ void sub_800B538(u16* id)
     if (gCardInfo.cost > GetDuelistLevel())
         gCardInfo.unk8 = gUnk8DFB654;
 }
-/*
-u16 sub_800B560(u16 stat, s8 stage)
+
+static u16 GetStageModifiedStat(u16 stat, s8 stage)
 {
-    s32 finalStat = stage * 500 + stat;
+    int finalStat = stage * 500 + stat;
 
     if (finalStat <= 0)
-        return 0;
-    else if (finalStat <= 0xFFFE)
-        return finalStat;
+        stat = 0;
+    else if (finalStat > 0xFFFE)
+        stat = 0xFFFE;
     else
-        return 0xFFFE;
-}*/
-
-NAKED
-u16 sub_800B560(u16 stat, s8 stage)
-{
-    asm_unified("\n\
-	lsls r0, r0, #0x10\n\
-	lsrs r2, r0, #0x10\n\
-	lsls r1, r1, #0x18\n\
-	asrs r1, r1, #0x18\n\
-	lsls r0, r1, #5\n\
-	subs r0, r0, r1\n\
-	lsls r0, r0, #2\n\
-	adds r0, r0, r1\n\
-	lsls r0, r0, #2\n\
-	adds r0, r0, r2\n\
-	cmp r0, #0\n\
-	bgt _0800B57C\n\
-	movs r2, #0\n\
-	b _0800B590\n\
-_0800B57C:\n\
-	ldr r1, _0800B588\n\
-	cmp r0, r1\n\
-	ble _0800B58C\n\
-	adds r2, r1, #0\n\
-	b _0800B590\n\
-	.align 2, 0\n\
-_0800B588: .4byte 0x0000FFFE\n\
-_0800B58C:\n\
-	lsls r0, r0, #0x10\n\
-	lsrs r2, r0, #0x10\n\
-_0800B590:\n\
-	adds r0, r2, #0\n\
-	bx lr");
+        stat = finalStat;
+    return stat;
 }
 
-u16 sub_800B594(u16 stat, u8 fieldMod)
+
+static u16 GetFieldModifiedStat(u16 stat, u8 fieldMod)
 {
     switch (fieldMod)
     {
@@ -168,12 +133,13 @@ u16 sub_800B594(u16 stat, u8 fieldMod)
     case 4:
         break;
     case 1:
-        stat = __fixunsdfsi(__muldf3(__floatsidf(stat), 0x666666663FE66666));
+        stat *= 0.7;
         break;
     case 3:
-        stat = __fixunsdfsi(__muldf3(__floatsidf(stat), 0xCCCCCCCD3FF4CCCC));
-        if (stat > 0xFFFD)
+        stat *= 1.3;
+        if (stat >= 0xFFFE) //0xFFFF is an invalid attack/defense(used for non-monster cards)
             stat = 0xFFFE;
+        break;
     }
     return stat;
 }
@@ -960,133 +926,31 @@ struct Unk2021AF0
 
 extern struct Unk2021AF0 g2021AF0;
 extern u64 g8DFDB90[];
-u64 __muldi3(u64, s32, s32);
-u64 __udivdi3(u64, s32, s32);
 
-/*
 void sub_800BD44(void)
 {
     u8 val = g2021AF0.unk12 - 1;
 
     if (val < 250)
     {
-        g2021AF0.unk0 = __udivdi3(__muldi3(g8DFDB90[g2021AF0.unk10], 251 - g2021AF0.unk12, (251 - g2021AF0.unk12) >> 31), 250, 0);
+        g2021AF0.unk0 = g8DFDB90[g2021AF0.unk10] * (251 - g2021AF0.unk12) / 250;
         if (!g2021AF0.unk0)
             g2021AF0.unk0 = 1;
     }
     else
         g2021AF0.unk0 = 0;
 }
-*/
 
-NAKED
-void sub_800BD44(void)
-{
-    asm_unified("\n\
-    push {r4, lr}\n\
-	ldr r4, _0800BD88\n\
-	ldrb r0, [r4, #0x12]\n\
-	subs r0, #1\n\
-	lsls r0, r0, #0x18\n\
-	lsrs r0, r0, #0x18\n\
-	cmp r0, #0xf9\n\
-	bhi _0800BD90\n\
-	ldr r1, _0800BD8C\n\
-	ldrh r0, [r4, #0x10]\n\
-	lsls r0, r0, #3\n\
-	adds r0, r0, r1\n\
-	ldrb r1, [r4, #0x12]\n\
-	movs r2, #0xfb\n\
-	subs r2, r2, r1\n\
-	asrs r3, r2, #0x1f\n\
-	ldr r1, [r0, #4]\n\
-	ldr r0, [r0]\n\
-	bl __muldi3\n\
-	movs r2, #0xfa\n\
-	movs r3, #0\n\
-	bl __udivdi3\n\
-	str r0, [r4]\n\
-	str r1, [r4, #4]\n\
-	ldr r0, [r4]\n\
-	ldr r1, [r4, #4]\n\
-	orrs r0, r1\n\
-	cmp r0, #0\n\
-	bne _0800BD98\n\
-	movs r0, #1\n\
-	movs r1, #0\n\
-	b _0800BD94\n\
-	.align 2, 0\n\
-_0800BD88: .4byte 0x02021AF0\n\
-_0800BD8C: .4byte 0x08DFDB90\n\
-_0800BD90:\n\
-	movs r0, #0\n\
-	movs r1, #0\n\
-_0800BD94:\n\
-	str r0, [r4]\n\
-	str r1, [r4, #4]\n\
-_0800BD98:\n\
-	pop {r4}\n\
-	pop {r0}\n\
-	bx r0\n\
-	.byte 0x00, 0x00");
-}
-
-NAKED
 void sub_800BDA0(void)
 {
-    asm_unified("\n\
-    push {r4, lr}\n\
-	ldr r0, _0800BDC8\n\
-	ldrb r1, [r0, #0x12]\n\
-	adds r4, r0, #0\n\
-	cmp r1, #0xf9\n\
-	bhi _0800BDD0\n\
-	ldr r1, _0800BDCC\n\
-	ldrh r0, [r4, #0x10]\n\
-	lsls r0, r0, #3\n\
-	adds r0, r0, r1\n\
-	ldrb r1, [r4, #0x12]\n\
-	movs r2, #0xfa\n\
-	subs r2, r2, r1\n\
-	asrs r3, r2, #0x1f\n\
-	ldr r1, [r0, #4]\n\
-	ldr r0, [r0]\n\
-	bl __muldi3\n\
-	b _0800BDDC\n\
-	.align 2, 0\n\
-_0800BDC8: .4byte 0x02021AF0\n\
-_0800BDCC: .4byte 0x08DFDB90\n\
-_0800BDD0:\n\
-	ldr r1, _0800BE00\n\
-	ldrh r0, [r4, #0x10]\n\
-	lsls r0, r0, #3\n\
-	adds r0, r0, r1\n\
-	ldr r1, [r0, #4]\n\
-	ldr r0, [r0]\n\
-_0800BDDC:\n\
-	ldr r2, _0800BE04\n\
-	ldr r3, _0800BE08\n\
-	bl __udivdi3\n\
-	str r0, [r4, #8]\n\
-	str r1, [r4, #0xc]\n\
-	ldr r0, [r4, #8]\n\
-	ldr r1, [r4, #0xc]\n\
-	orrs r0, r1\n\
-	cmp r0, #0\n\
-	bne _0800BDFA\n\
-	movs r0, #1\n\
-	movs r1, #0\n\
-	str r0, [r4, #8]\n\
-	str r1, [r4, #0xc]\n\
-_0800BDFA:\n\
-	pop {r4}\n\
-	pop {r0}\n\
-	bx r0\n\
-	.align 2, 0\n\
-_0800BE00: .4byte 0x08DFDB90\n\
-_0800BE04: .4byte 0x00001388\n\
-_0800BE08: .4byte 0x00000000");
+    if (g2021AF0.unk12 < 250)
+        g2021AF0.unk8 = g8DFDB90[g2021AF0.unk10] * (250 - g2021AF0.unk12) / 5000;
+    else
+        g2021AF0.unk8 = g8DFDB90[g2021AF0.unk10] / 5000;
+    if (!g2021AF0.unk8)
+        g2021AF0.unk8 = 1;
 }
+
 
 void sub_8035038(u16);
 void sub_8021B80(void);
@@ -1489,8 +1353,8 @@ _0800C2B8: .4byte 0x0000C120\n\
 _0800C2BC: .4byte 0x40000800");
 }
 
-s32 GetTrunkCardQty(u16);
-s32 sub_8025568(u16);
+int GetTrunkCardQty(u16);
+int IsGoodAnte(u16);
 void sub_800C378(void);
 void sub_800C32C(void);
 
@@ -1507,7 +1371,7 @@ bool8 sub_800C2C0(void)
             sub_800C378();
         else
         {
-            if (!sub_8025568(r4))
+            if (!IsGoodAnte(r4))
             {
                 if (!sub_800C020())
                 {

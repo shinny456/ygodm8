@@ -186,7 +186,7 @@ enum Language
 extern u8 gLanguage; //move to another header
 
 extern u8 gDuelistStatus[]; //0 - player status, 1 - opponent status: 2 == loss, 1 == can attack, 0 == can't attack
-void sub_800B318(struct StatMod*);
+void SetFinalStat(struct StatMod*);
 
 void sub_801CEBC(void);
 
@@ -208,15 +208,15 @@ void sub_803F908(s32, s32);
 void sub_803F978(u16);
 void sub_803F9C0(u16);
 
-void sub_803F99C(u32); //sub player life points
+void SubtractPlayerLifePoints(u32); //sub player life points
 
-void sub_803F9E4(u32); //sub opponent life points
+void SubtractOpponentLifePoints(u32); //sub opponent life points
 
 void ClearZone(struct DuelCard*);
 
 void sub_8040340(struct DuelCard*); //flip card face up
-u8 CardPosition(struct DuelCard*);
-void sub_8040360(struct DuelCard*); //reset num perm powerups
+u8 IsCardFaceUp(struct DuelCard*);
+void ResetPermStage(struct DuelCard*); //reset num perm powerups
 void sub_8040368(struct DuelCard*); //Inc num perm powerups
 
 void sub_804037C(struct DuelCard*); //dec num powerups?
@@ -324,14 +324,18 @@ bool32 sub_80586DC(void);
 
 void sub_80452E0(u8);
 
-struct Unk2023E80
-{
-    u8 filler0[0x18];
-    u8 unk18;
-    u8 unk19;
-
+struct Unk2023E80 {
+  u16 unk0;
+  u16 unk2;
+  u8 filler4[2];
+  u16 unk6;
+  u8 filler8[6];
+  u16 unkE;
+  u8 filler10[9];
+  u8 unk19;
+  u8 unk1A;
 };
-extern struct Unk2023E80 gUnk2023E80;
+extern struct Unk2023E80 g2023E80;
 //0x02023EA0 data used when cards clash
 //0x02023E80 ^
 
@@ -402,8 +406,6 @@ void sub_803F8E0(int);
 void ActivateMonEffect(void);
 void ActivateSpellEffect(void);
 u8 sub_8021D00(u16 id);
-//void memcpy(void*, void*, u32);
-
 
 struct DuelDeck
 {

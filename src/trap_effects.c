@@ -48,7 +48,7 @@ bool8 sub_80586D8(void);
 s8 sub_8057894(u16 id)
 {
     bool8 ret;
-    
+
     SetCardInfo(id);
     switch (gCardInfo.trapEffect)
     {
@@ -128,7 +128,7 @@ bool8 sub_8057998(void)
         gStatMod.card = gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->id;
         gStatMod.field = gDuel.field;
         gStatMod.stage = sub_804069C(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]);
-        sub_800B318(&gStatMod);
+        SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 500)
         {
             gUnk020245A0.unk5 = 2;
@@ -145,7 +145,7 @@ bool8 sub_8057A1C(void)
         gStatMod.card = gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->id;
         gStatMod.field = gDuel.field;
         gStatMod.stage = sub_804069C(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]);
-        sub_800B318(&gStatMod);
+        SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 1000)
         {
             gUnk020245A0.unk5 = 3;
@@ -162,7 +162,7 @@ bool8 sub_8057AA0(void)
         gStatMod.card = gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->id;
         gStatMod.field = gDuel.field;
         gStatMod.stage = sub_804069C(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]);
-        sub_800B318(&gStatMod);
+        SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 1500)
         {
             gUnk020245A0.unk5 = 4;
@@ -179,7 +179,7 @@ bool8 sub_8057B28(void)
         gStatMod.card = gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->id;
         gStatMod.field = gDuel.field;
         gStatMod.stage = sub_804069C(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]);
-        sub_800B318(&gStatMod);
+        SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 2000)
         {
             gUnk020245A0.unk5 = 5;
@@ -196,7 +196,7 @@ bool8 sub_8057BAC(void)
         gStatMod.card = gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->id;
         gStatMod.field = gDuel.field;
         gStatMod.stage = sub_804069C(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]);
-        sub_800B318(&gStatMod);
+        SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 3000)
         {
             gUnk020245A0.unk5 = 6;
@@ -492,9 +492,9 @@ void sub_080582D8(void){}
 void EffectGoblinFan(u16 lp)
 {
     if (WhoseTurn() == PLAYER)
-        sub_803F99C(lp);
+        SubtractPlayerLifePoints(lp);
     else
-        sub_803F9E4(lp);
+        SubtractOpponentLifePoints(lp);
 
     sub_803F29C();
     sub_803F4C0();
@@ -513,9 +513,9 @@ void EffectGoblinFan(u16 lp)
 void EffectBadReactionToSimochi(u16 lp)
 {
     if (WhoseTurn() == PLAYER)
-        sub_803F99C(lp);
+        SubtractPlayerLifePoints(lp);
     else
-        sub_803F9E4(lp);
+        SubtractOpponentLifePoints(lp);
 
     sub_803F29C();
     sub_803F4C0();
@@ -724,7 +724,7 @@ bool8 sub_80586D8(void)
 bool32 sub_80586DC(void)
 {
     u8 i;
-    
+
     gUnk020245A0.unk5 = 0;
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {

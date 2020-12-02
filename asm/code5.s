@@ -2687,7 +2687,7 @@ sub_80572A8: @ 0x080572A8
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r1, _080572F4
 	ldrb r0, [r1, #0x1a]
 	cmp r0, #2
@@ -2754,7 +2754,7 @@ sub_805733C: @ 0x0805733C
 	bl sub_804069C
 	strb r0, [r4, #3]
 	adds r0, r4, #0
-	bl sub_800B318
+	bl SetFinalStat
 	ldr r1, _08057388
 	ldrb r0, [r1, #0x1a]
 	cmp r0, #2

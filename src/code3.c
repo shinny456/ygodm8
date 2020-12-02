@@ -2,6 +2,7 @@
 #include "duel.h"
 #include "gba/io_reg.h"
 #include "card.h"
+#include "constants/card_ids.h"
 
 struct CursorPosition {
   u8 currentX;
@@ -64,7 +65,7 @@ void sub_8043E14(u8, u16);
 void sub_8043D6C(u8);
 void sub_803FD60();
 void sub_8048C60();
-void sub_80254DC();
+void sub_80254DC(void);
 void sub_8041090();
 void sub_80081DC(void (*)(void));
 void sub_80454E0(void);
@@ -186,7 +187,7 @@ void sub_8021918 (void) {
 //duel text (It's x's turn etc..)
 void sub_80219E4 (struct Unk* arg0) {
   if (arg0->unk8 != 0xFF)
-  sub_8041C94(g8FA2BAC[arg0->unk8], arg0->unk0, arg0->unk2, arg0->unk4, 0);
+    sub_8041C94(g8FA2BAC[arg0->unk8], arg0->unk0, arg0->unk2, arg0->unk4, 0);
 }
 
 void sub_8021A14 (struct Unk* arg0) {
@@ -1053,9 +1054,7 @@ u16 sub_8022610(void) { //GetKeyMask?
 }
 
 void sub_80226D8(void) {
-
   switch (g2021DA0.unk9) {
-
   case 0:
     sub_8022ABC();
     sub_80229C0();
@@ -1088,7 +1087,6 @@ void sub_80226D8(void) {
 }
 
 void sub_8022764(void) {
-
   if (g2021DA0.unk9 == 0) {
 
     sub_8022A64();
@@ -1102,7 +1100,6 @@ void sub_8022764(void) {
 }
 
 void sub_8022794(void) {
-
   if (g2021DA0.unk9 == 0) {
 
     sub_8022A7C();
@@ -1116,7 +1113,6 @@ void sub_8022794(void) {
 }
 
 void sub_80227C4(void) {
-
   if (g2021DA0.unk9 == 0) {
 
     sub_8022BC8(100);
@@ -1130,7 +1126,6 @@ void sub_80227C4(void) {
 }
 
 void sub_80227F4(void) {
-
   if (g2021DA0.unk9 == 0) {
 
     sub_8022BA0(100);
@@ -1144,7 +1139,6 @@ void sub_80227F4(void) {
 }
 
 void sub_8022824(void) {
-
   if (g2021DA0.unk9 == 0) {
 
     sub_8022BC8(1000);
@@ -1158,7 +1152,6 @@ void sub_8022824(void) {
 }
 
 void sub_8022858(void) {
-
   if (g2021DA0.unk9 == 0) {
 
     sub_8022BA0(1000);
@@ -1172,9 +1165,7 @@ void sub_8022858(void) {
 }
 
 void sub_802288C(void) {
-
   switch (g2021DA0.unk9) {
-
   case 0:
     sub_80228CC();
     break;
@@ -1194,9 +1185,7 @@ void sub_802288C(void) {
 }
 
 void sub_80228CC(void) {
-
   switch (g2021DA0.unkA) {
-
   case 0:
     sub_8022B7C(2);
     sub_8022ABC();
@@ -1229,7 +1218,6 @@ void sub_80228CC(void) {
 }
 
 void sub_802293C(void) {
-
   switch (g2021DA0.unk9) {
 
   case 0:
@@ -1255,7 +1243,6 @@ void sub_802293C(void) {
 }
 
 void sub_8022990(void) {
-
   if (g2021DA0.unk9 == 0) {
 
     sub_8022BF0(65000);
@@ -1268,7 +1255,6 @@ void sub_8022990(void) {
 }
 
 struct Unk8f {
-
   u8 unk0;
   u8 unk1;
   u8 filler2[2];
@@ -1279,7 +1265,6 @@ extern u8 g80C1852[];
 extern struct Unk8f (*g8FC4A8C[])[1];
 
 void sub_80229C0(void) {
-
   if (g2021DA0.unkE == 0) {
 
     u8 temp = g80C1852[g2021DA0.unkA];
@@ -1287,7 +1272,6 @@ void sub_80229C0(void) {
     if (g8FC4A8C[temp][g2021DA0.unkD]->unk0 == 0)
       g2021DA0.unkD = 0;
   }
-
   if (g2021DA0.unkE == 0) {
 
     u8 temp = g80C1852[g2021DA0.unkA];
@@ -1300,7 +1284,6 @@ void sub_80229C0(void) {
 u8 GetDeckSize(void);
 
 void sub_8022A24(void) {
-
   u8 temp;
 
   g2021DA0.unk4 = GetDeckCost();
@@ -1321,33 +1304,27 @@ extern u8 g80C1852[];
 extern u8 g80C1872[];
 
 void sub_8022A64(void) {
-
   g2021DA0.unkA = g80C188C[g2021DA0.unkA];
 }
 
 void sub_8022A7C(void) {
-
   g2021DA0.unkA = g80C1891[g2021DA0.unkA];
 }
 
 void sub_8022A94(u8 arg0) {
-
   g2021DA0.unkA = arg0;
 }
 
 void sub_8022AA0(void) {
-
   g2021DA0.unkB = 0;
   g2021DA0.unkC = 0;
 }
 
 u8 sub_8022AB0(void) {
-
   return g2021DA0.unkB;
 }
 
 void sub_8022ABC(void) {
-
   if (g2021DA0.unkC == 0)
     g2021DA0.unkB = g80C1857[g2021DA0.unkB];
 
@@ -1355,15 +1332,12 @@ void sub_8022ABC(void) {
 }
 
 void sub_8022AE0(void) {
-
   if (g2021DA0.unkC == 0)
     g2021DA0.unkB = g80C1872[g2021DA0.unkB];
-
   sub_8022B04();
 }
 
 void sub_8022B04(void) {
-
   if (g2021DA0.unkC == 0)
     g2021DA0.unkC = 3;
   else
@@ -1371,14 +1345,12 @@ void sub_8022B04(void) {
 }
 
 void sub_8022B1C(void) {
-
   u8 temp = g80C1852[g2021DA0.unkA];
   g2021DA0.unkD = 0;
   g2021DA0.unkE = g8FC4A8C[temp][0]->unk0;
 }
 
 void sub_8022B44(void) {
-
   if (g2021DA0.unkE == 0) {
 
     u8 temp = g80C1852[g2021DA0.unkA];
@@ -1389,12 +1361,10 @@ void sub_8022B44(void) {
 }
 
 void sub_8022B7C(u8 arg0) {
-
   g2021DA0.unk9 = arg0;
 }
 
 u8 sub_8022B88(void) {
-
   return g2021DA0.unk9;
 }
 
@@ -1421,8 +1391,7 @@ void sub_8022BC8(u32 subtrahend) {
   if (g2021DA0.deckCapacity == 100)
     g2021DA0.deckCapacity = 65000;
   else {
-
-    s32 cost = g2021DA0.deckCapacity - subtrahend;
+    int cost = g2021DA0.deckCapacity - subtrahend;
     g2021DA0.deckCapacity = cost;
     if (cost < 100)
       g2021DA0.deckCapacity = 100;
@@ -1431,9 +1400,9 @@ void sub_8022BC8(u32 subtrahend) {
 
 void sub_8022BF0 (int arg0) {
   if (arg0 > 65000)
-  arg0 = 65000;
+    arg0 = 65000;
   else if (arg0 < 100)
-  arg0 = 100;
+    arg0 = 100;
   g2021DA0.deckCapacity = arg0;
 }
 
@@ -1442,12 +1411,83 @@ void sub_8022C10 (int arg0) {
   g2021DA0.deckCapacity = 100;
   if (arg0 <= 100) return;
   do {
-  if (g2021DA0.deckCapacity == 65000)
-    g2021DA0.deckCapacity = 100;
-  else {
-    g2021DA0.deckCapacity += 100;
-    if (g2021DA0.deckCapacity > 65000)
-    g2021DA0.deckCapacity = 65000;
-  }
+    if (g2021DA0.deckCapacity == 65000)
+      g2021DA0.deckCapacity = 100;
+    else {
+      g2021DA0.deckCapacity += 100;
+      if (g2021DA0.deckCapacity > 65000)
+      g2021DA0.deckCapacity = 65000;
+    }
   } while (arg0 > g2021DA0.deckCapacity);
 }
+
+/*duel_status.c ?
+extern u8 g80C1D80[];
+
+// SORL text
+void sub_802549C (void) {
+  struct Unk unk;
+  if (gNotSure[0]->sorlTurns == 0)
+    return;
+  sub_8021A14(&unk);
+  unk.unk8 = g80C1D80[gNotSure[0]->sorlTurns];
+  sub_80219E4(&unk);
+}
+
+void sub_80254DC (void) {
+  u8 i;
+  for (i = 0; i < 2; i++)
+    gDuelistStatus[i] = 0;
+}
+
+void sub_80254F8 (void) {
+  u8 i;
+  for (i = 0; i < 2; i++)
+    if (gDuelistStatus[i] == 0)
+      gDuelistStatus[i] = 1;
+}
+
+void DeclareLoser (u8 turnPlayer) {
+  gDuelistStatus[turnPlayer] = 2;
+}
+
+u8 sub_8025534 (u8 turnPlayer) {
+  return gDuelistStatus[turnPlayer];
+}
+
+bool8 IsDuelOver (void) {
+  u8 i;
+  bool8 isDuelOver = FALSE;
+  for (i = 0; i < 2; i++)
+    if (gDuelistStatus[i] == 2)
+      isDuelOver = TRUE;
+  return isDuelOver;
+}*/
+
+/*bad_ante.c
+extern u16 gLowLevelAnte[];
+int IsGoodAnte (u16 cardId) {
+  u8 i;
+  for (i = 0; gLowLevelAnte[i] != CARD_NONE; i++)
+    if (cardId == gLowLevelAnte[i])
+      return FALSE;
+  return TRUE;
+}*/
+
+
+extern u8 g8E0CFC0[];
+/*
+void sub_803F05C (void) {
+  sub_803FD3C();
+  if (sub_803FA94() != TRUE)
+    return;
+  if (g2023E80.unk2 < g2023E80.unkE) {
+    sub_803F44C();
+    if (g2023E80.unk6 <= g2023E80.unkE - g2023E80.unk2) {
+      g2023E80.unk6 = 0;
+      g2023E80.unk19 |= g8E0CFC0[g2023E80.unk1A];
+    }
+    else
+      g2023E80.unk6 -= g2023E80.unkE - g2023E80.unk2;
+  }
+}*/

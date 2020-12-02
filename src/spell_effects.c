@@ -154,9 +154,9 @@ void EffectSparks(void)
     if (sub_80586DC() != 1 || gUnk_02021C08)
     {
         if (WhoseTurn() == PLAYER)
-            sub_803F9E4(50);
+            SubtractOpponentLifePoints(50);
         else
-            sub_803F99C(50);
+            SubtractPlayerLifePoints(50);
 
         sub_803F29C();
         sub_803F4C0();
@@ -182,9 +182,9 @@ void EffectHinotama(void)
     if (sub_80586DC() != 1 || gUnk_02021C08)
     {
         if (WhoseTurn() == PLAYER)
-            sub_803F9E4(100);
+            SubtractOpponentLifePoints(100);
         else
-            sub_803F99C(100);
+            SubtractPlayerLifePoints(100);
 
         sub_803F29C();
         sub_803F4C0();
@@ -210,9 +210,9 @@ void EffectFinalFlame(void)
     if (sub_80586DC() != 1 || gUnk_02021C08)
     {
         if (WhoseTurn() == PLAYER)
-            sub_803F9E4(200);
+            SubtractOpponentLifePoints(200);
         else
-            sub_803F99C(200);
+            SubtractPlayerLifePoints(200);
 
         sub_803F29C();
         sub_803F4C0();
@@ -238,9 +238,9 @@ void EffectOokazi(void)
     if (sub_80586DC() != 1 || gUnk_02021C08)
     {
         if (WhoseTurn() == PLAYER)
-            sub_803F9E4(500);
+            SubtractOpponentLifePoints(500);
         else
-            sub_803F99C(500);
+            SubtractPlayerLifePoints(500);
 
         sub_803F29C();
         sub_803F4C0();
@@ -266,9 +266,9 @@ void EffectTremendousFire(void)
     if (sub_80586DC() != 1 || gUnk_02021C08)
     {
         if (WhoseTurn() == PLAYER)
-            sub_803F9E4(1000);
+            SubtractOpponentLifePoints(1000);
         else
-            sub_803F99C(1000);
+            SubtractPlayerLifePoints(1000);
 
         sub_803F29C();
         sub_803F4C0();
@@ -1577,7 +1577,7 @@ void EffectCrushCard(void)
             gStatMod.card = gZones[1][i]->id;
             gStatMod.field = gDuel.field;
             gStatMod.stage = sub_804069C(gZones[1][i]);
-            sub_800B318(&gStatMod);
+            SetFinalStat(&gStatMod);
             if (gCardInfo.atk >= 1500)
                 ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
         }
@@ -1880,7 +1880,7 @@ void EffectCurseBreaker(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (gZones[2][i]->id != CARD_NONE && PermStage(gZones[2][i]) < 0)
-            sub_8040360(gZones[2][i]);
+            ResetPermStage(gZones[2][i]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 
@@ -2178,7 +2178,7 @@ void EffectMultiply(void)
                 gZones[2][i]->isDefending = FALSE;
                 gZones[2][i]->unkTwo = 0;
                 gZones[2][i]->unk4 = 0;
-                sub_8040360(gZones[2][i]);
+                ResetPermStage(gZones[2][i]);
                 ResetTempStage(gZones[2][i]);
                 gZones[2][i]->willChangeSides = FALSE;
             }
@@ -2290,7 +2290,7 @@ void sub_804CBBC(void)
             gZones[2][emptyZone]->isDefending = FALSE;
             gZones[2][emptyZone]->unkTwo = 0;
             gZones[2][emptyZone]->unk4 = 2;
-            sub_8040360(gZones[2][emptyZone]);
+            ResetPermStage(gZones[2][emptyZone]);
             ResetTempStage(gZones[2][emptyZone]);
             gZones[2][emptyZone]->willChangeSides = FALSE;
 
@@ -2412,7 +2412,7 @@ void EffectMessengerOfPeaceTSC(void)
             gStatMod.card = gZones[1][i]->id;
             gStatMod.field = gDuel.field;
             gStatMod.stage = sub_804069C(gZones[1][i]);
-            sub_800B318(&gStatMod);
+            SetFinalStat(&gStatMod);
             if (gCardInfo.atk >= 1500)
                 gZones[1][i]->isLocked = TRUE;
         }
@@ -2624,9 +2624,9 @@ void EffectRestructerRevolution(void)
     u16 lifePoints = (MAX_ZONES_IN_ROW - NumEmptyZonesInRow(gHands[1])) * 200;
 
     if (WhoseTurn() == PLAYER)
-        sub_803F9E4(lifePoints);
+        SubtractOpponentLifePoints(lifePoints);
     else
-        sub_803F99C(lifePoints);
+        SubtractPlayerLifePoints(lifePoints);
 
     sub_803F29C();
     sub_803F4C0();
@@ -2705,7 +2705,7 @@ void sub_804D600(struct DuelCard* zone, u16 id)
     zone->isDefending = FALSE;
     zone->unkTwo = 0;
     zone->unk4 = 0;
-    sub_8040360(zone);
+    ResetPermStage(zone);
     ResetTempStage(zone);
     zone->willChangeSides = FALSE;
 }
