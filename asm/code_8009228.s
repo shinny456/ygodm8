@@ -2503,7 +2503,7 @@ sub_800A6D0: @ 0x0800A6D0
 	strb r1, [r0, #4]
 	bl sub_8009448
 	bl sub_800A8D8
-	bl sub_8045658
+	bl LoadCharblock1
 	movs r0, #0x37
 	bl PlayMusic
 	ldr r0, _0800A714
@@ -2605,7 +2605,7 @@ _0800A7A6:
 	ldr r0, _0800A7C4
 	bl sub_80081DC
 	bl sub_8008220
-	bl sub_8045674
+	bl LoadCharblock2
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -2640,7 +2640,7 @@ _0800A7F6:
 	ldr r0, _0800A814
 	bl sub_80081DC
 	bl sub_8008220
-	bl sub_8045674
+	bl LoadCharblock2
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -2675,7 +2675,7 @@ _0800A846:
 	ldr r0, _0800A864
 	bl sub_80081DC
 	bl sub_8008220
-	bl sub_8045674
+	bl LoadCharblock2
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -2710,7 +2710,7 @@ _0800A896:
 	ldr r0, _0800A8B4
 	bl sub_80081DC
 	bl sub_8008220
-	bl sub_8045674
+	bl LoadCharblock2
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -2888,7 +2888,7 @@ sub_800A978: @ 0x0800A978
 	strh r2, [r0]
 	ldr r0, _0800AA54
 	strh r2, [r0]
-	bl sub_8045434
+	bl LoadBgOffsets
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -2902,14 +2902,14 @@ _0800AA28: .4byte 0x00000F04
 _0800AA2C: .4byte 0x00001F0D
 _0800AA30: .4byte 0x0000170A
 _0800AA34: .4byte 0x00000703
-_0800AA38: .4byte gUnk2024240
-_0800AA3C: .4byte 0x02024214
-_0800AA40: .4byte 0x0202422C
-_0800AA44: .4byte 0x02024248
-_0800AA48: .4byte 0x0202420C
-_0800AA4C: .4byte 0x0202424C
-_0800AA50: .4byte 0x02024218
-_0800AA54: .4byte 0x02024204
+_0800AA38: .4byte gBG0VOFS
+_0800AA3C: .4byte gBG0HOFS
+_0800AA40: .4byte gBG1VOFS
+_0800AA44: .4byte gBG1HOFS
+_0800AA48: .4byte gBG2VOFS
+_0800AA4C: .4byte gBG2HOFS
+_0800AA50: .4byte gBG3VOFS
+_0800AA54: .4byte gBG3HOFS
 
 	THUMB_FUNC_START sub_800AA58
 sub_800AA58: @ 0x0800AA58
@@ -3002,7 +3002,7 @@ sub_800AB0C: @ 0x0800AB0C
 sub_800AB10: @ 0x0800AB10
 	push {lr}
 	bl LoadOam
-	bl sub_80454E0
+	bl LoadPalettes
 	movs r1, #0x80
 	lsls r1, r1, #0x13
 	movs r2, #0xfc
@@ -3050,7 +3050,7 @@ _0800AB60: .4byte 0x0000FEFF
 sub_800AB64: @ 0x0800AB64
 	push {lr}
 	bl LoadOam
-	bl sub_80454E0
+	bl LoadPalettes
 	pop {r0}
 	bx r0
 	.byte 0x00, 0x00
@@ -3059,7 +3059,7 @@ sub_800AB64: @ 0x0800AB64
 sub_800AB74: @ 0x0800AB74
 	push {lr}
 	bl LoadOam
-	bl sub_80454E0
+	bl LoadPalettes
 	bl sub_800ABF8
 	movs r2, #0x80
 	lsls r2, r2, #0x13
@@ -3086,7 +3086,7 @@ sub_0800ABA4: @ 0x0800ABA4
 	THUMB_FUNC_START sub_800ABA8
 sub_800ABA8: @ 0x0800ABA8
 	push {lr}
-	bl sub_80454F8
+	bl LoadVRAM
 	pop {r0}
 	bx r0
 	.byte 0x00, 0x00
@@ -3094,10 +3094,10 @@ sub_800ABA8: @ 0x0800ABA8
 	THUMB_FUNC_START sub_800ABB4
 sub_800ABB4: @ 0x0800ABB4
 	push {lr}
-	bl sub_80454E0
-	bl sub_8045674
-	bl sub_8045690
-	bl sub_80456E0
+	bl LoadPalettes
+	bl LoadCharblock2
+	bl LoadCharblock3
+	bl LoadCharblock4
 	bl LoadOam
 	pop {r0}
 	bx r0
@@ -3106,8 +3106,8 @@ sub_800ABB4: @ 0x0800ABB4
 	THUMB_FUNC_START sub_800ABD0
 sub_800ABD0: @ 0x0800ABD0
 	push {lr}
-	bl sub_8045674
-	bl sub_8045690
+	bl LoadCharblock2
+	bl LoadCharblock3
 	pop {r0}
 	bx r0
 	.byte 0x00, 0x00
@@ -3120,9 +3120,9 @@ sub_0800ABE0: @ 0x0800ABE0
 	THUMB_FUNC_START sub_800ABE4
 sub_800ABE4: @ 0x0800ABE4
 	push {lr}
-	bl sub_8045674
-	bl sub_8045690
-	bl sub_80456E0
+	bl LoadCharblock2
+	bl LoadCharblock3
+	bl LoadCharblock4
 	pop {r0}
 	bx r0
 	.byte 0x00, 0x00
@@ -3173,9 +3173,9 @@ _0800AC4C: .4byte 0x000028D2
 	THUMB_FUNC_START sub_800AC50
 sub_800AC50: @ 0x0800AC50
 	push {lr}
-	bl sub_8045674
-	bl sub_8045690
-	bl sub_80456E0
+	bl LoadCharblock2
+	bl LoadCharblock3
+	bl LoadCharblock4
 	pop {r0}
 	bx r0
 	.byte 0x00, 0x00

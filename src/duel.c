@@ -1475,14 +1475,14 @@ void sub_800C494(void)
     sub_8020A3C(&gBgVram.cbb1[32]/*fix*/, g80AE370, 0x900);
 }
 
-void sub_80454E0(void);
-void sub_8045658(void);
+void LoadPalettes(void);
+void LoadCharblock1(void);
 
 void sub_800C4F8(void)
 {
-    sub_80454E0();
+    LoadPalettes();
     LoadOam();
-    sub_8045658();
+    LoadCharblock1();
     REG_DISPCNT = DISPCNT_BG_ALL_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON | DISPCNT_OBJWIN_ON;
     REG_BLDALPHA = 6;
     REG_BLDY = 10;
@@ -1662,9 +1662,9 @@ _0800C7F8: .4byte 0x40000800");
 
 void sub_800C7FC(void)
 {
-    sub_80454E0();
+    LoadPalettes();
     LoadOam();
-    sub_8045658();
+    LoadCharblock1();
     REG_DISPCNT = DISPCNT_BG_ALL_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON | DISPCNT_OBJWIN_ON;
     REG_BLDALPHA = 6;
     REG_BLDY = 10;

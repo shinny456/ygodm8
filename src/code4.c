@@ -1411,7 +1411,7 @@ void sub_80527E8(struct Unk88 *script)
             sub_80532E8(script);
             script->unk4++;
             break;
-        case '6':
+        case '6': //set flag
             sub_8055508(script->unk10.unk0[script->unk4 + 1]);
             script->unk4 += 2;
             break;

@@ -1,7 +1,7 @@
     .section .rodata
 
-    .global gUnk_805D2B0
-gUnk_805D2B0:
+    .global gCreditsTileset
+gCreditsTileset:
     .incbin "baserom.gba", 0x5D2B0, 0x4AB0
 
     .global gUnk_8061D60
@@ -68,8 +68,10 @@ gUnk_8063C20:
 gUnk_8063D20:
     .incbin "baserom.gba", 0x63D20, 0x80
 
-    .global gUnk_8063DA0
-gUnk_8063DA0:
+@credits tilemaps end
+
+    .global gCreditsPalette
+gCreditsPalette:
     .incbin "baserom.gba", 0x63DA0, 0x200
 
     .global gUnk_8063FA0
@@ -80,16 +82,16 @@ gUnk_8063FA0:
 gUnk_8063FC0:
     .incbin "baserom.gba", 0x63FC0, 0x78
 
-    .global gUnk_8064038
+    .global gUnk_8064038 @unk palette
 gUnk_8064038:
     .incbin "baserom.gba", 0x64038, 0x20
 
-    .global gUnk_8064058
-gUnk_8064058:
+    .global gWorldMapBgTileset
+gWorldMapBgTileset:
     .incbin "baserom.gba", 0x64058, 0x2518
 
-    .global gUnk_8066570
-gUnk_8066570:
+    .global gWorldMapBgPalette
+gWorldMapBgPalette:
     .incbin "baserom.gba", 0x66570, 0x180
 
     .global gUnk_80666F0
@@ -100,7 +102,7 @@ gUnk_80666F0:
 gUnk_8066BA0:
     .incbin "baserom.gba", 0x66BA0, 0xF00
 
-.global gUnk_8067AA0
+    .global gUnk_8067AA0
 gUnk_8067AA0:
     .incbin "baserom.gba", 0x67AA0, 0xF00
 

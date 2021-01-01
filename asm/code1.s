@@ -1705,7 +1705,7 @@ sub_800DAA4: @ 0x0800DAA4
 	strb r1, [r0, #4]
 	bl sub_8009448
 	bl sub_800DCAC
-	bl sub_8045658
+	bl LoadCharblock1
 	movs r0, #0x37
 	bl PlayMusic
 	ldr r0, _0800DAE8
@@ -1807,7 +1807,7 @@ _0800DB7A:
 	ldr r0, _0800DB98
 	bl sub_80081DC
 	bl sub_8008220
-	bl sub_8045674
+	bl LoadCharblock2
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -1842,7 +1842,7 @@ _0800DBCA:
 	ldr r0, _0800DBE8
 	bl sub_80081DC
 	bl sub_8008220
-	bl sub_8045674
+	bl LoadCharblock2
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -1877,7 +1877,7 @@ _0800DC1A:
 	ldr r0, _0800DC38
 	bl sub_80081DC
 	bl sub_8008220
-	bl sub_8045674
+	bl LoadCharblock2
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -1912,7 +1912,7 @@ _0800DC6A:
 	ldr r0, _0800DC88
 	bl sub_80081DC
 	bl sub_8008220
-	bl sub_8045674
+	bl LoadCharblock2
 	pop {r0}
 	bx r0
 	.align 2, 0

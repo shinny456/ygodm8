@@ -1082,7 +1082,7 @@ void EffectKingsKnight(void)
         u8 zone = EmptyZoneInRow(gZones[2]);
 
         gZones[2][zone]->id = JACKS_KNIGHT;
-        sub_8040340(gZones[2][zone]);
+        FlipCardFaceUp(gZones[2][zone]);
         UnlockCard(gZones[2][zone]);
         gZones[2][zone]->isDefending = FALSE;
         gZones[2][zone]->unkTwo = 0;
@@ -1117,7 +1117,7 @@ void sub_804745C(void)
             a:
             ClearZone(gZones[2][sub_8043694(gZones[2], clearZone)]);
             gZones[2][gMonEffect.zone]->id = newMon;
-            sub_8040340(gZones[2][gMonEffect.zone]);
+            FlipCardFaceUp(gZones[2][gMonEffect.zone]);
             LockCard(gZones[2][gMonEffect.zone]);
             gZones[2][gMonEffect.zone]->isDefending = FALSE;
             gZones[2][gMonEffect.zone]->unkTwo = 0;
@@ -1191,7 +1191,7 @@ _08047498:\n\
 	mov r0, r8\n\
 	strh r0, [r4]\n\
 	adds r0, r4, #0\n\
-	bl sub_8040340\n\
+	bl FlipCardFaceUp\n\
 	adds r0, r4, #0\n\
 	bl LockCard\n\
 	ldrb r1, [r4, #5]\n\
@@ -1323,7 +1323,7 @@ _080475B0:\n\
 	movs r5, #0\n\
 	strh r7, [r4]\n\
 	adds r0, r4, #0\n\
-	bl sub_8040340\n\
+	bl FlipCardFaceUp\n\
 	adds r0, r4, #0\n\
 	bl LockCard\n\
 	ldrb r1, [r4, #5]\n\
@@ -1451,7 +1451,7 @@ _080476B8:\n\
 	movs r5, #0\n\
 	strh r7, [r4]\n\
 	adds r0, r4, #0\n\
-	bl sub_8040340\n\
+	bl FlipCardFaceUp\n\
 	adds r0, r4, #0\n\
 	bl LockCard\n\
 	ldrb r1, [r4, #5]\n\
@@ -1902,7 +1902,7 @@ void EffectPuppetMaster(void)
         zone = EmptyZoneInRow(gZones[2]);
 
         gZones[2][zone]->id = DARK_NECROFEAR;
-        sub_8040340(gZones[2][zone]);
+        FlipCardFaceUp(gZones[2][zone]);
         UnlockCard(gZones[2][zone]);
         gZones[2][zone]->isDefending = FALSE;
         gZones[2][zone]->unkTwo = 0;
@@ -1916,7 +1916,7 @@ void EffectPuppetMaster(void)
             zone = EmptyZoneInRow(gZones[2]);
 
             gZones[2][zone]->id = HEADLESS_KNIGHT;
-            sub_8040340(gZones[2][zone]);
+            FlipCardFaceUp(gZones[2][zone]);
             UnlockCard(gZones[2][zone]);
             gZones[2][zone]->isDefending = FALSE;
             gZones[2][zone]->unkTwo = 0;
@@ -1930,7 +1930,7 @@ void EffectPuppetMaster(void)
                 zone = EmptyZoneInRow(gZones[2]);
 
                 gZones[2][zone]->id = GERNIA;
-                sub_8040340(gZones[2][zone]);
+                FlipCardFaceUp(gZones[2][zone]);
                 UnlockCard(gZones[2][zone]);
                 gZones[2][zone]->isDefending = FALSE;
                 gZones[2][zone]->unkTwo = 0;
@@ -2005,7 +2005,7 @@ _08047A4C:\n\
 	movs r0, #0x8a\n\
 	strh r0, [r4]\n\
 	adds r0, r4, #0\n\
-	bl sub_8040340\n\
+	bl FlipCardFaceUp\n\
 	adds r0, r4, #0\n\
 	bl UnlockCard\n\
 	ldrb r1, [r4, #5]\n\
@@ -2043,7 +2043,7 @@ _08047A4C:\n\
 	movs r0, #0x6c\n\
 	strh r0, [r4]\n\
 	adds r0, r4, #0\n\
-	bl sub_8040340\n\
+	bl FlipCardFaceUp\n\
 	adds r0, r4, #0\n\
 	bl UnlockCard\n\
 	ldrb r1, [r4, #5]\n\
@@ -2074,7 +2074,7 @@ _08047A4C:\n\
 	ldr r0, _08047B64\n\
 	strh r0, [r4]\n\
 	adds r0, r4, #0\n\
-	bl sub_8040340\n\
+	bl FlipCardFaceUp\n\
 	adds r0, r4, #0\n\
 	bl UnlockCard\n\
 	ldrb r1, [r4, #5]\n\
@@ -2153,7 +2153,7 @@ void EffectBerserkDragon(void)
 
         if (gZones[1][i]->id != CARD_NONE)
         {
-            sub_8040340(gZones[1][i]);
+            FlipCardFaceUp(gZones[1][i]);
             if (turn == PLAYER)
                 sub_803F908(gMonEffect.zone, 4 - i);
             else

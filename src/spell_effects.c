@@ -1114,7 +1114,7 @@ void EffectSwordsOfRevealingLight(void)
 {
     u8 i;
 
-    sub_8040744(1);
+    InitSorlTurns(1);
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (gZones[1][i]->id != CARD_NONE)
@@ -2433,11 +2433,11 @@ void EffectDarknessApproaches(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (gZones[2][i]->id != CARD_NONE)
-            sub_804034C(gZones[2][i]);
+            FlipCardFaceDown(gZones[2][i]);
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (gZones[3][i]->id != CARD_NONE)
-            sub_804034C(gZones[3][i]);
+            FlipCardFaceDown(gZones[3][i]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
 

@@ -17,10 +17,12 @@ SECTIONS
     g2020DF4 = 0x02020DF4;
     gKeyState = 0x02020DF8;
     gUnk2020DFC = 0x02020DFC;
+
     gUnkStruct_2020E10 = 0x02020E10;
     gTotalCardQty = 0x02021460;
     gTrunkCardQty = 0x02021790;
     gUnk2021AB4 = 0x02021AB4;
+
     gStatMod = 0x02021AC0;
     gCardInfo = 0x02021AD0;
     g2021AF0 = 0x2021AF0;
@@ -57,14 +59,39 @@ SECTIONS
     gUnk20240F0 = 0x20240F0;
     gUnk20241FC = 0x020241FC;
     gCursorPosition = 0x020241F0;
+
     gNumTributes = 0x02024200;
-    gUnk202422C = 0x0202422C;
-    gUnk2024238 = 0x02024238;
-    gUnk2024240 = 0x02024240;
+
+    gBG3HOFS = 0x2024204;
+    gBG2VOFS = 0x202420C;
+    gBG0HOFS = 0x2024214;
+    gBG3VOFS = 0x2024218;
+
+    gBLDCNT = 0x2024228;
+    gBLDALPHA = 0x2024238;
+    gBLDY = 0x2024230;
+
+    gBG1VOFS = 0x202422C;
+    gBG0VOFS = 0x2024240;
+    gBG1HOFS = 0x2024248;
+    gBG2HOFS = 0x202424C;
+
+    gBG2PA = 0x2024234;
+    gBG2PB = 0x2024220;
+    gBG2PC = 0x2024208;
+    gBG2PD = 0x2024224;
+    gBG2X_L = 0x202423C;
+    gBG2X_H = 0x2024210;
+    gBG2Y_L = 0x2024244;
+    gBG2Y_H = 0x202421C;
+
     gMonEffect = 0x02024250;
     gUnk02024254 = 0x02024254;
+
     gLifePoints = 0x02024258;
+
     gUnk2024260 = 0x02024260;
+
     gOverworld = 0x02024270;
     g2024510 = 0x2024510;
     gUnk020245A0 = 0x020245A0;
@@ -96,6 +123,8 @@ SECTIONS
         asm/code3.o(.main_menu);
         src/god_cards.o(.text);
         asm/code3.o(.Split_2);
+        src/tribute.o(.text);
+        src/io_buffers.o(.text);
         src/monster_effects.o(.text)
         src/life_points.o(.text)
         src/spell_effects.o(.text)
@@ -234,6 +263,7 @@ SECTIONS
     g80C1D6E = 0x80C1D6E;
     g80C1D71 = 0x80C1D71;
     gLowLevelAnte = 0x80C1D84;
+    gNumRequiredTributes = 0x8E0D9B4;
 
     g8FC488C = 0x8FC488C;
     /* Discard everything not specifically mentioned above. */

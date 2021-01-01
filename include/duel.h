@@ -78,11 +78,9 @@ extern struct Unk2023EA0 gUnk2023EA0;
 //Zones to Cards
 struct Duel
 {
-    struct DuelCard opponentSpellTrapZones[MAX_ZONES_IN_ROW];   //0x00  |2023EC0
-    struct DuelCard opponentMonsterZones[MAX_ZONES_IN_ROW];     //0x28  |2023EE8
-    struct DuelCard playerMonsterZones[MAX_ZONES_IN_ROW];       //0x50  |2023F10
-    struct DuelCard playerSpellTrapZones[MAX_ZONES_IN_ROW];     //0x78  |2023F38
-    struct DuelCard hands[2][MAX_ZONES_IN_ROW];                 //0xA0  |2023F60
+    struct DuelCard zones[6][MAX_ZONES_IN_ROW];   //0x00  |2023EC0
+                                                  //0x78  |2023F38
+                                                  //0xA0  |2023F60
     u8 field;                                                   //0xF0  |2023FB0
     u8 filler_F1[3];                                            //0xF1  |2023FB1
     struct NotSureWhatToName notSure[2];                        //0xF4  |2023FB4
@@ -128,10 +126,10 @@ struct Unk_02021C00
 
 extern struct Unk_02021C00 gUnk2021C00;
 //*********************
-//sub_803FEA4       ***
+void sub_803FEA4(int unused);
 //*********************
 
-//sub_8040508
+void sub_8040508(u8);
 
 
 extern u8 gUnk_02021C08;
@@ -214,13 +212,13 @@ void SubtractOpponentLifePoints(u32); //sub opponent life points
 
 void ClearZone(struct DuelCard*);
 
-void sub_8040340(struct DuelCard*); //flip card face up
+void FlipCardFaceUp(struct DuelCard*); //flip card face up
 u8 IsCardFaceUp(struct DuelCard*);
 void ResetPermStage(struct DuelCard*); //reset num perm powerups
 void sub_8040368(struct DuelCard*); //Inc num perm powerups
 
 void sub_804037C(struct DuelCard*); //dec num powerups?
-void SetPermStage(struct DuelCard*, s32);
+void SetPermStage(struct DuelCard*, int);
 
 //change to bool32
 u32 sub_80555A4(u16);
@@ -261,7 +259,7 @@ u32 sub_8055BD4(u16);
 
 void PlayMusic(u16);
 s32 sub_803FCBC(u16);
-void sub_804034C(struct DuelCard*);
+void FlipCardFaceDown(struct DuelCard*);
 void sub_8040394(struct DuelCard*, u8);
 
 void ResetTempStage(struct DuelCard*); //reset num temp powerups
@@ -309,7 +307,7 @@ u16 sub_804535C(u8);
 
 u32 sub_8048CE0(void);
 
-void sub_8040744(u8);
+void InitSorlTurns(u8);
 void sub_804D600(struct DuelCard*, u16 id);
 
 s8 sub_8057894(u16 id);
@@ -322,7 +320,7 @@ s32 sub_8056258(u8, u8);
 bool32 sub_80586DC(void);
 
 
-void sub_80452E0(u8);
+u16 sub_80452E0(u8);
 
 struct Unk2023E80 {
   u16 unk0;
@@ -331,7 +329,9 @@ struct Unk2023E80 {
   u16 unk6;
   u8 filler8[6];
   u16 unkE;
-  u8 filler10[9];
+  u8 filler10[2];
+  u16 unk12;
+  u8 filler14[5];
   u8 unk19;
   u8 unk1A;
 };
@@ -342,7 +342,7 @@ extern struct Unk2023E80 g2023E80;
 struct Duelist
 {
     u16 id;                //0x0
-    u16 field;             //0x2 u8?
+    u8 field;              //0x2
     u16* deck;             //0x4
     u16* cardDrops;        //0x8
     u16* shopCards;        //0xC
@@ -428,6 +428,8 @@ struct BgVram
     u16 sbb1D[32][32];
     u16 sbb1E[32][32];
     u16 sbb1F[32][32]; //tilemap
+    u8 cbb4[0x4000];
+    u8 cbb5[0x4000];
 };
 
 
@@ -437,6 +439,8 @@ struct Cbb
     u8 cbb1[0x4000];
     u8 cbb2[0x4000];
     u8 cbb3[0x4000];
+    u8 cbb4[0x4000];
+    u8 cbb5[0x4000];
 };
 
 struct Sbb
@@ -486,7 +490,7 @@ extern struct PaletteBuffer g02000000; //palette buffer
 extern u8 gObjVram[];
 
 extern u16 g2021BF8;
-int sub_8045390(u16);
+u8 sub_8045390(u16);
 bool32 sub_80436EC(struct DuelCard*);
 
 

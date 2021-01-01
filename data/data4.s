@@ -374,9 +374,13 @@ gUnk_80BED1C:
 
     .global gUnk_80BED20
 gUnk_80BED20:
-    .incbin "baserom.gba", 0xBED20, 0x4410C
+    .incbin "baserom.gba", 0xBED20, 0x2B9C
 
-    .global gMonEffects
+    .global gC18BC
+gC18BC:
+    .incbin "baserom.gba", 0xC18BC, 0x41570
+
+    .global gMonEffects @102e2c
 gMonEffects:
     .4byte sub_8047D60
     .4byte EffectReaperOfTheCards
@@ -7694,10 +7698,353 @@ gUnk_8AAE070:
 
     .global gUnk_8AAE088
 gUnk_8AAE088:
-    .incbin "baserom.gba", 0xAAE088, 0x3494C4
+    .incbin "baserom.gba", 0xAAE088, 0x339800
 
-    .global gUnk_8DF754C
-gUnk_8DF754C:
+    .global gDE7888
+gDE7888:
+    .incbin "baserom.gba", 0xDE7888, 0x1394
+
+    .global gDE8C1C
+gDE8C1C:
+    .incbin "baserom.gba", 0xDE8C1C, 0x13Bc
+
+    .global gDE9FD8
+gDE9FD8:
+    .incbin "baserom.gba", 0xDE9FD8, 0x17A4
+
+    .global gDEB77C
+gDEB77C:
+    .incbin "baserom.gba", 0xDEB77C, 0x1330
+
+    .global gDECAAC
+gDECAAC:
+    .incbin "baserom.gba", 0xDECAAC, 0x13B4
+
+    .global gDEDE60
+gDEDE60:
+    .incbin "baserom.gba", 0xDEDE60, 0xF0
+
+    .global gDEDF50
+gDEDF50:
+    .incbin "baserom.gba", 0xDEDF50, 0x168
+
+    .global gDEE0B8
+gDEE0B8:
+    .incbin "baserom.gba", 0xDEE0B8, 0x168
+
+    .global gDEE220
+gDEE220:
+    .incbin "baserom.gba", 0xDEE220, 0x168
+
+    .global gDEE388
+gDEE388:
+    .incbin "baserom.gba", 0xDEE388, 0xF0
+
+    .global gDEE478
+gDEE478:
+    .incbin "baserom.gba", 0xDEE478, 0xF0
+
+    .global gDEE568
+gDEE568:
+    .incbin "baserom.gba", 0xDEE568, 0x60
+
+    .global gDEE5C8
+gDEE5C8:
+    .incbin "baserom.gba", 0xDEE5C8, 0x150
+
+    .global gDEE718
+gDEE718:
+    .incbin "baserom.gba", 0xDEE718, 0x138
+
+    .global gDEE850
+gDEE850:
+    .incbin "baserom.gba", 0xDEE850, 0x120
+
+    .global gDEE970
+gDEE970:
+    .incbin "baserom.gba", 0xDEE970, 0xD0
+
+    .global gDEEA40
+gDEEA40:
+    .incbin "baserom.gba", 0xDEEA40, 0x40
+
+    .global gDEEA80
+gDEEA80:
+    .incbin "baserom.gba", 0xDEEA80, 0x60
+
+    .global gDEEAE0
+gDEEAE0:
+    .incbin "baserom.gba", 0xDEEAE0, 0x150
+
+    .global gDEEC30
+gDEEC30:
+    .incbin "baserom.gba", 0xDEEC30, 0x138
+
+    .global gDEED68
+gDEED68:
+    .incbin "baserom.gba", 0xDEED68, 0x120
+
+    .global gDEEE88
+gDEEE88:
+    .incbin "baserom.gba", 0xDEEE88, 0xD0
+
+    .global gDEEF58
+gDEEF58:
+    .incbin "baserom.gba", 0xDEEF58, 0x40
+
+    .global gDEEF98
+gDEEF98:
+    .incbin "baserom.gba", 0xDEEF98, 0x800
+
+    .global gDEF798
+gDEF798:
+    .incbin "baserom.gba", 0xDEF798, 0x150
+
+    .global gDEF8E8
+gDEF8E8:
+    .incbin "baserom.gba", 0xDEF8E8, 0x138
+
+    .global gDEFA20
+gDEFA20:
+    .incbin "baserom.gba", 0xDEFA20, 0x120
+
+    .global gDEFB40
+gDEFB40:
+    .incbin "baserom.gba", 0xDEFB40, 0xD0
+
+    .global gDEFC10
+gDEFC10:
+    .incbin "baserom.gba", 0xDEFC10, 0x40
+
+    .global gDEFC50
+gDEFC50:
+    .incbin "baserom.gba", 0xDEFC50, 0x800
+
+    .global gDF0450
+gDF0450:
+    .incbin "baserom.gba", 0xDF0450, 0x150
+
+    .global gDF05A0
+gDF05A0:
+    .incbin "baserom.gba", 0xDF05A0, 0x138
+
+    .global gDF06D8
+gDF06D8:
+    .incbin "baserom.gba", 0xDF06D8, 0x120
+
+    .global gDF07F8
+gDF07F8:
+    .incbin "baserom.gba", 0xDF07F8, 0xD0
+
+    .global gDF08C8
+gDF08C8:
+    .incbin "baserom.gba", 0xDF08C8, 0x40
+
+    .global gDF0908
+gDF0908:
+    .incbin "baserom.gba", 0xDF0908, 0xD28
+
+    .global g8DF1630
+g8DF1630:
+    .incbin "baserom.gba", 0xDF1630, 0x4
+    .4byte gFC48D4
+    .4byte 0
+    .4byte 0
+
+    .global g8DF1640
+g8DF1640:
+    .incbin "baserom.gba", 0xDF1640, 0x4
+    .4byte gFC48E4
+    .4byte 0
+    .4byte 0
+
+    .global g8DF1650
+g8DF1650:
+    .incbin "baserom.gba", 0xDF1650, 0x4
+    .4byte gFC48F4
+    .4byte 0
+    .4byte 0
+
+    .global g8DF1660
+g8DF1660:
+    .incbin "baserom.gba", 0xDF1660, 0x4
+    .4byte gFC4904
+    .4byte 0
+    .4byte 0
+
+    .global g8DF1670
+g8DF1670:
+    .incbin "baserom.gba", 0xDF1670, 0x4
+    .4byte gFC4914
+    .4byte 0
+    .4byte 0
+
+    .global g8DF1680
+g8DF1680:
+    .incbin "baserom.gba", 0xDF1680, 0x4
+    .4byte gFC4934
+    .4byte 0
+    .4byte 0
+
+    .global g8DF1690
+g8DF1690:
+    .incbin "baserom.gba", 0xDF1690, 0x4
+    .4byte gFC4954
+    .4byte 0
+    .4byte 0
+
+    .global g8DF16A0
+g8DF16A0:
+    .incbin "baserom.gba", 0xDF16A0, 0x4
+    .4byte gFC4974
+    .4byte 0
+    .4byte 0
+
+    .global g8DF16B0
+g8DF16B0:
+    .incbin "baserom.gba", 0xDF16B0, 0x4
+    .4byte gFC497C
+    .4byte 0
+    .4byte 0
+
+    .global g8DF16C0
+g8DF16C0:
+    .incbin "baserom.gba", 0xDF16C0, 0x4
+    .4byte gFC4984
+    .4byte 0
+    .4byte 0
+
+    .global g8DF16D0
+g8DF16D0:
+    .incbin "baserom.gba", 0xDF16D0, 0x4
+    .4byte gFC4994
+    .4byte 0
+    .4byte 0
+
+    .global g8DF16E0
+g8DF16E0:
+    .incbin "baserom.gba", 0xDF16E0, 0x4
+    .4byte gFC49A4
+    .4byte 0x10A
+    .4byte gFC49AC
+    .incbin "baserom.gba", 0xDF16F0, 0x4
+    .4byte gFC49B4
+    .4byte 0x10A
+    .4byte gFC49BC
+    .4byte 0
+    .4byte 0
+
+    .global g8DF1708
+g8DF1708:
+    .4byte 0x10A
+    .4byte gFC49C4
+    .4byte 0x10A
+    .4byte gFC49CC
+    .4byte 0x10A
+    .4byte gFC49D4
+    .4byte 0x10A
+    .4byte gFC49DC
+    .4byte 0
+    .4byte 0
+
+    .global g8DF1730
+g8DF1730:
+    .4byte 0x10A
+    .4byte gFC49E4
+    .4byte 0x10A
+    .4byte gFC49EC
+    .4byte 0x10A
+    .4byte gFC49F4
+    .4byte 0x10A
+    .4byte gFC49FC
+    .4byte 0
+    .4byte 0
+
+    .global g8DF1758
+g8DF1758:
+    .4byte 0x10A
+    .4byte gFC4A04
+    .4byte 0x10A
+    .4byte gFC4A0C
+    .4byte 0x10A
+    .4byte gFC4A14
+    .4byte 0x10A
+    .4byte gFC4A1C
+    .4byte 0
+    .4byte 0
+
+    .global g8DF1780
+g8DF1780:
+    .4byte 0x10A
+    .4byte gFC4A24
+    .4byte 0x10A
+    .4byte gFC4A2C
+    .4byte 0x10A
+    .4byte gFC4A34
+    .4byte 0x10A
+    .4byte gFC4A3C
+    .4byte 0
+    .4byte 0
+
+    .global g8DF17A8
+g8DF17A8:
+    .4byte 0x101
+    .4byte gFC4A44
+    .4byte 0
+    .4byte 0
+
+    .global g8DF17B8
+g8DF17B8:
+    .4byte 0x101
+    .4byte gFC4A4C
+    .4byte 0
+    .4byte 0
+
+    .global g8DF17C8
+g8DF17C8:
+    .4byte 0x101
+    .4byte gFC4A54
+    .4byte 0
+    .4byte 0
+
+    .global g8DF17D8
+g8DF17D8:
+    .4byte 0x101
+    .4byte gFC4A5C
+    .4byte 0
+    .4byte 0
+
+    .global g8DF17E8
+g8DF17E8:
+    .4byte 0x101
+    .4byte gFC4A64
+    .4byte 0
+    .4byte 0
+
+    .global g8DF17F8
+g8DF17F8:
+    .4byte 0x101
+    .4byte gFC4A6C
+    .4byte 0
+    .4byte 0
+
+    .global g8DF1808
+g8DF1808:
+    .4byte 0x101
+    .4byte gFC4A74
+    .4byte 0
+    .4byte 0
+
+    .global g8DF1818
+g8DF1818:
+    .4byte 0x201
+    .4byte gFC4A7C
+    .4byte 0
+    .4byte 0
+    .incbin "baserom.gba", 0xDF1828, 0x5D24
+
+    .global gCreditsTilemaps @df754c
+gCreditsTilemaps:
     .4byte gUnk_8061D60
     .4byte gUnk_8061EA0
     .4byte gUnk_8061FA0
@@ -7715,8 +8062,8 @@ gUnk_8DF754C:
     .4byte gUnk_8063C20
     .4byte gUnk_8063D20
 
-    .global gUnk_8DF758C
-gUnk_8DF758C:
+    .global g8DF758C
+g8DF758C:
     .4byte gUnk_2018800
 
     .global gUnk_8DF7590
@@ -8144,7 +8491,51 @@ gUnk_8E0136C:
 
     .global gUnk_8E01370
 gUnk_8E01370:
-    .incbin "baserom.gba", 0xE01370, 0xB9A4
+    .incbin "baserom.gba", 0xE01370, 0x20
+
+    .global gE01390
+gE01390:
+    .incbin "baserom.gba", 0xE01390, 0x3C0
+
+    .global gE01750
+gE01750:
+    .incbin "baserom.gba", 0xE01750, 0x700
+
+    .global gE01E50
+gE01E50:
+    .incbin "baserom.gba", 0xE01E50, 0x7C0
+
+    .global gE02610
+gE02610:
+    .incbin "baserom.gba", 0xE02610, 0x840
+
+    .global gE02E50
+gE02E50:
+    .incbin "baserom.gba", 0xE02E50, 0xFC0
+
+    .global gE03E10
+gE03E10:
+    .incbin "baserom.gba", 0xE03E10, 0x6FA0
+
+    .global gE0ADB0
+gE0ADB0:
+    .incbin "baserom.gba", 0xE0ADB0, 0x500
+
+    .global gE0B2B0
+gE0B2B0:
+    .incbin "baserom.gba", 0xE0B2B0, 0x500
+
+    .global gE0B7B0
+gE0B7B0:
+    .incbin "baserom.gba", 0xE0B7B0, 0x500
+
+    .global gE0BCB0
+gE0BCB0:
+    .incbin "baserom.gba", 0xE0BCB0, 0x500
+
+    .global gE0C1B0
+gE0C1B0:
+    .incbin "baserom.gba", 0xE0C1B0, 0xB64
 
     .global gUnk_8E0CD14
 gUnk_8E0CD14:
@@ -10043,4 +10434,188 @@ gUnk_8FA3B44:
     .4byte gUnk_8AAD5DC
     .4byte gUnk_8AAD8E8
     .4byte gUnk_8AAC010
-    .incbin "baserom.gba", 0xFA3B6C
+    .incbin "baserom.gba", 0xFA3B6C, 0x20D68
+
+    .global gFC48D4
+gFC48D4:
+    .incbin "baserom.gba", 0xFC48D4, 0x10
+
+    .global gFC48E4
+gFC48E4:
+    .incbin "baserom.gba", 0xFC48E4, 0x10
+
+    .global gFC48F4
+gFC48F4:
+    .incbin "baserom.gba", 0xFC48F4, 0x10
+
+    .global gFC4904
+gFC4904:
+    .incbin "baserom.gba", 0xFC4904, 0x10
+
+    .global gFC4914
+gFC4914:
+    .incbin "baserom.gba", 0xFC4914, 0x20
+
+    .global gFC4934
+gFC4934:
+    .incbin "baserom.gba", 0xFC4934, 0x20
+
+    .global gFC4954
+gFC4954:
+    .incbin "baserom.gba", 0xFC4954, 0x20
+
+    .global gFC4974
+gFC4974:
+    .incbin "baserom.gba", 0xFC4974, 0x8
+
+    .global gFC497C
+gFC497C:
+    .incbin "baserom.gba", 0xFC497C, 0x8
+
+    .global gFC4984
+gFC4984:
+    .incbin "baserom.gba", 0xFC4984, 0x10
+
+    .global gFC4994
+gFC4994:
+    .incbin "baserom.gba", 0xFC4994, 0x10
+
+    .global gFC49A4
+gFC49A4:
+    .incbin "baserom.gba", 0xFC49A4, 0x8
+
+    .global gFC49AC
+gFC49AC:
+    .incbin "baserom.gba", 0xFC49AC, 0x8
+
+    .global gFC49B4
+gFC49B4:
+    .incbin "baserom.gba", 0xFC49B4, 0x8
+
+    .global gFC49BC
+gFC49BC:
+    .incbin "baserom.gba", 0xFC49BC, 0x8
+
+    .global gFC49C4
+gFC49C4:
+    .incbin "baserom.gba", 0xFC49C4, 0x8
+
+    .global gFC49CC
+gFC49CC:
+    .incbin "baserom.gba", 0xFC49CC, 0x8
+
+    .global gFC49D4
+gFC49D4:
+    .incbin "baserom.gba", 0xFC49D4, 0x8
+
+    .global gFC49DC
+gFC49DC:
+    .incbin "baserom.gba", 0xFC49DC, 0x8
+
+    .global gFC49E4
+gFC49E4:
+    .incbin "baserom.gba", 0xFC49E4, 0x8
+
+    .global gFC49EC
+gFC49EC:
+    .incbin "baserom.gba", 0xFC49EC, 0x8
+
+    .global gFC49F4
+gFC49F4:
+    .incbin "baserom.gba", 0xFC49F4, 0x8
+
+    .global gFC49FC
+gFC49FC:
+    .incbin "baserom.gba", 0xFC49FC, 0x8
+
+    .global gFC4A04
+gFC4A04:
+    .incbin "baserom.gba", 0xFC4A04, 0x8
+
+    .global gFC4A0C
+gFC4A0C:
+    .incbin "baserom.gba", 0xFC4A0C, 0x8
+
+    .global gFC4A14
+gFC4A14:
+    .incbin "baserom.gba", 0xFC4A14, 0x8
+
+    .global gFC4A1C
+gFC4A1C:
+    .incbin "baserom.gba", 0xFC4A1C, 0x8
+
+    .global gFC4A24
+gFC4A24:
+    .incbin "baserom.gba", 0xFC4A24, 0x8
+
+    .global gFC4A2C
+gFC4A2C:
+    .incbin "baserom.gba", 0xFC4A2C, 0x8
+
+    .global gFC4A34
+gFC4A34:
+    .incbin "baserom.gba", 0xFC4A34, 0x8
+
+    .global gFC4A3C
+gFC4A3C:
+    .incbin "baserom.gba", 0xFC4A3C, 0x8
+
+    .global gFC4A44
+gFC4A44:
+    .incbin "baserom.gba", 0xFC4A44, 0x8
+
+    .global gFC4A4C
+gFC4A4C:
+    .incbin "baserom.gba", 0xFC4A4C, 0x8
+
+    .global gFC4A54
+gFC4A54:
+    .incbin "baserom.gba", 0xFC4A54, 0x8
+
+    .global gFC4A5C
+gFC4A5C:
+    .incbin "baserom.gba", 0xFC4A5C, 0x8
+
+    .global gFC4A64
+gFC4A64:
+    .incbin "baserom.gba", 0xFC4A64, 0x8
+
+    .global gFC4A6C
+gFC4A6C:
+    .incbin "baserom.gba", 0xFC4A6C, 0x8
+
+    .global gFC4A74
+gFC4A74:
+    .incbin "baserom.gba", 0xFC4A74, 0x8
+
+    .global gFC4A7C
+gFC4A7C:
+    .incbin "baserom.gba", 0xFC4A7C, 0x10
+
+    .global gFC4A8C
+gFC4A8C:
+    .4byte g8DF1630
+    .4byte g8DF1640
+    .4byte g8DF1650
+    .4byte g8DF1660
+    .4byte g8DF1670
+    .4byte g8DF1680
+    .4byte g8DF1690
+    .4byte g8DF16A0
+    .4byte g8DF16B0
+    .4byte g8DF16C0
+    .4byte g8DF16D0
+    .4byte g8DF16E0
+    .4byte g8DF1708
+    .4byte g8DF1730
+    .4byte g8DF1758
+    .4byte g8DF1780
+    .4byte g8DF17A8
+    .4byte g8DF17B8
+    .4byte g8DF17C8
+    .4byte g8DF17D8
+    .4byte g8DF17E8
+    .4byte g8DF17F8
+    .4byte g8DF1808
+    .4byte g8DF1818
+    .incbin "baserom.gba", 0xFC4AEC
