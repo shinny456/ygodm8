@@ -107,6 +107,12 @@ SECTIONS
     {
         asm/crt0.o(.text);
         asm/code.o(.text);
+        asm/world_map.o(.text);
+        asm/start_menu.o(.text);
+        asm/naming_screen.o(.text);
+        asm/status_menu.o(.text);
+        asm/code_8007F6C.o(.text);
+        asm/trunk.o(.text);
         src/trunk.o(.text);
         asm/code_8009228.o(.text);
         src/duel.o(.text);
