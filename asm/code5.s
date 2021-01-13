@@ -65,6 +65,9 @@ sub_8055FA8: @ 0x08055FA8
 	.align 2, 0
 _08055FCC: .4byte 0x02024520
 
+
+
+
 	THUMB_FUNC_START sub_8055FD0
 sub_8055FD0: @ 0x08055FD0
 	movs r1, #0

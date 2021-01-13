@@ -22142,7 +22142,7 @@ _0801FE68:
 	bl __muldi3
 	str r0, [r6]
 	str r1, [r6, #4]
-	bl sub_8026F60
+	bl AddMoney
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0

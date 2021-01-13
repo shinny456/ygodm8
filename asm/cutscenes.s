@@ -856,8 +856,8 @@ _08000936:
 	.align 2, 0
 _0800093C: .4byte 0x04000008
 
-	THUMB_FUNC_START sub_8000940 @various cutscenes
-sub_8000940: @ 0x08000940
+	THUMB_FUNC_START StartCutscene @various cutscenes
+StartCutscene: @ 0x08000940
 	push {lr}
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18

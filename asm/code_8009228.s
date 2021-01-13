@@ -3313,6 +3313,10 @@ _0800AD46:
 	bx r0
 	.byte 0x00, 0x00
 
+
+
+
+@SaveGame split?
 	THUMB_FUNC_START sub_800AD4C
 sub_800AD4C: @ 0x0800AD4C
 	push {r4, lr}
@@ -3605,7 +3609,7 @@ sub_800AFF0: @ 0x0800AFF0
 	bl sub_8020168
 	bl sub_802712C
 	bl sub_802D9F0
-	bl sub_8026F3C
+	bl InitMoney
 	bl sub_80561FC
 	bl sub_80554EC
 	bl sub_8055FD0

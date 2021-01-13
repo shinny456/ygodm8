@@ -898,8 +898,8 @@ void sub_804F750(u8);
 void sub_8004E60(void);
 void sub_80523EC(u16, u16, u16);
 void sub_0804F76C(void);
-void sub_8005D1C(void);
-void sub_8000940(u8);
+void NamingScreenMain(void);
+void StartCutscene(u8);
 void sub_8055508(int); //todo: u32?
 void sub_800AD4C(void);
 void sub_80554C4(void);
@@ -954,8 +954,8 @@ void sub_804DC48(void) //spawn the player home (and overworld main loop?) Overwo
 {
     if (!sub_8055554(0x2b))
     {
-        sub_8005D1C();
-        sub_8000940(8);
+        NamingScreenMain();
+        StartCutscene(8);
         sub_8055508(0x2b);
         sub_800AD4C();
     }
@@ -1373,7 +1373,7 @@ void sub_80527E8(struct Unk88 *script)
     case 0x23:
         switch (script->unk10.unk0[++script->unk4])
         {
-        case '0':
+        case '0': //new line
             script->unk4++;
             if (script->unkD == 1)
             {
@@ -1384,7 +1384,7 @@ void sub_80527E8(struct Unk88 *script)
             else
                 script->unk8 = g8E0E53C[script->unk8];
             break;
-        case '1':
+        case '1': //new paragraph
             script->unk82 = 0;
             script->unkC = 1;
             break;
@@ -1407,7 +1407,7 @@ void sub_80527E8(struct Unk88 *script)
             DisplayPortrait(script);
             script->unk4 += 4;
             break;
-        case '5':
+        case '5': //print player name
             sub_80532E8(script);
             script->unk4++;
             break;
@@ -1465,8 +1465,8 @@ void sub_80527E8(struct Unk88 *script)
             sub_800AD4C();
             script->unk4++;
             break;
-        case '3':
-            PlayMusic(script->unk10.unk0[script->unk4 + 1] +
+        case '3': //play music (arg0 = id, .2byte)
+            PlayMusic(script->unk10.unk0[script->unk4 + 1] |
                        (script->unk10.unk0[script->unk4 + 2] << 8));
             script->unk4 += 3;
             break;
@@ -1485,7 +1485,7 @@ void sub_80527E8(struct Unk88 *script)
                        (script->unk10.unk0[script->unk4 + 2] << 8));
             script->unk4 += 3;
             break;
-        case '7':
+        case '7': move_object (arg0 = obj_id, arg1 = orientation(UDLR), arg2 = displacement, arg3 = ?)
             sub_805345C(script->unk10.unk0[script->unk4 + 1],
                         script->unk10.unk0[script->unk4 + 2],
                         script->unk10.unk0[script->unk4 + 3],
@@ -1497,7 +1497,7 @@ void sub_80527E8(struct Unk88 *script)
             sub_8034FE0();
             script->unk4++;
             break;
-        case '9':
+        case '9':  //move_object(instantaneous) arg0 = obj_id, arg1 = x, arg2 = y, arg3 = frame of the sprite
             sub_8053CF0(script->unk10.unk0[script->unk4 + 1],
                         script->unk10.unk0[script->unk4 + 2],
                         script->unk10.unk0[script->unk4 + 3],
@@ -1510,7 +1510,7 @@ void sub_80527E8(struct Unk88 *script)
     case 0x5E:
         switch (script->unk10.unk0[++script->unk4])
         {
-        case '0':
+        case '0': //drop_object (obj_id, x, y, frame, ?, ?)
             sub_8053520(script->unk10.unk0[script->unk4 + 1],
                         script->unk10.unk0[script->unk4 + 2],
                         script->unk10.unk0[script->unk4 + 3],
@@ -1520,13 +1520,13 @@ void sub_80527E8(struct Unk88 *script)
                         script);
             script->unk4 += 7;
             break;
-        case '1':
+        case '1':  //move_object_horizontal(walk) (arg0 = obj id, arg1 = horizontal position)
             sub_8053984(script->unk10.unk0[script->unk4 + 1],
                         script->unk10.unk0[script->unk4 + 2],
                         script);
             script->unk4 += 3;
             break;
-        case '2':
+        case '2': //move_object_vertical(walk) (arg0 = obj id, arg1 = vertical position)
             sub_8053A74(script->unk10.unk0[script->unk4 + 1],
                         script->unk10.unk0[script->unk4 + 2],
                         script);
@@ -1607,14 +1607,14 @@ void sub_80527E8(struct Unk88 *script)
                         script);
             script->unk4 += 3;
             break;
-        case '5':
+        case '5': //warp to another map (arg0 = map, arg1 = state, arg2 = connection)
             gOverworld.unk240 |= 2;
             sub_80523EC(script->unk10.unk0[script->unk4 + 1],
                         script->unk10.unk0[script->unk4 + 2],
                         script->unk10.unk0[script->unk4 + 3]);
             script->unk4 += 5;
             break;
-        case '6':
+        case '6': //reaction box (arg0 = reaction (exclamation mark, heart etc), arg1 = ? arg2 = obj_id)
             temp = script->unk10.unk0[script->unk4 + 1];
             i = (script->unk10.unk0[script->unk4 + 2] << 8) +
                         script->unk10.unk0[script->unk4 + 3];

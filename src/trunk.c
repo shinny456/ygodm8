@@ -68,6 +68,23 @@ extern u8 gUnk_8DFA6B4[];
 extern u8 gUnk_8DFAB54[];
 extern u8 gUnk_8DFAFF4[];
 
+extern u16 gUnk_8090470[];
+extern u64 gMoney;
+void SetMoney(u64);
+/*
+void sub_8008C34 (void) {
+  int i;
+  SetMoney(gMoney / 2);
+  for (i = 0; gUnk_8090470[i]; i++) {
+    int r7 = 1;
+    if (gUnk_8090470[i] < 801)
+      if (r7 > 250 - gTrunkCardQty[gUnk_8090470[i]])
+        gTrunkCardQty[gUnk_8090470[i]] = 250;
+      else
+        gTrunkCardQty[gUnk_8090470[i]]++;
+  }
+
+}*/
 
 void InitTrunkCards(void)
 {

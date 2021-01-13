@@ -37,6 +37,11 @@ extern u8 g8106CE3[];
 extern u8 g8106D48[];
 extern u8 g8106DAD[];
 int sub_803F04C();
+/*
+#define SPELL_EFFECT_FLAG (CARD)
+//const g81060A8[] = {
+  [0] =
+}*/
 
 static inline bool8 util(u8 *arr, u16 cardId)
 {
@@ -213,7 +218,7 @@ bool32 sub_8055BD4(u16 cardId)
     return util(g8106DAD, cardId);
 }
 
-//different file?
+//different file? (password terminal util funcs?)
 struct Unk2024510
 {
     u16 cardId;
@@ -222,7 +227,7 @@ struct Unk2024510
 };
 
 extern struct Unk2024510 g2024510;
-extern u8 g8E0FD4C[][8];
+extern u8 gCardPasswords[][8];
 extern u8 g8E1165C[][8];
 extern u8 g8E11664[][8];
 extern u8 g8E1167C[];
@@ -257,7 +262,7 @@ void sub_8055C04(void)
             g2024510.unk2 = 11;
             return;
         default:
-            if (sub_8055F1C(g2024510.unk3, g8E0FD4C[g2024510.cardId]) == 10)
+            if (sub_8055F1C(g2024510.unk3, gCardPasswords[g2024510.cardId]) == 10)
             {
                 g2024510.unk2 = 10;
                 return;
@@ -269,9 +274,9 @@ void sub_8055C04(void)
 
 inline u8 sub_8055ED4(u16 cardId)
 {
-    if (sub_8055F1C(g8E1167C, g8E0FD4C[cardId]) == 10)
+    if (sub_8055F1C(g8E1167C, gCardPasswords[cardId]) == 10)
         return 0;
-    if (sub_8055F1C(g8E11684, g8E0FD4C[cardId]) == 10)
+    if (sub_8055F1C(g8E11684, gCardPasswords[cardId]) == 10)
         return 1;
     return 2;
 }

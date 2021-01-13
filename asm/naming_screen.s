@@ -2,8 +2,8 @@
     .SYNTAX UNIFIED
 
 
-	THUMB_FUNC_START sub_8005D1C
-sub_8005D1C: @ 0x08005D1C
+	THUMB_FUNC_START NamingScreenMain
+NamingScreenMain: @ 0x08005D1C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -431,7 +431,7 @@ _0800607A:
 _080060A8: .4byte 0x02018800
 _080060AC: .4byte 0x00004314
 _080060B0: .4byte gUnk_8DF8114
-_080060B4: .4byte 0x02020DE0
+_080060B4: .4byte gPlayerName
 _080060B8: .4byte 0x00004081
 
 	THUMB_FUNC_START sub_80060BC
@@ -1871,7 +1871,7 @@ _08006BD6:
 	.align 2, 0
 _08006BF4: .4byte gUnk_8DF8114
 _08006BF8: .4byte 0x00004081
-_08006BFC: .4byte 0x02020DE0
+_08006BFC: .4byte gPlayerName
 _08006C00:
 	movs r4, #0
 	ldr r0, _08006C58
@@ -3102,7 +3102,7 @@ sub_800759C: @ 0x0800759C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080075AC: .4byte 0x02020DE0
+_080075AC: .4byte gPlayerName
 
 	THUMB_FUNC_START sub_80075B0
 sub_80075B0: @ 0x080075B0

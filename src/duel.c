@@ -970,7 +970,7 @@ void sub_800ABE4(void);
 void sub_0800ABE0(void);
 void sub_8035020(u16);
 
-void sub_800BE0C(void)
+void sub_800BE0C(void) //TrunkMenu before dueling
 {
     u8 r4;
 

@@ -895,7 +895,7 @@ sub_8008C34: @ 0x08008C34
 	adds r0, r3, #0
 	orrs r0, r2
 	lsrs r1, r1, #1
-	bl sub_8026F54
+	bl SetMoney
 	movs r4, #0
 	ldr r5, _08008C88
 	ldrh r0, [r5]
@@ -924,9 +924,9 @@ _08008C64:
 	strb r3, [r1]
 	b _08008C94
 	.align 2, 0
-_08008C84: .4byte 0x02021DD0
+_08008C84: .4byte gMoney
 _08008C88: .4byte gUnk_8090470
-_08008C8C: .4byte 0x02021790
+_08008C8C: .4byte gTrunkCardQty
 _08008C90:
 	adds r0, r2, #1
 	strb r0, [r1]

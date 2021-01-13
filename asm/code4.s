@@ -8093,7 +8093,7 @@ _080526A0: .4byte 0x000003ED
 _080526A4: .4byte 0x0000739D
 _080526A8: .4byte 0x00001D1E
 _080526AC: .4byte 0x04000050
-_080526B0: .4byte 0x080454C9
+_080526B0: .4byte LoadOam
 _080526B4: .4byte 0x08FA31C0
 _080526B8: .4byte 0x02018800
 _080526BC: .4byte 0x02012400
@@ -9527,7 +9527,7 @@ _08053314:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08053330: .4byte 0x02020DE0
+_08053330: .4byte gPlayerName
 	.byte 0x30, 0xB5, 0x05, 0x1C, 0x0F, 0x48, 0x90, 0x21, 0x89, 0x00, 0x40, 0x18
 	.byte 0x01, 0x78, 0x02, 0x20, 0x08, 0x40, 0x00, 0x06, 0x04, 0x0E, 0x00, 0x2C, 0x11, 0xD1, 0xFC, 0xF7
 	.byte 0x0F, 0xFA, 0x00, 0x21, 0x2C, 0x80, 0x28, 0x1C, 0x84, 0x30, 0x01, 0x70, 0x28, 0x1C, 0xFF, 0xF7
@@ -9563,7 +9563,7 @@ sub_805339C: @ 0x0805339C
 	bx r0
 	.align 2, 0
 _080533B4: .4byte 0x02018400
-_080533B8: .4byte 0x080454C9
+_080533B8: .4byte LoadOam
 
 	THUMB_FUNC_START sub_80533BC
 sub_80533BC: @ 0x080533BC
@@ -12329,7 +12329,7 @@ _08054AA4: .4byte 0x02000020
 _08054AA8: .4byte 0x084D59D0
 _08054AAC: .4byte 0x084D61D0
 
-	THUMB_FUNC_START sub_8054AB0
+	THUMB_FUNC_START sub_8054AB0 @various overworld effects and various cutscenes
 sub_8054AB0: @ 0x08054AB0
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
@@ -12539,11 +12539,11 @@ _08054C8C:
 	b _08054EB0
 _08054C94:
 	movs r0, #0
-	bl sub_8000940
+	bl StartCutscene
 	b _08054EB0
 _08054C9C:
 	movs r0, #1
-	bl sub_8000940
+	bl StartCutscene
 	b _08054EB0
 _08054CA4:
 	bl sub_802BF70
@@ -12771,16 +12771,16 @@ _08054E90: .4byte 0x000001FF
 _08054E94: .4byte 0x08E0F6AC
 _08054E98:
 	movs r0, #8
-	bl sub_8000940
+	bl StartCutscene
 	b _08054EB0
 _08054EA0:
 	movs r0, #7
-	bl sub_8000940
+	bl StartCutscene
 	b _08054EB0
 _08054EA8:
 	ldr r1, _08054EC4
 	ldr r0, _08054EC0
-	bl sub_8026FA8
+	bl RemoveMoney
 _08054EB0:
 	add sp, #4
 	pop {r3, r4}

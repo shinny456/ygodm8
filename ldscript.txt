@@ -14,6 +14,7 @@ SECTIONS
     g2020DC8 = 0x02020DC8;
     g2020DCC = 0x02020DCC;
     g2020DD0 = 0x02020DD0;
+    gPlayerName = 0x02020DE0;
     g2020DF4 = 0x02020DF4;
     gKeyState = 0x02020DF8;
     gUnk2020DFC = 0x02020DFC;
@@ -49,6 +50,9 @@ SECTIONS
     g2021DC0 = 0x02021DC0;
     gUnk2021DC8 = 0x02021DC8;
     gUnk2021DCC = 0x02021DCC;
+
+    gMoney = 0x2021DD0;
+
     gUnk2022EB0 = 0x02022EB0;
     gUnk2023EA0 = 0x02023EA0;
     gDuel = 0x02023EC0;
@@ -126,9 +130,17 @@ SECTIONS
         src/code3.o(.text);
         asm/code3.o(.text);
         src/main_menu.o(.text);
-        asm/code3.o(.main_menu);
+        asm/main_menu.o(.text);
+        src/duel_status.o(.text);
+        src/bad_ante.o(.text);
+        asm/password_terminal.o(.text);
         src/god_cards.o(.text);
         asm/code3.o(.Split_2);
+        src/return_monster.o(.text);
+        asm/card_details_screen.o(.text);
+        asm/license_konami_screens.o(.text);
+        src/money.o(.text);
+        asm/code3.o(splitt);
         src/tribute.o(.text);
         src/io_buffers.o(.text);
         src/monster_effects.o(.text)
@@ -248,7 +260,7 @@ SECTIONS
     g8106D48 = 0x8106D48;
     g8106DAD = 0x8106DAD;
     g82AD2D0 = 0x82AD2D0;
-    g8E0FD4C = 0x8E0FD4C;
+    gCardPasswords = 0x8E0FD4C;
     g8E1165C = 0x8E1165C;
     g8E11664 = 0x8E11664;
     g8E1167C = 0x8E1167C;
@@ -268,6 +280,7 @@ SECTIONS
     g80C1D6B = 0x80C1D6B;
     g80C1D6E = 0x80C1D6E;
     g80C1D71 = 0x80C1D71;
+    g80C1D80 = 0x80C1D80;
     gLowLevelAnte = 0x80C1D84;
     gNumRequiredTributes = 0x8E0D9B4;
 
