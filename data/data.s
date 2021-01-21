@@ -890,16 +890,16 @@ gUnk_808D9B0:
 gUnk_808DE60:
     .incbin "baserom.gba", 0x8DE60, 0x4B0
 
-    .global gUnk_808E310
-gUnk_808E310:
+    .global gStarTile
+gStarTile:
     .incbin "baserom.gba", 0x8E310, 0x20
 
-    .global gUnk_808E330
-gUnk_808E330:
+    .global gSwordTile
+gSwordTile:
     .incbin "baserom.gba", 0x8E330, 0x20
 
-    .global gUnk_808E350
-gUnk_808E350:
+    .global gShieldTile
+gShieldTile:
     .incbin "baserom.gba", 0x8E350, 0x20
 
     .global gUnk_808E370

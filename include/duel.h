@@ -176,7 +176,7 @@ enum Language
     GERMAN,
     ITALIAN,
     SPANISH,
-    JAPANESE
+    NUM_LANGUAGES
 };
 
 

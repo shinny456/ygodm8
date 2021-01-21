@@ -9,6 +9,8 @@ SECTIONS
     gUnk_2018800 = 0x02018800;
     gUnk_201C800 = 0x0201C800;
     gUnk_201C900 = 0x0201C900;
+    g201CB30 = 0x0201CB30;
+    g201CB34 = 0x0201CB34;
     gUnk201CB38 = 0x0201CB38;
     gUnk201CB39 = 0x0201CB39;
     g2020DC8 = 0x02020DC8;
@@ -116,7 +118,6 @@ SECTIONS
         asm/naming_screen.o(.text);
         asm/status_menu.o(.text);
         asm/code_8007F6C.o(.text);
-        asm/trunk.o(.text);
         src/trunk.o(.text);
         asm/code_8009228.o(.text);
         src/duel.o(.text);

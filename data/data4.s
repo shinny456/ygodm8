@@ -8275,20 +8275,20 @@ gUnk_8DF8142:
 gUnk_8DF8145:
     .incbin "baserom.gba", 0xDF8145, 0x2203
 
-    .global gUnk_8DFA348
-gUnk_8DFA348:
+    .global gTypeIconPalettes
+gTypeIconPalettes:
     .incbin "baserom.gba", 0xDFA348, 0x60
 
-    .global gUnk_8DFA3A8
-gUnk_8DFA3A8:
+    .global gTypeIconTiles
+gTypeIconTiles:
     .incbin "baserom.gba", 0xDFA3A8, 0x1E0
 
-    .global gUnk_8DFA588
-gUnk_8DFA588:
+    .global gAttributeIconPalettes
+gAttributeIconPalettes:
     .incbin "baserom.gba", 0xDFA588, 0x30
 
-    .global gUnk_8DFA5B8
-gUnk_8DFA5B8:
+    .global gAttributeIconTiles
+gAttributeIconTiles:
     .incbin "baserom.gba", 0xDFA5B8, 0xF0
 
     .global gUnk_8DFA6A8

@@ -194,19 +194,19 @@ _0800CE50: .4byte gUnk_808ECD0
 _0800CE54: .4byte 0x020000A0
 _0800CE58: .4byte 0x04000008
 _0800CE5C: .4byte gUnk_808ECF0
-_0800CE60: .4byte gUnk_808E310
+_0800CE60: .4byte gStarTile
 _0800CE64: .4byte 0x0200C420
-_0800CE68: .4byte gUnk_808E330
-_0800CE6C: .4byte gUnk_808E350
+_0800CE68: .4byte gSwordTile
+_0800CE6C: .4byte gShieldTile
 _0800CE70: .4byte gUnk_80AEB00
 _0800CE74: .4byte 0x00000801
 _0800CE78: .4byte gUnk_80AEB30
 _0800CE7C: .4byte 0x00001801
-_0800CE80: .4byte gUnk_8DFA5B8
+_0800CE80: .4byte gAttributeIconTiles
 _0800CE84: .4byte gLanguage
 _0800CE88: .4byte 0x0200C400
 _0800CE8C: .4byte 0x04000020
-_0800CE90: .4byte gUnk_8DFA3A8
+_0800CE90: .4byte gTypeIconTiles
 _0800CE94: .4byte 0x04000040
 _0800CE98:
 	lsls r0, r5, #2
@@ -1130,7 +1130,7 @@ _0800D5AE:
 	ldr r2, _0800D708
 	adds r1, r1, r2
 	str r3, [sp, #8]
-	bl sub_8008BC0
+	bl CopyAttributeIconPalToBuffer
 	ldr r1, _0800D70C
 	adds r0, r5, r1
 	lsls r0, r0, #1
@@ -1182,7 +1182,7 @@ _0800D5AE:
 	ldr r2, _0800D708
 	adds r1, r1, r2
 	str r3, [sp, #8]
-	bl sub_8008B44
+	bl CopyTypeIconPalToBuffer
 	ldrb r0, [r6, #0x16]
 	subs r0, #0x15
 	lsls r0, r0, #0x18

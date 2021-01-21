@@ -19005,22 +19005,22 @@ _0801E4C8: .4byte 0x0000B870
 _0801E4CC: .4byte 0x0000B872
 _0801E4D0: .4byte 0x0000520D
 _0801E4D4: .4byte 0x0000B874
-_0801E4D8: .4byte gUnk_808E310
+_0801E4D8: .4byte gStarTile
 _0801E4DC: .4byte 0x0000C020
 _0801E4E0: .4byte 0x04000008
-_0801E4E4: .4byte gUnk_808E330
+_0801E4E4: .4byte gSwordTile
 _0801E4E8: .4byte 0x0000C040
-_0801E4EC: .4byte gUnk_808E350
+_0801E4EC: .4byte gShieldTile
 _0801E4F0: .4byte 0x0000C060
 _0801E4F4: .4byte 0x0000C080
 _0801E4F8: .4byte 0x080B95D8
 _0801E4FC: .4byte 0x0000C120
 _0801E500: .4byte 0x080B9608
 _0801E504: .4byte 0x00001801
-_0801E508: .4byte gUnk_8DFA5B8
+_0801E508: .4byte gAttributeIconTiles
 _0801E50C: .4byte gLanguage
 _0801E510: .4byte 0x0200C400
-_0801E514: .4byte gUnk_8DFA3A8
+_0801E514: .4byte gTypeIconTiles
 _0801E518: .4byte 0x04000040
 _0801E51C:
 	lsls r0, r4, #2
@@ -19857,7 +19857,7 @@ _0801EB7A:
 	ldr r2, _0801ECD4
 	adds r1, r1, r2
 	str r3, [sp, #8]
-	bl sub_8008BC0
+	bl CopyAttributeIconPalToBuffer
 	ldr r1, _0801ECD8
 	adds r0, r5, r1
 	lsls r0, r0, #1
@@ -19909,7 +19909,7 @@ _0801EB7A:
 	ldr r2, _0801ECD4
 	adds r1, r1, r2
 	str r3, [sp, #8]
-	bl sub_8008B44
+	bl CopyTypeIconPalToBuffer
 	ldrb r0, [r6, #0x16]
 	subs r0, #0x15
 	lsls r0, r0, #0x18

@@ -127,7 +127,7 @@ u16 sub_8020698(u8* name) //text parser
             }
             break;
         case '5':
-            if (gLanguage == JAPANESE)
+            if (gLanguage == NUM_LANGUAGES)
             {
                 i++;
                 goto end;
@@ -239,7 +239,7 @@ u8* sub_8020824(u8* name) //card name
                 }
                 break;
             case '5':
-                if (gLanguage == JAPANESE)
+                if (gLanguage == NUM_LANGUAGES)
                 {
                     name++;
                     goto end;

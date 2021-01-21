@@ -12006,7 +12006,7 @@ _0802BAB0: .4byte 0x02021DE0
 	.byte 0x01, 0x28, 0xE0, 0xD0, 0x60, 0x1C, 0x00, 0x06, 0x04, 0x0E, 0x04, 0x2C, 0xE9, 0xD9, 0x30, 0x1C
 	.byte 0x70, 0xBC, 0x02, 0xBC, 0x08, 0x47, 0x00, 0x00, 0xF8, 0x3F, 0x02, 0x02, 0xE0, 0x1D, 0x02, 0x02
 
-	THUMB_FUNC_START sub_802BBF0
+	THUMB_FUNC_START sub_802BBF0 @castle of dark illusion, mirage knight etc effects
 sub_802BBF0: @ 0x0802BBF0
 	push {lr}
 	ldr r0, _0802BC14
@@ -16610,13 +16610,13 @@ sub_802E868: @ 0x0802E868
 	strh r0, [r1]
 	ldr r4, _0802EA0C
 	adds r0, r4, #0
-	bl sub_8008BE4
+	bl CopyStarTileToBuffer
 	adds r0, r4, #0
 	adds r0, #0x20
-	bl sub_8008C0C
+	bl CopySwordTileToBuffer
 	adds r0, r4, #0
 	adds r0, #0x40
-	bl sub_8008C20
+	bl CopyShieldTileToBuffer
 	ldr r1, _0802EA10
 	adds r0, r4, r1
 	ldr r1, _0802EA14
@@ -19128,19 +19128,19 @@ sub_802FDC0: @ 0x0802FDC0
 	ldrb r0, [r6, #0x17]
 	ldr r4, _0802FDF8
 	adds r1, r4, #0
-	bl sub_8008B8C
+	bl CopyAttributeIconTilesToBuffer
 	ldrb r0, [r6, #0x17]
 	ldr r5, _0802FDFC
 	adds r1, r5, #0
-	bl sub_8008BC0
+	bl CopyAttributeIconPalToBuffer
 	ldrb r0, [r6, #0x16]
 	subs r4, #0x80
 	adds r1, r4, #0
-	bl sub_8008A90
+	bl CopyTypeIconTilesToBuffer
 	ldrb r0, [r6, #0x16]
 	subs r5, #0x20
 	adds r1, r5, #0
-	bl sub_8008B44
+	bl CopyTypeIconPalToBuffer
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -36923,13 +36923,13 @@ sub_8038F1C: @ 0x08038F1C
 	bl CpuSet
 	adds r0, r4, #0
 	adds r0, #0x20
-	bl sub_8008BE4
+	bl CopyStarTileToBuffer
 	adds r0, r4, #0
 	adds r0, #0x40
-	bl sub_8008C0C
+	bl CopySwordTileToBuffer
 	adds r0, r4, #0
 	adds r0, #0x60
-	bl sub_8008C20
+	bl CopyShieldTileToBuffer
 	adds r0, r4, #0
 	adds r0, #0xe0
 	ldr r1, _08039078
@@ -37080,10 +37080,10 @@ _08039070: .4byte 0x0200C400
 _08039074: .4byte 0x01000010
 _08039078: .4byte 0x080DDF34
 _0803907C: .4byte 0x00001801
-_08039080: .4byte gUnk_8DFA5B8
+_08039080: .4byte gAttributeIconTiles
 _08039084: .4byte gLanguage
 _08039088: .4byte 0x0200C620
-_0803908C: .4byte gUnk_8DFA3A8
+_0803908C: .4byte gTypeIconTiles
 _08039090: .4byte 0x0200CC20
 _08039094: .4byte 0x0200D6A0
 _08039098: .4byte 0x020000A0
@@ -37266,10 +37266,10 @@ sub_80391F8: @ 0x080391F8
 	lsrs r4, r4, #0x18
 	ldr r0, _080392E8
 	mov r8, r0
-	bl sub_8008C0C
+	bl CopySwordTileToBuffer
 	mov r0, r8
 	adds r0, #0x20
-	bl sub_8008C20
+	bl CopyShieldTileToBuffer
 	ldr r1, _080392EC
 	mov sl, r1
 	ldrh r0, [r1, #0x12]
@@ -37520,7 +37520,7 @@ _08039418: .4byte 0x02000400
 _0803941C: .4byte gCardInfo
 _08039420: .4byte 0xFFED0000
 _08039424: .4byte 0x000003FF
-_08039428: .4byte gUnk_8DFA348
+_08039428: .4byte gTypeIconPalettes
 _0803942C: .4byte 0x02000000
 _08039430:
 	mov r1, sl
@@ -37646,9 +37646,9 @@ _08039514:
 	bx r0
 	.align 2, 0
 _08039524: .4byte 0x000003FF
-_08039528: .4byte gUnk_8DFA348
+_08039528: .4byte gTypeIconPalettes
 _0803952C: .4byte 0x02000000
-_08039530: .4byte gUnk_8DFA588
+_08039530: .4byte gAttributeIconPalettes
 
 	THUMB_FUNC_START sub_8039534
 sub_8039534: @ 0x08039534
@@ -39857,13 +39857,13 @@ sub_803A878: @ 0x0803A878
 	bl CpuSet
 	adds r0, r4, #0
 	adds r0, #0x20
-	bl sub_8008BE4
+	bl CopyStarTileToBuffer
 	adds r0, r4, #0
 	adds r0, #0x40
-	bl sub_8008C0C
+	bl CopySwordTileToBuffer
 	adds r0, r4, #0
 	adds r0, #0x60
-	bl sub_8008C20
+	bl CopyShieldTileToBuffer
 	adds r0, r4, #0
 	adds r0, #0xe0
 	ldr r1, _0803A9D4
@@ -40014,10 +40014,10 @@ _0803A9CC: .4byte 0x0200C400
 _0803A9D0: .4byte 0x01000010
 _0803A9D4: .4byte 0x080DE4C4
 _0803A9D8: .4byte 0x00001801
-_0803A9DC: .4byte gUnk_8DFA5B8
+_0803A9DC: .4byte gAttributeIconTiles
 _0803A9E0: .4byte gLanguage
 _0803A9E4: .4byte 0x0200C620
-_0803A9E8: .4byte gUnk_8DFA3A8
+_0803A9E8: .4byte gTypeIconTiles
 _0803A9EC: .4byte 0x0200CC20
 _0803A9F0: .4byte 0x0200D6A0
 _0803A9F4: .4byte 0x020000A0
@@ -40313,10 +40313,10 @@ sub_803ACC4: @ 0x0803ACC4
 	lsrs r4, r0, #0x18
 	ldr r5, _0803ADB4
 	adds r0, r5, #0
-	bl sub_8008C0C
+	bl CopySwordTileToBuffer
 	adds r0, r5, #0
 	adds r0, #0x20
-	bl sub_8008C20
+	bl CopyShieldTileToBuffer
 	ldr r0, _0803ADB8
 	ldr r1, _0803ADBC
 	mov sl, r1
@@ -40638,7 +40638,7 @@ _0803AF74: .4byte gCardInfo
 _0803AF78: .4byte 0x00000642
 _0803AF7C: .4byte 0xFFED0000
 _0803AF80: .4byte 0x000003FF
-_0803AF84: .4byte gUnk_8DFA348
+_0803AF84: .4byte gTypeIconPalettes
 _0803AF88: .4byte 0x02000000
 _0803AF8C:
 	mov r1, sl
@@ -40757,9 +40757,9 @@ _0803B06A:
 	b _0803B0D4
 	.align 2, 0
 _0803B074: .4byte 0x000003FF
-_0803B078: .4byte gUnk_8DFA348
+_0803B078: .4byte gTypeIconPalettes
 _0803B07C: .4byte 0x02000000
-_0803B080: .4byte gUnk_8DFA588
+_0803B080: .4byte gAttributeIconPalettes
 _0803B084:
 	movs r2, #0xa0
 	lsls r2, r2, #7
@@ -42824,13 +42824,13 @@ sub_803C308: @ 0x0803C308
 	bl CpuSet
 	adds r0, r4, #0
 	adds r0, #0x20
-	bl sub_8008BE4
+	bl CopyStarTileToBuffer
 	adds r0, r4, #0
 	adds r0, #0x40
-	bl sub_8008C0C
+	bl CopySwordTileToBuffer
 	adds r0, r4, #0
 	adds r0, #0x60
-	bl sub_8008C20
+	bl CopyShieldTileToBuffer
 	adds r0, r4, #0
 	adds r0, #0xe0
 	ldr r1, _0803C464
@@ -42981,10 +42981,10 @@ _0803C45C: .4byte 0x0200C400
 _0803C460: .4byte 0x01000010
 _0803C464: .4byte 0x080DEA54
 _0803C468: .4byte 0x00001801
-_0803C46C: .4byte gUnk_8DFA5B8
+_0803C46C: .4byte gAttributeIconTiles
 _0803C470: .4byte gLanguage
 _0803C474: .4byte 0x0200C620
-_0803C478: .4byte gUnk_8DFA3A8
+_0803C478: .4byte gTypeIconTiles
 _0803C47C: .4byte 0x0200CC20
 _0803C480: .4byte 0x0200D6A0
 _0803C484: .4byte 0x020000A0
@@ -43280,10 +43280,10 @@ sub_803C754: @ 0x0803C754
 	lsrs r4, r0, #0x18
 	ldr r5, _0803C844
 	adds r0, r5, #0
-	bl sub_8008C0C
+	bl CopySwordTileToBuffer
 	adds r0, r5, #0
 	adds r0, #0x20
-	bl sub_8008C20
+	bl CopyShieldTileToBuffer
 	ldr r0, _0803C848
 	ldr r1, _0803C84C
 	mov sl, r1
@@ -43605,7 +43605,7 @@ _0803CA04: .4byte gCardInfo
 _0803CA08: .4byte 0x00000321
 _0803CA0C: .4byte 0xFFED0000
 _0803CA10: .4byte 0x000003FF
-_0803CA14: .4byte gUnk_8DFA348
+_0803CA14: .4byte gTypeIconPalettes
 _0803CA18: .4byte 0x02000000
 _0803CA1C:
 	mov r1, sl
@@ -43724,9 +43724,9 @@ _0803CAFA:
 	b _0803CB64
 	.align 2, 0
 _0803CB04: .4byte 0x000003FF
-_0803CB08: .4byte gUnk_8DFA348
+_0803CB08: .4byte gTypeIconPalettes
 _0803CB0C: .4byte 0x02000000
-_0803CB10: .4byte gUnk_8DFA588
+_0803CB10: .4byte gAttributeIconPalettes
 _0803CB14:
 	movs r2, #0xa0
 	lsls r2, r2, #7
@@ -53761,7 +53761,7 @@ sub_8041FE4: @ 0x08041FE4
 	bne _0804203C
 	movs r5, #1
 	ldr r0, _08042018
-	bl sub_8008C0C
+	bl CopySwordTileToBuffer
 	b _0804203C
 	.align 2, 0
 _0804200C: .4byte gCardInfo
@@ -53802,7 +53802,7 @@ _0804203C:
 	bne _080420A4
 	movs r5, #1
 	ldr r0, _08042080
-	bl sub_8008C20
+	bl CopyShieldTileToBuffer
 	b _080420A4
 	.align 2, 0
 _08042068: .4byte 0x020087C0
@@ -53848,7 +53848,7 @@ sub_80420C0: @ 0x080420C0
 	cmp r0, #0
 	beq _08042114
 	ldr r0, _08042104
-	bl sub_8008BE4
+	bl CopyStarTileToBuffer
 	ldrb r0, [r4, #0x18]
 	movs r1, #1
 	bl sub_800DDA0
@@ -53909,19 +53909,19 @@ sub_8042144: @ 0x08042144
 	ldrb r0, [r6, #0x17]
 	ldr r4, _0804217C
 	adds r1, r4, #0
-	bl sub_8008B8C
+	bl CopyAttributeIconTilesToBuffer
 	ldrb r0, [r6, #0x17]
 	ldr r5, _08042180
 	adds r1, r5, #0
-	bl sub_8008BC0
+	bl CopyAttributeIconPalToBuffer
 	ldrb r0, [r6, #0x16]
 	subs r4, #0x80
 	adds r1, r4, #0
-	bl sub_8008A90
+	bl CopyTypeIconTilesToBuffer
 	ldrb r0, [r6, #0x16]
 	subs r5, #0x20
 	adds r1, r5, #0
-	bl sub_8008B44
+	bl CopyTypeIconPalToBuffer
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
