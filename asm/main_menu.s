@@ -429,7 +429,7 @@ _08024E9E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08024EC8: .4byte 0x080454E1
+_08024EC8: .4byte LoadPalettes
 
 	THUMB_FUNC_START sub_8024ECC
 sub_8024ECC: @ 0x08024ECC

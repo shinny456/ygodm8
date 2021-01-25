@@ -134,6 +134,7 @@ SECTIONS
         asm/main_menu.o(.text);
         src/duel_status.o(.text);
         src/bad_ante.o(.text);
+        src/password_terminal.o(.text);
         asm/password_terminal.o(.text);
         src/god_cards.o(.text);
         asm/code3.o(.Split_2);
@@ -153,6 +154,7 @@ SECTIONS
         asm/code4.o(ight);
         asm/code4.o(.text2);
         src/spell_effects_util.o(.text);
+        src/card_passwords.o(.text);
         asm/code5.o(.text);
         src/trap_effects.o(.text);
         src/turn.o(.text);

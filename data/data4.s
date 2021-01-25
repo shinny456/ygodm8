@@ -8463,8 +8463,8 @@ gUnk_8E010A4:
 gUnk_8E010F4:
     .4byte gUnk_2018800
 
-    .global gUnk_8E010F8
-gUnk_8E010F8:
+    .global gPassTerminal
+gPassTerminal:
     .4byte gUnk_2018800
     .incbin "baserom.gba", 0xE010FC, 0x25C
 

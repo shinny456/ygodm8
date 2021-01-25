@@ -217,7 +217,7 @@ void TrunkMenu (void) {
 u16 sub_8008644 (void) {
   u8 i;
   u16 r2;
-  int ret = 0;
+  u16 ret = 0;
   sub_802612C();
   r2 = 1;
   for (i = 0; i < 10; i++) {
@@ -240,7 +240,7 @@ u16 sub_8008644 (void) {
 
 int sub_80086D8 (void) {
   u8 i;
-  int ret = 0;
+  u16 ret = 0;
   u16 r2 = 1;
   for (i = 0; i < 10; i++) {
     if (r2 & gUnk2020DFC)
