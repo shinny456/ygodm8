@@ -31,7 +31,7 @@ extern struct Duelist* gUnk8E00B30[];
 extern u8* g8FA2BAC[]; //duel text pointers
 extern u8* g8FA2C14[]; //duel text pointers
 extern struct Bruh g80C180C[];
-extern struct OamData gOamBuffer[];
+extern u32 gOamBuffer[];
 extern u8 g80C1824[];
 
 void sub_8021B80(void);
@@ -249,22 +249,20 @@ void sub_8021B10 (void) {
   gDuelData.unk2d = 1;
   gDuelData.duelist = *gUnk8E00B30[0]; //dummy duelist?
 }
-/*
-void sub_8021B80(void) {
 
+void sub_8021B80(void) {
   u16 i, j;
   struct PlttData* pltt;
+  u16 mos;
 
   for (i = 0; i < 128; i++)
-    gOamBuffer[i].mosaic = TRUE; //oam buffer nested structs?
+    gOamBuffer[i * 2] |= 0x1000; //oam buffer nested structs?
 
   sub_80081DC(sub_8021C98);
   sub_8008220();
 
   for (i = 0; i < 32; i++) {
-
     for (j = 0; j < 512; j++) {
-
       pltt = (struct PlttData*)&g02000000.bg[j];
       if (pltt->r)
         pltt->r--;
@@ -276,148 +274,9 @@ void sub_8021B80(void) {
     sub_80081DC(sub_8021CD0);
     sub_8008220();
     sub_08021CDC();
-    //REG_MOSAIC
+    mos = (i >> 1);
+    REG_MOSAIC = (mos & 0xF) << 8 | (mos & 0xF);
   }
-}*/
-
-NAKED
-void sub_8021B80(void) {
-
-  asm_unified("\n\
-  push {r4, r5, r6, r7, lr}\n\
-	mov r7, sl\n\
-	mov r6, sb\n\
-	mov r5, r8\n\
-	push {r5, r6, r7}\n\
-	sub sp, #4\n\
-	movs r2, #0\n\
-	ldr r5, _08021C7C\n\
-	ldr r4, _08021C80\n\
-	movs r3, #0x80\n\
-	lsls r3, r3, #5\n\
-_08021B96:\n\
-	lsls r0, r2, #3\n\
-	adds r0, r0, r4\n\
-	ldr r1, [r0]\n\
-	orrs r1, r3\n\
-	str r1, [r0]\n\
-	adds r0, r2, #1\n\
-	lsls r0, r0, #0x10\n\
-	lsrs r2, r0, #0x10\n\
-	cmp r2, #0x7f\n\
-	bls _08021B96\n\
-	adds r0, r5, #0\n\
-	bl sub_80081DC\n\
-	bl sub_8008220\n\
-	movs r2, #0\n\
-	movs r7, #0x1f\n\
-	movs r0, #0x1f\n\
-	mov r8, r0\n\
-	movs r1, #0x20\n\
-	rsbs r1, r1, #0\n\
-	mov sl, r1\n\
-	ldr r6, _08021C84\n\
-	mov sb, r6\n\
-_08021BC6:\n\
-	movs r4, #0\n\
-	adds r0, r2, #1\n\
-	str r0, [sp]\n\
-	lsrs r5, r2, #1\n\
-_08021BCE:\n\
-	lsls r0, r4, #1\n\
-	ldr r1, _08021C88\n\
-	adds r2, r0, r1\n\
-	ldrb r3, [r2]\n\
-	mov r0, r8\n\
-	ands r0, r3\n\
-	cmp r0, #0\n\
-	beq _08021BF0\n\
-	ldr r1, [r2]\n\
-	lsls r1, r1, #0x1b\n\
-	lsrs r1, r1, #0x1b\n\
-	subs r1, #1\n\
-	ands r1, r7\n\
-	mov r0, sl\n\
-	ands r0, r3\n\
-	orrs r0, r1\n\
-	strb r0, [r2]\n\
-_08021BF0:\n\
-	ldrh r3, [r2]\n\
-	movs r6, #0xf8\n\
-	lsls r6, r6, #2\n\
-	adds r0, r6, #0\n\
-	ands r0, r3\n\
-	cmp r0, #0\n\
-	beq _08021C16\n\
-	ldr r0, [r2]\n\
-	lsls r0, r0, #0x16\n\
-	lsrs r0, r0, #0x1b\n\
-	subs r0, #1\n\
-	mov r1, r8\n\
-	ands r0, r1\n\
-	lsls r0, r0, #5\n\
-	ldr r6, _08021C8C\n\
-	adds r1, r6, #0\n\
-	ands r1, r3\n\
-	orrs r1, r0\n\
-	strh r1, [r2]\n\
-_08021C16:\n\
-	ldrb r3, [r2, #1]\n\
-	movs r0, #0x7c\n\
-	ands r0, r3\n\
-	cmp r0, #0\n\
-	beq _08021C38\n\
-	ldr r0, [r2]\n\
-	lsls r0, r0, #0x11\n\
-	lsrs r0, r0, #0x1b\n\
-	subs r0, #1\n\
-	ands r0, r7\n\
-	lsls r0, r0, #2\n\
-	movs r6, #0x7d\n\
-	rsbs r6, r6, #0\n\
-	adds r1, r6, #0\n\
-	ands r1, r3\n\
-	orrs r1, r0\n\
-	strb r1, [r2, #1]\n\
-_08021C38:\n\
-	adds r0, r4, #1\n\
-	lsls r0, r0, #0x10\n\
-	lsrs r4, r0, #0x10\n\
-	cmp r4, sb\n\
-	bls _08021BCE\n\
-	ldr r0, _08021C90\n\
-	bl sub_80081DC\n\
-	bl sub_8008220\n\
-	bl sub_08021CDC\n\
-	lsls r1, r5, #0x10\n\
-	lsrs r1, r1, #0x10\n\
-	ldr r2, _08021C94\n\
-	movs r0, #0xf\n\
-	ands r1, r0\n\
-	lsls r0, r1, #8\n\
-	orrs r0, r1\n\
-	strh r0, [r2]\n\
-	ldr r1, [sp]\n\
-	lsls r0, r1, #0x10\n\
-	lsrs r2, r0, #0x10\n\
-	cmp r2, #0x1f\n\
-	bls _08021BC6\n\
-	add sp, #4\n\
-	pop {r3, r4, r5}\n\
-	mov r8, r3\n\
-	mov sb, r4\n\
-	mov sl, r5\n\
-	pop {r4, r5, r6, r7}\n\
-	pop {r0}\n\
-	bx r0\n\
-	.align 2, 0\n\
-_08021C7C: .4byte sub_8021C98\n\
-_08021C80: .4byte gOamBuffer\n\
-_08021C84: .4byte 0x000001FF\n\
-_08021C88: .4byte 0x02000000\n\
-_08021C8C: .4byte 0xFFFFFC1F\n\
-_08021C90: .4byte sub_8021CD0\n\
-_08021C94: .4byte 0x0400004C");
 }
 
 void sub_8021C98 (void) {
@@ -1894,6 +1753,8 @@ void sub_8044160 (u8 arg0) {
 }
 u8 sub_80453D8(u16);
 u8 sub_8045390(u16);
+
+//swapping the if else blocks in case 3 causes an extra ldrh instruction
 void sub_80441D0 (void) {
   switch (gCursorPosition.currentY) {
     case 2:

@@ -96,7 +96,7 @@ extern u16 *g201CB34;
 void LoadPalettes(void);
 void LoadOam(void);
 
-extern struct OamData gOamBuffer[];
+extern u16 gOamBuffer[];
 void sub_8008F88 (u8);
 void sub_800A3D8 (u8);
 void sub_800AA58 (u8);
@@ -408,7 +408,7 @@ void sub_80089D0 (void) {
 }
 
 void sub_80089EC (void) { //SetCursorOam
-  u32 *oam = (u32*)&gOamBuffer[6]; //todo
+  u32 *oam = (u32*)&gOamBuffer[6 * 4]; //todo
   oam[0] = gUnk_8DF8142[gUnkStruct_2020E10.cursorState] |
            gUnk_8DF8145[gUnkStruct_2020E10.cursorState] << 16 |
            0x40000000; //sprite size bits
@@ -420,7 +420,7 @@ void sub_80089EC (void) { //SetCursorOam
 }
 
 void sub_8008A48 (void) {
-  u32 *oam = (u32*)&gOamBuffer[6]; //todo
+  u32 *oam = (u32*)&gOamBuffer[6 * 4]; //todo
   oam[0] = 0;
   oam[1] = 0;
   oam[2] = 0;

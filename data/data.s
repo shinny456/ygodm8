@@ -374,12 +374,12 @@ gUnk_80754C4:
 gUnk_80754EC:
     .incbin "baserom.gba", 0x754EC, 0x28
 
-    .global gUnk_8075514
-gUnk_8075514:
+    .global gStartMenuBgTiles
+gStartMenuBgTiles:
     .incbin "baserom.gba", 0x75514, 0x036F4
 
-    .global gUnk_8078C08
-gUnk_8078C08:
+    .global gStartMenuCursorTiles
+gStartMenuCursorTiles:
     .incbin "baserom.gba", 0x78C08, 0x7DC
 
     .global gUnk_80793E4

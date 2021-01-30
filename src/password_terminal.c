@@ -521,27 +521,64 @@ void sub_8025CAC (void) {
 void sub_8025CBC (void) {
   gPassTerminal->unk5 = 0;
 }
-/*
-struct OamD {
-  u16 attr0;
-  u16 attr1;
-  u16 attr2;
-  s16 filler;
-};
 
-extern struct OamData gOamBuffer[];
+
+extern u16 gOamBuffer[];
 
 struct Oam {
   u16 unk0;
-  struct OamData *oam;
+  u16 *oam;
 };
 
-extern struct Oam gE01248[];
+extern struct Oam *gE01248[];
+extern struct Oam *gE01328[];
+extern struct Oam *gE0119C[];
+
+
 
 void sub_8025CCC (void) {
   u8 cursorPos = GetNumpadCursorPos();
   u8 r6 = sub_8025C88();
+  u16 pos;
   if (r6 == 0) {
-    gOamBuffer[8].y = gE01248[cursorPos].oam->y + 48;
+    pos = gE01248[cursorPos]->oam[0] & 0xFF;
+    pos += 48;
+    gOamBuffer[8 * 4] = gE01248[cursorPos]->oam[0] & 0xFF00 | pos & 0xFF;
+    pos = (gE01248[cursorPos]->oam[1] & 0x1FF);
+    pos += 72;
+    gOamBuffer[8 * 4 + 1] = gE01248[cursorPos]->oam[1] & 0xFE00 | pos & 0x1FF;
+    gOamBuffer[8 * 4 + 2] = gE01248[cursorPos]->oam[2];
+    gOamBuffer[8 * 4 + 3] = 0;
+  }
+  else {
+    struct Oam *oam;
+    r6 -= 1;
+    oam = gE01328[cursorPos];
+    pos = oam[r6].oam[0] & 0xFF;
+    pos += 48;
+    gOamBuffer[8 * 4] = oam[r6].oam[0] & 0xFF00 | pos & 0xFF;
+    pos = oam[r6].oam[1] & 0x1FF;
+    pos += 72;
+    gOamBuffer[8 * 4 + 1] = oam[r6].oam[1] & 0xFE00 | pos & 0x1FF;
+    gOamBuffer[8 * 4 + 2] = oam[r6].oam[2];
+    gOamBuffer[8 * 4 + 3] = 0;
+  }
+}
+/*
+void sub_8025DB4 (void) {
+  u8 i;
+  for (i = 0; i < 8; i++) {
+    //struct OamD *oam = &gOamBuffer[i];
+    u8 temp = g2021DC0[i];
+    u16 var = gE0119C[temp]->oam[0] & 0xFF;
+    var += 18;
+    gOamBuffer[i * 4] = gE0119C[temp]->oam[0] & 0xFF00 | var & 0xFF;
+    var = (gE0119C[temp]->oam[1] & 0x1FF);
+    var += 56;
+    gOamBuffer[i * 4 + 1] = gE0119C[temp]->oam[1] & 0xFE00 | var & 0x1FF;
+    var = gE0119C[temp]->oam[2] & 0xF000;
+    var <<= 6;
+    gOamBuffer[i * 4 + 2] = gE0119C[temp]->oam[2] & 0xFFF | var & 0xF000;
+    gOamBuffer[i * 4 + 3] = 0;
   }
 }*/

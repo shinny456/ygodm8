@@ -114,7 +114,7 @@ SECTIONS
         asm/crt0.o(.text);
         asm/cutscenes.o(.text);
         asm/world_map.o(.text);
-        asm/start_menu.o(.text);
+        src/start_menu.o(.text);
         asm/naming_screen.o(.text);
         asm/status_menu.o(.text);
         asm/code_8007F6C.o(.text);
@@ -284,6 +284,8 @@ SECTIONS
     g80C1D6E = 0x80C1D6E;
     g80C1D71 = 0x80C1D71;
     g80C1D80 = 0x80C1D80;
+    gE01248 = 0x8E01248;
+    gE01328 = 0x8E01328;
     gLowLevelAnte = 0x80C1D84;
     gNumRequiredTributes = 0x8E0D9B4;
 

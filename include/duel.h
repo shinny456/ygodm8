@@ -494,5 +494,13 @@ u8 sub_8045390(u16);
 bool32 sub_80436EC(struct DuelCard*);
 
 
+void LoadBgVRAM(void);
+void LoadCharblock3(void);
+void LoadCharblock4(void);
+void LoadPalettes(void);
+void LoadVRAM(void);
+void sub_80081DC(void (*)(void));
+
+
 
 #endif // GUARD_DUEL_H
