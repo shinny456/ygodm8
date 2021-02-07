@@ -13,6 +13,8 @@ SECTIONS
     g201CB34 = 0x0201CB34;
     gUnk201CB38 = 0x0201CB38;
     gUnk201CB39 = 0x0201CB39;
+    g201EE60 = 0x0201EE60;
+    g201EE61 = 0x0201EE61;
     g2020DC8 = 0x02020DC8;
     g2020DCC = 0x02020DCC;
     g2020DD0 = 0x02020DD0;
@@ -140,7 +142,7 @@ SECTIONS
         asm/code3.o(.Split_2);
         src/return_monster.o(.text);
         asm/card_details_screen.o(.text);
-        asm/license_konami_screens.o(.text);
+        src/copyright_screens.o(.text);
         src/money.o(.text);
         asm/code3.o(splitt);
         src/tribute.o(.text);
@@ -288,7 +290,15 @@ SECTIONS
     gE01328 = 0x8E01328;
     gLowLevelAnte = 0x80C1D84;
     gNumRequiredTributes = 0x8E0D9B4;
-
+    gE04810 = 0x8E04810;
+    gE06810 = 0x8E06810;
+    gE08810 = 0x8E08810;
+    gE0A810 = 0x8E0A810;
+    gE0A8B0 = 0x8E0A8B0;
+    gE01370 = 0x8E01370;
+    gE01C50 = 0x8E01C50;
+    gE02E10 = 0x8E02E10;
+    gE04610 = 0x8E04610;
     g8FC488C = 0x8FC488C;
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :

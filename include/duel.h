@@ -500,7 +500,11 @@ void LoadCharblock4(void);
 void LoadPalettes(void);
 void LoadVRAM(void);
 void sub_80081DC(void (*)(void));
-
-
+void sub_8008220 (void);
+void LoadBgOffsets (void);
+extern u16 gBG3VOFS;
+extern u16 gBG3HOFS;
+extern u16 gBG2HOFS;
+extern u16 gBG2VOFS;
 
 #endif // GUARD_DUEL_H
