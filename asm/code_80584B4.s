@@ -137,7 +137,7 @@ _08058824:
 
 	THUMB_FUNC_START sub_805882C
 sub_805882C: @ 0x0805882C
-	ldr r2, _08058840
+	ldr r2, _08058840          //copy a function to RAM?
 	movs r0, #1
 	eors r2, r0
 	ldr r3, _08058844

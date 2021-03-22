@@ -339,6 +339,10 @@ _080561AC:
 	.align 2, 0
 _080561B0: .4byte 0x02024590
 
+
+
+
+// RNG?
 	THUMB_FUNC_START sub_80561B4
 sub_80561B4: @ 0x080561B4
 	push {r4, r5, r6, lr}

@@ -17223,8 +17223,8 @@ sub_801D68C: @ 0x0801D68C
 	.align 2, 0
 _0801D6BC: .4byte 0x04000050
 
-	THUMB_FUNC_START sub_801D6C0
-sub_801D6C0: @ 0x0801D6C0
+	THUMB_FUNC_START InitDeckCapacity
+InitDeckCapacity: @ 0x0801D6C0
 	ldr r1, _0801D6CC
 	movs r0, #0xc8
 	lsls r0, r0, #3
@@ -17268,8 +17268,8 @@ GetDeckCapacity: @ 0x0801D718
 	.align 2, 0
 _0801D720: .4byte gDeckCapacity
 
-	THUMB_FUNC_START sub_801D724
-sub_801D724: @ 0x0801D724
+	THUMB_FUNC_START InitDuelistLevel
+InitDuelistLevel: @ 0x0801D724
 	ldr r1, _0801D72C
 	movs r0, #0x48
 	str r0, [r1]
@@ -17683,8 +17683,8 @@ _0801DA42:
 	.align 2, 0
 _0801DA54: .4byte gDeck
 
-	THUMB_FUNC_START sub_801DA58
-sub_801DA58: @ 0x0801DA58
+	THUMB_FUNC_START InitDeck
+InitDeck: @ 0x0801DA58
 	movs r3, #0
 	ldr r0, _0801DA74
 	ldr r2, _0801DA78
@@ -17728,7 +17728,7 @@ _0801DA94: @ jump table
 	.4byte _0801DAEA @ case 7
 	.4byte _0801DAF0 @ case 8
 _0801DAB8:
-	bl sub_801DA58
+	bl InitDeck
 	b _0801DAF4
 _0801DABE:
 	bl sub_801DA20

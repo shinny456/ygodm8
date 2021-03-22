@@ -1,7 +1,7 @@
     .INCLUDE "asm/macro.inc"
     .SYNTAX UNIFIED
 
-
+.section .start
 
 	THUMB_FUNC_START sub_8022C54
 sub_8022C54: @ 0x08022C54
@@ -3107,7 +3107,7 @@ _080261D8:
 _080261DC: .4byte gUnk2021DCC
 _080261E0: .4byte gKeyState
 
-.section splitt
+.section .text
 
 
 	THUMB_FUNC_START sub_802703C
@@ -29718,10 +29718,10 @@ TitleScreen: @ 0x08035444
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08035456
-	bl sub_80354C0
+	bl sub_80354C0 //new game only
 	b _0803545A
 _08035456:
-	bl sub_803525C
+	bl sub_803525C //new game and continue
 _0803545A:
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
@@ -29730,7 +29730,7 @@ _0803545A:
 	bl sub_800AF68
 	bl sub_80354A8
 	b _08035484
-_0803546C:
+_0803546C: //pressed continue
 	bl sub_800AC64
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18

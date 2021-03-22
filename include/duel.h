@@ -493,7 +493,7 @@ extern u16 g2021BF8;
 u8 sub_8045390(u16);
 bool32 sub_80436EC(struct DuelCard*);
 
-
+void LoadObjVRAM(void);
 void LoadBgVRAM(void);
 void LoadCharblock3(void);
 void LoadCharblock4(void);
@@ -506,5 +506,20 @@ extern u16 gBG3VOFS;
 extern u16 gBG3HOFS;
 extern u16 gBG2HOFS;
 extern u16 gBG2VOFS;
+
+void ClearPlayerName(void);
+void InitTrunkCards(void);
+void InitDeck(void);
+void InitDeckCapacity(void);
+void InitDuelistLevel(void);
+void sub_8020168(void);
+void sub_802712C(void);
+void sub_802D9F0(void);
+void InitMoney(void);
+void sub_80561FC(void);
+void sub_80554EC(void);
+void sub_8055FD0(void);
+void sub_801FB44(u8*);
+void sub_8048CB8(void);
 
 #endif // GUARD_DUEL_H

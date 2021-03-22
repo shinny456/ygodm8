@@ -3093,8 +3093,8 @@ _08007590: .4byte gBG1VOFS
 _08007594: .4byte gBG2HOFS
 _08007598: .4byte gBG2VOFS
 
-	THUMB_FUNC_START sub_800759C
-sub_800759C: @ 0x0800759C
+	THUMB_FUNC_START ClearPlayerName
+ClearPlayerName: @ 0x0800759C
 	push {lr}
 	ldr r0, _080075AC
 	movs r1, #0x13

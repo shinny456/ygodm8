@@ -2,7 +2,9 @@
 #include "gba/syscall.h"
 #include "duel.h"
 #include "gba/io_reg.h"
+#include "gba/macro.h"
 
+u16 sub_80520E0(u8 x, u8 y);
 
 //script structs
 struct Unk10
@@ -59,15 +61,16 @@ struct Object
     s16 spriteId;
     u8 direction; //facing D L U R
     u8 filler3;
-    u16 x;
-    u16 y;
+    u16 x; //pos[0]?
+    u16 y; //pos[1]?
     u16 unk8;
     u8 unkA;
-    u8 fillerB[0x3];
+    u8 fillerB;
+    u16 unkC;
     u8 unkE;
     u8 unkF;
-    u32 *unk10; //TODO: fix type
-    u32 *unk14; //TODO: fix type
+    struct Unk10 *unk10; //TODO: fix type
+    struct Unk10 *unk14; //TODO: fix type
     u8 unk18;   //0 = standing, 1 = walking, 2 = running
     u8 unk19;
     u16 unk1A;
@@ -92,7 +95,7 @@ struct Overworld
     struct Unk10 *unk1F4[5];
     struct Unk10 *unk208[5];
     u8 unk21C[16][2];
-    u32 *unk23C;
+    u16 *unk23C;
     u8 unk240;
     u16 music;
     u8 filler244[0xC];
@@ -119,7 +122,7 @@ struct ObjectInitialState //object data?
 struct UnkOhk
 {
     struct Unk10 *unk0;
-    u32 unk4; //mapid, map connection
+    u8 unk4; //mapid, map connection
 };
 
 struct Unk1F8
@@ -133,11 +136,13 @@ struct Unk1F8
 };
 
 extern struct Overworld gOverworld;
-extern u32* gUnk8E11DC4[];
+extern u16* gUnk8E11DC4[];
 extern struct Unk1F8** gUnk8E19274[]; //map states
 extern u8 gUnk8E0DA12[]; //frames
 extern u8* gUnk8E11790[];
 extern u16 gUnk08103264[];
+extern u16 g8103284[];
+extern u16 g81032A2[];
 extern u32 g8F04040[]; //TODO fix type
 //2024270 + 1E0
 //2024450
@@ -908,7 +913,7 @@ void sub_805254C(struct Unk10 *); //todo: fix type?
 void sub_804F770(void);
 void sub_804E288(void);
 void sub_804F5D8(void);
-void sub_804DF5C(u8);
+void sub_804DF5C(int);
 
 void sub_804DB28(void) //world map stuff
 {
@@ -957,7 +962,7 @@ void sub_804DC48(void) //spawn the player home (and overworld main loop?) Overwo
         NamingScreenMain();
         StartCutscene(8);
         sub_8055508(0x2b);
-        sub_800AD4C();
+        sub_800AD4C(); //save game?
     }
     sub_80523EC(9, 1, 0);
     sub_804D640();
@@ -999,33 +1004,33 @@ void sub_804DCE8(void) //load overworld map(bg)
     switch (gOverworld.unk250)
     {
     case 0: //normal bg
-        LZ77UnCompWram(g8E119F4[gOverworld.map.id], gBgVram.cbb0);
+        LZ77UnCompWram(g8E119F4[gOverworld.map.id], gBgVram.cbb0); //copy tileset
         sub_804F5D8();
-        CpuSet(g8E11AE8[gOverworld.map.id], gBgVram.sbb1F, 0x400);
-        CpuSet(g8E11BDC[gOverworld.map.id], gBgVram.sbb1E, 0x400);
+        CpuCopy16(g8E11AE8[gOverworld.map.id], gBgVram.sbb1F, 0x800); //copy bg2 tilemap
+        CpuCopy16(g8E11BDC[gOverworld.map.id], gBgVram.sbb1E, 0x800); //copy bg1 tilemap
         if (gOverworld.map.id == 0x29) //pegasus island cable car bg
-            CpuSet(g841D91C, ((struct Sbb*)&gBgVram)->sbb17, 0x400);
+            CpuCopy16(g841D91C, ((struct Sbb*)&gBgVram)->sbb17, 0x800); //bg3 tilemap
         break;
     case 1: //reshef bg
         LZ77UnCompWram(g84C9FBC, gBgVram.cbb0);
-        CpuSet(g82AD06C, g02000000.obj, 0xC0);
-        CpuSet(g82ADC8C, g02000000.bg, 0x10);
-        CpuSet(g84D0CE0, &g02000000.bg[16], 0xF0);
-        CpuSet(g84CFCE0, gBgVram.sbb1F, 0x400);
-        CpuSet(g84D04E0, gBgVram.sbb1E, 0x400);
+        CpuCopy16(g82AD06C, g02000000.obj, 0x180);
+        CpuCopy16(g82ADC8C, g02000000.bg, 0x20);
+        CpuCopy16(g84D0CE0, &g02000000.bg[16], 0x1E0);
+        CpuCopy16(g84CFCE0, gBgVram.sbb1F, 0x800);
+        CpuCopy16(g84D04E0, gBgVram.sbb1E, 0x800);
         break;
     case 2: //goemon bg
         LZ77UnCompWram(g84D0EC0, gBgVram.cbb0);
-        CpuSet(g82AD06C, g02000000.obj, 0xC0);
-        CpuSet(g82ADC8C, g02000000.bg, 0x10);
-        CpuSet(g84D69D0, &g02000000.bg[16], 0xF0);
-        CpuSet(g84D59D0, gBgVram.sbb1F, 0x400);
-        CpuSet(g84D61D0, gBgVram.sbb1E, 0x400);
+        CpuCopy16(g82AD06C, g02000000.obj, 0x180);
+        CpuCopy16(g82ADC8C, g02000000.bg, 0x20);
+        CpuCopy16(g84D69D0, &g02000000.bg[16], 0x1E0);
+        CpuCopy16(g84D59D0, gBgVram.sbb1F, 0x800);
+        CpuCopy16(g84D61D0, gBgVram.sbb1E, 0x800);
         break;
     }
 }
 
-extern u8 g82A8E4C[][0x1C0];
+extern u8 g82A8E4C[];
 /*
 static inline void test(u8 *src, u8 *dest)
 {
@@ -1033,18 +1038,36 @@ static inline void test(u8 *src, u8 *dest)
 
     for (i = 0; i < 64; i++)
         *dest++ = *src++;
+}*/
+/*
+extern u8 g82A906C[];
+void sub_804DE74 (void) {
+  u32 i, j;
+  u8 *dest, *src;
+  for (i = 0; i < 15; i++)
+    sub_804DF5C(gOverworld.unk21C[i][0]);
+  dest = &gBgVram.cbb4[gUnk08103264[15] * 32];
+  src = g82A8E4C;
+  for (i = 0; i < 2; src += 0x3C0, dest += 0x1C0, i++)
+    for (j = 0; j < 64; j++)
+      *dest++ = *src++;
+  for (i = 0; i < 15; i++) {
+    u32 k;
+    u8 *dest = &gBgVram.cbb4[g8103284[gOverworld.unk21C[i][0]] * 32];
+    u8 *src = &g82A906C[g81032A2[gOverworld.objects[gOverworld.unk21C[i][0]].unk1C] * 32];
+    k = 0;
+    do {
+      u32 j;
+      for (j = 0; j < 64; j++)
+        *dest++ = *src++;
+      src += 0x3C0;
+      dest += 0x1C0;
+      k++;
+    } while (k < 2);
+  }
 }
-
-void sub_804DE74(void)
-{
-    u32 i, j;
-    //u8 *objVram;
-
-    for (i = 0; i < 15; i++)
-        sub_804DF5C(gOverworld.unk21C[i][0]);
-
-    //objVram = &gObjVram[gUnk08103264[15] * 32];
-
+    //objVram = &gBgVram.cbb4[gUnk08103264[15] * 32];
+/*
     for (i = 0; i < 2; i++)
     {
         test(g82A8E4C[i], &gObjVram[gUnk08103264[15] * 32]);
@@ -1054,9 +1077,9 @@ void sub_804DE74(void)
     for (i = 0; i < 15; i++)
     {
 
-    }
-}
-*/
+    }*/
+
+
 //r3 = gUnk8E19274
 
 //  9AAE98
@@ -1170,16 +1193,142 @@ void sub_804E288 (void) {
         break;
     }
   }
+}
+
+void sub_8051D20 (u8, u8);
+void sub_805236C (void);
+void sub_8051A44 (u8, u8, u16*);
+
+void sub_80521D0 (u8 direction) {
+  sub_8051D20(0, direction);
+  sub_805236C();
+}
+
+void sub_8051D20 (u8 obj, u8 direction) {
+  u8 x, y;
+  u8 pos[2];
+  u16 displacement[4];
+  pos[0] = gOverworld.objects[obj].x;
+  pos[1] = gOverworld.objects[obj].y;
+  gOverworld.objects[obj].direction = direction;
+  sub_8051A44(obj, direction, displacement);
+  gOverworld.objects[obj].x += displacement[0];
+  gOverworld.objects[obj].y += displacement[1];
+  x = gOverworld.objects[obj].x;
+  y = gOverworld.objects[obj].y;
+  gOverworld.objects[obj].unkC = gOverworld.unk23C[y * 120 + x];
+  sub_8052088(obj);
+  sub_8052108(pos, &gOverworld.objects[obj].x); //TODO: change x to array that holds both x and y
+}
+
+
+u32 sub_80521AC (u16);
+void sub_8052318 (u16);
+
+
+void sub_805236C (void) {
+  u16 temp = sub_80520E0(gOverworld.objects[0].x, gOverworld.objects[0].y);
+  u16 temp2;
+  switch (sub_80521AC(temp)) {
+    case 1:
+      gOverworld.unk240 |= 2;
+      sub_8052318(temp);
+      break;
+    case 2:
+      gOverworld.unk240 |= 2;
+      gOverworld.unk240 |= 4;
+      temp2 = temp & 0x700;
+      gOverworld.map.unk8 = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk168[temp2 >> 8].unk4;
+      gOverworld.map.unk6 = 4;
+      break;
+  }
 }*/
 
+extern u8 g8E0E3C0[]; // which direction the npc should face when player talks to them
+extern u16 g8E0E3C4[];
+extern u16 g8E0E3CC[];
+extern u16 g8E0E3D4[][4];
+extern u16 g8E0E3EC[][4];
 
+//sb = newXPos
+//r7 = newYPos
+//sl = obj
+//r4 = direction * 2
+//r5 = &g8E0E3D4[0][direction]
+//r6 = &g8E0E3EC[0][direction]
+/*
+s8 sub_8051DAC (u8, u8, s8);
+u8 sub_8052174 (u16);
 
+s8 sub_8051958 (u8 newXPos, u8 newYPos, u8 direction, u8 obj) {
+  u32 i = 0;
+  u16 *ptr = &g8E0E3D4[0][direction];
+  u16 *ptr2 = &g8E0E3EC[0][direction];
 
+  for (; i < 3; ptr2+=4, ptr+=4, i++) {
+    u8 check;
 
+    u8 temp = g8E0E3D4[i][direction] + newXPos;
+    u8 temp2 = g8E0E3EC[i][direction] + newYPos;
+    if (temp > 223)
+      check = 0;
+    else if (temp > 119)
+      check = 0;
+    else if (temp2 > 223)
+      check = 0;
+    else if (temp2 > 79)
+      check = 0;
+    else
+      check = 1;
+    if (check) {
+      temp = *ptr + newXPos;
+      temp2 = *ptr2 + newYPos;
+      if (sub_8051DAC(temp, temp2, obj) == -1) {
+        temp = *ptr + newXPos;
+        temp2 = *ptr2 + newYPos;
+        if (sub_8052174(gOverworld.unk23C[temp2 * 120 + temp]) != 1)
+          return ++i;
+      }
+    }
+  }
+  return 0;
+}
+
+void sub_8051A44 (u8 obj, u8 direction, u16 *displacement) {
+  u8 newXPos;
+  u8 newYPos;
+  displacement[0] = g8E0E3C4[direction];
+  displacement[1] = g8E0E3CC[direction];
+  newXPos = gOverworld.objects[obj].x + g8E0E3C4[direction];
+  newYPos = gOverworld.objects[obj].y + g8E0E3CC[direction];
+  switch (sub_8051958(newXPos, newYPos, direction, obj)) {
+    case 0:
+      gOverworld.objects[obj].unk18 = 0;
+      displacement[0] = 0;
+      displacement[1] = 0;
+      break;
+    case 1:
+      gOverworld.objects[obj].unk18 = 1;
+      break;
+    case 2:
+      gOverworld.objects[obj].unk18 = 1;
+      displacement[0] += g8E0E3D4[1][direction];
+      displacement[1] += g8E0E3EC[1][direction];
+      break;
+    case 3:
+      gOverworld.objects[obj].unk18 = 1;
+      displacement[0] += g8E0E3D4[2][direction];
+      displacement[1] += g8E0E3EC[2][direction];
+      break;
+  }
+}
+
+u16 sub_80520E0 (u8 x, u8 y) {
+  return gOverworld.unk23C[y * 120 + x];
+}
 
 
 /*
-
 void sub_804DF5C(u8 personId)
 {
     u8 direction = gOverworld.objects[personId].direction;
@@ -1197,6 +1346,44 @@ void sub_804DF5C(u8 personId)
 dir * 3 + gUnk8E0DA12[gOverworld.objects[personId].unk1E]
 
 gUnk08103264[personId]*/
+
+s8 sub_8051E48 (u8, u8, u8);
+void sub_804F19C (int);
+/*
+void sub_8051F70 (void) {
+  int r4;
+  u8 temp = gOverworld.objects[0].x + g8E0E3C4[gOverworld.objects[0].direction];
+  u8 temp2 = gOverworld.objects[0].y + g8E0E3CC[gOverworld.objects[0].direction];
+  r4 = sub_8051E48(temp, temp2, gOverworld.objects[0].direction);
+  if (r4 == -1)
+    return;
+  PlayMusic(0xCA);
+  if (gOverworld.objects[r4].unk1Dj)
+    gOverworld.objects[r4].direction = g8E0E3C0[gOverworld.objects[0].direction];
+  sub_804F19C(r4);
+  sub_804DF5C(r4);
+  sub_804EF10();
+  LoadObjVRAM();
+  sub_805254C(gOverworld.objects[r4].unk10);
+}
+
+void sub_8051FFC (void) {
+  int r4;
+  u8 temp = gOverworld.objects[0].x + g8E0E3C4[gOverworld.objects[0].direction];
+  u8 temp2 = gOverworld.objects[0].y + g8E0E3CC[gOverworld.objects[0].direction];
+  r4 = sub_8051E48(temp, temp2, gOverworld.objects[0].direction);
+  if (r4 == -1)
+    return;
+  PlayMusic(0xCA);
+  if (gOverworld.objects[r4].unk1Dj)
+    gOverworld.objects[r4].direction = g8E0E3C0[gOverworld.objects[0].direction];
+  sub_804F19C(r4);
+  sub_804DF5C(r4);
+  sub_804EF10();
+  LoadObjVRAM();
+  sub_805254C(gOverworld.objects[r4].unk14);
+}*/
+
 /*
 struct Unk8103314 {
   u16 unk0;
@@ -1286,13 +1473,13 @@ void sub_80526D0(struct Unk88 *script)
             sub_80527E8(script); //handle scripting commands? including text?
             break;
         case 1:
-            sub_8052F60(script);
+            sub_8052F60(script); //new paragraph?
             break;
         case 2:
             sub_8053138(script);
             break;
         case 3:
-            sub_8053040(script);
+            sub_8053040(script); //handle option command
             break;
         }
         if (script->unk86 == 1)
@@ -1347,7 +1534,6 @@ void sub_804F218(void);
 void AddCardToTrunk(u32 id, u8 qty);
 void sub_8008D88(u32 id);
 void sub_8053C18(struct Unk88 *script, u8);
-u16 sub_80520E0(u8 x, u8 y);
 int sub_80524A4(u16);
 void sub_8053E34(u8);
 void sub_8035038(u16);
@@ -1394,7 +1580,7 @@ void sub_80527E8(struct Unk88 *script)
             script->unk4++;
             script->unk8 = 1;
             break;
-        case '3':
+        case '3': //choose option (arrow)
             script->unk82 = 0;
             script->unkD = 1;
             script->unkC = 3;
@@ -1415,15 +1601,15 @@ void sub_80527E8(struct Unk88 *script)
             sub_8055508(script->unk10.unk0[script->unk4 + 1]);
             script->unk4 += 2;
             break;
-        case '7':
+        case '7': //is flag set
             script->unk1E = sub_8055554(script->unk10.unk0[script->unk4 + 1]);
             script->unk4 += 2;
             break;
-        case '8':
+        case '8': // clear flag
             sub_8055534(script->unk10.unk0[script->unk4 + 1]);
             script->unk4 += 2;
             break;
-        case '9':
+        case '9': //restore lifepoints
             sub_8048D08();
             script->unk4++;
             break;
@@ -1471,12 +1657,12 @@ void sub_80527E8(struct Unk88 *script)
             script->unk4 += 3;
             break;
         case '4':
-            gOverworld.music = script->unk10.unk0[script->unk4 + 1] +
+            gOverworld.music = script->unk10.unk0[script->unk4 + 1] |
                               (script->unk10.unk0[script->unk4 + 2] << 8);
             script->unk4 += 3;
             break;
         case '5':
-            sub_8034FEC(script->unk10.unk0[script->unk4 + 1] +
+            sub_8034FEC(script->unk10.unk0[script->unk4 + 1] |
                        (script->unk10.unk0[script->unk4 + 2] << 8));
             script->unk4 += 3;
             break;
@@ -1485,7 +1671,7 @@ void sub_80527E8(struct Unk88 *script)
                        (script->unk10.unk0[script->unk4 + 2] << 8));
             script->unk4 += 3;
             break;
-        case '7': move_object (arg0 = obj_id, arg1 = orientation(UDLR), arg2 = displacement, arg3 = ?)
+        case '7': //move_object (arg0 = obj_id, arg1 = orientation(UDLR), arg2 = displacement, arg3 = ?)
             sub_805345C(script->unk10.unk0[script->unk4 + 1],
                         script->unk10.unk0[script->unk4 + 2],
                         script->unk10.unk0[script->unk4 + 3],
@@ -1665,7 +1851,7 @@ void sub_80527E8(struct Unk88 *script)
             sub_8020968(&gBgVram.sbb1B[0][16] + ((script->unk8 >> 1) << 6), var, 0x101);
         sub_8053284(script);
     }
-}*/
+}
 
 extern const u32 g82AD2D0[];
 extern u16 gUnk2020DFC;

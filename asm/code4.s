@@ -25,12 +25,12 @@ _0804DE88:
 	ldr r0, _0804DF44
 	ldrh r0, [r0, #0x1e]
 	lsls r0, r0, #5
-	ldr r1, _0804DF48
+	ldr r1, _0804DF48 @2010400
 	adds r2, r0, r1
-	ldr r3, _0804DF4C
+	ldr r3, _0804DF4C @g82A8E4C
 	movs r4, #0
 	mov sl, r1
-	ldr r0, _0804DF50
+	ldr r0, _0804DF50 @g82A906C
 	mov sb, r0
 	movs r6, #0xf0
 	lsls r6, r6, #2
@@ -51,6 +51,8 @@ _0804DEB4:
 	adds r4, #1
 	cmp r4, #1
 	bls _0804DEB2
+
+
 	movs r4, #0
 	ldr r6, _0804DF40
 	movs r1, #0x87
@@ -1985,7 +1987,7 @@ sub_804EEE0: @ 0x0804EEE0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0804EF04: .4byte 0x0804F1E5
+_0804EF04: .4byte sub_804F1E4
 _0804EF08: .4byte 0x02010400
 _0804EF0C: .4byte 0x06010000
 
@@ -2034,7 +2036,7 @@ _0804EF44:
 _0804EF6C: .4byte gOverworld
 _0804EF70: .4byte 0x000001CD
 _0804EF74: .4byte 0x000001ED
-_0804EF78: .4byte 0x0804F1E5
+_0804EF78: .4byte sub_804F1E4
 _0804EF7C: .4byte 0x02010400
 _0804EF80: .4byte 0x06010000
 
@@ -7725,7 +7727,7 @@ sub_8052318: @ 0x08052318
 	bx r0
 	.align 2, 0
 _08052360: .4byte gOverworld
-_08052364: .4byte 0x08E19274
+_08052364: .4byte gUnk8E19274
 _08052368: .4byte 0x0000016D
 
 	THUMB_FUNC_START sub_805236C
@@ -7740,9 +7742,9 @@ sub_805236C: @ 0x0805236C
 	adds r0, r5, #0
 	bl sub_80521AC
 	cmp r0, #1
-	beq _08052390
+	beq _08052390 @transition to other map
 	cmp r0, #2
-	beq _080523A6
+	beq _080523A6 @world map
 	b _080523E2
 	.align 2, 0
 _0805238C: .4byte gOverworld
@@ -7793,7 +7795,7 @@ _080523E2:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080523E8: .4byte 0x08E19274
+_080523E8: .4byte gUnk8E19274
 
 	THUMB_FUNC_START sub_80523EC
 sub_80523EC: @ 0x080523EC
@@ -7915,7 +7917,7 @@ sub_80524A4: @ 0x080524A4
 	ldrb r0, [r0]
 	bx lr
 	.align 2, 0
-_080524D0: .4byte 0x08E19274
+_080524D0: .4byte gUnk8E19274
 _080524D4: .4byte gOverworld
 	.byte 0x00, 0x04, 0xE0, 0x22, 0xD2, 0x04, 0x02, 0x40
 	.byte 0x09, 0x49, 0x0A, 0x4B, 0x18, 0x88, 0x80, 0x00, 0x40, 0x18, 0x59, 0x88, 0x00, 0x68, 0x89, 0x00

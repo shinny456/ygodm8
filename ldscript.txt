@@ -4,7 +4,6 @@ SECTIONS
 {
     g02000000 = 0x02000000;
     gBgVram = 0x02000400;
-    gObjVram = 0x02010400;
     gOamBuffer = 0x02018400;
     gUnk_2018800 = 0x02018800;
     gUnk_201C800 = 0x0201C800;
@@ -104,6 +103,7 @@ SECTIONS
     g2024510 = 0x2024510;
     gUnk020245A0 = 0x020245A0;
     gWhoseTurn = 0x020245A8;
+    g20245AC = 0x20245AC;
     g2021BD0 = 0x2021BD0;
 
     g3000C38 = 0x03000C38;
@@ -122,6 +122,8 @@ SECTIONS
         asm/code_8007F6C.o(.text);
         src/trunk.o(.text);
         asm/code_8009228.o(.text);
+        src/code_800AC64.o(.text);
+        asm/code_8009228.o(split);
         src/duel.o(.text);
         asm/code1.o(.text);
         src/code2.o(.text);
@@ -131,7 +133,7 @@ SECTIONS
         src/code_8020698.o(.text);
         asm/code_8020698.o(.text);
         src/code3.o(.text);
-        asm/code3.o(.text);
+        asm/code3.o(.start);
         src/main_menu.o(.text);
         asm/main_menu.o(.text);
         src/duel_status.o(.text);
@@ -144,7 +146,7 @@ SECTIONS
         asm/card_details_screen.o(.text);
         src/copyright_screens.o(.text);
         src/money.o(.text);
-        asm/code3.o(splitt);
+        asm/code3.o(.text);
         src/tribute.o(.text);
         src/io_buffers.o(.text);
         src/monster_effects.o(.text)
@@ -300,6 +302,8 @@ SECTIONS
     gE02E10 = 0x8E02E10;
     gE04610 = 0x8E04610;
     g8FC488C = 0x8FC488C;
+    g8E0CD10 = 0x8E0CD10;
+    gUnk8E19274 = 0x8E19274;
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :
     {
