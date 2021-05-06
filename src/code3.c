@@ -1297,38 +1297,6 @@ void sub_8022C10 (int arg0) {
 
 
 /*
-extern u8 g8E0CFC0[];
-
-void sub_803F05C (void) {
-  sub_803FD3C();
-  if (sub_803FA94() != TRUE)
-    return;
-  if (g2023E80.unk2 < g2023E80.unkE) {
-    sub_803F44C();
-    if (g2023E80.unk6 <= g2023E80.unkE - g2023E80.unk2) {
-      g2023E80.unk6 = 0;
-      g2023E80.unk19 |= g8E0CFC0[g2023E80.unk1A];
-    }
-    else
-      g2023E80.unk6 -= g2023E80.unkE - g2023E80.unk2;
-    gUnk2023EA0.unk18 = 3;
-  }
-  else if (g2023E80.unk2 == g2023E80.unkE) {
-    sub_803F44C();
-    sub_803F45C();
-    gUnk2023EA0.unk18 = 2;
-  }
-  else {
-    sub_803F45C();
-    if (g2023E80.unk6 <= g2023E80.unk2 - g2023E80.unkE) {
-      g2023E80.unk6 = 0;
-      g2023E80.unk19 |= g8E0CFC0[g2023E80.unk1A];
-    }
-    else
-      g2023E80.unk6 -= g2023E80.unk2 - g2023E80.unkE;
-    gUnk2023EA0.unk18 = 1;
-  }
-}*/
 
 extern u16 g8E0D08C[][5];
 extern u8 g8E0D0BE[][5];
@@ -1432,14 +1400,21 @@ void sub_804004C (u8 turn) {
   }
 }
 
+//this could be a non-static inline (ResetTempStage a few functions below)
+//TODO: see https://en.cppreference.com/w/c/language/inline
+//      for inline func declaration rules
+static inline void ResetTemp (struct DuelCard *zone) {
+    zone->tempStage = 0;
+}
+
 void sub_8040258 (void) {
   u8 i, j;
   for (i = 0; i < 4; i++)
     for (j = 0; j < 5; j++)
-      gDuel.zones[i][j].tempStage = 0;
+      ResetTemp(&gDuel.zones[i][j]);
   for (i = 0; i < 2; i++)
     for (j = 0; j < 5; j++)
-      gDuel.zones[4+i][j].tempStage = 0;
+      ResetTemp(&gDuel.hands[i][j]);
 }
 
 void ClearZone (struct DuelCard *zone) {
@@ -2043,7 +2018,7 @@ void sub_8044948 (void) {
       if (gCursorPosition.currentY == 3) {
         PlayMusic(0x3A);
         sub_80449D8();
-        sub_803EF64();
+        WinConditionFINAL();
         sub_8029820();
       }
       else {

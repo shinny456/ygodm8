@@ -12,14 +12,16 @@ void IncNumTributes (void) {
 }
 
 extern s8 gNumRequiredTributes[];
-u8 sub_8045390 (u16 card) {
+int sub_8045390 (u16 card) {
   if (sub_803FCBC(card) == 1) {
     int requiredTribs;
     SetCardInfo(card);
     requiredTribs = gNumRequiredTributes[gCardInfo.level] - gNumTributes;
     if (requiredTribs < 0)
       requiredTribs = 0;
-    return requiredTribs;
+    //TODO: the function probably returns a u8 but it's declared 
+    //      as int when called elsewhere
+    return (u8)requiredTribs; 
   }
   return 0;
 }

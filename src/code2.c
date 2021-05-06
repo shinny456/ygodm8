@@ -533,15 +533,21 @@ void sub_800ED00(void)
     ClearZone(gZones[row2][col2]);
 }
 
-/*
 void sub_800ED48(void)
 {
-    u8 row2 = gUnk2021C00.unk2 >> 4;
-    u8 col2 = gUnk2021C00.unk2 & 0xF;
-    u8 row4 = gUnk2021C00.unk4 >> 4;
-    u8 col4 = gUnk2021C00.unk4 & 0xF;
-    u8 row5 = gUnk2021C00.unk5 >> 4;
-    u8 col5 = gUnk2021C00.unk5 & 0xF;
+    u8 row2;
+    u8 col2;
+    u8 row4;
+    u8 col4;
+    u8 row5;
+    u8 col5;
+
+    row2 = ({gUnk2021C00.unk2 >> 4;});
+    col2 = ({gUnk2021C00.unk2 & 0xF;});
+    row4 = gUnk2021C00.unk4 >> 4;
+    col4 = gUnk2021C00.unk4 & 0xF;
+    row5 = gUnk2021C00.unk5 >> 4;
+    col5 = gUnk2021C00.unk5 & 0xF;
 
     if (sub_8021D00(gZones[row2][col2]->id) == 2)
     {
@@ -553,94 +559,6 @@ void sub_800ED48(void)
     gUnk2024260.unk3 = col2;
     ActivateSpellEffect();
     ClearZone(gZones[row2][col2]);
-}*/
-
-NAKED
-void sub_800ED48(void)
-{
-    asm_unified("\n\
-    push {r4, r5, r6, r7, lr}\n\
-	mov r7, sl\n\
-	mov r6, sb\n\
-	mov r5, r8\n\
-	push {r5, r6, r7}\n\
-	sub sp, #4\n\
-	ldr r2, _0800EDEC\n\
-	ldrb r3, [r2, #2]\n\
-	lsrs r0, r3, #4\n\
-	mov r8, r0\n\
-	movs r1, #0xf\n\
-	adds r0, r1, #0\n\
-	ands r0, r3\n\
-	str r0, [sp]\n\
-	ldrb r0, [r2, #4]\n\
-	lsrs r3, r0, #4\n\
-	mov sb, r3\n\
-	adds r4, r1, #0\n\
-	ands r4, r0\n\
-	ldrb r0, [r2, #5]\n\
-	lsrs r2, r0, #4\n\
-	mov sl, r2\n\
-	adds r5, r1, #0\n\
-	ands r5, r0\n\
-	ldr r7, _0800EDF0\n\
-	mov r3, r8\n\
-	lsls r0, r3, #2\n\
-	add r0, r8\n\
-	ldr r1, [sp]\n\
-	adds r0, r0, r1\n\
-	lsls r0, r0, #2\n\
-	adds r6, r0, r7\n\
-	ldr r0, [r6]\n\
-	ldrh r0, [r0]\n\
-	bl sub_8021D00\n\
-	lsls r0, r0, #0x18\n\
-	lsrs r0, r0, #0x18\n\
-	cmp r0, #2\n\
-	bne _0800EDC0\n\
-	mov r2, sb\n\
-	lsls r0, r2, #2\n\
-	add r0, sb\n\
-	adds r0, r0, r4\n\
-	lsls r0, r0, #2\n\
-	adds r0, r0, r7\n\
-	ldr r0, [r0]\n\
-	movs r1, #0\n\
-	bl ClearZoneAndSendMonToGraveyard\n\
-	mov r3, sl\n\
-	lsls r0, r3, #2\n\
-	add r0, sl\n\
-	adds r0, r0, r5\n\
-	lsls r0, r0, #2\n\
-	adds r0, r0, r7\n\
-	ldr r0, [r0]\n\
-	movs r1, #0\n\
-	bl ClearZoneAndSendMonToGraveyard\n\
-_0800EDC0:\n\
-	ldr r1, _0800EDF4\n\
-	ldr r0, [r6]\n\
-	ldrh r0, [r0]\n\
-	strh r0, [r1]\n\
-	mov r0, r8\n\
-	strb r0, [r1, #2]\n\
-	mov r2, sp\n\
-	ldrb r2, [r2]\n\
-	strb r2, [r1, #3]\n\
-	bl ActivateSpellEffect\n\
-	ldr r0, [r6]\n\
-	bl ClearZone\n\
-	add sp, #4\n\
-	pop {r3, r4, r5}\n\
-	mov r8, r3\n\
-	mov sb, r4\n\
-	mov sl, r5\n\
-	pop {r4, r5, r6, r7}\n\
-	pop {r0}\n\
-	bx r0\n\
-	.align 2, 0\n\
-_0800EDEC: .4byte 0x02021C00\n\
-_0800EDF0: .4byte gZones\n\
-_0800EDF4: .4byte gUnk2024260");
 }
 
 void sub_800EDF8(void)
@@ -1507,10 +1425,15 @@ _0800F63C: .4byte 0x7EE2CFBF");
 /*
 void sub_800F640(void)
 {
-    u8 row2 = gUnk2021C00.unk2 >> 4;
-    u8 col2 = gUnk2021C00.unk2 & 0xF;
-    u8 row3 = gUnk2021C00.unk3 >> 4;
-    u8 col3 = gUnk2021C00.unk3 & 0xF;
+    u8 row2;
+    u8 col2;
+    u8 row3;
+    u8 col3;
+
+    row2 = gUnk2021C00.unk2 >> 4;
+    col2 = gUnk2021C00.unk2 & 0xF;
+    row3 = gUnk2021C00.unk3 >> 4;
+    col3 = gUnk2021C00.unk3 & 0xF;
 
     SetCardInfo(gZones[row2][col2]->id);
     if (gCardInfo.unk1E)
@@ -1531,7 +1454,7 @@ void sub_800F640(void)
             gUnk_8DFF6A4->unk2298 = 0x7F3D9A1C;
         else
         {
-            u16 atk, atk2;
+            u16 atk;
             gStatMod.card = gZones[row2][col2]->id;
             gStatMod.field = gDuel.field;
             gStatMod.stage = sub_804069C(gZones[row2][col2]);
@@ -1541,8 +1464,7 @@ void sub_800F640(void)
             gStatMod.field = gDuel.field;
             gStatMod.stage = sub_804069C(gZones[row2][col2]);
             SetFinalStat(&gStatMod);
-            atk2 = gCardInfo.atk;
-            if (atk <= atk2)
+            if (atk <= gCardInfo.atk)
                 gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
             else
                 gUnk_8DFF6A4->unk2298 = 0x7F32EBBC;

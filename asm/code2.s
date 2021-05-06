@@ -11451,7 +11451,7 @@ _08019E2C:
 	bl sub_8041104
 _08019E30:
 	bl sub_8019F60
-	bl sub_803EF64
+	bl WinConditionFINAL
 	bl ExodiaWinCondition
 	bl sub_8029820
 _08019E40:

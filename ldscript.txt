@@ -57,6 +57,7 @@ SECTIONS
     gMoney = 0x2021DD0;
 
     gUnk2022EB0 = 0x02022EB0;
+    g2023E80 = 0x02023E80;
     gUnk2023EA0 = 0x02023EA0;
     gDuel = 0x02023EC0;
     gNotSure = 0x02023FC0;
@@ -147,6 +148,9 @@ SECTIONS
         src/copyright_screens.o(.text);
         src/money.o(.text);
         asm/code3.o(.text);
+        src/FINAL_effect.o(.text);
+        src/code_803F02C.o(.text);
+        asm/code_803F02C.o(.text);
         src/tribute.o(.text);
         src/io_buffers.o(.text);
         src/monster_effects.o(.text)
@@ -304,6 +308,12 @@ SECTIONS
     g8FC488C = 0x8FC488C;
     g8E0CD10 = 0x8E0CD10;
     gUnk8E19274 = 0x8E19274;
+    g8E0CEE0 = 0x8E0CEE0;
+    g8E0CF40 = 0x8E0CF40;
+    g8E0CFA0 = 0x8E0CFA0;
+    g8E0CFC0 = 0x8E0CFC0;
+    gUnk8E11DC4 = 0x8E11DC4;
+
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :
     {

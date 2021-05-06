@@ -18,7 +18,7 @@ sub_80262B0: @ 0x080262B0
 	bl sub_800E08C
 
 @clear first tile in VRAM
-    mov r0, sp
+  mov r0, sp
 	movs r6, #0
 	strh r6, [r0]
 	ldr r1, [r4]

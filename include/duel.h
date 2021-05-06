@@ -56,7 +56,7 @@ struct DuelCard
     u8 unkThree : 1;
     u8 isFaceUp : 1;
     u8 willChangeSides : 1;  //give back to opponent at the end of the turn (used by brain control)
-    u8 filler6[2];
+    //u8 filler6[2];
 };
 
 struct NotSureWhatToName //rename to duelist status?
@@ -67,19 +67,11 @@ struct NotSureWhatToName //rename to duelist status?
     u8 unkThree : 1;
 };
 
-struct Unk2023EA0
-{
-    u8 filler0[0x18];
-    u8 unk18;
-};
-
-extern struct Unk2023EA0 gUnk2023EA0;
-
 //Zones to Cards
 struct Duel
 {
-    struct DuelCard zones[6][MAX_ZONES_IN_ROW];   //0x00  |2023EC0
-                                                  //0x78  |2023F38
+    struct DuelCard zones[4][MAX_ZONES_IN_ROW];   //0x00  |2023EC0
+    struct DuelCard hands[2][MAX_ZONES_IN_ROW];   //0x78  |2023F38
                                                   //0xA0  |2023F60
     u8 field;                                                   //0xF0  |2023FB0
     u8 filler_F1[3];                                            //0xF1  |2023FB1
@@ -325,17 +317,45 @@ u16 sub_80452E0(u8);
 struct Unk2023E80 {
   u16 unk0;
   u16 unk2;
-  u8 filler4[2];
+  u16 unk4;
   u16 unk6;
-  u8 filler8[6];
+  u8 unk8;
+  u8 unk9;
+  u8 unkA;
+  u8 fillerB;
+  u16 unkC;
   u16 unkE;
-  u8 filler10[2];
+  u16 unk10;
   u16 unk12;
-  u8 filler14[5];
+  u8 unk14;
+  u8 unk15;
+  u8 unk16;
+  u8 filler17;
+  u8 unk18;
   u8 unk19;
   u8 unk1A;
+  u8 unk1B;
 };
 extern struct Unk2023E80 g2023E80;
+
+struct Unk2023EA0
+{
+    u16 unk0;
+    u8 filler2[4];
+    u16 unk6;
+    u16 unk8;
+    u8 unkA;
+    u8 fillerB;
+    u16 unkC;
+    u8 unkE[4];
+    u16 unk12;
+    u16 unk14;
+    u8 unk16;
+    u8 filler17;
+    u8 unk18;
+};
+
+extern struct Unk2023EA0 gUnk2023EA0;
 //0x02023EA0 data used when cards clash
 //0x02023E80 ^
 
@@ -490,8 +510,11 @@ extern struct PaletteBuffer g02000000; //palette buffer
 extern u8 gObjVram[];
 
 extern u16 g2021BF8;
-u8 sub_8045390(u16);
+int sub_8045390(u16);
 bool32 sub_80436EC(struct DuelCard*);
+
+void sub_8045314 (struct DuelCard *zone, u8 player);
+void DeclareLoser(u8);
 
 void LoadObjVRAM(void);
 void LoadBgVRAM(void);
@@ -521,5 +544,6 @@ void sub_80554EC(void);
 void sub_8055FD0(void);
 void sub_801FB44(u8*);
 void sub_8048CB8(void);
+
 
 #endif // GUARD_DUEL_H

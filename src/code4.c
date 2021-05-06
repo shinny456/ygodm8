@@ -108,8 +108,8 @@ struct ObjectInitialState //object data?
     u8 direction;
     u16 x;
     u16 y;
-    u32 *unk8; //normal text?      TODO: fix type?
-    u32 *unkC; //duel text?        TODO: fix type?
+    struct Unk10 *unk8; //normal text?      TODO: fix type?
+    struct Unk10 *unkC; //duel text?        TODO: fix type?
     u8 unk10i : 1;
     u8 unk10j : 1;
     u8 unk10k : 1;
@@ -143,7 +143,7 @@ extern u8* gUnk8E11790[];
 extern u16 gUnk08103264[];
 extern u16 g8103284[];
 extern u16 g81032A2[];
-extern u32 g8F04040[]; //TODO fix type
+extern struct Unk10 g8F04040[]; //TODO fix type
 //2024270 + 1E0
 //2024450
 
@@ -166,7 +166,7 @@ void sub_804F714(void);
 /*
 void sub_804D640(void) //InitMap (InitOverworldMap?/InitOverworld?)
 {
-    u16 i, j, ok;
+    u16 i, j;
 
     gOverworld.map.id = gOverworld.map.unk8;
     gOverworld.map.state = gOverworld.map.unkA;
@@ -217,52 +217,52 @@ void sub_804D640(void) //InitMap (InitOverworldMap?/InitOverworld?)
     gOverworld.objects[0].y = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->playerInitialState[gOverworld.map.unk4].y;
     sub_8052088(0);
 
-    ok = 13;
+    j = 13;
     if (sub_804F6C0() & 1) //if yugi follows you
     {
-        gOverworld.objects[ok].spriteId = 1;
-        gOverworld.objects[ok].direction = gOverworld.objects[0].direction;
-        gOverworld.objects[ok].x = gOverworld.objects[0].x;
-        gOverworld.objects[ok].y = gOverworld.objects[0].y;
-        gOverworld.objects[ok].unk10 = g8F04040;
-        gOverworld.objects[ok].unk14 = g8F04040;
-        gOverworld.objects[ok].unk1Dk = 0;
-        gOverworld.objects[ok].unk1Di = 1;
-        gOverworld.objects[ok].unk1Dl = 1;
-        sub_8052088(ok);
-        ok = 14;
+        gOverworld.objects[j].spriteId = 1;
+        gOverworld.objects[j].direction = gOverworld.objects[0].direction;
+        gOverworld.objects[j].x = gOverworld.objects[0].x;
+        gOverworld.objects[j].y = gOverworld.objects[0].y;
+        gOverworld.objects[j].unk10 = g8F04040;
+        gOverworld.objects[j].unk14 = g8F04040;
+        gOverworld.objects[j].unk1Dk = 0;
+        gOverworld.objects[j].unk1Di = 1;
+        gOverworld.objects[j].unk1Dl = 1;
+        sub_8052088(j);
+        j = 14;
     }
     if (sub_804F6C0() & 2) //if joey follows you
     {
-        gOverworld.objects[ok].spriteId = 4;
-        gOverworld.objects[ok].direction = gOverworld.objects[0].direction;
-        gOverworld.objects[ok].x = gOverworld.objects[0].x;
-        gOverworld.objects[ok].y = gOverworld.objects[0].y;
-        gOverworld.objects[ok].unk10 = g8F04040;
-        gOverworld.objects[ok].unk14 = g8F04040;
-        gOverworld.objects[ok].unk1Dk = 0;
-        gOverworld.objects[ok].unk1Di = 1;
-        gOverworld.objects[ok].unk1Dl = 1;
-        sub_8052088(ok);
+        gOverworld.objects[j].spriteId = 4;
+        gOverworld.objects[j].direction = gOverworld.objects[0].direction;
+        gOverworld.objects[j].x = gOverworld.objects[0].x;
+        gOverworld.objects[j].y = gOverworld.objects[0].y;
+        gOverworld.objects[j].unk10 = g8F04040;
+        gOverworld.objects[j].unk14 = g8F04040;
+        gOverworld.objects[j].unk1Dk = 0;
+        gOverworld.objects[j].unk1Di = 1;
+        gOverworld.objects[j].unk1Dl = 1;
+        sub_8052088(j);
     }
     sub_804F714();
-    for (ok = 0, j = 1; gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[ok].spriteId != -1; ok++, j++)
+    for (j = 0, i = 1; gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[j].spriteId != -1; j++, i++)
     {
-        gOverworld.objects[j].spriteId = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[ok].spriteId;
-        gOverworld.objects[j].direction = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[ok].direction;
-        gOverworld.objects[j].x = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[ok].x;
-        gOverworld.objects[j].y = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[ok].y;
-        gOverworld.objects[j].unk8 = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[ok].unk11;
-        sub_8052088(j);
-        gOverworld.objects[j].unk10 = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[ok].unk8;
-        gOverworld.objects[j].unk14 = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[ok].unkC;
-        gOverworld.objects[j].unk1E = 19;
-        gOverworld.objects[j].unk1Di = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[ok].unk10i;
-        gOverworld.objects[j].unk1Dj = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[ok].unk10j;
-        gOverworld.objects[j].unk1Dk = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[ok].unk10k;
-        gOverworld.objects[j].unk1A = 0;
+        gOverworld.objects[i].spriteId = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[j].spriteId;
+        gOverworld.objects[i].direction = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[j].direction;
+        gOverworld.objects[i].x = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[j].x;
+        gOverworld.objects[i].y = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[j].y;
+        gOverworld.objects[i].unk8 = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[j].unk11;
+        sub_8052088(i);
+        gOverworld.objects[i].unk10 = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[j].unk8;
+        gOverworld.objects[i].unk14 = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[j].unkC;
+        gOverworld.objects[i].unk1E = 19;
+        gOverworld.objects[i].unk1Di = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[j].unk10i;
+        gOverworld.objects[i].unk1Dj = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[j].unk10j;
+        gOverworld.objects[i].unk1Dk = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[j].unk10k;
+        gOverworld.objects[i].unk1A = 0;
     }
-} */
+}*/
 
 NAKED
 void sub_804D640(void)
