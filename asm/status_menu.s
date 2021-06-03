@@ -1135,6 +1135,4 @@ _08007F60: .4byte 0x04000048
 _08007F64: .4byte gBLDCNT
 _08007F68: .4byte gBLDY
 
-
-
   .align 2, 0

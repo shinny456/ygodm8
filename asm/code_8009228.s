@@ -3473,7 +3473,7 @@ sub_800B1E4: @ 0x0800B1E4
 	THUMB_FUNC_START sub_800B200
 sub_800B200: @ 0x0800B200
 	push {r4, r5, r6, r7, lr}
-	bl sub_80267B8
+	bl PrintCard
 	movs r4, #0
 	ldr r5, _0800B268
 _0800B20A:
@@ -3559,7 +3559,7 @@ _0800B2A8:
 	THUMB_FUNC_START sub_800B2B0
 sub_800B2B0: @ 0x0800B2B0
 	push {r4, r5, r6, lr}
-	bl sub_80267B8
+	bl PrintCard
 	movs r4, #0
 	ldr r6, _0800B2FC
 _0800B2BA:

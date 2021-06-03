@@ -161,12 +161,12 @@ void sub_800BC24(void);
 void sub_800BCEC(void);
 void sub_800BCC4(void);
 void sub_800BCB0(void *);
-void sub_80267B8(void);
+void PrintCard(void);
 
 
 extern u16 g08097C94[];
 extern u16 (*gUnk_8E0136C)[][14];
-extern u16 **gUnk_8E01368;
+extern u16 *gUnk_8E01368;
 extern u16 **gUnk_8E01364;
 
 void sub_800B618(void *r6) //card details screen gfx
@@ -226,7 +226,7 @@ void sub_800B618(void *r6) //card details screen gfx
     sub_800BCEC();         //print type
     sub_800BCC4();         //print summon
     sub_800BCB0(r6);       //print description
-    sub_80267B8();         //print card
+    PrintCard();
 
     for (i = 0; i < 19; i++)
         CpuSet((*gUnk_8E0136C)[i], &gBgVram.sbb1D[i][32], 0xE);

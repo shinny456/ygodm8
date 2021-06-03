@@ -158,7 +158,7 @@ u16 sub_8020698(u8* name) //text parser
     return i;
 }
 
-u8* sub_8020824(u8* name) //card name
+u8* sub_8020824(u8* name)
 {
     if (*name == '$')
     {

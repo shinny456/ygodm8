@@ -8561,8 +8561,8 @@ gUnk_8E11788:
 gUnk_8E1178C:
     .incbin "baserom.gba", 0xE1178C, 0x72C
 
-    .global gUnk_8E11EB8
-gUnk_8E11EB8:
+    .global gCardArts //card arts
+gCardArts:
     .4byte gUnk_8935d78
     .4byte gUnk_85fcc14
     .4byte gUnk_85fde34
@@ -9365,8 +9365,8 @@ gUnk_8E11EB8:
     .4byte gUnk_891a944
     .4byte gUnk_891b9b0
 
-    .global gUnk_8E12B3C @card art palettes
-gUnk_8E12B3C:
+    .global gCardArtPalettes @card art palettes
+gCardArtPalettes:
     .4byte gUnk_89360b0
     .4byte gUnk_891cd78
     .4byte gUnk_891cdf8
