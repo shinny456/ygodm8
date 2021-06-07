@@ -3,14 +3,15 @@
 
 extern u8* gUnk_8E00E30[];
 
-void sub_8021664();
-void sub_80216D0();
-void sub_80214F4();
-void sub_8021584();
-void sub_8021688();
-void sub_80215BC();
-void sub_80214BC();
-//TODO change u32 to u32*
+void sub_8021664 (u32*, u16);
+void sub_80216D0 (u32* arg0);
+void sub_80214F4 (u32*, u16, u16);
+void sub_8021584 (u32*, u16, u16);
+void sub_8021688 (u32*, u16);
+void sub_80215BC (u32*, u16, u16);
+void sub_80214BC (u32*, u16, u16);
+void sub_802152C (u8*, u32*, u16);
+void sub_80215F4 (u8*, u32*, u16);
 
 u16 sub_8020698(u8* name) //text parser
 {
@@ -262,155 +263,41 @@ u8* sub_8020824(u8* name)
     end:
     return name;
 }
-/*
+
 void sub_8020968(u32* arg0, u16 arg1, u16 arg2)
 {
-    u8 bhai = arg1;
-    arg1 = (bhai << 8) | (arg1 >> 8);
+    u16 r2 = (arg1 & 0xFF) << 8 | (arg1 & 0xFF00) >> 8;
 
     switch (arg2 & 0x1F00)
     {
     case 0:
-        sub_80214BC(arg0, arg1, arg2);
+        sub_80214BC(arg0, r2, arg2);
         break;
     case 0x800:
-        sub_80214BC(arg0, arg1, arg2);
+        sub_80214BC(arg0, r2, arg2);
         sub_8021664(arg0, arg2);
         break;
     case 0x1800:
-        sub_80214BC(arg0, arg1, arg2);
+        sub_80214BC(arg0, r2, arg2);
         sub_80216D0(arg0);
         sub_8021664(arg0, arg2);
         break;
     case 0x400:
-        sub_80214F4(arg0, arg1, arg2);
+        sub_80214F4(arg0, r2, arg2);
         break;
     case 0x100:
-        sub_8021584(arg0, arg1, arg2);
+        sub_8021584(arg0, r2, arg2);
         break;
     case 0x900:
-        sub_8021584(arg0, arg1, arg2);
+        sub_8021584(arg0, r2, arg2);
         sub_8021688(arg0, arg2);
         break;
     case 0x500:
-        sub_80215BC(arg0, arg1, arg2);
+        sub_80215BC(arg0, r2, arg2);
         break;
     }
-}*/
-
-NAKED
-void sub_8020968(u32 arg0, u16 arg1, u16 arg2)
-{
-    asm_unified("\n\
-    push {r4, r5, lr}\n\
-	adds r4, r0, #0\n\
-	lsls r1, r1, #0x10\n\
-	lsrs r1, r1, #0x10\n\
-	lsls r2, r2, #0x10\n\
-	lsrs r5, r2, #0x10\n\
-	movs r0, #0xff\n\
-	ands r0, r1\n\
-	lsls r2, r0, #8\n\
-	lsrs r1, r1, #8\n\
-	orrs r2, r1\n\
-	movs r1, #0xf8\n\
-	lsls r1, r1, #5\n\
-	ands r1, r5\n\
-	movs r0, #0xa0\n\
-	lsls r0, r0, #3\n\
-	cmp r1, r0\n\
-	beq _08020A2A\n\
-	cmp r1, r0\n\
-	bgt _080209AC\n\
-	movs r0, #0x80\n\
-	lsls r0, r0, #1\n\
-	cmp r1, r0\n\
-	beq _08020A0A\n\
-	cmp r1, r0\n\
-	bgt _080209A2\n\
-	cmp r1, #0\n\
-	beq _080209CC\n\
-	b _08020A34\n\
-_080209A2:\n\
-	movs r0, #0x80\n\
-	lsls r0, r0, #3\n\
-	cmp r1, r0\n\
-	beq _080209FE\n\
-	b _08020A34\n\
-_080209AC:\n\
-	movs r0, #0x90\n\
-	lsls r0, r0, #4\n\
-	cmp r1, r0\n\
-	beq _08020A16\n\
-	cmp r1, r0\n\
-	bgt _080209C2\n\
-	movs r0, #0x80\n\
-	lsls r0, r0, #4\n\
-	cmp r1, r0\n\
-	beq _080209D8\n\
-	b _08020A34\n\
-_080209C2:\n\
-	movs r0, #0xc0\n\
-	lsls r0, r0, #5\n\
-	cmp r1, r0\n\
-	beq _080209E4\n\
-	b _08020A34\n\
-_080209CC:\n\
-	adds r0, r4, #0\n\
-	adds r1, r2, #0\n\
-	adds r2, r5, #0\n\
-	bl sub_80214BC\n\
-	b _08020A34\n\
-_080209D8:\n\
-	adds r0, r4, #0\n\
-	adds r1, r2, #0\n\
-	adds r2, r5, #0\n\
-	bl sub_80214BC\n\
-	b _080209F4\n\
-_080209E4:\n\
-	adds r0, r4, #0\n\
-	adds r1, r2, #0\n\
-	adds r2, r5, #0\n\
-	bl sub_80214BC\n\
-	adds r0, r4, #0\n\
-	bl sub_80216D0\n\
-_080209F4:\n\
-	adds r0, r4, #0\n\
-	adds r1, r5, #0\n\
-	bl sub_8021664\n\
-	b _08020A34\n\
-_080209FE:\n\
-	adds r0, r4, #0\n\
-	adds r1, r2, #0\n\
-	adds r2, r5, #0\n\
-	bl sub_80214F4\n\
-	b _08020A34\n\
-_08020A0A:\n\
-	adds r0, r4, #0\n\
-	adds r1, r2, #0\n\
-	adds r2, r5, #0\n\
-	bl sub_8021584\n\
-	b _08020A34\n\
-_08020A16:\n\
-	adds r0, r4, #0\n\
-	adds r1, r2, #0\n\
-	adds r2, r5, #0\n\
-	bl sub_8021584\n\
-	adds r0, r4, #0\n\
-	adds r1, r5, #0\n\
-	bl sub_8021688\n\
-	b _08020A34\n\
-_08020A2A:\n\
-	adds r0, r4, #0\n\
-	adds r1, r2, #0\n\
-	adds r2, r5, #0\n\
-	bl sub_80215BC\n\
-_08020A34:\n\
-	pop {r4, r5}\n\
-	pop {r0}\n\
-	bx r0\n\
-	.byte 0x00, 0x00");
 }
+
 /*
 void sub_8020A3C(u32* arg0, u8* name, u16 arg2)
 {
@@ -1696,7 +1583,7 @@ u16 sub_80210B8(u16 arg0)
         arg0 -= 0x4000;
 
     r2 = arg0;
-    arg0 = arg0 - arg0 / 256 * 68;
+    arg0 -= arg0 / 256 * 68;
 
     if (r2 % 256 >= 64)
         arg0--;
@@ -1735,19 +1622,245 @@ void sub_8021138(u8* r7, u32* r8, u16 r6)
 }
 
 /*
-void sub_80211D4(u8 /*?*arg0, u32* arg1, u32 /*?* arg2)
+void sub_80211D4 (u8* unused0, u32* arg1, u16 ok)
 {
-    u8 i, j, b;
-
-    for (b = 0; b < 2; b++)
-        for (i = 0; i < 8; i++)
-        {
-            for (j = 0; j < 4; j++)
-                ;
-            arg1[0] = 0;
-            for (j = 0; j < 4; j++)
-                ;
-            arg1[1] = 0;
-            arg1 += 16;
-        }
+  u8 i, j, k;
+  for (i = 0; i < 2; i++) {
+    for (j = 0; j < 8; j++) {
+      ok = 0;
+      for (k = 0; k < 4; k++)
+        ;
+      arg1[0] = ok;
+      ok = 0;
+      for (k = 0; k < 4; k++)
+        ;
+      arg1[1] = ok;
+      arg1 += 2;
+    }
+    arg1 += 16;
+  }
 }*/
+
+void sub_80211D4(u8* unused0, u32* arg1, u16 unused2)
+{
+  u8 i, j, k;
+  register u32 v asm("r1");
+  register u32 r5 asm("r5");
+
+  for (i = 0; i < 2; i++) {
+
+    for (j = 0; j < 8; j++) {
+      asm("":::"r0", "r1", "r2");
+      v = 0;
+      asm(""::"r"(v));
+      for (k = 0; k < 4; k++) {
+        asm("":::"r0", "r1", "r2");
+      }
+      arg1[0] = v;
+      v = 0;
+      for (k = 0; k < 4; k++) {
+
+      }
+      arg1[1] = v;
+      arg1 += 2;
+      asm("":::"r8", "sb", "sl");
+    }
+    arg1 += 16;
+    asm(""::"r"(r5));
+  }
+}
+
+void sub_8021234 (u8* arg0, u32* arg1, u16 arg2, u16* arg3) {
+  u8 i, j;
+  u16 r2;
+  u32 r4;
+  switch (arg2 & 0x3000) {
+    case 0x2000: //Dummy case required to match (could be anything?)
+      break;
+    case 0:
+      for (i = 0; i < 8; i++) {
+        r2 = arg0[0] << 8 | arg0[1];
+        r2 <<= 1;
+        r4 = 0;
+        for (j = 0; j < 8; j++) {
+          r4 |= ((r2 & 0x8000) >> 15) << (j * 4);
+          r2 <<= 1;
+        }
+        arg1[arg3[0] * 8] = r4;
+        r4 = 0;
+        for (j = 0; j < 4; j++) {
+          r4 |= ((r2 & 0x8000) >> 15) << (j * 4);
+          r2 <<= 1;
+        }
+        arg1[arg3[1] * 8] = r4;
+        arg0 += 2;
+        arg1++;
+      }
+      arg1 -= 8;
+      for (i = 0; i < 4; i++) {
+        r2 = arg0[0] << 8 | arg0[1];
+        r2 <<= 1;
+        r4 = 0;
+        for (j = 0; j < 8; j++) {
+          r4 |= ((r2 & 0x8000) >> 15) << (j * 4);
+          r2 <<= 1;
+        }
+        arg1[arg3[2] * 8] = r4;
+        r4 = 0;
+        for (j = 0; j < 4; j++) {
+          r4 |= ((r2 & 0x8000) >> 15) << (j * 4);
+          r2 <<= 1;
+        }
+        arg1[arg3[3] * 8] = r4;
+        arg0 += 2;
+        arg1++;
+      }
+      break;
+    case 0x1000:
+      for (i = 0; i < 8; i++) {
+        r2 = arg0[0] << 8 | arg0[1];
+        r2 <<= 1;
+        r4 = arg1[arg3[0] * 8];
+        for (j = 4; j < 8; j++) {
+          r4 |= ((r2 & 0x8000) >> 15) << (j * 4);
+          r2 <<= 1;
+        }
+        arg1[arg3[0] * 8] = r4;
+        r4 = 0;
+        for (j = 0; j < 8; j++) {
+          r4 |= ((r2 & 0x8000) >> 15) << (j * 4);
+          r2 <<= 1;
+        }
+        arg1[arg3[1] * 8] = r4;
+        arg0 += 2;
+        arg1++;
+      }
+      arg1 -= 8;
+      for (i = 0; i < 4; i++) {
+        r2 = arg0[0] << 8 | arg0[1];
+        r2 <<= 1;
+        r4 = arg1[arg3[2] * 8];
+        for (j = 4; j < 8; j++) {
+          r4 |= ((r2 & 0x8000) >> 15) << (j * 4);
+          r2 <<= 1;
+        }
+        arg1[arg3[2] * 8] |= r4;
+        r4 = 0;
+        for (j = 0; j < 8; j++) {
+          r4 |= ((r2 & 0x8000) >> 15) << (j * 4);
+          r2 <<= 1;
+        }
+        arg1[arg3[3] * 8] = r4;
+        arg0 += 2;
+        arg1++;
+      }
+      break;
+  }
+}
+
+extern u8 g8DF1C2A[];
+
+void sub_80214BC(u32* arg0, u16 arg1, u16 arg2) {
+  sub_802152C(&g8DF1C2A[sub_80210B8(arg1) * 10], arg0, arg2);
+}
+
+void sub_80214F4(u32* arg0, u16 arg1, u16 arg2) {
+  sub_8021138(&g8DF1C2A[sub_80210B8(arg1) * 10], arg0, arg2);
+}
+
+void sub_802152C(u8* arg0, u32* arg1, u16 unused2) {
+  u8 i, j;
+  for (i = 0; i < 8; i++) {
+    u8 r2 = *arg0++;
+    u32 r4;
+    r2 <<= 1;
+    r4 = 0;
+    for (j = 0; j < 8; j++) {
+      r4 |= (r2 & 0x80) >> 7 << (j * 4);
+      r2 <<= 1;
+    }
+    *arg1 = r4;
+    arg1++;
+  }
+}
+
+extern u8 g8DF3C00[];
+void sub_8021584(u32* arg0, u16 arg1, u16 arg2) {
+  sub_80215F4(&g8DF3C00[sub_80210B8(arg1) * 18], arg0, arg2);
+}
+
+void sub_80215BC(u32* arg0, u16 arg1, u16 arg2) {
+  sub_80211D4(&g8DF3C00[sub_80210B8(arg1) * 18], arg0, arg2);
+}
+
+
+void sub_80215F4 (u8* arg0, u32* arg1, u16 unused2) {
+  u8 i, j, k;
+  for (i = 0; i < 2; i++) {
+    for (j = 0; j < 8; j++) {
+      u8 r2 = *arg0;
+      u32 r6;
+      r2 <<= 1;
+      r6 = 0;
+      for (k = 0; k < 8; k++) {
+        r6 |= (r2 & 0x80) >> 7 << (k * 4);
+        r2 <<= 1;
+      }
+      *arg1 = r6;
+      arg0++;
+      arg1++;
+    }
+    arg1 += 8;
+  }
+}
+
+void sub_8021664 (u32* arg0, u16 unused1) {
+  u8 i;
+  u32 r1 = arg0[0];
+  for (i = 0; i < 7; i++) {
+    u32 r0 = arg0[1];
+    r1 <<= 4;
+    r1 &= ~r0;
+    arg0[1] |= r1 << 1;
+    r1 = r0;
+    arg0++;
+  }
+}
+
+void sub_8021688 (u32* arg0, u16 unused1) {
+  u8 i;
+  u32 r2 = arg0[0];
+  u32 r1;
+  for (i = 0; i < 7; i++) {
+    r2 <<= 4;
+    r1 = arg0[1];
+    r2 &= ~r1;
+    arg0[1] |= r2 << 1;
+    r2 = r1;
+    arg0++;
+  }
+  arg0 += 8;
+  for (i = 0; i < 8; i++) {
+    r2 <<= 4;
+    r1 = arg0[1];
+    r2 &= ~r1;
+    arg0[1] |= r2 << 1;
+    r2 = r1;
+    arg0++;
+  }
+}
+
+void sub_80216D0 (u32* arg0) {
+  u8 i;
+  for (i = 0; i < 7; i++) {
+    *arg0 |= *arg0 << 4;
+    arg0++;
+  }
+}
+
+//unused
+void sub_80216E8 (u32* arg0, u16 arg1, u16 arg2, u16* arg3) {
+  u8* temp; //uninitialized var
+  sub_80210B8((arg1 & 0xFF) << 8 | (arg1 & 0xFF00) >> 8);
+  sub_8021234(temp, arg0, arg2, arg3);
+}

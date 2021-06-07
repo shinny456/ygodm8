@@ -136,8 +136,7 @@ SECTIONS
         asm/code2.o(.text);
         src/main.o(.text);
         src/exodia.o(.text);
-        src/code_8020698.o(.text);
-        asm/code_8020698.o(.text);
+        src/text.o(.text);
         src/code3.o(.text);
         asm/code3.o(.start);
         src/main_menu.o(.text);
@@ -317,6 +316,8 @@ SECTIONS
     g8E0CF40 = 0x8E0CF40;
     g8E0CFA0 = 0x8E0CFA0;
     g8E0CFC0 = 0x8E0CFC0;
+    g8DF1C2A = 0x8DF1C2A;
+    g8DF3C00 = 0x8DF3C00;
     gUnk8E11DC4 = 0x8E11DC4;
 
     /* Discard everything not specifically mentioned above. */
