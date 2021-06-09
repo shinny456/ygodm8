@@ -212,7 +212,7 @@ void sub_8021A54 (void) {
   struct Bruh bruh;
   bruh.a = gDuelData.duelist.id;
   if (sub_8021A8C(&bruh))
-  PlayMusic(bruh.b);
+    PlayMusic(bruh.b);
 }
 
 bool8 sub_8021A8C (struct Bruh* arg0) {
@@ -313,7 +313,6 @@ u8 sub_8021D00(u16 id) {
 
 //file split?
 struct Unk3000C38 {
-
   u8 filler0[0x32];
   u8 unk32;
   u8 unk33;
@@ -321,7 +320,6 @@ struct Unk3000C38 {
 };
 
 struct Unk2021DA0 {
-
   int deckCapacity;
   u32 unk4;
   u8 unk8;
@@ -464,7 +462,6 @@ void sub_8021ED8(void) {
     } while (g3000C38.unk34);
     sub_8024568();
     switch (g2021D9C) {
-
     case 3:
       r4 = 1;
       break;
@@ -601,7 +598,6 @@ void sub_80220C8(void) {
     sub_80219E4(&unk);
   }
   if (gDuelData.unk2d) {
-
     PlayMusic(gDuelData.unkE);
     sub_8021A14(&unk);
     unk.unk8 = 2;
@@ -641,7 +637,6 @@ void sub_8022170(void) {
 }
 
 void sub_8022214(void) {
-
   if (gDuelData.unk2B == 1)
     sub_80220C8();
   else
@@ -649,7 +644,6 @@ void sub_8022214(void) {
 }
 
 void sub_8022234(void) {
-
   u32 i;
 
   for (i = 0; i < 9; i++)
@@ -677,7 +671,6 @@ void sub_8022234(void) {
 }
 
 void sub_80222EC(void) {
-
   sub_80254DC();
   sub_8048CA8(PLAYER, gDuelData.duelist.playerLp);
   sub_8048CA8(OPPONENT, gDuelData.duelist.lifePoints);
@@ -685,7 +678,6 @@ void sub_80222EC(void) {
 }
 
 void sub_8022318(void) {
-
   if (gDuelistStatus[OPPONENT] == 2)
     gDuelData.unk2B = 1;
   else
@@ -698,9 +690,7 @@ void sub_8022340(void) {  //fade to black
   struct PlttData* pltt;
 
   for (i = 0; i < 32; i++) {
-
     for (j = 0; j < 512; j++) {
-
       pltt = (struct PlttData*)&g02000000.bg[j];
       if (pltt->r)
         pltt->r--;
@@ -759,29 +749,29 @@ void LinkDuelMenu (void) {
   sub_8022C10(g2021DA0.unk4);
   sub_8023998();
   while (1) {
-  sub_8056208();
-  if (g2021DA0.unk9 == 1)
-    if (IsDeckFull() != 1) {
-    sub_8022B7C(5);
-    sub_8022AA0();
-    PlayMusic(57);
-    sub_8023A98();
-    }
-    else if (IsCostWithinCapacity() != 1) {
-      sub_8022B7C(7);
+    sub_8056208();
+    if (g2021DA0.unk9 == 1)
+      if (IsDeckFull() != 1) {
+      sub_8022B7C(5);
       sub_8022AA0();
       PlayMusic(57);
-      sub_8023AE4();
-    }
-    else
-      break;
-  else if (g2021DA0.unk9 == 2) { //TRUNK
-    PlayMusic(55);
-    TrunkMenu();
-    sub_8022B7C(0);
-    sub_8022A24();
-    sub_8022A94(0);
-    sub_8023998();
+      sub_8023A98();
+      }
+      else if (IsCostWithinCapacity() != 1) {
+        sub_8022B7C(7);
+        sub_8022AA0();
+        PlayMusic(57);
+        sub_8023AE4();
+      }
+      else
+        break;
+    else if (g2021DA0.unk9 == 2) { //TRUNK
+      PlayMusic(55);
+      TrunkMenu();
+      sub_8022B7C(0);
+      sub_8022A24();
+      sub_8022A94(0);
+      sub_8023998();
   }
   else if (g2021DA0.unk9 == 3)
     if (sub_801D3FC() != 1) {
@@ -960,7 +950,6 @@ void sub_80226D8(void) {
 
 void sub_8022764(void) {
   if (g2021DA0.unk9 == 0) {
-
     sub_8022A64();
     sub_8022ABC();
     sub_80229C0();
@@ -973,7 +962,6 @@ void sub_8022764(void) {
 
 void sub_8022794(void) {
   if (g2021DA0.unk9 == 0) {
-
     sub_8022A7C();
     sub_8022ABC();
     sub_80229C0();
@@ -986,7 +974,6 @@ void sub_8022794(void) {
 
 void sub_80227C4(void) {
   if (g2021DA0.unk9 == 0) {
-
     sub_8022BC8(100);
     sub_8022ABC();
     sub_80229C0();
@@ -999,7 +986,6 @@ void sub_80227C4(void) {
 
 void sub_80227F4(void) {
   if (g2021DA0.unk9 == 0) {
-
     sub_8022BA0(100);
     sub_8022ABC();
     sub_80229C0();
@@ -1012,7 +998,6 @@ void sub_80227F4(void) {
 
 void sub_8022824(void) {
   if (g2021DA0.unk9 == 0) {
-
     sub_8022BC8(1000);
     sub_8022ABC();
     sub_80229C0();
@@ -1025,7 +1010,6 @@ void sub_8022824(void) {
 
 void sub_8022858(void) {
   if (g2021DA0.unk9 == 0) {
-
     sub_8022BA0(1000);
     sub_8022ABC();
     sub_80229C0();
@@ -1038,21 +1022,21 @@ void sub_8022858(void) {
 
 void sub_802288C(void) {
   switch (g2021DA0.unk9) {
-  case 0:
-    sub_80228CC();
-    break;
-  case 5:
-  case 6:
-  case 7:
-  case 8:
-  case 9:
-    sub_8022B7C(0);
-    sub_8022AA0();
-    PlayMusic(0x38);
-    sub_8023A44();
-    break;
-  default:
-    sub_8008220();
+    case 0:
+      sub_80228CC();
+      break;
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+      sub_8022B7C(0);
+      sub_8022AA0();
+      PlayMusic(0x38);
+      sub_8023A44();
+      break;
+    default:
+      sub_8008220();
   }
 }
 
@@ -1091,7 +1075,6 @@ void sub_80228CC(void) {
 
 void sub_802293C(void) {
   switch (g2021DA0.unk9) {
-
   case 0:
     sub_8022A94(4);
     sub_8022ABC();
@@ -1116,7 +1099,6 @@ void sub_802293C(void) {
 
 void sub_8022990(void) {
   if (g2021DA0.unk9 == 0) {
-
     sub_8022BF0(65000);
     sub_8022ABC();
     PlayMusic(0x37);
@@ -1138,14 +1120,12 @@ extern struct Unk8f (*g8FC4A8C[])[1];
 
 void sub_80229C0(void) {
   if (g2021DA0.unkE == 0) {
-
     u8 temp = g80C1852[g2021DA0.unkA];
     g2021DA0.unkD++;
     if (g8FC4A8C[temp][g2021DA0.unkD]->unk0 == 0)
       g2021DA0.unkD = 0;
   }
   if (g2021DA0.unkE == 0) {
-
     u8 temp = g80C1852[g2021DA0.unkA];
     g2021DA0.unkE = g8FC4A8C[temp][g2021DA0.unkD]->unk0;
   }
@@ -1224,7 +1204,6 @@ void sub_8022B1C(void) {
 
 void sub_8022B44(void) {
   if (g2021DA0.unkE == 0) {
-
     u8 temp = g80C1852[g2021DA0.unkA];
     g2021DA0.unkE = g8FC4A8C[temp][g2021DA0.unkD]->unk0;
   }
@@ -1241,16 +1220,13 @@ u8 sub_8022B88(void) {
 }
 
 void sub_8022B94(void) {
-
   g2021DA0.deckCapacity = 100;
 }
 
 void sub_8022BA0(u32 arg0) {
-
   if (g2021DA0.deckCapacity == 65000)
     g2021DA0.deckCapacity = 100;
   else {
-
     s32 cost = g2021DA0.deckCapacity + arg0;
     g2021DA0.deckCapacity = cost;
     if (cost > 65000)
@@ -1259,7 +1235,6 @@ void sub_8022BA0(u32 arg0) {
 }
 
 void sub_8022BC8(u32 subtrahend) {
-
   if (g2021DA0.deckCapacity == 100)
     g2021DA0.deckCapacity = 65000;
   else {
@@ -2200,7 +2175,6 @@ void sub_80421CC (void) {
             sub_80410B4();
           }
           else {
-
           }
           break;
         case 1:

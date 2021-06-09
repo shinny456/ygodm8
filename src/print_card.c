@@ -109,9 +109,10 @@ void sub_8026564 (void) {
     }
   }
 }
-/*
+
 extern const u8* gUnk_8E00E30[];
 u8* sub_8020824(u8*);
+void sub_8020968(u32* arg0, u16 arg1, u16 arg2);
 
 //Card name
 void sub_802663C (void) {
@@ -126,200 +127,38 @@ void sub_802663C (void) {
   name = gCardInfo.name;
   name = sub_8020824(name);
   pos = 0;
-  while (*name && *name != 0x24) {
+  while (pos < 10 && *name && *name != 0x24) {
     u16 r1;
     if (abbreviate && pos == 1) {
-      r1 = gUnk_8E00E30[14][1] << 8 | gUnk_8E00E30[14][0];
+      r1 = gUnk_8E00E30[14][1];
+      r1 <<= 8;
+      r1 |= gUnk_8E00E30[14][0];
       name += 4;
     }
     else if ((s8)*name >= 0) {
-
+      r1 = gUnk_8E00E30[*name - 32][1];
+      r1 <<= 8;
+      r1 |= gUnk_8E00E30[*name - 32][0];
+      name++;
+    }
+    else {
+      r1 = name[1] << 8 | name[0];
+      name += 2;
     }
     sub_8020968(buffer, r1, 0x44A);
-  }
-}*/
+    CpuFill32(0, g2021B50, 64);
+    CpuCopy32(buffer, g2021B50 + 40, 24);
+    CpuCopy32(gUnk_8E01364 + (pos * 2 + 133) * 32, g2021B10, 64);
+    sub_800DD4C();
+    CpuCopy32(g2021B90, gUnk_8E01364 + (pos * 2 + 133) * 32, 64);
 
-NAKED
-void sub_802663C (void) {
-  asm_unified("\n\
-  	push {r4, r5, r6, r7, lr}\n\
-	mov r7, sl\n\
-	mov r6, sb\n\
-	mov r5, r8\n\
-	push {r5, r6, r7}\n\
-	sub sp, #0x4c\n\
-	ldr r0, _08026668\n\
-	ldrb r0, [r0]\n\
-	ldr r2, _0802666C\n\
-	cmp r0, #0\n\
-	bne _08026674\n\
-	ldrh r1, [r2, #0x10]\n\
-	movs r0, #0xb6\n\
-	lsls r0, r0, #1\n\
-	cmp r1, r0\n\
-	beq _08026662\n\
-	ldr r0, _08026670\n\
-	cmp r1, r0\n\
-	bne _08026674\n\
-_08026662:\n\
-	movs r0, #1\n\
-	str r0, [sp, #0x48]\n\
-	b _08026678\n\
-	.align 2, 0\n\
-_08026668: .4byte gLanguage\n\
-_0802666C: .4byte gCardInfo\n\
-_08026670: .4byte 0x0000029E\n\
-_08026674:\n\
-	movs r1, #0\n\
-	str r1, [sp, #0x48]\n\
-_08026678:\n\
-	ldr r6, [r2]\n\
-	adds r0, r6, #0\n\
-	bl sub_8020824\n\
-	adds r6, r0, #0\n\
-	movs r7, #0\n\
-	ldrb r0, [r6]\n\
-	cmp r0, #0\n\
-	bne _0802668C\n\
-	b _08026790\n\
-_0802668C:\n\
-	cmp r0, #0x24\n\
-	bne _08026692\n\
-	b _08026790\n\
-_08026692:\n\
-	ldr r0, _080266B8\n\
-	mov sl, r0\n\
-	ldr r1, _080266BC\n\
-	mov sb, r1\n\
-	ldr r0, _080266C0\n\
-	mov r8, r0\n\
-_0802669E:\n\
-	ldr r1, [sp, #0x48]\n\
-	cmp r1, #0\n\
-	beq _080266C8\n\
-	cmp r7, #1\n\
-	bne _080266C8\n\
-	ldr r1, _080266C4\n\
-	ldr r0, [r1, #0x38]\n\
-	ldrb r1, [r0, #1]\n\
-	lsls r1, r1, #8\n\
-	ldrb r0, [r0]\n\
-	orrs r1, r0\n\
-	adds r6, #4\n\
-	b _080266F6\n\
-	.align 2, 0\n\
-_080266B8: .4byte 0x02021B50\n\
-_080266BC: .4byte gUnk_8E01364\n\
-_080266C0: .4byte 0x04000010\n\
-_080266C4: .4byte gUnk_8E00E30\n\
-_080266C8:\n\
-	movs r0, #0\n\
-	ldrsb r0, [r6, r0]\n\
-	cmp r0, #0\n\
-	blt _080266EC\n\
-	ldrb r0, [r6]\n\
-	subs r0, #0x20\n\
-	lsls r0, r0, #2\n\
-	ldr r1, _080266E8\n\
-	adds r0, r0, r1\n\
-	ldr r0, [r0]\n\
-	ldrb r1, [r0, #1]\n\
-	lsls r1, r1, #8\n\
-	ldrb r0, [r0]\n\
-	orrs r1, r0\n\
-	adds r6, #1\n\
-	b _080266F6\n\
-	.align 2, 0\n\
-_080266E8: .4byte gUnk_8E00E30\n\
-_080266EC:\n\
-	ldrb r0, [r6, #1]\n\
-	lsls r0, r0, #8\n\
-	ldrb r1, [r6]\n\
-	orrs r1, r0\n\
-	adds r6, #2\n\
-_080266F6:\n\
-	mov r0, sp\n\
-	ldr r2, _080267A0\n\
-	bl sub_8020968\n\
-	movs r0, #0\n\
-	str r0, [sp, #0x40]\n\
-	add r0, sp, #0x40\n\
-	mov r1, sl\n\
-	ldr r2, _080267A4\n\
-	bl CpuSet\n\
-	mov r0, sp\n\
-	mov r1, sl\n\
-	adds r1, #0x28\n\
-	ldr r2, _080267A8\n\
-	bl CpuSet\n\
-	lsls r5, r7, #1\n\
-	adds r4, r5, #0\n\
-	adds r4, #0x85\n\
-	lsls r4, r4, #6\n\
-	mov r1, sb\n\
-	ldr r0, [r1]\n\
-	adds r0, r0, r4\n\
-	ldr r1, _080267AC\n\
-	mov r2, r8\n\
-	bl CpuSet\n\
-	bl sub_800DD4C\n\
-	mov r0, sb\n\
-	ldr r1, [r0]\n\
-	adds r1, r1, r4\n\
-	ldr r0, _080267B0\n\
-	mov r2, r8\n\
-	bl CpuSet\n\
-	movs r1, #0\n\
-	str r1, [sp, #0x44]\n\
-	add r0, sp, #0x44\n\
-	mov r1, sl\n\
-	ldr r2, _080267A4\n\
-	bl CpuSet\n\
-	add r0, sp, #0x18\n\
-	mov r1, sl\n\
-	ldr r2, _080267B4\n\
-	bl CpuSet\n\
-	adds r5, #0x86\n\
-	lsls r5, r5, #6\n\
-	mov r1, sb\n\
-	ldr r0, [r1]\n\
-	adds r0, r0, r5\n\
-	ldr r1, _080267AC\n\
-	mov r2, r8\n\
-	bl CpuSet\n\
-	bl sub_800DD4C\n\
-	mov r0, sb\n\
-	ldr r1, [r0]\n\
-	adds r1, r1, r5\n\
-	ldr r0, _080267B0\n\
-	mov r2, r8\n\
-	bl CpuSet\n\
-	adds r0, r7, #1\n\
-	lsls r0, r0, #0x18\n\
-	lsrs r7, r0, #0x18\n\
-	cmp r7, #9\n\
-	bhi _08026790\n\
-	ldrb r0, [r6]\n\
-	cmp r0, #0\n\
-	beq _08026790\n\
-	cmp r0, #0x24\n\
-	bne _0802669E\n\
-_08026790:\n\
-	add sp, #0x4c\n\
-	pop {r3, r4, r5}\n\
-	mov r8, r3\n\
-	mov sb, r4\n\
-	mov sl, r5\n\
-	pop {r4, r5, r6, r7}\n\
-	pop {r0}\n\
-	bx r0\n\
-	.align 2, 0\n\
-_080267A0: .4byte 0x0000044A\n\
-_080267A4: .4byte 0x05000010\n\
-_080267A8: .4byte 0x04000006\n\
-_080267AC: .4byte 0x02021B10\n\
-_080267B0: .4byte 0x02021B90\n\
-_080267B4: .4byte 0x0400000A");
+    CpuFill32(0, g2021B50, 64);
+    CpuCopy32(&buffer[6], g2021B50, 40);
+    CpuCopy32(gUnk_8E01364 + (pos * 2 + 134) * 32, g2021B10, 64);
+    sub_800DD4C();
+    CpuCopy32(g2021B90, gUnk_8E01364 + (pos * 2 + 134) * 32, 64);
+    pos++;
+  }
 }
 
 void PrintCard (void) {

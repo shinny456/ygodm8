@@ -1244,7 +1244,7 @@ void sub_805236C (void) {
   }
 }*/
 
-extern u8 g8E0E3C0[]; // which direction the npc should face when player talks to them
+extern u8 g8E0E3C0[]; // which direction the npc should face when player talks to them (gFacePlayer)
 extern u16 g8E0E3C4[];
 extern u16 g8E0E3CC[];
 extern u16 g8E0E3D4[][4];
