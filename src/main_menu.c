@@ -460,11 +460,15 @@ void sub_801D960 (u16 id) {
     if (gDeck.cards[i] != CARD_NONE)
       i++;
     else {
-      if (gDeck.cards[j] != CARD_NONE) {
+      if (gDeck.cards[j] == CARD_NONE) {
+        j--;
+      }
+      else {
         gDeck.cards[i] = gDeck.cards[j];
         gDeck.cards[j] = CARD_NONE;
+        i++;
+        j--;
       }
-      j--;
     }
   }
 }*/

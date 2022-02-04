@@ -8424,8 +8424,8 @@ gUnk_8E00E30:
     .4byte gUnk_80BEBB4
     .4byte gUnk_80BEBB0
 
-    .global gUnk8E00FA8 @ritual components
-gUnk8E00FA8:
+    .global gRitualComponents @ritual components
+gRitualComponents:
     .incbin "baserom.gba", 0xE00FA8, 0xF0
 
     .global gUnk_8E01098

@@ -12,6 +12,8 @@ SECTIONS
     g201CB34 = 0x0201CB34;
     gUnk201CB38 = 0x0201CB38;
     gUnk201CB39 = 0x0201CB39;
+    g201CB3C = 0x201CB3C;
+    g201CB40 = 0x201CB40;
     g201EE60 = 0x0201EE60;
     g201EE61 = 0x0201EE61;
     g2020DC8 = 0x02020DC8;
@@ -162,8 +164,7 @@ SECTIONS
         src/spell_effects.o(.text)
         src/code4.o(.text);
         asm/code4.o(.text);
-        /*src/code4.o(ight);*/
-        asm/code4.o(ight);
+        src/code4.o(ight);
         asm/code4.o(.text2);
         src/spell_effects_util.o(.text);
         src/card_passwords.o(.text);
@@ -319,6 +320,11 @@ SECTIONS
     g8DF1C2A = 0x8DF1C2A;
     g8DF3C00 = 0x8DF3C00;
     gUnk8E11DC4 = 0x8E11DC4;
+    gE0E674 = 0x8E0E674;
+    gE0E754 = 0x8E0E754;
+    g8DFFA48 = 0x8DFFA48;
+    g8DFF7F0 = 0x8DFF7F0;
+    gCurrentTurnOpponent = 0x80AED54;
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :

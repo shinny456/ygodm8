@@ -3,6 +3,7 @@
 #include "duel.h"
 #include "gba/io_reg.h"
 #include "gba/macro.h"
+#include "card.h"
 
 u16 sub_80520E0(u8 x, u8 y);
 
@@ -26,8 +27,9 @@ struct Unk88
     struct Unk10 unk10;
     u16 unk1C;
     u8 unk1E;
-    u8 filler1F[3];
-    s8 unk22[0x52];
+    u8 filler1F;
+    u16 unk20;
+    u8 unk22[0x52];
     u16 unk74;
     u16 unk76;
     u8 unk78;
@@ -1442,10 +1444,60 @@ void sub_805254C(struct Unk10 *unk10)
     sub_80526D0(&script);
     script.unk4 = 0;
     script.unk8 = 0;
-}
+}*/
+
+void sub_80527E8(struct Unk88 *script);
+void sub_8052F60(struct Unk88 *script);
+void sub_8053138(struct Unk88 *script);
+void sub_8053040(struct Unk88 *script);
+void sub_8053388(struct Unk88 *script);
 
 
-/*
+
+
+extern const u32 g8E0E4CC[];
+extern const u32 g8E0E53C[];
+extern const u8 *gUnk_8E00E30[];
+
+void DisplayPortrait(struct Unk88 *script);
+void sub_80532E8(struct Unk88 *script);
+void sub_8055534(u32); //int?
+void sub_8048D08(void);
+u16 sub_8020698(u8 *text);
+void sub_800BE0C(void);
+void DuelMain(void);
+void sub_804F544(void);
+void sub_8005B38(void);
+void sub_8034FEC(u32);
+void sub_8035020(u32);
+void sub_805345C(u8, u8, u8, u8, struct Unk88 *script);
+void sub_8034FE0(void);
+void sub_8053CF0(u8, u8, u8, u8, struct Unk88 *script);
+void sub_8053520(u8, u16, u16, u16, u8, u8, struct Unk88 *script);
+void sub_8053984(u8, u8, struct Unk88 *script);
+void sub_8053A74(u8, u8, struct Unk88 *script);
+void sub_8053D88(u8, u8, u8, struct Unk88 *script);
+void sub_8053884(u16, u8, struct Unk88 *script);
+void sub_8054AB0(u8, struct Unk88 *script);
+void sub_804F218(void);
+void AddCardToTrunk(u32 id, u8 qty);
+void sub_8008D88(u32 id);
+void sub_8053C18(struct Unk88 *script, u8);
+int sub_80524A4(u16);
+void sub_8053E34(u8);
+void sub_8035038(u16);
+void sub_805339C(void);
+void sub_804F508(void);
+void sub_8053D50(u8, u8, struct Unk88 *script);
+void sub_8053B40(u8, u16, struct Unk88 *script);
+void sub_80553F8(struct Unk88 *script, u8);
+void sub_80512E0(struct Unk88 *script, u8);
+void sub_8020968(void *arg0, u16 arg1, u16 arg2);
+void sub_8053284(struct Unk88 *script);
+void PlayMusic();
+
+__attribute__((section("ight")))
+
 void sub_80526D0(struct Unk88 *script)
 {
     while (1)
@@ -1497,57 +1549,13 @@ void sub_80526D0(struct Unk88 *script)
     if (gOverworld.unk240 & 2)
         return;
     sub_804F770();
-    script->unk0 = NULL;
+    script->unk0 = 0;// NULL;
     script->unk84 = 0;
     DisplayPortrait(script);
     REG_WINOUT = 0x3D3E;
     sub_804F508();
     REG_BLDCNT = 0;
-}*/
-
-
-extern const u32 g8E0E4CC[];
-extern const u32 g8E0E53C[];
-extern const u8 *gUnk_8E00E30[];
-
-void DisplayPortrait(struct Unk88 *script);
-void sub_80532E8(struct Unk88 *script);
-void sub_8055534(u32); //int?
-void sub_8048D08(void);
-u16 sub_8020698(u8 *text);
-void sub_800BE0C(void);
-void DuelMain(void);
-void sub_804F544(void);
-void sub_8005B38(void);
-void sub_8034FEC(u32);
-void sub_8035020(u32);
-void sub_805345C(u8, u8, u8, u8, struct Unk88 *script);
-void sub_8034FE0(void);
-void sub_8053CF0(u8, u8, u8, u8, struct Unk88 *script);
-void sub_8053520(u8, u16, u16, u16, u8, u8, struct Unk88 *script);
-void sub_8053984(u8, u8, struct Unk88 *script);
-void sub_8053A74(u8, u8, struct Unk88 *script);
-void sub_8053D88(u8, u8, u8, struct Unk88 *script);
-void sub_8053884(u16, u8, struct Unk88 *script);
-void sub_8054AB0(u8, struct Unk88 *script);
-void sub_804F218(void);
-void AddCardToTrunk(u32 id, u8 qty);
-void sub_8008D88(u32 id);
-void sub_8053C18(struct Unk88 *script, u8);
-int sub_80524A4(u16);
-void sub_8053E34(u8);
-void sub_8035038(u16);
-void sub_805339C(void);
-void sub_804F508(void);
-void sub_8053D50(u8, u8, struct Unk88 *script);
-void sub_8053B40(u8, u16, struct Unk88 *script);
-void sub_80553F8(struct Unk88 *script, u8);
-void sub_80512E0(struct Unk88 *script, u8);
-void sub_8020968(void *arg0, u16 arg1, u16 arg2);
-void sub_8053284(struct Unk88 *script);
-void PlayMusic();
-
-/*
+}
 __attribute__((section("ight")))
 void sub_80527E8(struct Unk88 *script)
 {
@@ -1652,17 +1660,17 @@ void sub_80527E8(struct Unk88 *script)
             script->unk4++;
             break;
         case '3': //play music (arg0 = id, .2byte)
-            PlayMusic(script->unk10.unk0[script->unk4 + 1] |
+            PlayMusic(script->unk10.unk0[script->unk4 + 1] +
                        (script->unk10.unk0[script->unk4 + 2] << 8));
             script->unk4 += 3;
             break;
         case '4':
-            gOverworld.music = script->unk10.unk0[script->unk4 + 1] |
+            gOverworld.music = script->unk10.unk0[script->unk4 + 1] +
                               (script->unk10.unk0[script->unk4 + 2] << 8);
             script->unk4 += 3;
             break;
         case '5':
-            sub_8034FEC(script->unk10.unk0[script->unk4 + 1] |
+            sub_8034FEC(script->unk10.unk0[script->unk4 + 1] +
                        (script->unk10.unk0[script->unk4 + 2] << 8));
             script->unk4 += 3;
             break;
@@ -1826,24 +1834,31 @@ void sub_80527E8(struct Unk88 *script)
             var = script->unk10.unk0[script->unk4 + 1] << 8 | script->unk10.unk0[script->unk4];
             script->unk4 += 2;
         }
-        else //printable chars
-            switch (script->unk10.unk0[script->unk4])
+        else { //printable chars
+          switch (script->unk10.unk0[script->unk4])
             {
             case ' ': case '!': case '"': case '%': case '\'':
             case ',': case '-': case '.': case ':': case ';': case '?':
             case 'A' ... 'Z': case 'a' ... 'z':
-                script->unk86 = 1;
-                var = gUnk_8E00E30[script->unk10.unk0[script->unk4] - ' '][1] << 8 |
-                      gUnk_8E00E30[script->unk10.unk0[script->unk4] - ' '][0];
+                i = 1;
+                script->unk86 = i;
+                var = gUnk_8E00E30[script->unk10.unk0[script->unk4] - ' '][1];
+                var <<= 8;
+                var |= gUnk_8E00E30[script->unk10.unk0[script->unk4] - ' '][0];
+
                 script->unk4++;
                 break;
             default:
                 script->unk86 = 1;
-                var = gUnk_8E00E30[0][1] << 8 |
-                      gUnk_8E00E30[0][0];
+
+                var = gUnk_8E00E30[0][1];
+                var <<= 8;
+                var |= gUnk_8E00E30[0][0];
                 script->unk4++;
                 break;
             }
+        }
+
         script->unk82 = 1;
         if (script->unk8 & 1)
             sub_8020968(&gBgVram.sbb1B[1][0] + ((script->unk8 >> 1) << 6), var, 0x101);
@@ -1855,7 +1870,8 @@ void sub_80527E8(struct Unk88 *script)
 
 extern const u32 g82AD2D0[];
 extern u16 gUnk2020DFC;
-/*
+
+__attribute__((section("ight")))
 void sub_8052F60 (struct Unk88 *script) {
   if (gUnk2020DFC & 259) {
     PlayMusic(202);
@@ -1887,7 +1903,7 @@ void sub_8052F60 (struct Unk88 *script) {
       break;
   }
 }
-
+__attribute__((section("ight")))
 void sub_8053040 (struct Unk88 *script) {
   int temp;
   if ((temp = gUnk2020DFC & 259)) {
@@ -1920,21 +1936,66 @@ void sub_8053040 (struct Unk88 *script) {
       sub_8020968(&gBgVram.sbb1B[28][16], 0x7281, 0x101);
       break;
   }
-}*/
-/*
+}
+
+extern u32 gE0E674[];
+extern u32 gE0E754[];
+
+__attribute__((section("ight")))
 void sub_8053138 (struct Unk88 *script) {
+  u16 var;
   script->unk86 = 1;
-  if (script->unk22[script->unk78] >= 0)
-
-}*/
-
-/*
+  if ((s8)script->unk22[script->unk78] >= 0) {
+    var = gUnk_8E00E30[script->unk22[script->unk78] - 32][1];
+    var <<= 8;
+    var |= gUnk_8E00E30[script->unk22[script->unk78] - 32][0];
+    script->unk78++;
+  }
+  else {
+    var = script->unk22[script->unk78 + 1];
+    var <<= 8;
+    var |= script->unk22[script->unk78];
+    script->unk78 += 2;
+  }
+  if (script->unk8 & 1)
+    sub_8020968(&gBgVram.sbb1B[1][0] + ((script->unk8 >> 1) << 6), var, 0x101);
+  else
+    sub_8020968(&gBgVram.sbb1B[0][16] + ((script->unk8 >> 1) << 6), var, 0x101);
+  if (script->unkD == 1)
+    script->unk8 = gE0E674[script->unk8];
+  else
+    script->unk8 = gE0E754[script->unk8];
+  if (!script->unk22[script->unk78])
+    script->unkC = 0;
+}
+__attribute__((section("ight")))
+void sub_80531FC (struct Unk88* script) {
+  int i;
+  SetCardInfo(script->unk20);
+  script->unk78 = 0;
+  script->unk78 += sub_8020698(gCardInfo.name);
+  for (i = 0; i < 80 && gCardInfo.name[i] && gCardInfo.name[i] != '$'; i++) {
+    script->unk22[i] = gCardInfo.name[script->unk78];
+    script->unk78++;
+  }
+  script->unk22[i] = '\0';
+  script->unk78 = 0;
+  script->unkC = 2;
+}
+__attribute__((section("ight")))
 void sub_8053274 (struct Unk88 *script, struct Unk10 *unk10) {
   script->unk10.unk0 = unk10->unk0;
   script->unk10.unk4 = unk10->unk4;
   script->unk10.unk8 = unk10->unk8;
 }
-
+__attribute__((section("ight")))
+void sub_8053284 (struct Unk88 *script) {
+  if (script->unkD == 1)
+    script->unk8 = gE0E674[script->unk8];
+  else
+    script->unk8 = gE0E754[script->unk8];
+}
+/*
 void sub_8053388(struct Unk88 *script)
 {
     if (script->unkD == 1)

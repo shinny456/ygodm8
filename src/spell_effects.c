@@ -1195,18 +1195,18 @@ void EffectElegantEgotist(void)
 
 void EffectBlackLusterRitual(void)
 {
-    if (sub_804366C(gZones[2], gUnk8E00FA8[1][0]) == 1)
+    if (sub_804366C(gZones[2], gRitualComponents[1][0]) == 1)
     {
-        u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[1][0]);
+        u8 zone = sub_8043694(gZones[2], gRitualComponents[1][0]);
 
         ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-        sub_804D600(gZones[2][zone], gUnk8E00FA8[1][1]);
+        sub_804D600(gZones[2][zone], gRitualComponents[1][1]);
         ResetNumTributes();
 
         if (!gUnk_02021C08)
         {
             gUnk_02021C10.unk0 = BLACK_LUSTER_RITUAL;
-            gUnk_02021C10.unk2 = gUnk8E00FA8[1][1];
+            gUnk_02021C10.unk2 = gRitualComponents[1][1];
             sub_801CEBC();
         }
     }
@@ -1217,18 +1217,18 @@ void EffectBlackLusterRitual(void)
 
 void sub_804AED8(void)
 {
-    if (sub_804366C(gZones[2], gUnk8E00FA8[2][0]) == 1)
+    if (sub_804366C(gZones[2], gRitualComponents[2][0]) == 1)
     {
-        u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[2][0]);
+        u8 zone = sub_8043694(gZones[2], gRitualComponents[2][0]);
 
         ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-        sub_804D600(gZones[2][zone], gUnk8E00FA8[2][1]);
+        sub_804D600(gZones[2][zone], gRitualComponents[2][1]);
         ResetNumTributes();
 
         if (!gUnk_02021C08)
         {
             gUnk_02021C10.unk0 = 0x029F; //hardcoded id
-            gUnk_02021C10.unk2 = gUnk8E00FA8[2][1];
+            gUnk_02021C10.unk2 = gRitualComponents[2][1];
             sub_801CEBC();
         }
     }
@@ -1236,18 +1236,18 @@ void sub_804AED8(void)
 
 void sub_804AF58(void)
 {
-    if (sub_804366C(gZones[2], gUnk8E00FA8[3][0]) == 1)
+    if (sub_804366C(gZones[2], gRitualComponents[3][0]) == 1)
     {
-        u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[3][0]);
+        u8 zone = sub_8043694(gZones[2], gRitualComponents[3][0]);
 
         ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-        sub_804D600(gZones[2][zone], gUnk8E00FA8[3][1]);
+        sub_804D600(gZones[2][zone], gRitualComponents[3][1]);
         ResetNumTributes();
 
         if (!gUnk_02021C08)
         {
             gUnk_02021C10.unk0 = 0x02A1; //hardcoded id
-            gUnk_02021C10.unk2 = gUnk8E00FA8[3][1];
+            gUnk_02021C10.unk2 = gRitualComponents[3][1];
             sub_801CEBC();
         }
     }
@@ -1255,41 +1255,43 @@ void sub_804AF58(void)
 
 void sub_804AFD8(void)
 {
-    if (sub_804366C(gZones[2], gUnk8E00FA8[4][0]) == 1)
+    if (sub_804366C(gZones[2], gRitualComponents[4][0]) == 1)
     {
-        u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[4][0]);
+        u8 zone = sub_8043694(gZones[2], gRitualComponents[4][0]);
 
         ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-        sub_804D600(gZones[2][zone], gUnk8E00FA8[4][1]);
+        sub_804D600(gZones[2][zone], gRitualComponents[4][1]);
         ResetNumTributes();
 
         if (!gUnk_02021C08)
         {
             gUnk_02021C10.unk0 = 0x02A2; //hardcoded id
-            gUnk_02021C10.unk2 = gUnk8E00FA8[4][1];
+            gUnk_02021C10.unk2 = gRitualComponents[4][1];
             sub_801CEBC();
         }
     }
 }
+
+bool8 sub_804B144 (u8*, u16*); // implicit declaration elsewhere?
 
 void sub_804B058(void)
 {
     u8 zones[3];
     u8 ritualId;
 
-    if (sub_804B144(zones, gUnk8E00FA8[29]) == TRUE)
+    if (sub_804B144(zones, gRitualComponents[29]) == TRUE)
         ritualId = 29;
-    else if (sub_804B144(zones, gUnk8E00FA8[28]) == TRUE)
+    else if (sub_804B144(zones, gRitualComponents[28]) == TRUE)
         ritualId = 28;
-    else if (sub_804B144(zones, gUnk8E00FA8[27]) == TRUE)
+    else if (sub_804B144(zones, gRitualComponents[27]) == TRUE)
         ritualId = 27;
-    else if (sub_804B144(zones, gUnk8E00FA8[5]) == TRUE)
+    else if (sub_804B144(zones, gRitualComponents[5]) == TRUE)
         ritualId = 5;
     else
         return;
 
     ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-    sub_804D600(gZones[2][zones[0]], gUnk8E00FA8[ritualId][1]);
+    sub_804D600(gZones[2][zones[0]], gRitualComponents[ritualId][1]);
 
     ClearZone(gZones[2][zones[1]]);
     ClearZone(gZones[2][zones[2]]);
@@ -1298,7 +1300,7 @@ void sub_804B058(void)
     if (!gUnk_02021C08)
     {
         gUnk_02021C10.unk0 = 0x02A3; //hardcoded id
-        gUnk_02021C10.unk2 = gUnk8E00FA8[ritualId][1];
+        gUnk_02021C10.unk2 = gRitualComponents[ritualId][1];
         sub_801CEBC();
     }
 }
@@ -1338,18 +1340,18 @@ bool8 sub_804B144(u8* zones, u16* ritualArr)
 
 void sub_804B20C(void)
 {
-    if (sub_804366C(gZones[2], gUnk8E00FA8[9][0]) == 1)
+    if (sub_804366C(gZones[2], gRitualComponents[9][0]) == 1)
     {
-        u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[9][0]);
+        u8 zone = sub_8043694(gZones[2], gRitualComponents[9][0]);
 
         ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-        sub_804D600(gZones[2][zone], gUnk8E00FA8[9][1]);
+        sub_804D600(gZones[2][zone], gRitualComponents[9][1]);
         ResetNumTributes();
 
         if (!gUnk_02021C08)
         {
             gUnk_02021C10.unk0 = 0x02A4; //hardcoded id
-            gUnk_02021C10.unk2 = gUnk8E00FA8[9][1];
+            gUnk_02021C10.unk2 = gRitualComponents[9][1];
             sub_801CEBC();
         }
     }
@@ -1357,18 +1359,18 @@ void sub_804B20C(void)
 
 void sub_804B294(void)
 {
-    if (sub_804366C(gZones[2], gUnk8E00FA8[10][0]) == 1)
+    if (sub_804366C(gZones[2], gRitualComponents[10][0]) == 1)
     {
-        u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[10][0]);
+        u8 zone = sub_8043694(gZones[2], gRitualComponents[10][0]);
 
         ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-        sub_804D600(gZones[2][zone], gUnk8E00FA8[10][1]);
+        sub_804D600(gZones[2][zone], gRitualComponents[10][1]);
         ResetNumTributes();
 
         if (!gUnk_02021C08)
         {
             gUnk_02021C10.unk0 = 0x02A5; //hardcoded id
-            gUnk_02021C10.unk2 = gUnk8E00FA8[10][1];
+            gUnk_02021C10.unk2 = gRitualComponents[10][1];
             sub_801CEBC();
         }
     }
@@ -1376,18 +1378,18 @@ void sub_804B294(void)
 
 void sub_804B31C(void)
 {
-    if (sub_804366C(gZones[2], gUnk8E00FA8[11][0]) == 1)
+    if (sub_804366C(gZones[2], gRitualComponents[11][0]) == 1)
     {
-        u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[11][0]);
+        u8 zone = sub_8043694(gZones[2], gRitualComponents[11][0]);
 
         ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-        sub_804D600(gZones[2][zone], gUnk8E00FA8[11][1]);
+        sub_804D600(gZones[2][zone], gRitualComponents[11][1]);
         ResetNumTributes();
 
         if (!gUnk_02021C08)
         {
             gUnk_02021C10.unk0 = 0x02A6; //hardcoded id
-            gUnk_02021C10.unk2 = gUnk8E00FA8[11][1];
+            gUnk_02021C10.unk2 = gRitualComponents[11][1];
             sub_801CEBC();
         }
     }
@@ -1395,18 +1397,18 @@ void sub_804B31C(void)
 
 void sub_804B3A4(void)
 {
-    if (sub_804366C(gZones[2], gUnk8E00FA8[12][0]) == 1)
+    if (sub_804366C(gZones[2], gRitualComponents[12][0]) == 1)
     {
-        u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[12][0]);
+        u8 zone = sub_8043694(gZones[2], gRitualComponents[12][0]);
 
         ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-        sub_804D600(gZones[2][zone], gUnk8E00FA8[12][1]);
+        sub_804D600(gZones[2][zone], gRitualComponents[12][1]);
         ResetNumTributes();
 
         if (!gUnk_02021C08)
         {
             gUnk_02021C10.unk0 = 0x02A7; //hardcoded id
-            gUnk_02021C10.unk2 = gUnk8E00FA8[12][1];
+            gUnk_02021C10.unk2 = gRitualComponents[12][1];
             sub_801CEBC();
         }
     }
@@ -1414,18 +1416,18 @@ void sub_804B3A4(void)
 
 void sub_804B42C(void)
 {
-    if (sub_804366C(gZones[2], gUnk8E00FA8[13][0]) == 1)
+    if (sub_804366C(gZones[2], gRitualComponents[13][0]) == 1)
     {
-        u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[13][0]);
+        u8 zone = sub_8043694(gZones[2], gRitualComponents[13][0]);
 
         ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-        sub_804D600(gZones[2][zone], gUnk8E00FA8[13][1]);
+        sub_804D600(gZones[2][zone], gRitualComponents[13][1]);
         ResetNumTributes();
 
         if (!gUnk_02021C08)
         {
             gUnk_02021C10.unk0 = 0x02A8; //hardcoded id
-            gUnk_02021C10.unk2 = gUnk8E00FA8[13][1];
+            gUnk_02021C10.unk2 = gRitualComponents[13][1];
             sub_801CEBC();
         }
     }
@@ -1433,18 +1435,18 @@ void sub_804B42C(void)
 
 void sub_804B4B4(void)
 {
-    if (sub_804366C(gZones[2], gUnk8E00FA8[14][0]) == 1)
+    if (sub_804366C(gZones[2], gRitualComponents[14][0]) == 1)
     {
-        u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[14][0]);
+        u8 zone = sub_8043694(gZones[2], gRitualComponents[14][0]);
 
         ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-        sub_804D600(gZones[2][zone], gUnk8E00FA8[14][1]);
+        sub_804D600(gZones[2][zone], gRitualComponents[14][1]);
         ResetNumTributes();
 
         if (!gUnk_02021C08)
         {
             gUnk_02021C10.unk0 = 0x02B3; //hardcoded id
-            gUnk_02021C10.unk2 = gUnk8E00FA8[14][1];
+            gUnk_02021C10.unk2 = gRitualComponents[14][1];
             sub_801CEBC();
         }
     }
@@ -1616,18 +1618,18 @@ void EffectShadowSpell(void)
 
 void sub_804B9D0(void)
 {
-    if (sub_804366C(gZones[2], gUnk8E00FA8[15][0]) == 1)
+    if (sub_804366C(gZones[2], gRitualComponents[15][0]) == 1)
     {
-        u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[15][0]);
+        u8 zone = sub_8043694(gZones[2], gRitualComponents[15][0]);
 
         ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-        sub_804D600(gZones[2][zone], gUnk8E00FA8[15][1]);
+        sub_804D600(gZones[2][zone], gRitualComponents[15][1]);
         ResetNumTributes();
 
         if (!gUnk_02021C08)
         {
             gUnk_02021C10.unk0 = 0x02B4; //hardcoded id
-            gUnk_02021C10.unk2 = gUnk8E00FA8[15][1];
+            gUnk_02021C10.unk2 = gRitualComponents[15][1];
             sub_801CEBC();
         }
     }
@@ -1635,18 +1637,18 @@ void sub_804B9D0(void)
 
 void sub_804BA58(void)
 {
-    if (sub_804366C(gZones[2], gUnk8E00FA8[16][0]) == 1)
+    if (sub_804366C(gZones[2], gRitualComponents[16][0]) == 1)
     {
-        u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[16][0]);
+        u8 zone = sub_8043694(gZones[2], gRitualComponents[16][0]);
 
         ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-        sub_804D600(gZones[2][zone], gUnk8E00FA8[16][1]);
+        sub_804D600(gZones[2][zone], gRitualComponents[16][1]);
         ResetNumTributes();
 
         if (!gUnk_02021C08)
         {
             gUnk_02021C10.unk0 = 0x02B5; //hardcoded id
-            gUnk_02021C10.unk2 = gUnk8E00FA8[16][1];
+            gUnk_02021C10.unk2 = gRitualComponents[16][1];
             sub_801CEBC();
         }
     }
@@ -1654,18 +1656,18 @@ void sub_804BA58(void)
 
 void sub_804BAE0(void)
 {
-    if (sub_804366C(gZones[2], gUnk8E00FA8[17][0]) == 1)
+    if (sub_804366C(gZones[2], gRitualComponents[17][0]) == 1)
     {
-        u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[17][0]);
+        u8 zone = sub_8043694(gZones[2], gRitualComponents[17][0]);
 
         ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-        sub_804D600(gZones[2][zone], gUnk8E00FA8[17][1]);
+        sub_804D600(gZones[2][zone], gRitualComponents[17][1]);
         ResetNumTributes();
 
         if (!gUnk_02021C08)
         {
             gUnk_02021C10.unk0 = 0x02B6; //hardcoded id
-            gUnk_02021C10.unk2 = gUnk8E00FA8[17][1];
+            gUnk_02021C10.unk2 = gRitualComponents[17][1];
             sub_801CEBC();
         }
     }
@@ -1673,18 +1675,18 @@ void sub_804BAE0(void)
 
 void sub_804BB68(void)
 {
-    if (sub_804366C(gZones[2], gUnk8E00FA8[18][0]) == 1)
+    if (sub_804366C(gZones[2], gRitualComponents[18][0]) == 1)
     {
-        u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[18][0]);
+        u8 zone = sub_8043694(gZones[2], gRitualComponents[18][0]);
 
         ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-        sub_804D600(gZones[2][zone], gUnk8E00FA8[18][1]);
+        sub_804D600(gZones[2][zone], gRitualComponents[18][1]);
         ResetNumTributes();
 
         if (!gUnk_02021C08)
         {
             gUnk_02021C10.unk0 = 0x02B7; //hardcoded id
-            gUnk_02021C10.unk2 = gUnk8E00FA8[18][1];
+            gUnk_02021C10.unk2 = gRitualComponents[18][1];
             sub_801CEBC();
         }
     }
@@ -1692,18 +1694,18 @@ void sub_804BB68(void)
 
 void sub_804BBF0(void)
 {
-    if (sub_804366C(gZones[2], gUnk8E00FA8[19][0]) == 1)
+    if (sub_804366C(gZones[2], gRitualComponents[19][0]) == 1)
     {
-        u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[19][0]);
+        u8 zone = sub_8043694(gZones[2], gRitualComponents[19][0]);
 
         ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-        sub_804D600(gZones[2][zone], gUnk8E00FA8[19][1]);
+        sub_804D600(gZones[2][zone], gRitualComponents[19][1]);
         ResetNumTributes();
 
         if (!gUnk_02021C08)
         {
             gUnk_02021C10.unk0 = 0x02B8; //hardcoded id
-            gUnk_02021C10.unk2 = gUnk8E00FA8[19][1];
+            gUnk_02021C10.unk2 = gRitualComponents[19][1];
             sub_801CEBC();
         }
     }
@@ -1711,18 +1713,18 @@ void sub_804BBF0(void)
 
 void sub_804BC78(void)
 {
-    if (sub_804366C(gZones[2], gUnk8E00FA8[20][0]) == 1)
+    if (sub_804366C(gZones[2], gRitualComponents[20][0]) == 1)
     {
-        u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[20][0]);
+        u8 zone = sub_8043694(gZones[2], gRitualComponents[20][0]);
 
         ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-        sub_804D600(gZones[2][zone], gUnk8E00FA8[20][1]);
+        sub_804D600(gZones[2][zone], gRitualComponents[20][1]);
         ResetNumTributes();
 
         if (!gUnk_02021C08)
         {
             gUnk_02021C10.unk0 = 0x02B9; //hardcoded id
-            gUnk_02021C10.unk2 = gUnk8E00FA8[20][1];
+            gUnk_02021C10.unk2 = gRitualComponents[20][1];
             sub_801CEBC();
         }
     }
@@ -1730,18 +1732,18 @@ void sub_804BC78(void)
 
 void sub_804BD00(void)
 {
-    if (sub_804366C(gZones[2], gUnk8E00FA8[21][0]) == 1)
+    if (sub_804366C(gZones[2], gRitualComponents[21][0]) == 1)
     {
-        u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[21][0]);
+        u8 zone = sub_8043694(gZones[2], gRitualComponents[21][0]);
 
         ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-        sub_804D600(gZones[2][zone], gUnk8E00FA8[21][1]);
+        sub_804D600(gZones[2][zone], gRitualComponents[21][1]);
         ResetNumTributes();
 
         if (!gUnk_02021C08)
         {
             gUnk_02021C10.unk0 = 0x02BA; //hardcoded id
-            gUnk_02021C10.unk2 = gUnk8E00FA8[21][1];
+            gUnk_02021C10.unk2 = gRitualComponents[21][1];
             sub_801CEBC();
         }
     }
@@ -1749,18 +1751,18 @@ void sub_804BD00(void)
 
 void sub_804BD88(void)
 {
-    if (sub_804366C(gZones[2], gUnk8E00FA8[22][0]) == 1)
+    if (sub_804366C(gZones[2], gRitualComponents[22][0]) == 1)
     {
-        u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[22][0]);
+        u8 zone = sub_8043694(gZones[2], gRitualComponents[22][0]);
 
         ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-        sub_804D600(gZones[2][zone], gUnk8E00FA8[22][1]);
+        sub_804D600(gZones[2][zone], gRitualComponents[22][1]);
         ResetNumTributes();
 
         if (!gUnk_02021C08)
         {
             gUnk_02021C10.unk0 = 0x02BB; //hardcoded id
-            gUnk_02021C10.unk2 = gUnk8E00FA8[22][1];
+            gUnk_02021C10.unk2 = gRitualComponents[22][1];
             sub_801CEBC();
         }
     }
@@ -1768,18 +1770,18 @@ void sub_804BD88(void)
 
 void sub_804BE10(void)
 {
-    if (sub_804366C(gZones[2], gUnk8E00FA8[23][0]) == 1)
+    if (sub_804366C(gZones[2], gRitualComponents[23][0]) == 1)
     {
-        u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[23][0]);
+        u8 zone = sub_8043694(gZones[2], gRitualComponents[23][0]);
 
         ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-        sub_804D600(gZones[2][zone], gUnk8E00FA8[23][1]);
+        sub_804D600(gZones[2][zone], gRitualComponents[23][1]);
         ResetNumTributes();
 
         if (!gUnk_02021C08)
         {
             gUnk_02021C10.unk0 = 0x02BC; //hardcoded id
-            gUnk_02021C10.unk2 = gUnk8E00FA8[23][1];
+            gUnk_02021C10.unk2 = gRitualComponents[23][1];
             sub_801CEBC();
         }
     }
@@ -1787,18 +1789,18 @@ void sub_804BE10(void)
 
 void sub_804BE98(void)
 {
-    if (sub_804366C(gZones[2], gUnk8E00FA8[6][0]) == 1)
+    if (sub_804366C(gZones[2], gRitualComponents[6][0]) == 1)
     {
-        u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[6][0]);
+        u8 zone = sub_8043694(gZones[2], gRitualComponents[6][0]);
 
         ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-        sub_804D600(gZones[2][zone], gUnk8E00FA8[6][1]);
+        sub_804D600(gZones[2][zone], gRitualComponents[6][1]);
         ResetNumTributes();
 
         if (!gUnk_02021C08)
         {
             gUnk_02021C10.unk0 = 0x0299; //hardcoded id
-            gUnk_02021C10.unk2 = gUnk8E00FA8[6][1];
+            gUnk_02021C10.unk2 = gRitualComponents[6][1];
             sub_801CEBC();
         }
     }
@@ -1806,18 +1808,18 @@ void sub_804BE98(void)
 
 void sub_804BF18(void)
 {
-    if (sub_804366C(gZones[2], gUnk8E00FA8[7][0]) == 1)
+    if (sub_804366C(gZones[2], gRitualComponents[7][0]) == 1)
     {
-        u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[7][0]);
+        u8 zone = sub_8043694(gZones[2], gRitualComponents[7][0]);
 
         ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-        sub_804D600(gZones[2][zone], gUnk8E00FA8[7][1]);
+        sub_804D600(gZones[2][zone], gRitualComponents[7][1]);
         ResetNumTributes();
 
         if (!gUnk_02021C08)
         {
             gUnk_02021C10.unk0 = 0x029A; //hardcoded id
-            gUnk_02021C10.unk2 = gUnk8E00FA8[7][1];
+            gUnk_02021C10.unk2 = gRitualComponents[7][1];
             sub_801CEBC();
         }
     }
@@ -1825,19 +1827,19 @@ void sub_804BF18(void)
 
 void sub_804BF98(void)
 {
-    if (sub_804366C(gZones[2], gUnk8E00FA8[8][0]) == 1
-     && sub_804366C(gZones[2], gUnk8E00FA8[8][2]) == 1
-     && sub_804366C(gZones[2], gUnk8E00FA8[8][3]) == 1)
+    if (sub_804366C(gZones[2], gRitualComponents[8][0]) == 1
+     && sub_804366C(gZones[2], gRitualComponents[8][2]) == 1
+     && sub_804366C(gZones[2], gRitualComponents[8][3]) == 1)
     {
-        u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[8][0]);
+        u8 zone = sub_8043694(gZones[2], gRitualComponents[8][0]);
 
         ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-        sub_804D600(gZones[2][zone], gUnk8E00FA8[8][1]);
+        sub_804D600(gZones[2][zone], gRitualComponents[8][1]);
 
-        zone = sub_8043694(gZones[2], gUnk8E00FA8[8][2]);
+        zone = sub_8043694(gZones[2], gRitualComponents[8][2]);
         ClearZone(gZones[2][zone]);
 
-        zone = sub_8043694(gZones[2], gUnk8E00FA8[8][3]);
+        zone = sub_8043694(gZones[2], gRitualComponents[8][3]);
         ClearZone(gZones[2][zone]);
 
         ResetNumTributes();
@@ -1845,7 +1847,7 @@ void sub_804BF98(void)
         if (!gUnk_02021C08)
         {
             gUnk_02021C10.unk0 = 0x029B; //hardcoded id
-            gUnk_02021C10.unk2 = gUnk8E00FA8[8][1];
+            gUnk_02021C10.unk2 = gRitualComponents[8][1];
             sub_801CEBC();
         }
     }
@@ -2101,23 +2103,23 @@ void sub_804C6B4(void)
     u8 ritualId;
     u8 zone;
 
-    if (sub_804366C(gZones[2], gUnk8E00FA8[26][0]) == 1)
+    if (sub_804366C(gZones[2], gRitualComponents[26][0]) == 1)
         ritualId = 26;
-    else if (sub_804366C(gZones[2], gUnk8E00FA8[24][0]) == 1)
+    else if (sub_804366C(gZones[2], gRitualComponents[24][0]) == 1)
         ritualId = 24;
     else
         return;
 
-    zone = sub_8043694(gZones[2], gUnk8E00FA8[ritualId][0]);
+    zone = sub_8043694(gZones[2], gRitualComponents[ritualId][0]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-    sub_804D600(gZones[2][zone], gUnk8E00FA8[ritualId][1]);
+    sub_804D600(gZones[2][zone], gRitualComponents[ritualId][1]);
     ResetNumTributes();
 
     if (!gUnk_02021C08)
     {
         gUnk_02021C10.unk0 = 0x02D2; //hardcoded id
-        gUnk_02021C10.unk2 = gUnk8E00FA8[ritualId][1];
+        gUnk_02021C10.unk2 = gRitualComponents[ritualId][1];
         sub_801CEBC();
     }
 }
@@ -2230,18 +2232,18 @@ void EffectChangeOfHeart(void)
 
 void EffectBlackIllusionRitual(void)
 {
-    if (sub_804366C(gZones[2], gUnk8E00FA8[25][0]) == 1)
+    if (sub_804366C(gZones[2], gRitualComponents[25][0]) == 1)
     {
-        u8 zone = sub_8043694(gZones[2], gUnk8E00FA8[25][0]);
+        u8 zone = sub_8043694(gZones[2], gRitualComponents[25][0]);
 
         ClearZoneAndSendMonToGraveyard(gZones[gUnk2024260.unk2][gUnk2024260.unk3], 0);
-        sub_804D600(gZones[2][zone], gUnk8E00FA8[25][1]);
+        sub_804D600(gZones[2][zone], gRitualComponents[25][1]);
         ResetNumTributes();
 
         if (!gUnk_02021C08)
         {
             gUnk_02021C10.unk0 = BLACK_ILLUSION_RITUAL;
-            gUnk_02021C10.unk2 = gUnk8E00FA8[25][1];
+            gUnk_02021C10.unk2 = gRitualComponents[25][1];
             sub_801CEBC();
         }
     }
