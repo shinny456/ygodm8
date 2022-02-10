@@ -14,6 +14,7 @@ SECTIONS
     gUnk201CB39 = 0x0201CB39;
     g201CB3C = 0x201CB3C;
     g201CB40 = 0x201CB40;
+    g201CB44 = 0x201CB44;
     g201EE60 = 0x0201EE60;
     g201EE61 = 0x0201EE61;
     g2020DC8 = 0x02020DC8;
@@ -324,6 +325,8 @@ SECTIONS
     gE0E754 = 0x8E0E754;
     g8DFFA48 = 0x8DFFA48;
     g8DFF7F0 = 0x8DFF7F0;
+    g8E00330 = 0x8E00330;
+    g8E00150 = 0x8E00150;
     gCurrentTurnOpponent = 0x80AED54;
 
     /* Discard everything not specifically mentioned above. */

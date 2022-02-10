@@ -19,6 +19,8 @@ extern void (*g8DFF600[])(void);
 extern void (*g8DFF55C[])(void);
 extern void (*g8DFFA48[])(void);
 extern void (*g8DFF7F0[])(void);
+extern void (*g8E00330[])(void);
+extern void (*g8E00150[])(void);
 
 extern u8 gWhoseTurn; //gWhoseTurn?
 
@@ -551,13 +553,19 @@ int sub_80437D4 (u8);
 u8 sub_8025534 (u8);
 u32 sub_80432D0 (u8);
 
-extern u8 g201CB3C;
-extern u8 g201CB40;
+extern u8 g201CB3C; //padding?
+extern u8 g201CB40; //^
+extern u8 g201CB44;
 extern u8 gCurrentTurnOpponent[];
+u32 sub_8043A5C (u8);
+u32 sub_80438A0 (u8);
 u32 sub_80438E8 (u8);     //implicit decl? (just create a u8 return variable)
 u32 sub_8043358 (u8);     //implicit decl? (just create a u8 return variable)
 u32 sub_8043810 (u8);     //implicit decl? (just create a u8 return variable)
 u32 sub_804398C (u8, u8); //implicit decl? (^)
+u32 sub_80439F4 (u8, u8);  //^
 u8 sub_80430D8 (struct DuelCard**); //implicit decl? (^)
+u8 sub_803FBCC (u8, u8);
+
 
 #endif // GUARD_DUEL_H

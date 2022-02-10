@@ -9,11 +9,6 @@ void sub_800F830(void);
 int sub_803EFAC(u16); //implicit decl in code2.c, caller: sub_8011528?
 int sub_803EF7C(void); //implicit decl in code2.c, caller: sub_80118E8?
 
-
-static inline u16 foo (void) {
-  return gUnk2021C00.unk2 >> 4;
-}
-
 static inline u16 foo2 (void) {
   return gUnk2021C00.unk2 & 0xF;
 }
@@ -68,8 +63,8 @@ void sub_800E0F8(void)
 
 void sub_800E11C(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
     u8 row3 = gUnk2021C00.unk3 >> 4;
     u8 col3 = gUnk2021C00.unk3 & 0xF;
 
@@ -81,8 +76,8 @@ void sub_800E11C(void)
 
 void sub_800E170(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
     u8 row3 = gUnk2021C00.unk3 >> 4;
     u8 col3 = gUnk2021C00.unk3 & 0xF;
 
@@ -94,8 +89,8 @@ void sub_800E170(void)
 
 void sub_800E1C4(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
     u8 row3 = gUnk2021C00.unk3 >> 4;
     u8 col3 = gUnk2021C00.unk3 & 0xF;
 
@@ -108,8 +103,8 @@ void sub_800E1C4(void)
 
 void sub_800E22C(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
     u8 row3 = gUnk2021C00.unk3 >> 4;
     u8 col3 = gUnk2021C00.unk3 & 0xF;
 
@@ -122,8 +117,8 @@ void sub_800E22C(void)
 
 void sub_800E294(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
     u8 row3 = gUnk2021C00.unk3 >> 4;
     u8 col3 = gUnk2021C00.unk3 & 0xF;
     u8 row4 = gUnk2021C00.unk4 >> 4;
@@ -139,8 +134,8 @@ void sub_800E294(void)
 
 void sub_800E324(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
     u8 row3 = gUnk2021C00.unk3 >> 4;
     u8 col3 = gUnk2021C00.unk3 & 0xF;
     u8 row4 = gUnk2021C00.unk4 >> 4;
@@ -156,8 +151,8 @@ void sub_800E324(void)
 
 void sub_800E3B4(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
     u8 row3 = gUnk2021C00.unk3 >> 4;
     u8 col3 = gUnk2021C00.unk3 & 0xF;
     u8 row4 = gUnk2021C00.unk4 >> 4;
@@ -176,8 +171,8 @@ void sub_800E3B4(void)
 
 void sub_800E460(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
     u8 row3 = gUnk2021C00.unk3 >> 4;
     u8 col3 = gUnk2021C00.unk3 & 0xF;
     u8 row4 = gUnk2021C00.unk4 >> 4;
@@ -196,8 +191,8 @@ void sub_800E460(void)
 
 void sub_800E50C(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
 
     gZones[row2][col2]->isDefending = FALSE;
     gZones[row2][col2]->isFaceUp = TRUE;
@@ -206,8 +201,8 @@ void sub_800E50C(void)
 
 void sub_800E54C(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
 
     gZones[row2][col2]->isDefending = FALSE;
     gZones[row2][col2]->isFaceUp = TRUE;
@@ -216,8 +211,8 @@ void sub_800E54C(void)
 
 void sub_800E58C(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
 
     gZones[row2][col2]->isDefending = FALSE;
     gZones[row2][col2]->isFaceUp = TRUE;
@@ -229,8 +224,8 @@ void sub_800E58C(void)
 
 void sub_800E5E4(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
 
     gZones[row2][col2]->isDefending = FALSE;
     gZones[row2][col2]->isFaceUp = TRUE;
@@ -242,8 +237,8 @@ void sub_800E5E4(void)
 
 void sub_800E63C(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
     u8 row3 = gUnk2021C00.unk3 >> 4;
     u8 col3 = gUnk2021C00.unk3 & 0xF;
 
@@ -258,8 +253,8 @@ void sub_800E63C(void)
 
 void sub_800E6B8(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
     u8 row3 = gUnk2021C00.unk3 >> 4;
     u8 col3 = gUnk2021C00.unk3 & 0xF;
 
@@ -274,8 +269,8 @@ void sub_800E6B8(void)
 
 void sub_800E734(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
 
     gZones[row2][col2]->isDefending = FALSE;
     gZones[row2][col2]->isFaceUp = TRUE;
@@ -289,8 +284,8 @@ void sub_800E734(void)
 
 void sub_800E794(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
 
     gZones[row2][col2]->isDefending = FALSE;
     gZones[row2][col2]->isFaceUp = TRUE;
@@ -304,8 +299,8 @@ void sub_800E794(void)
 
 void sub_800E7F4(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
 
     gZones[row2][col2]->isDefending = FALSE;
     gZones[row2][col2]->isFaceUp = TRUE;
@@ -319,8 +314,8 @@ void sub_800E7F4(void)
 
 void sub_800E854(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
 
     gZones[row2][col2]->isDefending = FALSE;
     gZones[row2][col2]->isFaceUp = TRUE;
@@ -334,8 +329,8 @@ void sub_800E854(void)
 
 void sub_800E8B4(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
 
     gZones[row2][col2]->isDefending = FALSE;
     gZones[row2][col2]->isFaceUp = TRUE;
@@ -352,8 +347,8 @@ void sub_800E928(void){}
 
 void sub_800E92C(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
 
     ClearZoneAndSendMonToGraveyard(gZones[row2][col2], 0);
 }
@@ -361,8 +356,8 @@ void sub_800E92C(void)
 void sub_800E958(void)
 {
 
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
 
     gZones[row2][col2]->isDefending = TRUE;
     gZones[row2][col2]->isLocked = TRUE;
@@ -380,8 +375,8 @@ void sub_800E998(void)
 
 void sub_800E9A4(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
 
     ClearZoneAndSendMonToGraveyard(gZones[row2][col2], 0);
 }
@@ -389,8 +384,8 @@ void sub_800E9A4(void)
 void sub_800E9D0(void)
 {
 
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
 
     gZones[row2][col2]->isDefending = TRUE;
     gZones[row2][col2]->isLocked = TRUE;
@@ -410,8 +405,8 @@ void sub_800EA1C(void){}
 
 void sub_800EA20(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
     u8 row3 = gUnk2021C00.unk3 >> 4;
     u8 col3 = gUnk2021C00.unk3 & 0xF;
 
@@ -421,8 +416,8 @@ void sub_800EA20(void)
 
 void sub_800EA68(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
     u8 row3 = gUnk2021C00.unk3 >> 4;
     u8 col3 = gUnk2021C00.unk3 & 0xF;
 
@@ -432,8 +427,8 @@ void sub_800EA68(void)
 
 void sub_800EAB0(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
     u8 row3 = gUnk2021C00.unk3 >> 4;
     u8 col3 = gUnk2021C00.unk3 & 0xF;
 
@@ -443,8 +438,8 @@ void sub_800EAB0(void)
 
 void sub_800EAF8(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
     u8 row3 = gUnk2021C00.unk3 >> 4;
     u8 col3 = gUnk2021C00.unk3 & 0xF;
 
@@ -454,8 +449,8 @@ void sub_800EAF8(void)
 
 void sub_800EB40(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
     u8 row3 = gUnk2021C00.unk3 >> 4;
     u8 col3 = gUnk2021C00.unk3 & 0xF;
 
@@ -470,8 +465,8 @@ void sub_800EB40(void)
 
 void sub_800EB8C(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
     u8 row3 = gUnk2021C00.unk3 >> 4;
     u8 col3 = gUnk2021C00.unk3 & 0xF;
 
@@ -486,8 +481,8 @@ void sub_800EB8C(void)
 
 void sub_800EBD8(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
     u8 row3 = gUnk2021C00.unk3 >> 4;
     u8 col3 = gUnk2021C00.unk3 & 0xF;
 
@@ -497,8 +492,8 @@ void sub_800EBD8(void)
 
 void sub_800EC20(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
     u8 row3 = gUnk2021C00.unk3 >> 4;
     u8 col3 = gUnk2021C00.unk3 & 0xF;
 
@@ -508,8 +503,8 @@ void sub_800EC20(void)
 
 void sub_800EC68(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
 
     gUnk2024260.id = gZones[row2][col2]->id;
     gUnk2024260.unk2 = row2;
@@ -522,8 +517,8 @@ void sub_800EC68(void)
 
 void sub_800ECC0(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
 
     gUnk2024260.id = gZones[row2][col2]->id;
     gUnk2024260.unk2 = row2;
@@ -534,8 +529,8 @@ void sub_800ECC0(void)
 
 void sub_800ED00(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
     u8 row3 = gUnk2021C00.unk3 >> 4;
     u8 col3 = gUnk2021C00.unk3 & 0xF;
 
@@ -552,7 +547,7 @@ void sub_800ED48(void)
     u8 row5;
     u8 col5;
 
-    row2 = foo();
+    row2 = gUnk2021C00.unk2 >> 4;
     col2 = foo2();
     row4 = gUnk2021C00.unk4 >> 4;
     col4 = gUnk2021C00.unk4 & 0xF;
@@ -573,8 +568,8 @@ void sub_800ED48(void)
 
 void sub_800EDF8(void)
 {
-    u8 row2 = foo();
-    u8 col2 = foo2();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
+    u8 col2 = gUnk2021C00.unk2 & 0xF;
 
     ClearZoneAndSendMonToGraveyard(gZones[row2][col2], 0);
 }
@@ -916,7 +911,7 @@ void sub_800F248(void)
 
 void sub_800F298(void)
 {
-    u8 row2 = foo();
+    u8 row2 = gUnk2021C00.unk2 >> 4;
     u8 col2 = foo2();
     u16 cardId = gZones[row2][col2]->id;
 
@@ -962,7 +957,7 @@ void sub_800F298(void)
 void sub_800F46C(void)
 {
     u8 row2 = gUnk2021C00.unk2 >> 4;
-    u8 col2 = foo2(); // inline to match
+    u8 col2 = foo2();
     u16 cardId = gZones[row2][col2]->id;
 
     SetCardInfo(cardId);
@@ -1045,15 +1040,10 @@ void sub_800F640(void)
 }
 
 void sub_800F830 (void) {
-  u8 row2;
-  u8 col2;
-  u8 row3;
-  u8 col3;
-
-  row2 = foo();
-  col2 = foo2();
-  row3 = gUnk2021C00.unk3 >> 4;
-  col3 = gUnk2021C00.unk3 & 0xF;
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  u8 row3 = gUnk2021C00.unk3 >> 4;
+  u8 col3 = gUnk2021C00.unk3 & 0xF;
   if (gZones[row3][col3]->id == CARD_NONE)
     gUnk_8DFF6A4->unk2298 = 0x7F1D8EFC;
   else if (gZones[row3][col3]->isLocked)
@@ -1079,15 +1069,10 @@ void sub_800F830 (void) {
 }
 
 void sub_800F95C (void) {
-  u8 row2;
-  u8 col2;
-  u8 row3;
-  u8 col3;
-
-  row2 = foo();
-  col2 = foo2();
-  row3 = gUnk2021C00.unk3 >> 4;
-  col3 = gUnk2021C00.unk3 & 0xF;
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  u8 row3 = gUnk2021C00.unk3 >> 4;
+  u8 col3 = gUnk2021C00.unk3 & 0xF;
   SetCardInfo(gZones[row2][col2]->id);
   if (!gCardInfo.unk1E)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1154,15 +1139,10 @@ void sub_800FB00(void)
 }
 
 void sub_800FC64 (void) {
-  u8 row2;
-  u8 col2;
-  u8 row3;
-  u8 col3;
-
-  row2 = foo();
-  col2 = foo2();
-  row3 = gUnk2021C00.unk3 >> 4;
-  col3 = gUnk2021C00.unk3 & 0xF;
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  u8 row3 = gUnk2021C00.unk3 >> 4;
+  u8 col3 = gUnk2021C00.unk3 & 0xF;
   SetCardInfo(gZones[row2][col2]->id);
   if (!gCardInfo.unk1E)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1191,8 +1171,8 @@ void sub_800FC64 (void) {
 }
 
 void sub_800FDC8 (void) {
-  u8 row2 = foo();
-  u8 col2 = foo2();
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
   u8 row3 = gUnk2021C00.unk3 >> 4;
   u8 col3 = gUnk2021C00.unk3 & 0xF;
   u8 row4 = gUnk2021C00.unk4 >> 4;
@@ -1236,8 +1216,8 @@ void sub_800FDC8 (void) {
 }
 
 void sub_800FFB0 (void) {
-  u8 row2 = foo();
-  u8 col2 = foo2();
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
   u8 row3 = gUnk2021C00.unk3 >> 4;
   u8 col3 = gUnk2021C00.unk3 & 0xF;
   u8 row4 = gUnk2021C00.unk4 >> 4;
@@ -1281,8 +1261,8 @@ void sub_800FFB0 (void) {
 }
 
 void sub_8010198 (void) {
-  u8 row2 = foo();
-  u8 col2 = foo2();
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
   u8 row3 = gUnk2021C00.unk3 >> 4;
   u8 col3 = gUnk2021C00.unk3 & 0xF;
   u8 row4 = gUnk2021C00.unk4 >> 4;
@@ -1336,8 +1316,8 @@ void sub_8010198 (void) {
 }
 
 void sub_80103DC (void) {
-  u8 row2 = foo();
-  u8 col2 = foo2();
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
   u8 row3 = gUnk2021C00.unk3 >> 4;
   u8 col3 = gUnk2021C00.unk3 & 0xF;
   u8 row4 = gUnk2021C00.unk4 >> 4;
@@ -1549,16 +1529,19 @@ void sub_8010A40 (void) {
     gUnk_8DFF6A4->unk229C = gZones[row3][col3]->id;
   }
 }
-/*
+
 void sub_8010B08 (void) {
-  u8 row2 = gUnk2021C00.unk2 >> 4;  // r6, sp4
-  u8 col2 = gUnk2021C00.unk2 & 0xF; // r7, sp
-  u8 row3 = gUnk2021C00.unk3 >> 4; // r5, sp8
-  u8 col3 = gUnk2021C00.unk3 & 0xF; // r4
-  // try row4 col4 etc..?
+  u8 col2;
+  u8 row2;
+  u8 row3;
+  u8 col3;
+  row2 = gUnk2021C00.unk2 >> 4;
+  col2 = gUnk2021C00.unk2 & 0xF;
+  row3 = gUnk2021C00.unk3 >> 4;
+  col3 = gUnk2021C00.unk3 & 0xF;
   if (gUnk_8DFF6A4->unk2298 == 0x7EDE89F9)
     return;
-  if (IsDuelOver() == 1) { //_08010B46
+  if (IsDuelOver() == 1) {
     if (sub_8025534(WhoseTurn()) == 2)
       gUnk_8DFF6A4->unk2298 = 0;
     else
@@ -1590,193 +1573,13 @@ void sub_8010B08 (void) {
     temp += 0x7EF0A113;
     gUnk_8DFF6A4->unk2298 = temp;
   }
-  else { //_08010C34
+  else {
     int a = sub_80437D4(row2);
     if (a > sub_80437D4(row3))
       gUnk_8DFF6A4->unk2298 += 0x7EEE8FA5;
     else
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   }
-}*/
-
-NAKED
-void sub_8010B08(void)
-{
-    asm_unified("push {r4, r5, r6, r7, lr}\n\
-	mov r7, sl\n\
-	mov r6, sb\n\
-	mov r5, r8\n\
-	push {r5, r6, r7}\n\
-	sub sp, #0xc\n\
-	ldr r2, _08010B74\n\
-	ldrb r0, [r2, #2]\n\
-	lsrs r6, r0, #4\n\
-	str r6, [sp, #4]\n\
-	movs r1, #0xf\n\
-	adds r7, r1, #0\n\
-	ands r7, r0\n\
-	str r7, [sp]\n\
-	ldrb r0, [r2, #3]\n\
-	lsrs r5, r0, #4\n\
-	str r5, [sp, #8]\n\
-	adds r4, r1, #0\n\
-	ands r4, r0\n\
-	ldr r0, _08010B78\n\
-	mov r8, r0\n\
-	ldr r0, [r0]\n\
-	ldr r1, _08010B7C\n\
-	mov sb, r1\n\
-	add r0, sb\n\
-	ldr r0, [r0]\n\
-	ldr r2, _08010B80\n\
-	mov sl, r2\n\
-	cmp r0, sl\n\
-	bne _08010B46\n\
-	b _08010C66\n\
-_08010B46:\n\
-	bl IsDuelOver\n\
-	lsls r0, r0, #0x18\n\
-	lsrs r0, r0, #0x18\n\
-	cmp r0, #1\n\
-	bne _08010B94\n\
-	bl WhoseTurn\n\
-	lsls r0, r0, #0x18\n\
-	lsrs r0, r0, #0x18\n\
-	bl sub_8025534\n\
-	lsls r0, r0, #0x18\n\
-	lsrs r0, r0, #0x18\n\
-	cmp r0, #2\n\
-	bne _08010B84\n\
-	mov r4, r8\n\
-	ldr r0, [r4]\n\
-	add r0, sb\n\
-	movs r1, #0\n\
-	str r1, [r0]\n\
-	b _08010C66\n\
-	.align 2, 0\n\
-_08010B74: .4byte gUnk2021C00\n\
-_08010B78: .4byte gUnk_8DFF6A4\n\
-_08010B7C: .4byte 0x00002298\n\
-_08010B80: .4byte 0x7EDE89F9\n\
-_08010B84:\n\
-	mov r1, r8\n\
-	ldr r0, [r1]\n\
-	add r0, sb\n\
-	ldr r1, _08010B90\n\
-	str r1, [r0]\n\
-	b _08010C66\n\
-	.align 2, 0\n\
-_08010B90: .4byte 0x7FFFFFFF\n\
-_08010B94:\n\
-	ldr r3, _08010BC0\n\
-	lsls r0, r5, #2\n\
-	adds r0, r0, r5\n\
-	adds r0, r0, r4\n\
-	lsls r0, r0, #2\n\
-	adds r0, r0, r3\n\
-	ldr r1, [r0]\n\
-	ldrh r0, [r1]\n\
-	cmp r0, #0\n\
-	beq _08010BE0\n\
-	mov r4, r8\n\
-	ldr r2, [r4]\n\
-	ldr r4, _08010BC4\n\
-	adds r0, r2, r4\n\
-	ldr r0, [r0]\n\
-	ldrh r1, [r1]\n\
-	cmp r0, r1\n\
-	bne _08010BC8\n\
-	mov r1, sb\n\
-	adds r0, r2, r1\n\
-	b _08010C62\n\
-	.align 2, 0\n\
-_08010BC0: .4byte gZones\n\
-_08010BC4: .4byte 0x0000229C\n\
-_08010BC8:\n\
-	ldr r4, _08010BDC\n\
-	lsls r1, r6, #2\n\
-	adds r1, r1, r6\n\
-	adds r1, r1, r7\n\
-	lsls r1, r1, #2\n\
-	adds r1, r1, r3\n\
-	ldr r0, [r1]\n\
-	ldrh r0, [r0]\n\
-	b _08010BF6\n\
-	.align 2, 0\n\
-_08010BDC: .4byte gStatMod\n\
-_08010BE0:\n\
-	lsls r0, r6, #2\n\
-	adds r0, r0, r6\n\
-	ldr r2, [sp]\n\
-	adds r0, r0, r2\n\
-	lsls r0, r0, #2\n\
-	adds r1, r0, r3\n\
-	ldr r0, [r1]\n\
-	ldrh r0, [r0]\n\
-	cmp r0, #0\n\
-	beq _08010C34\n\
-	ldr r4, _08010C24\n\
-_08010BF6:\n\
-	strh r0, [r4]\n\
-	ldr r0, _08010C28\n\
-	adds r0, #0xf0\n\
-	ldrb r0, [r0]\n\
-	strb r0, [r4, #2]\n\
-	ldr r0, [r1]\n\
-	bl sub_804069C\n\
-	strb r0, [r4, #3]\n\
-	adds r0, r4, #0\n\
-	bl SetFinalStat\n\
-	mov r4, r8\n\
-	ldr r2, [r4]\n\
-	add r2, sb\n\
-	ldr r0, [r2]\n\
-	ldr r1, _08010C2C\n\
-	ldrh r1, [r1, #0x12]\n\
-	subs r0, r0, r1\n\
-	ldr r1, _08010C30\n\
-	adds r0, r0, r1\n\
-	str r0, [r2]\n\
-	b _08010C66\n\
-	.align 2, 0\n\
-_08010C24: .4byte gStatMod\n\
-_08010C28: .4byte gDuel\n\
-_08010C2C: .4byte gCardInfo\n\
-_08010C30: .4byte 0x7EF0A113\n\
-_08010C34:\n\
-	ldr r0, [sp, #4]\n\
-	bl sub_80437D4\n\
-	adds r4, r0, #0\n\
-	ldr r0, [sp, #8]\n\
-	bl sub_80437D4\n\
-	cmp r4, r0\n\
-	ble _08010C5C\n\
-	mov r2, r8\n\
-	ldr r1, [r2]\n\
-	add r1, sb\n\
-	ldr r0, [r1]\n\
-	ldr r4, _08010C58\n\
-	adds r0, r0, r4\n\
-	str r0, [r1]\n\
-	b _08010C66\n\
-	.align 2, 0\n\
-_08010C58: .4byte 0x7EEE8FA5\n\
-_08010C5C:\n\
-	mov r1, r8\n\
-	ldr r0, [r1]\n\
-	add r0, sb\n\
-_08010C62:\n\
-	mov r2, sl\n\
-	str r2, [r0]\n\
-_08010C66:\n\
-	add sp, #0xc\n\
-	pop {r3, r4, r5}\n\
-	mov r8, r3\n\
-	mov sb, r4\n\
-	mov sl, r5\n\
-	pop {r4, r5, r6, r7}\n\
-	pop {r0}\n\
-	bx r0");
 }
 
 void sub_8010C78 (void) {
@@ -1797,184 +1600,56 @@ void sub_8010C78 (void) {
   }
 }
 
-NAKED
-void sub_8010D40(void)
-{
-    asm_unified("push {r4, r5, r6, r7, lr}\n\
-	mov r7, sl\n\
-	mov r6, sb\n\
-	mov r5, r8\n\
-	push {r5, r6, r7}\n\
-	sub sp, #0xc\n\
-	ldr r2, _08010DAC\n\
-	ldrb r0, [r2, #2]\n\
-	lsrs r6, r0, #4\n\
-	str r6, [sp, #4]\n\
-	movs r1, #0xf\n\
-	adds r7, r1, #0\n\
-	ands r7, r0\n\
-	str r7, [sp]\n\
-	ldrb r0, [r2, #3]\n\
-	lsrs r5, r0, #4\n\
-	str r5, [sp, #8]\n\
-	adds r4, r1, #0\n\
-	ands r4, r0\n\
-	ldr r0, _08010DB0\n\
-	mov r8, r0\n\
-	ldr r0, [r0]\n\
-	ldr r1, _08010DB4\n\
-	mov sb, r1\n\
-	add r0, sb\n\
-	ldr r0, [r0]\n\
-	ldr r2, _08010DB8\n\
-	mov sl, r2\n\
-	cmp r0, sl\n\
-	bne _08010D7E\n\
-	b _08010E9E\n\
-_08010D7E:\n\
-	bl IsDuelOver\n\
-	lsls r0, r0, #0x18\n\
-	lsrs r0, r0, #0x18\n\
-	cmp r0, #1\n\
-	bne _08010DCC\n\
-	bl WhoseTurn\n\
-	lsls r0, r0, #0x18\n\
-	lsrs r0, r0, #0x18\n\
-	bl sub_8025534\n\
-	lsls r0, r0, #0x18\n\
-	lsrs r0, r0, #0x18\n\
-	cmp r0, #2\n\
-	bne _08010DBC\n\
-	mov r4, r8\n\
-	ldr r0, [r4]\n\
-	add r0, sb\n\
-	movs r1, #0\n\
-	str r1, [r0]\n\
-	b _08010E9E\n\
-	.align 2, 0\n\
-_08010DAC: .4byte gUnk2021C00\n\
-_08010DB0: .4byte gUnk_8DFF6A4\n\
-_08010DB4: .4byte 0x00002298\n\
-_08010DB8: .4byte 0x7EDE89F9\n\
-_08010DBC:\n\
-	mov r1, r8\n\
-	ldr r0, [r1]\n\
-	add r0, sb\n\
-	ldr r1, _08010DC8\n\
-	str r1, [r0]\n\
-	b _08010E9E\n\
-	.align 2, 0\n\
-_08010DC8: .4byte 0x7FFFFFFF\n\
-_08010DCC:\n\
-	ldr r3, _08010DF8\n\
-	lsls r0, r5, #2\n\
-	adds r0, r0, r5\n\
-	adds r0, r0, r4\n\
-	lsls r0, r0, #2\n\
-	adds r0, r0, r3\n\
-	ldr r1, [r0]\n\
-	ldrh r0, [r1]\n\
-	cmp r0, #0\n\
-	beq _08010E18\n\
-	mov r4, r8\n\
-	ldr r2, [r4]\n\
-	ldr r4, _08010DFC\n\
-	adds r0, r2, r4\n\
-	ldr r0, [r0]\n\
-	ldrh r1, [r1]\n\
-	cmp r0, r1\n\
-	bne _08010E00\n\
-	mov r1, sb\n\
-	adds r0, r2, r1\n\
-	b _08010E9A\n\
-	.align 2, 0\n\
-_08010DF8: .4byte gZones\n\
-_08010DFC: .4byte 0x0000229C\n\
-_08010E00:\n\
-	ldr r4, _08010E14\n\
-	lsls r1, r6, #2\n\
-	adds r1, r1, r6\n\
-	adds r1, r1, r7\n\
-	lsls r1, r1, #2\n\
-	adds r1, r1, r3\n\
-	ldr r0, [r1]\n\
-	ldrh r0, [r0]\n\
-	b _08010E2E\n\
-	.align 2, 0\n\
-_08010E14: .4byte gStatMod\n\
-_08010E18:\n\
-	lsls r0, r6, #2\n\
-	adds r0, r0, r6\n\
-	ldr r2, [sp]\n\
-	adds r0, r0, r2\n\
-	lsls r0, r0, #2\n\
-	adds r1, r0, r3\n\
-	ldr r0, [r1]\n\
-	ldrh r0, [r0]\n\
-	cmp r0, #0\n\
-	beq _08010E6C\n\
-	ldr r4, _08010E5C\n\
-_08010E2E:\n\
-	strh r0, [r4]\n\
-	ldr r0, _08010E60\n\
-	adds r0, #0xf0\n\
-	ldrb r0, [r0]\n\
-	strb r0, [r4, #2]\n\
-	ldr r0, [r1]\n\
-	bl sub_804069C\n\
-	strb r0, [r4, #3]\n\
-	adds r0, r4, #0\n\
-	bl SetFinalStat\n\
-	mov r4, r8\n\
-	ldr r2, [r4]\n\
-	add r2, sb\n\
-	ldr r0, [r2]\n\
-	ldr r1, _08010E64\n\
-	ldrh r1, [r1, #0x12]\n\
-	subs r0, r0, r1\n\
-	ldr r1, _08010E68\n\
-	adds r0, r0, r1\n\
-	str r0, [r2]\n\
-	b _08010E9E\n\
-	.align 2, 0\n\
-_08010E5C: .4byte gStatMod\n\
-_08010E60: .4byte gDuel\n\
-_08010E64: .4byte gCardInfo\n\
-_08010E68: .4byte 0x7EF0A113\n\
-_08010E6C:\n\
-	ldr r0, [sp, #4]\n\
-	bl sub_80437D4\n\
-	adds r4, r0, #0\n\
-	ldr r0, [sp, #8]\n\
-	bl sub_80437D4\n\
-	cmp r4, r0\n\
-	ble _08010E94\n\
-	mov r2, r8\n\
-	ldr r1, [r2]\n\
-	add r1, sb\n\
-	ldr r0, [r1]\n\
-	ldr r4, _08010E90\n\
-	adds r0, r0, r4\n\
-	str r0, [r1]\n\
-	b _08010E9E\n\
-	.align 2, 0\n\
-_08010E90: .4byte 0x7EEE8FA5\n\
-_08010E94:\n\
-	mov r1, r8\n\
-	ldr r0, [r1]\n\
-	add r0, sb\n\
-_08010E9A:\n\
-	mov r2, sl\n\
-	str r2, [r0]\n\
-_08010E9E:\n\
-	add sp, #0xc\n\
-	pop {r3, r4, r5}\n\
-	mov r8, r3\n\
-	mov sb, r4\n\
-	mov sl, r5\n\
-	pop {r4, r5, r6, r7}\n\
-	pop {r0}\n\
-	bx r0");
+void sub_8010D40 (void) {
+  u8 col2;
+  u8 row2;
+  u8 row3;
+  u8 col3;
+  row2 = gUnk2021C00.unk2 >> 4;
+  col2 = gUnk2021C00.unk2 & 0xF;
+  row3 = gUnk2021C00.unk3 >> 4;
+  col3 = gUnk2021C00.unk3 & 0xF;
+  if (gUnk_8DFF6A4->unk2298 == 0x7EDE89F9)
+    return;
+  if (IsDuelOver() == 1) {
+    if (sub_8025534(WhoseTurn()) == 2)
+      gUnk_8DFF6A4->unk2298 = 0;
+    else
+      gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
+  }
+  else if (gZones[row3][col3]->id != CARD_NONE) { //_08010B94
+    if (gUnk_8DFF6A4->unk229C == gZones[row3][col3]->id)
+      gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+    else {
+      u32 temp;
+      gStatMod.card = gZones[row2][col2]->id;
+      gStatMod.field = gDuel.field;
+      gStatMod.stage = sub_804069C(gZones[row2][col2]);
+      SetFinalStat(&gStatMod);
+      temp = gUnk_8DFF6A4->unk2298;
+      temp -= gCardInfo.atk;
+      temp += 0x7EF0A113;
+      gUnk_8DFF6A4->unk2298 = temp;
+    }
+  }
+  else if (gZones[row2][col2]->id != CARD_NONE) { //_08010BE0
+    u32 temp;
+    gStatMod.card = gZones[row2][col2]->id;
+    gStatMod.field = gDuel.field;
+    gStatMod.stage = sub_804069C(gZones[row2][col2]);
+    SetFinalStat(&gStatMod);
+    temp = gUnk_8DFF6A4->unk2298;
+    temp -= gCardInfo.atk;
+    temp += 0x7EF0A113;
+    gUnk_8DFF6A4->unk2298 = temp;
+  }
+  else {
+    int a = sub_80437D4(row2);
+    if (a > sub_80437D4(row3))
+      gUnk_8DFF6A4->unk2298 += 0x7EEE8FA5;
+    else
+      gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  }
 }
 
 void sub_8010EB0 (void) {
@@ -2054,8 +1729,6 @@ void sub_8011120 (void) {
 
 void sub_8011188 (void) {}
 void sub_801118C (void) {}
-
-
 
 void sub_8011190 (void) {
   if (gUnk_8DFF6A4->unk2298 == 0x7EDE89F9 || IsDuelOver() != 1)
@@ -2260,7 +1933,6 @@ void sub_801181C (void) {
   else
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
 }
-
 
 void sub_8011878 (void) {
   u8 row2 = gUnk2021C00.unk2 >> 4;
@@ -3777,10 +3449,10 @@ void sub_8013884 (void) {
 void sub_80138C8 (void) {}
 
 void sub_80138CC (void) {
-  u8 temp = 5 - NumEmptyZonesInRow(gHands[1]);
-  if (!temp)
+  u8 numNonEmptyZones = 5 - NumEmptyZonesInRow(gHands[1]);
+  if (!numNonEmptyZones)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (gLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= temp * 200)
+  else if (gLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= numNonEmptyZones * 200)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFEF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
@@ -5339,10 +5011,10 @@ void sub_8016448 (void) {
 }
 
 void sub_8016464 (void) {
-  u32 numEmptyZones = 5 - NumEmptyZonesInRow(gZones[1]);
+  u32 numNonEmptyZones = 5 - NumEmptyZonesInRow(gZones[1]);
   u32 numCards;
   u8 i;
-  if (!numEmptyZones) {
+  if (!numNonEmptyZones) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
@@ -5350,17 +5022,17 @@ void sub_8016464 (void) {
   for (i = 0; i < 5; i++)
     if (gZones[1][i]->id != CARD_NONE && IsGodCard(gZones[1][i]->id) == 1)
       numCards++;
-  if (numEmptyZones == numCards)
+  if (numNonEmptyZones == numCards)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FFBBA26;
 }
 
 void sub_80164F4 (void) {
-  u32 numEmptyZones = 5 - NumEmptyZonesInRow(gZones[1]);
+  u32 numNonEmptyZones = 5 - NumEmptyZonesInRow(gZones[1]);
   u32 numCards;
   u8 i;
-  if (!numEmptyZones) {
+  if (!numNonEmptyZones) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
@@ -5368,7 +5040,7 @@ void sub_80164F4 (void) {
   for (i = 0; i < 5; i++)
     if (gZones[1][i]->id != CARD_NONE && IsGodCard(gZones[1][i]->id) == 1)
       numCards++;
-  if (numEmptyZones == numCards)
+  if (numNonEmptyZones == numCards)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FFDDD06;
@@ -5502,4 +5174,1764 @@ void sub_80169FC (void) {
     }
   }
   gUnk_8DFF6A4->unk2298 = 0x7FFFFFE9;
+}
+
+void sub_8016AE0 (void) {
+  u16 atk;
+  u8 highestAtkZone;
+  if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5) {
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+    return;
+  }
+  highestAtkZone = HighestAtkMonInRowExceptGodCards(gZones[1]);
+  if (gZones[1][highestAtkZone]->isFaceUp) {
+    u8 row2, col2;
+    gStatMod.card = gZones[1][highestAtkZone]->id;
+    gStatMod.field = gDuel.field;
+    gStatMod.stage = sub_804069C(gZones[1][highestAtkZone]);
+    SetFinalStat(&gStatMod);
+    atk = gCardInfo.atk;
+    row2 = gUnk2021C00.unk2 >> 4;
+    col2 = gUnk2021C00.unk2 & 0xF;
+    gStatMod.card = gZones[row2][col2]->id;
+    gStatMod.field = gDuel.field;
+    gStatMod.stage = sub_804069C(gZones[row2][col2]);
+    SetFinalStat(&gStatMod);
+    if (atk <= gCardInfo.atk) {
+      gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+      return;
+    }
+  }
+  gUnk_8DFF6A4->unk2298 = 0x7FF55170;
+}
+
+// Pinch Hopper?
+void sub_8016BCC (void) {
+  u8 insectMonZone;
+  u8 row2, col2;
+  u16 atk;
+  if (!sub_8043584(gZones[4], TYPE_INSECT)) {
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+    return;
+  }
+  insectMonZone = sub_8043164(gZones[4], TYPE_INSECT);
+  gStatMod.card = gZones[4][insectMonZone]->id;
+  gStatMod.field = gDuel.field;
+  gStatMod.stage = sub_804069C(gZones[4][insectMonZone]);
+  SetFinalStat(&gStatMod);
+  atk = gCardInfo.atk;
+  row2 = gUnk2021C00.unk2 >> 4;
+  col2 = gUnk2021C00.unk2 & 0xF;
+  gStatMod.card = gZones[row2][col2]->id;
+  gStatMod.field = gDuel.field;
+  gStatMod.stage = sub_804069C(gZones[row2][col2]);
+  SetFinalStat(&gStatMod);
+  if (atk <= gCardInfo.atk)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FB3183C;
+}
+
+void sub_8016CB8 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  gStatMod.card = gZones[row2][col2]->id;
+  gStatMod.field = gDuel.field;
+  gStatMod.stage = sub_804069C(gZones[row2][col2]);
+  SetFinalStat(&gStatMod);
+  if (!gCardInfo.atk)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else if (gLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= gCardInfo.atk)
+    gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FFFFFED;
+}
+
+//Byser Shock?
+void sub_8016D7C (void) {
+  u8 i, col2;
+  u32 numCards;
+  if (!NumEmptyZonesInRow(gHands[1])) {
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+    return;
+  }
+  numCards = 0;
+  for (i = 0; i < 5; i++)
+    if (gZones[1][i]->id != CARD_NONE && !IsCardFaceUp(gZones[1][i]))
+      numCards++;
+  for (i = 0; i < 5; i++)
+    if (gZones[0][i]->id != CARD_NONE && !IsCardFaceUp(gZones[0][i]))
+      numCards++;
+  if (!numCards) {
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+    return;
+  }
+  col2 = gUnk2021C00.unk2 & 0xF;
+  numCards = 0;
+  for (i = 0; i < 5; i++)
+    if (i != col2 && gZones[2][i]->id != CARD_NONE && !IsCardFaceUp(gZones[2][i]))
+      numCards++;
+  if (numCards) {
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+    return;
+  }
+  gUnk_8DFF6A4->unk2298 = 0x7FF5516D;
+}
+
+void sub_8016E98 (void) {
+  u8 i, numCards;
+  if (NumEmptyZonesInRow(gHands[0]) == 5) {
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+    return;
+  }
+  numCards = 0;
+  for (i = 0; i < 5; i++)
+    if (gZones[0][i]->id != CARD_NONE && IsCardFaceUp(gZones[0][i]) == TRUE)
+      numCards++;
+  if (!numCards)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FFFFFF3;
+}
+
+void sub_8016F30 (void) {
+  u8 i, numCards;
+  if (NumEmptyZonesInRow(gHands[0]) == 5) {
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+    return;
+  }
+  numCards = 0;
+  for (i = 0; i < 5; i++)
+    if (gZones[0][i]->id != CARD_NONE && !IsCardFaceUp(gZones[0][i]))
+      numCards++;
+  if (!numCards)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FFFFFF2;
+}
+
+void sub_8016FC8 (void) {
+  u8 i, numCards;
+  if (NumEmptyZonesInRow(gHands[0]) == 5) {
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+    return;
+  }
+  numCards = 0;
+  for (i = 0; i < 5; i++)
+    if (gZones[1][i]->id != CARD_NONE && !IsCardFaceUp(gZones[1][i]))
+      numCards++;
+  if (!numCards)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF5516E;
+}
+
+void sub_8017060 (void) {
+  u8 i, numCards;
+  if (NumEmptyZonesInRow(gHands[0]) == 5) {
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+    return;
+  }
+  numCards = 0;
+  for (i = 0; i < 5; i++) {
+    struct DuelCard* zone = gZones[1][i];
+    if (zone->id == CARD_NONE)
+      continue;
+    if (IsCardFaceUp(zone) != TRUE || IsGodCard(zone->id) != TRUE)
+      numCards++;
+  }
+  if (!numCards)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF5516F;
+}
+
+// Puppet master
+void sub_8017104 (void) {
+  if (gNotSure[0]->graveyard != GERNIA) {
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+    return;
+  }
+  if (WhoseTurn() == 0) {
+    if (gLifePoints[0] < 1000) {
+      gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+      return;
+    }
+  }
+  else if (gLifePoints[1] < 1000) {
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+    return;
+  }
+  if (NumEmptyZonesInRow(gZones[2]) < 1)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF32E86;
+}
+
+void sub_80171D8 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  gStatMod.card = gZones[row2][col2]->id;
+  gStatMod.field = gDuel.field;
+  gStatMod.stage = sub_804069C(gZones[row2][col2]);
+  SetFinalStat(&gStatMod);
+  if (!gCardInfo.atk)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else if (gLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= gCardInfo.atk)
+    gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FFFFFEC;
+}
+
+// berserk dragon
+/*
+void sub_801729C (void) {
+  u8 row2, col2;
+   u8 bDragonAttr;
+  u8 i;
+  int curPlayerLP, curEnemyLP;
+  u16 bDragonAtk;
+
+
+  u8 numCards, sp10;
+  if (NumEmptyZonesInRow(gZones[1]) == 5) {
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+    return;
+  }
+  if (WhoseTurn() == 0) {
+    curEnemyLP = gLifePoints[1];
+    curPlayerLP = gLifePoints[0];
+  }
+  else {
+    curEnemyLP = gLifePoints[0]; //sl
+    curPlayerLP = gLifePoints[1]; //sp4
+  }
+  row2 = gUnk2021C00.unk2 >> 4;
+  col2 = gUnk2021C00.unk2 & 0xF;
+  gStatMod.card = gZones[row2][col2]->id;
+  gStatMod.field = gDuel.field;
+  gStatMod.stage = sub_804069C(gZones[row2][col2]);
+  SetFinalStat(&gStatMod);
+  bDragonAtk = gCardInfo.atk; // sb
+  bDragonAttr = gCardInfo.attribute; //sp
+  numCards = 0;
+  sp10 = 1;
+  for (i = 0; i < 5 && sp10 && curPlayerLP > 0 && curEnemyLP > 0; i++) {
+    u8 temp;
+    u16 enemyAtk, enemyDef;
+    struct DuelCard* zone = gZones[1][i];
+    if (zone->id == CARD_NONE || !IsCardFaceUp(zone))
+      continue;
+    gStatMod.card = zone->id;
+    gStatMod.field = gDuel.field;
+    gStatMod.stage = sub_804069C(zone);
+    SetFinalStat(&gStatMod);
+    enemyAtk = gCardInfo.atk;
+    enemyDef = gCardInfo.def;
+    temp = sub_803FBCC(gCardInfo.attribute, bDragonAttr);
+    if (temp == 2) {
+      sp10 = 0;
+      continue;
+    }
+    if (!temp) {
+      if (!zone->isDefending && bDragonAtk > enemyAtk)
+        curEnemyLP -= bDragonAtk - enemyAtk;
+      numCards++;
+    }
+    else if (!zone->isDefending) //_080173D4
+      if (bDragonAtk > enemyAtk) {
+        curEnemyLP -= bDragonAtk - enemyAtk;
+        numCards++;
+      }
+      else
+        sp10 = 0;
+    else if (bDragonAtk > enemyDef)
+      numCards++;
+    else
+      curPlayerLP -= enemyDef - bDragonAtk;
+  }
+  if (curEnemyLP <= 0)
+    gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
+  else if (curPlayerLP <= 0)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else if (!numCards)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EF1C3F5;
+}*/
+
+NAKED
+void sub_801729C (void) {
+  asm_unified("push {r4, r5, r6, r7, lr}\n\
+	mov r7, sl\n\
+	mov r6, sb\n\
+	mov r5, r8\n\
+	push {r5, r6, r7}\n\
+	sub sp, #0x14\n\
+	ldr r0, _080172C0\n\
+	bl NumEmptyZonesInRow\n\
+	cmp r0, #5\n\
+	bne _080172D0\n\
+	ldr r0, _080172C4\n\
+	ldr r0, [r0]\n\
+	ldr r1, _080172C8\n\
+	adds r0, r0, r1\n\
+	ldr r1, _080172CC\n\
+	b _080174BA\n\
+	.align 2, 0\n\
+_080172C0: .4byte gZones+0x14\n\
+_080172C4: .4byte gUnk_8DFF6A4\n\
+_080172C8: .4byte 0x00002298\n\
+_080172CC: .4byte 0x7EDE89F9\n\
+_080172D0:\n\
+	bl WhoseTurn\n\
+	cmp r0, #0\n\
+	bne _080172E8\n\
+	ldr r0, _080172E4\n\
+	ldrh r2, [r0, #2]\n\
+	mov sl, r2\n\
+	ldrh r0, [r0]\n\
+	b _080172F0\n\
+	.align 2, 0\n\
+_080172E4: .4byte gLifePoints\n\
+_080172E8:\n\
+	ldr r0, _080173BC\n\
+	ldrh r1, [r0]\n\
+	mov sl, r1\n\
+	ldrh r0, [r0, #2]\n\
+_080172F0:\n\
+	str r0, [sp, #4]\n\
+	ldr r0, _080173C0\n\
+	ldrb r1, [r0, #2]\n\
+	lsrs r2, r1, #4\n\
+	movs r0, #0xf\n\
+	ands r0, r1\n\
+	ldr r4, _080173C4\n\
+	ldr r3, _080173C8\n\
+	lsls r1, r2, #2\n\
+	adds r1, r1, r2\n\
+	adds r1, r1, r0\n\
+	lsls r1, r1, #2\n\
+	adds r1, r1, r3\n\
+	ldr r0, [r1]\n\
+	ldrh r0, [r0]\n\
+	strh r0, [r4]\n\
+	ldr r0, _080173CC\n\
+	adds r0, #0xf0\n\
+	ldrb r0, [r0]\n\
+	strb r0, [r4, #2]\n\
+	ldr r0, [r1]\n\
+	bl sub_804069C\n\
+	strb r0, [r4, #3]\n\
+	adds r0, r4, #0\n\
+	bl SetFinalStat\n\
+	ldr r0, _080173D0\n\
+	ldrh r2, [r0, #0x12]\n\
+	mov sb, r2\n\
+	ldrb r0, [r0, #0x17]\n\
+	str r0, [sp]\n\
+	movs r0, #0\n\
+	str r0, [sp, #0xc]\n\
+	movs r1, #1\n\
+	str r1, [sp, #0x10]\n\
+	movs r2, #0\n\
+	str r2, [sp, #8]\n\
+	ldr r0, [sp, #4]\n\
+	cmp r0, #0\n\
+	ble _08017430\n\
+	mov r1, sl\n\
+	cmp r1, #0\n\
+	ble _08017436\n\
+_08017348:\n\
+	ldr r0, _080173C8\n\
+	ldr r2, [sp, #8]\n\
+	lsls r1, r2, #2\n\
+	adds r0, #0x14\n\
+	adds r1, r1, r0\n\
+	ldr r4, [r1]\n\
+	ldrh r0, [r4]\n\
+	cmp r0, #0\n\
+	beq _08017410\n\
+	adds r0, r4, #0\n\
+	bl IsCardFaceUp\n\
+	lsls r0, r0, #0x18\n\
+	cmp r0, #0\n\
+	beq _08017410\n\
+	ldrh r0, [r4]\n\
+	ldr r1, _080173C4\n\
+	strh r0, [r1]\n\
+	ldr r0, _080173CC\n\
+	adds r0, #0xf0\n\
+	ldrb r0, [r0]\n\
+	strb r0, [r1, #2]\n\
+	adds r0, r4, #0\n\
+	bl sub_804069C\n\
+	ldr r2, _080173C4\n\
+	strb r0, [r2, #3]\n\
+	adds r0, r2, #0\n\
+	bl SetFinalStat\n\
+	ldr r0, _080173D0\n\
+	ldrh r5, [r0, #0x12]\n\
+	adds r7, r5, #0\n\
+	ldrh r6, [r0, #0x14]\n\
+	mov r8, r6\n\
+	ldrb r0, [r0, #0x17]\n\
+	ldr r1, [sp]\n\
+	bl sub_803FBCC\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r0, r0, #0x18\n\
+	cmp r0, #2\n\
+	beq _080173EE\n\
+	cmp r0, #0\n\
+	bne _080173D4\n\
+	ldrb r1, [r4, #5]\n\
+	movs r0, #2\n\
+	ands r0, r1\n\
+	cmp r0, #0\n\
+	bne _080173F8\n\
+	cmp sb, r5\n\
+	bls _080173F8\n\
+	mov r1, sb\n\
+	subs r0, r1, r5\n\
+	mov r2, sl\n\
+	subs r2, r2, r0\n\
+	mov sl, r2\n\
+	b _080173F8\n\
+	.align 2, 0\n\
+_080173BC: .4byte gLifePoints\n\
+_080173C0: .4byte 0x02021C00\n\
+_080173C4: .4byte gStatMod\n\
+_080173C8: .4byte gZones\n\
+_080173CC: .4byte gDuel\n\
+_080173D0: .4byte gCardInfo\n\
+_080173D4:\n\
+	ldrb r1, [r4, #5]\n\
+	movs r0, #2\n\
+	ands r0, r1\n\
+	cmp r0, #0\n\
+	bne _080173F4\n\
+	cmp sb, r7\n\
+	bls _080173EE\n\
+	mov r1, sb\n\
+	subs r0, r1, r7\n\
+	mov r2, sl\n\
+	subs r2, r2, r0\n\
+	mov sl, r2\n\
+	b _080173F8\n\
+_080173EE:\n\
+	movs r0, #0\n\
+	str r0, [sp, #0x10]\n\
+	b _08017410\n\
+_080173F4:\n\
+	cmp sb, r6\n\
+	bls _08017404\n\
+_080173F8:\n\
+	ldr r0, [sp, #0xc]\n\
+	adds r0, #1\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r0, r0, #0x18\n\
+	str r0, [sp, #0xc]\n\
+	b _08017410\n\
+_08017404:\n\
+	mov r1, r8\n\
+	mov r2, sb\n\
+	subs r0, r1, r2\n\
+	ldr r1, [sp, #4]\n\
+	subs r1, r1, r0\n\
+	str r1, [sp, #4]\n\
+_08017410:\n\
+	ldr r0, [sp, #8]\n\
+	adds r0, #1\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r0, r0, #0x18\n\
+	str r0, [sp, #8]\n\
+	cmp r0, #4\n\
+	bhi _08017430\n\
+	ldr r2, [sp, #0x10]\n\
+	cmp r2, #0\n\
+	beq _08017430\n\
+	ldr r0, [sp, #4]\n\
+	cmp r0, #0\n\
+	ble _08017430\n\
+	mov r1, sl\n\
+	cmp r1, #0\n\
+	bgt _08017348\n\
+_08017430:\n\
+	mov r2, sl\n\
+	cmp r2, #0\n\
+	bgt _08017450\n\
+_08017436:\n\
+	ldr r0, _08017444\n\
+	ldr r0, [r0]\n\
+	ldr r1, _08017448\n\
+	adds r0, r0, r1\n\
+	ldr r1, _0801744C\n\
+	b _080174BA\n\
+	.align 2, 0\n\
+_08017444: .4byte gUnk_8DFF6A4\n\
+_08017448: .4byte 0x00002298\n\
+_0801744C: .4byte 0x7FFFFFFF\n\
+_08017450:\n\
+	ldr r2, [sp, #4]\n\
+	cmp r2, #0\n\
+	bgt _08017470\n\
+	ldr r0, _08017464\n\
+	ldr r0, [r0]\n\
+	ldr r1, _08017468\n\
+	adds r0, r0, r1\n\
+	ldr r1, _0801746C\n\
+	b _080174BA\n\
+	.align 2, 0\n\
+_08017464: .4byte gUnk_8DFF6A4\n\
+_08017468: .4byte 0x00002298\n\
+_0801746C: .4byte 0x7EDE89F9\n\
+_08017470:\n\
+	ldr r2, [sp, #0x10]\n\
+	cmp r2, #0\n\
+	bne _08017490\n\
+	ldr r0, _08017484\n\
+	ldr r0, [r0]\n\
+	ldr r1, _08017488\n\
+	adds r0, r0, r1\n\
+	ldr r1, _0801748C\n\
+	b _080174BA\n\
+	.align 2, 0\n\
+_08017484: .4byte gUnk_8DFF6A4\n\
+_08017488: .4byte 0x00002298\n\
+_0801748C: .4byte 0x7EDE89F9\n\
+_08017490:\n\
+	ldr r2, [sp, #0xc]\n\
+	cmp r2, #0\n\
+	bne _080174B0\n\
+	ldr r0, _080174A4\n\
+	ldr r0, [r0]\n\
+	ldr r1, _080174A8\n\
+	adds r0, r0, r1\n\
+	ldr r1, _080174AC\n\
+	b _080174BA\n\
+	.align 2, 0\n\
+_080174A4: .4byte gUnk_8DFF6A4\n\
+_080174A8: .4byte 0x00002298\n\
+_080174AC: .4byte 0x7EDE89F9\n\
+_080174B0:\n\
+	ldr r0, _080174CC\n\
+	ldr r0, [r0]\n\
+	ldr r2, _080174D0\n\
+	adds r0, r0, r2\n\
+	ldr r1, _080174D4\n\
+_080174BA:\n\
+	str r1, [r0]\n\
+	add sp, #0x14\n\
+	pop {r3, r4, r5}\n\
+	mov r8, r3\n\
+	mov sb, r4\n\
+	mov sl, r5\n\
+	pop {r4, r5, r6, r7}\n\
+	pop {r0}\n\
+	bx r0\n\
+	.align 2, 0\n\
+_080174CC: .4byte gUnk_8DFF6A4\n\
+_080174D0: .4byte 0x00002298\n\
+_080174D4: .4byte 0x7EF1C3F5");
+}
+
+void sub_80174D8 (void) {
+  u8 temp = 0;
+  u8 i;
+  for (i = 0; i < 5; i++) {
+    struct DuelCard* zone = gZones[1][i];
+    if (zone->id == CARD_NONE)
+      continue;
+    if (IsCardFaceUp(zone) != TRUE || IsGodCard(zone->id) != TRUE)
+      temp++;
+  }
+  temp -= NumEmptyZonesInRow(gZones[0]) - 5;
+  if (!temp)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF99745;
+}
+
+void sub_8017568 (void) {
+  g8E00330[g201CB44]();
+}
+
+void sub_8017588 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  SetCardInfo(gZones[row2][col2]->id);
+  g201CB44 = gCardInfo.monsterEffect;
+  g8E00150[gCardInfo.monsterEffect]();
+}
+
+void sub_80175D8 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_80175F4 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8017610 (void) {
+  u8 i;
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  for (i = 0; i < 5; i++) {
+    if (gZones[0][i]->id != CARD_NONE) {
+      gUnk_8DFF6A4->unk2298 = 0x7FFFFFF4;
+      break;
+    }
+  }
+}
+
+void sub_8017674 (void) {}
+
+void sub_8017678 (void) {
+  u8 turn = WhoseTurn();
+  if (65000 - gLifePoints[turn] < 1000)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EEE8FA3;
+}
+
+void sub_80176D4 (void) {}
+
+void sub_80176D8 (void) {}
+
+void sub_80176DC (void) {}
+
+void sub_80176E0 (void) {
+  if (!NumEmptyZonesInRow(gZones[4]))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EEE8FA1;
+}
+
+void sub_8017724 (void) {}
+
+void sub_8017728 (void) {
+  if (!NumCardInRow(gZones[2], HARPIES_PET_DRAGON))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = sub_80432D0(2);
+}
+
+void sub_8017774 (void) {
+  if (gUnk_8DFF6A4->unk2298 == 0x7EDE89F9)
+    return;
+  if (gUnk_8DFF6A4->unk2298 < sub_80432D0(2))
+    gUnk_8DFF6A4->unk2298 = 0x7EFD83DA;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_80177B8 (void) {
+  if (!NumCardInRow(gZones[2], HARPIES_PET_DRAGON))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = sub_80432D0(2);
+}
+
+void sub_8017804 (void) {
+  if (gUnk_8DFF6A4->unk2298 == 0x7EDE89F9)
+    return;
+  if (gUnk_8DFF6A4->unk2298 < sub_80432D0(2))
+    gUnk_8DFF6A4->unk2298 = 0x7EF2D578;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+// Time Wizard
+void sub_8017848 (void) {
+  if (NumCardInRow(gZones[2], BABY_DRAGON) > 0)
+    gUnk_8DFF6A4->unk2298 = 0x7EF2D567;
+  else if (NumCardInRow(gZones[2], DARK_MAGICIAN) > 0)
+    gUnk_8DFF6A4->unk2298 = 0x7EF2D567;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_80178B8 (void) {}
+
+void sub_80178BC (void) {
+  if (gUnk_8DFF6A4->unk2298 == 0x7EDE89F9)
+    return;
+  if (gUnk_8DFF6A4->unk2298 < sub_80432D0(2))
+    gUnk_8DFF6A4->unk2298 = 0x7FDDD1BF;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8017900 (void) {
+  if (NumCardInRow(gZones[2], BLUE_EYES_WHITE_DRAGON) > 0)
+    gUnk_8DFF6A4->unk2298 = sub_80432D0(2);
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8017948 (void) {
+  if (gUnk_8DFF6A4->unk2298 == 0x7EDE89F9)
+    return;
+  if (gUnk_8DFF6A4->unk2298 < sub_80432D0(2))
+    gUnk_8DFF6A4->unk2298 = 0x7EF2D579;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_801798C (void) {
+  if (gDuel.field == FIELD_WASTELAND)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = sub_80432D0(2);
+}
+
+void sub_80179D4 (void) {
+  if (gUnk_8DFF6A4->unk2298 == 0x7EDE89F9)
+    return;
+  if (gUnk_8DFF6A4->unk2298 < sub_80432D0(2))
+    gUnk_8DFF6A4->unk2298 = 0x7FB3183F;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8017A18 (void) {
+  if (!sub_804398C(1, 11))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF77455;
+}
+
+void sub_8017A5C (void) {}
+
+void sub_8017A60 (void) {
+  if (gDuel.field == FIELD_ARENA)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = sub_80432D0(2);
+}
+
+void sub_8017AA8 (void) {
+  if (gUnk_8DFF6A4->unk2298 == 0x7EDE89F9)
+    return;
+  if (gUnk_8DFF6A4->unk2298 < sub_80432D0(2))
+    gUnk_8DFF6A4->unk2298 = 0x7FB3183F;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8017AEC (void) {
+  if (!sub_80439F4(1, 5))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF77454;
+}
+
+void sub_8017B30 (void) {}
+
+void sub_8017B34 (void) {
+  if (!NumCardInRow(gZones[2], DUNGEON_WORM))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = sub_80432D0(2);
+}
+
+void sub_8017B80 (void) {
+  if (gUnk_8DFF6A4->unk2298 == 0x7EDE89F9)
+    return;
+  if (gUnk_8DFF6A4->unk2298 < sub_80432D0(2))
+    gUnk_8DFF6A4->unk2298 = 0x7EF2D577;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8017BC4 (void) {
+  u8 numArmoredZombie = NumCardInRow(gZones[2], ARMORED_ZOMBIE);
+  u8 numDragonZombie = NumCardInRow(gZones[2], DRAGON_ZOMBIE);
+  u8 numClownZombie = NumCardInRow(gZones[2], CLOWN_ZOMBIE);
+  if (!numArmoredZombie && !numDragonZombie && !numClownZombie)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = sub_80432D0(2);
+}
+
+void sub_8017C38 (void) {
+  if (gUnk_8DFF6A4->unk2298 == 0x7EDE89F9)
+    return;
+  if (gUnk_8DFF6A4->unk2298 < sub_80432D0(2))
+    gUnk_8DFF6A4->unk2298 = 0x7EF2D576;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8017C7C (void) {
+  if (NumEmptyZonesInRow(gZones[1]) == 5)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF5516B;
+}
+
+void sub_8017CC0 (void) {}
+void sub_8017CC4 (void) {}
+
+void sub_8017CC8 (void) {
+  u32 numNonEmptyZones; //TODO: rename
+  u32 numNonEmptyZones2; // ^
+  if (!NumEmptyZonesInRow(gZones[4])) {
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+    return;
+  }
+  numNonEmptyZones = 5 - NumEmptyZonesInRow(gZones[1]);
+  numNonEmptyZones2 = 5 - NumEmptyZonesInRow(gZones[2]);
+  if (numNonEmptyZones2 < 2)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else if (numNonEmptyZones >= numNonEmptyZones2)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EEE8FA0;
+}
+
+void sub_8017D64 (void) {}
+
+void sub_8017D68 (void) {
+  if (gDuel.field == FIELD_MOUNTAIN)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = sub_80432D0(2);
+}
+
+void sub_8017DB0 (void) {
+  if (gUnk_8DFF6A4->unk2298 == 0x7EDE89F9)
+    return;
+  if (gUnk_8DFF6A4->unk2298 < sub_80432D0(2))
+    gUnk_8DFF6A4->unk2298 = 0x7FB3183F;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8017DF4 (void) {
+  u8 i;
+  u32 numCards = 0;
+  for (i = 0; i < 5; i++) {
+    struct DuelCard* zone = gZones[1][i];
+    if (zone->id == CARD_NONE || IsGodCard(zone->id) == TRUE)
+      continue;
+    SetCardInfo(zone->id);
+    if (gCardInfo.type == TYPE_DRAGON)
+      numCards++;
+  }
+  if (!numCards)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF77453;
+}
+
+void sub_8017E70 (void) {}
+
+void sub_8017E74 (void) {
+  if (!NumEmptyZonesInRow(gZones[0]))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EF2D566;
+}
+
+void sub_8017EB8 (void) {}
+
+void sub_8017EBC (void) {
+  if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF55173;
+}
+
+void sub_8017F00 (void) {}
+
+void sub_8017F04 (void) {
+  if (NumEmptyZonesInRow(gZones[1]) == 5)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EEE8F9B;
+}
+
+void sub_8017F48 (void) {}
+
+void sub_8017F4C (void) {
+  if (NumEmptyZonesInRow(gZones[1]) == 5)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EEC6CBB;
+}
+
+void sub_8017F90 (void) {}
+
+void sub_8017F94 (void) {
+  bool8 darkMagicianInGrave = 0;
+  if (gNotSure[0]->graveyard == DARK_MAGICIAN)
+    darkMagicianInGrave = 1;
+  if (gNotSure[1]->graveyard == DARK_MAGICIAN)
+    darkMagicianInGrave = 1;
+  if (darkMagicianInGrave == 1)
+    gUnk_8DFF6A4->unk2298 = 0x7EF2D575;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8017FE8 (void) {}
+
+void sub_8017FEC (void) {
+  if (!sub_8043930(2, 20))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EF2D573;
+}
+
+void sub_8018030 (void) {}
+
+void sub_8018034 (void) {
+  if (!NumCardInRow(gZones[2], M_WARRIOR_2))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EF2D571;
+}
+
+void sub_801807C (void) {}
+
+void sub_8018080 (void) {
+  if (!NumCardInRow(gZones[2], M_WARRIOR_1))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EF2D570;
+}
+
+void sub_80180C8 (void) {}
+
+void sub_80180CC (void) {
+  if (NumEmptyZonesInRow(gZones[1]) == 5)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EEE8F9D;
+}
+
+void sub_8018110 (void) {}
+
+void sub_8018114 (void) {
+  u8 turn = WhoseTurn();
+  if (65000 - gLifePoints[turn] < 500)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EEE8FA2;
+}
+
+void sub_8018170 (void) {}
+
+void sub_8018174 (void) {
+  if (gLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 50)
+    gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EEC6CBA;
+}
+
+void sub_80181CC (void) {}
+
+void sub_80181D0 (void) {
+  if (gDuel.field == FIELD_UMI)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = sub_80432D0(2);
+}
+
+void sub_8018218 (void) {
+  if (gUnk_8DFF6A4->unk2298 == 0x7EDE89F9)
+    return;
+  if (gUnk_8DFF6A4->unk2298 < sub_80432D0(2))
+    gUnk_8DFF6A4->unk2298 = 0x7FB3183F;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_801825C (void) {}
+
+void sub_8018260 (void) {
+  u8 i, numCards = 0;
+  for (i = 0; i < 5; i++)
+    if (gHands[1][i]->id != CARD_NONE)
+      numCards++;
+  if (!numCards)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EEB5B48;
+}
+
+void sub_80182BC (void) {}
+
+void sub_80182C0 (void) {
+  if (!NumEmptyZonesInRow(gZones[2]))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF32E81;
+}
+
+void sub_8018304 (void) {}
+
+void sub_8018308 (void) {
+  if (!NumCardInRow(gZones[2], LAVA_BATTLEGUARD))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EF2D56E;
+}
+
+void sub_8018354 (void) {}
+
+void sub_8018358 (void) {
+  if (!NumCardInRow(gZones[2], SWAMP_BATTLEGUARD))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EF2D56D;
+}
+
+void sub_80183A0 (void) {}
+
+void sub_80183A4 (void) {
+  if (gDuel.field == FIELD_FOREST)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = sub_80432D0(2);
+}
+
+void sub_80183EC (void) {
+  if (gUnk_8DFF6A4->unk2298 == 0x7EDE89F9)
+    return;
+  if (gUnk_8DFF6A4->unk2298 < sub_80432D0(2))
+    gUnk_8DFF6A4->unk2298 = 0x7FB3183F;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8018430 (void) {
+  if (!NumCardInRow(gZones[2], LABYRINTH_WALL))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EF2D56D;
+}
+
+void sub_8018478 (void) {}
+
+void sub_801847C (void) {
+  if (!NumEmptyZonesInRow(gZones[2]))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF32E85;
+}
+
+void sub_80184C0 (void) {}
+
+// hourglass?
+void sub_80184C4 (void) {
+  if (NumEmptyZonesInRow(gZones[2]) == 5)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else if (gLifePoints[WhoseTurn()] <= 1000)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EF2D56C;
+}
+
+void sub_801853C (void) {}
+
+void sub_8018540 (void) {
+  if (NumEmptyZonesAndGodCardsInRow(gZones[2]) < 4)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF55172;
+}
+
+void sub_80185B0 (void) {}
+
+void sub_80185B4 (void) {
+  if (NumEmptyZonesInRow(gZones[1]) == 5)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else if (sub_8043A5C(2) != 1)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EEE8F9C;
+}
+
+void sub_801861C (void) {}
+
+void sub_8018620 (void) {
+  if (!NumEmptyZonesInRow(gZones[2]))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF32E84;
+}
+
+void sub_8018664 (void) {}
+
+// Witch's apprentice?
+void sub_8018668 (void) {
+  u8 i, numCards = 0;
+  for (i = 0; i < 5; i++) {
+    SetCardInfo(gZones[2][i]->id);
+    if (gCardInfo.attribute == ATTRIBUTE_LIGHT) {
+      gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+      return;
+    }
+    if (gCardInfo.attribute == ATTRIBUTE_SHADOW)
+      numCards++;
+  }
+  if (!numCards)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EF2D56B;
+}
+
+void sub_80186F4 (void) {}
+
+void sub_80186F8 (void) {
+  if (NumEmptyZonesInRow(gZones[1]) == 5)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EEE8F9B;
+}
+
+void sub_801873C (void) {}
+
+void sub_8018740 (void) {
+  u8 i, numCards = 0;
+  for (i = 0; i < 5; i++) {
+    SetCardInfo(gZones[2][i]->id);
+    if (gCardInfo.attribute == ATTRIBUTE_SHADOW) {
+      gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+      return;
+    }
+    if (gCardInfo.attribute == ATTRIBUTE_LIGHT)
+      numCards++;
+  }
+  if (!numCards)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EF2D56B;
+}
+
+void sub_80187CC (void) {}
+
+void sub_80187D0 (void) {}
+
+void sub_80187D4 (void) {}
+
+void sub_80187D8 (void) {
+  u8 temp = sub_8043930(2, 10);
+  temp += sub_804398C(1, 10);
+  if (!temp)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EF2D569;
+}
+
+void sub_8018830 (void) {}
+
+// Obelisk?
+void sub_8018834 (void) {
+  if (gLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 4000)
+    gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF99741;
+}
+
+void sub_8018890 (void) {}
+
+void sub_8018894 (void) {
+  if (!sub_80438A0(4))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7F08323A;
+}
+
+void sub_80188D4 (void) {}
+
+void sub_80188D8 (void) {}
+
+void sub_80188DC (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_80188F8 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8018914 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8018930 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_801894C (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8018968 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8018984 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_80189A0 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_80189BC (void) {
+  if (!NumCardInRow(gZones[2], HARPIES_PET_DRAGON))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = sub_80432D0(2);
+}
+
+void sub_8018A08 (void) {
+  if (gUnk_8DFF6A4->unk2298 == 0x7EDE89F9)
+    return;
+  if (gUnk_8DFF6A4->unk2298 < sub_80432D0(2))
+    gUnk_8DFF6A4->unk2298 = 0x7EF2D57A;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8018A4C (void) {
+  bool8 darkMagicianInGrave = 0;
+  if (gNotSure[0]->graveyard == DARK_MAGICIAN)
+    darkMagicianInGrave = 1;
+  if (gNotSure[1]->graveyard == DARK_MAGICIAN)
+    darkMagicianInGrave = 1;
+  if (darkMagicianInGrave == 1)
+    gUnk_8DFF6A4->unk2298 = 0x7EF2D574;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8018AA0 (void) {}
+
+void sub_8018AA4 (void) {
+  if (!NumCardInRow(gZones[2], BETA_THE_MAGNET_WARRIOR))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else if (!NumCardInRow(gZones[2], GAMMA_THE_MAGNET_WARRIOR))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7F12E09B;
+}
+
+void sub_8018B1C (void) {}
+
+void sub_8018B20 (void) {
+  if (!NumCardInRow(gZones[2], ALPHA_THE_MAGNET_WARRIOR))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else if (!NumCardInRow(gZones[2], GAMMA_THE_MAGNET_WARRIOR))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7F12E09B;
+}
+
+void sub_8018B98 (void) {}
+
+void sub_8018B9C (void) {
+  if (!NumCardInRow(gZones[2], ALPHA_THE_MAGNET_WARRIOR))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else if (!NumCardInRow(gZones[2], BETA_THE_MAGNET_WARRIOR))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7F12E09B;
+}
+
+void sub_8018C14 (void) {}
+
+/*
+void sub_8018C18 (void) {
+  // NumEmptyZonesInRow should only take one arg
+  if (NumEmptyZonesInRow(gZones[2], 1) < 2)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EEB5B49;
+}*/
+
+NAKED
+void sub_8018C18 (void) {
+  asm_unified("push {lr}\n\
+	ldr r0, _08018C34 @ =gZones+0x28\n\
+	movs r1, #0\n\
+	bl NumEmptyZonesInRow\n\
+	cmp r0, #1\n\
+	bgt _08018C44\n\
+	ldr r0, _08018C38 @ =0x08DFF6A4\n\
+	ldr r0, [r0]\n\
+	ldr r1, _08018C3C @ =0x00002298\n\
+	adds r0, r0, r1\n\
+	ldr r1, _08018C40 @ =0x7EDE89F9\n\
+	b _08018C4E\n\
+	.align 2, 0\n\
+_08018C34: .4byte gZones+0x28\n\
+_08018C38: .4byte 0x08DFF6A4\n\
+_08018C3C: .4byte 0x00002298\n\
+_08018C40: .4byte 0x7EDE89F9\n\
+_08018C44:\n\
+	ldr r0, _08018C54 @ =0x08DFF6A4\n\
+	ldr r0, [r0]\n\
+	ldr r1, _08018C58 @ =0x00002298\n\
+	adds r0, r0, r1\n\
+	ldr r1, _08018C5C @ =0x7EEB5B49\n\
+_08018C4E:\n\
+	str r1, [r0]\n\
+	pop {r0}\n\
+	bx r0\n\
+	.align 2, 0\n\
+_08018C54: .4byte 0x08DFF6A4\n\
+_08018C58: .4byte 0x00002298\n\
+_08018C5C: .4byte 0x7EEB5B49");
+}
+
+void sub_8018C60 (void) {}
+
+void sub_8018C64 (void) {
+  if (NumEmptyZonesInRow(gZones[1]) == 5)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EEE8F9F;
+}
+
+void sub_8018CA8 (void) {}
+
+void sub_8018CAC (void) {
+  if (!NumEmptyZonesInRow(gZones[2]))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FFFFFE6;
+}
+
+void sub_8018D1C (void) {}
+
+void sub_8018D20 (void) {
+  if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF55171;
+}
+
+void sub_8018D64 (void) {}
+
+void sub_8018D68 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8018D84 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8018DA0 (void) {
+  if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF99740;
+}
+
+void sub_8018DE4 (void) {}
+
+void sub_8018DE8 (void) {
+  if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF9973D;
+}
+
+void sub_8018E2C (void) {}
+
+void sub_8018E30 (void) {
+  u8 i;
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  for (i = 0; i < 5; i++) {
+    if (gZones[0][i]->id != CARD_NONE) {
+      gUnk_8DFF6A4->unk2298 = 0x7FFFFFF4;
+      break;
+    }
+  }
+}
+
+void sub_8018E94 (void) {}
+
+void sub_8018E98 (void) {
+  if (!sub_804398C(1, 1))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EF2D568;
+}
+
+void sub_8018EDC (void) {}
+
+void sub_8018EE0 (void) {
+  if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF77457;
+}
+
+void sub_8018F24 (void) {}
+
+void sub_8018F28 (void) {}
+
+void sub_8018F2C (void) {}
+
+void sub_8018F30 (void) {
+  u32 numNonEmptyZones; //TODO: rename
+  u32 numNonEmptyZones2; // ^
+  if (65000 - gLifePoints[WhoseTurn()] < 500) {
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+    return;
+  }
+  numNonEmptyZones = 5 - NumEmptyZonesInRow(gZones[1]);
+  numNonEmptyZones2 = 5 - NumEmptyZonesInRow(gZones[2]);
+  if (numNonEmptyZones2 < 2)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else if (numNonEmptyZones >= numNonEmptyZones2)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FFFFFE8;
+}
+
+void sub_8018FE0 (void) {}
+
+void sub_8018FE4 (void) {}
+
+void sub_8018FE8 (void) {
+  if (NumEmptyZonesInRow(gZones[1]) == 5)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EEE8F9E;
+}
+
+void sub_801902C (void) {}
+
+void sub_8019030 (void) {
+  if (!NumEmptyZonesInRow(gZones[2]))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF32E80;
+}
+
+void sub_8019074 (void) {}
+
+void sub_8019078 (void) {
+  if (!sub_8043584(gZones[2], TYPE_DRAGON))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7EF2D572;
+}
+
+void sub_80190C0 (void) {}
+
+void sub_80190C4 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EEE8FA4;
+}
+
+void sub_80190E0 (void) {}
+
+void sub_80190E4 (void) {
+  if (!NumEmptyZonesInRow(gZones[2]))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF32E83;
+}
+
+void sub_8019128 (void) {}
+
+void sub_801912C (void) {
+  if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else if (gLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 500)
+    gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF77458;
+}
+
+void sub_80191B0 (void) {}
+
+void sub_80191B4 (void) {}
+
+void sub_80191B8 (void) {
+  if (NumEmptyZonesInRow(gZones[4]) == 5)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else if (!sub_8043584(gZones[0], 0x15))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF7745A;
+}
+
+void sub_801922C (void) {}
+
+void sub_8019230 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_801924C (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8019268 (void) {}
+
+void sub_801926C (void) {
+  if (!NumEmptyZonesInRow(gZones[2]))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else if (!NumCardInRow(gZones[2], QUEENS_KNIGHT))
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF32E82;
+}
+
+void sub_80192E0 (void) {}
+
+void sub_80192E4 (void) {
+  u8 numYDragonHeads = NumCardInRow(gZones[2], Y_DRAGON_HEAD);
+  u8 numZMetalTanks = NumCardInRow(gZones[2], Z_METAL_TANK);
+  if (!numYDragonHeads) {
+    if (!numZMetalTanks)
+      gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+    else
+      gUnk_8DFF6A4->unk2298 = 0x7FF32E87;
+  }
+  else if (numZMetalTanks)
+    gUnk_8DFF6A4->unk2298 = 0x7FF32E88;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF32E87;
+}
+
+void sub_801936C (void) {}
+
+void sub_8019370 (void) {
+  u8 numXHeadCannons = NumCardInRow(gZones[2], X_HEAD_CANNON);
+  u8 numZMetalTanks = NumCardInRow(gZones[2], Z_METAL_TANK);
+  if (!numXHeadCannons) {
+    if (!numZMetalTanks)
+      gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+    else
+      gUnk_8DFF6A4->unk2298 = 0x7FF32E87;
+  }
+  else if (numZMetalTanks)
+    gUnk_8DFF6A4->unk2298 = 0x7FF32E88;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF32E87;
+}
+
+void sub_80193F4 (void) {}
+
+void sub_80193F8 (void) {
+  u8 numXHeadCannons = NumCardInRow(gZones[2], X_HEAD_CANNON);
+  u8 numYDragonHeads = NumCardInRow(gZones[2], Y_DRAGON_HEAD);
+  if (!numXHeadCannons) {
+    if (!numYDragonHeads)
+      gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+    else
+      gUnk_8DFF6A4->unk2298 = 0x7FF32E87;
+  }
+  else if (numYDragonHeads)
+    gUnk_8DFF6A4->unk2298 = 0x7FF32E88;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF32E87;
+}
+
+void sub_801947C (void) {}
+
+void sub_8019480 (void) {}
+
+void sub_8019484 (void) {}
+
+void sub_8019488 (void) {}
+
+void sub_801948C (void) {}
+
+void sub_8019490 (void) {}
+
+void sub_8019494 (void) {
+  if (WhoseTurn() == 0) {
+    if (gLifePoints[0] < 1000) {
+      gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+      return;
+    }
+  }
+  else if (gLifePoints[1] < 1000) {
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+    return;
+  }
+  if (NumEmptyZonesInRow(gZones[1]) == 5)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF77459;
+}
+
+void sub_8019538 (void) {}
+
+void sub_801953C (void) {}
+
+void sub_8019540 (void) {}
+
+void sub_8019544 (void) {}
+
+void sub_8019548 (void) {
+  u8 numCards = 0, i;
+  for (i = 0; i < 5; i++) {
+    struct DuelCard* zone = gZones[1][i];
+    if (zone->id == CARD_NONE)
+      continue;
+    if (IsCardFaceUp(zone) != TRUE || IsGodCard(zone->id) != TRUE)
+      numCards++;
+  }
+  if (!numCards)
+    gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+  else
+    gUnk_8DFF6A4->unk2298 = 0x7FF99745;
+}
+
+void sub_80195C4 (void) {}
+
+void sub_80195C8 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_80195E4 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8019600 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_801961C (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8019638 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8019654 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8019670 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_801968C (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_80196A8 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_80196C4 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_80196E0 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_80196FC (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8019718 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8019734 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8019750 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_801976C (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8019788 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_80197A4 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_80197C0 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_80197DC (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_80197F8 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8019814 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8019830 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_801984C (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8019868 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8019884 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_80198A0 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_80198BC (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_80198D8 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_80198F4 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8019910 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_801992C (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8019948 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8019964 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_8019980 (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
+}
+
+void sub_801999C (void) {
+  gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
 }
