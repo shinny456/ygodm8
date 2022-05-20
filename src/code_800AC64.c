@@ -222,7 +222,7 @@ void sub_800AF68 (void) {
   sub_800B034();
 }
 
-extern u8 g2021C8C[];
+extern u8 g2021C8C;
 
 void sub_800AFF0 (void) {
   ClearPlayerName();
@@ -237,7 +237,7 @@ void sub_800AFF0 (void) {
   sub_80561FC();
   sub_80554EC();
   sub_8055FD0();
-  sub_801FB44(g2021C8C);
+  sub_801FB44(&g2021C8C);
   sub_8048CB8();
 }
 

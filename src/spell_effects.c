@@ -14,9 +14,9 @@ void EffectMooyanCurry(void)
     if (sub_80586DC() != 1 || gUnk_02021C08)
     {
         if (WhoseTurn() == PLAYER)
-            sub_803F978(200);
+            SetPlayerLifePointsToAdd(200);
         else
-            sub_803F9C0(200);
+            SetOpponentLifePointsToAdd(200);
 
         sub_803F29C();
         sub_803F4C0();
@@ -42,9 +42,9 @@ void EffectRedMedicine(void)
     if (sub_80586DC() != 1 || gUnk_02021C08)
     {
         if (WhoseTurn() == PLAYER)
-            sub_803F978(500);
+            SetPlayerLifePointsToAdd(500);
         else
-            sub_803F9C0(500);
+            SetOpponentLifePointsToAdd(500);
 
         sub_803F29C();
         sub_803F4C0();
@@ -70,9 +70,9 @@ void EffectGoblinsSecretRemedy(void)
     if (sub_80586DC() != 1 || gUnk_02021C08)
     {
         if (WhoseTurn() == PLAYER)
-            sub_803F978(1000);
+            SetPlayerLifePointsToAdd(1000);
         else
-            sub_803F9C0(1000);
+            SetOpponentLifePointsToAdd(1000);
 
         sub_803F29C();
         sub_803F4C0();
@@ -98,9 +98,9 @@ void EffectSoulOfThePure(void)
     if (sub_80586DC() != 1 || gUnk_02021C08)
     {
         if (WhoseTurn() == PLAYER)
-            sub_803F978(2000);
+            SetPlayerLifePointsToAdd(2000);
         else
-            sub_803F9C0(2000);
+            SetOpponentLifePointsToAdd(2000);
 
         sub_803F29C();
         sub_803F4C0();
@@ -126,9 +126,9 @@ void EffectDianKetoTheCureMaster(void)
     if (sub_80586DC() != 1 || gUnk_02021C08)
     {
         if (WhoseTurn() == PLAYER)
-            sub_803F978(5000);
+            SetPlayerLifePointsToAdd(5000);
         else
-            sub_803F9C0(5000);
+            SetOpponentLifePointsToAdd(5000);
 
         sub_803F29C();
         sub_803F4C0();
@@ -154,9 +154,9 @@ void EffectSparks(void)
     if (sub_80586DC() != 1 || gUnk_02021C08)
     {
         if (WhoseTurn() == PLAYER)
-            SubtractOpponentLifePoints(50);
+            SetOpponentLifePointsToSubtract(50);
         else
-            SubtractPlayerLifePoints(50);
+            SetPlayerLifePointsToSubtract(50);
 
         sub_803F29C();
         sub_803F4C0();
@@ -182,9 +182,9 @@ void EffectHinotama(void)
     if (sub_80586DC() != 1 || gUnk_02021C08)
     {
         if (WhoseTurn() == PLAYER)
-            SubtractOpponentLifePoints(100);
+            SetOpponentLifePointsToSubtract(100);
         else
-            SubtractPlayerLifePoints(100);
+            SetPlayerLifePointsToSubtract(100);
 
         sub_803F29C();
         sub_803F4C0();
@@ -210,9 +210,9 @@ void EffectFinalFlame(void)
     if (sub_80586DC() != 1 || gUnk_02021C08)
     {
         if (WhoseTurn() == PLAYER)
-            SubtractOpponentLifePoints(200);
+            SetOpponentLifePointsToSubtract(200);
         else
-            SubtractPlayerLifePoints(200);
+            SetPlayerLifePointsToSubtract(200);
 
         sub_803F29C();
         sub_803F4C0();
@@ -238,9 +238,9 @@ void EffectOokazi(void)
     if (sub_80586DC() != 1 || gUnk_02021C08)
     {
         if (WhoseTurn() == PLAYER)
-            SubtractOpponentLifePoints(500);
+            SetOpponentLifePointsToSubtract(500);
         else
-            SubtractPlayerLifePoints(500);
+            SetPlayerLifePointsToSubtract(500);
 
         sub_803F29C();
         sub_803F4C0();
@@ -266,9 +266,9 @@ void EffectTremendousFire(void)
     if (sub_80586DC() != 1 || gUnk_02021C08)
     {
         if (WhoseTurn() == PLAYER)
-            SubtractOpponentLifePoints(1000);
+            SetOpponentLifePointsToSubtract(1000);
         else
-            SubtractPlayerLifePoints(1000);
+            SetPlayerLifePointsToSubtract(1000);
 
         sub_803F29C();
         sub_803F4C0();
@@ -2626,9 +2626,9 @@ void EffectRestructerRevolution(void)
     u16 lifePoints = (MAX_ZONES_IN_ROW - NumEmptyZonesInRow(gHands[1])) * 200;
 
     if (WhoseTurn() == PLAYER)
-        SubtractOpponentLifePoints(lifePoints);
+        SetOpponentLifePointsToSubtract(lifePoints);
     else
-        SubtractPlayerLifePoints(lifePoints);
+        SetPlayerLifePointsToSubtract(lifePoints);
 
     sub_803F29C();
     sub_803F4C0();

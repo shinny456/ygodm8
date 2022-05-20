@@ -200,12 +200,12 @@ void sub_803F4C0(void);
 
 void sub_803F908(s32, s32);
 
-void sub_803F978(u16);
-void sub_803F9C0(u16);
+void SetPlayerLifePointsToAdd(u32);
+void SetOpponentLifePointsToAdd(u32);
 
-void SubtractPlayerLifePoints(u32); //sub player life points
+void SetPlayerLifePointsToSubtract(u32); //sub player life points
 
-void SubtractOpponentLifePoints(u32); //sub opponent life points
+void SetOpponentLifePointsToSubtract(u32); //sub opponent life points
 
 void ClearZone(struct DuelCard*);
 
@@ -256,6 +256,7 @@ u32 sub_8055BD4(u16);
 
 void PlayMusic(u16);
 s32 sub_803FCBC(u16);
+s32 sub_803FCEC(u16);
 void FlipCardFaceDown(struct DuelCard*);
 void sub_8040394(struct DuelCard*, u8);
 
@@ -320,6 +321,7 @@ bool32 sub_80586DC(void);
 u16 sub_80452E0(u8);
 
 struct Unk2023E80 {
+  // substruct?
   u16 unk0;
   u16 unk2;
   u16 unk4;
@@ -328,6 +330,7 @@ struct Unk2023E80 {
   u8 unk9;
   u8 unkA;
   u8 fillerB;
+  // substruct?
   u16 unkC;
   u16 unkE;
   u16 unk10;
@@ -336,28 +339,25 @@ struct Unk2023E80 {
   u8 unk15;
   u8 unk16;
   u8 filler17;
-  u8 unk18;
+//--------------
+  u8 action;
   u8 unk19;
   u8 unk1A;
   u8 unk1B;
 };
 extern struct Unk2023E80 g2023E80;
 
-struct Unk2023EA0
-{
+struct Unk2023EA0 {
+  struct Unk2023EA0_sub {
     u16 unk0;
-    u8 filler2[4];
+    u16 unk2;
+    u16 unk4;
     u16 unk6;
     u16 unk8;
     u8 unkA;
     u8 fillerB;
-    u16 unkC;
-    u8 unkE[4];
-    u16 unk12;
-    u16 unk14;
-    u8 unk16;
-    u8 filler17;
-    u8 unk18;
+  } unk0[2];
+  u8 unk18;
 };
 
 extern struct Unk2023EA0 gUnk2023EA0;
@@ -523,6 +523,9 @@ void DeclareLoser(u8);
 
 void LoadObjVRAM(void);
 void LoadBgVRAM(void);
+void LoadCharblock0(void);
+void LoadCharblock1(void);
+void LoadCharblock2(void);
 void LoadCharblock3(void);
 void LoadCharblock4(void);
 void LoadPalettes(void);
@@ -530,10 +533,15 @@ void LoadVRAM(void);
 void sub_80081DC(void (*)(void));
 void sub_8008220 (void);
 void LoadBgOffsets (void);
+void LoadOam (void);
+void LoadBlendingRegs (void);
 extern u16 gBG3VOFS;
 extern u16 gBG3HOFS;
 extern u16 gBG2HOFS;
 extern u16 gBG2VOFS;
+extern u16 gBLDCNT;
+extern u16 gBLDALPHA;
+extern u16 gBLDY;
 
 void ClearPlayerName(void);
 void InitTrunkCards(void);
@@ -566,6 +574,34 @@ u32 sub_804398C (u8, u8); //implicit decl? (^)
 u32 sub_80439F4 (u8, u8);  //^
 u8 sub_80430D8 (struct DuelCard**); //implicit decl? (^)
 u8 sub_803FBCC (u8, u8);
+bool32 IsCardLocked (struct DuelCard *zone);
+bool32 sub_8043714 (struct DuelCard *zone);
+bool32 sub_804374C (struct DuelCard *zone);
+bool32 sub_804376C (struct DuelCard *zone);
+bool32 sub_8043790 (struct DuelCard *zone);
+bool32 sub_80437B4 (struct DuelCard *zone);
 
+u8 sub_801B5BC (u8, u16*);
+
+
+struct Unk {
+  u16 unk0;
+  u16 unk2;
+  u16 unk4;
+  u16 unk6;
+  u8 unk8;
+};
+
+void sub_8045718 (void);
+void sub_8021A14(struct Unk*);
+void sub_80219E4(struct Unk*);
+void sub_80240BC(struct Unk*);
+void sub_802405C(struct Unk*);
+void sub_802408C(struct Unk*);
+void sub_8024548 (void);
+extern u8 g2021D98;
+void sub_802432C(void);
+void sub_8024354(void);
+extern u8 g3000C6C;
 
 #endif // GUARD_DUEL_H

@@ -11642,7 +11642,7 @@ sub_802B770: @ 0x0802B770
 	bne _0802B7B0
 	movs r0, #0xfa
 	lsls r0, r0, #2
-	bl SubtractPlayerLifePoints
+	bl SetPlayerLifePointsToSubtract
 	bl sub_803F29C
 	bl sub_803F4C0
 	b _0802B7C0
@@ -11652,7 +11652,7 @@ _0802B7AC: .4byte gZones
 _0802B7B0:
 	movs r0, #0xfa
 	lsls r0, r0, #2
-	bl SubtractOpponentLifePoints
+	bl SetOpponentLifePointsToSubtract
 	bl sub_803F29C
 	bl sub_803F4C0
 _0802B7C0:
@@ -11731,7 +11731,7 @@ sub_802B83C: @ 0x0802B83C
 	bne _0802B878
 	movs r0, #0xaf
 	lsls r0, r0, #2
-	bl SubtractPlayerLifePoints
+	bl SetPlayerLifePointsToSubtract
 	bl sub_803F29C
 	bl sub_803F4C0
 	b _0802B888
@@ -11741,7 +11741,7 @@ _0802B874: .4byte gZones
 _0802B878:
 	movs r0, #0xaf
 	lsls r0, r0, #2
-	bl SubtractOpponentLifePoints
+	bl SetOpponentLifePointsToSubtract
 	bl sub_803F29C
 	bl sub_803F4C0
 _0802B888:

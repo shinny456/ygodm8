@@ -2,12 +2,55 @@
 #include "duel.h"
 #include "card.h"
 #include "constants/card_ids.h"
+#include "gba/io_reg.h"
+#include "gba/macro.h"
+#include "gba/syscall.h"
+
+void sub_801BC4C (void);
+void sub_801BC58 (void);
+void sub_803EDB4 (void);
+void sub_803EDD8 (void);
+void sub_803EE20 (void);
+void sub_801B808 (void);
+void sub_801B83C (void);
+
+void sub_801BAEC (u8, u8);
+void sub_800B288 (u8);
+void sub_801BB7C (void);
+void sub_801CDEC (u8);
+void sub_801C6BC (u8);
+void sub_801C1DC (u8);
+void sub_801C7B8 (u8);
 
 void sub_803FD14(void);
 void sub_80581DC();
 void sub_800F830(void);
 int sub_803EFAC(u16); //implicit decl in code2.c, caller: sub_8011528?
 int sub_803EF7C(void); //implicit decl in code2.c, caller: sub_80118E8?
+
+u32 sub_8019CE4 (void);
+
+extern u8 gE00510[][6];
+extern u8 gE00534[];
+extern u8 gE00538[];
+extern u8 gE0053F[];
+extern u8 gE00546[];
+
+extern u8 g80B0B20[];
+extern u8 g80B0C20[];
+
+extern const struct Unk_02021C00 gAED58[];
+
+struct TTEST {
+  u8 a : 1;
+  u8 b : 1;
+  u8 c : 1;
+  u8 d : 1;
+  u8 e : 1;
+  u8 f : 1;
+  u8 g : 1;
+  u8 h : 1;
+} extern g201CB48[];
 
 static inline u16 foo2 (void) {
   return gUnk2021C00.unk2 & 0xF;
@@ -47,6 +90,7 @@ struct UnkStr //AI data?
 extern struct UnkStr *gUnk_8DFF6A4;
 extern void (*gUnk_8DFF6A8[])(void);
 extern void (*gUnk_8DFF74C[])(void);
+extern u8 (*gE00550[])(void);
 int sub_802061C(u16);
 
 void sub_800E0D4(void)
@@ -6935,3 +6979,2219 @@ void sub_8019980 (void) {
 void sub_801999C (void) {
   gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
 }
+
+// unused?
+u32 sub_80199B8 (void) {
+  u8 i;
+  u32 ret = 0;
+  for (i = 0; i < 5; i++) {
+    u16 playerMonAtk;
+    u16 playerMonDef;
+    u8 playerMonAttribute;
+    u16 opponentMonAtk;
+    u8 j;
+    struct DuelCard* playerMonZone = gZones[2][i];
+    if (playerMonZone->id == CARD_NONE)
+      continue;
+    gStatMod.card = playerMonZone->id;
+    gStatMod.field = gDuel.field;
+    gStatMod.stage = sub_804069C(playerMonZone);
+    SetFinalStat(&gStatMod);
+    playerMonAtk = gCardInfo.atk;
+    playerMonDef = gCardInfo.def;
+    playerMonAttribute = gCardInfo.attribute;
+    for (j = 0; j < 5; j++) {
+      struct DuelCard* opponentMonZone = gZones[1][j];
+      if (opponentMonZone->id == CARD_NONE)
+        continue;
+      if (!IsCardFaceUp(opponentMonZone))
+        ret += gE00534[2];
+      else {
+        // GNU C
+        opponentMonAtk = ({gStatMod.card = opponentMonZone->id;
+        gStatMod.field = gDuel.field;
+        gStatMod.stage = sub_804069C(opponentMonZone);
+        SetFinalStat(&gStatMod);
+        gCardInfo.atk;
+        });
+        sub_803FBCC(gCardInfo.attribute, playerMonAttribute);
+        if (!playerMonZone->isDefending) {
+          if (playerMonAtk == opponentMonAtk)
+            ret += gE00534[1];
+          else if (playerMonAtk < opponentMonAtk)
+            ret += gE00534[3];
+          else
+            ret += gE00534[0];
+        }
+        else if (playerMonDef == opponentMonAtk)
+          ret += gE00534[1];
+        else if (playerMonDef < opponentMonAtk)
+          ret += gE00534[3];
+        else
+          ret += gE00534[0];
+      }
+    }
+  }
+  return ret;
+}
+
+// unused?
+u8 sub_8019AD4 (struct DuelCard* duelCardPtr, struct DuelCard* duelCardPtr2) {
+  u16 atk;
+  u8 i, index;
+  if (duelCardPtr2->id == CARD_NONE)
+    return gE00538[6];
+  gStatMod.card = duelCardPtr2->id;
+  gStatMod.field = gDuel.field;
+  gStatMod.stage = sub_804069C(duelCardPtr2);
+  SetFinalStat(&gStatMod);
+  atk = gCardInfo.atk;
+  index = 0;
+  for (i = 0; i < 5; duelCardPtr++, i++) {
+    if (duelCardPtr->id == CARD_NONE)
+      continue;
+    gStatMod.card = duelCardPtr->id;
+    gStatMod.field = gDuel.field;
+    gStatMod.stage = sub_804069C(duelCardPtr);
+    SetFinalStat(&gStatMod);
+    if (gCardInfo.spellEffect == 2 && atk < gCardInfo.atk)
+      index++;
+  }
+  return gE00538[index];
+}
+
+// unused?
+u8 sub_8019B78 (struct DuelCard* duelCardPtr, struct DuelCard* duelCardPtr2) {
+  u16 def;
+  u8 i, index;
+  if (duelCardPtr2->id == CARD_NONE)
+    return gE0053F[6];
+  gStatMod.card = duelCardPtr2->id;
+  gStatMod.field = gDuel.field;
+  gStatMod.stage = sub_804069C(duelCardPtr2);
+  SetFinalStat(&gStatMod);
+  def = gCardInfo.def;
+  index = 0;
+  for (i = 0; i < 5; duelCardPtr++, i++) {
+    if (duelCardPtr->id == CARD_NONE)
+      continue;
+    gStatMod.card = duelCardPtr->id;
+    gStatMod.field = gDuel.field;
+    gStatMod.stage = sub_804069C(duelCardPtr);
+    SetFinalStat(&gStatMod);
+    if (gCardInfo.spellEffect == 2 && def < gCardInfo.def)
+      index++;
+  }
+  return gE0053F[index];
+}
+
+// unused?
+u8 sub_8019C1C (struct DuelCard* duelCardPtr, struct DuelCard* duelCardPtr2) {
+  u32 combined;
+  u8 i, index;
+  if (duelCardPtr2->id == CARD_NONE)
+    return gE00546[6];
+  gStatMod.card = duelCardPtr2->id;
+  gStatMod.field = gDuel.field;
+  gStatMod.stage = sub_804069C(duelCardPtr2);
+  SetFinalStat(&gStatMod);
+  combined = gCardInfo.atk + gCardInfo.def;
+  index = 0;
+  for (i = 0; i < 5; duelCardPtr++, i++) {
+    if (duelCardPtr->id == CARD_NONE)
+      continue;
+    gStatMod.card = duelCardPtr->id;
+    gStatMod.field = gDuel.field;
+    gStatMod.stage = sub_804069C(duelCardPtr);
+    SetFinalStat(&gStatMod);
+    if (gCardInfo.spellEffect == 2 && combined < gCardInfo.atk + gCardInfo.def)
+      index++;
+  }
+  return gE00546[index];
+}
+
+u32 sub_8019CC8 (void) {
+  u32 temp = sub_8019CE4();
+  temp *= 101;
+  return temp + sub_80199B8();
+}
+
+u32 sub_8019CE4 (void) {
+  u8 r5 = 5 - NumEmptyZonesInRow(gZones[2]);
+  u8 r4 = 5 - NumEmptyZonesInRow(gZones[1]);
+  return gE00510[r5][r4];
+}
+
+void sub_8019D24 (u16 arg0) {
+  g2021BF8 = arg0;
+  gUnk2021C00.unk0 = gAED58[arg0].unk0;
+  gUnk2021C00.unk2 = gAED58[arg0].unk2;
+  gUnk2021C00.unk3 = gAED58[arg0].unk3;
+  gUnk2021C00.unk4 = gAED58[arg0].unk4;
+  gUnk2021C00.unk5 = gAED58[arg0].unk5;
+  gUnk2021C00.unk6 = gAED58[arg0].unk6;
+  gUnk2021C00.unk7 = gAED58[arg0].unk7;
+}
+
+void sub_8019D60 (void) {
+  g2021BF8 = 0;
+  gUnk2021C00.unk0 = 0;
+  gUnk2021C00.unk2 = 0;
+  gUnk2021C00.unk3 = 0;
+  gUnk2021C00.unk4 = 0;
+  gUnk2021C00.unk5 = 0;
+  gUnk2021C00.unk6 = 0;
+  gUnk2021C00.unk7 = 0;
+}
+
+void sub_802B6A8 (void);
+void sub_8029820 (void);
+u8 sub_801A08C (void);
+void sub_8019E64 (void);
+void sub_801B66C (void);
+void sub_8040EF0 (void);
+void sub_8041104 (void);
+void sub_8019F60 (void);
+void ExodiaWinCondition (void);
+void WinConditionFINAL (void);
+
+// AI main
+void sub_8019D84 (void) {
+  u8 i;
+  u16 temp;
+  sub_802B6A8();
+  if (IsDuelOver() == TRUE)
+    return;
+  sub_8029820();
+  if (IsDuelOver() == TRUE)
+    return;
+  while (IsDuelOver() != TRUE) {
+    u16 i;
+    sub_8019D60();
+    sub_800F108();
+    for (i = 0, gUnk_02021C08 = 1; i < 0x3B2; i++) {
+      sub_8019D24(i);
+      if (sub_801A08C() == 1) {
+        sub_800EE24(); // init work area
+        sub_800F1EC();
+        sub_800E0F8();
+        sub_8029820();
+        sub_800F248();
+        sub_800EE94(); // update main duel status data
+      }
+    }
+    gUnk_02021C08 = 0;
+    temp = sub_800EF0C();
+    if (temp == 0)
+      break;
+    sub_8019D24(temp);
+    sub_8019E64();
+    sub_800E0D4();
+    if (gUnk2023EA0.unk18) {
+      sub_801B66C();
+      sub_8040EF0();
+    }
+    else
+      sub_8041104();
+    sub_8019F60();
+    WinConditionFINAL();
+    ExodiaWinCondition();
+    sub_8029820();
+  }
+  for (i = 0; i < 30; i++)
+    sub_8008220();
+}
+
+struct AttackVoicing {
+    u16 duelistId;
+    u16 cardId;
+    u16 soundId;
+};
+
+extern const struct AttackVoicing gB0AE8[];
+extern const struct AttackVoicing gB0B18[];
+
+void sub_801A008 (struct AttackVoicing*);
+void sub_801A028 (struct AttackVoicing*);
+u8 sub_801A048 (struct AttackVoicing*, const struct AttackVoicing*);
+
+// Voicing an attack (Kaiba: Go BEWD! etc.)
+void sub_8019E64 (void) {
+  struct AttackVoicing attackVoicing;
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  switch (gUnk2021C00.unk0) {
+    case 0:
+    case 24:
+      break;
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 12:
+    case 13:
+      attackVoicing.duelistId = gDuelData.duelist.id;
+      attackVoicing.cardId = gZones[row2][col2]->id;
+      sub_801A008(&attackVoicing);
+      break;
+    case 23:
+      attackVoicing.duelistId = gDuelData.duelist.id;
+      attackVoicing.cardId = gZones[row2][col2]->id;
+      sub_801A028(&attackVoicing);
+      break;
+  }
+}
+
+void sub_8019F60 (void) {
+  switch (gUnk2021C00.unk0) {
+    case 0:
+    case 24:
+      break;
+    case 1:
+      PlayMusic(0x3E); // Discard
+      break;
+    case 2:
+    case 3:
+    case 4:
+    case 11:
+    case 14:
+    case 15:
+    case 18:
+    case 21:
+      PlayMusic(0x3A); // place card?
+      break;
+    case 5:
+    case 6:
+      PlayMusic(0x3C); // reveal card (flip face up)?
+      break;
+  }
+}
+
+void sub_8019FFC (void) {
+  PlayMusic(0x3D);
+}
+
+void sub_801A008 (struct AttackVoicing* attackVoicing) {
+  if (sub_801A048(attackVoicing, gB0AE8))
+    PlayMusic(attackVoicing->soundId);
+}
+
+void sub_801A028 (struct AttackVoicing* attackVoicing) {
+  if (sub_801A048(attackVoicing, gB0B18))
+    PlayMusic(attackVoicing->soundId);
+}
+
+u8 sub_801A048 (struct AttackVoicing* attackVoicing, const struct AttackVoicing* arr) {
+  u8 i;
+  for (i = 0; arr[i].duelistId; i++)
+    if (arr[i].duelistId == attackVoicing->duelistId)
+      if (arr[i].cardId == attackVoicing->cardId) {
+      attackVoicing->soundId = arr[i].soundId;
+      return 1;
+    }
+  attackVoicing->soundId = 0;
+  return 0;
+}
+
+u8 sub_801A08C (void) {
+  return gE00550[gUnk2021C00.unk0]();
+}
+
+u8 sub_801A0B0 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  if (gZones[row2][col2]->id != CARD_NONE && !NumEmptyZonesInRow(gZones[4])) {
+    SetCardInfo(gZones[row2][col2]->id);
+    if (!gCardInfo.unk1E)
+      return 1;
+  }
+  return 0;
+}
+
+u8 sub_801A104 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  if (gZones[row2][col2]->id != CARD_NONE && !NumEmptyZonesInRow(gZones[4])) {
+    SetCardInfo(gZones[row2][col2]->id);
+    if (gCardInfo.unk1E)
+      return 1;
+  }
+  return 0;
+}
+
+u8 sub_801A158 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  u8 row3 = gUnk2021C00.unk3 >> 4;
+  u8 col3 = gUnk2021C00.unk3 & 0xF;
+  SetCardInfo(gZones[row2][col2]->id);
+  if (gCardInfo.unk1E || sub_80436EC(gZones[row2][col2]) != 1
+   || sub_8045390(gZones[row2][col2]->id)
+   || (gZones[row3][col3]->id != CARD_NONE && IsCardLocked(gZones[row3][col3])))
+      return 0;
+  return 1;
+}
+
+u8 sub_801A1D4 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  u8 row3 = gUnk2021C00.unk3 >> 4;
+  u8 col3 = gUnk2021C00.unk3 & 0xF;
+  SetCardInfo(gZones[row2][col2]->id);
+  if (!gCardInfo.unk1E || sub_80436EC(gZones[row2][col2]) != 1
+   || sub_8045390(gZones[row2][col2]->id)
+   || (gZones[row3][col3]->id != CARD_NONE && IsCardLocked(gZones[row3][col3])))
+      return 0;
+  return 1;
+}
+
+u8 sub_801A250 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  u8 row3 = gUnk2021C00.unk3 >> 4;
+  u8 col3 = gUnk2021C00.unk3 & 0xF;
+  SetCardInfo(gZones[row2][col2]->id);
+  if (!gCardInfo.unk1E && sub_80436EC(gZones[row2][col2]) == 1
+   && sub_8045390(gZones[row2][col2]->id) == 1 && sub_80436EC(gZones[row3][col3]) == 1)
+      return 1;
+  return 0;
+}
+
+u8 sub_801A2C4 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  u8 row3 = gUnk2021C00.unk3 >> 4;
+  u8 col3 = gUnk2021C00.unk3 & 0xF;
+  SetCardInfo(gZones[row2][col2]->id);
+  if (gCardInfo.unk1E && sub_80436EC(gZones[row2][col2]) == 1
+   && sub_8045390(gZones[row2][col2]->id) == 1 && sub_80436EC(gZones[row3][col3]) == 1)
+      return 1;
+  return 0;
+}
+
+u8 sub_801A338 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  u8 row3 = gUnk2021C00.unk3 >> 4;
+  u8 col3 = gUnk2021C00.unk3 & 0xF;
+  u8 row4 = gUnk2021C00.unk4 >> 4;
+  u8 col4 = gUnk2021C00.unk4 & 0xF;
+  SetCardInfo(gZones[row2][col2]->id);
+  if (!gCardInfo.unk1E && sub_80436EC(gZones[row2][col2]) == 1
+   && sub_8045390(gZones[row2][col2]->id) == 2 && sub_80436EC(gZones[row3][col3]) == 1
+   && sub_80436EC(gZones[row4][col4]) == 1)
+      return 1;
+  return 0;
+}
+
+u8 sub_801A3E0 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  u8 row3 = gUnk2021C00.unk3 >> 4;
+  u8 col3 = gUnk2021C00.unk3 & 0xF;
+  u8 row4 = gUnk2021C00.unk4 >> 4;
+  u8 col4 = gUnk2021C00.unk4 & 0xF;
+  SetCardInfo(gZones[row2][col2]->id);
+  if (gCardInfo.unk1E && sub_80436EC(gZones[row2][col2]) == 1
+   && sub_8045390(gZones[row2][col2]->id) == 2 && sub_80436EC(gZones[row3][col3]) == 1
+   && sub_80436EC(gZones[row4][col4]) == 1)
+      return 1;
+  return 0;
+}
+
+u8 sub_801A488 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  u8 row3 = gUnk2021C00.unk3 >> 4;
+  u8 col3 = gUnk2021C00.unk3 & 0xF;
+  u8 row4 = gUnk2021C00.unk4 >> 4;
+  u8 col4 = gUnk2021C00.unk4 & 0xF;
+  u8 row5 = gUnk2021C00.unk5 >> 4;
+  u8 col5 = gUnk2021C00.unk5 & 0xF;
+  SetCardInfo(gZones[row2][col2]->id);
+  if (!gCardInfo.unk1E && sub_80436EC(gZones[row2][col2]) == 1
+   && sub_8045390(gZones[row2][col2]->id) == 3 && sub_80436EC(gZones[row3][col3]) == 1
+   && sub_80436EC(gZones[row4][col4]) == 1 && sub_80436EC(gZones[row5][col5]) == 1)
+      return 1;
+  return 0;
+}
+
+u8 sub_801A55C (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  u8 row3 = gUnk2021C00.unk3 >> 4;
+  u8 col3 = gUnk2021C00.unk3 & 0xF;
+  u8 row4 = gUnk2021C00.unk4 >> 4;
+  u8 col4 = gUnk2021C00.unk4 & 0xF;
+  u8 row5 = gUnk2021C00.unk5 >> 4;
+  u8 col5 = gUnk2021C00.unk5 & 0xF;
+  SetCardInfo(gZones[row2][col2]->id);
+  if (gCardInfo.unk1E && sub_80436EC(gZones[row2][col2]) == 1
+   && sub_8045390(gZones[row2][col2]->id) == 3 && sub_80436EC(gZones[row3][col3]) == 1
+   && sub_80436EC(gZones[row4][col4]) == 1 && sub_80436EC(gZones[row5][col5]) == 1)
+      return 1;
+  return 0;
+}
+
+u8 sub_801A630 (void) {
+  u8 r5 = 0;
+  u8 row2;
+  u8 col2;
+  if (gNotSure[0]->unkTwo)
+    return 0;
+  row2 = gUnk2021C00.unk2 >> 4;
+  col2 = gUnk2021C00.unk2 & 0xF;
+  SetCardInfo(gZones[row2][col2]->id);
+  if (gCardInfo.unk1E)
+    return 0;
+  if (sub_80436EC(gZones[row2][col2]) == 1)
+    r5 = 1;
+  return r5;
+}
+
+u8 sub_801A690 (void) {
+  u8 row2;
+  u8 col2;
+  if (gNotSure[0]->unkTwo)
+    return 0;
+  row2 = gUnk2021C00.unk2 >> 4;
+  col2 = gUnk2021C00.unk2 & 0xF;
+  SetCardInfo(gZones[row2][col2]->id);
+  if (gCardInfo.unk1E && sub_80436EC(gZones[row2][col2]) == 1)
+    return 1;
+  return 0;
+}
+
+u8 sub_801A6EC (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  SetCardInfo(gZones[row2][col2]->id);
+  if (!gCardInfo.unk1E && sub_80436EC(gZones[row2][col2]) == 1)
+    return 1;
+  return 0;
+}
+
+u8 sub_801A738 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  SetCardInfo(gZones[row2][col2]->id);
+  if (gCardInfo.unk1E && sub_80436EC(gZones[row2][col2]) == 1)
+    return 1;
+  return 0;
+}
+
+u8 sub_801A784 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  if (sub_8025534(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
+    SetCardInfo(gZones[row2][col2]->id);
+    if (!gCardInfo.unk1E) {
+      gUnk020245A0.unk2 = row2;
+      gUnk020245A0.unk3 = col2;
+      gUnk020245A0.id = gZones[row2][col2]->id;
+      if (sub_80586DC() != 1 && sub_80436EC(gZones[row2][col2]) == 1 &&
+          !sub_80437D4(1))
+        return 1;
+    }
+  }
+  return 0;
+}
+
+u8 sub_801A814 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  if (sub_8025534(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
+    SetCardInfo(gZones[row2][col2]->id);
+    if (gCardInfo.unk1E) {
+      gUnk020245A0.unk2 = row2;
+      gUnk020245A0.unk3 = col2;
+      gUnk020245A0.id = gZones[row2][col2]->id;
+      if (sub_80586DC() != 1 && sub_80436EC(gZones[row2][col2]) == 1 &&
+          !sub_80437D4(1))
+        return 1;
+    }
+  }
+  return 0;
+}
+
+u8 sub_801A8A4 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  u8 row3 = gUnk2021C00.unk3 >> 4;
+  u8 col3 = gUnk2021C00.unk3 & 0xF;
+  if (sub_8025534(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
+    SetCardInfo(gZones[row2][col2]->id);
+    if (!gCardInfo.unk1E) {
+      gUnk020245A0.unk2 = row2;
+      gUnk020245A0.unk3 = col2;
+      gUnk020245A0.id = gZones[row2][col2]->id;
+      if (sub_80586DC() != 1 && sub_80436EC(gZones[row2][col2]) == 1 &&
+          gZones[row3][col3]->id != CARD_NONE && sub_803FCBC(gZones[row3][col3]->id) == 1 &&
+          gZones[row3][col3]->isFaceUp)
+        return 1;
+    }
+  }
+  return 0;
+}
+
+u8 sub_801A974 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  u8 row3 = gUnk2021C00.unk3 >> 4;
+  u8 col3 = gUnk2021C00.unk3 & 0xF;
+  if (sub_8025534(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
+    SetCardInfo(gZones[row2][col2]->id);
+    if (gCardInfo.unk1E) {
+      gUnk020245A0.unk2 = row2;
+      gUnk020245A0.unk3 = col2;
+      gUnk020245A0.id = gZones[row2][col2]->id;
+      if (sub_80586DC() != 1 && sub_80436EC(gZones[row2][col2]) == 1 &&
+          gZones[row3][col3]->id != CARD_NONE && sub_803FCBC(gZones[row3][col3]->id) == 1 &&
+          gZones[row3][col3]->isFaceUp)
+        return 1;
+    }
+  }
+  return 0;
+}
+
+/*
+u8 sub_801AA44 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  u8 row3 = gUnk2021C00.unk3 >> 4;
+  u8 col3 = gUnk2021C00.unk3 & 0xF;
+  SetCardInfo(gZones[row2][col2]->id);
+  if (!gCardInfo.unk1E && sub_8025534(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
+    gUnk020245A0.unk2 = row2;
+    gUnk020245A0.unk3 = col2;
+    gUnk020245A0.id = gZones[row2][col2]->id;
+    if (sub_80586DC() != 1 && sub_80436EC(gZones[row2][col2]) == 1 &&
+        gZones[row3][col3]->id != CARD_NONE && sub_803FCBC(gZones[row3][col3]->id) == 1 &&
+        !gZones[row3][col3]->isFaceUp)
+      return 1;
+  }
+  return 0;
+}*/
+
+NAKED
+u8 sub_801AA44 (void) {
+  asm_unified("push {r4, r5, r6, r7, lr}\n\
+	mov r7, sb\n\
+	mov r6, r8\n\
+	push {r6, r7}\n\
+	ldr r2, _0801AAF0\n\
+	ldrb r0, [r2, #2]\n\
+	lsrs r6, r0, #4\n\
+	movs r1, #0xf\n\
+	adds r5, r1, #0\n\
+	ands r5, r0\n\
+	ldrb r0, [r2, #3]\n\
+	lsrs r2, r0, #4\n\
+	mov r8, r2\n\
+	adds r7, r1, #0\n\
+	ands r7, r0\n\
+	ldr r0, _0801AAF4\n\
+	mov sb, r0\n\
+	lsls r0, r6, #2\n\
+	adds r0, r0, r6\n\
+	adds r0, r0, r5\n\
+	lsls r0, r0, #2\n\
+	mov r1, sb\n\
+	adds r4, r0, r1\n\
+	ldr r0, [r4]\n\
+	ldrh r0, [r0]\n\
+	bl SetCardInfo\n\
+	ldr r0, _0801AAF8\n\
+	ldrb r0, [r0, #0x1e]\n\
+	cmp r0, #0\n\
+	bne _0801AB04\n\
+	bl WhoseTurn\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r0, r0, #0x18\n\
+	bl sub_8025534\n\
+	lsls r0, r0, #0x18\n\
+	cmp r0, #0\n\
+	beq _0801AB04\n\
+	ldr r0, _0801AAFC\n\
+	ldr r0, [r0]\n\
+	ldrb r1, [r0, #2]\n\
+	movs r0, #3\n\
+	ands r0, r1\n\
+	cmp r0, #0\n\
+	bne _0801AB04\n\
+	ldr r1, _0801AB00\n\
+	strb r6, [r1, #2]\n\
+	strb r5, [r1, #3]\n\
+	ldr r0, [r4]\n\
+	ldrh r0, [r0]\n\
+	strh r0, [r1]\n\
+	bl sub_80586DC\n\
+	cmp r0, #1\n\
+	beq _0801AB04\n\
+	ldr r0, [r4]\n\
+	bl sub_80436EC\n\
+	cmp r0, #1\n\
+	bne _0801AB04\n\
+	mov r2, r8\n\
+	lsls r0, r2, #2\n\
+	add r0, r8\n\
+	adds r0, r0, r7\n\
+	lsls r0, r0, #2\n\
+	mov r1, sb\n\
+	adds r4, r0, r1\n\
+	ldr r1, [r4]\n\
+	ldrh r0, [r1]\n\
+	cmp r0, #0\n\
+	beq _0801AB04\n\
+	bl sub_803FCBC\n\
+	cmp r0, #1\n\
+	bne _0801AB04\n\
+	ldr r0, [r4]\n\
+	ldrb r1, [r0, #5]\n\
+	movs r0, #0x10\n\
+	ands r0, r1\n\
+	cmp r0, #0\n\
+	bne _0801AB04\n\
+	movs r0, #1\n\
+	b _0801AB06\n\
+	.align 2, 0\n\
+_0801AAF0: .4byte 0x02021C00\n\
+_0801AAF4: .4byte gZones\n\
+_0801AAF8: .4byte gCardInfo\n\
+_0801AAFC: .4byte gNotSure\n\
+_0801AB00: .4byte gUnk020245A0\n\
+_0801AB04:\n\
+	movs r0, #0\n\
+_0801AB06:\n\
+	pop {r3, r4}\n\
+	mov r8, r3\n\
+	mov sb, r4\n\
+	pop {r4, r5, r6, r7}\n\
+	pop {r1}\n\
+	bx r1");
+}
+
+NAKED
+u8 sub_801AB14 (void) {
+  asm_unified("push {r4, r5, r6, r7, lr}\n\
+	mov r7, sb\n\
+	mov r6, r8\n\
+	push {r6, r7}\n\
+	ldr r2, _0801ABC0 @ =0x02021C00\n\
+	ldrb r0, [r2, #2]\n\
+	lsrs r6, r0, #4\n\
+	movs r1, #0xf\n\
+	adds r5, r1, #0\n\
+	ands r5, r0\n\
+	ldrb r0, [r2, #3]\n\
+	lsrs r2, r0, #4\n\
+	mov r8, r2\n\
+	adds r7, r1, #0\n\
+	ands r7, r0\n\
+	ldr r0, _0801ABC4 @ =0x02023FD0\n\
+	mov sb, r0\n\
+	lsls r0, r6, #2\n\
+	adds r0, r0, r6\n\
+	adds r0, r0, r5\n\
+	lsls r0, r0, #2\n\
+	mov r1, sb\n\
+	adds r4, r0, r1\n\
+	ldr r0, [r4]\n\
+	ldrh r0, [r0]\n\
+	bl SetCardInfo\n\
+	ldr r0, _0801ABC8 @ =0x02021AD0\n\
+	ldrb r0, [r0, #0x1e]\n\
+	cmp r0, #0\n\
+	beq _0801ABD4\n\
+	bl WhoseTurn\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r0, r0, #0x18\n\
+	bl sub_8025534\n\
+	lsls r0, r0, #0x18\n\
+	cmp r0, #0\n\
+	beq _0801ABD4\n\
+	ldr r0, _0801ABCC @ =0x02023FC0\n\
+	ldr r0, [r0]\n\
+	ldrb r1, [r0, #2]\n\
+	movs r0, #3\n\
+	ands r0, r1\n\
+	cmp r0, #0\n\
+	bne _0801ABD4\n\
+	ldr r1, _0801ABD0 @ =0x020245A0\n\
+	strb r6, [r1, #2]\n\
+	strb r5, [r1, #3]\n\
+	ldr r0, [r4]\n\
+	ldrh r0, [r0]\n\
+	strh r0, [r1]\n\
+	bl sub_80586DC\n\
+	cmp r0, #1\n\
+	beq _0801ABD4\n\
+	ldr r0, [r4]\n\
+	bl sub_80436EC\n\
+	cmp r0, #1\n\
+	bne _0801ABD4\n\
+	mov r2, r8\n\
+	lsls r0, r2, #2\n\
+	add r0, r8\n\
+	adds r0, r0, r7\n\
+	lsls r0, r0, #2\n\
+	mov r1, sb\n\
+	adds r4, r0, r1\n\
+	ldr r1, [r4]\n\
+	ldrh r0, [r1]\n\
+	cmp r0, #0\n\
+	beq _0801ABD4\n\
+	bl sub_803FCBC\n\
+	cmp r0, #1\n\
+	bne _0801ABD4\n\
+	ldr r0, [r4]\n\
+	ldrb r1, [r0, #5]\n\
+	movs r0, #0x10\n\
+	ands r0, r1\n\
+	cmp r0, #0\n\
+	bne _0801ABD4\n\
+	movs r0, #1\n\
+	b _0801ABD6\n\
+	.align 2, 0\n\
+_0801ABC0: .4byte 0x02021C00\n\
+_0801ABC4: .4byte 0x02023FD0\n\
+_0801ABC8: .4byte 0x02021AD0\n\
+_0801ABCC: .4byte 0x02023FC0\n\
+_0801ABD0: .4byte 0x020245A0\n\
+_0801ABD4:\n\
+	movs r0, #0\n\
+_0801ABD6:\n\
+	pop {r3, r4}\n\
+	mov r8, r3\n\
+	mov sb, r4\n\
+	pop {r4, r5, r6, r7}\n\
+	pop {r1}\n\
+	bx r1");
+}
+
+u8 sub_801ABE4 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  if (sub_8025534(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
+    SetCardInfo(gZones[row2][col2]->id);
+    if (!gCardInfo.unk1E) {
+      gUnk020245A0.unk2 = row2;
+      gUnk020245A0.unk3 = col2;
+      gUnk020245A0.id = gZones[row2][col2]->id;
+      if (sub_80586DC() == 1 && sub_80436EC(gZones[row2][col2]) == 1 &&
+          !sub_80437D4(1))
+        return 1;
+    }
+  }
+  return 0;
+}
+
+u8 sub_801AC74 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  if (sub_8025534(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
+    SetCardInfo(gZones[row2][col2]->id);
+    if (gCardInfo.unk1E) {
+      gUnk020245A0.unk2 = row2;
+      gUnk020245A0.unk3 = col2;
+      gUnk020245A0.id = gZones[row2][col2]->id;
+      if (sub_80586DC() == 1 && sub_80436EC(gZones[row2][col2]) == 1 &&
+          !sub_80437D4(1))
+        return 1;
+    }
+  }
+  return 0;
+}
+
+u8 sub_801AD04 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  u8 row3 = gUnk2021C00.unk3 >> 4;
+  u8 col3 = gUnk2021C00.unk3 & 0xF;
+  if (sub_8025534(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
+    SetCardInfo(gZones[row2][col2]->id);
+    if (!gCardInfo.unk1E) {
+      gUnk020245A0.unk2 = row2;
+      gUnk020245A0.unk3 = col2;
+      gUnk020245A0.id = gZones[row2][col2]->id;
+      if (sub_80586DC() == 1 && sub_80436EC(gZones[row2][col2]) == 1 &&
+          gZones[row3][col3]->id != CARD_NONE && sub_803FCBC(gZones[row3][col3]->id) == 1 &&
+          gZones[row3][col3]->isFaceUp)
+        return 1;
+    }
+  }
+  return 0;
+}
+
+u8 sub_801ADD4 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  u8 row3 = gUnk2021C00.unk3 >> 4;
+  u8 col3 = gUnk2021C00.unk3 & 0xF;
+  if (sub_8025534(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
+    SetCardInfo(gZones[row2][col2]->id);
+    if (gCardInfo.unk1E) {
+      gUnk020245A0.unk2 = row2;
+      gUnk020245A0.unk3 = col2;
+      gUnk020245A0.id = gZones[row2][col2]->id;
+      if (sub_80586DC() == 1 && sub_80436EC(gZones[row2][col2]) == 1 &&
+          gZones[row3][col3]->id != CARD_NONE && sub_803FCBC(gZones[row3][col3]->id) == 1 &&
+          gZones[row3][col3]->isFaceUp)
+        return 1;
+    }
+  }
+  return 0;
+}
+
+/*
+u8 sub_801AEA4 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  u8 row3 = gUnk2021C00.unk3 >> 4;
+  u8 col3 = gUnk2021C00.unk3 & 0xF;
+  SetCardInfo(gZones[row2][col2]->id);
+  if (!gCardInfo.unk1E && sub_8025534(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
+    gUnk020245A0.unk2 = row2;
+    gUnk020245A0.unk3 = col2;
+    gUnk020245A0.id = gZones[row2][col2]->id;
+    if (sub_80586DC() != 1 && sub_80436EC(gZones[row2][col2]) == 1 &&
+        gZones[row3][col3]->id != CARD_NONE && sub_803FCBC(gZones[row3][col3]->id) == 1 &&
+        !gZones[row3][col3]->isFaceUp)
+      return 1;
+  }
+  return 0;
+}*/
+
+NAKED
+u8 sub_801AEA4 (void) {
+  asm_unified("push {r4, r5, r6, r7, lr}\n\
+	mov r7, sb\n\
+	mov r6, r8\n\
+	push {r6, r7}\n\
+	ldr r2, _0801AF50\n\
+	ldrb r0, [r2, #2]\n\
+	lsrs r6, r0, #4\n\
+	movs r1, #0xf\n\
+	adds r5, r1, #0\n\
+	ands r5, r0\n\
+	ldrb r0, [r2, #3]\n\
+	lsrs r2, r0, #4\n\
+	mov r8, r2\n\
+	adds r7, r1, #0\n\
+	ands r7, r0\n\
+	ldr r0, _0801AF54\n\
+	mov sb, r0\n\
+	lsls r0, r6, #2\n\
+	adds r0, r0, r6\n\
+	adds r0, r0, r5\n\
+	lsls r0, r0, #2\n\
+	mov r1, sb\n\
+	adds r4, r0, r1\n\
+	ldr r0, [r4]\n\
+	ldrh r0, [r0]\n\
+	bl SetCardInfo\n\
+	ldr r0, _0801AF58\n\
+	ldrb r0, [r0, #0x1e]\n\
+	cmp r0, #0\n\
+	bne _0801AF64\n\
+	bl WhoseTurn\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r0, r0, #0x18\n\
+	bl sub_8025534\n\
+	lsls r0, r0, #0x18\n\
+	cmp r0, #0\n\
+	beq _0801AF64\n\
+	ldr r0, _0801AF5C\n\
+	ldr r0, [r0]\n\
+	ldrb r1, [r0, #2]\n\
+	movs r0, #3\n\
+	ands r0, r1\n\
+	cmp r0, #0\n\
+	bne _0801AF64\n\
+	ldr r1, _0801AF60\n\
+	strb r6, [r1, #2]\n\
+	strb r5, [r1, #3]\n\
+	ldr r0, [r4]\n\
+	ldrh r0, [r0]\n\
+	strh r0, [r1]\n\
+	bl sub_80586DC\n\
+	cmp r0, #1\n\
+	bne _0801AF64\n\
+	ldr r0, [r4]\n\
+	bl sub_80436EC\n\
+	cmp r0, #1\n\
+	bne _0801AF64\n\
+	mov r2, r8\n\
+	lsls r0, r2, #2\n\
+	add r0, r8\n\
+	adds r0, r0, r7\n\
+	lsls r0, r0, #2\n\
+	mov r1, sb\n\
+	adds r4, r0, r1\n\
+	ldr r1, [r4]\n\
+	ldrh r0, [r1]\n\
+	cmp r0, #0\n\
+	beq _0801AF64\n\
+	bl sub_803FCBC\n\
+	cmp r0, #1\n\
+	bne _0801AF64\n\
+	ldr r0, [r4]\n\
+	ldrb r1, [r0, #5]\n\
+	movs r0, #0x10\n\
+	ands r0, r1\n\
+	cmp r0, #0\n\
+	bne _0801AF64\n\
+	movs r0, #1\n\
+	b _0801AF66\n\
+	.align 2, 0\n\
+_0801AF50: .4byte 0x02021C00\n\
+_0801AF54: .4byte gZones\n\
+_0801AF58: .4byte gCardInfo\n\
+_0801AF5C: .4byte gNotSure\n\
+_0801AF60: .4byte gUnk020245A0\n\
+_0801AF64:\n\
+	movs r0, #0\n\
+_0801AF66:\n\
+	pop {r3, r4}\n\
+	mov r8, r3\n\
+	mov sb, r4\n\
+	pop {r4, r5, r6, r7}\n\
+	pop {r1}\n\
+	bx r1");
+}
+
+NAKED
+u8 sub_801AF74 (void) {
+  asm_unified("push {r4, r5, r6, r7, lr}\n\
+	mov r7, sb\n\
+	mov r6, r8\n\
+	push {r6, r7}\n\
+	ldr r2, _0801B020 @ =0x02021C00\n\
+	ldrb r0, [r2, #2]\n\
+	lsrs r6, r0, #4\n\
+	movs r1, #0xf\n\
+	adds r5, r1, #0\n\
+	ands r5, r0\n\
+	ldrb r0, [r2, #3]\n\
+	lsrs r2, r0, #4\n\
+	mov r8, r2\n\
+	adds r7, r1, #0\n\
+	ands r7, r0\n\
+	ldr r0, _0801B024 @ =0x02023FD0\n\
+	mov sb, r0\n\
+	lsls r0, r6, #2\n\
+	adds r0, r0, r6\n\
+	adds r0, r0, r5\n\
+	lsls r0, r0, #2\n\
+	mov r1, sb\n\
+	adds r4, r0, r1\n\
+	ldr r0, [r4]\n\
+	ldrh r0, [r0]\n\
+	bl SetCardInfo\n\
+	ldr r0, _0801B028 @ =0x02021AD0\n\
+	ldrb r0, [r0, #0x1e]\n\
+	cmp r0, #0\n\
+	beq _0801B034\n\
+	bl WhoseTurn\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r0, r0, #0x18\n\
+	bl sub_8025534\n\
+	lsls r0, r0, #0x18\n\
+	cmp r0, #0\n\
+	beq _0801B034\n\
+	ldr r0, _0801B02C @ =0x02023FC0\n\
+	ldr r0, [r0]\n\
+	ldrb r1, [r0, #2]\n\
+	movs r0, #3\n\
+	ands r0, r1\n\
+	cmp r0, #0\n\
+	bne _0801B034\n\
+	ldr r1, _0801B030 @ =0x020245A0\n\
+	strb r6, [r1, #2]\n\
+	strb r5, [r1, #3]\n\
+	ldr r0, [r4]\n\
+	ldrh r0, [r0]\n\
+	strh r0, [r1]\n\
+	bl sub_80586DC\n\
+	cmp r0, #1\n\
+	bne _0801B034\n\
+	ldr r0, [r4]\n\
+	bl sub_80436EC\n\
+	cmp r0, #1\n\
+	bne _0801B034\n\
+	mov r2, r8\n\
+	lsls r0, r2, #2\n\
+	add r0, r8\n\
+	adds r0, r0, r7\n\
+	lsls r0, r0, #2\n\
+	mov r1, sb\n\
+	adds r4, r0, r1\n\
+	ldr r1, [r4]\n\
+	ldrh r0, [r1]\n\
+	cmp r0, #0\n\
+	beq _0801B034\n\
+	bl sub_803FCBC\n\
+	cmp r0, #1\n\
+	bne _0801B034\n\
+	ldr r0, [r4]\n\
+	ldrb r1, [r0, #5]\n\
+	movs r0, #0x10\n\
+	ands r0, r1\n\
+	cmp r0, #0\n\
+	bne _0801B034\n\
+	movs r0, #1\n\
+	b _0801B036\n\
+	.align 2, 0\n\
+_0801B020: .4byte 0x02021C00\n\
+_0801B024: .4byte 0x02023FD0\n\
+_0801B028: .4byte 0x02021AD0\n\
+_0801B02C: .4byte 0x02023FC0\n\
+_0801B030: .4byte 0x020245A0\n\
+_0801B034:\n\
+	movs r0, #0\n\
+_0801B036:\n\
+	pop {r3, r4}\n\
+	mov r8, r3\n\
+	mov sb, r4\n\
+	pop {r4, r5, r6, r7}\n\
+	pop {r1}\n\
+	bx r1");
+}
+
+u8 sub_801B044 (void) {
+  return 0;
+}
+
+u8 sub_801B048 (void) {
+  return 1;
+}
+
+u8 sub_801B04C (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  if (sub_8043714(gZones[row2][col2]) != 1)
+    return 0;
+  return 1;
+}
+
+u8 sub_801B084 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  SetCardInfo(gZones[row2][col2]->id);
+  if (!gCardInfo.unk1E && sub_804374C(gZones[row2][col2]) == 1 &&
+      sub_803EFAC(gZones[row2][col2]->id) < 1)
+    return 1;
+  return 0;
+}
+
+u8 sub_801B0DC (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  if (sub_804374C(gZones[row2][col2]) != 1 || sub_803EFAC(gZones[row2][col2]->id) < 1)
+    return 0;
+  return 1;
+}
+
+u8 sub_801B120 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  SetCardInfo(gZones[row2][col2]->id);
+  if (gCardInfo.unk1E && sub_804374C(gZones[row2][col2]) == 1 &&
+      sub_803EFAC(gZones[row2][col2]->id) < 1)
+    return 1;
+  return 0;
+}
+
+u8 sub_801B178 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  if (sub_804376C(gZones[row2][col2]) != 1)
+    return 0;
+  return 1;
+}
+
+NAKED
+u8 sub_801B1B0 (void) {
+  asm_unified("push {r4, r5, r6, r7, lr}\n\
+	mov r7, sb\n\
+	mov r6, r8\n\
+	push {r6, r7}\n\
+	ldr r3, _0801B218\n\
+	ldrb r1, [r3, #2]\n\
+	lsrs r0, r1, #4\n\
+	adds r5, r0, #0\n\
+	movs r2, #0xf\n\
+	adds r0, r2, #0\n\
+	ands r0, r1\n\
+	mov r8, r0\n\
+	ldrb r0, [r3, #3]\n\
+	lsrs r6, r0, #4\n\
+	adds r4, r2, #0\n\
+	ands r4, r0\n\
+	ldr r0, _0801B21C\n\
+	mov sb, r0\n\
+	lsls r0, r5, #2\n\
+	adds r0, r0, r5\n\
+	add r0, r8\n\
+	lsls r0, r0, #2\n\
+	mov r1, sb\n\
+	adds r7, r0, r1\n\
+	ldr r0, [r7]\n\
+	bl sub_804376C\n\
+	cmp r0, #1\n\
+	bne _0801B224\n\
+	lsls r0, r6, #2\n\
+	adds r0, r0, r6\n\
+	adds r0, r0, r4\n\
+	lsls r0, r0, #2\n\
+	add r0, sb\n\
+	ldr r0, [r0]\n\
+	bl sub_80436EC\n\
+	cmp r0, #1\n\
+	bne _0801B224\n\
+	ldr r1, _0801B220\n\
+	strb r5, [r1, #2]\n\
+	mov r0, r8\n\
+	strb r0, [r1, #3]\n\
+	ldr r0, [r7]\n\
+	ldrh r0, [r0]\n\
+	strh r0, [r1]\n\
+	bl sub_80586DC\n\
+	cmp r0, #1\n\
+	beq _0801B224\n\
+	movs r0, #1\n\
+	b _0801B226\n\
+	.align 2, 0\n\
+_0801B218: .4byte 0x02021C00\n\
+_0801B21C: .4byte gZones\n\
+_0801B220: .4byte gUnk020245A0\n\
+_0801B224:\n\
+	movs r0, #0\n\
+_0801B226:\n\
+	pop {r3, r4}\n\
+	mov r8, r3\n\
+	mov sb, r4\n\
+	pop {r4, r5, r6, r7}\n\
+	pop {r1}\n\
+	bx r1");
+}
+
+NAKED
+u8 sub_801B234 (void) {
+  asm_unified("push {r4, r5, r6, r7, lr}\n\
+	mov r7, sb\n\
+	mov r6, r8\n\
+	push {r6, r7}\n\
+	ldr r3, _0801B29C\n\
+	ldrb r1, [r3, #2]\n\
+	lsrs r0, r1, #4\n\
+	adds r5, r0, #0\n\
+	movs r2, #0xf\n\
+	adds r0, r2, #0\n\
+	ands r0, r1\n\
+	mov r8, r0\n\
+	ldrb r0, [r3, #3]\n\
+	lsrs r6, r0, #4\n\
+	adds r4, r2, #0\n\
+	ands r4, r0\n\
+	ldr r0, _0801B2A0\n\
+	mov sb, r0\n\
+	lsls r0, r5, #2\n\
+	adds r0, r0, r5\n\
+	add r0, r8\n\
+	lsls r0, r0, #2\n\
+	mov r1, sb\n\
+	adds r7, r0, r1\n\
+	ldr r0, [r7]\n\
+	bl sub_804376C\n\
+	cmp r0, #1\n\
+	bne _0801B2A8\n\
+	lsls r0, r6, #2\n\
+	adds r0, r0, r6\n\
+	adds r0, r0, r4\n\
+	lsls r0, r0, #2\n\
+	add r0, sb\n\
+	ldr r0, [r0]\n\
+	bl sub_80436EC\n\
+	cmp r0, #1\n\
+	bne _0801B2A8\n\
+	ldr r1, _0801B2A4\n\
+	strb r5, [r1, #2]\n\
+	mov r0, r8\n\
+	strb r0, [r1, #3]\n\
+	ldr r0, [r7]\n\
+	ldrh r0, [r0]\n\
+	strh r0, [r1]\n\
+	bl sub_80586DC\n\
+	cmp r0, #1\n\
+	bne _0801B2A8\n\
+	movs r0, #1\n\
+	b _0801B2AA\n\
+	.align 2, 0\n\
+_0801B29C: .4byte 0x02021C00\n\
+_0801B2A0: .4byte gZones\n\
+_0801B2A4: .4byte gUnk020245A0\n\
+_0801B2A8:\n\
+	movs r0, #0\n\
+_0801B2AA:\n\
+	pop {r3, r4}\n\
+	mov r8, r3\n\
+	mov sb, r4\n\
+	pop {r4, r5, r6, r7}\n\
+	pop {r1}\n\
+	bx r1");
+}
+
+u8 sub_801B2B8 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  if (sub_8043790(gZones[row2][col2]) == 1) {
+    SetCardInfo(gZones[row2][col2]->id);
+    if (!gCardInfo.unk1E)
+      return 1;
+  }
+  return 0;
+}
+
+u8 sub_801B304 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  if (sub_803FCBC(gZones[row2][col2]->id) == 2 && sub_803FCEC(gZones[row2][col2]->id) == 2) {
+    SetCardInfo(gZones[row2][col2]->id);
+    if (gCardInfo.unk1E)
+      return 1;
+  }
+  return 0;
+}
+
+u8 sub_801B35C (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  if (sub_8043790(gZones[row2][col2]) == 1) {
+    gUnk020245A0.unk2 = row2;
+    gUnk020245A0.unk3 = col2;
+    gUnk020245A0.id = gZones[row2][col2]->id;
+    if (sub_80586DC() != 1)
+      return 1;
+  }
+  return 0;
+}
+
+u8 sub_801B3AC (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  if (sub_8043790(gZones[row2][col2]) == 1) {
+    gUnk020245A0.unk2 = row2;
+    gUnk020245A0.unk3 = col2;
+    gUnk020245A0.id = gZones[row2][col2]->id;
+    if (sub_80586DC() == 1)
+      return 1;
+  }
+  return 0;
+}
+
+u8 sub_801B3FC (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  if (sub_80437B4(gZones[row2][col2]) != 1)
+    return 0;
+  return 1;
+}
+
+u8 sub_801B434 (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  u8 row3 = gUnk2021C00.unk3 >> 4;
+  u8 col3 = gUnk2021C00.unk3 & 0xF;
+  u8 row4 = gUnk2021C00.unk4 >> 4;
+  u8 col4 = gUnk2021C00.unk4 & 0xF;
+  u8 row5 = gUnk2021C00.unk5 >> 4;
+  u8 col5 = gUnk2021C00.unk5 & 0xF;
+  u8 zones[3];
+  if (sub_80437B4(gZones[row2][col2]) != 1 || sub_80436EC(gZones[row3][col3]) != 1 ||
+      sub_80436EC(gZones[row4][col4]) != 1 || sub_80436EC(gZones[row5][col5]) != 1)
+    return 0;
+  SetCardInfo(gZones[row2][col2]->id);
+  switch (gCardInfo.ritualEffect) {
+    case 5:
+      if (sub_804B144(zones, gRitualComponents[29]) != TRUE && sub_804B144(zones, gRitualComponents[28]) != TRUE &&
+          sub_804B144(zones, gRitualComponents[27]) != TRUE && sub_804B144(zones, gRitualComponents[5]) != TRUE)
+        return 0;
+      break;
+    case 0x18:
+      if (!sub_801B5BC(col3, gRitualComponents[26]) && !sub_801B5BC(col3, gRitualComponents[24]))
+        return 0;
+      break;
+    default:
+      if (!sub_801B5BC(col3, gRitualComponents[gCardInfo.ritualEffect]))
+        return 0;
+      break;
+  }
+  return 1;
+}
+
+u8 sub_801B56C (void) {
+  u8 row2 = gUnk2021C00.unk2 >> 4;
+  u8 col2 = gUnk2021C00.unk2 & 0xF;
+  SetCardInfo(gZones[row2][col2]->id);
+  if (gCardInfo.unk1E && sub_803FCBC(gZones[row2][col2]->id) == 2)
+    sub_803FCEC(gZones[row2][col2]->id);
+  return 0;
+}
+
+u8 sub_801B5BC (u8 arg0, u16* arg1) {
+  if (sub_804366C(gZones[2], *arg1) == 1 && sub_8043694(gZones[2], *arg1) == arg0)
+    return 1;
+  return 0;
+}
+
+u16 sub_801B5F0 (int arg0, u8* arg1) {
+  u16 ret = 0xFFFF;
+  while (--arg0 >= 0) {
+    u32 temp = ret << 8;
+    ret = g80B0B20[ret >> 8 ^ *arg1] ^ temp;
+    arg1++;
+  }
+  return ~ret;
+}
+
+u16 sub_801B630 (int arg0, u8* arg1) {
+  u16 ret = 0xFFFF;
+  while (--arg0 >= 0) {
+    u16 temp = ret >> 8;
+    u8 temp2 = ret ^ *arg1;
+    ret = g80B0C20[temp2] ^ temp;
+    arg1++;
+  }
+  return ~ret;
+}
+
+void sub_801B66C (void) {
+  u8 i;
+  if (!gUnk2023EA0.unk18)
+    return;
+  sub_803EDB4();
+  sub_803EDD8();
+  sub_803EE20();
+  sub_801B808();
+  sub_801B83C();
+  sub_801BAEC(1, 0);
+  if (g201CB48[0].a)
+    sub_800B288(1);
+  sub_801BAEC(0, 1);
+  if (g201CB48[1].a)
+    sub_800B288(0);
+  sub_80081DC(sub_801BC4C);
+  sub_8008220();
+  sub_801BB7C();
+  sub_80081DC(sub_801BC58);
+  sub_8008220();
+  for (i = 0; i < 15; i++)
+    sub_8008220();
+  if (g201CB48[1].b || g201CB48[1].c) {
+    if (g201CB48[1].b) {
+      if (g201CB48[1].h)
+        sub_801CDEC(1);
+      else
+        sub_801C6BC(1);
+      for (i = 0; i < 6; i++)
+        sub_8008220();
+    }
+    if (g201CB48[1].c)
+      sub_801C1DC(1);
+    if (g201CB48[1].g)
+      sub_801C7B8(1);
+    if (g201CB48[1].b || g201CB48[1].c) {
+      if (g201CB48[0].b || g201CB48[0].c)
+        for (i = 0; i < 30; i++)
+          sub_8008220();
+      else {
+        goto a;
+      }
+    }
+  }
+  if (g201CB48[0].b || g201CB48[0].c) {
+    if (g201CB48[0].b) {
+      if (g201CB48[0].h)
+        sub_801CDEC(0);
+      else
+        sub_801C6BC(0);
+      for (i = 0; i < 6; i++)
+        sub_8008220();
+    }
+    if (g201CB48[0].c)
+      sub_801C1DC(0);
+    if (g201CB48[0].g)
+      sub_801C7B8(0);
+  }
+  a:
+  if (gUnk2023EA0.unk18 == 5 || gUnk2023EA0.unk18 == 8)
+    for (i = 0; i < 30; i++)
+      sub_8008220();
+}
+
+void sub_801B808 (void) {
+  u8 i;
+  for (i = 0; i < 2; i++) {
+    g201CB48[i].a = 0;
+    g201CB48[i].b = 0;
+    g201CB48[i].c = 0;
+    g201CB48[i].d = 0;
+    g201CB48[i].e = 0;
+    g201CB48[i].f = 0;
+    g201CB48[i].g = 0;
+    g201CB48[i].h = 0;
+  }
+}
+
+void sub_801B83C (void) {
+  switch (gUnk2023EA0.unk18) {
+    case 0:
+      break;
+    case 1:
+      g201CB48[0].a = 1;
+      g201CB48[0].d = 1;
+      g201CB48[1].a = 1;
+      g201CB48[1].b = 1;
+      g201CB48[1].c = 1;
+      g201CB48[1].d = 1;
+      g201CB48[1].g = 1;
+      break;
+    case 2:
+      g201CB48[0].a = 1;
+      g201CB48[0].b = 1;
+      g201CB48[0].c = 1;
+      g201CB48[0].d = 1;
+      g201CB48[0].g = 1;
+      g201CB48[1].a = 1;
+      g201CB48[1].b = 1;
+      g201CB48[1].c = 1;
+      g201CB48[1].d = 1;
+      g201CB48[1].g = 1;
+      break;
+    case 3:
+      g201CB48[0].a = 1;
+      g201CB48[0].b = 1;
+      g201CB48[0].c = 1;
+      g201CB48[0].d = 1;
+      g201CB48[0].g = 1;
+      g201CB48[1].a = 1;
+      g201CB48[1].d = 1;
+      break;
+    case 4:
+      g201CB48[0].a = 1;
+      g201CB48[0].d = 1;
+      g201CB48[1].a = 1;
+      g201CB48[1].b = 1;
+      g201CB48[1].c = 1;
+      g201CB48[1].e = 1;
+      g201CB48[1].g = 1;
+      break;
+    case 5:
+      g201CB48[0].a = 1;
+      g201CB48[0].d = 1;
+      g201CB48[1].a = 1;
+      g201CB48[1].e = 1;
+      break;
+    case 6:
+      g201CB48[0].a = 1;
+      g201CB48[0].b = 1;
+      g201CB48[0].d = 1;
+      g201CB48[0].g = 1;
+      g201CB48[1].a = 1;
+      g201CB48[1].e = 1;
+      break;
+    case 7:
+      g201CB48[0].a = 1;
+      g201CB48[0].e = 1;
+      g201CB48[1].a = 1;
+      g201CB48[1].b = 1;
+      g201CB48[1].d = 1;
+      g201CB48[1].g = 1;
+      break;
+    case 8:
+      g201CB48[0].a = 1;
+      g201CB48[0].e = 1;
+      g201CB48[1].a = 1;
+      g201CB48[1].d = 1;
+      break;
+    case 9:
+      g201CB48[0].a = 1;
+      g201CB48[0].b = 1;
+      g201CB48[0].c = 1;
+      g201CB48[0].e = 1;
+      g201CB48[0].g = 1;
+      g201CB48[1].a = 1;
+      g201CB48[1].d = 1;
+      break;
+    case 10:
+      g201CB48[0].a = 1;
+      g201CB48[0].d = 1;
+      g201CB48[1].b = 1;
+      g201CB48[1].g = 1;
+      g201CB48[1].h = 1;
+      break;
+    case 11:
+      g201CB48[0].a = 1;
+      g201CB48[0].d = 1;
+      break;
+    case 12:
+      g201CB48[0].a = 1;
+      g201CB48[0].b = 1;
+      g201CB48[0].c = 1;
+      g201CB48[0].d = 1;
+      g201CB48[0].g = 1;
+      g201CB48[0].h = 1;
+      break;
+    case 13:
+      g201CB48[1].a = 1;
+      g201CB48[1].b = 1;
+      g201CB48[1].c = 1;
+      g201CB48[1].d = 1;
+      g201CB48[1].g = 1;
+      g201CB48[1].h = 1;
+      break;
+    case 14:
+      g201CB48[1].a = 1;
+      g201CB48[1].d = 1;
+      break;
+    case 15:
+      g201CB48[0].b = 1;
+      g201CB48[0].g = 1;
+      g201CB48[0].h = 1;
+      g201CB48[1].a = 1;
+      g201CB48[1].d = 1;
+      break;
+    case 16:
+      g201CB48[0].a = 1;
+      g201CB48[0].f = 1;
+      g201CB48[1].a = 1;
+      g201CB48[1].b = 1;
+      g201CB48[1].c = 1;
+      g201CB48[1].f = 1;
+      g201CB48[1].g = 1;
+      break;
+    case 17:
+      g201CB48[0].a = 1;
+      g201CB48[0].b = 1;
+      g201CB48[0].c = 1;
+      g201CB48[0].f = 1;
+      g201CB48[0].g = 1;
+      g201CB48[1].a = 1;
+      g201CB48[1].f = 1;
+      break;
+  }
+}
+
+void sub_801BAEC (u8 arg0, u8 arg1) {
+  SetCardInfo(gUnk2023EA0.unk0[arg1].unk0);
+  if (g201CB48[arg1].d)
+    gCardInfo.atk = gUnk2023EA0.unk0[arg1].unk6;
+  else
+    gCardInfo.atk = 0xFFFF;
+  if (g201CB48[arg1].e)
+    gCardInfo.def = gUnk2023EA0.unk0[arg1].unk8;
+  else
+    gCardInfo.def = 0xFFFF;
+  gCardInfo.type = TYPE_NONE;
+  if (!g201CB48[arg1].f)
+    gCardInfo.attribute = ATTRIBUTE_NONE;
+}
+
+extern u16 gOamBuffer[];
+
+void sub_801BB7C (void) {
+  u32 i;
+  LoadCharblock0();
+  LoadCharblock1();
+  LoadCharblock3();
+  for (i = 0; i < 128; i++) {
+    gOamBuffer[i * 4] = 0xA0;
+    gOamBuffer[i * 4 + 1] = 0xF0;
+    gOamBuffer[i * 4 + 2] = 0xC00;
+    gOamBuffer[i * 4 + 3] = 0;
+  }
+  LoadOam();
+  gBG2VOFS = 4;
+  gBG2HOFS = 0x1FC;
+  gBG3VOFS = 4;
+  gBG3HOFS = 4;
+  LoadBgOffsets();
+  gBLDCNT = 0;
+  gBLDALPHA = 0;
+  gBLDY = 0;
+  LoadBlendingRegs();
+}
+
+void sub_801BC00 (void) {
+  struct Unk unk;
+  if (gUnk20241FC == 6) {
+    sub_80240BC(&unk);
+    unk.unk8 = 24;
+    sub_802408C(&unk);
+    g2021D98 = 4;
+    sub_8024548();
+    do {
+      sub_8024354();
+    } while (g3000C6C);
+  }
+  sub_801B66C();
+}
+
+void sub_801BC4C (void) {
+  sub_8045718();
+}
+
+void sub_801BC58 (void) {
+  LoadPalettes();
+  REG_BG2CNT = 0x1E81;
+  REG_BG3CNT = 0x1F86;
+  REG_DISPCNT = 0xC00;
+}
+
+void sub_801BC88 (u8 arg0, u8 arg1) {
+  u8 i;
+  u8 sl = 0;
+  u8 temp1;
+  u8 temp2;
+  if (arg0 == 1)
+    sl = 128;
+  for (temp1 = 2, i = 0, temp2 = 2; i < 128; i++) {
+    struct PlttData *pltt = (struct PlttData*)&g02000000.bg[i + sl];
+    if (pltt->r > temp2)
+      pltt->r -= temp1;
+    else
+      pltt->r = 0;
+    if (pltt->g > temp2)
+      pltt->g -= temp1;
+    else
+      pltt->g = 0;
+    if (pltt->b > temp2)
+      pltt->b -= temp1;
+    else
+      pltt->b = 0;
+  }
+}
+
+struct UnkE0061C {
+  u8 filler0[0x18];
+  u8 unk18;
+  u8 unk19;
+  u8 unk1A;
+  u8 unk1B;
+  u8 unk1C;
+  u8 unk1D;
+} extern *gE0061C;
+
+struct UnkB0D2 {
+  u8 unk0;
+  u8 filler[3];
+  struct Unk4 {
+    u8 filler0[4];
+    u16 unk4;
+  }* unk4;
+} extern g80B0D20[];
+
+void sub_801BD50 (u32 arg0) {
+  u16 i;
+  for (i = 0; i < 12; i++) {
+    u32 r = arg0 % 3;
+    if (gE0061C[i].unk1A)
+      gE0061C[i].unk1A--;
+    else if (gE0061C[i].unk1C)
+      if (gE0061C[i].unk1B)
+        gE0061C[i].unk1B--;
+      else if (!r)
+        if (gE0061C[i].unk1D != 1)
+          gE0061C[i].unk1D = 1;
+        else
+          goto a;
+      else if (gE0061C[i].unk1D == 1)
+        a:
+          gE0061C[i].unk1C--;
+  }
+  for (i = 0; i < 12; i++) {
+    if (!gE0061C[i].unk1C || gE0061C[i].unk1A)
+      continue;
+    gE0061C[i].unk19++;
+    if (gE0061C[i].unk19 < g80B0D20[gE0061C[i].unk18].unk0)
+      continue;
+    gE0061C[i].unk19 = 0;
+    if ((g80B0D20[gE0061C[i].unk18].unk4->unk4 & 0x3ff) == (g80B0D20[gE0061C[i].unk18 + 1].unk4->unk4 & 0x3ff))
+      gE0061C[i].unk18 = 0;
+    else
+      gE0061C[i].unk18++;
+  }
+}
+/*
+//sb = gE0061C
+//r8 = gOambuffer
+void sub_801BE54 (void) {
+  u8 i, j, index;
+  CpuFill16(0, gOamBuffer, 0x400);
+  index = 0;
+  for (i = 0; i < 12; i++)
+    for (j = 0; j < 5; index++, j++) {
+      if (gE0061C[i].unk1C && !gE0061C[i].unk1A) {
+        if (gE0061C[i].unk1D) {
+
+        }
+        else { //_0801BEF8
+
+        }
+        //_0801BF30
+      }
+      else { //_0801BF58
+
+      }
+    }
+}*/
+
+NAKED
+void sub_801BE54 (void) {
+  asm_unified("push {r4, r5, r6, r7, lr}\n\
+	mov r7, sl\n\
+	mov r6, sb\n\
+	mov r5, r8\n\
+	push {r5, r6, r7}\n\
+	sub sp, #4\n\
+	mov r1, sp\n\
+	movs r0, #0\n\
+	strh r0, [r1]\n\
+	ldr r4, _0801BEDC\n\
+	ldr r2, _0801BEE0\n\
+	mov r0, sp\n\
+	adds r1, r4, #0\n\
+	bl CpuSet\n\
+	movs r6, #0\n\
+	movs r0, #0\n\
+	ldr r1, _0801BEE4\n\
+	mov sb, r1\n\
+	mov r8, r4\n\
+_0801BE7C:\n\
+	movs r7, #0\n\
+	adds r1, r0, #1\n\
+	mov sl, r1\n\
+	lsls r0, r0, #5\n\
+	mov ip, r0\n\
+_0801BE86:\n\
+	mov r1, sb\n\
+	ldr r0, [r1]\n\
+	mov r1, ip\n\
+	adds r5, r1, r0\n\
+	ldrb r0, [r5, #0x1c]\n\
+	cmp r0, #0\n\
+	beq _0801BF58\n\
+	ldrb r0, [r5, #0x1a]\n\
+	cmp r0, #0\n\
+	bne _0801BF58\n\
+	ldrb r0, [r5, #0x1d]\n\
+	cmp r0, #0\n\
+	beq _0801BEF8\n\
+	lsls r3, r6, #3\n\
+	ldr r0, _0801BEE8\n\
+	adds r4, r3, r0\n\
+	lsls r1, r7, #2\n\
+	adds r1, r5, r1\n\
+	movs r2, #5\n\
+	ldrsb r2, [r1, r2]\n\
+	ldrh r0, [r5, #2]\n\
+	adds r2, r2, r0\n\
+	movs r0, #0xff\n\
+	ands r2, r0\n\
+	movs r0, #4\n\
+	ldrsb r0, [r1, r0]\n\
+	ldrh r1, [r5]\n\
+	adds r0, r0, r1\n\
+	ldr r1, _0801BEEC\n\
+	ands r0, r1\n\
+	lsls r0, r0, #0x10\n\
+	ldr r1, _0801BEF0\n\
+	orrs r0, r1\n\
+	orrs r2, r0\n\
+	ldrb r1, [r5, #0x1e]\n\
+	movs r0, #1\n\
+	ands r0, r1\n\
+	lsls r0, r0, #0x1c\n\
+	orrs r2, r0\n\
+	str r2, [r4]\n\
+	ldr r0, _0801BEF4\n\
+	b _0801BF30\n\
+	.align 2, 0\n\
+_0801BEDC: .4byte gOamBuffer\n\
+_0801BEE0: .4byte 0x01000200\n\
+_0801BEE4: .4byte gE0061C\n\
+_0801BEE8: .4byte 0x020185E0\n\
+_0801BEEC: .4byte 0x000001FF\n\
+_0801BEF0: .4byte 0xC0008400\n\
+_0801BEF4: .4byte 0x020185E4\n\
+_0801BEF8:\n\
+	lsls r3, r6, #3\n\
+	mov r0, r8\n\
+	adds r4, r3, r0\n\
+	lsls r1, r7, #2\n\
+	adds r1, r5, r1\n\
+	movs r2, #5\n\
+	ldrsb r2, [r1, r2]\n\
+	ldrh r0, [r5, #2]\n\
+	adds r2, r2, r0\n\
+	movs r0, #0xff\n\
+	ands r2, r0\n\
+	movs r0, #4\n\
+	ldrsb r0, [r1, r0]\n\
+	ldrh r1, [r5]\n\
+	adds r0, r0, r1\n\
+	ldr r1, _0801BF48\n\
+	ands r0, r1\n\
+	lsls r0, r0, #0x10\n\
+	ldr r1, _0801BF4C\n\
+	orrs r0, r1\n\
+	orrs r2, r0\n\
+	ldrb r1, [r5, #0x1e]\n\
+	movs r0, #1\n\
+	ands r0, r1\n\
+	lsls r0, r0, #0x1c\n\
+	orrs r2, r0\n\
+	str r2, [r4]\n\
+	ldr r0, _0801BF50\n\
+_0801BF30:\n\
+	adds r3, r3, r0\n\
+	mov r1, sb\n\
+	ldr r0, [r1]\n\
+	add r0, ip\n\
+	ldrb r0, [r0, #0x18]\n\
+	lsls r0, r0, #3\n\
+	ldr r1, _0801BF54\n\
+	adds r0, r0, r1\n\
+	ldr r0, [r0]\n\
+	ldrh r0, [r0, #4]\n\
+	str r0, [r3]\n\
+	b _0801BF82\n\
+	.align 2, 0\n\
+_0801BF48: .4byte 0x000001FF\n\
+_0801BF4C: .4byte 0xC0008000\n\
+_0801BF50: .4byte 0x02018404\n\
+_0801BF54: .4byte 0x080B0D24\n\
+_0801BF58:\n\
+	lsls r0, r6, #3\n\
+	add r0, r8\n\
+	movs r1, #0xa0\n\
+	strh r1, [r0]\n\
+	lsls r2, r6, #2\n\
+	adds r0, r2, #1\n\
+	lsls r0, r0, #1\n\
+	add r0, r8\n\
+	movs r1, #0xf0\n\
+	strh r1, [r0]\n\
+	adds r0, r2, #2\n\
+	lsls r0, r0, #1\n\
+	add r0, r8\n\
+	movs r1, #0xc0\n\
+	lsls r1, r1, #4\n\
+	strh r1, [r0]\n\
+	adds r2, #3\n\
+	lsls r2, r2, #1\n\
+	add r2, r8\n\
+	movs r0, #0\n\
+	strh r0, [r2]\n\
+_0801BF82:\n\
+	adds r0, r6, #1\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r6, r0, #0x18\n\
+	adds r0, r7, #1\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r7, r0, #0x18\n\
+	cmp r7, #4\n\
+	bhi _0801BF94\n\
+	b _0801BE86\n\
+_0801BF94:\n\
+	mov r1, sl\n\
+	lsls r0, r1, #0x18\n\
+	lsrs r0, r0, #0x18\n\
+	cmp r0, #0xb\n\
+	bhi _0801BFA0\n\
+	b _0801BE7C\n\
+_0801BFA0:\n\
+	add sp, #4\n\
+	pop {r3, r4, r5}\n\
+	mov r8, r3\n\
+	mov sb, r4\n\
+	mov sl, r5\n\
+	pop {r4, r5, r6, r7}\n\
+	pop {r0}\n\
+	bx r0");
+}
+NAKED
+void sub_801BFB0 (void) {
+  asm_unified("push {r4, r5, r6, r7, lr}\n\
+	mov r7, sl\n\
+	mov r6, sb\n\
+	mov r5, r8\n\
+	push {r5, r6, r7}\n\
+	sub sp, #8\n\
+	adds r4, r0, #0\n\
+	lsls r4, r4, #0x18\n\
+	lsrs r4, r4, #0x18\n\
+	movs r0, #0\n\
+	movs r1, #3\n\
+	bl sub_8056258\n\
+	lsls r0, r0, #0x18\n\
+	ldr r1, _0801BFEC\n\
+	lsrs r0, r0, #0x16\n\
+	adds r0, r0, r1\n\
+	ldr r0, [r0]\n\
+	bl sub_80562CC\n\
+	ldr r1, _0801BFF0\n\
+	ldr r2, _0801BFF4\n\
+	adds r0, r2, #0\n\
+	strh r0, [r1]\n\
+	cmp r4, #0\n\
+	bne _0801BFF8\n\
+	movs r0, #4\n\
+	str r0, [sp]\n\
+	b _0801BFFC\n\
+	.align 2, 0\n\
+_0801BFEC: .4byte 0x08E00620\n\
+_0801BFF0: .4byte gBLDCNT\n\
+_0801BFF4: .4byte 0x00002C10\n\
+_0801BFF8:\n\
+	movs r1, #0x7a\n\
+	str r1, [sp]\n\
+_0801BFFC:\n\
+	movs r7, #0\n\
+	ldr r6, _0801C098\n\
+	ldr r2, _0801C09C\n\
+	mov r8, r2\n\
+	ldr r3, _0801C0A0\n\
+	movs r5, #0\n\
+	movs r4, #0xa0\n\
+_0801C00A:\n\
+	lsls r0, r7, #3\n\
+	adds r0, r0, r3\n\
+	strh r4, [r0]\n\
+	lsls r2, r7, #2\n\
+	adds r0, r2, #1\n\
+	lsls r0, r0, #1\n\
+	adds r0, r0, r3\n\
+	movs r1, #0xf0\n\
+	strh r1, [r0]\n\
+	adds r0, r2, #2\n\
+	lsls r0, r0, #1\n\
+	adds r0, r0, r3\n\
+	movs r1, #0xc0\n\
+	lsls r1, r1, #4\n\
+	strh r1, [r0]\n\
+	adds r2, #3\n\
+	lsls r2, r2, #1\n\
+	adds r2, r2, r3\n\
+	strh r5, [r2]\n\
+	adds r0, r7, #1\n\
+	lsls r0, r0, #0x10\n\
+	lsrs r7, r0, #0x10\n\
+	cmp r7, #0x7f\n\
+	bls _0801C00A\n\
+	adds r0, r6, #0\n\
+	mov r1, r8\n\
+	movs r2, #0x10\n\
+	bl CpuSet\n\
+	ldr r1, _0801C0A4\n\
+	movs r0, #0\n\
+	movs r2, #0x80\n\
+	bl sub_803EEFC\n\
+	movs r7, #0\n\
+	ldr r0, _0801C0A8\n\
+	mov sl, r0\n\
+_0801C054:\n\
+	movs r6, #0\n\
+	lsls r1, r7, #2\n\
+	mov r8, r1\n\
+	mov sb, r8\n\
+	adds r0, r1, r7\n\
+	lsls r0, r0, #3\n\
+	ldr r2, [sp]\n\
+	adds r0, r2, r0\n\
+	str r0, [sp, #4]\n\
+_0801C066:\n\
+	mov r1, sb\n\
+	adds r0, r1, r6\n\
+	mov r2, sl\n\
+	ldr r1, [r2]\n\
+	lsls r0, r0, #5\n\
+	adds r4, r0, r1\n\
+	mov r0, sp\n\
+	ldrh r0, [r0, #4]\n\
+	strh r0, [r4]\n\
+	lsls r0, r6, #3\n\
+	subs r0, r0, r6\n\
+	lsls r0, r0, #4\n\
+	movs r1, #3\n\
+	bl _divsi3\n\
+	movs r2, #0x5e\n\
+	subs r1, r2, r0\n\
+	cmp r1, #0\n\
+	bge _0801C0B0\n\
+	ldr r1, _0801C0AC\n\
+	adds r0, r0, r1\n\
+	subs r0, r2, r0\n\
+	strh r0, [r4, #2]\n\
+	b _0801C0B2\n\
+	.align 2, 0\n\
+_0801C098: .4byte 0x080B1E74\n\
+_0801C09C: .4byte 0x02000200\n\
+_0801C0A0: .4byte gOamBuffer\n\
+_0801C0A4: .4byte 0x080B0E74\n\
+_0801C0A8: .4byte gE0061C\n\
+_0801C0AC: .4byte 0xFFFFFF00\n\
+_0801C0B0:\n\
+	strh r1, [r4, #2]\n\
+_0801C0B2:\n\
+	mov r2, sb\n\
+	adds r1, r2, r6\n\
+	ldr r5, _0801C0F8\n\
+	ldr r0, [r5]\n\
+	lsls r4, r1, #5\n\
+	adds r0, r4, r0\n\
+	movs r1, #0\n\
+	strb r1, [r0, #0x18]\n\
+	ldr r0, [r5]\n\
+	adds r0, r4, r0\n\
+	strb r1, [r0, #0x19]\n\
+	ldr r0, [r5]\n\
+	adds r0, r4, r0\n\
+	movs r1, #4\n\
+	strb r1, [r0, #0x1b]\n\
+	cmp r6, #0\n\
+	bne _0801C0FC\n\
+	bl sub_8056208\n\
+	adds r3, r0, #0\n\
+	ldr r1, [r5]\n\
+	lsls r0, r7, #7\n\
+	adds r1, r0, r1\n\
+	adds r0, r3, #0\n\
+	cmp r3, #0\n\
+	bge _0801C0E8\n\
+	adds r0, r3, #3\n\
+_0801C0E8:\n\
+	asrs r0, r0, #2\n\
+	lsls r0, r0, #2\n\
+	subs r0, r3, r0\n\
+	ldrb r2, [r1, #0x1a]\n\
+	adds r0, r0, r2\n\
+	strb r0, [r1, #0x1a]\n\
+	b _0801C11E\n\
+	.align 2, 0\n\
+_0801C0F8: .4byte gE0061C\n\
+_0801C0FC:\n\
+	bl sub_8056208\n\
+	ldr r2, [r5]\n\
+	adds r2, r4, r2\n\
+	adds r3, r2, #0\n\
+	subs r3, #0x20\n\
+	lsrs r1, r0, #0x1f\n\
+	adds r1, r0, r1\n\
+	asrs r1, r1, #1\n\
+	lsls r1, r1, #1\n\
+	subs r0, r0, r1\n\
+	ldrb r3, [r3, #0x1a]\n\
+	adds r0, r0, r3\n\
+	adds r0, #1\n\
+	ldrb r1, [r2, #0x1a]\n\
+	adds r0, r0, r1\n\
+	strb r0, [r2, #0x1a]\n\
+_0801C11E:\n\
+	mov r2, r8\n\
+	adds r4, r2, r6\n\
+	mov r0, sl\n\
+	ldr r1, [r0]\n\
+	lsls r4, r4, #5\n\
+	adds r1, r4, r1\n\
+	movs r0, #3\n\
+	strb r0, [r1, #0x1c]\n\
+	mov r1, sl\n\
+	ldr r0, [r1]\n\
+	adds r0, r4, r0\n\
+	movs r2, #0\n\
+	strb r2, [r0, #0x1d]\n\
+	bl sub_8056208\n\
+	mov r2, sl\n\
+	ldr r1, [r2]\n\
+	adds r4, r4, r1\n\
+	lsrs r1, r0, #0x1f\n\
+	adds r1, r0, r1\n\
+	asrs r1, r1, #1\n\
+	lsls r1, r1, #1\n\
+	subs r0, r0, r1\n\
+	strb r0, [r4, #0x1e]\n\
+	adds r0, r6, #1\n\
+	lsls r0, r0, #0x10\n\
+	lsrs r6, r0, #0x10\n\
+	cmp r6, #3\n\
+	bls _0801C066\n\
+	adds r0, r7, #1\n\
+	lsls r0, r0, #0x10\n\
+	lsrs r7, r0, #0x10\n\
+	cmp r7, #2\n\
+	bhi _0801C164\n\
+	b _0801C054\n\
+_0801C164:\n\
+	movs r7, #0\n\
+	ldr r0, _0801C1D8\n\
+	mov sb, r0\n\
+_0801C16A:\n\
+	movs r6, #0\n\
+	adds r1, r7, #1\n\
+	mov r8, r1\n\
+	lsls r7, r7, #5\n\
+_0801C172:\n\
+	bl sub_8056208\n\
+	adds r1, r0, #0\n\
+	mov r2, sb\n\
+	ldr r0, [r2]\n\
+	adds r0, r7, r0\n\
+	lsls r5, r6, #2\n\
+	adds r2, r0, r5\n\
+	adds r0, r1, #0\n\
+	cmp r1, #0\n\
+	bge _0801C18A\n\
+	adds r0, #0x1f\n\
+_0801C18A:\n\
+	asrs r0, r0, #5\n\
+	lsls r0, r0, #5\n\
+	subs r0, r1, r0\n\
+	movs r1, #0x10\n\
+	subs r1, r1, r0\n\
+	strb r1, [r2, #4]\n\
+	bl sub_8056208\n\
+	mov r1, sb\n\
+	ldr r4, [r1]\n\
+	adds r4, r7, r4\n\
+	adds r4, r4, r5\n\
+	movs r1, #0x28\n\
+	bl __modsi3\n\
+	movs r1, #0x14\n\
+	subs r1, r1, r0\n\
+	strb r1, [r4, #5]\n\
+	adds r0, r6, #1\n\
+	lsls r0, r0, #0x10\n\
+	lsrs r6, r0, #0x10\n\
+	cmp r6, #4\n\
+	bls _0801C172\n\
+	mov r2, r8\n\
+	lsls r0, r2, #0x10\n\
+	lsrs r7, r0, #0x10\n\
+	cmp r7, #0xb\n\
+	bls _0801C16A\n\
+	bl sub_80562E0\n\
+	add sp, #8\n\
+	pop {r3, r4, r5}\n\
+	mov r8, r3\n\
+	mov sb, r4\n\
+	mov sl, r5\n\
+	pop {r4, r5, r6, r7}\n\
+	pop {r0}\n\
+	bx r0\n\
+	.align 2, 0\n\
+_0801C1D8: .4byte gE0061C");
+}
+
+

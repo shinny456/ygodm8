@@ -13,14 +13,6 @@ struct CursorPosition {
   u8 filler[2];
 };
 
-struct Unk {
-  u16 unk0;
-  u16 unk2;
-  u16 unk4;
-  u16 unk6;
-  u8 unk8;
-};
-
 struct Bruh {
   u16 a;
   u16 b;
@@ -42,8 +34,6 @@ void sub_8057808(void);
 void sub_804078C(void);
 void sub_8008220(void);
 void sub_8040FDC(void);
-void sub_8021A14(struct Unk*);
-void sub_80219E4(struct Unk*);
 void sub_8021A24(void);
 void sub_8040524(u8);
 void sub_804004C(u8);
@@ -64,7 +54,7 @@ void sub_8021B10(void);
 void sub_8043DD8(void);
 void sub_8043E14(u8, u16);
 void sub_8043D6C(u8);
-void InitBoard();
+void InitBoard(void);
 void sub_8048C60();
 void sub_80254DC(void);
 void sub_8041090();
@@ -81,10 +71,8 @@ void sub_8021CD0(void);
 void LoadOam(void);
 u8 sub_8021CFC(void);
 void sub_804ED08(void);
-void sub_80240BC(struct Unk*);
 void sub_8035038(u16);
 void sub_8022040(void);
-void sub_802405C(struct Unk*);
 void sub_8022080(void);
 void sub_8021E0C(void);
 void sub_8021ED8(void);
@@ -332,8 +320,8 @@ struct Unk2021DA0 {
 };
 
 extern struct Unk3000C38 g3000C38;
-extern u8 g2021D98;
-extern u8 g3000C6C;
+
+
 extern u8 g2021D9C;
 extern struct Unk2021DA0 g2021DA0;
 extern u32 g2021D70;
@@ -341,14 +329,11 @@ extern u8 g2021D80[];
 extern u16 gUnk2020DFC;
 
 void sub_8021FF8(void);
-void sub_8024548(void);
 void sub_8024354(void);
-void sub_802408C(struct Unk*);
 void sub_8024568(void);
 void sub_801B66C(void);
 void sub_80410B4(void);
 void sub_801CF08(void);
-void sub_802432C(void);
 void sub_8041D54(void);
 void sub_803276C(void);
 void sub_8022234(void);
@@ -1272,365 +1257,6 @@ void sub_8022C10 (int arg0) {
 
 
 /*
-
-extern u16 g8E0D08C[][5];
-extern u8 g8E0D0BE[][5];
-extern u8 g8E0D0D7[][5];
-
-
-/*
-void InitBoard (void) {
-  u8 i, j;
-  sub_803FEA4(2);
-  for (i = 0; i < 4; i++)
-    for (j = 0; j < 5; j++)
-      ClearZone(&gDuel.zones[i][j]);
-  for (i = 0; i < 4; i++)
-    for (j = 0; j < 5; j++) {
-      gDuel.zones[i][j].id = g8E0D08C[i][j];
-      gDuel.zones[i][j].isFaceUp = g8E0D0BE[i][j] & 1;
-      gDuel.zones[i][j].isDefending = g8E0D0D7[i][j] & 1;
-    }
-  for (i = 0; i < 2; i++)
-    for (j = 0; j < 5; j++) {
-      ClearZone(&gDuel.hands[i][j]);
-      DrawCard(i);
-    }
-  gDuel.field = gDuelData.duelist.field;
-  for (i = 0; i < 2; i++) {
-    gDuel.notSure[i].sorlTurns = 0;
-    gDuel.notSure[i].unkTwo = 0;
-    gDuel.notSure[i].graveyard = CARD_NONE;
-    sub_8040508(i);
-  }
-}
-
-void sub_803FEA4 (int unused) {
-  u8 i;
-  for (i = 0; i < 5; i++)
-    gUnk2024040[0][i] = &gDuel.zones[0][4-i];
-  for (i = 0; i < 5; i++)
-    gUnk2024040[1][i] = &gDuel.zones[1][4-i];
-  for (i = 0; i < 5; i++)
-    gUnk2024040[2][i] = &gDuel.zones[2][i];
-  for (i = 0; i < 5; i++)
-    gUnk2024040[3][i] = &gDuel.zones[3][i];
-  for (i = 0; i < 5; i++)
-    gUnk2024040[4][i] = &gDuel.hands[0][i];
-  for (i = 0; i < 5; i++)
-    gZones[0][i] = &gDuel.zones[0][i];
-  for (i = 0; i < 5; i++)
-    gZones[1][i] = &gDuel.zones[1][i];
-  for (i = 0; i < 5; i++)
-    gZones[2][i] = &gDuel.zones[2][i];
-  for (i = 0; i < 5; i++)
-    gZones[3][i] = &gDuel.zones[3][i];
-  for (i = 0; i < 5; i++)
-    gZones[4][i] = &gDuel.hands[0][i];
-  gNotSure[0] = &gDuel.notSure[0];
-  gNotSure[1] = &gDuel.notSure[1];
-  for (i = 0; i < 5; i++)
-    gHands[0][i] = &gDuel.hands[0][i];
-  for (i = 0; i < 5; i++)
-    gHands[1][i] = &gDuel.hands[1][i];
-}
-
-void sub_804004C (u8 turn) {
-  u8 i;
-  if (turn == 0) {
-    for (i = 0; i < 5; i++)
-      gZones[0][i] = &gDuel.zones[0][i];
-    for (i = 0; i < 5; i++)
-      gZones[1][i] = &gDuel.zones[1][i];
-    for (i = 0; i < 5; i++)
-      gZones[2][i] = &gDuel.zones[2][i];
-    for (i = 0; i < 5; i++)
-      gZones[3][i] = &gDuel.zones[3][i];
-    for (i = 0; i < 5; i++)
-      gZones[4][i] = &gDuel.hands[0][i];
-    gNotSure[0] = &gDuel.notSure[0];
-    gNotSure[1] = &gDuel.notSure[1];
-    for (i = 0; i < 5; i++)
-      gHands[0][i] = &gDuel.hands[0][i];
-    for (i = 0; i < 5; i++)
-      gHands[1][i] = &gDuel.hands[1][i];
-  }
-  else {
-    for (i = 0; i < 5; i++)
-      gZones[0][i] = &gDuel.zones[3][i];
-    for (i = 0; i < 5; i++)
-      gZones[1][i] = &gDuel.zones[2][i];
-    for (i = 0; i < 5; i++)
-      gZones[2][i] = &gDuel.zones[1][i];
-    for (i = 0; i < 5; i++)
-      gZones[3][i] = &gDuel.zones[0][i];
-    for (i = 0; i < 5; i++)
-      gZones[4][i] = &gDuel.hands[1][i];
-    gNotSure[0] = &gDuel.notSure[1];
-    gNotSure[1] = &gDuel.notSure[0];
-    for (i = 0; i < 5; i++)
-      gHands[0][i] = &gDuel.hands[1][i];
-    for (i = 0; i < 5; i++)
-      gHands[1][i] = &gDuel.hands[0][i];
-  }
-}
-
-//this could be a non-static inline (ResetTempStage a few functions below)
-//TODO: see https://en.cppreference.com/w/c/language/inline
-//      for inline func declaration rules
-static inline void ResetTemp (struct DuelCard *zone) {
-    zone->tempStage = 0;
-}
-
-void sub_8040258 (void) {
-  u8 i, j;
-  for (i = 0; i < 4; i++)
-    for (j = 0; j < 5; j++)
-      ResetTemp(&gDuel.zones[i][j]);
-  for (i = 0; i < 2; i++)
-    for (j = 0; j < 5; j++)
-      ResetTemp(&gDuel.hands[i][j]);
-}
-
-void ClearZone (struct DuelCard *zone) {
-  zone->id = CARD_NONE;
-  zone->isFaceUp = FALSE;
-  zone->isLocked = FALSE;
-  zone->isDefending = FALSE;
-  zone->unkTwo = 0;
-  zone->unkThree = 0;
-  ResetPermStage(zone);
-  ResetTempStage(zone);
-  zone->unk4 = 0;
-  zone->willChangeSides = FALSE;
-}
-
-void FlipCardFaceUp (struct DuelCard *zone) {
-  zone->isFaceUp = TRUE;
-}
-
-void FlipCardFaceDown (struct DuelCard *zone) {
-  zone->isFaceUp = FALSE;
-}
-
-bool8 IsCardFaceUp (struct DuelCard *zone) {
-  return zone->isFaceUp;
-}
-
-void ResetPermStage (struct DuelCard *zone) {
-  zone->permStage = 0;
-}
-
-void sub_8040368 (struct DuelCard *zone) {
-  if (zone->permStage < 127)
-    zone->permStage++;
-}
-
-void sub_804037C (struct DuelCard *zone) {
-  if (zone->permStage > -128)
-    zone->permStage--;
-}
-
-void sub_8040394 (struct DuelCard *zone, u8 arg) {
-  for (; arg; arg--)
-    if (zone->permStage < 127)
-      zone->permStage++;
-}
-
-void ResetTempStage (struct DuelCard *zone) {
-  zone->tempStage = 0;
-}
-
-void sub_80403F0 (struct DuelCard *zone) {
-  if (zone->tempStage < 127)
-    zone->tempStage++;
-}
-
-void sub_8040404 (struct DuelCard *zone) {
-  if (zone->tempStage > -128)
-    zone->tempStage--;
-}
-
-void sub_80404F0 (u8 currPlayer) {
-  gNotSure[currPlayer]->unkThree = 1;
-}
-
-void sub_8040508 (u8 player) {
-  gDuel.notSure[player].unkThree = 0;
-}
-
-void sub_8040524 (u8 currPlayer) {
-  gNotSure[currPlayer]->unkThree = 0;
-}
-
-void sub_8040540 (u8 row) {
-  u8 i;
-  for (i = 0; i < 5; i++)
-    if (gZones[row][i]->id != CARD_NONE && sub_803FCBC(gZones[row][i]->id))
-      gZones[row][i]->isLocked = TRUE;
-}
-
-void sub_8040584 (u8 row) {
-  u8 i;
-  for (i = 0; i < 5; i++)
-    if (gZones[row][i]->id != CARD_NONE)
-      gZones[row][i]->isLocked = FALSE;
-}
-
-void sub_804060C (u8 row) {
-  u8 i;
-  for (i = 0; i < 5; i++)
-    if (gZones[row][i]->id != CARD_NONE && !gZones[row][i]->isDefending)
-      gZones[row][i]->isFaceUp = TRUE;
-}
-
-void SetPermStage (struct DuelCard *zone, int permStage) {
-  zone->permStage = permStage;
-}
-
-int PermStage (struct DuelCard *zone) {
-  return zone->permStage;
-}
-
-s8 sub_804069C (struct DuelCard *zone) {
-  int stage = zone->permStage + zone->tempStage;
-  if (stage > 127)
-    stage = 127;
-  if (stage < -128)
-    stage = -128;
-  return stage;
-}
-
-void LockCard (struct DuelCard *zone) {
-  zone->isLocked = TRUE;
-}
-
-void UnlockCard (struct DuelCard *zone) {
-  zone->isLocked = FALSE;
-}
-
-bool32 IsCardLocked (struct DuelCard *zone) {
-  return zone->isLocked;
-}
-
-void InitSorlTurns (u8 currOpponent) {
-  gNotSure[currOpponent]->sorlTurns = 3;
-}
-
-void DecrementSorlTurns (u8 currPlayer) {
-  if (gNotSure[currPlayer]->sorlTurns)
-    gNotSure[currPlayer]->sorlTurns--;
-}
-
-void CopyCard (struct DuelCard *dst, struct DuelCard *src) {
-  dst->id = src->id;
-  SetPermStage(dst, PermStage(src));
-  ResetTempStage(dst);
-  dst->unk4 = src->unk4;
-  dst->isFaceUp = src->isFaceUp;
-  dst->isLocked = src->isLocked;
-  dst->isDefending = src->isDefending;
-  dst->unkTwo = src->unkTwo;
-  dst->unkThree = src->unkThree;
-  dst->willChangeSides = src->willChangeSides;
-}
-
-extern struct DuelCard gSelectedCard;
-void sub_8040998 (struct DuelCard *zone) {
-  CopyCard(&gSelectedCard, zone);
-}
-
-void sub_80409AC (struct DuelCard *zone) {
-  CopyCard(zone, &gSelectedCard);
-}
-
-u8 sub_80409BC (void) {
-  if (g2020DF4 & 0x40)
-    return 1;
-  if (g2020DF4 & 0x80)
-    return 2;
-  if (g2020DF4 & 0x20)
-    return 3;
-  if (g2020DF4 & 0x10)
-    return 4;
-  if (gUnk2020DFC & 0x1)
-    return 5;
-  if (gUnk2020DFC & 0x200)
-    return 6;
-  if (gUnk2020DFC & 0x100)
-    return 7;
-  if (gUnk2020DFC & 2)
-    return 8;
-  if (g2020DF4 & 8)
-    return 0;
-  if (g2020DF4 & 4)
-    return 0;
-  return 0;
-}
-
-extern u8 g20240E0;
-void sub_8040A40 (void) {
-  g20240E0 = 0;
-  sub_8041104();
-  sub_802B6A8();
-  if (IsDuelOver() == TRUE)
-    return;
-  sub_8029820();
-  if (IsDuelOver() == TRUE)
-    return;
-  sub_80082C0();
-  while (IsDuelOver() != TRUE && g20240E0 != 1) {
-    u8 y = gCursorPosition.currentY;
-    switch (sub_80409BC()) {
-      case 1:
-        MoveCursorUp();
-        sub_8041EC8();
-        sub_8041E70(y, gCursorPosition.currentY);
-        break;
-      case 2:
-        MoveCursorDown();
-        sub_8041EC8();
-        sub_8041E70(y, gCursorPosition.currentY);
-        break;
-      case 3:
-        MoveCursorLeft();
-        sub_8041EC8();
-        sub_8041E70(y, gCursorPosition.currentY);
-        break;
-      case 4:
-        MoveCursorRight();
-        sub_8041EC8();
-        sub_8041E70(y, gCursorPosition.currentY);
-        break;
-      case 5:
-        sub_8044AB4();
-        break;
-      case 6:
-        sub_8042F04();
-        sub_8008220();
-        sub_8041014();
-        break;
-      case 7:
-        sub_8044B2C();
-        sub_80410B4();
-        break;
-      case 8:
-        sub_8044AF0();
-        sub_8008220();
-        break;
-      case 9:
-        DeclareLoser(0);
-        break;
-      case 10:
-        DeclareLoser(1);
-        break;
-      default:
-        sub_8008220();
-        break;
-    }
-  }
-}
-
 
 different file?
 void MoveCursorUp (void) {

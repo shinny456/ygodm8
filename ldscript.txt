@@ -15,6 +15,7 @@ SECTIONS
     g201CB3C = 0x201CB3C;
     g201CB40 = 0x201CB40;
     g201CB44 = 0x201CB44;
+    g201CB48 = 0x201CB48;
     g201EE60 = 0x0201EE60;
     g201EE61 = 0x0201EE61;
     g2020DC8 = 0x02020DC8;
@@ -72,6 +73,8 @@ SECTIONS
     gZones = 0x02023FD0;
     gUnk2024040 = 0x2024040;
     gHands = 0x20240B0;
+    gSelectedCard = 0x20240D8;
+    g20240E0 = 0x20240E0;
     gUnk20240F0 = 0x20240F0;
     gUnk20241FC = 0x020241FC;
     gCursorPosition = 0x020241F0;
@@ -327,7 +330,36 @@ SECTIONS
     g8DFF7F0 = 0x8DFF7F0;
     g8E00330 = 0x8E00330;
     g8E00150 = 0x8E00150;
+    g8E0CFC4 = 0x8E0CFC4;
+    g8E0CFD0 = 0x8E0CFD0;
+    gE0CFDC = 0x8E0CFDC;
+    gE0CFF4 = 0x8E0CFF4;
+    g80DF790 = 0x80DF790;
+    g8E0D08C = 0x8E0D08C;
+    g8E0D0BE = 0x8E0D0BE;
+    g8E0D0D7 = 0x8E0D0D7;
+    gE0D0F0 = 0x8E0D0F0;
+    g80DFDA4 = 0x80DFDA4;
     gCurrentTurnOpponent = 0x80AED54;
+    gDFBA4 = 0x80DFBA4;
+    g80F09D0 = 0x80F09D0;
+    g80F0F00 = 0x80F0F00;
+    g80F3160 = 0x80F3160;
+    g80F0A50 = 0x80F0A50;
+    gE00534 = 0x8E00534;
+    gE00538 = 0x8E00538;
+    gE0053F = 0x8E0053F;
+    gE00546 = 0x8E00546;
+    gE00510 = 0x8E00510;
+    gAED58 = 0x80AED58;
+    gB0AE8 = 0x80B0AE8;
+    gB0B18 = 0x80B0B18;
+    gE00550 = 0x8E00550;
+    g80B0B20 = 0x80B0B20;
+    g80B0C20 = 0x80B0C20;
+    gE0061C = 0x8E0061C;
+    g80B0D20 = 0x80B0D20;
+
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :

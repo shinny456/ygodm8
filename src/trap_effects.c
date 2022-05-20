@@ -492,9 +492,9 @@ void sub_080582D8(void){}
 void EffectGoblinFan(u16 lp)
 {
     if (WhoseTurn() == PLAYER)
-        SubtractPlayerLifePoints(lp);
+        SetPlayerLifePointsToSubtract(lp);
     else
-        SubtractOpponentLifePoints(lp);
+        SetOpponentLifePointsToSubtract(lp);
 
     sub_803F29C();
     sub_803F4C0();
@@ -513,9 +513,9 @@ void EffectGoblinFan(u16 lp)
 void EffectBadReactionToSimochi(u16 lp)
 {
     if (WhoseTurn() == PLAYER)
-        SubtractPlayerLifePoints(lp);
+        SetPlayerLifePointsToSubtract(lp);
     else
-        SubtractOpponentLifePoints(lp);
+        SetOpponentLifePointsToSubtract(lp);
 
     sub_803F29C();
     sub_803F4C0();

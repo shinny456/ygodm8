@@ -136,9 +136,9 @@ void EffectCatapultTurtle(void)
         }
     }
     if (WhoseTurn() == PLAYER)
-        SubtractOpponentLifePoints(totalAtk);
+        SetOpponentLifePointsToSubtract(totalAtk);
     else
-        SubtractPlayerLifePoints(totalAtk);
+        SetPlayerLifePointsToSubtract(totalAtk);
 
     sub_803F29C();
     sub_803F4C0();
@@ -385,9 +385,9 @@ void EffectMysticLamp(void)
     SetFinalStat(&gStatMod);
 
     if (WhoseTurn() == PLAYER)
-        SubtractOpponentLifePoints(gCardInfo.atk);
+        SetOpponentLifePointsToSubtract(gCardInfo.atk);
     else
-        SubtractPlayerLifePoints(gCardInfo.atk);
+        SetPlayerLifePointsToSubtract(gCardInfo.atk);
 
     sub_803F29C();
     sub_803F4C0();
@@ -407,9 +407,9 @@ void EffectLeghul(void)
     SetFinalStat(&gStatMod);
 
     if (WhoseTurn() == PLAYER)
-        SubtractOpponentLifePoints(gCardInfo.atk);
+        SetOpponentLifePointsToSubtract(gCardInfo.atk);
     else
-        SubtractPlayerLifePoints(gCardInfo.atk);
+        SetPlayerLifePointsToSubtract(gCardInfo.atk);
 
     sub_803F29C();
     sub_803F4C0();
@@ -455,9 +455,9 @@ void EffectObeliskTheTormentor(void)
             ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
 
     if (WhoseTurn() == PLAYER)
-        SubtractOpponentLifePoints(4000);
+        SetOpponentLifePointsToSubtract(4000);
     else
-        SubtractPlayerLifePoints(4000);
+        SetPlayerLifePointsToSubtract(4000);
 
     sub_803F29C();
     sub_803F4C0();
@@ -706,9 +706,9 @@ void EffectReflectBounder(void)
         SetFinalStat(&gStatMod);
 
         if (WhoseTurn() == PLAYER)
-            SubtractOpponentLifePoints(gCardInfo.atk);
+            SetOpponentLifePointsToSubtract(gCardInfo.atk);
         else
-            SubtractPlayerLifePoints(gCardInfo.atk);
+            SetPlayerLifePointsToSubtract(gCardInfo.atk);
 
         sub_803F29C();
         sub_803F4C0();
@@ -825,9 +825,9 @@ void sub_80471BC(void)
     SetFinalStat(&gStatMod);
 
     if (WhoseTurn() == PLAYER)
-        SubtractOpponentLifePoints(gCardInfo.atk);
+        SetOpponentLifePointsToSubtract(gCardInfo.atk);
     else
-        SubtractPlayerLifePoints(gCardInfo.atk);
+        SetPlayerLifePointsToSubtract(gCardInfo.atk);
 
     sub_803F29C();
     sub_803F4C0();
@@ -1888,12 +1888,12 @@ void EffectPuppetMaster(void)
 
         if (WhoseTurn() == PLAYER)
         {
-            SubtractPlayerLifePoints(1000);
+            SetPlayerLifePointsToSubtract(1000);
             sub_803F29C();
         }
         else
         {
-            SubtractOpponentLifePoints(1000);
+            SetOpponentLifePointsToSubtract(1000);
             sub_803F29C();
         }
         sub_803F4C0();
@@ -1977,7 +1977,7 @@ _08047A1C:\n\
 	bne _08047A40\n\
 	movs r0, #0xfa\n\
 	lsls r0, r0, #2\n\
-	bl SubtractPlayerLifePoints\n\
+	bl SetPlayerLifePointsToSubtract\n\
 	bl sub_803F29C\n\
 	b _08047A4C\n\
 	.align 2, 0\n\
@@ -1987,7 +1987,7 @@ _08047A3C: .4byte 0x00000239\n\
 _08047A40:\n\
 	movs r0, #0xfa\n\
 	lsls r0, r0, #2\n\
-	bl SubtractOpponentLifePoints\n\
+	bl SetOpponentLifePointsToSubtract\n\
 	bl sub_803F29C\n\
 _08047A4C:\n\
 	bl sub_803F4C0\n\
@@ -2128,9 +2128,9 @@ void EffectPenguinTorpedo(void)
     SetFinalStat(&gStatMod);
 
     if (WhoseTurn() == PLAYER)
-        SubtractOpponentLifePoints(gCardInfo.atk);
+        SetOpponentLifePointsToSubtract(gCardInfo.atk);
     else
-        SubtractPlayerLifePoints(gCardInfo.atk);
+        SetPlayerLifePointsToSubtract(gCardInfo.atk);
 
     sub_803F29C();
     sub_803F4C0();
@@ -2237,9 +2237,9 @@ void EffectReaperOfTheCards(void)
 void EffectFairysGift(void)
 {
     if (WhoseTurn() == PLAYER)
-        sub_803F978(1000);
+        SetPlayerLifePointsToAdd(1000);
     else
-        sub_803F9C0(1000);
+        SetOpponentLifePointsToAdd(1000);
 
     sub_803F29C();
 
@@ -2557,9 +2557,9 @@ void EffectRedArcheryGirl(void)
 void EffectLadyOfFaith(void)
 {
     if (WhoseTurn() == PLAYER)
-        sub_803F978(500);
+        SetPlayerLifePointsToAdd(500);
     else
-        sub_803F9C0(500);
+        SetOpponentLifePointsToAdd(500);
 
     sub_803F29C();
 
@@ -2573,9 +2573,9 @@ void EffectLadyOfFaith(void)
 void EffectFireReaper(void)
 {
     if (WhoseTurn() == PLAYER)
-        SubtractOpponentLifePoints(50);
+        SetOpponentLifePointsToSubtract(50);
     else
-        SubtractPlayerLifePoints(50);
+        SetPlayerLifePointsToSubtract(50);
 
     sub_803F29C();
     sub_803F4C0();
@@ -2667,9 +2667,9 @@ void EffectHourglassOfLife(void)
             sub_8040368(gZones[2][i]);
 
     if (WhoseTurn() == PLAYER)
-        SubtractPlayerLifePoints(1000);
+        SetPlayerLifePointsToSubtract(1000);
     else
-        SubtractOpponentLifePoints(1000);
+        SetOpponentLifePointsToSubtract(1000);
 
     sub_803F29C();
     sub_803F4C0();
@@ -2700,13 +2700,13 @@ void EffectTheWingedDragonOfRaBattleMode(void)
 {
     if (WhoseTurn() == PLAYER)
     {
-        SubtractOpponentLifePoints(gLifePoints[0] - 1);
+        SetOpponentLifePointsToSubtract(gLifePoints[0] - 1);
         sub_803F29C();
         gLifePoints[0] = 1;
     }
     else
     {
-        SubtractPlayerLifePoints(gLifePoints[1] - 1);
+        SetPlayerLifePointsToSubtract(gLifePoints[1] - 1);
         sub_803F29C();
         gLifePoints[1] = 1;
     }
@@ -2832,9 +2832,9 @@ void EffectBarrelDragon(void)
 void EffectSkullMarkLadyBug(void)
 {
     if (WhoseTurn() == PLAYER)
-        sub_803F978(500);
+        SetPlayerLifePointsToAdd(500);
     else
-        sub_803F9C0(500);
+        SetOpponentLifePointsToAdd(500);
 
     sub_803F29C();
 
@@ -2894,9 +2894,9 @@ void sub_8048AA0(void)
         ClearZoneAndSendMonToGraveyard(gZones[1][HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
 
     if (WhoseTurn() == PLAYER)
-        SubtractOpponentLifePoints(500);
+        SetOpponentLifePointsToSubtract(500);
     else
-        SubtractPlayerLifePoints(500);
+        SetPlayerLifePointsToSubtract(500);
 
     sub_803F29C();
     sub_803F4C0();
@@ -2929,9 +2929,9 @@ void EffectTheWingedDragonOfRaPhoenixMode(void)
     u8 i;
 
     if (WhoseTurn() == PLAYER)
-        SubtractPlayerLifePoints(1000);
+        SetPlayerLifePointsToSubtract(1000);
     else
-        SubtractOpponentLifePoints(1000);
+        SetOpponentLifePointsToSubtract(1000);
 
     sub_803F29C();
     sub_803F4C0();

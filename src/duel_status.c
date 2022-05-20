@@ -1,16 +1,7 @@
 #include "global.h"
 #include "duel.h"
 
-struct Unk {
-  u16 unk0;
-  u16 unk2;
-  u16 unk4;
-  u16 unk6;
-  u8 unk8;
-};
 extern u8 g80C1D80[];
-void sub_8021A14(struct Unk*);
-void sub_80219E4(struct Unk*);
 
 // SORL text
 void sub_802549C (void) {
