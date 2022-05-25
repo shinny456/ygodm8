@@ -62,7 +62,7 @@ _08024BD8:
 	blo _08024BD8
 	b _08024C5C
 	.align 2, 0
-_08024C04: .4byte 0x02018418
+_08024C04: .4byte gOamBuffer+0x18
 _08024C08: .4byte 0x08FC488C
 _08024C0C: .4byte 0x080C1CFC
 _08024C10: .4byte 0xFFFFF3FF
@@ -218,7 +218,7 @@ _08024D24:
 	bx r0
 	.align 2, 0
 _08024D30: .4byte 0x080C1D04
-_08024D34: .4byte 0x02018410
+_08024D34: .4byte gOamBuffer+0x10
 _08024D38: .4byte 0x08FC488C
 _08024D3C: .4byte 0xFFFFF3FF
 
@@ -314,7 +314,7 @@ _08024DDC:
 	bx r0
 	.align 2, 0
 _08024DE8: .4byte 0x080C1D06
-_08024DEC: .4byte 0x02018410
+_08024DEC: .4byte gOamBuffer+0x10
 _08024DF0: .4byte 0x08FC488C
 _08024DF4: .4byte 0xFFFFF3FF
 
@@ -623,7 +623,7 @@ sub_8025048: @ 0x08025048
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08025094: .4byte 0x02018410
+_08025094: .4byte gOamBuffer+0x10
 _08025098: .4byte 0x08FC488C
 _0802509C: .4byte 0x080C1D04
 _080250A0: .4byte LoadOam
@@ -671,7 +671,7 @@ sub_8025108: @ 0x08025108
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08025154: .4byte 0x02018410
+_08025154: .4byte gOamBuffer+0x10
 _08025158: .4byte 0x08FC488C
 _0802515C: .4byte 0x080C1D06
 _08025160: .4byte LoadOam
@@ -916,7 +916,7 @@ _0802538C:
 	.align 2, 0
 _08025394: .4byte 0x080C1D00
 _08025398: .4byte 0x08FC488C
-_0802539C: .4byte 0x02018408
+_0802539C: .4byte gOamBuffer+8
 _080253A0: .4byte 0xFFFFF3FF
 
 	THUMB_FUNC_START sub_80253A4

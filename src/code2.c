@@ -8345,6 +8345,12 @@ u8 sub_801B5BC (u8 arg0, u16* arg1) {
   return 0;
 }
 
+
+
+
+
+// ***********split?**************
+
 u16 sub_801B5F0 (int arg0, u8* arg1) {
   u16 ret = 0xFFFF;
   while (--arg0 >= 0) {
@@ -8649,7 +8655,7 @@ void sub_801BC58 (void) {
   REG_DISPCNT = 0xC00;
 }
 
-void sub_801BC88 (u8 arg0, u8 arg1) {
+void sub_801BC88 (u8 arg0, u32 arg1) {
   u8 i;
   u8 sl = 0;
   u8 temp1;
@@ -8922,7 +8928,7 @@ _0801BFA0:\n\
 	bx r0");
 }
 NAKED
-void sub_801BFB0 (void) {
+void sub_801BFB0 (u8 arg0) {
   asm_unified("push {r4, r5, r6, r7, lr}\n\
 	mov r7, sl\n\
 	mov r6, sb\n\
@@ -9025,7 +9031,7 @@ _0801C066:\n\
 	subs r0, r0, r6\n\
 	lsls r0, r0, #4\n\
 	movs r1, #3\n\
-	bl _divsi3\n\
+	bl __divsi3\n\
 	movs r2, #0x5e\n\
 	subs r1, r2, r0\n\
 	cmp r1, #0\n\
@@ -9194,4 +9200,952 @@ _0801C18A:\n\
 _0801C1D8: .4byte gE0061C");
 }
 
+extern u8 gUnk_2018800[];
+void sub_801C2A0 (void);
+void sub_801C218 (void);
 
+
+void sub_801C1DC (u8 arg0) {
+  CpuFill16(0, gUnk_2018800, 0x4314);
+  if (!arg0)
+    sub_801C2A0();
+  else if (arg0 == 1)
+    sub_801C218();
+}
+
+void sub_801C368 (void);
+void sub_801C38C (void);
+void sub_801C3AC (void);
+void sub_801C3CC (void);
+void sub_801C3C0 (void);
+void sub_801C39C (void);
+void sub_801C3D8 (void);
+u8 sub_801C328 (u32, u32);
+void sub_801C334 (u32);
+
+extern u8 g80B0D50[];
+
+void sub_801C218 (void) {
+  u16 r5 = 0, r4;
+  sub_801BFB0(1);
+  sub_80081DC(sub_801C368);
+  sub_8008220();
+  sub_801C3C0();
+  r4 = 1;
+  PlayMusic(0x46);
+  do {
+    if (!r5) {
+      sub_801BD50(r4);
+      sub_801BC88(1, r4);
+      sub_801BE54();
+      sub_801C334(r4);
+    }
+    sub_80081DC(sub_801C38C);
+    sub_8008220();
+    sub_801C3CC();
+    r5++;
+    if (r5 > 2) {
+      r5 = 0;
+      r4++;
+    }
+  } while (sub_801C328(r4, 1));
+  sub_80081DC(sub_801C3AC);
+  sub_8008220();
+}
+
+void sub_801C2A0 (void) {
+  u16 r5 = 0, r4;
+  sub_801BFB0(0);
+  sub_80081DC(sub_801C368);
+  sub_8008220();
+  sub_801C3C0();
+  r4 = 1;
+  PlayMusic(0x46);
+  do {
+    if (!r5) {
+      sub_801BD50(r4);
+      sub_801BC88(0, r4);
+      sub_801BE54();
+      sub_801C334(r4);
+    }
+    sub_80081DC(sub_801C39C);
+    sub_8008220();
+    sub_801C3D8();
+    r5++;
+    if (r5 > 2) {
+      r5 = 0;
+      r4++;
+    }
+  } while (sub_801C328(r4, 0));
+  sub_80081DC(sub_801C3AC);
+  sub_8008220();
+}
+
+u8 sub_801C328 (u32 arg0, u32 arg1) {
+  u8 ret = 0;
+  if (arg0 < 18)
+    ret = 1;
+  return ret;
+}
+
+void sub_801C334 (u32 arg0) {
+  u8 r2 = g80B0D50[arg0 % 3];
+  u16 temp = 16 - r2;
+  u8 temp2 = r2;
+  gBLDALPHA = (temp % 32) | (temp2 % 32) << 8; //TODO: use & instead?
+}
+
+void sub_801C368 (void) {
+  LoadOam();
+  LoadPalettes();
+  LoadBlendingRegs();
+  REG_DISPCNT |= 0x1000;
+}
+
+void sub_801C38C (void) {
+  LoadOam();
+  LoadBlendingRegs();
+}
+
+void sub_801C39C (void) {
+  LoadOam();
+  LoadBlendingRegs();
+}
+
+void sub_801C3AC (void) {
+  REG_DISPCNT &= 0xEFFF;
+}
+
+void sub_801C3C0 (void) {
+  LoadObjVRAM();
+}
+
+void sub_801C3CC (void) {
+  LoadPalettes();
+}
+
+void sub_801C3D8 (void) {
+  LoadPalettes();
+}
+
+NAKED
+void sub_801C3E4 (u8 arg0) {
+  asm_unified("push {r4, r5, r6, r7, lr}\n\
+	mov r7, sl\n\
+	mov r6, sb\n\
+	mov r5, r8\n\
+	push {r5, r6, r7}\n\
+	lsls r0, r0, #0x18\n\
+	cmp r0, #0\n\
+	bne _0801C3FC\n\
+	movs r0, #4\n\
+	mov sb, r0\n\
+	mov sl, r0\n\
+	b _0801C404\n\
+_0801C3FC:\n\
+	movs r2, #0x7c\n\
+	mov sb, r2\n\
+	movs r4, #4\n\
+	mov sl, r4\n\
+_0801C404:\n\
+	movs r6, #0\n\
+	ldr r7, _0801C48C\n\
+	ldr r0, _0801C490\n\
+	mov r8, r0\n\
+	movs r2, #4\n\
+	add r2, r8\n\
+	mov ip, r2\n\
+_0801C412:\n\
+	lsls r4, r6, #3\n\
+	adds r3, r4, r7\n\
+	ldr r0, _0801C494\n\
+	ldr r5, [r0]\n\
+	ldrb r0, [r5, #1]\n\
+	lsls r1, r0, #3\n\
+	mov r2, r8\n\
+	adds r0, r1, r2\n\
+	ldrb r0, [r0, #1]\n\
+	cmp r6, r0\n\
+	bhs _0801C4A0\n\
+	mov r2, ip\n\
+	adds r0, r1, r2\n\
+	ldr r0, [r0]\n\
+	adds r0, r4, r0\n\
+	ldrh r0, [r0]\n\
+	strh r0, [r3]\n\
+	lsls r2, r6, #2\n\
+	adds r1, r2, #1\n\
+	lsls r1, r1, #1\n\
+	adds r1, r1, r7\n\
+	ldrb r0, [r5, #1]\n\
+	lsls r0, r0, #3\n\
+	add r0, ip\n\
+	ldr r0, [r0]\n\
+	adds r0, r4, r0\n\
+	ldrh r0, [r0, #2]\n\
+	strh r0, [r1]\n\
+	adds r2, #2\n\
+	lsls r2, r2, #1\n\
+	adds r2, r2, r7\n\
+	ldrb r0, [r5, #1]\n\
+	lsls r0, r0, #3\n\
+	add r0, ip\n\
+	ldr r0, [r0]\n\
+	adds r0, r4, r0\n\
+	ldrh r0, [r0, #4]\n\
+	strh r0, [r2]\n\
+	ldrb r0, [r3]\n\
+	add r0, sl\n\
+	strb r0, [r3]\n\
+	ldrh r2, [r3, #2]\n\
+	lsls r1, r2, #0x17\n\
+	lsrs r1, r1, #0x17\n\
+	add r1, sb\n\
+	ldr r4, _0801C498\n\
+	adds r0, r4, #0\n\
+	ands r1, r0\n\
+	ldr r0, _0801C49C\n\
+	ands r0, r2\n\
+	orrs r0, r1\n\
+	strh r0, [r3, #2]\n\
+	ldrb r1, [r3, #1]\n\
+	movs r0, #0xd\n\
+	rsbs r0, r0, #0\n\
+	ands r0, r1\n\
+	movs r1, #4\n\
+	orrs r0, r1\n\
+	strb r0, [r3, #1]\n\
+	b _0801C4C6\n\
+	.align 2, 0\n\
+_0801C48C: .4byte gOamBuffer\n\
+_0801C490: .4byte 0x080B0D54\n\
+_0801C494: .4byte 0x08E0081C\n\
+_0801C498: .4byte 0x000001FF\n\
+_0801C49C: .4byte 0xFFFFFE00\n\
+_0801C4A0:\n\
+	movs r0, #0xa0\n\
+	strh r0, [r3]\n\
+	lsls r2, r6, #2\n\
+	adds r0, r2, #1\n\
+	lsls r0, r0, #1\n\
+	adds r0, r0, r7\n\
+	movs r1, #0xf0\n\
+	strh r1, [r0]\n\
+	adds r0, r2, #2\n\
+	lsls r0, r0, #1\n\
+	adds r0, r0, r7\n\
+	movs r1, #0xc0\n\
+	lsls r1, r1, #4\n\
+	strh r1, [r0]\n\
+	adds r2, #3\n\
+	lsls r2, r2, #1\n\
+	adds r2, r2, r7\n\
+	movs r0, #0\n\
+	strh r0, [r2]\n\
+_0801C4C6:\n\
+	adds r0, r6, #1\n\
+	lsls r0, r0, #0x10\n\
+	lsrs r6, r0, #0x10\n\
+	cmp r6, #0x14\n\
+	bls _0801C412\n\
+	pop {r3, r4, r5}\n\
+	mov r8, r3\n\
+	mov sb, r4\n\
+	mov sl, r5\n\
+	pop {r4, r5, r6, r7}\n\
+	pop {r0}\n\
+	bx r0\n\
+  .byte 0x0, 0x0, 0xF0, 0xB5, 0x57, 0x46, 0x4E, 0x46, 0x45, 0x46, 0xE0, 0xB4, 0x00, 0x06, 0x19, 0x49, 0x88, 0x46\n\
+	.byte 0x04, 0x22, 0x0A, 0x80, 0x18, 0x4B, 0x9A, 0x46, 0xFE, 0x23, 0x5B, 0x00, 0x19, 0x1C, 0x53, 0x46\n\
+	.byte 0x19, 0x80, 0x16, 0x4F, 0x3A, 0x80, 0x16, 0x49, 0x89, 0x46, 0x0A, 0x80, 0x00, 0x28, 0x2D, 0xD1\n\
+	.byte 0x39, 0xF0, 0x7A, 0xFE, 0x13, 0x4E, 0x14, 0x4D, 0x29, 0x68, 0x49, 0x78, 0x89, 0x19, 0x0C, 0x78\n\
+	.byte 0x61, 0x00, 0x01, 0x31, 0x3E, 0xF0, 0x6E, 0xFD, 0x24, 0x1A, 0x43, 0x46, 0x1B, 0x88, 0xE4, 0x18\n\
+	.byte 0x40, 0x46, 0x04, 0x80, 0x39, 0xF0, 0x68, 0xFE, 0x29, 0x68, 0x49, 0x78, 0x89, 0x19, 0x0C, 0x78\n\
+	.byte 0x61, 0x00, 0x01, 0x31, 0x3E, 0xF0, 0x5E, 0xFD, 0x24, 0x1A, 0x51, 0x46, 0x09, 0x88, 0x64, 0x18\n\
+	.byte 0x53, 0x46, 0x2A, 0xE0, 0x0C, 0x42, 0x02, 0x02, 0x4C, 0x42, 0x02, 0x02, 0x18, 0x42, 0x02, 0x02\n\
+	.byte 0x04, 0x42, 0x02, 0x02, 0x18, 0x08, 0xE0, 0x08, 0x1C, 0x08, 0xE0, 0x08, 0x39, 0xF0, 0x4C, 0xFE\n\
+	.byte 0x12, 0x4E, 0x13, 0x4D, 0x29, 0x68, 0x49, 0x78, 0x89, 0x19, 0x0C, 0x78, 0x61, 0x00, 0x01, 0x31\n\
+	.byte 0x3E, 0xF0, 0x40, 0xFD, 0x24, 0x1A, 0x38, 0x88, 0x24, 0x18, 0x3C, 0x80, 0x39, 0xF0, 0x3C, 0xFE\n\
+	.byte 0x29, 0x68, 0x49, 0x78, 0x89, 0x19, 0x0C, 0x78, 0x61, 0x00, 0x01, 0x31, 0x3E, 0xF0, 0x32, 0xFD\n\
+	.byte 0x24, 0x1A, 0x49, 0x46, 0x09, 0x88, 0x64, 0x18, 0x4B, 0x46, 0x1C, 0x80, 0x38, 0xBC, 0x98, 0x46\n\
+	.byte 0xA1, 0x46, 0xAA, 0x46, 0xF0, 0xBC, 0x01, 0xBC, 0x00, 0x47, 0x00, 0x00, 0x18, 0x08, 0xE0, 0x08\n\
+	.byte 0x1C, 0x08, 0xE0, 0x08");
+}
+
+struct UnkE0081C {
+  u8 unk0;
+  u8 unk1;
+} extern *gE0081C;
+
+struct Unk80B0D54 {
+  u8 filler0[4];
+  u32 unk4; //ptr type
+} extern g80B0D54[];
+
+void sub_801C5C4 (void) {
+  gE0081C->unk0++;
+  if (gE0081C->unk0 < 2)
+    return;
+  gE0081C->unk0 = 0;
+  gE0081C->unk1++;
+  if (g80B0D54[gE0081C->unk1 - 1].unk4 == g80B0D54[gE0081C->unk1].unk4)
+    gE0081C->unk1 = 0;
+}
+
+extern u16 g80B4894[];
+extern u8 g80B1E94[];
+extern u8 g80B3E94[];
+
+void sub_801C610 (u8 arg0) {
+  u16 i;
+  CpuCopy16(g80B4894, g02000000.obj, 32);
+  sub_803EEFC(0, g80B1E94, 0x100);
+  sub_803EEFC(1, g80B3E94, 0x50);
+  for (i = 0; i < 128; i++) {
+    gOamBuffer[i * 4] = 0xA0;
+    gOamBuffer[i * 4 + 1] = 0xF0;
+    gOamBuffer[i * 4 + 2] = 0xC00;
+    gOamBuffer[i * 4 + 3] = 0;
+  }
+  gBLDCNT = 0x2C10;
+  gBLDALPHA = 0x80E;
+  gBLDY = 0;
+  gE0081C->unk0 = 0;
+  gE0081C->unk1 = 0;
+}
+
+u8 sub_801C71C (void);
+void sub_801C734 (void);
+void sub_801C758 (void);
+void sub_801C7AC (void);
+void sub_0801C730 (void);
+void sub_801C768 (void);
+
+void sub_801C6BC (u8 arg0) {
+  sub_801C610(arg0);
+  sub_80081DC(sub_801C734);
+  sub_8008220();
+  sub_801C7AC();
+  PlayMusic(0x44);
+  do {
+    sub_801C3E4(arg0);
+    sub_80081DC(sub_801C758);
+    sub_8008220();
+    sub_801C5C4();
+  } while (sub_801C71C());
+  sub_0801C730();
+  sub_80081DC(sub_801C768);
+  sub_8008220();
+}
+
+
+u8 sub_801C71C (void) {
+  return gE0081C->unk0 || gE0081C->unk1;
+}
+
+void sub_0801C730 (void) {}
+
+void sub_801C734 (void) {
+  LoadOam();
+  LoadPalettes();
+  LoadBlendingRegs();
+  REG_DISPCNT |= 0x1000;
+}
+
+void sub_801C758 (void) {
+  LoadOam();
+  LoadBgOffsets();
+}
+
+void sub_801C768 (void) {
+  REG_DISPCNT &= 0xEFFF;
+  gBG2VOFS = 4;
+  gBG2HOFS = 508;
+  gBG3VOFS = 4;
+  gBG3HOFS = 4;
+  LoadBgOffsets();
+}
+
+void sub_801C7AC (void) {
+  LoadObjVRAM();
+}
+
+struct UnkE008B4 {
+  u16 unk0;
+  u16 unk2;
+  u16 unk4;
+} extern *gE008B4;
+
+void sub_801C98C (u8);
+void sub_801CA70 (void);
+void sub_801CA90 (void);
+void sub_801C870 (u8);
+void sub_801CAA0 (void);
+void sub_801CA50 (void);
+void sub_801CAAC (void);
+
+void sub_801C7B8 (u8 arg0) {
+  u16 i;
+  sub_801C98C(arg0);
+  sub_80081DC(sub_801CA70);
+  sub_8008220();
+  sub_801CA90();
+  sub_801C870(arg0);
+  sub_80081DC(sub_801CAA0);
+  for (i = 0; i < 15; i++)
+    sub_8008220();
+  if (gE008B4->unk2 > gE008B4->unk4) {
+    for (i = 0; i < 10000 && gE008B4->unk0 > gE008B4->unk4; i++) {
+      sub_801CA50(); // subtracts 72 lifepoints every frame
+      sub_801C870(arg0);
+      sub_80081DC(sub_801CAA0);
+      sub_8008220();
+      if (i % 2 == 0)
+        PlayMusic(0x47); //life points dropping
+    }
+    for (i = 0; i < 30; i++)
+      sub_8008220();
+  }
+  sub_80081DC(sub_801CAAC);
+  sub_8008220();
+}
+
+struct OAMTemplate {
+  u16 attr0;
+  u16 attr1;
+  u16 attr2;
+  u16 filler;
+};
+
+struct Unk8E00880 {
+  u8 filler0[4];
+  struct OAMTemplate* oam;
+} extern *gE00880[];
+
+void sub_801C870 (u8 arg0) {
+  u16 i;
+  u8 temp;
+  if (!arg0)
+    arg0 = 4;
+  else
+    arg0 = 124;
+  temp = 0x3C;
+  sub_800DDA0(gE008B4->unk0, 0);
+  for (i = 0; i < 7; i++) {
+    if (i < 2) {
+      gOamBuffer[i * 4] = gE00880[i + 10]->oam->attr0 | temp;
+      gOamBuffer[i * 4 + 1] = gE00880[i + 10]->oam->attr1 | arg0;
+      gOamBuffer[i * 4 + 2] = gE00880[i + 10]->oam->attr2;
+    }
+    else if (g2021BD0[i - 2] != 10) {
+      gOamBuffer[i * 4] = gE00880[g2021BD0[i - 2]]->oam->attr0 | temp;
+      gOamBuffer[i * 4 + 1] = gE00880[g2021BD0[i - 2]]->oam->attr1 | arg0;
+      gOamBuffer[i * 4 + 2] = gE00880[g2021BD0[i - 2]]->oam->attr2;
+    }
+    else {
+      gOamBuffer[i * 4] = 0xA0;
+      gOamBuffer[i * 4 + 1] = 0xF0;
+      gOamBuffer[i * 4 + 2] = 0xC00;
+      gOamBuffer[i * 4 + 3] = 0;
+    }
+    arg0 += 16;
+  }
+}
+
+extern u16 g80B8954[];
+extern u8 g80B6954[];
+
+void sub_801C98C (u8 arg0) {
+  u16 i;
+  CpuCopy32(g80B8954, g02000000.obj, 32);
+  sub_803EEFC(0, g80B6954, 256);
+  for (i = 0; i < 128; i++) {
+    gOamBuffer[i * 4] = 0xA0;
+    gOamBuffer[i * 4 + 1] = 0xF0;
+    gOamBuffer[i * 4 + 2] = 0xC00;
+    gOamBuffer[i * 4 + 3] = 0;
+  }
+  if (arg0 == 1) {
+    gE008B4->unk0 = gUnk2023EA0.unk0[1].unk2;
+    gE008B4->unk2 = gUnk2023EA0.unk0[1].unk2;
+    gE008B4->unk4 = gUnk2023EA0.unk0[1].unk4;
+  }
+  else {
+    gE008B4->unk0 = gUnk2023EA0.unk0[0].unk2;
+    gE008B4->unk2 = gUnk2023EA0.unk0[0].unk2;
+    gE008B4->unk4 = gUnk2023EA0.unk0[0].unk4;
+  }
+  gBLDCNT = 0;
+  gBLDALPHA = 0;
+  gBLDY = 0;
+}
+
+// subtracts 72 lifepoints
+void sub_801CA50 (void) {
+  if (gE008B4->unk0 - gE008B4->unk4 > 72)
+    gE008B4->unk0 -= 72;
+  else
+    gE008B4->unk0 = gE008B4->unk4;
+}
+
+void sub_801CA70 (void) {
+  LoadOam();
+  LoadPalettes();
+  REG_DISPCNT |= 0x1000;
+}
+
+void sub_801CA90 (void) {
+  LoadObjVRAM();
+  LoadBlendingRegs();
+}
+
+void sub_801CAA0 (void) {
+  LoadOam();
+}
+
+void sub_801CAAC (void) {
+  REG_DISPCNT &= 0xEFFF;
+}
+
+struct Unk8E00AA0 {
+  u16 unk0;
+  u16 unk2;
+  u8 unk4;
+  u8 unk5;
+  u8 unk6;
+  u8 unk7;
+  u8 unk8;
+} extern *g8E00AA0;
+
+extern u16 g80B68D4[][4];
+
+void sub_801CAC0 (void) {
+  u8 i;
+  if (!g8E00AA0->unk6)
+    g8E00AA0->unk6++;
+  else {
+    g8E00AA0->unk6 = 0;
+    g8E00AA0->unk7++;
+  }
+  g8E00AA0->unk8++;
+  for (i = 0; i < 4; i++)
+    gOamBuffer[i * 4 + 3] = g80B68D4[g8E00AA0->unk8][i];
+}
+
+extern u8 g80B48B4[];
+extern u16 g80B68B4[];
+
+void sub_801CB24 (u8 arg0) {
+  u16 i;
+  if (!arg0) {
+    g8E00AA0->unk0 = 0;
+    g8E00AA0->unk4 = 4;
+    g8E00AA0->unk2 = 508;
+    g8E00AA0->unk5 = 12;
+  }
+  else {
+    g8E00AA0->unk0 = 124;
+    g8E00AA0->unk4 = 4;
+    g8E00AA0->unk2 = 116;
+    g8E00AA0->unk5 = 12;
+  }
+  g8E00AA0->unk6 = 0;
+  g8E00AA0->unk7 = 0;
+  g8E00AA0->unk8 = 0;
+  CpuCopy16(g80B4894, g02000000.obj, 32);
+  CpuCopy16(g80B68B4, &g02000000.obj[16], 32);
+  sub_803EEFC(0, g80B1E94, 256);
+  sub_803EEFC(1, g80B3E94, 80);
+  sub_803EEFC(2, g80B48B4, 256);
+  for (i = 0; i < 128; i++) {
+    gOamBuffer[i * 4] = 0xA0;
+    gOamBuffer[i * 4 + 1] = 0xF0;
+    gOamBuffer[i * 4 + 2] = 0xC00;
+    gOamBuffer[i * 4 + 3] = 0;
+  }
+  for (i = 0; i < 4; i++)
+    gOamBuffer[i * 4 + 3] = g80B68D4[0][i];
+  gBLDCNT = 0x2C10;
+  gBLDALPHA = 0x80E;
+  gBLDY = 0;
+}
+
+struct Unk80B0E44 {
+  u8 unk0;
+  u8 unk1;
+  u8 filler[2];
+  u32 unk4; // ptr type
+} extern g80B0E44[];
+
+NAKED
+void sub_801CC50 (void) {
+  asm_unified("push {r4, r5, r6, r7, lr}\n\
+	mov r7, sl\n\
+	mov r6, sb\n\
+	mov r5, r8\n\
+	push {r5, r6, r7}\n\
+	sub sp, #4\n\
+	ldr r5, _0801CD08\n\
+	movs r6, #0\n\
+	ldr r0, _0801CD0C\n\
+	mov r8, r0\n\
+	adds r7, r5, #0\n\
+	ldr r1, _0801CD10\n\
+	adds r1, #4\n\
+	mov ip, r1\n\
+	movs r2, #0x11\n\
+	rsbs r2, r2, #0\n\
+	mov sl, r2\n\
+	movs r3, #0x21\n\
+	rsbs r3, r3, #0\n\
+	mov sb, r3\n\
+_0801CC78:\n\
+	mov r0, r8\n\
+	ldr r4, [r0]\n\
+	ldrb r0, [r4, #7]\n\
+	lsls r2, r0, #3\n\
+	ldr r1, _0801CD10\n\
+	adds r0, r2, r1\n\
+	ldrb r0, [r0, #1]\n\
+	cmp r6, r0\n\
+	bhs _0801CD1C\n\
+	lsls r3, r6, #3\n\
+	adds r0, r3, r7\n\
+	str r0, [sp]\n\
+	mov r1, ip\n\
+	adds r0, r2, r1\n\
+	ldr r0, [r0]\n\
+	adds r0, r3, r0\n\
+	ldrh r0, [r0]\n\
+	ldr r2, [sp]\n\
+	strh r0, [r2]\n\
+	lsls r2, r6, #2\n\
+	adds r1, r2, #1\n\
+	lsls r1, r1, #1\n\
+	adds r1, r1, r7\n\
+	ldrb r0, [r4, #7]\n\
+	lsls r0, r0, #3\n\
+	add r0, ip\n\
+	ldr r0, [r0]\n\
+	adds r0, r3, r0\n\
+	ldrh r0, [r0, #2]\n\
+	strh r0, [r1]\n\
+	adds r2, #2\n\
+	lsls r2, r2, #1\n\
+	adds r2, r2, r7\n\
+	ldrb r0, [r4, #7]\n\
+	lsls r0, r0, #3\n\
+	add r0, ip\n\
+	ldr r0, [r0]\n\
+	adds r3, r3, r0\n\
+	ldrh r0, [r3, #4]\n\
+	strh r0, [r2]\n\
+	ldrb r0, [r4, #4]\n\
+	ldrb r3, [r5]\n\
+	adds r0, r0, r3\n\
+	strb r0, [r5]\n\
+	ldrh r2, [r5, #2]\n\
+	lsls r1, r2, #0x17\n\
+	ldr r3, _0801CD0C\n\
+	ldr r0, [r3]\n\
+	lsrs r1, r1, #0x17\n\
+	ldrh r0, [r0]\n\
+	adds r1, r1, r0\n\
+	ldr r3, _0801CD14\n\
+	adds r0, r3, #0\n\
+	ands r1, r0\n\
+	ldr r0, _0801CD18\n\
+	ands r0, r2\n\
+	orrs r0, r1\n\
+	strh r0, [r5, #2]\n\
+	ldrb r1, [r5, #1]\n\
+	movs r0, #0xd\n\
+	rsbs r0, r0, #0\n\
+	ands r0, r1\n\
+	movs r2, #4\n\
+	orrs r0, r2\n\
+	strb r0, [r5, #1]\n\
+	ldrb r1, [r5, #5]\n\
+	movs r0, #0xd\n\
+	rsbs r0, r0, #0\n\
+	ands r0, r1\n\
+	orrs r0, r2\n\
+	strb r0, [r5, #5]\n\
+	b _0801CDCC\n\
+	.align 2, 0\n\
+_0801CD08: .4byte gOamBuffer\n\
+_0801CD0C: .4byte 0x08E00AA0\n\
+_0801CD10: .4byte 0x080B0E44\n\
+_0801CD14: .4byte 0x000001FF\n\
+_0801CD18: .4byte 0xFFFFFE00\n\
+_0801CD1C:\n\
+	cmp r6, r0\n\
+	bne _0801CDAC\n\
+	ldrb r0, [r4, #5]\n\
+	strb r0, [r5]\n\
+	ldrb r0, [r5, #1]\n\
+	movs r1, #3\n\
+	orrs r0, r1\n\
+	movs r3, #0xd\n\
+	rsbs r3, r3, #0\n\
+	ands r0, r3\n\
+	movs r4, #4\n\
+	orrs r0, r4\n\
+	mov r1, sl\n\
+	ands r0, r1\n\
+	mov r2, sb\n\
+	ands r0, r2\n\
+	movs r1, #0x3f\n\
+	ands r0, r1\n\
+	strb r0, [r5, #1]\n\
+	mov r1, r8\n\
+	ldr r0, [r1]\n\
+	ldrh r1, [r0, #2]\n\
+	ldr r2, _0801CD8C\n\
+	adds r0, r2, #0\n\
+	ands r1, r0\n\
+	ldrh r2, [r5, #2]\n\
+	ldr r0, _0801CD90\n\
+	ands r0, r2\n\
+	orrs r0, r1\n\
+	strh r0, [r5, #2]\n\
+	ldrb r1, [r5, #3]\n\
+	movs r0, #0xf\n\
+	rsbs r0, r0, #0\n\
+	ands r0, r1\n\
+	mov r1, sl\n\
+	ands r0, r1\n\
+	mov r2, sb\n\
+	ands r0, r2\n\
+	movs r1, #0xc0\n\
+	orrs r0, r1\n\
+	strb r0, [r5, #3]\n\
+	ldrh r1, [r5, #4]\n\
+	ldr r0, _0801CD94\n\
+	ands r0, r1\n\
+	movs r1, #0x10\n\
+	orrs r0, r1\n\
+	strh r0, [r5, #4]\n\
+	ldrb r1, [r5, #5]\n\
+	movs r0, #0xc\n\
+	ands r0, r1\n\
+	cmp r0, #0\n\
+	bne _0801CD98\n\
+	adds r0, r3, #0\n\
+	ands r0, r1\n\
+	orrs r0, r4\n\
+	b _0801CD9C\n\
+	.align 2, 0\n\
+_0801CD8C: .4byte 0x000001FF\n\
+_0801CD90: .4byte 0xFFFFFE00\n\
+_0801CD94: .4byte 0xFFFFFC00\n\
+_0801CD98:\n\
+	adds r0, r3, #0\n\
+	ands r0, r1\n\
+_0801CD9C:\n\
+	strb r0, [r5, #5]\n\
+	ldrb r0, [r5, #5]\n\
+	movs r1, #0xf\n\
+	ands r1, r0\n\
+	movs r0, #0x10\n\
+	orrs r1, r0\n\
+	strb r1, [r5, #5]\n\
+	b _0801CDCC\n\
+_0801CDAC:\n\
+	lsls r0, r6, #3\n\
+	adds r0, r0, r7\n\
+	movs r1, #0xa0\n\
+	strh r1, [r0]\n\
+	lsls r2, r6, #2\n\
+	adds r0, r2, #1\n\
+	lsls r0, r0, #1\n\
+	adds r0, r0, r7\n\
+	movs r1, #0xf0\n\
+	strh r1, [r0]\n\
+	adds r2, #2\n\
+	lsls r2, r2, #1\n\
+	adds r2, r2, r7\n\
+	movs r0, #0xc0\n\
+	lsls r0, r0, #4\n\
+	strh r0, [r2]\n\
+_0801CDCC:\n\
+	adds r5, #8\n\
+	adds r0, r6, #1\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r6, r0, #0x18\n\
+	cmp r0, #0\n\
+	blt _0801CDDA\n\
+	b _0801CC78\n\
+_0801CDDA:\n\
+	add sp, #4\n\
+	pop {r3, r4, r5}\n\
+	mov r8, r3\n\
+	mov sb, r4\n\
+	mov sl, r5\n\
+	pop {r4, r5, r6, r7}\n\
+	pop {r0}\n\
+	bx r0");
+}
+
+void sub_801CE78 (void);
+void sub_801CE6C (void);
+void sub_801CE9C (void);
+void sub_801CEA8 (void);
+void sub_0801CE68 (void);
+u8 sub_801CE44 (void);
+
+void sub_801CDEC (u8 arg0) {
+  sub_801CB24(arg0);
+  sub_80081DC(sub_801CE78);
+  sub_8008220();
+  sub_801CE6C();
+  PlayMusic(0x45);
+  do {
+    sub_801CC50();
+    sub_80081DC(sub_801CE9C);
+    sub_8008220();
+    sub_801CAC0();
+  } while (sub_801CE44());
+  sub_0801CE68();
+  sub_80081DC(sub_801CEA8);
+  sub_8008220();
+}
+
+u8 sub_801CE44 (void) {
+  if (!g80B0E44[g8E00AA0->unk7].unk0)
+    return 0;
+  return 1;
+}
+
+void sub_0801CE68 (void) {}
+
+void sub_801CE6C (void) {
+  LoadObjVRAM();
+}
+
+void sub_801CE78 (void) {
+  LoadOam();
+  LoadPalettes();
+  LoadBlendingRegs();
+  REG_DISPCNT |= 0x1000;
+}
+
+void sub_801CE9C (void) {
+  LoadOam();
+}
+
+void sub_801CEA8 (void) {
+  REG_DISPCNT &= 0xEFFF;
+}
+
+void sub_801CEBC (void) {
+  struct Unk unk;
+  if (gUnk20241FC == 6) {
+    sub_80240BC(&unk);
+    unk.unk8 = 24;
+    sub_802408C(&unk);
+    g2021D98 = 5;
+    sub_8024548();
+    do {
+      sub_8024354();
+    } while (g3000C6C);
+  }
+  sub_801CF08();
+}
+
+extern void (*gE00AA4[])(void);
+
+void sub_801CF08 (void) {
+  if (gUnk_02021C10.unkA < 11) {
+    gE00AA4[gUnk_02021C10.unkA]();
+    sub_8022080();
+  }
+}
+
+void sub_801CF30 (void) {}
+void sub_801CF34 (void) {}
+
+extern u16 g89DC020[]; // sound effect to play after spell card is activated
+extern u16 g89DC14C[]; // sound effect to play after monster effect is activated
+extern u16 g89DC23C[]; 
+extern u16 g89DC2DC[]; 
+
+void sub_801CF38 (void) {
+  PlayMusic(0x41);
+  sub_8041CCC(gUnk_02021C10.unk0, gUnk_02021C10.unk2);
+  SetCardInfo(gUnk_02021C10.unk0);
+  PlayMusic(g89DC020[gCardInfo.spellEffect]);
+}
+
+void sub_801CF74 (void) {
+  PlayMusic(0x40);
+  sub_8041CCC(gUnk_02021C10.unk0, gUnk_02021C10.unk2);
+  SetCardInfo(gUnk_02021C10.unk0);
+  PlayMusic(g89DC14C[gCardInfo.monsterEffect]);
+}
+
+void sub_801CFB0 (void) {
+  PlayMusic(0x42);
+  sub_8041CCC(gUnk_02021C10.unk0, gUnk_02021C10.unk2);
+  SetCardInfo(gUnk_02021C10.unk0);
+  PlayMusic(g89DC020[gCardInfo.spellEffect]);
+}
+
+void sub_801CFEC (void) {
+  PlayMusic(0x42);
+  sub_8041D14(gUnk_02021C10.unk0, gUnk_02021C10.unk2);
+}
+
+void sub_8035020 (u16);
+
+void sub_801D008 (void) {
+  sub_8035020(4);
+  PlayMusic(0x52);
+  sub_8041C94(g8FA2BAC[gUnk_02021C10.unk8], gUnk_02021C10.unk2, gUnk_02021C10.unk4, gUnk_02021C10.unk6, 0);
+}
+
+void sub_801D044 (void) {
+  sub_8035020(4);
+  PlayMusic(0x52);
+  sub_8041C94(g8FA2BAC[gUnk_02021C10.unk8], gUnk_02021C10.unk2, gUnk_02021C10.unk4, gUnk_02021C10.unk6, 0);
+}
+
+void sub_801D080 (void) {
+  sub_8041C94(g8FA2BAC[gUnk_02021C10.unk8], gUnk_02021C10.unk2, gUnk_02021C10.unk4, gUnk_02021C10.unk6, 0);
+}
+
+void sub_801D0B0 (void) {
+  PlayMusic(0x41);
+  sub_8041C94(g8F9E35C[gUnk_02021C10.unk0], gUnk_02021C10.unk0, gUnk_02021C10.unk2, 0, 0);
+  SetCardInfo(gUnk_02021C10.unk0);
+  PlayMusic(g89DC23C[gCardInfo.unk1E]);
+}
+
+void sub_801D100 (void) {
+  PlayMusic(0x41);
+  sub_8041C94(g8FA0964[gUnk_02021C10.unk0], gUnk_02021C10.unk0, gUnk_02021C10.unk2, 0, 0);
+  SetCardInfo(gUnk_02021C10.unk0);
+  PlayMusic(g89DC2DC[gCardInfo.unk1E]);
+}
+
+void sub_801D150 (void) {
+  PlayMusic(0x41);
+  sub_8041C94(g8FA2BAC[gUnk_02021C10.unk8], gUnk_02021C10.unk0, gUnk_02021C10.unk2, 0, 0);
+  PlayMusic(0x5A);
+}
+
+void sub_801D188 (u8 arg0) {
+  if (arg0 <= 10)
+    gUnk_02021C10.unkA = arg0;
+  else
+    gUnk_02021C10.unkA = 0;
+}
+
+void sub_801D1A8 (void) {
+  gUnk_02021C10.unk0 = 0;
+  gUnk_02021C10.unk2 = 0;
+  gUnk_02021C10.unk4 = 0;
+  gUnk_02021C10.unk6 = 0;
+  gUnk_02021C10.unk8 = 0;
+  gUnk_02021C10.unkA = 0;
+}

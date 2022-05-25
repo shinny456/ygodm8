@@ -493,7 +493,7 @@ _0800526C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080052D8: .4byte 0x02018410
+_080052D8: .4byte gOamBuffer+0x10
 _080052DC: .4byte 0x000001FF
 _080052E0: .4byte 0x80000800
 
@@ -659,8 +659,8 @@ _08005392:
 _08005414: .4byte gUnk_8DF79F8
 _08005418: .4byte gUnk_8DF7940
 _0800541C: .4byte gUnk_8DF7A28
-_08005420: .4byte 0x02018400
-_08005424: .4byte 0x02018404
+_08005420: .4byte gOamBuffer
+_08005424: .4byte gOamBuffer+4
 _08005428: .4byte 0x00009610
 _0800542C:
 	movs r4, #0
@@ -738,7 +738,7 @@ _080054A6:
 	.align 2, 0
 _080054B8: .4byte gUnk_8DF7940
 _080054BC: .4byte gUnk_8DF7A28
-_080054C0: .4byte 0x02018400
+_080054C0: .4byte gOamBuffer
 
 	THUMB_FUNC_START sub_80054C4
 sub_80054C4: @ 0x080054C4
@@ -954,7 +954,7 @@ _080055E8:
 	.align 2, 0
 _08005678: .4byte gBLDCNT
 _0800567C: .4byte gBLDALPHA
-_08005680: .4byte 0x02018400
+_08005680: .4byte gOamBuffer
 _08005684: .4byte 0x0400000E
 _08005688: .4byte 0x00001383
 _0800568C: .4byte 0x04000208
@@ -979,7 +979,7 @@ sub_80056AC: @ 0x080056AC
 	str r0, [r1, #0xc]
 	bx lr
 	.align 2, 0
-_080056C0: .4byte 0x02018400
+_080056C0: .4byte gOamBuffer
 _080056C4: .4byte 0xC0002070
 _080056C8: .4byte 0xC0402070
 

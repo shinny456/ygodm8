@@ -264,7 +264,7 @@ _0800B8A0:\n\
 	lsrs r0, r0, #0x10\n\
 	subs r0, r6, r0\n\
 	adds r1, r4, #0\n\
-	bl _divsi3\n\
+	bl __divsi3\n\
 	adds r4, r0, #0\n\
 	lsls r4, r4, #0x18\n\
 	lsrs r4, r4, #0x18\n\
@@ -284,7 +284,7 @@ _0800B8A0:\n\
 	lsrs r0, r0, #0x10\n\
 	subs r0, r6, r0\n\
 	movs r1, #0x64\n\
-	bl _divsi3\n\
+	bl __divsi3\n\
 	lsls r0, r0, #0x18\n\
 	lsrs r7, r0, #0x18\n\
 	adds r0, r7, #0\n\
@@ -299,7 +299,7 @@ _0800B8A0:\n\
 	lsrs r0, r0, #0x10\n\
 	subs r0, r6, r0\n\
 	movs r1, #0xa\n\
-	bl _divsi3\n\
+	bl __divsi3\n\
 	lsls r0, r0, #0x18\n\
 	lsrs r5, r0, #0x18\n\
 	lsls r0, r5, #2\n\
@@ -773,8 +773,7 @@ void sub_800BA04(void)
 
     if (ip >= 0)
 }*/
-extern u8 g2021BD0[];
-void sub_800DDA0(u16, u8);
+
 void sub_8020968(u8*, u16, u16);
 /*
 void sub_800BC24(void)

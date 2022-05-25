@@ -5,7 +5,7 @@ SECTIONS
     g02000000 = 0x02000000;
     gBgVram = 0x02000400;
     gOamBuffer = 0x02018400;
-    gUnk_2018800 = 0x02018800;
+    gUnk_2018800 = 0x02018800; /*gSharedMem*/
     gUnk_201C800 = 0x0201C800;
     gUnk_201C900 = 0x0201C900;
     g201CB30 = 0x0201CB30;
@@ -120,7 +120,14 @@ SECTIONS
 
     g3000C38 = 0x03000C38;
     g3000C6C = 0x03000C6C;
-
+    
+    .ewram : ALIGN(4) {
+      . = 0x02020A00; 
+      *libgcc.a:*o(.bss);
+      
+    }
+    
+    
     . = 0x08000000;
     .text :
     ALIGN(4)
@@ -175,8 +182,15 @@ SECTIONS
         asm/code5.o(.text);
         src/trap_effects.o(.text);
         src/turn.o(.text);
+        
+        /*lib code*/
+        
         asm/code_80584B4.o(.text);
-
+        *libgcc.a:*.o(.text);
+        *libc.a:*.o(.text);
+        
+        /*data*/
+        
         data/data.o(.rodata);
         src/data/starter_trunk.o(.rodata);
         data/data2.o(.rodata);
@@ -184,6 +198,10 @@ SECTIONS
         data/data3.o(.rodata);
         src/data/decks.o(.rodata);
         data/data4.o(.rodata);
+        
+        *libgcc.a:*.o(.rodata);
+        
+        data/data5.o(.rodata);
     } = 0
 
 
@@ -359,8 +377,30 @@ SECTIONS
     g80B0C20 = 0x80B0C20;
     gE0061C = 0x8E0061C;
     g80B0D20 = 0x80B0D20;
-
-
+    g80B0D50 = 0x80B0D50;
+    g80B0D54 = 0x80B0D54;
+    gE0081C = 0x8E0081C;
+    g80B4894 = 0x80B4894;
+    g80B1E94 = 0x80B1E94;
+    g80B3E94 = 0x80B3E94;
+    gE008B4 = 0x8E008B4;
+    gE00880 = 0x8E00880;
+    g80B6954 = 0x80B6954;
+    g80B8954 = 0x80B8954;
+    g8E00AA0 = 0x8E00AA0;
+    g80B68D4 = 0x80B68D4;
+    g80B48B4 = 0x80B48B4;
+    g80B68B4 = 0x80B68B4;
+    g80B0E44 = 0x80B0E44;
+    gE00AA4 = 0x8E00AA4;
+    g89DC020 = 0x89DC020;
+    g89DC14C = 0x89DC14C;
+    g8F9E35C = 0x8F9E35C;
+    g89DC23C = 0x89DC23C;
+    g8FA0964 = 0x8FA0964;
+    g89DC2DC = 0x89DC2DC;
+    
+    
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :
     {

@@ -604,4 +604,19 @@ void sub_802432C(void);
 void sub_8024354(void);
 extern u8 g3000C6C;
 
+void sub_803EEFC (u8, u8*, u16);
+void sub_800DDA0(u16, u8);
+extern u8 g2021BD0[];
+void sub_801CF08(void);
+void sub_8022080(void);
+void sub_8041CCC (u16, u16);
+void sub_8041D14 (u16, u16);
+
+void sub_8041C94(u8*, u16, u16, u16, u32);
+
+extern u8* g8FA2BAC[]; //duel text pointers
+extern u8* g8FA2C14[]; //duel text pointers
+extern u8* g8F9E35C[];
+extern u8* g8FA0964[];
+
 #endif // GUARD_DUEL_H

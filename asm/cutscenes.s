@@ -803,7 +803,7 @@ _080008C0: .4byte gBG0HOFS
 _080008C4: .4byte gBG0VOFS
 _080008C8: .4byte gBG1HOFS
 _080008CC: .4byte gBG1VOFS
-_080008D0: .4byte 0x02018400
+_080008D0: .4byte gOamBuffer
 _080008D4: .4byte 0x04000008
 _080008D8: .4byte 0x04000208
 _080008DC: .4byte 0x04000004
@@ -2623,9 +2623,9 @@ _08001708:
 	bx r0
 	.align 2, 0
 _0800176C: .4byte gUnk_8DF7590
-_08001770: .4byte 0x02018400
+_08001770: .4byte gOamBuffer
 _08001774: .4byte 0x000001FF
-_08001778: .4byte 0x02018404
+_08001778: .4byte gOamBuffer+4
 _0800177C: .4byte gUnk_8FA3770
 _08001780: .4byte gUnk_8FA37E8
 _08001784: .4byte 0x02018598
@@ -2890,7 +2890,7 @@ sub_80018E8: @ 0x080018E8
 	.align 2, 0
 _080019B8: .4byte gUnk_8088ED4
 _080019BC: .4byte gUnk_8DF7590
-_080019C0: .4byte 0x02018406
+_080019C0: .4byte gOamBuffer+6
 
 	THUMB_FUNC_START sub_80019C4
 sub_80019C4: @ 0x080019C4
@@ -3001,7 +3001,7 @@ _08001A94: .4byte gBG0HOFS
 _08001A98: .4byte gBG0VOFS
 _08001A9C: .4byte gBG1HOFS
 _08001AA0: .4byte gBG1VOFS
-_08001AA4: .4byte 0x02018400
+_08001AA4: .4byte gOamBuffer
 _08001AA8: .4byte 0x04000008
 _08001AAC: .4byte 0x00005C0A
 _08001AB0: .4byte 0x00005E0B
@@ -3589,13 +3589,13 @@ _08001F2C:
 	ldr r6, _08001F7C
 	ldrh r0, [r1, #0xa]
 	adds r1, r7, #0
-	bl _divsi3
+	bl __divsi3
 	strh r0, [r6]
 	bl LoadBlendingRegs
 	ldr r4, [r5]
 	ldrh r0, [r4, #0xa]
 	adds r1, r7, #0
-	bl _divsi3
+	bl __divsi3
 	cmp r0, #0xf
 	bgt _08001F54
 	b _080020CA
@@ -3643,7 +3643,7 @@ _08001F9C:
 	ldr r4, _08001FD4
 	ldrh r0, [r1, #0xa]
 	adds r1, r6, #0
-	bl _divsi3
+	bl __divsi3
 	movs r2, #0x80
 	lsls r2, r2, #5
 	adds r1, r2, #0
@@ -3653,7 +3653,7 @@ _08001F9C:
 	ldr r4, [r5]
 	ldrh r0, [r4, #0xa]
 	adds r1, r6, #0
-	bl _divsi3
+	bl __divsi3
 	cmp r0, #0xf
 	bgt _08001FCC
 	b _080020CA
@@ -3689,7 +3689,7 @@ _08001FF6:
 	ldr r6, _08002048
 	ldrh r0, [r1, #0xa]
 	mov r1, r8
-	bl _divsi3
+	bl __divsi3
 	movs r1, #0x10
 	subs r0, r1, r0
 	lsls r0, r0, #8
@@ -3699,7 +3699,7 @@ _08001FF6:
 	ldr r4, [r5]
 	ldrh r0, [r4, #0xa]
 	mov r1, r8
-	bl _divsi3
+	bl __divsi3
 	cmp r0, #0xf
 	ble _080020CA
 	ldrb r0, [r4, #8]
@@ -4723,7 +4723,7 @@ _08002894:
 	ldr r4, _080028CC
 	ldrh r0, [r1, #0xa]
 	adds r1, r6, #0
-	bl _divsi3
+	bl __divsi3
 	movs r2, #0x80
 	lsls r2, r2, #5
 	adds r1, r2, #0
@@ -4733,7 +4733,7 @@ _08002894:
 	ldr r4, [r5]
 	ldrh r0, [r4, #0xa]
 	adds r1, r6, #0
-	bl _divsi3
+	bl __divsi3
 	cmp r0, #0xf
 	bgt _080028C4
 	b _080029C8
@@ -5333,7 +5333,7 @@ _08002DA4:
 	ldr r4, _08002DDC
 	ldrh r0, [r1, #0xa]
 	adds r1, r6, #0
-	bl _divsi3
+	bl __divsi3
 	movs r2, #0x80
 	lsls r2, r2, #5
 	adds r1, r2, #0
@@ -5343,7 +5343,7 @@ _08002DA4:
 	ldr r4, [r5]
 	ldrh r0, [r4, #0xa]
 	adds r1, r6, #0
-	bl _divsi3
+	bl __divsi3
 	cmp r0, #0xf
 	ble _08002E8C
 	ldrb r0, [r4, #8]
@@ -7672,9 +7672,9 @@ _08004104: .4byte gUnk_8FA38AC
 _08004108: .4byte gUnk_8FA38BC
 _0800410C: .4byte gUnk_8FA38CC
 _08004110: .4byte 0x000001FF
-_08004114: .4byte 0x02018410
+_08004114: .4byte gOamBuffer+0x10
 _08004118: .4byte gUnk_8FA3904
-_0800411C: .4byte 0x02018414
+_0800411C: .4byte gOamBuffer+0x14
 _08004120: .4byte 0x000003FF
 _08004124: .4byte gUnk_8FA3950
 _08004128:
@@ -7833,8 +7833,8 @@ _080041A6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08004254: .4byte 0x02018410
-_08004258: .4byte 0x020184A0
+_08004254: .4byte gOamBuffer+0x10
+_08004258: .4byte gOamBuffer+0xA0
 _0800425C: .4byte gUnk_8DF7594
 
 	THUMB_FUNC_START sub_8004260
@@ -7923,7 +7923,7 @@ _08004280:
 	bx r0
 	.align 2, 0
 _08004304: .4byte gUnk_8FA3A44
-_08004308: .4byte 0x02018400
+_08004308: .4byte gOamBuffer
 _0800430C: .4byte gUnk_8DF7594
 _08004310: .4byte 0x000001FF
 _08004314: .4byte 0x000003FF
@@ -8014,7 +8014,7 @@ _08004338:
 	bx r0
 	.align 2, 0
 _080043BC: .4byte gUnk_8FA3A44
-_080043C0: .4byte 0x02018400
+_080043C0: .4byte gOamBuffer
 _080043C4: .4byte gUnk_8DF7594
 _080043C8: .4byte 0x000001FF
 _080043CC: .4byte 0x000003FF
@@ -8251,7 +8251,7 @@ sub_80043D0: @ 0x080043D0
 	.align 2, 0
 _080045C8: .4byte gUnk_8088ED4
 _080045CC: .4byte gUnk_8DF7594
-_080045D0: .4byte 0x02018406
+_080045D0: .4byte gOamBuffer+6
 
 	THUMB_FUNC_START sub_80045D4
 sub_80045D4: @ 0x080045D4
@@ -8797,7 +8797,7 @@ _080049D4: .4byte gBG0VOFS
 _080049D8: .4byte gBG1HOFS
 _080049DC: .4byte gBG1VOFS
 _080049E0: .4byte gBG2HOFS
-_080049E4: .4byte 0x02018400
+_080049E4: .4byte gOamBuffer
 _080049E8: .4byte 0x04000208
 _080049EC: .4byte 0x04000004
 _080049F0: .4byte 0x00000702
@@ -8931,7 +8931,7 @@ _08004B00: .4byte gBG0VOFS
 _08004B04: .4byte gBG1HOFS
 _08004B08: .4byte gBG1VOFS
 _08004B0C: .4byte gBG2HOFS
-_08004B10: .4byte 0x02018400
+_08004B10: .4byte gOamBuffer
 _08004B14: .4byte 0x04000208
 _08004B18: .4byte 0x04000004
 _08004B1C: .4byte 0x0000140A
@@ -9043,7 +9043,7 @@ _08004BFC: .4byte gBG2HOFS
 _08004C00: .4byte gBG2VOFS
 _08004C04: .4byte gBG3HOFS
 _08004C08: .4byte gBG3VOFS
-_08004C0C: .4byte 0x02018400
+_08004C0C: .4byte gOamBuffer
 _08004C10: .4byte 0x04000208
 _08004C14: .4byte 0x04000004
 _08004C18: .4byte 0x00001F0B
@@ -9137,7 +9137,7 @@ _08004C40:
 	.align 2, 0
 _08004CD0: .4byte gBG3HOFS
 _08004CD4: .4byte gBG3VOFS
-_08004CD8: .4byte 0x02018400
+_08004CD8: .4byte gOamBuffer
 _08004CDC: .4byte 0x04000208
 _08004CE0: .4byte 0x04000004
 _08004CE4: .4byte 0x00000F83
@@ -9256,7 +9256,7 @@ _08004D9C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08004DD8: .4byte 0x02018400
+_08004DD8: .4byte gOamBuffer
 _08004DDC: .4byte gUnk_8FA389C
 
 	THUMB_FUNC_START sub_8004DE0
@@ -9314,7 +9314,7 @@ _08004E06:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08004E48: .4byte 0x02018400
+_08004E48: .4byte gOamBuffer
 _08004E4C: .4byte gUnk_8FA3770
 _08004E50: .4byte 0x000003FF
 

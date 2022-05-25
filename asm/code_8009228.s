@@ -1294,7 +1294,7 @@ _08009D10: .4byte gCardInfo
 _08009D14: .4byte 0x02000400
 _08009D18: .4byte 0x00007C17
 _08009D1C: .4byte 0x02021BD0
-_08009D20: .4byte 0x02018400
+_08009D20: .4byte gOamBuffer
 _08009D24:
 	movs r4, #0xd
 	rsbs r4, r4, #0
@@ -2316,7 +2316,7 @@ sub_800A544: @ 0x0800A544
 	subs r0, r0, r1
 	lsls r0, r0, #2
 	ldrh r1, [r2, #2]
-	bl _divsi3
+	bl __divsi3
 	lsls r0, r0, #0x10
 	lsrs r3, r0, #0x10
 	b _0800A56E
@@ -2378,7 +2378,7 @@ _0800A56E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800A5D8: .4byte 0x02018400
+_0800A5D8: .4byte gOamBuffer
 _0800A5DC: .4byte 0x08DFB5FC
 _0800A5E0: .4byte 0x000001FF
 _0800A5E4: .4byte 0xFFFFFE00
@@ -2437,7 +2437,7 @@ sub_800A634: @ 0x0800A634
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800A650: .4byte 0x02018400
+_0800A650: .4byte gOamBuffer
 _0800A654: .4byte 0x01000200
 
 	THUMB_FUNC_START sub_800A658
@@ -2771,7 +2771,7 @@ sub_800A8D8: @ 0x0800A8D8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800A91C: .4byte 0x02018430
+_0800A91C: .4byte gOamBuffer+0x30
 _0800A920: .4byte 0x08DFB63C
 _0800A924: .4byte gUnkStruct_2020E10
 _0800A928: .4byte 0x08DFB647
@@ -2788,7 +2788,7 @@ sub_800A934: @ 0x0800A934
 	str r0, [r1, #0xc]
 	bx lr
 	.align 2, 0
-_0800A944: .4byte 0x02018430
+_0800A944: .4byte gOamBuffer+0x30
 
 	THUMB_FUNC_START sub_800A948
 sub_800A948: @ 0x0800A948

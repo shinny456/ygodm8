@@ -673,7 +673,7 @@ _0800D250: .4byte gCardInfo
 _0800D254: .4byte 0x02000400
 _0800D258: .4byte 0x00007C17
 _0800D25C: .4byte 0x02021BD0
-_0800D260: .4byte 0x02018400
+_0800D260: .4byte gOamBuffer
 _0800D264:
 	movs r6, #0xd
 	rsbs r6, r6, #0
@@ -1973,7 +1973,7 @@ sub_800DCAC: @ 0x0800DCAC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800DCF0: .4byte 0x02018430
+_0800DCF0: .4byte gOamBuffer+0x30
 _0800DCF4: .4byte 0x08DFF4E0
 _0800DCF8: .4byte gUnkStruct_2020E10
 _0800DCFC: .4byte 0x08DFF4EB
@@ -1990,7 +1990,7 @@ sub_800DD08: @ 0x0800DD08
 	str r0, [r1, #0xc]
 	bx lr
 	.align 2, 0
-_0800DD18: .4byte 0x02018430
+_0800DD18: .4byte gOamBuffer+0x30
 
 	THUMB_FUNC_START sub_800DD1C
 sub_800DD1C: @ 0x0800DD1C

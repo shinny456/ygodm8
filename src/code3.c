@@ -20,8 +20,6 @@ struct Bruh {
 
 extern struct CursorPosition gCursorPosition;
 extern struct Duelist* gUnk8E00B30[];
-extern u8* g8FA2BAC[]; //duel text pointers
-extern u8* g8FA2C14[]; //duel text pointers
 extern struct Bruh g80C180C[];
 extern u32 gOamBuffer[];
 extern u8 g80C1824[];
@@ -60,7 +58,6 @@ void sub_80254DC(void);
 void sub_8041090();
 void sub_80081DC(void (*)(void));
 void LoadPalettes(void);
-void sub_8041C94(u8*, u16, u16, u16, u32);
 void sub_8021A54(void);
 bool8 sub_8021A8C(struct Bruh*);
 void HandleOutcome(void);
@@ -73,7 +70,6 @@ u8 sub_8021CFC(void);
 void sub_804ED08(void);
 void sub_8035038(u16);
 void sub_8022040(void);
-void sub_8022080(void);
 void sub_8021E0C(void);
 void sub_8021ED8(void);
 void sub_8022068(void);
@@ -333,7 +329,6 @@ void sub_8024354(void);
 void sub_8024568(void);
 void sub_801B66C(void);
 void sub_80410B4(void);
-void sub_801CF08(void);
 void sub_8041D54(void);
 void sub_803276C(void);
 void sub_8022234(void);
