@@ -1211,18 +1211,8 @@ void sub_8044B2C (void);
 void sub_80410B4 (void);
 void sub_8044AF0 (void);
 
-struct CursorPosition {
-  u8 currentX;
-  u8 currentY;
-  u8 destX;
-  u8 destY;
-  u8 unk4;
-  u8 filler[2];
-};
-
-extern struct CursorPosition gCursorPosition;
-
 extern u8 g20240E0;
+
 void sub_8040A40 (void) {
   g20240E0 = 0;
   sub_8041104();

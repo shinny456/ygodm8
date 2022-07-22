@@ -1496,7 +1496,7 @@ void sub_8020968(void *arg0, u16 arg1, u16 arg2);
 void sub_8053284(struct Unk88 *script);
 void PlayMusic();
 
-__attribute__((section("ight")))
+__attribute__((section(".text2")))
 
 void sub_80526D0(struct Unk88 *script)
 {
@@ -1556,7 +1556,7 @@ void sub_80526D0(struct Unk88 *script)
     sub_804F508();
     REG_BLDCNT = 0;
 }
-__attribute__((section("ight")))
+__attribute__((section(".text2")))
 void sub_80527E8(struct Unk88 *script)
 {
     u16 var;
@@ -1871,7 +1871,7 @@ void sub_80527E8(struct Unk88 *script)
 extern const u32 g82AD2D0[];
 extern u16 gUnk2020DFC;
 
-__attribute__((section("ight")))
+__attribute__((section(".text2")))
 void sub_8052F60 (struct Unk88 *script) {
   if (gUnk2020DFC & 259) {
     PlayMusic(202);
@@ -1903,7 +1903,7 @@ void sub_8052F60 (struct Unk88 *script) {
       break;
   }
 }
-__attribute__((section("ight")))
+__attribute__((section(".text2")))
 void sub_8053040 (struct Unk88 *script) {
   int temp;
   if ((temp = gUnk2020DFC & 259)) {
@@ -1941,7 +1941,7 @@ void sub_8053040 (struct Unk88 *script) {
 extern u32 gE0E674[];
 extern u32 gE0E754[];
 
-__attribute__((section("ight")))
+__attribute__((section(".text2")))
 void sub_8053138 (struct Unk88 *script) {
   u16 var;
   script->unk86 = 1;
@@ -1968,7 +1968,7 @@ void sub_8053138 (struct Unk88 *script) {
   if (!script->unk22[script->unk78])
     script->unkC = 0;
 }
-__attribute__((section("ight")))
+__attribute__((section(".text2")))
 void sub_80531FC (struct Unk88* script) {
   int i;
   SetCardInfo(script->unk20);
@@ -1982,13 +1982,13 @@ void sub_80531FC (struct Unk88* script) {
   script->unk78 = 0;
   script->unkC = 2;
 }
-__attribute__((section("ight")))
+__attribute__((section(".text2")))
 void sub_8053274 (struct Unk88 *script, struct Unk10 *unk10) {
   script->unk10.unk0 = unk10->unk0;
   script->unk10.unk4 = unk10->unk4;
   script->unk10.unk8 = unk10->unk8;
 }
-__attribute__((section("ight")))
+__attribute__((section(".text2")))
 void sub_8053284 (struct Unk88 *script) {
   if (script->unkD == 1)
     script->unk8 = gE0E674[script->unk8];

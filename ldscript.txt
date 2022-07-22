@@ -16,6 +16,7 @@ SECTIONS
     g201CB40 = 0x201CB40;
     g201CB44 = 0x201CB44;
     g201CB48 = 0x201CB48;
+    g201CB50 = 0x201CB50;
     g201EE60 = 0x0201EE60;
     g201EE61 = 0x0201EE61;
     g2020DC8 = 0x02020DC8;
@@ -65,7 +66,15 @@ SECTIONS
 
     gMoney = 0x2021DD0;
 
+    g2021DD8 = 0x2021DD8;
+    g2021DE0 = 0x2021DE0;
+
     gUnk2022EB0 = 0x02022EB0;
+    g2022EC0 = 0x02022EC0;
+    g20231E1 = 0x20231E1;
+    g2023E68 = 0x2023E68;
+    g2023E69 = 0x2023E69;
+    g2023E7B = 0x2023E7B;
     g2023E80 = 0x02023E80;
     gUnk2023EA0 = 0x02023EA0;
     gDuel = 0x02023EC0;
@@ -76,6 +85,7 @@ SECTIONS
     gSelectedCard = 0x20240D8;
     g20240E0 = 0x20240E0;
     gUnk20240F0 = 0x20240F0;
+    g2024144 = 0x2024144;
     gUnk20241FC = 0x020241FC;
     gCursorPosition = 0x020241F0;
 
@@ -120,14 +130,15 @@ SECTIONS
 
     g3000C38 = 0x03000C38;
     g3000C6C = 0x03000C6C;
-    
+    g3000C78 = 0x03000C78;
+    g3001078 = 0x03001078;
+
     .ewram : ALIGN(4) {
-      . = 0x02020A00; 
+      . = 0x02020A00;
       *libgcc.a:*o(.bss);
-      
     }
-    
-    
+
+
     . = 0x08000000;
     .text :
     ALIGN(4)
@@ -142,16 +153,17 @@ SECTIONS
         src/trunk.o(.text);
         asm/code_8009228.o(.text);
         src/code_800AC64.o(.text);
-        asm/code_8009228.o(split);
+        asm/code_8009228.o(.text2);
         src/duel.o(.text);
         asm/code1.o(.text);
         src/code2.o(.text);
+        src/deck_menu.o(.text);
         asm/code2.o(.text);
         src/main.o(.text);
         src/exodia.o(.text);
         src/text.o(.text);
         src/code3.o(.text);
-        asm/code3.o(.start);
+        asm/code3.o(.text2);
         src/main_menu.o(.text);
         asm/main_menu.o(.text);
         src/duel_status.o(.text);
@@ -159,15 +171,24 @@ SECTIONS
         src/password_terminal.o(.text);
         asm/password_terminal.o(.text);
         src/god_cards.o(.text);
-        asm/code3.o(.Split_2);
+        asm/code3.o(.text3);
         src/return_monster.o(.text);
         src/print_card.o(.text);
         src/copyright_screens.o(.text);
         src/money.o(.text);
+        src/code_802703C.o(.text);
         asm/code3.o(.text);
+        src/trade_menu.o(.text);
+        asm/code3.o(.text4);
         src/FINAL_effect.o(.text);
         src/code_803F02C.o(.text);
         asm/code_803F02C.o(.text);
+        src/code_80421CC.o(.text);
+        asm/code_803F02C.o(.text1);
+        src/code_8042F44.o(.text);
+        src/code_8043EF4.o(.text);
+        asm/code_803F02C.o(.text2);
+        src/code_80452A8.o(.text);
         src/tribute.o(.text);
         src/io_buffers.o(.text);
         src/monster_effects.o(.text)
@@ -175,32 +196,33 @@ SECTIONS
         src/spell_effects.o(.text)
         src/code4.o(.text);
         asm/code4.o(.text);
-        src/code4.o(ight);
+        src/code4.o(.text2);
         asm/code4.o(.text2);
         src/spell_effects_util.o(.text);
         src/card_passwords.o(.text);
         asm/code5.o(.text);
         src/trap_effects.o(.text);
         src/turn.o(.text);
-        
+
         /*lib code*/
-        
+
         asm/code_80584B4.o(.text);
         *libgcc.a:*.o(.text);
         *libc.a:*.o(.text);
-        
+
         /*data*/
-        
+
         data/data.o(.rodata);
+        src/deck_menu.o(.rodata);
         src/data/starter_trunk.o(.rodata);
         data/data2.o(.rodata);
         src/data/cards_data.o(.rodata);
         data/data3.o(.rodata);
         src/data/decks.o(.rodata);
         data/data4.o(.rodata);
-        
+
         *libgcc.a:*.o(.rodata);
-        
+
         data/data5.o(.rodata);
     } = 0
 
@@ -399,8 +421,75 @@ SECTIONS
     g89DC23C = 0x89DC23C;
     g8FA0964 = 0x8FA0964;
     g89DC2DC = 0x89DC2DC;
-    
-    
+    gE00AD4 = 0x8E00AD4;
+    gE00AD6 = 0x8E00AD6;
+    gE00AD8 = 0x8E00AD8;
+    gE00ADB = 0x8E00ADB;
+    g80B8974 = 0x80B8974;
+    g80B9144 = 0x80B9144;
+    gE00AE0 = 0x8E00AE0;
+    gStarterDeck = 0x80F3180;
+    g80B9194 = 0x80B9194;
+    g80B92D8 = 0x80B92D8;
+    g8E0CDF0 = 0x8E0CDF0;
+    g8E0CE00 = 0x8E0CE00;
+    g8E0CC20 = 0x8E0CC20;
+    g80D0444 = 0x80D0444;
+    g8E0CE18 = 0x8E0CE18;
+    g80DD6FE = 0x80DD6FE;
+    g80DD708 = 0x80DD708;
+    g80DD744 = 0x80DD744;
+    g80DD74A = 0x80DD74A;
+    g80DD750 = 0x80DD750;
+    g80DD756 = 0x80DD756;
+    g80DD774 = 0x80DD774;
+    g80DD77F = 0x80DD77F;
+    g80DD78A = 0x80DD78A;
+    g80DD795 = 0x80DD795;
+    g80DD6FA = 0x80DD6FA;
+    g8E0CE40 = 0x8E0CE40;
+    g80DD92E = 0x80DD92E;
+    g80DD938 = 0x80DD938;
+    g80DD974 = 0x80DD974;
+    g80DD976 = 0x80DD976;
+    g80DD978 = 0x80DD978;
+    g80DD97A = 0x80DD97A;
+    g80DD984 = 0x80DD984;
+    g80DD98F = 0x80DD98F;
+    g80DD99A = 0x80DD99A;
+    g80DD9A5 = 0x80DD9A5;
+    g80DD92A = 0x80DD92A;
+    g8E0CE68 = 0x8E0CE68;
+    g80DD816 = 0x80DD816;
+    g80DD820 = 0x80DD820;
+    g80DD85C = 0x80DD85C;
+    g80DD862 = 0x80DD862;
+    g80DD868 = 0x80DD868;
+    g80DD86E = 0x80DD86E;
+    g80DD88C = 0x80DD88C;
+    g80DD897 = 0x80DD897;
+    g80DD8A2 = 0x80DD8A2;
+    g80DD8AD = 0x80DD8AD;
+    g80DD812 = 0x80DD812;
+    g80DD668 = 0x80DD668;
+    g80DD6B0 = 0x80DD6B0;
+    g8FA3558 = 0x8FA3558;
+    g80DD670 = 0x80DD670;
+    g80DD674 = 0x80DD674;
+    g80DD678 = 0x80DD678;
+    g8E0CE90 = 0x8E0CE90;
+    g8E0C6B0 = 0x8E0C6B0;
+    g8E0C6B8 = 0x8E0C6B8;
+    g8E0C6C0 = 0x8E0C6C0;
+    g8E0C800 = 0x8E0C800;
+    g8E0D954 = 0x8E0D954;
+    g8E0D958 = 0x8E0D958;
+    g8E0D95C = 0x8E0D95C;
+    g8E0D81A = 0x8E0D81A;
+    g8E0D81D = 0x8E0D81D;
+    g8E0D820 = 0x8E0D820;
+    g8E0D823 = 0x8E0D823;
+
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :
     {

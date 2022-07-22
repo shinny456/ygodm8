@@ -91,7 +91,7 @@ extern struct UnkStr *gUnk_8DFF6A4;
 extern void (*gUnk_8DFF6A8[])(void);
 extern void (*gUnk_8DFF74C[])(void);
 extern u8 (*gE00550[])(void);
-int sub_802061C(u16);
+u32 sub_802061C(u16);
 
 void sub_800E0D4(void)
 {
@@ -10067,8 +10067,8 @@ void sub_801CF34 (void) {}
 
 extern u16 g89DC020[]; // sound effect to play after spell card is activated
 extern u16 g89DC14C[]; // sound effect to play after monster effect is activated
-extern u16 g89DC23C[]; 
-extern u16 g89DC2DC[]; 
+extern u16 g89DC23C[];
+extern u16 g89DC2DC[];
 
 void sub_801CF38 (void) {
   PlayMusic(0x41);

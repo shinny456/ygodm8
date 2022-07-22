@@ -15,20 +15,6 @@ struct UnkStruct_2020E10
     u16 unkC[TRUNK_SIZE - 1]; //trunk_layout?
 };
 
-struct UnkStruct_2021AB4
-{
-    u16 unk0;
-    u16 unk2;
-};
-
-struct UnkStruct_2022EB0
-{
-    u16* unk0;
-    u8 filler_4[4];
-    u16 unk8;
-    u8 unkA;
-};
-
 void sub_8008220(void);
 u16 sub_800901C(u8);
 void sub_80090E8(void);
@@ -61,9 +47,9 @@ extern u16 gKeyState; //0x02020DF8
 extern struct UnkStruct_2020E10 gUnkStruct_2020E10; //2020E10
 extern u8 gTotalCardQty[];
 extern u8 gTrunkCardQty[]; //2021790
-extern struct UnkStruct_2021AB4 gUnk2021AB4;
+
 extern struct CardInfo gCardInfo; //2021AD0
-extern struct UnkStruct_2022EB0 gUnk2022EB0;
+
 
 extern const u8 gStarterTrunk[];
 
@@ -608,18 +594,20 @@ u8 GetTrunkCardQty(u16 id)
 }
 
 /*
-void sub_8008D88(u16 id)
-{
-    if (!gTrunkCardQty[id])
-    {
-        if (GetDeckCardQty(id))
-            sub_801D9B8(id);
-    }
-    else if (gTrunkCardQty[id] >= 1)
-        gTrunkCardQty[id]--;
+static inline void sub_8008D88_inline (u16 id, u8 arg1) {
+  if (gTrunkCardQty[id])
+    if (gTrunkCardQty[id] < arg1)
+      gTrunkCardQty[id] = 0;
     else
-        gTrunkCardQty[id] = 0;
+      gTrunkCardQty[id]--;
+  else if (GetDeckCardQty(id))
+    sub_801D9B8(id);
+}
+
+void sub_8008D88 (u16 id) {
+  sub_8008D88_inline(id, 1);
 }*/
+
 NAKED
 void sub_8008D88(u16 id)
 {
@@ -791,7 +779,7 @@ u16 sub_800901C(u8 val)
 {
     s16 r2 = gUnkStruct_2020E10.unk0 + val - 2;
 
-    if (r2 > 799)
+    if (r2 >= 800)
         r2 -= 800;
     else if (r2 < 0)
         r2 += 800;
@@ -887,3 +875,52 @@ void sub_80091EC(u8 val)
 
 void sub_08009224(void){}
 
+extern u32 gUnk_808918C[];
+extern u8 gUnk_808C1C0[];
+extern u8 g8DFA6B4[];
+extern u8 g8DFAB54[];
+extern u8 g8DFAFF4[];
+extern u16 gUnk_808B860[][30];
+
+// Same exact function as sub_800C834
+
+void sub_8009228 (void)
+{
+    u8 i;
+
+    LZ77UnCompWram(gUnk_808918C, gBgVram.cbb0);
+
+    switch (gLanguage)
+    {
+    case FRENCH:
+        CpuFastSet(g8DFA6B4, gBgVram.cbb0, 0x48);
+        CpuFastSet(&g8DFA6B4[32*9], &gBgVram.cbb0[32*30], 0x48);
+        CpuFastSet(&g8DFA6B4[32*18], &gBgVram.cbb0[32*60], 0x48);
+        CpuFastSet(&g8DFA6B4[32*27], &gBgVram.cbb0[32*10], 0x50);
+        break;
+    case GERMAN:
+        CpuFastSet(g8DFAB54, gBgVram.cbb0, 0x48);
+        CpuFastSet(&g8DFAB54[32*9], &gBgVram.cbb0[32*30], 0x48);
+        CpuFastSet(&g8DFAB54[32*18], &gBgVram.cbb0[32*60], 0x48);
+        CpuFastSet(&g8DFAB54[32*27], &gBgVram.cbb0[32*10], 0x50);
+        break;
+    case ITALIAN:
+        CpuFastSet(g8DFAFF4, gBgVram.cbb0, 0x48);
+        CpuFastSet(&g8DFAFF4[32*9], &gBgVram.cbb0[32*30], 0x48);
+        CpuFastSet(&g8DFAFF4[32*18], &gBgVram.cbb0[32*60], 0x48);
+        CpuFastSet(&g8DFAFF4[32*27], &gBgVram.cbb0[32*10], 0x50);
+        break;
+    case SPANISH:
+        CpuFastSet(g8DFAFF4, gBgVram.cbb0, 0x48);
+        CpuFastSet(&g8DFAFF4[32*9], &gBgVram.cbb0[32*30], 0x48);
+        CpuFastSet(&g8DFAFF4[32*18], &gBgVram.cbb0[32*60], 0x48);
+        CpuFastSet(&g8DFAFF4[32*37], &gBgVram.cbb0[32*10], 0x50);
+        break;
+    }
+
+    for (i = 0; i < 20; i++)
+        CpuSet(gUnk_808B860[i], &((struct Sbb*)&gBgVram)->sbb7[i], 0x0400000F);
+
+    CpuSet(gUnk_808C1C0, g02000000.bg, 0x04000020);
+    CpuFill16(0, gBgVram.sbb18, 32);
+}

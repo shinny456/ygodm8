@@ -12,7 +12,7 @@
 
 
 u8 sub_80205EC(void);
-u8 sub_802061C(u16 id);
+u32 sub_802061C(u16 id);
 void sub_8020664(void);
 void DeclareLoser(u8);
 
@@ -30,7 +30,7 @@ u8 sub_80205EC (void) {
 }
 
 //ExodiaFlag
-u8 sub_802061C (u16 id) {
+u32 sub_802061C (u16 id) {
   u8 flag = 0;
   switch (id) {
   case RIGHT_LEG_OF_THE_FORBIDDEN_ONE:

@@ -272,24 +272,24 @@ void CopyCard(struct DuelCard* dst, struct DuelCard* src);
 
 void sub_8041140(u8); //set field gfx
 
-u8 HighestAtkMonInRow(struct DuelCard** row); //get highest atk mon
-u8 HighestAtkMonInRowExceptGodCards(struct DuelCard** row); //get highest atk mon excluding god cards?
+int HighestAtkMonInRow(struct DuelCard** row); //get highest atk mon
+int HighestAtkMonInRowExceptGodCards(struct DuelCard** row); //get highest atk mon excluding god cards?
 
 bool32 sub_804366C(struct DuelCard** row, u16 id);
-u8 sub_8043164(struct DuelCard**, u8);
+int sub_8043164(struct DuelCard**, u8);
 
 s32 NumCardInRow(struct DuelCard** row, u16 id); //num of card in a particular row
 
-u8 sub_8043468(struct DuelCard**);
+int sub_8043468(struct DuelCard**);
 
 s32 NumEmptyZonesInRow(struct DuelCard** row);
 s32 NumEmptyZonesAndGodCardsInRow(struct DuelCard** row);
 
-u8 sub_804304C(struct DuelCard**);
+int sub_804304C(struct DuelCard**);
 s32 sub_8043548(struct DuelCard**);
 s32 sub_8043584(struct DuelCard**, u8);
 
-s32 EmptyZoneInRow(struct DuelCard**);  //get empty zone?
+s8 EmptyZoneInRow(struct DuelCard**);  //get empty zone?
 
 s32 sub_8043694(struct DuelCard**, u16 card); //get zone card is located at
 
@@ -412,8 +412,12 @@ extern u16 gAnte;
 struct Deck
 {
     u32 cost;
-    u32 unk4;
-    u16 size;     //count
+    s8 unk4; // current position
+    u8 unk5;
+    u8 unk6;
+    u8 filler7;
+    u8 count;
+    u8 filler9;
     u16 cards[40];
 };
 
@@ -539,6 +543,10 @@ extern u16 gBG3VOFS;
 extern u16 gBG3HOFS;
 extern u16 gBG2HOFS;
 extern u16 gBG2VOFS;
+extern u16 gBG0VOFS;
+extern u16 gBG0HOFS;
+extern u16 gBG1VOFS;
+extern u16 gBG1HOFS;
 extern u16 gBLDCNT;
 extern u16 gBLDALPHA;
 extern u16 gBLDY;
@@ -572,7 +580,7 @@ u32 sub_8043358 (u8);     //implicit decl? (just create a u8 return variable)
 u32 sub_8043810 (u8);     //implicit decl? (just create a u8 return variable)
 u32 sub_804398C (u8, u8); //implicit decl? (^)
 u32 sub_80439F4 (u8, u8);  //^
-u8 sub_80430D8 (struct DuelCard**); //implicit decl? (^)
+int sub_80430D8 (struct DuelCard**); //implicit decl? (^)
 u8 sub_803FBCC (u8, u8);
 bool32 IsCardLocked (struct DuelCard *zone);
 bool32 sub_8043714 (struct DuelCard *zone);
@@ -618,5 +626,55 @@ extern u8* g8FA2BAC[]; //duel text pointers
 extern u8* g8FA2C14[]; //duel text pointers
 extern u8* g8F9E35C[];
 extern u8* g8FA0964[];
+
+struct UnkStruct_2022EB0
+{
+    u16* unk0;
+    u8 filler_4[4];
+    u16 unk8;
+    u8 unkA;
+};
+
+struct UnkStruct_2021AB4
+{
+    u16 unk0;
+    u16 unk2;
+};
+
+extern struct UnkStruct_2022EB0 gUnk2022EB0;
+extern struct UnkStruct_2021AB4 gUnk2021AB4;
+
+struct Unk3000C38 {
+  u32 unk0;
+  u8 filler4[8];
+  u8* unkC;
+  u8* unk10;
+  u8 filler14[0x14];
+  u16 unk28;
+  u8 filler2A[8];
+  u8 unk32;
+  u8 unk33;
+  u8 unk34;
+};
+
+extern struct Unk3000C38 g3000C38;
+
+void sub_80403F0 (struct DuelCard*);
+void sub_8040404 (struct DuelCard*);
+u32 sub_802061C(u16);
+
+struct CursorPosition {
+  u8 currentX;
+  u8 currentY;
+  u8 destX;
+  u8 destY;
+  u8 unk4;
+  u8 unk5;
+  u8 filler6;
+};
+
+extern struct CursorPosition gCursorPosition;
+int sub_8043E70(u8);
+
 
 #endif // GUARD_DUEL_H

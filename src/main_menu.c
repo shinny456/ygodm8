@@ -447,30 +447,6 @@ void sub_8024B94 (u8 *arg0) {
 
   }
 } */
-/*
-#define CARD_NONE 0
-void sub_801D960 (u16 id) {
-  u32 i, j;
-  for (i = 0; i < 40; i++)
-    if (gDeck.cards[i] == id)
-      gDeck.cards[i] = CARD_NONE;
-  i = 0;
-  j = 39;
-  while (i < j) {
-    if (gDeck.cards[i] != CARD_NONE)
-      i++;
-    else {
-      if (gDeck.cards[j] == CARD_NONE) {
-        j--;
-      }
-      else {
-        gDeck.cards[i] = gDeck.cards[j];
-        gDeck.cards[j] = CARD_NONE;
-        i++;
-        j--;
-      }
-    }
-  }
-}*/
+
 
 

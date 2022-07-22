@@ -861,7 +861,7 @@ void EffectDarkPaladin(void)
     if (NumEmptyZonesInRow(gHands[0]) < 5 && sub_8043930(0, TYPE_SPELL) > 0)
     {
         u8 i;
-        ClearZoneAndSendMonToGraveyard(gHands[0][sub_8043468(gHands[0])], 0);
+        ClearZoneAndSendMonToGraveyard(gHands[0][(u8)sub_8043468(gHands[0])], 0);
         for (i = 0; i < MAX_ZONES_IN_ROW &&?; i++)
         {
             if (gZones[0][i]->id != CARD_NONE)
@@ -1560,7 +1560,7 @@ void EffectXYDragonCannon(void)
         if (found)
         {
             ClearZoneAndSendMonToGraveyard(gZones[0][i], 1);
-            ClearZoneAndSendMonToGraveyard(gHands[0][sub_8043468(gHands[0])], 0);
+            ClearZoneAndSendMonToGraveyard(gHands[0][(u8)sub_8043468(gHands[0])], 0);
         }
     }
 
@@ -1737,7 +1737,7 @@ void sub_80478A0(void)
         if (r8)
         {
             ClearZoneAndSendMonToGraveyard(gZones[1][i2], 1);
-            ClearZoneAndSendMonToGraveyard(gHands[0][sub_8043468(gHands[0])], 0);
+            ClearZoneAndSendMonToGraveyard(gHands[0][(u8)sub_8043468(gHands[0])], 0);
         }
     }
 
@@ -1867,8 +1867,8 @@ void EffectXYZDragonCannon(void)
     {
         if (NumEmptyZonesAndGodCardsInRow(gZones[1]) < MAX_ZONES_IN_ROW)
         {
-            ClearZoneAndSendMonToGraveyard(gZones[1][HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
-            ClearZoneAndSendMonToGraveyard(gHands[0][sub_8043468(gHands[0])], 0);
+            ClearZoneAndSendMonToGraveyard(gZones[1][(u8)HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
+            ClearZoneAndSendMonToGraveyard(gHands[0][(u8)sub_8043468(gHands[0])], 0);
         }
     }
 
@@ -2448,7 +2448,7 @@ void EffectDragonSeeker(void)
 void EffectFiendsHand(void)
 {
     if (NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
-        ClearZoneAndSendMonToGraveyard(gZones[1][HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
+        ClearZoneAndSendMonToGraveyard(gZones[1][(u8)HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
 
     ClearZoneAndSendMonToGraveyard(gZones[gMonEffect.row][gMonEffect.zone], 0);
 
@@ -2476,9 +2476,8 @@ void EffectIllusionistFacelessMage(void)
 
 void EffectElectricLizard(void)
 {
-
     if (sub_8043548(gZones[1]))
-        gZones[1][sub_804304C(gZones[1])]->isLocked = TRUE;
+        gZones[1][(u8)sub_804304C(gZones[1])]->isLocked = TRUE;
 
 
     if (!gUnk_02021C08)
@@ -2819,7 +2818,7 @@ void EffectBarrelDragon(void)
         if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == MAX_ZONES_IN_ROW)
             break;
         if (sub_8056258(0, 1) == 1)
-            ClearZoneAndSendMonToGraveyard(gZones[1][HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
+            ClearZoneAndSendMonToGraveyard(gZones[1][(u8)HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
     }
 
     if (!gUnk_02021C08)
@@ -2850,7 +2849,7 @@ void EffectSkullMarkLadyBug(void)
 void sub_80489A4(void)
 {
     if (NumEmptyZonesInRow(gZones[1]) < MAX_ZONES_IN_ROW)
-        sub_804037C(gZones[1][HighestAtkMonInRow(gZones[1])]);
+        sub_804037C(gZones[1][(u8)HighestAtkMonInRow(gZones[1])]);
 
     if (!gUnk_02021C08)
     {
@@ -2891,7 +2890,7 @@ void sub_8048A5C(void)
 void sub_8048AA0(void)
 {
     if (NumEmptyZonesAndGodCardsInRow(gZones[1]) < MAX_ZONES_IN_ROW)
-        ClearZoneAndSendMonToGraveyard(gZones[1][HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
+        ClearZoneAndSendMonToGraveyard(gZones[1][(u8)HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
 
     if (WhoseTurn() == PLAYER)
         SetOpponentLifePointsToSubtract(500);
@@ -2949,7 +2948,7 @@ void EffectTheWingedDragonOfRaPhoenixMode(void)
 void sub_8048BCC(void)
 {
     if (NumEmptyZonesAndGodCardsInRow(gZones[1]) < MAX_ZONES_IN_ROW)
-        ClearZoneAndSendMonToGraveyard(gZones[1][HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
+        ClearZoneAndSendMonToGraveyard(gZones[1][(u8)HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
 
     if (!gUnk_02021C08)
     {
