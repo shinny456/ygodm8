@@ -765,7 +765,7 @@ void sub_801DF40(void)
     u16 r8, sb;
 
     for (i = 0; i < 20; i++)
-        CpuSet(gUnk_808DE60[i], &(((struct Sbb*)&gBgVram)->sbbF[i])/*fix*/, 0x0400000F);
+        CpuCopy32(gUnk_808DE60[i], &(((struct Sbb*)&gBgVram)->sbbF[i])/*fix*/, 60);
 
     CpuFill16(0, gBgVram.cbb1, 32);
 

@@ -175,12 +175,12 @@ void sub_800B618(void *r6) //card details screen gfx
 
     //copy each row of the tile map
     for (i = 0; i < 20; i++)
-        CpuSet(gUnk8097D94[i], gBgVram.sbb1F[i], 31);
+        CpuCopy16(gUnk8097D94[i], gBgVram.sbb1F[i], 62);
     //copy tileset
     LZ77UnCompWram(g0809553C, gBgVram.cbb2);
 
     //change type/summon/cost tiles depending on selected language
-    //french doesn't copy Type since it's spelled the same
+    //french doesn't copy 'Type' since it's spelled the same as English
     switch (gLanguage)
     {
     case FRENCH:
@@ -216,10 +216,10 @@ void sub_800B618(void *r6) //card details screen gfx
         break;
     }
 
-    CpuSet(g08097C94, &g02000000.bg[8 * 16], 0x04000040); //copy palette
+    CpuCopy32(g08097C94, &g02000000.bg[8 * 16], 256); //copy palette
 
     for (i = 0; i < 20; i++)
-        CpuSet(g809508C[i], gBgVram.sbb1E[i], 0x0400000F);
+        CpuCopy32(g809508C[i], gBgVram.sbb1E[i], 60);
 
     sub_800BA04();         //print name on top
     sub_800BC24();         //print cost
@@ -229,10 +229,10 @@ void sub_800B618(void *r6) //card details screen gfx
     PrintCard();
 
     for (i = 0; i < 19; i++)
-        CpuSet((*gUnk_8E0136C)[i], &gBgVram.sbb1D[i][32], 0xE);
+        CpuCopy16((*gUnk_8E0136C)[i], &gBgVram.sbb1D[i][32], 28);
 
-    CpuSet(gUnk_8E01368, g02000000.bg, 0x80); //copy palette
-    CpuSet(gUnk_8E01364, gBgVram.cbb0, 0x2000);
+    CpuCopy16(gUnk_8E01368, g02000000.bg, 256); //copy palette
+    CpuCopy16(gUnk_8E01364, gBgVram.cbb0, 0x4000);
 }
 
 NAKED
@@ -1226,7 +1226,7 @@ void sub_800C0D8(void)
     u16 r7;
 
     for (i = 0; i < 20; i++)
-        CpuSet(gUnk_808CBA0[i], &(((struct Sbb*)&gBgVram)->sbbF[i])/*fix*/, 0x400000F);
+        CpuCopy32(gUnk_808CBA0[i], &(((struct Sbb*)&gBgVram)->sbbF[i])/*fix*/, 60);
 
     CpuFill16(0, gBgVram.cbb1, 32);
     r7 = sub_08007FEC(9, 9, 0x7800) & 0xFF00;
@@ -1446,7 +1446,7 @@ void sub_800C3C4(void)
     u8 i;
 
     for (i = 0; i < 20; i++)
-        CpuSet(gUnk_808D050[i], &(((struct Sbb*)&gBgVram)->sbbF[i])/*fix*/, 0x400000F);
+      CpuCopy32(gUnk_808D050[i], &(((struct Sbb*)&gBgVram)->sbbF[i])/*fix*/, 60);
 
     CpuFill16(0, gBgVram.cbb1, 32);
     sub_8020A3C(&gBgVram.cbb1[32]/*fix*/, g80AE02C, 0x900);
@@ -1457,7 +1457,7 @@ void sub_800C430(void)
     u32 i;
 
     for (i = 0; i < 20; i++)
-        CpuSet(gUnk_808D050[i], &(((struct Sbb*)&gBgVram)->sbbF[i])/*fix*/, 0x400000F);
+      CpuCopy32(gUnk_808D050[i], &(((struct Sbb*)&gBgVram)->sbbF[i])/*fix*/, 60);
 
     CpuFill16(0, gBgVram.cbb1, 32);
     sub_8020A3C(&gBgVram.cbb1[32]/*fix*/, g80AE1A8, 0x900);
@@ -1468,7 +1468,7 @@ void sub_800C494(void)
     u32 i;
 
     for (i = 0; i < 20; i++)
-        CpuSet(gUnk_808D050[i], &(((struct Sbb*)&gBgVram)->sbbF[i])/*fix*/, 0x400000F);
+        CpuCopy32(gUnk_808D050[i], &(((struct Sbb*)&gBgVram)->sbbF[i])/*fix*/, 60);
 
     CpuFill16(0, gBgVram.cbb1, 32);
     sub_8020A3C(&gBgVram.cbb1[32]/*fix*/, g80AE370, 0x900);
@@ -1580,7 +1580,7 @@ void sub_800C608(void)
     u16 sb, r7;
 
     for (i = 0; i < 20; i++)
-        CpuSet(gUnk_808D050[i], &(((struct Sbb*)&gBgVram)->sbbF[i])/*fix*/, 0x400000F);
+        CpuCopy32(gUnk_808D050[i], &(((struct Sbb*)&gBgVram)->sbbF[i])/*fix*/, 60);
 
     CpuFill16(0, gBgVram.cbb1, 32);
     sb = sub_08007FEC(0, 3, 0x7800);
@@ -1712,9 +1712,9 @@ void sub_800C834(void)
     }
 
     for (i = 0; i < 20; i++)
-        CpuSet(gUnk_808B860[i], &((struct Sbb*)&gBgVram)->sbb7[i], 0x0400000F);
+        CpuCopy32(gUnk_808B860[i], &((struct Sbb*)&gBgVram)->sbb7[i], 60);
 
-    CpuSet(gUnk_808C1C0, g02000000.bg, 0x04000020);
+    CpuCopy32(gUnk_808C1C0, g02000000.bg, 128);
     CpuFill16(0, gBgVram.sbb18, 32);
 }
 
@@ -1727,7 +1727,7 @@ void sub_800C970(void)
     u16 r8, sb;
 
     for (i = 0; i < 20; i++)
-        CpuSet(gUnk_808C6F0[i], &(((struct Sbb*)&gBgVram)->sbbF[i])/*fix*/, 0x0400000F);
+        CpuCopy32(gUnk_808C6F0[i], &(((struct Sbb*)&gBgVram)->sbbF[i])/*fix*/, 60);
 
     CpuFill16(0, gBgVram.cbb1, 32);
 

@@ -883,7 +883,6 @@ extern u8 g8DFAFF4[];
 extern u16 gUnk_808B860[][30];
 
 // Same exact function as sub_800C834
-
 void sub_8009228 (void)
 {
     u8 i;
@@ -893,34 +892,135 @@ void sub_8009228 (void)
     switch (gLanguage)
     {
     case FRENCH:
-        CpuFastSet(g8DFA6B4, gBgVram.cbb0, 0x48);
-        CpuFastSet(&g8DFA6B4[32*9], &gBgVram.cbb0[32*30], 0x48);
-        CpuFastSet(&g8DFA6B4[32*18], &gBgVram.cbb0[32*60], 0x48);
-        CpuFastSet(&g8DFA6B4[32*27], &gBgVram.cbb0[32*10], 0x50);
+        CpuFastCopy(g8DFA6B4, gBgVram.cbb0, 0x120);
+        CpuFastCopy(&g8DFA6B4[32*9], &gBgVram.cbb0[32*30], 0x120);
+        CpuFastCopy(&g8DFA6B4[32*18], &gBgVram.cbb0[32*60], 0x120);
+        CpuFastCopy(&g8DFA6B4[32*27], &gBgVram.cbb0[32*10], 0x140);
         break;
     case GERMAN:
-        CpuFastSet(g8DFAB54, gBgVram.cbb0, 0x48);
-        CpuFastSet(&g8DFAB54[32*9], &gBgVram.cbb0[32*30], 0x48);
-        CpuFastSet(&g8DFAB54[32*18], &gBgVram.cbb0[32*60], 0x48);
-        CpuFastSet(&g8DFAB54[32*27], &gBgVram.cbb0[32*10], 0x50);
+        CpuFastCopy(g8DFAB54, gBgVram.cbb0, 0x120);
+        CpuFastCopy(&g8DFAB54[32*9], &gBgVram.cbb0[32*30], 0x120);
+        CpuFastCopy(&g8DFAB54[32*18], &gBgVram.cbb0[32*60], 0x120);
+        CpuFastCopy(&g8DFAB54[32*27], &gBgVram.cbb0[32*10], 0x140);
         break;
     case ITALIAN:
-        CpuFastSet(g8DFAFF4, gBgVram.cbb0, 0x48);
-        CpuFastSet(&g8DFAFF4[32*9], &gBgVram.cbb0[32*30], 0x48);
-        CpuFastSet(&g8DFAFF4[32*18], &gBgVram.cbb0[32*60], 0x48);
-        CpuFastSet(&g8DFAFF4[32*27], &gBgVram.cbb0[32*10], 0x50);
+        CpuFastCopy(g8DFAFF4, gBgVram.cbb0, 0x120);
+        CpuFastCopy(&g8DFAFF4[32*9], &gBgVram.cbb0[32*30], 0x120);
+        CpuFastCopy(&g8DFAFF4[32*18], &gBgVram.cbb0[32*60], 0x120);
+        CpuFastCopy(&g8DFAFF4[32*27], &gBgVram.cbb0[32*10], 0x140);
         break;
     case SPANISH:
-        CpuFastSet(g8DFAFF4, gBgVram.cbb0, 0x48);
-        CpuFastSet(&g8DFAFF4[32*9], &gBgVram.cbb0[32*30], 0x48);
-        CpuFastSet(&g8DFAFF4[32*18], &gBgVram.cbb0[32*60], 0x48);
-        CpuFastSet(&g8DFAFF4[32*37], &gBgVram.cbb0[32*10], 0x50);
+        CpuFastCopy(g8DFAFF4, gBgVram.cbb0, 0x120);
+        CpuFastCopy(&g8DFAFF4[32*9], &gBgVram.cbb0[32*30], 0x120);
+        CpuFastCopy(&g8DFAFF4[32*18], &gBgVram.cbb0[32*60], 0x120);
+        CpuFastCopy(&g8DFAFF4[32*37], &gBgVram.cbb0[32*10], 0x140);
         break;
     }
 
     for (i = 0; i < 20; i++)
-        CpuSet(gUnk_808B860[i], &((struct Sbb*)&gBgVram)->sbb7[i], 0x0400000F);
+        CpuCopy32(gUnk_808B860[i], &((struct Sbb*)&gBgVram)->sbb7[i], 60);
 
-    CpuSet(gUnk_808C1C0, g02000000.bg, 0x04000020);
+    CpuCopy32(gUnk_808C1C0, g02000000.bg, 0x80);
     CpuFill16(0, gBgVram.sbb18, 32);
 }
+
+extern u16 gUnk_808C240[][30];
+extern u8 g8DF811C[];
+extern u8 g80907E4[];
+
+u16 sub_08007FEC(u8, u8, u16);
+void sub_8020A3C(void *, void *, u16);
+void sub_800800C(u8, u8, u16, u16);
+
+
+
+void sub_8009364 (void) {
+  u8 i;
+  u16 r7;
+  for (i = 0; i < 20; i++)
+    CpuCopy32(gUnk_808C240[i],  &(((struct Sbb*)&gBgVram)->sbbF[i]), 60);
+  CpuFill16(0, gBgVram.cbb1, 32);
+  r7 = sub_08007FEC(9, 9, 0x7800) & 0xFF00;
+  for (i = 0; i < 20; i++) {
+    sub_800800C(i + 9, 11, 0x7800, (g8DF811C[i] + 21) | r7);
+    sub_800800C(i + 9, 12, 0x7800, (g8DF811C[i] + 23) | r7);
+    sub_800800C(i + 9, 13, 0x7800, (g8DF811C[i] + 61) | r7);
+    sub_800800C(i + 9, 14, 0x7800, (g8DF811C[i] + 63) | r7);
+  }
+  sub_8020A3C(&gBgVram.cbb1[32], g80907E4, 0x900);
+}
+
+
+extern u16 gUnk_808C6F0[][30];
+extern u8 g8090920[];
+
+void sub_8009448(void)
+{
+    u8 i;
+    u16 r8, sb;
+
+    for (i = 0; i < 20; i++)
+        CpuCopy32(gUnk_808C6F0[i], &(((struct Sbb*)&gBgVram)->sbbF[i])/*fix*/, 60);
+
+    CpuFill16(0, gBgVram.cbb1, 32);
+
+    sb = sub_08007FEC(0, 2, 0x7800);
+    r8 = sub_08007FEC(2, 2, 0x7800) & 0xFF00;
+
+    for (i = 0; i < 6; i++)
+    {
+        sub_800800C(i + 4, 6, 0x7800, (g8DF811C[i] + 29) | r8);
+        sub_800800C(i + 4, 7, 0x7800, (g8DF811C[i] + 31) | r8);
+        sub_800800C(i + 4, 8, 0x7800, (g8DF811C[i] + 61) | r8);
+        sub_800800C(i + 4, 9, 0x7800, (g8DF811C[i] + 63) | r8);
+        sub_800800C(i + 4, 10, 0x7800, (g8DF811C[i] + 93) | r8);
+        sub_800800C(i + 4, 11, 0x7800, (g8DF811C[i] + 95) | r8);
+    }
+
+    for (i = 0; i < 8; i++)
+    {
+        sub_800800C(i + 4, 12, 0x7800, (g8DF811C[i] + 125) | r8);
+        sub_800800C(i + 4, 13, 0x7800, (g8DF811C[i] + 127) | r8);
+        sub_800800C(i + 16, 12, 0x7800, (g8DF811C[i] + 141) | r8);
+        sub_800800C(i + 16, 13, 0x7800, (g8DF811C[i] + 143) | r8);
+        sub_800800C(i + 4, 17, 0x7800, (g8DF811C[i] + 177) | r8);
+        sub_800800C(i + 4, 18, 0x7800, (g8DF811C[i] + 179) | r8);
+    }
+
+    for (i = 0; i < 4; i++)
+    {
+        sub_800800C(i + 10, 6, 0x7800, sb);
+        sub_800800C(i + 10, 7, 0x7800, sb);
+        sub_800800C(i + 10, 8, 0x7800, sb);
+        sub_800800C(i + 10, 9, 0x7800, sb);
+        sub_800800C(i + 10, 10, 0x7800, sb);
+        sub_800800C(i + 10, 11, 0x7800, sb);
+    }
+
+    for (i = 0; i < 2; i++)
+    {
+        sub_800800C(i + 12, 12, 0x7800, sb);
+        sub_800800C(i + 12, 13, 0x7800, sb);
+    }
+
+    for (i = 0; i < 10; i++)
+    {
+        sub_800800C(i + 16, 6, 0x7800, (g8DF811C[i] + 41) | r8);
+        sub_800800C(i + 16, 7, 0x7800, (g8DF811C[i] + 43) | r8);
+        sub_800800C(i + 16, 8, 0x7800, (g8DF811C[i] + 73) | r8);
+        sub_800800C(i + 16, 9, 0x7800, (g8DF811C[i] + 75) | r8);
+        sub_800800C(i + 16, 10, 0x7800, (g8DF811C[i] + 105) | r8);
+        sub_800800C(i + 16, 11, 0x7800, (g8DF811C[i] + 107) | r8);
+    }
+
+    for (i = 0; i < 10; i++)
+    {
+        sub_800800C(i + 16, 14, 0x7800, (g8DF811C[i] + 193) | r8);
+        sub_800800C(i + 16, 15, 0x7800, (g8DF811C[i] + 195) | r8);
+        sub_800800C(i + 4, 14, 0x7800, (g8DF811C[i] + 157) | r8);
+        sub_800800C(i + 4, 15, 0x7800, (g8DF811C[i] + 159) | r8);
+    }
+    sub_8020A3C(&gBgVram.cbb1[32]/*fix*/, g8090920, 0x900);
+}
+
+

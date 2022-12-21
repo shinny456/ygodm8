@@ -104,7 +104,7 @@ int sub_80588C4 (u8*, int, int); //TODO
 extern void (*g20245AC)(int, u8*, int);
 
 
-void sub_800AD4C (void) {
+void SaveGame (void) {
   u16 temp;
   sub_80351F8();
   temp = sub_8035170();

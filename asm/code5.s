@@ -3379,8 +3379,8 @@ sub_8057854: @ 0x08057854
 	ldr r2, _08057878
 	adds r0, r2, #0
 	strh r0, [r1]
-	bl sub_8008030
-	bl sub_800807C
+	bl InitAllRAM
+	bl InitGfxRAM
 	bl sub_8034E30
 	bl sub_800818C
 	pop {r0}

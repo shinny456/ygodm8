@@ -323,7 +323,7 @@ void sub_8022214(void);
 void sub_8022340(void);
 s32 sub_8043E9C(u8);
 void IncreaseDeckCapacity(u32);
-void sub_800AD4C(void);
+void SaveGame(void);
 void sub_8043E44(u8, u16*);
 void sub_8058720(void);
 void sub_8048CA8(u8, u16);
@@ -547,7 +547,7 @@ void sub_8022080 (void) {
 void sub_80220C8(void) {
   struct Unk unk;
   IncreaseDeckCapacity(gDuelData.capacityYield);
-  sub_800AD4C();
+  SaveGame();
   sub_8035020(4);
   if (gLifePoints[OPPONENT] == 0) {
     sub_8021A14(&unk);
@@ -574,7 +574,7 @@ void sub_80220C8(void) {
 void sub_8022170(void) {
   struct Unk unk;
   IncreaseDeckCapacity(5);
-  sub_800AD4C();
+  SaveGame();
   sub_8035020(4);
   if (gLifePoints[PLAYER] == 0) {
     sub_8021A14(&unk);
@@ -828,7 +828,7 @@ void LinkDuelMenu (void) {
         break;
     }
   }
-  sub_800AD4C();
+  SaveGame();
   PlayMusic(55);
   sub_80238C4();
 }

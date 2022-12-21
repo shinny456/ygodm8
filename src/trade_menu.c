@@ -40,12 +40,12 @@ void sub_803E35C (void);
 void sub_8038860 (void);
 void sub_803276C (void);
 void sub_8030EF0 (void);
-void sub_8035D64 (void);
-void sub_8035DD4 (void);
+void TradeSucceeded (void);
+void TradeFailed (void);
 void sub_803E140 (void);
 void IncreaseDeckCapacity (u32);
 void sub_8038B50 (void);
-void sub_800AD4C (void);
+void SaveGame (void);
 void sub_803DF3C (void);
 void sub_803769C (void);
 u32 sub_8037754 (void);
@@ -221,9 +221,9 @@ void sub_8035D18 (void) {
   sub_803276C();
   sub_8030EF0();
   if (!g3000C38.unk34)
-    sub_8035D64();
+    TradeSucceeded();
   else
-    sub_8035DD4();
+    TradeFailed();
 }
 
 // ExitTradeMenu
@@ -234,10 +234,10 @@ void sub_8035D50 (void) {
 }
 
 // TradeSucceeded
-void sub_8035D64 (void) {
+void TradeSucceeded (void) {
   sub_8038B50();
   IncreaseDeckCapacity(2);
-  sub_800AD4C();
+  SaveGame();
   sub_8038AF8();
   PlayMusic(0x37);
   sub_803DF3C();
@@ -263,7 +263,7 @@ void sub_8035D64 (void) {
 }
 
 // TradeFailed
-void sub_8035DD4 (void) {
+void TradeFailed (void) {
   sub_8038AF8();
   PlayMusic(0x39);
   sub_803DE90();

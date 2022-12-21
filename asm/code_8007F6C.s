@@ -110,150 +110,10 @@ sub_800800C: @ 0x0800800C
 	.align 2, 0
 _0800802C: .4byte 0x02000400
 
-	THUMB_FUNC_START sub_8008030
-sub_8008030: @ 0x08008030
-	push {lr}
-	bl sub_8008040
-	bl sub_800807C
-	pop {r0}
-	bx r0
-	.byte 0x00, 0x00
 
-	THUMB_FUNC_START sub_8008040
-sub_8008040: @ 0x08008040
-	sub sp, #4
-	movs r2, #0
-	str r2, [sp]
-	ldr r0, _08008070
-	mov r1, sp
-	str r1, [r0]
-	movs r1, #0x80
-	lsls r1, r1, #0x12
-	str r1, [r0, #4]
-	ldr r1, _08008074
-	str r1, [r0, #8]
-	ldr r1, [r0, #8]
-	str r2, [sp]
-	mov r1, sp
-	str r1, [r0]
-	movs r1, #0xc0
-	lsls r1, r1, #0x12
-	str r1, [r0, #4]
-	ldr r1, _08008078
-	str r1, [r0, #8]
-	ldr r0, [r0, #8]
-	add sp, #4
-	bx lr
-	.align 2, 0
-_08008070: .4byte 0x040000D4
-_08008074: .4byte 0x85010000
-_08008078: .4byte 0x85001F80
+.section .text2
 
-	THUMB_FUNC_START sub_800807C
-sub_800807C: @ 0x0800807C
-	push {lr}
-	bl sub_8008090
-	bl sub_80080B8
-	bl sub_800811C
-	pop {r0}
-	bx r0
-	.byte 0x00, 0x00
 
-	THUMB_FUNC_START sub_8008090
-sub_8008090: @ 0x08008090
-	sub sp, #4
-	mov r1, sp
-	movs r0, #0
-	strh r0, [r1]
-	ldr r1, _080080B0
-	mov r0, sp
-	str r0, [r1]
-	movs r0, #0xc0
-	lsls r0, r0, #0x13
-	str r0, [r1, #4]
-	ldr r0, _080080B4
-	str r0, [r1, #8]
-	ldr r0, [r1, #8]
-	add sp, #4
-	bx lr
-	.align 2, 0
-_080080B0: .4byte 0x040000D4
-_080080B4: .4byte 0x8100C000
-
-	THUMB_FUNC_START sub_80080B8
-sub_80080B8: @ 0x080080B8
-	push {r4, lr}
-	movs r0, #0xe0
-	lsls r0, r0, #0x13
-	movs r1, #0x80
-	lsls r1, r1, #2
-	adds r2, r1, #0
-	movs r1, #0
-	movs r3, #0x80
-	lsls r3, r3, #1
-	adds r4, r3, #0
-	movs r3, #0x1f
-_080080CE:
-	strh r2, [r0]
-	adds r0, #2
-	strh r1, [r0]
-	adds r0, #2
-	strh r1, [r0]
-	adds r0, #2
-	strh r4, [r0]
-	adds r0, #2
-	strh r2, [r0]
-	adds r0, #2
-	strh r1, [r0]
-	adds r0, #2
-	strh r1, [r0]
-	adds r0, #2
-	strh r1, [r0]
-	adds r0, #2
-	strh r2, [r0]
-	adds r0, #2
-	strh r1, [r0]
-	adds r0, #2
-	strh r1, [r0]
-	adds r0, #2
-	strh r1, [r0]
-	adds r0, #2
-	strh r2, [r0]
-	adds r0, #2
-	strh r1, [r0]
-	adds r0, #2
-	strh r1, [r0]
-	adds r0, #2
-	strh r4, [r0]
-	adds r0, #2
-	subs r3, #1
-	cmp r3, #0
-	bge _080080CE
-	pop {r4}
-	pop {r0}
-	bx r0
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_800811C
-sub_800811C: @ 0x0800811C
-	sub sp, #4
-	mov r1, sp
-	movs r0, #0
-	strh r0, [r1]
-	ldr r1, _0800813C
-	mov r0, sp
-	str r0, [r1]
-	movs r0, #0xa0
-	lsls r0, r0, #0x13
-	str r0, [r1, #4]
-	ldr r0, _08008140
-	str r0, [r1, #8]
-	ldr r0, [r1, #8]
-	add sp, #4
-	bx lr
-	.align 2, 0
-_0800813C: .4byte 0x040000D4
-_08008140: .4byte 0x81000200
 
 	THUMB_FUNC_START sub_8008144
 sub_8008144: @ 0x08008144
@@ -454,6 +314,8 @@ _080082B4: .4byte 0x0000FFFD
 _080082B8: .4byte 0x0201CB24
 _080082BC: .4byte sub_800842C
 
+.section .text3
+
 	THUMB_FUNC_START sub_80082C0
 sub_80082C0: @ 0x080082C0
 	ldr r0, _080082D8
@@ -526,6 +388,10 @@ _08008346:
 	.align 2, 0
 _08008350: .4byte 0x02020DF4
 _08008354: .4byte 0x02020E04
+
+
+
+
 
 	THUMB_FUNC_START sub_8008358
 sub_8008358: @ 0x08008358

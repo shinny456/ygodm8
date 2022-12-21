@@ -18,7 +18,7 @@ void sub_80327C8(void);
 void sub_803276C(void);
 void sub_80268D8(void); //nintendo and konami screens
 void TitleScreen(void); //title screen and continue screen
-void sub_804DC48(void);
+void OverworldMain(void);
 
 int AgbMain(void)
 {
@@ -41,5 +41,5 @@ int AgbMain(void)
     sub_803276C();
     sub_80268D8();
     TitleScreen();
-    sub_804DC48();
+    OverworldMain();
 }

@@ -6,8 +6,7 @@ SECTIONS
     gBgVram = 0x02000400;
     gOamBuffer = 0x02018400;
     gUnk_2018800 = 0x02018800; /*gSharedMem*/
-    gUnk_201C800 = 0x0201C800;
-    gUnk_201C900 = 0x0201C900;
+
     g201CB30 = 0x0201CB30;
     g201CB34 = 0x0201CB34;
     gUnk201CB38 = 0x0201CB38;
@@ -23,6 +22,8 @@ SECTIONS
     g2020DCC = 0x02020DCC;
     g2020DD0 = 0x02020DD0;
     gPlayerName = 0x02020DE0;
+
+
     g2020DF4 = 0x02020DF4;
     gKeyState = 0x02020DF8;
     gUnk2020DFC = 0x02020DFC;
@@ -144,12 +145,22 @@ SECTIONS
     ALIGN(4)
     {
         asm/crt0.o(.text);
+
         asm/cutscenes.o(.text);
+        src/world_map.o(.text);
         asm/world_map.o(.text);
         src/start_menu.o(.text);
         asm/naming_screen.o(.text);
         asm/status_menu.o(.text);
+
+        /* SDK\src\samples\functional_sample\share.c */
         asm/code_8007F6C.o(.text);
+        src/code_8008030.o(.text);
+        asm/code_8007F6C.o(.text2);
+        src/key_input.o(.text);
+        asm/code_8007F6C.o(.text3);
+
+
         src/trunk.o(.text);
         asm/code_8009228.o(.text);
         src/code_800AC64.o(.text);
@@ -270,8 +281,9 @@ SECTIONS
     g80AEA78 = 0x80AEA78;
     g8F04040 = 0x8F04040;
     g8E0D9C4 = 0x8E0D9C4;
-    g8E119F4 = 0x8E119F4; /*pointers to lz compressed overworld map tileset*/
-    g8E11AE8 = 0x8E11AE8; /*pointers to overworld map tilemap*/
+    gMapTilesets = 0x8E119F4; /*pointers to lz compressed overworld map tileset*/
+    gLowLayerTilemaps = 0x8E11AE8; /*pointers to overworld map tilemap*/
+    gHighLayerTilemaps = 0x8E11BDC;
     g84C9FBC = 0x84C9FBC;
     g82AD06C = 0x82AD06C;
     g82ADC8C = 0x82ADC8C;
@@ -282,8 +294,7 @@ SECTIONS
     g84D69D0 = 0x84D69D0;
     g84D59D0 = 0x84D59D0;
     g84D61D0 = 0x84D61D0;
-    g8E11BDC = 0x8E11BDC;
-    g841D91C = 0x841D91C;
+    gCableCarTilemap = 0x841D91C;
     gUnk_8DFF74C = 0x8DFF74C;
     g81060A8 = 0x81060A8;
     g810610D = 0x810610D;
@@ -363,7 +374,7 @@ SECTIONS
     g8E0CFC0 = 0x8E0CFC0;
     g8DF1C2A = 0x8DF1C2A;
     g8DF3C00 = 0x8DF3C00;
-    gUnk8E11DC4 = 0x8E11DC4;
+    gMapCollisions = 0x8E11DC4;
     gE0E674 = 0x8E0E674;
     gE0E754 = 0x8E0E754;
     g8DFFA48 = 0x8DFFA48;
@@ -489,6 +500,32 @@ SECTIONS
     g8E0D81D = 0x8E0D81D;
     g8E0D820 = 0x8E0D820;
     g8E0D823 = 0x8E0D823;
+    gUnk08103264 = 0x8103264;
+    g82A8E4C = 0x82A8E4C;
+    g82A906C = 0x82A906C;
+    g81032A2 = 0x81032A2;
+    g8103284 = 0x8103284;
+    g8E0DA9C = 0x8E0DA9C;
+    g8E0DA56 = 0x8E0DA56;
+    g82AD20C = 0x82AD20C;
+    g82AD2B6 = 0x82AD2B6;
+    gUnk08103284 = 0x8103284;
+    g82AD48C = 0x82AD48C;
+    gUnk8E11790 = 0x8E11790;
+    g81032D2 = 0x81032D2;
+    gE0DA4F = 0x8E0DA4F;
+    gUnk8E0DA12 = 0x8E0DA12;
+    gUnk8E0DA40 = 0x8E0DA40;
+    g8E0DB04 = 0x8E0DB04;
+    g8E0DB0C = 0x8E0DB0C;
+    g8E11CD0 = 0x8E11CD0;
+    g8E0E08C = 0x8E0E08C;
+    g8FC4440 = 0x8FC4440;
+    g8FC452C = 0x8FC452C;
+    g80907E4 = 0x80907E4;
+    g8090920 = 0x8090920;
+    g8090B94 = 0x8090B94;
+    g8090B98 = 0x8090B98;
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :

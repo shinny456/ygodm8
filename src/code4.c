@@ -8,23 +8,23 @@
 u16 sub_80520E0(u8 x, u8 y);
 
 //script structs
-struct Unk10
+struct Script
 {
-    u8 *unk0;
-    struct Unk10 *unk4;
-    struct Unk10 *unk8;
+    u8* start;
+    struct Script* unk4; // script to execute when flag is cleared
+    struct Script* unk8; // script to execute when flag is set
 };
 
-struct Unk88
+struct ScriptCtx
 {
     u16 unk0;
     u8 filler2[2];
-    u32 unk4; //TODO: fix type?  (script offset)
-    u32 unk8; //TODO: fix type?
+    u32 pointer;
+    u32 unk8;
     u8 unkC;
     u8 unkD;
     u8 fillerE[2];
-    struct Unk10 unk10;
+    struct Script currentScript;
     u16 unk1C;
     u8 unk1E;
     u8 filler1F;
@@ -40,7 +40,7 @@ struct Unk88
     u16 unk80;
     u16 unk82;
     u8 unk84;
-    u8 unk85; //filler?
+    u8 unk85;
     u8 unk86;
 };
 
@@ -63,23 +63,23 @@ struct Object
     s16 spriteId;
     u8 direction; //facing D L U R
     u8 filler3;
-    u16 x; //pos[0]?
-    u16 y; //pos[1]?
-    u16 unk8;
+    s16 x; //pos[0]?
+    s16 y; //pos[1]?
+    s16 unk8;
     u8 unkA;
     u8 fillerB;
     u16 unkC;
     u8 unkE;
     u8 unkF;
-    struct Unk10 *unk10; //TODO: fix type
-    struct Unk10 *unk14; //TODO: fix type
+    struct Script *scriptA;
+    struct Script *scriptR;
     u8 unk18;   //0 = standing, 1 = walking, 2 = running
     u8 unk19;
-    u16 unk1A;
+    s16 unk1A;
     u8 unk1C;
-    u8 unk1Di : 1; /*movement type?i-n*/
-    u8 unk1Dj : 1;
-    u8 unk1Dk : 1;
+    u8 unk1Di : 1;
+    u8 unk1Dj : 1; // face player when talking?
+    u8 unk1Dk : 1; // wander around?
     u8 unk1Dl : 1;
     u8 unk1Dm : 1;
     u8 unk1Dn : 1;
@@ -94,27 +94,33 @@ struct Overworld
     u8 unk1F1;
     u8 unk1F2;
     u8 unk1F3;
-    struct Unk10 *unk1F4[5];
-    struct Unk10 *unk208[5];
-    u8 unk21C[16][2];
+    struct Script *unk1F4[5];
+    struct Script *unk208[5];
+    s16 unk21C[15];
+    u8 unk23A;
     u16 *unk23C;
     u8 unk240;
+    u8 filler241;
     u16 music;
-    u8 filler244[0xC];
-    u8 unk250;  //0 = normal map, 1 = reshef map, 2 = goemon map
+    u32 unk244;
+    u32 unk248;
+    s16 unk24C;
+    s16 unk24E;
+    u8 background;  //0 = normal map, 1 = reshef map, 2 = goemon map
 };
 
-struct ObjectInitialState //object data?
+struct ObjectData
 {
     s16 spriteId;
     u8 direction;
+    u8 filler3;
     u16 x;
     u16 y;
-    struct Unk10 *unk8; //normal text?      TODO: fix type?
-    struct Unk10 *unkC; //duel text?        TODO: fix type?
+    struct Script *scriptA;
+    struct Script *scriptR;
     u8 unk10i : 1;
-    u8 unk10j : 1;
-    u8 unk10k : 1;
+    u8 unk10j : 1; // face player when talking?
+    u8 unk10k : 1; // wander around
     u8 unk10l : 1;
     u8 unk10m : 1;
     u8 unk10n : 1;
@@ -123,74 +129,75 @@ struct ObjectInitialState //object data?
 //9AAE98 D0 A0 9A
 struct UnkOhk
 {
-    struct Unk10 *unk0;
+    struct Script *unk0;
     u8 unk4; //mapid, map connection
 };
 
-struct Unk1F8
+struct MapData
 {
-    struct ObjectInitialState unk0[16];  //terminated by a -1 (0xFFFF) spriteId
-    struct UnkOhk unk140[5]; //TODO: fix type?
-    struct UnkOhk unk168[5]; //TODO: fix type?
-    struct ObjectInitialState playerInitialState[5];
+    struct ObjectData objects[16];  //terminated by a -1 (0xFFFF) spriteId
+    struct UnkOhk unk140[5];
+    struct UnkOhk unk168[5];
+    struct ObjectData playerInitialState[5]; // num_connections (including world map)
     u16 music;
     u8 unk1F6; //bitfield?
 };
 
 extern struct Overworld gOverworld;
-extern u16* gUnk8E11DC4[];
-extern struct Unk1F8** gUnk8E19274[]; //map states
+extern u16* gMapCollisions[];
+extern struct MapData** gMapData[]; //0xE19274
 extern u8 gUnk8E0DA12[]; //frames
 extern u8* gUnk8E11790[];
 extern u16 gUnk08103264[];
 extern u16 g8103284[];
 extern u16 g81032A2[];
-extern struct Unk10 g8F04040[]; //TODO fix type
+extern struct Script* g8F04040;
 //2024270 + 1E0
 //2024450
 
 
 //sb = gOverworld.1f4
-//r7 = gUnk8E19274
+//r7 = gMapData
 //r8 = gOverworld.208
 
 //r4 = gOverworld
 //r6 = i
 //---------------------------------
 //r4 = gOverworld
-//r6 = gUnk8E19274
+//r6 = gMapData
 
-bool32 sub_8055554(u32);
-void sub_8052088(int); //implicit declaration?
-int sub_804F6C0(void);
+bool32 CheckFlag(u32);
+void sub_8052088(u8); //implicit declaration?
+s8 sub_804F6C0(void);
 void sub_804F714(void);
+void LoadCharblock5(void);
 
 /*
-void sub_804D640(void) //InitMap (InitOverworldMap?/InitOverworld?)
+void InitOverworldData(void) //InitMap (InitOverworldMap?/InitOverworld?)
 {
     u16 i, j;
 
     gOverworld.map.id = gOverworld.map.unk8;
     gOverworld.map.state = gOverworld.map.unkA;
     gOverworld.map.unk4 = gOverworld.map.unkC;
-    gOverworld.unk250 = 0;
-    gOverworld.unk23C = gUnk8E11DC4[gOverworld.map.id];
+    gOverworld.background = 0;
+    gOverworld.unk23C = gMapCollisions[gOverworld.map.id];
 
     for (i = 0; i < 5; i++)
     {
-        gOverworld.unk1F4[i] = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk140[i].unk0;
-        gOverworld.unk208[i] = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk168[i].unk0;
+        gOverworld.unk1F4[i] = gMapData[gOverworld.map.id][gOverworld.map.state]->unk140[i].unk0;
+        gOverworld.unk208[i] = gMapData[gOverworld.map.id][gOverworld.map.state]->unk168[i].unk0;
     }
 
-    gOverworld.music = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->music;
+    gOverworld.music = gMapData[gOverworld.map.id][gOverworld.map.state]->music;
     gOverworld.unk1F0 = 0;
 
-    if (!sub_8055554(0xF2))
-        if (gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk1F6 & 1) //bitfield?
+    if (!CheckFlag(0xF2))
+        if (gMapData[gOverworld.map.id][gOverworld.map.state]->unk1F6 & 1) //bitfield?
             gOverworld.unk1F0 |= 1;
 
-    if (!sub_8055554(0xF1))
-        if (gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk1F6 & 2) //bitfield?
+    if (!CheckFlag(0xF1))
+        if (gMapData[gOverworld.map.id][gOverworld.map.state]->unk1F6 & 2) //bitfield?
             gOverworld.unk1F0 |= 2;
 
     for (j = 0; j < 15; j++)
@@ -207,16 +214,16 @@ void sub_804D640(void) //InitMap (InitOverworldMap?/InitOverworld?)
         gOverworld.objects[j].unkA = 0;
     }
 
-    gOverworld.objects[0].spriteId = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->playerInitialState[gOverworld.map.unk4].spriteId;
-    gOverworld.objects[0].direction = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->playerInitialState[gOverworld.map.unk4].direction;
-    gOverworld.objects[0].unk10 = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->playerInitialState[gOverworld.map.unk4].unk8;
+    gOverworld.objects[0].spriteId = gMapData[gOverworld.map.id][gOverworld.map.state]->playerInitialState[gOverworld.map.unk4].spriteId;
+    gOverworld.objects[0].direction = gMapData[gOverworld.map.id][gOverworld.map.state]->playerInitialState[gOverworld.map.unk4].direction;
+    gOverworld.objects[0].unk10 = gMapData[gOverworld.map.id][gOverworld.map.state]->playerInitialState[gOverworld.map.unk4].unk8;
     gOverworld.objects[0].unkE = 19;
     gOverworld.objects[0].unk18 = 0;
     gOverworld.objects[0].unk1Di = 1;
     gOverworld.objects[0].unk1Dj = 1;
     gOverworld.objects[0].unk1Dk = 1;
-    gOverworld.objects[0].x = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->playerInitialState[gOverworld.map.unk4].x;
-    gOverworld.objects[0].y = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->playerInitialState[gOverworld.map.unk4].y;
+    gOverworld.objects[0].x = gMapData[gOverworld.map.id][gOverworld.map.state]->playerInitialState[gOverworld.map.unk4].x;
+    gOverworld.objects[0].y = gMapData[gOverworld.map.id][gOverworld.map.state]->playerInitialState[gOverworld.map.unk4].y;
     sub_8052088(0);
 
     j = 13;
@@ -226,8 +233,8 @@ void sub_804D640(void) //InitMap (InitOverworldMap?/InitOverworld?)
         gOverworld.objects[j].direction = gOverworld.objects[0].direction;
         gOverworld.objects[j].x = gOverworld.objects[0].x;
         gOverworld.objects[j].y = gOverworld.objects[0].y;
-        gOverworld.objects[j].unk10 = g8F04040;
-        gOverworld.objects[j].unk14 = g8F04040;
+        gOverworld.objects[j].unk10 = &g8F04040;
+        gOverworld.objects[j].unk14 = &g8F04040;
         gOverworld.objects[j].unk1Dk = 0;
         gOverworld.objects[j].unk1Di = 1;
         gOverworld.objects[j].unk1Dl = 1;
@@ -240,34 +247,34 @@ void sub_804D640(void) //InitMap (InitOverworldMap?/InitOverworld?)
         gOverworld.objects[j].direction = gOverworld.objects[0].direction;
         gOverworld.objects[j].x = gOverworld.objects[0].x;
         gOverworld.objects[j].y = gOverworld.objects[0].y;
-        gOverworld.objects[j].unk10 = g8F04040;
-        gOverworld.objects[j].unk14 = g8F04040;
+        gOverworld.objects[j].unk10 = &g8F04040;
+        gOverworld.objects[j].unk14 = &g8F04040;
         gOverworld.objects[j].unk1Dk = 0;
         gOverworld.objects[j].unk1Di = 1;
         gOverworld.objects[j].unk1Dl = 1;
         sub_8052088(j);
     }
     sub_804F714();
-    for (j = 0, i = 1; gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[j].spriteId != -1; j++, i++)
+    for (j = 0, i = 1; gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].spriteId != -1; j++, i++)
     {
-        gOverworld.objects[i].spriteId = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[j].spriteId;
-        gOverworld.objects[i].direction = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[j].direction;
-        gOverworld.objects[i].x = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[j].x;
-        gOverworld.objects[i].y = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[j].y;
-        gOverworld.objects[i].unk8 = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[j].unk11;
+        gOverworld.objects[i].spriteId = gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].spriteId;
+        gOverworld.objects[i].direction = gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].direction;
+        gOverworld.objects[i].x = gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].x;
+        gOverworld.objects[i].y = gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].y;
+        gOverworld.objects[i].unk8 = gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].unk11;
         sub_8052088(i);
-        gOverworld.objects[i].unk10 = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[j].unk8;
-        gOverworld.objects[i].unk14 = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[j].unkC;
+        gOverworld.objects[i].unk10 = gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].unk8;
+        gOverworld.objects[i].unk14 = gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].unkC;
         gOverworld.objects[i].unk1E = 19;
-        gOverworld.objects[i].unk1Di = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[j].unk10i;
-        gOverworld.objects[i].unk1Dj = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[j].unk10j;
-        gOverworld.objects[i].unk1Dk = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk0[j].unk10k;
+        gOverworld.objects[i].unk1Di = gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].unk10i;
+        gOverworld.objects[i].unk1Dj = gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].unk10j;
+        gOverworld.objects[i].unk1Dk = gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].unk10k;
         gOverworld.objects[i].unk1A = 0;
     }
 }*/
 
 NAKED
-void sub_804D640(void)
+void InitOverworldData(void)
 {
     asm_unified("\n\
     push {r4, r5, r6, r7, lr}\n\
@@ -371,7 +378,7 @@ _0804D68E:\n\
 	adds r5, r4, r3\n\
 	strb r2, [r5]\n\
 	movs r0, #0xf2\n\
-	bl sub_8055554\n\
+	bl CheckFlag\n\
 	cmp r0, #0\n\
 	bne _0804D738\n\
 	ldrh r0, [r4]\n\
@@ -396,7 +403,7 @@ _0804D68E:\n\
 	strb r0, [r5]\n\
 _0804D738:\n\
 	movs r0, #0xf1\n\
-	bl sub_8055554\n\
+	bl CheckFlag\n\
 	cmp r0, #0\n\
 	bne _0804D774\n\
 	ldr r1, _0804DA1C\n\
@@ -765,7 +772,7 @@ _0804DA18: .4byte 0x08E11DC4\n\
 _0804DA1C: .4byte 0x08E19274\n\
 _0804DA20: .4byte 0x00000242\n\
 _0804DA24: .4byte 0x0000FFFF\n\
-_0804DA28: .4byte 0x08F04040\n\
+_0804DA28: .4byte g8F04040\n\
 _0804DA2C: .4byte 0x000001CD\n\
 _0804DA30:\n\
 	adds r0, r0, r4\n\
@@ -900,95 +907,97 @@ _0804DB18:\n\
 extern u8 g2020DC8; //where the player came from
 extern u8 g2020DCC; //where the player is going
 extern u8 g2020DD0; //world map state (how many places are unlocked)
-extern u16 g8E0D9C4[][3];
+extern u16 g8E0D9C4[][3]; //change to struct
 void sub_804F750(u8);
-void sub_8004E60(void);
+void WorldMapMain(void);
 void sub_80523EC(u16, u16, u16);
 void sub_0804F76C(void);
 void NamingScreenMain(void);
 void StartCutscene(u8);
-void sub_8055508(int); //todo: u32?
-void sub_800AD4C(void);
+void SetFlag(int); //todo: u32?
+void SaveGame(void);
 void sub_80554C4(void);
 void sub_804ED08(void);
-void sub_805254C(struct Unk10 *); //todo: fix type?
-void sub_804F770(void);
+void InitiateScript(struct Script *);
+void PlayOverworldMusic(void);
 void sub_804E288(void);
 void sub_804F5D8(void);
-void sub_804DF5C(int);
+void sub_804DF5C(u8);
 
-void sub_804DB28(void) //world map stuff
+void InitiateWorldMap(void) //world map stuff
 {
     if (gOverworld.unk240 & 4)
     {
         g2020DD0 = 0;
-        if (sub_8055554(0xEE))
+        if (CheckFlag(0xEE))
             g2020DD0 = 1;
-        if (sub_8055554(0xFF))
+        if (CheckFlag(0xFF))
             g2020DD0 = 2;
-        if (sub_8055554(0xFE))
+        if (CheckFlag(0xFE))
             g2020DD0 = 3;
-        if (sub_8055554(0xFD))
+        if (CheckFlag(0xFD))
             g2020DD0 = 4;
-        if (sub_8055554(0xFC))
+        if (CheckFlag(0xFC))
             g2020DD0 = 5;
-        if (sub_8055554(0xFB))
+        if (CheckFlag(0xFB))
             g2020DD0 = 6;
-        if (sub_8055554(0xE4))
+        if (CheckFlag(0xE4))
             g2020DD0 = 11;
-        if (sub_8055554(0xFA))
+        if (CheckFlag(0xFA))
             g2020DD0 = 7;
-        if (sub_8055554(0xF9))
+        if (CheckFlag(0xF9))
             g2020DD0 = 8;
-        if (sub_8055554(0xF8))
+        if (CheckFlag(0xF8))
             g2020DD0 = 9;
-        if (sub_8055554(0xED))
+        if (CheckFlag(0xED))
             g2020DD0 = 10;
 
         g2020DC8 = gOverworld.map.unk8;
-        gOverworld.unk240 &= 0xFB;
+        gOverworld.unk240 &= ~4;
         sub_804F750(4);
-        sub_8004E60();
+        WorldMapMain();
         sub_80523EC(g8E0D9C4[g2020DCC][0], g8E0D9C4[g2020DCC][1], g8E0D9C4[g2020DCC][2]);
     }
     else
         sub_0804F76C();
 
-    sub_804D640();
+    InitOverworldData();
 }
 
-void sub_804DC48(void) //spawn the player home (and overworld main loop?) OverworldMain
+void OverworldMain(void) //spawn the player home (and overworld main loop?) OverworldMain
 {
-    if (!sub_8055554(0x2b))
+    if (!CheckFlag(0x2b))
     {
         NamingScreenMain();
         StartCutscene(8);
-        sub_8055508(0x2b);
-        sub_800AD4C(); //save game?
+        SetFlag(0x2b);
+        SaveGame();
     }
     sub_80523EC(9, 1, 0);
-    sub_804D640();
-    gOverworld.unk240 &= 0xFE;
+    InitOverworldData();
+    gOverworld.unk240 &= ~1;
 
     do
     {
-        sub_804DB28();
+        InitiateWorldMap();
         sub_80554C4();
         sub_804ED08();
-        gOverworld.unk240 &= 0xFD;
-        sub_805254C(gOverworld.unk1F4[gOverworld.map.unk4]);
+        gOverworld.unk240 &= ~2;
+        InitiateScript(gOverworld.unk1F4[gOverworld.map.unk4]);
         if (!(gOverworld.unk240 & 2))
         {
-            sub_804F770();
+            PlayOverworldMusic();
             sub_804E288();
-            sub_805254C(gOverworld.unk208[gOverworld.map.unk6]);
+            InitiateScript(gOverworld.unk208[gOverworld.map.unk6]);
         }
     } while (!(gOverworld.unk240 & 1));
 }
 
-extern u32* g8E119F4[];
-extern u16* g8E11AE8[];
-extern u16* g8E11BDC[];
+extern u32* gMapTilesets[];
+extern u16* gLowLayerTilemaps[];
+extern u16* gHighLayerTilemaps[];
+extern u16* g8E11CD0[];
+
 extern u32 g84C9FBC[];
 extern u16 g82AD06C[];
 extern u16 g82ADC8C[];
@@ -999,19 +1008,20 @@ extern u32 g84D0EC0[];
 extern u16 g84D69D0[];
 extern u16 g84D59D0[];
 extern u16 g84D61D0[];
-extern u16 g841D91C[];
+extern u16 gCableCarTilemap[];
 
-void sub_804DCE8(void) //load overworld map(bg)
+
+void LoadOverworldBgGfx(void)
 {
-    switch (gOverworld.unk250)
+    switch (gOverworld.background)
     {
     case 0: //normal bg
-        LZ77UnCompWram(g8E119F4[gOverworld.map.id], gBgVram.cbb0); //copy tileset
+        LZ77UnCompWram(gMapTilesets[gOverworld.map.id], gBgVram.cbb0); //copy tileset
         sub_804F5D8();
-        CpuCopy16(g8E11AE8[gOverworld.map.id], gBgVram.sbb1F, 0x800); //copy bg2 tilemap
-        CpuCopy16(g8E11BDC[gOverworld.map.id], gBgVram.sbb1E, 0x800); //copy bg1 tilemap
+        CpuCopy16(gLowLayerTilemaps[gOverworld.map.id], gBgVram.sbb1F, 0x800); //copy bg2 tilemap
+        CpuCopy16(gHighLayerTilemaps[gOverworld.map.id], gBgVram.sbb1E, 0x800); //copy bg1 tilemap
         if (gOverworld.map.id == 0x29) //pegasus island cable car bg
-            CpuCopy16(g841D91C, ((struct Sbb*)&gBgVram)->sbb17, 0x800); //bg3 tilemap
+            CpuCopy16(gCableCarTilemap, ((struct Sbb*)&gBgVram)->sbb17, 0x800); //bg3 tilemap
         break;
     case 1: //reshef bg
         LZ77UnCompWram(g84C9FBC, gBgVram.cbb0);
@@ -1032,57 +1042,248 @@ void sub_804DCE8(void) //load overworld map(bg)
     }
 }
 
-extern u8 g82A8E4C[];
-/*
-static inline void test(u8 *src, u8 *dest)
-{
-    u32 i;
-
-    for (i = 0; i < 64; i++)
-        *dest++ = *src++;
-}*/
-/*
 extern u8 g82A906C[];
+extern u8 g82A8E4C[];
+static inline void sub_804EFE8_inline (u8 arg0) {
+  u32 i, j;
+  u8* dest = &gBgVram.cbb4[g8103284[arg0] * 32];
+  u8* src = &g82A906C[g81032A2[gOverworld.objects[arg0].unk1C] * 32];
+  for (i = 0; i < 2; dest += 0x3C0, src += 0x1C0, i++)
+    for (j = 0; j < 64; j++)
+      *dest++ = *src++;
+}
+
 void sub_804DE74 (void) {
   u32 i, j;
   u8 *dest, *src;
   for (i = 0; i < 15; i++)
-    sub_804DF5C(gOverworld.unk21C[i][0]);
+    sub_804DF5C(gOverworld.unk21C[i]);
   dest = &gBgVram.cbb4[gUnk08103264[15] * 32];
   src = g82A8E4C;
-  for (i = 0; i < 2; src += 0x3C0, dest += 0x1C0, i++)
+  for (i = 0; i < 2; dest += 0x3C0, src += 0x1C0, i++)
     for (j = 0; j < 64; j++)
       *dest++ = *src++;
   for (i = 0; i < 15; i++) {
-    u32 k;
-    u8 *dest = &gBgVram.cbb4[g8103284[gOverworld.unk21C[i][0]] * 32];
-    u8 *src = &g82A906C[g81032A2[gOverworld.objects[gOverworld.unk21C[i][0]].unk1C] * 32];
-    k = 0;
-    do {
-      u32 j;
-      for (j = 0; j < 64; j++)
-        *dest++ = *src++;
-      src += 0x3C0;
-      dest += 0x1C0;
-      k++;
-    } while (k < 2);
+    sub_804EFE8_inline(gOverworld.unk21C[i]);
   }
 }
-    //objVram = &gBgVram.cbb4[gUnk08103264[15] * 32];
-/*
-    for (i = 0; i < 2; i++)
-    {
-        test(g82A8E4C[i], &gObjVram[gUnk08103264[15] * 32]);
+
+extern u8 gUnk8E0DA40[];
+extern u16 g81032D2[];
+extern u8 gE0DA4F[];
+
+static inline void sub_804F054_inline (u16 spriteId, u8 arg1, u8* dest) {
+  u32 i, j;
+  u8* src = gUnk8E11790[spriteId] + g81032D2[arg1] * 32;
+
+  for (i = 0; i < 4; dest += 0x380, src += 0x180, i++)
+    for (j = 0; j < 128; j++)
+      *dest++ = *src++;
+}
+
+void sub_804DF5C(u8 objectId) {
+  if (gOverworld.objects[objectId].direction < 4) {
+    u16 spriteId = gOverworld.objects[objectId].spriteId;
+    u8 temp = gOverworld.objects[objectId].direction * 3 + gUnk8E0DA12[gOverworld.objects[objectId].unkE];
+    sub_804F054_inline(spriteId, temp, &gBgVram.cbb4[gUnk08103264[objectId] * 32]);
+  }
+  else {
+    u16 spriteId = gOverworld.objects[objectId].spriteId;
+    u8 temp = gE0DA4F[gOverworld.objects[objectId].direction];
+    sub_804F054_inline(spriteId, temp, &gBgVram.cbb4[gUnk08103264[objectId] * 32]);
+  }
+}
 
 
-    }
-    for (i = 0; i < 15; i++)
-    {
+NAKED
+void sub_804E050 (u8 arg0) {
+  asm_unified("push {r4, lr}\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r4, r0, #0x18\n\
+	ldr r1, _0804E0C4\n\
+	lsls r0, r4, #5\n\
+	adds r0, r0, r1\n\
+	movs r2, #0x10\n\
+	ldrsh r1, [r0, r2]\n\
+	cmp r1, #0x19\n\
+	bne _0804E0DC\n\
+	ldrb r3, [r0, #0x12]\n\
+	lsls r2, r3, #1\n\
+	ldr r1, _0804E0C8\n\
+	ldrb r0, [r0, #0x1e]\n\
+	adds r0, r0, r1\n\
+	adds r2, r2, r3\n\
+	ldrb r0, [r0]\n\
+	adds r2, r2, r0\n\
+	lsls r2, r2, #0x18\n\
+	ldr r1, _0804E0CC\n\
+	lsls r0, r4, #1\n\
+	adds r0, r0, r1\n\
+	ldrh r0, [r0]\n\
+	lsls r0, r0, #5\n\
+	ldr r1, _0804E0D0\n\
+	adds r3, r0, r1\n\
+	ldr r1, _0804E0D4\n\
+	movs r0, #0xb2\n\
+	lsls r0, r0, #1\n\
+	adds r1, r1, r0\n\
+	ldr r0, _0804E0D8\n\
+	lsrs r2, r2, #0x17\n\
+	adds r2, r2, r0\n\
+	ldrh r0, [r2]\n\
+	lsls r0, r0, #5\n\
+	ldr r1, [r1]\n\
+	adds r1, r1, r0\n\
+	movs r0, #0\n\
+_0804E09C:\n\
+	movs r2, #0\n\
+	adds r4, r0, #1\n\
+_0804E0A0:\n\
+	ldrb r0, [r1]\n\
+	strb r0, [r3]\n\
+	adds r1, #1\n\
+	adds r3, #1\n\
+	adds r2, #1\n\
+	cmp r2, #0x7f\n\
+	bls _0804E0A0\n\
+	movs r2, #0xe0\n\
+	lsls r2, r2, #2\n\
+	adds r3, r3, r2\n\
+	movs r0, #0xc0\n\
+	lsls r0, r0, #1\n\
+	adds r1, r1, r0\n\
+	adds r0, r4, #0\n\
+	cmp r0, #3\n\
+	bls _0804E09C\n\
+	b _0804E1AE\n\
+	.align 2, 0\n\
+_0804E0C4: .4byte gOverworld\n\
+_0804E0C8: .4byte 0x08E0DA26\n\
+_0804E0CC: .4byte 0x08103264\n\
+_0804E0D0: .4byte 0x02010400\n\
+_0804E0D4: .4byte 0x08E11790\n\
+_0804E0D8: .4byte 0x081032D2\n\
+_0804E0DC:\n\
+	cmp r1, #1\n\
+	bne _0804E154\n\
+	ldrb r3, [r0, #0x12]\n\
+	lsls r2, r3, #1\n\
+	ldr r1, _0804E140\n\
+	ldrb r0, [r0, #0x1e]\n\
+	adds r0, r0, r1\n\
+	adds r2, r2, r3\n\
+	ldrb r0, [r0]\n\
+	adds r2, r2, r0\n\
+	lsls r2, r2, #0x18\n\
+	ldr r1, _0804E144\n\
+	lsls r0, r4, #1\n\
+	adds r0, r0, r1\n\
+	ldrh r0, [r0]\n\
+	lsls r0, r0, #5\n\
+	ldr r1, _0804E148\n\
+	adds r3, r0, r1\n\
+	ldr r1, _0804E14C\n\
+	movs r0, #0xb4\n\
+	lsls r0, r0, #1\n\
+	adds r1, r1, r0\n\
+	ldr r0, _0804E150\n\
+	lsrs r2, r2, #0x17\n\
+	adds r2, r2, r0\n\
+	ldrh r0, [r2]\n\
+	lsls r0, r0, #5\n\
+	ldr r1, [r1]\n\
+	adds r1, r1, r0\n\
+	movs r0, #0\n\
+_0804E118:\n\
+	movs r2, #0\n\
+	adds r4, r0, #1\n\
+_0804E11C:\n\
+	ldrb r0, [r1]\n\
+	strb r0, [r3]\n\
+	adds r1, #1\n\
+	adds r3, #1\n\
+	adds r2, #1\n\
+	cmp r2, #0x7f\n\
+	bls _0804E11C\n\
+	movs r2, #0xe0\n\
+	lsls r2, r2, #2\n\
+	adds r3, r3, r2\n\
+	movs r0, #0xc0\n\
+	lsls r0, r0, #1\n\
+	adds r1, r1, r0\n\
+	adds r0, r4, #0\n\
+	cmp r0, #3\n\
+	bls _0804E118\n\
+	b _0804E1AE\n\
+	.align 2, 0\n\
+_0804E140: .4byte 0x08E0DA26\n\
+_0804E144: .4byte 0x08103264\n\
+_0804E148: .4byte 0x02010400\n\
+_0804E14C: .4byte 0x08E11790\n\
+_0804E150: .4byte 0x081032D2\n\
+_0804E154:\n\
+	cmp r1, #4\n\
+	bne _0804E1AE\n\
+	ldrb r3, [r0, #0x12]\n\
+	lsls r1, r3, #1\n\
+	ldr r2, _0804E1B4\n\
+	ldrb r0, [r0, #0x1e]\n\
+	adds r0, r0, r2\n\
+	adds r1, r1, r3\n\
+	ldrb r0, [r0]\n\
+	adds r1, r1, r0\n\
+	lsls r1, r1, #0x18\n\
+	ldr r2, _0804E1B8\n\
+	lsls r0, r4, #1\n\
+	adds r0, r0, r2\n\
+	ldrh r0, [r0]\n\
+	lsls r0, r0, #5\n\
+	ldr r2, _0804E1BC\n\
+	adds r3, r0, r2\n\
+	ldr r2, _0804E1C0\n\
+	ldr r0, _0804E1C4\n\
+	lsrs r1, r1, #0x17\n\
+	adds r1, r1, r0\n\
+	ldrh r0, [r1]\n\
+	lsls r0, r0, #5\n\
+	ldr r1, [r2, #0x24]\n\
+	adds r1, r1, r0\n\
+	movs r0, #0\n\
+_0804E18A:\n\
+	movs r2, #0\n\
+	adds r4, r0, #1\n\
+_0804E18E:\n\
+	ldrb r0, [r1]\n\
+	strb r0, [r3]\n\
+	adds r1, #1\n\
+	adds r3, #1\n\
+	adds r2, #1\n\
+	cmp r2, #0x7f\n\
+	bls _0804E18E\n\
+	movs r2, #0xe0\n\
+	lsls r2, r2, #2\n\
+	adds r3, r3, r2\n\
+	movs r0, #0xc0\n\
+	lsls r0, r0, #1\n\
+	adds r1, r1, r0\n\
+	adds r0, r4, #0\n\
+	cmp r0, #3\n\
+	bls _0804E18A\n\
+_0804E1AE:\n\
+	pop {r4}\n\
+	pop {r0}\n\
+	bx r0\n\
+	.align 2, 0\n\
+_0804E1B4: .4byte 0x08E0DA26\n\
+_0804E1B8: .4byte 0x08103264\n\
+_0804E1BC: .4byte 0x02010400\n\
+_0804E1C0: .4byte 0x08E11790\n\
+_0804E1C4: .4byte 0x081032D2");
+}
 
-    }*/
 
 
-//r3 = gUnk8E19274
+//r3 = gMapData
 
 //  9AAE98
 //0x200 per sprite
@@ -1108,88 +1309,184 @@ enum {
   RUN_LEFT,
   RUN_RIGHT
 };
-/*
+
+extern u16 gUnk2020DFC;
+extern u16 gKeyState;
+extern u16 g2020DF4;
+
+u8 sub_804E1C8 (void) {
+  if (gUnk2020DFC & 1)
+    return TALK;
+  if (gUnk2020DFC & 0x100)
+    return TRY_DUELING;
+  if (gKeyState & 2) {
+    if (gKeyState & 0x40)
+      return RUN_UP;
+    if (gKeyState & 0x80)
+      return RUN_DOWN;
+    if (gKeyState & 0x20)
+      return RUN_LEFT;
+    if (gKeyState & 0x10)
+      return RUN_RIGHT;
+  }
+  if (gKeyState & 0x40)
+    return WALK_UP;
+  if (gKeyState & 0x80)
+      return WALK_DOWN;
+  if (gKeyState & 0x20)
+    return WALK_LEFT;
+  if (gKeyState & 0x10)
+    return WALK_RIGHT;
+  if (g2020DF4 & 4)
+    return START_MENU;
+  if (g2020DF4 & 8)
+    return START_MENU;
+  if (g2020DF4 & 0x200)
+    return START_MENU;
+  return UNK0;
+}
+
+void TryWalking (u8);
+void sub_804F2F0 (void);
+void sub_804EF10 (void);
+void TryDueling (void);
+void sub_804EEE0 (void);
+void TryTalking (void);
+void StartMenu (void);
+void SetBg3Regs (void);
+void SetBg2Regs (void);
+void SetBg1Regs (void);
+void SetBg0Data (void);
+void sub_804EE6C (void);
+void sub_8044E50 (u16*, u16, u16);
+void sub_8044EC8 (u16*, u16, u16, u8);
+void sub_8045284 (u16*, u16, u16);
+void sub_804EC4C (void);
+void sub_804F508 (void);
+void TryRunning (u8);
+
+extern u8 g8E0DA9C[];
+extern u8 g8E0DA56[];
+
+enum Direction {
+  DOWN,
+  LEFT,
+  UP,
+  RIGHT
+};
+
+// inlining fixes argument passing order to sub_8044E50, and sub_8044EC8
+static inline void sub_804ED08_inline (void) {
+  REG_DISPCNT = 0;
+  REG_BLDCNT = 0;
+  LoadOverworldBgGfx();
+  SetBg3Regs();
+  SetBg2Regs();
+  SetBg1Regs();
+  SetBg0Data();
+  sub_804EE6C();
+  if (CheckFlag(0xF3)) // tint effects
+    sub_8044E50(g02000000.bg, 0x10, 0x1FF);
+  if (CheckFlag(0xF0))
+    sub_8044EC8(g02000000.bg, 0x10, 0x1FF, 6);
+  if (CheckFlag(0xEF)) // completely black
+    sub_8045284(g02000000.bg, 0x10, 0xFF);
+  REG_BLDY = 7;
+  sub_8008220();
+  sub_804EC4C();
+  REG_WINOUT = 0x3D3F;
+  sub_804F508();
+}
+
+// this function is repeated later in the file
+static inline void sub_804EFA8_inline (void) {
+  REG_DISPCNT = 0;
+  REG_BLDCNT = 0;
+  LoadOverworldBgGfx();
+  SetBg3Regs();
+  SetBg2Regs();
+  SetBg1Regs();
+  SetBg0Data();
+  sub_804EE6C();
+  REG_BLDY = 7;
+  sub_8008220();
+  sub_804EC4C();
+  sub_804F508();
+}
+
 void sub_804E288 (void) {
-  while (!(gOverworld.unk240 & 3)) {
+  u8 r5 = 102;
+  while (!(gOverworld.unk240 & (1 | 2))) {
     gOverworld.objects[0].unk18 = 0;
     switch (sub_804E1C8()) {
       case WALK_UP:
-        sub_80521D0(2);
+        TryWalking(UP);
         sub_804F2F0();
         sub_804EF10();
         break;
       case WALK_DOWN:
-        sub_80521D0(0);
+        TryWalking(DOWN);
         sub_804F2F0();
         sub_804EF10();
         break;
       case WALK_LEFT:
-        sub_80521D0(1);
+        TryWalking(LEFT);
         sub_804F2F0();
         sub_804EF10();
         break;
       case WALK_RIGHT:
-        sub_80521D0(3);
+        TryWalking(RIGHT);
         sub_804F2F0();
         sub_804EF10();
         break;
       case TRY_DUELING:
-        sub_8051FFC();
+        TryDueling();
         sub_804EEE0();
         break;
       case TALK:
-        sub_8051F70();
+        TryTalking();
         sub_804EEE0();
         break;
       case START_MENU:
         PlayMusic(0x37);
         StartMenu();
-        REG_DISPCNT = 0;
-        REG_BLDCNT = 0;
-        sub_804DCE8();
-        sub_804EDA0();
-        sub_804EDC8();
-        sub_804EDF0();
-        sub_804EE18();
-        sub_804EE6C();
-        if (sub_8055554(0xF3))
-          sub_8044E50(g02000000, 0x10, 0x1FF);
-        if (sub_8055554(0xF0))
-          sub_8044EC8(g02000000, 0x10, 0x1FF, 6);
-        if (sub_8055554(0xEF))
-          sub_8045284(g02000000, 0x10, 0xFF);
-        REG_BLDY = 7;
-        sub_8008220();
-        sub_804EC4C();
-        REG_WINOUT = 0x3D3F;
-        sub_804F508();
-        sub_804F770();
+        sub_804ED08_inline();
+        PlayOverworldMusic();
         break;
       case UNK8: //_0804E3D0
-        break;
-      case UNK9:
-        sub_804F2F0();
-        sub_804EF10();
+        gOverworld.objects[0].spriteId = g8E0DA9C[gOverworld.objects[0].spriteId];
+        sub_804ED08_inline();
         break;
       case UNKA: // _0804E478
+        r5 = g8E0DA56[r5];
+        gOverworld.map.unk8 = r5;
+        gOverworld.map.unkA = 0;
+        gOverworld.map.unkC = 0;
+        InitOverworldData();
+        sub_804EFA8_inline();
+        sub_804EEE0();
         break;
       case RUN_UP:
-        sub_80521E8(2);
+        TryRunning(2);
         sub_804F2F0();
         sub_804EF10();
         break;
       case RUN_DOWN:
-        sub_80521E8(0);
+        TryRunning(0);
         sub_804F2F0();
         sub_804EF10();
         break;
       case RUN_LEFT:
-        sub_80521E8(1);
+        TryRunning(1);
         sub_804F2F0();
         sub_804EF10();
         break;
       case RUN_RIGHT:
-        sub_80521E8(3);
+        TryRunning(3);
+        sub_804F2F0();
+        sub_804EF10();
+        break;
+      default:
         sub_804F2F0();
         sub_804EF10();
         break;
@@ -1197,13 +1494,1452 @@ void sub_804E288 (void) {
   }
 }
 
+NAKED
+void sub_804E518 (u8 arg0) {
+  asm_unified("push {r4, r5, r6, r7, lr}\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r6, r0, #0x18\n\
+	ldr r1, _0804E5B8\n\
+	lsls r7, r6, #5\n\
+	adds r5, r7, r1\n\
+	adds r0, r5, #0\n\
+	adds r0, #0x28\n\
+	ldrb r0, [r0]\n\
+	mov ip, r1\n\
+	cmp r0, #1\n\
+	bne _0804E5E8\n\
+	ldrh r0, [r5, #0x10]\n\
+	subs r0, #0x7a\n\
+	lsls r0, r0, #0x10\n\
+	lsrs r0, r0, #0x10\n\
+	cmp r0, #1\n\
+	bhi _0804E5CC\n\
+	ldrh r4, [r5, #0x10]\n\
+	ldrb r3, [r5, #0x12]\n\
+	lsls r1, r3, #1\n\
+	ldr r2, _0804E5BC\n\
+	ldrb r0, [r5, #0x1e]\n\
+	adds r0, r0, r2\n\
+	adds r1, r1, r3\n\
+	ldrb r0, [r0]\n\
+	adds r1, r1, r0\n\
+	lsls r1, r1, #0x18\n\
+	adds r2, r6, r2\n\
+	ldrb r0, [r2]\n\
+	lsls r0, r0, #5\n\
+	ldr r2, _0804E5C0\n\
+	adds r2, r0, r2\n\
+	ldr r0, _0804E5C4\n\
+	lsls r4, r4, #2\n\
+	adds r4, r4, r0\n\
+	ldr r0, _0804E5C8\n\
+	lsrs r1, r1, #0x17\n\
+	adds r1, r1, r0\n\
+	ldrh r0, [r1]\n\
+	lsls r0, r0, #5\n\
+	ldr r1, [r4]\n\
+	adds r1, r1, r0\n\
+	movs r0, #0\n\
+	adds r5, r7, #0\n\
+_0804E572:\n\
+	movs r3, #0\n\
+	adds r4, r0, #1\n\
+_0804E576:\n\
+	ldrb r0, [r1]\n\
+	strb r0, [r2]\n\
+	adds r1, #1\n\
+	adds r2, #1\n\
+	adds r3, #1\n\
+	cmp r3, #0x7f\n\
+	bls _0804E576\n\
+	movs r0, #0xe0\n\
+	lsls r0, r0, #2\n\
+	adds r2, r2, r0\n\
+	movs r0, #0xc0\n\
+	lsls r0, r0, #1\n\
+	adds r1, r1, r0\n\
+	adds r0, r4, #0\n\
+	cmp r0, #3\n\
+	bls _0804E572\n\
+	mov r0, ip\n\
+	adds r1, r5, r0\n\
+	ldrb r0, [r1, #0x1e]\n\
+	cmp r0, #0xf\n\
+	bls _0804E5A4\n\
+	movs r0, #0xf\n\
+	strb r0, [r1, #0x1e]\n\
+_0804E5A4:\n\
+	ldrb r0, [r1, #0x1e]\n\
+	subs r0, #1\n\
+	cmp r0, #0\n\
+	bge _0804E5B0\n\
+	movs r0, #0xf\n\
+	strb r0, [r1, #0x1e]\n\
+_0804E5B0:\n\
+	ldrb r0, [r1, #0x1e]\n\
+	subs r0, #1\n\
+	strb r0, [r1, #0x1e]\n\
+	b _0804E610\n\
+	.align 2, 0\n\
+_0804E5B8: .4byte gOverworld\n\
+_0804E5BC: .4byte 0x08E0DA40\n\
+_0804E5C0: .4byte 0x02010400\n\
+_0804E5C4: .4byte 0x08E11790\n\
+_0804E5C8: .4byte 0x081032D2\n\
+_0804E5CC:\n\
+	adds r0, r6, #0\n\
+	bl sub_804DF5C\n\
+	ldrb r0, [r5, #0x1e]\n\
+	cmp r0, #0x14\n\
+	bls _0804E5DC\n\
+	movs r0, #0x14\n\
+	strb r0, [r5, #0x1e]\n\
+_0804E5DC:\n\
+	ldrb r0, [r5, #0x1e]\n\
+	subs r0, #1\n\
+	cmp r0, #0\n\
+	bge _0804E5FE\n\
+	movs r0, #0x14\n\
+	b _0804E5FC\n\
+_0804E5E8:\n\
+	cmp r0, #2\n\
+	bne _0804E606\n\
+	adds r0, r6, #0\n\
+	bl sub_804E050\n\
+	ldrb r0, [r5, #0x1e]\n\
+	subs r0, #1\n\
+	cmp r0, #0\n\
+	bge _0804E5FE\n\
+	movs r0, #0x1a\n\
+_0804E5FC:\n\
+	strb r0, [r5, #0x1e]\n\
+_0804E5FE:\n\
+	ldrb r0, [r5, #0x1e]\n\
+	subs r0, #1\n\
+	strb r0, [r5, #0x1e]\n\
+	b _0804E610\n\
+_0804E606:\n\
+	movs r0, #0x13\n\
+	strb r0, [r5, #0x1e]\n\
+	adds r0, r6, #0\n\
+	bl sub_804DF5C\n\
+_0804E610:\n\
+	pop {r4, r5, r6, r7}\n\
+	pop {r0}\n\
+	bx r0");
+}
+
+void sub_804E618 (void) {
+  s16 arr[15];
+  u8 i;
+  for (i = 0; i < 15; i++)
+    arr[i] = -32767;
+  for (i = 0; i < 15; i++) {
+    s16 r4;
+    u16 r3;
+    u8 r5 = 0;
+    while (arr[r5] >= gOverworld.objects[i].y)
+      r5++;
+    r4 = gOverworld.objects[i].y;
+    r3 = i;
+    for (; r5 < 15; r5++) {
+      s16 temp = arr[r5];
+      arr[r5] = r4;
+      r4 = temp;
+
+      temp = gOverworld.unk21C[r5];
+      gOverworld.unk21C[r5] = r3;
+      r3 = temp;
+    }
+  }
+  gOverworld.unk23A = 0;
+  for (i = 0; i < 15; i++) {
+    if (!gOverworld.unk21C[i])
+      gOverworld.unk23A = i;
+  }
+}
+
+extern u8 g82AD20C[];
+int sub_805222C (u8, s16, s16);
+int sub_8052194 (u16);
+
+
+/*regswap r4, r5
+void sub_804E6E8 (u32* arg0, u32* unused, u32* arg2, u8 arg3) {
+  u32 r1two;
+  u32 r0;
+  u32 r4;
+  u32 r1;
+
+  arg0[0] = 0x01C000C0;
+  arg2[0] = 0x01C008C0;
+  if (gOverworld.objects[arg3].spriteId == -1)
+    return;
+  if (!sub_805222C(arg3, gOverworld.objects[arg3].x, gOverworld.objects[arg3].y))
+    return;
+  arg0[0] |= 0x80000000;
+  if (gOverworld.objects[arg3].unk1Dm)
+    *arg0 |= 0x400;
+  r1two = gUnk08103264[arg3];
+  r1two |= g82AD20C[gOverworld.objects[arg3].spriteId] << 12;
+  r1two |= 0x800;
+  arg0[1] = r1two;
+  arg2[1] = r1two;
+  gOverworld.objects[arg3].unkC = sub_80520E0(gOverworld.objects[arg3].x, gOverworld.objects[arg3].y);
+
+  r1 = gOverworld.objects[arg3].y;
+  r1 <<= 1;
+  r1 -= gOverworld.objects[arg3].unk8;
+  r0 = gOverworld.unk24C - 24;
+  r1 += r0;
+  r4 = r1 - gOverworld.objects[arg3].unkA;
+  r4 &= 0xFF;
+
+  r1 = gOverworld.objects[arg3].x;
+  r1 <<= 1;
+  r0 = gOverworld.unk24E - 16;
+  r1 += r0;
+  r1 <<= 16;
+  r1 &= 0x01FF0000;
+  r4 |= r1;
+
+  arg0[0] = arg0[0] & 0xFE00FF00 | r4;
+  if (!sub_8052194(gOverworld.objects[arg3].unkC)) {
+    r0 = arg2[0] | 0x80000000;
+    r0 &= 0xFE00FF00;
+    r0 |= r4;
+    arg2[0] = r0;
+  }
+}*/
+
+NAKED
+void sub_804E6E8 (u32* arg0, u32* unused, u32* arg2, u8 arg3) {
+  asm_unified("push {r4, r5, r6, r7, lr}\n\
+	mov r7, sb\n\
+	mov r6, r8\n\
+	push {r6, r7}\n\
+	adds r6, r0, #0\n\
+	mov r8, r2\n\
+	lsls r3, r3, #0x18\n\
+	lsrs r3, r3, #0x18\n\
+	adds r4, r3, #0\n\
+	ldr r0, _0804E7DC\n\
+	str r0, [r6]\n\
+	ldr r0, _0804E7E0\n\
+	str r0, [r2]\n\
+	ldr r7, _0804E7E4 @gOverworld\n\
+	lsls r0, r3, #5\n\
+	adds r5, r0, r7\n\
+	movs r0, #0x10\n\
+	ldrsh r1, [r5, r0]\n\
+	movs r0, #1\n\
+	rsbs r0, r0, #0\n\
+	cmp r1, r0\n\
+	beq _0804E7D0\n\
+	movs r2, #0x14\n\
+	ldrsh r1, [r5, r2]\n\
+	movs r0, #0x16\n\
+	ldrsh r2, [r5, r0]\n\
+	adds r0, r3, #0\n\
+	bl sub_805222C\n\
+	cmp r0, #0\n\
+	beq _0804E7D0\n\
+	ldr r1, [r6]\n\
+	movs r2, #0x80\n\
+	lsls r2, r2, #0x18\n\
+	mov sb, r2\n\
+	orrs r1, r2\n\
+	str r1, [r6]\n\
+	adds r0, r5, #0\n\
+	adds r0, #0x2d\n\
+	ldrb r0, [r0]\n\
+	lsls r0, r0, #0x1b\n\
+	cmp r0, #0\n\
+	bge _0804E746\n\
+	movs r0, #0x80\n\
+	lsls r0, r0, #3\n\
+	orrs r1, r0\n\
+	str r1, [r6]\n\
+_0804E746:\n\
+	ldr r1, _0804E7E8\n\
+	lsls r0, r4, #1\n\
+	adds r0, r0, r1\n\
+	ldrh r1, [r0]\n\
+	ldr r2, _0804E7EC\n\
+	movs r3, #0x10\n\
+	ldrsh r0, [r5, r3]\n\
+	adds r0, r0, r2\n\
+	ldrb r0, [r0]\n\
+	lsls r0, r0, #0xc\n\
+	orrs r1, r0\n\
+	movs r0, #0x80\n\
+	lsls r0, r0, #4\n\
+	orrs r1, r0\n\
+	str r1, [r6, #4]\n\
+	mov r0, r8\n\
+	str r1, [r0, #4]\n\
+	ldrb r0, [r5, #0x14]\n\
+	ldrb r1, [r5, #0x16]\n\
+	bl sub_80520E0\n\
+	strh r0, [r5, #0x1c]\n\
+	movs r2, #0x16\n\
+	ldrsh r1, [r5, r2]\n\
+	lsls r1, r1, #1\n\
+	movs r3, #0x18\n\
+	ldrsh r0, [r5, r3]\n\
+	subs r1, r1, r0\n\
+	movs r2, #0x93\n\
+	lsls r2, r2, #2\n\
+	adds r0, r7, r2\n\
+	movs r3, #0\n\
+	ldrsh r0, [r0, r3]\n\
+	subs r0, #0x18\n\
+	adds r1, r1, r0\n\
+	ldrb r0, [r5, #0x1a]\n\
+	subs r4, r1, r0\n\
+	movs r0, #0xff\n\
+	ands r4, r0\n\
+	movs r0, #0x14\n\
+	ldrsh r1, [r5, r0]\n\
+	lsls r1, r1, #1\n\
+	adds r2, #2\n\
+	adds r0, r7, r2\n\
+	movs r3, #0\n\
+	ldrsh r0, [r0, r3]\n\
+	subs r0, #0x10\n\
+	adds r1, r1, r0\n\
+	lsls r1, r1, #0x10\n\
+	ldr r0, _0804E7F0\n\
+	ands r1, r0\n\
+	orrs r4, r1\n\
+	ldr r0, [r6]\n\
+	ldr r7, _0804E7F4\n\
+	ands r0, r7\n\
+	orrs r0, r4\n\
+	str r0, [r6]\n\
+	ldrh r0, [r5, #0x1c]\n\
+	bl sub_8052194\n\
+	cmp r0, #0\n\
+	bne _0804E7D0\n\
+	mov r1, r8\n\
+	ldr r0, [r1]\n\
+	mov r2, sb\n\
+	orrs r0, r2\n\
+	ands r0, r7\n\
+	orrs r0, r4\n\
+	str r0, [r1]\n\
+_0804E7D0:\n\
+	pop {r3, r4}\n\
+	mov r8, r3\n\
+	mov sb, r4\n\
+	pop {r4, r5, r6, r7}\n\
+	pop {r0}\n\
+	bx r0\n\
+	.align 2, 0\n\
+_0804E7DC: .4byte 0x01C000C0\n\
+_0804E7E0: .4byte 0x01C008C0\n\
+_0804E7E4: .4byte gOverworld\n\
+_0804E7E8: .4byte 0x08103264\n\
+_0804E7EC: .4byte 0x082AD20C\n\
+_0804E7F0: .4byte 0x01FF0000\n\
+_0804E7F4: .4byte 0xFE00FF00");
+}
+
+void sub_804E7F8 (struct OamData* arg0, u8 arg1) {
+  int tempY;
+  int tempX;
+  int temp;
+
+  arg0->objMode = 0; // has to come first to match (decomp_note)
+  arg0->size = 0;
+  arg0->affineMode = 0;
+  arg0->mosaic = 0;
+  arg0->bpp = 0;
+  arg0->shape = 0;
+  arg0->paletteNum = 0;
+  arg0->y = 192;
+  arg0->x = 448;
+
+  if (gOverworld.objects[arg1].spriteId == -1 || !gOverworld.objects[arg1].unk1Di)
+    return;
+  if (!sub_805222C(arg1, gOverworld.objects[arg1].x, gOverworld.objects[arg1].y))
+    return;
+
+  arg0->size = 0;
+  arg0->shape = 1;
+  if (gOverworld.objects[arg1].unk1Dm)
+    arg0->objMode = 1;
+  arg0->tileNum = gUnk08103264[15] & 1023;
+  arg0->priority = 2;
+  tempY = gOverworld.objects[arg1].y * 2 - gOverworld.objects[arg1].unk8;
+  arg0->y = tempY + gOverworld.unk24C;
+  tempX = gOverworld.objects[arg1].x * 2;
+  temp = gOverworld.unk24E - 8;
+  arg0->x = tempX + temp;
+}
+
+extern u8 g82AD2B6[];
+extern u16 gUnk08103284[];
+
+void sub_804E918 (struct OamData* arg0, u8 arg1) {
+  int tempY;
+  int tempX;
+  int temp;
+
+  arg0->objMode = 0;
+  arg0->size = 0;
+  arg0->affineMode = 0;
+  arg0->mosaic = 0;
+  arg0->bpp = 0;
+  arg0->shape = 0;
+  arg0->paletteNum = g82AD2B6[gOverworld.objects[arg1].unk1C];
+  arg0->y = 192;
+  arg0->x = 448;
+  if (gOverworld.objects[arg1].spriteId == -1)
+    return;
+  if (!sub_805222C(arg1, gOverworld.objects[arg1].x, gOverworld.objects[arg1].y))
+    return;
+
+  arg0->size = 1;
+  arg0->shape = 0;
+  if (gOverworld.objects[arg1].unk1Dm)
+    arg0->objMode = 1;
+  tempY = gOverworld.objects[arg1].y * 2 - gOverworld.objects[arg1].unk8;
+  arg0->y = tempY - 28 + gOverworld.unk24C;
+  tempX = gOverworld.objects[arg1].x * 2;
+  temp = gOverworld.unk24E - 2;
+  arg0->x = tempX + temp;
+  arg0->tileNum = gUnk08103284[arg1] & 1023;
+  arg0->priority = 1;
+}
+
+//unused?
+void sub_804EA48 (u32* arg0, u8 arg1) {
+  u32 r2, r0, r00, r1;
+  arg0[0] = 0x01C008C0;
+  if (gOverworld.objects[arg1].spriteId == -1)
+    return;
+  if (!sub_805222C(arg1, gOverworld.objects[arg1].x, gOverworld.objects[arg1].y))
+    return;
+  if (sub_8052194(gOverworld.objects[arg1].unkC))
+    return;
+  arg0[0] |= 0x80000000;
+  arg0[1] = gUnk08103264[arg1] | 0x400;
+  gOverworld.objects[arg1].unkC = sub_80520E0(gOverworld.objects[arg1].x, gOverworld.objects[arg1].y);
+  arg0[0] &= 0xFE00FF00;
+
+  r2 = gOverworld.objects[arg1].y * 2 - gOverworld.objects[arg1].unk8;
+  r0 = gOverworld.unk24C - 24;
+  r2 += r0;
+  r2 -= gOverworld.objects[arg1].unkA;
+
+  r1 = gOverworld.objects[arg1].x * 2;
+  r00 = gOverworld.unk24E - 16;
+  r1 += r00;
+  r1 <<= 16;
+  r2 |= r1;
+
+  arg0[0] |= r2;
+}
+
+void sub_80411EC (struct OamData*);
+
+// Set portrait OAM
+void sub_804EB04 (struct OamData* arg0, u8 arg1) {
+  if (arg1 == 8) {
+    arg1 = 0;
+    // display portrait to the right if player's x coord < 60
+    if (gOverworld.objects[0].x < 60)
+      arg1 = 1;
+  }
+  switch (arg1) {
+    case 0:
+      arg0->objMode = 0;
+      arg0->mosaic = 0;
+      arg0->bpp = 1;
+      arg0->size = 3;
+      arg0->shape = 0;
+      arg0->priority = 0;
+      arg0->tileNum = 256;
+      arg0->y = 48;
+      arg0->x = 8;
+      break;
+    case 1:
+      arg0->objMode = 0;
+      arg0->mosaic = 0;
+      arg0->bpp = 1;
+      arg0->size = 3;
+      arg0->shape = 0;
+      arg0->priority = 0;
+      arg0->tileNum = 256;
+      arg0->y = 48;
+      arg0->x = 168;
+      break;
+    case 2:
+      sub_80411EC(arg0);
+      break;
+  }
+}
+
+extern struct OamData gOamBuffer[];
+/*
+void sub_804EBE4 (void) {
+  u8 i;
+  for (i = 0; i < 15; i++)
+    sub_804E6E8(&gOamBuffer/*struct of u32s?*[(i + 97) * 2], &gOamBuffer[(i + 67) * 2],
+                &gOamBuffer[(i + 82) * 2], gOverworld.unk21C[i]);
+  for (i = 0; i < 15; i++) {
+    sub_804E7F8(&gOamBuffer[], gOverworld.unk21C[i]);
+  }
+}*/
+
+NAKED
+void sub_804EBE4 (void) {
+  asm_unified("push {r4, r5, r6, r7, lr}\n\
+	ldr r6, _0804EC44\n\
+	movs r4, #0\n\
+	adds r5, r6, #0\n\
+	ldr r7, _0804EC48\n\
+_0804EBEE:\n\
+	adds r0, r4, #0\n\
+	adds r0, #0x61\n\
+	lsls r0, r0, #3\n\
+	adds r0, r0, r5\n\
+	adds r1, r4, #0\n\
+	adds r1, #0x43\n\
+	lsls r1, r1, #3\n\
+	adds r1, r1, r5\n\
+	adds r2, r4, #0\n\
+	adds r2, #0x52\n\
+	lsls r2, r2, #3\n\
+	adds r2, r2, r5\n\
+	lsls r3, r4, #1\n\
+	adds r3, r3, r7\n\
+	ldrb r3, [r3]\n\
+	bl sub_804E6E8\n\
+	adds r0, r4, #1\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r4, r0, #0x18\n\
+	cmp r4, #0xe\n\
+	bls _0804EBEE\n\
+	movs r4, #0\n\
+	ldr r5, _0804EC48\n\
+_0804EC1E:\n\
+	lsls r0, r4, #3\n\
+	movs r1, #0xe0\n\
+	lsls r1, r1, #2\n\
+	adds r0, r0, r1\n\
+	adds r0, r6, r0\n\
+	lsls r1, r4, #1\n\
+	adds r1, r1, r5\n\
+	ldrb r1, [r1]\n\
+	bl sub_804E7F8\n\
+	adds r0, r4, #1\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r4, r0, #0x18\n\
+	cmp r4, #0xe\n\
+	bls _0804EC1E\n\
+	pop {r4, r5, r6, r7}\n\
+	pop {r0}\n\
+	bx r0\n\
+	.align 2, 0\n\
+_0804EC44: .4byte gOamBuffer\n\
+_0804EC48: .4byte gOverworld+0x21C");
+}
+
+void sub_804EC4C (void) {
+  LoadBgOffsets();
+  LoadOam();
+  LoadVRAM();
+  LoadPalettes();
+}
+
+void sub_804EC64 (void) {
+  // todo: replace vram pointers
+  CpuCopy32(gBgVram.sbb1B, (void*)0x600D800, 0xE20);
+  CpuCopy32(gBgVram.sbb1D, (void*)0x600E800, 0x100);
+  LoadObjVRAM();
+  LoadPalettes();
+  LoadOam();
+}
+
+void sub_804ECA8 (void) {
+  // todo: replace vram pointers
+  CpuCopy32(gBgVram.sbb1B, (void*)0x600D800, 0xE20);
+  CpuCopy32(gBgVram.sbb1D, (void*)0x600E800, 0x100);
+  LoadOam();
+}
+
+void sub_804ECE4 (void) {
+  u8 i;
+  for (i = 0; i < 128; i++)
+    sub_80411EC(gOamBuffer + i);
+}
+
+// inline
+void sub_804ED08 (void) {
+  REG_DISPCNT = 0;
+  REG_BLDCNT = 0;
+  LoadOverworldBgGfx();
+  SetBg3Regs();
+  SetBg2Regs();
+  SetBg1Regs();
+  SetBg0Data();
+  sub_804EE6C();
+  if (CheckFlag(0xF3)) // tint effects
+    sub_8044E50(g02000000.bg, 0x10, 0x1FF);
+  if (CheckFlag(0xF0))
+    sub_8044EC8(g02000000.bg, 0x10, 0x1FF, 6);
+  if (CheckFlag(0xEF)) // completely black
+    sub_8045284(g02000000.bg, 0x10, 0xFF);
+  REG_BLDY = 7;
+  sub_8008220();
+  sub_804EC4C();
+  REG_WINOUT = 0x3D3F;
+  sub_804F508();
+}
+
+void SetBg3Regs (void) {
+  REG_BG3CNT = 0x1783;
+  gBG3VOFS = 0;
+  gBG3HOFS = 8;
+}
+
+void SetBg2Regs (void) {
+  REG_BG2CNT = 0x1F82;
+  gBG2VOFS = 0;
+  gBG2HOFS = 8;
+}
+
+void SetBg1Regs (void) {
+  REG_BG1CNT = 0x1E81;
+  gBG1VOFS = 0;
+  gBG1HOFS = 8;
+}
+
+extern u16 g82AD48C[];
+extern const u32 g82AD2D0[];
+
+void SetBg0Data (void) {
+  REG_BG0CNT = 0x1D0C;
+  gBG0VOFS = 0;
+  gBG0HOFS = 8;
+  LZ77UnCompWram(g82AD2D0, gBgVram.sbb1B);
+  CpuCopy16(g82AD48C, gBgVram.sbb1D, 0x500);
+}
+
+void sub_804EE6C (void) {
+  sub_804ECE4();
+  sub_804E618();
+  sub_804DE74();
+  sub_804EBE4();
+}
+
+void sub_804EE84 (struct OamData* arg0, u8 arg1, u8 arg2) {
+  arg0->y = arg2 + 232;
+  arg0->x = arg1 - 16;
+}
+
+void sub_804EEAC (struct OamData* arg0, u16 arg1) {
+  arg0->priority = 2;
+  if (!sub_8052194(arg1))
+    arg0->priority = 1;
+}
+
+void sub_804F1E4 (void);
+
+void sub_804EEE0 (void) {
+  sub_804E618();
+  sub_804EBE4();
+  sub_80081DC(sub_804F1E4);
+  sub_8008220();
+  CpuFastCopy(gBgVram.cbb4, (void*)0x6010000, 0x4000);
+}
+
+void sub_80551B8 (void);
+
+void sub_804EF10 (void) {
+  sub_804E518(0);
+  if (gOverworld.objects[13].unk1Dl)
+    sub_804E518(13);
+  if (gOverworld.objects[14].unk1Dl)
+    sub_804E518(14);
+  sub_80551B8();
+  sub_804E618();
+  sub_804EBE4();
+  sub_80081DC(sub_804F1E4);
+  sub_8008220();
+  CpuFastCopy(gBgVram.cbb4, (void*)0x6010000, 0x4000);
+}
+
+void sub_804EF84 (u16 id, u16 state, u16 connection) {
+  gOverworld.map.unk8 = id;
+  gOverworld.map.unkA = state;
+  gOverworld.map.unkC = connection;
+}
+
+// inline
+void sub_804EF94 (void) {
+  sub_80523EC(9, 1, 0);
+  InitOverworldData();
+}
+
+// inline
+void sub_804EFA8 (void) {
+  REG_DISPCNT = 0;
+  REG_BLDCNT = 0;
+  LoadOverworldBgGfx();
+  SetBg3Regs();
+  SetBg2Regs();
+  SetBg1Regs();
+  SetBg0Data();
+  sub_804EE6C();
+  REG_BLDY = 7;
+  sub_8008220();
+  sub_804EC4C();
+  sub_804F508();
+}
+
+// inline
+void sub_804EFE8 (u8 arg0) {
+  u32 i, j;
+  u8* dest = &gBgVram.cbb4[g8103284[arg0] * 32];
+  u8* src = &g82A906C[g81032A2[gOverworld.objects[arg0].unk1C] * 32];
+  for (i = 0; i < 2; dest += 0x3C0, src += 0x1C0, i++)
+    for (j = 0; j < 64; j++)
+      *dest++ = *src++;
+}
+
+// inline
+void sub_804F054 (u16 spriteId, u8 arg1, u8* dest) {
+  u32 i, j;
+  u8* src = gUnk8E11790[spriteId] + g81032D2[arg1] * 32;
+
+  for (i = 0; i < 4; dest += 0x380, src += 0x180, i++)
+    for (j = 0; j < 128; j++)
+      *dest++ = *src++;
+}
+
+// inline?
+void sub_804F0A4 (u8 objectId) {
+  u16 spriteId = gOverworld.objects[objectId].spriteId;
+  u8 temp = gOverworld.objects[objectId].direction * 3 + gUnk8E0DA40[gOverworld.objects[objectId].unkE];
+  u8* dest = &gBgVram.cbb4[gUnk8E0DA40[objectId] * 32];
+  sub_804F054_inline(spriteId, temp, dest);
+}
+
+void sub_804F124 (u8 objectId) {
+  if (gOverworld.objects[objectId].unkE > 20)
+    gOverworld.objects[objectId].unkE = 20;
+  if (gOverworld.objects[objectId].unkE - 1 < 0)
+    gOverworld.objects[objectId].unkE = 20;
+  gOverworld.objects[objectId].unkE--;
+}
+
+void sub_804F150 (u8 objectId) {
+  if (gOverworld.objects[objectId].unkE - 1 < 0)
+    gOverworld.objects[objectId].unkE = 26;
+  gOverworld.objects[objectId].unkE--;
+}
+
+void sub_804F170 (u8 objectId) {
+  if (gOverworld.objects[objectId].unkE > 15)
+    gOverworld.objects[objectId].unkE = 15;
+  if (gOverworld.objects[objectId].unkE - 1 < 0)
+    gOverworld.objects[objectId].unkE = 15;
+  gOverworld.objects[objectId].unkE--;
+}
+
+void sub_804F19C (int objectId) {
+  u8 objectId_u8 = objectId;
+  gOverworld.objects[objectId_u8].unkE = 19;
+}
+
+void sub_804F1B0 (void) {
+  u8 i;
+  struct OamData* oam = gOamBuffer;
+  for (i = 0; i < 15; i++)
+    sub_804E918(&oam[67 + i], gOverworld.unk21C[i]);
+}
+
+void sub_804F1E4 (void) {
+  LoadBgOffsets();
+  LoadOam();
+}
+
+void sub_804F1F4 (void) {
+  sub_8008220();
+  CpuFastCopy(gBgVram.cbb4, (void*)0x06010000, 0x2000);
+  LoadPalettes();
+}
+
+void sub_804F218 (void) {
+  sub_804E618();
+  sub_804EBE4();
+  sub_80551B8();
+  sub_80081DC(LoadBgOffsets);
+  sub_8008220();
+  LoadOam();
+  CpuCopy32(gBgVram.sbb1B, (void*)0x0600D800, 0xE20);
+}
+
+void sub_804F254 (void) {
+  sub_804E618();
+  sub_804EBE4();
+  sub_80551B8();
+  sub_80081DC(LoadBgOffsets);
+  sub_8008220();
+  LoadOam();
+  CpuFastCopy(gBgVram.cbb4, (void*)0x06010000, 0x2000);
+}
+
+void sub_804F28C (void) {
+  u8 i;
+  struct OamData* oam = gOamBuffer;
+  for (i = 0; i < 15; i++)
+    sub_804E918(&oam[67 + i], gOverworld.unk21C[i]);
+  sub_80551B8();
+  sub_80081DC(LoadBgOffsets);
+  sub_8008220();
+  LoadCharblock5();
+  LoadOam();
+}
+
+void sub_804F2DC (void) {
+  LoadCharblock5();
+  LoadPalettes();
+  LoadBlendingRegs();
+}
+
+void sub_8051A44 (u8, u8, s16*);
+void sub_804F3E4 (void);
+
+static inline void sub_804F62C_inline (u8 objId, u8 direction) {
+  s16 arr[4];
+  gOverworld.objects[objId].direction = direction;
+  sub_8051A44(objId, direction, arr);
+  gOverworld.objects[objId].x += arr[0];
+  gOverworld.objects[objId].y += arr[1];
+  sub_8052088(objId);
+  sub_804E518(objId);
+}
+
+void sub_804F2F0 (void) {
+  int i;
+  sub_804F3E4();
+  for (i = 1; i < 15; i++) {
+    if (gOverworld.objects[i].unk1Dk != 1)
+      continue;
+    if (gOverworld.objects[i].unk1A > 1) {
+      if (gOverworld.objects[i].unk1A % 2 == 0) {
+        sub_804F62C_inline(i, gOverworld.objects[i].direction);
+      }
+      gOverworld.objects[i].unk1A--;
+    }
+    else if (gOverworld.objects[i].unk1A == 1) {
+      sub_804F19C(i);
+      sub_804F62C_inline(i, gOverworld.objects[i].direction);
+      gOverworld.objects[i].unk1A--;
+    }
+    else if (!sub_8056258(0, 20)) {
+      gOverworld.objects[i].direction = sub_8056258(0, 3);
+      gOverworld.objects[i].unk1A = sub_8056258(5, 20) * 4;
+    }
+  }
+}
+
+extern s8 g8E0DB04[];
+extern s8 g8E0DB0C[];
+void sub_8051C14(u8, u8, s16*);
+
+static inline void sub_804F678_inline (u8 objId, u8 arg1) {
+  s16 arr[4];
+  sub_8051C14(objId, arg1, arr);
+  gOverworld.objects[objId].x += arr[0];
+  gOverworld.objects[objId].y += arr[1];
+  sub_8052088(objId);
+  sub_804E518(objId);
+}
+
+static inline void sub_804F6D4_inline (s16* arr, u8 i) {
+  arr[0] = gOverworld.objects[0].x + g8E0DB04[gOverworld.objects[0].direction + i * 4];
+  arr[1] = gOverworld.objects[0].y + g8E0DB0C[gOverworld.objects[0].direction + i * 4];
+}
+
+void sub_804F3E4 (void) {
+  u8 i;
+  s16 arr[2];
+  for (i = 0; i < 2; i++) {
+    s8 r3;
+    sub_804F6D4_inline(arr, i);
+    r3 = 0;
+    if (arr[0] == gOverworld.objects[i + 13].x)
+      r3 = 1;
+    if (arr[0] > gOverworld.objects[i + 13].x)
+      r3 = 2;
+    if (arr[1] == gOverworld.objects[i + 13].y)
+      r3 += 3;
+    if (arr[1] > gOverworld.objects[i + 13].y)
+      r3 += 6;
+    if (!gOverworld.objects[i + 13].unk1Dl)
+      continue;
+    gOverworld.objects[i + 13].unk18 = 0;
+    if (r3 == 4)
+      gOverworld.objects[i + 13].direction = gOverworld.objects[0].direction;
+    else {
+      sub_804F678_inline(i + 13, r3);
+    }
+  }
+}
+
+u8 sub_804F4E4 (void) {
+  if (gOverworld.map.id == 0x3C && !CheckFlag(0xE2))
+    return 0;
+  return 1;
+}
+
+static inline u8 sub_804F4E4_inline (void) {
+  if (gOverworld.map.id == 0x3C && !CheckFlag(0xE2))
+    return 0;
+  return 1;
+}
+
+void sub_804F508 (void) {
+  if (!sub_804F4E4_inline())
+    REG_DISPCNT = 0x9D00;
+  else
+    REG_DISPCNT = 0x9F00;
+}
+
+void sub_804F544 (void) {
+  if (!sub_804F4E4_inline())
+    REG_DISPCNT = 0xDD00;
+  else
+    REG_DISPCNT = 0xDF00;
+}
+
+void sub_804F580 (void) {
+  CpuCopy16(g82AD06C, g02000000.obj, 0x180);
+}
+
+void sub_804F598 (void) {
+  CpuCopy16(g82ADC8C, g02000000.bg, 0x20);
+}
+
+void sub_804F5B0 (void) {
+  CpuCopy16(g8E11CD0[gOverworld.map.id], g02000000.bg + 0x10, 0x1E0);
+}
+
+void sub_804F5D8 (void) {
+  CpuCopy16(g82AD06C, g02000000.obj, 0x180);
+  CpuCopy16(g82ADC8C, g02000000.bg, 0x20);
+  CpuCopy16(g8E11CD0[gOverworld.map.id], g02000000.bg + 0x10, 0x1E0);
+}
+
+// inline
+void sub_804F62C (u8 objId, u8 direction) {
+  s16 arr[4];
+  gOverworld.objects[objId].direction = direction;
+  sub_8051A44(objId, direction, arr);
+  gOverworld.objects[objId].x += arr[0];
+  gOverworld.objects[objId].y += arr[1];
+  sub_8052088(objId);
+  sub_804E518(objId);
+}
+
+// inline
+void sub_804F678 (u8 objId, u8 arg1) {
+  s16 arr[4];
+  sub_8051C14(objId, arg1, arr);
+  gOverworld.objects[objId].x += arr[0];
+  gOverworld.objects[objId].y += arr[1];
+  sub_8052088(objId);
+  sub_804E518(objId);
+}
+
+s8 sub_804F6C0 (void) {
+  return gOverworld.unk1F0;
+}
+
+void sub_804F6D4 (s16* arr, u8 i) {
+  arr[0] = gOverworld.objects[0].x + g8E0DB04[gOverworld.objects[0].direction + i * 4];
+  arr[1] = gOverworld.objects[0].y + g8E0DB0C[gOverworld.objects[0].direction + i * 4];
+}
+
+void sub_804F714 (void) {
+  int i;
+  for (i = 0; i < 10; i++)
+    sub_804F3E4();
+  for (i = 0; i < 2; i++)
+    if (gOverworld.objects[i + 13].unk1Dl) {
+      gOverworld.objects[i + 13].direction = gOverworld.objects[0].direction;
+      gOverworld.objects[i + 13].unkE = 19;
+    }
+}
+
+void sub_8035038(u16);
+void sub_8053E34(u8);
+
+void sub_804F750 (u8 arg0) {
+  sub_8035038(arg0);
+  sub_8053E34(arg0);
+}
+
+void sub_0804F76C (void) {
+}
+
+void PlayOverworldMusic (void) {
+  PlayMusic(gOverworld.music);
+}
+
+extern u8 g8E0E08C[];
+extern u8 gUnk_2018800[];
+
+/*
+void sub_804F78C (u16 arg0) {
+  u8 i, j;
+  for (i = 23; i < 26; i++) {
+    int temp = g8E0E08C[i - 23] + 29;
+    u8 r4 = temp - arg0 % 29;
+    if (r4 >= 29)
+      r4 -= 29;
+    for (j = 0; j < 16; j++)
+      g02000000.bg[i * 16 + j] = 0;
+    if (arg0 <= g8E0E08C[i - 23])
+      continue;
+    for (j = 1; j < 16; j++) {
+      if (r4 + j > 14)
+        if (r4 + j < 31) {
+          *(g02000000.bg - 14 + i * 16 + r4 + j) = gUnk_2018800[i * 16 + j];
+        }
+    }
+  }
+}*/
+
+NAKED
+void sub_804F78C (u16 arg0) {
+  asm_unified("push {r4, r5, r6, r7, lr}\n\
+	mov r7, sl\n\
+	mov r6, sb\n\
+	mov r5, r8\n\
+	push {r5, r6, r7}\n\
+	lsls r0, r0, #0x10\n\
+	lsrs r0, r0, #0x10\n\
+	mov r8, r0\n\
+	movs r5, #0x17\n\
+	ldr r0, _0804F840\n\
+	mov sb, r0\n\
+	mov r0, r8\n\
+	movs r1, #0x1d\n\
+	bl __umodsi3\n\
+	mov sl, r0\n\
+_0804F7AC:\n\
+	adds r1, r5, #0\n\
+	subs r1, #0x17\n\
+	mov r2, sb\n\
+	adds r0, r1, r2\n\
+	ldrb r0, [r0]\n\
+	adds r0, #0x1d\n\
+	mov r2, sl\n\
+	subs r0, r0, r2\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r4, r0, #0x18\n\
+	adds r7, r1, #0\n\
+	cmp r4, #0x1c\n\
+	bls _0804F7CE\n\
+	adds r0, r4, #0\n\
+	subs r0, #0x1d\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r4, r0, #0x18\n\
+_0804F7CE:\n\
+	movs r2, #0\n\
+	lsls r1, r5, #4\n\
+	adds r5, #1\n\
+	mov ip, r5\n\
+	ldr r6, _0804F844\n\
+	adds r3, r1, #0\n\
+	movs r5, #0\n\
+_0804F7DC:\n\
+	adds r0, r3, r2\n\
+	lsls r0, r0, #1\n\
+	adds r0, r0, r6\n\
+	strh r5, [r0]\n\
+	adds r0, r2, #1\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r2, r0, #0x18\n\
+	cmp r2, #0xf\n\
+	bls _0804F7DC\n\
+	mov r2, sb\n\
+	adds r0, r7, r2\n\
+	ldrb r0, [r0]\n\
+	cmp r8, r0\n\
+	bls _0804F826\n\
+	movs r2, #1\n\
+	adds r3, r1, #0\n\
+	adds r5, r3, r4\n\
+	ldr r7, _0804F848\n\
+	ldr r6, _0804F84C\n\
+_0804F802:\n\
+	adds r0, r4, r2\n\
+	cmp r0, #0xe\n\
+	ble _0804F81C\n\
+	cmp r0, #0x1e\n\
+	bgt _0804F81C\n\
+	adds r0, r5, r2\n\
+	lsls r0, r0, #1\n\
+	adds r0, r0, r7\n\
+	adds r1, r3, r2\n\
+	lsls r1, r1, #1\n\
+	adds r1, r1, r6\n\
+	ldrh r1, [r1]\n\
+	strh r1, [r0]\n\
+_0804F81C:\n\
+	adds r0, r2, #1\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r2, r0, #0x18\n\
+	cmp r2, #0xf\n\
+	bls _0804F802\n\
+_0804F826:\n\
+	mov r1, ip\n\
+	lsls r0, r1, #0x18\n\
+	lsrs r5, r0, #0x18\n\
+	cmp r5, #0x19\n\
+	bls _0804F7AC\n\
+	pop {r3, r4, r5}\n\
+	mov r8, r3\n\
+	mov sb, r4\n\
+	mov sl, r5\n\
+	pop {r4, r5, r6, r7}\n\
+	pop {r0}\n\
+	bx r0\n\
+	.align 2, 0\n\
+_0804F840: .4byte 0x08E0E08C\n\
+_0804F844: .4byte 0x02000000\n\
+_0804F848: .4byte 0x01FFFFE4\n\
+_0804F84C: .4byte 0x02018800");
+}
+
+extern struct UnkFC4618 {
+  u8 unk0;
+  u8 unk1;
+  u8 filler2[2];
+  struct OamQM {
+    u16 unk0;
+    u16 unk2;
+    u16 unk4;
+  } * unk4;
+} ** g8FC4618[];
+
+struct Unk1234 {
+  u8 unk0;
+  u8 filler1[3];
+  s16 unk4;
+};
+/*
+void sub_804F850 (struct Unk1234* arg0, int arg1, int arg2) {
+  int i, r8;
+  struct OamData* oam = gOamBuffer;
+  for (i = 0; i < 66; i++)
+    sub_80411EC(oam);
+  r8 = 0;
+  while (r8 < g8FC4618[arg0->unk0][arg1]->unk1) {
+    u16 sb = g8FC4618[arg0->unk0][arg1]->unk4[r8].unk0;
+    u32 r3 = 0xC0;
+    u8 r2 = g8FC4618[arg0->unk0][arg1]->unk4[r8].unk0;
+    if (r2 + arg0->unk4 >= 190) {
+      r3 = r2 + arg0->unk4;
+      r3 &= 0xFF;
+    }
+    if (r2 + arg0->unk4 <= 160) {
+      r3 = r2 + arg0->unk4;
+      r3 &= 0xFF;
+    }
+    gOamBuffer[g8FC4618[arg0->unk0][arg1]->unk1 - r8]
+  }
+}*/
+
+NAKED
+void sub_804F850 (struct Unk1234* arg0, int arg1, int arg2) {
+  asm_unified("push {r4, r5, r6, r7, lr}\n\
+	mov r7, sl\n\
+	mov r6, sb\n\
+	mov r5, r8\n\
+	push {r5, r6, r7}\n\
+	sub sp, #8\n\
+	adds r5, r0, #0\n\
+	adds r6, r1, #0\n\
+	adds r7, r2, #0\n\
+	ldr r0, _0804F8A4\n\
+	adds r4, r0, #0\n\
+	adds r4, #8\n\
+	movs r0, #0x41\n\
+	mov r8, r0\n\
+_0804F86C:\n\
+	adds r0, r4, #0\n\
+	bl sub_80411EC\n\
+	adds r4, #8\n\
+	movs r1, #1\n\
+	rsbs r1, r1, #0\n\
+	add r8, r1\n\
+	mov r2, r8\n\
+	cmp r2, #0\n\
+	bge _0804F86C\n\
+	movs r3, #0\n\
+	mov r8, r3\n\
+	ldr r1, _0804F8A8\n\
+	ldrb r2, [r5]\n\
+	lsls r0, r2, #2\n\
+	adds r0, r0, r1\n\
+	ldr r0, [r0]\n\
+	lsls r6, r6, #2\n\
+	mov ip, r6\n\
+	add r0, ip\n\
+	ldr r0, [r0]\n\
+	lsls r7, r7, #3\n\
+	adds r0, r7, r0\n\
+	mov r4, ip\n\
+	str r4, [sp]\n\
+	str r7, [sp, #4]\n\
+	b _0804FA00\n\
+	.align 2, 0\n\
+_0804F8A4: .4byte gOamBuffer\n\
+_0804F8A8: .4byte 0x08FC4618\n\
+_0804F8AC:\n\
+	lsls r0, r2, #2\n\
+	ldr r6, _0804FA18\n\
+	adds r0, r0, r6\n\
+	ldr r0, [r0]\n\
+	add r0, ip\n\
+	ldr r0, [r0]\n\
+	adds r6, r7, r0\n\
+	ldr r0, [r6, #4]\n\
+	mov r2, r8\n\
+	lsls r1, r2, #3\n\
+	adds r0, r1, r0\n\
+  \n\
+	ldrh r3, [r0]\n\
+	mov sb, r3\n\
+	movs r3, #0xc0\n\
+	ldrb r2, [r0]\n\
+	movs r4, #4\n\
+	ldrsh r0, [r5, r4]\n\
+	adds r4, r2, r0\n\
+	mov sl, r1\n\
+	cmp r4, #0xbf\n\
+	ble _0804F8DE\n\
+	ldrh r0, [r5, #4]\n\
+	adds r3, r2, r0\n\
+	movs r0, #0xff\n\
+	ands r3, r0\n\
+_0804F8DE:\n\
+	cmp r4, #0xa0\n\
+	bgt _0804F8EA\n\
+	ldrh r0, [r5, #4]\n\
+	adds r3, r2, r0\n\
+	movs r1, #0xff\n\
+	ands r3, r1\n\
+_0804F8EA:\n\
+	ldr r2, _0804FA1C\n\
+	ldrb r1, [r6, #1]\n\
+	mov r4, r8\n\
+	subs r1, r1, r4\n\
+	lsls r1, r1, #3\n\
+	adds r1, r1, r2\n\
+	movs r0, #0xff\n\
+	lsls r0, r0, #8\n\
+	mov r6, sb\n\
+	ands r0, r6\n\
+	orrs r3, r0\n\
+	movs r4, #0\n\
+	strh r3, [r1]\n\
+	ldrb r1, [r5, #6]\n\
+	movs r3, #3\n\
+	adds r0, r3, #0\n\
+	ands r0, r1\n\
+	movs r1, #1\n\
+	add r1, r8\n\
+	mov sb, r1\n\
+	cmp r0, #1\n\
+	bne _0804F93C\n\
+	ldrb r0, [r5]\n\
+	lsls r0, r0, #2\n\
+	ldr r6, _0804FA18\n\
+	adds r0, r0, r6\n\
+	ldr r0, [r0]\n\
+	add r0, ip\n\
+	ldr r0, [r0]\n\
+	adds r0, r7, r0\n\
+	ldrb r0, [r0, #1]\n\
+	subs r0, r0, r1\n\
+	adds r0, #1\n\
+	lsls r0, r0, #3\n\
+	adds r0, r0, r2\n\
+	ldrh r1, [r0]\n\
+	movs r6, #0x80\n\
+	lsls r6, r6, #3\n\
+	adds r2, r6, #0\n\
+	orrs r1, r2\n\
+	strh r1, [r0]\n\
+_0804F93C:\n\
+	ldrb r1, [r5, #6]\n\
+	adds r0, r3, #0\n\
+	ands r0, r1\n\
+	ldrb r2, [r5]\n\
+	cmp r0, #2\n\
+	bne _0804F96C\n\
+	lsls r0, r2, #2\n\
+	ldr r1, _0804FA18\n\
+	adds r0, r0, r1\n\
+	ldr r0, [r0]\n\
+	add r0, ip\n\
+	ldr r0, [r0]\n\
+	adds r0, r7, r0\n\
+	ldrb r0, [r0, #1]\n\
+	subs r0, #1\n\
+	cmp r8, r0\n\
+	bne _0804F96C\n\
+	ldr r3, _0804FA1C\n\
+	ldrh r0, [r3, #8]\n\
+	movs r4, #0x80\n\
+	lsls r4, r4, #4\n\
+	adds r1, r4, #0\n\
+	orrs r0, r1\n\
+	strh r0, [r3, #8]\n\
+_0804F96C:\n\
+	lsls r0, r2, #2\n\
+	ldr r6, _0804FA18\n\
+	adds r0, r0, r6\n\
+	ldr r0, [r0]\n\
+	ldr r7, [sp]\n\
+	adds r0, r7, r0\n\
+	ldr r0, [r0]\n\
+	ldr r1, [sp, #4]\n\
+	adds r4, r1, r0\n\
+	ldr r0, [r4, #4]\n\
+	add r0, sl\n\
+	ldrh r6, [r0, #2]\n\
+	ldr r3, _0804FA20\n\
+	movs r2, #0xe0\n\
+	lsls r2, r2, #1\n\
+	adds r0, r3, #0\n\
+	ands r0, r6\n\
+	ldrh r7, [r5, #2]\n\
+	adds r1, r0, r7\n\
+	ldr r0, _0804FA24\n\
+	cmp r1, r0\n\
+	ble _0804F99C\n\
+	adds r2, r1, #0\n\
+	ands r2, r3\n\
+_0804F99C:\n\
+	cmp r1, #0xf0\n\
+	bgt _0804F9A4\n\
+	adds r2, r3, #0\n\
+	ands r2, r1\n\
+_0804F9A4:\n\
+	ldrb r1, [r4, #1]\n\
+	mov r0, sb\n\
+	subs r1, r1, r0\n\
+	adds r1, #1\n\
+	lsls r1, r1, #2\n\
+	adds r1, #1\n\
+	lsls r1, r1, #1\n\
+	ldr r3, _0804FA1C\n\
+	adds r1, r1, r3\n\
+	movs r0, #0xfe\n\
+	lsls r0, r0, #8\n\
+	ands r0, r6\n\
+	orrs r2, r0\n\
+	strh r2, [r1]\n\
+	ldrb r0, [r5]\n\
+	lsls r0, r0, #2\n\
+	ldr r4, _0804FA18\n\
+	adds r0, r0, r4\n\
+	ldr r0, [r0]\n\
+	ldr r6, [sp]\n\
+	adds r0, r6, r0\n\
+	ldr r0, [r0]\n\
+	ldr r7, [sp, #4]\n\
+	adds r0, r7, r0\n\
+	ldrb r1, [r0, #1]\n\
+	mov r2, sb\n\
+	subs r1, r1, r2\n\
+	adds r1, #1\n\
+	lsls r1, r1, #2\n\
+	adds r1, #2\n\
+	lsls r1, r1, #1\n\
+	adds r1, r1, r3\n\
+	ldr r0, [r0, #4]\n\
+	add r0, sl\n\
+	ldrh r0, [r0, #4]\n\
+	strh r0, [r1]\n\
+	mov r8, sb\n\
+	ldrb r2, [r5]\n\
+	lsls r0, r2, #2\n\
+	adds r0, r0, r4\n\
+	ldr r0, [r0]\n\
+	mov ip, r6\n\
+	add r0, ip\n\
+	ldr r0, [r0]\n\
+	ldr r7, [sp, #4]\n\
+	adds r0, r7, r0\n\
+_0804FA00:\n\
+	ldrb r0, [r0, #1]\n\
+	cmp r8, r0\n\
+	bge _0804FA08\n\
+	b _0804F8AC\n\
+_0804FA08:\n\
+	add sp, #8\n\
+	pop {r3, r4, r5}\n\
+	mov r8, r3\n\
+	mov sb, r4\n\
+	mov sl, r5\n\
+	pop {r4, r5, r6, r7}\n\
+	pop {r0}\n\
+	bx r0\n\
+	.align 2, 0\n\
+_0804FA18: .4byte 0x08FC4618\n\
+_0804FA1C: .4byte gOamBuffer\n\
+_0804FA20: .4byte 0x000001FF\n\
+_0804FA24: .4byte 0x000001BF");
+}
+
+extern u32* g8FC4440[];
+extern u32* g8FC452C[];
+
+// overworld effect sprite tiles and pal (obtaining god cards etc.)
+void sub_804FA28 (struct Unk1234* arg0) {
+  int i, j;
+  u8* src;
+  u8* dest;
+  LZ77UnCompWram(g8FC4440[arg0->unk0], gUnk_2018800 + 0x400);
+
+  src = gUnk_2018800 + 0x400;
+  dest = gBgVram.cbb5;
+  for (i = 0; i < 16; dest += 0x200, i++)
+    for (j = 0; j < 512; j++)
+      *dest++ = *src++;
+
+  src = gUnk_2018800 + 0x2400;
+  dest = gBgVram.cbb5 + 0x200;
+  for (i = 0; i < 12; dest += 0x200, i++)
+    for (j = 0; j < 512; j++)
+      *dest++ = *src++;
+
+  CpuCopy16(g8FC452C[arg0->unk0], g02000000.bg + 0x170, 0xA0);
+  if (CheckFlag(0xF3))
+    sub_8044E50(g02000000.bg, 0x170, 0x1BF);
+  sub_8008220();
+  sub_804F2DC();
+}
+
+/*
 void sub_8051D20 (u8, u8);
 void sub_805236C (void);
-void sub_8051A44 (u8, u8, u16*);
 
-void sub_80521D0 (u8 direction) {
+
+void TryWalking (u8 direction) {
   sub_8051D20(0, direction);
-  sub_805236C();
+  sub_805236C(); // check transitioning to a new map/the world map
 }
 
 void sub_8051D20 (u8 obj, u8 direction) {
@@ -1232,21 +2968,21 @@ void sub_805236C (void) {
   u16 temp = sub_80520E0(gOverworld.objects[0].x, gOverworld.objects[0].y);
   u16 temp2;
   switch (sub_80521AC(temp)) {
-    case 1:
+    case 1: // transition to other map
       gOverworld.unk240 |= 2;
       sub_8052318(temp);
       break;
-    case 2:
+    case 2: // transition to world map
       gOverworld.unk240 |= 2;
       gOverworld.unk240 |= 4;
       temp2 = temp & 0x700;
-      gOverworld.map.unk8 = gUnk8E19274[gOverworld.map.id][gOverworld.map.state]->unk168[temp2 >> 8].unk4;
+      gOverworld.map.unk8 = gMapData[gOverworld.map.id][gOverworld.map.state]->unk168[temp2 >> 8].unk4;
       gOverworld.map.unk6 = 4;
       break;
   }
 }*/
 
-extern u8 g8E0E3C0[]; // which direction the npc should face when player talks to them (gFacePlayer)
+extern u8 g8E0E3C0[]; // which direction the npc should face when the player talks to them (gFacePlayer)
 extern u16 g8E0E3C4[];
 extern u16 g8E0E3CC[];
 extern u16 g8E0E3D4[][4];
@@ -1328,31 +3064,12 @@ void sub_8051A44 (u8 obj, u8 direction, u16 *displacement) {
 u16 sub_80520E0 (u8 x, u8 y) {
   return gOverworld.unk23C[y * 120 + x];
 }
-
-
-/*
-void sub_804DF5C(u8 personId)
-{
-    u8 direction = gOverworld.objects[personId].direction;
-
-    if (direction < 4)
-    {
-        gUnk8E11790[gOverworld.objects[personId].spriteId][]
-    }
-    else
-    {
-
-    }
-}
-
-dir * 3 + gUnk8E0DA12[gOverworld.objects[personId].unk1E]
-
-gUnk08103264[personId]*/
+*/
 
 s8 sub_8051E48 (u8, u8, u8);
 void sub_804F19C (int);
 /*
-void sub_8051F70 (void) {
+void TryTalking (void) {
   int r4;
   u8 temp = gOverworld.objects[0].x + g8E0E3C4[gOverworld.objects[0].direction];
   u8 temp2 = gOverworld.objects[0].y + g8E0E3CC[gOverworld.objects[0].direction];
@@ -1366,10 +3083,10 @@ void sub_8051F70 (void) {
   sub_804DF5C(r4);
   sub_804EF10();
   LoadObjVRAM();
-  sub_805254C(gOverworld.objects[r4].unk10);
+  InitiateScript(gOverworld.objects[r4].scriptA);
 }
 
-void sub_8051FFC (void) {
+void TryDueling (void) {
   int r4;
   u8 temp = gOverworld.objects[0].x + g8E0E3C4[gOverworld.objects[0].direction];
   u8 temp2 = gOverworld.objects[0].y + g8E0E3CC[gOverworld.objects[0].direction];
@@ -1383,35 +3100,38 @@ void sub_8051FFC (void) {
   sub_804DF5C(r4);
   sub_804EF10();
   LoadObjVRAM();
-  sub_805254C(gOverworld.objects[r4].unk14);
+  InitiateScript(gOverworld.objects[r4].scriptR);
 }*/
 
 /*
-struct Unk8103314 {
-  u16 unk0;
-  u16 unk2;
-  u16 unk4[8];
-  u16 unk14;
+struct MapState {
+  u16 id;
+  u16 state;
+  u16 flags[8]; // if all of these flags are set, we transition to map[id][actualState]
+  u16 actualState;
 };
 
-extern struct Unk8103314 g8103314[];
+extern struct MapState gMapStates[];
 
 void sub_804EF84 (u16, u16, u16);
 
-void sub_80523EC (u16 id, u16 arg1, u16 arg2) {
-  int i;
-  for (i = -1; g8103314[++i].unk0 != 0xFFFF; ) {
-    if (g8103314[i].unk0 == id && g8103314[i].unk2 == arg1) {
+// Set map id and state
+void sub_80523EC (u16 id, u16 state, u16 connection) {
+  int i = -1;
+  while (gMapStates[++i].id != 0xFFFF) {
+    if (gMapStates[i].id == id && gMapStates[i].state == state) {
       int j;
-      bool32 r7 = 0;
+      bool32 flagsNotSet = 0;
+      // all flags must be set for the current state to be assigned another value
       for (j = 0; j < 8; j++)
-        if (g8103314[i].unk4[j] != 0xFFFF && !sub_8055554(g8103314[i].unk4[j]))
-          r7 = 1;
-      if (!r7)
-        arg1 = g8103314[i].unk14;
+        if (gMapStates[i].flags[j] != 0xFFFF && !CheckFlag(gMapStates[i].flags[j]))
+          flagsNotSet = 1;
+      if (!flagsNotSet)
+        state = gMapStates[i].actualState;
     }
   }
-  sub_804EF84(id, arg1, arg2);
+  // Final set map id and state
+  sub_804EF84(id, state, connection);
 }
 
 
@@ -1419,38 +3139,38 @@ void sub_80523EC (u16 id, u16 arg1, u16 arg2) {
 //related to scripting (printing text etc) sub_80526D0
 //E2AEC2...
 /*
-void sub_8053274(struct Unk88 *script, struct Unk10 *unk10);
+void SetCurrentScript(struct ScriptCtx *script, struct Script *unk10);
 
-void sub_805254C(struct Unk10 *unk10)
+void InitiateScript(struct Script *script)
 {
-    struct Unk88 script;
-    script.unk0 = 0;
-    script.unk4 = 0;
-    script.unk8 = 0;
-    script.unkC = 0;
-    script.unkD = 1;
-    script.unk1C = 0;
-    script.unk78 = 0;
-    script.unk74 = 0;
-    script.unk76 = 0;
-    script.unk7A = 0x1D;
-    script.unk7C = 1;
-    script.unk7E = 3;
-    script.unk80 = 1;
-    script.unk82 = 0;
-    script.unk86 = 0;
-    sub_8053274(&script, unk10);
-    sub_80532A8(&script); //argument doesn't get used
-    sub_80526D0(&script);
-    script.unk4 = 0;
-    script.unk8 = 0;
+    struct ScriptCtx scriptCtx;
+    scriptCtx.unk0 = 0;
+    scriptCtx.pointer = 0;
+    scriptCtx.unk8 = 0;
+    scriptCtx.unkC = 0;
+    scriptCtx.unkD = 1;
+    scriptCtx.unk1C = 0;
+    scriptCtx.unk78 = 0;
+    scriptCtx.unk74 = 0;
+    scriptCtx.unk76 = 0;
+    scriptCtx.unk7A = 0x1D;
+    scriptCtx.unk7C = 1;
+    scriptCtx.unk7E = 3;
+    scriptCtx.unk80 = 1;
+    scriptCtx.unk82 = 0;
+    scriptCtx.unk86 = 0;
+    SetCurrentScript(&scriptCtx, script);
+    sub_80532A8(&scriptCtx); //argument doesn't get used
+    sub_80526D0(&scriptCtx);
+    scriptCtx.pointer = 0;
+    scriptCtx.unk8 = 0;
 }*/
 
-void sub_80527E8(struct Unk88 *script);
-void sub_8052F60(struct Unk88 *script);
-void sub_8053138(struct Unk88 *script);
-void sub_8053040(struct Unk88 *script);
-void sub_8053388(struct Unk88 *script);
+void sub_80527E8(struct ScriptCtx *script);
+void sub_8052F60(struct ScriptCtx *script);
+void sub_8053138(struct ScriptCtx *script);
+void sub_8053040(struct ScriptCtx *script);
+void sub_8053388(struct ScriptCtx *script);
 
 
 
@@ -1459,9 +3179,9 @@ extern const u32 g8E0E4CC[];
 extern const u32 g8E0E53C[];
 extern const u8 *gUnk_8E00E30[];
 
-void DisplayPortrait(struct Unk88 *script);
-void sub_80532E8(struct Unk88 *script);
-void sub_8055534(u32); //int?
+void DisplayPortrait(struct ScriptCtx *script);
+void sub_80532E8(struct ScriptCtx *script);
+void ClearFlag(u32); //int?
 void sub_8048D08(void);
 u16 sub_8020698(u8 *text);
 void sub_800BE0C(void);
@@ -1470,71 +3190,69 @@ void sub_804F544(void);
 void sub_8005B38(void);
 void sub_8034FEC(u32);
 void sub_8035020(u32);
-void sub_805345C(u8, u8, u8, u8, struct Unk88 *script);
+void sub_805345C(u8, u8, u8, u8, struct ScriptCtx *script);
 void sub_8034FE0(void);
-void sub_8053CF0(u8, u8, u8, u8, struct Unk88 *script);
-void sub_8053520(u8, u16, u16, u16, u8, u8, struct Unk88 *script);
-void sub_8053984(u8, u8, struct Unk88 *script);
-void sub_8053A74(u8, u8, struct Unk88 *script);
-void sub_8053D88(u8, u8, u8, struct Unk88 *script);
-void sub_8053884(u16, u8, struct Unk88 *script);
-void sub_8054AB0(u8, struct Unk88 *script);
+void sub_8053CF0(u8, u8, u8, u8, struct ScriptCtx *script);
+void sub_8053520(u8, u16, u16, u16, u8, u8, struct ScriptCtx *script);
+void sub_8053984(u8, u8, struct ScriptCtx *script);
+void sub_8053A74(u8, u8, struct ScriptCtx *script);
+void sub_8053D88(u8, u8, u8, struct ScriptCtx *script);
+void sub_8053884(u16, u8, struct ScriptCtx *script);
+void sub_8054AB0(u8, struct ScriptCtx *script);
 void sub_804F218(void);
 void AddCardToTrunk(u32 id, u8 qty);
 void sub_8008D88(u32 id);
-void sub_8053C18(struct Unk88 *script, u8);
+void sub_8053C18(struct ScriptCtx *script, u8);
 int sub_80524A4(u16);
-void sub_8053E34(u8);
-void sub_8035038(u16);
 void sub_805339C(void);
 void sub_804F508(void);
-void sub_8053D50(u8, u8, struct Unk88 *script);
-void sub_8053B40(u8, u16, struct Unk88 *script);
-void sub_80553F8(struct Unk88 *script, u8);
-void sub_80512E0(struct Unk88 *script, u8);
+void sub_8053D50(u8, u8, struct ScriptCtx *script);
+void sub_8053B40(u8, u16, struct ScriptCtx *script);
+void sub_80553F8(struct ScriptCtx *script, u8);
+void sub_80512E0(struct ScriptCtx *script, u8);
 void sub_8020968(void *arg0, u16 arg1, u16 arg2);
-void sub_8053284(struct Unk88 *script);
+void sub_8053284(struct ScriptCtx *script);
 void PlayMusic();
 
 __attribute__((section(".text2")))
 
-void sub_80526D0(struct Unk88 *script)
+void sub_80526D0(struct ScriptCtx* scriptCtx)
 {
     while (1)
     {
-        if (script->unk10.unk0[script->unk4] == 0)
+        if (scriptCtx->currentScript.start[scriptCtx->pointer] == 0)
         {
-            struct Unk10 *var;
-            if (!script->unk1E)
-                var = script->unk10.unk4;
+            struct Script *chooseScript;
+            if (!scriptCtx->unk1E)
+                chooseScript = scriptCtx->currentScript.unk4;
             else
-                var = script->unk10.unk8;
+                chooseScript = scriptCtx->currentScript.unk8;
 
-            script->unk10.unk0 = var->unk0;
-            script->unk10.unk4 = var->unk4;
-            script->unk10.unk8 = var->unk8;
-            script->unk4 = 0;
-            script->unk1E = 0;
-            sub_8053388(script);
+            scriptCtx->currentScript.start = chooseScript->start;
+            scriptCtx->currentScript.unk4 = chooseScript->unk4;
+            scriptCtx->currentScript.unk8 = chooseScript->unk8;
+            scriptCtx->pointer = 0;
+            scriptCtx->unk1E = 0;
+            sub_8053388(scriptCtx);
         }
-        if (*script->unk10.unk0 == 0x5D)
+        if (scriptCtx->currentScript.start[0] == 0x5D)
             break;
-        switch (script->unkC)
+        switch (scriptCtx->unkC)
         {
         case 0:
-            sub_80527E8(script); //handle scripting commands? including text?
+            sub_80527E8(scriptCtx); //handle scripting commands? including text?
             break;
         case 1:
-            sub_8052F60(script); //new paragraph?
+            sub_8052F60(scriptCtx); //new paragraph?
             break;
         case 2:
-            sub_8053138(script);
+            sub_8053138(scriptCtx);
             break;
         case 3:
-            sub_8053040(script); //handle option command
+            sub_8053040(scriptCtx); //handle option command
             break;
         }
-        if (script->unk86 == 1)
+        if (scriptCtx->unk86 == 1)
         {
             REG_WIN1H = 0x03ED;
             REG_WIN1V = 0x739D;
@@ -1548,27 +3266,27 @@ void sub_80526D0(struct Unk88 *script)
     }
     if (gOverworld.unk240 & 2)
         return;
-    sub_804F770();
-    script->unk0 = 0;// NULL;
-    script->unk84 = 0;
-    DisplayPortrait(script);
+    PlayOverworldMusic();
+    scriptCtx->unk0 = 0;// NULL;
+    scriptCtx->unk84 = 0;
+    DisplayPortrait(scriptCtx);
     REG_WINOUT = 0x3D3E;
     sub_804F508();
     REG_BLDCNT = 0;
 }
 __attribute__((section(".text2")))
-void sub_80527E8(struct Unk88 *script)
+void sub_80527E8(struct ScriptCtx *script)
 {
     u16 var;
     int i;
     u8 temp;
-    switch (script->unk10.unk0[script->unk4])
+    switch (script->currentScript.start[script->pointer])
     {
     case 0x23:
-        switch (script->unk10.unk0[++script->unk4])
+        switch (script->currentScript.start[++script->pointer])
         {
         case '0': //new line
-            script->unk4++;
+            script->pointer++;
             if (script->unkD == 1)
             {
                 if (script->unk8 > 0x1B)
@@ -1585,53 +3303,53 @@ void sub_80527E8(struct Unk88 *script)
         case '2':
             script->unkD = 0;
             script->unk1E = 0;
-            script->unk4++;
+            script->pointer++;
             script->unk8 = 1;
             break;
         case '3': //choose option (arrow)
             script->unk82 = 0;
             script->unkD = 1;
             script->unkC = 3;
-            script->unk4++;
+            script->pointer++;
             break;
         case '4':
-            script->unk0 = script->unk10.unk0[script->unk4 + 1];
-            script->unk84 = script->unk10.unk0[script->unk4 + 2];
-            script->unk85 = script->unk10.unk0[script->unk4 + 3];
+            script->unk0 = script->currentScript.start[script->pointer + 1];
+            script->unk84 = script->currentScript.start[script->pointer + 2];
+            script->unk85 = script->currentScript.start[script->pointer + 3];
             DisplayPortrait(script);
-            script->unk4 += 4;
+            script->pointer += 4;
             break;
         case '5': //print player name
             sub_80532E8(script);
-            script->unk4++;
+            script->pointer++;
             break;
         case '6': //set flag
-            sub_8055508(script->unk10.unk0[script->unk4 + 1]);
-            script->unk4 += 2;
+            SetFlag(script->currentScript.start[script->pointer + 1]);
+            script->pointer += 2;
             break;
         case '7': //is flag set
-            script->unk1E = sub_8055554(script->unk10.unk0[script->unk4 + 1]);
-            script->unk4 += 2;
+            script->unk1E = CheckFlag(script->currentScript.start[script->pointer + 1]);
+            script->pointer += 2;
             break;
         case '8': // clear flag
-            sub_8055534(script->unk10.unk0[script->unk4 + 1]);
-            script->unk4 += 2;
+            ClearFlag(script->currentScript.start[script->pointer + 1]);
+            script->pointer += 2;
             break;
         case '9': //restore lifepoints
             sub_8048D08();
-            script->unk4++;
+            script->pointer++;
             break;
         }
         break;
     case 0x24:
-        script->unk4 += sub_8020698(&script->unk10.unk0[script->unk4]);
+        script->pointer += sub_8020698(&script->currentScript.start[script->pointer]);
         break;
     case 0x40:
-        switch (script->unk10.unk0[++script->unk4])
+        switch (script->currentScript.start[++script->pointer])
         {
         case '0': //duel
             sub_800BE0C();
-            gDuelData.opponent = script->unk10.unk0[script->unk4 + 1];
+            gDuelData.opponent = script->currentScript.start[script->pointer + 1];
             DuelMain();
             if (gDuelData.unk2B == 1)
             {
@@ -1647,145 +3365,145 @@ void sub_80527E8(struct Unk88 *script)
             }
             else
                 script->unk1E = 1;
-            script->unk4 += 2;
+            script->pointer += 2;
             script->unk0 = 0;
             break;
         case '1':
             sub_8005B38();
             sub_804ED08();
-            script->unk4 += 2;
+            script->pointer += 2;
             break;
         case '2':
-            sub_800AD4C();
-            script->unk4++;
+            SaveGame();
+            script->pointer++;
             break;
         case '3': //play music (arg0 = id, .2byte)
-            PlayMusic(script->unk10.unk0[script->unk4 + 1] +
-                       (script->unk10.unk0[script->unk4 + 2] << 8));
-            script->unk4 += 3;
+            PlayMusic(script->currentScript.start[script->pointer + 1] +
+                       (script->currentScript.start[script->pointer + 2] << 8));
+            script->pointer += 3;
             break;
         case '4':
-            gOverworld.music = script->unk10.unk0[script->unk4 + 1] +
-                              (script->unk10.unk0[script->unk4 + 2] << 8);
-            script->unk4 += 3;
+            gOverworld.music = script->currentScript.start[script->pointer + 1] +
+                              (script->currentScript.start[script->pointer + 2] << 8);
+            script->pointer += 3;
             break;
         case '5':
-            sub_8034FEC(script->unk10.unk0[script->unk4 + 1] +
-                       (script->unk10.unk0[script->unk4 + 2] << 8));
-            script->unk4 += 3;
+            sub_8034FEC(script->currentScript.start[script->pointer + 1] +
+                       (script->currentScript.start[script->pointer + 2] << 8));
+            script->pointer += 3;
             break;
         case '6':
-            sub_8035020(script->unk10.unk0[script->unk4 + 1] +
-                       (script->unk10.unk0[script->unk4 + 2] << 8));
-            script->unk4 += 3;
+            sub_8035020(script->currentScript.start[script->pointer + 1] +
+                       (script->currentScript.start[script->pointer + 2] << 8));
+            script->pointer += 3;
             break;
         case '7': //move_object (arg0 = obj_id, arg1 = orientation(UDLR), arg2 = displacement, arg3 = ?)
-            sub_805345C(script->unk10.unk0[script->unk4 + 1],
-                        script->unk10.unk0[script->unk4 + 2],
-                        script->unk10.unk0[script->unk4 + 3],
-                        script->unk10.unk0[script->unk4 + 4],
+            sub_805345C(script->currentScript.start[script->pointer + 1],
+                        script->currentScript.start[script->pointer + 2],
+                        script->currentScript.start[script->pointer + 3],
+                        script->currentScript.start[script->pointer + 4],
                         script);
-            script->unk4 += 5;
+            script->pointer += 5;
             break;
         case '8':
             sub_8034FE0();
-            script->unk4++;
+            script->pointer++;
             break;
         case '9':  //move_object(instantaneous) arg0 = obj_id, arg1 = x, arg2 = y, arg3 = frame of the sprite
-            sub_8053CF0(script->unk10.unk0[script->unk4 + 1],
-                        script->unk10.unk0[script->unk4 + 2],
-                        script->unk10.unk0[script->unk4 + 3],
-                        script->unk10.unk0[script->unk4 + 4],
+            sub_8053CF0(script->currentScript.start[script->pointer + 1],
+                        script->currentScript.start[script->pointer + 2],
+                        script->currentScript.start[script->pointer + 3],
+                        script->currentScript.start[script->pointer + 4],
                         script);
-            script->unk4 += 5;
+            script->pointer += 5;
             break;
         }
         break;
     case 0x5E:
-        switch (script->unk10.unk0[++script->unk4])
+        switch (script->currentScript.start[++script->pointer])
         {
         case '0': //drop_object (obj_id, x, y, frame, ?, ?)
-            sub_8053520(script->unk10.unk0[script->unk4 + 1],
-                        script->unk10.unk0[script->unk4 + 2],
-                        script->unk10.unk0[script->unk4 + 3],
-                        script->unk10.unk0[script->unk4 + 4],
-                        script->unk10.unk0[script->unk4 + 5],
-                        script->unk10.unk0[script->unk4 + 6],
+            sub_8053520(script->currentScript.start[script->pointer + 1],
+                        script->currentScript.start[script->pointer + 2],
+                        script->currentScript.start[script->pointer + 3],
+                        script->currentScript.start[script->pointer + 4],
+                        script->currentScript.start[script->pointer + 5],
+                        script->currentScript.start[script->pointer + 6],
                         script);
-            script->unk4 += 7;
+            script->pointer += 7;
             break;
         case '1':  //move_object_horizontal(walk) (arg0 = obj id, arg1 = horizontal position)
-            sub_8053984(script->unk10.unk0[script->unk4 + 1],
-                        script->unk10.unk0[script->unk4 + 2],
+            sub_8053984(script->currentScript.start[script->pointer + 1],
+                        script->currentScript.start[script->pointer + 2],
                         script);
-            script->unk4 += 3;
+            script->pointer += 3;
             break;
         case '2': //move_object_vertical(walk) (arg0 = obj id, arg1 = vertical position)
-            sub_8053A74(script->unk10.unk0[script->unk4 + 1],
-                        script->unk10.unk0[script->unk4 + 2],
+            sub_8053A74(script->currentScript.start[script->pointer + 1],
+                        script->currentScript.start[script->pointer + 2],
                         script);
-            script->unk4 += 3;
+            script->pointer += 3;
             break;
         case '3':
-            sub_8053D88(script->unk10.unk0[script->unk4 + 1],
-                        script->unk10.unk0[script->unk4 + 2],
-                        script->unk10.unk0[script->unk4 + 3],
+            sub_8053D88(script->currentScript.start[script->pointer + 1],
+                        script->currentScript.start[script->pointer + 2],
+                        script->currentScript.start[script->pointer + 3],
                         script);
-            script->unk4 += 4;
+            script->pointer += 4;
             break;
         case '4':
-            i = (script->unk10.unk0[script->unk4 + 1] << 8) |
-                        script->unk10.unk0[script->unk4 + 2];
+            i = (script->currentScript.start[script->pointer + 1] << 8) |
+                        script->currentScript.start[script->pointer + 2];
             sub_8053884(i,
-                        script->unk10.unk0[script->unk4 + 3],
+                        script->currentScript.start[script->pointer + 3],
                         script);
-            script->unk4 += 4;
+            script->pointer += 4;
             break;
         case '5':
-            sub_8054AB0(script->unk10.unk0[script->unk4 + 1], script);
-            script->unk4 += 2;
+            sub_8054AB0(script->currentScript.start[script->pointer + 1], script);
+            script->pointer += 2;
             break;
         case '6':
-            for (i = script->unk10.unk0[script->unk4 + 1]; i; i--)
+            for (i = script->currentScript.start[script->pointer + 1]; i; i--)
                 sub_804F218();
-            script->unk4 += 2;
+            script->pointer += 2;
             break;
         case '7':
-            AddCardToTrunk(script->unk10.unk0[script->unk4 + 1] +
-                          (script->unk10.unk0[script->unk4 + 2] << 8),
+            AddCardToTrunk(script->currentScript.start[script->pointer + 1] +
+                          (script->currentScript.start[script->pointer + 2] << 8),
                            1);
-            script->unk4 += 3;
+            script->pointer += 3;
             break;
         case '8':
-            sub_8008D88(script->unk10.unk0[script->unk4 + 1] +
-                       (script->unk10.unk0[script->unk4 + 2] << 8));
-            script->unk4 += 3;
+            sub_8008D88(script->currentScript.start[script->pointer + 1] +
+                       (script->currentScript.start[script->pointer + 2] << 8));
+            script->pointer += 3;
             break;
         case '9':
-            sub_8053C18(script, script->unk10.unk0[script->unk4 + 1]);
-            script->unk4 += 2;
+            sub_8053C18(script, script->currentScript.start[script->pointer + 1]);
+            script->pointer += 2;
             break;
         }
         break;
     case 0x7C:
-        switch (script->unk10.unk0[++script->unk4])
+        switch (script->currentScript.start[++script->pointer])
         {
         case '0':
             var = sub_80520E0(gOverworld.objects[0].x, gOverworld.objects[0].y);
             var = sub_80524A4(var);
             script->unk1E = 1;
-            if (var == script->unk10.unk0[script->unk4 + 1] >> 2)
+            if (var == script->currentScript.start[script->pointer + 1] >> 2)
                 script->unk1E = 0;
-            script->unk4 += 2;
+            script->pointer += 2;
             break;
         case '1':
-            sub_8053E34(script->unk10.unk0[script->unk4 + 1]);
+            sub_8053E34(script->currentScript.start[script->pointer + 1]);
             script->unk86 = 0;
-            script->unk4 += 2;
+            script->pointer += 2;
             break;
         case '2':
-            sub_8035038(script->unk10.unk0[script->unk4 + 1]);
-            script->unk4 += 2;
+            sub_8035038(script->currentScript.start[script->pointer + 1]);
+            script->pointer += 2;
             break;
         case '3':
             script->unk86 = 0;
@@ -1793,60 +3511,60 @@ void sub_80527E8(struct Unk88 *script)
             REG_WINOUT = 0x3D3E;
             sub_804F508();
             REG_BLDCNT = 0;
-            script->unk4++;
+            script->pointer++;
             break;
         case '4':
-            sub_8053D50(script->unk10.unk0[script->unk4 + 1],
-                        script->unk10.unk0[script->unk4 + 2],
+            sub_8053D50(script->currentScript.start[script->pointer + 1],
+                        script->currentScript.start[script->pointer + 2],
                         script);
-            script->unk4 += 3;
+            script->pointer += 3;
             break;
         case '5': //warp to another map (arg0 = map, arg1 = state, arg2 = connection)
             gOverworld.unk240 |= 2;
-            sub_80523EC(script->unk10.unk0[script->unk4 + 1],
-                        script->unk10.unk0[script->unk4 + 2],
-                        script->unk10.unk0[script->unk4 + 3]);
-            script->unk4 += 5;
+            sub_80523EC(script->currentScript.start[script->pointer + 1],
+                        script->currentScript.start[script->pointer + 2],
+                        script->currentScript.start[script->pointer + 3]);
+            script->pointer += 5;
             break;
         case '6': //reaction box (arg0 = reaction (exclamation mark, heart etc), arg1 = ? arg2 = obj_id)
-            temp = script->unk10.unk0[script->unk4 + 1];
-            i = (script->unk10.unk0[script->unk4 + 2] << 8) +
-                        script->unk10.unk0[script->unk4 + 3];
+            temp = script->currentScript.start[script->pointer + 1];
+            i = (script->currentScript.start[script->pointer + 2] << 8) +
+                 script->currentScript.start[script->pointer + 3];
             sub_8053B40(temp,
                         i,
                         script);
-            script->unk4 += 4;
+            script->pointer += 4;
             break;
         case '7':
-            sub_80553F8(script, script->unk10.unk0[script->unk4 + 1]);
-            script->unk4 += 2;
+            sub_80553F8(script, script->currentScript.start[script->pointer + 1]);
+            script->pointer += 2;
             break;
         case '8':
-            sub_80512E0(script, script->unk10.unk0[script->unk4 + 1]);
-            script->unk4 += 2;
+            sub_80512E0(script, script->currentScript.start[script->pointer + 1]);
+            script->pointer += 2;
             break;
         }
         break;
     default:
-        if (script->unk10.unk0[script->unk4] & 0x80) //special chars
+        if (script->currentScript.start[script->pointer] & 0x80) //special chars
         {
             script->unk86 = 1;
-            var = script->unk10.unk0[script->unk4 + 1] << 8 | script->unk10.unk0[script->unk4];
-            script->unk4 += 2;
+            var = script->currentScript.start[script->pointer + 1] << 8 | script->currentScript.start[script->pointer];
+            script->pointer += 2;
         }
         else { //printable chars
-          switch (script->unk10.unk0[script->unk4])
+          switch (script->currentScript.start[script->pointer])
             {
             case ' ': case '!': case '"': case '%': case '\'':
             case ',': case '-': case '.': case ':': case ';': case '?':
             case 'A' ... 'Z': case 'a' ... 'z':
                 i = 1;
                 script->unk86 = i;
-                var = gUnk_8E00E30[script->unk10.unk0[script->unk4] - ' '][1];
+                var = gUnk_8E00E30[script->currentScript.start[script->pointer] - ' '][1];
                 var <<= 8;
-                var |= gUnk_8E00E30[script->unk10.unk0[script->unk4] - ' '][0];
+                var |= gUnk_8E00E30[script->currentScript.start[script->pointer] - ' '][0];
 
-                script->unk4++;
+                script->pointer++;
                 break;
             default:
                 script->unk86 = 1;
@@ -1854,7 +3572,7 @@ void sub_80527E8(struct Unk88 *script)
                 var = gUnk_8E00E30[0][1];
                 var <<= 8;
                 var |= gUnk_8E00E30[0][0];
-                script->unk4++;
+                script->pointer++;
                 break;
             }
         }
@@ -1868,14 +3586,14 @@ void sub_80527E8(struct Unk88 *script)
     }
 }
 
-extern const u32 g82AD2D0[];
+
 extern u16 gUnk2020DFC;
 
 __attribute__((section(".text2")))
-void sub_8052F60 (struct Unk88 *script) {
+void sub_8052F60 (struct ScriptCtx *script) {
   if (gUnk2020DFC & 259) {
     PlayMusic(202);
-    script->unk4++;
+    script->pointer++;
     if (script->unkD == 1)
       script->unk8 = 0;
     else
@@ -1904,11 +3622,11 @@ void sub_8052F60 (struct Unk88 *script) {
   }
 }
 __attribute__((section(".text2")))
-void sub_8053040 (struct Unk88 *script) {
+void sub_8053040 (struct ScriptCtx *script) {
   int temp;
   if ((temp = gUnk2020DFC & 259)) {
     PlayMusic(55);
-    script->unk4 += 2;
+    script->pointer += 2;
     if (script->unkD == 1)
       script->unk8 = 0;
     else
@@ -1942,7 +3660,7 @@ extern u32 gE0E674[];
 extern u32 gE0E754[];
 
 __attribute__((section(".text2")))
-void sub_8053138 (struct Unk88 *script) {
+void sub_8053138 (struct ScriptCtx *script) {
   u16 var;
   script->unk86 = 1;
   if ((s8)script->unk22[script->unk78] >= 0) {
@@ -1969,7 +3687,7 @@ void sub_8053138 (struct Unk88 *script) {
     script->unkC = 0;
 }
 __attribute__((section(".text2")))
-void sub_80531FC (struct Unk88* script) {
+void sub_80531FC (struct ScriptCtx* script) {
   int i;
   SetCardInfo(script->unk20);
   script->unk78 = 0;
@@ -1983,20 +3701,20 @@ void sub_80531FC (struct Unk88* script) {
   script->unkC = 2;
 }
 __attribute__((section(".text2")))
-void sub_8053274 (struct Unk88 *script, struct Unk10 *unk10) {
-  script->unk10.unk0 = unk10->unk0;
-  script->unk10.unk4 = unk10->unk4;
-  script->unk10.unk8 = unk10->unk8;
+void SetCurrentScript (struct ScriptCtx *scriptCtxPtr, struct Script *script) {
+  scriptCtxPtr->currentScript.start = script->start;
+  scriptCtxPtr->currentScript.unk4 = script->unk4;
+  scriptCtxPtr->currentScript.unk8 = script->unk8;
 }
 __attribute__((section(".text2")))
-void sub_8053284 (struct Unk88 *script) {
+void sub_8053284 (struct ScriptCtx *script) {
   if (script->unkD == 1)
     script->unk8 = gE0E674[script->unk8];
   else
     script->unk8 = gE0E754[script->unk8];
 }
 /*
-void sub_8053388(struct Unk88 *script)
+void sub_8053388(struct ScriptCtx *script)
 {
     if (script->unkD == 1)
         script->unk8 = 0;
