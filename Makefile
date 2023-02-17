@@ -1,15 +1,8 @@
-TOOLCHAIN := $(DEVKITARM)
-ifneq (,$(wildcard $(TOOLCHAIN)/base_tools))
-include $(TOOLCHAIN)/base_tools
-else
-export PATH := $(TOOLCHAIN)/bin:$(PATH)
 PREFIX := arm-none-eabi-
 OBJCOPY := $(PREFIX)objcopy
-export AS := $(PREFIX)as
-endif
+AS := $(PREFIX)as
+LD := $(PREFIX)ld
 
-export CPP := $(PREFIX)cpp
-export LD := $(PREFIX)ld
 
 ifeq ($(OS),Windows_NT)
 EXE := .exe
@@ -22,7 +15,7 @@ BUILD_NAME := ygodm8
 CC1      := tools/agbcc/bin/agbcc$(EXE)
 CC1_OLD  := tools/agbcc/bin/old_agbcc$(EXE)
 
-CPPFLAGS := -I tools/agbcc/include -I tools/agbcc -iquote include -Wno-trigraphs
+CPPFLAGS := -I tools/agbcc/include -I tools/agbcc -iquote include -Wno-trigraphs -nostdinc
 CFLAGS   := -mthumb-interwork -Wimplicit -Werror -O2 -fhex-asm
 ASFLAGS  := -mcpu=arm7tdmi
 
@@ -73,7 +66,7 @@ $(ELF): $(ALL_OBJS) $(LDSCRIPT)
 $(C_BUILDDIR)/%.o: $(C_SUBDIR)/%.c
 	$(CPP) $(CPPFLAGS) $< -o $(C_BUILDDIR)/$*.i
 	$(CC1) $(CFLAGS) $(C_BUILDDIR)/$*.i -o $(C_BUILDDIR)/$*.s
-	echo -e ".text\n\t.align\t2, 0\n" >> $(C_BUILDDIR)/$*.s
+	@echo ".text\\n\\t.align\\t2, 0\\n" >> $(C_BUILDDIR)/$*.s
 	$(AS) $(ASFLAGS) $(C_BUILDDIR)/$*.s -o $@
 
 $(ASM_BUILDDIR)/%.o: $(ASM_SUBDIR)/%.s

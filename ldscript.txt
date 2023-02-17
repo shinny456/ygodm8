@@ -157,7 +157,7 @@ SECTIONS
         asm/code_8007F6C.o(.text);
         src/code_8008030.o(.text);
         asm/code_8007F6C.o(.text2);
-        src/key_input.o(.text);
+        
         asm/code_8007F6C.o(.text3);
 
 
@@ -219,7 +219,12 @@ SECTIONS
 
         asm/code_80584B4.o(.text);
         *libgcc.a:*.o(.text);
-        *libc.a:*.o(.text);
+        *libc.a:bzero.o(.text);
+        *libc.a:memcpy.o(.text);
+        *libc.a:strcpy.o(.text);
+        *libc.a:strlen.o(.text);
+        *libc.a:strncpy.o(.text);
+        
 
         /*data*/
 
