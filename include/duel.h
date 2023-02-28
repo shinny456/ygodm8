@@ -254,7 +254,7 @@ u32 sub_8055BA4(u16);
 u32 sub_8055BD4(u16);
 
 
-void PlayMusic(u16);
+void PlayMusic(int);
 s32 sub_803FCBC(u16);
 s32 sub_803FCEC(u16);
 void FlipCardFaceDown(struct DuelCard*);
@@ -676,5 +676,14 @@ struct CursorPosition {
 extern struct CursorPosition gCursorPosition;
 int sub_8043E70(u8);
 
+
+
+bool32 CheckFlag(u32);
+void sub_8044E50 (u16*, u16, u16);
+void sub_804F2DC (void);
+void sub_8044EC8 (u16*, u16, u16, int);
+void sub_8044F80 (u16*, u16, u16, int);
+void sub_80411EC (struct OamData*);
+void sub_804EC4C (void);
 
 #endif // GUARD_DUEL_H

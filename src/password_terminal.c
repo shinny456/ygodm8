@@ -1,5 +1,8 @@
 #include "global.h"
 #include "duel.h"
+#include "gba/io_reg.h"
+#include "gba/macro.h"
+#include "gba/syscall.h"
 
 void sub_80257D8 (void);
 void sub_80258AC (void);
@@ -534,8 +537,6 @@ extern struct Oam *gE01248[];
 extern struct Oam *gE01328[];
 extern struct Oam *gE0119C[];
 
-
-
 void sub_8025CCC (void) {
   u8 cursorPos = GetNumpadCursorPos();
   u8 r6 = sub_8025C88();
@@ -564,21 +565,188 @@ void sub_8025CCC (void) {
     gOamBuffer[8 * 4 + 3] = 0;
   }
 }
-/*
+
 void sub_8025DB4 (void) {
   u8 i;
   for (i = 0; i < 8; i++) {
-    //struct OamD *oam = &gOamBuffer[i];
     u8 temp = g2021DC0[i];
-    u16 var = gE0119C[temp]->oam[0] & 0xFF;
-    var += 18;
+    u16 var = (gE0119C[temp]->oam[0] & 0xFF) + 18;
     gOamBuffer[i * 4] = gE0119C[temp]->oam[0] & 0xFF00 | var & 0xFF;
-    var = (gE0119C[temp]->oam[1] & 0x1FF);
-    var += 56;
+    var = gE0119C[temp]->oam[1] & 0xFF;
+    var += i * 16 + 56;
     gOamBuffer[i * 4 + 1] = gE0119C[temp]->oam[1] & 0xFE00 | var & 0x1FF;
     var = gE0119C[temp]->oam[2] & 0xF000;
-    var <<= 6;
+    var = ((var << 16) + 0x30000000) >> 16;
     gOamBuffer[i * 4 + 2] = gE0119C[temp]->oam[2] & 0xFFF | var & 0xF000;
     gOamBuffer[i * 4 + 3] = 0;
   }
+}
+
+/*
+void sub_8025E80 (void) {
+  u8 temp = sub_8025C44();
+  u8 temp2 = g2021DC0[temp];
+  u16 var;
+  temp2 += sub_8025C5C() * 10;
+  var = (gE0119C[temp2]->oam[0] & 0xFF) + 18;
+  gOamBuffer[temp * 4] = gE0119C[temp2]->oam[0] & 0xFF00 | var & 0xFF;
+  var = gE0119C[temp2]->oam[1] & 0xFF;
+  var += temp * 16 + 56;
+  gOamBuffer[temp * 4 + 1] = gE0119C[temp2]->oam[1] & 0xFE00 | var & 0x1FF;
+  //var = ?;
+  gOamBuffer[temp * 4 + 2] = gE0119C[temp2]->oam[2] & 0xFFF | var;
+  gOamBuffer[temp * 4 + 3] = 0;
 }*/
+
+NAKED
+void sub_8025E80 (void) {
+  asm_unified("push {r4, r5, r6, lr}\n\
+	mov r6, r8\n\
+	push {r6}\n\
+	bl sub_8025C44\n\
+	adds r4, r0, #0\n\
+	lsls r4, r4, #0x18\n\
+	lsrs r4, r4, #0x18\n\
+	ldr r0, _08025F24\n\
+	adds r0, r4, r0\n\
+	ldrb r5, [r0]\n\
+	bl sub_8025C5C\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r0, r0, #0x18\n\
+	lsls r1, r0, #2\n\
+	adds r1, r1, r0\n\
+	lsls r1, r1, #1\n\
+	adds r5, r5, r1\n\
+	lsls r5, r5, #0x18\n\
+	ldr r0, _08025F28\n\
+	lsrs r5, r5, #0x16\n\
+	adds r5, r5, r0\n\
+	ldr r0, [r5]\n\
+	ldr r0, [r0, #4]\n\
+	ldrh r6, [r0]\n\
+	movs r3, #0xff\n\
+	adds r0, r3, #0\n\
+	ands r0, r6\n\
+	adds r0, #0x12\n\
+	ldr r1, _08025F2C\n\
+	mov r8, r1\n\
+	lsls r2, r4, #3\n\
+	add r2, r8\n\
+	movs r1, #0xff\n\
+	lsls r1, r1, #8\n\
+	ands r1, r6\n\
+	ands r0, r3\n\
+	orrs r1, r0\n\
+	movs r6, #0\n\
+	strh r1, [r2]\n\
+	ldr r0, [r5]\n\
+	ldr r0, [r0, #4]\n\
+	ldrh r1, [r0, #2]\n\
+	lsls r0, r4, #4\n\
+	adds r0, #0x38\n\
+	ands r3, r1\n\
+	adds r3, r3, r0\n\
+	lsls r4, r4, #2\n\
+	adds r2, r4, #1\n\
+	lsls r2, r2, #1\n\
+	add r2, r8\n\
+	movs r0, #0xfe\n\
+	lsls r0, r0, #8\n\
+	ands r0, r1\n\
+	ldr r1, _08025F30\n\
+	ands r3, r1\n\
+	orrs r0, r3\n\
+	strh r0, [r2]\n\
+	ldr r0, [r5]\n\
+	ldr r0, [r0, #4]\n\
+	ldrh r3, [r0, #4]\n\
+	lsrs r1, r3, #0xc\n\
+	adds r1, #3\n\
+	lsls r1, r1, #0x1c\n\
+	adds r2, r4, #2\n\
+	lsls r2, r2, #1\n\
+	add r2, r8\n\
+	ldr r0, _08025F34\n\
+	ands r0, r3\n\
+	lsrs r1, r1, #0x10\n\
+	orrs r0, r1\n\
+	strh r0, [r2]\n\
+	adds r4, #3\n\
+	lsls r4, r4, #1\n\
+	add r4, r8\n\
+	strh r6, [r4]\n\
+	pop {r3}\n\
+	mov r8, r3\n\
+	pop {r4, r5, r6}\n\
+	pop {r0}\n\
+	bx r0\n\
+	.align 2, 0\n\
+_08025F24: .4byte g2021DC0\n\
+_08025F28: .4byte 0x08E0119C\n\
+_08025F2C: .4byte gOamBuffer\n\
+_08025F30: .4byte 0x000001FF\n\
+_08025F34: .4byte 0x00000FFF");
+}
+
+void sub_8025F38 (void) {
+  u32 i;
+  for (i = 0; i < 128; i++) {
+    gOamBuffer[i * 4] = 0xA0;
+    gOamBuffer[i * 4 + 1] = 0xF0;
+    gOamBuffer[i * 4 + 2] = 0xC00;
+    gOamBuffer[i * 4 + 3] = 0;
+  }
+}
+
+extern u8 g80C1DD4[];
+void sub_800E074 (void*, void*, int);
+extern u16 g80C5840[];
+extern u32 g80C61B8[];
+extern u16 g80C58C0[][30];
+extern u16 g80C5EF0[];
+extern u16 g80C5D70[];
+
+void sub_8025F64 (void) {
+  u32 i;
+  sub_800E074(g80C1DD4, gBgVram.cbb0, 0x4000);
+  CpuCopy32(g80C5840, g02000000.bg, 0x80);
+  for (i = 0; i < 20; i++)
+    CpuCopy32(g80C58C0[i], gBgVram.sbb1F[i], 60);
+  LZ77UnCompWram(g80C61B8, gBgVram.cbb4);
+  CpuCopy32(g80C5EF0, g02000000.obj, 96);
+  CpuCopy32(g80C5D70, g02000000.obj + 48, 64);
+}
+
+void sub_8025FFC (void) {
+  LoadPalettes();
+  REG_DISPCNT = 0x1800;
+}
+
+void sub_8026014 (void) {
+}
+
+void sub_8026018 (void) {
+}
+
+void sub_802601C (void) {
+  sub_8045718();
+  REG_BLDCNT = 0;
+  REG_BLDALPHA = 0;
+  REG_BLDY = 0;
+  REG_BG3CNT = 0x1F03;
+  gBG3VOFS = 0;
+  gBG3HOFS = 0;
+  LoadBgOffsets();
+}
+
+void sub_802605C (void) {
+}
+
+void sub_8026060 (void) {
+  LoadVRAM();
+  LoadOam();
+}
+
+void sub_8026070 (void) {
+  LoadOam();
+}

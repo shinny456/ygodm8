@@ -40,8 +40,6 @@ u8 GetDeckCardQty(u16);
 bool8 sub_801F098(u16 id);
 
 void sub_8034A38(void);
-void PlayMusic(u16);
-
 
 extern u16 gKeyState; //0x02020DF8
 extern struct UnkStruct_2020E10 gUnkStruct_2020E10; //2020E10

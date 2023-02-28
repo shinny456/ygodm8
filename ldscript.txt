@@ -54,6 +54,9 @@ SECTIONS
     gUnk2021D00 = 0x02021D00;
     gUnk2021D04 = 0x02021D04;
     gDuelData = 0x02021D10;
+
+    g2021D6C = 0x2021D6C;
+
     g2021D70 = 0x02021D70;
     g2021D80 = 0x02021D80;
     g2021D98 = 0x02021D98;
@@ -157,7 +160,7 @@ SECTIONS
         asm/code_8007F6C.o(.text);
         src/code_8008030.o(.text);
         asm/code_8007F6C.o(.text2);
-        
+
         asm/code_8007F6C.o(.text3);
 
 
@@ -180,7 +183,6 @@ SECTIONS
         src/duel_status.o(.text);
         src/bad_ante.o(.text);
         src/password_terminal.o(.text);
-        asm/password_terminal.o(.text);
         src/god_cards.o(.text);
         asm/code3.o(.text3);
         src/return_monster.o(.text);
@@ -205,11 +207,18 @@ SECTIONS
         src/monster_effects.o(.text)
         src/life_points.o(.text)
         src/spell_effects.o(.text)
+
+
+
         src/code4.o(.text);
+        src/overworld_gfx_effects.o(.text);
+        src/code_8051958.o(.text);
+        src/map_transition.o(.text);
+        src/script.o(.text);
         asm/code4.o(.text);
-        src/code4.o(.text2);
-        asm/code4.o(.text2);
-        src/spell_effects_util.o(.text);
+
+
+        src/spell_effects_util.o(.text); /*equip effects*/
         src/card_passwords.o(.text);
         asm/code5.o(.text);
         src/trap_effects.o(.text);
@@ -224,7 +233,7 @@ SECTIONS
         *libc.a:strcpy.o(.text);
         *libc.a:strlen.o(.text);
         *libc.a:strncpy.o(.text);
-        
+
 
         /*data*/
 
@@ -372,7 +381,7 @@ SECTIONS
     gE04610 = 0x8E04610;
     g8FC488C = 0x8FC488C;
     g8E0CD10 = 0x8E0CD10;
-    gUnk8E19274 = 0x8E19274;
+    gMapData = 0x8E19274;
     g8E0CEE0 = 0x8E0CEE0;
     g8E0CF40 = 0x8E0CF40;
     g8E0CFA0 = 0x8E0CFA0;
@@ -531,6 +540,57 @@ SECTIONS
     g8090920 = 0x8090920;
     g8090B94 = 0x8090B94;
     g8090B98 = 0x8090B98;
+    gE0119C = 0x8E0119C;
+    g80C1DD4 = 0x80C1DD4;
+    g80C61B8 = 0x80C61B8;
+    g80C58C0 = 0x80C58C0;
+    g80C5EF0 = 0x80C5EF0;
+    g80C5D70 = 0x80C5D70;
+    g80C5840 = 0x80C5840;
+    g8E0E0D2 = 0x8E0E0D2;
+    g8E0E0AC = 0x8E0E0AC;
+    g8FC4618 = 0x8FC4618;
+    gE0E0F8 = 0x8E0E0F8;
+    gE0E146 = 0x8E0E146;
+    gE0DB14 = 0x8E0DB14;
+    g8E0E11C = 0x8E0E11C;
+    g8E0DFC0 = 0x8E0DFC0;
+    g8E0E1D2 = 0x8E0E1D2;
+    g8E0E20E = 0x8E0E20E;
+    g8E0E284 = 0x8E0E284;
+    g8E0E091 = 0x8E0E091;
+    g8E0E2A0 = 0x8E0E2A0;
+    g8E0E295 = 0x8E0E295;
+    g8E0E2B2 = 0x8E0E2B2;
+    g8E0E2C4 = 0x8E0E2C4;
+    g8E0E2FF = 0x8E0E2FF;
+    g8E0E324 = 0x8E0E324;
+    g8E0E36C = 0x8E0E36C;
+    g8E0E33C = 0x8E0E33C;
+    g8E0E354 = 0x8E0E354;
+    g8E0E372 = 0x8E0E372;
+    g8E0E311 = 0x8E0E311;
+    g8E0E37E = 0x8E0E37E;
+    g8E0E099 = 0x8E0E099;
+    g8E0E0A2 = 0x8E0E0A2;
+    g8E0E384 = 0x8E0E384;
+    g8E0E3D4 = 0x8E0E3D4;
+    g8E0E3EC = 0x8E0E3EC;
+    g8E0E3C4 = 0x8E0E3C4;
+    g8E0E3CC = 0x8E0E3CC;
+    g8E0E404 = 0x8E0E404;
+    g8E0E416 = 0x8E0E416;
+    g8E0E494 = 0x8E0E494;
+    g8E0E494 = 0x8E0E494;
+    g8E0E428 = 0x8E0E428;
+    g8E0E45E = 0x8E0E45E;
+    g8E0E494 = 0x8E0E494;
+    g8E0E428 = 0x8E0E428;
+    g8E0E45E = 0x8E0E45E;
+    g8E0E3C0 = 0x8E0E3C0;
+    gMapStates = 0x8103314;
+    g8FA31C0 = 0x8FA31C0;
+    g8FA3360 = 0x8FA3360;
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :
