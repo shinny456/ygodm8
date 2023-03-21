@@ -96,8 +96,8 @@ struct Overworld
     u8 unk240;
     u8 filler241;
     u16 music;
-    u32 unk244;
-    u32 unk248;
+    int unk244;
+    int unk248;
     s16 unk24C;
     s16 unk24E;
     u8 background;  //0 = normal map, 1 = reshef map, 2 = goemon map
@@ -154,13 +154,24 @@ void sub_804DF5C(int);
 void sub_804EF10 (void);
 void InitiateScript (struct Script *);
 u16 sub_80520E0(u8 x, u8 y);
-bool32 CheckFlag(u32);
+u32 CheckFlag(u32);
 
 void sub_80527E8(struct ScriptCtx *script);
 void sub_8052F60(struct ScriptCtx *script);
 void sub_8053138(struct ScriptCtx *script);
 void sub_8053040(struct ScriptCtx *script);
-void sub_8053388(struct ScriptCtx *script);
+
+
+// inline prototype order matters
+inline void sub_8053334 (struct ScriptCtx* scriptCtx);
+inline void sub_8053388(struct ScriptCtx *script);
+inline void sub_805339C (void);
+inline void sub_80533BC (void);
+inline void sub_8053CF0 (u8 obj, u16 x, u16 y, u16 arg3, struct ScriptCtx* script);
+inline void sub_8053D50(u8, u8, struct ScriptCtx *script);
+inline void sub_8053D88(u8, u8, u8, struct ScriptCtx *script);
+inline void sub_8053E34(u8);
+inline void sub_8053E94(struct ScriptCtx* script);
 
 extern const u32 g8E0E4CC[];
 extern const u32 g8E0E53C[];
@@ -168,7 +179,7 @@ extern const u8 *gUnk_8E00E30[];
 
 void DisplayPortrait(struct ScriptCtx *script);
 void sub_80532E8(struct ScriptCtx *script);
-void ClearFlag(u32); //int?
+void ClearFlag(u32);
 void sub_8048D08(void);
 u16 sub_8020698(u8 *text);
 void sub_800BE0C(void);
@@ -179,11 +190,9 @@ void sub_8034FEC(u32);
 void sub_8035020(u32);
 void sub_805345C(u8, u8, u8, u8, struct ScriptCtx *script);
 void sub_8034FE0(void);
-void sub_8053CF0(u8, u8, u8, u8, struct ScriptCtx *script);
 void sub_8053520(u8, u16, u16, u16, u8, u8, struct ScriptCtx *script);
 void sub_8053984(u8, u8, struct ScriptCtx *script);
 void sub_8053A74(u8, u8, struct ScriptCtx *script);
-void sub_8053D88(u8, u8, u8, struct ScriptCtx *script);
 void sub_8053884(u16, u8, struct ScriptCtx *script);
 void sub_8054AB0(u8, struct ScriptCtx *script);
 void sub_804F218(void);
@@ -193,9 +202,7 @@ void sub_8053C18(struct ScriptCtx *script, u8);
 int sub_80524A4(u16);
 void sub_805339C(void);
 void sub_804F508(void);
-void sub_8053D50(u8, u8, struct ScriptCtx *script);
 void sub_8053B40(u8, u16, struct ScriptCtx *script);
-void sub_80553F8(struct ScriptCtx *script, u8);
 void sub_80512E0(struct ScriptCtx *script, u8);
 void sub_8020968(void *arg0, u16 arg1, u16 arg2);
 void sub_8053284(struct ScriptCtx *script);
@@ -214,9 +221,8 @@ void sub_80523EC(u16, u16, u16);
 void sub_0804F76C(void);
 void NamingScreenMain(void);
 void StartCutscene(u8);
-void SetFlag(int); //todo: u32?
+void SetFlag(u32);
 void SaveGame(void);
-void sub_80554C4(void);
 void sub_804ED08(void);
 void InitiateScript(struct Script *);
 void PlayOverworldMusic(void);
@@ -224,7 +230,7 @@ void sub_804E288(void);
 void sub_804F5D8(void);
 
 void sub_8035038(u16);
-void sub_8053E34(u8);
+
 
 extern u16 g82AD48C[];
 extern const u32 g82AD2D0[];
@@ -232,5 +238,26 @@ extern const u32 g82AD2D0[];
 extern u32 gE0E674[];
 extern u32 gE0E754[];
 
+s8 sub_8051E48 (u8, u8, u8);
+void sub_804F19C (int);
+
+extern u8 g8E0E384[];
+void sub_8053404 ();  // implicit declaration
+void sub_804F124 (u8 objectId);
+void sub_804F254 (void);
+void sub_804F054 (int spriteId, int arg1, u8* dest);
+void sub_804F1F4 (void);
+void sub_80562CC (u32);
+
+extern u32 g84C9FBC[];
+extern u16 g82AD06C[];
+extern u16 g82ADC8C[];
+extern u16 g84D0CE0[];
+extern u16 g84CFCE0[];
+extern u16 g84D04E0[];
+extern u32 g84D0EC0[];
+extern u16 g84D69D0[];
+extern u16 g84D59D0[];
+extern u16 g84D61D0[];
 
 #endif // GUARD_OVERWORLD_H

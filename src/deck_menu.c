@@ -1507,8 +1507,8 @@ u8* sub_8020824 (u8*);
 
 void sub_801E7D4 (u16 unused_CardId, u32* arg1) {
   u8 buffer[52];
-  u8* name = gCardInfo.name;
   u8 r6, r5, r3;
+  u8* name = gCardInfo.name;
   name = sub_8020824(name);
   r6 = 0, r5 = 0, r3 = 0;
   while (name[r5] && name[r5] != '$') {

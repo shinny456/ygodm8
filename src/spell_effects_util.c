@@ -43,9 +43,16 @@ int sub_803F04C();
   [0] =
 }*/
 
-static inline bool8 util(u8 *arr, u16 cardId)
+
+// it's likely all the functions in the file are marked inline,
+// but it's better to just duplicate this.
+u32 sub_805557C (u8 *arr, u16 cardId) {
+  return arr[cardId >> 3] & sub_803F04C(cardId & 7) ? TRUE : FALSE;
+}
+
+static inline u32 util(u8 *arr, u16 cardId)
 {
-    return arr[cardId / 8] & sub_803F04C(cardId % 8) ? TRUE : FALSE;
+    return arr[cardId >> 3] & sub_803F04C(cardId & 7) ? TRUE : FALSE;
 }
 
 bool32 sub_80555A4(u16 cardId)

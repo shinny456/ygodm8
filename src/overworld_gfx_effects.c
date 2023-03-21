@@ -1141,9 +1141,6 @@ void sub_80511EC (struct Unk1234* arg0) {
   sub_80515F4();
 }
 
-extern u8 g8E0E384[];
-void sub_8053404 (struct ScriptCtx*);
-
 void sub_80512E0 (struct ScriptCtx* scriptCtx, u8 effect) {
   struct Unk1234 unk1234;
   unk1234.unk0 = effect;

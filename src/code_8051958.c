@@ -393,9 +393,6 @@ s8 sub_8051E48 (u8 x, u8 y, u8 direction) {
   return -1;
 }
 
-s8 sub_8051E48 (u8, u8, u8);
-void sub_804F19C (int);
-
 void TryTalking (void) {
   int r4;
   u8 temp = gOverworld.objects[0].x + g8E0E3C4[gOverworld.objects[0].direction];

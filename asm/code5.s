@@ -525,6 +525,11 @@ sub_80562E0: @ 0x080562E0
 _080562EC: .4byte 0x02024594
 _080562F0: .4byte 0x02024598
 
+
+
+
+
+
 	THUMB_FUNC_START sub_80562F4
 sub_80562F4: @ 0x080562F4
 	push {r4, r5, r6, r7, lr}

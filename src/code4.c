@@ -26,6 +26,8 @@
 s8 sub_804F6C0(void);
 void sub_804F714(void);
 void LoadCharblock5(void);
+void sub_80554C4 (void);
+
 
 /*
 void InitOverworld(void)
@@ -831,16 +833,7 @@ extern u16* gLowLayerTilemaps[];
 extern u16* gHighLayerTilemaps[];
 extern u16* g8E11CD0[];
 
-extern u32 g84C9FBC[];
-extern u16 g82AD06C[];
-extern u16 g82ADC8C[];
-extern u16 g84D0CE0[];
-extern u16 g84CFCE0[];
-extern u16 g84D04E0[];
-extern u32 g84D0EC0[];
-extern u16 g84D69D0[];
-extern u16 g84D59D0[];
-extern u16 g84D61D0[];
+
 extern u16 gCableCarTilemap[];
 
 
@@ -905,7 +898,7 @@ extern u8 gUnk8E0DA40[];
 extern u16 g81032D2[];
 extern u8 gE0DA4F[];
 
-static inline void sub_804F054_inline (u16 spriteId, u8 arg1, u8* dest) {
+static inline void sub_804F054_inline (int spriteId, u8 arg1, u8* dest) {
   u32 i, j;
   u8* src = gUnk8E11790[spriteId] + g81032D2[arg1] * 32;
 
@@ -2037,9 +2030,11 @@ void sub_804EFE8 (u8 arg0) {
 }
 
 // inline
-void sub_804F054 (u16 spriteId, u8 arg1, u8* dest) {
+void sub_804F054 (int spriteId, int arg1, u8* dest) {
+  u16 spriteId_u16 = spriteId;
+  u8 arg1_u8 = arg1;
   u32 i, j;
-  u8* src = gUnk8E11790[spriteId] + g81032D2[arg1] * 32;
+  u8* src = gUnk8E11790[spriteId_u16] + g81032D2[arg1_u8] * 32;
 
   for (i = 0; i < 4; dest += 0x380, src += 0x180, i++)
     for (j = 0; j < 128; j++)
@@ -2314,15 +2309,6 @@ void sub_0804F76C (void) {
 void PlayOverworldMusic (void) {
   PlayMusic(gOverworld.music);
 }
-
-/*
-void sub_8053388(struct ScriptCtx *script)
-{
-    if (script->unkD == 1)
-        script->unk8 = 0;
-    else
-        script->unk8 = 1;
-}*/
 
 //0xE2FB95 text data..
 //byte 0 and 1  (?)

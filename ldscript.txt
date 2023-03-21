@@ -18,6 +18,9 @@ SECTIONS
     g201CB50 = 0x201CB50;
     g201EE60 = 0x0201EE60;
     g201EE61 = 0x0201EE61;
+
+
+
     g2020DC8 = 0x02020DC8;
     g2020DCC = 0x02020DCC;
     g2020DD0 = 0x02020DD0;
@@ -99,16 +102,13 @@ SECTIONS
     gBG2VOFS = 0x202420C;
     gBG0HOFS = 0x2024214;
     gBG3VOFS = 0x2024218;
-
     gBLDCNT = 0x2024228;
     gBLDALPHA = 0x2024238;
     gBLDY = 0x2024230;
-
     gBG1VOFS = 0x202422C;
     gBG0VOFS = 0x2024240;
     gBG1HOFS = 0x2024248;
     gBG2HOFS = 0x202424C;
-
     gBG2PA = 0x2024234;
     gBG2PB = 0x2024220;
     gBG2PC = 0x2024208;
@@ -126,6 +126,11 @@ SECTIONS
     gUnk2024260 = 0x02024260;
 
     gOverworld = 0x02024270;
+
+    g20244BC = 0x20244BC;
+
+    gFlags = 0x20244D0;
+
     g2024510 = 0x2024510;
     gUnk020245A0 = 0x020245A0;
     gWhoseTurn = 0x020245A8;
@@ -215,8 +220,9 @@ SECTIONS
         src/code_8051958.o(.text);
         src/map_transition.o(.text);
         src/script.o(.text);
-        asm/code4.o(.text);
-
+        src/script_commands1.o(.text);
+        src/script_commands2.o(.text);
+        src/flag.o(.text);
 
         src/spell_effects_util.o(.text); /*equip effects*/
         src/card_passwords.o(.text);
@@ -591,6 +597,28 @@ SECTIONS
     gMapStates = 0x8103314;
     g8FA31C0 = 0x8FA31C0;
     g8FA3360 = 0x8FA3360;
+    g8E0E834 = 0x8E0E834;
+    g8E0E838 = 0x8E0E838;
+    gE0E83C = 0x8E0E83C;
+    gE0E854 = 0x8E0E854;
+    gE0E865 = 0x8E0E865;
+    g8E0F4F4 = 0x8E0F4F4;
+    g8E0F504 = 0x8E0F504;
+    g8E0F528 = 0x8E0F528;
+    g8E0F540 = 0x8E0F540;
+    g8E0F594 = 0x8E0F594;
+    g8E0F5E8 = 0x8E0F5E8;
+    g8E0F600 = 0x8E0F600;
+    g8E0F618 = 0x8E0F618;
+    g8E0F65B = 0x8E0F65B;
+    g8E0F688 = 0x8E0F688;
+    g8E0F69A = 0x8E0F69A;
+    g8E0F6AC = 0x8E0F6AC;
+    g8E0FD04 = 0x8E0FD04;
+    g8E0FD14 = 0x8E0FD14;
+    g8E0FD24 = 0x8E0FD24;
+    g8E0FD34 = 0x8E0FD34;
+    g8E0FD44 = 0x8E0FD44;
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :

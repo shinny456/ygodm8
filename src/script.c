@@ -16,12 +16,17 @@ void sub_80526D0 (struct ScriptCtx*);
 void sub_804EB04 (struct OamData* arg0, u8 arg1);
 void sub_804F544 (void);
 void sub_804EC64 (void);
+void sub_804ECA8 (void);
+void sub_80553F8(struct ScriptCtx *script, u8);
+
 
 extern u32** g8FA31C0[];
 extern u16** g8FA3360[];
 extern u8 gUnk_2018800[];
 extern struct OamData gOamBuffer[];
 extern u16 gUnk2020DFC;
+extern u8 gPlayerName[];
+
 
 void InitiateScript(struct Script *script) {
   struct ScriptCtx scriptCtx;
@@ -49,10 +54,31 @@ void InitiateScript(struct Script *script) {
   scriptCtx.unk8 = 0;
 }
 
-static inline void test (void) {
+inline void sub_8053404 (struct ScriptCtx* script) {
+  sub_805339C();
+  REG_WINOUT = 0x3D3E;
+  sub_804F508();
+  REG_BLDCNT = 0;
+}
+
+inline void sub_805339C (void) {
+  sub_804EB04(gOamBuffer, 2);
+  sub_80081DC(LoadOam);
+  sub_8008220();
+}
+
+inline void sub_80533BC (void) {
+  REG_WIN1H = 0x03ED;
+  REG_WIN1V = 0x739D;
+  (*(vu8 *)(REG_BASE + 0x49)) = 0x3F;
+  REG_WINOUT = 0x1D1E;
+  sub_804F544();
+  REG_BLDCNT = 0xDE;
+  REG_BLDY = 7;
+}
+
+inline void sub_805342C (u8* dest, u8* src) {
   int i, j;
-  u8* dest = gBgVram.cbb4 + 0x2000;
-  u8* src = gUnk_2018800;
   for (i = 0; i < 8; dest += 512, i++)
     for (j = 0; j < 512; j++)
       *dest++ = *src++;
@@ -60,27 +86,29 @@ static inline void test (void) {
 
 void DisplayPortrait (struct ScriptCtx* scriptCtx) {
   struct OamData* oam = gOamBuffer;
-
-  if (scriptCtx->unk86 == 1) {
-    REG_WIN1H = 0x03ED;
-    REG_WIN1V = 0x739D;
-    (*(vu8 *)(REG_BASE + 0x49)) = 0x3F;
-    REG_WINOUT = 0x1D1E;
-    sub_804F544();
-    REG_BLDCNT = 0xDE;
-    REG_BLDY = 7;
-  }
-  sub_804EB04(oam, 2);
-  sub_80081DC(LoadOam);
-  sub_8008220();
+  if (scriptCtx->unk86 == 1)
+    sub_80533BC();
+  sub_805339C();
   sub_804EB04(oam, scriptCtx->unk85);
   LZ77UnCompWram(g8FA31C0[scriptCtx->unk0][scriptCtx->unk84], gUnk_2018800);
-  test();
+  sub_805342C(gBgVram.cbb4 + 0x2000, gUnk_2018800);
   CpuCopy16(*g8FA3360[scriptCtx->unk0], g02000000.obj + 0xC0, 128);
   if (CheckFlag(0xF3))
     sub_8044E50(g02000000.bg, 0x1C0, 0x1FF);
   sub_8008220();
   sub_804EC64();
+}
+
+inline void sub_8053334 (struct ScriptCtx* scriptCtx) {
+  if (gOverworld.unk240 & 2)
+    return;
+  PlayOverworldMusic();
+  scriptCtx->unk0 = 0;
+  scriptCtx->unk84 = 0;
+  DisplayPortrait(scriptCtx);
+  REG_WINOUT = 0x3D3E;
+  sub_804F508();
+  REG_BLDCNT = 0;
 }
 
 void sub_80526D0(struct ScriptCtx* scriptCtx)
@@ -120,27 +148,10 @@ void sub_80526D0(struct ScriptCtx* scriptCtx)
             break;
         }
         if (scriptCtx->unk86 == 1)
-        {
-            REG_WIN1H = 0x03ED;
-            REG_WIN1V = 0x739D;
-            (*(vu8 *)(REG_BASE + 0x49)) = 0x3F; //TODO
-            REG_WINOUT = 0x1D1E;
-            sub_804F544();
-            REG_BLDCNT = 0xDE;
-            REG_BLDY = 7;
-        }
+          sub_80533BC();
         sub_804F218();
     }
-    //sub_8053334();
-    if (gOverworld.unk240 & 2)
-        return;
-    PlayOverworldMusic();
-    scriptCtx->unk0 = 0;// NULL;
-    scriptCtx->unk84 = 0;
-    DisplayPortrait(scriptCtx);
-    REG_WINOUT = 0x3D3E;
-    sub_804F508();
-    REG_BLDCNT = 0;
+    sub_8053334(scriptCtx);
 }
 
 void sub_80527E8(struct ScriptCtx *script)
@@ -223,13 +234,7 @@ void sub_80527E8(struct ScriptCtx *script)
             {
                 script->unk1E = 0;
                 sub_804ED08();
-                REG_WIN1H = 0x03ED;
-                REG_WIN1V = 0x739D;
-                (*(vu8 *)(REG_BASE + 0x49)) = 0x3F; //TODO
-                REG_WINOUT = 0x1D1E;
-                sub_804F544();
-                REG_BLDCNT = 0xDE;
-                REG_BLDY = 7;
+                sub_80533BC();
             }
             else
                 script->unk1E = 1;
@@ -375,10 +380,7 @@ void sub_80527E8(struct ScriptCtx *script)
             break;
         case '3':
             script->unk86 = 0;
-            sub_805339C();
-            REG_WINOUT = 0x3D3E;
-            sub_804F508();
-            REG_BLDCNT = 0;
+            sub_8053404(script);
             script->pointer++;
             break;
         case '4':
@@ -394,7 +396,7 @@ void sub_80527E8(struct ScriptCtx *script)
                         script->currentScript.start[script->pointer + 3]);
             script->pointer += 5;
             break;
-        case '6': //reaction box (arg0 = reaction (exclamation mark, heart etc), arg1 = ? arg2 = obj_id)
+        case '6': //reaction box (arg0 = reaction (exclamation mark, heart etc), arg1 = obj flags)
             temp = script->currentScript.start[script->pointer + 1];
             i = (script->currentScript.start[script->pointer + 2] << 8) +
                  script->currentScript.start[script->pointer + 3];
@@ -454,14 +456,18 @@ void sub_80527E8(struct ScriptCtx *script)
     }
 }
 
+inline void sub_8053388 (struct ScriptCtx *script) {
+  if (script->unkD == 1)
+    script->unk8 = 0;
+  else
+    script->unk8 = 1;
+}
+
 void sub_8052F60 (struct ScriptCtx *script) {
   if (gUnk2020DFC & 259) {
     PlayMusic(202);
     script->pointer++;
-    if (script->unkD == 1)
-      script->unk8 = 0;
-    else
-      script->unk8 = 1;
+    sub_8053388(script);
     script->unk1C = 0;
     script->unkC = 0;
     LZ77UnCompWram(g82AD2D0, gBgVram.sbb1B);
@@ -486,16 +492,12 @@ void sub_8052F60 (struct ScriptCtx *script) {
   }
 }
 
-
 void sub_8053040 (struct ScriptCtx *script) {
   int temp = gUnk2020DFC & 259;
   if (temp) {
     PlayMusic(55);
     script->pointer += 2;
-    if (script->unkD == 1)
-      script->unk8 = 0;
-    else
-      script->unk8 = 1;
+    sub_8053388(script);
     script->unk1C = 0;
     script->unkC = 0;
     LZ77UnCompWram(g82AD2D0, gBgVram.sbb1B);
@@ -573,4 +575,64 @@ void sub_8053284 (struct ScriptCtx *script) {
     script->unk8 = gE0E674[script->unk8];
   else
     script->unk8 = gE0E754[script->unk8];
+}
+
+void sub_80532A8 (struct ScriptCtx* unused) {
+  LZ77UnCompWram(g82AD2D0, gBgVram.sbb1B);
+  CpuCopy16(g82AD48C, gBgVram.sbb1D, 0x500);
+  sub_80081DC(sub_804ECA8);
+  sub_8008220();
+}
+
+/*
+void sub_80532E8 (struct ScriptCtx* script) {
+  int i;
+  for (i = 0; i < 80 && gPlayerName[i]; i++)
+    script->unk22[i] = gPlayerName[i];
+  script->unk22[i] = '\0';
+  script->unk78 = 0;
+  script->unkC = 2;
+}*/
+
+NAKED
+void sub_80532E8 (struct ScriptCtx* script) {
+  asm_unified("push {r4, r5, r6, lr}\n\
+	adds r3, r0, #0\n\
+	movs r2, #0\n\
+	ldr r0, _08053330\n\
+	ldrb r1, [r0]\n\
+	adds r4, r0, #0\n\
+	cmp r1, #0\n\
+	beq _08053314\n\
+	adds r5, r3, #0\n\
+	adds r5, #0x22\n\
+	adds r6, r4, #0\n\
+_080532FE:\n\
+	adds r0, r5, r2\n\
+	adds r1, r2, r6\n\
+	ldrb r1, [r1]\n\
+	strb r1, [r0]\n\
+	adds r2, #1\n\
+	cmp r2, #0x4f\n\
+	bgt _08053314\n\
+	adds r0, r2, r4\n\
+	ldrb r0, [r0]\n\
+	cmp r0, #0\n\
+	bne _080532FE\n\
+_08053314:\n\
+	adds r0, r3, #0\n\
+	adds r0, #0x22\n\
+	adds r0, r0, r2\n\
+	movs r1, #0\n\
+	strb r1, [r0]\n\
+	adds r0, r3, #0\n\
+	adds r0, #0x78\n\
+	strb r1, [r0]\n\
+	movs r0, #2\n\
+	strb r0, [r3, #0xc]\n\
+	pop {r4, r5, r6}\n\
+	pop {r0}\n\
+	bx r0\n\
+	.align 2, 0\n\
+_08053330: .4byte gPlayerName");
 }
