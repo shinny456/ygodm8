@@ -263,7 +263,7 @@ void sub_8040394(struct DuelCard*, u8);
 void ResetTempStage(struct DuelCard*); //reset num temp powerups
 
 s32 PermStage(struct DuelCard*);
-s8 sub_804069C(struct DuelCard*); //getnumpowerups?
+int sub_804069C(struct DuelCard*); //getnumpowerups?
 
 void LockCard(struct DuelCard*); //lock card
 void UnlockCard(struct DuelCard*); //clear isLocked
@@ -685,5 +685,30 @@ void sub_8044EC8 (u16*, u16, u16, int);
 void sub_8044F80 (u16*, u16, u16, int);
 void sub_80411EC (struct OamData*);
 void sub_804EC4C (void);
+
+struct Unk2021DE0 {
+  u16 unk0;
+  u8 unk2;
+  u8 unk3;
+  u8 unk4;
+} extern g2021DE0;
+
+void sub_802ACC0(void);
+u32 sub_802BBF0(void);
+
+void WinConditionFINAL (void);
+
+struct Unk2021AF0
+{
+    u64 unk0;
+    u64 unk8;
+    u16 unk10;
+    u8 unk12;
+};
+
+extern struct Unk2021AF0 g2021AF0;
+
+
+
 
 #endif // GUARD_DUEL_H

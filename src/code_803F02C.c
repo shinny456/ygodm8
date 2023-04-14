@@ -1018,13 +1018,13 @@ s8 sub_8040694 (struct DuelCard *zone) {
   return zone->tempStage;
 }
 
-s8 sub_804069C (struct DuelCard *zone) {
+int sub_804069C (struct DuelCard *zone) {
   int stage = zone->permStage + zone->tempStage;
   if (stage > 127)
     stage = 127;
   if (stage < -128)
     stage = -128;
-  return stage;
+  return (s8)stage;
 }
 
 void LockCard (struct DuelCard *zone) {

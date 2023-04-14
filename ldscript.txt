@@ -44,7 +44,7 @@ SECTIONS
     g2021B10 = 0x2021B10;
     g2021B50 = 0x2021B50;
     g2021B90 = 0x2021B90;
-
+    g2021BE0 = 0x2021BE0;
     g2021BF8 = 0x02021BF8;
     gUnk2021C00 = 0x02021C00;
     gUnk_02021C08 = 0x02021C08;
@@ -75,6 +75,10 @@ SECTIONS
 
     g2021DD8 = 0x2021DD8;
     g2021DE0 = 0x2021DE0;
+    g2021DF0 = 0x2021DF0;
+    g2022120 = 0x2022120;
+    g2022450 = 0x2022450;
+    g2022B80 = 0x2022B80;
 
     gUnk2022EB0 = 0x02022EB0;
     g2022EC0 = 0x02022EC0;
@@ -189,15 +193,28 @@ SECTIONS
         src/bad_ante.o(.text);
         src/password_terminal.o(.text);
         src/god_cards.o(.text);
+
+
         asm/code3.o(.text3);
+
+
         src/return_monster.o(.text);
         src/print_card.o(.text);
         src/copyright_screens.o(.text);
         src/money.o(.text);
-        src/code_802703C.o(.text);
+        src/code_802703C.o(.text); /*permanent effects*/
+
+
         asm/code3.o(.text);
+        src/code_802AEF4.o(.text);
+        src/card_shop.o(.text);
+        asm/code3.o(.text5);
+
         src/trade_menu.o(.text);
+
+
         asm/code3.o(.text4);
+
         src/FINAL_effect.o(.text);
         src/code_803F02C.o(.text);
         asm/code_803F02C.o(.text);
@@ -286,7 +303,7 @@ SECTIONS
     g8DFF4A4 = 0x8DFF4A4;
     g8DFF4A6 = 0x8DFF4A6;
     g80ADEFC = 0x80ADEFC;
-    g8DF811C = 0x8DF811C;
+    g8DF811C = 0x8DF811C; /*gUnk_8DF811C*/
     g80AE02C = 0x80AE02C;
     g80AE1A8 = 0x80AE1A8;
     g80AE370 = 0x80AE370;
@@ -619,7 +636,37 @@ SECTIONS
     g8E0FD24 = 0x8E0FD24;
     g8E0FD34 = 0x8E0FD34;
     g8E0FD44 = 0x8E0FD44;
-
+    g8E0C940 = 0x8E0C940;
+    g8E0CA80 = 0x8E0CA80;
+    g8E0CBC0 = 0x8E0CBC0;
+    g8E0CBF0 = 0x8E0CBF0;
+    g80C7DDC = 0x80C7DDC;
+    g80C9D84 = 0x80C9D84;
+    g80C9D90 = 0x80C9D90;
+    g80CA0D7 = 0x80CA0D7;
+    g80CA0B4 = 0x80CA0B4;
+    g80CA0CD = 0x80CA0CD;
+    g80CA0D2 = 0x80CA0D2;
+    g80CA0E1 = 0x80CA0E1;
+    g80CA0E4 = 0x80CA0E4;
+    g80CA0E7 = 0x80CA0E7;
+    g80CA0F2 = 0x80CA0F2;
+    g80CA0FD = 0x80CA0FD;
+    g80CA108 = 0x80CA108;
+    g80CA114 = 0x80CA114;
+    g80CA5C4 = 0x80CA5C4;
+    g80CAA74 = 0x80CAA74;
+    g80CDA60 = 0x80CAA60;
+    g80CAF24 = 0x80CAF24;
+    g80CDC50 = 0x80CDC50;
+    g80CDCF0 = 0x80CDCF0;
+    g80CDD78 = 0x80CDD78;
+    g80CDE10 = 0x80CDE10;
+    g80CDE28 = 0x80CDE28;
+    g80CB3D4 = 0x80CB3D4;
+    g80CDC28 = 0x80CDC28;
+    
+    
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :
     {

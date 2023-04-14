@@ -915,15 +915,6 @@ void sub_800BD34(void)
     sub_800BDA0();
 }
 
-struct Unk2021AF0
-{
-    u64 unk0;
-    u64 unk8;
-    u16 unk10;
-    u8 unk12;
-};
-
-extern struct Unk2021AF0 g2021AF0;
 extern u64 g8DFDB90[];
 
 void sub_800BD44(void)

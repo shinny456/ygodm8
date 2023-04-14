@@ -10,13 +10,6 @@ extern u8 (*g8E0C800[]) (void);
 
 
 extern u8 g2021DD8;
-struct Unk2021DE0 {
-  u16 unk0;
-  u8 unk2;
-  u8 unk3;
-  u8 unk4;
-} g2021DE0;
-
 
 u8 sub_80270B4 (u16);
 void sub_802ACC0 (void);
