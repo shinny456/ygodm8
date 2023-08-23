@@ -1512,7 +1512,7 @@ void sub_801E7D4 (u16 unused_CardId, u32* arg1) {
   name = sub_8020824(name);
   r6 = 0, r5 = 0, r3 = 0;
   while (name[r5] && name[r5] != '$') {
-    if ((s8)name[r5] >= 0) {
+    if (name[r5] <= 127) {
       if (r6 < 24) {
         buffer[r3] = name[r5];
         r3++;

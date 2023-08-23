@@ -2804,7 +2804,7 @@ void sub_802F5B0 (void) {
   i = sub_8020698(gCardInfo.name);
   r5 = 0;
   while (r5 < 15 && gCardInfo.name[i] && gCardInfo.name[i] != '$') {
-    if ((s8)gCardInfo.name[i] < 0) {
+    if (gCardInfo.name[i] > 127) {
       buffer[r4] = gCardInfo.name[i];
       r4++;
       i++;

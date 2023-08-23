@@ -539,6 +539,7 @@ void sub_8008220 (void);
 void LoadBgOffsets (void);
 void LoadOam (void);
 void LoadBlendingRegs (void);
+void LoadAffineRegs (void);
 extern u16 gBG3VOFS;
 extern u16 gBG3HOFS;
 extern u16 gBG2HOFS;
@@ -612,7 +613,7 @@ void sub_802432C(void);
 void sub_8024354(void);
 extern u8 g3000C6C;
 
-void sub_803EEFC (u8, u8*, u16);
+void sub_803EEFC (u8, const u8*, u16);
 void sub_800DDA0(u16, u8);
 extern u8 g2021BD0[];
 void sub_801CF08(void);
@@ -646,10 +647,16 @@ extern struct UnkStruct_2021AB4 gUnk2021AB4;
 
 struct Unk3000C38 {
   u32 unk0;
-  u8 filler4[8];
+  u32 unk4;
+  u8 unk8[4];
   u8* unkC;
   u8* unk10;
-  u8 filler14[0x14];
+  u8* unk14;
+  u8 filler18[4];
+  u16 unk1C;
+  u8 filler1E[6];
+  u16 unk24;
+  u16 filler26;
   u16 unk28;
   u8 filler2A[8];
   u8 unk32;

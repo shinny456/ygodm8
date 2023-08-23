@@ -834,8 +834,8 @@ gUnk_8088E62:
 gUnk_8088E6C:
     .incbin "baserom.gba", 0x88E6C, 0x68
 
-    .global gUnk_8088ED4
-gUnk_8088ED4:
+    .global sin_cos_table
+sin_cos_table:
     .incbin "baserom.gba", 0x88ED4, 0x1C8
 
     .global gUnk_808909C

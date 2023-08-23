@@ -18,8 +18,13 @@ SECTIONS
     g201CB50 = 0x201CB50;
     g201EE60 = 0x0201EE60;
     g201EE61 = 0x0201EE61;
-
-
+    
+    . = 0x02020A00;
+    .ewram : ALIGN(4) {
+      *libgcc.a:*o(.bss);
+    }
+    
+    g2020C00 = 0x2020C00;
 
     g2020DC8 = 0x02020DC8;
     g2020DCC = 0x02020DCC;
@@ -146,18 +151,13 @@ SECTIONS
     g3000C78 = 0x03000C78;
     g3001078 = 0x03001078;
 
-    .ewram : ALIGN(4) {
-      . = 0x02020A00;
-      *libgcc.a:*o(.bss);
-    }
-
-
     . = 0x08000000;
     .text :
     ALIGN(4)
     {
         asm/crt0.o(.text);
 
+        src/code.o(.text);
         asm/cutscenes.o(.text);
         src/world_map.o(.text);
         asm/world_map.o(.text);
@@ -208,6 +208,7 @@ SECTIONS
         asm/code3.o(.text);
         src/code_802AEF4.o(.text);
         src/card_shop.o(.text);
+        src/code_8030B14.o(.text);
         asm/code3.o(.text5);
 
         src/trade_menu.o(.text);
@@ -692,6 +693,7 @@ SECTIONS
     g80CDE96 = 0x80CDE96;
     g80CDE8A = 0x80CDE8A;
     g80CD830 = 0x80CD830;
+    g8063FA0 = 0x8063FA0;
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :

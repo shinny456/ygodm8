@@ -1,7 +1,7 @@
     .section .rodata
-    
+
     .incbin "baserom.gba", 0xDF1B28, 0x5A24
-    
+
     .global gCreditsTilemaps @df754c
 gCreditsTilemaps:
     .4byte gUnk_8061D60
@@ -25,12 +25,12 @@ gCreditsTilemaps:
 g8DF758C:
     .4byte gUnk_2018800
 
-    .global gUnk_8DF7590
-gUnk_8DF7590:
+    .global g8DF7590
+g8DF7590:
     .4byte gUnk_2018800
 
-    .global gUnk_8DF7594
-gUnk_8DF7594:
+    .global g8DF7594
+g8DF7594:
     .4byte gUnk_2018800
 
     .global gUnk_8DF7598

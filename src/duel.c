@@ -738,7 +738,7 @@ void sub_800BA04(void)
             sl = ip;
         }
 
-        if ((s8)*name >= 0)
+        if (*name <= 127)
         {
             if (*name == ' ' && !(r2 & 0x80))
                 r2 &= 0xbf;  //clear second highest bit

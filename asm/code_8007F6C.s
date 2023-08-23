@@ -115,8 +115,8 @@ _0800802C: .4byte 0x02000400
 
 
 
-	THUMB_FUNC_START sub_8008144
-sub_8008144: @ 0x08008144
+	THUMB_FUNC_START fix_mul
+fix_mul: @ 0x08008144
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	lsls r1, r1, #0x10
@@ -131,8 +131,8 @@ _08008156:
 	asrs r0, r0, #0x10
 	bx lr
 
-	THUMB_FUNC_START sub_800815C
-sub_800815C: @ 0x0800815C
+	THUMB_FUNC_START fix_div
+fix_div: @ 0x0800815C
 	push {lr}
 	lsls r0, r0, #0x10
 	asrs r0, r0, #8
@@ -145,8 +145,8 @@ sub_800815C: @ 0x0800815C
 	bx r1
 	.byte 0x00, 0x00
 
-	THUMB_FUNC_START sub_8008174
-sub_8008174: @ 0x08008174
+	THUMB_FUNC_START fix_inverse
+fix_inverse: @ 0x08008174
 	push {lr}
 	adds r1, r0, #0
 	movs r0, #0x80

@@ -29,24 +29,24 @@ _08040C7A:
 	movs r5, #0x80
 	lsls r5, r5, #1
 	adds r0, r5, #0
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	mov r0, r8
-	bl sub_8008144
+	bl fix_mul
 	ldr r7, _08040ED4
 	strh r0, [r7, #6]
 	mov r0, sl
 	movs r1, #0
 	ldrsh r6, [r0, r1]
 	adds r0, r5, #0
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	adds r0, r6, #0
-	bl sub_8008144
+	bl fix_mul
 	strh r0, [r7, #0xe]
 	mov r2, sl
 	ldrh r4, [r2]
@@ -54,74 +54,74 @@ _08040C7A:
 	lsls r4, r4, #0x10
 	asrs r4, r4, #0x10
 	adds r0, r5, #0
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	adds r0, r4, #0
-	bl sub_8008144
+	bl fix_mul
 	strh r0, [r7, #0x16]
 	adds r0, r5, #0
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	mov r0, r8
-	bl sub_8008144
+	bl fix_mul
 	strh r0, [r7, #0x1e]
 	adds r0, r5, #0
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	mov r0, r8
-	bl sub_8008144
+	bl fix_mul
 	strh r0, [r7, #0x26]
 	adds r0, r5, #0
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	adds r0, r6, #0
-	bl sub_8008144
+	bl fix_mul
 	strh r0, [r7, #0x2e]
 	adds r0, r5, #0
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	adds r0, r4, #0
-	bl sub_8008144
+	bl fix_mul
 	strh r0, [r7, #0x36]
 	adds r0, r5, #0
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	mov r0, r8
-	bl sub_8008144
+	bl fix_mul
 	strh r0, [r7, #0x3e]
 	ldr r0, _08040EE0
 	movs r1, #0
 	ldrsh r6, [r0, r1]
 	adds r0, r5, #0
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	adds r0, r6, #0
-	bl sub_8008144
+	bl fix_mul
 	movs r2, #0x46
 	adds r2, r2, r7
 	mov sb, r2
 	strh r0, [r2]
 	adds r0, r5, #0
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	mov r0, r8
-	bl sub_8008144
+	bl fix_mul
 	movs r1, #0x4e
 	adds r1, r1, r7
 	mov r8, r1
@@ -132,22 +132,22 @@ _08040C7A:
 	lsls r4, r4, #0x10
 	asrs r4, r4, #0x10
 	adds r0, r5, #0
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	adds r0, r4, #0
-	bl sub_8008144
+	bl fix_mul
 	adds r4, r7, #0
 	adds r4, #0x56
 	strh r0, [r4]
 	adds r0, r5, #0
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	adds r0, r6, #0
-	bl sub_8008144
+	bl fix_mul
 	adds r0, r7, #0
 	adds r0, #0x5e
 	movs r2, #0
@@ -164,21 +164,21 @@ _08040C7A:
 	ldrsh r2, [r2, r0]
 	mov r8, r2
 	adds r0, r5, #0
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	mov r0, r8
-	bl sub_8008144
+	bl fix_mul
 	ldr r1, _08040EEC
 	strh r0, [r1]
 	adds r0, r5, #0
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	adds r0, r6, #0
-	bl sub_8008144
+	bl fix_mul
 	adds r6, r7, #0
 	adds r6, #0x6e
 	strh r0, [r6]
@@ -188,22 +188,22 @@ _08040C7A:
 	lsls r4, r4, #0x10
 	asrs r4, r4, #0x10
 	adds r0, r5, #0
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	adds r0, r4, #0
-	bl sub_8008144
+	bl fix_mul
 	adds r4, r7, #0
 	adds r4, #0x76
 	strh r0, [r4]
 	adds r0, r5, #0
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	mov r0, r8
-	bl sub_8008144
+	bl fix_mul
 	adds r1, r7, #0
 	adds r1, #0x7e
 	movs r0, #0xff
@@ -221,22 +221,22 @@ _08040C7A:
 	movs r1, #0
 	ldrsh r6, [r0, r1]
 	adds r0, r5, #0
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	adds r0, r6, #0
-	bl sub_8008144
+	bl fix_mul
 	adds r1, r7, #0
 	adds r1, #0x86
 	strh r0, [r1]
 	adds r0, r5, #0
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	mov r0, r8
-	bl sub_8008144
+	bl fix_mul
 	adds r1, r7, #0
 	adds r1, #0x8e
 	strh r0, [r1]
@@ -246,22 +246,22 @@ _08040C7A:
 	lsls r4, r4, #0x10
 	asrs r4, r4, #0x10
 	adds r0, r5, #0
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	adds r0, r4, #0
-	bl sub_8008144
+	bl fix_mul
 	adds r1, r7, #0
 	adds r1, #0x96
 	strh r0, [r1]
 	adds r0, r5, #0
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	adds r0, r6, #0
-	bl sub_8008144
+	bl fix_mul
 	adds r1, r7, #0
 	adds r1, #0x9e
 	strh r0, [r1]
@@ -4332,24 +4332,24 @@ _08044EF0:
 	lsrs r4, r4, #0xa
 	ldr r0, [sp, #4]
 	movs r1, #0x10
-	bl sub_800815C
+	bl fix_div
 	adds r1, r0, #0
 	adds r0, r5, #0
-	bl sub_8008144
+	bl fix_mul
 	mov sb, r0
 	ldr r0, [sp, #4]
 	movs r1, #0x10
-	bl sub_800815C
+	bl fix_div
 	adds r1, r0, #0
 	adds r0, r6, #0
-	bl sub_8008144
+	bl fix_mul
 	mov r8, r0
 	ldr r0, [sp, #4]
 	movs r1, #0x10
-	bl sub_800815C
+	bl fix_div
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl sub_8008144
+	bl fix_mul
 	mov r1, sb
 	subs r5, r5, r1
 	lsls r5, r5, #0x18
@@ -4435,30 +4435,30 @@ _08044FD8:
 	subs r4, r1, r7
 	mov r0, sl
 	movs r1, #0x10
-	bl sub_800815C
+	bl fix_div
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl sub_8008144
+	bl fix_mul
 	adds r5, r0, #0
 	movs r2, #0x1f
 	ldr r0, [sp, #4]
 	subs r4, r2, r0
 	mov r0, sl
 	movs r1, #0x10
-	bl sub_800815C
+	bl fix_div
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl sub_8008144
+	bl fix_mul
 	adds r4, r0, #0
 	movs r1, #0x1f
 	ldr r2, [sp, #8]
 	subs r6, r1, r2
 	mov r0, sl
 	movs r1, #0x10
-	bl sub_800815C
+	bl fix_div
 	adds r1, r0, #0
 	adds r0, r6, #0
-	bl sub_8008144
+	bl fix_mul
 	adds r5, r7, r5
 	lsls r5, r5, #0x18
 	lsrs r5, r5, #0x18

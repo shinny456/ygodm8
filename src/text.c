@@ -35,7 +35,7 @@ u16 sub_8020698(u8* name) //text parser
             }
             while (*name != '$')
             {
-                if ((s8)*name >= 0)
+                if (*name <= 127)
                 {
                     name++;
                     i++;
@@ -55,7 +55,7 @@ u16 sub_8020698(u8* name) //text parser
             }
             while (*name != '$')
             {
-                if ((s8)*name >= 0)
+                if (*name <= 127)
                 {
                     name++;
                     i++;
@@ -75,7 +75,7 @@ u16 sub_8020698(u8* name) //text parser
             }
             while (*name != '$')
             {
-                if ((s8)*name >= 0)
+                if (*name <= 127)
                 {
                     name++;
                     i++;
@@ -95,7 +95,7 @@ u16 sub_8020698(u8* name) //text parser
             }
             while (*name != '$')
             {
-                if ((s8)*name >= 0)
+                if (*name <= 127)
                 {
                     name++;
                     i++;
@@ -115,7 +115,7 @@ u16 sub_8020698(u8* name) //text parser
             }
             while (*name != '$')
             {
-                if ((s8)*name >= 0)
+                if (*name <= 127)
                 {
                     name++;
                     i++;
@@ -135,7 +135,7 @@ u16 sub_8020698(u8* name) //text parser
             }
             while (*name != '$')
             {
-                if ((s8)*name >= 0)
+                if (*name <= 127)
                 {
                     name++;
                     i++;
@@ -177,7 +177,7 @@ u8* sub_8020824(u8* name)
                 }
                 while (*name != '$')
                 {
-                    if ((s8)*name >= 0)
+                    if (*name <= 127)
                         name++;
                     else
                         name += 2;
@@ -191,7 +191,7 @@ u8* sub_8020824(u8* name)
                 }
                 while (*name != '$')
                 {
-                    if ((s8)*name >= 0)
+                    if (*name <= 127)
                         name++;
                     else
                         name += 2;
@@ -205,7 +205,7 @@ u8* sub_8020824(u8* name)
                 }
                 while (*name != '$')
                 {
-                    if ((s8)*name >= 0)
+                    if (*name <= 127)
                         name++;
                     else
                         name += 2;
@@ -219,7 +219,7 @@ u8* sub_8020824(u8* name)
                 }
                 while (*name != '$')
                 {
-                    if ((s8)*name >= 0)
+                    if (*name <= 127)
                         name++;
                     else
                         name += 2;
@@ -233,7 +233,7 @@ u8* sub_8020824(u8* name)
                 }
                 while (*name != '$')
                 {
-                    if ((s8)*name >= 0)
+                    if (*name <= 127)
                         name++;
                     else
                         name += 2;
@@ -247,7 +247,7 @@ u8* sub_8020824(u8* name)
                 }
                 while (*name != '$')
                 {
-                    if ((s8)*name >= 0)
+                    if (*name <= 127)
                         name++;
                     else
                         name += 2;
@@ -311,7 +311,7 @@ void sub_8020A3C(u32* arg0, u8* name, u16 arg2)
     case 0: //_08020AB4
         while (*name != 0 && *name != '$')
         {
-            if ((s8)*name >= 0)
+            if (*name <= 127)
             {
                 r1 = gUnk_8E00E30[*name - 32][0];
                 r1 <<= 8;
@@ -330,7 +330,7 @@ void sub_8020A3C(u32* arg0, u8* name, u16 arg2)
     case 0x800:
         while (*name != 0 && *name != '$')
         {
-            if ((s8)*name >= 0)
+            if (*name <= 127)
             {
                 r1 = gUnk_8E00E30[*name - 32][0];
                 r1 <<= 8;
@@ -350,7 +350,7 @@ void sub_8020A3C(u32* arg0, u8* name, u16 arg2)
     case 0x1800:
         while (*name != 0 && *name != '$')
         {
-            if ((s8)*name >= 0)
+            if (*name <= 127)
             {
                 r1 = gUnk_8E00E30[*name - 32][0];
                 r1 <<= 8;
@@ -371,7 +371,7 @@ void sub_8020A3C(u32* arg0, u8* name, u16 arg2)
     case 0x1000:
         while (*name != 0 && *name != '$')
         {
-            if ((s8)*name >= 0)
+            if (*name <= 127)
             {
                 r1 = gUnk_8E00E30[*name - 32][0];
                 r1 <<= 8;
@@ -391,7 +391,7 @@ void sub_8020A3C(u32* arg0, u8* name, u16 arg2)
     case 0x400:
         while (*name != 0 && *name != '$')
         {
-            if ((s8)*name >= 0)
+            if (*name <= 127)
             {
                 r1 = gUnk_8E00E30[*name - 32][0];
                 r1 <<= 8;
@@ -410,7 +410,7 @@ void sub_8020A3C(u32* arg0, u8* name, u16 arg2)
     case 0x100:
         while (*name != 0 && *name != '$')
         {
-            if ((s8)*name >= 0)
+            if (*name <= 127)
             {
                 r1 = gUnk_8E00E30[*name - 32][0];
                 r1 <<= 8;
@@ -433,7 +433,7 @@ void sub_8020A3C(u32* arg0, u8* name, u16 arg2)
     case 0x900:
         while (*name != 0 && *name != '$')
         {
-            if ((s8)*name >= 0)
+            if (*name <= 127)
             {
                 r1 = gUnk_8E00E30[*name - 32][0];
                 r1 <<= 8;
@@ -457,7 +457,7 @@ void sub_8020A3C(u32* arg0, u8* name, u16 arg2)
     case 0x500:
         while (*name != 0 && *name != '$')
         {
-            if ((s8)*name >= 0)
+            if (*name <= 127)
             {
                 r1 = gUnk_8E00E30[*name - 32][0];
                 r1 <<= 8;
@@ -492,7 +492,7 @@ void sub_8020DB8(u32* arg0, u8* name, u16 arg2)
     case 0: //_08020AB4
         while (*name != 0)
         {
-            if ((s8)*name >= 0)
+            if (*name <= 127)
             {
                 r1 = gUnk_8E00E30[*name - 32][0];
                 r1 <<= 8;
@@ -512,7 +512,7 @@ void sub_8020DB8(u32* arg0, u8* name, u16 arg2)
         while (*name != 0)
         {
             u16 r1;
-            if ((s8)*name >= 0)
+            if (*name <= 127)
             {
                 r1 = gUnk_8E00E30[*name - 32][0];
                 r1 <<= 8;
@@ -533,7 +533,7 @@ void sub_8020DB8(u32* arg0, u8* name, u16 arg2)
         while (*name != 0)
         {
             u16 r1;
-            if ((s8)*name >= 0)
+            if (*name <= 127)
             {
                 r1 = gUnk_8E00E30[*name - 32][0];
                 r1 <<= 8;
@@ -555,7 +555,7 @@ void sub_8020DB8(u32* arg0, u8* name, u16 arg2)
         while (*name != 0)
         {
             u16 r1;
-            if ((s8)*name >= 0)
+            if (*name <= 127)
             {
                 r1 = gUnk_8E00E30[*name - 32][0];
                 r1 <<= 8;
@@ -576,7 +576,7 @@ void sub_8020DB8(u32* arg0, u8* name, u16 arg2)
         while (*name != 0)
         {
             u16 r1;
-            if ((s8)*name >= 0)
+            if (*name <= 127)
             {
                 r1 = gUnk_8E00E30[*name - 32][0];
                 r1 <<= 8;
@@ -596,7 +596,7 @@ void sub_8020DB8(u32* arg0, u8* name, u16 arg2)
         while (*name != 0)
         {
             u16 r1;
-            if ((s8)*name >= 0)
+            if (*name <= 127)
             {
                 r1 = gUnk_8E00E30[*name - 32][0];
                 r1 <<= 8;
@@ -620,7 +620,7 @@ void sub_8020DB8(u32* arg0, u8* name, u16 arg2)
         while (*name != 0)
         {
             u16 r1;
-            if ((s8)*name >= 0)
+            if (*name <= 127)
             {
                 r1 = gUnk_8E00E30[*name - 32][0];
                 r1 <<= 8;
@@ -645,7 +645,7 @@ void sub_8020DB8(u32* arg0, u8* name, u16 arg2)
         while (*name != 0)
         {
             u16 r1;
-            if ((s8)*name >= 0)
+            if (*name <= 127)
             {
                 r1 = gUnk_8E00E30[*name - 32][0];
                 r1 <<= 8;

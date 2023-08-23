@@ -526,7 +526,7 @@ void sub_8053040 (struct ScriptCtx *script) {
 void sub_8053138 (struct ScriptCtx *script) {
   u16 var;
   script->unk86 = 1;
-  if ((s8)script->unk22[script->unk78] >= 0) {
+  if (script->unk22[script->unk78] <= 127) {
     var = gUnk_8E00E30[script->unk22[script->unk78] - 32][1];
     var <<= 8;
     var |= gUnk_8E00E30[script->unk22[script->unk78] - 32][0];

@@ -814,6 +814,7 @@ void OverworldMain(void) //spawn the player home (and overworld main loop?) Over
 
     do
     {
+        // TryInitWorldMap (only works if gOverworld.unk240 & 4 is set)
         InitiateWorldMap();
         sub_80554C4();
         sub_804ED08();
@@ -826,6 +827,9 @@ void OverworldMain(void) //spawn the player home (and overworld main loop?) Over
             InitiateScript(gOverworld.unk208[gOverworld.map.unk6]);
         }
     } while (!(gOverworld.unk240 & 1));
+    // gOverworld.unk240 LSB is never set to 1
+    // so this function never returns
+    // mark it as noreturn? (as well as AgbMain?)
 }
 
 extern u32* gMapTilesets[];

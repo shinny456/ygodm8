@@ -2851,12 +2851,12 @@ sub_8007350: @ 0x08007350
 	adds r1, r1, r6
 	movs r2, #0
 	ldrsh r0, [r1, r2]
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	adds r0, r4, #0
-	bl sub_8008144
+	bl fix_mul
 	mov r8, r0
 	mov r0, r8
 	lsls r0, r0, #0x10
@@ -2873,12 +2873,12 @@ sub_8007350: @ 0x08007350
 	adds r1, r1, r6
 	movs r2, #0
 	ldrsh r0, [r1, r2]
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	adds r0, r4, #0
-	bl sub_8008144
+	bl fix_mul
 	adds r6, r0, #0
 	lsls r6, r6, #0x10
 	lsrs r6, r6, #0x10
@@ -2897,12 +2897,12 @@ sub_8007350: @ 0x08007350
 	adds r1, r1, r7
 	movs r2, #0
 	ldrsh r0, [r1, r2]
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	adds r0, r4, #0
-	bl sub_8008144
+	bl fix_mul
 	adds r4, r0, #0
 	lsls r4, r4, #0x10
 	lsrs r4, r4, #0x10
@@ -2918,12 +2918,12 @@ sub_8007350: @ 0x08007350
 	adds r1, r1, r7
 	movs r2, #0
 	ldrsh r0, [r1, r2]
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	adds r0, r5, #0
-	bl sub_8008144
+	bl fix_mul
 	ldr r5, _080074C8
 	mov r1, r8
 	strh r1, [r5]
@@ -2937,12 +2937,12 @@ sub_8007350: @ 0x08007350
 	movs r0, #0xa0
 	lsls r0, r0, #1
 	mov sb, r0
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	adds r0, r7, #0
-	bl sub_8008144
+	bl fix_mul
 	mov r8, r0
 	mov r1, r8
 	lsls r1, r1, #0x10
@@ -2952,12 +2952,12 @@ sub_8007350: @ 0x08007350
 	movs r0, #0
 	ldrsh r4, [r2, r0]
 	mov r0, sb
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	adds r0, r4, #0
-	bl sub_8008144
+	bl fix_mul
 	adds r6, r0, #0
 	lsls r6, r6, #0x10
 	lsrs r6, r6, #0x10
@@ -2967,22 +2967,22 @@ sub_8007350: @ 0x08007350
 	lsls r4, r4, #0x10
 	asrs r4, r4, #0x10
 	mov r0, sb
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	adds r0, r4, #0
-	bl sub_8008144
+	bl fix_mul
 	adds r4, r0, #0
 	lsls r4, r4, #0x10
 	lsrs r4, r4, #0x10
 	mov r0, sb
-	bl sub_8008174
+	bl fix_inverse
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	adds r0, r7, #0
-	bl sub_8008144
+	bl fix_mul
 	mov r2, r8
 	strh r2, [r5, #0x20]
 	strh r6, [r5, #0x28]
@@ -2996,7 +2996,7 @@ sub_8007350: @ 0x08007350
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080074C0: .4byte gUnk_8088ED4
+_080074C0: .4byte sin_cos_table
 _080074C4: .4byte gUnk_8DF8114
 _080074C8: .4byte gOamBuffer+6
 

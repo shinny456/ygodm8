@@ -135,7 +135,7 @@ void sub_802663C (void) {
       r1 |= gUnk_8E00E30[14][0];
       name += 4;
     }
-    else if ((s8)*name >= 0) {
+    else if (*name <= 127) {
       r1 = gUnk_8E00E30[*name - 32][1];
       r1 <<= 8;
       r1 |= gUnk_8E00E30[*name - 32][0];

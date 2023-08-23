@@ -71,7 +71,7 @@ void sub_8053F30 (struct ScriptCtx* script) {
 
   r7 = 0, r6 = 0, r3 = 0;
   while (name[r6] && name[r6] != '$') {
-    if ((s8)name[r6] < 0) {
+    if (name[r6] > 127) {
       g201EF50[r6] = name[r6];
       r6++;
     }
@@ -96,7 +96,7 @@ void sub_8053F30 (struct ScriptCtx* script) {
     strcpy(g201EFC0, g201EF50);
 
   for (i = 0, ip = 0; ip < 80 && g201EFC0[ip]; i++, ip++) {
-    if ((s8)g201EFC0[i] < 0) {
+    if (g201EFC0[i] > 127) {
       script->unk22[i] = g201EFC0[i];
       i++;
     }
@@ -323,7 +323,7 @@ void sub_80540B0 (struct ScriptCtx* script) {
   text = sub_8020824(g8E0F4F4[sub_8056258(0, 3)]);
 
   for (r4 = 0, r5 = 0; r5 < 80 && text[r4] && text[r4] != '$'; r4++, r5++) {
-    if ((s8)text[r4] < 0) {
+    if (text[r4] > 127) {
       script->unk22[r4] = text[r4];
       r4++;
     }
@@ -350,7 +350,7 @@ void sub_8054150 (struct ScriptCtx* script) {
   text = sub_8020824(g8E0F504[sub_8056258(0, 8)]);
 
   for (r4 = 0, r5 = 0; r5 < 80 && text[r4] && text[r4] != '$'; r4++, r5++) {
-    if ((s8)text[r4] < 0) {
+    if (text[r4] > 127) {
       script->unk22[r4] = text[r4];
       r4++;
     }
@@ -379,7 +379,7 @@ void sub_80541F4 (struct ScriptCtx* script) {
   text = sub_8020824(g8E0F528[sub_8056258(0, 5)]);
 
   for (r5 = 0, r1 = 0; r1 < 80 && text[r5] && text[r5] != '$'; r5++, r1++) {
-    if ((s8)text[r5] < 0) {
+    if (text[r5] > 127) {
       script->unk22[r5] = text[r5];
       r5++;
     }
@@ -460,7 +460,7 @@ void sub_80543A4 (struct ScriptCtx* script) {
   text = sub_8020824(g8E0F5E8[sub_8056258(0, 5)]);
 
   for (r5 = 0, r1 = 0; r1 < 80 && text[r5] && text[r5] != '$'; r5++, r1++) {
-    if ((s8)text[r5] < 0) {
+    if (text[r5] > 127) {
       script->unk22[r5] = text[r5];
       r5++;
     }
@@ -489,7 +489,7 @@ void sub_805444C (struct ScriptCtx* script) {
   text = sub_8020824(g8E0F600[sub_8056258(0, 5)]);
 
   for (r5 = 0, r1 = 0; r1 < 80 && text[r5] && text[r5] != '$'; r5++, r1++) {
-    if ((s8)text[r5] < 0) {
+    if (text[r5] > 127) {
       script->unk22[r5] = text[r5];
       r5++;
     }
@@ -518,7 +518,7 @@ void sub_80544F4 (struct ScriptCtx* script) {
   text = sub_8020824(g8E0F4F4[sub_8056258(0, 3)]);
 
   for (r5 = 0, r1 = 0; r1 < 80 && text[r5] && text[r5] != '$'; r5++, r1++) {
-    if ((s8)text[r5] < 0) {
+    if (text[r5] > 127) {
       script->unk22[r5] = text[r5];
       r5++;
     }
@@ -547,7 +547,7 @@ void sub_805459C (struct ScriptCtx* script) {
   text = sub_8020824(g8E0F528[sub_8056258(0, 5)]);
 
   for (r5 = 0, r1 = 0; r1 < 80 && text[r5] && text[r5] != '$'; r5++, r1++) {
-    if ((s8)text[r5] < 0) {
+    if (text[r5] > 127) {
       script->unk22[r5] = text[r5];
       r5++;
     }
@@ -775,7 +775,7 @@ void sub_80547D0 (struct ScriptCtx* script) {
   text = sub_8020824(g8E0F4F4[sub_8056258(0, 3)]);
 
   for (r5 = 0, r1 = 0; r1 < 80 && text[r5] && text[r5] != '$'; r5++, r1++) {
-    if ((s8)text[r5] < 0) {
+    if (text[r5] > 127) {
       script->unk22[r5] = text[r5];
       r5++;
     }
@@ -804,7 +804,7 @@ void sub_8054878 (struct ScriptCtx* script) {
   text = sub_8020824(g8E0F504[sub_8056258(0, 8)]);
 
   for (r5 = 0, r1 = 0; r1 < 80 && text[r5] && text[r5] != '$'; r5++, r1++) {
-    if ((s8)text[r5] < 0) {
+    if (text[r5] > 127) {
       script->unk22[r5] = text[r5];
       r5++;
     }
@@ -1173,7 +1173,7 @@ void sub_804EEE0 (void);
 
 /*
 static inline void test (s16* r5, s16* r7, int j) {
-  
+
     *r5 = g8E0FCEE[j];
     *r7 = g8E0FCDA[j];
     sub_804EEE0();
@@ -1181,19 +1181,19 @@ static inline void test (s16* r5, s16* r7, int j) {
     gBG2HOFS = 8 - *r7;
     gBG1VOFS = -*r5;
     gBG1HOFS = 8 - *r7;
-  
+
 }
 
 inline void sub_80553F8 (struct ScriptCtx* script, u8 arg1) {
   int i, j;
- 
+
   script->unk86 = 0;
   sub_8053404();
 
   for (i = 0; i != arg1; i++)
-    for (j = 0; j < 10; j++) 
+    for (j = 0; j < 10; j++)
       test(g20244BC, g20244BC + 1, j);
-    
+
   gOverworld.unk24C = 0;
   gOverworld.unk24E = 0;
   sub_804EEE0();
