@@ -3014,7 +3014,7 @@ _08024584: .4byte 0x03001078
 .section .text3
 
 
-	THUMB_FUNC_START sub_802612C
+	THUMB_FUNC_START sub_802612C @decomped
 sub_802612C: @ 0x0802612C
 	push {r4, lr}
 	ldr r0, _08026148
@@ -3062,7 +3062,7 @@ _0802617E:
 _08026184: .4byte gUnk2021DCC
 _08026188: .4byte gKeyState
 
-	THUMB_FUNC_START sub_802618C
+	THUMB_FUNC_START sub_802618C @decomped
 sub_802618C: @ 0x0802618C
 	ldr r0, _080261A4
 	ldrh r2, [r0]
@@ -3457,7 +3457,7 @@ _0802AD9E:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_START sub_802ADA4
+	THUMB_FUNC_START sub_802ADA4 @decomped
 sub_802ADA4: @ 0x0802ADA4
 	push {lr}
 	sub sp, #4
@@ -6897,7 +6897,7 @@ sub_80327C8: @ 0x080327C8
 _080327E8: .4byte sub_8030C14
 _080327EC: .4byte 0x03001478
 _080327F0: .4byte 0x04000040
-_080327F4: .4byte 0x08030CA9
+_080327F4: .4byte sub_8030CA8
 _080327F8: .4byte 0x03001578
 
 	THUMB_FUNC_START sub_80327FC
@@ -24631,28 +24631,3 @@ _0803EF5A:
 _0803EF60: .4byte 0x02010400
 
 .align 2, 0
-
-
-/*
-
-s32 sub_8043418(struct DuelCard** monZones, u16 id) num cards excluding god cards
-{
-    u8 i;
-    s8 c = 0;
-
-    for (i = 0; i < 5; i++)
-    {
-        u16 monId = (*monZones++)->id;
-        if (IsGodCard(monId) == TRUE)
-            monId = CARD_NONE;
-
-        if (monId == id)
-            c++;
-    }
-    return c;
-}
-
-s32 NumEmptyZonesAndGodCardsInRow(struct DuelCard** monZones) //NumGodCardsAndEmptyZones
-{
-    return sub_8043418(monZones, 0);
-}*/

@@ -364,20 +364,26 @@ extern struct Unk2023EA0 gUnk2023EA0;
 //0x02023EA0 data used when cards clash
 //0x02023E80 ^
 
+struct CardDrop {
+    u16 card;
+    u16 chance;
+};
+
 struct Duelist
 {
     u16 id;                //0x0
     u8 field;              //0x2
     u16* deck;             //0x4
-    u16* cardDrops;        //0x8
-    u16* shopCards;        //0xC
-    u16* badAnte;          //0x10
+    struct CardDrop* goodDrops;        //0x8
+    struct CardDrop* shopCards;        //0xC
+    struct CardDrop* badDrops;          //0x10
     u16 playerLp;          //0x14
     u16 lifePoints;        //0x16
     u32 capacityYield;     //0x18
     u16 minDomino;         //0x1C
     u16 maxDomino;         //0x1E
-    u8 filler20[0x4];      //0x20
+    u8 unk20;              //0x20
+    u8 filler21[3];
     u16 unk24;             //0x24  music
     u16 unk26;             //0x26
     u16 unk28;             //0x28
@@ -415,7 +421,7 @@ struct Deck
     s8 unk4; // current position
     u8 unk5;
     u8 unk6;
-    u8 filler7;
+    u8 unk7;
     u8 count;
     u8 filler9;
     u16 cards[40];
@@ -621,7 +627,7 @@ void sub_8022080(void);
 void sub_8041CCC (u16, u16);
 void sub_8041D14 (u16, u16);
 
-void sub_8041C94(u8*, u16, u16, u16, u32);
+void sub_8041C94(u8*, u16, u16, u16, u16);
 
 extern u8* g8FA2BAC[]; //duel text pointers
 extern u8* g8FA2C14[]; //duel text pointers
@@ -652,11 +658,11 @@ struct Unk3000C38 {
   u8* unkC;
   u8* unk10;
   u8* unk14;
-  u8 filler18[4];
+  u8* unk18;
   u16 unk1C;
   u8 filler1E[6];
   u16 unk24;
-  u16 filler26;
+  u16 unk26;
   u16 unk28;
   u8 filler2A[8];
   u8 unk32;

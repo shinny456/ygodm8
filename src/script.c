@@ -449,9 +449,9 @@ void sub_80527E8(struct ScriptCtx *script)
 
         script->unk82 = 1;
         if (script->unk8 & 1)
-            sub_8020968(&gBgVram.sbb1B[1][0] + ((script->unk8 >> 1) << 6), var, 0x101);
+            sub_8020968(&gBgVram.sbb1B[1][0] + script->unk8 / 2 * 64, var, 0x101);
         else
-            sub_8020968(&gBgVram.sbb1B[0][16] + ((script->unk8 >> 1) << 6), var, 0x101);
+            sub_8020968(&gBgVram.sbb1B[0][16] + script->unk8 / 2 * 64, var, 0x101);
         sub_8053284(script);
     }
 }
@@ -476,15 +476,15 @@ void sub_8052F60 (struct ScriptCtx *script) {
   switch (script->unk1C++) {
     case 0:
       if (script->unk8 & 1)
-        sub_8020968(&gBgVram.sbb1B[1][0] + ((script->unk8 >> 1) << 6), 0xA081, 0x101);
+        sub_8020968(&gBgVram.sbb1B[1][0] + script->unk8 / 2 * 64, 0xA081, 0x101);
       else
-        sub_8020968(&gBgVram.sbb1B[0][16] + ((script->unk8 >> 1) << 6), 0xA081, 0x101);
+        sub_8020968(&gBgVram.sbb1B[0][16] + script->unk8 / 2 * 64, 0xA081, 0x101);
       break;
     case 15:
       if (script->unk8 & 1)
-        sub_8020968(&gBgVram.sbb1B[1][0] + ((script->unk8 >> 1) << 6), 0x4081, 0x101);
+        sub_8020968(&gBgVram.sbb1B[1][0] + script->unk8 / 2 * 64, 0x4081, 0x101);
       else
-        sub_8020968(&gBgVram.sbb1B[0][16] + ((script->unk8 >> 1) << 6), 0x4081, 0x101);
+        sub_8020968(&gBgVram.sbb1B[0][16] + script->unk8 / 2 * 64, 0x4081, 0x101);
       break;
     case 29:
       script->unk1C = 0;
@@ -539,9 +539,9 @@ void sub_8053138 (struct ScriptCtx *script) {
     script->unk78 += 2;
   }
   if (script->unk8 & 1)
-    sub_8020968(&gBgVram.sbb1B[1][0] + ((script->unk8 >> 1) << 6), var, 0x101);
+    sub_8020968(&gBgVram.sbb1B[1][0] + script->unk8 / 2 * 64, var, 0x101);
   else
-    sub_8020968(&gBgVram.sbb1B[0][16] + ((script->unk8 >> 1) << 6), var, 0x101);
+    sub_8020968(&gBgVram.sbb1B[0][16] + script->unk8 / 2 * 64, var, 0x101);
   if (script->unkD == 1)
     script->unk8 = gE0E674[script->unk8];
   else

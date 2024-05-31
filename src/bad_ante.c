@@ -1,5 +1,8 @@
 #include "global.h"
 #include "constants/card_ids.h"
+
+//TODO: rename file to ante.c
+
 extern u16 gLowLevelAnte[];
 
 int IsGoodAnte (u16 cardId) {

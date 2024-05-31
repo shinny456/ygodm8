@@ -23,12 +23,13 @@ bool32 sub_80255A8(void);
 void sub_802D90C(u16, u8);
 void sub_80258E8(void);
 void sub_8055D04(void);
-int sub_8056014(u16);
+u32 sub_8056014(u16);
 void sub_8055FEC(u16);
-void sub_08055F64(u16);
+inline void sub_8055F48(void);
+inline void sub_08055F64(u16);
 void sub_8055DEC(void);
 void sub_8056048(u16);
-void sub_8055F68(u16);
+inline void sub_8055F68(u16);
 u8 sub_8055D78(u16);
 u8 sub_8055E60(u16);
 
@@ -192,5 +193,18 @@ inline void sub_8055F48(void)
     for (i = 0; i < 8; i++)
         g2024510.unk3[i] = 0;
 }
-/*
-void sub_08055F64(u16 cardId){}*/
+
+inline void sub_08055F64(u16 cardId) {
+  
+}
+
+inline void sub_8055F68(u16 cardId) {
+  switch (cardId) {
+    case 0:
+      PlayMusic(0xC9);
+      break;
+    case 1:
+      PlayMusic(0xC9);
+      break;
+  }
+}

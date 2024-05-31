@@ -1492,7 +1492,7 @@ _0800A3CC: .4byte 0x00005004
 _0800A3D0: .4byte 0x00005005
 _0800A3D4: .4byte 0x0000B87A
 
-	THUMB_FUNC_START sub_800A3D8
+	THUMB_FUNC_START sub_800A3D8 @decomped
 sub_800A3D8: @ 0x0800A3D8
 	push {lr}
 	lsls r0, r0, #0x18
@@ -1559,7 +1559,7 @@ _0800A472:
 	bx r0
 	.byte 0x00, 0x00
 
-	THUMB_FUNC_START sub_800A478
+	THUMB_FUNC_START sub_800A478 @decomped
 sub_800A478: @ 0x0800A478
 	push {lr}
 	bl sub_8009010
@@ -1590,7 +1590,7 @@ _0800A4AA:
 	bx r0
 	.byte 0x00, 0x00
 
-	THUMB_FUNC_START sub_800A4B0
+	THUMB_FUNC_START sub_800A4B0 @decomped
 sub_800A4B0: @ 0x0800A4B0
 	push {r4, lr}
 	lsls r0, r0, #0x10
@@ -1634,7 +1634,7 @@ _0800A500:
 	bx r1
 	.byte 0x00, 0x00
 
-	THUMB_FUNC_START sub_800A508
+	THUMB_FUNC_START sub_800A508 @decomped
 sub_800A508: @ 0x0800A508
 	push {r4, lr}
 	bl GetDeckCost
@@ -1653,7 +1653,7 @@ _0800A522:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_START sub_800A528
+	THUMB_FUNC_START sub_800A528 @decomped
 sub_800A528: @ 0x0800A528
 	push {lr}
 	bl GetDeckSize
@@ -1755,7 +1755,7 @@ _0800A5E4: .4byte 0xFFFFFE00
 _0800A5E8: .4byte 0x000003FF
 _0800A5EC: .4byte 0xFFFFFC00
 
-	THUMB_FUNC_START sub_800A5F0
+	THUMB_FUNC_START sub_800A5F0 @decomped
 sub_800A5F0: @ 0x0800A5F0
 	push {lr}
 	lsls r0, r0, #0x18

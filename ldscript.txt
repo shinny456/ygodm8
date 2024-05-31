@@ -6,7 +6,10 @@ SECTIONS
     gBgVram = 0x02000400;
     gOamBuffer = 0x02018400;
     gUnk_2018800 = 0x02018800; /*gSharedMem*/
-
+    
+    g201CB20 = 0x201CB20;
+    g201CB24 = 0x201CB24;
+    g201CB28 = 0x201CB28;
     g201CB30 = 0x0201CB30;
     g201CB34 = 0x0201CB34;
     gUnk201CB38 = 0x0201CB38;
@@ -16,14 +19,19 @@ SECTIONS
     g201CB44 = 0x201CB44;
     g201CB48 = 0x201CB48;
     g201CB50 = 0x201CB50;
+    g201CB58 = 0x201CB58;
+    g201CB59 = 0x201CB59;
+    g201CB60 = 0x201CB60;
     g201EE60 = 0x0201EE60;
     g201EE61 = 0x0201EE61;
-    
+    g201EE70 = 0x201EE70;
+    g201EEE0 = 0x201EEE0;
+
     . = 0x02020A00;
     .ewram : ALIGN(4) {
       *libgcc.a:*o(.bss);
     }
-    
+
     g2020C00 = 0x2020C00;
 
     g2020DC8 = 0x02020DC8;
@@ -35,6 +43,8 @@ SECTIONS
     g2020DF4 = 0x02020DF4;
     gKeyState = 0x02020DF8;
     gUnk2020DFC = 0x02020DFC;
+    g2020E00 = 0x2020E00;
+    g2020E04 = 0x2020E04;
 
     gUnkStruct_2020E10 = 0x02020E10;
     gTotalCardQty = 0x02021460;
@@ -58,6 +68,7 @@ SECTIONS
     gDuelistLevel = 0x02021C20;
     gDeck = 0x02021C30;
     g2021C8C = 0x02021C8C;
+    g2021C90 = 0x2021C90;
     gLanguage = 0x02021CF8;
     gUnk2021D00 = 0x02021D00;
     gUnk2021D04 = 0x02021D04;
@@ -100,6 +111,7 @@ SECTIONS
     gHands = 0x20240B0;
     gSelectedCard = 0x20240D8;
     g20240E0 = 0x20240E0;
+    g20240E4 = 0x20240E4;
     gUnk20240F0 = 0x20240F0;
     g2024144 = 0x2024144;
     gUnk20241FC = 0x020241FC;
@@ -141,11 +153,22 @@ SECTIONS
     gFlags = 0x20244D0;
 
     g2024510 = 0x2024510;
+    g2024520 = 0x2024520;
+    g2024588 = 0x2024588;
+    g202458C = 0x202458C;
+    g2024590 = 0x2024590;
+    
+    g2024594 = 0x2024594;
+    g2024598 = 0x2024598;
+    
+    
     gUnk020245A0 = 0x020245A0;
     gWhoseTurn = 0x020245A8;
     g20245AC = 0x20245AC;
     g2021BD0 = 0x2021BD0;
-
+    
+    g3000400 = 0x3000400;
+    g3000C00 = 0x3000C00;
     g3000C38 = 0x03000C38;
     g3000C6C = 0x03000C6C;
     g3000C78 = 0x03000C78;
@@ -162,16 +185,13 @@ SECTIONS
         src/world_map.o(.text);
         asm/world_map.o(.text);
         src/start_menu.o(.text);
+        src/naming_screen.o(.text);
         asm/naming_screen.o(.text);
         asm/status_menu.o(.text);
 
         /* SDK\src\samples\functional_sample\share.c */
-        asm/code_8007F6C.o(.text);
         src/code_8008030.o(.text);
-        asm/code_8007F6C.o(.text2);
-
-        asm/code_8007F6C.o(.text3);
-
+        asm/code_8007F6C.o(.text);
 
         src/trunk.o(.text);
         asm/code_8009228.o(.text);
@@ -182,6 +202,8 @@ SECTIONS
         src/code2.o(.text);
         src/deck_menu.o(.text);
         asm/code2.o(.text);
+        src/code_801EF30.o(.text);
+        asm/code2.o(.text2);
         src/main.o(.text);
         src/exodia.o(.text);
         src/text.o(.text);
@@ -218,9 +240,10 @@ SECTIONS
 
         src/FINAL_effect.o(.text);
         src/code_803F02C.o(.text);
-        asm/code_803F02C.o(.text);
+        src/code_8040C6C.o(.text);
+        src/code_8041C94.o(.text);
         src/code_80421CC.o(.text);
-        asm/code_803F02C.o(.text1);
+        asm/code_803F02C.o(.text);
         src/code_8042F44.o(.text);
         src/code_8043EF4.o(.text);
         asm/code_803F02C.o(.text2);
@@ -244,6 +267,8 @@ SECTIONS
 
         src/spell_effects_util.o(.text); /*equip effects*/
         src/card_passwords.o(.text);
+        src/code5.o(.text);
+        src/rng.o(.text);
         asm/code5.o(.text);
         src/trap_effects.o(.text);
         src/turn.o(.text);
@@ -694,6 +719,41 @@ SECTIONS
     g80CDE8A = 0x80CDE8A;
     g80CD830 = 0x80CD830;
     g8063FA0 = 0x8063FA0;
+    g8E0D0F8 = 0x8E0D0F8;
+    g8E0D130 = 0x8E0D130;
+    gE0D114 = 0x8E0D114;
+    g8E0D41C = 0x8E0D41C;
+    gE0D15D = 0x8E0D15D;
+    g8E0D1D0 = 0x8E0D1D0;
+    gE0D14C = 0x8E0D14C;
+    g80F2C30 = 0x80F2C30;
+    g8F1B80C = 0x8F1B80C;
+    g8E0D584 = 0x8E0D584;
+    g8E0D5A1 = 0x8E0D5A1;
+    g8E0D5A6 = 0x8E0D5A6;
+    g8E0D588 = 0x8E0D588;
+    g8E0D5B0 = 0x8E0D5B0;
+    g8E0D5C7 = 0x8E0D5C7;
+    g8E0D617 = 0x8E0D617;
+    g80F30E0 = 0x80F30E0;
+    g8E0D668 = 0x8E0D668;
+    g8E0D753 = 0x8E0D753;
+    g80F13D0 = 0x80F13D0;
+    g80B9620 = 0x80B9620;
+    g80B96AA = 0x80B96AA;
+    g8E00AEC = 0x8E00AEC;
+    g8E00AF7 = 0x8E00AF7;
+    g8E00B02 = 0x8E00B02;
+    g8E00B0D = 0x8E00B0D;
+    g8E00B18 = 0x8E00B18;
+    g8E00B23 = 0x8E00B23;
+    g80B96B8 = 0x80B96B8;
+    g80B96BC = 0x80B96BC;
+    g80BE630 = 0x80BE630;
+    g80BE631 = 0x80BE631;
+    g80BE632 = 0x80BE632;
+    g8DF8030 = 0x8DF8030;
+
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :

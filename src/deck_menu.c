@@ -44,6 +44,7 @@ void sub_801D600 (void);
 void sub_801D678 (void);
 void sub_801F614 (void);
 u16 sub_801DAF8 (u8);
+void sub_80573D0 (u8*, u16);
 
 
 extern u16 gUnk2020DFC;
@@ -252,6 +253,7 @@ void sub_801D4B8 (void) {
         break;
       default:
         sub_8008220();
+        break;
     }
   }
   end:
@@ -1532,3 +1534,43 @@ void sub_801E7D4 (u16 unused_CardId, u32* arg1) {
   buffer[r3] = '\0';
   sub_8020A3C(arg1, buffer, 0x901);
 }
+
+void sub_801E86C (u16 arg0, u8 arg1) {
+  struct OamData* oam = (struct OamData*)(gOamBuffer + arg1 * 4);
+  if (arg0)
+    sub_80573D0(gBgVram.cbb0 + (arg1 % 4 << 8 | (arg1 / 4 << 12) + 0x10400), arg0);
+  oam->shape = 0;
+  oam->size = 2;
+  if (arg1 == 2)
+    oam->objMode = 1;
+  else
+    oam->objMode = 0;
+  oam->bpp = 1;
+  oam->priority = 2;
+  oam->y = arg1 * 32 + 12;
+  oam->tileNum = arg1 % 4 * 8 + 32 + arg1 / 4 * 128;
+  oam->x = 210;
+}
+
+/*
+void sub_801E928 (void) {
+  u8 i, j;
+  for (i = 0; i < 5; i++) {
+    //switch ()?
+    u32 r2 = 0;
+    if (i > 1)
+      r2 = 2;
+    if (i == 2)
+      r2 = 1;
+    for (j = 0; j < 3; j++) {
+      ip = i * 3 + (r2 + 3) * 32
+      sp = i * 3 + r2 + 3 * 32 + 0x7C15
+      sp8 = i * 48
+      sb = 7c14
+    }
+  }
+}
+*/
+
+
+
