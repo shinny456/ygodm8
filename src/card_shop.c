@@ -1732,7 +1732,7 @@ void sub_802E1D8 (void) {
 }
 /*
 extern struct OamData gOamBuffer[];
-void sub_8020A3C(void *, void *, u16);
+void CopyStringTilesToVRAMBuffer(void *, void *, u16);
 extern u8 g80CDA60[];
 
 void sub_802E270 (void) {
@@ -1749,7 +1749,7 @@ void sub_802E270 (void) {
   oam[5 * 4 + 2] = 0xC00;
   oam[5 * 4 + 3] = 0;
 
-  sub_8020A3C(((struct Cbb*)&gBgVram)->cbb3 + 0x1000, g80CDA60, 0x901);
+  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x1000, g80CDA60, 0x901);
 
   for (i = 0; i < 20; i++)
     CpuCopy16(g80CAF24[i], ((struct Sbb*)&gBgVram)->sbb16[i], 60);
@@ -1783,7 +1783,7 @@ void sub_802E270 (void) {
 	ldr r0, _0802E2F0\n\
 	ldr r1, _0802E2F4\n\
 	ldr r2, _0802E2F8\n\
-	bl sub_8020A3C\n\
+	bl CopyStringTilesToVRAMBuffer\n\
 	movs r5, #0\n\
 _0802E29A:\n\
 	ldr r0, _0802E2FC\n\
@@ -2027,7 +2027,7 @@ void sub_802E72C (void) {
 void CopyStarTileToBuffer (void*);
 void CopySwordTileToBuffer (void*);
 void CopyShieldTileToBuffer (void*);
-void sub_8020A3C (void*, void*, u16);
+void CopyStringTilesToVRAMBuffer (void*, void*, u16);
 extern u8 g80CDC28[];
 extern u8 g80CDC50[];
 extern u8 g80CDCF0[];
@@ -2051,12 +2051,12 @@ void sub_802E868 (void) {
   CopyStarTileToBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x3400);
   CopySwordTileToBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x3420);
   CopyShieldTileToBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x3440);
-  sub_8020A3C(((struct Cbb*)&gBgVram)->cbb3 + 0x2780, g80CDC28, 0x801); // Cost
-  sub_8020A3C(((struct Cbb*)&gBgVram)->cbb3 + 0x2800, g80CDC50, 0x801);
-  sub_8020A3C(((struct Cbb*)&gBgVram)->cbb3 + 0x2B00, g80CDCF0, 0x901);
-  sub_8020A3C(((struct Cbb*)&gBgVram)->cbb3 + 0x3000, g80CDD78, 0x801);
-  sub_8020A3C(((struct Cbb*)&gBgVram)->cbb3 + 0x32A0, g80CDE10, 0x1801);
-  sub_8020A3C(((struct Cbb*)&gBgVram)->cbb3 + 0x3460, g80CDE28, 0x801);
+  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x2780, g80CDC28, 0x801); // Cost
+  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x2800, g80CDC50, 0x801);
+  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x2B00, g80CDCF0, 0x901);
+  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x3000, g80CDD78, 0x801);
+  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x32A0, g80CDE10, 0x1801);
+  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x3460, g80CDE28, 0x801);
 
   for (i = 0; i < 20; i++)
     CpuCopy16(g80CB3D4[i], gBgVram.sbb1F[i], 60);
@@ -2816,7 +2816,7 @@ void sub_802F5B0 (void) {
   }
   for (; r5 < 16; r4++, r5++)
     buffer[r4] = 0;
-  sub_8020A3C(gBgVram.sbb1E[24] + 16, buffer, 0x801);
+  CopyStringTilesToVRAMBuffer(gBgVram.sbb1E[24] + 16, buffer, 0x801);
 }
 
 void sub_802F66C (void) {
@@ -3112,11 +3112,11 @@ extern u32 g80CD6C0[];
 extern u32 g80CD778[];
 
 void sub_802FC34 (void) {
-  sub_8020A3C(((struct Cbb*)&gBgVram)->cbb3 + 0x1000, g80CD6C0, 0x901);
+  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x1000, g80CD6C0, 0x901);
 }
 
 void sub_802FC50 (void) {
-  sub_8020A3C(((struct Cbb*)&gBgVram)->cbb3 + 0x1000, g80CD778, 0x901);
+  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x1000, g80CD778, 0x901);
 }
 
 void sub_802FC6C (void) {
@@ -3127,7 +3127,7 @@ void sub_802FC6C (void) {
 }
 
 void sub_802FC88 (void) {
-  sub_8020A3C(((struct Cbb*)&gBgVram)->cbb3 + 0x1000, g80CD778, 0x901);
+  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x1000, g80CD778, 0x901);
   sub_803015C();
   sub_80301A8();
   REG_DISPCNT &= 0xFEFF;
@@ -3434,7 +3434,7 @@ void sub_803028C (void) {
 extern u8 g80CD830[];
 
 void sub_80302F0 (void) {
-  sub_8020A3C(((struct Cbb*)&gBgVram)->cbb3 + 0x1000, g80CD830, 0x901);
+  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x1000, g80CD830, 0x901);
 }
 
 

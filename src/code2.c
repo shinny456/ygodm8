@@ -8,9 +8,9 @@
 
 void sub_801BC4C (void);
 void sub_801BC58 (void);
-void sub_803EDB4 (void);
-void sub_803EDD8 (void);
-void sub_803EE20 (void);
+void ClearCbb0Buffer (void);
+void ClearCbb1Buffer (void);
+void ClearCbb3Buffer (void);
 void sub_801B808 (void);
 void sub_801B83C (void);
 
@@ -115,7 +115,7 @@ void sub_800E11C(void)
     CopyCard(gZones[row3][col3], gZones[row2][col2]);
     ClearZone(gZones[row2][col2]);
     sub_80404F0(0);
-    sub_8040540(4);
+    LockMonsterCardsInRow(4);
 }
 
 void sub_800E170(void)
@@ -128,7 +128,7 @@ void sub_800E170(void)
     CopyCard(gZones[row3][col3], gZones[row2][col2]);
     ClearZone(gZones[row2][col2]);
     sub_80404F0(0);
-    sub_8040540(4);
+    LockMonsterCardsInRow(4);
 }
 
 void sub_800E1C4(void)
@@ -142,7 +142,7 @@ void sub_800E1C4(void)
     CopyCard(gZones[row3][col3], gZones[row2][col2]);
     ClearZone(gZones[row2][col2]);
     sub_80404F0(0);
-    sub_8040540(4);
+    LockMonsterCardsInRow(4);
 }
 
 void sub_800E22C(void)
@@ -156,7 +156,7 @@ void sub_800E22C(void)
     CopyCard(gZones[row3][col3], gZones[row2][col2]);
     ClearZone(gZones[row2][col2]);
     sub_80404F0(0);
-    sub_8040540(4);
+    LockMonsterCardsInRow(4);
 }
 
 void sub_800E294(void)
@@ -173,7 +173,7 @@ void sub_800E294(void)
     CopyCard(gZones[row3][col3], gZones[row2][col2]);
     ClearZone(gZones[row2][col2]);
     sub_80404F0(0);
-    sub_8040540(4);
+    LockMonsterCardsInRow(4);
 }
 
 void sub_800E324(void)
@@ -190,7 +190,7 @@ void sub_800E324(void)
     CopyCard(gZones[row3][col3], gZones[row2][col2]);
     ClearZone(gZones[row2][col2]);
     sub_80404F0(0);
-    sub_8040540(4);
+    LockMonsterCardsInRow(4);
 }
 
 void sub_800E3B4(void)
@@ -210,7 +210,7 @@ void sub_800E3B4(void)
     CopyCard(gZones[row3][col3], gZones[row2][col2]);
     ClearZone(gZones[row2][col2]);
     sub_80404F0(0);
-    sub_8040540(4);
+    LockMonsterCardsInRow(4);
 }
 
 void sub_800E460(void)
@@ -230,7 +230,7 @@ void sub_800E460(void)
     CopyCard(gZones[row3][col3], gZones[row2][col2]);
     ClearZone(gZones[row2][col2]);
     sub_80404F0(0);
-    sub_8040540(4);
+    LockMonsterCardsInRow(4);
 }
 
 void sub_800E50C(void)
@@ -319,9 +319,9 @@ void sub_800E734(void)
     gZones[row2][col2]->isDefending = FALSE;
     gZones[row2][col2]->isFaceUp = TRUE;
     gZones[row2][col2]->isLocked = TRUE;
-    gUnk020245A0.unk2 = row2;
-    gUnk020245A0.unk3 = col2;
-    gUnk020245A0.id = gZones[row2][col2]->id;
+    gTrapEffectData.unk2 = row2;
+    gTrapEffectData.unk3 = col2;
+    gTrapEffectData.id = gZones[row2][col2]->id;
     sub_80586DC();
     sub_80581DC();
 }
@@ -334,9 +334,9 @@ void sub_800E794(void)
     gZones[row2][col2]->isDefending = FALSE;
     gZones[row2][col2]->isFaceUp = TRUE;
     gZones[row2][col2]->isLocked = TRUE;
-    gUnk020245A0.unk2 = row2;
-    gUnk020245A0.unk3 = col2;
-    gUnk020245A0.id = gZones[row2][col2]->id;
+    gTrapEffectData.unk2 = row2;
+    gTrapEffectData.unk3 = col2;
+    gTrapEffectData.id = gZones[row2][col2]->id;
     sub_80586DC();
     sub_80581DC();
 }
@@ -349,9 +349,9 @@ void sub_800E7F4(void)
     gZones[row2][col2]->isDefending = FALSE;
     gZones[row2][col2]->isFaceUp = TRUE;
     gZones[row2][col2]->isLocked = TRUE;
-    gUnk020245A0.unk2 = row2;
-    gUnk020245A0.unk3 = col2;
-    gUnk020245A0.id = gZones[row2][col2]->id;
+    gTrapEffectData.unk2 = row2;
+    gTrapEffectData.unk3 = col2;
+    gTrapEffectData.id = gZones[row2][col2]->id;
     sub_80586DC();
     sub_80581DC();
 }
@@ -364,9 +364,9 @@ void sub_800E854(void)
     gZones[row2][col2]->isDefending = FALSE;
     gZones[row2][col2]->isFaceUp = TRUE;
     gZones[row2][col2]->isLocked = TRUE;
-    gUnk020245A0.unk2 = row2;
-    gUnk020245A0.unk3 = col2;
-    gUnk020245A0.id = gZones[row2][col2]->id;
+    gTrapEffectData.unk2 = row2;
+    gTrapEffectData.unk3 = col2;
+    gTrapEffectData.id = gZones[row2][col2]->id;
     sub_80586DC();
     sub_80581DC();
 }
@@ -384,7 +384,7 @@ void sub_800E8B4(void)
     gMonEffect.zone = col2;
     ActivateMonEffect();
     if (gNotSure[TURN_PLAYER]->unkThree)
-        sub_8040540(4);
+        LockMonsterCardsInRow(4);
 }
 
 void sub_800E928(void){}
@@ -498,12 +498,12 @@ void sub_800EB40(void)
     u8 row3 = gUnk2021C00.unk3 >> 4;
     u8 col3 = gUnk2021C00.unk3 & 0xF;
 
-    gUnk2024260.id = gZones[row2][col2]->id;
-    gUnk2024260.unk4 = row2;
-    gUnk2024260.unk5 = col2;
-    gUnk2024260.unk2 = row3;
-    gUnk2024260.unk3 = col3;
-    ActivateSpellEffect();
+    gSpellEffectData.id = gZones[row2][col2]->id;
+    gSpellEffectData.unk4 = row2;
+    gSpellEffectData.unk5 = col2;
+    gSpellEffectData.unk2 = row3;
+    gSpellEffectData.unk3 = col3;
+    TryActivatingSpellEffect();
     ClearZone(gZones[row2][col2]);
 }
 
@@ -514,12 +514,12 @@ void sub_800EB8C(void)
     u8 row3 = gUnk2021C00.unk3 >> 4;
     u8 col3 = gUnk2021C00.unk3 & 0xF;
 
-    gUnk2024260.id = gZones[row2][col2]->id;
-    gUnk2024260.unk4 = row2;
-    gUnk2024260.unk5 = col2;
-    gUnk2024260.unk2 = row3;
-    gUnk2024260.unk3 = col3;
-    ActivateSpellEffect();
+    gSpellEffectData.id = gZones[row2][col2]->id;
+    gSpellEffectData.unk4 = row2;
+    gSpellEffectData.unk5 = col2;
+    gSpellEffectData.unk2 = row3;
+    gSpellEffectData.unk3 = col3;
+    TryActivatingSpellEffect();
     ClearZone(gZones[row2][col2]);
 }
 
@@ -550,12 +550,12 @@ void sub_800EC68(void)
     u8 row2 = gUnk2021C00.unk2 >> 4;
     u8 col2 = gUnk2021C00.unk2 & 0xF;
 
-    gUnk2024260.id = gZones[row2][col2]->id;
-    gUnk2024260.unk2 = row2;
-    gUnk2024260.unk3 = col2;
-    ActivateSpellEffect();
+    gSpellEffectData.id = gZones[row2][col2]->id;
+    gSpellEffectData.unk2 = row2;
+    gSpellEffectData.unk3 = col2;
+    TryActivatingSpellEffect();
     if (gNotSure[TURN_PLAYER]->unkThree)
-        sub_8040540(4);
+        LockMonsterCardsInRow(4);
     ClearZone(gZones[row2][col2]);
 }
 
@@ -564,10 +564,10 @@ void sub_800ECC0(void)
     u8 row2 = gUnk2021C00.unk2 >> 4;
     u8 col2 = gUnk2021C00.unk2 & 0xF;
 
-    gUnk2024260.id = gZones[row2][col2]->id;
-    gUnk2024260.unk2 = row2;
-    gUnk2024260.unk3 = col2;
-    ActivateSpellEffect();
+    gSpellEffectData.id = gZones[row2][col2]->id;
+    gSpellEffectData.unk2 = row2;
+    gSpellEffectData.unk3 = col2;
+    TryActivatingSpellEffect();
     ClearZone(gZones[row2][col2]);
 }
 
@@ -598,15 +598,15 @@ void sub_800ED48(void)
     row5 = gUnk2021C00.unk5 >> 4;
     col5 = gUnk2021C00.unk5 & 0xF;
 
-    if (sub_8021D00(gZones[row2][col2]->id) == 2)
+    if (GetRitualNumTributes(gZones[row2][col2]->id) == 2)
     {
         ClearZoneAndSendMonToGraveyard(gZones[row4][col4], 0);
         ClearZoneAndSendMonToGraveyard(gZones[row5][col5], 0);
     }
-    gUnk2024260.id = gZones[row2][col2]->id;
-    gUnk2024260.unk2 = row2;
-    gUnk2024260.unk3 = col2;
-    ActivateSpellEffect();
+    gSpellEffectData.id = gZones[row2][col2]->id;
+    gSpellEffectData.unk2 = row2;
+    gSpellEffectData.unk3 = col2;
+    TryActivatingSpellEffect();
     ClearZone(gZones[row2][col2]);
 }
 
@@ -1062,7 +1062,7 @@ void sub_800F640(void)
         gUnk_8DFF6A4->unk2298 = 0x7F3D9A1C;
     else if (gZones[row3][col3]->isLocked)
         gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-    else if (sub_803FCBC(gZones[row3][col3]->id) != 1)
+    else if (GetTypeGroup(gZones[row3][col3]->id) != 1)
         gUnk_8DFF6A4->unk2298 = 0x7F3D9A1C;
     else
     {
@@ -1092,7 +1092,7 @@ void sub_800F830 (void) {
     gUnk_8DFF6A4->unk2298 = 0x7F1D8EFC;
   else if (gZones[row3][col3]->isLocked)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (sub_803FCBC(gZones[row3][col3]->id) != 1)
+  else if (GetTypeGroup(gZones[row3][col3]->id) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7F1D8EFC;
   else {
     u16 atk;
@@ -1128,7 +1128,7 @@ void sub_800F95C (void) {
     gUnk_8DFF6A4->unk2298 = 0x7F3D9A1C;
   else if (gZones[row3][col3]->isLocked)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (sub_803FCBC(gZones[row3][col3]->id) != 1)
+  else if (GetTypeGroup(gZones[row3][col3]->id) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7F3D9A1C;
   else {
     u16 atk;
@@ -1436,7 +1436,7 @@ void sub_8010620 (void) {
       return;
     }
   }
-  if (!sub_80437D4(1)) {
+  if (!GetNumCardsInRow(1)) {
     if (atk > def)
       gUnk_8DFF6A4->unk2298 = 0x7EDE89FD;
     else
@@ -1492,7 +1492,7 @@ void sub_8010798 (void) {
       return;
     }
   }
-  if (!sub_80437D4(1)) {
+  if (!GetNumCardsInRow(1)) {
     if (atk > def)
       gUnk_8DFF6A4->unk2298 = 0x7EDE89FD;
     else
@@ -1618,8 +1618,8 @@ void sub_8010B08 (void) {
     gUnk_8DFF6A4->unk2298 = temp;
   }
   else {
-    int a = sub_80437D4(row2);
-    if (a > sub_80437D4(row3))
+    int a = GetNumCardsInRow(row2);
+    if (a > GetNumCardsInRow(row3))
       gUnk_8DFF6A4->unk2298 += 0x7EEE8FA5;
     else
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1688,8 +1688,8 @@ void sub_8010D40 (void) {
     gUnk_8DFF6A4->unk2298 = temp;
   }
   else {
-    int a = sub_80437D4(row2);
-    if (a > sub_80437D4(row3))
+    int a = GetNumCardsInRow(row2);
+    if (a > GetNumCardsInRow(row3))
       gUnk_8DFF6A4->unk2298 += 0x7EEE8FA5;
     else
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -5202,7 +5202,7 @@ void sub_80169FC (void) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
-  if (sub_8043810(1)) {
+  if (GetNumFaceUpCardsInRow(1)) {
     u8 zone = sub_80430D8(gZones[1]);
     gStatMod.card = gZones[1][zone]->id;
     gStatMod.field = gDuel.field;
@@ -7155,8 +7155,7 @@ void sub_8019F60 (void);
 void ExodiaWinCondition (void);
 void WinConditionFINAL (void);
 
-// AI main
-void sub_8019D84 (void) {
+void AI_Main (void) {
   u8 i;
   u16 temp;
   sub_802B6A8();
@@ -7169,7 +7168,7 @@ void sub_8019D84 (void) {
     u16 i;
     sub_8019D60();
     sub_800F108();
-    for (i = 0, gUnk_02021C08 = 1; i < 0x3B2; i++) {
+    for (i = 0, gHideEffectText = 1; i < 0x3B2; i++) {
       sub_8019D24(i);
       if (sub_801A08C() == 1) {
         sub_800EE24(); // init work area
@@ -7180,7 +7179,7 @@ void sub_8019D84 (void) {
         sub_800EE94(); // update main duel status data
       }
     }
-    gUnk_02021C08 = 0;
+    gHideEffectText = 0;
     temp = sub_800EF0C();
     if (temp == 0)
       break;
@@ -7486,11 +7485,11 @@ u8 sub_801A784 (void) {
   if (sub_8025534(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
     SetCardInfo(gZones[row2][col2]->id);
     if (!gCardInfo.unk1E) {
-      gUnk020245A0.unk2 = row2;
-      gUnk020245A0.unk3 = col2;
-      gUnk020245A0.id = gZones[row2][col2]->id;
+      gTrapEffectData.unk2 = row2;
+      gTrapEffectData.unk3 = col2;
+      gTrapEffectData.id = gZones[row2][col2]->id;
       if (sub_80586DC() != 1 && sub_80436EC(gZones[row2][col2]) == 1 &&
-          !sub_80437D4(1))
+          !GetNumCardsInRow(1))
         return 1;
     }
   }
@@ -7503,11 +7502,11 @@ u8 sub_801A814 (void) {
   if (sub_8025534(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
     SetCardInfo(gZones[row2][col2]->id);
     if (gCardInfo.unk1E) {
-      gUnk020245A0.unk2 = row2;
-      gUnk020245A0.unk3 = col2;
-      gUnk020245A0.id = gZones[row2][col2]->id;
+      gTrapEffectData.unk2 = row2;
+      gTrapEffectData.unk3 = col2;
+      gTrapEffectData.id = gZones[row2][col2]->id;
       if (sub_80586DC() != 1 && sub_80436EC(gZones[row2][col2]) == 1 &&
-          !sub_80437D4(1))
+          !GetNumCardsInRow(1))
         return 1;
     }
   }
@@ -7522,11 +7521,11 @@ u8 sub_801A8A4 (void) {
   if (sub_8025534(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
     SetCardInfo(gZones[row2][col2]->id);
     if (!gCardInfo.unk1E) {
-      gUnk020245A0.unk2 = row2;
-      gUnk020245A0.unk3 = col2;
-      gUnk020245A0.id = gZones[row2][col2]->id;
+      gTrapEffectData.unk2 = row2;
+      gTrapEffectData.unk3 = col2;
+      gTrapEffectData.id = gZones[row2][col2]->id;
       if (sub_80586DC() != 1 && sub_80436EC(gZones[row2][col2]) == 1 &&
-          gZones[row3][col3]->id != CARD_NONE && sub_803FCBC(gZones[row3][col3]->id) == 1 &&
+          gZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gZones[row3][col3]->id) == 1 &&
           gZones[row3][col3]->isFaceUp)
         return 1;
     }
@@ -7542,11 +7541,11 @@ u8 sub_801A974 (void) {
   if (sub_8025534(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
     SetCardInfo(gZones[row2][col2]->id);
     if (gCardInfo.unk1E) {
-      gUnk020245A0.unk2 = row2;
-      gUnk020245A0.unk3 = col2;
-      gUnk020245A0.id = gZones[row2][col2]->id;
+      gTrapEffectData.unk2 = row2;
+      gTrapEffectData.unk3 = col2;
+      gTrapEffectData.id = gZones[row2][col2]->id;
       if (sub_80586DC() != 1 && sub_80436EC(gZones[row2][col2]) == 1 &&
-          gZones[row3][col3]->id != CARD_NONE && sub_803FCBC(gZones[row3][col3]->id) == 1 &&
+          gZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gZones[row3][col3]->id) == 1 &&
           gZones[row3][col3]->isFaceUp)
         return 1;
     }
@@ -7562,11 +7561,11 @@ u8 sub_801AA44 (void) {
   u8 col3 = gUnk2021C00.unk3 & 0xF;
   SetCardInfo(gZones[row2][col2]->id);
   if (!gCardInfo.unk1E && sub_8025534(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
-    gUnk020245A0.unk2 = row2;
-    gUnk020245A0.unk3 = col2;
-    gUnk020245A0.id = gZones[row2][col2]->id;
+    gTrapEffectData.unk2 = row2;
+    gTrapEffectData.unk3 = col2;
+    gTrapEffectData.id = gZones[row2][col2]->id;
     if (sub_80586DC() != 1 && sub_80436EC(gZones[row2][col2]) == 1 &&
-        gZones[row3][col3]->id != CARD_NONE && sub_803FCBC(gZones[row3][col3]->id) == 1 &&
+        gZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gZones[row3][col3]->id) == 1 &&
         !gZones[row3][col3]->isFaceUp)
       return 1;
   }
@@ -7643,7 +7642,7 @@ u8 sub_801AA44 (void) {
 	ldrh r0, [r1]\n\
 	cmp r0, #0\n\
 	beq _0801AB04\n\
-	bl sub_803FCBC\n\
+	bl GetTypeGroup\n\
 	cmp r0, #1\n\
 	bne _0801AB04\n\
 	ldr r0, [r4]\n\
@@ -7659,7 +7658,7 @@ _0801AAF0: .4byte 0x02021C00\n\
 _0801AAF4: .4byte gZones\n\
 _0801AAF8: .4byte gCardInfo\n\
 _0801AAFC: .4byte gNotSure\n\
-_0801AB00: .4byte gUnk020245A0\n\
+_0801AB00: .4byte gTrapEffectData\n\
 _0801AB04:\n\
 	movs r0, #0\n\
 _0801AB06:\n\
@@ -7741,7 +7740,7 @@ u8 sub_801AB14 (void) {
 	ldrh r0, [r1]\n\
 	cmp r0, #0\n\
 	beq _0801ABD4\n\
-	bl sub_803FCBC\n\
+	bl GetTypeGroup\n\
 	cmp r0, #1\n\
 	bne _0801ABD4\n\
 	ldr r0, [r4]\n\
@@ -7775,11 +7774,11 @@ u8 sub_801ABE4 (void) {
   if (sub_8025534(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
     SetCardInfo(gZones[row2][col2]->id);
     if (!gCardInfo.unk1E) {
-      gUnk020245A0.unk2 = row2;
-      gUnk020245A0.unk3 = col2;
-      gUnk020245A0.id = gZones[row2][col2]->id;
+      gTrapEffectData.unk2 = row2;
+      gTrapEffectData.unk3 = col2;
+      gTrapEffectData.id = gZones[row2][col2]->id;
       if (sub_80586DC() == 1 && sub_80436EC(gZones[row2][col2]) == 1 &&
-          !sub_80437D4(1))
+          !GetNumCardsInRow(1))
         return 1;
     }
   }
@@ -7792,11 +7791,11 @@ u8 sub_801AC74 (void) {
   if (sub_8025534(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
     SetCardInfo(gZones[row2][col2]->id);
     if (gCardInfo.unk1E) {
-      gUnk020245A0.unk2 = row2;
-      gUnk020245A0.unk3 = col2;
-      gUnk020245A0.id = gZones[row2][col2]->id;
+      gTrapEffectData.unk2 = row2;
+      gTrapEffectData.unk3 = col2;
+      gTrapEffectData.id = gZones[row2][col2]->id;
       if (sub_80586DC() == 1 && sub_80436EC(gZones[row2][col2]) == 1 &&
-          !sub_80437D4(1))
+          !GetNumCardsInRow(1))
         return 1;
     }
   }
@@ -7811,11 +7810,11 @@ u8 sub_801AD04 (void) {
   if (sub_8025534(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
     SetCardInfo(gZones[row2][col2]->id);
     if (!gCardInfo.unk1E) {
-      gUnk020245A0.unk2 = row2;
-      gUnk020245A0.unk3 = col2;
-      gUnk020245A0.id = gZones[row2][col2]->id;
+      gTrapEffectData.unk2 = row2;
+      gTrapEffectData.unk3 = col2;
+      gTrapEffectData.id = gZones[row2][col2]->id;
       if (sub_80586DC() == 1 && sub_80436EC(gZones[row2][col2]) == 1 &&
-          gZones[row3][col3]->id != CARD_NONE && sub_803FCBC(gZones[row3][col3]->id) == 1 &&
+          gZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gZones[row3][col3]->id) == 1 &&
           gZones[row3][col3]->isFaceUp)
         return 1;
     }
@@ -7831,11 +7830,11 @@ u8 sub_801ADD4 (void) {
   if (sub_8025534(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
     SetCardInfo(gZones[row2][col2]->id);
     if (gCardInfo.unk1E) {
-      gUnk020245A0.unk2 = row2;
-      gUnk020245A0.unk3 = col2;
-      gUnk020245A0.id = gZones[row2][col2]->id;
+      gTrapEffectData.unk2 = row2;
+      gTrapEffectData.unk3 = col2;
+      gTrapEffectData.id = gZones[row2][col2]->id;
       if (sub_80586DC() == 1 && sub_80436EC(gZones[row2][col2]) == 1 &&
-          gZones[row3][col3]->id != CARD_NONE && sub_803FCBC(gZones[row3][col3]->id) == 1 &&
+          gZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gZones[row3][col3]->id) == 1 &&
           gZones[row3][col3]->isFaceUp)
         return 1;
     }
@@ -7851,11 +7850,11 @@ u8 sub_801AEA4 (void) {
   u8 col3 = gUnk2021C00.unk3 & 0xF;
   SetCardInfo(gZones[row2][col2]->id);
   if (!gCardInfo.unk1E && sub_8025534(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
-    gUnk020245A0.unk2 = row2;
-    gUnk020245A0.unk3 = col2;
-    gUnk020245A0.id = gZones[row2][col2]->id;
+    gTrapEffectData.unk2 = row2;
+    gTrapEffectData.unk3 = col2;
+    gTrapEffectData.id = gZones[row2][col2]->id;
     if (sub_80586DC() != 1 && sub_80436EC(gZones[row2][col2]) == 1 &&
-        gZones[row3][col3]->id != CARD_NONE && sub_803FCBC(gZones[row3][col3]->id) == 1 &&
+        gZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gZones[row3][col3]->id) == 1 &&
         !gZones[row3][col3]->isFaceUp)
       return 1;
   }
@@ -7932,7 +7931,7 @@ u8 sub_801AEA4 (void) {
 	ldrh r0, [r1]\n\
 	cmp r0, #0\n\
 	beq _0801AF64\n\
-	bl sub_803FCBC\n\
+	bl GetTypeGroup\n\
 	cmp r0, #1\n\
 	bne _0801AF64\n\
 	ldr r0, [r4]\n\
@@ -7948,7 +7947,7 @@ _0801AF50: .4byte 0x02021C00\n\
 _0801AF54: .4byte gZones\n\
 _0801AF58: .4byte gCardInfo\n\
 _0801AF5C: .4byte gNotSure\n\
-_0801AF60: .4byte gUnk020245A0\n\
+_0801AF60: .4byte gTrapEffectData\n\
 _0801AF64:\n\
 	movs r0, #0\n\
 _0801AF66:\n\
@@ -8030,7 +8029,7 @@ u8 sub_801AF74 (void) {
 	ldrh r0, [r1]\n\
 	cmp r0, #0\n\
 	beq _0801B034\n\
-	bl sub_803FCBC\n\
+	bl GetTypeGroup\n\
 	cmp r0, #1\n\
 	bne _0801B034\n\
 	ldr r0, [r4]\n\
@@ -8164,7 +8163,7 @@ u8 sub_801B1B0 (void) {
 	.align 2, 0\n\
 _0801B218: .4byte 0x02021C00\n\
 _0801B21C: .4byte gZones\n\
-_0801B220: .4byte gUnk020245A0\n\
+_0801B220: .4byte gTrapEffectData\n\
 _0801B224:\n\
 	movs r0, #0\n\
 _0801B226:\n\
@@ -8230,7 +8229,7 @@ u8 sub_801B234 (void) {
 	.align 2, 0\n\
 _0801B29C: .4byte 0x02021C00\n\
 _0801B2A0: .4byte gZones\n\
-_0801B2A4: .4byte gUnk020245A0\n\
+_0801B2A4: .4byte gTrapEffectData\n\
 _0801B2A8:\n\
 	movs r0, #0\n\
 _0801B2AA:\n\
@@ -8256,7 +8255,7 @@ u8 sub_801B2B8 (void) {
 u8 sub_801B304 (void) {
   u8 row2 = gUnk2021C00.unk2 >> 4;
   u8 col2 = gUnk2021C00.unk2 & 0xF;
-  if (sub_803FCBC(gZones[row2][col2]->id) == 2 && sub_803FCEC(gZones[row2][col2]->id) == 2) {
+  if (GetTypeGroup(gZones[row2][col2]->id) == 2 && GetSpellType(gZones[row2][col2]->id) == 2) {
     SetCardInfo(gZones[row2][col2]->id);
     if (gCardInfo.unk1E)
       return 1;
@@ -8268,9 +8267,9 @@ u8 sub_801B35C (void) {
   u8 row2 = gUnk2021C00.unk2 >> 4;
   u8 col2 = gUnk2021C00.unk2 & 0xF;
   if (sub_8043790(gZones[row2][col2]) == 1) {
-    gUnk020245A0.unk2 = row2;
-    gUnk020245A0.unk3 = col2;
-    gUnk020245A0.id = gZones[row2][col2]->id;
+    gTrapEffectData.unk2 = row2;
+    gTrapEffectData.unk3 = col2;
+    gTrapEffectData.id = gZones[row2][col2]->id;
     if (sub_80586DC() != 1)
       return 1;
   }
@@ -8281,9 +8280,9 @@ u8 sub_801B3AC (void) {
   u8 row2 = gUnk2021C00.unk2 >> 4;
   u8 col2 = gUnk2021C00.unk2 & 0xF;
   if (sub_8043790(gZones[row2][col2]) == 1) {
-    gUnk020245A0.unk2 = row2;
-    gUnk020245A0.unk3 = col2;
-    gUnk020245A0.id = gZones[row2][col2]->id;
+    gTrapEffectData.unk2 = row2;
+    gTrapEffectData.unk3 = col2;
+    gTrapEffectData.id = gZones[row2][col2]->id;
     if (sub_80586DC() == 1)
       return 1;
   }
@@ -8334,8 +8333,8 @@ u8 sub_801B56C (void) {
   u8 row2 = gUnk2021C00.unk2 >> 4;
   u8 col2 = gUnk2021C00.unk2 & 0xF;
   SetCardInfo(gZones[row2][col2]->id);
-  if (gCardInfo.unk1E && sub_803FCBC(gZones[row2][col2]->id) == 2)
-    sub_803FCEC(gZones[row2][col2]->id);
+  if (gCardInfo.unk1E && GetTypeGroup(gZones[row2][col2]->id) == 2) // TYPE_GROUP_SPELL
+    GetSpellType(gZones[row2][col2]->id);
   return 0;
 }
 
@@ -8376,9 +8375,9 @@ void sub_801B66C (void) {
   u8 i;
   if (!gUnk2023EA0.unk18)
     return;
-  sub_803EDB4();
-  sub_803EDD8();
-  sub_803EE20();
+  ClearCbb0Buffer();
+  ClearCbb1Buffer();
+  ClearCbb3Buffer();
   sub_801B808();
   sub_801B83C();
   sub_801BAEC(1, 0);
@@ -8630,11 +8629,11 @@ void sub_801BB7C (void) {
 }
 
 void sub_801BC00 (void) {
-  struct Unk unk;
-  if (gUnk20241FC == 6) {
-    sub_80240BC(&unk);
-    unk.unk8 = 24;
-    sub_802408C(&unk);
+  struct DuelText duelText;
+  if (gDuelType == 6) {
+    sub_80240BC(&duelText);
+    duelText.textId = 24;
+    sub_802408C(&duelText);
     g2021D98 = 4;
     sub_8024548();
     do {
@@ -9200,13 +9199,13 @@ _0801C18A:\n\
 _0801C1D8: .4byte gE0061C");
 }
 
-extern u8 gUnk_2018800[];
+extern u8 gSharedMem[];
 void sub_801C2A0 (void);
 void sub_801C218 (void);
 
 
 void sub_801C1DC (u8 arg0) {
-  CpuFill16(0, gUnk_2018800, 0x4314);
+  CpuFill16(0, gSharedMem, 0x4314);
   if (!arg0)
     sub_801C2A0();
   else if (arg0 == 1)
@@ -10039,11 +10038,11 @@ void sub_801CEA8 (void) {
 }
 
 void sub_801CEBC (void) {
-  struct Unk unk;
-  if (gUnk20241FC == 6) {
-    sub_80240BC(&unk);
-    unk.unk8 = 24;
-    sub_802408C(&unk);
+  struct DuelText duelText;
+  if (gDuelType == 6) {
+    sub_80240BC(&duelText);
+    duelText.textId = 24;
+    sub_802408C(&duelText);
     g2021D98 = 5;
     sub_8024548();
     do {
@@ -10056,8 +10055,8 @@ void sub_801CEBC (void) {
 extern void (*gE00AA4[])(void);
 
 void sub_801CF08 (void) {
-  if (gUnk_02021C10.unkA < 11) {
-    gE00AA4[gUnk_02021C10.unkA]();
+  if (gCardEffectTextData.unkA < 11) {
+    gE00AA4[gCardEffectTextData.unkA]();
     sub_8022080();
   }
 }
@@ -10072,28 +10071,28 @@ extern u16 g89DC2DC[];
 
 void sub_801CF38 (void) {
   PlayMusic(0x41);
-  sub_8041CCC(gUnk_02021C10.unk0, gUnk_02021C10.unk2);
-  SetCardInfo(gUnk_02021C10.unk0);
+  sub_8041CCC(gCardEffectTextData.cardId, gCardEffectTextData.cardId2);
+  SetCardInfo(gCardEffectTextData.cardId);
   PlayMusic(g89DC020[gCardInfo.spellEffect]);
 }
 
 void sub_801CF74 (void) {
   PlayMusic(0x40);
-  sub_8041CCC(gUnk_02021C10.unk0, gUnk_02021C10.unk2);
-  SetCardInfo(gUnk_02021C10.unk0);
+  sub_8041CCC(gCardEffectTextData.cardId, gCardEffectTextData.cardId2);
+  SetCardInfo(gCardEffectTextData.cardId);
   PlayMusic(g89DC14C[gCardInfo.monsterEffect]);
 }
 
 void sub_801CFB0 (void) {
   PlayMusic(0x42);
-  sub_8041CCC(gUnk_02021C10.unk0, gUnk_02021C10.unk2);
-  SetCardInfo(gUnk_02021C10.unk0);
+  sub_8041CCC(gCardEffectTextData.cardId, gCardEffectTextData.cardId2);
+  SetCardInfo(gCardEffectTextData.cardId);
   PlayMusic(g89DC020[gCardInfo.spellEffect]);
 }
 
 void sub_801CFEC (void) {
   PlayMusic(0x42);
-  sub_8041D14(gUnk_02021C10.unk0, gUnk_02021C10.unk2);
+  sub_8041D14(gCardEffectTextData.cardId, gCardEffectTextData.cardId2);
 }
 
 void sub_8035020 (u16);
@@ -10101,51 +10100,51 @@ void sub_8035020 (u16);
 void sub_801D008 (void) {
   sub_8035020(4);
   PlayMusic(0x52);
-  sub_8041C94(g8FA2BAC[gUnk_02021C10.unk8], gUnk_02021C10.unk2, gUnk_02021C10.unk4, gUnk_02021C10.unk6, 0);
+  sub_8041C94(gDuelTextStrings[gCardEffectTextData.textId], gCardEffectTextData.cardId2, gCardEffectTextData.unk4, gCardEffectTextData.unk6, 0);
 }
 
 void sub_801D044 (void) {
   sub_8035020(4);
   PlayMusic(0x52);
-  sub_8041C94(g8FA2BAC[gUnk_02021C10.unk8], gUnk_02021C10.unk2, gUnk_02021C10.unk4, gUnk_02021C10.unk6, 0);
+  sub_8041C94(gDuelTextStrings[gCardEffectTextData.textId], gCardEffectTextData.cardId2, gCardEffectTextData.unk4, gCardEffectTextData.unk6, 0);
 }
 
 void sub_801D080 (void) {
-  sub_8041C94(g8FA2BAC[gUnk_02021C10.unk8], gUnk_02021C10.unk2, gUnk_02021C10.unk4, gUnk_02021C10.unk6, 0);
+  sub_8041C94(gDuelTextStrings[gCardEffectTextData.textId], gCardEffectTextData.cardId2, gCardEffectTextData.unk4, gCardEffectTextData.unk6, 0);
 }
 
 void sub_801D0B0 (void) {
   PlayMusic(0x41);
-  sub_8041C94(g8F9E35C[gUnk_02021C10.unk0], gUnk_02021C10.unk0, gUnk_02021C10.unk2, 0, 0);
-  SetCardInfo(gUnk_02021C10.unk0);
+  sub_8041C94(g8F9E35C[gCardEffectTextData.cardId], gCardEffectTextData.cardId, gCardEffectTextData.cardId2, 0, 0);
+  SetCardInfo(gCardEffectTextData.cardId);
   PlayMusic(g89DC23C[gCardInfo.unk1E]);
 }
 
 void sub_801D100 (void) {
   PlayMusic(0x41);
-  sub_8041C94(g8FA0964[gUnk_02021C10.unk0], gUnk_02021C10.unk0, gUnk_02021C10.unk2, 0, 0);
-  SetCardInfo(gUnk_02021C10.unk0);
+  sub_8041C94(g8FA0964[gCardEffectTextData.cardId], gCardEffectTextData.cardId, gCardEffectTextData.cardId2, 0, 0);
+  SetCardInfo(gCardEffectTextData.cardId);
   PlayMusic(g89DC2DC[gCardInfo.unk1E]);
 }
 
 void sub_801D150 (void) {
   PlayMusic(0x41);
-  sub_8041C94(g8FA2BAC[gUnk_02021C10.unk8], gUnk_02021C10.unk0, gUnk_02021C10.unk2, 0, 0);
+  sub_8041C94(gDuelTextStrings[gCardEffectTextData.textId], gCardEffectTextData.cardId, gCardEffectTextData.cardId2, 0, 0);
   PlayMusic(0x5A);
 }
 
 void sub_801D188 (u8 arg0) {
-  if (arg0 <= 10)
-    gUnk_02021C10.unkA = arg0;
+  if (arg0 < 11)
+    gCardEffectTextData.unkA = arg0;
   else
-    gUnk_02021C10.unkA = 0;
+    gCardEffectTextData.unkA = 0;
 }
 
-void sub_801D1A8 (void) {
-  gUnk_02021C10.unk0 = 0;
-  gUnk_02021C10.unk2 = 0;
-  gUnk_02021C10.unk4 = 0;
-  gUnk_02021C10.unk6 = 0;
-  gUnk_02021C10.unk8 = 0;
-  gUnk_02021C10.unkA = 0;
+void ResetCardEffectTextData (void) {
+  gCardEffectTextData.cardId = 0;
+  gCardEffectTextData.cardId2 = 0;
+  gCardEffectTextData.unk4 = 0;
+  gCardEffectTextData.unk6 = 0;
+  gCardEffectTextData.textId = 0;
+  gCardEffectTextData.unkA = 0;
 }

@@ -4,39 +4,81 @@
 #include "gba/macro.h"
 #include "gba/syscall.h"
 
-void sub_80257D8 (void);
-void sub_80258AC (void);
-u16 sub_8025768 (void);
-void sub_8025CBC (void);
-void sub_8025924 (void);
-void sub_8025CCC (void);
-void sub_8025E80 (void);
+static u16 sub_8025768 (void);
+static void sub_80257D8 (void);
+static void sub_80258AC (void);
+static void sub_8025924 (void);
+static void sub_80259B4 (void);
+static void sub_8025A44 (void);
+static void sub_8025AD4 (void);
+static void sub_8025B64 (void);
+static void sub_8025BA4 (void);
+static void sub_8025BC0 (void);
+static void sub_8025BDC (void);
+static void sub_8025BEC (void);
+static void sub_8025C08 (void);
+static void sub_8025C24 (void);
+static void sub_8025C34 (void);
+static u8 sub_8025C44 (void);
+static u8 GetNumpadCursorState (void);
+static void sub_8025C74 (void);
+static u32 sub_8025C88 (void);
+static void sub_8025CAC (void);
+static void sub_8025CBC (void);
+static void sub_8025CCC (void);
+static void sub_8025DB4 (void);
+static void sub_8025E80 (void);
+static void sub_8025F38 (void);
+static void sub_8025F64 (void);
+static void sub_8025FFC (void);
+static void sub_8026014 (void);
+static void sub_802601C (void);
+static void sub_8026060 (void);
+static void sub_8026070 (void);
+
+
+struct PasswordTerminal {
+  u8 unk0;
+  u8 numpadCursorState;
+  u8 filler2[2];
+  u8 unk4; //digit frame counter
+  u8 unk5; //numpad frame counter
+};
+extern struct PasswordTerminal *gPassTerminal;
+
+void LoadBlendingRegs (void);
+void LoadPalettes(void);
 void sub_80081DC (void (*)(void));
 void sub_8008220 (void);
-void sub_8026070 (void);
-void sub_80259B4 (void);
-void sub_8025A44 (void);
-void sub_8025AD4 (void);
-void sub_8025C24 (void);
-void sub_8025BA4 (void);
-void sub_8025C34 (void);
-void sub_8025BC0 (void);
-u8 GetNumpadCursorPos (void);
-u8 sub_8025C44 (void);
-void sub_8025CAC (void);
-void sub_8025BEC (void);
-void sub_8026014 (void);
-void sub_8025BDC (void);
-void sub_8025C08 (void);
-void sub_8025C74 (void);
-u32 sub_8025C88 (void);
-
+void sub_802618C (void);
+extern u8 g2021DC0[];
+extern u16 gBLDCNT;
+extern u16 gBLDY;
 extern u16 gUnk2020DFC;
 extern u16 gUnk2021DCC;
+extern u16 gOamBuffer[];
+
+struct Oam {
+  u16 unk0;
+  u16 *oam;
+};
+
+extern struct Oam *gE01248[];
+extern struct Oam *gE01328[];
+extern struct Oam *gE0119C[];
+
+extern u8 g80C1DD4[];
+void sub_800E074 (void*, void*, int);
+extern u16 g80C5840[];
+extern u32 g80C61B8[];
+extern u16 g80C58C0[][30];
+extern u16 g80C5EF0[];
+extern u16 g80C5D70[];
+
 
 u32 sub_80255A8 (void) {
-  u32 ret = 0; //bool32?
-  bool32 r4 = TRUE;
+  u32 ret = 0;
+  u32 r4 = TRUE;
 
   sub_80257D8();
   sub_80258AC();
@@ -107,7 +149,7 @@ u32 sub_80255A8 (void) {
         sub_8026070();
         break;
       case 1:
-        if (GetNumpadCursorPos() == 10) {
+        if (GetNumpadCursorState() == 10) {
           r4 = FALSE;
           ret = 1;
           sub_8025CAC();
@@ -186,9 +228,7 @@ u32 sub_80255A8 (void) {
   return ret;
 }
 
-void sub_802618C (void);
-
-u16 sub_8025768 (void) {
+static u16 sub_8025768 (void) {
   u8 i;
   u16 ret = 0;
   u16 r2;
@@ -212,8 +252,7 @@ u16 sub_8025768 (void) {
   return ret;
 }
 
-void LoadPalettes(void);
-void sub_80257D8 (void) {
+static void sub_80257D8 (void) {
   u16 i, j;
   for (i = 0; i < 16; i++) {
     for (j = 0; j < 512; j++) {
@@ -236,15 +275,7 @@ void sub_80257D8 (void) {
   }
 }
 
-void sub_8025B64 (void);
-void sub_8025F38 (void);
-void sub_8025F64 (void);
-void sub_8025DB4 (void);
-void sub_802601C (void);
-void sub_8026060 (void);
-void sub_8025FFC (void);
-
-void sub_80258AC (void) {
+static void sub_80258AC (void) {
   sub_8025B64();
   sub_8025F38();
   sub_8025F64();
@@ -257,9 +288,6 @@ void sub_80258AC (void) {
   sub_8008220();
 }
 
-extern u16 gBLDCNT;
-extern u16 gBLDY;
-void LoadBlendingRegs (void);
 void sub_80258E8 (void) {
   u16 i;
   gBLDCNT = 0xFF;
@@ -270,242 +298,234 @@ void sub_80258E8 (void) {
   }
 }
 
-struct PasswordTerminal {
-  u8 unk0;
-  u8 numpadCursorPos;
-  u8 filler2[2];
-  u8 unk4; //digit frame counter
-  u8 unk5; //numpad frame counter
-};
-extern struct PasswordTerminal *gPassTerminal;
-
 //Handle pressing up
-void sub_8025924 (void) {
-  switch (gPassTerminal->numpadCursorPos) {
+static void sub_8025924 (void) {
+  switch (gPassTerminal->numpadCursorState) {
     case 0:
-      gPassTerminal->numpadCursorPos = 1;
+      gPassTerminal->numpadCursorState = 1;
       break;
     case 1:
-      gPassTerminal->numpadCursorPos = 4;
+      gPassTerminal->numpadCursorState = 4;
       break;
     case 2:
-      gPassTerminal->numpadCursorPos = 5;
+      gPassTerminal->numpadCursorState = 5;
       break;
     case 3:
-      gPassTerminal->numpadCursorPos = 6;
+      gPassTerminal->numpadCursorState = 6;
       break;
     case 4:
-      gPassTerminal->numpadCursorPos = 7;
+      gPassTerminal->numpadCursorState = 7;
       break;
     case 5:
-      gPassTerminal->numpadCursorPos = 8;
+      gPassTerminal->numpadCursorState = 8;
       break;
     case 6:
-      gPassTerminal->numpadCursorPos = 9;
+      gPassTerminal->numpadCursorState = 9;
       break;
     case 7:
-      gPassTerminal->numpadCursorPos = 0;
+      gPassTerminal->numpadCursorState = 0;
       break;
     case 8:
-      gPassTerminal->numpadCursorPos = 10;
+      gPassTerminal->numpadCursorState = 10;
       break;
     case 9:
-      gPassTerminal->numpadCursorPos = 10;
+      gPassTerminal->numpadCursorState = 10;
       break;
     case 10:
-      gPassTerminal->numpadCursorPos = 2;
+      gPassTerminal->numpadCursorState = 2;
       break;
   }
 }
 
 //Handle pressing down
-void sub_80259B4 (void) {
-  switch (gPassTerminal->numpadCursorPos) {
+static void sub_80259B4 (void) {
+  switch (gPassTerminal->numpadCursorState) {
     case 0:
-      gPassTerminal->numpadCursorPos = 7;
+      gPassTerminal->numpadCursorState = 7;
       break;
     case 1:
-      gPassTerminal->numpadCursorPos = 0;
+      gPassTerminal->numpadCursorState = 0;
       break;
     case 2:
-      gPassTerminal->numpadCursorPos = 10;
+      gPassTerminal->numpadCursorState = 10;
       break;
     case 3:
-      gPassTerminal->numpadCursorPos = 10;
+      gPassTerminal->numpadCursorState = 10;
       break;
     case 4:
-      gPassTerminal->numpadCursorPos = 1;
+      gPassTerminal->numpadCursorState = 1;
       break;
     case 5:
-      gPassTerminal->numpadCursorPos = 2;
+      gPassTerminal->numpadCursorState = 2;
       break;
     case 6:
-      gPassTerminal->numpadCursorPos = 3;
+      gPassTerminal->numpadCursorState = 3;
       break;
     case 7:
-      gPassTerminal->numpadCursorPos = 4;
+      gPassTerminal->numpadCursorState = 4;
       break;
     case 8:
-      gPassTerminal->numpadCursorPos = 5;
+      gPassTerminal->numpadCursorState = 5;
       break;
     case 9:
-      gPassTerminal->numpadCursorPos = 6;
+      gPassTerminal->numpadCursorState = 6;
       break;
     case 10:
-      gPassTerminal->numpadCursorPos = 8;
+      gPassTerminal->numpadCursorState = 8;
       break;
   }
 }
 
 //Handle pressing left
-void sub_8025A44 (void) {
-  switch (gPassTerminal->numpadCursorPos) {
+static void sub_8025A44 (void) {
+  switch (gPassTerminal->numpadCursorState) {
     case 0:
-      gPassTerminal->numpadCursorPos = 10;
+      gPassTerminal->numpadCursorState = 10;
       break;
     case 1:
-      gPassTerminal->numpadCursorPos = 3;
+      gPassTerminal->numpadCursorState = 3;
       break;
     case 2:
-      gPassTerminal->numpadCursorPos = 1;
+      gPassTerminal->numpadCursorState = 1;
       break;
     case 3:
-      gPassTerminal->numpadCursorPos = 2;
+      gPassTerminal->numpadCursorState = 2;
       break;
     case 4:
-      gPassTerminal->numpadCursorPos = 6;
+      gPassTerminal->numpadCursorState = 6;
       break;
     case 5:
-      gPassTerminal->numpadCursorPos = 4;
+      gPassTerminal->numpadCursorState = 4;
       break;
     case 6:
-      gPassTerminal->numpadCursorPos = 5;
+      gPassTerminal->numpadCursorState = 5;
       break;
     case 7:
-      gPassTerminal->numpadCursorPos = 9;
+      gPassTerminal->numpadCursorState = 9;
       break;
     case 8:
-      gPassTerminal->numpadCursorPos = 7;
+      gPassTerminal->numpadCursorState = 7;
       break;
     case 9:
-      gPassTerminal->numpadCursorPos = 8;
+      gPassTerminal->numpadCursorState = 8;
       break;
     case 10:
-      gPassTerminal->numpadCursorPos = 0;
+      gPassTerminal->numpadCursorState = 0;
       break;
   }
 }
 
 //Handle pressing right
-void sub_8025AD4 (void) {
-  switch (gPassTerminal->numpadCursorPos) {
+static void sub_8025AD4 (void) {
+  switch (gPassTerminal->numpadCursorState) {
     case 0:
-      gPassTerminal->numpadCursorPos = 10;
+      gPassTerminal->numpadCursorState = 10;
       break;
     case 1:
-      gPassTerminal->numpadCursorPos = 2;
+      gPassTerminal->numpadCursorState = 2;
       break;
     case 2:
-      gPassTerminal->numpadCursorPos = 3;
+      gPassTerminal->numpadCursorState = 3;
       break;
     case 3:
-      gPassTerminal->numpadCursorPos = 1;
+      gPassTerminal->numpadCursorState = 1;
       break;
     case 4:
-      gPassTerminal->numpadCursorPos = 5;
+      gPassTerminal->numpadCursorState = 5;
       break;
     case 5:
-      gPassTerminal->numpadCursorPos = 6;
+      gPassTerminal->numpadCursorState = 6;
       break;
     case 6:
-      gPassTerminal->numpadCursorPos = 4;
+      gPassTerminal->numpadCursorState = 4;
       break;
     case 7:
-      gPassTerminal->numpadCursorPos = 8;
+      gPassTerminal->numpadCursorState = 8;
       break;
     case 8:
-      gPassTerminal->numpadCursorPos = 9;
+      gPassTerminal->numpadCursorState = 9;
       break;
     case 9:
-      gPassTerminal->numpadCursorPos = 7;
+      gPassTerminal->numpadCursorState = 7;
       break;
     case 10:
-      gPassTerminal->numpadCursorPos = 0;
+      gPassTerminal->numpadCursorState = 0;
       break;
   }
 }
-extern u8 g2021DC0[];
-void sub_8025B64 (void) {
+
+static void sub_8025B64 (void) {
   u8 i;
   for (i = 0; i < 8; i++)
     g2021DC0[i] = 0;
   gPassTerminal->unk0 = 0;
-  gPassTerminal->numpadCursorPos = 1;
+  gPassTerminal->numpadCursorState = 1;
   gPassTerminal->unk4 = 0;
   gPassTerminal->unk5 = 0;
 }
 
-void sub_8025BA0 (void) {}
+static void sub_8025BA0 (void) {
+}
 
-void sub_8025BA4 (void) {
+static void sub_8025BA4 (void) {
   if (gPassTerminal->unk0 == 0)
     gPassTerminal->unk0 = 7;
   else
     gPassTerminal->unk0--;
 }
 
-void sub_8025BC0 (void) {
+static void sub_8025BC0 (void) {
   if (gPassTerminal->unk0 > 6)
     gPassTerminal->unk0 = 0;
   else
     gPassTerminal->unk0++;
 }
 
-void sub_8025BDC (void) {
-  gPassTerminal->numpadCursorPos = 10;
+static void sub_8025BDC (void) {
+  gPassTerminal->numpadCursorState = 10;
 }
 
-void sub_8025BEC (void) {
-  if (gPassTerminal->numpadCursorPos < 10)
-    g2021DC0[gPassTerminal->unk0] = gPassTerminal->numpadCursorPos;
+static void sub_8025BEC (void) {
+  if (gPassTerminal->numpadCursorState < 10)
+    g2021DC0[gPassTerminal->unk0] = gPassTerminal->numpadCursorState;
 }
 
-void sub_8025C08 (void) {
+static void sub_8025C08 (void) {
   if (gPassTerminal->unk4 >= 30)
     gPassTerminal->unk4 = 0;
   else
     gPassTerminal->unk4++;
 }
 
-void sub_8025C24 (void) {
+static void sub_8025C24 (void) {
   gPassTerminal->unk4 = 0;
 }
 
-void sub_8025C34 (void) {
+static void sub_8025C34 (void) {
   gPassTerminal->unk4 = 15;
 }
 
-u8 sub_8025C44 (void) {
+static u8 sub_8025C44 (void) {
   return gPassTerminal->unk0;
 }
 
-u8 GetNumpadCursorPos (void) {
-  return gPassTerminal->numpadCursorPos;
+static u8 GetNumpadCursorState (void) {
+  return gPassTerminal->numpadCursorState;
 }
 
-u8 sub_8025C5C (void) {
+static u8 sub_8025C5C (void) {
   u8 ret = 0;
   if (gPassTerminal->unk4 > 15)
     ret = 1;
   return ret;
 }
 
-void sub_8025C74 (void) {
+static void sub_8025C74 (void) {
   if (gPassTerminal->unk5)
     gPassTerminal->unk5--;
 }
 
-u32 sub_8025C88 (void) {
+static u32 sub_8025C88 (void) {
   u8 ret = 0;
   u8 temp = gPassTerminal->unk5;
   if (temp) {
@@ -517,44 +537,32 @@ u32 sub_8025C88 (void) {
   return ret;
 }
 
-void sub_8025CAC (void) {
+static void sub_8025CAC (void) {
   gPassTerminal->unk5 = 8;
 }
 
-void sub_8025CBC (void) {
+static void sub_8025CBC (void) {
   gPassTerminal->unk5 = 0;
 }
 
-
-extern u16 gOamBuffer[];
-
-struct Oam {
-  u16 unk0;
-  u16 *oam;
-};
-
-extern struct Oam *gE01248[];
-extern struct Oam *gE01328[];
-extern struct Oam *gE0119C[];
-
-void sub_8025CCC (void) {
-  u8 cursorPos = GetNumpadCursorPos();
+static void sub_8025CCC (void) {
+  u8 cursorState = GetNumpadCursorState();
   u8 r6 = sub_8025C88();
   u16 pos;
   if (r6 == 0) {
-    pos = gE01248[cursorPos]->oam[0] & 0xFF;
+    pos = gE01248[cursorState]->oam[0] & 0xFF;
     pos += 48;
-    gOamBuffer[8 * 4] = gE01248[cursorPos]->oam[0] & 0xFF00 | pos & 0xFF;
-    pos = (gE01248[cursorPos]->oam[1] & 0x1FF);
+    gOamBuffer[8 * 4] = gE01248[cursorState]->oam[0] & 0xFF00 | pos & 0xFF;
+    pos = (gE01248[cursorState]->oam[1] & 0x1FF);
     pos += 72;
-    gOamBuffer[8 * 4 + 1] = gE01248[cursorPos]->oam[1] & 0xFE00 | pos & 0x1FF;
-    gOamBuffer[8 * 4 + 2] = gE01248[cursorPos]->oam[2];
+    gOamBuffer[8 * 4 + 1] = gE01248[cursorState]->oam[1] & 0xFE00 | pos & 0x1FF;
+    gOamBuffer[8 * 4 + 2] = gE01248[cursorState]->oam[2];
     gOamBuffer[8 * 4 + 3] = 0;
   }
   else {
     struct Oam *oam;
     r6 -= 1;
-    oam = gE01328[cursorPos];
+    oam = gE01328[cursorState];
     pos = oam[r6].oam[0] & 0xFF;
     pos += 48;
     gOamBuffer[8 * 4] = oam[r6].oam[0] & 0xFF00 | pos & 0xFF;
@@ -566,7 +574,7 @@ void sub_8025CCC (void) {
   }
 }
 
-void sub_8025DB4 (void) {
+static void sub_8025DB4 (void) {
   u8 i;
   for (i = 0; i < 8; i++) {
     u8 temp = g2021DC0[i];
@@ -583,7 +591,7 @@ void sub_8025DB4 (void) {
 }
 
 /*
-void sub_8025E80 (void) {
+static void sub_8025E80 (void) {
   u8 temp = sub_8025C44();
   u8 temp2 = g2021DC0[temp];
   u16 var;
@@ -599,7 +607,7 @@ void sub_8025E80 (void) {
 }*/
 
 NAKED
-void sub_8025E80 (void) {
+static void sub_8025E80 (void) {
   asm_unified("push {r4, r5, r6, lr}\n\
 	mov r6, r8\n\
 	push {r6}\n\
@@ -688,7 +696,7 @@ _08025F30: .4byte 0x000001FF\n\
 _08025F34: .4byte 0x00000FFF");
 }
 
-void sub_8025F38 (void) {
+static void sub_8025F38 (void) {
   u32 i;
   for (i = 0; i < 128; i++) {
     gOamBuffer[i * 4] = 0xA0;
@@ -698,15 +706,7 @@ void sub_8025F38 (void) {
   }
 }
 
-extern u8 g80C1DD4[];
-void sub_800E074 (void*, void*, int);
-extern u16 g80C5840[];
-extern u32 g80C61B8[];
-extern u16 g80C58C0[][30];
-extern u16 g80C5EF0[];
-extern u16 g80C5D70[];
-
-void sub_8025F64 (void) {
+static void sub_8025F64 (void) {
   u32 i;
   sub_800E074(g80C1DD4, gBgVram.cbb0, 0x4000);
   CpuCopy32(g80C5840, g02000000.bg, 0x80);
@@ -717,18 +717,18 @@ void sub_8025F64 (void) {
   CpuCopy32(g80C5D70, g02000000.obj + 48, 64);
 }
 
-void sub_8025FFC (void) {
+static void sub_8025FFC (void) {
   LoadPalettes();
   REG_DISPCNT = 0x1800;
 }
 
-void sub_8026014 (void) {
+static void sub_8026014 (void) {
 }
 
-void sub_8026018 (void) {
+static void sub_8026018 (void) {
 }
 
-void sub_802601C (void) {
+static void sub_802601C (void) {
   sub_8045718();
   REG_BLDCNT = 0;
   REG_BLDALPHA = 0;
@@ -739,14 +739,14 @@ void sub_802601C (void) {
   LoadBgOffsets();
 }
 
-void sub_802605C (void) {
+static void sub_802605C (void) {
 }
 
-void sub_8026060 (void) {
+static void sub_8026060 (void) {
   LoadVRAM();
   LoadOam();
 }
 
-void sub_8026070 (void) {
+static void sub_8026070 (void) {
   LoadOam();
 }

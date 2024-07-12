@@ -59,8 +59,8 @@ void sub_803EFF8 (void) {
   else
     loser = PLAYER;
   DeclareLoser(loser);
-  sub_801D1A8();
-  gUnk_02021C10.unk8 = 0x12;
+  ResetCardEffectTextData();
+  gCardEffectTextData.textId = 0x12;
   sub_801D188(6);
   sub_801CEBC();
 }

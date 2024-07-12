@@ -41,14 +41,14 @@ void sub_8057808 (void);
 void sub_8008220 (void);
 void sub_8040FDC (void);
 void sub_804078C (void);
-u32 sub_8044074 (u8 y, u8 x);
+u32 CanPlayerSeeCard (u8 y, u8 x);
 void sub_8041F48 (void);
 void sub_80420C0 (void);
 void sub_8041FE4 (void);
 void sub_8042144 (void);
 void sub_8042184 (void);
-u8* sub_8020824(u8*);
-void sub_8020A3C(void *, void *, u16);
+u8* GetCurrentLanguageString(u8*);
+void CopyStringTilesToVRAMBuffer(void *, void *, u16);
 void CopySwordTileToBuffer (void*);
 void CopyShieldTileToBuffer (void*);
 void CopyStarTileToBuffer (void*);
@@ -56,7 +56,7 @@ void CopyAttributeIconTilesToBuffer (u8, u8*);
 void CopyAttributeIconPalToBuffer (u8, u16*);
 void CopyTypeIconTilesToBuffer (u8, u8*);
 void CopyTypeIconPalToBuffer (u8, u16*);
-u32 sub_80440B4 (u8, u8);
+u32 CanOpponentSeeCard (u8, u8);
 void sub_80428EC(u8);
 void sub_8041014(void);
 
@@ -117,7 +117,7 @@ void sub_8041D54 (void) {
   sub_8041104();
 }
 
-u32 sub_8041D60 (u8 arg0) {
+u32 AdjustBackgroundBeforeTurnStart (u8 arg0) {
   return gBG2VOFS = g8E0D5A1[arg0];
 }
 
@@ -171,10 +171,10 @@ void sub_8041E70 (u8 arg0, u8 arg1) {
 }
 
 void sub_8041EC8 (void) {
-  if (sub_8044074(gCursorPosition.currentY, gCursorPosition.currentX) == 1) {
-    gStatMod.card = gUnk2024040[gCursorPosition.currentY][gCursorPosition.currentX]->id;
+  if (CanPlayerSeeCard(gDuelCursor.currentY, gDuelCursor.currentX) == 1) {
+    gStatMod.card = gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = sub_804069C(gUnk2024040[gCursorPosition.currentY][gCursorPosition.currentX]);
+    gStatMod.stage = sub_804069C(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]);
     SetFinalStat(&gStatMod);
   }
   else {
@@ -193,7 +193,7 @@ void sub_8041F48 (void) {
   u8* name;
   for (i = 0; i < 15; i++)
     CpuCopy16(gBgVram.cbb0 + 0x8000, gBgVram.cbb0 + 0x81E0 + i * 32, 32);
-  name = sub_8020824(gCardInfo.name);
+  name = GetCurrentLanguageString(gCardInfo.name);
   i = 0;
   r3 = 0;
   // r3 < (32 - 1) / 2
@@ -212,7 +212,7 @@ void sub_8041F48 (void) {
     r3++;
   }
   buffer[i] = 0;
-  sub_8020A3C(gBgVram.cbb0 + 0x81E0, buffer, 0x801);
+  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x81E0, buffer, 0x801);
 }
 
 void sub_8041FE4 (void) {
@@ -258,8 +258,8 @@ void sub_8042144 (void) {
 }
 
 void sub_8042184 (void) {
-  if (!sub_80440B4(gCursorPosition.currentY, gCursorPosition.currentX))
-    sub_8020A3C(gBgVram.cbb0 + 0x8600, g8E0D5C7, 0x801);
+  if (!CanOpponentSeeCard(gDuelCursor.currentY, gDuelCursor.currentX))
+    CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x8600, g8E0D5C7, 0x801);
   else
-    sub_8020A3C(gBgVram.cbb0 + 0x8600, g8E0D617, 0x801);
+    CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x8600, g8E0D617, 0x801);
 }

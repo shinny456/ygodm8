@@ -382,12 +382,12 @@ gStartMenuBgTiles:
 gStartMenuCursorTiles:
     .incbin "baserom.gba", 0x78C08, 0x7DC
 
-    .global gUnk_80793E4
-gUnk_80793E4:
+    .global gStartMenuBgPalette
+gStartMenuBgPalette:
     .incbin "baserom.gba", 0x793E4, 0x20
 
-    .global gUnk_8079404
-gUnk_8079404:
+    .global gStartMenuCursorPalette
+gStartMenuCursorPalette:
     .incbin "baserom.gba", 0x79404, 0x20
 
     .global gUnk_8079424
@@ -410,12 +410,12 @@ gUnk_8079CB4:
 gUnk_807A164:
     .incbin "baserom.gba", 0x7A164, 0x4B0
 
-    .global gUnk_807A614
-gUnk_807A614:
+    .global gText_DeckMustHave40Cards
+gText_DeckMustHave40Cards:
     .incbin "baserom.gba", 0x7A614, 0x17C
 
-    .global gUnk_807A790
-gUnk_807A790:
+    .global gText_CardCostTotal
+gText_CardCostTotal:
     .incbin "baserom.gba", 0x7A790, 0x180
 
     .global gUnk_807A910

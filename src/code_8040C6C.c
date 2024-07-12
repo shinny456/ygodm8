@@ -32,7 +32,7 @@ extern u16 (*gE0D114[])[31];
 extern struct OamData gOamBuffer[];
 extern u8 g201EE70[];
 extern u8 g201EEE0[];
-extern u8* g8E0D41C[];
+extern u8* gNumTributesRequiredStrings[];
 extern const s16 sin_cos_table[];
 extern u8 gPlayerName[];
 extern u8 g8E0D1D0[];
@@ -43,7 +43,7 @@ inline void sub_8041B38 (void);
 inline void sub_8041BE8 (struct Test8041240*);
 inline void sub_8041C68 (struct Test8041240*);
 void HuffUnComp (void*, void*);
-void sub_8020A3C(void *, const void *, u16);
+void CopyStringTilesToVRAMBuffer(void *, const void *, u16);
 s16 fix_mul (s16, s16);
 s16 fix_inverse (s16);
 
@@ -91,10 +91,10 @@ void sub_8040C6C (void) {
 
 // must be declared as either int or u32 to match
 // the assignments in sub_8040EF0:
-// gBG2VOFS = sub_8041D60(gCursorPosition.currentY);
-// gBG2VOFS = sub_8041D60(1);
+// gBG2VOFS = AdjustBackgroundBeforeTurnStart(gDuelCursor.currentY);
+// gBG2VOFS = AdjustBackgroundBeforeTurnStart(1);
 // (most likely due to implicit declarations?)
-u32 sub_8041D60 (u8);
+u32 AdjustBackgroundBeforeTurnStart (u8);
 
 
 void sub_8040B4C (void);
@@ -119,8 +119,8 @@ void sub_8040EF0 (void) {
   for (i = 0; i < 40; i++)
     CpuCopy16(gE0D114[field][i], gBgVram.cbb0 + 0xD800 + i * 64, 64);
   gBG2HOFS = 4;
-  gBG2VOFS = sub_8041D60(gCursorPosition.currentY);
-  gBG2VOFS = sub_8041D60(1);
+  gBG2VOFS = AdjustBackgroundBeforeTurnStart(gDuelCursor.currentY);
+  gBG2VOFS = AdjustBackgroundBeforeTurnStart(1);
   sub_8040B4C();
   sub_8041EC8();
   sub_8040C6C();
@@ -179,7 +179,7 @@ void sub_80410B4 (void) {
 }
 
 void sub_8041104 (void) {
-  sub_8040B4C();
+  sub_8040B4C(); // init bg1 for b button menu and card details at the bottom
   sub_8041EC8();
   sub_8040C6C();
   sub_80577A4();
@@ -200,7 +200,7 @@ void sub_8041140 (u8 field) {
   for (i = 0; i < 40; i++)
     CpuCopy16(gE0D114[field][i], gBgVram.cbb0 + 0xD800 + i * 64, 64);
   gBG2HOFS = 4;
-  gBG2VOFS = sub_8041D60(gCursorPosition.currentY);
+  gBG2VOFS = AdjustBackgroundBeforeTurnStart(gDuelCursor.currentY);
 }
 
 void sub_80411D4 (void) {
@@ -222,13 +222,13 @@ void sub_80411EC (struct OamData* arg0) {
   arg0->affineMode = 0;
 }
 
-void sub_8041240 (u8 arg0) {
+void DisplayNumRequiredTributesText (u8 numTributes) {
   struct Test8041240 test;
-  u8* temp = g8E0D41C[arg0 - 1];
+  u8* string = gNumTributesRequiredStrings[numTributes - 1];
   test.unk0 = 0;
   test.unk4 = 0;
   test.unk8 = 0;
-  test.unkC = temp;
+  test.unkC = string;
   test.unk10 = 0;
   test.unk1C = 0;
   test.unk14 = 0;
@@ -342,7 +342,7 @@ void sub_80415B8 (struct Test8041240* arg0) {
     arg0->unk4 = 0;
     arg0->unk10 = 0;
     arg0->unk8 = 0;
-    sub_8020A3C(gBgVram.cbb0 + 0x88A0, gE0D15D, 0x101);
+    CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gE0D15D, 0x101);
   }
   else {
     switch (arg0->unk10++) {
@@ -490,8 +490,8 @@ inline void sub_8041B38 (void) {
   for (i = 0; i < 18; i++)
     CpuCopy32(g80F2C30[i], gBgVram.cbb0 + 0xE800 + i * 64, 64);
 
-  sub_8020A3C(gBgVram.cbb0 + 0x87A0, gE0D14C, 0x801);
-  sub_8020A3C(gBgVram.cbb0 + 0x88A0, gE0D15D, 0x101);
+  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x87A0, gE0D14C, 0x801);
+  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gE0D15D, 0x101);
   sub_8008220();
   sub_8041014();
   REG_WINOUT = 30;
@@ -535,7 +535,7 @@ inline void sub_8041C68 (struct Test8041240* arg0) {
   arg0->unk4 = 0;
   arg0->unk10 = 0;
   arg0->unk8 = 0;
-  sub_8020A3C(gBgVram.cbb0 + 0x88A0, gE0D15D, 0x101);
+  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gE0D15D, 0x101);
 }
 
 void sub_80419EC (u8* arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4) {

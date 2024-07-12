@@ -27,7 +27,7 @@ struct Unk1234 {
 };
 
 extern u8 g8E0E08C[];
-extern u8 gUnk_2018800[];
+extern u8 gSharedMem[];
 
 extern s8 g8E0E091[];
 extern s8 g8E0E099[];
@@ -61,7 +61,7 @@ void sub_804F78C (u16 arg0) {
     for (j = 1; j < 16; j++) {
       if (r4 + j > 14)
         if (r4 + j < 31) {
-          *(g02000000.bg - 14 + i * 16 + r4 + j) = gUnk_2018800[i * 16 + j];
+          *(g02000000.bg - 14 + i * 16 + r4 + j) = gSharedMem[i * 16 + j];
         }
     }
   }
@@ -197,19 +197,19 @@ inline u16 sub_8051554_inline (struct Unk1234* arg0, s16 arg1) {
 }
 
 inline void sub_8051584 (void) {
-  CpuCopy16(g02000000.bg, gUnk_2018800, 0x400);
+  CpuCopy16(g02000000.bg, gSharedMem, 0x400);
 }
 
 inline void sub_80515A0 (void) {
-  CpuCopy16(gUnk_2018800, g02000000.bg, 0x400);
+  CpuCopy16(gSharedMem, g02000000.bg, 0x400);
 }
 
 inline void sub_80515BC (void) {
-  CpuCopy16(gOamBuffer, gUnk_2018800 + 0x400, 0x400);
+  CpuCopy16(gOamBuffer, gSharedMem + 0x400, 0x400);
 }
 
 inline void sub_80515D8 (void) {
-  CpuCopy16(gUnk_2018800 + 0x400, gOamBuffer, 0x400);
+  CpuCopy16(gSharedMem + 0x400, gOamBuffer, 0x400);
 }
 
 inline void sub_80515F4 (void) {
@@ -533,15 +533,15 @@ void sub_804FA28 (struct Unk1234* arg0) {
   u8* src;
   u8* dest;
 
-  LZ77UnCompWram(g8FC4440[arg0->unk0], gUnk_2018800 + 0x400);
+  LZ77UnCompWram(g8FC4440[arg0->unk0], gSharedMem + 0x400);
 
-  src = gUnk_2018800 + 0x400;
+  src = gSharedMem + 0x400;
   dest = gBgVram.cbb5;
   for (i = 0; i < 16; dest += 0x200, i++)
     for (j = 0; j < 512; j++)
       *dest++ = *src++;
 
-  src = gUnk_2018800 + 0x2400;
+  src = gSharedMem + 0x2400;
   dest = gBgVram.cbb5 + 0x200;
   for (i = 0; i < 12; dest += 0x200, i++)
     for (j = 0; j < 512; j++)

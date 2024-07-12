@@ -21,9 +21,9 @@ void EffectRelinquished(void)
         ClearZone(gZones[1][zone]);
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = RELINQUISHED;
+        gCardEffectTextData.cardId = RELINQUISHED;
         sub_801CEBC();
     }
 }
@@ -42,15 +42,15 @@ void EffectThousandEyesRestrict(void)
         gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
         gZones[gMonEffect.row][gMonEffect.zone]->unk4 = 0;
         gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
-        sub_8040368(gZones[gMonEffect.row][gMonEffect.zone]);
-        sub_8040368(gZones[gMonEffect.row][gMonEffect.zone]);
+        IncrementPermanentPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
+        IncrementPermanentPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
 
         ClearZone(gZones[1][zone]);
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = THOUSAND_EYES_RESTRICT;
+        gCardEffectTextData.cardId = THOUSAND_EYES_RESTRICT;
         sub_801CEBC();
     }
 }
@@ -68,9 +68,9 @@ void EffectTimeWizard(void)
             gZones[2][i]->id = DARK_SAGE;
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = TIME_WIZARD;
+        gCardEffectTextData.cardId = TIME_WIZARD;
         sub_801CEBC();
     }
 }
@@ -89,10 +89,10 @@ void EffectCastleOfDarkIllusions(void)
         if (gZones[2][i]->id == CASTLE_OF_DARK_ILLUSIONS)
             gZones[2][i]->isFaceUp = TRUE;
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
         sub_8041140(gDuel.field);
-        gUnk_02021C10.unk0 = CASTLE_OF_DARK_ILLUSIONS;
+        gCardEffectTextData.cardId = CASTLE_OF_DARK_ILLUSIONS;
         sub_801CEBC();
     }
 }
@@ -104,16 +104,16 @@ void EffectPumpkingTheKingOfGhosts(void)
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
         if (gZones[2][i]->id == ARMORED_ZOMBIE)
-            sub_8040368(gZones[2][i]);
+            IncrementPermanentPowerLevel(gZones[2][i]);
         if (gZones[2][i]->id == DRAGON_ZOMBIE)
-            sub_8040368(gZones[2][i]);
+            IncrementPermanentPowerLevel(gZones[2][i]);
         if (gZones[2][i]->id == CLOWN_ZOMBIE)
-            sub_8040368(gZones[2][i]);
+            IncrementPermanentPowerLevel(gZones[2][i]);
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = PUMPKING_THE_KING_OF_GHOSTS;
+        gCardEffectTextData.cardId = PUMPKING_THE_KING_OF_GHOSTS;
         sub_801CEBC();
     }
 }
@@ -143,9 +143,9 @@ void EffectCatapultTurtle(void)
     sub_803F29C();
     sub_803F4C0();
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = CATAPULT_TURTLE;
+        gCardEffectTextData.cardId = CATAPULT_TURTLE;
         sub_801CEBC();
     }
 }
@@ -161,15 +161,15 @@ void EffectTrapMaster(void)
         gZones[3][zone]->isDefending = FALSE;
         gZones[3][zone]->unkTwo = 0;
         gZones[3][zone]->unk4 = 0;
-        ResetPermStage(gZones[3][zone]);
-        ResetTempStage(gZones[3][zone]);
+        ResetPermanentPowerLevel(gZones[3][zone]);
+        ResetTemporaryPowerLevel(gZones[3][zone]);
         gZones[3][zone]->willChangeSides = FALSE;
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = TRAP_MASTER;
-        gUnk_02021C10.unk2 = ACID_TRAP_HOLE;
+        gCardEffectTextData.cardId = TRAP_MASTER;
+        gCardEffectTextData.cardId2 = ACID_TRAP_HOLE;
         sub_801CEBC();
     }
 }
@@ -177,14 +177,14 @@ void EffectTrapMaster(void)
 void EffectDarkMagicianGirl(void)
 {
     if (gNotSure[TURN_PLAYER]->graveyard == DARK_MAGICIAN)
-        sub_8040368(gZones[gMonEffect.row][gMonEffect.zone]);
+        IncrementPermanentPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
     if (gNotSure[TURN_OPPONENT]->graveyard == DARK_MAGICIAN)
-        sub_8040368(gZones[gMonEffect.row][gMonEffect.zone]);
+        IncrementPermanentPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = DARK_MAGICIAN_GIRL;
-        gUnk_02021C10.unk2 = DARK_MAGICIAN;
+        gCardEffectTextData.cardId = DARK_MAGICIAN_GIRL;
+        gCardEffectTextData.cardId2 = DARK_MAGICIAN;
         sub_801CEBC();
     }
 }
@@ -202,13 +202,13 @@ void EffectGyakutennoMegami(void)
             gStatMod.stage = sub_804069C(gZones[2][i]);
             SetFinalStat(&gStatMod);
             if (gCardInfo.atk <= 500)
-                sub_8040368(gZones[2][i]);
+                IncrementPermanentPowerLevel(gZones[2][i]);
         }
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = GYAKUTENNO_MEGAMI;
+        gCardEffectTextData.cardId = GYAKUTENNO_MEGAMI;
         sub_801CEBC();
     }
 }
@@ -223,9 +223,9 @@ void EffectDoron(void)
         gZones[2][zone]->willChangeSides = FALSE;
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = DORON;
+        gCardEffectTextData.cardId = DORON;
         sub_801CEBC();
     }
 }
@@ -236,12 +236,12 @@ void EffectLabyrinthTank(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (gZones[2][i]->id == LABYRINTH_WALL)
-           sub_8040368(gZones[gMonEffect.row][gMonEffect.zone]);
+           IncrementPermanentPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = LABYRINTH_TANK;
-        gUnk_02021C10.unk2 = LABYRINTH_WALL;
+        gCardEffectTextData.cardId = LABYRINTH_TANK;
+        gCardEffectTextData.cardId2 = LABYRINTH_WALL;
         sub_801CEBC();
     }
 }
@@ -258,15 +258,15 @@ void EffectSpiritOfTheBooks(void)
         gZones[gMonEffect.row][zone]->isDefending = FALSE;
         gZones[gMonEffect.row][zone]->unkTwo = 0;
         gZones[gMonEffect.row][zone]->unk4 = 0;
-        ResetPermStage(gZones[gMonEffect.row][zone]);
-        ResetTempStage(gZones[gMonEffect.row][zone]);
+        ResetPermanentPowerLevel(gZones[gMonEffect.row][zone]);
+        ResetTemporaryPowerLevel(gZones[gMonEffect.row][zone]);
         gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = SPIRIT_OF_THE_BOOKS;
-        gUnk_02021C10.unk2 = BOO_KOO;
+        gCardEffectTextData.cardId = SPIRIT_OF_THE_BOOKS;
+        gCardEffectTextData.cardId2 = BOO_KOO;
         sub_801CEBC();
     }
 }
@@ -283,9 +283,9 @@ void EffectBeastKingOfTheSwamps(void)
         if (IsGodCard(gZones[2][i]->id) != TRUE)
             ClearZoneAndSendMonToGraveyard(gZones[2][i], 0);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = BEASTKING_OF_THE_SWAMPS;
+        gCardEffectTextData.cardId = BEASTKING_OF_THE_SWAMPS;
         sub_801CEBC();
     }
 }
@@ -305,9 +305,9 @@ void EffectNemuriko(void)
         if (gZones[2][i]->id != CARD_NONE)
             gZones[2][i]->isLocked = TRUE;
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = NEMURIKO;
+        gCardEffectTextData.cardId = NEMURIKO;
         sub_801CEBC();
     }
 }
@@ -324,15 +324,15 @@ void EffectToadMaster(void)
         gZones[gMonEffect.row][zone]->isDefending = FALSE;
         gZones[gMonEffect.row][zone]->unkTwo = 0;
         gZones[gMonEffect.row][zone]->unk4 = 0;
-        ResetPermStage(gZones[gMonEffect.row][zone]);
-        ResetTempStage(gZones[gMonEffect.row][zone]);
+        ResetPermanentPowerLevel(gZones[gMonEffect.row][zone]);
+        ResetTemporaryPowerLevel(gZones[gMonEffect.row][zone]);
         gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = TOAD_MASTER;
-        gUnk_02021C10.unk2 = FROG_THE_JAM;
+        gCardEffectTextData.cardId = TOAD_MASTER;
+        gCardEffectTextData.cardId2 = FROG_THE_JAM;
         sub_801CEBC();
     }
 }
@@ -347,12 +347,12 @@ void EffectHoshiningen(void)
         if (gCardInfo.attribute == ATTRIBUTE_SHADOW)
             sub_804037C(gZones[2][i]);
         if (gCardInfo.attribute == ATTRIBUTE_LIGHT)
-            sub_8040368(gZones[2][i]);
+            IncrementPermanentPowerLevel(gZones[2][i]);
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = HOSHININGEN;
+        gCardEffectTextData.cardId = HOSHININGEN;
         sub_801CEBC();
     }
 }
@@ -367,12 +367,12 @@ void EffectWitchsApprentice(void)
         if (gCardInfo.attribute == ATTRIBUTE_LIGHT)
             sub_804037C(gZones[2][i]);
         if (gCardInfo.attribute == ATTRIBUTE_SHADOW)
-            sub_8040368(gZones[2][i]);
+            IncrementPermanentPowerLevel(gZones[2][i]);
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = WITCHS_APPRENTICE;
+        gCardEffectTextData.cardId = WITCHS_APPRENTICE;
         sub_801CEBC();
     }
 }
@@ -392,9 +392,9 @@ void EffectMysticLamp(void)
     sub_803F29C();
     sub_803F4C0();
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = MYSTIC_LAMP;
+        gCardEffectTextData.cardId = MYSTIC_LAMP;
         sub_801CEBC();
     }
 }
@@ -414,9 +414,9 @@ void EffectLeghul(void)
     sub_803F29C();
     sub_803F4C0();
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = LEGHUL;
+        gCardEffectTextData.cardId = LEGHUL;
         sub_801CEBC();
     }
 }
@@ -429,19 +429,19 @@ void EffectInsectQueen(void)
     {
         SetCardInfo(gZones[2][i]->id);
         if (gCardInfo.type == TYPE_INSECT)
-            sub_8040368(gZones[gMonEffect.row][gMonEffect.zone]);
+            IncrementPermanentPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
     }
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
         SetCardInfo(gZones[1][i]->id);
         if (gCardInfo.type == TYPE_INSECT)
-            sub_8040368(gZones[gMonEffect.row][gMonEffect.zone]);
+            IncrementPermanentPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = INSECT_QUEEN;
+        gCardEffectTextData.cardId = INSECT_QUEEN;
         sub_801CEBC();
     }
 }
@@ -462,9 +462,9 @@ void EffectObeliskTheTormentor(void)
     sub_803F29C();
     sub_803F4C0();
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = gMonEffect.id;
+        gCardEffectTextData.cardId = gMonEffect.id;
         sub_801CEBC();
     }
 }
@@ -477,15 +477,15 @@ void EffectSliferTheSkyDragon(void)
     {
         if (gZones[4][i]->id != CARD_NONE)
         {
-            sub_8040368(gZones[gMonEffect.row][gMonEffect.zone]);
-            sub_8040368(gZones[gMonEffect.row][gMonEffect.zone]);
-            sub_8040368(gZones[gMonEffect.row][gMonEffect.zone]);
+            IncrementPermanentPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
+            IncrementPermanentPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
+            IncrementPermanentPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
         }
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = gMonEffect.id;
+        gCardEffectTextData.cardId = gMonEffect.id;
         sub_801CEBC();
     }
 }
@@ -493,14 +493,14 @@ void EffectSliferTheSkyDragon(void)
 void EffectDarkMagicianGirl2(void)
 {
     if (gNotSure[TURN_PLAYER]->graveyard == DARK_MAGICIAN)
-        sub_8040368(gZones[gMonEffect.row][gMonEffect.zone]);
+        IncrementPermanentPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
     if (gNotSure[TURN_OPPONENT]->graveyard == DARK_MAGICIAN)
-        sub_8040368(gZones[gMonEffect.row][gMonEffect.zone]);
+        IncrementPermanentPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = gMonEffect.id;
-        gUnk_02021C10.unk2 = DARK_MAGICIAN;
+        gCardEffectTextData.cardId = gMonEffect.id;
+        gCardEffectTextData.cardId2 = DARK_MAGICIAN;
         sub_801CEBC();
     }
 }
@@ -516,18 +516,18 @@ void EffectAlphaTheMagnetWarrior(void)
            gZones[gMonEffect.row][gMonEffect.zone]->isLocked = TRUE;
            gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
            gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
-           ResetPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
-           ResetTempStage(gZones[gMonEffect.row][gMonEffect.zone]);
+           ResetPermanentPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
+           ResetTemporaryPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
            gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
            ClearZone(gZones[gMonEffect.row][sub_8043694(gZones[gMonEffect.row], BETA_THE_MAGNET_WARRIOR)]);
            ClearZone(gZones[gMonEffect.row][sub_8043694(gZones[gMonEffect.row], GAMMA_THE_MAGNET_WARRIOR)]);
         }
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = gMonEffect.id;
-        gUnk_02021C10.unk2 = VALKYRION_THE_MAGNA_WARRIOR;
+        gCardEffectTextData.cardId = gMonEffect.id;
+        gCardEffectTextData.cardId2 = VALKYRION_THE_MAGNA_WARRIOR;
         sub_801CEBC();
     }
 }
@@ -543,18 +543,18 @@ void EffectBetaTheMagnetWarrior(void)
            gZones[gMonEffect.row][gMonEffect.zone]->isLocked = TRUE;
            gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
            gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
-           ResetPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
-           ResetTempStage(gZones[gMonEffect.row][gMonEffect.zone]);
+           ResetPermanentPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
+           ResetTemporaryPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
            gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
            ClearZone(gZones[gMonEffect.row][sub_8043694(gZones[gMonEffect.row], ALPHA_THE_MAGNET_WARRIOR)]);
            ClearZone(gZones[gMonEffect.row][sub_8043694(gZones[gMonEffect.row], GAMMA_THE_MAGNET_WARRIOR)]);
         }
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = gMonEffect.id;
-        gUnk_02021C10.unk2 = VALKYRION_THE_MAGNA_WARRIOR;
+        gCardEffectTextData.cardId = gMonEffect.id;
+        gCardEffectTextData.cardId2 = VALKYRION_THE_MAGNA_WARRIOR;
         sub_801CEBC();
     }
 }
@@ -570,18 +570,18 @@ void EffectGammaTheMagnetWarrior(void)
            gZones[gMonEffect.row][gMonEffect.zone]->isLocked = TRUE;
            gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
            gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
-           ResetPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
-           ResetTempStage(gZones[gMonEffect.row][gMonEffect.zone]);
+           ResetPermanentPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
+           ResetTemporaryPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
            gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
            ClearZone(gZones[gMonEffect.row][sub_8043694(gZones[gMonEffect.row], ALPHA_THE_MAGNET_WARRIOR)]);
            ClearZone(gZones[gMonEffect.row][sub_8043694(gZones[gMonEffect.row], BETA_THE_MAGNET_WARRIOR)]);
         }
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = gMonEffect.id;
-        gUnk_02021C10.unk2 = VALKYRION_THE_MAGNA_WARRIOR;
+        gCardEffectTextData.cardId = gMonEffect.id;
+        gCardEffectTextData.cardId2 = VALKYRION_THE_MAGNA_WARRIOR;
         sub_801CEBC();
     }
 }
@@ -597,8 +597,8 @@ void EffectValkyrionTheMagnaWarrior(void)
         gZones[gMonEffect.row][gMonEffect.zone]->isLocked = TRUE;
         gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
         gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
-        ResetPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
-        ResetTempStage(gZones[gMonEffect.row][gMonEffect.zone]);
+        ResetPermanentPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
+        ResetTemporaryPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
         gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
 
         zone = sub_8043694(gZones[gMonEffect.row], CARD_NONE);
@@ -607,8 +607,8 @@ void EffectValkyrionTheMagnaWarrior(void)
         gZones[gMonEffect.row][zone]->isLocked = TRUE;
         gZones[gMonEffect.row][zone]->isDefending = FALSE;
         gZones[gMonEffect.row][zone]->unkTwo = 0;
-        ResetPermStage(gZones[gMonEffect.row][zone]);
-        ResetTempStage(gZones[gMonEffect.row][zone]);
+        ResetPermanentPowerLevel(gZones[gMonEffect.row][zone]);
+        ResetTemporaryPowerLevel(gZones[gMonEffect.row][zone]);
         gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
 
         zone = sub_8043694(gZones[gMonEffect.row], CARD_NONE);
@@ -617,14 +617,14 @@ void EffectValkyrionTheMagnaWarrior(void)
         gZones[gMonEffect.row][zone]->isLocked = TRUE;
         gZones[gMonEffect.row][zone]->isDefending = FALSE;
         gZones[gMonEffect.row][zone]->unkTwo = 0;
-        ResetPermStage(gZones[gMonEffect.row][zone]);
-        ResetTempStage(gZones[gMonEffect.row][zone]);
+        ResetPermanentPowerLevel(gZones[gMonEffect.row][zone]);
+        ResetTemporaryPowerLevel(gZones[gMonEffect.row][zone]);
         gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = gMonEffect.id;
+        gCardEffectTextData.cardId = gMonEffect.id;
         sub_801CEBC();
     }
 }
@@ -641,9 +641,9 @@ void EffectBeastOfGilfer(void)
     }
     ClearZoneAndSendMonToGraveyard(gZones[gMonEffect.row][gMonEffect.zone], 0);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = BEAST_OF_GILFER;
+        gCardEffectTextData.cardId = BEAST_OF_GILFER;
         sub_801CEBC();
     }
 }
@@ -666,9 +666,9 @@ void EffectDarkNecrofear(void)
         ClearZone(gZones[1][highestAtkZone]);
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = gMonEffect.id;
+        gCardEffectTextData.cardId = gMonEffect.id;
         sub_801CEBC();
     }
 }
@@ -683,13 +683,13 @@ void sub_8046D38(void)
         {
             SetCardInfo(gZones[1][i]->id);
             if (gCardInfo.type == TYPE_DRAGON)
-                sub_8040368(gZones[gMonEffect.row][gMonEffect.zone]);
+                IncrementPermanentPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
         }
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = gMonEffect.id;
+        gCardEffectTextData.cardId = gMonEffect.id;
         sub_801CEBC();
     }
 }
@@ -716,9 +716,9 @@ void EffectReflectBounder(void)
 
     ClearZoneAndSendMonToGraveyard(gZones[gMonEffect.row][gMonEffect.zone], 0);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = REFLECT_BOUNDER;
+        gCardEffectTextData.cardId = REFLECT_BOUNDER;
         sub_801CEBC();
     }
 }
@@ -740,9 +740,9 @@ void EffectParasiteParacide(void)
         ClearZone(gZones[gMonEffect.row][gMonEffect.zone]);
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = PARASITE_PARACIDE;
+        gCardEffectTextData.cardId = PARASITE_PARACIDE;
         sub_801CEBC();
     }
 }
@@ -768,9 +768,9 @@ void EffectPinchHopper(void)
         }
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = PINCH_HOPPER;
+        gCardEffectTextData.cardId = PINCH_HOPPER;
         sub_801CEBC();
     }
 }
@@ -785,9 +785,9 @@ void sub_804703C(void)
         gZones[2][zone]->willChangeSides = FALSE;
      }
 
-     if (!gUnk_02021C08)
+     if (!gHideEffectText)
      {
-        gUnk_02021C10.unk0 = gMonEffect.id;
+        gCardEffectTextData.cardId = gMonEffect.id;
         sub_801CEBC();
      }
 }
@@ -804,15 +804,15 @@ void EffectAncientLamp(void)
         gZones[gMonEffect.row][zone]->isDefending = FALSE;
         gZones[gMonEffect.row][zone]->unkTwo = 0;
         gZones[gMonEffect.row][zone]->unk4 = 0;
-        ResetPermStage(gZones[gMonEffect.row][zone]);
-        ResetTempStage(gZones[gMonEffect.row][zone]);
+        ResetPermanentPowerLevel(gZones[gMonEffect.row][zone]);
+        ResetTemporaryPowerLevel(gZones[gMonEffect.row][zone]);
         gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = gMonEffect.id;
-        gUnk_02021C10.unk2 = LA_JINN_THE_MYSTICAL_GENIE_OF_THE_LAMP;
+        gCardEffectTextData.cardId = gMonEffect.id;
+        gCardEffectTextData.cardId2 = LA_JINN_THE_MYSTICAL_GENIE_OF_THE_LAMP;
         sub_801CEBC();
     }
 }
@@ -834,9 +834,9 @@ void sub_80471BC(void)
 
     sub_804037C(gZones[gMonEffect.row][gMonEffect.zone]);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = gMonEffect.id;
+        gCardEffectTextData.cardId = gMonEffect.id;
         sub_801CEBC();
     }
 }
@@ -875,9 +875,9 @@ void EffectDarkPaladin(void)
             }
         }
     }
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = DARK_PALADIN;
+        gCardEffectTextData.cardId = DARK_PALADIN;
         sub_801CEBC();
     }
 }
@@ -949,8 +949,8 @@ _080472F2:\n\
 	bx r0\n\
 	.align 2, 0\n\
 _080472F8: .4byte gCardInfo\n\
-_080472FC: .4byte gUnk_02021C08\n\
-_08047300: .4byte gUnk_02021C10");
+_080472FC: .4byte gHideEffectText\n\
+_08047300: .4byte gCardEffectTextData");
 }
 /*
 void ReturnFaceDownCardsToHand(struct DuelCard* fieldZone, struct DuelCard* handZone) {
@@ -965,8 +965,8 @@ void ReturnFaceDownCardsToHand(struct DuelCard* fieldZone, struct DuelCard* hand
       if (handZone->id == CARD_NONE) {
         CopyCard(handZone, fieldZone);
         ClearZone(fieldZone);
-        ResetPermStage(handZone);
-        ResetTempStage(handZone);
+        ResetPermanentPowerLevel(handZone);
+        ResetTemporaryPowerLevel(handZone);
         handZone->isDefending = FALSE;
         handZone->unk4 = 0;
         handZone->unkTwo = 0;
@@ -1020,9 +1020,9 @@ _0804733A:\n\
 	adds r0, r5, #0\n\
 	bl ClearZone\n\
 	adds r0, r6, #0\n\
-	bl ResetPermStage\n\
+	bl ResetPermanentPowerLevel\n\
 	adds r0, r6, #0\n\
-	bl ResetTempStage\n\
+	bl ResetTemporaryPowerLevel\n\
 	ldrb r1, [r6, #5]\n\
 	movs r2, #3\n\
 	rsbs r2, r2, #0\n\
@@ -1087,15 +1087,15 @@ void EffectKingsKnight(void)
         gZones[2][zone]->isDefending = FALSE;
         gZones[2][zone]->unkTwo = 0;
         gZones[2][zone]->unkThree = 0;
-        ResetPermStage(gZones[2][zone]);
-        ResetTempStage(gZones[2][zone]);
+        ResetPermanentPowerLevel(gZones[2][zone]);
+        ResetTemporaryPowerLevel(gZones[2][zone]);
         gZones[2][zone]->unk4 = 0;
         gZones[2][zone]->willChangeSides = FALSE;
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = KINGS_KNIGHT;
+        gCardEffectTextData.cardId = KINGS_KNIGHT;
         sub_801CEBC();
     }
 }
@@ -1122,8 +1122,8 @@ void sub_804745C(void)
             gZones[2][gMonEffect.zone]->isDefending = FALSE;
             gZones[2][gMonEffect.zone]->unkTwo = 0;
             gZones[2][gMonEffect.zone]->unkThree = 0;
-            ResetPermStage(gZones[2][gMonEffect.zone]);
-            ResetTempStage(gZones[2][gMonEffect.zone]);
+            ResetPermanentPowerLevel(gZones[2][gMonEffect.zone]);
+            ResetTemporaryPowerLevel(gZones[2][gMonEffect.zone]);
             gZones[2][gMonEffect.zone]->unk4 = 0;
             gZones[2][gMonEffect.zone]->willChangeSides = FALSE;
         }
@@ -1142,9 +1142,9 @@ void sub_804745C(void)
         goto a;
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = X_HEAD_CANNON;
+        gCardEffectTextData.cardId = X_HEAD_CANNON;
         sub_801CEBC();
     }
 } */
@@ -1205,9 +1205,9 @@ _08047498:\n\
 	ands r0, r1\n\
 	strb r0, [r4, #5]\n\
 	adds r0, r4, #0\n\
-	bl ResetPermStage\n\
+	bl ResetPermanentPowerLevel\n\
 	adds r0, r4, #0\n\
-	bl ResetTempStage\n\
+	bl ResetTemporaryPowerLevel\n\
 	strb r5, [r4, #4]\n\
 	ldrb r1, [r4, #5]\n\
 	movs r0, #0x21\n\
@@ -1282,8 +1282,8 @@ _0804756A:\n\
 	pop {r0}\n\
 	bx r0\n\
 	.align 2, 0\n\
-_08047574: .4byte gUnk_02021C08\n\
-_08047578: .4byte gUnk_02021C10");
+_08047574: .4byte gHideEffectText\n\
+_08047578: .4byte gCardEffectTextData");
 }
 
 NAKED
@@ -1337,9 +1337,9 @@ _080475B0:\n\
 	ands r0, r1\n\
 	strb r0, [r4, #5]\n\
 	adds r0, r4, #0\n\
-	bl ResetPermStage\n\
+	bl ResetPermanentPowerLevel\n\
 	adds r0, r4, #0\n\
-	bl ResetTempStage\n\
+	bl ResetTemporaryPowerLevel\n\
 	strb r5, [r4, #4]\n\
 	ldrb r1, [r4, #5]\n\
 	movs r0, #0x21\n\
@@ -1409,8 +1409,8 @@ _08047672:\n\
 	pop {r0}\n\
 	bx r0\n\
 	.align 2, 0\n\
-_08047678: .4byte gUnk_02021C08\n\
-_0804767C: .4byte gUnk_02021C10\n\
+_08047678: .4byte gHideEffectText\n\
+_0804767C: .4byte gCardEffectTextData\n\
 _08047680: .4byte 0x0000023F");
 }
 
@@ -1465,9 +1465,9 @@ _080476B8:\n\
 	ands r0, r1\n\
 	strb r0, [r4, #5]\n\
 	adds r0, r4, #0\n\
-	bl ResetPermStage\n\
+	bl ResetPermanentPowerLevel\n\
 	adds r0, r4, #0\n\
-	bl ResetTempStage\n\
+	bl ResetTemporaryPowerLevel\n\
 	strb r5, [r4, #4]\n\
 	ldrb r1, [r4, #5]\n\
 	movs r0, #0x21\n\
@@ -1536,8 +1536,8 @@ _0804777A:\n\
 	pop {r0}\n\
 	bx r0\n\
 	.align 2, 0\n\
-_08047780: .4byte gUnk_02021C08\n\
-_08047784: .4byte gUnk_02021C10\n\
+_08047780: .4byte gHideEffectText\n\
+_08047784: .4byte gCardEffectTextData\n\
 _08047788: .4byte 0x0000024E");
 }
 /*
@@ -1564,9 +1564,9 @@ void EffectXYDragonCannon(void)
         }
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = XY_DRAGON_CANNON;
+        gCardEffectTextData.cardId = XY_DRAGON_CANNON;
         sub_801CEBC();
     }
 }*/
@@ -1637,8 +1637,8 @@ _08047802:\n\
 	bx r0\n\
 	.align 2, 0\n\
 _08047808: .4byte gHands\n\
-_0804780C: .4byte gUnk_02021C08\n\
-_08047810: .4byte gUnk_02021C10\n\
+_0804780C: .4byte gHideEffectText\n\
+_08047810: .4byte gCardEffectTextData\n\
 _08047814: .4byte 0x00000251");
 }
 NAKED
@@ -1707,8 +1707,8 @@ _0804788E:\n\
 	bx r0\n\
 	.align 2, 0\n\
 _08047894: .4byte gHands\n\
-_08047898: .4byte gUnk_02021C08\n\
-_0804789C: .4byte gUnk_02021C10");
+_08047898: .4byte gHideEffectText\n\
+_0804789C: .4byte gCardEffectTextData");
 }
 /*
 void sub_80478A0(void)
@@ -1741,9 +1741,9 @@ void sub_80478A0(void)
         }
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = YZ_TANK_DRAGON;
+        gCardEffectTextData.cardId = YZ_TANK_DRAGON;
         sub_801CEBC();
     }
 }
@@ -1855,8 +1855,8 @@ _08047970: .4byte gDuel+0xF0\n\
 _08047974: .4byte gZones+0x14\n\
 _08047978: .4byte gCardInfo\n\
 _0804797C: .4byte gZones\n\
-_08047980: .4byte gUnk_02021C08\n\
-_08047984: .4byte gUnk_02021C10\n\
+_08047980: .4byte gHideEffectText\n\
+_08047984: .4byte gCardEffectTextData\n\
 _08047988: .4byte 0x00000255");
 }
 
@@ -1872,9 +1872,9 @@ void EffectXYZDragonCannon(void)
         }
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = XYZ_DRAGON_CANNON;
+        gCardEffectTextData.cardId = XYZ_DRAGON_CANNON;
         sub_801CEBC();
     }
 }
@@ -1897,7 +1897,7 @@ void EffectPuppetMaster(void)
             sub_803F29C();
         }
         sub_803F4C0();
-        sub_804535C(0);  //this returns something
+        GetGraveCardAndClearGrave(0);  //this returns something
 
         zone = EmptyZoneInRow(gZones[2]);
 
@@ -1907,8 +1907,8 @@ void EffectPuppetMaster(void)
         gZones[2][zone]->isDefending = FALSE;
         gZones[2][zone]->unkTwo = 0;
         gZones[2][zone]->unk4 = 2;
-        ResetPermStage(gZones[2][zone]);
-        ResetTempStage(gZones[2][zone]);
+        ResetPermanentPowerLevel(gZones[2][zone]);
+        ResetTemporaryPowerLevel(gZones[2][zone]);
         gZones[2][zone]->willChangeSides = FALSE;
 
         if (NumEmptyZonesInRow(gZones[2]) != 0)
@@ -1921,8 +1921,8 @@ void EffectPuppetMaster(void)
             gZones[2][zone]->isDefending = FALSE;
             gZones[2][zone]->unkTwo = 0;
             gZones[2][zone]->unk4 = 2;
-            ResetPermStage(gZones[2][zone]);
-            ResetTempStage(gZones[2][zone]);
+            ResetPermanentPowerLevel(gZones[2][zone]);
+            ResetTemporaryPowerLevel(gZones[2][zone]);
             gZones[2][zone]->willChangeSides = FALSE;
 
             if (NumEmptyZonesInRow(gZones[2]) != 0)
@@ -1935,16 +1935,16 @@ void EffectPuppetMaster(void)
                 gZones[2][zone]->isDefending = FALSE;
                 gZones[2][zone]->unkTwo = 0;
                 gZones[2][zone]->unk4 = 2;
-                ResetPermStage(gZones[2][zone]);
-                ResetTempStage(gZones[2][zone]);
+                ResetPermanentPowerLevel(gZones[2][zone]);
+                ResetTemporaryPowerLevel(gZones[2][zone]);
                 gZones[2][zone]->willChangeSides = FALSE;
             }
         }
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = gMonEffect.id;
+        gCardEffectTextData.cardId = gMonEffect.id;
         sub_801CEBC();
     }
 }
@@ -1992,7 +1992,7 @@ _08047A40:\n\
 _08047A4C:\n\
 	bl sub_803F4C0\n\
 	movs r0, #0\n\
-	bl sub_804535C\n\
+	bl GetGraveCardAndClearGrave\n\
 	ldr r5, _08047B60\n\
 	adds r0, r5, #0\n\
 	bl EmptyZoneInRow\n\
@@ -2021,9 +2021,9 @@ _08047A4C:\n\
 	movs r6, #2\n\
 	strb r6, [r4, #4]\n\
 	adds r0, r4, #0\n\
-	bl ResetPermStage\n\
+	bl ResetPermanentPowerLevel\n\
 	adds r0, r4, #0\n\
-	bl ResetTempStage\n\
+	bl ResetTemporaryPowerLevel\n\
 	ldrb r1, [r4, #5]\n\
 	movs r7, #0x21\n\
 	rsbs r7, r7, #0\n\
@@ -2054,9 +2054,9 @@ _08047A4C:\n\
 	strb r0, [r4, #5]\n\
 	strb r6, [r4, #4]\n\
 	adds r0, r4, #0\n\
-	bl ResetPermStage\n\
+	bl ResetPermanentPowerLevel\n\
 	adds r0, r4, #0\n\
-	bl ResetTempStage\n\
+	bl ResetTemporaryPowerLevel\n\
 	ldrb r1, [r4, #5]\n\
 	adds r0, r7, #0\n\
 	ands r0, r1\n\
@@ -2085,9 +2085,9 @@ _08047A4C:\n\
 	strb r0, [r4, #5]\n\
 	strb r6, [r4, #4]\n\
 	adds r0, r4, #0\n\
-	bl ResetPermStage\n\
+	bl ResetPermanentPowerLevel\n\
 	adds r0, r4, #0\n\
-	bl ResetTempStage\n\
+	bl ResetTemporaryPowerLevel\n\
 	ldrb r1, [r4, #5]\n\
 	adds r0, r7, #0\n\
 	ands r0, r1\n\
@@ -2113,8 +2113,8 @@ _08047B52:\n\
 	.align 2, 0\n\
 _08047B60: .4byte gZones+0x28\n\
 _08047B64: .4byte 0x00000239\n\
-_08047B68: .4byte gUnk_02021C08\n\
-_08047B6C: .4byte gUnk_02021C10\n\
+_08047B68: .4byte gHideEffectText\n\
+_08047B6C: .4byte gCardEffectTextData\n\
 _08047B70: .4byte 0x02024250");
 }
 
@@ -2135,9 +2135,9 @@ void EffectPenguinTorpedo(void)
     sub_803F29C();
     sub_803F4C0();
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = PENGUIN_TORPEDO;
+        gCardEffectTextData.cardId = PENGUIN_TORPEDO;
         sub_801CEBC();
     }
 }
@@ -2166,9 +2166,9 @@ void EffectBerserkDragon(void)
         }
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = BERSERK_DRAGON;
+        gCardEffectTextData.cardId = BERSERK_DRAGON;
         sub_801CEBC();
     }
 }
@@ -2192,16 +2192,16 @@ void sub_8047CAC(void)
             ClearZoneAndSendMonToGraveyard(zone, 1);
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = gMonEffect.id;
+        gCardEffectTextData.cardId = gMonEffect.id;
         sub_801CEBC();
     }
 }
 
 void ActivateMonEffect(void)
 {
-    sub_801D1A8();
+    ResetCardEffectTextData();
     sub_801D188(2);
     SetCardInfo(gMonEffect.id);
     gMonEffects[gCardInfo.monsterEffect]();
@@ -2227,9 +2227,9 @@ void EffectReaperOfTheCards(void)
         }
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = REAPER_OF_THE_CARDS;
+        gCardEffectTextData.cardId = REAPER_OF_THE_CARDS;
         sub_801CEBC();
     }
 }
@@ -2243,9 +2243,9 @@ void EffectFairysGift(void)
 
     sub_803F29C();
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = FAIRYS_GIFT;
+        gCardEffectTextData.cardId = FAIRYS_GIFT;
         sub_801CEBC();
     }
 }
@@ -2254,9 +2254,9 @@ void EffectSkelengel(void)
 {
     DrawCard(WhoseTurn());
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = SKELENGEL;
+        gCardEffectTextData.cardId = SKELENGEL;
         sub_801CEBC();
     }
 }
@@ -2267,13 +2267,13 @@ void EffectHarpieLady(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (gZones[2][i]->id == HARPIES_PET_DRAGON)
-            sub_8040368(gZones[2][i]);
+            IncrementPermanentPowerLevel(gZones[2][i]);
 
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = HARPIE_LADY;
-        gUnk_02021C10.unk2 = HARPIES_PET_DRAGON;
+        gCardEffectTextData.cardId = HARPIE_LADY;
+        gCardEffectTextData.cardId2 = HARPIES_PET_DRAGON;
         sub_801CEBC();
     }
 }
@@ -2286,10 +2286,10 @@ void EffectHarpieLadySisters(void)
         if (gZones[2][i]->id == HARPIES_PET_DRAGON)
             sub_8040394(gZones[2][i], 2);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = HARPIE_LADY_SISTERS;
-        gUnk_02021C10.unk2 = HARPIES_PET_DRAGON;
+        gCardEffectTextData.cardId = HARPIE_LADY_SISTERS;
+        gCardEffectTextData.cardId2 = HARPIES_PET_DRAGON;
         sub_801CEBC();
     }
 }
@@ -2300,12 +2300,12 @@ void EffectMysticalElf(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (gZones[2][i]->id == BLUE_EYES_WHITE_DRAGON)
-            sub_8040368(gZones[2][i]);
+            IncrementPermanentPowerLevel(gZones[2][i]);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = MYSTICAL_ELF;
-        gUnk_02021C10.unk2 = BLUE_EYES_WHITE_DRAGON;
+        gCardEffectTextData.cardId = MYSTICAL_ELF;
+        gCardEffectTextData.cardId2 = BLUE_EYES_WHITE_DRAGON;
         sub_801CEBC();
     }
 }
@@ -2314,10 +2314,10 @@ void EffectCurseOfDragon(void)
 {
     gDuel.field = FIELD_WASTELAND;
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
         sub_8041140(FIELD_WASTELAND);
-        gUnk_02021C10.unk0 = CURSE_OF_DRAGON;
+        gCardEffectTextData.cardId = CURSE_OF_DRAGON;
         sub_801CEBC();
     }
 }
@@ -2333,9 +2333,9 @@ void EffectFlameSwordsman(void)
             ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = FLAME_SWORDSMAN;
+        gCardEffectTextData.cardId = FLAME_SWORDSMAN;
         sub_801CEBC();
     }
 }
@@ -2344,10 +2344,10 @@ void EffectGiantSoldierOfStone(void)
 {
     gDuel.field = FIELD_ARENA;
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
         sub_8041140(FIELD_ARENA);
-        gUnk_02021C10.unk0 = GIANT_SOLDIER_OF_STONE;
+        gCardEffectTextData.cardId = GIANT_SOLDIER_OF_STONE;
         sub_801CEBC();
     }
 }
@@ -2363,9 +2363,9 @@ void EffectBattleOx(void)
             ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = BATTLE_OX;
+        gCardEffectTextData.cardId = BATTLE_OX;
         sub_801CEBC();
     }
 }
@@ -2377,13 +2377,13 @@ void EffectMonsterTamer(void)
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
         if (gZones[2][i]->id == DUNGEON_WORM)
-            sub_8040368(gZones[2][i]);
+            IncrementPermanentPowerLevel(gZones[2][i]);
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = MONSTER_TAMER;
-        gUnk_02021C10.unk2 = DUNGEON_WORM;
+        gCardEffectTextData.cardId = MONSTER_TAMER;
+        gCardEffectTextData.cardId2 = DUNGEON_WORM;
         sub_801CEBC();
     }
 }
@@ -2396,9 +2396,9 @@ void EffectMammothGraveyard(void)
         if (gZones[1][i]->id != CARD_NONE)
             sub_804037C(gZones[1][i]);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = MAMMOTH_GRAVEYARD;
+        gCardEffectTextData.cardId = MAMMOTH_GRAVEYARD;
         sub_801CEBC();
     }
 }
@@ -2408,9 +2408,9 @@ void EffectGoddessOfWhim(void)
     DrawCard(WhoseTurn());
     ClearZoneAndSendMonToGraveyard(gZones[2][gMonEffect.zone], 0);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = GODDESS_OF_WHIM;
+        gCardEffectTextData.cardId = GODDESS_OF_WHIM;
         sub_801CEBC();
     }
 }
@@ -2419,10 +2419,10 @@ void EffectSpiritOfTheMountain(void)
 {
     gDuel.field = FIELD_MOUNTAIN;
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
         sub_8041140(FIELD_MOUNTAIN);
-        gUnk_02021C10.unk0 = SPIRIT_OF_THE_MOUNTAIN;
+        gCardEffectTextData.cardId = SPIRIT_OF_THE_MOUNTAIN;
         sub_801CEBC();
     }
 }
@@ -2438,9 +2438,9 @@ void EffectDragonSeeker(void)
             ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = DRAGON_SEEKER;
+        gCardEffectTextData.cardId = DRAGON_SEEKER;
         sub_801CEBC();
     }
 }
@@ -2452,9 +2452,9 @@ void EffectFiendsHand(void)
 
     ClearZoneAndSendMonToGraveyard(gZones[gMonEffect.row][gMonEffect.zone], 0);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = FIENDS_HAND;
+        gCardEffectTextData.cardId = FIENDS_HAND;
         sub_801CEBC();
     }
 }
@@ -2467,9 +2467,9 @@ void EffectIllusionistFacelessMage(void)
         if (gZones[1][i]->id != CARD_NONE)
             gZones[1][i]->isLocked = TRUE;
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = ILLUSIONIST_FACELESS_MAGE;
+        gCardEffectTextData.cardId = ILLUSIONIST_FACELESS_MAGE;
         sub_801CEBC();
     }
 }
@@ -2480,9 +2480,9 @@ void EffectElectricLizard(void)
         gZones[1][(u8)sub_804304C(gZones[1])]->isLocked = TRUE;
 
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = ELECTRIC_LIZARD;
+        gCardEffectTextData.cardId = ELECTRIC_LIZARD;
         sub_801CEBC();
     }
 }
@@ -2495,12 +2495,12 @@ void EffectWodanTheResidentOfTheForest(void)
     {
         SetCardInfo(gZones[2][i]->id);
         if (gCardInfo.type == TYPE_PLANT)
-            sub_8040368(gZones[2][gMonEffect.zone]);
+            IncrementPermanentPowerLevel(gZones[2][gMonEffect.zone]);
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = WODAN_THE_RESIDENT_OF_THE_FOREST;
+        gCardEffectTextData.cardId = WODAN_THE_RESIDENT_OF_THE_FOREST;
         sub_801CEBC();
     }
 }
@@ -2511,12 +2511,12 @@ void EffectMWarrior1(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (gZones[2][i]->id == M_WARRIOR_2)
-            sub_8040368(gZones[2][i]);
+            IncrementPermanentPowerLevel(gZones[2][i]);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = M_WARRIOR_1;
-        gUnk_02021C10.unk2 = M_WARRIOR_2;
+        gCardEffectTextData.cardId = M_WARRIOR_1;
+        gCardEffectTextData.cardId2 = M_WARRIOR_2;
         sub_801CEBC();
     }
 }
@@ -2527,12 +2527,12 @@ void EffectMWarrior2(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (gZones[2][i]->id == M_WARRIOR_1)
-            sub_8040368(gZones[2][i]);
+            IncrementPermanentPowerLevel(gZones[2][i]);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = M_WARRIOR_2;
-        gUnk_02021C10.unk2 = M_WARRIOR_1;
+        gCardEffectTextData.cardId = M_WARRIOR_2;
+        gCardEffectTextData.cardId2 = M_WARRIOR_1;
         sub_801CEBC();
     }
 }
@@ -2546,9 +2546,9 @@ void EffectRedArcheryGirl(void)
         sub_804037C(gZones[1][zone]);
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = RED_ARCHERY_GIRL;
+        gCardEffectTextData.cardId = RED_ARCHERY_GIRL;
         sub_801CEBC();
     }
 }
@@ -2562,9 +2562,9 @@ void EffectLadyOfFaith(void)
 
     sub_803F29C();
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = LADY_OF_FAITH;
+        gCardEffectTextData.cardId = LADY_OF_FAITH;
         sub_801CEBC();
     }
 }
@@ -2579,9 +2579,9 @@ void EffectFireReaper(void)
     sub_803F29C();
     sub_803F4C0();
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = FIRE_REAPER;
+        gCardEffectTextData.cardId = FIRE_REAPER;
         sub_801CEBC();
     }
 }
@@ -2590,10 +2590,10 @@ void EffectKairyuShin(void)
 {
     gDuel.field = FIELD_UMI;
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
         sub_8041140(FIELD_UMI);
-        gUnk_02021C10.unk0 = KAIRYU_SHIN;
+        gCardEffectTextData.cardId = KAIRYU_SHIN;
         sub_801CEBC();
     }
 }
@@ -2606,9 +2606,9 @@ void EffectMonsterEye(void)
         if (gHands[1][i]->id != CARD_NONE)
             gHands[1][i]->isFaceUp = TRUE;
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = MONSTER_EYE;
+        gCardEffectTextData.cardId = MONSTER_EYE;
         sub_801CEBC();
     }
 }
@@ -2619,12 +2619,12 @@ void EffectSwampBattleGuard(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (gZones[2][i]->id == LAVA_BATTLEGUARD)
-            sub_8040368(gZones[2][i]);
+            IncrementPermanentPowerLevel(gZones[2][i]);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = SWAMP_BATTLEGUARD;
-        gUnk_02021C10.unk2 = LAVA_BATTLEGUARD;
+        gCardEffectTextData.cardId = SWAMP_BATTLEGUARD;
+        gCardEffectTextData.cardId2 = LAVA_BATTLEGUARD;
         sub_801CEBC();
     }
 }
@@ -2635,12 +2635,12 @@ void EffectLavaBattleGuard(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (gZones[2][i]->id == SWAMP_BATTLEGUARD)
-            sub_8040368(gZones[2][i]);
+            IncrementPermanentPowerLevel(gZones[2][i]);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = LAVA_BATTLEGUARD;
-        gUnk_02021C10.unk2 = SWAMP_BATTLEGUARD;
+        gCardEffectTextData.cardId = LAVA_BATTLEGUARD;
+        gCardEffectTextData.cardId2 = SWAMP_BATTLEGUARD;
         sub_801CEBC();
     }
 }
@@ -2649,10 +2649,10 @@ void EffectTrent(void)
 {
     gDuel.field = FIELD_FOREST;
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
         sub_8041140(FIELD_FOREST);
-        gUnk_02021C10.unk0 = TRENT;
+        gCardEffectTextData.cardId = TRENT;
         sub_801CEBC();
     }
 }
@@ -2663,7 +2663,7 @@ void EffectHourglassOfLife(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (gZones[2][i]->id != CARD_NONE)
-            sub_8040368(gZones[2][i]);
+            IncrementPermanentPowerLevel(gZones[2][i]);
 
     if (WhoseTurn() == PLAYER)
         SetPlayerLifePointsToSubtract(1000);
@@ -2673,9 +2673,9 @@ void EffectHourglassOfLife(void)
     sub_803F29C();
     sub_803F4C0();
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = HOURGLASS_OF_LIFE;
+        gCardEffectTextData.cardId = HOURGLASS_OF_LIFE;
         sub_801CEBC();
     }
 }
@@ -2688,9 +2688,9 @@ void EffectInvitationToADarkSleep(void)
         if (gZones[1][i]->id != CARD_NONE)
             gZones[1][i]->isLocked = TRUE;
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = INVITATION_TO_A_DARK_SLEEP;
+        gCardEffectTextData.cardId = INVITATION_TO_A_DARK_SLEEP;
         sub_801CEBC();
     }
 }
@@ -2711,9 +2711,9 @@ void EffectTheWingedDragonOfRaBattleMode(void)
     }
     sub_803F4C0();
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = gMonEffect.id;
+        gCardEffectTextData.cardId = gMonEffect.id;
         sub_801CEBC();
     }
 }
@@ -2729,12 +2729,12 @@ void sub_80486FC(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (gZones[2][i]->id == HARPIES_PET_DRAGON)
-            sub_8040368(gZones[2][i]);
+            IncrementPermanentPowerLevel(gZones[2][i]);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = gMonEffect.id;
-        gUnk_02021C10.unk2 = HARPIES_PET_DRAGON;
+        gCardEffectTextData.cardId = gMonEffect.id;
+        gCardEffectTextData.cardId2 = HARPIES_PET_DRAGON;
         sub_801CEBC();
     }
 }
@@ -2748,9 +2748,9 @@ void sub_8048754(void) //Zombyra the dark?
         sub_804037C(gZones[gMonEffect.row][gMonEffect.zone]);
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = gMonEffect.id;
+        gCardEffectTextData.cardId = gMonEffect.id;
         sub_801CEBC();
     }
 }
@@ -2765,9 +2765,9 @@ void sub_80487C0(void)
         if (!IsGodCard(gZones[1][i]->id))
             ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = gMonEffect.id;
+        gCardEffectTextData.cardId = gMonEffect.id;
         sub_801CEBC();
     }
 }
@@ -2778,12 +2778,12 @@ void sub_8048814(void)
     {
         u8 zone = HighestAtkMonInRowExceptGodCards(gZones[1]);
         ClearZone(gZones[1][zone]);
-        sub_8040368(gZones[gMonEffect.row][gMonEffect.zone]);
+        IncrementPermanentPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = gMonEffect.id;
+        gCardEffectTextData.cardId = gMonEffect.id;
         sub_801CEBC();
     }
 }
@@ -2802,9 +2802,9 @@ void EffectJinzo(void)
         }
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = JINZO;
+        gCardEffectTextData.cardId = JINZO;
         sub_801CEBC();
     }
 }
@@ -2821,9 +2821,9 @@ void EffectBarrelDragon(void)
             ClearZoneAndSendMonToGraveyard(gZones[1][(u8)HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = BARREL_DRAGON;
+        gCardEffectTextData.cardId = BARREL_DRAGON;
         sub_801CEBC();
     }
 }
@@ -2839,9 +2839,9 @@ void EffectSkullMarkLadyBug(void)
 
     ClearZoneAndSendMonToGraveyard(gZones[gMonEffect.row][gMonEffect.zone], 0);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = SKULL_MARK_LADY_BUG;
+        gCardEffectTextData.cardId = SKULL_MARK_LADY_BUG;
         sub_801CEBC();
     }
 }
@@ -2851,9 +2851,9 @@ void sub_80489A4(void)
     if (NumEmptyZonesInRow(gZones[1]) < MAX_ZONES_IN_ROW)
         sub_804037C(gZones[1][(u8)HighestAtkMonInRow(gZones[1])]);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = gMonEffect.id;
+        gCardEffectTextData.cardId = gMonEffect.id;
         sub_801CEBC();
     }
 }
@@ -2866,23 +2866,23 @@ void sub_80489F0(void)
     {
         SetCardInfo(gZones[2][i]->id);
         if (gCardInfo.type == TYPE_DRAGON)
-            sub_8040368(gZones[gMonEffect.row][gMonEffect.zone]);
+            IncrementPermanentPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
     }
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = gMonEffect.id;
+        gCardEffectTextData.cardId = gMonEffect.id;
         sub_801CEBC();
     }
 }
 
 void sub_8048A5C(void)
 {
-    sub_8040368(gZones[gMonEffect.row][gMonEffect.zone]);
+    IncrementPermanentPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = gMonEffect.id;
+        gCardEffectTextData.cardId = gMonEffect.id;
         sub_801CEBC();
     }
 }
@@ -2900,9 +2900,9 @@ void sub_8048AA0(void)
     sub_803F29C();
     sub_803F4C0();
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = gMonEffect.id;
+        gCardEffectTextData.cardId = gMonEffect.id;
         sub_801CEBC();
     }
 }
@@ -2916,9 +2916,9 @@ void EffectByserShock(void)
     ReturnFaceDownCardsToHand(gZones[2][0], gHands[0][0]);
     ReturnFaceDownCardsToHand(gZones[3][0], gHands[0][0]);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = BYSER_SHOCK;
+        gCardEffectTextData.cardId = BYSER_SHOCK;
         sub_801CEBC();
     }
 }
@@ -2938,9 +2938,9 @@ void EffectTheWingedDragonOfRaPhoenixMode(void)
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = THE_WINGED_DRAGON_OF_RA_PHOENIX_MODE;
+        gCardEffectTextData.cardId = THE_WINGED_DRAGON_OF_RA_PHOENIX_MODE;
         sub_801CEBC();
     }
 }
@@ -2950,9 +2950,9 @@ void sub_8048BCC(void)
     if (NumEmptyZonesAndGodCardsInRow(gZones[1]) < MAX_ZONES_IN_ROW)
         ClearZoneAndSendMonToGraveyard(gZones[1][(u8)HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = gMonEffect.id;
+        gCardEffectTextData.cardId = gMonEffect.id;
         sub_801CEBC();
     }
 }

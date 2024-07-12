@@ -33,18 +33,18 @@ void sub_802703C (void) {
     if (temp > 3)
       continue;
     gZones[2][i]->id = g8E0C6B8[temp];
-    sub_801D1A8();
+    ResetCardEffectTextData();
     sub_801D188(10);
-    gUnk_02021C10.unk8 = 14;
-    gUnk_02021C10.unk0 = g8E0C6B0[temp];
-    gUnk_02021C10.unk2 = g8E0C6B8[temp];
+    gCardEffectTextData.textId = 14;
+    gCardEffectTextData.cardId = g8E0C6B0[temp];
+    gCardEffectTextData.cardId2 = g8E0C6B8[temp];
     sub_801CEBC();
   }
 }
 
-u8 sub_80270B4 (u16 arg0) {
+u8 sub_80270B4 (u16 cardId) {
   u8 i;
-  for (i = 0; i < 4 && arg0 != g8E0C6B0[i]; i++)
+  for (i = 0; i < 4 && cardId != g8E0C6B0[i]; i++)
     ;
   return i;
 }
@@ -72,12 +72,12 @@ void sub_8027138 (void) {
   for (i = 0; i < 5; i++) {
     g2021DE0.unk3 = i;
     g2021DE0.unk0 = gHands[0][g2021DE0.unk3]->id;
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
       sub_802ACC0();
     if (sub_802A478() == 1) {
       sub_8034FEC(0x177);
       sub_8029864();
-      if (!gUnk_02021C08)
+      if (!gHideEffectText)
         PlayMusic(0x177);
     }
     if (IsDuelOver() == 1) {
@@ -90,12 +90,12 @@ void sub_8027138 (void) {
   for (i = 0; i < 5; i++) {
     g2021DE0.unk3 = i;
     g2021DE0.unk0 = gHands[1][g2021DE0.unk3]->id;
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
       sub_802ADF4();
     if (sub_802A478() == 1) {
       sub_8034FEC(0x177);
       sub_8029864();
-      if (!gUnk_02021C08)
+      if (!gHideEffectText)
         PlayMusic(0x177);
     }
     if (IsDuelOver() == 1) {
@@ -103,18 +103,18 @@ void sub_8027138 (void) {
       return;
     }
   }
-  if (!gUnk_02021C08)
+  if (!gHideEffectText)
     PlayMusic(0x177);
 
   g2021DE0.unk2 = 6;
   g2021DE0.unk3 = 0;
   g2021DE0.unk0 = gNotSure[0]->graveyard;
-  if (!gUnk_02021C08)
+  if (!gHideEffectText)
     sub_802ADF4();
   if (sub_802A478() == 1) {
     sub_8034FEC(0x177);
     sub_8029864();
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
       PlayMusic(0x177);
   }
   if (IsDuelOver() == 1) {
@@ -125,7 +125,7 @@ void sub_8027138 (void) {
   g2021DE0.unk2 = 7;
   g2021DE0.unk3 = 0;
   g2021DE0.unk0 = gNotSure[1]->graveyard;
-  if (!gUnk_02021C08)
+  if (!gHideEffectText)
     sub_802ADF4();
   if (sub_802A478() == 1) {
     sub_8034FEC(0x177);
@@ -141,12 +141,12 @@ void sub_8027138 (void) {
   for (i = 0; i < 5; i++) {
     g2021DE0.unk3 = i;
     g2021DE0.unk0 = gZones[g2021DE0.unk2][i]->id;
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
       sub_802ACC0();
     if (sub_802A478() == 1) {
       sub_8034FEC(0x177);
       sub_8029864();
-      if (!gUnk_02021C08)
+      if (!gHideEffectText)
         PlayMusic(0x177);
     }
     if (IsDuelOver() == 1) {
@@ -159,12 +159,12 @@ void sub_8027138 (void) {
   for (i = 0; i < 5; i++) {
     g2021DE0.unk3 = i;
     g2021DE0.unk0 = gZones[g2021DE0.unk2][i]->id;
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
       sub_802ACC0();
     if (sub_802A478() == 1) {
       sub_8034FEC(0x177);
       sub_8029864();
-      if (!gUnk_02021C08)
+      if (!gHideEffectText)
         PlayMusic(0x177);
     }
     if (IsDuelOver() == 1) {
@@ -177,12 +177,12 @@ void sub_8027138 (void) {
   for (i = 0; i < 5; i++) {
     g2021DE0.unk3 = i;
     g2021DE0.unk0 = gZones[g2021DE0.unk2][i]->id;
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
       sub_802ACC0();
     if (sub_802A478() == 1) {
       sub_8034FEC(0x177);
       sub_8029864();
-      if (!gUnk_02021C08)
+      if (!gHideEffectText)
         PlayMusic(0x177);
     }
     if (IsDuelOver() == 1) {
@@ -195,12 +195,12 @@ void sub_8027138 (void) {
   for (i = 0; i < 5; i++) {
     g2021DE0.unk3 = i;
     g2021DE0.unk0 = gZones[g2021DE0.unk2][i]->id;
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
       sub_802ACC0();
     if (sub_802A478() == 1) {
       sub_8034FEC(0x177);
       sub_8029864();
-      if (!gUnk_02021C08)
+      if (!gHideEffectText)
         PlayMusic(0x177);
     }
     if (IsDuelOver() == 1) {
@@ -220,8 +220,8 @@ void sub_8027444 (void) {
       if (gCardInfo.trapEffect)
         ClearZoneAndSendMonToGraveyard(gZones[3][i], 0);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = JINZO;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = JINZO;
       sub_801CEBC();
     }
   }
@@ -232,8 +232,8 @@ void sub_8027444 (void) {
       if (gCardInfo.trapEffect)
         ClearZoneAndSendMonToGraveyard(gZones[0][i], 1);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = JINZO;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = JINZO;
       sub_801CEBC();
     }
   }
@@ -251,8 +251,8 @@ void sub_8027524 (void) {
       sub_80403F0(gZones[g2021DE0.unk2][g2021DE0.unk3]);
       sub_80403F0(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = g2021DE0.unk0;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = g2021DE0.unk0;
       sub_801CEBC();
     }
   }
@@ -265,8 +265,8 @@ void sub_8027524 (void) {
       sub_80403F0(gZones[g2021DE0.unk2][g2021DE0.unk3]);
       sub_80403F0(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = g2021DE0.unk0;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = g2021DE0.unk0;
       sub_801CEBC();
     }
   }
@@ -284,8 +284,8 @@ void sub_8027678 (void) {
       if (gCardInfo.type == TYPE_DRAGON)
         LockCard(gZones[2][i]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = DRAGON_CAPTURE_JAR;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = DRAGON_CAPTURE_JAR;
       sub_801CEBC();
     }
   }
@@ -299,8 +299,8 @@ void sub_8027678 (void) {
       if (gCardInfo.type == TYPE_DRAGON)
         LockCard(gZones[1][i]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = DRAGON_CAPTURE_JAR;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = DRAGON_CAPTURE_JAR;
       sub_801CEBC();
     }
   }
@@ -318,8 +318,8 @@ void sub_802779C (void) {
       else if (gZones[1][i]->id == CLOWN_ZOMBIE)
         sub_80403F0(gZones[1][i]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -333,8 +333,8 @@ void sub_802779C (void) {
       else if (gZones[2][i]->id == CLOWN_ZOMBIE)
         sub_80403F0(gZones[2][i]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -348,8 +348,8 @@ void sub_80278A4 (void) {
       if (gZones[1][i]->id == HARPIES_PET_DRAGON)
         sub_80403F0(gZones[1][i]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -359,8 +359,8 @@ void sub_80278A4 (void) {
       if (gZones[2][i]->id == HARPIES_PET_DRAGON)
         sub_80403F0(gZones[2][i]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -376,8 +376,8 @@ void sub_8027990 (void) {
         sub_80403F0(gZones[1][i]);
       }
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -389,8 +389,8 @@ void sub_8027990 (void) {
         sub_80403F0(gZones[2][i]);
       }
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -404,8 +404,8 @@ void sub_8027A88 (void) {
       if (gZones[1][i]->id == BLUE_EYES_WHITE_DRAGON)
         sub_80403F0(gZones[1][i]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -415,8 +415,8 @@ void sub_8027A88 (void) {
       if (gZones[2][i]->id == BLUE_EYES_WHITE_DRAGON)
         sub_80403F0(gZones[2][i]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = g2021DE0.unk0;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = g2021DE0.unk0;
       sub_801CEBC();
     }
   }
@@ -430,8 +430,8 @@ void sub_8027B54 (void) {
       if (gZones[1][i]->id == DUNGEON_WORM)
         sub_80403F0(gZones[1][i]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -441,8 +441,8 @@ void sub_8027B54 (void) {
       if (gZones[2][i]->id == DUNGEON_WORM)
         sub_80403F0(gZones[2][i]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -456,8 +456,8 @@ void sub_8027C44 (void) {
       if (gZones[2][i]->id != CARD_NONE)
         sub_8040404(gZones[2][i]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -467,8 +467,8 @@ void sub_8027C44 (void) {
       if (gZones[1][i]->id != CARD_NONE)
         sub_8040404(gZones[1][i]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -485,8 +485,8 @@ void sub_8027D2C (void) {
       sub_80403F0(gZones[1][g2021DE0.unk3]);
     else if (gNotSure[0]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
       sub_80403F0(gZones[1][g2021DE0.unk3]);
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = g2021DE0.unk0;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = g2021DE0.unk0;
       sub_801CEBC();
     }
   }
@@ -500,8 +500,8 @@ void sub_8027D2C (void) {
       sub_80403F0(gZones[2][g2021DE0.unk3]);
     else if (gNotSure[0]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
       sub_80403F0(gZones[2][g2021DE0.unk3]);
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = g2021DE0.unk0;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = g2021DE0.unk0;
       sub_801CEBC();
     }
   }
@@ -518,8 +518,8 @@ void sub_8027EB0 (void) {
       if (gCardInfo.type == TYPE_PLANT)
         sub_80403F0(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -532,8 +532,8 @@ void sub_8027EB0 (void) {
       if (gCardInfo.type == TYPE_PLANT)
         sub_80403F0(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -548,8 +548,8 @@ void sub_8028008 (void) {
         if (gZones[1][i]->id == LAVA_BATTLEGUARD)
           sub_80403F0(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -560,8 +560,8 @@ void sub_8028008 (void) {
         if (gZones[2][i]->id == LAVA_BATTLEGUARD)
           sub_80403F0(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -576,8 +576,8 @@ void sub_802812C (void) {
         if (gZones[1][i]->id == SWAMP_BATTLEGUARD)
           sub_80403F0(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -588,8 +588,8 @@ void sub_802812C (void) {
         if (gZones[2][i]->id == SWAMP_BATTLEGUARD)
           sub_80403F0(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -604,8 +604,8 @@ void sub_8028244 (void) {
         if (gZones[1][i]->id == M_WARRIOR_2)
           sub_80403F0(gZones[1][i]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -616,8 +616,8 @@ void sub_8028244 (void) {
         if (gZones[2][i]->id == M_WARRIOR_2)
           sub_80403F0(gZones[2][i]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -632,8 +632,8 @@ void sub_8028338 (void) {
         if (gZones[1][i]->id == M_WARRIOR_1)
           sub_80403F0(gZones[1][i]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -644,8 +644,8 @@ void sub_8028338 (void) {
         if (gZones[2][i]->id == M_WARRIOR_1)
           sub_80403F0(gZones[2][i]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -660,8 +660,8 @@ void sub_802842C (void) {
         if (gZones[1][i]->id == LABYRINTH_WALL)
           sub_80403F0(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -672,8 +672,8 @@ void sub_802842C (void) {
         if (gZones[2][i]->id == LABYRINTH_WALL)
           sub_80403F0(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -702,8 +702,8 @@ void sub_8028574 (void) {
     else if (gCardInfo.attribute == ATTRIBUTE_LIGHT)
       sub_80403F0(gZones[2][i]);
   }
-  if (!gUnk_02021C08) {
-    gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+  if (!gHideEffectText) {
+    gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
     sub_801CEBC();
   }
 }
@@ -731,8 +731,8 @@ void sub_802865C (void) {
     else if (gCardInfo.attribute == ATTRIBUTE_LIGHT)
       sub_8040404(gZones[2][i]);
   }
-  if (!gUnk_02021C08) {
-    gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+  if (!gHideEffectText) {
+    gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
     sub_801CEBC();
   }
 }
@@ -756,8 +756,8 @@ void sub_8028744 (void) {
     if (gCardInfo.type == TYPE_INSECT)
       sub_80403F0(gZones[g2021DE0.unk2][g2021DE0.unk3]);
   }
-  if (!gUnk_02021C08) {
-    gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+  if (!gHideEffectText) {
+    gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
     sub_801CEBC();
   }
 }
@@ -776,8 +776,8 @@ void sub_802884C (void) {
     SetCardInfo(gNotSure[0]->graveyard);
     if (gCardInfo.type == TYPE_DRAGON)
       sub_80403F0(gZones[g2021DE0.unk2][g2021DE0.unk3]);
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = g2021DE0.unk0;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = g2021DE0.unk0;
       sub_801CEBC();
     }
   }
@@ -793,8 +793,8 @@ void sub_802884C (void) {
     SetCardInfo(gNotSure[1]->graveyard);
     if (gCardInfo.type == TYPE_DRAGON)
       sub_80403F0(gZones[g2021DE0.unk2][g2021DE0.unk3]);
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = g2021DE0.unk0;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = g2021DE0.unk0;
       sub_801CEBC();
     }
   }
@@ -811,8 +811,8 @@ void sub_80289DC (void) {
       if (gCardInfo.type == TYPE_DRAGON)
         sub_80403F0(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = g2021DE0.unk0;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = g2021DE0.unk0;
       sub_801CEBC();
     }
   }
@@ -825,8 +825,8 @@ void sub_80289DC (void) {
       if (gCardInfo.type == TYPE_DRAGON)
         sub_80403F0(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = g2021DE0.unk0;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = g2021DE0.unk0;
       sub_801CEBC();
     }
   }
@@ -835,15 +835,15 @@ void sub_80289DC (void) {
 void sub_8028B10 (void) {
   if (g2021DE0.unk2 == 1) {
     ClearZoneAndSendMonToGraveyard(gZones[g2021DE0.unk2][g2021DE0.unk3], 1);
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = g2021DE0.unk0;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = g2021DE0.unk0;
       sub_801CEBC();
     }
   }
   else if (g2021DE0.unk2 == 2) {
     ClearZoneAndSendMonToGraveyard(gZones[g2021DE0.unk2][g2021DE0.unk3], 0);
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = g2021DE0.unk0;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = g2021DE0.unk0;
       sub_801CEBC();
     }
   }
@@ -874,8 +874,8 @@ void sub_8028B98 (void) {
     if (gCardInfo.atk >= 1500)
       LockCard(gZones[2][i]);
   }
-  if (!gUnk_02021C08) {
-    gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+  if (!gHideEffectText) {
+    gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
     sub_801CEBC();
   }
 }
@@ -896,8 +896,8 @@ void sub_8028CAC (void) {
   CopyCard(gZones[1][zone], gZones[g2021DE0.unk2][g2021DE0.unk3]);
   ClearZone(gZones[g2021DE0.unk2][g2021DE0.unk3]);
   FlipCardFaceUp(gZones[1][zone]);
-  if (!gUnk_02021C08) {
-    gUnk_02021C10.unk0 = g2021DE0.unk0;
+  if (!gHideEffectText) {
+    gCardEffectTextData.cardId = g2021DE0.unk0;
     sub_801CEBC();
   }
 }
@@ -906,16 +906,16 @@ void sub_8028D74 (void) {
   if (g2021DE0.unk2 == 1) {
     FlipCardFaceUp(gZones[1][g2021DE0.unk3]);
     sub_8040404(gZones[2][(u8)HighestAtkMonInRow(gZones[2])]);
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = g2021DE0.unk0;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = g2021DE0.unk0;
       sub_801CEBC();
     }
   }
   else if (g2021DE0.unk2 == 2) {
     FlipCardFaceUp(gZones[2][g2021DE0.unk3]);
     sub_8040404(gZones[1][(u8)HighestAtkMonInRow(gZones[1])]);
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = g2021DE0.unk0;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = g2021DE0.unk0;
       sub_801CEBC();
     }
   }
@@ -927,8 +927,8 @@ void sub_8028E18 (void) {
       return;
     FlipCardFaceUp(gZones[1][g2021DE0.unk3]);
     sub_80403F0(gZones[g2021DE0.unk2][g2021DE0.unk3]);
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = g2021DE0.unk0;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = g2021DE0.unk0;
       sub_801CEBC();
     }
   }
@@ -937,8 +937,8 @@ void sub_8028E18 (void) {
       return;
     FlipCardFaceUp(gZones[2][g2021DE0.unk3]);
     sub_80403F0(gZones[g2021DE0.unk2][g2021DE0.unk3]);
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = g2021DE0.unk0;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = g2021DE0.unk0;
       sub_801CEBC();
     }
   }
@@ -965,8 +965,8 @@ void sub_8028ED8 (void) {
   SetCardInfo(gNotSure[1]->graveyard);
   if (gCardInfo.type == TYPE_DRAGON)
     sub_80403F0(gZones[g2021DE0.unk2][g2021DE0.unk3]);
-  if (!gUnk_02021C08) {
-    gUnk_02021C10.unk0 = g2021DE0.unk0;
+  if (!gHideEffectText) {
+    gCardEffectTextData.cardId = g2021DE0.unk0;
     sub_801CEBC();
   }
 }
@@ -978,7 +978,7 @@ void sub_8029004 (void) {
       return;
     if (!NumEmptyZonesInRow(gZones[1]))
       return;
-    sub_804535C(1);
+    GetGraveCardAndClearGrave(1);
     emptyZone = EmptyZoneInRow(gZones[1]);
     gZones[1][emptyZone]->id = THE_WINGED_DRAGON_OF_RA_BATTLE_MODE;
     gZones[1][emptyZone]->isLocked = FALSE;
@@ -987,10 +987,10 @@ void sub_8029004 (void) {
     gZones[1][emptyZone]->unk4 = 2;
     gZones[1][emptyZone]->willChangeSides = FALSE;
     FlipCardFaceDown(gZones[1][emptyZone]);
-    ResetPermStage(gZones[1][emptyZone]);
-    ResetTempStage(gZones[1][emptyZone]);
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = g2021DE0.unk0;
+    ResetPermanentPowerLevel(gZones[1][emptyZone]);
+    ResetTemporaryPowerLevel(gZones[1][emptyZone]);
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = g2021DE0.unk0;
       sub_801CEBC();
     }
   }
@@ -999,7 +999,7 @@ void sub_8029004 (void) {
       return;
     if (!NumEmptyZonesInRow(gZones[2]))
       return;
-    sub_804535C(0);
+    GetGraveCardAndClearGrave(0);
     emptyZone = EmptyZoneInRow(gZones[2]);
     gZones[2][emptyZone]->id = THE_WINGED_DRAGON_OF_RA_BATTLE_MODE;
     gZones[2][emptyZone]->isLocked = FALSE;
@@ -1008,10 +1008,10 @@ void sub_8029004 (void) {
     gZones[2][emptyZone]->unk4 = 2;
     gZones[2][emptyZone]->willChangeSides = FALSE;
     FlipCardFaceDown(gZones[2][emptyZone]);
-    ResetPermStage(gZones[2][emptyZone]);
-    ResetTempStage(gZones[2][emptyZone]);
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = g2021DE0.unk0;
+    ResetPermanentPowerLevel(gZones[2][emptyZone]);
+    ResetTemporaryPowerLevel(gZones[2][emptyZone]);
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = g2021DE0.unk0;
       sub_801CEBC();
     }
   }
@@ -1036,8 +1036,8 @@ void sub_8029158 (void) {
     if (gCardInfo.type == TYPE_MACHINE)
       sub_80403F0(gZones[g2021DE0.unk2][g2021DE0.unk3]);
   }
-  if (!gUnk_02021C08) {
-    gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+  if (!gHideEffectText) {
+    gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
     sub_801CEBC();
   }
 }
@@ -1065,8 +1065,8 @@ void sub_802923C (void) {
       sub_80403F0(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     }
   }
-  if (!gUnk_02021C08) {
-    gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+  if (!gHideEffectText) {
+    gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
     sub_801CEBC();
   }
 }
@@ -1083,8 +1083,8 @@ void sub_802934C (void) {
         sub_80403F0(gZones[1][i]);
       }
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -1098,8 +1098,8 @@ void sub_802934C (void) {
         sub_80403F0(gZones[2][i]);
       }
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -1120,8 +1120,8 @@ void sub_8029450 (void) {
         }
 
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -1138,8 +1138,8 @@ void sub_8029450 (void) {
         }
 
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
       sub_801CEBC();
     }
   }
@@ -1153,11 +1153,11 @@ void sub_8029578 (void) {
     if (graveyard != DARK_FLARE_KNIGHT)
       return;
     if (NumEmptyZonesInRow(gZones[1]) > 0) {
-      sub_804535C(1);
+      GetGraveCardAndClearGrave(1);
       zone = gZones[1][(u8)EmptyZoneInRow(gZones[1])];
       zone->id = MIRAGE_KNIGHT;
-      ResetPermStage(zone);
-      ResetTempStage(zone);
+      ResetPermanentPowerLevel(zone);
+      ResetTemporaryPowerLevel(zone);
       zone->unk4 = 0;
       UnlockCard(zone);
       zone->isDefending = FALSE;
@@ -1166,8 +1166,8 @@ void sub_8029578 (void) {
       FlipCardFaceUp(zone);
       zone->willChangeSides = FALSE;
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = graveyard;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = graveyard;
       sub_801CEBC();
     }
   }
@@ -1176,11 +1176,11 @@ void sub_8029578 (void) {
     if (graveyard != DARK_FLARE_KNIGHT)
       return;
     if (NumEmptyZonesInRow(gZones[2]) > 0) {
-      sub_804535C(0);
+      GetGraveCardAndClearGrave(0);
       zone = gZones[2][(u8)EmptyZoneInRow(gZones[2])];
       zone->id = MIRAGE_KNIGHT;
-      ResetPermStage(zone);
-      ResetTempStage(zone);
+      ResetPermanentPowerLevel(zone);
+      ResetTemporaryPowerLevel(zone);
       zone->unk4 = 0;
       UnlockCard(zone);
       zone->isDefending = FALSE;
@@ -1189,8 +1189,8 @@ void sub_8029578 (void) {
       FlipCardFaceUp(zone);
       zone->willChangeSides = FALSE;
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = graveyard;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = graveyard;
       sub_801CEBC();
     }
   }
@@ -1201,16 +1201,16 @@ void sub_80296B8 (void) {
   if (g2021DE0.unk2 == 1) {
     if (!sub_802061C(gNotSure[1]->graveyard))
       ClearZoneAndSendMonToGraveyard(gZones[g2021DE0.unk2][g2021DE0.unk3], 1);
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = g2021DE0.unk0;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = g2021DE0.unk0;
       sub_801CEBC();
     }
   }
   else if (g2021DE0.unk2 == 2) {
     if (!sub_802061C(gNotSure[0]->graveyard))
       ClearZoneAndSendMonToGraveyard(gZones[g2021DE0.unk2][g2021DE0.unk3], 0);
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = g2021DE0.unk0;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = g2021DE0.unk0;
       sub_801CEBC();
     }
   }
@@ -1227,8 +1227,8 @@ void sub_8029764 (void) {
       if (id != CARD_NONE && sub_803EFAC(id) & 0x1E)
         ClearZoneAndSendMonToGraveyard(zone, 1);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = g2021DE0.unk0;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = g2021DE0.unk0;
       sub_801CEBC();
     }
   }
@@ -1238,8 +1238,8 @@ void sub_8029764 (void) {
       if (zone->id != CARD_NONE && sub_803EFAC(zone->id) & 0x1E)
         ClearZoneAndSendMonToGraveyard(zone, 0);
     }
-    if (!gUnk_02021C08) {
-      gUnk_02021C10.unk0 = g2021DE0.unk0;
+    if (!gHideEffectText) {
+      gCardEffectTextData.cardId = g2021DE0.unk0;
       sub_801CEBC();
     }
   }
@@ -1247,20 +1247,20 @@ void sub_8029764 (void) {
 
 void sub_8029820 (void) {
   g2021DE0.unk4 = WhoseTurn();
-  if (!gUnk_02021C08) {
+  if (!gHideEffectText) {
     sub_80408BC();
     sub_802ADA4();
   }
   sub_8040258();
-  if (!gUnk_02021C08)
+  if (!gHideEffectText)
     sub_8041104();
   sub_8027138();
-  if (!gUnk_02021C08)
+  if (!gHideEffectText)
     sub_802AE44();
 }
 
 void sub_8029864 (void) {
-  sub_801D1A8();
+  ResetCardEffectTextData();
   sub_801D188(8);
   SetCardInfo(g2021DE0.unk0);
   g8E0C6C0[gCardInfo.unk1E]();
@@ -1285,10 +1285,10 @@ void sub_80298C0 (void) {
     return;
   FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
   sub_80404F0(0);
-  sub_8040540(4);
+  LockMonsterCardsInRow(4);
   FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
-  if (!gUnk_02021C08) {
-    gUnk_02021C10.unk0 = g2021DE0.unk0;
+  if (!gHideEffectText) {
+    gCardEffectTextData.cardId = g2021DE0.unk0;
     sub_801CEBC();
   }
 }
@@ -2078,7 +2078,7 @@ u8 sub_802A840 (void) {
       u8 i;
       for (i = 0; i < 5; i++) {
         struct DuelCard* zone = gZones[4][i];
-        if (zone->id != CARD_NONE && sub_803FCBC(zone->id) == 1 && IsCardLocked(zone) != 1) {
+        if (zone->id != CARD_NONE && GetTypeGroup(zone->id) == 1 /*TYPE_GROUP_MONSTER*/ && IsCardLocked(zone) != 1) {
           ret = 1;
           break;
         }

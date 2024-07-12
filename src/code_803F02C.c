@@ -6,7 +6,7 @@
 #include "gba/macro.h"
 
 
-extern u8* g8E0CEE0[];
+extern u8* g8E0CEE0[]; // array of string literals?
 extern u8* g8E0CF40[];
 extern u16 g8E0CFA0[];
 extern u8 g8E0CFC0[];
@@ -33,7 +33,7 @@ u8 sub_803FCA8 (void);
 u8 sub_803FC64 (void);
 
 
-u8* sub_803F02C (u8 cardType) {
+u8* GetCardTypeString (u8 cardType) {
   return g8E0CEE0[cardType];
 }
 
@@ -145,9 +145,9 @@ void sub_803F1F4 (void) {
 
 void sub_803F224 (void) {
   if (g2023E80.unk19 & 1)
-    sub_8045314(gUnk2024040[g2023E80.unk9][g2023E80.unkA], 0);
+    ClearZoneAndSendMonToGraveyard2(gDuelBoard[g2023E80.unk9][g2023E80.unkA], 0);
   if (g2023E80.unk19 & 2)
-    sub_8045314(gUnk2024040[g2023E80.unk15][g2023E80.unk16], 1);
+    ClearZoneAndSendMonToGraveyard2(gDuelBoard[g2023E80.unk15][g2023E80.unk16], 1);
   if (g2023E80.unk19 & 4)
     DeclareLoser(0);
   if (g2023E80.unk19 & 16)
@@ -286,10 +286,10 @@ void sub_803F4F0 (u8 arg0) {
   g2023E80.action = 4;
   g2023E80.unk1A = 0;
   g2023E80.unk1B = 1;
-  g2023E80.unk0 = gUnk2024040[2][arg0]->id;
-  gStatMod.card = gUnk2024040[2][arg0]->id;
+  g2023E80.unk0 = gDuelBoard[2][arg0]->id;
+  gStatMod.card = gDuelBoard[2][arg0]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = sub_804069C(gUnk2024040[2][arg0]);
+  gStatMod.stage = sub_804069C(gDuelBoard[2][arg0]);
   SetFinalStat(&gStatMod);
   g2023E80.unk2 = gCardInfo.atk;
   g2023E80.unk4 = gCardInfo.def;
@@ -305,10 +305,10 @@ void sub_803F574 (u8 arg0) {
   g2023E80.action = 6;
   g2023E80.unk1A = 0;
   g2023E80.unk1B = 1;
-  g2023E80.unkC = gUnk2024040[1][arg0]->id;
-  gStatMod.card = gUnk2024040[1][arg0]->id;
+  g2023E80.unkC = gDuelBoard[1][arg0]->id;
+  gStatMod.card = gDuelBoard[1][arg0]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = sub_804069C(gUnk2024040[1][arg0]);
+  gStatMod.stage = sub_804069C(gDuelBoard[1][arg0]);
   SetFinalStat(&gStatMod);
   g2023E80.unkE = gCardInfo.atk;
   g2023E80.unk10 = gCardInfo.def;
@@ -324,10 +324,10 @@ void sub_803F604 (u8 arg0, u8 arg1) {
   g2023E80.action = 1;
   g2023E80.unk1A = 0;
   g2023E80.unk1B = 1;
-  g2023E80.unk0 = gUnk2024040[2][arg0]->id;
-  gStatMod.card = gUnk2024040[2][arg0]->id;
+  g2023E80.unk0 = gDuelBoard[2][arg0]->id;
+  gStatMod.card = gDuelBoard[2][arg0]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = sub_804069C(gUnk2024040[2][arg0]);
+  gStatMod.stage = sub_804069C(gDuelBoard[2][arg0]);
   SetFinalStat(&gStatMod);
   g2023E80.unk2 = gCardInfo.atk;
   g2023E80.unk4 = gCardInfo.def;
@@ -336,10 +336,10 @@ void sub_803F604 (u8 arg0, u8 arg1) {
   gUnk2023EA0.unk0[0].unk2 = gLifePoints[0];
   g2023E80.unkA = arg0;
   g2023E80.unk9 = 2;
-  g2023E80.unkC = gUnk2024040[1][arg1]->id;
-  gStatMod.card = gUnk2024040[1][arg1]->id;
+  g2023E80.unkC = gDuelBoard[1][arg1]->id;
+  gStatMod.card = gDuelBoard[1][arg1]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = sub_804069C(gUnk2024040[1][arg1]);
+  gStatMod.stage = sub_804069C(gDuelBoard[1][arg1]);
   SetFinalStat(&gStatMod);
   g2023E80.unkE = gCardInfo.atk;
   g2023E80.unk10 = gCardInfo.def;
@@ -354,10 +354,10 @@ void sub_803F6F8 (u8 arg0, u8 arg1) {
   g2023E80.action = 2;
   g2023E80.unk1A = 0;
   g2023E80.unk1B = 1;
-  g2023E80.unk0 = gUnk2024040[2][arg0]->id;
-  gStatMod.card = gUnk2024040[2][arg0]->id;
+  g2023E80.unk0 = gDuelBoard[2][arg0]->id;
+  gStatMod.card = gDuelBoard[2][arg0]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = sub_804069C(gUnk2024040[2][arg0]);
+  gStatMod.stage = sub_804069C(gDuelBoard[2][arg0]);
   SetFinalStat(&gStatMod);
   g2023E80.unk2 = gCardInfo.atk;
   g2023E80.unk4 = gCardInfo.def;
@@ -366,10 +366,10 @@ void sub_803F6F8 (u8 arg0, u8 arg1) {
   gUnk2023EA0.unk0[0].unk2 = gLifePoints[0];
   g2023E80.unkA = arg0;
   g2023E80.unk9 = 2;
-  g2023E80.unkC = gUnk2024040[1][arg1]->id;
-  gStatMod.card = gUnk2024040[1][arg1]->id;
+  g2023E80.unkC = gDuelBoard[1][arg1]->id;
+  gStatMod.card = gDuelBoard[1][arg1]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = sub_804069C(gUnk2024040[1][arg1]);
+  gStatMod.stage = sub_804069C(gDuelBoard[1][arg1]);
   SetFinalStat(&gStatMod);
   g2023E80.unkE = gCardInfo.atk;
   g2023E80.unk10 = gCardInfo.def;
@@ -384,10 +384,10 @@ void sub_803F7EC (u8 arg0, u8 arg1) {
   g2023E80.action = 5;
   g2023E80.unk1A = 0;
   g2023E80.unk1B = 1;
-  g2023E80.unk0 = gUnk2024040[2][arg0]->id;
-  gStatMod.card = gUnk2024040[2][arg0]->id;
+  g2023E80.unk0 = gDuelBoard[2][arg0]->id;
+  gStatMod.card = gDuelBoard[2][arg0]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = sub_804069C(gUnk2024040[2][arg0]);
+  gStatMod.stage = sub_804069C(gDuelBoard[2][arg0]);
   SetFinalStat(&gStatMod);
   g2023E80.unk2 = gCardInfo.atk;
   g2023E80.unk4 = gCardInfo.def;
@@ -396,10 +396,10 @@ void sub_803F7EC (u8 arg0, u8 arg1) {
   gUnk2023EA0.unk0[0].unk2 = gLifePoints[0];
   g2023E80.unkA = arg0;
   g2023E80.unk9 = 2;
-  g2023E80.unkC = gUnk2024040[1][arg1]->id;
-  gStatMod.card = gUnk2024040[1][arg1]->id;
+  g2023E80.unkC = gDuelBoard[1][arg1]->id;
+  gStatMod.card = gDuelBoard[1][arg1]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = sub_804069C(gUnk2024040[1][arg1]);
+  gStatMod.stage = sub_804069C(gDuelBoard[1][arg1]);
   SetFinalStat(&gStatMod);
   g2023E80.unkE = gCardInfo.atk;
   g2023E80.unk10 = gCardInfo.def;
@@ -427,13 +427,13 @@ void sub_803F908 (int arg0, int arg1) {
   u8 arg1_u8 = arg1;
   switch (WhoseTurn()) {
     case 0:
-      if (gUnk2024040[1][arg1_u8]->isDefending)
+      if (gDuelBoard[1][arg1_u8]->isDefending)
         sub_803F6F8(arg0_u8, arg1_u8);
       else
         sub_803F604(arg0_u8, arg1_u8);
       break;
     case 1:
-      if (!gUnk2024040[2][arg0_u8]->isDefending)
+      if (!gDuelBoard[2][arg0_u8]->isDefending)
         sub_803F604(arg0_u8, arg1_u8);
       else
         sub_803F7EC(arg0_u8, arg1_u8);
@@ -694,14 +694,14 @@ extern s8 gE0CFDC[];
 extern s8 gE0CFF4[];
 extern s8 g80DF790[];
 
-int sub_803FCBC (u16 cardId) {
+int GetTypeGroup (u16 cardId) {
   if (cardId == CARD_NONE)
     return 0;
   SetCardInfo(cardId);
   return gE0CFDC[gCardInfo.type];
 }
 
-int sub_803FCEC (u16 cardId) {
+int GetSpellType (u16 cardId) {
   SetCardInfo(cardId);
   return gE0CFF4[gCardInfo.spellEffect];
 }
@@ -765,15 +765,15 @@ void InitBoard (void) {
 void sub_803FEA4 (int unused) {
   u8 i;
   for (i = 0; i < 5; i++)
-    gUnk2024040[0][i] = &gDuel.zones[0][4-i];
+    gDuelBoard[0][i] = &gDuel.zones[0][4-i];
   for (i = 0; i < 5; i++)
-    gUnk2024040[1][i] = &gDuel.zones[1][4-i];
+    gDuelBoard[1][i] = &gDuel.zones[1][4-i];
   for (i = 0; i < 5; i++)
-    gUnk2024040[2][i] = &gDuel.zones[2][i];
+    gDuelBoard[2][i] = &gDuel.zones[2][i];
   for (i = 0; i < 5; i++)
-    gUnk2024040[3][i] = &gDuel.zones[3][i];
+    gDuelBoard[3][i] = &gDuel.zones[3][i];
   for (i = 0; i < 5; i++)
-    gUnk2024040[4][i] = &gDuel.hands[0][i];
+    gDuelBoard[4][i] = &gDuel.hands[0][i];
   for (i = 0; i < 5; i++)
     gZones[0][i] = &gDuel.zones[0][i];
   for (i = 0; i < 5; i++)
@@ -832,7 +832,7 @@ void sub_804004C (u8 turn) {
   }
 }
 
-//this could be a non-static inline (ResetTempStage a few functions below)
+//this could be a non-static inline (ResetTemporaryPowerLevel a few functions below)
 static inline void ResetTemp (struct DuelCard *zone) {
     zone->tempStage = 0;
 }
@@ -854,8 +854,8 @@ void ClearZone (struct DuelCard *zone) {
   zone->isDefending = FALSE;
   zone->unkTwo = 0;
   zone->unkThree = 0;
-  ResetPermStage(zone);
-  ResetTempStage(zone);
+  ResetPermanentPowerLevel(zone);
+  ResetTemporaryPowerLevel(zone);
   zone->unk4 = 0;
   zone->willChangeSides = FALSE;
 }
@@ -880,11 +880,11 @@ bool8 IsCardFaceUp (struct DuelCard *zone) {
   return zone->isFaceUp;
 }
 
-void ResetPermStage (struct DuelCard *zone) {
+void ResetPermanentPowerLevel (struct DuelCard *zone) {
   zone->permStage = 0;
 }
 
-void sub_8040368 (struct DuelCard *zone) {
+void IncrementPermanentPowerLevel (struct DuelCard *zone) {
   if (zone->permStage < 127)
     zone->permStage++;
 }
@@ -907,7 +907,7 @@ void sub_80403B8 (struct DuelCard *zone, u8 arg) {
       zone->permStage--;
 }
 
-void ResetTempStage (struct DuelCard *zone) {
+void ResetTemporaryPowerLevel (struct DuelCard *zone) {
   zone->tempStage = 0;
 }
 
@@ -962,14 +962,14 @@ void sub_8040524 (u8 currPlayer) {
   gNotSure[currPlayer]->unkThree = 0;
 }
 
-void sub_8040540 (u8 row) {
+void LockMonsterCardsInRow (u8 row) {
   u8 i;
   for (i = 0; i < 5; i++)
-    if (gZones[row][i]->id != CARD_NONE && sub_803FCBC(gZones[row][i]->id) == 1)
+    if (gZones[row][i]->id != CARD_NONE && GetTypeGroup(gZones[row][i]->id) == 1)
       gZones[row][i]->isLocked = TRUE;
 }
 
-void sub_8040584 (u8 row) {
+void UnlockCardsInRow (u8 row) {
   u8 i;
   for (i = 0; i < 5; i++)
     if (gZones[row][i]->id != CARD_NONE)
@@ -1147,7 +1147,7 @@ void sub_80408FC (void) {
 void CopyCard (struct DuelCard *dst, struct DuelCard *src) {
   dst->id = src->id;
   SetPermStage(dst, PermStage(src));
-  ResetTempStage(dst);
+  ResetTemporaryPowerLevel(dst);
   dst->unk4 = src->unk4;
   dst->isFaceUp = src->isFaceUp;
   dst->isLocked = src->isLocked;
@@ -1204,16 +1204,16 @@ void MoveCursorUp (void);
 void MoveCursorDown (void);
 void MoveCursorLeft (void);
 void MoveCursorRight (void);
-void sub_8044AB4 (void);
+void HandleAButtonAction (void);
 void sub_8042F04 (void);
 void sub_8041014 (void);
 void sub_8044B2C (void);
 void sub_80410B4 (void);
-void sub_8044AF0 (void);
+void HandleBButtonAction (void);
 
 extern u8 g20240E0;
 
-void sub_8040A40 (void) {
+void PlayerTurnMain (void) {
   g20240E0 = 0;
   sub_8041104();
   sub_802B6A8();
@@ -1224,30 +1224,30 @@ void sub_8040A40 (void) {
     return;
   sub_80082C0();
   while (IsDuelOver() != TRUE && g20240E0 != 1) {
-    u8 y = gCursorPosition.currentY;
+    u8 y = gDuelCursor.currentY;
     switch (sub_80409BC()) {
       case 1:
         MoveCursorUp();
         sub_8041EC8();
-        sub_8041E70(y, gCursorPosition.currentY);
+        sub_8041E70(y, gDuelCursor.currentY);
         break;
       case 2:
         MoveCursorDown();
         sub_8041EC8();
-        sub_8041E70(y, gCursorPosition.currentY);
+        sub_8041E70(y, gDuelCursor.currentY);
         break;
       case 3:
         MoveCursorLeft();
         sub_8041EC8();
-        sub_8041E70(y, gCursorPosition.currentY);
+        sub_8041E70(y, gDuelCursor.currentY);
         break;
       case 4:
         MoveCursorRight();
         sub_8041EC8();
-        sub_8041E70(y, gCursorPosition.currentY);
+        sub_8041E70(y, gDuelCursor.currentY);
         break;
       case 5:
-        sub_8044AB4();
+        HandleAButtonAction();
         break;
       case 6:
         sub_8042F04();
@@ -1259,7 +1259,7 @@ void sub_8040A40 (void) {
         sub_80410B4();
         break;
       case 8:
-        sub_8044AF0();
+        HandleBButtonAction();
         sub_8008220();
         break;
       case 9:
@@ -1287,7 +1287,7 @@ extern u16 gBG1HOFS;
 extern u16 gBG1VOFS;
 
 
-// init bg1 (bg1 is used for B button menu, alpha blended)
+// init bg1 (bg1 is used for B button menu and card stats at the bottom, alpha blended)
 void sub_8040B4C (void) {
   u16 i;
   u16 r6, r5;

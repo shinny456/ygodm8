@@ -4,7 +4,7 @@
 
 extern u8 g8E0E3C0[]; // which direction the npc should face when the player talks to them (gFacePlayer)
 
-extern u16 g8E0E3C4[];
+extern s16 gHorizontalDisplacements[];
 extern u16 g8E0E3CC[];
 extern u16 g8E0E404[];
 extern u16 g8E0E416[];
@@ -62,12 +62,12 @@ s8 sub_8051958 (u8 newXPos, u8 newYPos, u8 direction, u8 obj) {
   return 0;
 }
 
-void sub_8051A44 (u8 obj, u8 direction, u16 *displacement) {
+void sub_8051A44 (u8 obj, u8 direction, s16 *displacement) {
   u8 newXPos;
   u8 newYPos;
-  displacement[0] = g8E0E3C4[direction];
+  displacement[0] = gHorizontalDisplacements[direction];
   displacement[1] = g8E0E3CC[direction];
-  newXPos = gOverworld.objects[obj].x + g8E0E3C4[direction];
+  newXPos = gOverworld.objects[obj].x + gHorizontalDisplacements[direction];
   newYPos = gOverworld.objects[obj].y + g8E0E3CC[direction];
   switch (sub_8051958(newXPos, newYPos, direction, obj)) {
     case 0:
@@ -235,7 +235,7 @@ _08051C02:\n\
 
 extern u16 g8E0E494[][3];
 
-void sub_8051C14 (u8 obj, u8 direction, u16 *displacement) {
+void sub_8051C14 (u8 obj, u8 direction, s16 *displacement) {
   u8 newXPos;
   u8 newYPos;
   displacement[0] = g8E0E404[direction];
@@ -310,11 +310,11 @@ inline u8 sub_8052268 (int y, int x) {
   u8 temp = 0;
   if (y <= 0)
     if (y >= -8)
-      temp = 1;
+      temp |= 1;
   if (x <= 4)
     if (x >= -4)
       temp |= 2;
-  if (temp == 3)
+  if (temp == (1 | 2))
     return 1;
   return 0;
 }
@@ -358,73 +358,73 @@ inline u8 sub_80522E8 (int y, int x) {
   return 0;
 }
 
-s8 sub_8051E48 (u8 x, u8 y, u8 direction) {
-  u8 i, r3;
+s8 GetObjectIdInFrontOfPlayer (u8 x, u8 y, u8 playerDirection) {
+  u8 i, objExists;
   for (i = 1; i < 15; i++) {
-    switch (direction) {
+    switch (playerDirection) {
       case 0:
         if (sub_8052268(y - gOverworld.objects[i].y, x - gOverworld.objects[i].x))
-          r3 = 1;
+          objExists = 1;
         else
-          r3 = 0;
+          objExists = 0;
         break;
       case 1:
         if (sub_8052298(y - gOverworld.objects[i].y, x - gOverworld.objects[i].x))
-          r3 = 1;
+          objExists = 1;
         else
-          r3 = 0;
+          objExists = 0;
         break;
       case 2:
         if (sub_80522C0(y - gOverworld.objects[i].y, x - gOverworld.objects[i].x))
-          r3 = 1;
+          objExists = 1;
         else
-          r3 = 0;
+          objExists = 0;
         break;
       case 3:
         if (sub_80522E8(y - gOverworld.objects[i].y, x - gOverworld.objects[i].x))
-          r3 = 1;
+          objExists = 1;
         else
-          r3 = 0;
+          objExists = 0;
         break;
     }
-    if (r3)
+    if (objExists)
       return i;
   }
   return -1;
 }
 
 void TryTalking (void) {
-  int r4;
-  u8 temp = gOverworld.objects[0].x + g8E0E3C4[gOverworld.objects[0].direction];
+  int objId;
+  u8 temp = gOverworld.objects[0].x + gHorizontalDisplacements[gOverworld.objects[0].direction];
   u8 temp2 = gOverworld.objects[0].y + g8E0E3CC[gOverworld.objects[0].direction];
-  r4 = sub_8051E48(temp, temp2, gOverworld.objects[0].direction);
-  if (r4 == -1)
+  objId = GetObjectIdInFrontOfPlayer(temp, temp2, gOverworld.objects[0].direction);
+  if (objId == -1)
     return;
   PlayMusic(0xCA);
-  if (gOverworld.objects[r4].unk1Dj)
-    gOverworld.objects[r4].direction = g8E0E3C0[gOverworld.objects[0].direction];
-  sub_804F19C(r4);
-  sub_804DF5C(r4);
+  if (gOverworld.objects[objId].facePlayer)
+    gOverworld.objects[objId].direction = g8E0E3C0[gOverworld.objects[0].direction];
+  sub_804F19C(objId);
+  sub_804DF5C(objId);
   sub_804EF10();
   LoadObjVRAM();
-  InitiateScript(gOverworld.objects[r4].scriptA);
+  InitiateScript(gOverworld.objects[objId].scriptA);
 }
 
 void TryDueling (void) {
-  int r4;
-  u8 temp = gOverworld.objects[0].x + g8E0E3C4[gOverworld.objects[0].direction];
+  int objId;
+  u8 temp = gOverworld.objects[0].x + gHorizontalDisplacements[gOverworld.objects[0].direction];
   u8 temp2 = gOverworld.objects[0].y + g8E0E3CC[gOverworld.objects[0].direction];
-  r4 = sub_8051E48(temp, temp2, gOverworld.objects[0].direction);
-  if (r4 == -1)
+  objId = GetObjectIdInFrontOfPlayer(temp, temp2, gOverworld.objects[0].direction);
+  if (objId == -1)
     return;
   PlayMusic(0xCA);
-  if (gOverworld.objects[r4].unk1Dj)
-    gOverworld.objects[r4].direction = g8E0E3C0[gOverworld.objects[0].direction];
-  sub_804F19C(r4);
-  sub_804DF5C(r4);
+  if (gOverworld.objects[objId].facePlayer)
+    gOverworld.objects[objId].direction = g8E0E3C0[gOverworld.objects[0].direction];
+  sub_804F19C(objId);
+  sub_804DF5C(objId);
   sub_804EF10();
   LoadObjVRAM();
-  InitiateScript(gOverworld.objects[r4].scriptR);
+  InitiateScript(gOverworld.objects[objId].scriptR);
 }
 
 void sub_8052088 (u8 obj) {

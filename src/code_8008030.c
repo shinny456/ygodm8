@@ -128,8 +128,8 @@ extern u32 g3000400[0x200];
 extern vu16 g2020E00;
 extern vu8 g2020E04; //vu8?
 extern vu16 gKeyState;
-extern vu16 gUnk2020DFC;
-extern vu16 g2020DF4;
+extern u16 gUnk2020DFC;
+extern u16 g2020DF4;
 
 
 void sub_800818C (void) {
@@ -188,7 +188,7 @@ void sub_80082C0 (void) {
   g2020DF4 = 0;
   g2020E04 = 10;
 }
-/*
+
 void sub_80082E8 (void) {
   u16 r4 = ~REG_KEYINPUT;
   gUnk2020DFC = r4 & ~gKeyState;
@@ -204,5 +204,5 @@ void sub_80082E8 (void) {
     g2020DF4 = r4;
     g2020E04 = 10;
   }
-  gUnk2020DFC = r4;
-}*/
+  gKeyState = r4;
+}

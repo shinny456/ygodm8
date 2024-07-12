@@ -72,8 +72,8 @@ struct Object
     s16 unk1A;
     u8 unk1C;
     u8 unk1Di : 1;
-    u8 unk1Dj : 1; // face player when talking?
-    u8 unk1Dk : 1; // wander around?
+    u8 facePlayer : 1; // face player when talking?
+    u8 wander : 1; // wander around?
     u8 unk1Dl : 1;
     u8 unk1Dm : 1;
     u8 unk1Dn : 1;
@@ -185,7 +185,7 @@ u16 sub_8020698(u8 *text);
 void sub_800BE0C(void);
 void DuelMain(void);
 void sub_804F544(void);
-void sub_8005B38(void);
+void InitStartMenuFromScript(void);
 void sub_8034FEC(u32);
 void sub_8035020(u32);
 void sub_805345C(u8, u8, u8, u8, struct ScriptCtx *script);

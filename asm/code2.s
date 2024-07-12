@@ -20,18 +20,18 @@ _0801E936:
 	movs r2, #1
 _0801E944:
 	movs r4, #0
-	lsls r0, r3, #1
+	lsls r0, r3, #1 @i * 2
 	adds r1, r2, #3
 	adds r2, #4
 	adds r5, r3, #1
 	str r5, [sp, #4]
 	ldr r5, _0801E9DC
-	adds r0, r0, r3
-	adds r1, r0, r1
-	lsls r1, r1, #5
+	adds r0, r0, r3 @i * 3
+	adds r1, r0, r1 @i * 3 + (r2 + 3)
+	lsls r1, r1, #5 @(i * 3 + (r2 + 3)) * 32
 	mov ip, r1
 	ldr r6, _0801E9E0
-	mov sb, r6
+	mov sb, r6 @7C14
 	ldr r1, _0801E9E4
 	mov r7, ip
 	adds r7, r7, r1
@@ -834,85 +834,85 @@ sub_80201FC: @ 0x080201FC
 	ldr r1, [r0]
 	adds r0, r4, #0
 	movs r2, #1
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldr r1, _08020318
 	adds r0, r4, r1
 	ldr r1, _0802031C
 	ldr r1, [r1]
 	movs r2, #1
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldr r2, _08020320
 	adds r0, r4, r2
 	ldr r1, _08020324
 	ldr r1, [r1]
 	movs r2, #1
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldr r1, _08020328
 	adds r0, r4, r1
 	ldr r1, _0802032C
 	ldr r1, [r1]
 	movs r2, #1
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldr r2, _08020330
 	adds r0, r4, r2
 	ldr r1, _08020334
 	ldr r1, [r1]
 	movs r2, #1
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldr r1, _08020338
 	adds r0, r4, r1
 	ldr r1, _0802033C
 	ldr r1, [r1]
 	movs r2, #1
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldr r2, _08020340
 	adds r0, r4, r2
 	ldr r1, _08020344
 	ldr r1, [r1]
 	movs r2, #1
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldr r1, _08020348
 	adds r0, r4, r1
 	ldr r1, _0802034C
 	ldr r1, [r1]
 	movs r2, #1
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldr r2, _08020350
 	adds r0, r4, r2
 	ldr r1, _08020354
 	ldr r1, [r1]
 	movs r2, #1
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldr r1, _08020358
 	adds r0, r4, r1
 	ldr r1, _0802035C
 	ldr r1, [r1]
 	movs r2, #1
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldr r2, _08020360
 	adds r0, r4, r2
 	ldr r1, _08020364
 	ldr r1, [r1]
 	movs r2, #1
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldr r1, _08020368
 	adds r0, r4, r1
 	ldr r1, _0802036C
 	ldr r1, [r1]
 	movs r2, #1
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldr r2, _08020370
 	adds r0, r4, r2
 	ldr r1, _08020374
 	ldr r1, [r1]
 	movs r2, #1
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldr r1, _08020378
 	adds r0, r4, r1
 	ldr r1, _0802037C
 	ldr r1, [r1]
 	movs r2, #1
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r2, #0xe2
 	lsls r2, r2, #8
 	adds r4, r4, r2
@@ -920,7 +920,7 @@ sub_80201FC: @ 0x080201FC
 	ldr r1, [r0]
 	adds r0, r4, #0
 	movs r2, #1
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldr r3, _08020384
 	movs r1, #0
 	strh r1, [r3]
@@ -1072,20 +1072,110 @@ _08020450: .4byte 0x02000400
 _08020454: .4byte 0x06010000
 _08020458: .4byte 0x0600F000
 _0802045C: .4byte 0x02000000
-	.byte 0x10, 0xB5, 0x0A, 0x4C, 0xC0, 0x21, 0xC9, 0x04, 0x80, 0x22, 0x92, 0x01, 0x20, 0x1C, 0x38, 0xF0
-	.byte 0x71, 0xF9, 0xF0, 0x20, 0x00, 0x02, 0x24, 0x18, 0x05, 0x49, 0x80, 0x22, 0xD2, 0x00, 0x20, 0x1C
-	.byte 0x38, 0xF0, 0x68, 0xF9, 0x10, 0xBC, 0x01, 0xBC, 0x00, 0x47, 0x00, 0x00, 0x00, 0x04, 0x00, 0x02
-	.byte 0x00, 0xF0, 0x00, 0x06, 0x06, 0x4A, 0x07, 0x49, 0x07, 0x48, 0x00, 0x78, 0x40, 0x00, 0x40, 0x18
-	.byte 0x00, 0x78, 0x10, 0x60, 0x80, 0x21, 0x09, 0x01, 0x08, 0x1C, 0x90, 0x80, 0x70, 0x47, 0x00, 0x00
-	.byte 0x00, 0x84, 0x01, 0x02, 0xDA, 0x0D, 0xE0, 0x08, 0x04, 0x1D, 0x02, 0x02, 0x30, 0xB5, 0x82, 0xB0
-	.byte 0x68, 0x46, 0x00, 0x25, 0x05, 0x80, 0x18, 0x4C, 0x18, 0x4A, 0x21, 0x1C, 0x38, 0xF0, 0x42, 0xF9
-	.byte 0x68, 0x46, 0x02, 0x30, 0x05, 0x80, 0xF0, 0x21, 0x09, 0x02, 0x64, 0x18, 0x14, 0x4A, 0x21, 0x1C
-	.byte 0x38, 0xF0, 0x38, 0xF9, 0x01, 0xA8, 0x05, 0x80, 0x12, 0x49, 0x13, 0x4A, 0x38, 0xF0, 0x32, 0xF9
-	.byte 0x12, 0x48, 0x05, 0x80, 0x12, 0x48, 0x05, 0x80, 0x12, 0x48, 0x05, 0x80, 0x24, 0xF0, 0xCE, 0xFF
-	.byte 0x80, 0x21, 0xC9, 0x04, 0xA0, 0x22, 0x52, 0x01, 0x10, 0x1C, 0x08, 0x80, 0x0E, 0x48, 0x05, 0x80
-	.byte 0x02, 0x38, 0x05, 0x80, 0xFF, 0xF7, 0x72, 0xFE, 0xFF, 0xF7, 0x74, 0xFF, 0xE7, 0xF7, 0x80, 0xFE
-	.byte 0x02, 0xB0, 0x30, 0xBC, 0x01, 0xBC, 0x00, 0x47, 0x00, 0x04, 0x00, 0x02, 0x00, 0x10, 0x00, 0x01
-	.byte 0x00, 0x04, 0x00, 0x01, 0x00, 0x84, 0x01, 0x02, 0x00, 0x02, 0x00, 0x01, 0x28, 0x42, 0x02, 0x02
-	.byte 0x38, 0x42, 0x02, 0x02, 0x30, 0x42, 0x02, 0x02, 0x1A, 0x00, 0x00, 0x04
+
+thumb_func_start sub_8020460
+sub_8020460: @ 0x08020460
+	push {r4, lr}
+	ldr r4, _0802048C @ =0x02000400
+	movs r1, #0xc0
+	lsls r1, r1, #0x13
+	movs r2, #0x80
+	lsls r2, r2, #6
+	adds r0, r4, #0
+	bl CpuSet
+	movs r0, #0xf0
+	lsls r0, r0, #8
+	adds r4, r4, r0
+	ldr r1, _08020490 @ =0x0600F000
+	movs r2, #0x80
+	lsls r2, r2, #3
+	adds r0, r4, #0
+	bl CpuSet
+	pop {r4}
+	pop {r0}
+	bx r0
+	.align 2, 0
+_0802048C: .4byte 0x02000400
+_08020490: .4byte 0x0600F000
+
+	thumb_func_start sub_8020494
+sub_8020494: @ 0x08020494
+	ldr r2, _080204B0 @ =0x02018400
+	ldr r1, _080204B4 @ =0x08E00DDA
+	ldr r0, _080204B8 @ =0x02021D04
+	ldrb r0, [r0]
+	lsls r0, r0, #1
+	adds r0, r0, r1
+	ldrb r0, [r0]
+	str r0, [r2]
+	movs r1, #0x80
+	lsls r1, r1, #4
+	adds r0, r1, #0
+	strh r0, [r2, #4]
+	bx lr
+	.align 2, 0
+_080204B0: .4byte 0x02018400
+_080204B4: .4byte 0x08E00DDA
+_080204B8: .4byte 0x02021D04
+
+	thumb_func_start sub_80204BC
+sub_80204BC: @ 0x080204BC
+	push {r4, r5, lr}
+	sub sp, #8
+	mov r0, sp
+	movs r5, #0
+	strh r5, [r0]
+	ldr r4, _08020528 @ =0x02000400
+	ldr r2, _0802052C @ =0x01001000
+	adds r1, r4, #0
+	bl CpuSet
+	mov r0, sp
+	adds r0, #2
+	strh r5, [r0]
+	movs r1, #0xf0
+	lsls r1, r1, #8
+	adds r4, r4, r1
+	ldr r2, _08020530 @ =0x01000400
+	adds r1, r4, #0
+	bl CpuSet
+	add r0, sp, #4
+	strh r5, [r0]
+	ldr r1, _08020534 @ =0x02018400
+	ldr r2, _08020538 @ =0x01000200
+	bl CpuSet
+	ldr r0, _0802053C @ =0x02024228
+	strh r5, [r0]
+	ldr r0, _08020540 @ =0x02024238
+	strh r5, [r0]
+	ldr r0, _08020544 @ =0x02024230
+	strh r5, [r0]
+	bl LoadBlendingRegs
+	movs r1, #0x80
+	lsls r1, r1, #0x13
+	movs r2, #0xa0
+	lsls r2, r2, #5
+	adds r0, r2, #0
+	strh r0, [r1]
+	ldr r0, _08020548 @ =0x0400001A
+	strh r5, [r0]
+	subs r0, #2
+	strh r5, [r0]
+	bl sub_80201FC
+	bl sub_8020404
+	bl sub_8008220
+	add sp, #8
+	pop {r4, r5}
+	pop {r0}
+	bx r0
+	.align 2, 0
+_08020528: .4byte 0x02000400
+_0802052C: .4byte 0x01001000
+_08020530: .4byte 0x01000400
+_08020534: .4byte 0x02018400
+_08020538: .4byte 0x01000200
+_0802053C: .4byte 0x02024228
+_08020540: .4byte 0x02024238
+_08020544: .4byte 0x02024230
+_08020548: .4byte 0x0400001A
 
 .align 2, 0

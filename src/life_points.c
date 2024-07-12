@@ -1,9 +1,9 @@
 #include "global.h"
 #include "duel.h"
 
-void sub_8048C60(void)
+void InitLifePointsBeforeDuel(void)
 {
-    if (!gUnk20241FC)
+    if (!gDuelType /*== DUEL_TYPE_INGAME_NORMAL*/)
     {
         gLifePoints[0] = sub_8048CE0();
         gLifePoints[1] = gDuelData.duelist.lifePoints;
@@ -15,7 +15,7 @@ void sub_8048C60(void)
     }
 }
 
-void sub_8048CA8(u8 i, u16 lp)
+void SetDuelLifePoints(u8 i, u16 lp)
 {
     gLifePoints[i] = lp;
 }

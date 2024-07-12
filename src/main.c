@@ -16,7 +16,7 @@ void sub_800AD24(void);
 void sub_80561FC(void);
 void sub_80327C8(void);
 void sub_803276C(void);
-void sub_80268D8(void); //nintendo and konami screens
+void CopyrightScreensMain(void);
 void TitleScreen(void); //title screen and continue screen
 void OverworldMain(void);
 
@@ -39,7 +39,7 @@ int AgbMain(void)
     sub_80561FC();
     sub_80327C8();
     sub_803276C();
-    sub_80268D8();
+    CopyrightScreensMain();
     TitleScreen();
     OverworldMain();
 }

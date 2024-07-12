@@ -1,4 +1,5 @@
 #include "global.h"
+#include "text.h"
 #include "duel.h"
 #include "gba/syscall.h"
 #include "gba/io_reg.h"
@@ -21,7 +22,7 @@ extern struct Unk_8DF7A28 {
   u8 unk24;
 } * gUnk_8DF7A28;
 
-extern u8 gUnk_2018800[];
+extern u8 gSharedMem[];
 
 
 u8 sub_80056CC(u8);
@@ -31,7 +32,7 @@ void sub_80052E4 (u8);
 void sub_800521C (u8);
 void sub_80056F8 (void);
 void sub_8005590 (void);
-void sub_803ED78 (void);
+void ClearGraphicsBuffers (void);
 void sub_8004F90 (u8, u8);
 
 /*
@@ -70,7 +71,7 @@ void WorldMapMain (void) {
   }
   PlayMusic(0x37);
   sub_80056F8();
-  sub_803ED78();
+  ClearGraphicsBuffers();
   LoadOam();
   LoadPalettes();
   LoadVRAM();
@@ -203,7 +204,7 @@ _08004F4A:\n\
 	movs r0, #0x37\n\
 	bl PlayMusic\n\
 	bl sub_80056F8\n\
-	bl sub_803ED78\n\
+	bl ClearGraphicsBuffers\n\
 	bl LoadOam\n\
 	bl LoadPalettes\n\
 	bl LoadVRAM\n\
@@ -246,40 +247,40 @@ extern u16 gUnk_8072EA0[];
 extern u16 gUnk_80741D8[];
 extern u16 gUnk_8074400[];
 
-void sub_8020A3C(void *, void *, u16);
+
 void sub_80055D8 (void);
 
 void sub_8004F90 (u8 arg0, u8 arg1) {
   u16 i;
   for (i = 0; i < 0x4314; i++)
-    gUnk_2018800[i] = 0;
-  sub_803ED78();
+    gSharedMem[i] = 0;
+  ClearGraphicsBuffers();
   LoadOam();
   LoadPalettes();
   LoadVRAM();
   sub_8045718();
   LZ77UnCompWram(gWorldMapBgTileset, gBgVram.cbb0);
   for (i = 0; i < 20; i++)
-    DmaCopy16(3, gUnk_80666F0[i], &(((struct Sbb*)&gBgVram)->sbb13[i]), 60);
+    DmaCopy16(3, gUnk_80666F0[i], gBgVram.cbb0 + 0x9800 + i * 64, 60);
   for (i = 0; i < 2; i++)
-    DmaCopy16(3, gUnk_8073BA0[i], &(((struct Sbb*)&gBgVram)->sbb14[i][10]), 60);
+    DmaCopy16(3, gUnk_8073BA0[i], gBgVram.cbb0 + 0xA014 + i * 64, 60);
   for (i = 0; i < 6; i++)
-    CpuCopy16(gUnk_8066BA0[i], &gBgVram.cbb4[i * 0x400], 640);
+    CpuCopy16(gUnk_8066BA0[i], gBgVram.cbb0 + 0x10000 + i * 0x400, 640);
   LZ77UnCompWram(gUnk_80746F8, gBgVram.cbb5);
 
   // Location text
-  sub_8020A3C(((struct Cbb*)&gBgVram)->cbb3 + 0x20, gUnk_8075330, 0x901); // Clock Tower Square
-  sub_8020A3C(((struct Cbb*)&gBgVram)->cbb3 + 0x520, gUnk_8075398, 0x901);
-  sub_8020A3C(((struct Cbb*)&gBgVram)->cbb3 + 0xA20, gUnk_80753BC, 0x901);
-  sub_8020A3C(((struct Cbb*)&gBgVram)->cbb3 + 0xF20, gUnk_80753E8, 0x901);
-  sub_8020A3C(((struct Cbb*)&gBgVram)->cbb3 + 0x1420, gUnk_807540C, 0x901);
-  sub_8020A3C(((struct Cbb*)&gBgVram)->cbb3 + 0x1920, gUnk_8075428, 0x901);
-  sub_8020A3C(((struct Cbb*)&gBgVram)->cbb3 + 0x1E20, gUnk_8075440, 0x901);
-  sub_8020A3C(((struct Cbb*)&gBgVram)->cbb3 + 0x2320, gUnk_807545C, 0x901);
-  sub_8020A3C(((struct Cbb*)&gBgVram)->cbb3 + 0x2820, gUnk_807547C, 0x901);
-  sub_8020A3C(((struct Cbb*)&gBgVram)->cbb3 + 0x2D20, gUnk_80754A4, 0x901);
-  sub_8020A3C(((struct Cbb*)&gBgVram)->cbb3 + 0x3220, gUnk_80754C4, 0x901);
-  sub_8020A3C(((struct Cbb*)&gBgVram)->cbb3 + 0x3720, gUnk_80754EC, 0x901);
+  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x20, gUnk_8075330, 0x901); // Clock Tower Square
+  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x520, gUnk_8075398, 0x901);
+  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0xA20, gUnk_80753BC, 0x901);
+  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0xF20, gUnk_80753E8, 0x901);
+  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x1420, gUnk_807540C, 0x901);
+  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x1920, gUnk_8075428, 0x901);
+  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x1E20, gUnk_8075440, 0x901);
+  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x2320, gUnk_807545C, 0x901);
+  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x2820, gUnk_807547C, 0x901);
+  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x2D20, gUnk_80754A4, 0x901);
+  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x3220, gUnk_80754C4, 0x901);
+  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x3720, gUnk_80754EC, 0x901);
 
   CpuCopy16(gWorldMapBgPalette, g02000000.bg, 0x180);
   CpuCopy16(gUnk_80741B8, g02000000.bg + 0xF0, 0x20);

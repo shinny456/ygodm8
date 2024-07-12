@@ -52,6 +52,14 @@ enum CardType
     NUM_CARD_TYPES
 };
 
+enum {
+  TYPE_GROUP_NONE,
+  TYPE_GROUP_MONSTER,
+  TYPE_GROUP_SPELL,
+  TYPE_GROUP_TRAP,
+  TYPE_GROUP_RITUAL
+};
+
 enum CardAttribute
 {
     ATTRIBUTE_NONE,

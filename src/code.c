@@ -9,18 +9,18 @@ extern u16 gBLDALPHA;
 extern u16 gBG0VOFS;
 
 struct Credits {
-  u32 unk0;
-  u16 unk4;
+  u32 state;
+  u16 frameCounter;
   u16 unk6;
   u16 unk8;
-  u8 unkA;
+  u8 blendWeight;
 };
 
-extern struct Credits* g8DF758C;
+extern struct Credits* gCreditsData;
 extern u16 (*gCreditsTilemaps[])[30];
 extern const u8 g8063FA0[][2];
 
-extern u8 gUnk_2018800[];
+extern u8 gSharedMem[];
 void bzero (void*, unsigned);
 
 void sub_8000724 (void);
@@ -28,46 +28,46 @@ void sub_80008EC (u8);
 s16 fix_inverse (s16);
 s16 fix_mul (s16, s16);
 
-void sub_8000224(void) {
+void CreditsMain (void) {
   sub_8000724();
   while (1) {
-    switch (g8DF758C->unk0) {
+    switch (gCreditsData->state) {
       case 0:
-        if (++g8DF758C->unk6 > 60) {
-          g8DF758C->unkA = 0;
-          gBLDALPHA = (16 - g8DF758C->unkA) << 8 | g8DF758C->unkA;
+        if (++gCreditsData->unk6 > 60) {
+          gCreditsData->blendWeight = 0;
+          gBLDALPHA = (16 - gCreditsData->blendWeight) << 8 | gCreditsData->blendWeight;
           LoadBlendingRegs();
-          g8DF758C->unk6 = 0;
-          g8DF758C->unk0 = 1;
+          gCreditsData->unk6 = 0;
+          gCreditsData->state = 1;
         }
         break;
       case 1:
         gBG0VOFS = 448;
         LoadBgOffsets();
-        g8DF758C->unk0 = 2;
+        gCreditsData->state = 2;
         break;
       case 2:
-        if (g8DF758C->unk4 % 2 == 0) {
+        if (gCreditsData->frameCounter % 2 == 0) {
           gBG0VOFS++;
           gBG1VOFS++;
           LoadBgOffsets();
         }
-        if (g8DF758C->unkA < 16 && g8DF758C->unk4 % 8 == 0) {
-          g8DF758C->unkA++;
-          gBLDALPHA = (16 - g8DF758C->unkA) << 8 | g8DF758C->unkA;
+        if (gCreditsData->blendWeight < 16 && gCreditsData->frameCounter % 8 == 0) {
+          gCreditsData->blendWeight++;
+          gBLDALPHA = (16 - gCreditsData->blendWeight) << 8 | gCreditsData->blendWeight;
           LoadBlendingRegs();
         }
         if (gBG0VOFS % 512 == 0) {
-          if (g8DF758C->unk8 < 16)
-            g8DF758C->unk8++;
+          if (gCreditsData->unk8 < 16)
+            gCreditsData->unk8++;
           else
-            g8DF758C->unk8 = 0;
-          if (g8DF758C->unk8 < 15) {
+            gCreditsData->unk8 = 0;
+          if (gCreditsData->unk8 < 15) {
             u8 i;
             CpuFastFill(0, gBgVram.sbb1E, 0x800);
-            for (i = 0; i < g8063FA0[g8DF758C->unk8][1]; i++)
-              CpuCopy16(gCreditsTilemaps[g8DF758C->unk8][i], &gBgVram.sbb1E[g8063FA0[g8DF758C->unk8][0] + i], 62);
-            switch (g8DF758C->unk8) {
+            for (i = 0; i < g8063FA0[gCreditsData->unk8][1]; i++)
+              CpuCopy16(gCreditsTilemaps[gCreditsData->unk8][i], &gBgVram.sbb1E[g8063FA0[gCreditsData->unk8][0] + i], 62);
+            switch (gCreditsData->unk8) {
               case 10:
                 sub_80008EC(2);
                 break;
@@ -78,43 +78,43 @@ void sub_8000224(void) {
           }
           LoadBgVRAM();
           gBG0VOFS = 0;
-          g8DF758C->unk0 = 3;
+          gCreditsData->state = 3;
         }
         break;
       case 3:
         LoadBgOffsets();
-        if (++g8DF758C->unk6 > 270) {
-          if (g8DF758C->unk8 < 16) {
-            g8DF758C->unk0 = 4;
+        if (++gCreditsData->unk6 > 270) {
+          if (gCreditsData->unk8 < 16) {
+            gCreditsData->state = 4;
             gBG1VOFS = 448;
             LoadBgOffsets();
           }
           else
-            g8DF758C->unk0 = 9;
-          g8DF758C->unk6 = 0;
+            gCreditsData->state = 9;
+          gCreditsData->unk6 = 0;
         }
         break;
       case 4:
-        if (g8DF758C->unk4 % 2 == 0) {
+        if (gCreditsData->frameCounter % 2 == 0) {
           gBG0VOFS++;
           gBG1VOFS++;
           LoadBgOffsets();
         }
-        if (g8DF758C->unkA != 0 && g8DF758C->unk4 % 8 == 0) {
-          g8DF758C->unkA--;
-          gBLDALPHA = (16 - g8DF758C->unkA) << 8 | g8DF758C->unkA;
+        if (gCreditsData->blendWeight != 0 && gCreditsData->frameCounter % 8 == 0) {
+          gCreditsData->blendWeight--;
+          gBLDALPHA = (16 - gCreditsData->blendWeight) << 8 | gCreditsData->blendWeight;
           LoadBlendingRegs();
         }
         if (gBG1VOFS % 512 == 0) {
           u8 i;
-          if (g8DF758C->unk8 < 16)
-            g8DF758C->unk8++;
+          if (gCreditsData->unk8 < 16)
+            gCreditsData->unk8++;
           else
-            g8DF758C->unk8 = 0;
+            gCreditsData->unk8 = 0;
           CpuFastFill(0, gBgVram.sbb1F, 0x800);
-          for (i = 0; i < g8063FA0[g8DF758C->unk8][1]; i++)
-            CpuCopy16(gCreditsTilemaps[g8DF758C->unk8][i], &gBgVram.sbb1F[g8063FA0[g8DF758C->unk8][0] + i], 62);
-          switch (g8DF758C->unk8) {
+          for (i = 0; i < g8063FA0[gCreditsData->unk8][1]; i++)
+            CpuCopy16(gCreditsTilemaps[gCreditsData->unk8][i], &gBgVram.sbb1F[g8063FA0[gCreditsData->unk8][0] + i], 62);
+          switch (gCreditsData->unk8) {
             case 10:
               sub_80008EC(1);
               break;
@@ -124,44 +124,44 @@ void sub_8000224(void) {
           }
           LoadBgVRAM();
           gBG1VOFS = 0;
-          g8DF758C->unk0 = 7;
+          gCreditsData->state = 7;
         }
         break;
       case 7:
         LoadBgOffsets();
-        if (++g8DF758C->unk6 > 270) {
-          if (g8DF758C->unk8 < 16) {
+        if (++gCreditsData->unk6 > 270) {
+          if (gCreditsData->unk8 < 16) {
             gBG0VOFS = 448;
             LoadBgOffsets();
-            g8DF758C->unk0 = 8;
+            gCreditsData->state = 8;
           }
           else
-            g8DF758C->unk0 = 9;
-          g8DF758C->unk6 = 0;
+            gCreditsData->state = 9;
+          gCreditsData->unk6 = 0;
         }
         break;
       case 8:
-        if (g8DF758C->unk4 % 2 == 0) {
+        if (gCreditsData->frameCounter % 2 == 0) {
           gBG0VOFS++;
           gBG1VOFS++;
           LoadBgOffsets();
         }
-        if (g8DF758C->unkA < 16 && g8DF758C->unk4 % 8 == 0) {
-          g8DF758C->unkA++;
-          gBLDALPHA = (16 - g8DF758C->unkA) << 8 | g8DF758C->unkA;
+        if (gCreditsData->blendWeight < 16 && gCreditsData->frameCounter % 8 == 0) {
+          gCreditsData->blendWeight++;
+          gBLDALPHA = (16 - gCreditsData->blendWeight) << 8 | gCreditsData->blendWeight;
           LoadBlendingRegs();
         }
         if (gBG0VOFS % 512 == 0) {
-          if (g8DF758C->unk8 < 16)
-            g8DF758C->unk8++;
+          if (gCreditsData->unk8 < 16)
+            gCreditsData->unk8++;
           else
-            g8DF758C->unk8 = 0;
+            gCreditsData->unk8 = 0;
           {
             u8 i;
             CpuFastFill(0, gBgVram.sbb1E, 0x800);
-            for (i = 0; i < g8063FA0[g8DF758C->unk8][1]; i++)
-              CpuCopy16(gCreditsTilemaps[g8DF758C->unk8][i], &gBgVram.sbb1E[g8063FA0[g8DF758C->unk8][0] + i], 62);
-            switch (g8DF758C->unk8) {
+            for (i = 0; i < g8063FA0[gCreditsData->unk8][1]; i++)
+              CpuCopy16(gCreditsTilemaps[gCreditsData->unk8][i], &gBgVram.sbb1E[g8063FA0[gCreditsData->unk8][0] + i], 62);
+            switch (gCreditsData->unk8) {
               case 10:
                 sub_80008EC(2);
                 break;
@@ -171,30 +171,30 @@ void sub_8000224(void) {
             }
             LoadBgVRAM();
             gBG0VOFS = 0;
-            g8DF758C->unk0 = 3;
+            gCreditsData->state = 3;
           }
         }
         break;
       case 9:
         break;
       default:
-        g8DF758C->unk0 = 0;
+        gCreditsData->state = 0;
         break;
     }
     sub_8008220();
-    g8DF758C->unk4++;
+    gCreditsData->frameCounter++;
   }
 }
 
 extern u16 gCreditsPalette[];
-void sub_803ED78 (void);
+void ClearGraphicsBuffers (void);
 void sub_8000810 (void);
 extern u32 gCreditsTileset[];
 
 void sub_8000724 (void) {
   u8 i;
-  bzero(gUnk_2018800, 0x4314);
-  sub_803ED78();
+  bzero(gSharedMem, 0x4314);
+  ClearGraphicsBuffers();
   LoadOam();
   LoadPalettes();
   LoadVRAM();
@@ -259,7 +259,7 @@ void sub_80008EC (u8 arg0) {
 
 // split?
 
-void sub_80009BC (void);
+void ReshefVisionMain (void);
 void sub_8001C70 (void);
 void sub_8001B88 (void);
 void sub_8001BFC (void);
@@ -268,21 +268,30 @@ void sub_8001DD4 (void);
 void sub_8001D58 (void);
 void sub_8001AD8 (void);
 
+enum {
+  RESHEF_VISION,
+
+  CREDITS_CUTSCENE = 2,
+  GOD_CARDS_TURN_TO_STONE=4,
+  PEGASUS_BEFORE_CREDITS=7,
+  INTRO_CUTSCENE,
+};
+
 void StartCutscene (u8 cutscene) {
   switch (cutscene) {
-    case 0:
-      sub_80009BC();
+    case RESHEF_VISION:
+      ReshefVisionMain();
       break;
     case 1:
       sub_8001C70();
       break;
-    case 2:
-      sub_8000224();
+    case CREDITS_CUTSCENE:
+      CreditsMain();
       break;
     case 3:
       sub_8001B88();
       break;
-    case 4:
+    case GOD_CARDS_TURN_TO_STONE:
       sub_8001BFC();
       break;
     case 5:
@@ -291,10 +300,10 @@ void StartCutscene (u8 cutscene) {
     case 6:
       sub_8001DD4();
       break;
-    case 7:
+    case PEGASUS_BEFORE_CREDITS:
       sub_8001D58();
       break;
-    case 8:
+    case INTRO_CUTSCENE:
       sub_8001AD8();
       break;
   }
@@ -340,7 +349,7 @@ void sub_80082E8 (void);
 void sub_80012B4 (void);
 
 // Yugi reshef vision
-void sub_80009BC (void) {
+void ReshefVisionMain (void) {
   u8 i;
   s16 r5;
   u8 r6 = 16, r7 = 16;
@@ -506,7 +515,7 @@ void sub_8001068 (void);
 
 void sub_8000D74 (void) {
   u8 i;
-  sub_803ED78();
+  ClearGraphicsBuffers();
   LoadOam();
   LoadPalettes();
   LoadVRAM();
@@ -2293,7 +2302,7 @@ void sub_8002E98 (void) {
   u16 i;
   u32 temp;
 
-  sub_803ED78();
+  ClearGraphicsBuffers();
   LoadOam();
   LoadPalettes();
   LoadVRAM();
@@ -2302,7 +2311,7 @@ void sub_8002E98 (void) {
   temp = g8DF7594->unk0;
   // macro for clearing gSharedMem?
   for (i = 0; i < 0x4314; i++)
-    gUnk_2018800[i] = 0;
+    gSharedMem[i] = 0;
   g8DF7594->unk0 = temp;
 
   LZ77UnCompWram(gUnk_8A52618, gBgVram.cbb0);
@@ -2331,7 +2340,7 @@ void sub_8003020 (void) {
   u16 i;
   u32 temp;
 
-  sub_803ED78();
+  ClearGraphicsBuffers();
   LoadOam();
   LoadPalettes();
   LoadVRAM();
@@ -2340,7 +2349,7 @@ void sub_8003020 (void) {
   temp = g8DF7594->unk0;
   // macro for clearing gSharedMem?
   for (i = 0; i < 0x4314; i++)
-    gUnk_2018800[i] = 0;
+    gSharedMem[i] = 0;
   g8DF7594->unk0 = temp;
 
   g8DF7594->unk15A[0] = 0;
@@ -2390,7 +2399,7 @@ void sub_8003268 (void) {
   u16 i;
   u32 temp;
 
-  sub_803ED78();
+  ClearGraphicsBuffers();
   LoadOam();
   LoadPalettes();
   LoadVRAM();
@@ -2399,7 +2408,7 @@ void sub_8003268 (void) {
   temp = g8DF7594->unk0;
   // macro for clearing gSharedMem?
   for (i = 0; i < 0x4314; i++)
-    gUnk_2018800[i] = 0;
+    gSharedMem[i] = 0;
   g8DF7594->unk0 = temp;
 
   g8DF7594->unk15A[0] = 32;
@@ -2441,7 +2450,7 @@ void sub_8003444 (void) {
   u16 i;
   u32 temp;
 
-  sub_803ED78();
+  ClearGraphicsBuffers();
   LoadOam();
   LoadPalettes();
   LoadVRAM();
@@ -2450,7 +2459,7 @@ void sub_8003444 (void) {
   temp = g8DF7594->unk0;
   // macro for clearing gSharedMem?
   for (i = 0; i < 0x4314; i++)
-    gUnk_2018800[i] = 0;
+    gSharedMem[i] = 0;
   g8DF7594->unk0 = temp;
 
   LZ77UnCompWram(gUnk_8A72DFC, gBgVram.cbb0);
@@ -2477,7 +2486,7 @@ void sub_8003560 (void) {
   u16 i;
   u32 temp;
 
-  sub_803ED78();
+  ClearGraphicsBuffers();
   LoadOam();
   LoadPalettes();
   LoadVRAM();
@@ -2486,7 +2495,7 @@ void sub_8003560 (void) {
   temp = g8DF7594->unk0;
   // macro for clearing gSharedMem?
   for (i = 0; i < 0x4314; i++)
-    gUnk_2018800[i] = 0;
+    gSharedMem[i] = 0;
   g8DF7594->unk0 = temp;
 
   g8DF7594->unk15A[0] = 32;

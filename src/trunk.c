@@ -122,7 +122,7 @@ void sub_8008804 (void);
 void sub_8008854 (void);
 void sub_80087E4 (void);
 void sub_0800ABA4 (void);
-void sub_800A6D0 (void);
+void SortingMenuMain (void);
 void sub_8008818 (void);
 void sub_800ABE4 (void);
 void sub_0800ABE0 (void);
@@ -179,7 +179,7 @@ void TrunkMenu (void) {
         sub_800AA58(2);
         break;
       case 8:
-        sub_800A6D0();
+        SortingMenuMain();
         sub_800A3D8(8);
         sub_800AA58(8);
         break;
@@ -714,7 +714,7 @@ void sub_8008EA8(void)
     }
 }
 
-void sub_8008F24(void)
+void InitTrunkData(void)
 {
     u16 id;
     gUnkStruct_2020E10.unk0 = 0;
@@ -736,7 +736,7 @@ void sub_8008F88(u8 val)
         InitTrunkCards();
         break;
     case 1:
-        sub_8008F24();
+        InitTrunkData();
         break;
     case 3:
         sub_80090E8();
@@ -927,7 +927,7 @@ extern u8 g8DF811C[];
 extern u8 g80907E4[];
 
 u16 sub_08007FEC(u8, u8, u16);
-void sub_8020A3C(void *, void *, u16);
+void CopyStringTilesToVRAMBuffer(void *, void *, u16);
 void sub_800800C(u8, u8, u16, u16);
 
 
@@ -945,7 +945,7 @@ void sub_8009364 (void) {
     sub_800800C(i + 9, 13, 0x7800, (g8DF811C[i] + 61) | r7);
     sub_800800C(i + 9, 14, 0x7800, (g8DF811C[i] + 63) | r7);
   }
-  sub_8020A3C(&gBgVram.cbb1[32], g80907E4, 0x900);
+  CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[32], g80907E4, 0x900);
 }
 
 
@@ -1018,7 +1018,7 @@ void sub_8009448(void)
         sub_800800C(i + 4, 14, 0x7800, (g8DF811C[i] + 157) | r8);
         sub_800800C(i + 4, 15, 0x7800, (g8DF811C[i] + 159) | r8);
     }
-    sub_8020A3C(&gBgVram.cbb1[32]/*fix*/, g8090920, 0x900);
+    CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[32]/*fix*/, g8090920, 0x900);
 }
 
 

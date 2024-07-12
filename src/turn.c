@@ -3,12 +3,12 @@
 
 extern u8 gUnk_8E1178C[];
 
-void sub_8058720(void)
+void SetWhoseTurnToPlayer(void)
 {
     gWhoseTurn = PLAYER;
 }
 
-void sub_805872C(void)
+void SwitchTurn(void)
 {
     gWhoseTurn = gUnk_8E1178C[gWhoseTurn];
 }

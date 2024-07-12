@@ -1,6 +1,6 @@
 #include "global.h"
 
-extern u8 gFlags[]; // 50 * 8 flags: gFlags[NUM_FLAGS / 8]
+extern u8 gFlags[]; // 50 * 8 flags: gFlags[NUM_FLAGS / 8 (CHAR_BIT?)]
 extern u8 g8E0FD44[];
 
 void sub_80554EC (void) {

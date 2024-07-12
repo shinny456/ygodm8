@@ -40,7 +40,7 @@ void sub_801F5BC (void);
 void sub_801F658 (void);
 void sub_801FADC (void);
 void sub_801FB2C (void);
-void sub_803ED9C (void);
+void ClearBackgroundCbbs (void);
 void sub_800B618 (void*);
 void sub_800BCB0 (void*);
 void sub_801FA84 (void);
@@ -49,7 +49,7 @@ void sub_801FB14 (void);
 void sub_801FB50 (u8*, u8);
 
 void sub_801DDDC (u8);
-void sub_8020A3C(void *, void *, u16);
+void CopyStringTilesToVRAMBuffer(void *, void *, u16);
 
 extern u16 g80B9620[];
 extern u16 g80B96AA[];
@@ -66,7 +66,7 @@ extern struct OamData gOamBuffer[];
 extern u8 g201CB58;
 extern u8 g201CB59;
 extern u16 g201CB60[2][2240];
-u8* sub_8020824(u8*);
+u8* GetCurrentLanguageString(u8*);
 extern u16 gUnk2020DFC;
 
 void sub_801EF30 (u8 arg0) {
@@ -451,7 +451,7 @@ void sub_801F6B0 (void) {
     CpuFastFill16(0, g201CB60[i], 4480);
   text = gCardInfo.unk8;
   text += 2;
-  text = sub_8020824(text);
+  text = GetCurrentLanguageString(text);
   if (*text == '^') {
     text++;
     switch (*text) {
@@ -531,7 +531,7 @@ void sub_801F6B0 (void) {
         i++;
       }
       buffer[i] = 0;
-      sub_8020A3C(g201CB60[g201CB58], buffer, 0x901);
+      CopyStringTilesToVRAMBuffer(g201CB60[g201CB58], buffer, 0x901);
       text++;
     }
   }
@@ -554,7 +554,7 @@ void sub_801F6B0 (void) {
       }
     }
     buffer[i] = 0;
-    sub_8020A3C(g201CB60[0], buffer, 0x901);
+    CopyStringTilesToVRAMBuffer(g201CB60[0], buffer, 0x901);
     g201CB59 = 0;
   }
   // _0801F97C
@@ -620,7 +620,7 @@ _0801F6C0:\n\
 	ldr r2, [r0, #8]\n\
 	adds r2, #2\n\
 	adds r0, r2, #0\n\
-	bl sub_8020824\n\
+	bl GetCurrentLanguageString\n\
 	adds r2, r0, #0\n\
 	ldrb r0, [r2]\n\
 	cmp r0, #0x5e\n\
@@ -868,7 +868,7 @@ _0801F8C0:\n\
 	add r0, sb\n\
 	mov r1, sp\n\
 	ldr r2, _0801F8FC\n\
-	bl sub_8020A3C\n\
+	bl CopyStringTilesToVRAMBuffer\n\
 	adds r2, r6, #0\n\
 	ldrb r0, [r7]\n\
 	adds r0, #1\n\
@@ -947,7 +947,7 @@ _0801F966:\n\
 	ldr r2, _0801FA4C\n\
 	mov r0, sb\n\
 	mov r1, sp\n\
-	bl sub_8020A3C\n\
+	bl CopyStringTilesToVRAMBuffer\n\
 	ldr r0, _0801FA50\n\
 	strb r4, [r0]\n\
 _0801F97C:\n\
@@ -1091,7 +1091,7 @@ void sub_801FB14 (void) {
 }
 
 void sub_801FB2C (void) {
-  sub_803ED9C();
+  ClearBackgroundCbbs();
 }
 
 void sub_801FB38 (void) {
@@ -1140,7 +1140,7 @@ extern const u8 g80BE632[];
 extern struct {u16 unk0, unk2;} g2021C90[][1];
 
 void HandleWin (void) {
-  struct Unk var;
+  struct DuelText duelText;
   gDuelData.capacityYield = gUnk8E00B30[gDuelData.opponent]->capacityYield;
   IncreaseDeckCapacity(gDuelData.capacityYield);
   sub_801FF90();
@@ -1148,63 +1148,63 @@ void HandleWin (void) {
   sub_801FD14();
   if (!gLifePoints[1]) {
     sub_8035020(4);
-    sub_8021A14(&var);
-    var.unk8 = 19;
-    sub_80219E4(&var);
+    ResetDuelTextData(&duelText);
+    duelText.textId = 19;
+    sub_80219E4(&duelText);
   }
   else if (sub_8043E70(1) < sub_8043E9C(1)) {
     sub_8035020(4);
-    sub_8021A14(&var);
-    var.unk8 = 21;
-    sub_80219E4(&var);
+    ResetDuelTextData(&duelText);
+    duelText.textId = 21;
+    sub_80219E4(&duelText);
   }
   if (gDuelData.unk2d) {
     u8 i;
     PlayMusic(gDuelData.unkE);
-    sub_8021A14(&var);
-    var.unk8 = 2;
-    sub_80219E4(&var);
-    sub_8021A14(&var);
-    var.unk8 = 6;
-    var.unk4 = gDuelData.capacityYield;
-    sub_80219E4(&var);
+    ResetDuelTextData(&duelText);
+    duelText.textId = 2;
+    sub_80219E4(&duelText);
+    ResetDuelTextData(&duelText);
+    duelText.textId = 6;
+    duelText.unk4 = gDuelData.capacityYield;
+    sub_80219E4(&duelText);
     sub_801FE98();
     for (i = 0; i < 10; i++) {
       if (!gDuelData.unk14[i])
         break;
-      sub_8021A14(&var);
-      var.unk8 = 5;
-      var.unk0 = gDuelData.unk14[i];
-      sub_80219E4(&var);
+      ResetDuelTextData(&duelText);
+      duelText.textId = 5;
+      duelText.unk0 = gDuelData.unk14[i];
+      sub_80219E4(&duelText);
       SetCardInfo(gDuelData.unk14[i]);
       sub_801F6B0();
     }
   }
-  if (!gUnk20241FC)
+  if (!gDuelType /*== DUEL_TYPE_INGAME*/)
     sub_8048CEC();
 }
 
 void HandleLoss (void) {
-  struct Unk var;
+  struct DuelText duelText;
   if (gAnte != CARD_NONE)
     RemoveCardFromTrunk(gAnte, 1);
   if (!gLifePoints[0]) {
     sub_8035020(4);
-    sub_8021A14(&var);
-    var.unk8 = 20;
-    sub_80219E4(&var);
+    ResetDuelTextData(&duelText);
+    duelText.textId = 20;
+    sub_80219E4(&duelText);
   }
   else if (sub_8043E70(0) < sub_8043E9C(0)) {
     sub_8035020(4);
-    sub_8021A14(&var);
-    var.unk8 = 22;
-    sub_80219E4(&var);
+    ResetDuelTextData(&duelText);
+    duelText.textId = 22;
+    sub_80219E4(&duelText);
   }
   if (gDuelData.unk2d) {
     PlayMusic(gDuelData.music);
-    sub_8021A14(&var);
-    var.unk8 = 3;
-    sub_80219E4(&var);
+    ResetDuelTextData(&duelText);
+    duelText.textId = 3;
+    sub_80219E4(&duelText);
   }
 }
 
@@ -1266,29 +1266,29 @@ void sub_801FD14 (void) {
 }
 
 void sub_801FE98 (void) {
-  struct Unk var;
-  sub_8021A14(&var);
+  struct DuelText duelText;
+  ResetDuelTextData(&duelText);
   if (!gDuelData.unk0) {
-    var.unk8 = 12;
-    var.unk4 = gDuelData.unk0;
+    duelText.textId = 12;
+    duelText.unk4 = gDuelData.unk0;
   }
   else if (gDuelData.unk0 <= 9999) {
-    var.unk8 = 8;
-    var.unk4 = gDuelData.unk0;
+    duelText.textId = 8;
+    duelText.unk4 = gDuelData.unk0;
   }
   else if (gDuelData.unk0 <= 99999999) {
-    var.unk8 = 9;
-    var.unk4 = gDuelData.unk0 / 10000;
+    duelText.textId = 9;
+    duelText.unk4 = gDuelData.unk0 / 10000;
   }
   else if (gDuelData.unk0 <= 999999999999) {
-    var.unk8 = 10;
-    var.unk4 = gDuelData.unk0 / 100000000;
+    duelText.textId = 10;
+    duelText.unk4 = gDuelData.unk0 / 100000000;
   }
   else {
-    var.unk8 = 11;
-    var.unk4 = gDuelData.unk0 / 1000000000000;
+    duelText.textId = 11;
+    duelText.unk4 = gDuelData.unk0 / 1000000000000;
   }
-  sub_80219E4(&var);
+  sub_80219E4(&duelText);
 }
 
 void HandleOutcome (void) {

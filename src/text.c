@@ -159,7 +159,7 @@ u16 sub_8020698(u8* name) //text parser
     return i;
 }
 
-u8* sub_8020824(u8* name)
+u8* GetCurrentLanguageString(u8* name)
 {
     if (*name == '$')
     {
@@ -298,12 +298,12 @@ void sub_8020968(u32* arg0, u16 arg1, u16 arg2)
     }
 }
 
-void sub_8020A3C(u32* arg0, u8* name, u16 arg2)
+void CopyStringTilesToVRAMBuffer(u32* arg0, u8* name, u16 arg2)
 {
 
     bool32 r7;
     u16 r1;
-    name = sub_8020824(name);
+    name = GetCurrentLanguageString(name);
     r7 = 0;
 
     switch (arg2 & 0x1F00) //font flags?
@@ -484,7 +484,7 @@ void sub_8020DB8(u32* arg0, u8* name, u16 arg2)
 {
     u16 r1;
     bool32 r7;
-    name = sub_8020824(name);
+    name = GetCurrentLanguageString(name);
     r7 = 0;
 
     switch (arg2 & 0x1F00)

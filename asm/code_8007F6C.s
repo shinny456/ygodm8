@@ -1,59 +1,7 @@
     .INCLUDE "asm/macro.inc"
     .SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_80082E8
-sub_80082E8: @ 0x080082E8
-	push {r4, lr}
-	ldr r0, _08008328
-	ldrh r0, [r0]
-	mvns r0, r0
-	lsls r0, r0, #0x10
-	lsrs r4, r0, #0x10
-	ldr r3, _0800832C
-	ldr r1, _08008330
-	ldrh r2, [r1]
-	adds r0, r4, #0
-	bics r0, r2
-	strh r0, [r3]
-	ldrh r0, [r1]
-	adds r3, r1, #0
-	cmp r0, r4
-	bne _0800833C
-	ldr r2, _08008334
-	movs r0, #0
-	strh r0, [r2]
-	ldr r1, _08008338
-	ldrb r0, [r1]
-	subs r0, #1
-	strb r0, [r1]
-	ldrb r0, [r1]
-	cmp r0, #0
-	bne _08008346
-	movs r0, #3
-	strb r0, [r1]
-	ldrh r0, [r3]
-	strh r0, [r2]
-	b _08008346
-	.align 2, 0
-_08008328: .4byte 0x04000130
-_0800832C: .4byte gUnk2020DFC
-_08008330: .4byte gKeyState
-_08008334: .4byte 0x02020DF4
-_08008338: .4byte 0x02020E04
-_0800833C:
-	ldr r0, _08008350
-	strh r4, [r0]
-	ldr r1, _08008354
-	movs r0, #0xa
-	strb r0, [r1]
-_08008346:
-	strh r4, [r3]
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08008350: .4byte 0x02020DF4
-_08008354: .4byte 0x02020E04
+	
 
 	THUMB_FUNC_START sub_8008358
 sub_8008358: @ 0x08008358

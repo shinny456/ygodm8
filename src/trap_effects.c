@@ -4,6 +4,39 @@
 #include "player.h"
 #include "constants/card_ids.h"
 
+static bool8 sub_8057998 (void);
+static bool8 sub_8057A1C (void);
+static bool8 sub_8057AA0 (void);
+static bool8 sub_8057B28 (void);
+static bool8 sub_8057BAC (void);
+static void sub_080582D8 (void);
+static void EffectGoblinFan (u16);
+static void EffectBadReactionToSimochi (u16);
+static void EffectReverseTrap (void);
+static void sub_08058430 (void);
+static void EffectTorrentialTribute (void);
+static void sub_0805849C (void);
+static void sub_080584A0 (void);
+static void sub_080584A4 (void);
+static void sub_080584A8 (void);
+static void sub_080584AC (void);
+static bool8 sub_80584B4 (void);
+static bool8 sub_80584B8 (void);
+static bool8 sub_80584E4 (void);
+static bool8 sub_8058540 (void);
+static bool8 sub_805859C (void);
+static bool8 sub_80585F0 (void);
+static bool8 sub_80585F4 (void);
+static bool8 sub_8058650 (void);
+static bool8 sub_8058674 (void);
+static bool8 sub_80586A0 (void);
+static bool8 sub_80586C4 (void);
+static bool8 sub_80586C8 (void);
+static bool8 sub_80586CC (void);
+static bool8 sub_80586D0 (void);
+static bool8 sub_80586D4 (void);
+static bool8 sub_80586D8 (void);
+
 
 extern s16 gUnk_8E1172C[];
 extern s16 gUnk_8E11738[];
@@ -11,43 +44,8 @@ extern s16 gUnk_8E11744[];
 extern s16 gUnk_8E11788[];
 
 
-void sub_080582D8(void);
-void EffectGoblinFan(u16);
-void EffectBadReactionToSimochi(u16);
-void EffectReverseTrap(void);
-void sub_08058430(void);
-void EffectTorrentialTribute(void);
-void sub_0805849C(void);
-void sub_080584A0(void);
-void sub_080584A4(void);
-void sub_080584A8(void);
-void sub_080584AC(void);
-
-bool8 sub_80584B4(void);
-bool8 sub_80584B8(void);
-bool8 sub_8057998(void);
-bool8 sub_8057A1C(void);
-bool8 sub_8057AA0(void);
-bool8 sub_8057B28(void);
-bool8 sub_8057BAC(void);
-bool8 sub_80584E4(void);
-bool8 sub_8058540(void);
-bool8 sub_805859C(void);
-bool8 sub_80585F0(void);
-bool8 sub_80585F4(void);
-bool8 sub_8058650(void);
-bool8 sub_8058674(void);
-bool8 sub_80586A0(void);
-bool8 sub_80586C4(void);
-bool8 sub_80586C8(void);
-bool8 sub_80586CC(void);
-bool8 sub_80586D0(void);
-bool8 sub_80586D4(void);
-bool8 sub_80586D8(void);
-
-s8 sub_8057894(u16 id)
-{
-    bool8 ret;
+static signed char sub_8057894 (u16 id) {
+    unsigned char ret;
 
     SetCardInfo(id);
     switch (gCardInfo.trapEffect)
@@ -121,254 +119,254 @@ s8 sub_8057894(u16 id)
     return ret;
 }
 
-bool8 sub_8057998(void)
+static bool8 sub_8057998(void)
 {
-    if (IsGodCard(gUnk020245A0.id) != TRUE && sub_803FCBC(gUnk020245A0.id) == TRUE)
+    if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TRUE)
     {
-        gStatMod.card = gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->id;
+        gStatMod.card = gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = sub_804069C(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]);
+        gStatMod.stage = sub_804069C(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 500)
         {
-            gUnk020245A0.unk5 = 2;
+            gTrapEffectData.unk5 = 2;
             return TRUE;
         }
     }
-    return FALSE;
+    return 0;
 }
 
-bool8 sub_8057A1C(void)
+static bool8 sub_8057A1C(void)
 {
-    if (IsGodCard(gUnk020245A0.id) != TRUE && sub_803FCBC(gUnk020245A0.id) == TRUE)
+    if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TRUE)
     {
-        gStatMod.card = gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->id;
+        gStatMod.card = gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = sub_804069C(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]);
+        gStatMod.stage = sub_804069C(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 1000)
         {
-            gUnk020245A0.unk5 = 3;
+            gTrapEffectData.unk5 = 3;
             return TRUE;
         }
     }
-    return FALSE;
+    return 0;
 }
 
-bool8 sub_8057AA0(void)
+static bool8 sub_8057AA0(void)
 {
-    if (IsGodCard(gUnk020245A0.id) != TRUE && sub_803FCBC(gUnk020245A0.id) == TRUE)
+    if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TRUE)
     {
-        gStatMod.card = gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->id;
+        gStatMod.card = gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = sub_804069C(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]);
+        gStatMod.stage = sub_804069C(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 1500)
         {
-            gUnk020245A0.unk5 = 4;
+            gTrapEffectData.unk5 = 4;
             return TRUE;
         }
     }
-    return FALSE;
+    return 0;
 }
 
-bool8 sub_8057B28(void)
+static bool8 sub_8057B28(void)
 {
-    if (IsGodCard(gUnk020245A0.id) != TRUE && sub_803FCBC(gUnk020245A0.id) == TRUE)
+    if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TRUE)
     {
-        gStatMod.card = gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->id;
+        gStatMod.card = gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = sub_804069C(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]);
+        gStatMod.stage = sub_804069C(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 2000)
         {
-            gUnk020245A0.unk5 = 5;
+            gTrapEffectData.unk5 = 5;
             return TRUE;
         }
     }
-    return FALSE;
+    return 0;
 }
 
-bool8 sub_8057BAC(void)
+static bool8 sub_8057BAC(void)
 {
-    if (IsGodCard(gUnk020245A0.id) != TRUE && sub_803FCBC(gUnk020245A0.id) == TRUE)
+    if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TRUE)
     {
-        gStatMod.card = gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->id;
+        gStatMod.card = gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = sub_804069C(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]);
+        gStatMod.stage = sub_804069C(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 3000)
         {
-            gUnk020245A0.unk5 = 6;
+            gTrapEffectData.unk5 = 6;
             return TRUE;
         }
     }
-    return FALSE;
+    return 0;
 }
 
-void EffectWideSpreadRuin(void)
+static void EffectWideSpreadRuin(void)
 {
-    ClearZoneAndSendMonToGraveyard(gZones[0][gUnk020245A0.unk4], 1);
-    if (!IsGodCard(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->id))
+    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
+    if (!IsGodCard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id))
     {
-        ClearZoneAndSendMonToGraveyard(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
 
-        if (!gUnk_02021C08)
+        if (!gHideEffectText)
         {
-            gUnk_02021C10.unk0 = WIDESPREAD_RUIN;
-            gUnk_02021C10.unk2 = gUnk020245A0.id;
+            gCardEffectTextData.cardId = WIDESPREAD_RUIN;
+            gCardEffectTextData.cardId2 = gTrapEffectData.id;
             sub_801CEBC();
         }
     }
     else
     {
-        gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->isFaceUp = TRUE;
-        if (!gUnk_02021C08)
+        gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
+        if (!gHideEffectText)
         {
             sub_801D188(4);
-            gUnk_02021C10.unk0 = WIDESPREAD_RUIN;
-            gUnk_02021C10.unk2 = gUnk020245A0.id;
+            gCardEffectTextData.cardId = WIDESPREAD_RUIN;
+            gCardEffectTextData.cardId2 = gTrapEffectData.id;
             sub_801CEBC();
         }
     }
 }
 
-void EffectHouseOfAdhesiveTape(void)
+static void EffectHouseOfAdhesiveTape(void)
 {
-    ClearZoneAndSendMonToGraveyard(gZones[0][gUnk020245A0.unk4], 1);
-    if (!IsGodCard(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->id))
+    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
+    if (!IsGodCard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id))
     {
-        ClearZoneAndSendMonToGraveyard(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
 
-        if (!gUnk_02021C08)
+        if (!gHideEffectText)
         {
-            gUnk_02021C10.unk0 = HOUSE_OF_ADHESIVE_TAPE;
-            gUnk_02021C10.unk2 = gUnk020245A0.id;
+            gCardEffectTextData.cardId = HOUSE_OF_ADHESIVE_TAPE;
+            gCardEffectTextData.cardId2 = gTrapEffectData.id;
             sub_801CEBC();
         }
     }
     else
     {
-        gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->isFaceUp = TRUE;
-        if (!gUnk_02021C08)
+        gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
+        if (!gHideEffectText)
         {
             sub_801D188(4);
-            gUnk_02021C10.unk0 = HOUSE_OF_ADHESIVE_TAPE;
-            gUnk_02021C10.unk2 = gUnk020245A0.id;
+            gCardEffectTextData.cardId = HOUSE_OF_ADHESIVE_TAPE;
+            gCardEffectTextData.cardId2 = gTrapEffectData.id;
             sub_801CEBC();
         }
     }
 }
 
-void EffectEatgaboon(void)
+static void EffectEatgaboon(void)
 {
-    ClearZoneAndSendMonToGraveyard(gZones[0][gUnk020245A0.unk4], 1);
-    if (!IsGodCard(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->id))
+    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
+    if (!IsGodCard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id))
     {
-        ClearZoneAndSendMonToGraveyard(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
 
-        if (!gUnk_02021C08)
+        if (!gHideEffectText)
         {
-            gUnk_02021C10.unk0 = EATGABOON;
-            gUnk_02021C10.unk2 = gUnk020245A0.id;
+            gCardEffectTextData.cardId = EATGABOON;
+            gCardEffectTextData.cardId2 = gTrapEffectData.id;
             sub_801CEBC();
         }
     }
     else
     {
-        gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->isFaceUp = TRUE;
-        if (!gUnk_02021C08)
+        gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
+        if (!gHideEffectText)
         {
             sub_801D188(4);
-            gUnk_02021C10.unk0 = EATGABOON;
-            gUnk_02021C10.unk2 = gUnk020245A0.id;
+            gCardEffectTextData.cardId = EATGABOON;
+            gCardEffectTextData.cardId2 = gTrapEffectData.id;
             sub_801CEBC();
         }
     }
 }
 
-void EffectBearTrap(void)
+static void EffectBearTrap(void)
 {
-    ClearZoneAndSendMonToGraveyard(gZones[0][gUnk020245A0.unk4], 1);
-    if (!IsGodCard(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->id))
+    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
+    if (!IsGodCard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id))
     {
-        ClearZoneAndSendMonToGraveyard(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
 
-        if (!gUnk_02021C08)
+        if (!gHideEffectText)
         {
-            gUnk_02021C10.unk0 = BEAR_TRAP;
-            gUnk_02021C10.unk2 = gUnk020245A0.id;
+            gCardEffectTextData.cardId = BEAR_TRAP;
+            gCardEffectTextData.cardId2 = gTrapEffectData.id;
             sub_801CEBC();
         }
     }
     else
     {
-        gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->isFaceUp = TRUE;
-        if (!gUnk_02021C08)
+        gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
+        if (!gHideEffectText)
         {
             sub_801D188(4);
-            gUnk_02021C10.unk0 = BEAR_TRAP;
-            gUnk_02021C10.unk2 = gUnk020245A0.id;
+            gCardEffectTextData.cardId = BEAR_TRAP;
+            gCardEffectTextData.cardId2 = gTrapEffectData.id;
             sub_801CEBC();
         }
     }
 }
 
-void EffectInvisibleWire(void)
+static void EffectInvisibleWire(void)
 {
-    ClearZoneAndSendMonToGraveyard(gZones[0][gUnk020245A0.unk4], 1);
-    if (!IsGodCard(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->id))
+    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
+    if (!IsGodCard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id))
     {
-        ClearZoneAndSendMonToGraveyard(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
 
-        if (!gUnk_02021C08)
+        if (!gHideEffectText)
         {
-            gUnk_02021C10.unk0 = INVISIBLE_WIRE;
-            gUnk_02021C10.unk2 = gUnk020245A0.id;
+            gCardEffectTextData.cardId = INVISIBLE_WIRE;
+            gCardEffectTextData.cardId2 = gTrapEffectData.id;
             sub_801CEBC();
         }
     }
     else
     {
-        gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->isFaceUp = TRUE;
-        if (!gUnk_02021C08)
+        gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
+        if (!gHideEffectText)
         {
             sub_801D188(4);
-            gUnk_02021C10.unk0 = INVISIBLE_WIRE;
-            gUnk_02021C10.unk2 = gUnk020245A0.id;
+            gCardEffectTextData.cardId = INVISIBLE_WIRE;
+            gCardEffectTextData.cardId2 = gTrapEffectData.id;
             sub_801CEBC();
         }
     }
 }
 
-void EffectAcidTrapHole(void)
+static void EffectAcidTrapHole(void)
 {
-    ClearZoneAndSendMonToGraveyard(gZones[0][gUnk020245A0.unk4], 1);
-    if (!IsGodCard(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->id))
+    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
+    if (!IsGodCard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id))
     {
-        ClearZoneAndSendMonToGraveyard(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
 
-        if (!gUnk_02021C08)
+        if (!gHideEffectText)
         {
-            gUnk_02021C10.unk0 = ACID_TRAP_HOLE;
-            gUnk_02021C10.unk2 = gUnk020245A0.id;
+            gCardEffectTextData.cardId = ACID_TRAP_HOLE;
+            gCardEffectTextData.cardId2 = gTrapEffectData.id;
             sub_801CEBC();
         }
     }
     else
     {
-        gZones[gUnk020245A0.unk2][gUnk020245A0.unk3]->isFaceUp = TRUE;
-        if (!gUnk_02021C08)
+        gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
+        if (!gHideEffectText)
         {
             sub_801D188(4);
-            gUnk_02021C10.unk0 = ACID_TRAP_HOLE;
-            gUnk_02021C10.unk2 = gUnk020245A0.id;
+            gCardEffectTextData.cardId = ACID_TRAP_HOLE;
+            gCardEffectTextData.cardId2 = gTrapEffectData.id;
             sub_801CEBC();
         }
     }
 }
 
-void EffectAntiRaigeki(void)
+static void EffectAntiRaigeki(void)
 {
     u8 i;
 
@@ -376,53 +374,53 @@ void EffectAntiRaigeki(void)
         if (!IsGodCard(gZones[2][i]->id))
             ClearZoneAndSendMonToGraveyard(gZones[2][i], 0);
 
-    ClearZoneAndSendMonToGraveyard(gZones[0][gUnk020245A0.unk4], 1);
-    ClearZoneAndSendMonToGraveyard(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
+    ClearZoneAndSendMonToGraveyard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = ANTI_RAIGEKI;
+        gCardEffectTextData.cardId = ANTI_RAIGEKI;
         sub_801CEBC();
     }
 }
 
-void EffectInfiniteDismissal(void)
+static void EffectInfiniteDismissal(void)
 {
-    gZones[2][gUnk020245A0.unk3]->isFaceUp = TRUE;
-    gZones[2][gUnk020245A0.unk3]->isLocked = TRUE;
+    gZones[2][gTrapEffectData.unk3]->isFaceUp = TRUE;
+    gZones[2][gTrapEffectData.unk3]->isLocked = TRUE;
 
-    ClearZoneAndSendMonToGraveyard(gZones[0][gUnk020245A0.unk4], 1);
+    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = INFINITE_DISMISSAL;
-        gUnk_02021C10.unk2 = gUnk020245A0.id;
+        gCardEffectTextData.cardId = INFINITE_DISMISSAL;
+        gCardEffectTextData.cardId2 = gTrapEffectData.id;
         sub_801CEBC();
     }
 }
 
-void EffectAmazonArchers(void)
+static void EffectAmazonArchers(void)
 {
-    sub_804037C(gZones[2][gUnk020245A0.unk3]);
-    gZones[2][gUnk020245A0.unk3]->isFaceUp = TRUE;
-    gZones[2][gUnk020245A0.unk3]->isLocked = TRUE;
+    sub_804037C(gZones[2][gTrapEffectData.unk3]);
+    gZones[2][gTrapEffectData.unk3]->isFaceUp = TRUE;
+    gZones[2][gTrapEffectData.unk3]->isLocked = TRUE;
 
-    ClearZoneAndSendMonToGraveyard(gZones[0][gUnk020245A0.unk4], 1);
+    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = AMAZON_ARCHERS;
-        gUnk_02021C10.unk2 = gUnk020245A0.id;
+        gCardEffectTextData.cardId = AMAZON_ARCHERS;
+        gCardEffectTextData.cardId2 = gTrapEffectData.id;
         sub_801CEBC();
     }
 }
 
-void sub_80581DC(u16 arg0)
+void sub_80581DC (u16 arg0)
 {
-    sub_801D1A8();
+    ResetCardEffectTextData();
     sub_801D188(3);
 
-    switch (gUnk020245A0.unk5)
+    switch (gTrapEffectData.unk5)
     {
     case 0:
         sub_080582D8();
@@ -487,9 +485,10 @@ void sub_80581DC(u16 arg0)
     }
 }
 
-void sub_080582D8(void){}
+static void sub_080582D8(void){
+}
 
-void EffectGoblinFan(u16 lp)
+static void EffectGoblinFan(u16 lp)
 {
     if (WhoseTurn() == PLAYER)
         SetPlayerLifePointsToSubtract(lp);
@@ -499,18 +498,18 @@ void EffectGoblinFan(u16 lp)
     sub_803F29C();
     sub_803F4C0();
 
-    ClearZoneAndSendMonToGraveyard(gZones[0][gUnk020245A0.unk4], 1);
-    ClearZoneAndSendMonToGraveyard(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
+    ClearZoneAndSendMonToGraveyard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = GOBLIN_FAN;
-        gUnk_02021C10.unk2 = gUnk020245A0.id;
+        gCardEffectTextData.cardId = GOBLIN_FAN;
+        gCardEffectTextData.cardId2 = gTrapEffectData.id;
         sub_801CEBC();
     }
 }
 
-void EffectBadReactionToSimochi(u16 lp)
+static void EffectBadReactionToSimochi(u16 lp)
 {
     if (WhoseTurn() == PLAYER)
         SetPlayerLifePointsToSubtract(lp);
@@ -520,33 +519,34 @@ void EffectBadReactionToSimochi(u16 lp)
     sub_803F29C();
     sub_803F4C0();
 
-    ClearZoneAndSendMonToGraveyard(gZones[0][gUnk020245A0.unk4], 1);
-    ClearZoneAndSendMonToGraveyard(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
+    ClearZoneAndSendMonToGraveyard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = BAD_REACTION_TO_SIMOCHI;
-        gUnk_02021C10.unk2 = gUnk020245A0.id;
+        gCardEffectTextData.cardId = BAD_REACTION_TO_SIMOCHI;
+        gCardEffectTextData.cardId2 = gTrapEffectData.id;
         sub_801CEBC();
     }
 }
 
-void EffectReverseTrap(void)
+static void EffectReverseTrap(void)
 {
-    ClearZoneAndSendMonToGraveyard(gZones[0][gUnk020245A0.unk4], 1);
-    ClearZoneAndSendMonToGraveyard(gZones[gUnk020245A0.unk2][gUnk020245A0.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
+    ClearZoneAndSendMonToGraveyard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = REVERSE_TRAP;
-        gUnk_02021C10.unk2 = gUnk020245A0.id;
+        gCardEffectTextData.cardId = REVERSE_TRAP;
+        gCardEffectTextData.cardId2 = gTrapEffectData.id;
         sub_801CEBC();
     }
 }
 
-void sub_08058430(void){}
+static void sub_08058430 (void) {
+}
 
-void EffectTorrentialTribute(void)
+static void EffectTorrentialTribute(void)
 {
     u8 i;
 
@@ -554,183 +554,193 @@ void EffectTorrentialTribute(void)
         if (!IsGodCard(gZones[2][i]->id))
             ClearZoneAndSendMonToGraveyard(gZones[2][i], 0);
 
-    ClearZoneAndSendMonToGraveyard(gZones[0][gUnk020245A0.unk4], 1);
+    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
 
-    if (!gUnk_02021C08)
+    if (!gHideEffectText)
     {
-        gUnk_02021C10.unk0 = TORRENTIAL_TRIBUTE;
+        gCardEffectTextData.cardId = TORRENTIAL_TRIBUTE;
         sub_801CEBC();
     }
 }
 
-void sub_0805849C(void){}
-void sub_080584A0(void){}
-void sub_080584A4(void){}
-void sub_080584A8(void){}
-void sub_080584AC(void){}
-void sub_080584B0(void){}
+static void sub_0805849C (void) {
+}
 
-u8 sub_80584B4(void)
+static void sub_080584A0 (void) {
+}
+
+static void sub_080584A4 (void) {
+}
+
+static void sub_080584A8 (void) {
+}
+
+static void sub_080584AC (void) {
+}
+
+static void sub_080584B0 (void) {
+}
+
+static u8 sub_80584B4 (void)
 {
     return 0;
 }
 
-bool8 sub_80584B8(void)
+static bool8 sub_80584B8(void)
 {
-    if (IsGodCard(gUnk020245A0.id) == TRUE || sub_803FCBC(gUnk020245A0.id) != 1)
-        return FALSE;
+    if (IsGodCard(gTrapEffectData.id) == TRUE || GetTypeGroup(gTrapEffectData.id) != 1)
+        return 0;
 
-    gUnk020245A0.unk5 = 1;
+    gTrapEffectData.unk5 = 1;
     return TRUE;
 }
 
-bool8 sub_80584E4(void)
+static bool8 sub_80584E4(void)
 {
-    if (sub_803FCBC(gUnk020245A0.id) == 2)
+    if (GetTypeGroup(gTrapEffectData.id) == 2)
     {
         u32 i;
 
-        SetCardInfo(gUnk020245A0.id);
+        SetCardInfo(gTrapEffectData.id);
         for (i = 0; gUnk_8E1172C[i] != -1; i++)
         {
             if (gUnk_8E1172C[i] == gCardInfo.spellEffect)
             {
-                gUnk020245A0.unk5 = 7;
+                gTrapEffectData.unk5 = 7;
                 return TRUE;
             }
         }
     }
-    return FALSE;
+    return 0;
 }
 
-bool8 sub_8058540(void)
+static bool8 sub_8058540(void)
 {
-    if (sub_803FCBC(gUnk020245A0.id) == 2)
+    if (GetTypeGroup(gTrapEffectData.id) == 2)
     {
         u32 i;
 
-        SetCardInfo(gUnk020245A0.id);
+        SetCardInfo(gTrapEffectData.id);
         for (i = 0; gUnk_8E11738[i] != -1; i++)
         {
             if (gUnk_8E11738[i] == gCardInfo.spellEffect)
             {
-                gUnk020245A0.unk5 = 8;
+                gTrapEffectData.unk5 = 8;
                 return TRUE;
             }
         }
     }
-    return FALSE;
+    return 0;
 }
 
-bool8 sub_805859C(void)
+static bool8 sub_805859C(void)
 {
     u32 i;
 
-    SetCardInfo(gUnk020245A0.id);
+    SetCardInfo(gTrapEffectData.id);
     for (i = 0; gUnk_8E11744[i] != -1; i++)
     {
         if (gUnk_8E11744[i] == gCardInfo.spellEffect)
         {
-            gUnk020245A0.unk5 = 9;
+            gTrapEffectData.unk5 = 9;
             return TRUE;
         }
     }
-    return FALSE;
+    return 0;
 }
 
-u8 sub_80585F0(void)
+static u8 sub_80585F0(void)
 {
     return 0;
 }
 
-bool8 sub_80585F4(void)
+static bool8 sub_80585F4(void)
 {
-    if (sub_803FCBC(gUnk020245A0.id) == 2)
+    if (GetTypeGroup(gTrapEffectData.id) == 2)
     {
         u32 i;
 
-        SetCardInfo(gUnk020245A0.id);
+        SetCardInfo(gTrapEffectData.id);
         for (i = 0; gUnk_8E11788[i] != -1; i++)
         {
             if (gUnk_8E11788[i] == gCardInfo.spellEffect)
             {
-                gUnk020245A0.unk5 = 11;
+                gTrapEffectData.unk5 = 11;
                 return TRUE;
             }
         }
     }
-    return FALSE;
+    return 0;
 }
 
-bool8 sub_8058650(void)
+static bool8 sub_8058650(void)
 {
-    if (sub_803FCBC(gUnk020245A0.id) == 1)
+    if (GetTypeGroup(gTrapEffectData.id) == 1)
     {
-        gUnk020245A0.unk5 = 12;
+        gTrapEffectData.unk5 = 12;
         return TRUE;
     }
-    return FALSE;
+    return 0;
 }
 
-bool8 sub_8058674(void)
+static bool8 sub_8058674(void)
 {
-    if (IsGodCard(gUnk020245A0.id) == TRUE || sub_803FCBC(gUnk020245A0.id) != 1)
-        return FALSE;
+    if (IsGodCard(gTrapEffectData.id) == TRUE || GetTypeGroup(gTrapEffectData.id) != 1)
+        return 0;
 
-    gUnk020245A0.unk5 = 13;
+    gTrapEffectData.unk5 = 13;
     return TRUE;
 }
 
-bool8 sub_80586A0(void)
+static bool8 sub_80586A0(void)
 {
-    if (sub_803FCBC(gUnk020245A0.id) == 1)
+    if (GetTypeGroup(gTrapEffectData.id) == 1)
     {
-        gUnk020245A0.unk5 = 14;
+        gTrapEffectData.unk5 = 14;
         return TRUE;
     }
-    return FALSE;
+    return 0;
 }
 
-bool8 sub_80586C4(void)
+static bool8 sub_80586C4(void)
 {
-    return FALSE;
+    return 0;
 }
 
-bool8 sub_80586C8(void)
+static bool8 sub_80586C8(void)
 {
-    return FALSE;
+    return 0;
 }
 
-bool8 sub_80586CC(void)
+static bool8 sub_80586CC(void)
 {
-    return FALSE;
+    return 0;
 }
 
-bool8 sub_80586D0(void)
+static bool8 sub_80586D0(void)
 {
-    return FALSE;
+    return 0;
 }
 
-bool8 sub_80586D4(void)
+static bool8 sub_80586D4(void)
 {
-    return FALSE;
+    return 0;
 }
 
-bool8 sub_80586D8(void)
+static bool8 sub_80586D8(void)
 {
-    return FALSE;
+    return 0;
 }
 
-bool32 sub_80586DC(void)
-{
-    u8 i;
+unsigned sub_80586DC (void) {
+  unsigned char i;
 
-    gUnk020245A0.unk5 = 0;
-    for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-    {
-        gUnk020245A0.unk4 = i;
-        if (sub_8057894(gZones[0][i]->id) == 1)
-            return TRUE;
-    }
-    return FALSE;
+  gTrapEffectData.unk5 = 0;
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
+  {
+      gTrapEffectData.trapZoneId = i;
+      if (sub_8057894(gZones[0][i]->id) == 1)
+          return 1;
+  }
+  return 0;
 }

@@ -254,126 +254,126 @@ _08007792:
 	ldr r1, _08007940
 	ldr r6, _08007944
 	adds r2, r6, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldrb r0, [r5, #1]
 	adds r0, #1
 	lsls r0, r0, #5
 	adds r0, r0, r4
 	ldr r1, _08007948
 	adds r2, r6, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldrb r0, [r5, #2]
 	adds r0, #1
 	lsls r0, r0, #5
 	adds r0, r0, r4
 	ldr r1, _0800794C
 	adds r2, r6, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldrb r0, [r5, #3]
 	adds r0, #1
 	lsls r0, r0, #5
 	adds r0, r0, r4
 	ldr r1, _08007950
 	adds r2, r6, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldrb r0, [r5, #4]
 	adds r0, #1
 	lsls r0, r0, #5
 	adds r0, r0, r4
 	ldr r1, _08007954
 	adds r2, r6, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldrb r0, [r5, #5]
 	adds r0, #1
 	lsls r0, r0, #5
 	adds r0, r0, r4
 	ldr r1, _08007958
 	adds r2, r6, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldrb r0, [r5, #6]
 	adds r0, #1
 	lsls r0, r0, #5
 	adds r0, r0, r4
 	ldr r1, _0800795C
 	adds r2, r6, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldrb r0, [r5, #7]
 	adds r0, #1
 	lsls r0, r0, #5
 	adds r0, r0, r4
 	ldr r1, _08007960
 	adds r2, r6, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldrb r0, [r5, #8]
 	adds r0, #1
 	lsls r0, r0, #5
 	adds r0, r0, r4
 	ldr r1, _08007964
 	adds r2, r6, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldrb r0, [r5, #9]
 	adds r0, #1
 	lsls r0, r0, #5
 	adds r0, r0, r4
 	ldr r1, _08007968
 	adds r2, r6, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r0, #0xec
 	lsls r0, r0, #4
 	adds r0, r0, r4
 	mov r8, r0
 	ldr r1, _0800796C
 	adds r2, r6, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r1, #0xb0
 	lsls r1, r1, #2
 	adds r0, r4, r1
 	ldr r1, _08007970
 	adds r2, r6, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r2, #0xc8
 	lsls r2, r2, #2
 	adds r0, r4, r2
 	ldr r1, _08007974
 	ldr r5, _08007978
 	adds r2, r5, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r3, #0x80
 	lsls r3, r3, #3
 	adds r0, r4, r3
 	ldr r1, _0800797C
 	adds r2, r5, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r1, #0xd0
 	lsls r1, r1, #3
 	adds r0, r4, r1
 	ldr r1, _08007980
 	adds r2, r5, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r2, #0x90
 	lsls r2, r2, #4
 	adds r0, r4, r2
 	ldr r1, _08007984
 	adds r2, r5, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r3, #0xb8
 	lsls r3, r3, #4
 	adds r0, r4, r3
 	ldr r1, _08007988
 	ldr r1, [r1]
 	adds r2, r6, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r0, #0xd8
 	lsls r0, r0, #4
 	adds r4, r4, r0
 	ldr r1, _0800798C
 	adds r0, r4, #0
 	adds r2, r5, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldr r1, _08007990
 	mov r0, r8
 	adds r2, r5, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldr r0, _08007994
 	bl sub_80081DC
 	bl sub_80079C4

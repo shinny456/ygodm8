@@ -4,9 +4,10 @@ SECTIONS
 {
     g02000000 = 0x02000000;
     gBgVram = 0x02000400;
+    gVr = 0x02000400;
     gOamBuffer = 0x02018400;
-    gUnk_2018800 = 0x02018800; /*gSharedMem*/
-    
+    gSharedMem = 0x02018800;
+
     g201CB20 = 0x201CB20;
     g201CB24 = 0x201CB24;
     g201CB28 = 0x201CB28;
@@ -62,8 +63,8 @@ SECTIONS
     g2021BE0 = 0x2021BE0;
     g2021BF8 = 0x02021BF8;
     gUnk2021C00 = 0x02021C00;
-    gUnk_02021C08 = 0x02021C08;
-    gUnk_02021C10 = 0x02021C10;
+    gHideEffectText = 0x02021C08;
+    gCardEffectTextData = 0x02021C10;
     gDeckCapacity = 0x02021C1C;
     gDuelistLevel = 0x02021C20;
     gDeck = 0x02021C30;
@@ -107,15 +108,15 @@ SECTIONS
     gDuel = 0x02023EC0;
     gNotSure = 0x02023FC0;
     gZones = 0x02023FD0;
-    gUnk2024040 = 0x2024040;
+    gDuelBoard = 0x2024040;
     gHands = 0x20240B0;
     gSelectedCard = 0x20240D8;
     g20240E0 = 0x20240E0;
     g20240E4 = 0x20240E4;
     gUnk20240F0 = 0x20240F0;
     g2024144 = 0x2024144;
-    gUnk20241FC = 0x020241FC;
-    gCursorPosition = 0x020241F0;
+    gDuelType = 0x020241FC;
+    gDuelCursor = 0x020241F0;
 
     gNumTributes = 0x02024200;
 
@@ -144,7 +145,7 @@ SECTIONS
 
     gLifePoints = 0x02024258;
 
-    gUnk2024260 = 0x02024260;
+    gSpellEffectData = 0x02024260;
 
     gOverworld = 0x02024270;
 
@@ -157,16 +158,16 @@ SECTIONS
     g2024588 = 0x2024588;
     g202458C = 0x202458C;
     g2024590 = 0x2024590;
-    
+
     g2024594 = 0x2024594;
     g2024598 = 0x2024598;
-    
-    
-    gUnk020245A0 = 0x020245A0;
+
+
+    gTrapEffectData = 0x020245A0;
     gWhoseTurn = 0x020245A8;
     g20245AC = 0x20245AC;
     g2021BD0 = 0x2021BD0;
-    
+
     g3000400 = 0x3000400;
     g3000C00 = 0x3000C00;
     g3000C38 = 0x03000C38;
@@ -200,9 +201,11 @@ SECTIONS
         src/duel.o(.text);
         asm/code1.o(.text);
         src/code2.o(.text);
+
         src/deck_menu.o(.text);
         asm/code2.o(.text);
         src/code_801EF30.o(.text);
+
         asm/code2.o(.text2);
         src/main.o(.text);
         src/exodia.o(.text);
@@ -243,10 +246,9 @@ SECTIONS
         src/code_8040C6C.o(.text);
         src/code_8041C94.o(.text);
         src/code_80421CC.o(.text);
-        asm/code_803F02C.o(.text);
         src/code_8042F44.o(.text);
         src/code_8043EF4.o(.text);
-        asm/code_803F02C.o(.text2);
+        asm/code_803F02C.o(.text);
         src/code_80452A8.o(.text);
         src/tribute.o(.text);
         src/io_buffers.o(.text);
@@ -266,9 +268,10 @@ SECTIONS
         src/flag.o(.text);
 
         src/spell_effects_util.o(.text); /*equip effects*/
-        src/card_passwords.o(.text);
+        src/card_passwords.o(.text); /*card_password*/
         src/code5.o(.text);
         src/rng.o(.text);
+        src/code_80562F4.o(.text);
         asm/code5.o(.text);
         src/trap_effects.o(.text);
         src/turn.o(.text);
@@ -287,7 +290,6 @@ SECTIONS
         /*data*/
 
         data/data.o(.rodata);
-        src/deck_menu.o(.rodata);
         src/data/starter_trunk.o(.rodata);
         data/data2.o(.rodata);
         src/data/cards_data.o(.rodata);
@@ -307,9 +309,9 @@ SECTIONS
     gUnk8F985E0 = 0x8F985E0;
     gUnk8DFB654 = 0x8DFB654; /*duelist level too low text*/
     gUnk8E00B30 = 0x8E00B30;
-    g8FA2BAC = 0x8FA2BAC;
-    g8FA2C14 = 0x8FA2C14;
-    g80C180C = 0x80C180C;
+    gDuelTextStrings = 0x8FA2BAC;
+    gMyTurnStrings = 0x8FA2C14;
+    gTurnVoices = 0x80C180C;
     g80C1824 = 0x80C1824;
     g8FC4A8C = 0x8FC4A8C;
     g80C1852 = 0x80C1852;
@@ -625,7 +627,7 @@ SECTIONS
     g8E0E384 = 0x8E0E384;
     g8E0E3D4 = 0x8E0E3D4;
     g8E0E3EC = 0x8E0E3EC;
-    g8E0E3C4 = 0x8E0E3C4;
+    gHorizontalDisplacements = 0x8E0E3C4;
     g8E0E3CC = 0x8E0E3CC;
     g8E0E404 = 0x8E0E404;
     g8E0E416 = 0x8E0E416;
@@ -722,7 +724,7 @@ SECTIONS
     g8E0D0F8 = 0x8E0D0F8;
     g8E0D130 = 0x8E0D130;
     gE0D114 = 0x8E0D114;
-    g8E0D41C = 0x8E0D41C;
+    gNumTributesRequiredStrings = 0x8E0D41C;
     gE0D15D = 0x8E0D15D;
     g8E0D1D0 = 0x8E0D1D0;
     gE0D14C = 0x8E0D14C;
@@ -753,7 +755,19 @@ SECTIONS
     g80BE631 = 0x80BE631;
     g80BE632 = 0x80BE632;
     g8DF8030 = 0x8DF8030;
-
+    g8A31F24 = 0x8A31F24;
+    g80DD9DC = 0x80DD9DC;
+    g8E116BC = 0x8E116BC;
+    g8E0D814 = 0x8E0D814;
+    g8E0D922 = 0x8E0D922;
+    g8E0D926 = 0x8E0D926;
+    g8E0D92A = 0x8E0D92A;
+    g8E0D92E = 0x8E0D92E;
+    g80F1880 = 0x80F1880;
+    g8E0D828 = 0x8E0D828;
+    g8E0D91A = 0x8E0D91A;
+    g80F1D30 = 0x80F1D30;
+    g8E0D934 = 0x8E0D934;
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :

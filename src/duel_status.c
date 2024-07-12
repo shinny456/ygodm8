@@ -5,12 +5,12 @@ extern u8 g80C1D80[];
 
 // SORL text
 void sub_802549C (void) {
-  struct Unk unk;
+  struct DuelText duelText;
   if (gNotSure[0]->sorlTurns == 0)
     return;
-  sub_8021A14(&unk);
-  unk.unk8 = g80C1D80[gNotSure[0]->sorlTurns];
-  sub_80219E4(&unk);
+  ResetDuelTextData(&duelText);
+  duelText.textId = g80C1D80[gNotSure[0]->sorlTurns];
+  sub_80219E4(&duelText);
 }
 
 void sub_80254DC (void) {

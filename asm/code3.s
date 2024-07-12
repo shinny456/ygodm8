@@ -107,6 +107,8 @@ _08022C86:
 	adds r1, r5, r2
 	adds r2, r6, #0
 	bl CpuFastSet
+  
+  
 	movs r7, #0
 	ldr r0, _08022E00
 	adds r0, r0, r5
@@ -149,6 +151,8 @@ _08022D3E:
 	adds r7, #1
 	cmp r7, #3
 	bls _08022D3E
+  
+  
 	movs r7, #0
 	ldr r1, _08022E1C
 	adds r1, r1, r4
@@ -948,7 +952,7 @@ sub_80234C8: @ 0x080234C8
 	ldr r1, _08023530
 	ldr r2, _08023534
 	adds r0, r5, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	mov r0, sp
 	movs r4, #0
 	strh r4, [r0]
@@ -2335,7 +2339,7 @@ _0802407E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08024088: .4byte g8FA2BAC
+_08024088: .4byte gDuelTextStrings
 
 	THUMB_FUNC_START sub_802408C
 sub_802408C: @ 0x0802408C
@@ -2361,7 +2365,7 @@ _080240AE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080240B8: .4byte g8FA2BAC
+_080240B8: .4byte gDuelTextStrings
 
 	THUMB_FUNC_START sub_80240BC
 sub_80240BC: @ 0x080240BC
@@ -12748,7 +12752,7 @@ sub_8035598: @ 0x08035598
 	ldr r1, _080355D8
 	ldr r2, _080355DC
 	adds r0, r4, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldrb r0, [r5]
 	cmp r0, #2
 	beq _08035618
@@ -13233,7 +13237,7 @@ _08035984: .4byte 0x04000018
 	THUMB_FUNC_START sub_8035988
 sub_8035988: @ 0x08035988
 	push {lr}
-	bl sub_803ED78
+	bl ClearGraphicsBuffers
 	pop {r0}
 	bx r0
 	.byte 0x00, 0x00
@@ -13469,181 +13473,7 @@ sub_8035B3C: @ 0x08035B3C
 
 .section .text4
 
-	THUMB_FUNC_START sub_8038DA0
-sub_8038DA0: @ 0x08038DA0
-	push {r4, r5, r6, r7, lr}
-	mov r7, sb
-	mov r6, r8
-	push {r6, r7}
-	sub sp, #4
-	mov r1, sp
-	movs r0, #0
-	strh r0, [r1]
-	ldr r4, _08038F00
-	ldr r2, _08038F04
-	mov r0, sp
-	adds r1, r4, #0
-	bl CpuSet
-	adds r4, #0x20
-	ldr r1, _08038F08
-	ldr r2, _08038F0C
-	adds r0, r4, #0
-	bl sub_8020A3C
-	movs r6, #0
-	movs r4, #0
-_08038DCC:
-	ldr r0, _08038F10
-	adds r0, r4, r0
-	lsls r1, r6, #6
-	ldr r2, _08038F14
-	adds r1, r1, r2
-	movs r2, #0x1e
-	bl CpuSet
-	adds r4, #0x3c
-	adds r6, #1
-	cmp r6, #0x13
-	bls _08038DCC
-	movs r4, #0xb8
-	lsls r4, r4, #8
-	movs r0, #4
-	movs r1, #3
-	adds r2, r4, #0
-	bl sub_08007FEC
-	movs r7, #0xff
-	lsls r7, r7, #8
-	ands r7, r0
-	movs r6, #0
-	mov r8, r4
-_08038DFC:
-	adds r4, r6, #4
-	lsls r4, r4, #0x18
-	lsrs r4, r4, #0x18
-	ldr r5, _08038F18
-	adds r5, r6, r5
-	ldrb r3, [r5]
-	adds r3, #0x15
-	orrs r3, r7
-	adds r0, r4, #0
-	movs r1, #5
-	mov r2, r8
-	bl sub_800800C
-	ldrb r3, [r5]
-	adds r3, #0x17
-	orrs r3, r7
-	adds r0, r4, #0
-	movs r1, #6
-	mov r2, r8
-	bl sub_800800C
-	ldrb r3, [r5]
-	adds r3, #0x29
-	orrs r3, r7
-	adds r0, r4, #0
-	movs r1, #7
-	mov r2, r8
-	bl sub_800800C
-	ldrb r3, [r5]
-	adds r3, #0x2b
-	orrs r3, r7
-	adds r0, r4, #0
-	movs r1, #8
-	mov r2, r8
-	bl sub_800800C
-	ldrb r3, [r5]
-	adds r3, #0x3d
-	orrs r3, r7
-	adds r0, r4, #0
-	movs r1, #0xf
-	mov r2, r8
-	bl sub_800800C
-	ldrb r3, [r5]
-	adds r3, #0x3f
-	orrs r3, r7
-	adds r0, r4, #0
-	movs r1, #0x10
-	mov r2, r8
-	bl sub_800800C
-	adds r6, #1
-	cmp r6, #9
-	bls _08038DFC
-	movs r6, #0
-	movs r0, #0xb8
-	lsls r0, r0, #8
-	mov sb, r0
-	movs r0, #0x80
-	lsls r0, r0, #0x15
-	mov r8, r0
-_08038E7A:
-	mov r0, r8
-	lsrs r5, r0, #0x18
-	ldr r4, _08038F18
-	adds r4, r6, r4
-	ldrb r3, [r4]
-	adds r3, #0x51
-	orrs r3, r7
-	adds r0, r5, #0
-	movs r1, #5
-	mov r2, sb
-	bl sub_800800C
-	ldrb r3, [r4]
-	adds r3, #0x53
-	orrs r3, r7
-	adds r0, r5, #0
-	movs r1, #6
-	mov r2, sb
-	bl sub_800800C
-	movs r0, #0x80
-	lsls r0, r0, #0x11
-	add r8, r0
-	adds r6, #1
-	cmp r6, #0xd
-	bls _08038E7A
-	movs r6, #0
-	movs r0, #0xb8
-	lsls r0, r0, #8
-	mov sb, r0
-	movs r0, #0x80
-	lsls r0, r0, #0x15
-	mov r8, r0
-_08038EBC:
-	mov r0, r8
-	lsrs r5, r0, #0x18
-	ldr r4, _08038F18
-	adds r4, r6, r4
-	ldrb r3, [r4]
-	adds r3, #0x6d
-	orrs r3, r7
-	adds r0, r5, #0
-	movs r1, #7
-	mov r2, sb
-	bl sub_800800C
-	ldrb r3, [r4]
-	adds r3, #0x6f
-	orrs r3, r7
-	adds r0, r5, #0
-	movs r1, #8
-	mov r2, sb
-	bl sub_800800C
-	movs r0, #0x80
-	lsls r0, r0, #0x11
-	add r8, r0
-	adds r6, #1
-	cmp r6, #0xb
-	bls _08038EBC
-	add sp, #4
-	pop {r3, r4}
-	mov r8, r3
-	mov sb, r4
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08038F00: .4byte 0x02008400
-_08038F04: .4byte 0x01000010
-_08038F08: .4byte 0x080DD9DC
-_08038F0C: .4byte 0x00000901
-_08038F10: .4byte 0x08A31F24
-_08038F14: .4byte 0x0200BC00
-_08038F18: .4byte gUnk_8DF811C
+	
 
 	THUMB_FUNC_START sub_8038F1C
 sub_8038F1C: @ 0x08038F1C
@@ -13670,7 +13500,7 @@ sub_8038F1C: @ 0x08038F1C
 	adds r0, #0xe0
 	ldr r1, _08039078
 	ldr r2, _0803907C
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r5, #0
 	mov r7, sp
 	adds r7, #2
@@ -13898,7 +13728,7 @@ sub_803912C: @ 0x0803912C
 	movs r5, #0
 	ldr r0, _080391E8
 	ldr r0, [r0]
-	bl sub_8020824
+	bl GetCurrentLanguageString
 	adds r2, r0, #0
 	ldrb r0, [r2]
 	cmp r0, #0
@@ -13977,7 +13807,7 @@ _080391C0:
 	add r0, r8
 	ldr r2, _080391F4
 	mov r1, sp
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	add sp, #0x2c
 	pop {r3}
 	mov r8, r3
@@ -14399,7 +14229,7 @@ sub_8039534: @ 0x08039534
 	mov r8, r0
 	ldr r1, _08039608
 	ldr r2, _0803960C
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldr r0, _08039610
 	adds r0, r4, r0
 	ldrb r6, [r0]
@@ -15596,14 +15426,14 @@ sub_8039FD8: @ 0x08039FD8
 	ldr r1, _0803A038
 	ldr r5, _0803A03C
 	adds r2, r5, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r0, #0xc9
 	lsls r0, r0, #5
 	adds r4, r4, r0
 	ldr r1, _0803A040
 	adds r0, r4, #0
 	adds r2, r5, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r4, #0
 	movs r5, #0
 _0803A010:
@@ -15647,7 +15477,7 @@ sub_803A04C: @ 0x0803A04C
 	ldr r1, _0803A09C
 	ldr r2, _0803A0A0
 	adds r0, r4, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r4, #0
 	movs r5, #0
 _0803A072:
@@ -16022,7 +15852,7 @@ sub_803A378: @ 0x0803A378
 	adds r0, #0x20
 	ldr r1, _0803A3C8
 	ldr r2, _0803A3CC
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	mov r0, sp
 	adds r0, #2
 	movs r2, #0xa0
@@ -16507,7 +16337,7 @@ sub_803A7B4: @ 0x0803A7B4
 	ldr r1, _0803A864
 	ldr r2, _0803A868
 	adds r0, r4, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r6, #0
 	movs r4, #0
 _0803A7E0:
@@ -16604,7 +16434,7 @@ sub_803A878: @ 0x0803A878
 	adds r0, #0xe0
 	ldr r1, _0803A9D4
 	ldr r2, _0803A9D8
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r5, #0
 	mov r7, sp
 	adds r7, #2
@@ -16854,7 +16684,7 @@ sub_803AAB0: @ 0x0803AAB0
 	movs r6, #0
 	ldr r4, _0803AB7C
 	ldr r0, [r4]
-	bl sub_8020824
+	bl GetCurrentLanguageString
 	adds r2, r0, #0
 	ldr r0, _0803AB80
 	ldr r1, _0803AB84
@@ -16941,7 +16771,7 @@ _0803AB56:
 	adds r0, r0, r4
 	ldr r2, _0803AB90
 	mov r1, sp
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	add sp, #0x2c
 	pop {r3}
 	mov r8, r3
@@ -17559,7 +17389,7 @@ sub_803B0E4: @ 0x0803B0E4
 	ldr r1, _0803B1B8
 	ldr r2, _0803B1BC
 	adds r0, r5, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldr r0, _0803B1C0
 	adds r0, r4, r0
 	ldrb r7, [r0]
@@ -18614,14 +18444,14 @@ sub_803BAD8: @ 0x0803BAD8
 	ldr r1, _0803BB38
 	ldr r5, _0803BB3C
 	adds r2, r5, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r0, #0xc9
 	lsls r0, r0, #5
 	adds r4, r4, r0
 	ldr r1, _0803BB40
 	adds r0, r4, #0
 	adds r2, r5, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r4, #0
 	movs r5, #0
 _0803BB10:
@@ -18944,7 +18774,7 @@ sub_803BDA8: @ 0x0803BDA8
 	adds r0, #0x20
 	ldr r1, _0803BDF8
 	ldr r2, _0803BDFC
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	mov r0, sp
 	adds r0, #2
 	movs r2, #0xa0
@@ -19429,7 +19259,7 @@ sub_803C1E4: @ 0x0803C1E4
 	ldr r1, _0803C2F4
 	ldr r2, _0803C2F8
 	adds r0, r4, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r6, #0
 	movs r4, #0
 _0803C210:
@@ -19571,7 +19401,7 @@ sub_803C308: @ 0x0803C308
 	adds r0, #0xe0
 	ldr r1, _0803C464
 	ldr r2, _0803C468
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r5, #0
 	mov r7, sp
 	adds r7, #2
@@ -19821,7 +19651,7 @@ sub_803C540: @ 0x0803C540
 	movs r6, #0
 	ldr r4, _0803C60C
 	ldr r0, [r4]
-	bl sub_8020824
+	bl GetCurrentLanguageString
 	adds r2, r0, #0
 	ldr r0, _0803C610
 	ldr r1, _0803C614
@@ -19908,7 +19738,7 @@ _0803C5E6:
 	adds r0, r0, r4
 	ldr r2, _0803C620
 	mov r1, sp
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	add sp, #0x2c
 	pop {r3}
 	mov r8, r3
@@ -20526,7 +20356,7 @@ sub_803CB74: @ 0x0803CB74
 	ldr r1, _0803CC48
 	ldr r2, _0803CC4C
 	adds r0, r5, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldr r0, _0803CC50
 	adds r0, r4, r0
 	ldrb r7, [r0]
@@ -21604,14 +21434,14 @@ sub_803D5B8: @ 0x0803D5B8
 	ldr r1, _0803D618
 	ldr r5, _0803D61C
 	adds r2, r5, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r0, #0xc9
 	lsls r0, r0, #5
 	adds r4, r4, r0
 	ldr r1, _0803D620
 	adds r0, r4, #0
 	adds r2, r5, #0
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r4, #0
 	movs r5, #0
 _0803D5F0:
@@ -21934,7 +21764,7 @@ sub_803D888: @ 0x0803D888
 	adds r0, #0x20
 	ldr r1, _0803D8D8
 	ldr r2, _0803D8DC
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	mov r0, sp
 	adds r0, #2
 	movs r2, #0xa0
@@ -24375,12 +24205,12 @@ sub_803ED68: @ 0x0803ED68
 	bx r1
 	.byte 0x00, 0x00
 
-	THUMB_FUNC_START sub_803ED78
-sub_803ED78: @ 0x0803ED78
+	THUMB_FUNC_START ClearGraphicsBuffers
+ClearGraphicsBuffers: @ 0x0803ED78
 	push {lr}
 	bl sub_803ED8C
-	bl sub_803EE80
-	bl sub_803EED8
+	bl ClearPaletteBuffers
+	bl ClearOamBuffer
 	pop {r0}
 	bx r0
 	.byte 0x00, 0x00
@@ -24388,25 +24218,25 @@ sub_803ED78: @ 0x0803ED78
 	THUMB_FUNC_START sub_803ED8C
 sub_803ED8C: @ 0x0803ED8C
 	push {lr}
-	bl sub_803ED9C
+	bl ClearBackgroundCbbs
 	bl sub_803EE44
 	pop {r0}
 	bx r0
 	.byte 0x00, 0x00
 
-	THUMB_FUNC_START sub_803ED9C
-sub_803ED9C: @ 0x0803ED9C
+	THUMB_FUNC_START ClearBackgroundCbbs
+ClearBackgroundCbbs: @ 0x0803ED9C
 	push {lr}
-	bl sub_803EDB4
-	bl sub_803EDD8
-	bl sub_803EDFC
-	bl sub_803EE20
+	bl ClearCbb0Buffer
+	bl ClearCbb1Buffer
+	bl ClearCbb2Buffer
+	bl ClearCbb3Buffer
 	pop {r0}
 	bx r0
 	.byte 0x00, 0x00
 
-	THUMB_FUNC_START sub_803EDB4
-sub_803EDB4: @ 0x0803EDB4
+	THUMB_FUNC_START ClearCbb0Buffer
+ClearCbb0Buffer: @ 0x0803EDB4
 	push {lr}
 	sub sp, #4
 	mov r1, sp
@@ -24423,8 +24253,8 @@ sub_803EDB4: @ 0x0803EDB4
 _0803EDD0: .4byte 0x02000400
 _0803EDD4: .4byte 0x01002000
 
-	THUMB_FUNC_START sub_803EDD8
-sub_803EDD8: @ 0x0803EDD8
+	THUMB_FUNC_START ClearCbb1Buffer
+ClearCbb1Buffer: @ 0x0803EDD8
 	push {lr}
 	sub sp, #4
 	mov r1, sp
@@ -24441,8 +24271,8 @@ sub_803EDD8: @ 0x0803EDD8
 _0803EDF4: .4byte 0x02004400
 _0803EDF8: .4byte 0x01002000
 
-	THUMB_FUNC_START sub_803EDFC
-sub_803EDFC: @ 0x0803EDFC
+	THUMB_FUNC_START ClearCbb2Buffer
+ClearCbb2Buffer: @ 0x0803EDFC
 	push {lr}
 	sub sp, #4
 	mov r1, sp
@@ -24459,8 +24289,8 @@ sub_803EDFC: @ 0x0803EDFC
 _0803EE18: .4byte 0x02008400
 _0803EE1C: .4byte 0x01002000
 
-	THUMB_FUNC_START sub_803EE20
-sub_803EE20: @ 0x0803EE20
+	THUMB_FUNC_START ClearCbb3Buffer
+ClearCbb3Buffer: @ 0x0803EE20
 	push {lr}
 	sub sp, #4
 	mov r1, sp
@@ -24506,17 +24336,17 @@ sub_803EE44: @ 0x0803EE44
 _0803EE78: .4byte 0x02010400
 _0803EE7C: .4byte 0x01002000
 
-	THUMB_FUNC_START sub_803EE80
-sub_803EE80: @ 0x0803EE80
+	THUMB_FUNC_START ClearPaletteBuffers
+ClearPaletteBuffers: @ 0x0803EE80
 	push {lr}
-	bl sub_803EE90
-	bl sub_803EEB4
+	bl ClearBackgroundPaletteBuffer
+	bl ClearSpritePaletteBuffer
 	pop {r0}
 	bx r0
 	.byte 0x00, 0x00
 
-	THUMB_FUNC_START sub_803EE90
-sub_803EE90: @ 0x0803EE90
+	THUMB_FUNC_START ClearBackgroundPaletteBuffer
+ClearBackgroundPaletteBuffer: @ 0x0803EE90
 	push {lr}
 	sub sp, #4
 	mov r1, sp
@@ -24533,8 +24363,8 @@ sub_803EE90: @ 0x0803EE90
 _0803EEAC: .4byte 0x02000000
 _0803EEB0: .4byte 0x01000100
 
-	THUMB_FUNC_START sub_803EEB4
-sub_803EEB4: @ 0x0803EEB4
+	THUMB_FUNC_START ClearSpritePaletteBuffer
+ClearSpritePaletteBuffer: @ 0x0803EEB4
 	push {lr}
 	sub sp, #4
 	mov r1, sp
@@ -24551,8 +24381,8 @@ sub_803EEB4: @ 0x0803EEB4
 _0803EED0: .4byte 0x02000200
 _0803EED4: .4byte 0x01000100
 
-	THUMB_FUNC_START sub_803EED8
-sub_803EED8: @ 0x0803EED8
+	THUMB_FUNC_START ClearOamBuffer
+ClearOamBuffer: @ 0x0803EED8
 	push {lr}
 	sub sp, #4
 	mov r1, sp

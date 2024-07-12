@@ -434,7 +434,7 @@ void sub_800BA04(void)
 	ldr r0, _0800BA60\n\
 	ldr r6, [r0]\n\
 	adds r0, r6, #0\n\
-	bl sub_8020824\n\
+	bl GetCurrentLanguageString\n\
 	adds r6, r0, #0\n\
 	movs r0, #0\n\
 	mov ip, r0\n\
@@ -695,7 +695,7 @@ _0800BBDA:\n\
 	ldr r2, _0800BBF8\n\
 	ldr r0, _0800BBFC\n\
 	mov r1, sp\n\
-	bl sub_8020A3C\n\
+	bl CopyStringTilesToVRAMBuffer\n\
 	b _0800BC0A\n\
 	.align 2, 0\n\
 _0800BBF8: .4byte 0x00000801\n\
@@ -704,7 +704,7 @@ _0800BC00:\n\
 	ldr r2, _0800BC1C\n\
 	ldr r0, _0800BC20\n\
 	mov r1, sp\n\
-	bl sub_8020A3C\n\
+	bl CopyStringTilesToVRAMBuffer\n\
 _0800BC0A:\n\
 	add sp, #0x84\n\
 	pop {r3, r4, r5}\n\
@@ -725,7 +725,7 @@ void sub_800BA04(void)
     u8 *name, *r3;
     u8 r2, r5, ip, sl, r7;
 
-    name = sub_8020824(gCardInfo.name);
+    name = GetCurrentLanguageString(gCardInfo.name);
     ip = 0;
     r5 = 0;
     r2 = 0;
@@ -880,20 +880,20 @@ void sub_800BCB0(void *src)  //print card description
     CpuFastSet(src, &gBgVram.cbb1[148*32], 140*32/4);
 }
 
-void *sub_802BF50(u8 attribute);
-void *sub_803F02C(u8 type);
-void sub_8020A3C(void *, void *, u16);
+void *GetCardAttributeString(u8 attribute);
+void *GetCardTypeString(u8 type);
+void CopyStringTilesToVRAMBuffer(void *, void *, u16);
 extern u8* g8DFC288[];
 extern u8* g8DFCF0C[];
 
 void sub_800BCC4(void)   //print summon (attribute) name
 {
-    sub_8020A3C(&gBgVram.cbb1[96*32], sub_802BF50(gCardInfo.attribute), 0x901);
+    CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[96*32], GetCardAttributeString(gCardInfo.attribute), 0x901);
 }
 
 void sub_800BCEC(void)  //print type name
 {
-    sub_8020A3C(&gBgVram.cbb1[68*32], sub_803F02C(gCardInfo.type), 0x901);
+    CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[68*32], GetCardTypeString(gCardInfo.type), 0x901);
 }
 
 u8 *sub_800BD14(u16 cardId)
@@ -943,9 +943,9 @@ void sub_800BDA0(void)
 
 
 void sub_8035038(u16);
-void sub_8021B80(void);
-void sub_8008F24(void);
-void sub_801DA20(void);
+void MosaicEffect(void);
+void InitTrunkData(void);
+void InitDeckData(void);
 void sub_80090B8(void);
 void sub_800BF28(void);
 s32 sub_8008644(void);
@@ -960,15 +960,15 @@ void sub_800ABE4(void);
 void sub_0800ABE0(void);
 void sub_8035020(u16);
 
-void sub_800BE0C(void) //TrunkMenu before dueling
+void sub_800BE0C(void) //TrunkMenu before dueling ingame
 {
     u8 r4;
 
     sub_8035038(2);
     PlayMusic(213);
-    sub_8021B80();
-    sub_8008F24();
-    sub_801DA20();
+    MosaicEffect();
+    InitTrunkData();
+    InitDeckData();
     sub_80090B8();
     PlayMusic(143);
     sub_800BF28();
@@ -1229,7 +1229,7 @@ void sub_800C0D8(void)
         sub_800800C(i + 9, 13, 0x7800, (g8DF811C[i] + 61) | r7);
         sub_800800C(i + 9, 14, 0x7800, (g8DF811C[i] + 63) | r7);
     }
-    sub_8020A3C(&gBgVram.cbb1[32]/*fix*/, g80ADEFC, 0x900);
+    CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[32]/*fix*/, g80ADEFC, 0x900);
 }
 
 u16 sub_800901C(u8);
@@ -1440,7 +1440,7 @@ void sub_800C3C4(void)
       CpuCopy32(gUnk_808D050[i], &(((struct Sbb*)&gBgVram)->sbbF[i])/*fix*/, 60);
 
     CpuFill16(0, gBgVram.cbb1, 32);
-    sub_8020A3C(&gBgVram.cbb1[32]/*fix*/, g80AE02C, 0x900);
+    CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[32]/*fix*/, g80AE02C, 0x900);
 }
 
 void sub_800C430(void)
@@ -1451,7 +1451,7 @@ void sub_800C430(void)
       CpuCopy32(gUnk_808D050[i], &(((struct Sbb*)&gBgVram)->sbbF[i])/*fix*/, 60);
 
     CpuFill16(0, gBgVram.cbb1, 32);
-    sub_8020A3C(&gBgVram.cbb1[32]/*fix*/, g80AE1A8, 0x900);
+    CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[32]/*fix*/, g80AE1A8, 0x900);
 }
 
 void sub_800C494(void)
@@ -1462,7 +1462,7 @@ void sub_800C494(void)
         CpuCopy32(gUnk_808D050[i], &(((struct Sbb*)&gBgVram)->sbbF[i])/*fix*/, 60);
 
     CpuFill16(0, gBgVram.cbb1, 32);
-    sub_8020A3C(&gBgVram.cbb1[32]/*fix*/, g80AE370, 0x900);
+    CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[32]/*fix*/, g80AE370, 0x900);
 }
 
 void LoadPalettes(void);
@@ -1600,7 +1600,7 @@ void sub_800C608(void)
         sub_800800C(i + 16, 14, 0x7800, sb);
         sub_800800C(i + 16, 15, 0x7800, sb);
     }
-    sub_8020A3C(&gBgVram.cbb1[32]/*fix*/, g80AE544, 0x900);
+    CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[32]/*fix*/, g80AE544, 0x900);
 }
 
 NAKED
@@ -1778,7 +1778,7 @@ void sub_800C970(void)
         sub_800800C(i + 4, 14, 0x7800, (g8DF811C[i] + 157) | r8);
         sub_800800C(i + 4, 15, 0x7800, (g8DF811C[i] + 159) | r8);
     }
-    sub_8020A3C(&gBgVram.cbb1[32]/*fix*/, g80AE800, 0x900);
+    CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[32]/*fix*/, g80AE800, 0x900);
 }
 
 extern u8 g80AEA74[];
@@ -1793,8 +1793,8 @@ void sub_800CCAC(void)
 
     CpuFill16(0, gBgVram.cbb2, 32);
     CpuFill16(0, ((struct Sbb*)&gBgVram)->sbb17, 0x800);
-    sub_8020A3C(&gBgVram.cbb2[32], g80AEA74, 0x801);
-    sub_8020A3C(&gBgVram.cbb2[64], g80AEA78, 0x901);
+    CopyStringTilesToVRAMBuffer(&gBgVram.cbb2[32], g80AEA74, 0x801);
+    CopyStringTilesToVRAMBuffer(&gBgVram.cbb2[64], g80AEA78, 0x901);
     ((struct Sbb*)&gBgVram)->sbb17[1][15] = 0x5001; //slash
     sub_800DDA0(GetDeckCapacity(), 0);
 

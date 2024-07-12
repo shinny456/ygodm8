@@ -227,7 +227,7 @@ extern u8 g2021C8C;
 void sub_800AFF0 (void) {
   ClearPlayerName();
   InitTrunkCards();
-  InitDeck();
+  InitNewGameDeck();
   InitDeckCapacity();
   InitDuelistLevel();
   sub_8020168();

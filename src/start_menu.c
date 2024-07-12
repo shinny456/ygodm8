@@ -1,126 +1,19 @@
 #include "global.h"
 #include "duel.h"
+#include "text.h"
 #include "gba/syscall.h"
 #include "gba/io_reg.h"
 #include "gba/macro.h"
 
-bool8 IsDeckFull (void);
-bool32 IsCostWithinCapacity (void);
-void sub_8005C9C (void);
-void sub_8005BE0 (void);
-void sub_8005C80 (void);
-void StatusMenu (void);
-void TrunkMenu (void);
-void sub_8005B48 (void);
-bool32 sub_801D3FC (void);
-void DeckMenu (void);
-void sub_8005C60 (u8);
-void LoadOam (void);
-void sub_8008220 (void);
-void sub_8045718 (void);
-
-extern u16 gUnk2020DFC;
-
-void sub_800576C (void) {
-  u8 cursorPos = 0;
-  while (1) {
-    if (gUnk2020DFC & 2) {
-      if (!IsDeckFull()) {
-        PlayMusic(0x39);
-        sub_8005C9C();
-        sub_8005BE0();
-      }
-      else if (IsCostWithinCapacity()) {
-        if (IsDeckFull() != TRUE || IsCostWithinCapacity() != TRUE)
-          goto here;
-        else
-          break;
-      }
-      else {
-        PlayMusic(0x39);
-        sub_8005C80();
-        sub_8005BE0();
-      }
-    }
-    here:
-    if (gUnk2020DFC & 0x40 && cursorPos != 0) {
-      PlayMusic(0x36);
-      cursorPos--;
-    }
-    if (gUnk2020DFC & 0x80 && cursorPos < 2) {
-      PlayMusic(0x36);
-      cursorPos++;
-    }
-    switch (cursorPos) {
-      case 0:
-        if (gUnk2020DFC & 1) {
-          PlayMusic(0x37);
-          StatusMenu();
-          sub_8005BE0();
-        }
-        break;
-      case 1:
-        if (gUnk2020DFC & 1) {
-          PlayMusic(0x37);
-          TrunkMenu();
-          sub_8005B48();
-        }
-        break;
-      case 2:
-        if (gUnk2020DFC & 1) {
-          if (sub_801D3FC() == 1) {
-            PlayMusic(0x37);
-            DeckMenu();
-            sub_8005B48();
-          }
-          else
-            PlayMusic(0x39);
-        }
-        break;
-    }
-    sub_8005C60(cursorPos);
-    LoadOam();
-    sub_8008220();
-  }
-  PlayMusic(0x38);
-  sub_8045718();
-}
-
-extern u32 gStartMenuCursorTiles[];
-extern u32 gStartMenuBgTiles[];
-extern u16 gUnk_80798F4[][30];
-extern u16 gUnk_8079CB4[][30];
-extern u16 gUnk_807A164[][30];
-
-extern u16 gUnk_80793E4[];
-extern u16 gUnk_8079404[];
-
-extern u8 gUnk_807A614[];
-extern u8 gUnk_807A790[];
-extern u8 gUnk_807A910[];
-extern u8 gUnk_807A95C[];
-extern u8 gUnk_807A9A4[];
-
-void sub_8020A3C(void *, void *, u16);
-extern u16 gOamBuffer[];
-
-void sub_8005894 (void) {
-  u8 i;
-  LZ77UnCompWram(gStartMenuCursorTiles, gBgVram.cbb4);
-  for (i = 0; i < 20; i++)
-    DmaCopy16(3, gUnk_80798F4[i], gBgVram.sbb1F[i], 60);
-  for (i = 0; i < 20; i++)
-    DmaCopy16(3, gUnk_8079CB4[i], gBgVram.sbb1D[i], 60);
-  for (i = 0; i < 20; i++)
-    DmaCopy16(3, gUnk_807A164[i], gBgVram.sbb1C[i], 60);
-  CpuCopy16(gUnk_80793E4, g02000000.bg, 32);
-  CpuCopy16(gUnk_8079404, g02000000.obj, 32);
-  sub_8020A3C(&gBgVram.cbb2[32], gUnk_807A614, 0x901);
-  sub_8020A3C(&gBgVram.cbb2[0x1020], gUnk_807A790, 0x901);
-  sub_8020A3C(&gBgVram.cbb2[0x5020], gUnk_807A910, 0x901);
-  sub_8020A3C(&gBgVram.cbb2[0x52A0], gUnk_807A95C, 0x901);
-  sub_8020A3C(&gBgVram.cbb2[0x5520], gUnk_807A9A4, 0x901);
-}
+static void LoadStartMenuGraphics (void);
+static void sub_8005BE0 (void);
+static void sub_8005C38 (void);
+static void sub_8005C54 (void);
+static void UpdateCursorPosition (u8);
+static void DisplayCostMessage (void);
+static void DisplayIncompleteDeckMessage (void);
+static void sub_8005CB8 (void);
+static void InitStartMenuData (void);
 
 extern u16 gBG2HOFS;
 extern u16 gBG2VOFS;
@@ -134,6 +27,130 @@ extern u16 gBLDCNT;
 extern u16 gBLDY;
 void LoadBgOffsets (void);
 void LoadBlendingRegs (void);
+void sub_8035020 (u16);
+
+extern u32 gStartMenuCursorTiles[];
+extern u32 gStartMenuBgTiles[];
+extern u16 gUnk_80798F4[][30];
+extern u16 gUnk_8079CB4[][30];
+extern u16 gUnk_807A164[][30];
+
+extern u16 gStartMenuBgPalette[];
+extern u16 gStartMenuCursorPalette[];
+
+extern u8 gText_DeckMustHave40Cards[];
+extern u8 gText_CardCostTotal[];
+extern u8 gUnk_807A910[];
+extern u8 gUnk_807A95C[];
+extern u8 gUnk_807A9A4[];
+
+extern u16 gOamBuffer[];
+
+void InitTrunkData (void);
+void InitDeckData (void);
+void StatusMenu (void);
+void TrunkMenu (void);
+bool8 IsDeckFull (void);
+bool32 IsCostWithinCapacity (void);
+u32 sub_801D3FC (void);
+void DeckMenuMain (void);
+
+void LoadOam (void);
+void sub_8008220 (void);
+void sub_8045718 (void);
+
+extern u16 gUnk2020DFC;
+
+extern u16 gStartMenuBgPalette[];
+extern u16 gStartMenuCursorPalette[];
+extern u16 gUnk_8079444[][30];
+extern u16 gUnk_8079424[];
+void ClearGraphicsBuffers (void);
+void sub_8045718 (void);
+
+static void StartMenuMain (void) {
+  u8 cursorState = 0;
+  while (1) {
+    if (gUnk2020DFC & 2) {
+      if (!IsDeckFull()) {
+        PlayMusic(0x39);
+        DisplayIncompleteDeckMessage();
+        sub_8005BE0();
+      }
+      else if (IsCostWithinCapacity()) {
+        if (IsDeckFull() != TRUE || IsCostWithinCapacity() != TRUE)
+          goto here;
+        else
+          break;
+      }
+      else {
+        PlayMusic(0x39);
+        DisplayCostMessage();
+        sub_8005BE0();
+      }
+    }
+    here:
+    if (gUnk2020DFC & 0x40 && cursorState != 0) {
+      PlayMusic(0x36);
+      cursorState--;
+    }
+    if (gUnk2020DFC & 0x80 && cursorState < 2) {
+      PlayMusic(0x36);
+      cursorState++;
+    }
+    switch (cursorState) {
+      case 0:
+        if (gUnk2020DFC & 1) {
+          PlayMusic(0x37);
+          StatusMenu();
+          sub_8005BE0();
+        }
+        break;
+      case 1:
+        if (gUnk2020DFC & 1) {
+          PlayMusic(0x37);
+          TrunkMenu();
+          LoadStartMenuGraphics();
+        }
+        break;
+      case 2:
+        if (gUnk2020DFC & 1) {
+          if (sub_801D3FC() == 1) {
+            PlayMusic(0x37);
+            DeckMenuMain();
+            LoadStartMenuGraphics();
+          }
+          else
+            PlayMusic(0x39);
+        }
+        break;
+    }
+    UpdateCursorPosition(cursorState);
+    LoadOam();
+    sub_8008220();
+  }
+  PlayMusic(0x38);
+  sub_8045718();
+}
+
+static void sub_8005894 (void) {
+  u8 i;
+  LZ77UnCompWram(gStartMenuCursorTiles, gBgVram.cbb4);
+  for (i = 0; i < 20; i++)
+    DmaCopy16(3, gUnk_80798F4[i], gBgVram.sbb1F[i], 60);
+  for (i = 0; i < 20; i++)
+    DmaCopy16(3, gUnk_8079CB4[i], gBgVram.sbb1D[i], 60);
+  for (i = 0; i < 20; i++)
+    DmaCopy16(3, gUnk_807A164[i], gBgVram.sbb1C[i], 60);
+  CpuCopy16(gStartMenuBgPalette, g02000000.bg, 32);
+  CpuCopy16(gStartMenuCursorPalette, g02000000.obj, 32);
+  CopyStringTilesToVRAMBuffer(&gBgVram.cbb2[32], gText_DeckMustHave40Cards, 0x901);
+  CopyStringTilesToVRAMBuffer(&gBgVram.cbb2[0x1020], gText_CardCostTotal, 0x901);
+  CopyStringTilesToVRAMBuffer(&gBgVram.cbb2[0x5020], gUnk_807A910, 0x901);
+  CopyStringTilesToVRAMBuffer(&gBgVram.cbb2[0x52A0], gUnk_807A95C, 0x901);
+  CopyStringTilesToVRAMBuffer(&gBgVram.cbb2[0x5520], gUnk_807A9A4, 0x901);
+}
+
 /*
 void sub_80059D4 (void) {
   u16 i;
@@ -312,32 +329,22 @@ _08005B10: .4byte gBLDCNT\n\
 _08005B14: .4byte gBLDY");
 }
 
-void sub_8035020 (u16);
-void sub_8005D08 (void);
-
-void StartMenu (void) {
+void InitStartMenu (void) {
   sub_8035020(1);
-  sub_8005D08();
+  InitStartMenuData();
   PlayMusic(0x2F);
-  sub_800576C();
+  StartMenuMain();
   sub_8035020(1);
 }
 
-void sub_8005B38 (void) {
-  sub_8005D08();
-  sub_800576C();
+void InitStartMenuFromScript (void) {
+  InitStartMenuData();
+  StartMenuMain();
 }
 
-extern u16 gUnk_8079444[][30];
-extern u16 gUnk_8079424[];
-void sub_803ED78 (void);
-void sub_8045718 (void);
-void sub_8005C38 (void);
-void sub_8005CB8 (void);
-
-void sub_8005B48 (void) {
+static void LoadStartMenuGraphics (void) {
   u8 i;
-  sub_803ED78();
+  ClearGraphicsBuffers();
   LoadOam();
   LoadPalettes();
   LoadVRAM();
@@ -354,13 +361,9 @@ void sub_8005B48 (void) {
   sub_8008220();
 }
 
-extern u16 gUnk_80793E4[];
-extern u16 gUnk_8079404[];
-void sub_8005C54 (void);
-
-void sub_8005BE0 (void) {
-  CpuCopy16(gUnk_80793E4, g02000000.bg, 32);
-  CpuCopy16(gUnk_8079404, g02000000.obj, 32);
+static void sub_8005BE0 (void) {
+  CpuCopy16(gStartMenuBgPalette, g02000000.bg, 32);
+  CpuCopy16(gStartMenuCursorPalette, g02000000.obj, 32);
   sub_8005894();
   sub_80081DC(sub_8005C54);
   LoadCharblock4();
@@ -370,35 +373,35 @@ void sub_8005BE0 (void) {
   sub_8008220();
 }
 
-void sub_8005C38 (void) {
+static void sub_8005C38 (void) {
   *((vu8*)REG_ADDR_WININ) = 0x3C;
   *((vu8*)REG_ADDR_WINOUT) = 8;
   sub_80059D4();
 }
 
-void sub_8005C54 (void) {
+static void sub_8005C54 (void) {
   sub_80059D4();
 }
 
-void sub_8005C60 (u8 cursorPos) {
+static void UpdateCursorPosition (u8 cursorPos) {
   u32 *oam = (u32*)&gOamBuffer;
   oam[0] = (cursorPos << 4) + 56 | 0x40400000;
   oam[1] = 0x800;
 }
 
-void sub_8005C80 (void) {
+static void DisplayCostMessage (void) {
   REG_DISPCNT = 0x1D00;
   LoadBgOffsets();
   sub_8005CB8();
 }
 
-void sub_8005C9C (void) {
+static void DisplayIncompleteDeckMessage (void) {
   REG_DISPCNT = 0x1E00;
   LoadBgOffsets();
   sub_8005CB8();
 }
 
-void sub_8005CB8 (void) {
+static void sub_8005CB8 (void) {
   gBLDCNT = 0xFC;
   gBLDY = 8;
   LoadBlendingRegs();
@@ -408,11 +411,8 @@ void sub_8005CB8 (void) {
   sub_8008220();
 }
 
-void sub_8008F24 (void);
-void sub_801DA20 (void);
-
-void sub_8005D08 (void) {
-  sub_8005B48();
-  sub_8008F24();
-  sub_801DA20();
+static void InitStartMenuData (void) {
+  LoadStartMenuGraphics();
+  InitTrunkData();
+  InitDeckData();
 }

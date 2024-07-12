@@ -26,12 +26,12 @@ sub_8009784: @ 0x08009784
 	adds r0, #0x20
 	ldr r1, _0800982C
 	ldr r2, _08009830
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	adds r0, r4, #0
 	adds r0, #0x40
 	ldr r1, _08009834
 	ldr r2, _08009838
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldr r0, _0800983C
 	adds r1, r4, r0
 	ldr r0, _08009840
@@ -134,13 +134,13 @@ sub_8009860: @ 0x08009860
 	adds r0, #0x60
 	ldr r1, _08009948
 	ldr r2, _0800994C
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r1, #0x80
 	lsls r1, r1, #1
 	adds r0, r4, r1
 	ldr r1, _08009950
 	ldr r2, _08009954
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r5, #0
 	ldr r4, _08009958
 _080098C8:
@@ -430,7 +430,7 @@ _08009B12:
 	ldr r2, _08009B4C
 	ldr r5, [r2]
 	adds r0, r5, #0
-	bl sub_8020824
+	bl GetCurrentLanguageString
 	adds r5, r0, #0
 	movs r6, #0
 	movs r3, #0
@@ -507,7 +507,7 @@ _08009BB0:
 	adds r0, r0, r4
 	mov r1, sp
 	ldr r2, _08009BFC
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r3, #0
 	ldr r2, _08009C00
 	adds r4, r4, r2
@@ -1865,8 +1865,8 @@ sub_0800A6CC: @ 0x0800A6CC
 	bx lr
 	.byte 0x00, 0x00
 
-	THUMB_FUNC_START sub_800A6D0
-sub_800A6D0: @ 0x0800A6D0
+	THUMB_FUNC_START SortingMenuMain
+SortingMenuMain: @ 0x0800A6D0
 	push {r4, lr}
 	ldr r0, _0800A710
 	ldrb r1, [r0, #2]

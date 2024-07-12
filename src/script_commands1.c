@@ -30,9 +30,9 @@ void sub_805345C (u8 obj, u8 direction, u8 distance, u8 arg3, struct ScriptCtx *
     sub_804F254();
     sub_804F254();
   }
-  gOverworld.objects[obj].unk1Dk = 0;
+  gOverworld.objects[obj].wander = 0;
   if (arg3 == 1)
-    gOverworld.objects[obj].unk1Dk = 1;
+    gOverworld.objects[obj].wander = 1;
   sub_804F19C(obj);
   sub_804DF5C(obj);
   sub_804F254();
@@ -41,7 +41,7 @@ void sub_805345C (u8 obj, u8 direction, u8 distance, u8 arg3, struct ScriptCtx *
 inline void sub_8053CF0 (u8 obj, u16 x, u16 y, u16 arg3, struct ScriptCtx* script) {
   gOverworld.objects[obj].x = x;
   gOverworld.objects[obj].y = y;
-  gOverworld.objects[obj].unk1Dk = 0;
+  gOverworld.objects[obj].wander = 0;
   sub_8052088(obj);
   sub_804F054(gOverworld.objects[obj].spriteId,
               gOverworld.objects[obj].direction * 3 + arg3,
@@ -60,7 +60,7 @@ void sub_8053520 (u8 obj, u16 x, u16 y, u16 arg3, u8 arg4, u8 arg5, struct Scrip
       REG_BLDCNT = 0xE40;
       gOverworld.objects[obj].x = x;
       gOverworld.objects[obj].y = y;
-      gOverworld.objects[obj].unk1Dk = 0;
+      gOverworld.objects[obj].wander = 0;
       sub_8052088(obj);
       sub_804F054(gOverworld.objects[obj].spriteId,
                   gOverworld.objects[obj].direction * 3 + arg3,
@@ -76,7 +76,7 @@ void sub_8053520 (u8 obj, u16 x, u16 y, u16 arg3, u8 arg4, u8 arg5, struct Scrip
     case 2:
       gOverworld.objects[obj].x = x;
       gOverworld.objects[obj].y = y;
-      gOverworld.objects[obj].unk1Dk = 0;
+      gOverworld.objects[obj].wander = 0;
       sub_8052088(obj);
       sub_804F054(gOverworld.objects[obj].spriteId,
                   gOverworld.objects[obj].direction * 3 + arg3,
@@ -89,7 +89,7 @@ void sub_8053520 (u8 obj, u16 x, u16 y, u16 arg3, u8 arg4, u8 arg5, struct Scrip
     case 3:
       gOverworld.objects[obj].x = x;
       gOverworld.objects[obj].y = y;
-      gOverworld.objects[obj].unk1Dk = 0;
+      gOverworld.objects[obj].wander = 0;
       gOverworld.objects[obj].unk1Di = 1;
       sub_8052088(obj);
       sub_804F054(gOverworld.objects[obj].spriteId,
@@ -100,7 +100,7 @@ void sub_8053520 (u8 obj, u16 x, u16 y, u16 arg3, u8 arg4, u8 arg5, struct Scrip
     case 4:
       gOverworld.objects[obj].x = x;
       gOverworld.objects[obj].y = y;
-      gOverworld.objects[obj].unk1Dk = 0;
+      gOverworld.objects[obj].wander = 0;
       gOverworld.objects[obj].unk1Di = 0;
       sub_8052088(obj);
       sub_804F054(gOverworld.objects[obj].spriteId,
@@ -158,9 +158,9 @@ void sub_8053884 (u16 arg0, u8 arg1, struct ScriptCtx* script) {
       sub_8053404(script);
       for (mask = 1, i = 0; i < 15; mask <<= 1, i++)
         if (arg0 & mask) {
-          gOverworld.objects[i].unk1Dk = 0;
+          gOverworld.objects[i].wander = 0;
           gOverworld.objects[i].unk1Di = 0;
-          gOverworld.objects[i].unk1Dj = 0;
+          gOverworld.objects[i].facePlayer = 0;
           gOverworld.objects[i].direction = 4;
           gOverworld.objects[i].unkE = 0;
           sub_804DF5C(i);
@@ -213,7 +213,7 @@ void sub_8053984 (u8 obj, u8 arg1, struct ScriptCtx* script) {
     sub_804F254();
     sub_804F254();
   }
-  gOverworld.objects[obj].unk1Dk = 0;
+  gOverworld.objects[obj].wander = 0;
   sub_804F19C(obj);
   sub_804DF5C(obj);
   sub_804F254();
@@ -245,7 +245,7 @@ void sub_8053A74 (u8 obj, u8 arg1, struct ScriptCtx* script) {
     sub_804F254();
     sub_804F254();
   }
-  gOverworld.objects[obj].unk1Dk = 0;
+  gOverworld.objects[obj].wander = 0;
   sub_804F19C(obj);
   sub_804DF5C(obj);
   sub_804F254();
@@ -407,7 +407,7 @@ inline void sub_8053D88 (u8 obj, u8 direction, u8 distance, struct ScriptCtx* sc
     sub_804DF5C(obj);
     sub_804F254();
   }
-  gOverworld.objects[obj].unk1Dk = 0;
+  gOverworld.objects[obj].wander = 0;
   sub_804F19C(obj);
   sub_804DF5C(obj);
   sub_804F254();

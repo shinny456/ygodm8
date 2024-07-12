@@ -2,7 +2,7 @@
 #include "constants/card_ids.h"
 
 extern u16 gGodCards[];
-extern void RemoveCardFromDeckAndTrunk (u16 id);
+void RemoveCardFromDeckAndTrunk (u16 id);
 static void RemoveObeliskFromDeckAndTrunk (void);
 static void RemoveSliferFromDeckAndTrunk (void);
 static void RemoveRaFromDeckAndTrunk (void);

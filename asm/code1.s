@@ -25,12 +25,12 @@ sub_800CCAC: @ 0x0800CCAC
 	adds r0, #0x20
 	ldr r1, _0800CD54
 	ldr r2, _0800CD58
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	adds r0, r4, #0
 	adds r0, #0x40
 	ldr r1, _0800CD5C
 	ldr r2, _0800CD60
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	ldr r0, _0800CD64
 	adds r1, r4, r0
 	ldr r0, _0800CD68
@@ -133,13 +133,13 @@ sub_800CD88: @ 0x0800CD88
 	adds r0, #0x60
 	ldr r1, _0800CE70
 	ldr r2, _0800CE74
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r1, #0x80
 	lsls r1, r1, #1
 	adds r0, r4, r1
 	ldr r1, _0800CE78
 	ldr r2, _0800CE7C
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r5, #0
 	ldr r4, _0800CE80
 _0800CDF0:
@@ -445,7 +445,7 @@ _0800D062:
 	ldr r2, _0800D09C
 	ldr r5, [r2]
 	adds r0, r5, #0
-	bl sub_8020824
+	bl GetCurrentLanguageString
 	adds r5, r0, #0
 	movs r6, #0
 	movs r3, #0
@@ -522,7 +522,7 @@ _0800D100:
 	adds r0, r0, r4
 	mov r1, sp
 	ldr r2, _0800D14C
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	movs r3, #0
 	ldr r0, _0800D150
 	adds r4, r4, r0
@@ -1594,7 +1594,7 @@ _0800D9AA:
 	ldr r1, _0800DA0C
 	movs r2, #0x90
 	lsls r2, r2, #4
-	bl sub_8020A3C
+	bl CopyStringTilesToVRAMBuffer
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}

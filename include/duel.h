@@ -87,7 +87,7 @@ struct Duel
 extern struct Duel gDuel;
 extern struct NotSureWhatToName* gNotSure[2]; //2023FC0
 extern struct DuelCard* gZones[5][MAX_ZONES_IN_ROW];                //2023FD0
-extern struct DuelCard* gUnk2024040[5][MAX_ZONES_IN_ROW];           //2024040
+extern struct DuelCard* gDuelBoard[5][MAX_ZONES_IN_ROW];           //2024040
 extern struct DuelCard* gHands[2][MAX_ZONES_IN_ROW];                  //20240B0
                                                          //20240C4
 
@@ -108,7 +108,10 @@ gBoard[]:
 //|202400C  currPlBackRow
 //|2024020  currPlHand
 
-extern u8 gUnk20241FC;
+// when gDuelType is
+// 0: Ingame Duel: Life points carry over from previous duels; otherwise: they get set to opponent specific value.
+// 6: Link Duel
+extern u8 gDuelType;
 
 struct Unk_02021C00
 {
@@ -129,7 +132,7 @@ void sub_803FEA4(int unused);
 void sub_8040508(u8);
 
 
-extern u8 gUnk_02021C08;
+extern u8 gHideEffectText;
 
 struct MonEffect
 {
@@ -147,24 +150,33 @@ struct SpellEffect
     u8 unk5;
 };
 
+struct TrapEffect
+{
+    u16 id;
+    u8 unk2;
+    u8 unk3;
+    u8 trapZoneId;
+    u8 unk5;
+};
+
 extern struct MonEffect gMonEffect;
-extern struct SpellEffect gUnk020245A0;
-extern struct SpellEffect gUnk2024260;
+extern struct TrapEffect gTrapEffectData;
+extern struct SpellEffect gSpellEffectData;
 
 
 
 extern u16 gLifePoints[];
 
-struct Unk_02021C10
+struct CardEffectTextData
 {
-    u16 unk0;
-    u16 unk2;
+    u16 cardId;
+    u16 cardId2;
     u16 unk4;
     u16 unk6;
-    u16 unk8;
+    u16 textId;
     u8 unkA;
 };
-extern struct Unk_02021C10 gUnk_02021C10;
+extern struct CardEffectTextData gCardEffectTextData;
 
 enum Language
 {
@@ -185,7 +197,7 @@ void SetFinalStat(struct StatMod*);
 
 void sub_801CEBC(void);
 
-void sub_801D1A8(void);
+void ResetCardEffectTextData(void);
 void sub_801D188(u8);
 void sub_801F6B0(void);
 bool8 IsDuelOver(void);
@@ -211,8 +223,8 @@ void ClearZone(struct DuelCard*);
 
 void FlipCardFaceUp(struct DuelCard*); //flip card face up
 u8 IsCardFaceUp(struct DuelCard*);
-void ResetPermStage(struct DuelCard*); //reset num perm powerups
-void sub_8040368(struct DuelCard*); //Inc num perm powerups
+void ResetPermanentPowerLevel(struct DuelCard*); //reset num perm powerups
+void IncrementPermanentPowerLevel(struct DuelCard*);
 
 void sub_804037C(struct DuelCard*); //dec num powerups?
 void SetPermStage(struct DuelCard*, int);
@@ -255,12 +267,12 @@ u32 sub_8055BD4(u16);
 
 
 void PlayMusic(int);
-s32 sub_803FCBC(u16);
-s32 sub_803FCEC(u16);
+s32 GetTypeGroup(u16);
+s32 GetSpellType(u16);
 void FlipCardFaceDown(struct DuelCard*);
 void sub_8040394(struct DuelCard*, u8);
 
-void ResetTempStage(struct DuelCard*); //reset num temp powerups
+void ResetTemporaryPowerLevel(struct DuelCard*);
 
 s32 PermStage(struct DuelCard*);
 int sub_804069C(struct DuelCard*); //getnumpowerups?
@@ -301,14 +313,13 @@ void DrawCard(u32);
 
 void ClearZoneAndSendMonToGraveyard(struct DuelCard* zone, u8 graveyard);
 
-u16 sub_804535C(u8);
+u16 GetGraveCardAndClearGrave(u8);
 
 u32 sub_8048CE0(void);
 
 void InitSorlTurns(u8);
-void sub_804D600(struct DuelCard*, u16 id);
 
-s8 sub_8057894(u16 id);
+
 
 void ResetNumTributes(void);
 s32 WhoseTurn(void); //8058744
@@ -318,7 +329,7 @@ s32 sub_8056258(u8, u8);
 bool32 sub_80586DC(void);
 
 
-u16 sub_80452E0(u8);
+u16 GetGraveCardAndClearGrave2(u8);
 
 struct Unk2023E80 {
   // substruct?
@@ -390,6 +401,7 @@ struct Duelist
     u16 unk2A;             //0x2A
 };
 
+// duel metadata, external?
 struct DuelData
 {
     u64 unk0; //money?
@@ -436,11 +448,11 @@ extern u16 gRitualComponents[][4]; //ritual
 //[][3] == sacrifice 3
 
 void sub_80404F0(u8);
-void sub_8040540(u8);
+void LockMonsterCardsInRow(u8);
 void sub_803F8E0(int);
 void ActivateMonEffect(void);
-void ActivateSpellEffect(void);
-u8 sub_8021D00(u16 id);
+void TryActivatingSpellEffect(void);
+u8 GetRitualNumTributes(u16 id);
 
 struct DuelDeck
 {
@@ -528,7 +540,7 @@ extern u16 g2021BF8;
 int sub_8045390(u16);
 bool32 sub_80436EC(struct DuelCard*);
 
-void sub_8045314 (struct DuelCard *zone, u8 player);
+void ClearZoneAndSendMonToGraveyard2 (struct DuelCard *zone, u8 player);
 void DeclareLoser(u8);
 
 void LoadObjVRAM(void);
@@ -560,7 +572,7 @@ extern u16 gBLDY;
 
 void ClearPlayerName(void);
 void InitTrunkCards(void);
-void InitDeck(void);
+void InitNewGameDeck(void);
 void InitDeckCapacity(void);
 void InitDuelistLevel(void);
 void sub_8020168(void);
@@ -572,7 +584,7 @@ void sub_80554EC(void);
 void sub_8055FD0(void);
 void sub_801FB44(u8*);
 void sub_8048CB8(void);
-int sub_80437D4 (u8);
+int GetNumCardsInRow (u8);
 u8 sub_8025534 (u8);
 u32 sub_80432D0 (u8);
 
@@ -584,7 +596,7 @@ u32 sub_8043A5C (u8);
 u32 sub_80438A0 (u8);
 u32 sub_80438E8 (u8);     //implicit decl? (just create a u8 return variable)
 u32 sub_8043358 (u8);     //implicit decl? (just create a u8 return variable)
-u32 sub_8043810 (u8);     //implicit decl? (just create a u8 return variable)
+u32 GetNumFaceUpCardsInRow (u8);
 u32 sub_804398C (u8, u8); //implicit decl? (^)
 u32 sub_80439F4 (u8, u8);  //^
 int sub_80430D8 (struct DuelCard**); //implicit decl? (^)
@@ -599,20 +611,20 @@ bool32 sub_80437B4 (struct DuelCard *zone);
 u8 sub_801B5BC (u8, u16*);
 
 
-struct Unk {
+struct DuelText {
   u16 unk0;
   u16 unk2;
   u16 unk4;
   u16 unk6;
-  u8 unk8;
+  u8 textId;
 };
 
 void sub_8045718 (void);
-void sub_8021A14(struct Unk*);
-void sub_80219E4(struct Unk*);
-void sub_80240BC(struct Unk*);
-void sub_802405C(struct Unk*);
-void sub_802408C(struct Unk*);
+void ResetDuelTextData(struct DuelText*);
+void sub_80219E4(struct DuelText*);
+void sub_80240BC(struct DuelText*);
+void sub_802405C(struct DuelText*);
+void sub_802408C(struct DuelText*);
 void sub_8024548 (void);
 extern u8 g2021D98;
 void sub_802432C(void);
@@ -629,8 +641,8 @@ void sub_8041D14 (u16, u16);
 
 void sub_8041C94(u8*, u16, u16, u16, u16);
 
-extern u8* g8FA2BAC[]; //duel text pointers
-extern u8* g8FA2C14[]; //duel text pointers
+extern u8* gDuelTextStrings[];
+extern u8* gMyTurnStrings[];
 extern u8* g8F9E35C[];
 extern u8* g8FA0964[];
 
@@ -676,17 +688,17 @@ void sub_80403F0 (struct DuelCard*);
 void sub_8040404 (struct DuelCard*);
 u32 sub_802061C(u16);
 
-struct CursorPosition {
+struct DuelCursor {
   u8 currentX;
   u8 currentY;
   u8 destX;
   u8 destY;
-  u8 unk4;
+  u8 state;
   u8 unk5;
   u8 filler6;
 };
 
-extern struct CursorPosition gCursorPosition;
+extern struct DuelCursor gDuelCursor;
 int sub_8043E70(u8);
 
 
@@ -721,7 +733,9 @@ struct Unk2021AF0
 
 extern struct Unk2021AF0 g2021AF0;
 
-
+enum DuelType {
+  DUEL_TYPE_INGAME
+};
 
 
 #endif // GUARD_DUEL_H

@@ -26,10 +26,9 @@ extern s8 g8E0F6AC[];
 
 
 
-u8* sub_8020824 (u8*);
+u8* GetCurrentLanguageString (u8*);
 u16 sub_805629C (u16, u16);
 void sub_80562E0 (void);
-u8* sub_8020824 (u8*);
 void sub_8056208 (void);
 int sub_8056258 (u8, u8);
 void sub_805787C (int);
@@ -43,7 +42,7 @@ void sub_804F598 (void);
 void sub_802BF70 (void);
 void sub_802C5B4 (void);
 void sub_8055C64 (void);
-void sub_8000224 (void);
+void CreditsMain (void);
 
 void RemoveMoney (u64);
 
@@ -63,7 +62,7 @@ void sub_8053F30 (struct ScriptCtx* script) {
   sub_80562CC(temp);
   SetCardInfo(sub_805629C(1, 800));
   name = gCardInfo.name;
-  name = sub_8020824(name);
+  name = GetCurrentLanguageString(name);
   for (i = 0; i < 112; i++) {
     g201EF50[i] = 0;
     g201EFC0[i] = 0;
@@ -140,7 +139,7 @@ void sub_8053F30 (struct ScriptCtx* script) {
 	ldr r0, _08053FC8\n\
 	ldr r5, [r0]\n\
 	adds r0, r5, #0\n\
-	bl sub_8020824\n\
+	bl GetCurrentLanguageString\n\
 	adds r5, r0, #0\n\
 	movs r4, #0\n\
 	ldr r3, _08053FCC\n\
@@ -320,7 +319,7 @@ void sub_80540B0 (struct ScriptCtx* script) {
   temp |= gUnk_8E0CD14[3];
   sub_80562CC(temp);
   sub_8056208();
-  text = sub_8020824(g8E0F4F4[sub_8056258(0, 3)]);
+  text = GetCurrentLanguageString(g8E0F4F4[sub_8056258(0, 3)]);
 
   for (r4 = 0, r5 = 0; r5 < 80 && text[r4] && text[r4] != '$'; r4++, r5++) {
     if (text[r4] > 127) {
@@ -347,7 +346,7 @@ void sub_8054150 (struct ScriptCtx* script) {
   sub_80562CC(temp);
   sub_8056208();
   sub_8056208();
-  text = sub_8020824(g8E0F504[sub_8056258(0, 8)]);
+  text = GetCurrentLanguageString(g8E0F504[sub_8056258(0, 8)]);
 
   for (r4 = 0, r5 = 0; r5 < 80 && text[r4] && text[r4] != '$'; r4++, r5++) {
     if (text[r4] > 127) {
@@ -376,7 +375,7 @@ void sub_80541F4 (struct ScriptCtx* script) {
   for (r5 = 0; r5 < 3; r5++)
     sub_8056208();
 
-  text = sub_8020824(g8E0F528[sub_8056258(0, 5)]);
+  text = GetCurrentLanguageString(g8E0F528[sub_8056258(0, 5)]);
 
   for (r5 = 0, r1 = 0; r1 < 80 && text[r5] && text[r5] != '$'; r5++, r1++) {
     if (text[r5] > 127) {
@@ -457,7 +456,7 @@ void sub_80543A4 (struct ScriptCtx* script) {
   for (r5 = 0; r5 < 6; r5++)
     sub_8056208();
 
-  text = sub_8020824(g8E0F5E8[sub_8056258(0, 5)]);
+  text = GetCurrentLanguageString(g8E0F5E8[sub_8056258(0, 5)]);
 
   for (r5 = 0, r1 = 0; r1 < 80 && text[r5] && text[r5] != '$'; r5++, r1++) {
     if (text[r5] > 127) {
@@ -486,7 +485,7 @@ void sub_805444C (struct ScriptCtx* script) {
   for (r5 = 0; r5 < 7; r5++)
     sub_8056208();
 
-  text = sub_8020824(g8E0F600[sub_8056258(0, 5)]);
+  text = GetCurrentLanguageString(g8E0F600[sub_8056258(0, 5)]);
 
   for (r5 = 0, r1 = 0; r1 < 80 && text[r5] && text[r5] != '$'; r5++, r1++) {
     if (text[r5] > 127) {
@@ -515,7 +514,7 @@ void sub_80544F4 (struct ScriptCtx* script) {
   for (r5 = 0; r5 < 8; r5++)
     sub_8056208();
 
-  text = sub_8020824(g8E0F4F4[sub_8056258(0, 3)]);
+  text = GetCurrentLanguageString(g8E0F4F4[sub_8056258(0, 3)]);
 
   for (r5 = 0, r1 = 0; r1 < 80 && text[r5] && text[r5] != '$'; r5++, r1++) {
     if (text[r5] > 127) {
@@ -544,7 +543,7 @@ void sub_805459C (struct ScriptCtx* script) {
   for (r5 = 0; r5 < 9; r5++)
     sub_8056208();
 
-  text = sub_8020824(g8E0F528[sub_8056258(0, 5)]);
+  text = GetCurrentLanguageString(g8E0F528[sub_8056258(0, 5)]);
 
   for (r5 = 0, r1 = 0; r1 < 80 && text[r5] && text[r5] != '$'; r5++, r1++) {
     if (text[r5] > 127) {
@@ -597,7 +596,7 @@ _08054670:\n\
 	ldr r0, _080546E8\n\
 	ldr r5, [r0]\n\
 	adds r0, r5, #0\n\
-	bl sub_8020824\n\
+	bl GetCurrentLanguageString\n\
 	adds r5, r0, #0\n\
 	movs r4, #0\n\
 	movs r0, #0x22\n\
@@ -772,7 +771,7 @@ void sub_80547D0 (struct ScriptCtx* script) {
   for (r5 = 0; r5 < 11; r5++)
     sub_8056208();
 
-  text = sub_8020824(g8E0F4F4[sub_8056258(0, 3)]);
+  text = GetCurrentLanguageString(g8E0F4F4[sub_8056258(0, 3)]);
 
   for (r5 = 0, r1 = 0; r1 < 80 && text[r5] && text[r5] != '$'; r5++, r1++) {
     if (text[r5] > 127) {
@@ -801,7 +800,7 @@ void sub_8054878 (struct ScriptCtx* script) {
   for (r5 = 0; r5 < 12; r5++)
     sub_8056208();
 
-  text = sub_8020824(g8E0F504[sub_8056258(0, 8)]);
+  text = GetCurrentLanguageString(g8E0F504[sub_8056258(0, 8)]);
 
   for (r5 = 0, r1 = 0; r1 < 80 && text[r5] && text[r5] != '$'; r5++, r1++) {
     if (text[r5] > 127) {
@@ -1058,7 +1057,7 @@ void sub_8054AB0 (u8 arg0, struct ScriptCtx* script) {
       sub_804ED08();
       break;
     case 20:
-      sub_8000224();
+      CreditsMain();
       break;
     case 21:
       sub_8054FB0();

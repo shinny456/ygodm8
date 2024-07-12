@@ -12,7 +12,7 @@ void ReturnMonsterToOpponent (struct DuelCard *zone) {
     gZones[1][emptyZoneId]->unkTwo = zone->unkTwo;
     gZones[1][emptyZoneId]->unk4 = 2;
     SetPermStage(gZones[1][emptyZoneId], PermStage(zone));
-    ResetTempStage(gZones[1][emptyZoneId]);
+    ResetTemporaryPowerLevel(gZones[1][emptyZoneId]);
     gZones[1][emptyZoneId]->willChangeSides = FALSE;
   }
   ClearZone(zone);

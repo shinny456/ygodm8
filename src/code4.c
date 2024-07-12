@@ -27,10 +27,16 @@ s8 sub_804F6C0(void);
 void sub_804F714(void);
 void LoadCharblock5(void);
 void sub_80554C4 (void);
+extern u32* gMapTilesets[];
+extern u16* gLowLayerTilemaps[];
+extern u16* gHighLayerTilemaps[];
+extern u16* g8E11CD0[];
 
+
+extern u16 gCableCarTilemap[];
 
 /*
-void InitOverworld(void)
+void InitOverworld (void)
 {
     u16 i, j;
 
@@ -64,7 +70,7 @@ void InitOverworld(void)
         gOverworld.objects[j].x = 192;
         gOverworld.objects[j].y = 192;
         gOverworld.objects[j].unk8 = 0;
-        gOverworld.objects[j].unk1Dk = 0;
+        gOverworld.objects[j].wander = 0;
         gOverworld.objects[j].unk1Dl = 0;
         gOverworld.objects[j].unk1Dm = 0;
         gOverworld.objects[j].unk1C = 0;
@@ -77,8 +83,8 @@ void InitOverworld(void)
     gOverworld.objects[0].unkE = 19;
     gOverworld.objects[0].unk18 = 0;
     gOverworld.objects[0].unk1Di = 1;
-    gOverworld.objects[0].unk1Dj = 1;
-    gOverworld.objects[0].unk1Dk = 1;
+    gOverworld.objects[0].facePlayer = 1;
+    gOverworld.objects[0].wander = 1;
     gOverworld.objects[0].x = gMapData[gOverworld.map.id][gOverworld.map.state]->playerInitialState[gOverworld.map.unk4].x;
     gOverworld.objects[0].y = gMapData[gOverworld.map.id][gOverworld.map.state]->playerInitialState[gOverworld.map.unk4].y;
     sub_8052088(0);
@@ -92,7 +98,7 @@ void InitOverworld(void)
         gOverworld.objects[j].y = gOverworld.objects[0].y;
         gOverworld.objects[j].unk10 = &g8F04040;
         gOverworld.objects[j].unk14 = &g8F04040;
-        gOverworld.objects[j].unk1Dk = 0;
+        gOverworld.objects[j].wander = 0;
         gOverworld.objects[j].unk1Di = 1;
         gOverworld.objects[j].unk1Dl = 1;
         sub_8052088(j);
@@ -106,7 +112,7 @@ void InitOverworld(void)
         gOverworld.objects[j].y = gOverworld.objects[0].y;
         gOverworld.objects[j].unk10 = &g8F04040;
         gOverworld.objects[j].unk14 = &g8F04040;
-        gOverworld.objects[j].unk1Dk = 0;
+        gOverworld.objects[j].wander = 0;
         gOverworld.objects[j].unk1Di = 1;
         gOverworld.objects[j].unk1Dl = 1;
         sub_8052088(j);
@@ -124,8 +130,8 @@ void InitOverworld(void)
         gOverworld.objects[i].unk14 = gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].unkC;
         gOverworld.objects[i].unk1E = 19;
         gOverworld.objects[i].unk1Di = gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].unk10i;
-        gOverworld.objects[i].unk1Dj = gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].unk10j;
-        gOverworld.objects[i].unk1Dk = gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].unk10k;
+        gOverworld.objects[i].facePlayer = gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].unk10j;
+        gOverworld.objects[i].wander = gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].unk10k;
         gOverworld.objects[i].unk1A = 0;
     }
 }*/
@@ -759,87 +765,70 @@ _0804DB18:\n\
 	bx r0");
 }
 
-void InitiateWorldMap(void) //world map stuff
-{
-    if (gOverworld.unk240 & 4)
-    {
-        g2020DD0 = 0;
-        if (CheckFlag(0xEE))
-            g2020DD0 = 1;
-        if (CheckFlag(0xFF))
-            g2020DD0 = 2;
-        if (CheckFlag(0xFE))
-            g2020DD0 = 3;
-        if (CheckFlag(0xFD))
-            g2020DD0 = 4;
-        if (CheckFlag(0xFC))
-            g2020DD0 = 5;
-        if (CheckFlag(0xFB))
-            g2020DD0 = 6;
-        if (CheckFlag(0xE4))
-            g2020DD0 = 11;
-        if (CheckFlag(0xFA))
-            g2020DD0 = 7;
-        if (CheckFlag(0xF9))
-            g2020DD0 = 8;
-        if (CheckFlag(0xF8))
-            g2020DD0 = 9;
-        if (CheckFlag(0xED))
-            g2020DD0 = 10;
+static void TryInitiatingWorldMap (void) {
+  if (gOverworld.unk240 & 4) {
+    g2020DD0 = 0;
+    if (CheckFlag(0xEE))
+      g2020DD0 = 1;
+    if (CheckFlag(0xFF))
+      g2020DD0 = 2;
+    if (CheckFlag(0xFE))
+      g2020DD0 = 3;
+    if (CheckFlag(0xFD))
+      g2020DD0 = 4;
+    if (CheckFlag(0xFC))
+      g2020DD0 = 5;
+    if (CheckFlag(0xFB))
+      g2020DD0 = 6;
+    if (CheckFlag(0xE4))
+      g2020DD0 = 11;
+    if (CheckFlag(0xFA))
+      g2020DD0 = 7;
+    if (CheckFlag(0xF9))
+      g2020DD0 = 8;
+    if (CheckFlag(0xF8))
+      g2020DD0 = 9;
+    if (CheckFlag(0xED))
+      g2020DD0 = 10;
 
-        g2020DC8 = gOverworld.map.unk8;
-        gOverworld.unk240 &= ~4;
-        sub_804F750(4);
-        WorldMapMain();
-        sub_80523EC(g8E0D9C4[g2020DCC][0], g8E0D9C4[g2020DCC][1], g8E0D9C4[g2020DCC][2]);
-    }
-    else
-        sub_0804F76C();
-
-    InitOverworld();
+    g2020DC8 = gOverworld.map.unk8;
+    gOverworld.unk240 &= ~4;
+    sub_804F750(4);
+    WorldMapMain();
+    sub_80523EC(g8E0D9C4[g2020DCC][0], g8E0D9C4[g2020DCC][1], g8E0D9C4[g2020DCC][2]);
+  }
+  else
+    sub_0804F76C();
+  InitOverworld();
 }
 
-void OverworldMain(void) //spawn the player home (and overworld main loop?) OverworldMain
-{
-    if (!CheckFlag(0x2b))
-    {
-        NamingScreenMain();
-        StartCutscene(8);
-        SetFlag(0x2b);
-        SaveGame();
+void OverworldMain (void) {
+  if (!CheckFlag(0x2b)) {
+    NamingScreenMain();
+    StartCutscene(8);
+    SetFlag(0x2b);
+    SaveGame();
+  }
+  sub_80523EC(9, 1, 0);
+  InitOverworld();
+  gOverworld.unk240 &= ~1;
+  do {
+    // TryInitWorldMap (only works if gOverworld.unk240 & 4 is set)
+    TryInitiatingWorldMap();
+    sub_80554C4();
+    sub_804ED08();
+    gOverworld.unk240 &= ~2;
+    InitiateScript(gOverworld.unk1F4[gOverworld.map.unk4]);
+    if (!(gOverworld.unk240 & 2)) {
+      PlayOverworldMusic();
+      sub_804E288();
+      InitiateScript(gOverworld.unk208[gOverworld.map.unk6]);
     }
-    sub_80523EC(9, 1, 0);
-    InitOverworld();
-    gOverworld.unk240 &= ~1;
-
-    do
-    {
-        // TryInitWorldMap (only works if gOverworld.unk240 & 4 is set)
-        InitiateWorldMap();
-        sub_80554C4();
-        sub_804ED08();
-        gOverworld.unk240 &= ~2;
-        InitiateScript(gOverworld.unk1F4[gOverworld.map.unk4]);
-        if (!(gOverworld.unk240 & 2))
-        {
-            PlayOverworldMusic();
-            sub_804E288();
-            InitiateScript(gOverworld.unk208[gOverworld.map.unk6]);
-        }
-    } while (!(gOverworld.unk240 & 1));
-    // gOverworld.unk240 LSB is never set to 1
-    // so this function never returns
-    // mark it as noreturn? (as well as AgbMain?)
+  } while (!(gOverworld.unk240 & 1));
+  // gOverworld.unk240 LSB is never set to 1
+  // so this function never returns
+  // mark it as noreturn? (as well as AgbMain?)
 }
-
-extern u32* gMapTilesets[];
-extern u16* gLowLayerTilemaps[];
-extern u16* gHighLayerTilemaps[];
-extern u16* g8E11CD0[];
-
-
-extern u16 gCableCarTilemap[];
-
 
 void LoadOverworldBgGfx(void)
 {
@@ -1183,7 +1172,7 @@ void sub_804F2F0 (void);
 void TryDueling (void);
 void sub_804EEE0 (void);
 void TryTalking (void);
-void StartMenu (void);
+void InitStartMenu (void);
 void SetBg3Regs (void);
 void SetBg2Regs (void);
 void SetBg1Regs (void);
@@ -1277,7 +1266,7 @@ void sub_804E288 (void) {
         break;
       case START_MENU:
         PlayMusic(0x37);
-        StartMenu();
+        InitStartMenu();
         sub_804ED08_inline();
         PlayOverworldMusic();
         break;
@@ -1458,10 +1447,10 @@ _0804E610:\n\
 }
 
 void sub_804E618 (void) {
-  s16 arr[15];
+  signed short arr[15];
   u8 i;
   for (i = 0; i < 15; i++)
-    arr[i] = -32767;
+    arr[i] = -SHRT_MAX; //TODO
   for (i = 0; i < 15; i++) {
     s16 r4;
     u16 r3;
@@ -2153,7 +2142,7 @@ void sub_804F2F0 (void) {
   int i;
   sub_804F3E4();
   for (i = 1; i < 15; i++) {
-    if (gOverworld.objects[i].unk1Dk != 1)
+    if (gOverworld.objects[i].wander != 1)
       continue;
     if (gOverworld.objects[i].unk1A > 1) {
       if (gOverworld.objects[i].unk1A % 2 == 0) {

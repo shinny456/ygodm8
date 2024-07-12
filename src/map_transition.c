@@ -55,12 +55,12 @@ void sub_805236C (void) {
 
 struct MapState {
   u16 id;
-  u16 state;
-  u16 flags[8]; // if all of these flags are set, we transition to map[id][actualState]
-  u16 actualState;
+  u16 state; // state selector?
+  u16 flags[8]; // if all of these flags are set, we transition to map[id][alternativeState]
+  u16 alternativeState;
 };
 
-extern struct MapState gMapStates[];
+extern const struct MapState gMapStates[];
 
 void sub_804EF84 (u16, u16, u16);
 
@@ -70,13 +70,13 @@ void sub_80523EC (u16 id, u16 state, u16 connection) {
   while (gMapStates[++i].id != 0xFFFF) {
     if (gMapStates[i].id == id && gMapStates[i].state == state) {
       int j;
-      bool32 flagsNotSet = 0;
+      bool32 keepState = 0;
       // all flags must be set for the current state to be assigned another value
       for (j = 0; j < 8; j++)
         if (gMapStates[i].flags[j] != 0xFFFF && !CheckFlag(gMapStates[i].flags[j]))
-          flagsNotSet = 1;
-      if (!flagsNotSet)
-        state = gMapStates[i].actualState;
+          keepState = 1;
+      if (!keepState)
+        state = gMapStates[i].alternativeState;
     }
   }
   // Final set map id and state

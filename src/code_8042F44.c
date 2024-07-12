@@ -145,7 +145,7 @@ u8 sub_80431F4 (u8 row, u16 atk) {
   return count;
 }
 
-u8 sub_8043280 (u8 row) {
+u8 GetNumFaceUpLockedCardsInRow (u8 row) {
   u8 i, count = 0;
   for (i = 0; i < 5; i++)
     if (gZones[row][i]->id != CARD_NONE && gZones[row][i]->isFaceUp)
@@ -158,7 +158,7 @@ u32 sub_80432D0 (u8 row) {
   u32 total = 0;
   u8 i;
   for (i = 0; i < 5; i++) {
-    if (sub_803FCBC(gZones[row][i]->id) != 1)
+    if (GetTypeGroup(gZones[row][i]->id) != 1)
       continue;
     gStatMod.card = gZones[row][i]->id;
     gStatMod.field = gDuel.field;
@@ -173,7 +173,7 @@ u32 sub_8043358 (u8 row) {
   u32 total = 0;
   u8 i;
   for (i = 0; i < 5; i++) {
-    if (sub_803FCBC(gZones[row][i]->id) != 1 || !gZones[row][i]->isFaceUp)
+    if (GetTypeGroup(gZones[row][i]->id) != 1 || !gZones[row][i]->isFaceUp)
       continue;
     gStatMod.card = gZones[row][i]->id;
     gStatMod.field = gDuel.field;
@@ -291,10 +291,10 @@ s8 sub_80435E8 (struct DuelCard** zonePtr) {
   return 0;
 }
 
-s8 sub_804360C (struct DuelCard** zonePtr) {
+s8 GetNonEmptyMonZoneId (struct DuelCard** zonePtr) {
   s8 i;
   for (i = 0; i < 5; i++)
-    if (sub_803FCBC((*zonePtr++)->id) == 1)
+    if (GetTypeGroup((*zonePtr++)->id) == TYPE_GROUP_MONSTER)
       return i;
   return 0;
 }
@@ -302,7 +302,7 @@ s8 sub_804360C (struct DuelCard** zonePtr) {
 s8 sub_804363C (struct DuelCard** zonePtr) {
   s8 i;
   for (i = 4; i >= 0; i--)
-    if (sub_803FCBC((*zonePtr--)->id) == 1)
+    if (GetTypeGroup((*zonePtr--)->id) == 1)
       return i;
   return 4;
 }
@@ -333,7 +333,7 @@ s32 sub_80436C0 (struct DuelCard** zonePtr, u16 cardId) {
 
 u32 sub_80436EC (struct DuelCard* zone) {
   u32 ret = 0;
-  if (zone->id != CARD_NONE && sub_803FCBC(zone->id) == 1 && !zone->isLocked)
+  if (zone->id != CARD_NONE && GetTypeGroup(zone->id) == 1 && !zone->isLocked)
     ret = 1;
   return ret;
 }
@@ -342,7 +342,7 @@ u32 sub_8043714 (struct DuelCard* zone) {
   u32 ret = 0;
   if (zone->id != CARD_NONE) {
     SetCardInfo(zone->id);
-    if (gCardInfo.monsterEffect && !zone->isLocked)
+    if (gCardInfo.monsterEffect /*!= MONSTER_EFFECT_NONE*/ && !zone->isLocked)
       if (!zone->isFaceUp)
         ret = 1;
   }
@@ -351,33 +351,33 @@ u32 sub_8043714 (struct DuelCard* zone) {
 
 u32 sub_804374C (struct DuelCard* zone) {
   u32 ret = 0;
-  if (zone->id != CARD_NONE && sub_803FCBC(zone->id) == 3)
+  if (zone->id != CARD_NONE && GetTypeGroup(zone->id) == 3)
     ret = 1;
   return ret;
 }
 
 u32 sub_804376C (struct DuelCard* zone) {
   u32 ret = 0;
-  if (sub_803FCBC(zone->id) == 2 && sub_803FCEC(zone->id) == 1)
+  if (GetTypeGroup(zone->id) == 2 && GetSpellType(zone->id) == 1)
     ret = 1;
   return ret;
 }
 
 u32 sub_8043790 (struct DuelCard* zone) {
   u32 ret = 0;
-  if (sub_803FCBC(zone->id) == 2 && !sub_803FCEC(zone->id))
+  if (GetTypeGroup(zone->id) == 2 && !GetSpellType(zone->id))
     ret = 1;
   return ret;
 }
 
 u32 sub_80437B4 (struct DuelCard* zone) {
   u32 ret = 0;
-  if (zone->id != CARD_NONE && sub_803FCBC(zone->id) == 4)
+  if (zone->id != CARD_NONE && GetTypeGroup(zone->id) == 4)
     ret = 1;
   return ret;
 }
 
-int sub_80437D4 (u8 row) {
+int GetNumCardsInRow (u8 row) {
   u8 i, count = 0;
   for (i = 0; i < 5; i++)
     if (gZones[row][i]->id != CARD_NONE)
@@ -385,7 +385,7 @@ int sub_80437D4 (u8 row) {
   return count;
 }
 
-u32 sub_8043810 (u8 row) {
+u32 GetNumFaceUpCardsInRow (u8 row) {
   u8 i, count = 0;
   for (i = 0; i < 5; i++)
     if (gZones[row][i]->id != CARD_NONE && gZones[row][i]->isFaceUp)
@@ -624,15 +624,15 @@ _08043BC4: .4byte gUnk2020DFC");
 
 // unused?
 void sub_8043BC8 (struct Temp* arg0) {
-  gZones[gCursorPosition.currentY][gCursorPosition.currentX]->id = arg0->unk2;
-  gZones[gCursorPosition.currentY][gCursorPosition.currentX]->isFaceUp = 1;
-  gZones[gCursorPosition.currentY][gCursorPosition.currentX]->isLocked = 0;
-  gZones[gCursorPosition.currentY][gCursorPosition.currentX]->isDefending = 0;
-  gZones[gCursorPosition.currentY][gCursorPosition.currentX]->unkTwo = 0;
-  gZones[gCursorPosition.currentY][gCursorPosition.currentX]->unk4 = 0;
-  ResetPermStage(gZones[gCursorPosition.currentY][gCursorPosition.currentX]);
-  ResetTempStage(gZones[gCursorPosition.currentY][gCursorPosition.currentX]);
-  gZones[gCursorPosition.currentY][gCursorPosition.currentX]->willChangeSides = 0;
+  gZones[gDuelCursor.currentY][gDuelCursor.currentX]->id = arg0->unk2;
+  gZones[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp = 1;
+  gZones[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 0;
+  gZones[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
+  gZones[gDuelCursor.currentY][gDuelCursor.currentX]->unkTwo = 0;
+  gZones[gDuelCursor.currentY][gDuelCursor.currentX]->unk4 = 0;
+  ResetPermanentPowerLevel(gZones[gDuelCursor.currentY][gDuelCursor.currentX]);
+  ResetTemporaryPowerLevel(gZones[gDuelCursor.currentY][gDuelCursor.currentX]);
+  gZones[gDuelCursor.currentY][gDuelCursor.currentX]->willChangeSides = 0;
 }
 
 void sub_8043CAC (void) {
@@ -723,5 +723,3 @@ int sub_8043E70 (u8 arg0) {
 int sub_8043E9C (u8 arg0) {
   return gUnk20240F0[arg0].cardsDrawn;
 }
-
-

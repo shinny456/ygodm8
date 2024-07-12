@@ -3,17 +3,18 @@
 #include "gba/syscall.h"
 #include "gba/macro.h"
 
+static void sub_800604C (void);
 
 extern u8 gPlayerName[];
 void bzero (void*, unsigned);
 char *strncpy(char * s1, const char * s2, unsigned n);
 u32 strlen(const char*);
 extern const char* g8DF8030[];
-extern u8 gUnk_2018800[];
+extern u8 gSharedMem[];
 void sub_8020DB8(u32* arg0, u8* name, u16 arg2);
 extern u32 gUnk_807A9EC[];
-void sub_803ED78 (void);
-void sub_800604C (void);
+void ClearGraphicsBuffers (void);
+
 void sub_800683C (void);
 void sub_80074CC (void);
 void sub_80075B0 (void);
@@ -64,7 +65,7 @@ extern struct Unk8DF8114 {
 
 void NamingScreenMain (void) {
   u16 i;
-  sub_803ED78();
+  ClearGraphicsBuffers();
   sub_800604C();
   PlayMusic(0x2E);
   LZ77UnCompWram(gUnk_807A9EC, gBgVram.cbb0);
@@ -188,9 +189,9 @@ void NamingScreenMain (void) {
   }
 }
 
-void sub_800604C (void) {
+static void sub_800604C (void) {
   u8 i;
-  bzero(gUnk_2018800, 0x4314);
+  bzero(gSharedMem, 0x4314);
   strncpy((u8*)gUnk_8DF8114->unkE, gPlayerName, 19);
   for (i = 0; i < 8; i++)
     if (!gUnk_8DF8114->unkE[i]) {

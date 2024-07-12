@@ -4,22 +4,22 @@
 #include "gba/io_reg.h"
 #include "gba/macro.h"
 
+static void sub_8026A94 (void);
+static void sub_08026BA4 (void);
+static void sub_8026BA8 (void);
+static void sub_8026BE8 (void);
+static void sub_08026C28 (void);
+static void sub_8026C2C (void);
+static void sub_8026CEC (void);
+static void sub_8026D04 (void);
+static void sub_8026D20 (void);
+static void sub_8026D58 (void);
+static void sub_8026D74 (void);
+static void sub_8026E44 (void);
+static void sub_8026E94 (void);
+
 extern u8 g201EE60;
 extern u8 g201EE61;
-
-void sub_8026A94 (void);
-void sub_8026D74 (void);
-void sub_8026D04 (void);
-void sub_8026D20 (void);
-void sub_8026E44 (void);
-void sub_8026E94 (void);
-void sub_8026C2C (void);
-void sub_8026BA8 (void);
-void sub_8026BE8 (void);
-void sub_08026C28 (void);
-void sub_8026D58 (void);
-void sub_8026CEC (void);
-void sub_08026BA4 (void);
 
 extern u32 gE01E50[];
 extern u32 gE02E50[];
@@ -44,7 +44,7 @@ extern u16 gE02E10[];
 extern u16 gE04610[];
 
 
-void sub_80268D8 (void) {
+void CopyrightScreensMain (void) {
   u8 i;
   sub_8026A94();
   sub_80081DC(sub_8026D74);
@@ -113,7 +113,7 @@ void sub_80268D8 (void) {
   REG_BLDY = g201EE61;
 }
 
-void sub_8026A94 (void) {
+static void sub_8026A94 (void) {
   sub_08026BA4();
   sub_80081DC(sub_8026D58);
   sub_8008220();
@@ -125,7 +125,7 @@ void sub_8026A94 (void) {
   sub_8026CEC();
 }
 
-void sub_8026AC4 (u8 arg0) {
+static void sub_8026AC4 (u8 arg0) {
   u32 i;
   arg0 += 255;
   switch (arg0) {
@@ -152,32 +152,34 @@ void sub_8026AC4 (u8 arg0) {
   }
 }
 
-void sub_08026BA4 (void) {}
+static void sub_08026BA4 (void) {
+}
 
-void sub_8026BA8 (void) {
+static void sub_8026BA8 (void) {
   u32 i;
   CpuCopy16(gE01E50, gBgVram.cbb0, 0x2000);
   for (i = 0; i < 20; i++)
     CpuCopy16(gE02610[i], gBgVram.sbb1F[i], 64);
 }
 
-void sub_8026BE8 (void) {
+static void sub_8026BE8 (void) {
   u32 i;
   CpuCopy16(gE02E50, gBgVram.cbb1, 0xFC0);
   for (i = 0; i < 20; i++)
     CpuCopy16(gE03E10[i], gBgVram.sbb1E[i], 64);
 }
 
-void sub_08026C28 (void) {}
+static void sub_08026C28 (void) {
+}
 
-void sub_8026C2C (void) {
+static void sub_8026C2C (void) {
   u32 i;
   CpuCopy16(gE01390, gBgVram.sbb18, 0x3C0);
   for (i = 0; i < 20; i++)
     CpuCopy16(gE01750[i], gBgVram.sbb1C[i], 64);
 }
 
-void sub_8026C6C (void) {
+static void sub_8026C6C (void) {
   u32 i;
   CpuCopy16(gE04810, gBgVram.cbb0, 0x2000);
   CpuCopy16(gE06810, &gBgVram.cbb0[0x2000], 0x2000);
@@ -188,32 +190,33 @@ void sub_8026C6C (void) {
   sub_8026AC4(1);
 }
 
-void sub_8026CEC (void) {
+static void sub_8026CEC (void) {
   CpuCopy16(gE01370, g02000000.bg, 32);
 }
 
-void sub_8026D04 (void) {
+static void sub_8026D04 (void) {
   CpuCopy16(gE01C50, g02000000.bg, 512);
 }
 
-void sub_8026D20 (void) {
+static void sub_8026D20 (void) {
   CpuCopy16(gE02E10, g02000000.bg, 64);
 }
 
-void sub_8026D38 (void) {}
+static void sub_8026D38 (void) {
+}
 
-void sub_8026D3C (void) {
+static void sub_8026D3C (void) {
   CpuCopy16(gE04610, g02000000.bg, 512);
 }
 
-void sub_8026D58 (void) {
+static void sub_8026D58 (void) {
   REG_DISPCNT = 0x80;
   REG_BLDCNT = 0;
   REG_BLDALPHA = 0;
   REG_BLDY = 0;
 }
 
-void sub_8026D74 (void) {
+static void sub_8026D74 (void) {
   LoadPalettes();
   gBG3VOFS = 0;
   gBG3HOFS = 0;
@@ -224,7 +227,7 @@ void sub_8026D74 (void) {
   REG_DISPCNT = 0x800;
 }
 
-void sub_8026DC8 (void) {
+static void sub_8026DC8 (void) {
   LoadPalettes();
   gBG2VOFS = 0;
   gBG2HOFS = 0;
@@ -240,7 +243,7 @@ void sub_8026DC8 (void) {
   REG_DISPCNT = 0xC00;
 }
 
-void sub_8026E44 (void) {
+static void sub_8026E44 (void) {
   LoadPalettes();
   gBG3VOFS = 0;
   gBG3HOFS = 0;
@@ -251,7 +254,7 @@ void sub_8026E44 (void) {
   REG_DISPCNT = 0x800;
 }
 
-void sub_8026E94 (void) {
+static void sub_8026E94 (void) {
   LoadPalettes();
   gBG3VOFS = 0;
   gBG3HOFS = 0;
@@ -262,7 +265,7 @@ void sub_8026E94 (void) {
   REG_DISPCNT = 0x800;
 }
 
-void sub_8026EE8 (void) {
+static void sub_8026EE8 (void) {
   LoadPalettes();
   gBG3VOFS = 0;
   gBG3HOFS = 0;

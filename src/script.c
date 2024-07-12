@@ -22,7 +22,7 @@ void sub_80553F8(struct ScriptCtx *script, u8);
 
 extern u32** g8FA31C0[];
 extern u16** g8FA3360[];
-extern u8 gUnk_2018800[];
+extern u8 gSharedMem[];
 extern struct OamData gOamBuffer[];
 extern u16 gUnk2020DFC;
 extern u8 gPlayerName[];
@@ -90,8 +90,8 @@ void DisplayPortrait (struct ScriptCtx* scriptCtx) {
     sub_80533BC();
   sub_805339C();
   sub_804EB04(oam, scriptCtx->unk85);
-  LZ77UnCompWram(g8FA31C0[scriptCtx->unk0][scriptCtx->unk84], gUnk_2018800);
-  sub_805342C(gBgVram.cbb4 + 0x2000, gUnk_2018800);
+  LZ77UnCompWram(g8FA31C0[scriptCtx->unk0][scriptCtx->unk84], gSharedMem);
+  sub_805342C(gBgVram.cbb4 + 0x2000, gSharedMem);
   CpuCopy16(*g8FA3360[scriptCtx->unk0], g02000000.obj + 0xC0, 128);
   if (CheckFlag(0xF3))
     sub_8044E50(g02000000.bg, 0x1C0, 0x1FF);
@@ -242,7 +242,7 @@ void sub_80527E8(struct ScriptCtx *script)
             script->unk0 = 0;
             break;
         case '1':
-            sub_8005B38();
+            InitStartMenuFromScript();
             sub_804ED08();
             script->pointer += 2;
             break;

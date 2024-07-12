@@ -21,17 +21,17 @@ gCreditsTilemaps:
     .4byte gUnk_8063C20
     .4byte gUnk_8063D20
 
-    .global g8DF758C
-g8DF758C:
-    .4byte gUnk_2018800
+    .global gCreditsData
+gCreditsData:
+    .4byte gSharedMem
 
     .global g8DF7590
 g8DF7590:
-    .4byte gUnk_2018800
+    .4byte gSharedMem
 
     .global g8DF7594
 g8DF7594:
-    .4byte gUnk_2018800
+    .4byte gSharedMem
 
     .global gUnk_8DF7598
 gUnk_8DF7598:
@@ -211,8 +211,8 @@ gUnk_8DF8030:
 
     .global gUnk_8DF8114
 gUnk_8DF8114:
-    .4byte gUnk_2018800
-    .4byte gUnk_2018800
+    .4byte gSharedMem
+    .4byte gSharedMem
 
     .global gUnk_8DF811C
 gUnk_8DF811C:
@@ -280,7 +280,7 @@ g8DFF600:
 
     .global gUnk_8DFF6A4
 gUnk_8DFF6A4:
-    .4byte gUnk_2018800
+    .4byte gSharedMem
 
     .global gUnk_8DFF6A8
 gUnk_8DFF6A8:
@@ -393,7 +393,7 @@ gUnk_8E01098:
 
     .global gUnk_8E010A0
 gUnk_8E010A0:
-    .4byte gUnk_2018800
+    .4byte gSharedMem
 
     .global gUnk_8E010A4
 gUnk_8E010A4:
@@ -420,11 +420,11 @@ gUnk_8E010A4:
 
     .global gUnk_8E010F4
 gUnk_8E010F4:
-    .4byte gUnk_2018800
+    .4byte gSharedMem
 
     .global gPassTerminal
 gPassTerminal:
-    .4byte gUnk_2018800
+    .4byte gSharedMem
     .incbin "baserom.gba", 0xE010FC, 0x25C
 
     .global gGodCards @E01358
@@ -438,15 +438,15 @@ gGodCards:
 
     .global gUnk_8E01364
 gUnk_8E01364:
-    .4byte gUnk_2018800
+    .4byte gSharedMem
 
     .global gUnk_8E01368
 gUnk_8E01368:
-    .4byte gUnk_2018800+0x4000
+    .4byte gSharedMem+0x4000
 
     .global gUnk_8E0136C
 gUnk_8E0136C:
-    .4byte gUnk_2018800+0x4100
+    .4byte gSharedMem+0x4100
 
     .global gUnk_8E01370
 gUnk_8E01370:

@@ -6,24 +6,32 @@
 #include "gba/syscall.h"
 #include "gba/macro.h"
 
+static u16 sub_801D2D4 (void);
+static void sub_801D414 (void);
+static void sub_801D420 (void);
+static void sub_801D444 (void);
+static void sub_801D458 (void);
+static void sub_801D46C (void);
+static void sub_801D480 (void);
+static void sub_801D490 (void);
+static void sub_801D4A4 (void);
+static void sub_801D4B8 (void);
+static void sub_801D548 (void);
+static void sub_801D57C (void);
+static void sub_801D5B0 (void);
+static void sub_801D600 (void);
+static void sub_801D61C (void);
+static void sub_801D678 (void);
+static void sub_801D68C (void);
 
 
-u8 sub_801D3FC (void);
-void sub_801D414 (void);
-void sub_801D420 (void);
-u16 sub_801D2D4 (void);
-void sub_801D444 (void);
+
+u32 sub_801D3FC (void);
 void sub_801F5FC (void);
 void sub_801F4A0 (u8);
-void sub_801D490 (void);
-void sub_801D458 (void);
-void sub_801D46C (void);
-void sub_801D4B8 (void);
 void sub_801F120 (void);
 void sub_801EF30 (u8);
 void sub_801F644 (void);
-void sub_801D4A4 (void);
-void sub_801D480 (void);
 void sub_801F630 (void);
 void sub_0801F62C (void);
 void sub_801DA7C (u8);
@@ -35,13 +43,9 @@ void sub_801DE10 (void);
 void sub_801F5F0 (void);
 void sub_801D918 (void);
 void sub_801DE5C (void);
-void sub_801D61C (void);
-void sub_801D68C (void);
-void sub_801D548 (void);
-void sub_801D57C (void);
-void sub_801D5B0 (void);
-void sub_801D600 (void);
-void sub_801D678 (void);
+
+
+
 void sub_801F614 (void);
 u16 sub_801DAF8 (u8);
 void sub_80573D0 (u8*, u16);
@@ -51,10 +55,18 @@ extern u16 gUnk2020DFC;
 extern u16 gUnk2021DCC;
 extern u16 gKeyState;
 extern u16 g2020DF4;
+extern u8 g201CB50;
+extern u8 gE00AD4[];
+extern u8 gE00AD6[];
+extern u16 gOamBuffer[];
+extern u8 gE00AD8[3]; //cursor y pos
+extern u8 gE00ADB[3]; //cursor x pos
 
-void DeckMenu (void) {
+
+
+void DeckMenuMain (void) {
   u8 r4 = 1;
-  if (sub_801D3FC() != 1)
+  if ((u8)sub_801D3FC() != 1)
     return;
   sub_801D414();
   sub_801D420();
@@ -113,7 +125,7 @@ void DeckMenu (void) {
         sub_801F4A0(5);
         break;
     }
-    if (!sub_801D3FC())
+    if (!(u8)sub_801D3FC())
       r4 = 0;
   }
   sub_801DA7C(8);
@@ -123,7 +135,7 @@ void DeckMenu (void) {
   sub_801F4A0(2);
 }
 
-u16 sub_801D2D4 (void) { // same code as the one in trunk.c
+static u16 sub_801D2D4 (void) { // same code as the one in trunk.c
   u8 i;
   u16 r2;
   u16 ret = 0;
@@ -171,15 +183,15 @@ int sub_801D368 (void) {
   return ret;
 }
 
-u8 sub_801D3FC (void) {
+u32 sub_801D3FC (void) {
   return GetDeckSize() != 0;
 }
 
-void sub_801D414 (void) {
+static void sub_801D414 (void) {
   sub_801DE10();
 }
 
-void sub_801D420 (void) {
+static void sub_801D420 (void) {
   sub_801EF30(0);
   sub_801EF30(2);
   sub_801F4A0(1);
@@ -187,39 +199,37 @@ void sub_801D420 (void) {
   sub_801F4A0(3);
 }
 
-void sub_801D444 (void) {
+static void sub_801D444 (void) {
   sub_801DA7C(3);
   sub_801EF30(3);
 }
 
-void sub_801D458 (void) {
+static void sub_801D458 (void) {
   sub_801DA7C(2);
   sub_801EF30(3);
 }
 
-void sub_801D46C (void) {
+static void sub_801D46C (void) {
   sub_801DA7C(6);
   sub_801EF30(4);
 }
 
-void sub_801D480 (void) {
+static void sub_801D480 (void) {
   sub_801D918();
   sub_801EF30(6);
 }
 
-void sub_801D490 (void) {
+static void sub_801D490 (void) {
   sub_801DA7C(5);
   sub_801EF30(3);
 }
 
-void sub_801D4A4 (void) {
+static void sub_801D4A4 (void) {
   sub_801DA7C(4);
   sub_801EF30(3);
 }
 
-extern u8 g201CB50;
-
-void sub_801D4B8 (void) {
+static void sub_801D4B8 (void) {
   u8 r4;
   g201CB50 = 0;
   PlayMusic(0x37);
@@ -260,10 +270,7 @@ void sub_801D4B8 (void) {
   sub_801D678();
 }
 
-extern u8 gE00AD4[];
-extern u8 gE00AD6[];
-
-void sub_801D548 (void) {
+static void sub_801D548 (void) {
   g201CB50 = gE00AD4[g201CB50];
   sub_801D61C();
   PlayMusic(0x36);
@@ -271,7 +278,7 @@ void sub_801D548 (void) {
   sub_8008220();
 }
 
-void sub_801D57C (void) {
+static void sub_801D57C (void) {
   g201CB50 = gE00AD6[g201CB50];
   sub_801D61C();
   PlayMusic(0x36);
@@ -279,7 +286,7 @@ void sub_801D57C (void) {
   sub_8008220();
 }
 
-void sub_801D5B0 (void) {
+static void sub_801D5B0 (void) {
   SetCardInfo(sub_801DAF8(2));
   PlayMusic(0x37);
   sub_801F6B0();
@@ -294,18 +301,14 @@ void sub_801D5B0 (void) {
   LoadCharblock1();
 }
 
-void sub_801D600 (void) {
+static void sub_801D600 (void) {
   sub_801DA7C(7);
   sub_801EF30(3);
   sub_801F614();
   sub_801F4A0(6);
 }
 
-extern u16 gOamBuffer[];
-extern u8 gE00AD8[3]; //cursor y pos
-extern u8 gE00ADB[3]; //cursor x pos
-
-void sub_801D61C (void) {
+static void sub_801D61C (void) {
   u32 *oam = (u32*)&gOamBuffer[6 * 4];
   oam[0] = gE00AD8[g201CB50] |
            gE00ADB[g201CB50] << 16 | 0x40000000;
@@ -315,7 +318,7 @@ void sub_801D61C (void) {
   oam[3] = 0x120;
 }
 
-void sub_801D678 (void) {
+static void sub_801D678 (void) {
   u32 *oam = (u32*)&gOamBuffer[6 * 4];
   oam[0] = 0;
   oam[1] = 0;
@@ -323,7 +326,7 @@ void sub_801D678 (void) {
   oam[3] = 0;
 }
 
-void sub_801D68C (void) {
+static void sub_801D68C (void) {
   LoadPalettes();
   LoadOam();
   REG_DISPCNT = 0xBF00;
@@ -405,7 +408,7 @@ void sub_801DD34 (u32);
 void sub_8009098 (u16);
 u8 sub_801DD50 (u16);
 void sub_8034A38 (void);
-void sub_801DCF0 (void);
+void CalculateCurrentDeckCost (void);
 
 void sub_801D7D0 (void) {
   u16 cardId = sub_801DAF8(2);
@@ -527,7 +530,7 @@ void sub_801D9B8 (u16 id) {
   }
 }
 
-void sub_801DA20 (void) {
+void InitDeckData (void) {
   u32 i;
   gDeck.unk5 = 0;
   gDeck.unk4 = 0;
@@ -536,12 +539,12 @@ void sub_801DA20 (void) {
   for (i = 0; i < 40; i++)
     if (gDeck.cards[i])
       gDeck.count++;
-  sub_801DCF0();
+  CalculateCurrentDeckCost();
 }
 
 extern u16 gStarterDeck[];
 
-void InitDeck (void) {
+void InitNewGameDeck (void) {
   u32 i;
   for (i = 0; i < 40; i++)
     gDeck.cards[i] = gStarterDeck[i];
@@ -556,10 +559,10 @@ u8 sub_801DE3C (u8);
 void sub_801DA7C (u8 arg0) {
   switch (arg0) {
     case 0:
-      InitDeck();
+      InitNewGameDeck();
       break;
     case 1:
-      sub_801DA20();
+      InitDeckData();
       break;
     case 2:
       sub_801DC04(1);
@@ -614,7 +617,7 @@ u32 GetDeckCost (void) {
 void sub_801DB64 (u16 cardId) {
   gDeck.cards[gDeck.count] = cardId;
   gDeck.count++;
-  sub_801DCF0();
+  CalculateCurrentDeckCost();
 }
 
 u8 GetDeckCardQty (u16 cardId) {
@@ -677,7 +680,7 @@ void sub_801DCC8 (void) {
 
 void sub_0801DCEC (void) {}
 
-void sub_801DCF0 (void) {
+void CalculateCurrentDeckCost (void) {
   u8 i;
   gDeck.cost = 0;
   for (i = 0; i < gDeck.count; i++) {
@@ -737,7 +740,7 @@ extern u8 g80B9194[];
 extern u8 g8DF811C[];
 
 u16 sub_08007FEC(u8, u8, u16);
-void sub_8020A3C(void *, void *, u16);
+void CopyStringTilesToVRAMBuffer(void *, void *, u16);
 void sub_800800C(u8, u8, u16, u16);
 
 void sub_801DE5C (void) {
@@ -753,7 +756,7 @@ void sub_801DE5C (void) {
     sub_800800C(i + 9, 13, 0x7800, (g8DF811C[i] + 61) | r7);
     sub_800800C(i + 9, 14, 0x7800, (g8DF811C[i] + 63) | r7);
   }
-  sub_8020A3C(&gBgVram.cbb1[32], g80B9194, 0x900);
+  CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[32], g80B9194, 0x900);
 }
 
 extern u16 gUnk_808DE60[][30];
@@ -827,7 +830,7 @@ void sub_801DF40(void)
         sub_800800C(i + 4, 14, 0x7800, (g8DF811C[i] + 157) | r8);
         sub_800800C(i + 4, 15, 0x7800, (g8DF811C[i] + 159) | r8);
     }
-    sub_8020A3C(&gBgVram.cbb1[32], g80B92D8, 0x900);
+    CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[32], g80B92D8, 0x900);
 }
 
 extern u32 gUnk_808918C[];
@@ -860,8 +863,8 @@ void sub_801E27C (void) {
     CpuCopy32(gUnk_808BD10[i], &((struct Sbb*)&gBgVram)->sbb7[i], 60);
   CpuFill16(0, &((struct Sbb*)&gBgVram)->sbb10[i], 32);
   CpuFill16(0, &((struct Sbb*)&gBgVram)->sbb17[i], 32);
-  sub_8020A3C(&gBgVram.cbb1[32], g80B954C, 0x801);
-  sub_8020A3C(&gBgVram.cbb1[64], g80B9550, 0x901);
+  CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[32], g80B954C, 0x801);
+  CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[64], g80B9550, 0x901);
   gBgVram.cbb1[0x385E] = 0x5001;
   sub_800DDA0(GetDeckCapacity(), 0);
   for (i = 0; i < 5; i++)
@@ -980,12 +983,12 @@ _0801E30E:\n\
 	adds r0, r5, r3\n\
 	ldr r1, _0801E49C\n\
 	ldr r2, _0801E4A0\n\
-	bl sub_8020A3C\n\
+	bl CopyStringTilesToVRAMBuffer\n\
 	ldr r6, _0801E4A4\n\
 	adds r0, r5, r6\n\
 	ldr r1, _0801E4A8\n\
 	ldr r2, _0801E4AC\n\
-	bl sub_8020A3C\n\
+	bl CopyStringTilesToVRAMBuffer\n\
 	ldr r7, _0801E4B0\n\
 	adds r1, r5, r7\n\
 	ldr r0, _0801E4B4\n\
@@ -1058,12 +1061,12 @@ _0801E390:\n\
 	adds r0, r5, r7\n\
 	ldr r1, _0801E4F8\n\
 	ldr r2, _0801E4A0\n\
-	bl sub_8020A3C\n\
+	bl CopyStringTilesToVRAMBuffer\n\
 	ldr r1, _0801E4FC\n\
 	adds r0, r5, r1\n\
 	ldr r1, _0801E500\n\
 	ldr r2, _0801E504\n\
-	bl sub_8020A3C\n\
+	bl CopyStringTilesToVRAMBuffer\n\
 	movs r4, #0\n\
 	ldr r5, _0801E508\n\
 _0801E416:\n\
@@ -1505,13 +1508,13 @@ _0801E7CC: .4byte 0x02000400\n\
 _0801E7D0: .4byte 0x00005C36");
 }
 
-u8* sub_8020824 (u8*);
+u8* GetCurrentLanguageString (u8*);
 
 void sub_801E7D4 (u16 unused_CardId, u32* arg1) {
   u8 buffer[52];
   u8 r6, r5, r3;
   u8* name = gCardInfo.name;
-  name = sub_8020824(name);
+  name = GetCurrentLanguageString(name);
   r6 = 0, r5 = 0, r3 = 0;
   while (name[r5] && name[r5] != '$') {
     if (name[r5] <= 127) {
@@ -1532,7 +1535,7 @@ void sub_801E7D4 (u16 unused_CardId, u32* arg1) {
     r6++;
   }
   buffer[r3] = '\0';
-  sub_8020A3C(arg1, buffer, 0x901);
+  CopyStringTilesToVRAMBuffer(arg1, buffer, 0x901);
 }
 
 void sub_801E86C (u16 arg0, u8 arg1) {
@@ -1552,25 +1555,75 @@ void sub_801E86C (u16 arg0, u8 arg1) {
   oam->x = 210;
 }
 
+//sp4 = i++
+//r4 = j
+//r5 = gBgVram
+
+union {
+  u8 a[0x4000];
+  u16 b[0x2000]; //3d array?
+} extern gVr;
 /*
 void sub_801E928 (void) {
   u8 i, j;
   for (i = 0; i < 5; i++) {
     //switch ()?
-    u32 r2 = 0;
-    if (i > 1)
+    u8 r2 = 0;
+    if (i > 1) {
       r2 = 2;
-    if (i == 2)
-      r2 = 1;
+      if (i == 2)
+        r2 = 1;
+    }
+
     for (j = 0; j < 3; j++) {
-      ip = i * 3 + (r2 + 3) * 32
-      sp = i * 3 + r2 + 3 * 32 + 0x7C15
-      sp8 = i * 48
-      sb = 7c14
+      //ip = i * 3 + (r2 + 3) * 32
+      //sp = i * 3 + (r2 + 3) * 32 + 0x7C15
+      //sp8 = i * 48
+      //sb = 7c14
+      //r6 = (i * 3 + (r2 + 4)) * 32
+      //r8 = (i * 3 + (r2 + 4)) * 32 + 0x7C15
+      //sl = i * 48 + 0x50F4
+      gVr.b[0x7C14+(i * 3 + (r2 + 3)) * 32 + j * 2] = j * 4+(i * 48 + 0x50F4);
+      gVr.b[0x7C15+(i * 3 + (r2 + 3)) * 32 + j * 2] = j * 4+(i * 48 + 0x50F4) + 1;
+      gVr.b[0x7C14+(i * 3 + (r2 + 4)) * 32 + j * 2] = j * 4+(i * 48 + 0x50F4) + 2;
+      gVr.b[0x7C15+(i * 3 + (r2 + 4)) * 32 + j * 2] = j * 4+(i * 48 + 0x50F4) + 3;
     }
   }
-}
-*/
+}*/
+
+/*
+//sl = gVr
+void sub_801E9EC (void) {
+  unsigned char i, j;
+  for (i = 0; i < 5; i++) {
+    unsigned char r7;
+    SetCardInfo(sub_801DAF8(i));
+    r7 = 0;
+    if (i > 1) {
+      r7 = 2;
+      if (i == 2)
+        r7 = 1;
+    }
+    if (gCardInfo.id != CARD_NONE) {
+      //r5 = i * 2
+      //r4 = (i * 3 + (r7 + 3)) * 32
+      gVr.b[(i * 3 + (r7 + 3)) * 32 + 0x7C14] = 0x5002;
+      sub_800DDA0(gCardInfo.atk, 0);
+      for (j = 0; j < 5; j++)
+        gVr.b[(i * 3 + (r7 + 3)) * 32 + 0x7C15 + j] = g2021BD0[j] + 0x2009;
+      gVr.b[(i * 3 + (r7 + 4)) * 32 + 0x7C14] = 0x5003;
+      sub_800DDA0(gCardInfo.def, 0);
+      for (j = 0; j < 5; j++)
+        gVr.b[(i * 3 + (r7 + 4)) * 32 + 0x7C15 + j] = g2021BD0[j] + 0x1009;
+    }
+    else {
+      for (j = 0; j < 6; j++)
+        gVr.b[(i * 3 + (r7 + 3)) * 32 + 0x7C14 + j] = 0x5000;
+      for (j = 0; j < 6; j++)
+        gVr.b[(i * 3 + (r7 + 4)) * 32 + 0x7C14 + j] = 0x5000;
+    }
+  }
+}*/
 
 
 

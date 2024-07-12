@@ -13,7 +13,7 @@ void IncNumTributes (void) {
 
 extern s8 gNumRequiredTributes[];
 int sub_8045390 (u16 card) {
-  if (sub_803FCBC(card) == 1) {
+  if (GetTypeGroup(card) == 1) {
     int requiredTribs;
     SetCardInfo(card);
     requiredTribs = gNumRequiredTributes[gCardInfo.level] - gNumTributes;
@@ -28,9 +28,9 @@ int sub_8045390 (u16 card) {
 
 //ritual tributes required
 u8 sub_80453D8 (u16 card) {
-  if (sub_803FCBC(card) == 4) {
+  if (GetTypeGroup(card) == 4) {
     int requiredTribs;
-    requiredTribs = sub_8021D00(card) - gNumTributes;
+    requiredTribs = GetRitualNumTributes(card) - gNumTributes;
     if (requiredTribs < 0)
       requiredTribs = 0;
     return requiredTribs;
