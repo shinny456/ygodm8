@@ -15,7 +15,6 @@ struct StatMod
 extern struct StatMod gStatMod;
 extern void (*gMonEffects[])(void);
 extern void (*gSpellEffects[])(void);
-extern void (*g8DFF600[])(void);
 extern void (*g8DFF55C[])(void);
 extern void (*g8DFFA48[])(void);
 extern void (*g8DFF7F0[])(void);
@@ -76,8 +75,8 @@ struct NotSureWhatToName //rename to duelist status?
 struct Duel
 {
     struct DuelCard zones[4][MAX_ZONES_IN_ROW];   //0x00  |2023EC0
-    struct DuelCard hands[2][MAX_ZONES_IN_ROW];   //0x78  |2023F38
-                                                  //0xA0  |2023F60
+    struct DuelCard hands[2][MAX_ZONES_IN_ROW];   //0xA0  |2023F60
+                                                  //0xC8  |2023F88
     u8 field;                                                   //0xF0  |2023FB0
     u8 filler_F1[3];                                            //0xF1  |2023FB1
     struct NotSureWhatToName notSure[2];                        //0xF4  |2023FB4
@@ -113,18 +112,7 @@ gBoard[]:
 // 6: Link Duel
 extern u8 gDuelType;
 
-struct Unk_02021C00
-{
-    u16 unk0;
-    u8 unk2;
-    u8 unk3;
-    u8 unk4;
-    u8 unk5;
-    u8 unk6;
-    u8 unk7;
-};
 
-extern struct Unk_02021C00 gUnk2021C00;
 //*********************
 void sub_803FEA4(int unused);
 //*********************
@@ -585,8 +573,8 @@ void sub_8055FD0(void);
 void sub_801FB44(u8*);
 void sub_8048CB8(void);
 int GetNumCardsInRow (u8);
-u8 sub_8025534 (u8);
-u32 sub_80432D0 (u8);
+u8 GetDuelistStatus (u8);
+u32 GetTotalAtkAndDefInRow (u8);
 
 extern u8 g201CB3C; //padding?
 extern u8 g201CB40; //^
@@ -595,7 +583,7 @@ extern u8 gCurrentTurnOpponent[];
 u32 sub_8043A5C (u8);
 u32 sub_80438A0 (u8);
 u32 sub_80438E8 (u8);     //implicit decl? (just create a u8 return variable)
-u32 sub_8043358 (u8);     //implicit decl? (just create a u8 return variable)
+u32 GetTotalFaceUpAtkAndDefInRow (u8);     //implicit decl? (just create a u8 return variable)
 u32 GetNumFaceUpCardsInRow (u8);
 u32 sub_804398C (u8, u8); //implicit decl? (^)
 u32 sub_80439F4 (u8, u8);  //^
@@ -608,7 +596,7 @@ bool32 sub_804376C (struct DuelCard *zone);
 bool32 sub_8043790 (struct DuelCard *zone);
 bool32 sub_80437B4 (struct DuelCard *zone);
 
-u8 sub_801B5BC (u8, u16*);
+
 
 
 struct DuelText {
@@ -686,7 +674,7 @@ extern struct Unk3000C38 g3000C38;
 
 void sub_80403F0 (struct DuelCard*);
 void sub_8040404 (struct DuelCard*);
-u32 sub_802061C(u16);
+u32 GetExodiaFlag(u16);
 
 struct DuelCursor {
   u8 currentX;
@@ -719,7 +707,7 @@ struct Unk2021DE0 {
 } extern g2021DE0;
 
 void sub_802ACC0(void);
-u32 sub_802BBF0(void);
+
 
 void WinConditionFINAL (void);
 

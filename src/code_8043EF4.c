@@ -338,7 +338,7 @@ void HandlePlayerMonsterRowAction (void) {
 
 void sub_8044570 (void) {
   u8 turn = WhoseTurn();
-  if (!sub_8025534(turn) || gNotSure[0]->sorlTurns) {
+  if (!GetDuelistStatus(turn) || gNotSure[0]->sorlTurns) {
     PlayMusic(0x39);
     gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = TRUE;
     sub_8041104();

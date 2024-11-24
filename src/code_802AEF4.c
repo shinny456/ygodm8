@@ -4,7 +4,6 @@
 #include "constants/card_ids.h"
 
 void sub_8034FEC (u16);
-void TryActivatingTurnEffect (void);
 void sub_802ADF4 (void);
 void sub_80408BC (void);
 void sub_802ADA4 (void);
@@ -50,9 +49,11 @@ void sub_802AEB4 (void) {
   *oam++ = 0;
 }
 
+//turn_effects.c
+static void TryActivatingTurnEffect (void);
+static unsigned sub_802BBF0 (void);
 
-
-void sub_802AEF4 (void) {
+static void sub_802AEF4 (void) {
   u8 i;
   g2021DE0.unk2 = 4;
   for (i = 0; i < 5; i++) {
@@ -196,7 +197,7 @@ void sub_802AEF4 (void) {
   sub_8034FEC(375);
 }
 
-void sub_802B210 (void) {
+static void sub_802B210 (void) {
   u8 i;
 
   gDuel.field = 6;
@@ -226,7 +227,7 @@ void sub_802B210 (void) {
   }
 }
 
-void sub_802B2FC (void) {
+static void sub_802B2FC (void) {
   u8 zone;
   u16 r2;
 
@@ -259,7 +260,7 @@ void sub_802B2FC (void) {
   }
 }
 
-void EffectJamBreedingMachineSummon (void) {
+static void EffectJamBreedingMachineSummon (void) {
   if (g2021DE0.unk2 != 3)
     return;
   FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
@@ -275,7 +276,7 @@ void EffectJamBreedingMachineSummon (void) {
   }
 }
 
-void EffectMirageKnight (void) {
+static void EffectMirageKnight (void) {
   struct DuelCard* ptr;
 
   if (g2021DE0.unk2 != 1)
@@ -312,7 +313,7 @@ void EffectMirageKnight (void) {
   }
 }
 
-void sub_802B560 (void) {
+static void sub_802B560 (void) {
   u16 r5;
   struct DuelCard* ptr;
 
@@ -338,7 +339,7 @@ void sub_802B560 (void) {
   }
 }
 
-void sub_802B604 (void) {
+static void sub_802B604 (void) {
   u16 r5;
   struct DuelCard* ptr;
 
@@ -364,7 +365,7 @@ void sub_802B604 (void) {
   }
 }
 
-void sub_802B6A8 (void) {
+void TryActivatingTurnEffects (void) {
   g2021DE0.unk4 = WhoseTurn();
   if (!gHideEffectText) {
     sub_80408BC(); //clear oam stuff?
@@ -374,40 +375,89 @@ void sub_802B6A8 (void) {
   sub_802AEF4();
 }
 
-void TryActivatingTurnEffect (void) {
+static void TryActivatingTurnEffect (void) {
   ResetCardEffectTextData();
   sub_801D188(9);
   SetCardInfo(g2021DE0.unk0);
   g8E0C940[gCardInfo.unk1E]();
 }
 
-void sub_802B70C (void) {}
-void sub_802B710 (void) {}
-void sub_802B714 (void) {}
-void sub_802B718 (void) {}
-void sub_802B71C (void) {}
-void sub_802B720 (void) {}
-void sub_802B724 (void) {}
-void sub_802B728 (void) {}
-void sub_802B72C (void) {}
-void sub_802B730 (void) {}
-void sub_802B734 (void) {}
-void sub_802B738 (void) {}
-void sub_802B73C (void) {}
-void sub_802B740 (void) {}
-void sub_802B744 (void) {}
-void sub_802B748 (void) {}
-void sub_802B74C (void) {}
-void sub_802B750 (void) {}
-void sub_802B754 (void) {}
-void sub_802B758 (void) {}
-void sub_802B75C (void) {}
-void sub_802B760 (void) {}
-void sub_802B764 (void) {}
-void sub_802B768 (void) {}
-void sub_802B76C (void) {}
+static void sub_802B70C (void) {
+}
 
-void sub_802B770 (void) {
+static void sub_802B710 (void) {
+}
+
+static void sub_802B714 (void) {
+}
+
+static void sub_802B718 (void) {
+}
+
+static void sub_802B71C (void) {
+}
+
+static void sub_802B720 (void) {
+}
+
+static void sub_802B724 (void) {
+}
+
+static void sub_802B728 (void) {
+}
+
+static void sub_802B72C (void) {
+}
+
+static void sub_802B730 (void) {
+}
+
+static void sub_802B734 (void) {
+}
+
+static void sub_802B738 (void) {
+}
+
+static void sub_802B73C (void) {
+}
+
+static void sub_802B740 (void) {
+}
+
+static void sub_802B744 (void) {
+}
+
+static void sub_802B748 (void) {
+}
+
+static void sub_802B74C (void) {
+}
+
+static void sub_802B750 (void) {
+}
+
+static void sub_802B754 (void) {
+}
+
+static void sub_802B758 (void) {
+}
+
+static void sub_802B75C (void) {
+}
+
+static void sub_802B760 (void) {
+}
+
+static void sub_802B764 (void) {
+}
+
+static void sub_802B768 (void) {
+}
+
+static void sub_802B76C (void) {
+}
+
+static void sub_802B770 (void) {
   if (g2021DE0.unk2 != 3)
     return;
   FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
@@ -427,7 +477,7 @@ void sub_802B770 (void) {
   }
 }
 
-void EffectHelpoemer (void) {
+static void EffectHelpoemer (void) {
   if (g2021DE0.unk2 != 7 || NumEmptyZonesInRow(gHands[0]) == 5)
     return;
   ClearZoneAndSendMonToGraveyard(gHands[0][(u8)sub_8043468(gHands[0])], 0);
@@ -437,7 +487,7 @@ void EffectHelpoemer (void) {
   }
 }
 
-void EffectLavaGolemLifePoints (void) {
+static void EffectLavaGolemLifePoints (void) {
   if (g2021DE0.unk2 != 2)
     return;
   FlipCardFaceUp(gZones[2][g2021DE0.unk3]);
@@ -457,11 +507,16 @@ void EffectLavaGolemLifePoints (void) {
   }
 }
 
-void sub_802B8B0 (void) {}
-void sub_802B8B4 (void) {}
-void sub_802B8B8 (void) {}
+static void sub_802B8B0 (void) {
+}
 
-void EffectViserDes (void) {
+static void sub_802B8B4 (void) {
+}
+
+static void sub_802B8B8 (void) {
+}
+
+static void EffectViserDes (void) {
   if (g2021DE0.unk2 != 2 || NumEmptyZonesInRow(gZones[1]) == 5)
     return;
   FlipCardFaceUp(gZones[2][g2021DE0.unk3]);
@@ -472,10 +527,10 @@ void EffectViserDes (void) {
   }
 }
 
-void sub_802B91C (void) {
+static void sub_802B91C (void) {
 }
 
-void EffectNewdoria (void) {
+static void EffectNewdoria (void) {
   if (g2021DE0.unk2 != 6 || NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5)
     return;
   ClearZoneAndSendMonToGraveyard(gZones[1][(u8)HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
@@ -486,12 +541,19 @@ void EffectNewdoria (void) {
   }
 }
 
-void sub_802B978 (void) {}
-void sub_802B97C (void) {}
-void sub_802B980 (void) {}
-void sub_802B984 (void) {}
+static void sub_802B978 (void) {
+}
 
-void sub_802B988 (void) {
+static void sub_802B97C (void) {
+}
+
+static void sub_802B980 (void) {
+}
+
+static void sub_802B984 (void) {
+}
+
+static void sub_802B988 (void) {
   if (g2021DE0.unk2 != 1)
     return;
   FlipCardFaceUp(gZones[1][g2021DE0.unk3]);
@@ -502,9 +564,10 @@ void sub_802B988 (void) {
   }
 }
 
-void sub_802B9F0 (void) {}
+static void sub_802B9F0 (void) {
+}
 
-void sub_802B9F4 (void) {
+static void sub_802B9F4 (void) {
   struct DuelCard* ptr;
   if (g2021DE0.unk2 != 2)
     return;
@@ -517,12 +580,19 @@ void sub_802B9F4 (void) {
   }
 }
 
-void sub_802BA40 (void) {}
-void sub_802BA44 (void) {}
-void sub_802BA48 (void) {}
-void sub_802BA4C (void) {}
+static void sub_802BA40 (void) {
+}
 
-void sub_802BA50 (void) {
+static void sub_802BA44 (void) {
+}
+
+static void sub_802BA48 (void) {
+}
+
+static void sub_802BA4C (void) {
+}
+
+static void sub_802BA50 (void) {
   struct DuelCard* ptr;
   int i;
 
@@ -540,36 +610,91 @@ void sub_802BA50 (void) {
   }
 }
 
-void sub_802BAB4 (void) {}
-void sub_802BAB8 (void) {}
-void sub_802BABC (void) {}
-void sub_802BAC0 (void) {}
-void sub_802BAC4 (void) {}
-void sub_802BAC8 (void) {}
-void sub_802BACC (void) {}
-void sub_802BAD0 (void) {}
-void sub_802BAD4 (void) {}
-void sub_802BAD8 (void) {}
-void sub_802BADC (void) {}
-void sub_802BAE0 (void) {}
-void sub_802BAE4 (void) {}
-void sub_802BAE8 (void) {}
-void sub_802BAEC (void) {}
-void sub_802BAF0 (void) {}
-void sub_802BAF4 (void) {}
-void sub_802BAF8 (void) {}
-void sub_802BAFC (void) {}
-void sub_802BB00 (void) {}
-void sub_802BB04 (void) {}
-void sub_802BB08 (void) {}
-void sub_802BB0C (void) {}
-void sub_802BB10 (void) {}
-void sub_802BB14 (void) {}
-void sub_802BB18 (void) {}
-void sub_802BB1C (void) {}
-void sub_802BB20 (void) {}
+static void sub_802BAB4 (void) {
+}
 
-u8 sub_802BB24 (void) {
+static void sub_802BAB8 (void) {
+}
+
+static void sub_802BABC (void) {
+}
+
+static void sub_802BAC0 (void) {
+}
+
+static void sub_802BAC4 (void) {
+}
+
+static void sub_802BAC8 (void) {
+}
+
+static void sub_802BACC (void) {
+}
+
+static void sub_802BAD0 (void) {
+}
+
+static void sub_802BAD4 (void) {
+}
+
+static void sub_802BAD8 (void) {
+}
+
+static void sub_802BADC (void) {
+}
+
+static void sub_802BAE0 (void) {
+}
+
+static void sub_802BAE4 (void) {
+}
+
+static void sub_802BAE8 (void) {
+}
+
+static void sub_802BAEC (void) {
+}
+
+static void sub_802BAF0 (void) {
+}
+
+static void sub_802BAF4 (void) {
+}
+
+static void sub_802BAF8 (void) {
+}
+
+static void sub_802BAFC (void) {
+}
+
+static void sub_802BB00 (void) {
+}
+
+static void sub_802BB04 (void) {
+}
+
+static void sub_802BB08 (void) {
+}
+
+static void sub_802BB0C (void) {
+}
+
+static void sub_802BB10 (void) {
+}
+
+static void sub_802BB14 (void) {
+}
+
+static void sub_802BB18 (void) {
+}
+
+static void sub_802BB1C (void) {
+}
+
+static void sub_802BB20 (void) {
+}
+
+static u8 sub_802BB24 (void) {
   u32 ret = 0;
   u8 i;
 
@@ -606,112 +731,112 @@ u8 sub_802BB24 (void) {
   return ret;
 }
 
-u32 sub_802BBF0 (void) {
+static unsigned sub_802BBF0 (void) {
   SetCardInfo(g2021DE0.unk0);
   return g8E0CA80[gCardInfo.unk1E]();
 }
 
-u8 sub_802BC20 (void) {
+static u8 sub_802BC20 (void) {
   return 0;
 }
 
-u8 sub_802BC24 (void) {
+static u8 sub_802BC24 (void) {
   return 0;
 }
 
-u8 sub_802BC28 (void) {
+static u8 sub_802BC28 (void) {
   return 0;
 }
 
-u8 sub_802BC2C (void) {
+static u8 sub_802BC2C (void) {
   return 0;
 }
 
-u8 sub_802BC30 (void) {
+static u8 sub_802BC30 (void) {
   return 0;
 }
 
-u8 sub_802BC34 (void) {
+static u8 sub_802BC34 (void) {
   return 0;
 }
 
-u8 sub_802BC38 (void) {
+static u8 sub_802BC38 (void) {
   return 0;
 }
 
-u8 sub_802BC3C (void) {
+static u8 sub_802BC3C (void) {
   return 0;
 }
 
-u8 sub_802BC40 (void) {
+static u8 sub_802BC40 (void) {
   return 0;
 }
 
-u8 sub_802BC44 (void) {
+static u8 sub_802BC44 (void) {
   return 0;
 }
 
-u8 sub_802BC48 (void) {
+static u8 sub_802BC48 (void) {
   return 0;
 }
 
-u8 sub_802BC4C (void) {
+static u8 sub_802BC4C (void) {
   return 0;
 }
 
-u8 sub_802BC50 (void) {
+static u8 sub_802BC50 (void) {
   return 0;
 }
 
-u8 sub_802BC54 (void) {
+static u8 sub_802BC54 (void) {
   return 0;
 }
 
-u8 sub_802BC58 (void) {
+static u8 sub_802BC58 (void) {
   return 0;
 }
 
-u8 sub_802BC5C (void) {
+static u8 sub_802BC5C (void) {
   return 0;
 }
 
-u8 sub_802BC60 (void) {
+static u8 sub_802BC60 (void) {
   return 0;
 }
 
-u8 sub_802BC64 (void) {
+static u8 sub_802BC64 (void) {
   return 0;
 }
 
-u8 sub_802BC68 (void) {
+static u8 sub_802BC68 (void) {
   return 0;
 }
 
-u8 sub_802BC6C (void) {
+static u8 sub_802BC6C (void) {
   return 0;
 }
 
-u8 sub_802BC70 (void) {
+static u8 sub_802BC70 (void) {
   return 0;
 }
 
-u8 sub_802BC74 (void) {
+static u8 sub_802BC74 (void) {
   return 0;
 }
 
-u8 sub_802BC78 (void) {
+static u8 sub_802BC78 (void) {
   return 0;
 }
 
-u8 sub_802BC7C (void) {
+static u8 sub_802BC7C (void) {
   return 0;
 }
 
-u8 sub_802BC80 (void) {
+static u8 sub_802BC80 (void) {
   return 0;
 }
 
-u8 sub_802BC84 (void) {
+static u8 sub_802BC84 (void) {
   u8 ret = 0;
   if (g2021DE0.unk2 == 3 &&
       g2021DE0.unk3 == sub_8043694(gZones[3], g2021DE0.unk0))
@@ -719,7 +844,7 @@ u8 sub_802BC84 (void) {
   return ret;
 }
 
-u8 sub_802BCB0 (void) {
+static u8 sub_802BCB0 (void) {
   u8 ret = 0;
   if (g2021DE0.unk2 == 3 &&
       g2021DE0.unk3 == sub_8043694(gZones[3], DESTINY_BOARD) &&
@@ -728,33 +853,33 @@ u8 sub_802BCB0 (void) {
   return ret;
 }
 
-u8 sub_802BCEC (void) {
+static u8 sub_802BCEC (void) {
   u8 ret = 0;
   if (g2021DE0.unk2 == 7 && NumEmptyZonesInRow(gHands[0]) <= 2)
     ret = 1;
   return ret;
 }
 
-u8 sub_802BD14 (void) {
+static u8 sub_802BD14 (void) {
   u8 ret = 0;
   if (g2021DE0.unk2 == 2)
     ret = 1;
   return ret;
 }
 
-u8 sub_802BD28 (void) {
+static u8 sub_802BD28 (void) {
   return 0;
 }
 
-u8 sub_802BD2C (void) {
+static u8 sub_802BD2C (void) {
   return 0;
 }
 
-u8 sub_802BD30 (void) {
+static u8 sub_802BD30 (void) {
   return 0;
 }
 
-u8 sub_802BD34 (void) {
+static u8 sub_802BD34 (void) {
   if (g2021DE0.unk2 == 3 &&
       NumEmptyZonesInRow(gZones[2]) != 0 &&
       g2021DE0.unk3 == sub_8043694(gZones[3], JAM_BREEDING_MACHINE))
@@ -762,55 +887,55 @@ u8 sub_802BD34 (void) {
   return 0;
 }
 
-u8 sub_802BD70 (void) {
+static u8 sub_802BD70 (void) {
   if (g2021DE0.unk2 == 2 && NumEmptyZonesInRow(gZones[1]) < 5)
     return 1;
   return 0;
 }
 
-u8 sub_802BD98 (void) {
+static u8 sub_802BD98 (void) {
   return 0;
 }
 
-u8 sub_802BD9C (void) {
+static u8 sub_802BD9C (void) {
   if (g2021DE0.unk2 == 6 && NumEmptyZonesAndGodCardsInRow(gZones[1]) != 5)
     return 1;
   return 0;
 }
 
-u8 sub_802BDC4 (void) {
+static u8 sub_802BDC4 (void) {
   return 0;
 }
 
-u8 sub_802BDC8 (void) {
+static u8 sub_802BDC8 (void) {
   return 0;
 }
 
-u8 sub_802BDCC (void) {
+static u8 sub_802BDCC (void) {
   return 0;
 }
 
-u8 sub_802BDD0 (void) {
+static u8 sub_802BDD0 (void) {
   return 0;
 }
 
-u8 sub_802BDD4 (void) {
+static u8 sub_802BDD4 (void) {
   if (g2021DE0.unk2 == 1)
     return 1;
   return 0;
 }
 
-u8 sub_802BDE8 (void) {
+static u8 sub_802BDE8 (void) {
   if (g2021DE0.unk2 == 1)
     return 1;
   return 0;
 }
 
-u8 sub_802BDFC (void) {
+static u8 sub_802BDFC (void) {
   return 0;
 }
 
-u8 sub_802BE00 (void) {
+static u8 sub_802BE00 (void) {
   if (g2021DE0.unk2 == 6 &&
       gNotSure[0]->graveyard == g2021DE0.unk0 &&
       NumEmptyZonesInRow(gZones[2]) > 0)
@@ -818,7 +943,7 @@ u8 sub_802BE00 (void) {
   return 0;
 }
 
-u8 sub_802BE38 (void) {
+static u8 sub_802BE38 (void) {
   if (g2021DE0.unk2 == 6 &&
       gNotSure[0]->graveyard == g2021DE0.unk0 &&
       NumEmptyZonesInRow(gZones[2]) > 0)
@@ -826,143 +951,143 @@ u8 sub_802BE38 (void) {
   return 0;
 }
 
-u8 sub_802BE70 (void) {
-  if (g2021DE0.unk2 == 2 && sub_802061C(gNotSure[0]->graveyard))
+static u8 sub_802BE70 (void) {
+  if (g2021DE0.unk2 == 2 && GetExodiaFlag(gNotSure[0]->graveyard))
     return 1;
   return 0;
 }
 
-u8 sub_802BE9C (void) {
+static u8 sub_802BE9C (void) {
   return 0;
 }
 
-u8 sub_802BEA0 (void) {
+static u8 sub_802BEA0 (void) {
   return 0;
 }
 
-u8 sub_802BEA4 (void) {
+static u8 sub_802BEA4 (void) {
   return 0;
 }
 
-u8 sub_802BEA8 (void) {
+static u8 sub_802BEA8 (void) {
   return 0;
 }
 
-u8 sub_802BEAC (void) {
+static u8 sub_802BEAC (void) {
   if (g2021DE0.unk2 == 2 && sub_804069C(gZones[2][g2021DE0.unk3]) <= 5)
     return 1;
   return 0;
 }
 
-u8 sub_802BEE0 (void) {
+static u8 sub_802BEE0 (void) {
   return 0;
 }
 
-u8 sub_802BEE4 (void) {
+static u8 sub_802BEE4 (void) {
   return 0;
 }
 
-u8 sub_802BEE8 (void) {
+static u8 sub_802BEE8 (void) {
   return 0;
 }
 
-u8 sub_802BEEC (void) {
+static u8 sub_802BEEC (void) {
   return 0;
 }
 
-u8 sub_802BEF0 (void) {
+static u8 sub_802BEF0 (void) {
   return 0;
 }
 
-u8 sub_802BEF4 (void) {
+static u8 sub_802BEF4 (void) {
   return 0;
 }
 
-u8 sub_802BEF8 (void) {
+static u8 sub_802BEF8 (void) {
   return 0;
 }
 
-u8 sub_802BEFC (void) {
+static u8 sub_802BEFC (void) {
   return 0;
 }
 
-u8 sub_802BF00 (void) {
+static u8 sub_802BF00 (void) {
   return 0;
 }
 
-u8 sub_802BF04 (void) {
+static u8 sub_802BF04 (void) {
   return 0;
 }
 
-u8 sub_802BF08 (void) {
+static u8 sub_802BF08 (void) {
   return 0;
 }
 
-u8 sub_802BF0C (void) {
+static u8 sub_802BF0C (void) {
   return 0;
 }
 
-u8 sub_802BF10 (void) {
+static u8 sub_802BF10 (void) {
   return 0;
 }
 
-u8 sub_802BF14 (void) {
+static u8 sub_802BF14 (void) {
   return 0;
 }
 
-u8 sub_802BF18 (void) {
+static u8 sub_802BF18 (void) {
   return 0;
 }
 
-u8 sub_802BF1C (void) {
+static u8 sub_802BF1C (void) {
   return 0;
 }
 
-u8 sub_802BF20 (void) {
+static u8 sub_802BF20 (void) {
   return 0;
 }
 
-u8 sub_802BF24 (void) {
+static u8 sub_802BF24 (void) {
   return 0;
 }
 
-u8 sub_802BF28 (void) {
+static u8 sub_802BF28 (void) {
   return 0;
 }
 
-u8 sub_802BF2C (void) {
+static u8 sub_802BF2C (void) {
   return 0;
 }
 
-u8 sub_802BF30 (void) {
+static u8 sub_802BF30 (void) {
   return 0;
 }
 
-u8 sub_802BF34 (void) {
+static u8 sub_802BF34 (void) {
   return 0;
 }
 
-u8 sub_802BF38 (void) {
+static u8 sub_802BF38 (void) {
   return 0;
 }
 
-u8 sub_802BF3C (void) {
+static u8 sub_802BF3C (void) {
   return 0;
 }
 
-u8 sub_802BF40 (void) {
+static u8 sub_802BF40 (void) {
   return 0;
 }
 
-u8 sub_802BF44 (void) {
+static u8 sub_802BF44 (void) {
   return 0;
 }
 
-u8 sub_802BF48 (void) {
+static u8 sub_802BF48 (void) {
   return 0;
 }
 
-u8 sub_802BF4C (void) {
+static u8 sub_802BF4C (void) {
   return 0;
 }
 

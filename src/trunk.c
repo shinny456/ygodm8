@@ -420,21 +420,21 @@ void sub_8008A5C (void) {
   REG_BLDCNT |= 8;
 }
 
-void CopyTypeIconTilesToBuffer (u8 arg0, void * dest) {
-  u8 temp = arg0 + 235;
-  if (temp < 3) {
-    CpuCopy16(gTypeIconTiles[arg0][gLanguage], dest, 0x40);
-    CpuCopy16(gTypeIconTiles[arg0][gLanguage] + 0x80, dest + 0x40, 0x40);
-    CpuCopy16(gTypeIconTiles[arg0][gLanguage] + 0x40, g201CB30, 0x40);
-    CpuCopy16(gTypeIconTiles[arg0][gLanguage] + 0xC0, g201CB30 + 0x40, 0x40);
+void CopyTypeIconTilesToBuffer (u8 type, void * dest) {
+  //u8 temp = type + 235; (decomp_note)
+  if (type == 21 || type == 22 || type == 23) {
+    CpuCopy16(gTypeIconTiles[type][gLanguage], dest, 0x40);
+    CpuCopy16(gTypeIconTiles[type][gLanguage] + 0x80, dest + 0x40, 0x40);
+    CpuCopy16(gTypeIconTiles[type][gLanguage] + 0x40, g201CB30, 0x40);
+    CpuCopy16(gTypeIconTiles[type][gLanguage] + 0xC0, g201CB30 + 0x40, 0x40);
   }
   else
-    CpuCopy16(gTypeIconTiles[arg0][gLanguage], dest, 0x80);
+    CpuCopy16(gTypeIconTiles[type][gLanguage], dest, 0x80);
 }
 
 void CopyTypeIconPalToBuffer (u8 type, void * palDest) {
-  u8 typeVar = type - 21;
-  if (typeVar < 3)
+  //u8 temp = type - 21; (decomp_note)
+  if (type == 21 || type == 22 || type == 23)
     CpuCopy16(gTypeIconPalettes[type], g201CB34, 32);
   CpuCopy16(gTypeIconPalettes[type], palDest, 32);
 }
@@ -466,7 +466,7 @@ void CopyShieldTileToBuffer (void * dest) {
 }
 
 NAKED
-void sub_8008C34(u16 id)
+void sub_8008C34(void)
 {
   asm_unified("push {r4, r5, r6, r7, lr}\n\
 	mov r7, r8\n\
@@ -951,6 +951,8 @@ void sub_8009364 (void) {
 
 extern u16 gUnk_808C6F0[][30];
 extern u8 g8090920[];
+extern u8 g8090B94[];
+extern u8 g8090B98[];
 
 void sub_8009448(void)
 {
@@ -1021,4 +1023,29 @@ void sub_8009448(void)
     CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[32]/*fix*/, g8090920, 0x900);
 }
 
+union {
+  u8 a[0x4000]; //2d array?
+  u16 b[0x2000]; //3d array?
+}extern gVr;
+unsigned GetDeckCapacity(void);
 
+void sub_8009784 (void) {
+  unsigned char i;
+  CpuFill16(0, gVr.a + 0x8000, 32);
+  CpuFill16(0, gVr.b + 0x5C00, 0x800);
+  CopyStringTilesToVRAMBuffer(gVr.a + 0x8020, g8090B94, 0x801);
+  CopyStringTilesToVRAMBuffer(gVr.a + 0x8040, g8090B98, 0x901);
+  gVr.b[0x5C2F] = 0x5001;
+  sub_800DDA0(GetDeckCapacity(), 0);
+  for (i = 0; i < 5; i++)
+    gVr.b[0x5C30 + i] = g2021BD0[i] + 0x5209;
+  gVr.b[0x5C38] = 0x5001;
+  gVr.b[0x5C39] = 0x520D;
+  gVr.b[0x5C3A] = 0x5209;
+}
+
+// same as sub_800CD88
+/*
+void sub_8009860 (void) {
+  
+}*/

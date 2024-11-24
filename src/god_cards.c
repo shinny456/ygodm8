@@ -8,7 +8,7 @@ static void RemoveSliferFromDeckAndTrunk (void);
 static void RemoveRaFromDeckAndTrunk (void);
 
 
-bool32 IsGodCard (u16 id) {
+unsigned IsGodCard (u16 id) {
   u8 i;
   for (i = 0; gGodCards[i] != CARD_NONE; i++)
     if (gGodCards[i] == id)
@@ -16,7 +16,7 @@ bool32 IsGodCard (u16 id) {
   return FALSE;
 }
 
-bool32 IsWingedDragonOfRa (u16 id) {
+unsigned IsWingedDragonOfRa (u16 id) {
   if (id == THE_WINGED_DRAGON_OF_RA_SPHERE_MODE)
     return TRUE;
   if (id == THE_WINGED_DRAGON_OF_RA_BATTLE_MODE)

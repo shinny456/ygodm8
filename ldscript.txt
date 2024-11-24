@@ -11,6 +11,7 @@ SECTIONS
     g201CB20 = 0x201CB20;
     g201CB24 = 0x201CB24;
     g201CB28 = 0x201CB28;
+    g201CB2C = 0x201CB2C;
     g201CB30 = 0x0201CB30;
     g201CB34 = 0x0201CB34;
     gUnk201CB38 = 0x0201CB38;
@@ -62,7 +63,7 @@ SECTIONS
     g2021B90 = 0x2021B90;
     g2021BE0 = 0x2021BE0;
     g2021BF8 = 0x02021BF8;
-    gUnk2021C00 = 0x02021C00;
+    sAI_Command = 0x02021C00;
     gHideEffectText = 0x02021C08;
     gCardEffectTextData = 0x02021C10;
     gDeckCapacity = 0x02021C1C;
@@ -82,9 +83,9 @@ SECTIONS
     g2021D98 = 0x02021D98;
     g2021D9C = 0x02021D9C;
     g2021DA0 = 0x02021DA0;
-    g2021DB0 = 0x02021DB0;
+    sGameMenuData = 0x02021DB0;
     gDuelistStatus = 0x02021DB8;
-    g2021DC0 = 0x02021DC0;
+    gCardPasswordDigits = 0x02021DC0;
     gUnk2021DC8 = 0x02021DC8;
     gUnk2021DCC = 0x02021DCC;
 
@@ -153,7 +154,7 @@ SECTIONS
 
     gFlags = 0x20244D0;
 
-    g2024510 = 0x2024510;
+    sPasswordData = 0x2024510;
     g2024520 = 0x2024520;
     g2024588 = 0x2024588;
     g202458C = 0x202458C;
@@ -192,7 +193,7 @@ SECTIONS
 
         /* SDK\src\samples\functional_sample\share.c */
         src/code_8008030.o(.text);
-        asm/code_8007F6C.o(.text);
+
 
         src/trunk.o(.text);
         asm/code_8009228.o(.text);
@@ -269,7 +270,6 @@ SECTIONS
 
         src/spell_effects_util.o(.text); /*equip effects*/
         src/card_passwords.o(.text); /*card_password*/
-        src/code5.o(.text);
         src/rng.o(.text);
         src/code_80562F4.o(.text);
         asm/code5.o(.text);
@@ -285,6 +285,7 @@ SECTIONS
         *libc.a:strcpy.o(.text);
         *libc.a:strlen.o(.text);
         *libc.a:strncpy.o(.text);
+        *libc.a:realloc.o(.text);
 
 
         /*data*/

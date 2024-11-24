@@ -12601,7 +12601,7 @@ _0803546C: //pressed continue
 	bl sub_800ACE8
 	bl sub_800ADC4
 	bl sub_80354A8
-	bl MainMenu
+	bl GameMenu
 _08035484:
 	pop {r0}
 	bx r0

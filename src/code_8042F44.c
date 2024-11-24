@@ -154,7 +154,7 @@ u8 GetNumFaceUpLockedCardsInRow (u8 row) {
   return count;
 }
 
-u32 sub_80432D0 (u8 row) {
+u32 GetTotalAtkAndDefInRow (u8 row) {
   u32 total = 0;
   u8 i;
   for (i = 0; i < 5; i++) {
@@ -169,7 +169,7 @@ u32 sub_80432D0 (u8 row) {
   return total;
 }
 
-u32 sub_8043358 (u8 row) {
+u32 GetTotalFaceUpAtkAndDefInRow (u8 row) {
   u32 total = 0;
   u8 i;
   for (i = 0; i < 5; i++) {

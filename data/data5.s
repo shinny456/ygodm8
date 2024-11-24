@@ -422,8 +422,8 @@ gUnk_8E010A4:
 gUnk_8E010F4:
     .4byte gSharedMem
 
-    .global gPassTerminal
-gPassTerminal:
+    .global sTerminal
+sTerminal:
     .4byte gSharedMem
     .incbin "baserom.gba", 0xE010FC, 0x25C
 

@@ -22,7 +22,16 @@ extern u8 gCardMagicEffect[];
 extern u8 gCardMonsterEffects[];
 extern u8 gCardTrapEffect[];
 extern u8 gUnk8DFB654[];
-
+extern u16 gUnk_808ECD0[];
+extern u16 gUnk_808ECF0[];
+extern u8 *gAttributeIconTiles[][NUM_LANGUAGES];
+extern u8 *gTypeIconTiles[][NUM_LANGUAGES];
+extern u8 gStarTile[];
+extern u8 gSwordTile[];
+extern u8 gShieldTile[];
+extern u8 gUnk_80AEB00[];
+extern u8 gUnk_80AEB30[];
+extern u16 gUnk_808E820[][30];
 
 extern u8 gUnk201CB38;
 extern s8 gUnk201CB39;
@@ -1786,25 +1795,72 @@ extern u8 g80AEA78[];
 u32 GetDeckCapacity(void);
 
 
-/*
+union N {
+  u8 a[0x4000]; //2d array?
+  u16 b[0x2000]; //3d array?
+}extern gVr;
+
 void sub_800CCAC(void)
 {
     u8 i;
 
-    CpuFill16(0, gBgVram.cbb2, 32);
-    CpuFill16(0, ((struct Sbb*)&gBgVram)->sbb17, 0x800);
-    CopyStringTilesToVRAMBuffer(&gBgVram.cbb2[32], g80AEA74, 0x801);
-    CopyStringTilesToVRAMBuffer(&gBgVram.cbb2[64], g80AEA78, 0x901);
-    ((struct Sbb*)&gBgVram)->sbb17[1][15] = 0x5001; //slash
+    CpuFill16(0, gVr.a + 0x8000, 32);
+    CpuFill16(0, gVr.a + 0xB800, 0x800);
+    CopyStringTilesToVRAMBuffer(gVr.a + 0x8020, g80AEA74, 0x801);
+    CopyStringTilesToVRAMBuffer(gVr.a + 0x8040, g80AEA78, 0x901);
+    gVr.b[0x5C2F] = 0x5001; //slash
     sub_800DDA0(GetDeckCapacity(), 0);
 
     for (i = 0; i < 5; i++)
-    {
-
-        gBgVram.cbb0[i + 0x2e18] = g2021BD0[i] + 0x5209; //deck capacity digits
+      gVr.b[i + 0x5C30] = g2021BD0[i] + 0x5209; //deck capacity digits
+    gVr.b[0x5C38] = 0x5001; //slash
+    gVr.b[0x5C39] = 0x520D; //4
+    gVr.b[0x5C3A] = 0x5209; //0
+}
+/*
+void sub_800CD88 (void) {
+  unsigned char i, r4, r7;
+  CpuCopy32(gUnk_808ECD0, g02000000.bg + 0xA0, 32);
+  CpuCopy32(gUnk_808ECF0, g02000000.bg + 0x80, 32);
+  CpuCopy32(gStarTile, gVr.a + 0xC020, 32);
+  CpuCopy32(gSwordTile, gVr.a + 0xC040, 32);
+  CpuCopy32(gShieldTile, gVr.a + 0xC060, 32);
+  CopyStringTilesToVRAMBuffer(gVr.a + 0xC080, gUnk_80AEB00, 0x801);
+  CopyStringTilesToVRAMBuffer(gVr.a + 0xC120, gUnk_80AEB30, 0x1801);
+  for (i = 0; i < 12; i++)
+    CpuCopy32(gAttributeIconTiles[i][gLanguage], gVr.a + 0xC000 + (i * 4 + 19) * 32, 128);
+  for (r4 = 0, i = 0; i < 24; i++) {
+    if (i == 21 || i == 22 || i == 23) {
+      CpuCopy32(gTypeIconTiles[i][gLanguage], gVr.a + 0xC000 + (r4 + 67) * 32, 256);
+      r4 += 8;
     }
-        //(i + 0x5C30) * 2
-    ((struct Sbb*)&gBgVram)->sbb17[1][24] = 0x5001; //slash
-    ((struct Sbb*)&gBgVram)->sbb17[1][25] = 0x520D; //4
-    ((struct Sbb*)&gBgVram)->sbb17[1][26] = 0x5209; //0
-}*/
+    else {
+      CpuCopy32(gTypeIconTiles[i][gLanguage], gVr.a + 0xC000 + (r4 + 67) * 32, 256);
+      r4 += 4;
+    }
+  }
+  CpuFill16(0, gVr.b + 0x7C00, 0x800);
+  for (i = 0; i < 20; i++)
+    CpuCopy32(gUnk_808E820[i], gVr.b + 0x7C00, 60);
+  //r8 = gVr.b
+  for (r7 = 0; r7 < 5; r7++) {
+    //sp4 = r7 * 4 + 1
+    //ip = r7 * 3
+    //sb = r7 * 40
+    //sl = r7 * 40 + 0x50F8
+    for (i = 0; i < 7; i++) {
+      unsigned char r6 = 0;
+      if (r7 > 1) {
+        r6 = 2;
+        if (r7 == 2)
+          r6 = 1;
+      }
+      //r3 = i * 2
+      gVr.b[(r6 + 3 + r7 * 3) * 32 + 0x7C02 + i * 2] = i * 4 + (r7 * 40 + 0x50F8);
+      gVr.b[(r6 + 3 + r7 * 3) * 32 + 0x7C03 + i * 2] = i * 4 + (r7 * 40 + 0x50F8) +1;
+      gVr.b[(r6 + 4 + r7 * 3) * 32 + 0x7C02 + i * 2] = i * 4 + (r7 * 40 + 0x50F8) +2;
+      gVr.b[(r6 + 4 + r7 * 3) * 32 + 0x7C03 + i * 2] = i * 4 + (r7 * 40 + 0x50F8) +3;
+    }
+  }
+}
+*/

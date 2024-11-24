@@ -26,12 +26,12 @@ void sub_80254F8 (void) {
       gDuelistStatus[i] = 1;
 }
 
-void DeclareLoser (u8 turnPlayer) {
-  gDuelistStatus[turnPlayer] = 2;
+void DeclareLoser (u8 duelist) {
+  gDuelistStatus[duelist] = 2;
 }
 
-u8 sub_8025534 (u8 turnPlayer) {
-  return gDuelistStatus[turnPlayer];
+u8 GetDuelistStatus (u8 duelist) {
+  return gDuelistStatus[duelist];
 }
 
 bool8 IsDuelOver (void) {

@@ -124,12 +124,18 @@ extern void (*g3000C00[])(void);
 extern void (*g201CB20)(void);
 extern void (*g201CB24)(void);
 extern void (*g201CB28)(void);
+extern void (*g201CB2C)(void);
 extern u32 g3000400[0x200];
 extern vu16 g2020E00;
 extern vu8 g2020E04; //vu8?
 extern vu16 gKeyState;
 extern u16 gUnk2020DFC;
 extern u16 g2020DF4;
+void m4aSoundVSync (void);
+void m4aSoundMain (void);
+void sub_8034E48 (void);
+void sub_80084A4 (void);
+void sub_8008530 (void);
 
 
 void sub_800818C (void) {
@@ -205,4 +211,102 @@ void sub_80082E8 (void) {
     g2020E04 = 10;
   }
   gKeyState = r4;
+}
+
+s32 MathUtil_Mul32(s32 x, s32 y)
+{
+    s64 result;
+
+    result = x;
+    result *= y;
+    result /= 256;
+    return result;
+}
+
+s32 MathUtil_Div32(s32 x, s32 y)
+{
+    s64 _x;
+    //pokeemerald has a check for a 0 divisor
+    
+    _x = x;
+    _x *= 256;
+    return _x / y;
+}
+
+void sub_80083BC (void) {
+  REG_IME = 0;
+  REG_IE &= ~1;
+  REG_IME = 1;
+  m4aSoundVSync();
+  sub_8034E48();
+  if (g201CB20)
+    g201CB20();
+  sub_8008208();
+  m4aSoundMain();
+  REG_IME = 0;
+  REG_IE |= 1;
+  REG_IME = 1;
+}
+
+void sub_8008410 (void) {
+  if (g201CB24)
+    g201CB24();
+  sub_8008270();
+}
+
+void sub_800842C (void) {
+}
+
+void sub_8008430 (void) {
+  REG_IME = 0;
+  REG_IE &= ~128;
+  REG_IME = 1;
+  if (g201CB28)
+    g201CB28();
+  sub_80084A4();
+  REG_IME = 0;
+  REG_IE |= 128;
+  REG_IME = 1;
+}
+
+void sub_8008478 (void (*func)(void)) {
+  g201CB28 = func;
+  if (!func)
+    g201CB28 = sub_800842C;
+}
+
+void sub_8008490 (void) {
+  g2020E00 &= ~128;
+}
+
+void sub_80084A4 (void) {
+  REG_IF = 128;
+  g2020E00 |= 128;
+}
+
+void sub_80084BC (void) {
+  REG_IME = 0;
+  REG_IE &= ~64;
+  REG_IME = 1;
+  if (g201CB2C)
+    g201CB2C();
+  sub_8008530();
+  REG_IME = 0;
+  REG_IE |= 64;
+  REG_IME = 1;
+}
+
+void sub_8008504 (void (*func)(void)) {
+  g201CB2C = func;
+  if (!func)
+    g201CB2C = sub_800842C;
+}
+
+void sub_800851C (void) {
+  g2020E00 &= ~64;
+}
+
+void sub_8008530 (void) {
+  REG_IF = 64;
+  g2020E00 |= 64;
 }

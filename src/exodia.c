@@ -12,7 +12,7 @@
 
 
 u8 sub_80205EC(void);
-u32 sub_802061C(u16 id);
+u32 GetExodiaFlag(u16 id);
 void sub_8020664(void);
 void DeclareLoser(u8);
 
@@ -25,12 +25,12 @@ void ExodiaWinCondition (void) {
 u8 sub_80205EC (void) {
   u8 i, r5 = 0;
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-    r5 |= sub_802061C(gZones[4][i]->id);
+    r5 |= GetExodiaFlag(gZones[4][i]->id);
   return r5;
 }
 
-//ExodiaFlag
-u32 sub_802061C (u16 id) {
+//GetExodiaPieceFlag?
+u32 GetExodiaFlag (u16 id) {
   u8 flag = 0;
   switch (id) {
   case RIGHT_LEG_OF_THE_FORBIDDEN_ONE:

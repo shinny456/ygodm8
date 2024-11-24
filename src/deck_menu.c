@@ -6,7 +6,7 @@
 #include "gba/syscall.h"
 #include "gba/macro.h"
 
-static u16 sub_801D2D4 (void);
+static u16 ProcessInput (void);
 static void sub_801D414 (void);
 static void sub_801D420 (void);
 static void sub_801D444 (void);
@@ -71,7 +71,7 @@ void DeckMenuMain (void) {
   sub_801D414();
   sub_801D420();
   while (r4) {
-    switch (sub_801D2D4()) {
+    switch (ProcessInput()) {
       case 0x40:
         sub_801D444();
         sub_801F5FC();
@@ -135,7 +135,7 @@ void DeckMenuMain (void) {
   sub_801F4A0(2);
 }
 
-static u16 sub_801D2D4 (void) { // same code as the one in trunk.c
+static u16 ProcessInput (void) { // same code as the one in trunk.c
   u8 i;
   u16 r2;
   u16 ret = 0;

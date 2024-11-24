@@ -1195,7 +1195,7 @@ u8 sub_80409BC (void) {
 
 
 void sub_8041104 (void);
-void sub_802B6A8 (void);
+void TryActivatingTurnEffects (void);
 void sub_8029820 (void);
 void sub_80082C0 (void);
 void sub_8041EC8 (void);
@@ -1216,7 +1216,7 @@ extern u8 g20240E0;
 void PlayerTurnMain (void) {
   g20240E0 = 0;
   sub_8041104();
-  sub_802B6A8();
+  TryActivatingTurnEffects();
   if (IsDuelOver() == TRUE)
     return;
   sub_8029820();

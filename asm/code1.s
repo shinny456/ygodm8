@@ -1,100 +1,6 @@
     .INCLUDE "asm/macro.inc"
     .SYNTAX UNIFIED
 
-
-	THUMB_FUNC_START sub_800CCAC
-sub_800CCAC: @ 0x0800CCAC
-	push {r4, r5, r6, r7, lr}
-	sub sp, #4
-	mov r0, sp
-	movs r5, #0
-	strh r5, [r0]
-	ldr r4, _0800CD48
-	ldr r2, _0800CD4C
-	adds r1, r4, #0
-	bl CpuSet
-	mov r0, sp
-	adds r0, #2
-	strh r5, [r0]
-	movs r2, #0xe0
-	lsls r2, r2, #6
-	adds r1, r4, r2
-	ldr r2, _0800CD50
-	bl CpuSet
-	adds r0, r4, #0
-	adds r0, #0x20
-	ldr r1, _0800CD54
-	ldr r2, _0800CD58
-	bl CopyStringTilesToVRAMBuffer
-	adds r0, r4, #0
-	adds r0, #0x40
-	ldr r1, _0800CD5C
-	ldr r2, _0800CD60
-	bl CopyStringTilesToVRAMBuffer
-	ldr r0, _0800CD64
-	adds r1, r4, r0
-	ldr r0, _0800CD68
-	strh r0, [r1]
-	bl GetDeckCapacity
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	movs r1, #0
-	bl sub_800DDA0
-	movs r2, #0
-	ldr r0, _0800CD6C @FFFF8000
-	adds r4, r4, r0
-	ldr r7, _0800CD70 @00005C30
-	ldr r6, _0800CD74 @02021BD0
-	ldr r0, _0800CD78 @00005209
-	adds r5, r0, #0
-	adds r3, r4, #0
-_0800CD10:
-	adds r1, r2, r7
-	lsls r1, r1, #1
-	adds r1, r1, r4
-	adds r0, r2, r6
-	ldrb r0, [r0]
-	adds r0, r5, r0
-	strh r0, [r1]
-	adds r0, r2, #1
-	lsls r0, r0, #0x18
-	lsrs r2, r0, #0x18
-	cmp r2, #4
-	bls _0800CD10
-	ldr r2, _0800CD7C
-	adds r1, r3, r2
-	ldr r0, _0800CD68
-	strh r0, [r1]
-	ldr r0, _0800CD80
-	adds r1, r3, r0
-	ldr r0, _0800CD84
-	strh r0, [r1]
-	adds r2, #4
-	adds r1, r3, r2
-	subs r0, #4
-	strh r0, [r1]
-	add sp, #4
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800CD48: .4byte 0x02008400
-_0800CD4C: .4byte 0x01000010
-_0800CD50: .4byte 0x01000400
-_0800CD54: .4byte 0x080AEA74
-_0800CD58: .4byte 0x00000801
-_0800CD5C: .4byte 0x080AEA78
-_0800CD60: .4byte 0x00000901
-_0800CD64: .4byte 0x0000385E
-_0800CD68: .4byte 0x00005001
-_0800CD6C: .4byte 0xFFFF8000
-_0800CD70: .4byte 0x00005C30
-_0800CD74: .4byte 0x02021BD0
-_0800CD78: .4byte 0x00005209
-_0800CD7C: .4byte 0x0000B870
-_0800CD80: .4byte 0x0000B872
-_0800CD84: .4byte 0x0000520D
-
 	THUMB_FUNC_START sub_800CD88
 sub_800CD88: @ 0x0800CD88
 	push {r4, r5, r6, r7, lr}
@@ -2370,8 +2276,8 @@ _0800DFBE:
 	.align 2, 0
 _0800DFD0: .4byte 0x02021BE0
 
-	THUMB_FUNC_START sub_800DFD4
-sub_800DFD4: @ 0x0800DFD4
+	THUMB_FUNC_START DeltaDecode @decomped
+DeltaDecode: @ 0x0800DFD4
 	movs r3, #0
 	adds r2, r0, #0
 	cmp r1, #0
@@ -2404,7 +2310,7 @@ sub_800DFF0: @ 0x0800DFF0
 	ldr r1, _0800E06C
 	mov r0, sp
 	movs r2, #8
-	bl memcpy
+	bl memcpy //struct copy?
 	add r7, sp, #8
 	ldr r1, _0800E070
 	adds r0, r7, #0
@@ -2458,15 +2364,15 @@ _0800E05E:
 _0800E06C: .4byte 0x080AED3C
 _0800E070: .4byte 0x080AED44
 
-	THUMB_FUNC_START sub_800E074
-sub_800E074: @ 0x0800E074
+	THUMB_FUNC_START HuffUnCompAndDeltaDecode
+HuffUnCompAndDeltaDecode: @ 0x0800E074
 	push {r4, r5, lr}
 	adds r4, r1, #0
 	adds r5, r2, #0
 	bl HuffUnComp
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl sub_800DFD4
+	bl DeltaDecode
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -2484,15 +2390,15 @@ sub_800E08C: @ 0x0800E08C
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_START sub_800E0A4
-sub_800E0A4: @ 0x0800E0A4
+	THUMB_FUNC_START LZ77UnCompWramAndDeltaDecode
+LZ77UnCompWramAndDeltaDecode: @ 0x0800E0A4
 	push {r4, r5, lr}
 	adds r4, r1, #0
 	adds r5, r2, #0
 	bl LZ77UnCompWram
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl sub_800DFD4
+	bl DeltaDecode
 	pop {r4, r5}
 	pop {r0}
 	bx r0

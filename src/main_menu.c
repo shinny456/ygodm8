@@ -1,41 +1,50 @@
 #include "global.h"
 #include "duel.h"
 
-extern u8 g2021DB0[]; //struct of bytes?
-void sub_8024A28 (u8 *);
-void sub_8024A74 (u8 *);
-void sub_8024ADC (u8 *);
-void sub_8024ECC (u8 *);
-int sub_8056208 (void);
-void LinkDuelMenu (void);
-void TradeMenu (void);
-u16 sub_8024668 (void);
-void sub_8024750 (u8 *);
-void sub_80247DC (u8 *);
-void sub_8024868 (u8 *);
-void sub_8024978 (u8 *);
-void sub_80246D0 (u8 *);
+struct GameMenuData {
+  unsigned char action;
+  unsigned char cursorState;
+  unsigned char textAnimationState;
+  unsigned char textAnimationCounter;
+  unsigned char cursorAnimationState;
+  unsigned char cursorAnimationCounter;
+};
+extern struct GameMenuData sGameMenuData;
+
+static u16 ProcessInput (void); //ProcessInput, ProcessKeyInput?
+static void sub_80246D0 (struct GameMenuData* menuData);
+static void HandleInputUp (struct GameMenuData* menuData);
+static void HandleInputDown (struct GameMenuData* menuData);
+static void HandleInputA (struct GameMenuData* menuData);
+static void sub_802489C (struct GameMenuData* menuData);
+static void sub_80248D0 (struct GameMenuData* menuData);
+static void sub_802491C (struct GameMenuData* menuData);
+static void HandleInputB (struct GameMenuData* menuData);
+static void sub_80249C8 (struct GameMenuData* menuData);
+static void InitActionAndCursor (struct GameMenuData* menuData);
+static void UpdateCursorOnInputUp (struct GameMenuData* menuData);
+static void UpdateCursorOnInputDown (struct GameMenuData* menuData);
+static void sub_8024A54 (struct GameMenuData* menuData);
+static void sub_8024A64 (struct GameMenuData* menuData);
+static void InitTextAnimationData (struct GameMenuData* menuData);
+static void sub_8024A94 (struct GameMenuData* menuData);
+static void sub_8024AB8 (struct GameMenuData* menuData);
+static void InitCursorAnimationData (struct GameMenuData* menuData);
+static void sub_8024B54 (struct GameMenuData* menuData);
+static void sub_8024B64 (struct GameMenuData* menuData);
+static void sub_8024B74 (struct GameMenuData* menuData);
+static void sub_8024B84 (struct GameMenuData* menuData);
+
+
+
+void sub_8024ECC (struct GameMenuData* menuData);
 void sub_8024DF8 (void);
 void sub_8035020 (u16);
 void sub_802618C (void);
-void sub_8024A44 (u8 *);
-void sub_8024A94 (u8 *);
-void sub_80249C8 (u8 *);
-void sub_8024F40 (u8 *);
-void sub_8024AB8 (u8 *);
-void sub_8024F6C (u8 *);
-void sub_8024FB8 (u8 *);
-void sub_8025000 (u8 *);
-void sub_8024A34 (u8 *);
-void sub_8024A54 (u8 *);
-void sub_8024A64 (u8 *);
-void sub_8024B54 (u8 *);
-void sub_8024B64 (u8 *);
-void sub_8024B74 (u8 *);
-void sub_8024B84 (u8 *);
-void sub_802489C (u8 *);
-void sub_80248D0 (u8 *);
-void sub_802491C (u8 *);
+void sub_8024F40 (struct GameMenuData* menuData);
+void sub_8024F6C (struct GameMenuData* menuData);
+void sub_8024FB8 (struct GameMenuData* menuData);
+void sub_8025000 (struct GameMenuData* menuData);
 void sub_8008220 (void);
 void sub_801FB50 (u8 *, u8);
 void RemoveGodCardsFromDeckAndTrunk (void);
@@ -48,18 +57,20 @@ extern u16 gUnk2021DCC;
 
 struct OamStuff {
   u16 unk0;
-  u16 unk1;
   u16 unk2;
+  u16 unk4;
 };
 
 extern struct OamStuff gOam[];
-
 struct Unk8FC488C {
   u8 unk0;
   u8 unk1;
   struct OamStuff *unk4;
 };
-
+int sub_8056208 (void);
+void LinkDuelMenu (void);
+void TradeMenu (void);
+extern u8 g80C1CF8[];
 extern u8 g80C1CFC[];
 extern u8 g80C1D00[];
 extern u8 g80C1D09[];
@@ -74,107 +85,93 @@ extern u8 g80C1D68[];
 extern u8 g80C1D6B[];
 extern u8 g80C1D6E[];
 extern u8 g80C1D71[];
-
 extern struct Unk8FC488C *g8FC488C[];
 
-void MainMenu (void) {
+void GameMenu (void) {
   PlayMusic(0x2F);
-  sub_8024A28(g2021DB0);
-  sub_8024A74(g2021DB0);
-  sub_8024ADC(g2021DB0);
-  sub_8024ECC(g2021DB0);
+  InitActionAndCursor(&sGameMenuData);
+  InitTextAnimationData(&sGameMenuData);
+  InitCursorAnimationData(&sGameMenuData);
+  sub_8024ECC(&sGameMenuData);
   while (1) {
     sub_8056208();
-    if (g2021DB0[0] == 1) break;
-    if (g2021DB0[0] == 3) {
+    if (sGameMenuData.action == 1)
+      break;
+    if (sGameMenuData.action == 3) {
       sub_8024DF8();
       LinkDuelMenu();
       PlayMusic(0x2F);
-      g2021DB0[0] = 0;
-      sub_8024A74(g2021DB0);
-      sub_8024ADC(g2021DB0);
-      sub_8024ECC(g2021DB0);
+      sGameMenuData.action = 0;
+      InitTextAnimationData(&sGameMenuData);
+      InitCursorAnimationData(&sGameMenuData);
+      sub_8024ECC(&sGameMenuData);
     }
-    if (g2021DB0[0] == 4) {
+    if (sGameMenuData.action == 4) {
       sub_8024DF8();
       TradeMenu();
       PlayMusic(0x2F);
-      g2021DB0[0] = 0;
-      sub_8024A74(g2021DB0);
-      sub_8024ADC(g2021DB0);
-      sub_8024ECC(g2021DB0);
+      sGameMenuData.action = 0;
+      InitTextAnimationData(&sGameMenuData);
+      InitCursorAnimationData(&sGameMenuData);
+      sub_8024ECC(&sGameMenuData);
     }
-    switch (sub_8024668()) {
-      case 0x40: sub_8024750(g2021DB0); break;
-      case 0x80: sub_80247DC(g2021DB0); break;
-      case 0x1: sub_8024868(g2021DB0); break;
-      case 0x2: sub_8024978(g2021DB0); break;
-      default: sub_80246D0(g2021DB0); break;
+    switch (ProcessInput()) {
+      case 0x40:
+        HandleInputUp(&sGameMenuData);
+        break;
+      case 0x80:
+        HandleInputDown(&sGameMenuData);
+        break;
+      case 0x1:
+        HandleInputA(&sGameMenuData);
+        break;
+      case 0x2:
+        HandleInputB(&sGameMenuData);
+        break;
+      default:
+        sub_80246D0(&sGameMenuData);
+        break;
     }
   }
   sub_8035020(1);
   sub_8024DF8();
 }
 
-u16 sub_8024668 (void) {
+static unsigned short ProcessInput (void) {
   sub_802618C();
-  if (gUnk2020DFC & 1) return 1;
-  if (gUnk2020DFC & 2) return 2;
-  if (gUnk2021DCC & 0x40) return 0x40;
-  if (gUnk2021DCC & 0x80) return 0x80;
-  if (gUnk2021DCC & 0x20) return 0x20;
-  if (gUnk2021DCC & 0x10) return 0x10;
+  if (gUnk2020DFC & 1)
+    return 1;
+  if (gUnk2020DFC & 2)
+    return 2;
+  if (gUnk2021DCC & 0x40)
+    return 0x40;
+  if (gUnk2021DCC & 0x80)
+    return 0x80;
+  if (gUnk2021DCC & 0x20)
+    return 0x20;
+  if (gUnk2021DCC & 0x10)
+    return 0x10;
   return 0;
 }
 
-void sub_80246D0 (u8 *arg0) {
-  switch (*arg0) {
-    case 0:
-      sub_8024A94(g2021DB0);
-      sub_80249C8(g2021DB0);
-      sub_8024F40(g2021DB0);
+static void sub_80246D0 (struct GameMenuData* menuData) {
+  switch (menuData->action) {
+    case 0: //MENU_MAIN
+      sub_8024A94(&sGameMenuData);
+      sub_80249C8(&sGameMenuData);
+      sub_8024F40(&sGameMenuData);
       break;
-    case 2:
-      sub_8024AB8(g2021DB0);
-      sub_8024F6C(arg0);
+    case 2: //MENU_NEW_GAME_PLUS
+      sub_8024AB8(&sGameMenuData);
+      sub_8024F6C(menuData);
       break;
-    case 6:
-      sub_8024AB8(g2021DB0);
-      sub_8024FB8(arg0);
+    case 6: //MENU_DIFFICULTY_MODE
+      sub_8024AB8(&sGameMenuData);
+      sub_8024FB8(menuData);
       break;
-    case 7:
-      sub_8024AB8(g2021DB0);
-      sub_8025000(arg0);
-      break;
-    default:
-      sub_8008220();
-      break;
-  }
-}
-
-void sub_8024750 (u8 *arg0) {
-  switch (*arg0) {
-    case 0:
-      sub_8024A34(arg0);
-      sub_8024A94(arg0);
-      sub_80249C8(g2021DB0);
-      PlayMusic(0x36);
-      sub_8024F40(arg0);
-      break;
-    case 2:
-      sub_8024A54(arg0);
-      PlayMusic(0x36);
-      sub_8024F6C(arg0);
-      break;
-    case 6:
-      sub_8024B54(arg0);
-      PlayMusic(0x36);
-      sub_8024FB8(arg0);
-      break;
-    case 7:
-      sub_8024B74(arg0);
-      PlayMusic(0x36);
-      sub_8025000(arg0);
+    case 7: //MENU_DIFFICULTY_MODE
+      sub_8024AB8(&sGameMenuData);
+      sub_8025000(menuData);
       break;
     default:
       sub_8008220();
@@ -182,29 +179,59 @@ void sub_8024750 (u8 *arg0) {
   }
 }
 
-void sub_80247DC (u8 *arg0) {
-  switch (*arg0) {
+static void HandleInputUp (struct GameMenuData* menuData) {
+  switch (menuData->action) {
     case 0:
-      sub_8024A44(arg0);
-      sub_8024A94(arg0);
-      sub_80249C8(g2021DB0);
+      UpdateCursorOnInputUp(menuData);
+      sub_8024A94(menuData);
+      sub_80249C8(&sGameMenuData);
       PlayMusic(0x36);
-      sub_8024F40(arg0);
+      sub_8024F40(menuData);
       break;
     case 2:
-      sub_8024A64(arg0);
+      sub_8024A54(menuData);
       PlayMusic(0x36);
-      sub_8024F6C(arg0);
+      sub_8024F6C(menuData);
       break;
     case 6:
-      sub_8024B64(arg0);
+      sub_8024B54(menuData);
       PlayMusic(0x36);
-      sub_8024FB8(arg0);
+      sub_8024FB8(menuData);
       break;
     case 7:
-      sub_8024B84(arg0);
+      sub_8024B74(menuData);
       PlayMusic(0x36);
-      sub_8025000(arg0);
+      sub_8025000(menuData);
+      break;
+    default:
+      sub_8008220();
+      break;
+  }
+}
+
+static void HandleInputDown (struct GameMenuData* menuData) {
+  switch (menuData->action) {
+    case 0:
+      UpdateCursorOnInputDown(menuData);
+      sub_8024A94(menuData);
+      sub_80249C8(&sGameMenuData);
+      PlayMusic(0x36);
+      sub_8024F40(menuData);
+      break;
+    case 2:
+      sub_8024A64(menuData);
+      PlayMusic(0x36);
+      sub_8024F6C(menuData);
+      break;
+    case 6:
+      sub_8024B64(menuData);
+      PlayMusic(0x36);
+      sub_8024FB8(menuData);
+      break;
+    case 7:
+      sub_8024B84(menuData);
+      PlayMusic(0x36);
+      sub_8025000(menuData);
       break;
     default:
       sub_8008220();
@@ -212,17 +239,17 @@ void sub_80247DC (u8 *arg0) {
   }
 }
 
-void sub_8024868 (u8 *arg0) {
-  switch (*arg0) {
+static void HandleInputA (struct GameMenuData* menuData) {
+  switch (menuData->action) {
     case 0:
-      sub_802489C(arg0);
+      sub_802489C(menuData);
       break;
     case 2:
-      sub_80248D0(arg0);
+      sub_80248D0(menuData);
       break;
     case 6:
     case 7:
-      sub_802491C(arg0);
+      sub_802491C(menuData);
       break;
     default:
       sub_8008220();
@@ -230,20 +257,20 @@ void sub_8024868 (u8 *arg0) {
   }
 }
 
-void sub_802489C (u8 *arg0) {
-  switch (arg0[1]) {
+static void sub_802489C (struct GameMenuData* menuData) {
+  switch (menuData->cursorState) {
     case 1:
-      *arg0 = 1;
+      menuData->action = 1;
       PlayMusic(0x37);
       sub_8008220();
       break;
     case 2:
-      *arg0 = 3;
+      menuData->action = 3;
       PlayMusic(0x37);
       sub_8008220();
       break;
     case 3:
-      *arg0 = 4;
+      menuData->action = 4;
       PlayMusic(0x37);
       sub_8008220();
       break;
@@ -254,43 +281,44 @@ void sub_802489C (u8 *arg0) {
   }
 }
 
-void sub_80248D0 (u8 *arg0) {
-  switch (arg0[1]) {
+static void sub_80248D0 (struct GameMenuData* menuData) {
+  switch (menuData->cursorState) {
     default:
       sub_8008220();
       break;
     case 0:
       sub_801FB50(g2021C8C, 1);
       RemoveGodCardsFromDeckAndTrunk();
-      *arg0 = 1;
+      menuData->action = 1;
       PlayMusic(0x37);
       sub_8008220();
       break;
     case 1:
-      arg0[1] = *arg0 = 0;
+      menuData->action = 0;
+      menuData->cursorState = 0;
       PlayMusic(0x38);
       sub_8025048();
       break;
   }
 }
 
-void sub_802491C (u8 *arg0) {
-  switch (arg0[1]) {
+static void sub_802491C (struct GameMenuData* menuData) {
+  switch (menuData->cursorState) {
     case 0:
       sub_801FB50(g2021C8C, 1);
-      *arg0 = 1;
+      menuData->action = 1;
       PlayMusic(0x37);
       sub_8008220();
       break;
     case 1:
       sub_801FB50(g2021C8C, 2);
-      *arg0 = 1;
+      menuData->action = 1;
       PlayMusic(0x37);
       sub_8008220();
       break;
     case 2:
       sub_801FB50(g2021C8C, 3);
-      *arg0 = 1;
+      menuData->action = 1;
       PlayMusic(0x37);
       sub_8008220();
       break;
@@ -300,18 +328,20 @@ void sub_802491C (u8 *arg0) {
   }
 }
 
-void sub_8024978 (u8 *arg0) {
-  switch (*arg0) {
+static void HandleInputB (struct GameMenuData* menuData) {
+  switch (menuData->action) {
     case 6:
     case 7:
-      arg0[1] = *arg0 = 0;
-      sub_8024A74(arg0);
+      menuData->action = 0;
+      menuData->cursorState = 0;
+      InitTextAnimationData(menuData);
       PlayMusic(0x38);
       sub_8025108();
       break;
     case 2:
-      arg0[1] = *arg0 = 0;
-      sub_8024A74(arg0);
+      menuData->action = 0;
+      menuData->cursorState = 0;
+      InitTextAnimationData(menuData);
       PlayMusic(0x38);
       sub_8025048();
       break;
@@ -321,130 +351,144 @@ void sub_8024978 (u8 *arg0) {
   }
 }
 
-void sub_80249C8 (u8 *arg0) {
-  if (!arg0[5]) {
-    u8 temp = g80C1D00[arg0[1]];
-    arg0[4]++;
-    if (!g8FC488C[temp][arg0[4]].unk0)
-      arg0[4] = 0;
-    if (!arg0[5]) {
-      arg0[5] = g8FC488C[g80C1D00[arg0[1]]][arg0[4]].unk0;
+static void sub_80249C8 (struct GameMenuData* menuData) {
+  if (!menuData->cursorAnimationCounter) {
+    u8 temp = g80C1D00[menuData->cursorState];
+    menuData->cursorAnimationState++;
+    if (!g8FC488C[temp][menuData->cursorAnimationState].unk0)
+      menuData->cursorAnimationState = 0;
+    if (!menuData->cursorAnimationCounter) {
+      menuData->cursorAnimationCounter = g8FC488C[g80C1D00[menuData->cursorState]][menuData->cursorAnimationState].unk0;
       return;
     }
   }
-  arg0[5]--;
+  menuData->cursorAnimationCounter--;
 }
 
-void sub_8024A28 (u8 *arg0) {
-  arg0[0] = 0;
-  arg0[1] = 1;
+static void InitActionAndCursor (struct GameMenuData* menuData) {
+  menuData->action = 0;
+  menuData->cursorState = 1;
 }
 
-void sub_8024A34 (u8 *arg0) {
-  arg0[1] = g80C1D3E[arg0[1]];
+static void UpdateCursorOnInputUp (struct GameMenuData* menuData) {
+  menuData->cursorState = g80C1D3E[menuData->cursorState]; //sCursorStateOnInputUp
 }
 
-void sub_8024A44 (u8 *arg0) {
-  arg0[1] = g80C1D42[arg0[1]];
+static void UpdateCursorOnInputDown (struct GameMenuData* menuData) {
+  menuData->cursorState = g80C1D42[menuData->cursorState];
 }
 
-void sub_8024A54 (u8 *arg0) {
-  arg0[1] = g80C1D56[arg0[1]];
+static void sub_8024A54 (struct GameMenuData* menuData) {
+  menuData->cursorState = g80C1D56[menuData->cursorState];
 }
 
-void sub_8024A64 (u8 *arg0) {
-  arg0[1] = g80C1D58[arg0[1]];
+static void sub_8024A64 (struct GameMenuData* menuData) {
+  menuData->cursorState = g80C1D58[menuData->cursorState];
 }
 
-void sub_8024A74 (u8 *arg0) {
-  arg0[2] = 0;
-  arg0[3] = 3;
+static void InitTextAnimationData (struct GameMenuData* menuData) {
+  menuData->textAnimationState = 0;
+  menuData->textAnimationCounter = 3;
 }
 
-void sub_8024A80 (u8 *arg0) {
-  if (!arg0[3])
-    arg0[3] = 3;
+static void sub_8024A80 (struct GameMenuData* menuData) {
+  if (!menuData->textAnimationCounter)
+    menuData->textAnimationCounter = 3;
   else
-    arg0[3]--;
+    menuData->textAnimationCounter--;
 }
 
-void sub_8024A94 (u8 *arg0) {
-  if (!arg0[3]) {
-    arg0[2] = g80C1D09[arg0[2]];
-    arg0[3] = 3;
+static void sub_8024A94 (struct GameMenuData* menuData) {
+  if (!menuData->textAnimationCounter) {
+    menuData->textAnimationState = g80C1D09[menuData->textAnimationState];
+    menuData->textAnimationCounter = 3;
   }
   else
-    arg0[3]--;
+    menuData->textAnimationCounter--;
 }
 
-void sub_8024AB8 (u8 *arg0) {
-  if (!arg0[3]) {
-    arg0[2] = g80C1D24[arg0[2]];
-    arg0[3] = 3;
+static void sub_8024AB8 (struct GameMenuData* menuData) {
+  if (!menuData->textAnimationCounter) {
+    menuData->textAnimationState = g80C1D24[menuData->textAnimationState];
+    menuData->textAnimationCounter = 3;
   }
   else
-    arg0[3]--;
+    menuData->textAnimationCounter--;
 }
 
-void sub_8024ADC (u8 *arg0) {
-  u8 temp = g80C1D00[arg0[1]];
-  arg0[4] = 0;
-  arg0[5] = g8FC488C[temp]->unk0;
+static void InitCursorAnimationData (struct GameMenuData* menuData) {
+  u8 temp = g80C1D00[menuData->cursorState];
+  menuData->cursorAnimationState = 0;
+  menuData->cursorAnimationCounter = g8FC488C[temp]->unk0;
 }
 
-void sub_8024B00 (u8 *arg0) {
-  if (!arg0[5]) {
-    u8 temp = g80C1D00[arg0[1]];
-    arg0[5] = g8FC488C[temp][arg0[4]].unk0;
+static void sub_8024B00 (struct GameMenuData* menuData) {
+  if (!menuData->cursorAnimationCounter) {
+    u8 temp = g80C1D00[menuData->cursorState];
+    menuData->cursorAnimationCounter = g8FC488C[temp][menuData->cursorAnimationState].unk0;
   }
   else
-    arg0[5]--;
+    menuData->cursorAnimationCounter--;
 }
 
-void sub_8024B34 (u8 *arg0) {
-  arg0[1] = g80C1D62[arg0[1]];
+static void sub_8024B34 (struct GameMenuData* menuData) {
+  menuData->cursorState = g80C1D62[menuData->cursorState];
 }
 
-void sub_8024B44 (u8 *arg0) {
-  arg0[1] = g80C1D65[arg0[1]];
+static void sub_8024B44 (struct GameMenuData* menuData) {
+  menuData->cursorState = g80C1D65[menuData->cursorState];
 }
 
-void sub_8024B54 (u8 *arg0) {
-  arg0[1] = g80C1D68[arg0[1]];
+static void sub_8024B54 (struct GameMenuData* menuData) {
+  menuData->cursorState = g80C1D68[menuData->cursorState];
 }
 
-void sub_8024B64 (u8 *arg0) {
-  arg0[1] = g80C1D6B[arg0[1]];
+static void sub_8024B64 (struct GameMenuData* menuData) {
+  menuData->cursorState = g80C1D6B[menuData->cursorState];
 }
 
-void sub_8024B74 (u8 *arg0) {
-  arg0[1] = g80C1D6E[arg0[1]];
+static void sub_8024B74 (struct GameMenuData* menuData) {
+  menuData->cursorState = g80C1D6E[menuData->cursorState];
 }
 
-void sub_8024B84 (u8 *arg0) {
-  arg0[1] = g80C1D71[arg0[1]];
+static void sub_8024B84 (struct GameMenuData* menuData) {
+  menuData->cursorState = g80C1D71[menuData->cursorState];
 }
 /*
-void sub_8024B94 (u8 *arg0) {
-  int i;
+void sub_8024B94 (struct GameMenuData* menuData) {
+  unsigned i, j;
   struct Unk8FC488C *temp;
-  struct OamStuff *oam;
+  struct OamStuff *oam2 = &gOam[3];
+  u32* oam;
+  u8 r7;
   for (i = 0; i < 4; i++) {
-    if (i == arg0[i]) {
-      int j;
-      temp = g8FC488C[g80C1CFC[i] /*temp r7?*];
-      oam = &gOam[3];
+    if (i == menuData->cursorState) {
+      r7 = g80C1CFC[i];
+      temp = g8FC488C[r7];
+      oam = oam2;
       for (j = 0; j < temp->unk1; j++) {
-        oam->unk2 = temp->unk4[j].unk2;
-        oam->unk0 = temp->unk4[j].unk0 & 0xF3FF;
-        oam->unk0 |= 0x400;
-        oam->unk2 = temp->unk4[j].unk2 & 0xF3FF;
-
+        *oam = (temp->unk4[j].unk2 << 16) | temp->unk4[j].unk0 & 0xFFFFF3FF;
+        *oam |= 0x400;
+        oam++;
+        *oam = temp->unk4[j].unk2 & 0xFFFFF3FF;
+        *oam |= 0xC00;
+        oam++;
       }
     }
-    else;
-
-
+    else {
+      r7 = g80C1CF8[i];
+      temp = g8FC488C[r7];
+      oam = oam2;
+      for (j = 0; j < temp->unk1; j++) {
+        *oam = (temp->unk4[j].unk2 << 16) | temp->unk4[j].unk0 & 0xFFFFF3FF;
+        *oam |= 0x400;
+        oam++;
+        *oam = temp->unk4[j].unk2 & 0xFFFFF3FF;
+        *oam |= 0xC00;
+        oam++;
+      }
+    }
+    oam2 += g8FC488C[r7]->unk1;
   }
 } */
 
