@@ -3,10 +3,13 @@
 #include "card.h"
 #include "constants/card_ids.h"
 
+// name this file duel_util.c?
+
+void InitDuelDeck (unsigned char, unsigned short*);
 
 int HighestAtkMonInRow (struct DuelCard** zonePtr) {
-  u8 zoneIndex = 0;
-  s8 i;
+  unsigned char zoneIndex = 0;
+  signed char i;
   int highestAtk = -1;
   for (i = 0; i < 5; i++) {
     if ((*zonePtr)->id == CARD_NONE) {
@@ -23,12 +26,12 @@ int HighestAtkMonInRow (struct DuelCard** zonePtr) {
     }
     zonePtr++;
   }
-  return (s8)zoneIndex;
+  return (signed char)zoneIndex;
 }
 
 int HighestAtkMonInRowExceptGodCards (struct DuelCard** zonePtr) {
-  u8 zoneIndex = 0;
-  s8 i;
+  unsigned char zoneIndex = 0;
+  signed char i;
   int highestAtk = -1;
   for (i = 0; i < 5; i++) {
     if ((*zonePtr)->id == CARD_NONE) {
@@ -49,12 +52,12 @@ int HighestAtkMonInRowExceptGodCards (struct DuelCard** zonePtr) {
     }
     zonePtr++;
   }
-  return (s8)zoneIndex;
+  return (signed char)zoneIndex;
 }
 
 int sub_804304C (struct DuelCard** zonePtr) {
-  u8 zoneIndex = 0;
-  s8 i;
+  unsigned char zoneIndex = 0;
+  signed char i;
   int highestAtk = -1;
   for (i = 0; i < 5; i++) {
     if ((*zonePtr)->id == CARD_NONE) {
@@ -75,12 +78,12 @@ int sub_804304C (struct DuelCard** zonePtr) {
     }
     zonePtr++;
   }
-  return (s8)zoneIndex;
+  return (signed char)zoneIndex;
 }
 
 int sub_80430D8 (struct DuelCard** zonePtr) {
-  u8 zoneIndex = 0;
-  s8 i;
+  unsigned char zoneIndex = 0;
+  signed char i;
   int highestAtk = -1;
   for (i = 0; i < 5; i++) {
     if ((*zonePtr)->id == CARD_NONE) {
@@ -101,12 +104,12 @@ int sub_80430D8 (struct DuelCard** zonePtr) {
     }
     zonePtr++;
   }
-  return (s8)zoneIndex;
+  return (signed char)zoneIndex;
 }
 
-int sub_8043164 (struct DuelCard** zonePtr, u8 type) {
-  u8 zoneIndex = 0;
-  s8 i;
+int sub_8043164 (struct DuelCard** zonePtr, unsigned char type) {
+  unsigned char zoneIndex = 0;
+  signed char i;
   int highestAtk = -1;
   for (i = 0; i < 5; i++) {
     if ((*zonePtr)->id == CARD_NONE) {
@@ -127,11 +130,11 @@ int sub_8043164 (struct DuelCard** zonePtr, u8 type) {
     }
     zonePtr++;
   }
-  return (s8)zoneIndex;
+  return (signed char)zoneIndex;
 }
 
-u8 sub_80431F4 (u8 row, u16 atk) {
-  u8 i, count = 0;
+unsigned char sub_80431F4 (unsigned char row, unsigned short atk) {
+  unsigned char i, count = 0;
   for (i = 0; i < 5; i++) {
     if (gZones[row][i]->id == CARD_NONE || !gZones[row][i]->isFaceUp)
       continue;
@@ -145,8 +148,8 @@ u8 sub_80431F4 (u8 row, u16 atk) {
   return count;
 }
 
-u8 GetNumFaceUpLockedCardsInRow (u8 row) {
-  u8 i, count = 0;
+unsigned char GetNumFaceUpLockedCardsInRow (unsigned char row) {
+  unsigned char i, count = 0;
   for (i = 0; i < 5; i++)
     if (gZones[row][i]->id != CARD_NONE && gZones[row][i]->isFaceUp)
       if (gZones[row][i]->isLocked)
@@ -154,9 +157,9 @@ u8 GetNumFaceUpLockedCardsInRow (u8 row) {
   return count;
 }
 
-u32 GetTotalAtkAndDefInRow (u8 row) {
-  u32 total = 0;
-  u8 i;
+unsigned GetTotalAtkAndDefInRow (unsigned char row) {
+  unsigned total = 0;
+  unsigned char i;
   for (i = 0; i < 5; i++) {
     if (GetTypeGroup(gZones[row][i]->id) != 1)
       continue;
@@ -169,9 +172,9 @@ u32 GetTotalAtkAndDefInRow (u8 row) {
   return total;
 }
 
-u32 GetTotalFaceUpAtkAndDefInRow (u8 row) {
-  u32 total = 0;
-  u8 i;
+unsigned GetTotalFaceUpAtkAndDefInRow (unsigned char row) {
+  unsigned total = 0;
+  unsigned char i;
   for (i = 0; i < 5; i++) {
     if (GetTypeGroup(gZones[row][i]->id) != 1 || !gZones[row][i]->isFaceUp)
       continue;
@@ -184,20 +187,20 @@ u32 GetTotalFaceUpAtkAndDefInRow (u8 row) {
   return total;
 }
 
-int NumCardInRow (struct DuelCard** zonePtr, u16 cardId) {
-  s8 count = 0;
-  u8 i;
+int NumCardInRow (struct DuelCard** zonePtr, unsigned short cardId) {
+  signed char count = 0;
+  unsigned char i;
   for (i = 0; i < 5; i++)
     if ((*zonePtr++)->id == cardId)
       count++;
   return count;
 }
 
-int sub_8043418 (struct DuelCard** zonePtr, u16 cardId) {
-  s8 count = 0;
-  u8 i;
+int sub_8043418 (struct DuelCard** zonePtr, unsigned short cardId) {
+  signed char count = 0;
+  unsigned char i;
   for (i = 0; i < 5; i++) {
-    u16 currentCardId = (*zonePtr++)->id;
+    unsigned short currentCardId = (*zonePtr++)->id;
     if (IsGodCard(currentCardId) == 1)
       currentCardId = CARD_NONE;
     if (currentCardId == cardId)
@@ -208,7 +211,7 @@ int sub_8043418 (struct DuelCard** zonePtr, u16 cardId) {
 
 // first card in row
 int sub_8043468 (struct DuelCard** zonePtr) {
-  s8 i;
+  signed char i;
   for (i = 0; i < 5; i++)
     if ((*zonePtr++)->id != CARD_NONE)
       return i;
@@ -217,7 +220,7 @@ int sub_8043468 (struct DuelCard** zonePtr) {
 
 // last card in row
 int sub_8043490 (struct DuelCard** zonePtr) {
-  s8 i;
+  signed char i;
   for (i = 4; i >= 0; i--)
     if ((*zonePtr--)->id != CARD_NONE)
       return i;
@@ -228,7 +231,7 @@ int sub_8043490 (struct DuelCard** zonePtr) {
 // unused
 // bug?: it increments the zone pointer before calling IsGodCard
 int sub_80434B8 (struct DuelCard** zonePtr) {
-  s8 i;
+  signed char i;
   for (i = 0; i < 5; i++)
     if ((*zonePtr++)->id != CARD_NONE && IsGodCard((*zonePtr++)->id) != 1)
       return i;
@@ -239,7 +242,7 @@ int sub_80434B8 (struct DuelCard** zonePtr) {
 // unused
 // bug?: it decrements the zone pointer before calling IsGodCard
 int sub_80434F0 (struct DuelCard** zonePtr) {
-  s8 i;
+  signed char i;
   for (i = 4; i >= 0; i--)
     if ((*zonePtr--)->id != CARD_NONE && IsGodCard((*zonePtr++)->id) != 1)
       return i;
@@ -247,25 +250,25 @@ int sub_80434F0 (struct DuelCard** zonePtr) {
 }
 
 int NumEmptyZonesInRow (struct DuelCard** zonePtr) {
-  return (s8)NumCardInRow(zonePtr, CARD_NONE);
+  return (signed char)NumCardInRow(zonePtr, CARD_NONE);
 }
 
 int NumEmptyZonesAndGodCardsInRow (struct DuelCard** zonePtr) {
-  return (s8)sub_8043418(zonePtr, CARD_NONE);
+  return (signed char)sub_8043418(zonePtr, CARD_NONE);
 }
 
 int sub_8043548 (struct DuelCard** zonePtr) {
-  u8 i;
-  s8 count = 0;
+  unsigned char i;
+  signed char count = 0;
   for (i = 0; i < 5; zonePtr++, i++)
     if ((*zonePtr)->id != CARD_NONE && !(*zonePtr)->isLocked)
       count++;
   return count;
 }
 
-int sub_8043584 (struct DuelCard** zonePtr, u8 type) {
-  u8 i;
-  s8 count = 0;
+int sub_8043584 (struct DuelCard** zonePtr, unsigned char type) {
+  unsigned char i;
+  signed char count = 0;
   for (i = 0; i < 5; zonePtr++, i++)
     if ((*zonePtr)->id != CARD_NONE) {
       SetCardInfo((*zonePtr)->id);
@@ -275,71 +278,71 @@ int sub_8043584 (struct DuelCard** zonePtr, u8 type) {
   return count;
 }
 
-s8 EmptyZoneInRow (struct DuelCard** zonePtr) {
-  u8 i;
+signed char EmptyZoneInRow (struct DuelCard** zonePtr) {
+  unsigned char i;
   for (i = 0; i < 5; i++)
     if ((*zonePtr++)->id == CARD_NONE)
       return i;
   return 0;
 }
 
-s8 sub_80435E8 (struct DuelCard** zonePtr) {
-  u8 i;
+signed char sub_80435E8 (struct DuelCard** zonePtr) {
+  unsigned char i;
   for (i = 5; i != 0; i--)
     if ((*zonePtr--)->id == CARD_NONE)
       return i - 1;
   return 0;
 }
 
-s8 GetNonEmptyMonZoneId (struct DuelCard** zonePtr) {
-  s8 i;
+signed char GetNonEmptyMonZoneId (struct DuelCard** zonePtr) {
+  signed char i;
   for (i = 0; i < 5; i++)
     if (GetTypeGroup((*zonePtr++)->id) == TYPE_GROUP_MONSTER)
       return i;
   return 0;
 }
 
-s8 sub_804363C (struct DuelCard** zonePtr) {
-  s8 i;
+signed char sub_804363C (struct DuelCard** zonePtr) {
+  signed char i;
   for (i = 4; i >= 0; i--)
     if (GetTypeGroup((*zonePtr--)->id) == 1)
       return i;
   return 4;
 }
 
-u32 sub_804366C (struct DuelCard** zonePtr, u16 cardId) {
-  s8 i;
+unsigned sub_804366C (struct DuelCard** zonePtr, unsigned short cardId) {
+  signed char i;
   for (i = 0; i < 5; i++)
     if ((*zonePtr++)->id == cardId)
       return 1;
   return 0;
 }
 
-s32 sub_8043694 (struct DuelCard** zonePtr, u16 cardId) {
-  s8 i;
+s32 sub_8043694 (struct DuelCard** zonePtr, unsigned short cardId) {
+  signed char i;
   for (i = 0; i < 5; i++)
     if ((*zonePtr++)->id == cardId)
       return i;
   return 0;
 }
 
-s32 sub_80436C0 (struct DuelCard** zonePtr, u16 cardId) {
-  s8 i;
+s32 sub_80436C0 (struct DuelCard** zonePtr, unsigned short cardId) {
+  signed char i;
   for (i = 0; i < 5; i++)
     if ((*zonePtr--)->id == cardId)
       return i;
   return 0;
 }
 
-u32 sub_80436EC (struct DuelCard* zone) {
-  u32 ret = 0;
+unsigned sub_80436EC (struct DuelCard* zone) {
+  unsigned ret = 0;
   if (zone->id != CARD_NONE && GetTypeGroup(zone->id) == 1 && !zone->isLocked)
     ret = 1;
   return ret;
 }
 
-u32 sub_8043714 (struct DuelCard* zone) {
-  u32 ret = 0;
+unsigned sub_8043714 (struct DuelCard* zone) {
+  unsigned ret = 0;
   if (zone->id != CARD_NONE) {
     SetCardInfo(zone->id);
     if (gCardInfo.monsterEffect /*!= MONSTER_EFFECT_NONE*/ && !zone->isLocked)
@@ -349,60 +352,60 @@ u32 sub_8043714 (struct DuelCard* zone) {
   return ret;
 }
 
-u32 sub_804374C (struct DuelCard* zone) {
-  u32 ret = 0;
-  if (zone->id != CARD_NONE && GetTypeGroup(zone->id) == 3)
+unsigned sub_804374C (struct DuelCard* zone) {
+  unsigned ret = 0;
+  if (zone->id != CARD_NONE && GetTypeGroup(zone->id) == TYPE_GROUP_TRAP)
     ret = 1;
   return ret;
 }
 
-u32 sub_804376C (struct DuelCard* zone) {
-  u32 ret = 0;
-  if (GetTypeGroup(zone->id) == 2 && GetSpellType(zone->id) == 1)
+unsigned sub_804376C (struct DuelCard* zone) {
+  unsigned ret = 0;
+  if (GetTypeGroup(zone->id) == TYPE_GROUP_SPELL && GetSpellType(zone->id) == 1)
     ret = 1;
   return ret;
 }
 
-u32 sub_8043790 (struct DuelCard* zone) {
-  u32 ret = 0;
-  if (GetTypeGroup(zone->id) == 2 && !GetSpellType(zone->id))
+unsigned sub_8043790 (struct DuelCard* zone) {
+  unsigned ret = 0;
+  if (GetTypeGroup(zone->id) == TYPE_GROUP_SPELL && !GetSpellType(zone->id))
     ret = 1;
   return ret;
 }
 
-u32 sub_80437B4 (struct DuelCard* zone) {
-  u32 ret = 0;
+unsigned sub_80437B4 (struct DuelCard* zone) {
+  unsigned ret = 0;
   if (zone->id != CARD_NONE && GetTypeGroup(zone->id) == 4)
     ret = 1;
   return ret;
 }
 
-int GetNumCardsInRow (u8 row) {
-  u8 i, count = 0;
+int GetNumCardsInRow (unsigned char row) {
+  unsigned char i, count = 0;
   for (i = 0; i < 5; i++)
     if (gZones[row][i]->id != CARD_NONE)
       count++;
   return count;
 }
 
-u32 GetNumFaceUpCardsInRow (u8 row) {
-  u8 i, count = 0;
+unsigned GetNumFaceUpCardsInRow (unsigned char row) {
+  unsigned char i, count = 0;
   for (i = 0; i < 5; i++)
     if (gZones[row][i]->id != CARD_NONE && gZones[row][i]->isFaceUp)
       count++;
   return count;
 }
 
-u32 sub_8043858 (u8 row) {
-  u8 i, count = 0;
+unsigned GetNumFaceDownCardsInRow (unsigned char row) {
+  unsigned char i, count = 0;
   for (i = 0; i < 5; i++)
     if (gZones[row][i]->id != CARD_NONE && !gZones[row][i]->isFaceUp)
       count++;
   return count;
 }
 
-u32 sub_80438A0 (u8 row) {
-  u8 i, count = 0;
+unsigned sub_80438A0 (unsigned char row) {
+  unsigned char i, count = 0;
   for (i = 0; i < 5; i++) {
     SetCardInfo(gZones[row][i]->id);
     if (gCardInfo.spellEffect == 2)
@@ -411,16 +414,16 @@ u32 sub_80438A0 (u8 row) {
   return count;
 }
 
-u32 sub_80438E8 (u8 row) {
-  u8 i, count = 0;
+unsigned GetNumCardsDefendingInRow (unsigned char row) {
+  unsigned char i, count = 0;
   for (i = 0; i < 5; i++)
     if (gZones[row][i]->id != CARD_NONE && gZones[row][i]->isDefending)
       count++;
   return count;
 }
 
-int sub_8043930 (u8 row, u8 type) {
-  u8 i, count = 0;
+int sub_8043930 (unsigned char row, unsigned char type) {
+  unsigned char i, count = 0;
   for (i = 0; i < 5; i++) {
     if (gZones[row][i]->id == CARD_NONE)
       continue;
@@ -431,8 +434,8 @@ int sub_8043930 (u8 row, u8 type) {
   return count;
 }
 
-u32 sub_804398C (u8 row, u8 type) {
-  u8 i, count = 0;
+unsigned sub_804398C (unsigned char row, unsigned char type) {
+  unsigned char i, count = 0;
   for (i = 0; i < 5; i++) {
     if (gZones[row][i]->id == CARD_NONE || !gZones[row][i]->isFaceUp)
       continue;
@@ -443,8 +446,8 @@ u32 sub_804398C (u8 row, u8 type) {
   return count;
 }
 
-u32 sub_80439F4 (u8 row, u8 attribute) {
-  u8 i, count = 0;
+unsigned sub_80439F4 (unsigned char row, unsigned char attribute) {
+  unsigned char i, count = 0;
   for (i = 0; i < 5; i++) {
     if (gZones[row][i]->id == CARD_NONE || !gZones[row][i]->isFaceUp)
       continue;
@@ -455,8 +458,8 @@ u32 sub_80439F4 (u8 row, u8 attribute) {
   return count;
 }
 
-u32 sub_8043A5C (u8 row) {
-  u8 i, count = 0;
+unsigned sub_8043A5C (unsigned char row) {
+  unsigned char i, count = 0;
   for (i = 0; i < 5; i++) {
     if (gZones[row][i]->id != CARD_NONE && !gZones[row][i]->isLocked)
       count++;
@@ -472,8 +475,8 @@ void sub_8041B38 (void);
 void sub_8041D54 (void);
 
 struct Temp {
-  u16 unk0;
-  u16 unk2;
+  unsigned short unk0;
+  unsigned short unk2;
 };
 
 
@@ -649,19 +652,20 @@ void sub_8043CBC (void) {
   sub_8041D54();
 }
 
-inline u16 sub_8043EB4 (u8 turn) {
-  u16 cardDrawn;
-  if ((u8)sub_8043E70(turn) < gUnk20240F0[turn].cardsDrawn)
+inline unsigned short sub_8043EB4 (unsigned char turn) {
+  unsigned short cardDrawn;
+  if ((unsigned char)sub_8043E70(turn) < gDuelDecks[turn].cardsDrawn)
     return CARD_NONE;
-  cardDrawn = gUnk20240F0[turn].cards[gUnk20240F0[turn].cardsDrawn];
-  gUnk20240F0[turn].cardsDrawn++;
+  cardDrawn = gDuelDecks[turn].cards[gDuelDecks[turn].cardsDrawn];
+  gDuelDecks[turn].cardsDrawn++;
   return cardDrawn;
 }
 
-void DrawCard (u32 turn) {
-  u8 i;
-  u16 cardDrawn;
-  u8 turn_u8 = turn;
+//Todo: rename to TryDrawCard/TryDrawingCard
+void DrawCard (unsigned turn) {
+  unsigned char i;
+  unsigned short cardDrawn;
+  unsigned char turn_u8 = turn;
   for (i = 0; i < 5; i++) {
     if (gDuel.hands[turn_u8][i].id != CARD_NONE)
       continue;
@@ -674,52 +678,50 @@ void DrawCard (u32 turn) {
   }
 }
 
-void sub_8043D6C (u8 arg0) {
-  u8 temp = sub_8043E70(arg0);
+void sub_8043D6C (unsigned char arg0) {
+  unsigned char temp = sub_8043E70(arg0);
   int i;
   if (!temp)
     return;
   for (i = 0; i < 200; i++) {
-    u8 temp3 = sub_8056258(0, temp - 1);
-    u8 temp4 = sub_8056258(0, temp - 1);
-    u16 temp2 = gUnk20240F0[arg0].cards[temp3];
-    gUnk20240F0[arg0].cards[temp3] = gUnk20240F0[arg0].cards[temp4];
-    gUnk20240F0[arg0].cards[temp4] = temp2;
+    unsigned char temp3 = sub_8056258(0, temp - 1);
+    unsigned char temp4 = sub_8056258(0, temp - 1);
+    unsigned short temp2 = gDuelDecks[arg0].cards[temp3];
+    gDuelDecks[arg0].cards[temp3] = gDuelDecks[arg0].cards[temp4];
+    gDuelDecks[arg0].cards[temp4] = temp2;
   }
 }
 
-void sub_8043DD8 (void) {
+void ClearDuelDecks (void) {
   int i;
   for (i = 0; i < 2; i++) {
     int j;
-    gUnk20240F0[i].cardsDrawn = 0;
+    gDuelDecks[i].cardsDrawn = 0;
     for (j = 0; j < 41; j++)
-      gUnk20240F0[i].cards[j] = 0;
+      gDuelDecks[i].cards[j] = CARD_NONE;
   }
 }
 
-void sub_8043E44 (u8, u16*);
-
-void sub_8043E14 (u8 arg0, u8 arg1) {
+void sub_8043E14 (unsigned char arg0, unsigned char arg1) {
   if (!arg1)
-    sub_8043E44(arg0, gDeck.cards);
+    InitDuelDeck(arg0, gPlayerDeck.cards);
   else
-    sub_8043E44(arg0, gDuelData.duelist.deck);
+    InitDuelDeck(arg0, gDuelData.duelist.deck);
 }
 
-void sub_8043E44 (u8 arg0, u16* deck) {
-  u32 i;
+void InitDuelDeck (unsigned char duelist, unsigned short* deck) {
+  unsigned i;
   for (i = 0; i < 40; i++)
-    gUnk20240F0[arg0].cards[i] = *deck++;
+    gDuelDecks[duelist].cards[i] = *deck++;
 }
 
-int sub_8043E70 (u8 arg0) {
-  u8 i = 0;
-  while (gUnk20240F0[arg0].cards[i] != CARD_NONE)
+int sub_8043E70 (unsigned char arg0) {
+  unsigned char i = 0;
+  while (gDuelDecks[arg0].cards[i] != CARD_NONE)
     i++;
   return i;
 }
 
-int sub_8043E9C (u8 arg0) {
-  return gUnk20240F0[arg0].cardsDrawn;
+int sub_8043E9C (unsigned char arg0) {
+  return gDuelDecks[arg0].cardsDrawn;
 }

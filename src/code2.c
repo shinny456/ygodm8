@@ -91,7 +91,7 @@ struct Bruhh
 struct UnkStr //AI data?
 {
     struct Duel duel;
-    struct DuelDeck duelDeck[2];
+    struct DuelDeck duelDecks[2];
     u16 lifePoints[2];
     u8 duelistStatus[2];
     u8 filler1A8[0x35A];
@@ -279,7 +279,7 @@ static void sub_800E58C(void)
     gZones[row2][col2]->isFaceUp = TRUE;
     gZones[row2][col2]->isLocked = TRUE;
     sub_803F8E0(4 - col2);
-    sub_803F29C();
+    HandleDuelAction();
     sub_803F224();
 }
 
@@ -292,7 +292,7 @@ static void sub_800E5E4(void)
     gZones[row2][col2]->isFaceUp = TRUE;
     gZones[row2][col2]->isLocked = TRUE;
     sub_803F8E0(4 - col2);
-    sub_803F29C();
+    HandleDuelAction();
     sub_803F224();
 }
 
@@ -307,8 +307,8 @@ static void sub_800E63C(void)
     gZones[row2][col2]->isFaceUp = TRUE;
     gZones[row2][col2]->isLocked = TRUE;
     gZones[row3][col3]->isFaceUp = TRUE;
-    sub_803F908(col3 ,4 - col2);
-    sub_803F29C();
+    sub_803F908(col3, 4 - col2);
+    HandleDuelAction();
     sub_803F224();
 }
 
@@ -323,8 +323,8 @@ static void sub_800E6B8(void)
     gZones[row2][col2]->isFaceUp = TRUE;
     gZones[row2][col2]->isLocked = TRUE;
     gZones[row3][col3]->isFaceUp = TRUE;
-    sub_803F908(col3 ,4 - col2);
-    sub_803F29C();
+    sub_803F908(col3, 4 - col2);
+    HandleDuelAction();
     sub_803F224();
 }
 
@@ -644,8 +644,8 @@ static void sub_800EE24(void)
     gUnk_8DFF6A4->duel = gDuel;
     for (i = 0; i < 2; i++)
     {
-        gUnk_8DFF6A4->duelDeck[i].cardsDrawn = gUnk20240F0[i].cardsDrawn;
-        gUnk_8DFF6A4->lifePoints[i] = gLifePoints[i];
+        gUnk_8DFF6A4->duelDecks[i].cardsDrawn = gDuelDecks[i].cardsDrawn;
+        gUnk_8DFF6A4->lifePoints[i] = gDuelLifePoints[i];
         gUnk_8DFF6A4->duelistStatus[i] = gDuelistStatus[i];
     }
 }
@@ -657,8 +657,8 @@ static void sub_800EE94(void)
     gDuel = gUnk_8DFF6A4->duel;
     for (i = 0; i < 2; i++)
     {
-        gUnk20240F0[i].cardsDrawn = gUnk_8DFF6A4->duelDeck[i].cardsDrawn;
-        gLifePoints[i] = gUnk_8DFF6A4->lifePoints[i];
+        gDuelDecks[i].cardsDrawn = gUnk_8DFF6A4->duelDecks[i].cardsDrawn;
+        gDuelLifePoints[i] = gUnk_8DFF6A4->lifePoints[i];
         gDuelistStatus[i] = gUnk_8DFF6A4->duelistStatus[i];
     }
 }
@@ -2742,62 +2742,62 @@ static void sub_80127C8 (void) {
 }
 
 static void sub_8012800 (void) {
-  gUnk_8DFF6A4->unk2298 = gLifePoints[WhoseTurn()];
+  gUnk_8DFF6A4->unk2298 = gDuelLifePoints[WhoseTurn()];
 }
 
 static void sub_8012828 (void) {
-  if (gUnk_8DFF6A4->unk2298 >= gLifePoints[WhoseTurn()])
+  if (gUnk_8DFF6A4->unk2298 >= gDuelLifePoints[WhoseTurn()])
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF99742;
 }
 
 static void sub_8012878 (void) {
-  gUnk_8DFF6A4->unk2298 = gLifePoints[WhoseTurn()];
+  gUnk_8DFF6A4->unk2298 = gDuelLifePoints[WhoseTurn()];
 }
 
 static void sub_80128A0 (void) {
-  if (gUnk_8DFF6A4->unk2298 >= gLifePoints[WhoseTurn()])
+  if (gUnk_8DFF6A4->unk2298 >= gDuelLifePoints[WhoseTurn()])
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF99742;
 }
 
 static void sub_80128F0 (void) {
-  gUnk_8DFF6A4->unk2298 = gLifePoints[WhoseTurn()];
+  gUnk_8DFF6A4->unk2298 = gDuelLifePoints[WhoseTurn()];
 }
 
 static void sub_8012918 (void) {
-  if (gUnk_8DFF6A4->unk2298 >= gLifePoints[WhoseTurn()])
+  if (gUnk_8DFF6A4->unk2298 >= gDuelLifePoints[WhoseTurn()])
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF99742;
 }
 
 static void sub_8012968 (void) {
-  gUnk_8DFF6A4->unk2298 = gLifePoints[WhoseTurn()];
+  gUnk_8DFF6A4->unk2298 = gDuelLifePoints[WhoseTurn()];
 }
 
 static void sub_8012990 (void) {
-  if (gUnk_8DFF6A4->unk2298 >= gLifePoints[WhoseTurn()])
+  if (gUnk_8DFF6A4->unk2298 >= gDuelLifePoints[WhoseTurn()])
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF99742;
 }
 
 static void sub_80129E0 (void) {
-  gUnk_8DFF6A4->unk2298 = gLifePoints[WhoseTurn()];
+  gUnk_8DFF6A4->unk2298 = gDuelLifePoints[WhoseTurn()];
 }
 
 static void sub_8012A08 (void) {
-  if (gUnk_8DFF6A4->unk2298 >= gLifePoints[WhoseTurn()])
+  if (gUnk_8DFF6A4->unk2298 >= gDuelLifePoints[WhoseTurn()])
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF99742;
 }
 
 static void sub_8012A58 (void) {
-  if (gLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 50)
+  if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 50)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF99743;
@@ -2806,7 +2806,7 @@ static void sub_8012A58 (void) {
 static void sub_8012AB0 (void) {}
 
 static void sub_8012AB4 (void) {
-  if (gLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 100)
+  if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 100)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF99743;
@@ -2815,7 +2815,7 @@ static void sub_8012AB4 (void) {
 static void sub_8012B0C (void) {}
 
 static void sub_8012B10 (void) {
-  if (gLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 200)
+  if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 200)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF99743;
@@ -2824,7 +2824,7 @@ static void sub_8012B10 (void) {
 static void sub_8012B68 (void) {}
 
 static void sub_8012B6C (void) {
-  if (gLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 500)
+  if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 500)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF99743;
@@ -2833,7 +2833,7 @@ static void sub_8012B6C (void) {
 static void sub_8012BC8 (void) {}
 
 static void sub_8012BCC (void) {
-  if (gLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 1000)
+  if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 1000)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF99743;
@@ -3072,7 +3072,7 @@ static void sub_8012F5C (void) {
 }
 
 static void sub_8012F78 (void) {
-  if (!sub_80438E8(1))
+  if (!GetNumCardsDefendingInRow(1))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FB3183E;
@@ -3509,7 +3509,7 @@ static void sub_80138CC (void) {
   u8 numNonEmptyZones = 5 - NumEmptyZonesInRow(gHands[1]);
   if (!numNonEmptyZones)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (gLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= numNonEmptyZones * 200)
+  else if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= numNonEmptyZones * 200)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFEF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
@@ -5145,7 +5145,7 @@ static void sub_8016604 (void) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
-  if (gLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= totalAtk)
+  if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= totalAtk)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFEE;
@@ -5179,7 +5179,7 @@ static void sub_80167DC (void) {
   SetFinalStat(&gStatMod);
   if (!gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (gLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= gCardInfo.atk)
+  else if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFEB;
@@ -5194,7 +5194,7 @@ static void sub_80168A0 (void) {
   SetFinalStat(&gStatMod);
   if (!gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (gLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= gCardInfo.atk)
+  else if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFEA;
@@ -5202,9 +5202,9 @@ static void sub_80168A0 (void) {
 
 // Ra battle mode?
 static void sub_8016964 (void) {
-  if (gLifePoints[gCurrentTurnOpponent[WhoseTurn()]] < gLifePoints[WhoseTurn()])
+  if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] < gDuelLifePoints[WhoseTurn()])
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
-  else if (gLifePoints[gCurrentTurnOpponent[WhoseTurn()]] == gLifePoints[WhoseTurn()])
+  else if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] == gDuelLifePoints[WhoseTurn()])
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFE7;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -5225,7 +5225,7 @@ static void sub_80169FC (void) {
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
       return;
     }
-    if (gCardInfo.atk >= gLifePoints[gCurrentTurnOpponent[WhoseTurn()]]) {
+    if (gCardInfo.atk >= gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]]) {
       gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
       return;
     }
@@ -5298,7 +5298,7 @@ static void sub_8016CB8 (void) {
   SetFinalStat(&gStatMod);
   if (!gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (gLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= gCardInfo.atk)
+  else if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFED;
@@ -5410,12 +5410,12 @@ static void sub_8017104 (void) {
     return;
   }
   if (WhoseTurn() == 0) {
-    if (gLifePoints[0] < 1000) {
+    if (gDuelLifePoints[0] < 1000) {
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
       return;
     }
   }
-  else if (gLifePoints[1] < 1000) {
+  else if (gDuelLifePoints[1] < 1000) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
@@ -5434,7 +5434,7 @@ static void sub_80171D8 (void) {
   SetFinalStat(&gStatMod);
   if (!gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (gLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= gCardInfo.atk)
+  else if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFEC;
@@ -5456,12 +5456,12 @@ static void sub_801729C (void) {
     return;
   }
   if (WhoseTurn() == 0) {
-    curEnemyLP = gLifePoints[1];
-    curPlayerLP = gLifePoints[0];
+    curEnemyLP = gDuelLifePoints[1];
+    curPlayerLP = gDuelLifePoints[0];
   }
   else {
-    curEnemyLP = gLifePoints[0]; //sl
-    curPlayerLP = gLifePoints[1]; //sp4
+    curEnemyLP = gDuelLifePoints[0]; //sl
+    curPlayerLP = gDuelLifePoints[1]; //sp4
   }
   row2 = sAI_Command.unk2 >> 4;
   col2 = sAI_Command.unk2 & 0xF;
@@ -5550,7 +5550,7 @@ _080172D0:\n\
 	ldrh r0, [r0]\n\
 	b _080172F0\n\
 	.align 2, 0\n\
-_080172E4: .4byte gLifePoints\n\
+_080172E4: .4byte gDuelLifePoints\n\
 _080172E8:\n\
 	ldr r0, _080173BC\n\
 	ldrh r1, [r0]\n\
@@ -5655,7 +5655,7 @@ _08017348:\n\
 	mov sl, r2\n\
 	b _080173F8\n\
 	.align 2, 0\n\
-_080173BC: .4byte gLifePoints\n\
+_080173BC: .4byte gDuelLifePoints\n\
 _080173C0: .4byte 0x02021C00\n\
 _080173C4: .4byte gStatMod\n\
 _080173C8: .4byte gZones\n\
@@ -5844,7 +5844,7 @@ static void sub_8017674 (void) {}
 
 static void sub_8017678 (void) {
   u8 turn = WhoseTurn();
-  if (65000 - gLifePoints[turn] < 1000)
+  if (65000 - gDuelLifePoints[turn] < 1000)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EEE8FA3;
@@ -6171,7 +6171,7 @@ static void sub_8018110 (void) {}
 
 static void sub_8018114 (void) {
   u8 turn = WhoseTurn();
-  if (65000 - gLifePoints[turn] < 500)
+  if (65000 - gDuelLifePoints[turn] < 500)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EEE8FA2;
@@ -6180,7 +6180,7 @@ static void sub_8018114 (void) {
 static void sub_8018170 (void) {}
 
 static void sub_8018174 (void) {
-  if (gLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 50)
+  if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 50)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EEC6CBA;
@@ -6284,7 +6284,7 @@ static void sub_80184C0 (void) {}
 static void sub_80184C4 (void) {
   if (NumEmptyZonesInRow(gZones[2]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (gLifePoints[WhoseTurn()] <= 1000)
+  else if (gDuelLifePoints[WhoseTurn()] <= 1000)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EF2D56C;
@@ -6388,7 +6388,7 @@ static void sub_8018830 (void) {}
 
 // Obelisk?
 static void sub_8018834 (void) {
-  if (gLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 4000)
+  if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 4000)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF99741;
@@ -6641,7 +6641,7 @@ static void sub_8018F2C (void) {}
 static void sub_8018F30 (void) {
   u32 numNonEmptyZones; //TODO: rename
   u32 numNonEmptyZones2; // ^
-  if (65000 - gLifePoints[WhoseTurn()] < 500) {
+  if (65000 - gDuelLifePoints[WhoseTurn()] < 500) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
@@ -6704,7 +6704,7 @@ static void sub_8019128 (void) {}
 static void sub_801912C (void) {
   if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (gLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 500)
+  else if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 500)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF77458;
@@ -6809,12 +6809,12 @@ static void sub_8019490 (void) {}
 
 static void sub_8019494 (void) {
   if (WhoseTurn() == 0) {
-    if (gLifePoints[0] < 1000) {
+    if (gDuelLifePoints[0] < 1000) {
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
       return;
     }
   }
-  else if (gLifePoints[1] < 1000) {
+  else if (gDuelLifePoints[1] < 1000) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }

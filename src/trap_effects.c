@@ -415,6 +415,7 @@ static void EffectAmazonArchers(void)
     }
 }
 
+//TODO: this function is called with no arguments in some places
 void sub_80581DC (u16 arg0)
 {
     ResetCardEffectTextData();
@@ -490,12 +491,12 @@ static void sub_080582D8(void){
 
 static void EffectGoblinFan(u16 lp)
 {
-    if (WhoseTurn() == PLAYER)
+    if (WhoseTurn() == DUEL_PLAYER)
         SetPlayerLifePointsToSubtract(lp);
     else
         SetOpponentLifePointsToSubtract(lp);
 
-    sub_803F29C();
+    HandleDuelAction();
     sub_803F4C0();
 
     ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
@@ -511,12 +512,12 @@ static void EffectGoblinFan(u16 lp)
 
 static void EffectBadReactionToSimochi(u16 lp)
 {
-    if (WhoseTurn() == PLAYER)
+    if (WhoseTurn() == DUEL_PLAYER)
         SetPlayerLifePointsToSubtract(lp);
     else
         SetOpponentLifePointsToSubtract(lp);
 
-    sub_803F29C();
+    HandleDuelAction();
     sub_803F4C0();
 
     ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);

@@ -240,7 +240,7 @@ u8* GetCurrentLanguageString(u8* name)
                 }
                 break;
             case '5':
-                if (gLanguage == NUM_LANGUAGES)
+                if (gLanguage == NUM_LANGUAGES) //TODO: change to JAPANESE?
                 {
                     name++;
                     goto end;

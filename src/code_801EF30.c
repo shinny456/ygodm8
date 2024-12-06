@@ -78,7 +78,7 @@ void sub_801EF30 (u8 arg0) {
       sub_801E27C();
       sub_801E66C();
       sub_801F060();
-      sub_801EED8(gDeck.unk5);
+      sub_801EED8(gPlayerDeck.unk5);
       sub_800A5F0(1);
       break;
     case 3:
@@ -92,7 +92,7 @@ void sub_801EF30 (u8 arg0) {
     case 7:
       sub_801E66C();
       sub_801F060();
-      sub_801EED8(gDeck.unk5);
+      sub_801EED8(gPlayerDeck.unk5);
       sub_800A5F0(3);
       break;
   }
@@ -165,7 +165,7 @@ u8 sub_801F0F0 (u16 cardId, u16* arg1) {
 
 void sub_801F120 (void) {
   u32 r4;
-  gDeck.unk7 = gDeck.unk5;
+  gPlayerDeck.unk7 = gPlayerDeck.unk5;
   sub_801DF40();
   sub_801F320();
   LoadCharblock1();
@@ -205,11 +205,11 @@ void sub_801F120 (void) {
 }
 
 void sub_801F1C0 (void) {
-  gDeck.unk7 = g8E00AEC[gDeck.unk7];
-  if (gDeck.unk7 < 10)
-    sub_801EED8(gDeck.unk7);
+  gPlayerDeck.unk7 = g8E00AEC[gPlayerDeck.unk7];
+  if (gPlayerDeck.unk7 < 10)
+    sub_801EED8(gPlayerDeck.unk7);
   else
-    sub_801EED8(gDeck.unk5);
+    sub_801EED8(gPlayerDeck.unk5);
   sub_801F320();
   PlayMusic(0x36);
   sub_80081DC(LoadOam);
@@ -218,11 +218,11 @@ void sub_801F1C0 (void) {
 }
 
 void sub_801F210 (void) {
-  gDeck.unk7 = g8E00AF7[gDeck.unk7];
-  if (gDeck.unk7 < 10)
-    sub_801EED8(gDeck.unk7);
+  gPlayerDeck.unk7 = g8E00AF7[gPlayerDeck.unk7];
+  if (gPlayerDeck.unk7 < 10)
+    sub_801EED8(gPlayerDeck.unk7);
   else
-    sub_801EED8(gDeck.unk5);
+    sub_801EED8(gPlayerDeck.unk5);
   sub_801F320();
   PlayMusic(0x36);
   sub_80081DC(LoadOam);
@@ -231,11 +231,11 @@ void sub_801F210 (void) {
 }
 
 void sub_801F260 (void) {
-  gDeck.unk7 = g8E00B02[gDeck.unk7];
-  if (gDeck.unk7 < 10)
-    sub_801EED8(gDeck.unk7);
+  gPlayerDeck.unk7 = g8E00B02[gPlayerDeck.unk7];
+  if (gPlayerDeck.unk7 < 10)
+    sub_801EED8(gPlayerDeck.unk7);
   else
-    sub_801EED8(gDeck.unk5);
+    sub_801EED8(gPlayerDeck.unk5);
   sub_801F320();
   PlayMusic(0x36);
   sub_80081DC(LoadOam);
@@ -244,11 +244,11 @@ void sub_801F260 (void) {
 }
 
 void sub_801F2B0 (void) {
-  gDeck.unk7 = g8E00B0D[gDeck.unk7];
-  if (gDeck.unk7 < 10)
-    sub_801EED8(gDeck.unk7);
+  gPlayerDeck.unk7 = g8E00B0D[gPlayerDeck.unk7];
+  if (gPlayerDeck.unk7 < 10)
+    sub_801EED8(gPlayerDeck.unk7);
   else
-    sub_801EED8(gDeck.unk5);
+    sub_801EED8(gPlayerDeck.unk5);
   sub_801F320();
   PlayMusic(0x36);
   sub_80081DC(LoadOam);
@@ -258,17 +258,17 @@ void sub_801F2B0 (void) {
 
 void sub_801F300 (void) {
   PlayMusic(0x37);
-  if (gDeck.unk7 < 10) {
-    gDeck.unk5 = gDeck.unk7;
-    sub_801DDDC(gDeck.unk5);
+  if (gPlayerDeck.unk7 < 10) {
+    gPlayerDeck.unk5 = gPlayerDeck.unk7;
+    sub_801DDDC(gPlayerDeck.unk5);
   }
 }
 
 void sub_801F320 (void) {
   u32* oam = (u32*)&gOamBuffer[6];
-  oam[0] = g8E00B18[gDeck.unk7] | g8E00B23[gDeck.unk7] << 16 | 0x40000000;
+  oam[0] = g8E00B18[gPlayerDeck.unk7] | g8E00B23[gPlayerDeck.unk7] << 16 | 0x40000000;
   oam[1] = 0xC120;
-  oam[2] = g8E00B18[gDeck.unk7] | g8E00B23[gDeck.unk7] << 16 | 0x40000800;
+  oam[2] = g8E00B18[gPlayerDeck.unk7] | g8E00B23[gPlayerDeck.unk7] << 16 | 0x40000800;
   oam[3] = 0x120;
 }
 
@@ -1146,7 +1146,7 @@ void HandleWin (void) {
   sub_801FF90();
   sub_8020030();
   sub_801FD14();
-  if (!gLifePoints[1]) {
+  if (!gDuelLifePoints[1]) {
     sub_8035020(4);
     ResetDuelTextData(&duelText);
     duelText.textId = 19;
@@ -1188,7 +1188,7 @@ void HandleLoss (void) {
   struct DuelText duelText;
   if (gAnte != CARD_NONE)
     RemoveCardFromTrunk(gAnte, 1);
-  if (!gLifePoints[0]) {
+  if (!gDuelLifePoints[0]) {
     sub_8035020(4);
     ResetDuelTextData(&duelText);
     duelText.textId = 20;

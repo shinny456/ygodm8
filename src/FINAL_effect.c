@@ -54,10 +54,10 @@ u8 sub_803EFAC (u16 id) {
 void sub_803EFF8 (void) {
   u8 unk[0xC]; //TODO
   u8 loser;
-  if (WhoseTurn() == PLAYER)
-    loser = OPPONENT;
+  if (WhoseTurn() == DUEL_PLAYER)
+    loser = DUEL_OPPONENT;
   else
-    loser = PLAYER;
+    loser = DUEL_PLAYER;
   DeclareLoser(loser);
   ResetCardEffectTextData();
   gCardEffectTextData.textId = 0x12;

@@ -463,12 +463,12 @@ static void sub_802B770 (void) {
   FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
   if (g2021DE0.unk4 == 0) {
     SetPlayerLifePointsToSubtract(1000);
-    sub_803F29C();
+    HandleDuelAction();
     sub_803F4C0();
   }
   else {
     SetOpponentLifePointsToSubtract(1000);
-    sub_803F29C();
+    HandleDuelAction();
     sub_803F4C0();
   }
   if (!gHideEffectText) {
@@ -493,12 +493,12 @@ static void EffectLavaGolemLifePoints (void) {
   FlipCardFaceUp(gZones[2][g2021DE0.unk3]);
   if (g2021DE0.unk4 == 0) {
     SetPlayerLifePointsToSubtract(700);
-    sub_803F29C();
+    HandleDuelAction();
     sub_803F4C0();
   }
   else {
     SetOpponentLifePointsToSubtract(700);
-    sub_803F29C();
+    HandleDuelAction();
     sub_803F4C0();
   }
   if (!gHideEffectText) {

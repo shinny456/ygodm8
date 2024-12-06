@@ -5,40 +5,72 @@
 #include "gba/io_reg.h"
 #include "gba/macro.h"
 
-extern u8 g2020DC8;
-extern u8 g2020DD0;
-extern u8 g2020DCC;
+static void sub_8004F90 (unsigned char, unsigned char);
+
+
+extern struct Unk8DF76F8 {
+  unsigned char unk0;
+  struct OamData* unk4;
+} * gUnk_8DF76F8[];
+
+extern struct OamData gOamBuffer[];
+void sub_80055D8 (void);
+extern unsigned char g2020DC8;
+extern unsigned char g2020DD0;
+extern unsigned char g2020DCC;
 
 extern u16 gKeyState;
 extern u16 gUnk2020DFC;
 
 extern u16 gUnk_8DF79F8[];
-extern u8 gUnk_8DF7A18[];
+extern unsigned char gUnk_8DF7A18[];
 
 extern struct Unk_8DF7A28 {
   u16 unk0;
-  u8 filler2[0x21];
-  u8 unk23;
-  u8 unk24;
+  unsigned char filler2[0x21];
+  unsigned char unk23;
+  unsigned char unk24;
 } * gUnk_8DF7A28;
 
-extern u8 gSharedMem[];
+extern unsigned char gSharedMem[];
+extern u16 gWorldMapBgPalette[];
+extern u32 gWorldMapBgTileset[];
+extern u32 gUnk_80746F8[];
+extern u16 gUnk_80666F0[][30];
+extern u16 gUnk_8073BA0[][30];
+extern u16 gUnk_8066BA0[][320];
+extern unsigned char gUnk_8075330[];
+extern unsigned char gUnk_8075398[];
+extern unsigned char gUnk_80753BC[];
+extern unsigned char gUnk_80753E8[];
+extern unsigned char gUnk_807540C[];
+extern unsigned char gUnk_8075428[];
+extern unsigned char gUnk_8075440[];
+extern unsigned char gUnk_807545C[];
+extern unsigned char gUnk_807547C[];
+extern unsigned char gUnk_80754A4[];
+extern unsigned char gUnk_80754C4[];
+extern unsigned char gUnk_80754EC[];
 
+extern u16 gUnk_80741B8[];
+extern u16 gUnk_8072EA0[];
+extern u16 gUnk_80741D8[];
+extern u16 gUnk_8074400[];
 
-u8 sub_80056CC(u8);
-void sub_80054C4(u8);
+unsigned char sub_80056CC(unsigned char);
+void sub_80054C4(unsigned char);
 void sub_80056AC (void);
-void sub_80052E4 (u8);
-void sub_800521C (u8);
+void sub_80052E4 (unsigned char);
+void sub_800521C (unsigned char);
 void sub_80056F8 (void);
 void sub_8005590 (void);
 void ClearGraphicsBuffers (void);
-void sub_8004F90 (u8, u8);
+
 
 /*
 void WorldMapMain (void) {
-  u8 r4 = sub_80056CC(g2020DC8);
-  u8 r7 = g2020DD0 & 0xF;
+  unsigned char r4 = sub_80056CC(g2020DC8);
+  unsigned char r7 = g2020DD0 & 0xF;
   sub_8004F90(r4, r7);
   PlayMusic(3);
   while (!(gUnk2020DFC & 3)) {
@@ -223,34 +255,7 @@ _08004F88: .4byte gUnk2020DFC\n\
 _08004F8C: .4byte 0x02020DCC");
 }
 
-extern u16 gWorldMapBgPalette[];
-extern u32 gWorldMapBgTileset[];
-extern u32 gUnk_80746F8[];
-extern u16 gUnk_80666F0[][30];
-extern u16 gUnk_8073BA0[][30];
-extern u16 gUnk_8066BA0[][320];
-extern u8 gUnk_8075330[];
-extern u8 gUnk_8075398[];
-extern u8 gUnk_80753BC[];
-extern u8 gUnk_80753E8[];
-extern u8 gUnk_807540C[];
-extern u8 gUnk_8075428[];
-extern u8 gUnk_8075440[];
-extern u8 gUnk_807545C[];
-extern u8 gUnk_807547C[];
-extern u8 gUnk_80754A4[];
-extern u8 gUnk_80754C4[];
-extern u8 gUnk_80754EC[];
-
-extern u16 gUnk_80741B8[];
-extern u16 gUnk_8072EA0[];
-extern u16 gUnk_80741D8[];
-extern u16 gUnk_8074400[];
-
-
-void sub_80055D8 (void);
-
-void sub_8004F90 (u8 arg0, u8 arg1) {
+static void sub_8004F90 (unsigned char arg0, unsigned char arg1) {
   u16 i;
   for (i = 0; i < 0x4314; i++)
     gSharedMem[i] = 0;
@@ -299,14 +304,8 @@ void sub_8004F90 (u8 arg0, u8 arg1) {
   sub_8008220();
 }
 
-extern struct Unk8DF76F8 {
-  u8 unk0;
-  struct OamData* unk4;
-} * gUnk_8DF76F8[];
-
-extern struct OamData gOamBuffer[];
 /*
-void sub_800521C (u8 arg0) {
+void sub_800521C (unsigned char arg0) {
   u32* oam;
   if (gUnk_8DF7A28->unk23 == gUnk_8DF76F8[arg0][gUnk_8DF7A28->unk24].unk0) {
     gUnk_8DF7A28->unk23 = 0;

@@ -353,7 +353,7 @@ void sub_8044570 (void) {
       gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp = TRUE;
       gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = TRUE;
       sub_803F8E0(gDuelCursor.currentX);
-      sub_803F29C();
+      HandleDuelAction();
       sub_803F224();
       gDuelCursor.state = 0;
       sub_801BC00();
@@ -463,7 +463,7 @@ void sub_8044840 (void) {
       gDuelBoard[gDuelCursor.destY][gDuelCursor.destX]->isLocked = TRUE;
       gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp = TRUE;
       sub_803F908(gDuelCursor.destX, gDuelCursor.currentX);
-      sub_803F29C();
+      HandleDuelAction();
       sub_803F224();
       gDuelCursor.state = 0;
       sub_804412C();

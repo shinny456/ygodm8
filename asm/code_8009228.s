@@ -106,7 +106,7 @@ _08009940: .4byte gSwordTile
 _08009944: .4byte gShieldTile
 _08009948: .4byte 0x08090C20
 _0800994C: .4byte 0x00000801
-_08009950: .4byte 0x08090C50
+_08009950: .4byte 0x08090C50 @small digits
 _08009954: .4byte 0x00001801
 _08009958: .4byte 0x08DFA5B8
 _0800995C: .4byte gLanguage
@@ -2543,24 +2543,6 @@ _0800ACE2:
 @SaveGame split?
 
 
-	THUMB_FUNC_START sub_800B088
-sub_800B088: @ 0x0800B088
-	push {lr}
-	sub sp, #4
-	movs r0, #0xe0
-	lsls r0, r0, #0x14
-	ldr r1, _0800B0A8
-	ldr r3, [r1]
-	mov r1, sp
-	movs r2, #1
-	bl _call_via_r3
-	mov r0, sp
-	ldrb r0, [r0]
-	add sp, #4
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0800B0A8: .4byte 0x020245AC
 
 	THUMB_FUNC_START sub_800B0AC
 sub_800B0AC: @ 0x0800B0AC

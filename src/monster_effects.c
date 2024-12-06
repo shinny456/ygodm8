@@ -135,12 +135,12 @@ void EffectCatapultTurtle(void)
             ClearZoneAndSendMonToGraveyard(gZones[2][i], 0);
         }
     }
-    if (WhoseTurn() == PLAYER)
+    if (WhoseTurn() == DUEL_PLAYER)
         SetOpponentLifePointsToSubtract(totalAtk);
     else
         SetPlayerLifePointsToSubtract(totalAtk);
 
-    sub_803F29C();
+    HandleDuelAction();
     sub_803F4C0();
 
     if (!gHideEffectText)
@@ -384,12 +384,12 @@ void EffectMysticLamp(void)
     gStatMod.stage = sub_804069C(gZones[gMonEffect.row][gMonEffect.zone]);
     SetFinalStat(&gStatMod);
 
-    if (WhoseTurn() == PLAYER)
+    if (WhoseTurn() == DUEL_PLAYER)
         SetOpponentLifePointsToSubtract(gCardInfo.atk);
     else
         SetPlayerLifePointsToSubtract(gCardInfo.atk);
 
-    sub_803F29C();
+    HandleDuelAction();
     sub_803F4C0();
 
     if (!gHideEffectText)
@@ -406,12 +406,12 @@ void EffectLeghul(void)
     gStatMod.stage = sub_804069C(gZones[gMonEffect.row][gMonEffect.zone]);
     SetFinalStat(&gStatMod);
 
-    if (WhoseTurn() == PLAYER)
+    if (WhoseTurn() == DUEL_PLAYER)
         SetOpponentLifePointsToSubtract(gCardInfo.atk);
     else
         SetPlayerLifePointsToSubtract(gCardInfo.atk);
 
-    sub_803F29C();
+    HandleDuelAction();
     sub_803F4C0();
 
     if (!gHideEffectText)
@@ -454,12 +454,12 @@ void EffectObeliskTheTormentor(void)
         if (IsWingedDragonOfRa(gZones[1][i]->id) != TRUE)
             ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
 
-    if (WhoseTurn() == PLAYER)
+    if (WhoseTurn() == DUEL_PLAYER)
         SetOpponentLifePointsToSubtract(4000);
     else
         SetPlayerLifePointsToSubtract(4000);
 
-    sub_803F29C();
+    HandleDuelAction();
     sub_803F4C0();
 
     if (!gHideEffectText)
@@ -705,12 +705,12 @@ void EffectReflectBounder(void)
         gStatMod.stage = sub_804069C(gZones[1][zone]);
         SetFinalStat(&gStatMod);
 
-        if (WhoseTurn() == PLAYER)
+        if (WhoseTurn() == DUEL_PLAYER)
             SetOpponentLifePointsToSubtract(gCardInfo.atk);
         else
             SetPlayerLifePointsToSubtract(gCardInfo.atk);
 
-        sub_803F29C();
+        HandleDuelAction();
         sub_803F4C0();
     }
 
@@ -824,12 +824,12 @@ void sub_80471BC(void)
     gStatMod.stage = sub_804069C(gZones[gMonEffect.row][gMonEffect.zone]);
     SetFinalStat(&gStatMod);
 
-    if (WhoseTurn() == PLAYER)
+    if (WhoseTurn() == DUEL_PLAYER)
         SetOpponentLifePointsToSubtract(gCardInfo.atk);
     else
         SetPlayerLifePointsToSubtract(gCardInfo.atk);
 
-    sub_803F29C();
+    HandleDuelAction();
     sub_803F4C0();
 
     sub_804037C(gZones[gMonEffect.row][gMonEffect.zone]);
@@ -1886,15 +1886,15 @@ void EffectPuppetMaster(void)
     {
         u8 zone;
 
-        if (WhoseTurn() == PLAYER)
+        if (WhoseTurn() == DUEL_PLAYER)
         {
             SetPlayerLifePointsToSubtract(1000);
-            sub_803F29C();
+            HandleDuelAction();
         }
         else
         {
             SetOpponentLifePointsToSubtract(1000);
-            sub_803F29C();
+            HandleDuelAction();
         }
         sub_803F4C0();
         GetGraveCardAndClearGrave(0);  //this returns something
@@ -1978,7 +1978,7 @@ _08047A1C:\n\
 	movs r0, #0xfa\n\
 	lsls r0, r0, #2\n\
 	bl SetPlayerLifePointsToSubtract\n\
-	bl sub_803F29C\n\
+	bl HandleDuelAction\n\
 	b _08047A4C\n\
 	.align 2, 0\n\
 _08047A34: .4byte gZones+0x28\n\
@@ -1988,7 +1988,7 @@ _08047A40:\n\
 	movs r0, #0xfa\n\
 	lsls r0, r0, #2\n\
 	bl SetOpponentLifePointsToSubtract\n\
-	bl sub_803F29C\n\
+	bl HandleDuelAction\n\
 _08047A4C:\n\
 	bl sub_803F4C0\n\
 	movs r0, #0\n\
@@ -2127,12 +2127,12 @@ void EffectPenguinTorpedo(void)
     gStatMod.stage = sub_804069C(zone);
     SetFinalStat(&gStatMod);
 
-    if (WhoseTurn() == PLAYER)
+    if (WhoseTurn() == DUEL_PLAYER)
         SetOpponentLifePointsToSubtract(gCardInfo.atk);
     else
         SetPlayerLifePointsToSubtract(gCardInfo.atk);
 
-    sub_803F29C();
+    HandleDuelAction();
     sub_803F4C0();
 
     if (!gHideEffectText)
@@ -2154,14 +2154,14 @@ void EffectBerserkDragon(void)
         if (gZones[1][i]->id != CARD_NONE)
         {
             FlipCardFaceUp(gZones[1][i]);
-            if (turn == PLAYER)
+            if (turn == DUEL_PLAYER)
                 sub_803F908(gMonEffect.zone, 4 - i);
             else
                 sub_803F908(i, 4 - gMonEffect.zone);
 
-            sub_803F29C();
+            HandleDuelAction();
             sub_803F224();
-            if (turn != PLAYER)
+            if (turn != DUEL_PLAYER)
                 gUnk2023EA0.unk18 = 0;
         }
     }
@@ -2236,12 +2236,12 @@ void EffectReaperOfTheCards(void)
 
 void EffectFairysGift(void)
 {
-    if (WhoseTurn() == PLAYER)
+    if (WhoseTurn() == DUEL_PLAYER)
         SetPlayerLifePointsToAdd(1000);
     else
         SetOpponentLifePointsToAdd(1000);
 
-    sub_803F29C();
+    HandleDuelAction();
 
     if (!gHideEffectText)
     {
@@ -2555,12 +2555,12 @@ void EffectRedArcheryGirl(void)
 
 void EffectLadyOfFaith(void)
 {
-    if (WhoseTurn() == PLAYER)
+    if (WhoseTurn() == DUEL_PLAYER)
         SetPlayerLifePointsToAdd(500);
     else
         SetOpponentLifePointsToAdd(500);
 
-    sub_803F29C();
+    HandleDuelAction();
 
     if (!gHideEffectText)
     {
@@ -2571,12 +2571,12 @@ void EffectLadyOfFaith(void)
 
 void EffectFireReaper(void)
 {
-    if (WhoseTurn() == PLAYER)
+    if (WhoseTurn() == DUEL_PLAYER)
         SetOpponentLifePointsToSubtract(50);
     else
         SetPlayerLifePointsToSubtract(50);
 
-    sub_803F29C();
+    HandleDuelAction();
     sub_803F4C0();
 
     if (!gHideEffectText)
@@ -2665,12 +2665,12 @@ void EffectHourglassOfLife(void)
         if (gZones[2][i]->id != CARD_NONE)
             IncrementPermanentPowerLevel(gZones[2][i]);
 
-    if (WhoseTurn() == PLAYER)
+    if (WhoseTurn() == DUEL_PLAYER)
         SetPlayerLifePointsToSubtract(1000);
     else
         SetOpponentLifePointsToSubtract(1000);
 
-    sub_803F29C();
+    HandleDuelAction();
     sub_803F4C0();
 
     if (!gHideEffectText)
@@ -2697,17 +2697,17 @@ void EffectInvitationToADarkSleep(void)
 
 void EffectTheWingedDragonOfRaBattleMode(void)
 {
-    if (WhoseTurn() == PLAYER)
+    if (WhoseTurn() == DUEL_PLAYER)
     {
-        SetOpponentLifePointsToSubtract(gLifePoints[0] - 1);
-        sub_803F29C();
-        gLifePoints[0] = 1;
+        SetOpponentLifePointsToSubtract(gDuelLifePoints[0] - 1);
+        HandleDuelAction();
+        gDuelLifePoints[0] = 1;
     }
     else
     {
-        SetPlayerLifePointsToSubtract(gLifePoints[1] - 1);
-        sub_803F29C();
-        gLifePoints[1] = 1;
+        SetPlayerLifePointsToSubtract(gDuelLifePoints[1] - 1);
+        HandleDuelAction();
+        gDuelLifePoints[1] = 1;
     }
     sub_803F4C0();
 
@@ -2830,12 +2830,12 @@ void EffectBarrelDragon(void)
 
 void EffectSkullMarkLadyBug(void)
 {
-    if (WhoseTurn() == PLAYER)
+    if (WhoseTurn() == DUEL_PLAYER)
         SetPlayerLifePointsToAdd(500);
     else
         SetOpponentLifePointsToAdd(500);
 
-    sub_803F29C();
+    HandleDuelAction();
 
     ClearZoneAndSendMonToGraveyard(gZones[gMonEffect.row][gMonEffect.zone], 0);
 
@@ -2892,12 +2892,12 @@ void sub_8048AA0(void)
     if (NumEmptyZonesAndGodCardsInRow(gZones[1]) < MAX_ZONES_IN_ROW)
         ClearZoneAndSendMonToGraveyard(gZones[1][(u8)HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
 
-    if (WhoseTurn() == PLAYER)
+    if (WhoseTurn() == DUEL_PLAYER)
         SetOpponentLifePointsToSubtract(500);
     else
         SetPlayerLifePointsToSubtract(500);
 
-    sub_803F29C();
+    HandleDuelAction();
     sub_803F4C0();
 
     if (!gHideEffectText)
@@ -2927,12 +2927,12 @@ void EffectTheWingedDragonOfRaPhoenixMode(void)
 {
     u8 i;
 
-    if (WhoseTurn() == PLAYER)
+    if (WhoseTurn() == DUEL_PLAYER)
         SetPlayerLifePointsToSubtract(1000);
     else
         SetOpponentLifePointsToSubtract(1000);
 
-    sub_803F29C();
+    HandleDuelAction();
     sub_803F4C0();
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)

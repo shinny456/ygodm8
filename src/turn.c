@@ -1,11 +1,18 @@
 #include "global.h"
 #include "duel.h"
 
-extern u8 gUnk_8E1178C[];
+//TODO: NUM_DUELISTS as array size?
+static const unsigned char gUnk_8E1178C[] = {
+  [DUEL_PLAYER] = DUEL_OPPONENT,
+  [DUEL_OPPONENT] = DUEL_PLAYER
+};
+
+static const unsigned char pad[] = {0, 0}; // TODO: remove, align in linker
+
 
 void SetWhoseTurnToPlayer(void)
 {
-    gWhoseTurn = PLAYER;
+    gWhoseTurn = DUEL_PLAYER;
 }
 
 void SwitchTurn(void)

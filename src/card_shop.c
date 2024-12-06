@@ -8,20 +8,7 @@
 #include "gba/macro.h"
 #include "gba/syscall.h"
 
-extern u16 g2020DF4;
-extern u16 gUnk2020DFC;
-extern u8 g2022120[];
-extern u8 g2021DF0[];
-extern u8 g2022B80[];
-extern u8 g80C9D84[];
-extern u8 g80C9D90[];
-extern u8 g80CA0D7[];
-
-extern u8 gTrunkCardQty[];
-int GetDeckCardQty (u16);
-
-
-struct Unk2022450 {
+struct {
   u16* unk0[5][7];
   u16 unk8C[5][7];
   u16 unkD2[806];
@@ -32,120 +19,251 @@ struct Unk2022450 {
   u8 unk724;
   u8 unk725;
   u8 unk726;
-};
+} extern sCardShop;
 
-extern struct Unk2022450 g2022450;
+static int ProcessInput (void);
+static void sub_802C14C (void);
+static void sub_802C1D4 (void);
+static void sub_802C2A0 (void);
+static void sub_802C318 (void);
+static void sub_802C390 (void);
+static void sub_802C408 (void);
+static void sub_802C480 (void);
+static void sub_802C4F8 (void);
+static unsigned char IsSelectedCardUnbuyable (void);
 
-void sub_802C1D4 (void);
-void sub_802DC0C (void);
+static void sub_802C6FC (void);
+static void sub_802C788 (void);
+static void sub_802C804 (void);
+static void sub_802C880 (void);
+static void sub_802C8FC (void);
+static void sub_802C978 (void);
+static void sub_802C9F8 (void);
+static unsigned char IsSelectedCardUnsellable (void);
+static void sub_802CABC (void);
+static void sub_802CD7C (void);
+static void sub_802CDA4 (void);
+static void sub_802CDCC (void);
+static void sub_802CE04 (void);
+static void sub_802CE74 (void);
+static void sub_802CEE0 (int);
+static void sub_802CF58 (void);
+static void sub_802CFB4 (void);
+static void sub_802D0EC (void);
+static void sub_802D130 (void);
+static void sub_802D174 (void);
+static void sub_802D210 (u16, u8);
+static unsigned sub_802D250 (u16, u8);
+static unsigned sub_802D274 (u16, u8);
+static void sub_802D294 (void);
+static void sub_802D2D4 (void);
+static void sub_802D3B8 (void);
+static void sub_802D45C (void);
+static void sub_802D4AC (void);
+static void sub_802D4FC (void);
+static void sub_802D54C (void);
+static void sub_802D59C (void);
+static void sub_802D5D4 (void);
+static void sub_802D884 (void);
+static void sub_802D8AC (void);
+static void sub_802D8D4 (void);
+static unsigned char sub_802D9AC (u16, u8);
+static unsigned char sub_802D9D0 (u16, u8);
+static void sub_802DA1C (void);
+static void sub_802DA8C (void);
+static void sub_802DAF8 (int);
+static void sub_802DBA8 (void);
+static void sub_802DC0C (void);
+static void sub_802DD98 (void);
+static void sub_802DDD8 (void);
+static void sub_802DE1C (void);
+static void sub_802DE60 (void);
+static void sub_802DE74 (void);
+static int sub_802DE84 (int);
+static void sub_802DEAC (s16);
+static s16 sub_802DED4 (int);
+static void sub_802DF1C (void);
+static void sub_802DF88 (void);
+static void sub_802DFA4 (void);
+static void sub_802DFC4 (void);
+static void sub_802DFE4 (void);
+static void sub_802E040 (void);
+static void sub_802E060 (void);
+static void sub_802E080 (void);
+static void sub_802E094 (void);
+static void sub_802E0B4 (void);
+static void sub_802E0D4 (void);
+static void sub_802E0F4 (void);
+static void sub_802E114 (u16, u8);
+static void sub_802E154 (u16, u8);
+static unsigned char sub_802E194 (u16, u8);
+static unsigned sub_802E1B8 (u16, u8);
+static void sub_802E1D8 (void);
+static void sub_802E270 (void);
+static void sub_802E868 (void);
+static void sub_802EA74 (void);
+static void sub_802F9E8 (void);
+static void sub_802FB08 (void);
+static void sub_802FBF4 (void);
+static void sub_802FC14 (void);
+static void sub_802FC34 (void);
+static void sub_802FC50 (void);
+static void sub_802FC6C (void);
+static void sub_802FC88 (void);
+static void sub_802FCF0 (u8);
+static void sub_802FD48 (u16);
+static void sub_802FD84 (u16);
+static void sub_802FDC0 (void);
+static void sub_802FE00 (void);
+static void sub_802FE68 (void);
+static void sub_802FE84 (int);
+static void sub_802FF14 (u8*, u16);
+static void sub_802FF4C (u8*, u16);
+static void sub_802FF78 (u8*, u16);
+static void sub_802FFF0 (u8*, u16);
+static void sub_8030068 (void);
+static void sub_8030090 (void);
+static void sub_80300F8 (void);
+static void sub_803015C (void);
+static void sub_80301A8 (void);
+static void sub_80301F4 (void);
+static void sub_8030240 (void);
+static void sub_803028C (void);
+static void sub_80302F0 (void);
+static void sub_803030C (void);
+static void sub_80303F0 (void);
+static void sub_8030494 (void);
+static void sub_80304E4 (void);
+static void sub_8030534 (void);
+static void sub_8030584 (void);
+static void sub_80305D4 (void);
+static void sub_803060C (void);
+static void sub_8030654 (void);
+static void sub_8030660 (void);
+static void sub_8030678 (void);
+static void sub_8030684 (void);
+static void sub_8030690 (void);
+static void sub_80306C0 (void);
+static void sub_80306E0 (void);
+static void sub_8030710 (void);
+static void sub_803071C (void);
+static void sub_803073C (void);
+static void sub_803075C (void);
+static void sub_8030760 (void);
+static void sub_8030784 (void);
+static void sub_80307E4 (int);
+static void sub_803083C (int);
+static void sub_8030898 (void);
+static void sub_8030934 (void);
+static void sub_803096C (int);
+static void sub_80309D8 (void);
+static void sub_8030A10 (void);
+static void sub_8030A48 (void);
+static void sub_8030AF8 (void);
+
+
+extern u8 g80C9D84[];
+extern u8 g80C9D90[];
+extern u8 g80CA0B4[][5];
+extern u8 g80CA0CD[];
+extern u8 g80CA0D2[];
+extern u8 g80CA0D7[];
+extern u8 g80CA0E1[];
+extern u8 g80CA0E4[];
+extern u8 g80CA0E7[];
+extern u8 g80CA0F2[];
+extern u8 g80CA0FD[];
+extern u8 g80CA108[];
+extern u16 g80CA114[][30];
+extern u16 g80CA5C4[][30];
+extern u16 g80CAA74[][30];
+extern u16 g80CAF24[][30];
+extern u16 g80CB3D4[][30];
+extern u16 g80CB884[][30];
+extern u8 g80CC0F4[];
+extern u32 g80CC4F4[];
+extern u16 g80CCC90[];
+extern u16 g80CCCF0[][30];
+extern u16 g80CD1A0[][16];
+extern u16 g80CD1E0[];
+extern u16 g80CD200[][32];
+extern u16 g80CD280[];
+extern u16 g80CD2A0[][64];
+extern u16 g80CD4A0[];
+extern u16 g80CD4C0[][64];
+extern u32 g80CD6C0[];
+extern u32 g80CD778[];
+extern u8 g80CD830[];
+extern u8 g80CDA60[];
+extern u8 g80CDC28[];
+extern u8 g80CDC50[];
+extern u8 g80CDCF0[];
+extern u8 g80CDD78[];
+extern u8 g80CDE10[];
+extern u8 g80CDE28[];
+extern u16 g80CDE5A[]; //cursor to sprite Y coordinate
+extern u16 g80CDE64[]; //cursor to sprite X coordinate
+extern u8 g80CDE72[][2]; //u16?
+extern u16 g80CDE7C[];
+extern u8 g80CDE8A[][2]; //u16?
+extern u16 g80CDE90[];
+extern u16 g80CDE96[];
+extern u8 g80CDEAC[][2]; //u16?
+
+
+
+extern u8 g89A7ADE[][64]; //tribute tiles?
+extern u8 g89A81DE[][64];
+extern u8 g89A7F1E[][64];
+extern u8 g89A875E[][64];
+extern u8 g89A849E[][64];
+
+
+
+extern u16 gOamBuffer[];
+extern u16 g2020DF4;
+extern u16 gUnk2020DFC;
+extern u8 g2022120[];
+extern u8 g2021DF0[];
+extern u8 g2022B80[];
+
+
+extern u8 gTrunkCardQty[];
+void CopyStarTileToBuffer (void*);
+void CopySwordTileToBuffer (void*);
+void CopyShieldTileToBuffer (void*);
+void CopyStringTilesToVRAMBuffer (void*, void*, u16);
+int sub_8045410 (u16);
+void sub_800800C(u8, u8, u16, u16);
+u16 sub_08007FEC(u8, u8, u16);
+extern u8 g8DF811C[];
+void sub_8008BF8 (void * dest);
+int GetDeckCardQty (u16);
 void sub_800BD34 (void);
-void sub_802E1D8 (void);
-void sub_802E868 (void);
-void sub_802FD48 (u16);
-void sub_802FD84 (u16);
-void sub_802FE00 (void);
-void sub_8030090 (void);
-void sub_802F9E8 (void);
-void sub_8030068 (void);
-void sub_803060C (void);
-void sub_802FBF4 (void);
-void sub_8030654 (void);
-void sub_8030760 (void);
-int sub_802C0BC (void);
-void sub_802C788 (void);
-void sub_802C804 (void);
-void sub_802C880 (void);
-void sub_802C8FC (void);
-void sub_802C978 (void);
-void sub_802C9F8 (void);
-u8 sub_802CA78 (void);
-u8 sub_802C570 (void);
-void sub_802CABC (void);
-void sub_802D2D4 (void);
-void sub_802C6FC (void);
-void sub_802D294 (void);
-void sub_802C2A0 (void);
-void sub_802C318 (void);
-void sub_802C390 (void);
-void sub_802C408 (void);
-void sub_802C480 (void);
-void sub_802C4F8 (void);
-void sub_802D5D4 (void);
-void sub_803030C (void);
-void sub_802C14C (void);
-void sub_802DD98 (void);
-void sub_802DBA8 (void);
-void sub_802DF1C (void);
-void sub_802DF88 (void);
-void sub_802FCF0 (u8);
-void sub_802FE68 (void);
-void sub_803028C (void);
-void sub_8030898 (void);
-void sub_8030684 (void);
-void sub_802DDD8 (void);
-void sub_802FB08 (void);
-void sub_80300F8 (void);
-void sub_8030678 (void);
-int sub_802DE84 (int);
-void sub_80307E4 (int);
-void sub_803083C (int);
-void sub_802DE1C (void);
-void sub_802DA1C (void);
-void sub_802DA8C (void);
-void sub_802DE60 (void);
-void sub_802DE74 (void);
-void sub_802CFB4 (void);
-void sub_802CF58 (void);
-void sub_802D174 (void);
-void sub_802D0EC (void);
-void sub_802D130 (void);
-void sub_802CE04 (void);
-void sub_802CE74 (void);
-void sub_802E080 (void);
-void sub_802FC14 (void);
-void sub_802FC50 (void);
-void sub_803015C (void);
-void sub_80301A8 (void);
-void sub_8030934 (void);
-void sub_8030690 (void);
-void sub_802CD7C (void);
-void sub_802CDA4 (void);
-void sub_802CDCC (void);
-void sub_802EA74 (void);
-void sub_802FC6C (void);
-void sub_80306C0 (void);
-void sub_802E270 (void);
-void sub_802FC88 (void);
-void sub_803096C (int);
-void sub_8030660 (void);
-void sub_802E040 (void);
-void sub_8030784 (void);
-void sub_802E060 (void);
-u32 sub_802D274 (u16, u8);
-void sub_802D210 (u16, u8);
-void sub_802E114 (u16, u8);
-void sub_802CEE0 (int);
-void sub_802FE84 (int);
+void sub_8057418 (u16*);
+extern void* g8E1168C[];
+void sub_805742C (void*, u16);
 void AddMoney (u64 amount);
-
-void sub_802DEAC (s16);
-void sub_802DFA4 (void);
-void sub_802DFC4 (void);
-s16 sub_802DED4 (int);
 void sub_8034A38 (void);
-void sub_802DFE4 (void);
+void CopyAttributeIconTilesToBuffer (u8 attribute, void * dest);
+void CopyAttributeIconPalToBuffer (u8 attribute, void * dest);
+void CopyTypeIconTilesToBuffer (u8 type, void * dest);
+void CopyTypeIconPalToBuffer (u8 type, void * dest);
+u32 sub_8027018 (u64);
+void RemoveMoney (u64);
+extern u8 g2021BE0[];
+extern u64 gMoney;
+void sub_800DEAC (u64, u8);
+u32 ExceedsMoneyLimit (u64);
 
-
-
-// Buy
-void sub_802BF70 (void) {
+void CardShopBuyMain (void) {
   u16 cardId;
   u32 temp;
 
   sub_802C1D4();
   sub_802DC0C();
 
-  cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -165,7 +283,7 @@ void sub_802BF70 (void) {
   temp = 1;
 
   while (temp) {
-    switch ((u16)sub_802C0BC()) {
+    switch ((u16)ProcessInput()) {
       case 0x40:
         sub_802C2A0();
         PlayMusic(0x36);
@@ -191,7 +309,7 @@ void sub_802BF70 (void) {
         PlayMusic(0x36);
         break;
       case 1:
-        if (!sub_802C570())
+        if (!IsSelectedCardUnbuyable())
           sub_802D5D4();
         else {
           PlayMusic(0x39);
@@ -219,7 +337,7 @@ void sub_802BF70 (void) {
   sub_802C1D4();
 }
 
-int sub_802C0BC (void) {
+static int ProcessInput (void) {
   u16 ret = 0;
 
   if (g2020DF4 & 0x20)
@@ -250,18 +368,18 @@ int sub_802C0BC (void) {
   return ret;
 }
 
-void sub_802C14C (void) {
+static void sub_802C14C (void) {
   u16 cardId;
 
   sub_802DBA8();
   sub_802DF1C();
   sub_802DF88();
 
-  cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
-  sub_802FCF0(g2022450.unk725);
+  sub_802FCF0(sCardShop.unk725);
   sub_802FD48(cardId);
   sub_802FE68();
   sub_8030068();
@@ -271,7 +389,7 @@ void sub_802C14C (void) {
   sub_8030898();
 }
 
-void sub_802C1D4 (void) {
+static void sub_802C1D4 (void) {
   u16 i, j;
   for (i = 0; i < 32; i++) {
     for (j = 0; j < 512; j++) {
@@ -288,11 +406,11 @@ void sub_802C1D4 (void) {
   }
 }
 
-void sub_802C2A0 (void) {
+static void sub_802C2A0 (void) {
   u16 cardId;
   sub_802DDD8();
 
-  cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -305,11 +423,11 @@ void sub_802C2A0 (void) {
   sub_80307E4(sub_802DE84(0));
 }
 
-void sub_802C318 (void) {
+static void sub_802C318 (void) {
   u16 cardId;
 
   sub_802DE1C();
-  cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -322,11 +440,11 @@ void sub_802C318 (void) {
   sub_803083C(sub_802DE84(4));
 }
 
-void sub_802C390 (void) {
+static void sub_802C390 (void) {
   u16 cardId;
 
   sub_802DA1C();
-  cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -339,11 +457,11 @@ void sub_802C390 (void) {
   sub_80307E4(sub_802DE84(0));
 }
 
-void sub_802C408 (void) {
+static void sub_802C408 (void) {
   u16 cardId;
 
   sub_802DA8C();
-  cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -356,13 +474,13 @@ void sub_802C408 (void) {
   sub_80307E4(sub_802DE84(4));
 }
 
-void sub_802C480 (void) {
+static void sub_802C480 (void) {
   u16 cardId;
 
   sub_802DE60();
   sub_802DF1C();
   sub_802DF88();
-  cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -375,13 +493,13 @@ void sub_802C480 (void) {
   sub_8030898();
 }
 
-void sub_802C4F8 (void) {
+static void sub_802C4F8 (void) {
   u16 cardId;
 
   sub_802DE74();
   sub_802DF1C();
   sub_802DF88();
-  cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -394,28 +512,26 @@ void sub_802C4F8 (void) {
   sub_8030898();
 }
 
-u8 sub_802C570 (void) {
-  u16 cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+static unsigned char IsSelectedCardUnbuyable (void) {
+  u16 cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   if (cardId != CARD_NONE && IsGodCard(cardId) != 1)
     return 0;
   return 1;
 }
 
-
-// Sell
 /*split?
-  sub_802C0BC returns a u32/int here, while in the Buy function
+  ProcessInput returns an int here, while in the Buy function
   it returned a u16. this suggests that it might be declared implicitly,
   and therefore this would belong in a different file
 */
-void sub_802C5B4 (void) {
+void CardShopSellMain (void) {
   u16 cardId;
   u32 temp;
 
   sub_802C1D4();
   sub_802CFB4();
 
-  cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -435,7 +551,7 @@ void sub_802C5B4 (void) {
   temp = 1;
 
   while (temp) {
-    switch (sub_802C0BC()) {
+    switch (ProcessInput()) {
       case 0x40:
         sub_802C788();
         break;
@@ -458,7 +574,7 @@ void sub_802C5B4 (void) {
         sub_8008220();
         break;
       case 1:
-        if (!sub_802CA78())
+        if (!IsSelectedCardUnsellable())
           sub_802CABC();
         else {
           PlayMusic(0x39);
@@ -485,18 +601,18 @@ void sub_802C5B4 (void) {
   sub_802C1D4();
 }
 
-void sub_802C6FC (void) {
+static void sub_802C6FC (void) {
   u16 cardId;
 
   sub_802CF58();
   sub_802DF1C();
   sub_802D174();
 
-  cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
-  sub_802FCF0(g2022450.unk725);
+  sub_802FCF0(sCardShop.unk725);
   sub_802FD84(cardId);
   sub_802FE68();
   sub_8030068();
@@ -507,11 +623,11 @@ void sub_802C6FC (void) {
   sub_8030898();
 }
 
-void sub_802C788 (void) {
+static void sub_802C788 (void) {
   u16 cardId;
 
   sub_802D0EC();
-  cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -525,11 +641,11 @@ void sub_802C788 (void) {
   PlayMusic(0x36);
 }
 
-void sub_802C804 (void) {
+static void sub_802C804 (void) {
   u16 cardId;
   sub_802D130();
 
-  cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -543,11 +659,11 @@ void sub_802C804 (void) {
   PlayMusic(0x36);
 }
 
-void sub_802C880 (void) {
+static void sub_802C880 (void) {
   u16 cardId;
 
   sub_802CE04();
-  cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -561,11 +677,11 @@ void sub_802C880 (void) {
   PlayMusic(0x36);
 }
 
-void sub_802C8FC (void) {
+static void sub_802C8FC (void) {
   u16 cardId;
 
   sub_802CE74();
-  cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -579,14 +695,14 @@ void sub_802C8FC (void) {
   PlayMusic(0x36);
 }
 
-void sub_802C978 (void) {
+static void sub_802C978 (void) {
   u16 cardId;
 
   sub_802DE60();
   sub_802DF1C();
   sub_802D174();
 
-  cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -600,14 +716,14 @@ void sub_802C978 (void) {
   sub_8030898();
 }
 
-void sub_802C9F8 (void) {
+static void sub_802C9F8 (void) {
   u16 cardId;
 
   sub_802DE74();
   sub_802DF1C();
   sub_802D174();
 
-  cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -621,14 +737,14 @@ void sub_802C9F8 (void) {
   sub_8030898();
 }
 
-u8 sub_802CA78 (void) {
-  u16 cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+static unsigned char IsSelectedCardUnsellable (void) {
+  u16 cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   if (cardId != CARD_NONE && IsGodCard(cardId) != 1)
     return 0;
   return 1;
 }
 
-void sub_802CABC (void) {
+static void sub_802CABC (void) {
   u32 r4;
   u16 cardId;
 
@@ -644,7 +760,7 @@ void sub_802CABC (void) {
 
   r4 = 1;
   while (r4) {
-    switch (sub_802C0BC()) {
+    switch (ProcessInput()) {
       case 0x40:
         sub_802CD7C();
         break;
@@ -653,9 +769,9 @@ void sub_802CABC (void) {
         break;
       case 1:
         sub_802CDCC();
-        if (g2022450.unk726 == 2)
+        if (sCardShop.unk726 == 2)
           r4 = 0;
-        if (*g2022450.unk0[g2022450.unk723][g2022450.unk722] != CARD_NONE)
+        if (*sCardShop.unk0[sCardShop.unk723][sCardShop.unk722] != CARD_NONE)
           break;
         goto out;
       case 2:
@@ -669,7 +785,7 @@ void sub_802CABC (void) {
   out:
   sub_802FBF4();
   sub_802EA74();
-  cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   sub_802FD84(cardId);
   sub_802FC6C();
   sub_80300F8();
@@ -677,11 +793,11 @@ void sub_802CABC (void) {
   sub_8008220();
 }
 
-void sub_802CBB8 (void) {
+static void sub_802CBB8 (void) {
   u16 cardId;
   u64 money;
 
-  cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   if (sub_802D274(cardId, 2) == 1) {
     money = g2021AF0.unk8;
     sub_802D210(cardId, 1);
@@ -701,19 +817,19 @@ void sub_802CBB8 (void) {
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
   sub_802D174();
-  sub_802CEE0(g2022450.unk723);
-  sub_802FE84(g2022450.unk723);
+  sub_802CEE0(sCardShop.unk723);
+  sub_802FE84(sCardShop.unk723);
   sub_802EA74();
-  sub_802FD84(*g2022450.unk0[g2022450.unk723][g2022450.unk722]);
+  sub_802FD84(*sCardShop.unk0[sCardShop.unk723][sCardShop.unk722]);
   sub_80081DC(sub_8030690);
   sub_8008220();
-  sub_803096C(sub_802DE84(g2022450.unk723));
+  sub_803096C(sub_802DE84(sCardShop.unk723));
 }
 
-void sub_802CCD0 (void) {
+static void sub_802CCD0 (void) {
   u16 cardId;
 
-  cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   SetCardInfo(cardId);
   PlayMusic(0x37);
   sub_801F6B0();
@@ -739,7 +855,7 @@ void sub_802CCD0 (void) {
   sub_8030784();
 }
 
-void sub_802CD7C (void) {
+static void sub_802CD7C (void) {
   sub_802E040();
   sub_803015C();
   sub_80301A8();
@@ -748,7 +864,7 @@ void sub_802CD7C (void) {
   PlayMusic(0x36);
 }
 
-void sub_802CDA4 (void) {
+static void sub_802CDA4 (void) {
   sub_802E060();
   sub_803015C();
   sub_80301A8();
@@ -757,8 +873,8 @@ void sub_802CDA4 (void) {
   PlayMusic(0x36);
 }
 
-void sub_802CDCC (void) {
-  switch (g2022450.unk726) {
+static void sub_802CDCC (void) {
+  switch (sCardShop.unk726) {
     case 0:
       sub_802CBB8();
       break;
@@ -772,13 +888,13 @@ void sub_802CDCC (void) {
   }
 }
 
-void sub_802CE04 (void) {
-  if (g2022450.unk722 >= 1) {
-    g2022450.unk722--;
+static void sub_802CE04 (void) {
+  if (sCardShop.unk722 >= 1) {
+    sCardShop.unk722--;
     return;
   }
-  if (g2022450.unk723 >= 2)
-    g2022450.unk723--;
+  if (sCardShop.unk723 >= 2)
+    sCardShop.unk723--;
   else {
     sub_802DEAC(-1);
     sub_802DFA4();
@@ -787,16 +903,16 @@ void sub_802CE04 (void) {
     sub_802FE84(0);
     sub_8030068();
   }
-  g2022450.unk722 = 6;
+  sCardShop.unk722 = 6;
 }
 
-void sub_802CE74 (void) {
-  if (g2022450.unk722 <= 5) {
-    g2022450.unk722++;
+static void sub_802CE74 (void) {
+  if (sCardShop.unk722 <= 5) {
+    sCardShop.unk722++;
     return;
   }
-  if (g2022450.unk723 <= 2)
-    g2022450.unk723++;
+  if (sCardShop.unk723 <= 2)
+    sCardShop.unk723++;
   else {
     sub_802DEAC(1);
     sub_802DFC4();
@@ -805,67 +921,67 @@ void sub_802CE74 (void) {
     sub_802FE84(4);
     sub_8030068();
   }
-  g2022450.unk722 = 0;
+  sCardShop.unk722 = 0;
 }
 
-void sub_802CEE0 (int arg0) {
+static void sub_802CEE0 (int arg0) {
   u8 i;
   u8 arg0_u8 = arg0;
-  s16 temp = sub_802DED4(g2022450.unk71E + arg0_u8);
+  s16 temp = sub_802DED4(sCardShop.unk71E + arg0_u8);
   for (i = 0; i < 7; i++) {
-    u16 temp2 = g2022450.unkD2[temp * 7 + i + 1];
+    u16 temp2 = sCardShop.unkD2[temp * 7 + i + 1];
     if (temp2)
       if (!g2022B80[temp2])
-        *g2022450.unk0[arg0_u8][i] = CARD_NONE;
+        *sCardShop.unk0[arg0_u8][i] = CARD_NONE;
       else
-        *g2022450.unk0[arg0_u8][i] = temp2;
+        *sCardShop.unk0[arg0_u8][i] = temp2;
     else
-      *g2022450.unk0[arg0_u8][i] = temp2;
+      *sCardShop.unk0[arg0_u8][i] = temp2;
   }
 }
 
-void sub_802CF58 (void) {
+static void sub_802CF58 (void) {
   u8 temp;
-  if (++g2022450.unk725 > 9)
-    g2022450.unk725 = 0;
+  if (++sCardShop.unk725 > 9)
+    sCardShop.unk725 = 0;
   // this part could be a macro or (static) inline func
   // sub_802D190
-  temp = g2022450.unk725;
-  gUnk2022EB0.unk0 = g2022450.unkD2 + 1;
+  temp = sCardShop.unk725;
+  gUnk2022EB0.unk0 = sCardShop.unkD2 + 1;
   gUnk2022EB0.unk8 = 800;
   gUnk2022EB0.unkA = g80C9D84[temp];
   sub_8034A38();
   sub_802DFE4();
-  g2022450.unk71E = 114;
+  sCardShop.unk71E = 114;
 }
 
-void sub_802CFB4 (void) {
+static void sub_802CFB4 (void) {
   u16 i;
   u8 ii;
   for (i = 0; i <= 805; i++)
-    g2022450.unkD2[i] = 0;
+    sCardShop.unkD2[i] = 0;
   for (i = 0; i <= 800; i++) {
     g2022120[i] = g2021DF0[i];
     g2022B80[i] = gTrunkCardQty[i];
   }
-  g2022450.unk726 = 0;
-  g2022450.unk71E = 114;
-  g2022450.unk720 = 115;
-  g2022450.unk724 = 4;
-  g2022450.unk725 = 0;
-  g2022450.unk722 = 0;
-  g2022450.unk723 = 1;
-  g2022450.unkD2[0] = 0;
+  sCardShop.unk726 = 0;
+  sCardShop.unk71E = 114;
+  sCardShop.unk720 = 115;
+  sCardShop.unk724 = 4;
+  sCardShop.unk725 = 0;
+  sCardShop.unk722 = 0;
+  sCardShop.unk723 = 1;
+  sCardShop.unkD2[0] = 0;
   for (i = 1; i <= 800; i++)
-    g2022450.unkD2[i] = i;
+    sCardShop.unkD2[i] = i;
 
   // sub_802D190
-  gUnk2022EB0.unk0 = g2022450.unkD2 + 1;
+  gUnk2022EB0.unk0 = sCardShop.unkD2 + 1;
   gUnk2022EB0.unk8 = 800;
   gUnk2022EB0.unkA = g80C9D84[0];
   sub_8034A38();
   sub_802DFE4();
-  g2022450.unk71E = 114;
+  sCardShop.unk71E = 114;
   // sub_802D190 end
 
   sub_802DF1C();
@@ -876,9 +992,9 @@ void sub_802CFB4 (void) {
 
 // functions below inline?
 
-void sub_802D0EC (void) {
-  if (g2022450.unk723 >= 2) {
-    g2022450.unk723--;
+static void sub_802D0EC (void) {
+  if (sCardShop.unk723 >= 2) {
+    sCardShop.unk723--;
     return;
   }
   sub_802DEAC(-1);
@@ -889,9 +1005,9 @@ void sub_802D0EC (void) {
   sub_8030068();
 }
 
-void sub_802D130 (void) {
-  if (g2022450.unk723 <= 2) {
-    g2022450.unk723++;
+static void sub_802D130 (void) {
+  if (sCardShop.unk723 <= 2) {
+    sCardShop.unk723++;
     return;
   }
   sub_802DEAC(1);
@@ -902,26 +1018,22 @@ void sub_802D130 (void) {
   sub_8030068();
 }
 
-void sub_802D174 (void) {
+static void sub_802D174 (void) {
   u8 i;
   for (i = 0; i < 5; i++)
     sub_802CEE0(i);
 }
 
-void sub_802D190 (u8 arg0) {
-  gUnk2022EB0.unk0 = g2022450.unkD2 + 1;
+static void sub_802D190 (u8 arg0) {
+  gUnk2022EB0.unk0 = sCardShop.unkD2 + 1;
   gUnk2022EB0.unk8 = 800;
   gUnk2022EB0.unkA = g80C9D84[arg0];
   sub_8034A38();
   sub_802DFE4();
-  g2022450.unk71E = 114;
+  sCardShop.unk71E = 114;
 }
 
-// split?
-u32 sub_802D250 (u16, u8);
-
-
-void sub_802D1D0 (u16 arg0, u8 arg1) {
+static void sub_802D1D0 (u16 arg0, u8 arg1) {
   if (!arg0)
     return;
   if (!(u8)sub_802D250(arg0, arg1))
@@ -930,7 +1042,7 @@ void sub_802D1D0 (u16 arg0, u8 arg1) {
     g2022B80[arg0] += arg1;
 }
 
-void sub_802D210 (u16 arg0, u8 arg1) {
+static void sub_802D210 (u16 arg0, u8 arg1) {
   if (!arg0)
     return;
   if (!(u8)sub_802D274(arg0, arg1))
@@ -939,19 +1051,19 @@ void sub_802D210 (u16 arg0, u8 arg1) {
     g2022B80[arg0] -= arg1;
 }
 
-u32 sub_802D250 (u16 arg0, u8 arg1) {
+static unsigned sub_802D250 (u16 arg0, u8 arg1) {
   if (arg1 > 250 - g2022B80[arg0])
     return 0;
   return 1;
 }
 
-u32 sub_802D274 (u16 arg0, u8 arg1) {
+static unsigned sub_802D274 (u16 arg0, u8 arg1) {
   if (arg1 > g2022B80[arg0])
     return 0;
   return 1;
 }
 
-void sub_802D294 (void) {
+static void sub_802D294 (void) {
   u16 i;
   for (i = 0; i <= 800; i++) {
     g2021DF0[i] = g2022120[i];
@@ -959,42 +1071,9 @@ void sub_802D294 (void) {
   }
 }
 
-void sub_80302F0 (void);
-void sub_80306E0 (void);
-void sub_80301F4 (void);
-void sub_8030240 (void);
-void sub_80309D8 (void);
-void sub_802D45C (void);
-void sub_802D4AC (void);
-void sub_802D4FC (void);
-void sub_802D54C (void);
-void sub_802D59C (void);
-void sub_802D3B8 (void);
-void sub_803071C (void);
-void sub_8030A48 (void);
-void sub_8030A10 (void);
-void sub_8030710 (void);
-void sub_802E094 (void);
-void sub_802E0B4 (void);
-void sub_802E0D4 (void);
-void sub_802E0F4 (void);
-void sub_8030AF8 (void);
-void sub_803073C (void);
-void sub_802FC34 (void);
-void sub_802D884 (void);
-void sub_802D8D4 (void);
-void sub_802D8AC (void);
-
-u32 sub_8027018 (u64);
-void RemoveMoney (u64);
-void sub_802DAF8 (int);
-void sub_802E154 (u16, u8);
-u32 sub_802E1B8 (u16, u8);
-
-
-void sub_802D2D4 (void) {
+static void sub_802D2D4 (void) {
   u32 r4;
-  g2022450.unk726 = g2022450.unk725;
+  sCardShop.unk726 = sCardShop.unk725;
   sub_802FC14();
   sub_80302F0();
   sub_80301F4();
@@ -1005,7 +1084,7 @@ void sub_802D2D4 (void) {
   PlayMusic(0x37);
   r4 = 1;
   while (r4) {
-    switch (sub_802C0BC()) {
+    switch (ProcessInput()) {
       case 0x40:
         sub_802D45C();
         PlayMusic(0x36);
@@ -1023,12 +1102,12 @@ void sub_802D2D4 (void) {
         PlayMusic(0x36);
         break;
       case 1:
-        if (g2022450.unk726 == 10) {
+        if (sCardShop.unk726 == 10) {
           sub_802D59C();
           PlayMusic(0x37);
         }
         else {
-          g2022450.unk725 = g2022450.unk726;
+          sCardShop.unk725 = sCardShop.unk726;
           sub_802D3B8();
         }
         return;
@@ -1044,21 +1123,21 @@ void sub_802D2D4 (void) {
   }
 }
 
-void sub_802D3B8 (void) {
+static void sub_802D3B8 (void) {
   u16 cardId;
 
-  g2022450.unk725 = g2022450.unk726;
-  sub_802D190(g2022450.unk725);
+  sCardShop.unk725 = sCardShop.unk726;
+  sub_802D190(sCardShop.unk725);
   sub_802DF1C();
   sub_802D174();
 
-  cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
   PlayMusic(0x37);
   sub_802FBF4();
-  sub_802FCF0(g2022450.unk725);
+  sub_802FCF0(sCardShop.unk725);
   sub_802FD84(cardId);
   sub_802FE68();
   sub_8030068();
@@ -1070,12 +1149,12 @@ void sub_802D3B8 (void) {
   sub_8030A48();
 }
 
-void sub_802D45C (void) {
+static void sub_802D45C (void) {
   sub_802E094();
-  if (g2022450.unk726 == 10)
-    sub_802FCF0(g2022450.unk725);
+  if (sCardShop.unk726 == 10)
+    sub_802FCF0(sCardShop.unk725);
   else
-    sub_802FCF0(g2022450.unk726);
+    sub_802FCF0(sCardShop.unk726);
   sub_80301F4();
   sub_8030240();
   sub_80081DC(sub_8030710);
@@ -1083,12 +1162,12 @@ void sub_802D45C (void) {
   sub_8030A10();
 }
 
-void sub_802D4AC (void) {
+static void sub_802D4AC (void) {
   sub_802E0B4();
-  if (g2022450.unk726 == 10)
-    sub_802FCF0(g2022450.unk725);
+  if (sCardShop.unk726 == 10)
+    sub_802FCF0(sCardShop.unk725);
   else
-    sub_802FCF0(g2022450.unk726);
+    sub_802FCF0(sCardShop.unk726);
   sub_80301F4();
   sub_8030240();
   sub_80081DC(sub_8030710);
@@ -1096,12 +1175,12 @@ void sub_802D4AC (void) {
   sub_8030A10();
 }
 
-void sub_802D4FC (void) {
+static void sub_802D4FC (void) {
   sub_802E0D4();
-  if (g2022450.unk726 == 10)
-    sub_802FCF0(g2022450.unk725);
+  if (sCardShop.unk726 == 10)
+    sub_802FCF0(sCardShop.unk725);
   else
-    sub_802FCF0(g2022450.unk726);
+    sub_802FCF0(sCardShop.unk726);
   sub_80301F4();
   sub_8030240();
   sub_80081DC(sub_8030710);
@@ -1109,12 +1188,12 @@ void sub_802D4FC (void) {
   sub_8030A10();
 }
 
-void sub_802D54C (void) {
+static void sub_802D54C (void) {
   sub_802E0F4();
-  if (g2022450.unk726 == 10)
-    sub_802FCF0(g2022450.unk725);
+  if (sCardShop.unk726 == 10)
+    sub_802FCF0(sCardShop.unk725);
   else
-    sub_802FCF0(g2022450.unk726);
+    sub_802FCF0(sCardShop.unk726);
   sub_80301F4();
   sub_8030240();
   sub_80081DC(sub_8030710);
@@ -1122,8 +1201,8 @@ void sub_802D54C (void) {
   sub_8030A10();
 }
 
-void sub_802D59C (void) {
-  sub_802FCF0(g2022450.unk725);
+static void sub_802D59C (void) {
+  sub_802FCF0(sCardShop.unk725);
   sub_80300F8();
   sub_802FBF4();
   sub_802FC6C();
@@ -1132,7 +1211,7 @@ void sub_802D59C (void) {
   sub_8030AF8();
 }
 
-void sub_802D5D4 (void) {
+static void sub_802D5D4 (void) {
   u32 r4;
 
   sub_802E080();
@@ -1146,7 +1225,7 @@ void sub_802D5D4 (void) {
   PlayMusic(0x37);
   r4 = 1;
   while (r4) {
-    switch (sub_802C0BC()) {
+    switch (ProcessInput()) {
       case 0x40:
         sub_802D884();
         break;
@@ -1155,9 +1234,9 @@ void sub_802D5D4 (void) {
         break;
       case 1:
         sub_802D8D4();
-        if (g2022450.unk726 == 2)
+        if (sCardShop.unk726 == 2)
           r4 = 0;
-        if (*g2022450.unk0[g2022450.unk723][g2022450.unk722] != CARD_NONE)
+        if (*sCardShop.unk0[sCardShop.unk723][sCardShop.unk722] != CARD_NONE)
           break;
         goto out;
       case 2:
@@ -1171,17 +1250,17 @@ void sub_802D5D4 (void) {
   out:
   sub_802FBF4();
   sub_802EA74();
-  sub_802FD48(*g2022450.unk0[g2022450.unk723][g2022450.unk722]);
+  sub_802FD48(*sCardShop.unk0[sCardShop.unk723][sCardShop.unk722]);
   sub_802FC6C();
   sub_80300F8();
   sub_80081DC(sub_80306C0);
   sub_8008220();
 }
 
-void sub_802D6D0 (void) {
+static void sub_802D6D0 (void) {
   u16 cardId;
 
-  cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
 
   if (sub_802E1B8(cardId, 1) == 1) {
     if (sub_802D250(cardId, 1) == 1) {
@@ -1205,19 +1284,19 @@ void sub_802D6D0 (void) {
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
   sub_802DF88();
-  sub_802DAF8(g2022450.unk723);
-  sub_802FE84(g2022450.unk723);
+  sub_802DAF8(sCardShop.unk723);
+  sub_802FE84(sCardShop.unk723);
   sub_802EA74();
-  sub_802FD48(*g2022450.unk0[g2022450.unk723][g2022450.unk722]);
+  sub_802FD48(*sCardShop.unk0[sCardShop.unk723][sCardShop.unk722]);
   sub_80081DC(sub_8030690);
   sub_8008220();
-  sub_803096C(sub_802DE84(g2022450.unk723));
+  sub_803096C(sub_802DE84(sCardShop.unk723));
 }
 
-void sub_802D7D8 (void) {
+static void sub_802D7D8 (void) {
   u16 cardId;
 
-  cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   SetCardInfo(cardId);
   PlayMusic(0x37);
   sub_801F6B0();
@@ -1243,7 +1322,7 @@ void sub_802D7D8 (void) {
   sub_8030784();
 }
 
-void sub_802D884 (void) {
+static void sub_802D884 (void) {
   sub_802E040();
   sub_803015C();
   sub_80301A8();
@@ -1252,7 +1331,7 @@ void sub_802D884 (void) {
   PlayMusic(0x36);
 }
 
-void sub_802D8AC (void) {
+static void sub_802D8AC (void) {
   sub_802E060();
   sub_803015C();
   sub_80301A8();
@@ -1261,8 +1340,8 @@ void sub_802D8AC (void) {
   PlayMusic(0x36);
 }
 
-void sub_802D8D4 (void) {
-  switch (g2022450.unk726) {
+static void sub_802D8D4 (void) {
+  switch (sCardShop.unk726) {
     case 0:
       sub_802D6D0();
       break;
@@ -1276,9 +1355,6 @@ void sub_802D8D4 (void) {
   }
 }
 
-u8 sub_802D9AC (u16, u8);
-u8 sub_802D9D0 (u16, u8);
-
 void sub_802D90C (u16 arg0, u8 arg1) {
   // this could be calling an inline func
   if ((u16)(arg0 - 1) >= 800)
@@ -1289,7 +1365,7 @@ void sub_802D90C (u16 arg0, u8 arg1) {
     g2021DF0[arg0] = 250;
 }
 
-void sub_802D95C (u16 arg0, u8 arg1) {
+static void sub_802D95C (u16 arg0, u8 arg1) {
   // this could be calling an inline func
   if ((u16)(arg0 - 1) >= 800)
     return;
@@ -1299,13 +1375,13 @@ void sub_802D95C (u16 arg0, u8 arg1) {
     g2021DF0[arg0] = 0;
 }
 
-u8 sub_802D9AC (u16 arg0, u8 arg1) {
+static unsigned char sub_802D9AC (u16 arg0, u8 arg1) {
   if (arg1 > 250 - g2021DF0[arg0])
     return 0;
   return 1;
 }
 
-u8 sub_802D9D0 (u16 arg0, u8 arg1) {
+static unsigned char sub_802D9D0 (u16 arg0, u8 arg1) {
   if (arg1 > g2021DF0[arg0])
     return 0;
   return 1;
@@ -1318,13 +1394,13 @@ void sub_802D9F0 (void) {
     g2021DF0[i] = g80C9D90[i];
 }
 
-void sub_802DA1C (void) {
-  if (g2022450.unk722 >= 1) {
-    g2022450.unk722--;
+static void sub_802DA1C (void) {
+  if (sCardShop.unk722 >= 1) {
+    sCardShop.unk722--;
     return;
   }
-  if (g2022450.unk723 >= 2)
-    g2022450.unk723--;
+  if (sCardShop.unk723 >= 2)
+    sCardShop.unk723--;
   else {
     sub_802DEAC(-1);
     sub_802DFA4();
@@ -1333,16 +1409,16 @@ void sub_802DA1C (void) {
     sub_802FE84(0);
     sub_8030068();
   }
-  g2022450.unk722 = 6;
+  sCardShop.unk722 = 6;
 }
 
-void sub_802DA8C (void) {
-  if (g2022450.unk722 <= 5) {
-    g2022450.unk722++;
+static void sub_802DA8C (void) {
+  if (sCardShop.unk722 <= 5) {
+    sCardShop.unk722++;
     return;
   }
-  if (g2022450.unk723 <= 2)
-    g2022450.unk723++;
+  if (sCardShop.unk723 <= 2)
+    sCardShop.unk723++;
   else {
     sub_802DEAC(1);
     sub_802DFC4();
@@ -1351,34 +1427,34 @@ void sub_802DA8C (void) {
     sub_802FE84(4);
     sub_8030068();
   }
-  g2022450.unk722 = 0;
+  sCardShop.unk722 = 0;
 }
 
 /*
-void sub_802DAF8 (int arg0) {
+static void sub_802DAF8 (int arg0) {
   u8 arg0_u8 = arg0;
-  s16 temp = g2022450.unk71E + arg0_u8;
+  s16 temp = sCardShop.unk71E + arg0_u8;
   u8 i;
 
   if (temp < 0)
-    temp += g2022450.unk720;
-  else if (temp >= g2022450.unk720)
-    temp -= g2022450.unk720;
+    temp += sCardShop.unk720;
+  else if (temp >= sCardShop.unk720)
+    temp -= sCardShop.unk720;
 
   for (i = 0; i < 7; i++) {
-    u16 temp2 = g2022450.unkD2[temp * 7 + i + 1];
+    u16 temp2 = sCardShop.unkD2[temp * 7 + i + 1];
     if (temp2)
       if (!g2022120[temp2])
-        *g2022450.unk0[arg0_u8][i] = CARD_NONE;
+        *sCardShop.unk0[arg0_u8][i] = CARD_NONE;
       else
-        *g2022450.unk0[arg0_u8][i] = temp2;
+        *sCardShop.unk0[arg0_u8][i] = temp2;
     else
-      *g2022450.unk0[arg0_u8][i] = temp2;
+      *sCardShop.unk0[arg0_u8][i] = temp2;
   }
 }*/
 
 NAKED
-void sub_802DAF8 (int arg0) {
+static void sub_802DAF8 (int arg0) {
   asm_unified("  push {r4, r5, r6, r7, lr}\n\
 	lsls r0, r0, #0x18\n\
 	lsrs r5, r0, #0x18\n\
@@ -1474,62 +1550,60 @@ _0802DB96:\n\
 	bx r0");
 }
 
-void sub_802DBA8 (void) {
+static void sub_802DBA8 (void) {
   u8 temp;
-  if (++g2022450.unk725 > 9)
-    g2022450.unk725 = 0;
+  if (++sCardShop.unk725 > 9)
+    sCardShop.unk725 = 0;
   // this part could be a macro or (static) inline func
   // sub_802DFF8
-  temp = g2022450.unk725;
-  gUnk2022EB0.unk0 = g2022450.unkD2 + 1;
+  temp = sCardShop.unk725;
+  gUnk2022EB0.unk0 = sCardShop.unkD2 + 1;
   gUnk2022EB0.unk8 = 800;
   gUnk2022EB0.unkA = g80CA0D7[temp];
   sub_8034A38();
   //sub_802DFE4();
-  g2022450.unk724 = 4;
-  g2022450.unk71E = 114;
+  sCardShop.unk724 = 4;
+  sCardShop.unk71E = 114;
 }
-
-extern const u8 g80CA0B4[][5];
 
 static inline void sub_802DF1C_inline (void) {
   u8 i, j;
   for (i = 0; i < 5; i++) {
     // sub_802DE84 inline?
-    u8 temp = g80CA0B4[g2022450.unk724][i];
+    u8 temp = g80CA0B4[sCardShop.unk724][i];
     for (j = 0; j < 7; j++)
-      g2022450.unk0[i][j] = &g2022450.unk8C[temp][j];
+      sCardShop.unk0[i][j] = &sCardShop.unk8C[temp][j];
   }
 }
 
-void sub_802DC0C (void) {
+static void sub_802DC0C (void) {
   u16 i;
   u8 ii;
   for (i = 0; i <= 805; i++)
-    g2022450.unkD2[i] = 0;
+    sCardShop.unkD2[i] = 0;
   for (i = 0; i <= 800; i++) {
     g2022120[i] = g2021DF0[i];
     g2022B80[i] = gTrunkCardQty[i];
   }
-  g2022450.unk726 = 0;
-  g2022450.unk71E = 114;
-  g2022450.unk720 = 115;
-  g2022450.unk724 = 4;
-  g2022450.unk725 = 0;
-  g2022450.unk722 = 0;
-  g2022450.unk723 = 1;
-  g2022450.unkD2[0] = 0;
+  sCardShop.unk726 = 0;
+  sCardShop.unk71E = 114;
+  sCardShop.unk720 = 115;
+  sCardShop.unk724 = 4;
+  sCardShop.unk725 = 0;
+  sCardShop.unk722 = 0;
+  sCardShop.unk723 = 1;
+  sCardShop.unkD2[0] = 0;
   for (i = 1; i <= 800; i++)
-    g2022450.unkD2[i] = i;
+    sCardShop.unkD2[i] = i;
 
   // sub_802DFF8
-  gUnk2022EB0.unk0 = g2022450.unkD2 + 1;
+  gUnk2022EB0.unk0 = sCardShop.unkD2 + 1;
   gUnk2022EB0.unk8 = 800;
   gUnk2022EB0.unkA = g80CA0D7[0];
   sub_8034A38();
   //sub_802DFE4();
-  g2022450.unk724 = 4;
-  g2022450.unk71E = 114;
+  sCardShop.unk724 = 4;
+  sCardShop.unk71E = 114;
   // sub_802DFF8 end
 
   sub_802DF1C_inline();
@@ -1539,7 +1613,7 @@ void sub_802DC0C (void) {
     sub_802DAF8(ii);
 }
 
-void sub_802DD98 (void) {
+static void sub_802DD98 (void) {
   u16 i;
   for (i = 0; i <= 800; i++) {
     g2021DF0[i] = g2022120[i];
@@ -1547,9 +1621,9 @@ void sub_802DD98 (void) {
   }
 }
 
-void sub_802DDD8 (void) {
-  if (g2022450.unk723 > 1) {
-    g2022450.unk723--;
+static void sub_802DDD8 (void) {
+  if (sCardShop.unk723 > 1) {
+    sCardShop.unk723--;
     return;
   }
   else {
@@ -1562,9 +1636,9 @@ void sub_802DDD8 (void) {
   }
 }
 
-void sub_802DE1C (void) {
-  if (g2022450.unk723 <= 2) {
-    g2022450.unk723++;
+static void sub_802DE1C (void) {
+  if (sCardShop.unk723 <= 2) {
+    sCardShop.unk723++;
     return;
   }
   else {
@@ -1577,113 +1651,101 @@ void sub_802DE1C (void) {
   }
 }
 
-void sub_802DE60 (void) {
+static void sub_802DE60 (void) {
   sub_802DEAC(-10);
   sub_802DFE4();
 }
 
-void sub_802DE74 (void) {
+static void sub_802DE74 (void) {
   sub_802DEAC(10);
   sub_802DFE4();
 }
 
-int sub_802DE84 (int arg0) {
+static int sub_802DE84 (int arg0) {
   u8 arg0_u8 = arg0;
-  return g80CA0B4[g2022450.unk724][arg0_u8];
+  return g80CA0B4[sCardShop.unk724][arg0_u8];
 }
 
-void sub_802DEAC (s16 arg0) {
-  g2022450.unk71E = sub_802DED4((s16)(g2022450.unk71E + arg0));
+static void sub_802DEAC (s16 arg0) {
+  sCardShop.unk71E = sub_802DED4((s16)(sCardShop.unk71E + arg0));
 }
 
-s16 sub_802DED4 (int arg0) {
+static s16 sub_802DED4 (int arg0) {
   s16 arg0_s16 = arg0;
   if (arg0_s16 < 0)
-    arg0_s16 += g2022450.unk720;
-  else if (arg0_s16 >= g2022450.unk720)
-    arg0_s16 -= g2022450.unk720;
+    arg0_s16 += sCardShop.unk720;
+  else if (arg0_s16 >= sCardShop.unk720)
+    arg0_s16 -= sCardShop.unk720;
   return arg0_s16;
 }
 
-void sub_802DF1C (void) {
+static void sub_802DF1C (void) {
   u8 i, j;
   for (i = 0; i < 5; i++) {
     // sub_802DE84 inline?
-    u8 temp = g80CA0B4[g2022450.unk724][i];
+    u8 temp = g80CA0B4[sCardShop.unk724][i];
     for (j = 0; j < 7; j++)
-      g2022450.unk0[i][j] = &g2022450.unk8C[temp][j];
+      sCardShop.unk0[i][j] = &sCardShop.unk8C[temp][j];
   }
 }
 
-void sub_802DF88 (void) {
+static void sub_802DF88 (void) {
   u8 i;
   for (i = 0; i < 5; i++)
     sub_802DAF8(i);
 }
 
-extern u8 g80CA0CD[];
-extern u8 g80CA0D2[];
-extern u8 g80CA0E1[];
-extern u8 g80CA0E4[];
-extern u8 g80CA0E7[];
-extern u8 g80CA0F2[];
-extern u8 g80CA0FD[];
-extern u8 g80CA108[];
-
-void sub_802DFA4 (void) {
-  g2022450.unk724 = g80CA0CD[g2022450.unk724];
+static void sub_802DFA4 (void) {
+  sCardShop.unk724 = g80CA0CD[sCardShop.unk724];
 }
 
-void sub_802DFC4 (void) {
-  g2022450.unk724 = g80CA0D2[g2022450.unk724];
+static void sub_802DFC4 (void) {
+  sCardShop.unk724 = g80CA0D2[sCardShop.unk724];
 }
 
-void sub_802DFE4 (void) {
-  g2022450.unk724 = 4;
+static void sub_802DFE4 (void) {
+  sCardShop.unk724 = 4;
 }
 
-void sub_802DFF8 (u8 arg0) {
-  gUnk2022EB0.unk0 = g2022450.unkD2 + 1;
+static void sub_802DFF8 (u8 arg0) {
+  gUnk2022EB0.unk0 = sCardShop.unkD2 + 1;
   gUnk2022EB0.unk8 = 800;
   gUnk2022EB0.unkA = g80CA0D7[arg0];
   sub_8034A38();
   //sub_802DFE4();
-  g2022450.unk724 = 4;
-  g2022450.unk71E = 114;
+  sCardShop.unk724 = 4;
+  sCardShop.unk71E = 114;
 }
 
-void sub_802E040 (void) {
-  g2022450.unk726 = g80CA0E1[g2022450.unk726];
+static void sub_802E040 (void) {
+  sCardShop.unk726 = g80CA0E1[sCardShop.unk726];
 }
 
-void sub_802E060 (void) {
-  g2022450.unk726 = g80CA0E4[g2022450.unk726];
+static void sub_802E060 (void) {
+  sCardShop.unk726 = g80CA0E4[sCardShop.unk726];
 }
 
-void sub_802E080 (void) {
-  g2022450.unk726 = 0;
+static void sub_802E080 (void) {
+  sCardShop.unk726 = 0;
 }
 
-void sub_802E094 (void) {
-  g2022450.unk726 = g80CA0E7[g2022450.unk726];
+static void sub_802E094 (void) {
+  sCardShop.unk726 = g80CA0E7[sCardShop.unk726];
 }
 
-void sub_802E0B4 (void) {
-  g2022450.unk726 = g80CA0F2[g2022450.unk726];
+static void sub_802E0B4 (void) {
+  sCardShop.unk726 = g80CA0F2[sCardShop.unk726];
 }
 
-void sub_802E0D4 (void) {
-  g2022450.unk726 = g80CA0FD[g2022450.unk726];
+static void sub_802E0D4 (void) {
+  sCardShop.unk726 = g80CA0FD[sCardShop.unk726];
 }
 
-void sub_802E0F4 (void) {
-  g2022450.unk726 = g80CA108[g2022450.unk726];
+static void sub_802E0F4 (void) {
+  sCardShop.unk726 = g80CA108[sCardShop.unk726];
 }
 
-u8 sub_802E194 (u16, u8);
-
-
-void sub_802E114 (u16 arg0, u8 arg1) {
+static void sub_802E114 (u16 arg0, u8 arg1) {
   if (!arg0)
     return;
   if (!sub_802E194(arg0, arg1))
@@ -1692,7 +1754,7 @@ void sub_802E114 (u16 arg0, u8 arg1) {
     g2022120[arg0] += arg1;
 }
 
-void sub_802E154 (u16 arg0, u8 arg1) {
+static void sub_802E154 (u16 arg0, u8 arg1) {
   if (!arg0)
     return;
   if (!(u8)sub_802E1B8(arg0, arg1))
@@ -1701,24 +1763,19 @@ void sub_802E154 (u16 arg0, u8 arg1) {
     g2022120[arg0] -= arg1;
 }
 
-u8 sub_802E194 (u16 arg0, u8 arg1) {
+static unsigned char sub_802E194 (u16 arg0, u8 arg1) {
   if (arg1 > 250 - g2022120[arg0])
     return 0;
   return 1;
 }
 
-u32 sub_802E1B8 (u16 arg0, u8 arg1) {
+static unsigned sub_802E1B8 (u16 arg0, u8 arg1) {
   if (arg1 > g2022120[arg0])
     return 0;
   return 1;
 }
 
-extern u16 g80CA114[][30];
-extern u16 g80CA5C4[][30];
-extern u16 g80CAA74[][30];
-extern u16 g80CAF24[][30];
-
-void sub_802E1D8 (void) {
+static void sub_802E1D8 (void) {
   u8 i;
 
   gBG0VOFS = 0;
@@ -1733,9 +1790,9 @@ void sub_802E1D8 (void) {
 /*
 extern struct OamData gOamBuffer[];
 void CopyStringTilesToVRAMBuffer(void *, void *, u16);
-extern u8 g80CDA60[];
 
-void sub_802E270 (void) {
+
+static void sub_802E270 (void) {
   u16* oam = (u16*)gOamBuffer;
   u32 i = 0;
 
@@ -1764,7 +1821,7 @@ void sub_802E270 (void) {
 }*/
 
 NAKED
-void sub_802E270 (void) {
+static void sub_802E270 (void) {
   asm_unified("push {r4, r5, lr}\n\
 	ldr r0, _0802E2EC\n\
 	movs r4, #0\n\
@@ -1834,12 +1891,7 @@ _0802E30C: .4byte 0x04000008\n\
 _0802E310: .4byte 0x0000160C");
 }
 
-extern u8 g2021BE0[];
-extern u64 gMoney;
-void sub_800DEAC (u64, u8);
-u32 ExceedsMoneyLimit (u64);
-
-void sub_802E314 (void) {
+static void sub_802E314 (void) {
   u16* ptr;
   u8 i;
   sub_800DEAC(gMoney, 0);
@@ -1870,7 +1922,7 @@ void sub_802E314 (void) {
     *ptr-- &= 0xF000;
 }
 
-void sub_802E404 (void) {
+static void sub_802E404 (void) {
   u16* ptr;
   u8 i;
   sub_800DEAC(g2021AF0.unk0, 0);
@@ -1901,7 +1953,7 @@ void sub_802E404 (void) {
 }
 
 // same as above, except for g2021AF0.unk8
-void sub_802E4F4 (void) {
+static void sub_802E4F4 (void) {
   u16* ptr;
   u8 i;
   sub_800DEAC(g2021AF0.unk8, 0);
@@ -1931,7 +1983,7 @@ void sub_802E4F4 (void) {
     *ptr-- &= 0xF000;
 }
 
-void sub_802E5E4 (void) {
+static void sub_802E5E4 (void) {
   u32 r8;
   u64 diff;
   u16* ptr;
@@ -1980,7 +2032,7 @@ void sub_802E5E4 (void) {
     *ptr-- &= 0xF000;
 }
 
-void sub_802E72C (void) {
+static void sub_802E72C (void) {
   u64 temp = g2021AF0.unk8;
   u64 temp2;
   u32 r0 = 0;
@@ -2024,25 +2076,7 @@ void sub_802E72C (void) {
     *ptr-- &= 0xF000;
 }
 
-void CopyStarTileToBuffer (void*);
-void CopySwordTileToBuffer (void*);
-void CopyShieldTileToBuffer (void*);
-void CopyStringTilesToVRAMBuffer (void*, void*, u16);
-extern u8 g80CDC28[];
-extern u8 g80CDC50[];
-extern u8 g80CDCF0[];
-extern u8 g80CDD78[];
-extern u8 g80CDE10[];
-extern u8 g80CDE28[];
-extern u16 g80CB3D4[][30];
-
-void sub_800800C(u8, u8, u16, u16);
-u16 sub_08007FEC(u8, u8, u16);
-extern u8 g8DF811C[];
-void sub_8008BF8 (void * dest);
-
-
-void sub_802E868 (void) {
+static void sub_802E868 (void) {
   u8 i;
   u16 r7;
 
@@ -2079,10 +2113,10 @@ void sub_802E868 (void) {
 
   sub_8008BF8(&g02000000.bg[0xA0]);
   sub_802EA74();
-  sub_802FCF0(g2022450.unk725);
+  sub_802FCF0(sCardShop.unk725);
 }
 
-void sub_802EA74 (void) {
+static void sub_802EA74 (void) {
   u16* ptr;
   u8 i;
   sub_800DEAC(gMoney, 0);
@@ -2113,7 +2147,7 @@ void sub_802EA74 (void) {
     *ptr-- &= 0xF000;
 }
 
-void sub_802EB64 (void) {
+static void sub_802EB64 (void) {
   u16* ptr = gBgVram.sbb1F[2] + 29;
   u8 i = 0;
   u8 j;
@@ -2155,7 +2189,7 @@ void sub_802EB64 (void) {
     *ptr-- &= 0xF000;
 }
 
-void sub_802ECCC (void) {
+static void sub_802ECCC (void) {
   u16* ptr = gBgVram.sbb1F[2] + 29;
   u8 i = 0;
   u8 j;
@@ -2198,7 +2232,7 @@ void sub_802ECCC (void) {
 }
 
 // print money left if player were to buy the currently selected card
-void sub_802EE34 (void) {
+static void sub_802EE34 (void) {
   u32 r8;
   u64 diff;
   u8 paletteBank;
@@ -2250,7 +2284,7 @@ void sub_802EE34 (void) {
     *ptr-- &= 0xF000;
 }
 
-void sub_802EFFC (void) {
+static void sub_802EFFC (void) {
   u32 r8 = 0;
   u64 temp;
   u8 paletteBank;
@@ -2309,7 +2343,7 @@ void sub_802EFFC (void) {
 }
 
 /*
-void sub_802F1B4 (void) {
+static void sub_802F1B4 (void) {
   u16* ptr = gBgVram.sbb1F[19] + 1;
   u8 i = 0;
 
@@ -2329,7 +2363,7 @@ void sub_802F1B4 (void) {
 */
 
 NAKED
-void sub_802F1B4 (void) {
+static void sub_802F1B4 (void) {
   asm_unified("push {r4, r5, lr}\n\
 	ldr r5, _0802F234 @ =0x020100C2\n\
 	movs r4, #0\n\
@@ -2409,7 +2443,7 @@ _0802F24C: .4byte 0x0000D183");
 }
 
 NAKED
-void sub_802F250 (void) {
+static void sub_802F250 (void) {
   asm_unified("push {r4, r5, lr}\n\
 	ldr r5, _0802F2D0 @ =0x020100C2\n\
 	movs r4, #0\n\
@@ -2489,7 +2523,7 @@ _0802F2E8: .4byte 0x0000D183");
 }
 
 NAKED
-void sub_802F2EC (void) {
+static void sub_802F2EC (void) {
   asm_unified("push {r4, r5, r6, lr}\n\
 	ldr r4, _0802F39C\n\
 	movs r5, #0\n\
@@ -2591,7 +2625,7 @@ _0802F3B4: .4byte 0xFFFFD000");
 }
 
 NAKED
-void sub_802F3B8 (void) {
+static void sub_802F3B8 (void) {
   asm_unified("push {r4, r5, r6, lr}\n\
 	ldr r4, _0802F41C\n\
 	movs r5, #0\n\
@@ -2775,7 +2809,7 @@ _0802F524:\n\
 _0802F52C: .4byte 0x0000A1A2");
 }
 
-void sub_802F530 (void) {
+static void sub_802F530 (void) {
   u16* ptr = gBgVram.sbb1F[17] + 20;
   if (!gCardInfo.level) {
     *ptr++ &= 0xF000;
@@ -2792,7 +2826,7 @@ void sub_802F530 (void) {
   }
 }
 
-void sub_802F5B0 (void) {
+static void sub_802F5B0 (void) {
   u8 r4;
   u16 r5;
   u16 i;
@@ -2819,7 +2853,7 @@ void sub_802F5B0 (void) {
   CopyStringTilesToVRAMBuffer(gBgVram.sbb1E[24] + 16, buffer, 0x801);
 }
 
-void sub_802F66C (void) {
+static void sub_802F66C (void) {
   u16* ptr = gBgVram.sbb1F[19] + 1;
   u8 i;
 
@@ -2838,7 +2872,7 @@ void sub_802F66C (void) {
   }
 }
 
-void sub_802F6E8 (void) {
+static void sub_802F6E8 (void) {
   u16* ptr = gBgVram.sbb1F[17] + 10;
   u8 i = 0, j;
 
@@ -2868,7 +2902,7 @@ void sub_802F6E8 (void) {
     *ptr++ &= 0xF000;
 }
 
-void sub_802F7F0 (void) {
+static void sub_802F7F0 (void) {
   u16* ptr = gBgVram.sbb1F[18] + 10;
   u8 i = 0, j;
 
@@ -2898,7 +2932,7 @@ void sub_802F7F0 (void) {
     *ptr++ &= 0xF000;
 }
 
-void sub_802F8F8 (void) {
+static void sub_802F8F8 (void) {
   u16* ptr = gBgVram.sbb1F[17] + 29;
   u8 i = 0;
 
@@ -2928,19 +2962,7 @@ void sub_802F8F8 (void) {
       *ptr-- &= 0xF000;
 }
 
-extern u16 gOamBuffer[];
-extern u16 g80CD1A0[][16];
-extern u16 g80CD200[][32];
-extern u16 g80CD2A0[][64];
-extern u16 g80CD1E0[];
-extern u16 g80CD280[];
-extern u16 g80CD4A0[];
-extern u16 g80CD4C0[][64];
-
-extern u16 g80CDE5A[];
-extern u16 g80CDE64[];
-
-void sub_802F9E8 (void) {
+static void sub_802F9E8 (void) {
   u8 i;
   for (i = 0; i < 128; i++) {
     gOamBuffer[i * 4] = 0xA0;
@@ -2969,11 +2991,11 @@ void sub_802F9E8 (void) {
 }
 
 /*
-void sub_802FB08 (void) {
+static void sub_802FB08 (void) {
   u32* oam = (u32*)gOamBuffer;
-  u32 r1 = g80CDE64[g2022450.unk722] << 16;
+  u32 r1 = g80CDE64[sCardShop.unk722] << 16;
   r1 &= 0x1FF0000;
-  r1 |= g80CDE5A[g2022450.unk723] & 0xFF;
+  r1 |= g80CDE5A[sCardShop.unk723] & 0xFF;
   r1 |= 0x80000000;
   oam[0] = r1;
   oam[1] = 0x8800;
@@ -2981,7 +3003,7 @@ void sub_802FB08 (void) {
 */
 
 NAKED
-void sub_802FB08 (void) {
+static void sub_802FB08 (void) {
   asm_unified("push {r4, r5, r6, r7, lr}\n\
 	mov r7, sl\n\
 	mov r6, sb\n\
@@ -3096,37 +3118,34 @@ _0802FBEC: .4byte 0x01FF0000\n\
 _0802FBF0: .4byte 0x080CDE5A");
 }
 
-void sub_802FBF4 (void) {
+static void sub_802FBF4 (void) {
   gBLDCNT = 0xCC;
   gBLDALPHA = 0;
   gBLDY = 4;
 }
 
-void sub_802FC14 (void) {
+static void sub_802FC14 (void) {
   gBLDCNT = 0xDC;
   gBLDALPHA = 0;
   gBLDY = 8;
 }
 
-extern u32 g80CD6C0[];
-extern u32 g80CD778[];
-
-void sub_802FC34 (void) {
+static void sub_802FC34 (void) {
   CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x1000, g80CD6C0, 0x901);
 }
 
-void sub_802FC50 (void) {
+static void sub_802FC50 (void) {
   CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x1000, g80CD778, 0x901);
 }
 
-void sub_802FC6C (void) {
+static void sub_802FC6C (void) {
   gOamBuffer[20] = 0xA0;
   gOamBuffer[21] = 0xF0;
   gOamBuffer[22] = 0xC00;
   gOamBuffer[23] = 0;
 }
 
-void sub_802FC88 (void) {
+static void sub_802FC88 (void) {
   CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x1000, g80CD778, 0x901);
   sub_803015C();
   sub_80301A8();
@@ -3140,7 +3159,7 @@ void sub_802FC88 (void) {
 }
 
 /*
-void sub_802FCF0 (u8 arg0) {
+static void sub_802FCF0 (u8 arg0) {
   u16* ptr = gBgVram.sbb1F[1] + 2;
   *ptr = *ptr & 0xF000 | arg0 + 344;
   ptr++;
@@ -3156,7 +3175,7 @@ void sub_802FCF0 (u8 arg0) {
 }*/
 
 NAKED
-void sub_802FCF0 (u8 arg0) {
+static void sub_802FCF0 (u8 arg0) {
   asm_unified("push {r4, r5, lr}\n\
 	lsls r0, r0, #0x18\n\
 	ldr r2, _0802FD40\n\
@@ -3202,9 +3221,7 @@ _0802FD40: .4byte 0x0200FC44\n\
 _0802FD44: .4byte 0x0000015B");
 }
 
-void sub_802FDC0 (void);
-
-void sub_802FD48 (u16 cardId) {
+static void sub_802FD48 (u16 cardId) {
   SetCardInfo(cardId);
   sub_802F66C();
   sub_802F5B0();
@@ -3219,7 +3236,7 @@ void sub_802FD48 (u16 cardId) {
   sub_802F8F8();
 }
 
-void sub_802FD84 (u16 cardId) {
+static void sub_802FD84 (u16 cardId) {
   SetCardInfo(cardId);
   sub_802F66C();
   sub_802F5B0();
@@ -3234,22 +3251,14 @@ void sub_802FD84 (u16 cardId) {
   sub_802F8F8();
 }
 
-void CopyAttributeIconTilesToBuffer (u8 attribute, void * dest);
-void CopyAttributeIconPalToBuffer (u8 attribute, void * dest);
-void CopyTypeIconTilesToBuffer (u8 type, void * dest);
-void CopyTypeIconPalToBuffer (u8 type, void * dest);
-
-void sub_802FDC0 (void) {
+static void sub_802FDC0 (void) {
   CopyAttributeIconTilesToBuffer(gCardInfo.attribute, ((struct Cbb*)&gBgVram)->cbb3 + 0x35A0);
   CopyAttributeIconPalToBuffer(gCardInfo.attribute, g02000000.bg + 0xC0);
   CopyTypeIconTilesToBuffer(gCardInfo.type, ((struct Cbb*)&gBgVram)->cbb3 + 0x3520);
   CopyTypeIconPalToBuffer(gCardInfo.type, g02000000.bg + 0xB0);
 }
 
-extern u16 g80CB884[][30];
-void sub_8057418 (u16*);
-
-void sub_802FE00 (void) {
+static void sub_802FE00 (void) {
   u8 i;
   sub_8030068();
   CpuFill16(0, gBgVram.cbb0, 64);
@@ -3260,28 +3269,19 @@ void sub_802FE00 (void) {
     CpuCopy16(g80CB884[i], ((struct Sbb*)&gBgVram)->sbb12[i], 60);
 }
 
-void sub_802FE68 (void) {
+static void sub_802FE68 (void) {
   u8 i;
   for (i = 0; i < 5; i++)
     sub_802FE84(i);
 }
 
-extern u8 g80CC0F4[];
-extern void* g8E1168C[];
-
-void sub_805742C (void*, u16);
-void sub_802FF4C (u8*, u16);
-void sub_802FF14 (u8*, u16);
-void sub_802FF78 (u8*, u16);
-void sub_802FFF0 (u8*, u16);
-
-void sub_802FE84 (int arg0) {
+static void sub_802FE84 (int arg0) {
   u8 i;
   u8 r7 = sub_802DE84((u8)arg0);
   u8* r5 = &gBgVram.cbb0[0x40 + r7 * 0x1C00];
 
   for (i = 0; i < 7; r5 += 0x400, i++) {
-    u16 cardId = g2022450.unk8C[r7][i];
+    u16 cardId = sCardShop.unk8C[r7][i];
     if (cardId == CARD_NONE)
       CpuCopy16(g80CC0F4, r5, 0x400);
     else {
@@ -3294,27 +3294,20 @@ void sub_802FE84 (int arg0) {
   }
 }
 
-void sub_802FF14 (u8* arg0, u16 cardId) {
+static void sub_802FF14 (u8* arg0, u16 cardId) {
   arg0 += 0xC0;
   SetCardInfo(cardId);
   if (gCardInfo.attribute != TYPE_NONE)
     CpuCopy16(g8E1168C[gCardInfo.attribute], arg0, 64);
 }
 
-int sub_8045410 (u16);
-extern u8 g89A7ADE[][64];
-extern u8 g89A81DE[][64];
-extern u8 g89A7F1E[][64];
-extern u8 g89A875E[][64];
-extern u8 g89A849E[][64];
-
-void sub_802FF4C (u8* arg0, u16 cardId) {
+static void sub_802FF4C (u8* arg0, u16 cardId) {
   u8 numTributes = sub_8045410(cardId);
   if (numTributes)
     CpuCopy16(g89A7ADE[numTributes], arg0, 64);
 }
 
-void sub_802FF78 (u8* arg0, u16 cardId) {
+static void sub_802FF78 (u8* arg0, u16 cardId) {
   u16 atk;
   SetCardInfo(cardId);
   if (gCardInfo.spellEffect != 2)
@@ -3330,7 +3323,7 @@ void sub_802FF78 (u8* arg0, u16 cardId) {
   CpuCopy16(g89A7F1E[g2021BD0[4]], arg0, 0x40);
 }
 
-void sub_802FFF0 (u8* arg0, u16 cardId) {
+static void sub_802FFF0 (u8* arg0, u16 cardId) {
   u16 def;
   SetCardInfo(cardId);
   if (gCardInfo.spellEffect != 2)
@@ -3346,16 +3339,12 @@ void sub_802FFF0 (u8* arg0, u16 cardId) {
   CpuCopy16(g89A849E[g2021BD0[4]], arg0, 0x40);
 }
 
-void sub_8030068 (void) {
-  gBG2VOFS = g2022450.unk724 * 32;
+static void sub_8030068 (void) {
+  gBG2VOFS = sCardShop.unk724 * 32;
   gBG2HOFS = 0;
 }
 
-extern u32 g80CC4F4[];
-extern u16 g80CCC90[];
-extern u16 g80CCCF0[][30];
-
-void sub_8030090 (void) {
+static void sub_8030090 (void) {
   u8 i;
   gBG3VOFS = 0;
   gBG3HOFS = 0;
@@ -3365,90 +3354,72 @@ void sub_8030090 (void) {
     CpuCopy16(g80CCCF0[i], ((struct Sbb*)&gBgVram)->sbb17[i], 60);
 }
 
-extern u16 g80CDE7C[];
-extern u16 g80CDE90[];
-extern u16 g80CDE96[];
-extern u8 g80CDE72[][2]; //u16?
-extern u8 g80CDE8A[][2]; //u16?
-extern u8 g80CDEAC[][2]; //u16?
-
-void sub_80300F8 (void) {
+static void sub_80300F8 (void) {
   u32* oam = (u32*)gOamBuffer + 8;
-  u32 r1 = g80CDE7C[g2022450.unk722] << 16;
+  u32 r1 = g80CDE7C[sCardShop.unk722] << 16;
   r1 &= 0x01FF0000;
-  r1 |= g80CDE72[g2022450.unk723][0];
+  r1 |= g80CDE72[sCardShop.unk723][0];
   r1 |= 0x80000800;
   oam[0] = r1;
   oam[1] = 0x804;
 }
 
-void sub_803015C (void) {
+static void sub_803015C (void) {
   u32* oam = (u32*)gOamBuffer + 10;
-  u32 r1 = g80CDE90[g2022450.unk726] << 16;
+  u32 r1 = g80CDE90[sCardShop.unk726] << 16;
   r1 &= 0x01FF0000;
-  r1 |= g80CDE8A[g2022450.unk726][0];
+  r1 |= g80CDE8A[sCardShop.unk726][0];
   r1 |= 0x40000000;
   oam[0] = r1;
   oam[1] = 0x9408;
 }
 
-void sub_80301A8 (void) {
+static void sub_80301A8 (void) {
   u32* oam = (u32*)gOamBuffer + 8;
-  u32 r1 = g80CDE90[g2022450.unk726] << 16;
+  u32 r1 = g80CDE90[sCardShop.unk726] << 16;
   r1 &= 0x01FF0000;
-  r1 |= g80CDE8A[g2022450.unk726][0];
+  r1 |= g80CDE8A[sCardShop.unk726][0];
   r1 |= 0x40000800;
   oam[0] = r1;
   oam[1] = 0x408;
 }
 
-void sub_80301F4 (void) {
+static void sub_80301F4 (void) {
   u32* oam = (u32*)gOamBuffer + 10;
-  u32 r1 = g80CDE96[g2022450.unk726] << 16;
+  u32 r1 = g80CDE96[sCardShop.unk726] << 16;
   r1 &= 0x01FF0000;
-  r1 |= g80CDEAC[g2022450.unk726][0];
+  r1 |= g80CDEAC[sCardShop.unk726][0];
   r1 |= 0x40000000;
   oam[0] = r1;
   oam[1] = 0x9408;
 }
 
-void sub_8030240 (void) {
+static void sub_8030240 (void) {
   u32* oam = (u32*)gOamBuffer + 8;
-  u32 r1 = g80CDE96[g2022450.unk726] << 16;
+  u32 r1 = g80CDE96[sCardShop.unk726] << 16;
   r1 &= 0x01FF0000;
-  r1 |= g80CDEAC[g2022450.unk726][0];
+  r1 |= g80CDEAC[sCardShop.unk726][0];
   r1 |= 0x40000800;
   oam[0] = r1;
   oam[1] = 0x408;
 }
 
 // see this for oam access clues
-void sub_803028C (void) {
+static void sub_803028C (void) {
   u32* oam;
-  u8 r0 = sub_802DED4(g2022450.unk71E + g2022450.unk723) * 127 / g2022450.unk720 + 1;
+  u8 r0 = sub_802DED4(sCardShop.unk71E + sCardShop.unk723) * 127 / sCardShop.unk720 + 1;
   oam = (u32*)gOamBuffer + 12;
   oam[0] = r0 | 0x8000;
   oam[1] = 0xAC48;
 }
 
-extern u8 g80CD830[];
-
-void sub_80302F0 (void) {
+static void sub_80302F0 (void) {
   CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x1000, g80CD830, 0x901);
 }
 
-
-void sub_8030494 (void);
-void sub_80304E4 (void);
-void sub_8030534 (void);
-void sub_8030584 (void);
-void sub_80305D4 (void);
-void sub_80303F0 (void);
-
-
-void sub_803030C (void) {
+static void sub_803030C (void) {
   u32 r4;
-  g2022450.unk726 = g2022450.unk725;
+  sCardShop.unk726 = sCardShop.unk725;
   sub_802FC14();
   sub_80302F0();
   sub_80301F4();
@@ -3459,7 +3430,7 @@ void sub_803030C (void) {
   PlayMusic(0x37);
   r4 = 1;
   while (r4) {
-    switch (sub_802C0BC()) {
+    switch (ProcessInput()) {
       case 0x40:
         sub_8030494();
         PlayMusic(0x36);
@@ -3477,12 +3448,12 @@ void sub_803030C (void) {
         PlayMusic(0x36);
         break;
       case 1:
-        if (g2022450.unk726 == 10) {
+        if (sCardShop.unk726 == 10) {
           sub_80305D4();
           PlayMusic(0x37);
         }
         else {
-          g2022450.unk725 = g2022450.unk726;
+          sCardShop.unk725 = sCardShop.unk726;
           sub_80303F0();
         }
         return;
@@ -3498,21 +3469,21 @@ void sub_803030C (void) {
   }
 }
 
-void sub_80303F0 (void) {
+static void sub_80303F0 (void) {
   u16 cardId;
 
-  g2022450.unk725 = g2022450.unk726;
-  sub_802DFF8(g2022450.unk725);
+  sCardShop.unk725 = sCardShop.unk726;
+  sub_802DFF8(sCardShop.unk725);
   sub_802DF1C();
   sub_802DF88();
 
-  cardId = *g2022450.unk0[g2022450.unk723][g2022450.unk722];
+  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
   PlayMusic(0x37);
   sub_802FBF4();
-  sub_802FCF0(g2022450.unk725);
+  sub_802FCF0(sCardShop.unk725);
   sub_802FD48(cardId);
   sub_802FE68();
   sub_8030068();
@@ -3524,12 +3495,12 @@ void sub_80303F0 (void) {
   sub_8030A48();
 }
 
-void sub_8030494 (void) {
+static void sub_8030494 (void) {
   sub_802E094();
-  if (g2022450.unk726 == 10)
-    sub_802FCF0(g2022450.unk725);
+  if (sCardShop.unk726 == 10)
+    sub_802FCF0(sCardShop.unk725);
   else
-    sub_802FCF0(g2022450.unk726);
+    sub_802FCF0(sCardShop.unk726);
   sub_80301F4();
   sub_8030240();
   sub_80081DC(sub_8030710);
@@ -3537,12 +3508,12 @@ void sub_8030494 (void) {
   sub_8030A10();
 }
 
-void sub_80304E4 (void) {
+static void sub_80304E4 (void) {
   sub_802E0B4();
-  if (g2022450.unk726 == 10)
-    sub_802FCF0(g2022450.unk725);
+  if (sCardShop.unk726 == 10)
+    sub_802FCF0(sCardShop.unk725);
   else
-    sub_802FCF0(g2022450.unk726);
+    sub_802FCF0(sCardShop.unk726);
   sub_80301F4();
   sub_8030240();
   sub_80081DC(sub_8030710);
@@ -3550,12 +3521,12 @@ void sub_80304E4 (void) {
   sub_8030A10();
 }
 
-void sub_8030534 (void) {
+static void sub_8030534 (void) {
   sub_802E0D4();
-  if (g2022450.unk726 == 10)
-    sub_802FCF0(g2022450.unk725);
+  if (sCardShop.unk726 == 10)
+    sub_802FCF0(sCardShop.unk725);
   else
-    sub_802FCF0(g2022450.unk726);
+    sub_802FCF0(sCardShop.unk726);
   sub_80301F4();
   sub_8030240();
   sub_80081DC(sub_8030710);
@@ -3563,12 +3534,12 @@ void sub_8030534 (void) {
   sub_8030A10();
 }
 
-void sub_8030584 (void) {
+static void sub_8030584 (void) {
   sub_802E0F4();
-  if (g2022450.unk726 == 10)
-    sub_802FCF0(g2022450.unk725);
+  if (sCardShop.unk726 == 10)
+    sub_802FCF0(sCardShop.unk725);
   else
-    sub_802FCF0(g2022450.unk726);
+    sub_802FCF0(sCardShop.unk726);
   sub_80301F4();
   sub_8030240();
   sub_80081DC(sub_8030710);
@@ -3576,8 +3547,8 @@ void sub_8030584 (void) {
   sub_8030A10();
 }
 
-void sub_80305D4 (void) {
-  sub_802FCF0(g2022450.unk725);
+static void sub_80305D4 (void) {
+  sub_802FCF0(sCardShop.unk725);
   sub_80300F8();
   sub_802FBF4();
   sub_802FC6C();
@@ -3586,7 +3557,7 @@ void sub_80305D4 (void) {
   sub_8030AF8();
 }
 
-void sub_803060C (void) {
+static void sub_803060C (void) {
   sub_8045718();
   REG_BG1CNT = 0x1F0D;
   REG_BG2CNT = 0x9282;
@@ -3596,67 +3567,66 @@ void sub_803060C (void) {
   LoadBlendingRegs();
 }
 
-void sub_8030654 (void) {
+static void sub_8030654 (void) {
   LoadOam();
 }
 
-void sub_8030660 (void) {
+static void sub_8030660 (void) {
   LoadOam();
 }
 
-void sub_803066C (void) {
+static void sub_803066C (void) {
   LoadOam();
 }
 
-void sub_8030678 (void) {
+static void sub_8030678 (void) {
   LoadOam();
 }
 
-void sub_8030684 (void) {
+static void sub_8030684 (void) {
   LoadOam();
 }
 
-void sub_8030690 (void) {
+static void sub_8030690 (void) {
   REG_BG0CNT = 0x140C;
   REG_DISPCNT |= 0x100;
   LoadOam();
   LoadBlendingRegs();
 }
 
-void sub_80306C0 (void) {
+static void sub_80306C0 (void) {
   REG_DISPCNT &= 0xFEFF;
   LoadOam();
   LoadBlendingRegs();
 }
 
-void sub_80306E0 (void) {
+static void sub_80306E0 (void) {
   REG_BG0CNT = 0x150C;
   REG_DISPCNT |= 0x100;
   LoadOam();
   LoadBlendingRegs();
 }
 
-void sub_8030710 (void) {
+static void sub_8030710 (void) {
   LoadOam();
 }
 
-void sub_803071C (void) {
+static void sub_803071C (void) {
   REG_DISPCNT &= 0xFEFF;
   LoadOam();
   LoadBlendingRegs();
 }
 
-void sub_803073C (void) {
+static void sub_803073C (void) {
   REG_DISPCNT &= 0xFEFF;
   LoadOam();
   LoadBlendingRegs();
 }
 
-void sub_803075C (void) {
-
+static void sub_803075C (void) {
 }
 
-void sub_8030760 (void) {
+static void sub_8030760 (void) {
   LoadVRAM();
   LoadPalettes();
   LoadBlendingRegs();
@@ -3664,7 +3634,7 @@ void sub_8030760 (void) {
   REG_DISPCNT = 0x9E00;
 }
 
-void sub_8030784 (void) {
+static void sub_8030784 (void) {
   REG_BG0CNT = 0x140C;
   LoadVRAM();
   LoadPalettes();
@@ -3673,12 +3643,12 @@ void sub_8030784 (void) {
   REG_DISPCNT = 0x9F00;
 }
 
-void sub_80307B8 (void) {
+static void sub_80307B8 (void) {
   CpuCopy16(g02000000.bg + 0xB0, (u16*)PLTT + 0xB0, 0x40);
   CpuCopy16(gBgVram.cbb0 + 0xF520, (u8*)BG_VRAM + 0xF520, 0x1C00);
 }
 
-void sub_80307E4 (int arg0) {
+static void sub_80307E4 (int arg0) {
   u8 arg0_u8 = arg0;
   u32 r1 = arg0_u8 * 0x1C00;
   CpuCopy16(gBgVram.cbb0 + 0x40 + r1, (u8*)BG_VRAM + 0x40 + r1, 0x1C00);
@@ -3687,7 +3657,7 @@ void sub_80307E4 (int arg0) {
   LoadBgOffsets();
 }
 
-void sub_803083C (int arg0) {
+static void sub_803083C (int arg0) {
   u8 arg0_u8 = arg0;
   u32 r1;
   LoadBgOffsets();
@@ -3697,7 +3667,7 @@ void sub_803083C (int arg0) {
   CpuCopy16(gBgVram.cbb0 + 0xF520, (u8*)BG_VRAM + 0xF520, 0x1C00);
 }
 
-void sub_8030898 (void) {
+static void sub_8030898 (void) {
   LoadBgOffsets();
   CpuCopy16(gBgVram.cbb0 + 0x7040, (u8*)BG_VRAM + 0x7040, 0x1C00);
   CpuCopy16(gBgVram.cbb0 + 0x40, (u8*)BG_VRAM + 0x40, 0x1C00);
@@ -3708,12 +3678,12 @@ void sub_8030898 (void) {
   CpuCopy16(gBgVram.cbb0 + 0xF520, (u8*)BG_VRAM + 0xF520, 0x1C00);
 }
 
-void sub_8030934 (void) {
+static void sub_8030934 (void) {
   CpuCopy16(gBgVram.cbb0 + 0xD000, (u8*)BG_VRAM + 0xD000, 0x1000);
   CpuCopy16(gBgVram.cbb0 + 0xA000, (u8*)BG_VRAM + 0xA000, 0x800);
 }
 
-void sub_803096C (int arg0) {
+static void sub_803096C (int arg0) {
   u8 arg0_u8 = arg0;
   u32 r1 = arg0_u8 * 0x1C00;
   CpuCopy16(gBgVram.cbb0 + 0x40 + r1, (u8*)BG_VRAM + 0x40 + r1, 0x1C00);
@@ -3722,17 +3692,17 @@ void sub_803096C (int arg0) {
   CpuCopy16(gBgVram.cbb0 + 0xA000, (u8*)BG_VRAM + 0xA000, 0x800);
 }
 
-void sub_80309D8 (void) {
+static void sub_80309D8 (void) {
   CpuCopy16(gBgVram.cbb0 + 0xD000, (u8*)BG_VRAM + 0xD000, 0x1800);
   CpuCopy16(gBgVram.cbb0 + 0xA800, (u8*)BG_VRAM + 0xA800, 0x800);
 }
 
-void sub_8030A10 (void) {
+static void sub_8030A10 (void) {
   CpuCopy16(gBgVram.cbb0 + 0xA800, (u8*)BG_VRAM + 0xA800, 0x800);
   CpuCopy16(gBgVram.cbb0 + 0xF520, (u8*)BG_VRAM + 0xF520, 0x1C00);
 }
 
-void sub_8030A48 (void) {
+static void sub_8030A48 (void) {
   LoadBgOffsets();
   CpuCopy16(gBgVram.cbb0 + 0x7040, (u8*)BG_VRAM + 0x7040, 0x1C00);
   CpuCopy16(gBgVram.cbb0 + 0x40, (u8*)BG_VRAM + 0x40, 0x1C00);
@@ -3744,6 +3714,6 @@ void sub_8030A48 (void) {
   CpuCopy16(gBgVram.cbb0 + 0xA800, (u8*)BG_VRAM + 0xA800, 0x800);
 }
 
-void sub_8030AF8 (void) {
+static void sub_8030AF8 (void) {
   CpuCopy16(gBgVram.cbb0 + 0xF520, (u8*)BG_VRAM + 0xF520, 0x1C00);
 }

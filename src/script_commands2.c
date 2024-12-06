@@ -39,9 +39,9 @@ void sub_80515A0 (void);
 void sub_804F580 (void);
 void sub_804F598 (void);
 
-void sub_802BF70 (void);
-void sub_802C5B4 (void);
-void sub_8055C64 (void);
+void CardShopBuyMain (void);
+void CardShopSellMain (void);
+void CardPasswordMain (void);
 void CreditsMain (void);
 
 void RemoveMoney (u64);
@@ -1043,17 +1043,17 @@ void sub_8054AB0 (u8 arg0, struct ScriptCtx* script) {
       StartCutscene(1);
       break;
     case 17:
-      sub_802BF70();
+      CardShopBuyMain();
       sub_804ED08();
       sub_80533BC();
       break;
     case 18:
-      sub_802C5B4();
+      CardShopSellMain();
       sub_804ED08();
       sub_80533BC();
       break;
     case 19:
-      sub_8055C64();
+      CardPasswordMain();
       sub_804ED08();
       break;
     case 20:

@@ -65,9 +65,15 @@ static void CopyTypeIconToBuffer (void) {
   if (gCardInfo.type == TYPE_NONE)
     return;
   CpuCopy16(gUnk_8E151C8[gCardInfo.type], gUnk_8E01368 + 0x5D, 22);
+  //TODO
+  /*
+  sb = 2;
+  if (gCardInfo.type == 21 || gCardInfo.type == 22 || gCardInfo.type == 23)
+    sb = 4;
+  */
   type = gCardInfo.type - 21; //create a define and set it to TYPE_SPELL?
   sb = 2;
-  if (type < 3) //create a define?
+  if (type < 3)
     sb = 4;
   CpuCopy32(gUnk_8E14FE8[gCardInfo.type][gLanguage], gUnk_8E01364 + 0x18C0, sb * 64);
   CpuCopy32(gUnk_8E14FE8[gCardInfo.type][gLanguage] + sb * 16, gUnk_8E01364 + 0x19C0, sb * 64);

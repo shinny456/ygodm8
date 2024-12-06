@@ -14,12 +14,12 @@ void EffectMooyanCurry(void)
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-        if (WhoseTurn() == PLAYER)
+        if (WhoseTurn() == DUEL_PLAYER)
             SetPlayerLifePointsToAdd(200);
         else
             SetOpponentLifePointsToAdd(200);
 
-        sub_803F29C();
+        HandleDuelAction();
         sub_803F4C0();
 
         ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
@@ -42,12 +42,12 @@ void EffectRedMedicine(void)
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-        if (WhoseTurn() == PLAYER)
+        if (WhoseTurn() == DUEL_PLAYER)
             SetPlayerLifePointsToAdd(500);
         else
             SetOpponentLifePointsToAdd(500);
 
-        sub_803F29C();
+        HandleDuelAction();
         sub_803F4C0();
 
         ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
@@ -70,12 +70,12 @@ void EffectGoblinsSecretRemedy(void)
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-        if (WhoseTurn() == PLAYER)
+        if (WhoseTurn() == DUEL_PLAYER)
             SetPlayerLifePointsToAdd(1000);
         else
             SetOpponentLifePointsToAdd(1000);
 
-        sub_803F29C();
+        HandleDuelAction();
         sub_803F4C0();
 
         ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
@@ -98,12 +98,12 @@ void EffectSoulOfThePure(void)
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-        if (WhoseTurn() == PLAYER)
+        if (WhoseTurn() == DUEL_PLAYER)
             SetPlayerLifePointsToAdd(2000);
         else
             SetOpponentLifePointsToAdd(2000);
 
-        sub_803F29C();
+        HandleDuelAction();
         sub_803F4C0();
 
         ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
@@ -126,12 +126,12 @@ void EffectDianKetoTheCureMaster(void)
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-        if (WhoseTurn() == PLAYER)
+        if (WhoseTurn() == DUEL_PLAYER)
             SetPlayerLifePointsToAdd(5000);
         else
             SetOpponentLifePointsToAdd(5000);
 
-        sub_803F29C();
+        HandleDuelAction();
         sub_803F4C0();
 
         ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
@@ -154,12 +154,12 @@ void EffectSparks(void)
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-        if (WhoseTurn() == PLAYER)
+        if (WhoseTurn() == DUEL_PLAYER)
             SetOpponentLifePointsToSubtract(50);
         else
             SetPlayerLifePointsToSubtract(50);
 
-        sub_803F29C();
+        HandleDuelAction();
         sub_803F4C0();
 
         ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
@@ -182,12 +182,12 @@ void EffectHinotama(void)
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-        if (WhoseTurn() == PLAYER)
+        if (WhoseTurn() == DUEL_PLAYER)
             SetOpponentLifePointsToSubtract(100);
         else
             SetPlayerLifePointsToSubtract(100);
 
-        sub_803F29C();
+        HandleDuelAction();
         sub_803F4C0();
 
         ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
@@ -210,12 +210,12 @@ void EffectFinalFlame(void)
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-        if (WhoseTurn() == PLAYER)
+        if (WhoseTurn() == DUEL_PLAYER)
             SetOpponentLifePointsToSubtract(200);
         else
             SetPlayerLifePointsToSubtract(200);
 
-        sub_803F29C();
+        HandleDuelAction();
         sub_803F4C0();
 
         ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
@@ -238,12 +238,12 @@ void EffectOokazi(void)
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-        if (WhoseTurn() == PLAYER)
+        if (WhoseTurn() == DUEL_PLAYER)
             SetOpponentLifePointsToSubtract(500);
         else
             SetPlayerLifePointsToSubtract(500);
 
-        sub_803F29C();
+        HandleDuelAction();
         sub_803F4C0();
 
         ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
@@ -266,12 +266,12 @@ void EffectTremendousFire(void)
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-        if (WhoseTurn() == PLAYER)
+        if (WhoseTurn() == DUEL_PLAYER)
             SetOpponentLifePointsToSubtract(1000);
         else
             SetPlayerLifePointsToSubtract(1000);
 
-        sub_803F29C();
+        HandleDuelAction();
         sub_803F4C0();
 
         ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
@@ -2626,12 +2626,12 @@ void EffectRestructerRevolution(void)
 {
     u16 lifePoints = (MAX_ZONES_IN_ROW - NumEmptyZonesInRow(gHands[1])) * 200;
 
-    if (WhoseTurn() == PLAYER)
+    if (WhoseTurn() == DUEL_PLAYER)
         SetOpponentLifePointsToSubtract(lifePoints);
     else
         SetPlayerLifePointsToSubtract(lifePoints);
 
-    sub_803F29C();
+    HandleDuelAction();
     sub_803F4C0();
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);

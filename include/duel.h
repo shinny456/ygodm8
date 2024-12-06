@@ -1,9 +1,28 @@
 #ifndef GUARD_DUEL_H
 #define GUARD_DUEL_H
 
-#define MAX_ZONES_IN_ROW 5
+enum {
+  DUEL_PLAYER,
+  DUEL_OPPONENT
+};
 
-//sub_08026BA4 bx lr
+enum {
+  TURN_PLAYER,
+  TURN_OPPONENT
+};
+
+enum {
+  FIELD_ARENA,
+  FIELD_FOREST,
+  FIELD_WASTELAND,
+  FIELD_MOUNTAIN,
+  FIELD_SOGEN,
+  FIELD_UMI,
+  FIELD_YAMI,
+  NUM_FIELDS
+};
+
+#define MAX_ZONES_IN_ROW 5
 
 struct StatMod
 {
@@ -21,32 +40,7 @@ extern void (*g8DFF7F0[])(void);
 extern void (*g8E00330[])(void);
 extern void (*g8E00150[])(void);
 
-extern u8 gWhoseTurn; //gWhoseTurn?
-
-enum Field
-{
-    FIELD_ARENA,
-    FIELD_FOREST,
-    FIELD_WASTELAND,
-    FIELD_MOUNTAIN,
-    FIELD_SOGEN,
-    FIELD_UMI,
-    FIELD_YAMI,
-    NUM_FIELDS
-};
-
-enum
-{
-    PLAYER,
-    OPPONENT
-};
-
-enum
-{
-    TURN_PLAYER,
-    TURN_OPPONENT
-};
-
+extern unsigned char gWhoseTurn;
 
 struct DuelCard
 {
@@ -153,7 +147,7 @@ extern struct SpellEffect gSpellEffectData;
 
 
 
-extern u16 gLifePoints[];
+extern unsigned short gDuelLifePoints[];
 
 struct CardEffectTextData
 {
@@ -194,7 +188,7 @@ bool8 IsDuelOver(void);
 
 void sub_803F224(void);
 
-void sub_803F29C(void);
+void HandleDuelAction(void);
 
 void sub_803F4C0(void);
 
@@ -415,19 +409,18 @@ extern struct DuelData gDuelData;
 
 extern u16 gAnte;
 
-struct Deck
-{
-    u32 cost;
-    s8 unk4; // current position
-    u8 unk5;
-    u8 unk6;
-    u8 unk7;
-    u8 count;
-    u8 filler9;
-    u16 cards[40];
-};
+struct {
+  unsigned cost;
+  s8 unk4; // current position
+  u8 unk5;
+  u8 unk6;
+  u8 unk7;
+  u8 count;
+  u8 filler9;
+  unsigned short cards[40];
+} extern gPlayerDeck;
 
-extern struct Deck gDeck;
+
 
 extern u16 gRitualComponents[][4]; //ritual
 //[][0] == sacrifice 1
@@ -448,7 +441,7 @@ struct DuelDeck
     u8 cardsDrawn;
 };
 
-extern struct DuelDeck gUnk20240F0[2];
+extern struct DuelDeck gDuelDecks[2];
 
 struct BgVram
 {
@@ -582,7 +575,7 @@ extern u8 g201CB44;
 extern u8 gCurrentTurnOpponent[];
 u32 sub_8043A5C (u8);
 u32 sub_80438A0 (u8);
-u32 sub_80438E8 (u8);     //implicit decl? (just create a u8 return variable)
+u32 GetNumCardsDefendingInRow (u8);     //implicit decl? (just create a u8 return variable)
 u32 GetTotalFaceUpAtkAndDefInRow (u8);     //implicit decl? (just create a u8 return variable)
 u32 GetNumFaceUpCardsInRow (u8);
 u32 sub_804398C (u8, u8); //implicit decl? (^)
@@ -679,8 +672,8 @@ u32 GetExodiaFlag(u16);
 struct DuelCursor {
   u8 currentX;
   u8 currentY;
-  u8 destX;
-  u8 destY;
+  u8 destX;   //targetCoordX?
+  u8 destY;   //targetCoordY?
   u8 state;
   u8 unk5;
   u8 filler6;

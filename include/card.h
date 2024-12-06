@@ -30,9 +30,9 @@ enum CardType
     TYPE_MAGICIAN,
     TYPE_ZOMBIE,
     TYPE_WARRIOR,
-    TYPE_BEAST_WAR, //?
+    TYPE_BEAST_WARRIOR,
     TYPE_BEAST,
-    TYPE_WNG_BEAST,
+    TYPE_WING_BEAST,
     TYPE_FIEND,
     TYPE_FAIRY,
     TYPE_INSECT,
@@ -66,7 +66,7 @@ enum CardAttribute
     ATTRIBUTE_SHADOW,
     ATTRIBUTE_LIGHT,
     ATTRIBUTE_FIEND,
-    ATTRIBUTE_DREAMS,
+    ATTRIBUTE_DREAM,
     ATTRIBUTE_PYRO,
     ATTRIBUTE_FOREST,
     ATTRIBUTE_WIND,
@@ -115,7 +115,6 @@ overworld sprite tiles RAM?: 0x2010400
 bg palette buffer: 0x02000000
 object palette buffer: 0x02000200
 
-08E11790 - sprite pointers
 
 each row is composed of 4 tiles == 0x80 bytes
 player front: (each row is 0x200 bytes apart)

@@ -656,8 +656,8 @@ gSpellEffects:
     .4byte sub_804D5F8
     .4byte sub_804D5FC
 
-    .global gUnk_8103264 //u16 []
-gUnk_8103264:
+    .global gUnk08103264 //u16 []
+gUnk08103264:
     .incbin "baserom.gba", 0x103264, 0x4F99B0
 
     .global gUnk_85fcc14

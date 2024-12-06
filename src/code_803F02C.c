@@ -6,17 +6,45 @@
 #include "gba/macro.h"
 
 
-extern u8* g8E0CEE0[]; // array of string literals?
-extern u8* g8E0CF40[];
+extern unsigned char* g8E0CEE0[]; // array of string literals?
+extern unsigned char* g8E0CF40[];
 extern u16 g8E0CFA0[];
-extern u8 g8E0CFC0[];
-extern u8 g8E0CFC4[];
-extern u8 g8E0CFD0[];
+extern unsigned char g8E0CFC0[];
+
+static const unsigned char sAttributeAdvantages[NUM_ATTRIBUTES] = {
+  [ATTRIBUTE_NONE] = ATTRIBUTE_NONE,
+  [ATTRIBUTE_SHADOW] = ATTRIBUTE_LIGHT,
+  [ATTRIBUTE_LIGHT] = ATTRIBUTE_FIEND,
+  [ATTRIBUTE_FIEND] = ATTRIBUTE_DREAM,
+  [ATTRIBUTE_DREAM] = ATTRIBUTE_SHADOW,
+  [ATTRIBUTE_PYRO] = ATTRIBUTE_FOREST,
+  [ATTRIBUTE_FOREST] = ATTRIBUTE_WIND,
+  [ATTRIBUTE_WIND] = ATTRIBUTE_EARTH,
+  [ATTRIBUTE_EARTH] = ATTRIBUTE_THUNDER,
+  [ATTRIBUTE_THUNDER] = ATTRIBUTE_AQUA,
+  [ATTRIBUTE_AQUA] = ATTRIBUTE_PYRO,
+  [ATTRIBUTE_DIVINE] = ATTRIBUTE_NONE
+};
+
+static const unsigned char sAttributeWeaknesses[NUM_ATTRIBUTES] = {
+  [ATTRIBUTE_NONE] = ATTRIBUTE_NONE,
+  [ATTRIBUTE_SHADOW] = ATTRIBUTE_DREAM,
+  [ATTRIBUTE_LIGHT] = ATTRIBUTE_SHADOW,
+  [ATTRIBUTE_FIEND] = ATTRIBUTE_LIGHT,
+  [ATTRIBUTE_DREAM] = ATTRIBUTE_FIEND,
+  [ATTRIBUTE_PYRO] = ATTRIBUTE_AQUA,
+  [ATTRIBUTE_FOREST] = ATTRIBUTE_PYRO,
+  [ATTRIBUTE_WIND] = ATTRIBUTE_FOREST,
+  [ATTRIBUTE_EARTH] = ATTRIBUTE_WIND,
+  [ATTRIBUTE_THUNDER] = ATTRIBUTE_EARTH,
+  [ATTRIBUTE_AQUA] = ATTRIBUTE_THUNDER,
+  [ATTRIBUTE_DIVINE] = ATTRIBUTE_NONE
+};
 
 void sub_803FD3C (void);
-u8 sub_803FA94 (void);
-u8 sub_803FAFC (void);
-u8 sub_803FB64 (void);
+unsigned char sub_803FA94 (void);
+unsigned char sub_803FAFC (void);
+unsigned char sub_803FB64 (void);
 void sub_803F44C (void);
 void sub_803F45C (void);
 void sub_0803F330 (void);
@@ -27,21 +55,21 @@ void sub_803F3D4 (void);
 void sub_803F420 (void);
 void sub_803F400 (void);
 void sub_803F46C (void);
-u8 sub_803FC10 (void);
-u8 sub_803FC24 (void);
-u8 sub_803FCA8 (void);
-u8 sub_803FC64 (void);
+unsigned char sub_803FC10 (void);
+unsigned char sub_803FC24 (void);
+unsigned char sub_803FCA8 (void);
+unsigned char sub_803FC64 (void);
 
 
-u8* GetCardTypeString (u8 cardType) {
+unsigned char* GetCardTypeString (unsigned char cardType) {
   return g8E0CEE0[cardType];
 }
 
-u8* sub_803F03C (u8 arg0) {
+unsigned char* sub_803F03C (unsigned char arg0) {
   return g8E0CF40[arg0];
 }
 
-u16 sub_803F04C (u8 arg0) {
+u16 sub_803F04C (unsigned char arg0) {
   return g8E0CFA0[arg0];
 }
 
@@ -53,7 +81,7 @@ void sub_803F05C (void) {
     if (g2023E80.unk2 > g2023E80.unkE) {
       sub_803F45C();
       if (g2023E80.unk12 <= g2023E80.unk2 - g2023E80.unkE) {
-        u8 temp;
+        unsigned char temp;
         g2023E80.unk12 = 0;
         temp = g2023E80.unk1B;
         g2023E80.unk19 |= g8E0CFC0[temp];
@@ -71,7 +99,7 @@ void sub_803F05C (void) {
   else if (g2023E80.unk2 < g2023E80.unkE) {
     sub_803F44C();
     if (g2023E80.unk6 <= g2023E80.unkE - g2023E80.unk2) {
-      u8 temp;
+      unsigned char temp;
       g2023E80.unk6 = 0;
       temp = g2023E80.unk1A;
       g2023E80.unk19 |= g8E0CFC0[temp];
@@ -95,7 +123,7 @@ void sub_803F108 (void) {
       gUnk2023EA0.unk18 = 5;
   }
   else if (g2023E80.unk6 <= g2023E80.unk10 - g2023E80.unk2) {
-    u8 temp;
+    unsigned char temp;
     g2023E80.unk6 = 0;
     temp = g2023E80.unk1A;
     g2023E80.unk19 |= g8E0CFC0[temp];
@@ -114,7 +142,7 @@ void sub_803F180 (void) {
   if (g2023E80.unk4 >= g2023E80.unkE) {
     if (g2023E80.unk4 > g2023E80.unkE) {
       if (g2023E80.unk12 <= g2023E80.unk4 - g2023E80.unkE) {
-        u8 temp;
+        unsigned char temp;
         g2023E80.unk12 = 0;
         temp = g2023E80.unk1B;
         g2023E80.unk19 |= g8E0CFC0[temp];
@@ -154,7 +182,8 @@ void sub_803F224 (void) {
     DeclareLoser(1);
 }
 
-void sub_803F29C (void) {
+//HandleDuelAction/PerformDuelAction?
+void HandleDuelAction (void) {
   g2023E80.unk19 = 0;
   switch (g2023E80.action) {
     case 1:
@@ -197,7 +226,7 @@ void sub_0803F330 (void) {}
 void sub_803F334 (void) {
   sub_803FD3C();
   if (g2023E80.unk12 <= g2023E80.unk2) {
-    u8 temp;
+    unsigned char temp;
     g2023E80.unk12 = 0;
     temp = g2023E80.unk1B;
     g2023E80.unk19 |= g8E0CFC0[temp];
@@ -210,7 +239,7 @@ void sub_803F334 (void) {
 void sub_803F374 (void) {
   sub_803FD3C();
   if (g2023E80.unk6 <= g2023E80.unkE) {
-    u8 temp;
+    unsigned char temp;
     g2023E80.unk6 = 0;
     temp = g2023E80.unk1A;
     g2023E80.unk19 |= g8E0CFC0[temp];
@@ -229,7 +258,7 @@ void AddPlayerLifePoints (void) {
 
 void sub_803F3D4 (void) {
   if (g2023E80.unk6 - g2023E80.unk2 <= 0) {
-    u8 temp;
+    unsigned char temp;
     g2023E80.unk6 = 0;
     temp = g2023E80.unk1A;
     g2023E80.unk19 |= g8E0CFC0[temp];
@@ -247,7 +276,7 @@ void sub_803F400 (void) {
 
 void sub_803F420 (void) {
   if (g2023E80.unk12 - g2023E80.unkE <= 0) {
-    u8 temp;
+    unsigned char temp;
     g2023E80.unk12 = 0;
     temp = g2023E80.unk1B;
     g2023E80.unk19 |= g8E0CFC0[temp];
@@ -265,13 +294,13 @@ void sub_803F45C (void) {
 }
 
 void sub_803F46C (void) {
-  gLifePoints[g2023E80.unk1A] = g2023E80.unk6;
+  gDuelLifePoints[g2023E80.unk1A] = g2023E80.unk6;
   gUnk2023EA0.unk0[0].unk4 = g2023E80.unk6;
-  gLifePoints[g2023E80.unk1B] = g2023E80.unk12;
+  gDuelLifePoints[g2023E80.unk1B] = g2023E80.unk12;
   gUnk2023EA0.unk0[1].unk4 = g2023E80.unk12;
 }
 
-void sub_803F4A4 (u8 arg0) {
+void sub_803F4A4 (unsigned char arg0) {
   g2023E80.unk19 |= g8E0CFC0[arg0];
 }
 
@@ -282,7 +311,7 @@ void sub_803F4C0 (void) {
     DeclareLoser(1);
 }
 
-void sub_803F4F0 (u8 arg0) {
+void sub_803F4F0 (unsigned char arg0) {
   g2023E80.action = 4;
   g2023E80.unk1A = 0;
   g2023E80.unk1B = 1;
@@ -293,15 +322,15 @@ void sub_803F4F0 (u8 arg0) {
   SetFinalStat(&gStatMod);
   g2023E80.unk2 = gCardInfo.atk;
   g2023E80.unk4 = gCardInfo.def;
-  g2023E80.unk6 = gLifePoints[0];
-  gUnk2023EA0.unk0[0].unk2 = gLifePoints[0];
-  g2023E80.unk12 = gLifePoints[1];
-  gUnk2023EA0.unk0[1].unk2 = gLifePoints[1];
+  g2023E80.unk6 = gDuelLifePoints[0];
+  gUnk2023EA0.unk0[0].unk2 = gDuelLifePoints[0];
+  g2023E80.unk12 = gDuelLifePoints[1];
+  gUnk2023EA0.unk0[1].unk2 = gDuelLifePoints[1];
   g2023E80.unkA = arg0;
   g2023E80.unk9 = 2;
 }
 
-void sub_803F574 (u8 arg0) {
+void sub_803F574 (unsigned char arg0) {
   g2023E80.action = 6;
   g2023E80.unk1A = 0;
   g2023E80.unk1B = 1;
@@ -312,15 +341,15 @@ void sub_803F574 (u8 arg0) {
   SetFinalStat(&gStatMod);
   g2023E80.unkE = gCardInfo.atk;
   g2023E80.unk10 = gCardInfo.def;
-  g2023E80.unk6 = gLifePoints[0];
-  gUnk2023EA0.unk0[0].unk2 = gLifePoints[0];
-  g2023E80.unk12 = gLifePoints[1];
-  gUnk2023EA0.unk0[1].unk2 = gLifePoints[1];
+  g2023E80.unk6 = gDuelLifePoints[0];
+  gUnk2023EA0.unk0[0].unk2 = gDuelLifePoints[0];
+  g2023E80.unk12 = gDuelLifePoints[1];
+  gUnk2023EA0.unk0[1].unk2 = gDuelLifePoints[1];
   g2023E80.unk16 = arg0;
   g2023E80.unk15 = 1;
 }
 
-void sub_803F604 (u8 arg0, u8 arg1) {
+void sub_803F604 (unsigned char arg0, unsigned char arg1) {
   g2023E80.action = 1;
   g2023E80.unk1A = 0;
   g2023E80.unk1B = 1;
@@ -332,8 +361,8 @@ void sub_803F604 (u8 arg0, u8 arg1) {
   g2023E80.unk2 = gCardInfo.atk;
   g2023E80.unk4 = gCardInfo.def;
   g2023E80.unk8 = gCardInfo.attribute;
-  g2023E80.unk6 = gLifePoints[0];
-  gUnk2023EA0.unk0[0].unk2 = gLifePoints[0];
+  g2023E80.unk6 = gDuelLifePoints[0];
+  gUnk2023EA0.unk0[0].unk2 = gDuelLifePoints[0];
   g2023E80.unkA = arg0;
   g2023E80.unk9 = 2;
   g2023E80.unkC = gDuelBoard[1][arg1]->id;
@@ -344,13 +373,13 @@ void sub_803F604 (u8 arg0, u8 arg1) {
   g2023E80.unkE = gCardInfo.atk;
   g2023E80.unk10 = gCardInfo.def;
   g2023E80.unk14 = gCardInfo.attribute;
-  g2023E80.unk12 = gLifePoints[1];
-  gUnk2023EA0.unk0[1].unk2 = gLifePoints[1];
+  g2023E80.unk12 = gDuelLifePoints[1];
+  gUnk2023EA0.unk0[1].unk2 = gDuelLifePoints[1];
   g2023E80.unk16 = arg1;
   g2023E80.unk15 = 1;
 }
 
-void sub_803F6F8 (u8 arg0, u8 arg1) {
+void sub_803F6F8 (unsigned char arg0, unsigned char arg1) {
   g2023E80.action = 2;
   g2023E80.unk1A = 0;
   g2023E80.unk1B = 1;
@@ -362,8 +391,8 @@ void sub_803F6F8 (u8 arg0, u8 arg1) {
   g2023E80.unk2 = gCardInfo.atk;
   g2023E80.unk4 = gCardInfo.def;
   g2023E80.unk8 = gCardInfo.attribute;
-  g2023E80.unk6 = gLifePoints[0];
-  gUnk2023EA0.unk0[0].unk2 = gLifePoints[0];
+  g2023E80.unk6 = gDuelLifePoints[0];
+  gUnk2023EA0.unk0[0].unk2 = gDuelLifePoints[0];
   g2023E80.unkA = arg0;
   g2023E80.unk9 = 2;
   g2023E80.unkC = gDuelBoard[1][arg1]->id;
@@ -374,13 +403,13 @@ void sub_803F6F8 (u8 arg0, u8 arg1) {
   g2023E80.unkE = gCardInfo.atk;
   g2023E80.unk10 = gCardInfo.def;
   g2023E80.unk14 = gCardInfo.attribute;
-  g2023E80.unk12 = gLifePoints[1];
-  gUnk2023EA0.unk0[1].unk2 = gLifePoints[1];
+  g2023E80.unk12 = gDuelLifePoints[1];
+  gUnk2023EA0.unk0[1].unk2 = gDuelLifePoints[1];
   g2023E80.unk16 = arg1;
   g2023E80.unk15 = 1;
 }
 
-void sub_803F7EC (u8 arg0, u8 arg1) {
+void sub_803F7EC (unsigned char arg0, unsigned char arg1) {
   g2023E80.action = 5;
   g2023E80.unk1A = 0;
   g2023E80.unk1B = 1;
@@ -392,8 +421,8 @@ void sub_803F7EC (u8 arg0, u8 arg1) {
   g2023E80.unk2 = gCardInfo.atk;
   g2023E80.unk4 = gCardInfo.def;
   g2023E80.unk8 = gCardInfo.attribute;
-  g2023E80.unk6 = gLifePoints[0];
-  gUnk2023EA0.unk0[0].unk2 = gLifePoints[0];
+  g2023E80.unk6 = gDuelLifePoints[0];
+  gUnk2023EA0.unk0[0].unk2 = gDuelLifePoints[0];
   g2023E80.unkA = arg0;
   g2023E80.unk9 = 2;
   g2023E80.unkC = gDuelBoard[1][arg1]->id;
@@ -404,14 +433,14 @@ void sub_803F7EC (u8 arg0, u8 arg1) {
   g2023E80.unkE = gCardInfo.atk;
   g2023E80.unk10 = gCardInfo.def;
   g2023E80.unk14 = gCardInfo.attribute;
-  g2023E80.unk12 = gLifePoints[1];
-  gUnk2023EA0.unk0[1].unk2 = gLifePoints[1];
+  g2023E80.unk12 = gDuelLifePoints[1];
+  gUnk2023EA0.unk0[1].unk2 = gDuelLifePoints[1];
   g2023E80.unk16 = arg1;
   g2023E80.unk15 = 1;
 }
 
 void sub_803F8E0 (int arg0) {
-  u8 arg0_u8 = arg0; //TODO: implicit decl somewhere else?
+  unsigned char arg0_u8 = arg0; //TODO: implicit decl somewhere else?
   switch (WhoseTurn()) {
     case 0:
       sub_803F4F0(arg0);
@@ -423,16 +452,16 @@ void sub_803F8E0 (int arg0) {
 }
 
 void sub_803F908 (int arg0, int arg1) {
-  u8 arg0_u8 = arg0; //TODO: implicit decl somewhere else?
-  u8 arg1_u8 = arg1;
+  unsigned char arg0_u8 = arg0;
+  unsigned char arg1_u8 = arg1;
   switch (WhoseTurn()) {
-    case 0:
+    case DUEL_PLAYER:
       if (gDuelBoard[1][arg1_u8]->isDefending)
         sub_803F6F8(arg0_u8, arg1_u8);
       else
         sub_803F604(arg0_u8, arg1_u8);
       break;
-    case 1:
+    case DUEL_OPPONENT:
       if (!gDuelBoard[2][arg0_u8]->isDefending)
         sub_803F604(arg0_u8, arg1_u8);
       else
@@ -446,8 +475,8 @@ void SetPlayerLifePointsToAdd (u32 lifePoints) {
   g2023E80.unk1A = 0;
   g2023E80.unk1B = 1;
   g2023E80.unk2 = lifePoints;
-  g2023E80.unk6 = gLifePoints[0];
-  g2023E80.unk12 = gLifePoints[1];
+  g2023E80.unk6 = gDuelLifePoints[0];
+  g2023E80.unk12 = gDuelLifePoints[1];
 }
 
 void SetPlayerLifePointsToSubtract (u32 lifePoints) {
@@ -455,8 +484,8 @@ void SetPlayerLifePointsToSubtract (u32 lifePoints) {
   g2023E80.unk1A = 0;
   g2023E80.unk1B = 1;
   g2023E80.unk2 = lifePoints;
-  g2023E80.unk6 = gLifePoints[0];
-  g2023E80.unk12 = gLifePoints[1];
+  g2023E80.unk6 = gDuelLifePoints[0];
+  g2023E80.unk12 = gDuelLifePoints[1];
 }
 
 void SetOpponentLifePointsToAdd (u32 lifePoints) {
@@ -464,8 +493,8 @@ void SetOpponentLifePointsToAdd (u32 lifePoints) {
   g2023E80.unk1A = 0;
   g2023E80.unk1B = 1;
   g2023E80.unkE = lifePoints;
-  g2023E80.unk6 = gLifePoints[0];
-  g2023E80.unk12 = gLifePoints[1];
+  g2023E80.unk6 = gDuelLifePoints[0];
+  g2023E80.unk12 = gDuelLifePoints[1];
 }
 
 void SetOpponentLifePointsToSubtract (u32 lifePoints) {
@@ -473,12 +502,12 @@ void SetOpponentLifePointsToSubtract (u32 lifePoints) {
   g2023E80.unk1A = 0;
   g2023E80.unk1B = 1;
   g2023E80.unkE = lifePoints;
-  g2023E80.unk6 = gLifePoints[0];
-  g2023E80.unk12 = gLifePoints[1];
+  g2023E80.unk6 = gDuelLifePoints[0];
+  g2023E80.unk12 = gDuelLifePoints[1];
 }
 
 // TODO: function doesn't return anything
-u8 sub_803FA08 (void) {
+unsigned char sub_803FA08 (void) {
   gUnk2023EA0.unk18 = 16;
   sub_803F45C();
   if (g2023E80.unk2 < g2023E80.unkE)
@@ -494,7 +523,7 @@ u8 sub_803FA08 (void) {
 }
 
 // TODO: function doesn't return anything
-u8 sub_803FA4C (void) {
+unsigned char sub_803FA4C (void) {
   gUnk2023EA0.unk18 = 17;
   sub_803F44C();
   if (g2023E80.unk2 > g2023E80.unkE)
@@ -509,21 +538,18 @@ u8 sub_803FA4C (void) {
     g2023E80.unk6 -= g2023E80.unkE - g2023E80.unk2;
 }
 
-static inline u8 sub_803FBCC_i (u8 a, u8 b) {
-  if (a == ATTRIBUTE_DIVINE)
+static inline unsigned char sub_803FBCC_inline (unsigned char a, unsigned char b) {
+  if (a == ATTRIBUTE_DIVINE || b == ATTRIBUTE_DIVINE)
     return 1;
-  if (b == ATTRIBUTE_DIVINE)
-    return 1;
-  if (g8E0CFC4[a] == b)
+  if (sAttributeAdvantages[a] == b) //if a beats b
     return 0;
-  else if (g8E0CFD0[a] == b)
+  else if (sAttributeWeaknesses[a] == b) //if b beats a
     return 2;
-  else
-    return 1;
+  return 1;
 }
 
-u8 sub_803FA94 (void) {
-  u8 r4 = sub_803FBCC_i(g2023E80.unk8, g2023E80.unk14);
+unsigned char sub_803FA94 (void) {
+  unsigned char r4 = sub_803FBCC_inline(g2023E80.unk8, g2023E80.unk14);
   switch (r4) {
     case 0:
       sub_803FA08();
@@ -537,8 +563,8 @@ u8 sub_803FA94 (void) {
   return r4;
 }
 
-u8 sub_803FAFC (void) {
-  u8 r4 = sub_803FBCC_i(g2023E80.unk8, g2023E80.unk14);
+unsigned char sub_803FAFC (void) {
+  unsigned char r4 = sub_803FBCC_inline(g2023E80.unk8, g2023E80.unk14);
   switch (r4) {
     case 0:
       sub_803FC10();
@@ -552,8 +578,8 @@ u8 sub_803FAFC (void) {
   return r4;
 }
 
-u8 sub_803FB64 (void) {
-  u8 r4 = sub_803FBCC_i(g2023E80.unk8, g2023E80.unk14);
+unsigned char sub_803FB64 (void) {
+  unsigned char r4 = sub_803FBCC_inline(g2023E80.unk8, g2023E80.unk14);
   switch (r4) {
     case 0:
       sub_803FC64();
@@ -567,26 +593,25 @@ u8 sub_803FB64 (void) {
   return r4;
 }
 
-u8 sub_803FBCC (u8 a, u8 b) {
+unsigned char sub_803FBCC (unsigned char a, unsigned char b) {
   if (a == ATTRIBUTE_DIVINE)
     return 1;
   if (b == ATTRIBUTE_DIVINE)
     return 1;
-  if (g8E0CFC4[a] == b)
+  if (sAttributeAdvantages[a] == b)
     return 0;
-  else if (g8E0CFD0[a] == b)
+  else if (sAttributeWeaknesses[a] == b)
     return 2;
-  else
-    return 1;
+  return 1;
 }
 
 // TODO: function returns nothing (only sane way to match?)
-u8 sub_803FC10 (void) {
+unsigned char sub_803FC10 (void) {
   gUnk2023EA0.unk18 = 16;
   sub_803F45C();
 }
 /*
-u8 sub_803FC24 (void) {
+unsigned char sub_803FC24 (void) {
   gUnk2023EA0.unk18 = 17;
   sub_803F44C();
   if (g2023E80.unk2 >= g2023E80.unk10)
@@ -599,7 +624,7 @@ u8 sub_803FC24 (void) {
     g2023E80.unk6 -= g2023E80.unk10 - g2023E80.unk2;
 }
 
-u8 sub_803FC64 (void) {
+unsigned char sub_803FC64 (void) {
   gUnk2023EA0.unk18 = 16;
   sub_803F45C();
   if (g2023E80.unk4 <= g2023E80.unkE)
@@ -613,7 +638,7 @@ u8 sub_803FC64 (void) {
 }*/
 
 NAKED
-u8 sub_803FC24 (void) {
+unsigned char sub_803FC24 (void) {
   asm_unified("push {r4, lr}\n\
 	ldr r0, _0803FC50\n\
 	movs r1, #0x11\n\
@@ -647,7 +672,7 @@ _0803FC5C:\n\
 }
 
 NAKED
-u8 sub_803FC64 (void) {
+unsigned char sub_803FC64 (void) {
   asm_unified("push {r4, lr}\n\
 	ldr r0, _0803FC94\n\
 	movs r1, #0x10\n\
@@ -681,7 +706,7 @@ _0803FCA0:\n\
 	bx r1");
 }
 
-u8 sub_803FCA8 (void) {
+unsigned char sub_803FCA8 (void) {
   gUnk2023EA0.unk18 = 17;
   sub_803F44C();
 }
@@ -733,11 +758,11 @@ void sub_803FD48 (void) {
 }
 
 extern u16 g8E0D08C[][5];
-extern u8 g8E0D0BE[][5];
-extern u8 g8E0D0D7[][5];
+extern unsigned char g8E0D0BE[][5];
+extern unsigned char g8E0D0D7[][5];
 
 void InitBoard (void) {
-  u8 i, j;
+  unsigned char i, j;
   sub_803FEA4(2);
   for (i = 0; i < 4; i++)
     for (j = 0; j < 5; j++)
@@ -745,8 +770,8 @@ void InitBoard (void) {
   for (i = 0; i < 4; i++)
     for (j = 0; j < 5; j++) {
       gDuel.zones[i][j].id = g8E0D08C[i][j];
-      gDuel.zones[i][j].isFaceUp = g8E0D0BE[i][j] & 1;
-      gDuel.zones[i][j].isDefending = g8E0D0D7[i][j] & 1;
+      gDuel.zones[i][j].isFaceUp = g8E0D0BE[i][j];
+      gDuel.zones[i][j].isDefending = g8E0D0D7[i][j];
     }
   for (i = 0; i < 2; i++)
     for (j = 0; j < 5; j++) {
@@ -763,7 +788,7 @@ void InitBoard (void) {
 }
 
 void sub_803FEA4 (int unused) {
-  u8 i;
+  unsigned char i;
   for (i = 0; i < 5; i++)
     gDuelBoard[0][i] = &gDuel.zones[0][4-i];
   for (i = 0; i < 5; i++)
@@ -792,8 +817,8 @@ void sub_803FEA4 (int unused) {
     gHands[1][i] = &gDuel.hands[1][i];
 }
 
-void sub_804004C (u8 turn) {
-  u8 i;
+void sub_804004C (unsigned char turn) {
+  unsigned char i;
   if (turn == 0) {
     for (i = 0; i < 5; i++)
       gZones[0][i] = &gDuel.zones[0][i];
@@ -838,7 +863,7 @@ static inline void ResetTemp (struct DuelCard *zone) {
 }
 
 void sub_8040258 (void) {
-  u8 i, j;
+  unsigned char i, j;
   for (i = 0; i < 4; i++)
     for (j = 0; j < 5; j++)
       ResetTemp(&gDuel.zones[i][j]);
@@ -860,11 +885,11 @@ void ClearZone (struct DuelCard *zone) {
   zone->willChangeSides = FALSE;
 }
 
-void sub_8040300 (u8 col, u8 row, u16 cardId) {
+void sub_8040300 (unsigned char col, unsigned char row, u16 cardId) {
   gDuel.zones[row][col].id = cardId;
 }
 
-u16 sub_8040324 (u8 col, u8 row) {
+u16 sub_8040324 (unsigned char col, unsigned char row) {
   return gDuel.zones[row][col].id;
 }
 
@@ -894,14 +919,14 @@ void sub_804037C (struct DuelCard *zone) {
     zone->permStage--;
 }
 
-void sub_8040394 (struct DuelCard *zone, u8 arg) {
+void sub_8040394 (struct DuelCard *zone, unsigned char arg) {
   for (; arg; arg--)
     if (zone->permStage < 127)
       zone->permStage++;
 }
 
 //unused?
-void sub_80403B8 (struct DuelCard *zone, u8 arg) {
+void sub_80403B8 (struct DuelCard *zone, unsigned char arg) {
   for (; arg; arg--)
     if (zone->permStage > -128)
       zone->permStage--;
@@ -922,55 +947,55 @@ void sub_8040404 (struct DuelCard *zone) {
 }
 
 // unused?
-void sub_804041C (struct DuelCard *zone, u8 arg) {
+void sub_804041C (struct DuelCard *zone, unsigned char arg) {
   for (; arg; arg--)
     if (zone->tempStage < 127)
       zone->tempStage++;
 }
 
 // unused?
-void sub_8040440 (struct DuelCard *zone, u8 arg) {
+void sub_8040440 (struct DuelCard *zone, unsigned char arg) {
   for (; arg; arg--)
     if (zone->tempStage > -128)
       zone->tempStage--;
 }
 
 // unused?
-void sub_8040470 (u8 col, u8 row, u8 arg2) {
+void sub_8040470 (unsigned char col, unsigned char row, unsigned char arg2) {
   gDuel.zones[row][col].unk4 |= sub_803F04C(arg2);
 }
 
 // unused?
-void sub_80404A4 (u8 col, u8 row, u8 arg2) {
+void sub_80404A4 (unsigned char col, unsigned char row, unsigned char arg2) {
   gDuel.zones[row][col].unk4 &= ~sub_803F04C(arg2);
 }
 
 // unused?
-void sub_80404D8 (u8 arg0) {
+void sub_80404D8 (unsigned char arg0) {
   gDuel.notSure[arg0].unkThree = 1;
 }
 
-void sub_80404F0 (u8 currPlayer) {
+void sub_80404F0 (unsigned char currPlayer) {
   gNotSure[currPlayer]->unkThree = 1;
 }
 
-void sub_8040508 (u8 player) {
+void sub_8040508 (unsigned char player) {
   gDuel.notSure[player].unkThree = 0;
 }
 
-void sub_8040524 (u8 currPlayer) {
+void sub_8040524 (unsigned char currPlayer) {
   gNotSure[currPlayer]->unkThree = 0;
 }
 
-void LockMonsterCardsInRow (u8 row) {
-  u8 i;
+void LockMonsterCardsInRow (unsigned char row) {
+  unsigned char i;
   for (i = 0; i < 5; i++)
     if (gZones[row][i]->id != CARD_NONE && GetTypeGroup(gZones[row][i]->id) == 1)
       gZones[row][i]->isLocked = TRUE;
 }
 
-void UnlockCardsInRow (u8 row) {
-  u8 i;
+void UnlockCardsInRow (unsigned char row) {
+  unsigned char i;
   for (i = 0; i < 5; i++)
     if (gZones[row][i]->id != CARD_NONE)
       gZones[row][i]->isLocked = FALSE;
@@ -978,22 +1003,22 @@ void UnlockCardsInRow (u8 row) {
 
 // unused?
 void sub_80405C4 (void) {
-  u8 i, j;
+  unsigned char i, j;
   for (i = 0; i < 5; i++)
     for (j = 0; j < 5; j++)
       if (gZones[i][j]->id != CARD_NONE)
         gZones[i][j]->isLocked = FALSE;
 }
 
-void sub_804060C (u8 row) {
-  u8 i;
+void sub_804060C (unsigned char row) {
+  unsigned char i;
   for (i = 0; i < 5; i++)
     if (gZones[row][i]->id != CARD_NONE && !gZones[row][i]->isDefending)
       gZones[row][i]->isFaceUp = TRUE;
 }
 
 // unused?
-void sub_8040650 (u8 col, u8 row) {
+void sub_8040650 (unsigned char col, unsigned char row) {
   if (!gDuel.zones[row][col].isDefending)
     gDuel.zones[row][col].isDefending = TRUE;
   else
@@ -1009,7 +1034,7 @@ int PermStage (struct DuelCard *zone) {
 }
 
 // unused?
-void sub_8040690 (struct DuelCard *zone, u8 tempStage) {
+void sub_8040690 (struct DuelCard *zone, unsigned char tempStage) {
   zone->tempStage = tempStage;
 }
 
@@ -1040,26 +1065,26 @@ bool32 IsCardLocked (struct DuelCard *zone) {
 }
 
 // unused?
-void sub_80406E0 (u8 col, u8 row) {
+void sub_80406E0 (unsigned char col, unsigned char row) {
   gDuel.zones[row][col].unk4 = 0;
 }
 
 // unused?
-void sub_8040700 (u8 arg0) {
+void sub_8040700 (unsigned char arg0) {
   gDuel.notSure[arg0].sorlTurns = 3;
 }
 
 // unused?
-void sub_8040718 (u8 arg0) {
+void sub_8040718 (unsigned char arg0) {
   if (gDuel.notSure[arg0].sorlTurns)
     gDuel.notSure[arg0].sorlTurns--;
 }
 
-void InitSorlTurns (u8 currOpponent) {
+void InitSorlTurns (unsigned char currOpponent) {
   gNotSure[currOpponent]->sorlTurns = 3;
 }
 
-void DecrementSorlTurns (u8 currPlayer) {
+void DecrementSorlTurns (unsigned char currPlayer) {
   if (gNotSure[currPlayer]->sorlTurns)
     gNotSure[currPlayer]->sorlTurns--;
 }
@@ -1073,8 +1098,8 @@ extern u16 gE0D0F0[];
 extern u16 g80DFDA4[];
 
 
-u32 sub_804402C (u8);
-u16 sub_8043FFC (u8);
+u32 sub_804402C (unsigned char);
+u16 sub_8043FFC (unsigned char);
 
 
 // cursor oam data (same tile is used for all 4 corners, with HV flips)
@@ -1103,8 +1128,8 @@ void sub_8040868 (void) {
 }
 
 //copy tiles to obj vram in 2D mode, 4bpp
-void sub_8040880 (u8* dest, u8* src) {
-  u8 i, j, k;
+void sub_8040880 (unsigned char* dest, unsigned char* src) {
+  unsigned char i, j, k;
   for (i = 0; i < 4; i++) {
     for (j = 0; j < 4; j++)
       for (k = 0; k < 32; k++)
@@ -1135,7 +1160,7 @@ void sub_80408BC (void) {
   *oam++ = 0;
 }
 
-extern u8 gDFBA4[];
+extern unsigned char gDFBA4[];
 
 void sub_80408FC (void) {
   sub_8040880(&gBgVram.cbb4[gE0D0F0[3] * 32], gDFBA4);
@@ -1169,7 +1194,7 @@ void sub_80409AC (struct DuelCard *zone) {
 extern u16 g2020DF4;
 extern u16 gUnk2020DFC;
 
-u8 sub_80409BC (void) {
+unsigned char sub_80409BC (void) {
   if (g2020DF4 & 0x40)
     return 1;
   if (g2020DF4 & 0x80)
@@ -1199,7 +1224,7 @@ void TryActivatingTurnEffects (void);
 void sub_8029820 (void);
 void sub_80082C0 (void);
 void sub_8041EC8 (void);
-void sub_8041E70 (u8, u8);
+void sub_8041E70 (unsigned char, unsigned char);
 void MoveCursorUp (void);
 void MoveCursorDown (void);
 void MoveCursorLeft (void);
@@ -1211,7 +1236,7 @@ void sub_8044B2C (void);
 void sub_80410B4 (void);
 void HandleBButtonAction (void);
 
-extern u8 g20240E0;
+extern unsigned char g20240E0;
 
 void PlayerTurnMain (void) {
   g20240E0 = 0;
@@ -1224,7 +1249,7 @@ void PlayerTurnMain (void) {
     return;
   sub_80082C0();
   while (IsDuelOver() != TRUE && g20240E0 != 1) {
-    u8 y = gDuelCursor.currentY;
+    unsigned char y = gDuelCursor.currentY;
     switch (sub_80409BC()) {
       case 1:
         MoveCursorUp();
@@ -1280,8 +1305,8 @@ extern u16 g80F0F00[];
 extern u16 g80F3160[];
 extern u16 g80F0A50[][30];
 
-void sub_800800C(u8, u8, u16, u16);
-u16 sub_08007FEC(u8, u8, u16);
+void sub_800800C(unsigned char, unsigned char, u16, u16);
+u16 sub_08007FEC(unsigned char, unsigned char, u16);
 void sub_8008BF8 (void * dest);
 extern u16 gBG1HOFS;
 extern u16 gBG1VOFS;

@@ -152,7 +152,7 @@ static void sub_8005894 (void) {
 }
 
 /*
-void sub_80059D4 (void) {
+static void sub_80059D4 (void) {
   u16 i;
   for (i = 0; i < 128; i++) {
     gOamBuffer[i * 4] = 0xA0;
@@ -186,7 +186,7 @@ void sub_80059D4 (void) {
 }*/
 
 NAKED
-void sub_80059D4 (void) {
+static void sub_80059D4 (void) {
   asm_unified("\n\
   push {r4, r5, r6, r7, lr}\n\
 	mov r7, sl\n\

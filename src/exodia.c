@@ -55,10 +55,10 @@ u32 GetExodiaFlag (u16 id) {
 void sub_8020664 (void) {
   u8 unk[0xC]; //TODO
   u8 loser;
-  if (WhoseTurn() == PLAYER)
-    loser = OPPONENT;
+  if (WhoseTurn() == DUEL_PLAYER)
+    loser = DUEL_OPPONENT;
   else
-    loser = PLAYER;
+    loser = DUEL_PLAYER;
   DeclareLoser(loser);
   ResetCardEffectTextData();
   gCardEffectTextData.textId = 0x11;

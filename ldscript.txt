@@ -30,7 +30,7 @@ SECTIONS
     g201EEE0 = 0x201EEE0;
 
     . = 0x02020A00;
-    .ewram : ALIGN(4) {
+    .ewram : {
       *libgcc.a:*o(.bss);
     }
 
@@ -68,7 +68,7 @@ SECTIONS
     gCardEffectTextData = 0x02021C10;
     gDeckCapacity = 0x02021C1C;
     gDuelistLevel = 0x02021C20;
-    gDeck = 0x02021C30;
+    gPlayerDeck = 0x02021C30;
     g2021C8C = 0x02021C8C;
     g2021C90 = 0x2021C90;
     gLanguage = 0x02021CF8;
@@ -95,7 +95,7 @@ SECTIONS
     g2021DE0 = 0x2021DE0;
     g2021DF0 = 0x2021DF0;
     g2022120 = 0x2022120;
-    g2022450 = 0x2022450;
+    sCardShop = 0x2022450;
     g2022B80 = 0x2022B80;
 
     gUnk2022EB0 = 0x02022EB0;
@@ -114,7 +114,7 @@ SECTIONS
     gSelectedCard = 0x20240D8;
     g20240E0 = 0x20240E0;
     g20240E4 = 0x20240E4;
-    gUnk20240F0 = 0x20240F0;
+    gDuelDecks = 0x20240F0;
     g2024144 = 0x2024144;
     gDuelType = 0x020241FC;
     gDuelCursor = 0x020241F0;
@@ -144,7 +144,7 @@ SECTIONS
     gMonEffect = 0x02024250;
     gUnk02024254 = 0x02024254;
 
-    gLifePoints = 0x02024258;
+    gDuelLifePoints = 0x02024258;
 
     gSpellEffectData = 0x02024260;
 
@@ -178,7 +178,6 @@ SECTIONS
 
     . = 0x08000000;
     .text :
-    ALIGN(4)
     {
         asm/crt0.o(.text);
 
@@ -301,7 +300,13 @@ SECTIONS
         *libgcc.a:*.o(.rodata);
 
         data/data5.o(.rodata);
-    } = 0
+        src/code_803F02C.o(.rodata);
+        data/data5.o(.rodata2);
+        src/card_passwords.o(.rodata);
+        data/data5.o(.rodata3);
+        src/turn.o(.rodata);
+        data/data6.o(.rodata);
+    }
 
 
     gUnk8094C37 = 0x8094C37;
@@ -397,7 +402,7 @@ SECTIONS
     g8106D48 = 0x8106D48;
     g8106DAD = 0x8106DAD;
     g82AD2D0 = 0x82AD2D0;
-    gCardPasswords = 0x8E0FD4C;
+    
     g8E1165C = 0x8E1165C;
     g8E11664 = 0x8E11664;
     g8E1167C = 0x8E1167C;
@@ -447,8 +452,6 @@ SECTIONS
     g8DFF7F0 = 0x8DFF7F0;
     g8E00330 = 0x8E00330;
     g8E00150 = 0x8E00150;
-    g8E0CFC4 = 0x8E0CFC4;
-    g8E0CFD0 = 0x8E0CFD0;
     gE0CFDC = 0x8E0CFDC;
     gE0CFF4 = 0x8E0CFF4;
     g80DF790 = 0x80DF790;
@@ -566,7 +569,7 @@ SECTIONS
     g8E0D81D = 0x8E0D81D;
     g8E0D820 = 0x8E0D820;
     g8E0D823 = 0x8E0D823;
-    gUnk08103264 = 0x8103264;
+
     g82A8E4C = 0x82A8E4C;
     g82A906C = 0x82A906C;
     g81032A2 = 0x81032A2;
@@ -577,7 +580,6 @@ SECTIONS
     g82AD2B6 = 0x82AD2B6;
     gUnk08103284 = 0x8103284;
     g82AD48C = 0x82AD48C;
-    gUnk8E11790 = 0x8E11790;
     g81032D2 = 0x81032D2;
     gE0DA4F = 0x8E0DA4F;
     gUnk8E0DA12 = 0x8E0DA12;

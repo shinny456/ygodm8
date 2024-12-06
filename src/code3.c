@@ -20,39 +20,39 @@ static void InitDuelMetaData (void);
 static void sub_8021C98 (void);
 static void sub_8021CD0 (void);
 static void nullsub_8021CDC (void);
-static u8 sub_8021CFC (void);
+static unsigned char sub_8021CFC (void);
 
 extern struct Duelist* gUnk8E00B30[];
 extern struct TurnVoice gTurnVoices[];
 extern u32 gOamBuffer[];
-extern u8 g80C1824[];
+extern unsigned char g80C1824[];
 
 void MosaicEffect(void);
 
 void sub_8041104(void);
-u32 AdjustBackgroundBeforeTurnStart(u8);
+u32 AdjustBackgroundBeforeTurnStart(unsigned char);
 void sub_8057808(void);
 void sub_804078C(void);
 void sub_8008220(void);
 void sub_8040FDC(void);
 
-void sub_8040524(u8);
-void sub_804004C(u8);
+void sub_8040524(unsigned char);
+void sub_804004C(unsigned char);
 void ExodiaWinCondition();    //implicit declaration shenanigans
 void sub_802549C(void);
 void sub_802703C(void);
 void PlayerTurnMain(void);
 void AI_Main(void);
 void ReturnMonstersToOwner(void);
-void sub_804060C(u8);
+void sub_804060C(unsigned char);
 void sub_80254F8(void);
 void SwitchTurn(void);
-void DecrementSorlTurns(u8);
-void UnlockCardsInRow(u8);
-void SetDuelType(u8);
-void sub_8043DD8(void);
-void sub_8043E14(u8, u16);
-void sub_8043D6C(u8);
+void DecrementSorlTurns(unsigned char);
+void UnlockCardsInRow(unsigned char);
+void SetDuelType(unsigned char);
+void ClearDuelDecks(void);
+void sub_8043E14(unsigned char, u16);
+void sub_8043D6C(unsigned char);
 void InitBoard(void);
 void InitLifePointsBeforeDuel();
 void sub_80254DC(void);
@@ -78,9 +78,9 @@ void DuelMain (void) {
   MosaicEffect();
   InitIngameDuel();
   while (1) {
-    u8 turn = WhoseTurn();
-    sub_8041104();
-    if (turn == PLAYER)
+    unsigned char turn = WhoseTurn();
+    sub_8041104(); //UpdateDuelGraphics/UpdateGraphics?
+    if (turn == DUEL_PLAYER)
       AdjustBackgroundBeforeTurnStart(gDuelCursor.currentY);
     else
       AdjustBackgroundBeforeTurnStart(1);
@@ -89,7 +89,7 @@ void DuelMain (void) {
     sub_8008220();
     sub_8040FDC();
     ResetDuelTextData(&duelText);
-    if (turn == PLAYER) {
+    if (turn == DUEL_PLAYER) {
       duelText.textId = 0;
       sub_80219E4(&duelText);
     }
@@ -110,7 +110,7 @@ void DuelMain (void) {
       break;
     sub_802549C();
     sub_802703C();
-    if (turn == PLAYER)
+    if (turn == DUEL_PLAYER)
       PlayerTurnMain();
     else
       AI_Main();
@@ -131,7 +131,7 @@ void DuelMain (void) {
 }
 
 static void InitIngameDuel (void) {
-  u8 i;
+  unsigned char i;
   SetDuelType(0);
   InitDuelMetaData();
   gDuelData.duelist = *gUnk8E00B30[gDuelData.opponent];
@@ -140,7 +140,7 @@ static void InitIngameDuel (void) {
   gDuelData.unkC = gUnk8E00B30[gDuelData.opponent]->unk24;
   gDuelData.unkE = gUnk8E00B30[gDuelData.opponent]->unk26;
   gDuelData.music = gUnk8E00B30[gDuelData.opponent]->unk28;
-  sub_8043DD8();
+  ClearDuelDecks();
   sub_8043E14(0, 0);
   sub_8043E14(1, gDuelData.opponent);
   for (i = 0; i < 2; i++)
@@ -199,7 +199,7 @@ static void TryPlayingMyTurnVoice (void) {
 }
 
 static bool8 DoesDuelistHaveTurnVoice (struct TurnVoice* turnVoice) {
-  u8 i;
+  unsigned char i;
   for (i = 0; gTurnVoices[i].duelistId; i++)
     if (gTurnVoices[i].duelistId == turnVoice->duelistId) {
       turnVoice->soundId = gTurnVoices[i].soundId;
@@ -210,7 +210,7 @@ static bool8 DoesDuelistHaveTurnVoice (struct TurnVoice* turnVoice) {
 }
 
 static void DuelEnd (void) {
-  if (gDuelistStatus[OPPONENT] == 2)
+  if (gDuelistStatus[DUEL_OPPONENT] == 2)
     gDuelData.unk2B = 1;
   else
     gDuelData.unk2B = 2;
@@ -220,7 +220,7 @@ static void DuelEnd (void) {
 }
 
 static void InitDuelMetaData (void) {
-  u8 i;
+  unsigned char i;
   gDuelData.unk0 = 0;
   gDuelData.unkC = 0;
   for (i = 0; i < 10; i++)
@@ -285,11 +285,11 @@ static void sub_8021CE0 (void) { //unused
   }
 }
 
-static u8 sub_8021CFC (void) {
+static unsigned char sub_8021CFC (void) {
   return 0;
 }
 
-u8 GetRitualNumTributes (u16 id) {
+unsigned char GetRitualNumTributes (u16 id) {
   SetCardInfo(id);
   return g80C1824[gCardInfo.ritualEffect];
 }
@@ -301,19 +301,19 @@ u8 GetRitualNumTributes (u16 id) {
 struct Unk2021DA0 {
   int deckCapacity;
   u32 unk4;
-  u8 unk8;
-  u8 unk9;
-  u8 unkA;
-  u8 unkB;
-  u8 unkC;
-  u8 unkD;
-  u8 unkE;
+  unsigned char unk8;
+  unsigned char unk9;
+  unsigned char unkA;
+  unsigned char unkB;
+  unsigned char unkC;
+  unsigned char unkD;
+  unsigned char unkE;
 };
 
-extern u8 g2021D9C;
+extern unsigned char g2021D9C;
 extern struct Unk2021DA0 g2021DA0;
 extern u32 g2021D70;
-extern u8 g2021D80[];
+extern unsigned char g2021D80[];
 extern u16 gUnk2020DFC;
 
 void sub_8021FF8(void);
@@ -330,16 +330,16 @@ void sub_80222EC(void);
 void sub_8022318(void);
 void sub_8022214(void);
 void sub_8022340(void);
-s32 sub_8043E9C(u8);
+s32 sub_8043E9C(unsigned char);
 void IncreaseDeckCapacity(u32);
 void SaveGame(void);
-void sub_8043E44(u8, u16*);
+void InitDuelDeck(unsigned char, u16*);
 void SetWhoseTurnToPlayer(void);
-void SetDuelLifePoints(u8, u16);
+void SetDuelLifePoints(unsigned char, u16);
 
 
 void LinkDuelMain (void) {
-  u8 turn;
+  unsigned char turn;
   struct DuelText duelText;
   sub_8021FF8();
   if (g3000C38.unk34) 
@@ -352,7 +352,7 @@ void LinkDuelMain (void) {
     turn = WhoseTurn();
     sub_8041104();
     sub_80240BC(&duelText);
-    if (turn == PLAYER) {
+    if (turn == DUEL_PLAYER) {
       duelText.textId = 0;
       sub_802405C(&duelText);
     }
@@ -364,7 +364,7 @@ void LinkDuelMain (void) {
     sub_8040524(TURN_PLAYER);
     ResetNumTributes();
     sub_804004C(turn);
-    if (turn == PLAYER)
+    if (turn == DUEL_PLAYER)
       sub_8021E0C();
     else
       sub_8021ED8();
@@ -388,7 +388,7 @@ void sub_8021E0C (void) {
   struct DuelText duelText;
   g3000C38.unk32 = 0;
   if (NumEmptyZonesInRow(gZones[4]) > 0) {
-    DrawCard(PLAYER);
+    DrawCard(DUEL_PLAYER);
     if (IsDuelOver() == TRUE) {
       g2021D98 = 3;
       sub_8024548();
@@ -550,7 +550,7 @@ void sub_8022080 (void) {
   do {
     sub_802432C();
   } while (g3000C6C);
-  if (WhoseTurn() == PLAYER)
+  if (WhoseTurn() == DUEL_PLAYER)
     sub_8041D54();
 }
 
@@ -559,7 +559,7 @@ void sub_80220C8(void) {
   IncreaseDeckCapacity(gDuelData.capacityYield);
   SaveGame();
   sub_8035020(4);
-  if (gLifePoints[OPPONENT] == 0) {
+  if (gDuelLifePoints[DUEL_OPPONENT] == 0) {
     ResetDuelTextData(&duelText);
     duelText.textId = 19;
     sub_80219E4(&duelText);
@@ -586,7 +586,7 @@ void sub_8022170(void) {
   IncreaseDeckCapacity(5);
   SaveGame();
   sub_8035020(4);
-  if (gLifePoints[PLAYER] == 0) {
+  if (gDuelLifePoints[DUEL_PLAYER] == 0) {
     ResetDuelTextData(&duelText);
     duelText.textId = 20;
     sub_80219E4(&duelText);
@@ -636,21 +636,21 @@ void sub_8022234(void) {
   gDuelData.unkC = 500;
   gDuelData.unkE = 43;
   gDuelData.music = 44;
-  sub_8043DD8();
-  sub_8043E44(0, gDeck.cards);
+  ClearDuelDecks();
+  InitDuelDeck(DUEL_PLAYER, gPlayerDeck.cards);
   sub_8043D6C(0);
   SetWhoseTurnToPlayer();
 }
 
 void sub_80222EC(void) {
   sub_80254DC();
-  SetDuelLifePoints(PLAYER, gDuelData.duelist.playerLp);
-  SetDuelLifePoints(OPPONENT, gDuelData.duelist.lifePoints);
+  SetDuelLifePoints(DUEL_PLAYER, gDuelData.duelist.playerLp);
+  SetDuelLifePoints(DUEL_OPPONENT, gDuelData.duelist.lifePoints);
   InitBoard();
 }
 
 void sub_8022318(void) {
-  if (gDuelistStatus[OPPONENT] == 2)
+  if (gDuelistStatus[DUEL_OPPONENT] == 2)
     gDuelData.unk2B = 1;
   else
     gDuelData.unk2B = 2;
@@ -684,12 +684,12 @@ void sub_8023998(void);
 int sub_8056208(void);
 bool8 IsDeckFull(void);
 s32 IsCostWithinCapacity(void);
-void sub_8022B7C(u8);
+void sub_8022B7C(unsigned char);
 void sub_8022AA0(void);
 void sub_8023AE4(void);
 void sub_8023A98(void);
 void TrunkMenu(void);
-void sub_8022A94(u8);
+void sub_8022A94(unsigned char);
 u32 sub_801D3FC(void);
 void sub_80226D8(void);
 void DeckMenuMain(void);
@@ -1082,34 +1082,34 @@ void sub_8022990(void) {
 }
 
 struct Unk8f {
-  u8 unk0;
-  u8 unk1;
-  u8 filler2[2];
+  unsigned char unk0;
+  unsigned char unk1;
+  unsigned char filler2[2];
   u32 unk4;
 };
 
-extern u8 g80C1852[];
+extern unsigned char g80C1852[];
 extern struct Unk8f (*g8FC4A8C[])[1];
 
 void sub_80229C0(void) {
   if (g2021DA0.unkE == 0) {
-    u8 temp = g80C1852[g2021DA0.unkA];
+    unsigned char temp = g80C1852[g2021DA0.unkA];
     g2021DA0.unkD++;
     if (g8FC4A8C[temp][g2021DA0.unkD]->unk0 == 0)
       g2021DA0.unkD = 0;
   }
   if (g2021DA0.unkE == 0) {
-    u8 temp = g80C1852[g2021DA0.unkA];
+    unsigned char temp = g80C1852[g2021DA0.unkA];
     g2021DA0.unkE = g8FC4A8C[temp][g2021DA0.unkD]->unk0;
   }
   else
     g2021DA0.unkE--;
 }
 
-u8 GetDeckSize(void);
+unsigned char GetDeckSize(void);
 
 void sub_8022A24(void) {
-  u8 temp;
+  unsigned char temp;
 
   g2021DA0.unk4 = GetDeckCost();
   g2021DA0.unk8 = GetDeckSize();
@@ -1122,11 +1122,11 @@ void sub_8022A24(void) {
   g2021DA0.unkE = g8FC4A8C[temp][0]->unk0;
 }
 
-extern u8 g80C188C[];
-extern u8 g80C1891[];
-extern u8 g80C1857[];
-extern u8 g80C1852[];
-extern u8 g80C1872[];
+extern unsigned char g80C188C[];
+extern unsigned char g80C1891[];
+extern unsigned char g80C1857[];
+extern unsigned char g80C1852[];
+extern unsigned char g80C1872[];
 
 void sub_8022A64(void) {
   g2021DA0.unkA = g80C188C[g2021DA0.unkA];
@@ -1136,7 +1136,7 @@ void sub_8022A7C(void) {
   g2021DA0.unkA = g80C1891[g2021DA0.unkA];
 }
 
-void sub_8022A94(u8 arg0) {
+void sub_8022A94(unsigned char arg0) {
   g2021DA0.unkA = arg0;
 }
 
@@ -1145,7 +1145,7 @@ void sub_8022AA0(void) {
   g2021DA0.unkC = 0;
 }
 
-u8 sub_8022AB0(void) {
+unsigned char sub_8022AB0(void) {
   return g2021DA0.unkB;
 }
 
@@ -1170,25 +1170,25 @@ void sub_8022B04(void) {
 }
 
 void sub_8022B1C(void) {
-  u8 temp = g80C1852[g2021DA0.unkA];
+  unsigned char temp = g80C1852[g2021DA0.unkA];
   g2021DA0.unkD = 0;
   g2021DA0.unkE = g8FC4A8C[temp][0]->unk0;
 }
 
 void sub_8022B44(void) {
   if (g2021DA0.unkE == 0) {
-    u8 temp = g80C1852[g2021DA0.unkA];
+    unsigned char temp = g80C1852[g2021DA0.unkA];
     g2021DA0.unkE = g8FC4A8C[temp][g2021DA0.unkD]->unk0;
   }
   else
      g2021DA0.unkE--;
 }
 
-void sub_8022B7C(u8 arg0) {
+void sub_8022B7C(unsigned char arg0) {
   g2021DA0.unk9 = arg0;
 }
 
-u8 sub_8022B88(void) {
+unsigned char sub_8022B88(void) {
   return g2021DA0.unk9;
 }
 
@@ -1407,7 +1407,7 @@ void sub_8022C54 (void) {
 /*
 
 void sub_8044B90 (void) {
-  const u8 arr[] = {0x10, 0x3C, 0x68, 0x94, 0xC0};
+  const unsigned char arr[] = {0x10, 0x3C, 0x68, 0x94, 0xC0};
 }*/
 
 

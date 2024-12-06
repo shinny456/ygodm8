@@ -418,14 +418,14 @@ void sub_801D7D0 (void) {
   }
   SetCardInfo(cardId);
   sub_8009098(cardId);
-  sub_801DD88(gDeck.unk4); // s8 to u8 conversion
-  if (gDeck.unk4 >= gDeck.count) {
-    u8 temp = gDeck.unk4 - gDeck.count + 1;
-    if (gDeck.unk4) {
-      if (temp <= gDeck.unk4)
-        gDeck.unk4 -= temp;
+  sub_801DD88(gPlayerDeck.unk4); // s8 to u8 conversion
+  if (gPlayerDeck.unk4 >= gPlayerDeck.count) {
+    u8 temp = gPlayerDeck.unk4 - gPlayerDeck.count + 1;
+    if (gPlayerDeck.unk4) {
+      if (temp <= gPlayerDeck.unk4)
+        gPlayerDeck.unk4 -= temp;
       else
-        gDeck.unk4 = 0;
+        gPlayerDeck.unk4 = 0;
       PlayMusic(0x36);
     }
     else if (GetDeckSize()) {
@@ -443,18 +443,18 @@ u8 sub_801D878 (u16 cardId) {
   u8 temp;
   SetCardInfo(cardId);
   temp = sub_801DD50(cardId);
-  if (temp < gDeck.count) {
+  if (temp < gPlayerDeck.count) {
     sub_801DD88(temp);
     sub_801DD34(gCardInfo.cost);
     r6 = 1;
   }
-  if (gDeck.unk4 >= gDeck.count) {
-    u8 temp = gDeck.unk4 - gDeck.count + 1;
-    if (gDeck.unk4) {
-      if (temp <= gDeck.unk4)
-        gDeck.unk4 -= temp;
+  if (gPlayerDeck.unk4 >= gPlayerDeck.count) {
+    u8 temp = gPlayerDeck.unk4 - gPlayerDeck.count + 1;
+    if (gPlayerDeck.unk4) {
+      if (temp <= gPlayerDeck.unk4)
+        gPlayerDeck.unk4 -= temp;
       else
-        gDeck.unk4 = 0;
+        gPlayerDeck.unk4 = 0;
       PlayMusic(0x36);
     }
     else if (GetDeckSize()) {
@@ -470,33 +470,33 @@ extern u8 gE00AE0[];
 
 void sub_801D918 (void) {
   u8 temp;
-  if (++gDeck.unk5 > 9)
-    gDeck.unk5 = 0;
-  temp = gDeck.unk5;
-  gUnk2022EB0.unk0 = gDeck.cards;
-  gUnk2022EB0.unk8 = gDeck.count;
+  if (++gPlayerDeck.unk5 > 9)
+    gPlayerDeck.unk5 = 0;
+  temp = gPlayerDeck.unk5;
+  gUnk2022EB0.unk0 = gPlayerDeck.cards;
+  gUnk2022EB0.unk8 = gPlayerDeck.count;
   gUnk2022EB0.unkA = gE00AE0[temp];
   sub_8034A38();
-  gDeck.unk4 = 0;
+  gPlayerDeck.unk4 = 0;
 }
 
 void sub_801D960 (u16 id) {
   u32 i, j;
   for (i = 0; i < 40; i++)
-    if (gDeck.cards[i] == id)
-      gDeck.cards[i] = CARD_NONE;
+    if (gPlayerDeck.cards[i] == id)
+      gPlayerDeck.cards[i] = CARD_NONE;
   i = 0;
   j = 39;
   while (i < j) {
-    if (gDeck.cards[i] != CARD_NONE)
+    if (gPlayerDeck.cards[i] != CARD_NONE)
       i++;
     else {
-      if (gDeck.cards[j] == CARD_NONE) {
+      if (gPlayerDeck.cards[j] == CARD_NONE) {
         j--;
       }
       else {
-        gDeck.cards[i] = gDeck.cards[j];
-        gDeck.cards[j] = CARD_NONE;
+        gPlayerDeck.cards[i] = gPlayerDeck.cards[j];
+        gPlayerDeck.cards[j] = CARD_NONE;
         i++;
         j--;
       }
@@ -507,22 +507,22 @@ void sub_801D960 (u16 id) {
 void sub_801D9B8 (u16 id) {
   u32 i, j;
   for (i = 0; i < 40; i++)
-    if (gDeck.cards[i] == id) {
-      gDeck.cards[i] = CARD_NONE;
+    if (gPlayerDeck.cards[i] == id) {
+      gPlayerDeck.cards[i] = CARD_NONE;
       break;
     }
   i = 0;
   j = 39;
   while (i < j) {
-    if (gDeck.cards[i] != CARD_NONE)
+    if (gPlayerDeck.cards[i] != CARD_NONE)
       i++;
     else {
-      if (gDeck.cards[j] == CARD_NONE) {
+      if (gPlayerDeck.cards[j] == CARD_NONE) {
         j--;
       }
       else {
-        gDeck.cards[i] = gDeck.cards[j];
-        gDeck.cards[j] = CARD_NONE;
+        gPlayerDeck.cards[i] = gPlayerDeck.cards[j];
+        gPlayerDeck.cards[j] = CARD_NONE;
         i++;
         j--;
       }
@@ -532,13 +532,13 @@ void sub_801D9B8 (u16 id) {
 
 void InitDeckData (void) {
   u32 i;
-  gDeck.unk5 = 0;
-  gDeck.unk4 = 0;
-  gDeck.unk6 = 1;
-  gDeck.count = 0;
+  gPlayerDeck.unk5 = 0;
+  gPlayerDeck.unk4 = 0;
+  gPlayerDeck.unk6 = 1;
+  gPlayerDeck.count = 0;
   for (i = 0; i < 40; i++)
-    if (gDeck.cards[i])
-      gDeck.count++;
+    if (gPlayerDeck.cards[i])
+      gPlayerDeck.count++;
   CalculateCurrentDeckCost();
 }
 
@@ -547,7 +547,7 @@ extern u16 gStarterDeck[];
 void InitNewGameDeck (void) {
   u32 i;
   for (i = 0; i < 40; i++)
-    gDeck.cards[i] = gStarterDeck[i];
+    gPlayerDeck.cards[i] = gStarterDeck[i];
 }
 
 void sub_801DC04 (u8);
@@ -589,41 +589,41 @@ void sub_801DA7C (u8 arg0) {
 }
 
 u16 sub_801DAF8 (u8 arg0) {
-  int temp = gDeck.unk4 + arg0 - 2;
+  int temp = gPlayerDeck.unk4 + arg0 - 2;
   if (temp < 0)
     return CARD_NONE;
   if (temp < 40)
-    return gDeck.cards[temp];
+    return gPlayerDeck.cards[temp];
   return CARD_NONE;
 }
 
 u8 sub_801DB24 (void) {
-  return gDeck.unk6;
+  return gPlayerDeck.unk6;
 }
 
 void sub_801DB30 (void) {
-  gUnk2021AB4.unk0 = gDeck.unk4;
-  gUnk2021AB4.unk2 = gDeck.count - 1;
+  gUnk2021AB4.unk0 = gPlayerDeck.unk4;
+  gUnk2021AB4.unk2 = gPlayerDeck.count - 1;
 }
 
 u8 GetDeckSize (void) {
-  return gDeck.count;
+  return gPlayerDeck.count;
 }
 
 u32 GetDeckCost (void) {
-  return gDeck.cost;
+  return gPlayerDeck.cost;
 }
 
 void sub_801DB64 (u16 cardId) {
-  gDeck.cards[gDeck.count] = cardId;
-  gDeck.count++;
+  gPlayerDeck.cards[gPlayerDeck.count] = cardId;
+  gPlayerDeck.count++;
   CalculateCurrentDeckCost();
 }
 
 u8 GetDeckCardQty (u16 cardId) {
   u8 i, qty = 0;
   for (i = 0; i < 40; i++)
-    if (gDeck.cards[i] == cardId)
+    if (gPlayerDeck.cards[i] == cardId)
       qty++;
   return qty;
 }
@@ -631,23 +631,23 @@ u8 GetDeckCardQty (u16 cardId) {
 u8 IsDeckFull (void) {
   u8 i;
   for (i = 0; i < 40; i++)
-    if (gDeck.cards[i] == CARD_NONE)
+    if (gPlayerDeck.cards[i] == CARD_NONE)
       return 0;
   return 1;
 }
 
 s32 IsCostWithinCapacity (void) {
-  if (GetDeckCapacity() < gDeck.cost)
+  if (GetDeckCapacity() < gPlayerDeck.cost)
     return 0;
   return 1;
 }
 
 void sub_801DC04 (u8 arg0) {
-  if (gDeck.unk4 != gDeck.count - 1) {
-    if (arg0 < gDeck.count - gDeck.unk4)
-      gDeck.unk4 += arg0;
+  if (gPlayerDeck.unk4 != gPlayerDeck.count - 1) {
+    if (arg0 < gPlayerDeck.count - gPlayerDeck.unk4)
+      gPlayerDeck.unk4 += arg0;
     else
-      gDeck.unk4 = gDeck.count - 1;
+      gPlayerDeck.unk4 = gPlayerDeck.count - 1;
     PlayMusic(0x36);
   }
   else {
@@ -658,11 +658,11 @@ void sub_801DC04 (u8 arg0) {
 }
 
 void sub_801DC64 (u8 arg0) {
-  if (gDeck.unk4) {
-    if (arg0 <= gDeck.unk4)
-      gDeck.unk4 -= arg0;
+  if (gPlayerDeck.unk4) {
+    if (arg0 <= gPlayerDeck.unk4)
+      gPlayerDeck.unk4 -= arg0;
     else
-      gDeck.unk4 = 0;
+      gPlayerDeck.unk4 = 0;
     PlayMusic(0x36);
   }
   else if (GetDeckSize()){
@@ -673,8 +673,8 @@ void sub_801DC64 (u8 arg0) {
 }
 
 void sub_801DCC8 (void) {
-  if (++gDeck.unk6 > 3)
-    gDeck.unk6 = 0;
+  if (++gPlayerDeck.unk6 > 3)
+    gPlayerDeck.unk6 = 0;
   PlayMusic(0x36);
 }
 
@@ -682,56 +682,56 @@ void sub_0801DCEC (void) {}
 
 void CalculateCurrentDeckCost (void) {
   u8 i;
-  gDeck.cost = 0;
-  for (i = 0; i < gDeck.count; i++) {
-    SetCardInfo(gDeck.cards[i]);
-    gDeck.cost += gCardInfo.cost;
+  gPlayerDeck.cost = 0;
+  for (i = 0; i < gPlayerDeck.count; i++) {
+    SetCardInfo(gPlayerDeck.cards[i]);
+    gPlayerDeck.cost += gCardInfo.cost;
   }
 }
 
 void sub_801DD34 (u32 subtractCost) {
-  if (subtractCost > gDeck.cost)
-    gDeck.cost = 0;
+  if (subtractCost > gPlayerDeck.cost)
+    gPlayerDeck.cost = 0;
   else
-    gDeck.cost -= subtractCost;
+    gPlayerDeck.cost -= subtractCost;
 }
 
 u8 sub_801DD50 (u16 cardId) {
   u8 i;
-  for (i = 0; i < gDeck.count && gDeck.cards[i] != cardId; i++)
+  for (i = 0; i < gPlayerDeck.count && gPlayerDeck.cards[i] != cardId; i++)
     ;
   return i;
 }
 
 void sub_801DD88 (u8 arg0) {
-  for (; arg0 < gDeck.count - 1; arg0++)
-    gDeck.cards[arg0] = gDeck.cards[arg0 + 1];
-  gDeck.cards[gDeck.count - 1] = CARD_NONE;
+  for (; arg0 < gPlayerDeck.count - 1; arg0++)
+    gPlayerDeck.cards[arg0] = gPlayerDeck.cards[arg0 + 1];
+  gPlayerDeck.cards[gPlayerDeck.count - 1] = CARD_NONE;
   sub_801DE3C(1);
 }
 
 void sub_801DDDC (u8 arg0) {
-  gUnk2022EB0.unk0 = gDeck.cards;
-  gUnk2022EB0.unk8 = gDeck.count;
+  gUnk2022EB0.unk0 = gPlayerDeck.cards;
+  gUnk2022EB0.unk8 = gPlayerDeck.count;
   gUnk2022EB0.unkA = gE00AE0[arg0];
   sub_8034A38();
-  gDeck.unk4 = 0;
+  gPlayerDeck.unk4 = 0;
 }
 
 void sub_801DE10 (void) {
-  gUnk2022EB0.unk0 = gDeck.cards;
-  gUnk2022EB0.unk8 = gDeck.count;
-  gUnk2022EB0.unkA = gE00AE0[gDeck.unk5];
+  gUnk2022EB0.unk0 = gPlayerDeck.cards;
+  gUnk2022EB0.unk8 = gPlayerDeck.count;
+  gUnk2022EB0.unkA = gE00AE0[gPlayerDeck.unk5];
   sub_8034A38();
 }
 
 u8 sub_801DE3C (u8 arg0) {
-  if (gDeck.count < arg0) {
-    arg0 = gDeck.count;
-    gDeck.count = 0;
+  if (gPlayerDeck.count < arg0) {
+    arg0 = gPlayerDeck.count;
+    gPlayerDeck.count = 0;
   }
   else
-    gDeck.count -= arg0;
+    gPlayerDeck.count -= arg0;
   return arg0;
 }
 

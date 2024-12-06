@@ -615,7 +615,7 @@ _08042770: .4byte gCardInfo\n\
 _08042774: .4byte 0x02009B80\n\
 _08042778: .4byte 0xFFFFFB00\n\
 _0804277C: .4byte 0x02009680\n\
-_08042780: .4byte gLifePoints\n\
+_08042780: .4byte gDuelLifePoints\n\
 _08042784: .4byte 0xFFFF6D80\n\
 _08042788: .4byte 0x000075AC\n\
 _0804278C: .4byte 0x02021BD0\n\
@@ -672,7 +672,7 @@ _080427B6:\n\
 	lsrs r0, r0, #0x10\n\
 	b _08042806\n\
 	.align 2, 0\n\
-_080427F4: .4byte gLifePoints\n\
+_080427F4: .4byte gDuelLifePoints\n\
 _080427F8: .4byte 0x02000400\n\
 _080427FC: .4byte 0x000074EC\n\
 _08042800: .4byte 0x02021BD0\n\
@@ -883,11 +883,11 @@ void InitBMenu (u8 arg0) {
   buffer[i] = 0;
   CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x9280, buffer, 0x901);
 
-  sub_800DDA0(gLifePoints[0], 0);
+  sub_800DDA0(gDuelLifePoints[0], 0);
   for (i = 0; i < 5; i++) {
     *(u16*)(gBgVram.cbb0 + (0x75AC - i) * 2) = g2021BD0[4 - i] + 65 | 0x3000;
   }
-  sub_800DDA0(gLifePoints[1], 0);
+  sub_800DDA0(gDuelLifePoints[1], 0);
   for (i = 0; i < 5; i++) {
     *(u16*)(gBgVram.cbb0 + (0x74EC - i) * 2) = g2021BD0[4 - i] + 65 | 0x3000;
   }

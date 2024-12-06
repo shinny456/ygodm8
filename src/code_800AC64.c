@@ -15,7 +15,7 @@ u16 sub_8035170 (void);
 void sub_80351F8 (void);
 int sub_800B050 (void);
 int sub_800AD84 (void);
-void sub_800B0AC (u16);
+int sub_800B0AC (u16);
 int sub_800B06C (void);
 int sub_800ADA4 (void);
 void sub_800B0C8 (u16);
@@ -259,3 +259,15 @@ int sub_800B06C (void) {
   return sub_80588C4(&fill, temp, 1);
 }
 
+u8 sub_800B088 (void) {
+  u8 temp;
+  u32 a = 0xE000000;
+  g20245AC(a, &temp, 1);
+  return temp;
+}
+/*
+int sub_800B0AC (u16 arg0) {
+  u16 fill = arg0;
+  u32 temp = 0x0E00401E;
+  return sub_80588C4(&fill, temp, 2);;
+}*/
