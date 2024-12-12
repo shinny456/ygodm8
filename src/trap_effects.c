@@ -416,7 +416,7 @@ static void EffectAmazonArchers(void)
 }
 
 //TODO: this function is called with no arguments in some places
-void sub_80581DC (u16 arg0)
+void ActivateTrapEffect (u16 arg0)
 {
     ResetCardEffectTextData();
     sub_801D188(3);

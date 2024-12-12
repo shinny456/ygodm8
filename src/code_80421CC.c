@@ -19,7 +19,7 @@ extern u8 g8E0D92E[];
 
 extern u16 g2020DF4;
 extern u16 gKeyState;
-extern u8 g20240E0;
+extern u8 gIsPlayerTurnOver;
 
 extern u16 g8E0D814[];
 extern u16 g8E0D91A[];
@@ -108,7 +108,7 @@ void BMenuMain (void) {
           return;
         case 1:
           PlayMusic(0x37);
-          g20240E0 = 1;
+          gIsPlayerTurnOver = 1;
           sub_8041104();
           return;
         case 2:

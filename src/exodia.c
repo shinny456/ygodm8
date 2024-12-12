@@ -1,4 +1,5 @@
 #include "global.h"
+#include "exodia.h"
 #include "duel.h"
 #include "constants/card_ids.h"
 
@@ -11,28 +12,25 @@
 (FLAG_EXODIA_RIGHT_LEG | FLAG_EXODIA_LEFT_LEG | FLAG_EXODIA_RIGHT_ARM | FLAG_EXODIA_LEFT_ARM | FLAG_EXODIA_HEAD)
 
 
-u8 sub_80205EC(void);
-u32 GetExodiaFlag(u16 id);
-void sub_8020664(void);
-void DeclareLoser(u8);
+static unsigned char GetExodiaFlags(void);
+static void sub_8020664 (void);
 
-void ExodiaWinCondition (void) {
-  if ((sub_80205EC() & FLAG_EXODIA_ALL) == FLAG_EXODIA_ALL)
+// TODO: there is an instance of this being implicitly declared and called with an argument
+void WinConditionExodia (void) {
+  if ((GetExodiaFlags() & FLAG_EXODIA_ALL) == FLAG_EXODIA_ALL)
     sub_8020664();
 }
 
-//ExodiaFlags
-u8 sub_80205EC (void) {
-  u8 i, r5 = 0;
+static unsigned char GetExodiaFlags (void) {
+  unsigned char i, flags = 0;
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-    r5 |= GetExodiaFlag(gZones[4][i]->id);
-  return r5;
+    flags |= GetExodiaFlag(gZones[4][i]->id);
+  return flags;
 }
 
-//GetExodiaPieceFlag?
-u32 GetExodiaFlag (u16 id) {
-  u8 flag = 0;
-  switch (id) {
+unsigned GetExodiaFlag (unsigned short cardId) {
+  unsigned char flag = 0;
+  switch (cardId) {
   case RIGHT_LEG_OF_THE_FORBIDDEN_ONE:
       flag = FLAG_EXODIA_RIGHT_LEG;
       break;
@@ -52,9 +50,9 @@ u32 GetExodiaFlag (u16 id) {
   return flag;
 }
 
-void sub_8020664 (void) {
-  u8 unk[0xC]; //TODO
-  u8 loser;
+static void sub_8020664 (void) {
+  unsigned char unused[12];
+  unsigned char loser;
   if (WhoseTurn() == DUEL_PLAYER)
     loser = DUEL_OPPONENT;
   else

@@ -25,10 +25,10 @@ struct Test8041240 {
 };
 
 extern u16 gUnk2020DFC;
-extern u32* g8E0D0F8[];
+extern u32* gFieldTilePtrs[];
 extern u16* g8E0D130[];
 extern const u8 gE0D15D[];
-extern u16 (*gE0D114[])[31];
+extern u16 (*gFieldTileMapPtrs[])[31];
 extern struct OamData gOamBuffer[];
 extern u8 g201EE70[];
 extern u8 g201EEE0[];
@@ -105,19 +105,46 @@ void sub_8041E64 (void);
 void sub_804405C (void);
 void sub_80410B4 (void);
 void sub_80411D4 (void);
+/*
+gFieldTilePtrs:
+080DFDC4 gFieldArenaTiles
+080E169C gFieldForestTiles
+080E436C gFieldWastelandTiles
+080E616C gFieldMountainTiles
+080E7D58 gFieldSogenTiles
+080E95A0 gFieldUmiTiles
+080EAEBC gFieldYamiTiles
 
+gFieldTileMapPtrs:
+080EC6C4 gFieldArenaTilemap
+080ECFF8 gFieldForestTilemap
+080ED92C gFieldWastelandTilemap
+080EE260 gFieldMountainTilemap
+080EEB94 gFieldSogenTilemap
+080EF4C8 gFieldUmiTilemap
+080EFDFC gFieldYamiTilemap
+
+gFieldPalettePtrs
+080F0730 gFieldArenaPalette
+080F0790 gFieldForestPalette
+080F07F0 gFieldWastelandPalette
+080F0850 gFieldMountainPalette
+080F08B0 gFieldSogenPalette
+080F0910 gFieldUmiPalette
+080F0970 gFieldYamiPalette
+*/
 void sub_8040EF0 (void) {
   u8 i, field;
   sub_8008220();
   sub_8045718();
   field = gDuel.field;
   REG_BG2CNT = 0x9B02;
-  HuffUnComp(g8E0D0F8[field], gBgVram.cbb0);
+  HuffUnComp(gFieldTilePtrs[field], gBgVram.cbb0);
   CpuCopy16(g8E0D130[field], g02000000.bg, 96);
 
-  // copying 64 bytes from 62 byte array?
+  // copying 64 bytes from 62 byte array? (sub_8044D34 does it right i think)
   for (i = 0; i < 40; i++)
-    CpuCopy16(gE0D114[field][i], gBgVram.cbb0 + 0xD800 + i * 64, 64);
+    CpuCopy16(gFieldTileMapPtrs[field][i], gBgVram.cbb0 + 0xD800 + i * 64, 64);
   gBG2HOFS = 4;
   gBG2VOFS = AdjustBackgroundBeforeTurnStart(gDuelCursor.currentY);
   gBG2VOFS = AdjustBackgroundBeforeTurnStart(1);
@@ -194,11 +221,11 @@ void sub_8041104 (void) {
 void sub_8041140 (u8 field) {
   u8 i;
   REG_BG2CNT = 0x9B02;
-  HuffUnComp(g8E0D0F8[field], gBgVram.cbb0);
+  HuffUnComp(gFieldTilePtrs[field], gBgVram.cbb0);
   CpuCopy16(g8E0D130[field], g02000000.bg, 96);
   // copying 64 bytes from 62 byte array?
   for (i = 0; i < 40; i++)
-    CpuCopy16(gE0D114[field][i], gBgVram.cbb0 + 0xD800 + i * 64, 64);
+    CpuCopy16(gFieldTileMapPtrs[field][i], gBgVram.cbb0 + 0xD800 + i * 64, 64);
   gBG2HOFS = 4;
   gBG2VOFS = AdjustBackgroundBeforeTurnStart(gDuelCursor.currentY);
 }

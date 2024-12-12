@@ -14,6 +14,7 @@ struct CardInfo
     u8 attribute;               /*0x17*/
     u8 level;                   /*0x18*/
     u8 color;                   /*0x19*/
+    //TODO: spellEffectId? monsterEffectId? etc...
     u8 spellEffect;             /*0x1A*/
     u8 monsterEffect;           /*0x1B*/
     u8 trapEffect;              /*0x1C*/
@@ -108,7 +109,6 @@ sub_802663C - Draw card name
 sub_80267B8 - Call all functions above
 
 
-2018400 - OAM buffer
 overworld sprite palettes: 0x82AD06C
 overworld sprite palette banks: 0x82AD20C u8 gPalBanks[];
 overworld sprite tiles RAM?: 0x2010400
@@ -123,11 +123,6 @@ player front: (each row is 0x200 bytes apart)
 15324C -third row
 15344C -fourth row
 
-
-(code4.s overworld code)
 */
-
-
-
 
 #endif // GUARD_CARD_H

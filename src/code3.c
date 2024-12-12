@@ -38,13 +38,13 @@ void sub_8040FDC(void);
 
 void sub_8040524(unsigned char);
 void sub_804004C(unsigned char);
-void ExodiaWinCondition();    //implicit declaration shenanigans
+void WinConditionExodia();    //implicit declaration shenanigans
 void sub_802549C(void);
 void sub_802703C(void);
 void PlayerTurnMain(void);
 void AI_Main(void);
 void ReturnMonstersToOwner(void);
-void sub_804060C(unsigned char);
+void FlipAtkPosCardsFaceUp(unsigned char);
 void sub_80254F8(void);
 void SwitchTurn(void);
 void DecrementSorlTurns(unsigned char);
@@ -105,7 +105,7 @@ void DuelMain (void) {
       PlayMusic(59);
     }
     sub_8041104();
-    ExodiaWinCondition(turn);
+    WinConditionExodia(turn);
     if (IsDuelOver() == TRUE)
       break;
     sub_802549C();
@@ -117,7 +117,7 @@ void DuelMain (void) {
     if (IsDuelOver() == TRUE)
       break;
     ReturnMonstersToOwner();
-    sub_804060C(2);
+    FlipAtkPosCardsFaceUp(2);
     sub_80254F8();
     SwitchTurn();
     if (gNotSure[TURN_PLAYER]->unkTwo)
@@ -370,7 +370,7 @@ void LinkDuelMain (void) {
       sub_8021ED8();
     if (IsDuelOver() == TRUE) break;
     ReturnMonstersToOwner();
-    sub_804060C(2);
+    FlipAtkPosCardsFaceUp(2);
     sub_80254F8();
     SwitchTurn();
     if (gNotSure[0]->unkTwo)
@@ -404,7 +404,7 @@ void sub_8021E0C (void) {
       PlayMusic(59);
   }
   sub_8041104();
-  ExodiaWinCondition();
+  WinConditionExodia();
   if (IsDuelOver() == TRUE)
     return;
   sub_802549C();

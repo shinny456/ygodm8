@@ -5,7 +5,7 @@
 #include "gba/io_reg.h"
 #include "gba/macro.h"
 #include "gba/syscall.h"
-
+#include "FINAL_effect.h"
 
 struct AI_Command
 {
@@ -39,10 +39,9 @@ static void sub_801C7B8 (u8);
 static u8 sub_801B5BC (u8, u16*);
 
 void sub_803FD14(void);
-void sub_80581DC();
+void ActivateTrapEffect();
 static void sub_800F830(void);
-int sub_803EFAC(u16); //implicit decl in code2.c, caller: sub_8011528?
-int sub_803EF7C(void); //implicit decl in code2.c, caller: sub_80118E8?
+
 
 u32 sub_8019CE4 (void);
 
@@ -307,7 +306,7 @@ static void sub_800E63C(void)
     gZones[row2][col2]->isFaceUp = TRUE;
     gZones[row2][col2]->isLocked = TRUE;
     gZones[row3][col3]->isFaceUp = TRUE;
-    sub_803F908(col3, 4 - col2);
+    SetDuelActionAttack(col3, 4 - col2);
     HandleDuelAction();
     sub_803F224();
 }
@@ -323,7 +322,7 @@ static void sub_800E6B8(void)
     gZones[row2][col2]->isFaceUp = TRUE;
     gZones[row2][col2]->isLocked = TRUE;
     gZones[row3][col3]->isFaceUp = TRUE;
-    sub_803F908(col3, 4 - col2);
+    SetDuelActionAttack(col3, 4 - col2);
     HandleDuelAction();
     sub_803F224();
 }
@@ -340,7 +339,7 @@ static void sub_800E734(void)
     gTrapEffectData.unk3 = col2;
     gTrapEffectData.id = gZones[row2][col2]->id;
     sub_80586DC();
-    sub_80581DC();
+    ActivateTrapEffect();
 }
 
 static void sub_800E794(void)
@@ -355,7 +354,7 @@ static void sub_800E794(void)
     gTrapEffectData.unk3 = col2;
     gTrapEffectData.id = gZones[row2][col2]->id;
     sub_80586DC();
-    sub_80581DC();
+    ActivateTrapEffect();
 }
 
 static void sub_800E7F4(void)
@@ -370,7 +369,7 @@ static void sub_800E7F4(void)
     gTrapEffectData.unk3 = col2;
     gTrapEffectData.id = gZones[row2][col2]->id;
     sub_80586DC();
-    sub_80581DC();
+    ActivateTrapEffect();
 }
 
 static void sub_800E854(void)
@@ -385,7 +384,7 @@ static void sub_800E854(void)
     gTrapEffectData.unk3 = col2;
     gTrapEffectData.id = gZones[row2][col2]->id;
     sub_80586DC();
-    sub_80581DC();
+    ActivateTrapEffect();
 }
 
 static void sub_800E8B4(void)
@@ -1923,7 +1922,7 @@ static void sub_8011528 (void) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (gZones[row3][col3]->id == CARD_NONE)
     gUnk_8DFF6A4->unk2298 = 0x7EEB5B43;
-  else if (sub_803EFAC(gZones[row3][col3]->id) > 0)
+  else if (GetFINAL_Flag(gZones[row3][col3]->id) > 0)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EEB5B42;
@@ -2011,7 +2010,7 @@ static void sub_8011878 (void) {
 static void sub_80118E4 (void) {}
 
 static void sub_80118E8 (void) {
-  if (sub_803EF7C() == 0x1F) //TODO: replace 0x1f with FLAG_FINAL_ALL
+  if (GetFINAL_Flags() == FLAG_FINAL_ALL)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
 }
 
@@ -7165,8 +7164,8 @@ void sub_801B66C (void);
 void sub_8040EF0 (void);
 void sub_8041104 (void);
 void PlayActionSoundEffect (void);
-void ExodiaWinCondition (void);
-void WinConditionFINAL (void);
+void WinConditionExodia (void);
+
 
 void AI_Main (void) {
   u8 i;
@@ -7207,7 +7206,7 @@ void AI_Main (void) {
       sub_8041104();
     PlayActionSoundEffect();
     WinConditionFINAL();
-    ExodiaWinCondition();
+    WinConditionExodia();
     sub_8029820();
   }
   for (i = 0; i < 30; i++)
@@ -8092,7 +8091,7 @@ static u8 sub_801B084 (void) {
   u8 col2 = sAI_Command.unk2 & 0xF;
   SetCardInfo(gZones[row2][col2]->id);
   if (!gCardInfo.unk1E && sub_804374C(gZones[row2][col2]) == 1 &&
-      sub_803EFAC(gZones[row2][col2]->id) < 1)
+      GetFINAL_Flag(gZones[row2][col2]->id) < 1)
     return 1;
   return 0;
 }
@@ -8100,7 +8099,7 @@ static u8 sub_801B084 (void) {
 static u8 sub_801B0DC (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  if (sub_804374C(gZones[row2][col2]) != 1 || sub_803EFAC(gZones[row2][col2]->id) < 1)
+  if (sub_804374C(gZones[row2][col2]) != 1 || GetFINAL_Flag(gZones[row2][col2]->id) < 1)
     return 0;
   return 1;
 }
@@ -8110,7 +8109,7 @@ static u8 sub_801B120 (void) {
   u8 col2 = sAI_Command.unk2 & 0xF;
   SetCardInfo(gZones[row2][col2]->id);
   if (gCardInfo.unk1E && sub_804374C(gZones[row2][col2]) == 1 &&
-      sub_803EFAC(gZones[row2][col2]->id) < 1)
+      GetFINAL_Flag(gZones[row2][col2]->id) < 1)
     return 1;
   return 0;
 }

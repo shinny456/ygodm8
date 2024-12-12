@@ -4,6 +4,7 @@
 extern u8 g80C1D80[];
 
 // SORL text
+// TryDisplayingSORLText, TrySet?
 void sub_802549C (void) {
   struct DuelText duelText;
   if (gNotSure[0]->sorlTurns == 0)

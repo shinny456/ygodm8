@@ -4,10 +4,58 @@
 #include "gba/syscall.h"
 #include "gba/io_reg.h"
 
-extern u16 gBG1VOFS;
-extern u16 gBLDALPHA;
-extern u16 gBG0VOFS;
+static void sub_8000724 (void);
+static void sub_8000810 (void);
+static void sub_80008EC (unsigned char);
+static void ReshefVisionMain (void);
+static void sub_8000D74 (void);
+static void sub_8001068 (void);
+static void sub_8001110 (void);
+static void sub_80011B4 (void);
+static void sub_80012B4 (void);
+static void sub_8001360 (void);
+static void sub_80013E0 (void);
+static void sub_8001458 (unsigned char);
+static void sub_80015A4 (void);
+static void sub_8001788 (void);
+static void sub_80018E8 (void);
+static void sub_80019C4 (void);
+static void sub_8001AD8 (void);
+static void sub_8001B88 (void);
+static void sub_8001BFC (void);
+static void sub_8001C70 (void);
+static void sub_8001CE4 (void);
+static void sub_8001D58 (void);
+static void sub_8001DD4 (void);
+static void sub_8001E8C (void);
+static void sub_80020D8 (void);
+static void sub_80027F0 (void);
+static void sub_80029D4 (void);
 
+void sub_8002E98 (void);
+void sub_80043D0 (void);
+void sub_8003444 (void);
+void sub_8004E54 (void);
+void sub_8003820 (void);
+void sub_8004318 (void);
+void sub_8004894 (void);
+void sub_8004260 (void);
+void sub_8035038 (u16);
+void sub_80082E8 (void);
+void sub_8003020 (void);
+void sub_8003D10 (void);
+void sub_8003268 (void);
+void sub_8003C10 (void);
+void sub_8004DE0 (void);
+void sub_8004678 (void);
+void sub_80037B4 (void);
+void sub_8002D10 (void);
+void sub_8003B78 (void);
+void sub_8004D7C (void);
+void sub_80045D4 (void);
+void sub_8004730 (void);
+void sub_800373C (void);
+void sub_8003560 (void);
 struct Credits {
   u32 state;
   u16 frameCounter;
@@ -17,16 +65,146 @@ struct Credits {
 };
 
 extern struct Credits* gCreditsData;
+struct UnkFA3630 {
+  u8 unk0;
+  u8 unk1[3];
+  struct Oam123 {
+    u16 unk0;
+    u16 unk2;
+    u16 unk4;
+  }* unk4;
+} extern * g8FA3630;
 extern u16 (*gCreditsTilemaps[])[30];
 extern const u8 g8063FA0[][2];
-
 extern u8 gSharedMem[];
 void bzero (void*, unsigned);
-
-void sub_8000724 (void);
-void sub_80008EC (u8);
 s16 fix_inverse (s16);
 s16 fix_mul (s16, s16);
+extern u16 gOamBuffer[];
+extern u16 gBG1VOFS;
+extern u16 gBLDALPHA;
+extern u16 gBG0VOFS;
+extern u16 gCreditsPalette[];
+void ClearGraphicsBuffers (void);
+extern u32 gCreditsTileset[];
+void sub_8008288 (void);
+
+
+extern s16 g2020C00[];
+extern const s16 sin_cos_table[];
+extern u32 gUnk_8A47010[];
+extern u32 gUnk_8A481C8[];
+extern u32 gUnk_8A492D8[];
+extern u32 gUnk_8A45DE4[];
+extern u16 gUnk_8A45880[][15];
+extern u16 gUnk_8A45AD8[][15];
+extern u16 gUnk_8A45C5E[][15];
+extern u16 gUnk_8A44F5C[][45];
+extern u16 gUnk_8A44F9C[][45];
+extern u16 gUnk_8A453EE[][45];
+extern u16 gUnk_8A4542E[][45];
+extern u16 gUnk_8063FC0[][30];
+extern u16 gUnk_8A4A430[];
+extern u16 gUnk_8064038[];
+extern const u8 gUnk_8A4A490[];
+extern const u8 gUnk_8A4E490[];
+extern const u8 gUnk_8A50490[];
+extern const u8 gUnk_8AA4358[];
+extern u16 gUnk_8A52490[];
+
+
+struct Unk8DF7590 {
+  u32 unk0;
+  u32 unk4;
+  u16 unk8;
+  u8 unkA;
+  u8 unkB;
+  u8 fillerC[2];
+  s8 unkE[16];
+  s8 unk1E[16];
+  s8 unk2E[16];
+  u8 unk3E;
+  u8 unk3F;
+  u8 unk40;
+  u8 unk41;
+  u8 unk42;
+  u8 filler43;
+  u16 unk44;
+  u16 unk46;
+  u8 unk48[14];
+  u8 unk56[14];
+  u8 unk64[14];
+  u8 unk72[14];
+  u16 unk80;
+  u16 unk82;
+  u16 unk84;
+} extern * g8DF7590;
+struct Unk8DF7594 {
+  u32 unk0;
+  u32 unk4;
+  u8 unk8;
+  u8 filler9;
+  u16 unkA;
+  u16 unkC[3];
+  u16 unk12;
+  u8 unk14;
+  u8 filler15;
+  u16 unk16[16];
+  s8 unk36[96];
+  s8 unk96[96];
+  s8 unkF6[96];
+  u8 unk156;
+  u8 unk157;
+  u8 unk158;
+  u8 filler159;
+  u16 unk15A[24];
+  u8 unk18A;
+  u8 unk18B;
+  u8 unk18C;
+  u8 filler18D[3];
+  u8 unk190[6];
+  u8 unk196[6];
+  u8 unk19C[6];
+  u8 unk1A2;
+  u8 unk1A3;
+  u8 unk1A4;
+  u8 filler1A5;
+  u16 unk1A6;
+  u8 unk1A8;
+  u8 filler1A9;
+  u16 unk1AA;
+  u16 unk1AC;
+  u16 unk1AE;
+  u8 filler1B0[0xC];
+  u16 unk1BC;
+  u16 unk1BE;
+  u16 unk1C0;
+  u8 filler1C2[0xC];
+  u16 unk1CE;
+  u16 unk1D0;
+  u16 unk1D2;
+  u8 fillerD4[0x12];
+  u8 unk1E6[3];
+  u8 filler1E9;
+  u16 unk1EA[3];
+  u16 unk1F0;
+  u16 unk1F2[3];
+  u16 unk1F8;
+  u8 filler1FA[2];
+  u16 unk1FC;
+  u8 unk1FE;
+} extern * g8DF7594;
+
+
+enum {
+  RESHEF_VISION,
+
+  CREDITS_CUTSCENE = 2,
+  GOD_CARDS_TURN_TO_STONE=4,
+  PEGASUS_BEFORE_CREDITS=7,
+  INTRO_CUTSCENE,
+};
+
 
 void CreditsMain (void) {
   sub_8000724();
@@ -186,12 +364,7 @@ void CreditsMain (void) {
   }
 }
 
-extern u16 gCreditsPalette[];
-void ClearGraphicsBuffers (void);
-void sub_8000810 (void);
-extern u32 gCreditsTileset[];
-
-void sub_8000724 (void) {
+static void sub_8000724 (void) {
   u8 i;
   bzero(gSharedMem, 0x4314);
   ClearGraphicsBuffers();
@@ -213,9 +386,7 @@ void sub_8000724 (void) {
   sub_8008220();
 }
 
-extern u16 gOamBuffer[];
-
-void sub_8000810 (void) {
+static void sub_8000810 (void) {
   u16 i;
   for (i = 0; i < 128; i++) {
     gOamBuffer[i * 4] = 0xA0;
@@ -239,7 +410,7 @@ void sub_8000810 (void) {
   LoadBlendingRegs();
 }
 
-void sub_80008EC (u8 arg0) {
+static void sub_80008EC (unsigned char arg0) {
   switch (arg0) {
     case 1:
       REG_BG0CNT = 0x1F08;
@@ -255,27 +426,6 @@ void sub_80008EC (u8 arg0) {
       break;
   }
 }
-
-
-// split?
-
-void ReshefVisionMain (void);
-void sub_8001C70 (void);
-void sub_8001B88 (void);
-void sub_8001BFC (void);
-void sub_8001CE4 (void);
-void sub_8001DD4 (void);
-void sub_8001D58 (void);
-void sub_8001AD8 (void);
-
-enum {
-  RESHEF_VISION,
-
-  CREDITS_CUTSCENE = 2,
-  GOD_CARDS_TURN_TO_STONE=4,
-  PEGASUS_BEFORE_CREDITS=7,
-  INTRO_CUTSCENE,
-};
 
 void StartCutscene (u8 cutscene) {
   switch (cutscene) {
@@ -310,46 +460,8 @@ void StartCutscene (u8 cutscene) {
   REG_DISPCNT = 0;
 }
 
-struct Unk8DF7590 {
-  u32 unk0;
-  u32 unk4;
-  u16 unk8;
-  u8 unkA;
-  u8 unkB;
-  u8 fillerC[2];
-  s8 unkE[16];
-  s8 unk1E[16];
-  s8 unk2E[16];
-  u8 unk3E;
-  u8 unk3F;
-  u8 unk40;
-  u8 unk41;
-  u8 unk42;
-  u8 filler43;
-  u16 unk44;
-  u16 unk46;
-  u8 unk48[14];
-  u8 unk56[14];
-  u8 unk64[14];
-  u8 unk72[14];
-  u16 unk80;
-  u16 unk82;
-  u16 unk84;
-} extern * g8DF7590;
-
-void sub_8000D74 (void);
-void sub_8001110 (void);
-void sub_8001360 (void);
-void sub_80013E0 (void);
-void sub_80011B4 (void);
-void sub_8035038 (u16);
-void sub_80018E8 (void);
-void sub_80015A4 (void);
-void sub_80082E8 (void);
-void sub_80012B4 (void);
-
 // Yugi reshef vision
-void ReshefVisionMain (void) {
+static void ReshefVisionMain (void) {
   u8 i;
   s16 r5;
   u8 r6 = 16, r7 = 16;
@@ -469,7 +581,7 @@ void ReshefVisionMain (void) {
   }
 }
 
-void sub_8000CC8 (void) {
+static void sub_8000CC8 (void) {
   u8 i;
   g8DF7590->unk4 = 0;
   g8DF7590->unk0 = 0;
@@ -492,28 +604,7 @@ void sub_8000CC8 (void) {
   }
 }
 
-extern s16 g2020C00[];
-extern const s16 sin_cos_table[];
-extern u32 gUnk_8A47010[];
-extern u32 gUnk_8A481C8[];
-extern u32 gUnk_8A492D8[];
-extern u32 gUnk_8A45DE4[];
-extern u16 gUnk_8A45880[][15];
-extern u16 gUnk_8A45AD8[][15];
-extern u16 gUnk_8A45C5E[][15];
-extern u16 gUnk_8A44F5C[][45];
-extern u16 gUnk_8A44F9C[][45];
-extern u16 gUnk_8A453EE[][45];
-extern u16 gUnk_8A4542E[][45];
-extern u16 gUnk_8063FC0[][30];
-extern u16 gUnk_8A4A430[];
-extern u16 gUnk_8064038[];
-
-void sub_8001788 (void);
-void sub_80019C4 (void);
-void sub_8001068 (void);
-
-void sub_8000D74 (void) {
+static void sub_8000D74 (void) {
   u8 i;
   ClearGraphicsBuffers();
   LoadOam();
@@ -552,9 +643,8 @@ void sub_8000D74 (void) {
   sub_8008220();
 }
 
-void sub_8008288 (void);
-
-void sub_8000FB0 (void) {
+//unused?
+static void sub_8000FB0 (void) {
   u8 i = 0;
   REG_IE |= 2;
   REG_DISPSTAT |= 0x10;
@@ -571,14 +661,7 @@ void sub_8000FB0 (void) {
   REG_DISPSTAT &= 0xFFEF;
 }
 
-extern const u8 gUnk_8A4A490[];
-extern const u8 gUnk_8A4E490[];
-extern const u8 gUnk_8A50490[];
-extern const u8 gUnk_8AA4358[];
-extern u16 gUnk_8A52490[];
-
-
-void sub_8001068 (void) {
+static void sub_8001068 (void) {
   u8 i;
   sub_803EEFC(0, gUnk_8A4A490, 0x100);
   sub_803EEFC(2, gUnk_8A4E490, 0x100);
@@ -593,7 +676,7 @@ void sub_8001068 (void) {
   }
 }
 
-void sub_8001110 (void) {
+static void sub_8001110 (void) {
   u8 i;
   if (g8DF7590->unk3E > 191)
     g8DF7590->unk3E = 0;
@@ -608,7 +691,7 @@ void sub_8001110 (void) {
   }
 }
 
-void sub_80011B4 (void) {
+static void sub_80011B4 (void) {
   u8 i;
   if (g8DF7590->unk3F > 191)
     g8DF7590->unk3F = 0;
@@ -636,7 +719,7 @@ void sub_80011B4 (void) {
   }
 }
 
-void sub_80012B4 (void) {
+static void sub_80012B4 (void) {
   u8 i;
   if (g8DF7590->unk40 > 191)
     g8DF7590->unk40 = 0;
@@ -654,7 +737,7 @@ void sub_80012B4 (void) {
   }
 }
 
-void sub_8001360 (void) {
+static void sub_8001360 (void) {
   if (g8DF7590->unk80 % 2 == 0 && g8DF7590->unk44 < 0xFFF0)
     g8DF7590->unk44++;
   if (g8DF7590->unk44 > 0xFFE8) {
@@ -671,9 +754,7 @@ void sub_8001360 (void) {
   sub_8001788();
 }
 
-void sub_8001458 (u8);
-
-void sub_80013E0 (void) {
+static void sub_80013E0 (void) {
   switch (g8DF7590->unk0) {
     case 0:
       sub_8001458(0);
@@ -701,7 +782,7 @@ void sub_80013E0 (void) {
   }
 }
 
-void sub_8001458 (u8 arg0) {
+static void sub_8001458 (unsigned char arg0) {
   u8 i;
   switch (arg0) {
     case 0:
@@ -729,17 +810,8 @@ void sub_8001458 (u8 arg0) {
   }
 }
 
-struct UnkFA3630 {
-  u8 unk0;
-  u8 unk1[3];
-  struct Oam123 {
-    u16 unk0;
-    u16 unk2;
-    u16 unk4;
-  }* unk4;
-} extern * g8FA3630;
 /*
-void sub_80015A4 (void) {
+static void sub_80015A4 (void) {
   if (g8DF7590->unkA == g8FA3630[g8DF7590->unkB].unk0) {
     g8DF7590->unkA = 0;
     g8DF7590->unkB++;
@@ -769,7 +841,7 @@ void sub_80015A4 (void) {
 }*/
 
 NAKED
-void sub_80015A4 (void) {
+static void sub_80015A4 (void) {
   asm_unified("push {r4, r5, r6, r7, lr}\n\
 	mov r7, sl\n\
 	mov r6, sb\n\
@@ -1013,7 +1085,7 @@ _08001780: .4byte gUnk_8FA37E8\n\
 _08001784: .4byte 0x02018598");
 }
 /*
-void sub_8001788 (void) {
+static void sub_8001788 (void) {
   s16 r8 = g8DF7590->unk44;
   s16 sp = fix_mul(sin_cos_table[64], fix_inverse(g8DF7590->unk82));
   s16 sl = fix_mul(sin_cos_table[0], fix_inverse(g8DF7590->unk82));
@@ -1026,7 +1098,7 @@ void sub_8001788 (void) {
 }*/
 
 NAKED
-void sub_8001788 (void) {
+static void sub_8001788 (void) {
   asm_unified("push {r4, r5, r6, r7, lr}\n\
 	mov r7, sl\n\
 	mov r6, sb\n\
@@ -1189,7 +1261,7 @@ _080018E4: .4byte gBG2PD");
 }
 
 NAKED
-void sub_80018E8 (void) {
+static void sub_80018E8 (void) {
   asm_unified("push {r4, r5, r6, lr}\n\
 	mov r6, sl\n\
 	mov r5, sb\n\
@@ -1291,7 +1363,7 @@ _080019BC: .4byte g8DF7590\n\
 _080019C0: .4byte gOamBuffer+6");
 }
 
-void sub_80019C4 (void) {
+static void sub_80019C4 (void) {
   u16 i;
   for (i = 0; i < 128; i++) {
     gOamBuffer[i * 4] = 0xA0;
@@ -1320,70 +1392,7 @@ void sub_80019C4 (void) {
   LoadBlendingRegs();
 }
 
-struct Unk8DF7594 {
-  u32 unk0;
-  u32 unk4;
-  u8 unk8;
-  u8 filler9;
-  u16 unkA;
-  u16 unkC[3];
-  u16 unk12;
-  u8 unk14;
-  u8 filler15;
-  u16 unk16[16];
-  s8 unk36[96];
-  s8 unk96[96];
-  s8 unkF6[96];
-  u8 unk156;
-  u8 unk157;
-  u8 unk158;
-  u8 filler159;
-  u16 unk15A[24];
-  u8 unk18A;
-  u8 unk18B;
-  u8 unk18C;
-  u8 filler18D[3];
-  u8 unk190[6];
-  u8 unk196[6];
-  u8 unk19C[6];
-  u8 unk1A2;
-  u8 unk1A3;
-  u8 unk1A4;
-  u8 filler1A5;
-  u16 unk1A6;
-  u8 unk1A8;
-  u8 filler1A9;
-  u16 unk1AA;
-  u16 unk1AC;
-  u16 unk1AE;
-  u8 filler1B0[0xC];
-  u16 unk1BC;
-  u16 unk1BE;
-  u16 unk1C0;
-  u8 filler1C2[0xC];
-  u16 unk1CE;
-  u16 unk1D0;
-  u16 unk1D2;
-  u8 fillerD4[0x12];
-  u8 unk1E6[3];
-  u8 filler1E9;
-  u16 unk1EA[3];
-  u16 unk1F0;
-  u16 unk1F2[3];
-  u16 unk1F8;
-  u8 filler1FA[2];
-  u16 unk1FC;
-  u8 unk1FE;
-} extern * g8DF7594;
-
-void sub_8002E98 (void);
-void sub_80043D0 (void);
-void sub_8001E8C (void);
-void sub_80020D8 (void);
-void sub_80029D4 (void);
-void sub_80027F0 (void);
-
-void sub_8001AD8 (void) {
+static void sub_8001AD8 (void) {
   sub_8002E98();
   g8DF7594->unk0 = 0;
   while (1) {
@@ -1418,7 +1427,7 @@ void sub_8001AD8 (void) {
   }
 }
 
-void sub_8001B88 (void) {
+static void sub_8001B88 (void) {
   sub_8002E98();
   g8DF7594->unk0 = 0;
   while (1) {
@@ -1447,7 +1456,7 @@ void sub_8001B88 (void) {
   }
 }
 
-void sub_8001BFC (void) {
+static void sub_8001BFC (void) {
   sub_8002E98();
   g8DF7594->unk0 = 0;
   while (1) {
@@ -1476,7 +1485,7 @@ void sub_8001BFC (void) {
   }
 }
 
-void sub_8001C70 (void) {
+static void sub_8001C70 (void) {
   sub_8002E98();
   g8DF7594->unk0 = 0;
   while (1) {
@@ -1505,7 +1514,7 @@ void sub_8001C70 (void) {
   }
 }
 
-void sub_8001CE4 (void) {
+static void sub_8001CE4 (void) {
   sub_8002E98();
   g8DF7594->unk0 = 0;
   while (1) {
@@ -1534,9 +1543,7 @@ void sub_8001CE4 (void) {
   }
 }
 
-void sub_8002D10 (void);
-
-void sub_8001D58 (void) {
+static void sub_8001D58 (void) {
   PlayMusic(0);
   sub_8002E98();
   g8DF7594->unk0 = 0;
@@ -1566,7 +1573,7 @@ void sub_8001D58 (void) {
   }
 }
 
-void sub_8001DD4 (void) {
+static void sub_8001DD4 (void) {
   sub_8002E98();
   g8DF7594->unk0 = 0;
   while (1) {
@@ -1601,13 +1608,7 @@ void sub_8001DD4 (void) {
   }
 }
 
-void sub_8003B78 (void);
-void sub_8004D7C (void);
-void sub_80045D4 (void);
-void sub_8004730 (void);
-void sub_800373C (void);
-
-void sub_8001E8C (void) {
+static void sub_8001E8C (void) {
   int r7 = 2;
   int r6 = 1;
   int r8 = 1;
@@ -1700,10 +1701,7 @@ void sub_8001E8C (void) {
   sub_800373C();
 }
 
-void sub_8003020 (void);
-void sub_8003D10 (void);
-
-void sub_80020D8 (void) {
+static void sub_80020D8 (void) {
   u8 i;
   u16 temp;
   switch (g8DF7594->unk8) {
@@ -1948,13 +1946,7 @@ void sub_80020D8 (void) {
   g8DF7594->unk1A8 += 10;
 }
 
-void sub_8003268 (void);
-void sub_8003C10 (void);
-void sub_8004DE0 (void);
-void sub_8004678 (void);
-void sub_80037B4 (void);
-
-void sub_80027F0 (void) {
+static void sub_80027F0 (void) {
   int r6 = 1;
   switch (g8DF7594->unk8) {
     case 0:
@@ -2032,14 +2024,7 @@ void sub_80027F0 (void) {
   sub_80037B4();
 }
 
-void sub_8003444 (void);
-void sub_8004E54 (void);
-void sub_8003820 (void);
-void sub_8004318 (void);
-void sub_8004894 (void);
-void sub_8004260 (void);
-
-void sub_80029D4 (void) {
+static void sub_80029D4 (void) {
   switch (g8DF7594->unk8) {
     case 0:
       PlayMusic(0x164);
@@ -2189,8 +2174,6 @@ void sub_80029D4 (void) {
       break;
   }
 }
-
-void sub_8003560 (void);
 
 void sub_8002D10 (void) {
   int r6 = 1;

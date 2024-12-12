@@ -2,6 +2,8 @@
 #include "duel.h"
 #include "gba/io_reg.h"
 
+
+//link_duel.c
 u32 sub_80327B8 (void);
 void sub_803281C (void);
 void sub_8032830 (void);

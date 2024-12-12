@@ -1,8 +1,6 @@
     .INCLUDE "asm/macro.inc"
     .SYNTAX UNIFIED
 
-.section .text2
-
 	THUMB_FUNC_START sub_8022C54
 sub_8022C54: @ 0x08022C54
 	push {r4, r5, r6, r7, lr}
@@ -107,8 +105,8 @@ _08022C86:
 	adds r1, r5, r2
 	adds r2, r6, #0
 	bl CpuFastSet
-  
-  
+
+
 	movs r7, #0
 	ldr r0, _08022E00
 	adds r0, r0, r5
@@ -151,8 +149,8 @@ _08022D3E:
 	adds r7, #1
 	cmp r7, #3
 	bls _08022D3E
-  
-  
+
+
 	movs r7, #0
 	ldr r1, _08022E1C
 	adds r1, r1, r4
@@ -3015,7 +3013,7 @@ _08024584: .4byte 0x03001078
 
 
 
-.section .text3
+.section .text2
 
 
 	THUMB_FUNC_START sub_802612C @decomped
@@ -3115,7 +3113,7 @@ _080261E0: .4byte gKeyState
 
 
 
-.section .text
+.section .text3
 
 	THUMB_FUNC_START sub_802AAF0
 sub_802AAF0: @ 0x0802AAF0
@@ -3581,9 +3579,9 @@ _0802AE94: .4byte LoadOam
 
 
 
-.section .text5
+.section .text4
 
-
+// LinkDuel
 
 	THUMB_FUNC_START sub_8030CA8
 sub_8030CA8: @ 0x08030CA8
@@ -13469,11 +13467,11 @@ sub_8035B3C: @ 0x08035B3C
 	pop {r0}
 	bx r0
 	.byte 0x00, 0x00
+// TitleScreen end?
 
+.section .text5
 
-.section .text4
-
-	
+// TradeMenu
 
 	THUMB_FUNC_START sub_8038F1C
 sub_8038F1C: @ 0x08038F1C
@@ -24204,6 +24202,12 @@ sub_803ED68: @ 0x0803ED68
 	pop {r1}
 	bx r1
 	.byte 0x00, 0x00
+
+//TradeMenu end
+
+
+
+
 
 	THUMB_FUNC_START ClearGraphicsBuffers
 ClearGraphicsBuffers: @ 0x0803ED78

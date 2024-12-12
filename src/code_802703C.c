@@ -13,7 +13,7 @@ extern u8 g2021DD8;
 void sub_802ACC0 (void);
 void sub_8034FEC (u16);
 void sub_802ADF4 (void);
-u8 sub_803EFAC (u16 id);
+u8 GetFINAL_Flag (u16 id);
 void sub_80408BC (void);
 void sub_802ADA4 (void);
 void sub_8040258 (void);
@@ -22,8 +22,8 @@ void sub_8041104 (void);
 
 
 void sub_802703C (void) {
-  u8 sp[12]; // unused
-  u8 i;
+  unsigned char unused[12];
+  unsigned char i;
   for (i = 0; i < 5; i++) {
     u8 temp = sub_80270B4(gZones[2][i]->id);
     if (temp > 3)
@@ -1225,7 +1225,7 @@ static void sub_8029764 (void) {
       u16 id;
       zone = gZones[0][i];
       id = zone->id;
-      if (id != CARD_NONE && sub_803EFAC(id) & 0x1E)
+      if (id != CARD_NONE && GetFINAL_Flag(id) & 0x1E)
         ClearZoneAndSendMonToGraveyard(zone, 1);
     }
     if (!gHideEffectText) {
@@ -1236,7 +1236,7 @@ static void sub_8029764 (void) {
   else if (g2021DE0.unk2 == 3) {
     for (i = 0; i < 5; i++) {
       zone = gZones[3][i];
-      if (zone->id != CARD_NONE && sub_803EFAC(zone->id) & 0x1E)
+      if (zone->id != CARD_NONE && GetFINAL_Flag(zone->id) & 0x1E)
         ClearZoneAndSendMonToGraveyard(zone, 0);
     }
     if (!gHideEffectText) {

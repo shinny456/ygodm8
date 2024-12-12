@@ -1,37 +1,26 @@
 #include "global.h"
+#include "FINAL_effect.h"
+
 #include "duel.h"
 #include "constants/card_ids.h"
 
-#define FLAG_F (1 << 0)
-#define FLAG_I (1 << 1)
-#define FLAG_N (1 << 2)
-#define FLAG_A (1 << 3)
-#define FLAG_L (1 << 4)
-#define FLAG_FINAL_ALL (FLAG_F | FLAG_I | FLAG_N | FLAG_A | FLAG_L)
-
-
-u8 sub_803EF7C(void);
-u8 sub_803EFAC(u16 id);
-void sub_803EFF8(void);
-void DeclareLoser(u8);
+static void sub_803EFF8 (void);
 
 void WinConditionFINAL (void) {
-  if ((sub_803EF7C() & FLAG_FINAL_ALL) == FLAG_FINAL_ALL)
+  if ((GetFINAL_Flags() & FLAG_FINAL_ALL) == FLAG_FINAL_ALL)
     sub_803EFF8();
 }
 
-//FINALFlags
-u8 sub_803EF7C (void) {
-  u8 i, r5 = 0;
+int GetFINAL_Flags (void) {
+  unsigned char i, flags = 0;
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-    r5 |= sub_803EFAC(gZones[3][i]->id);
-  return r5;
+    flags |= GetFINAL_Flag(gZones[3][i]->id);
+  return flags;
 }
 
-//FINALFlag
-u8 sub_803EFAC (u16 id) {
-  u8 flag = 0;
-  switch (id) {
+int GetFINAL_Flag (unsigned short cardId) {
+  unsigned char flag = 0;
+  switch (cardId) {
   case DESTINY_BOARD:
       flag = FLAG_F;
       break;
@@ -51,9 +40,9 @@ u8 sub_803EFAC (u16 id) {
   return flag;
 }
 
-void sub_803EFF8 (void) {
-  u8 unk[0xC]; //TODO
-  u8 loser;
+static void sub_803EFF8 (void) {
+  unsigned char unused[12];
+  unsigned char loser;
   if (WhoseTurn() == DUEL_PLAYER)
     loser = DUEL_OPPONENT;
   else

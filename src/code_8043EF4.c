@@ -1,13 +1,19 @@
 #include "global.h"
+#include "FINAL_effect.h"
 #include "duel.h"
 #include "card.h"
 #include "constants/card_ids.h"
 #include "gba/macro.h"
 #include "gba/syscall.h"
+#include "gba/io_reg.h"
 
 extern u8 g8102E24[]; // opponent hand coordinates
+
+//are field graphics repeated?
 extern u8* g8E0D960[];
-extern u16 (*g8E0D97C[])[32];
+extern u16* g8E0D998[];
+extern u16 (*g8E0D97C[])[31];
+
 void sub_803EE44 (void);
 void sub_8044D34 (void);
 void sub_8044DAC (void);
@@ -179,7 +185,7 @@ void sub_8040998 (struct DuelCard *zone);
 void sub_80409AC (struct DuelCard *zone);
 void sub_8041EC8 (void);
 void sub_8041E70 (u8, u8);
-void ExodiaWinCondition (void);
+void WinConditionExodia (void);
 void IncNumTributes (void);
 u32 sub_80429A4 (void);
 void sub_8044570 (void);
@@ -187,11 +193,10 @@ void sub_8041104 (void);
 void sub_8029820 (void);
 void sub_801BC00 (void);
 void sub_80410B4 (void);
-void sub_80581DC (void);
+void ActivateTrapEffect (void);
 s8 sub_804363C (struct DuelCard** zonePtr);
 s8 GetNonEmptyMonZoneId (struct DuelCard** zonePtr);
 void sub_80449D8 (void);
-void WinConditionFINAL (void);
 u16 sub_8044B68(void);
 void BMenuMain (void);
 void sub_8044D00 (void);
@@ -302,7 +307,7 @@ void HandlePlayerMonsterRowAction (void) {
         gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = FALSE;
       if (!gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp) {
         SetCardInfo(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id);
-        if (!gCardInfo.monsterEffect) {
+        if (gCardInfo.monsterEffect == /*MONSTER_EFFECT_NONE*/ 0) {
           FAILED:
           PlayMusic(0x39);
           sub_8041104();
@@ -318,7 +323,7 @@ void HandlePlayerMonsterRowAction (void) {
           if (gNotSure[0]->unkThree)
             LockMonsterCardsInRow(4);
           sub_8041104();
-          ExodiaWinCondition();
+          WinConditionExodia();
           if (IsDuelOver() != TRUE)
             sub_8029820();
         }
@@ -343,7 +348,7 @@ void sub_8044570 (void) {
     gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = TRUE;
     sub_8041104();
   }
-  else if (NumEmptyZonesInRow(gZones[1]) == 5) {
+  else if (NumEmptyZonesInRow(gZones[1]) == 5) { // Direct Attack
     gTrapEffectData.unk2 = gDuelCursor.currentY;
     gTrapEffectData.unk3 = gDuelCursor.currentX;
     gTrapEffectData.id = gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id;
@@ -362,7 +367,7 @@ void sub_8044570 (void) {
     }
     else {
       PlayMusic(0x42);
-      sub_80581DC();
+      ActivateTrapEffect();
       gDuelCursor.state = 0;
     }
     sub_8029820();
@@ -394,7 +399,7 @@ void sub_80446E0 (void) {
       if (gNotSure[0]->unkThree)
         LockMonsterCardsInRow(4);
       sub_8041104();
-      ExodiaWinCondition();
+      WinConditionExodia();
       if (IsDuelOver() != 1)
         sub_8029820();
       break;
@@ -462,7 +467,7 @@ void sub_8044840 (void) {
       gDuelBoard[gDuelCursor.destY][gDuelCursor.destX]->isFaceUp = TRUE;
       gDuelBoard[gDuelCursor.destY][gDuelCursor.destX]->isLocked = TRUE;
       gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp = TRUE;
-      sub_803F908(gDuelCursor.destX, gDuelCursor.currentX);
+      SetDuelActionAttack(gDuelCursor.destX, gDuelCursor.currentX);
       HandleDuelAction();
       sub_803F224();
       gDuelCursor.state = 0;
@@ -472,7 +477,7 @@ void sub_8044840 (void) {
       sub_8022080();
     }
     else {
-      sub_80581DC();
+      ActivateTrapEffect();
       gDuelCursor.state = 0;
       sub_804412C();
       sub_8041104();
@@ -601,7 +606,8 @@ void sub_8044B2C (void) {
       case 2:
         r4 = 0;
         break;
-      case 0 ... 1:
+      case 0:
+      case 1:
         break;
       case 0x100:
         r4 = 0;
@@ -820,7 +826,7 @@ void sub_8044B90 (void) {
     else
       sub_8057474(ptr);
   }
-  sub_8057418(gBgVram.cbb0);
+  sub_8057418(g02000000.obj);
 }*/
 
 void sub_8044D00 (void) {
@@ -833,10 +839,38 @@ void sub_8044D00 (void) {
   sub_80081DC(sub_8044DC8);
   sub_8008220();
 }
-/*
+
 void sub_8044D34 (void) {
   u8 i;
   HuffUnComp(g8E0D960[gDuel.field], gBgVram.cbb0);
   for (i = 0; i < 20; i++)
-    CpuCopy16(g8E0D97C[i], gBgVram.cbb0 + 0xF800 + i * 32, 64);
-}*/
+    CpuCopy16(g8E0D97C[gDuel.field][i], gBgVram.cbb0 + 0xF800 + i * 64, 62);
+  CpuCopy16(g8E0D998[gDuel.field], g02000000.bg, 96);
+}
+
+void sub_8044DAC (void) {
+  LoadCharblock0();
+  LoadCharblock3();
+  LoadCharblock4();
+  LoadCharblock5();
+  LoadPalettes();
+}
+
+void sub_8044DC8 (void) {
+  LoadOam();
+  gBG0HOFS = 0;
+  gBG0VOFS = 0;
+  gBG1HOFS = 0;
+  gBG1VOFS = 0;
+  gBG2HOFS = 0;
+  gBG2VOFS = 0;
+  gBG3HOFS = 4;
+  gBG3VOFS = 0;
+  gBLDCNT = 0;
+  gBLDALPHA = 0;
+  gBLDY = 0;
+  LoadBgOffsets();
+  LoadBlendingRegs();
+  REG_BG3CNT = 0x1F03;
+  REG_DISPCNT = 0x1800;
+}

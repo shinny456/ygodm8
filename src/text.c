@@ -10,7 +10,7 @@ void sub_8021584 (u32*, u16, u16);
 void sub_8021688 (u32*, u16);
 void sub_80215BC (u32*, u16, u16);
 void sub_80214BC (u32*, u16, u16);
-void sub_802152C (u8*, u32*, u16);
+void Convert1bppTo4bpp (u8*, u32*, u16);
 void sub_80215F4 (u8*, u32*, u16);
 
 u16 sub_8020698(u8* name) //text parser
@@ -677,7 +677,7 @@ u16 sub_80210B8(u16 arg0)
 
     r2 = arg0 += 0x7EC0;
 
-    if (arg0 > 0x400)
+    if (r2 > 0x400)
         arg0 -= 0x200;
 
     if (r2 > 0x700)
@@ -705,12 +705,12 @@ void sub_8021138(u8* r7, u32* r8, u16 r6)
     for (i = 0; i < 8; i++)
     {
         r2 = *r7++;
-        r2 *= 2;
+        r2 <<= 1;
         r4 = 0;
 
         for (j = 0; j < 4; j++)
         {
-            r4 |= ((r2 & 0x80) / 128 * r6) << (j * 8);
+            r4 |= (((r2 & 0x80) >> 7) * r6) << (j * 8);
             r2 <<= 1;
         }
         *r8++ = r4;
@@ -718,7 +718,7 @@ void sub_8021138(u8* r7, u32* r8, u16 r6)
         r4 = 0;
         for (j = 0; j < 4; j++)
         {
-            r4 |= ((r2 & 0x80) / 128 * r6) << (j * 8);
+            r4 |= (((r2 & 0x80) >> 7) * r6) << (j * 8);
             r2 <<= 1;
         }
         *r8++ = r4;
@@ -865,14 +865,14 @@ void sub_8021234 (u8* arg0, u32* arg1, u16 arg2, u16* arg3) {
 extern u8 g8DF1C2A[];
 
 void sub_80214BC(u32* arg0, u16 arg1, u16 arg2) {
-  sub_802152C(&g8DF1C2A[sub_80210B8(arg1) * 10], arg0, arg2);
+  Convert1bppTo4bpp(&g8DF1C2A[sub_80210B8(arg1) * 10], arg0, arg2);
 }
 
 void sub_80214F4(u32* arg0, u16 arg1, u16 arg2) {
   sub_8021138(&g8DF1C2A[sub_80210B8(arg1) * 10], arg0, arg2);
 }
 
-void sub_802152C(u8* arg0, u32* arg1, u16 unused2) {
+void Convert1bppTo4bpp(u8* arg0, u32* arg1, u16 unused2) {
   u8 i, j;
   for (i = 0; i < 8; i++) {
     u8 r2 = *arg0++;

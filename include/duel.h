@@ -113,8 +113,8 @@ void sub_803FEA4(int unused);
 
 void sub_8040508(u8);
 
-
-extern u8 gHideEffectText;
+//this seems to disable traps too. see how it's used in spell_effects.c
+extern u8 gHideEffectText; // TODO: rename to gHideDuelText? gDisableDuelTextAndTraps
 
 struct MonEffect
 {
@@ -188,21 +188,20 @@ bool8 IsDuelOver(void);
 
 void sub_803F224(void);
 
+
+//TODO: change name to duel command for all these functions?
 void HandleDuelAction(void);
-
 void sub_803F4C0(void);
-
-void sub_803F908(s32, s32);
-
+void SetDuelActionAttack(s32, s32);
 void SetPlayerLifePointsToAdd(u32);
 void SetOpponentLifePointsToAdd(u32);
-
 void SetPlayerLifePointsToSubtract(u32); //sub player life points
-
 void SetOpponentLifePointsToSubtract(u32); //sub opponent life points
 
-void ClearZone(struct DuelCard*);
 
+
+
+void ClearZone(struct DuelCard*);
 void FlipCardFaceUp(struct DuelCard*); //flip card face up
 u8 IsCardFaceUp(struct DuelCard*);
 void ResetPermanentPowerLevel(struct DuelCard*); //reset num perm powerups
@@ -386,8 +385,8 @@ struct Duelist
 // duel metadata, external?
 struct DuelData
 {
-    u64 unk0; //money?
-    u32 capacityYield;
+    u64 unk0; //moneyReward?
+    u32 capacityYield; //TODO: capacityReward
     u16 unkC;
     u16 unkE;
     u16 music;
@@ -531,6 +530,7 @@ void LoadCharblock1(void);
 void LoadCharblock2(void);
 void LoadCharblock3(void);
 void LoadCharblock4(void);
+void LoadCharblock5(void);
 void LoadPalettes(void);
 void LoadVRAM(void);
 void sub_80081DC(void (*)(void));
@@ -700,9 +700,6 @@ struct Unk2021DE0 {
 } extern g2021DE0;
 
 void sub_802ACC0(void);
-
-
-void WinConditionFINAL (void);
 
 struct Unk2021AF0
 {

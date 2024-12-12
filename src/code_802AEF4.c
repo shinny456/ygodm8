@@ -1,4 +1,5 @@
 #include "global.h"
+#include "FINAL_effect.h"
 #include "duel.h"
 #include "card.h"
 #include "constants/card_ids.h"
@@ -8,8 +9,8 @@ void sub_802ADF4 (void);
 void sub_80408BC (void);
 void sub_802ADA4 (void);
 void sub_8040258 (void);
-u16 sub_803EF7C (void);
-int sub_803EFAC(u16);
+int GetFINAL_Flags (void);
+int GetFINAL_Flag (u16);
 
 extern void (*g8E0C940[]) (void);
 extern u8 (*g8E0CA80[]) (void);
@@ -229,29 +230,29 @@ static void sub_802B210 (void) {
 
 static void sub_802B2FC (void) {
   u8 zone;
-  u16 r2;
+  unsigned short flags;
 
   if (g2021DE0.unk2 != 3 || NumEmptyZonesInRow(gZones[3]) >= 5)
     return;
   zone = EmptyZoneInRow(gZones[3]);
-  r2 = sub_803EF7C();
-  if (!(r2 & 1))
+  flags = GetFINAL_Flags();
+  if (!(flags & FLAG_F))
     return;
 
-  if (!(r2 & 2))
+  if (!(flags & FLAG_I))
     gZones[3][zone]->id = SPIRIT_MESSAGE_I;
-  else if (!(r2 & 4))
+  else if (!(flags & FLAG_N))
     gZones[3][zone]->id = SPIRIT_MESSAGE_N;
-  else if (!(r2 & 8))
+  else if (!(flags & FLAG_A))
     gZones[3][zone]->id = SPIRIT_MESSAGE_A;
-  else if (!(r2 & 16))
+  else if (!(flags & FLAG_L))
     gZones[3][zone]->id = SPIRIT_MESSAGE_L;
   else
     return;
 
   for (zone = 0; zone < 5; zone++) {
     struct DuelCard* ptr = gZones[3][zone];
-    if (sub_803EFAC(ptr->id))
+    if (GetFINAL_Flag(ptr->id))
       FlipCardFaceUp(ptr);
   }
   if (!gHideEffectText) {

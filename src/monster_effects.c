@@ -421,6 +421,7 @@ void EffectLeghul(void)
     }
 }
 
+// Leftover from TSC; Moved to permanent effect
 void EffectInsectQueen(void)
 {
     u8 i;
@@ -469,6 +470,7 @@ void EffectObeliskTheTormentor(void)
     }
 }
 
+// Leftover from TSC; Moved to permanent effect
 void EffectSliferTheSkyDragon(void)
 {
     u8 i;
@@ -775,7 +777,7 @@ void EffectPinchHopper(void)
     }
 }
 
-void sub_804703C(void)
+void EffectRevivalJam(void)
 {
      if (NumEmptyZonesInRow(gZones[2]) > 0)
      {
@@ -817,7 +819,7 @@ void EffectAncientLamp(void)
     }
 }
 
-void sub_80471BC(void)
+void EffectExarionUniverse (void)
 {
     gStatMod.card = gZones[gMonEffect.row][gMonEffect.zone]->id;
     gStatMod.field = gDuel.field;
@@ -1101,7 +1103,7 @@ void EffectKingsKnight(void)
 }
 
 /*
-void sub_804745C(void)
+void EffectXHeadCannon(void)
 {
     u8 yQty = NumCardInRow(gZones[2], Y_DRAGON_HEAD);
     u8 zQty = NumCardInRow(gZones[2], Z_METAL_TANK);
@@ -1150,7 +1152,7 @@ void sub_804745C(void)
 } */
 
 NAKED
-void sub_804745C(void)
+void EffectXHeadCannon(void)
 {
     asm_unified("\n\
 	push {r4, r5, r6, r7, lr}\n\
@@ -1287,7 +1289,7 @@ _08047578: .4byte gCardEffectTextData");
 }
 
 NAKED
-void sub_804757C(void)
+void EffectYDragonHead(void)
 {
     asm_unified("\n\
 	push {r4, r5, r6, r7, lr}\n\
@@ -1415,7 +1417,7 @@ _08047680: .4byte 0x0000023F");
 }
 
 NAKED
-void sub_8047684(void)
+void EffectZMetalTank(void)
 {
     asm_unified("\n\
     push {r4, r5, r6, r7, lr}\n\
@@ -1642,7 +1644,7 @@ _08047810: .4byte gCardEffectTextData\n\
 _08047814: .4byte 0x00000251");
 }
 NAKED
-void sub_8047818(void)
+void EffectXZTankCannon(void)
 {
     asm_unified("\n\
 	push {r4, r5, r6, r7, lr}\n\
@@ -1711,7 +1713,7 @@ _08047898: .4byte gHideEffectText\n\
 _0804789C: .4byte gCardEffectTextData");
 }
 /*
-void sub_80478A0(void)
+void EffectYZTankDragon(void)
 {
     if (NumEmptyZonesInRow(gHands[0]) < 5)
     {
@@ -2155,9 +2157,9 @@ void EffectBerserkDragon(void)
         {
             FlipCardFaceUp(gZones[1][i]);
             if (turn == DUEL_PLAYER)
-                sub_803F908(gMonEffect.zone, 4 - i);
+                SetDuelActionAttack(gMonEffect.zone, 4 - i);
             else
-                sub_803F908(i, 4 - gMonEffect.zone);
+                SetDuelActionAttack(i, 4 - gMonEffect.zone);
 
             HandleDuelAction();
             sub_803F224();
@@ -2173,7 +2175,7 @@ void EffectBerserkDragon(void)
     }
 }
 
-void sub_8047CAC(void)
+void EffectFGD(void)
 {
     u8 i;
     struct DuelCard* zone;
@@ -2718,10 +2720,17 @@ void EffectTheWingedDragonOfRaBattleMode(void)
     }
 }
 
-void sub_80486EC(void){}
-void sub_80486F0(void){}
-void sub_80486F4(void){}
-void sub_80486F8(void){}
+void sub_80486EC (void) {
+}
+
+void sub_80486F0 (void) {
+}
+
+void sub_80486F4 (void) {
+}
+
+void sub_80486F8 (void) {
+}
 
 void sub_80486FC(void)
 {
@@ -2739,7 +2748,7 @@ void sub_80486FC(void)
     }
 }
 
-void sub_8048754(void) //Zombyra the dark?
+void EffectZombyraTheDark (void)
 {
     if (NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
     {
@@ -2755,9 +2764,10 @@ void sub_8048754(void) //Zombyra the dark?
     }
 }
 
-void sub_80487BC(void){}
+void sub_80487BC (void) {
+}
 
-void sub_80487C0(void)
+void EffectGilfordTheLightning(void)
 {
     u8 i;
 
@@ -2772,7 +2782,7 @@ void sub_80487C0(void)
     }
 }
 
-void sub_8048814(void)
+void EffectMysticalBeastSerket(void)
 {
     if (NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
     {
@@ -2846,7 +2856,7 @@ void EffectSkullMarkLadyBug(void)
     }
 }
 
-void sub_80489A4(void)
+void EffectRocketWarrior(void)
 {
     if (NumEmptyZonesInRow(gZones[1]) < MAX_ZONES_IN_ROW)
         sub_804037C(gZones[1][(u8)HighestAtkMonInRow(gZones[1])]);
@@ -2876,7 +2886,7 @@ void sub_80489F0(void)
     }
 }
 
-void sub_8048A5C(void)
+void EffectLegendaryFiend(void)
 {
     IncrementPermanentPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
 
@@ -2887,7 +2897,7 @@ void sub_8048A5C(void)
     }
 }
 
-void sub_8048AA0(void)
+void EffectDesVolstgalph(void)
 {
     if (NumEmptyZonesAndGodCardsInRow(gZones[1]) < MAX_ZONES_IN_ROW)
         ClearZoneAndSendMonToGraveyard(gZones[1][(u8)HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
@@ -2945,7 +2955,7 @@ void EffectTheWingedDragonOfRaPhoenixMode(void)
     }
 }
 
-void sub_8048BCC(void)
+void EffectChironTheMage(void)
 {
     if (NumEmptyZonesAndGodCardsInRow(gZones[1]) < MAX_ZONES_IN_ROW)
         ClearZoneAndSendMonToGraveyard(gZones[1][(u8)HighestAtkMonInRowExceptGodCards(gZones[1])], 1);

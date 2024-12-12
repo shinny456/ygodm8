@@ -378,8 +378,97 @@ gUnk_80BED20:
 
     .global gC18BC
 gC18BC:
-    .incbin "baserom.gba", 0xC18BC, 0x41570
-
+    .incbin "baserom.gba", 0xC18BC, 0x1E508
+    
+    .global gFieldArenaTiles
+gFieldArenaTiles:
+    .incbin "baserom.gba", 0xDFDC4, 0x18D8
+    
+    .global gFieldForestTiles
+gFieldForestTiles:
+    .incbin "baserom.gba", 0xE169C, 0x2CD0
+    
+    .global gFieldWastelandTiles
+gFieldWastelandTiles:
+    .incbin "baserom.gba", 0xE436C, 0x1E00
+    
+    .global gFieldMountainTiles
+gFieldMountainTiles:
+    .incbin "baserom.gba", 0xE616C, 0x1BEC
+    
+    .global gFieldSogenTiles
+gFieldSogenTiles:
+    .incbin "baserom.gba", 0xE7D58, 0x1848
+    
+    .global gFieldUmiTiles
+gFieldUmiTiles:
+    .incbin "baserom.gba", 0xE95A0, 0x191C
+    
+    .global gFieldYamiTiles
+gFieldYamiTiles:
+    .incbin "baserom.gba", 0xEAEBC, 0x1808
+    
+    .global gFieldArenaTilemap
+gFieldArenaTilemap:
+    .incbin "baserom.gba", 0xEC6C4, 0x934
+    
+    .global gFieldForestTilemap
+gFieldForestTilemap:
+    .incbin "baserom.gba", 0xECFF8, 0x934
+    
+    .global gFieldWastelandTilemap
+gFieldWastelandTilemap:
+    .incbin "baserom.gba", 0xED92C, 0x934
+    
+    .global gFieldMountainTilemap
+gFieldMountainTilemap:
+    .incbin "baserom.gba", 0xEE260, 0x934
+    
+    .global gFieldSogenTilemap
+gFieldSogenTilemap:
+    .incbin "baserom.gba", 0xEEB94, 0x934
+    
+    .global gFieldUmiTilemap
+gFieldUmiTilemap:
+    .incbin "baserom.gba", 0xEF4C8, 0x934
+    
+    .global gFieldYamiTilemap
+gFieldYamiTilemap:
+    .incbin "baserom.gba", 0xEFDFC, 0x934
+    
+    .global gFieldArenaPalette
+gFieldArenaPalette:
+    .incbin "baserom.gba", 0xF0730, 0x60
+    
+    .global gFieldForestPalette
+gFieldForestPalette:
+    .incbin "baserom.gba", 0xF0790, 0x60
+    
+    .global gFieldWastelandPalette
+gFieldWastelandPalette:
+    .incbin "baserom.gba", 0xF07F0, 0x60
+    
+    .global gFieldMountainPalette
+gFieldMountainPalette:
+    .incbin "baserom.gba", 0xF0850, 0x60
+    
+    .global gFieldSogenPalette
+gFieldSogenPalette:
+    .incbin "baserom.gba", 0xF08B0, 0x60
+    
+    .global gFieldUmiPalette
+gFieldUmiPalette:
+    .incbin "baserom.gba", 0xF0910, 0x60
+    
+    .global gFieldYamiPalette
+gFieldYamiPalette:
+    .incbin "baserom.gba", 0xF0970, 0x60
+    
+    .global g80F09D0
+g80F09D0:
+    .incbin "baserom.gba", 0xF09D0, 0x1245C
+    
+    
     .global gMonEffects @102e2c
 gMonEffects:
     .4byte sub_8047D60
@@ -449,10 +538,10 @@ gMonEffects:
     .4byte EffectValkyrionTheMagnaWarrior
     .4byte EffectBeastOfGilfer
     .4byte EffectDarkNecrofear
-    .4byte sub_8048754  @Zombyra the dark?
+    .4byte EffectZombyraTheDark
     .4byte sub_80487BC
-    .4byte sub_80487C0
-    .4byte sub_8048814
+    .4byte EffectGilfordTheLightning
+    .4byte EffectMysticalBeastSerket
     .4byte EffectJinzo
     .4byte sub_8046D38
     .4byte EffectBarrelDragon
@@ -460,30 +549,30 @@ gMonEffects:
     .4byte EffectParasiteParacide
     .4byte EffectSkullMarkLadyBug
     .4byte EffectPinchHopper
-    .4byte sub_80489A4
-    .4byte sub_804703C
+    .4byte EffectRocketWarrior
+    .4byte EffectRevivalJam
     .4byte sub_80489F0
-    .4byte sub_8048A5C
+    .4byte EffectLegendaryFiend
     .4byte EffectAncientLamp
-    .4byte sub_8048AA0
-    .4byte sub_80471BC
+    .4byte EffectDesVolstgalph
+    .4byte EffectExarionUniverse
     .4byte EffectDarkPaladin
     .4byte sub_8048B10
     .4byte EffectByserShock
     .4byte EffectKingsKnight
-    .4byte sub_804745C
-    .4byte sub_804757C
-    .4byte sub_8047684
+    .4byte EffectXHeadCannon
+    .4byte EffectYDragonHead
+    .4byte EffectZMetalTank
     .4byte EffectXYDragonCannon
-    .4byte sub_8047818
+    .4byte EffectXZTankCannon
     .4byte EffectYZTankDragon
     .4byte EffectXYZDragonCannon
     .4byte EffectPuppetMaster
     .4byte EffectTheWingedDragonOfRaPhoenixMode
     .4byte EffectPenguinTorpedo
     .4byte EffectBerserkDragon
-    .4byte sub_8047CAC
-    .4byte sub_8048BCC
+    .4byte EffectFGD
+    .4byte EffectChironTheMage
     .4byte sub_8048C18
     .4byte sub_8048C1C
     .4byte sub_8048C20

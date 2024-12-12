@@ -3293,7 +3293,7 @@ static void sub_802FE84 (int arg0) {
     }
   }
 }
-
+// almost same as sub_80576B4
 static void sub_802FF14 (u8* arg0, u16 cardId) {
   arg0 += 0xC0;
   SetCardInfo(cardId);
@@ -3301,22 +3301,22 @@ static void sub_802FF14 (u8* arg0, u16 cardId) {
     CpuCopy16(g8E1168C[gCardInfo.attribute], arg0, 64);
 }
 
+//almost same as sub_80576EC
 static void sub_802FF4C (u8* arg0, u16 cardId) {
   u8 numTributes = sub_8045410(cardId);
   if (numTributes)
     CpuCopy16(g89A7ADE[numTributes], arg0, 64);
 }
 
+//same as sub_80572A8 except for arg0 + 0x200, and stat mod
 static void sub_802FF78 (u8* arg0, u16 cardId) {
-  u16 atk;
   SetCardInfo(cardId);
   if (gCardInfo.spellEffect != 2)
     return;
-  atk = gCardInfo.atk / 100;
-  if (atk > 99)
+  if (gCardInfo.atk / 100 > 99)
     sub_800DDA0(99, 0);
   else
-    sub_800DDA0(atk, 0);
+    sub_800DDA0(gCardInfo.atk / 100, 0);
   arg0 += 0x200;
   CpuCopy16(g89A81DE[g2021BD0[3]], arg0, 0x40);
   arg0 += 0x40;
@@ -3324,15 +3324,13 @@ static void sub_802FF78 (u8* arg0, u16 cardId) {
 }
 
 static void sub_802FFF0 (u8* arg0, u16 cardId) {
-  u16 def;
   SetCardInfo(cardId);
   if (gCardInfo.spellEffect != 2)
     return;
-  def = gCardInfo.def / 100;
-  if (def > 99)
+  if (gCardInfo.def / 100 > 99)
     sub_800DDA0(99, 0);
   else
-    sub_800DDA0(def, 0);
+    sub_800DDA0(gCardInfo.def / 100, 0);
   arg0 += 0x280;
   CpuCopy16(g89A875E[g2021BD0[3]], arg0, 0x40);
   arg0 += 0x40;

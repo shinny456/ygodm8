@@ -112,7 +112,7 @@ SECTIONS
     gDuelBoard = 0x2024040;
     gHands = 0x20240B0;
     gSelectedCard = 0x20240D8;
-    g20240E0 = 0x20240E0;
+    gIsPlayerTurnOver = 0x20240E0;
     g20240E4 = 0x20240E4;
     gDuelDecks = 0x20240F0;
     g2024144 = 0x2024144;
@@ -211,7 +211,7 @@ SECTIONS
         src/exodia.o(.text);
         src/text.o(.text);
         src/code3.o(.text);
-        asm/code3.o(.text2);
+        asm/code3.o(.text);
         src/main_menu.o(.text);
         asm/main_menu.o(.text);
         src/duel_status.o(.text);
@@ -220,7 +220,7 @@ SECTIONS
         src/god_cards.o(.text);
 
 
-        asm/code3.o(.text3);
+        asm/code3.o(.text2);
 
 
         src/return_monster.o(.text);
@@ -230,17 +230,17 @@ SECTIONS
         src/code_802703C.o(.text); /*permanent effects*/
 
 
-        asm/code3.o(.text);
+        asm/code3.o(.text3);
         src/code_802AEF4.o(.text);
         src/card_shop.o(.text);
+        
         src/code_8030B14.o(.text);
-        asm/code3.o(.text5);
-
-        src/trade_menu.o(.text);
-
-
         asm/code3.o(.text4);
 
+        src/trade_menu.o(.text);
+        asm/code3.o(.text5);
+        /* src/clear_gfx_ram_buffers */
+        
         src/FINAL_effect.o(.text);
         src/code_803F02C.o(.text);
         src/code_8040C6C.o(.text);
@@ -248,7 +248,10 @@ SECTIONS
         src/code_80421CC.o(.text);
         src/code_8042F44.o(.text);
         src/code_8043EF4.o(.text);
+        
+        src/code_8044E50.o(.text);
         asm/code_803F02C.o(.text);
+        
         src/code_80452A8.o(.text);
         src/tribute.o(.text);
         src/io_buffers.o(.text);
@@ -271,7 +274,6 @@ SECTIONS
         src/card_passwords.o(.text); /*card_password*/
         src/rng.o(.text);
         src/code_80562F4.o(.text);
-        asm/code5.o(.text);
         src/trap_effects.o(.text);
         src/turn.o(.text);
 
@@ -724,9 +726,9 @@ SECTIONS
     g80CDE8A = 0x80CDE8A;
     g80CD830 = 0x80CD830;
     g8063FA0 = 0x8063FA0;
-    g8E0D0F8 = 0x8E0D0F8;
+    gFieldTilePtrs = 0x8E0D0F8;
     g8E0D130 = 0x8E0D130;
-    gE0D114 = 0x8E0D114;
+    gFieldTileMapPtrs = 0x8E0D114;
     gNumTributesRequiredStrings = 0x8E0D41C;
     gE0D15D = 0x8E0D15D;
     g8E0D1D0 = 0x8E0D1D0;
@@ -771,6 +773,17 @@ SECTIONS
     g8E0D91A = 0x8E0D91A;
     g80F1D30 = 0x80F1D30;
     g8E0D934 = 0x8E0D934;
+    g8E0D960 = 0x8E0D960;
+    g8E0D97C = 0x8E0D97C;
+    g8E0D998 = 0x8E0D998;
+    g8E17F70 = 0x8E17F70;
+    g89A781C = 0x89A781C;
+    g8E116EE = 0x8E116EE;
+    g8E11720 = 0x8E11720;
+    g89A77DC = 0x89A77DC;
+    g89A8CDE = 0x89A8CDE;
+    g89A8A1E = 0x89A8A1E;
+    g89A7BDE = 0x89A7BDE;
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :

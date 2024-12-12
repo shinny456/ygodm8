@@ -58,7 +58,7 @@ void CopyTypeIconTilesToBuffer (u8, u8*);
 void CopyTypeIconPalToBuffer (u8, u16*);
 u32 CanOpponentSeeCard (u8, u8);
 void sub_80428EC(u8);
-void sub_8041014(void);
+
 
 void sub_8041C94 (u8* arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4) {
   struct Test8041240 test;
