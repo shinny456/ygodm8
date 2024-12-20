@@ -31,31 +31,75 @@ static void sub_8001E8C (void);
 static void sub_80020D8 (void);
 static void sub_80027F0 (void);
 static void sub_80029D4 (void);
-
-void sub_8002E98 (void);
-void sub_80043D0 (void);
-void sub_8003444 (void);
-void sub_8004E54 (void);
-void sub_8003820 (void);
-void sub_8004318 (void);
-void sub_8004894 (void);
+static void sub_8002D10 (void);
+static void sub_8002E98 (void);
+static void sub_8003020 (void);
+static void sub_8003268 (void);
+static void sub_8003444 (void);
+static void sub_8003560 (void);
+static void sub_800373C (void);
+static void sub_80037B4 (void);
+static void sub_8003820 (void);
+static void sub_8003888 (unsigned char);
+static void sub_8003980 (unsigned char);
+static void sub_8003A78 (unsigned char);
+static void sub_8003B78 (void);
+static void sub_8003C10 (void);
+static void sub_8003CA8 (void);
+static void sub_8003D10 (void);
 void sub_8004260 (void);
+void sub_8004318 (void);
+void sub_80043D0 (void);
+void sub_80045D4 (void);
+void sub_8004678 (void);
+void sub_8004730 (void);
+void sub_8004894 (void);
+void sub_80048F8 (void);
+void sub_8004A18 (void);
+void sub_8004B44 (void);
+void sub_8004C30 (void);
+void sub_8004D34 (void);
+void sub_8004D7C (void);
+void sub_8004DE0 (void);
+void sub_8004E54 (void);
+
+
+
+
 void sub_8035038 (u16);
 void sub_80082E8 (void);
-void sub_8003020 (void);
-void sub_8003D10 (void);
-void sub_8003268 (void);
-void sub_8003C10 (void);
-void sub_8004DE0 (void);
-void sub_8004678 (void);
-void sub_80037B4 (void);
-void sub_8002D10 (void);
-void sub_8003B78 (void);
-void sub_8004D7C (void);
-void sub_80045D4 (void);
-void sub_8004730 (void);
-void sub_800373C (void);
-void sub_8003560 (void);
+extern const u16 gUnk_8AA6358[];
+extern const u16 gUnk_8AA6558[];
+extern const u32 gUnk_8A52618[];
+extern const u32 gUnk_8A536F4[];
+extern const u32 gUnk_8A5E54C[];
+extern const u32 gUnk_8A5F8E8[];
+extern const u32 gUnk_8A6F6F4[];
+extern const u32 gUnk_8A71A60[];
+extern const u32 gUnk_8A950D4[];
+extern const u32 gUnk_8A72DFC[];
+extern const u32 gUnk_8A75548[];
+extern const u32* gUnk_8FA3A4C[];
+extern const u32* gUnk_8FA3A80[];
+extern const u32* gUnk_8FA3AB4[];
+extern const u16 gUnk_8AA6958[][30];
+extern const u16 gUnk_8AA6C64[][30];
+extern const u16 gUnk_8AA8DE8[][30];
+extern const u16 gUnk_8AA90F4[][30];
+extern const u16 gUnk_8AAB278[][30];
+extern const u16 gUnk_8AAB9F8[][30];
+extern const u16 gUnk_8AABD04[][30];
+extern const u16 gUnk_8AADBF4[][30];
+extern const u16 gUnk_8AAC010[][30];
+extern const u16 gUnk_8AAC394[][30];
+extern const u8 gUnk_8A96358[];
+extern const u8 gUnk_8A98358[];
+extern const u16 gUnk_8AA6758[];
+extern u16 (*gUnk_8FA3ADC[])[30];
+extern u16 (*gUnk_8FA3B10[])[30];
+extern u16 (*gUnk_8FA3B44[])[30];
+
+
 struct Credits {
   u32 state;
   u16 frameCounter;
@@ -2175,7 +2219,7 @@ static void sub_80029D4 (void) {
   }
 }
 
-void sub_8002D10 (void) {
+static void sub_8002D10 (void) {
   int r6 = 1;
   switch (g8DF7594->unk8) {
     case 0:
@@ -2238,49 +2282,7 @@ void sub_8002D10 (void) {
   }
 }
 
-extern const u16 gUnk_8AA6358[];
-extern const u16 gUnk_8AA6558[];
-extern const u32 gUnk_8A52618[];
-extern const u32 gUnk_8A536F4[];
-extern const u32 gUnk_8A5E54C[];
-extern const u32 gUnk_8A5F8E8[];
-extern const u32 gUnk_8A6F6F4[];
-extern const u32 gUnk_8A71A60[];
-extern const u32 gUnk_8A950D4[];
-extern const u32 gUnk_8A72DFC[];
-extern const u32 gUnk_8A75548[];
-extern const u32* gUnk_8FA3A4C[];
-extern const u32* gUnk_8FA3A80[];
-extern const u32* gUnk_8FA3AB4[];
-
-extern const u16 gUnk_8AA6958[][30];
-extern const u16 gUnk_8AA6C64[][30];
-extern const u16 gUnk_8AA8DE8[][30];
-extern const u16 gUnk_8AA90F4[][30];
-extern const u16 gUnk_8AAB278[][30];
-extern const u16 gUnk_8AAB9F8[][30];
-extern const u16 gUnk_8AABD04[][30];
-extern const u16 gUnk_8AADBF4[][30];
-extern const u16 gUnk_8AAC010[][30];
-extern const u16 gUnk_8AAC394[][30];
-
-extern const u8 gUnk_8A96358[];
-extern const u8 gUnk_8A98358[];
-
-extern const u16 gUnk_8AA6758[];
-
-extern u16 (*gUnk_8FA3ADC[])[30];
-extern u16 (*gUnk_8FA3B10[])[30];
-extern u16 (*gUnk_8FA3B44[])[30];
-
-void sub_80048F8 (void);
-void sub_8004D34 (void);
-void sub_8004A18 (void);
-void sub_8004B44 (void);
-void sub_8004C30 (void);
-void sub_8003CA8 (void);
-
-void sub_8002E98 (void) {
+static void sub_8002E98 (void) {
   u8 ii;
   u16 i;
   u32 temp;
@@ -2318,7 +2320,7 @@ void sub_8002E98 (void) {
   sub_8008220();
 }
 
-void sub_8003020 (void) {
+static void sub_8003020 (void) {
   u8 ii;
   u16 i;
   u32 temp;
@@ -2377,7 +2379,7 @@ void sub_8003020 (void) {
   sub_8008220();
 }
 
-void sub_8003268 (void) {
+static void sub_8003268 (void) {
   u8 ii;
   u16 i;
   u32 temp;
@@ -2428,7 +2430,7 @@ void sub_8003268 (void) {
   sub_8008220();
 }
 
-void sub_8003444 (void) {
+static void sub_8003444 (void) {
   u8 ii;
   u16 i;
   u32 temp;
@@ -2464,7 +2466,7 @@ void sub_8003444 (void) {
   sub_8008220();
 }
 
-void sub_8003560 (void) {
+static void sub_8003560 (void) {
   u8 ii;
   u16 i;
   u32 temp;
@@ -2515,11 +2517,7 @@ void sub_8003560 (void) {
   sub_8008220();
 }
 
-void sub_8003888 (u8);
-void sub_8003980 (u8);
-void sub_8003A78 (u8);
-
-void sub_800373C (void) {
+static void sub_800373C (void) {
   switch (g8DF7594->unk4) {
     case 0:
       g8DF7594->unk14 = 0;
@@ -2545,7 +2543,7 @@ void sub_800373C (void) {
   }
 }
 
-void sub_80037B4 (void) {
+static void sub_80037B4 (void) {
   switch (g8DF7594->unk4) {
     case 0:
       g8DF7594->unk14 = 0;
@@ -2570,7 +2568,7 @@ void sub_80037B4 (void) {
   sub_8008220();
 }
 
-void sub_8003820 (void) {
+static void sub_8003820 (void) {
   switch (g8DF7594->unk4) {
     case 0:
       g8DF7594->unk14 = 0;
@@ -2594,7 +2592,7 @@ void sub_8003820 (void) {
   }
 }
 
-void sub_8003888 (u8 arg0) {
+static void sub_8003888 (unsigned char arg0) {
   u8 i;
   switch (arg0 % 2) {
     case 0:
@@ -2614,7 +2612,7 @@ void sub_8003888 (u8 arg0) {
   }
 }
 
-void sub_8003980 (u8 arg0) {
+static void sub_8003980 (unsigned char arg0) {
   u8 i;
   switch (arg0 % 2) {
     case 0:
@@ -2634,7 +2632,7 @@ void sub_8003980 (u8 arg0) {
   }
 }
 
-void sub_8003A78 (u8 arg0) {
+static void sub_8003A78 (unsigned char arg0) {
   u8 i;
   switch (arg0 % 2) {
     case 0:
@@ -2656,7 +2654,7 @@ void sub_8003A78 (u8 arg0) {
   }
 }
 
-void sub_8003B78 (void) {
+static void sub_8003B78 (void) {
   u8 i;
   sub_803EEFC(0, gUnk_8A96358, 0x100);
   sub_803EEFC(1, gUnk_8A98358, 0x100);
@@ -2671,13 +2669,14 @@ void sub_8003B78 (void) {
   }
 }
 
-void sub_8003C10 (void) {
+static void sub_8003C10 (void) {
   u8 i;
   sub_803EEFC(0, gUnk_8A4E490, 0x100);
   sub_803EEFC(1, gUnk_8A50490, 0x100);
   // UB/Bug: copying past palette buffer
   // happens to land 256 bytes into VRAM buffer
   // probably can't exploit
+  // (maybe not UB, since CpuCopy16 is a builtin gba function)
   CpuCopy16(gUnk_8AA6758, g02000000.bg + 256, 512);
   for (i = 0; i < 32; i++) {
     g8DF7594->unk36[i] = g02000000.bg[256 + i] & 0x1F;
@@ -2686,7 +2685,7 @@ void sub_8003C10 (void) {
   }
 }
 
-void sub_8003CA8 (void) {
+static void sub_8003CA8 (void) {
   u8 i;
   sub_803EEFC(1, gUnk_8AA4358, 0x100);
   // UB/Bug: copying past palette buffer
@@ -2709,7 +2708,7 @@ extern struct {
 }* gUnk_8FA38AC, *gUnk_8FA38BC, *gUnk_8FA38CC;
 
 /*
-void sub_8003D10 (void) {
+static void sub_8003D10 (void) {
   u32 sp = g8DF7594->unk1FC % 48 / 8;
   u8 i, j;
   g8DF7594->unk1AA = gUnk_8FA38AC->unk4->unk0 & 0xFF00 |
@@ -2762,7 +2761,7 @@ void sub_8003D10 (void) {
 }*/
 
 NAKED
-void sub_8003D10 (void) {
+static void sub_8003D10 (void) {
   asm_unified("push {r4, r5, r6, r7, lr}\n\
 	mov r7, sl\n\
 	mov r6, sb\n\

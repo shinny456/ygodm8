@@ -10,7 +10,7 @@ static void sub_8004F90 (unsigned char, unsigned char);
 
 extern struct Unk8DF76F8 {
   unsigned char unk0;
-  struct OamData* unk4;
+  struct {u16 a, b, c;}* unk4; // (cursor sprites)
 } * gUnk_8DF76F8[];
 
 extern struct OamData gOamBuffer[];
@@ -305,6 +305,7 @@ static void sub_8004F90 (unsigned char arg0, unsigned char arg1) {
 }
 
 /*
+//cursor sprites
 void sub_800521C (unsigned char arg0) {
   u32* oam;
   if (gUnk_8DF7A28->unk23 == gUnk_8DF76F8[arg0][gUnk_8DF7A28->unk24].unk0) {
@@ -316,6 +317,17 @@ void sub_800521C (unsigned char arg0) {
   else
     gUnk_8DF7A28->unk23++;
 
+  //TODO: macro?
+  //visible sprite
   oam = (u32*)(gOamBuffer + 2);
-  oam[0] =
+  oam[0] = ((gUnk_8DF76F8[arg0][gUnk_8DF7A28->unk24].unk4->b & 0x1FF) << 16) |
+           (gUnk_8DF76F8[arg0][gUnk_8DF7A28->unk24].unk4->a & 0xFF) |
+           0x80000000;
+  oam[1] = gUnk_8DF76F8[arg0][gUnk_8DF7A28->unk24].unk4->c | 0x208;
+
+  //window sprite
+  oam[2] = ((gUnk_8DF76F8[arg0][gUnk_8DF7A28->unk24].unk4->b & 0x1FF) << 16) |
+           (gUnk_8DF76F8[arg0][gUnk_8DF7A28->unk24].unk4->a & 0xFF) |
+           0x80000800;
+  oam[3] = gUnk_8DF76F8[arg0][gUnk_8DF7A28->unk24].unk4->c | 0x208;
 }*/

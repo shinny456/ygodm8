@@ -609,7 +609,7 @@ _08042758: .4byte 0x00000801\n\
 _0804275C: .4byte 0xFFFFA300\n\
 _08042760: .4byte 0x08E0D753\n\
 _08042764: .4byte 0x00000901\n\
-_08042768: .4byte gUnk_8DF811C\n\
+_08042768: .4byte g8DF811C\n\
 _0804276C: .4byte gDuel\n\
 _08042770: .4byte gCardInfo\n\
 _08042774: .4byte 0x02009B80\n\

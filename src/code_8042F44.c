@@ -678,7 +678,7 @@ void DrawCard (unsigned turn) {
   }
 }
 
-void sub_8043D6C (unsigned char arg0) {
+void ShuffleDuelDeck (unsigned char arg0) {
   unsigned char temp = sub_8043E70(arg0);
   int i;
   if (!temp)

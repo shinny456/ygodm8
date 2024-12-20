@@ -379,96 +379,96 @@ gUnk_80BED20:
     .global gC18BC
 gC18BC:
     .incbin "baserom.gba", 0xC18BC, 0x1E508
-    
+
     .global gFieldArenaTiles
 gFieldArenaTiles:
     .incbin "baserom.gba", 0xDFDC4, 0x18D8
-    
+
     .global gFieldForestTiles
 gFieldForestTiles:
     .incbin "baserom.gba", 0xE169C, 0x2CD0
-    
+
     .global gFieldWastelandTiles
 gFieldWastelandTiles:
     .incbin "baserom.gba", 0xE436C, 0x1E00
-    
+
     .global gFieldMountainTiles
 gFieldMountainTiles:
     .incbin "baserom.gba", 0xE616C, 0x1BEC
-    
+
     .global gFieldSogenTiles
 gFieldSogenTiles:
     .incbin "baserom.gba", 0xE7D58, 0x1848
-    
+
     .global gFieldUmiTiles
 gFieldUmiTiles:
     .incbin "baserom.gba", 0xE95A0, 0x191C
-    
+
     .global gFieldYamiTiles
 gFieldYamiTiles:
     .incbin "baserom.gba", 0xEAEBC, 0x1808
-    
+
     .global gFieldArenaTilemap
 gFieldArenaTilemap:
     .incbin "baserom.gba", 0xEC6C4, 0x934
-    
+
     .global gFieldForestTilemap
 gFieldForestTilemap:
     .incbin "baserom.gba", 0xECFF8, 0x934
-    
+
     .global gFieldWastelandTilemap
 gFieldWastelandTilemap:
     .incbin "baserom.gba", 0xED92C, 0x934
-    
+
     .global gFieldMountainTilemap
 gFieldMountainTilemap:
     .incbin "baserom.gba", 0xEE260, 0x934
-    
+
     .global gFieldSogenTilemap
 gFieldSogenTilemap:
     .incbin "baserom.gba", 0xEEB94, 0x934
-    
+
     .global gFieldUmiTilemap
 gFieldUmiTilemap:
     .incbin "baserom.gba", 0xEF4C8, 0x934
-    
+
     .global gFieldYamiTilemap
 gFieldYamiTilemap:
     .incbin "baserom.gba", 0xEFDFC, 0x934
-    
+
     .global gFieldArenaPalette
 gFieldArenaPalette:
     .incbin "baserom.gba", 0xF0730, 0x60
-    
+
     .global gFieldForestPalette
 gFieldForestPalette:
     .incbin "baserom.gba", 0xF0790, 0x60
-    
+
     .global gFieldWastelandPalette
 gFieldWastelandPalette:
     .incbin "baserom.gba", 0xF07F0, 0x60
-    
+
     .global gFieldMountainPalette
 gFieldMountainPalette:
     .incbin "baserom.gba", 0xF0850, 0x60
-    
+
     .global gFieldSogenPalette
 gFieldSogenPalette:
     .incbin "baserom.gba", 0xF08B0, 0x60
-    
+
     .global gFieldUmiPalette
 gFieldUmiPalette:
     .incbin "baserom.gba", 0xF0910, 0x60
-    
+
     .global gFieldYamiPalette
 gFieldYamiPalette:
     .incbin "baserom.gba", 0xF0970, 0x60
-    
+
     .global g80F09D0
 g80F09D0:
     .incbin "baserom.gba", 0xF09D0, 0x1245C
-    
-    
+
+
     .global gMonEffects @102e2c
 gMonEffects:
     .4byte sub_8047D60
@@ -8130,4 +8130,3 @@ g8DF1818:
     .4byte gFC4A7C
     .4byte 0
     .4byte 0
-    

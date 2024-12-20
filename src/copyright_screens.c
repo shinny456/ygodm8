@@ -24,10 +24,12 @@ extern u8 g201EE61;
 extern u32 gE01E50[];
 extern u32 gE02E50[];
 extern u32 gE01390[];
+
 extern u32 gE04810[];
-extern u32 gE06810[];
-extern u32 gE08810[];
-extern u32 gE0A810[];
+extern u32 gE06810[]; //continuation of gE04810. for some reason it's split
+extern u32 gE08810[]; //same ^
+extern u32 gE0A810[]; //same ^
+
 extern u16 gE0B2B0[][32];
 extern u16 gE0B7B0[][32];
 extern u16 gE0BCB0[][32];
@@ -54,8 +56,8 @@ void CopyrightScreensMain (void) {
   sub_8026D04();
   sub_80081DC(sub_8026E44);
   REG_BLDCNT = 0x3FFF;
-  g201EE61 = 16;
-  g201EE60 = 0;
+  g201EE61 = 16; //blend value
+  g201EE60 = 0; //blend timer
   sub_8008220();
   while (g201EE61) {
     if (++g201EE60 > 3) {
@@ -125,9 +127,9 @@ static void sub_8026A94 (void) {
   sub_8026CEC();
 }
 
-static void sub_8026AC4 (u8 arg0) {
+static void sub_8026AC4 (u8 arg0) { //flag tilemaps
   u32 i;
-  arg0 += 255;
+  arg0--;
   switch (arg0) {
     case 1:
       for (i = 0; i < 20; i++)
@@ -157,16 +159,17 @@ static void sub_08026BA4 (void) {
 
 static void sub_8026BA8 (void) {
   u32 i;
-  CpuCopy16(gE01E50, gBgVram.cbb0, 0x2000);
+  //copying past src buffer?
+  CpuCopy16(gE01E50, gBgVram.cbb0, 0x2000); //first Konami screen tiles
   for (i = 0; i < 20; i++)
-    CpuCopy16(gE02610[i], gBgVram.sbb1F[i], 64);
+    CpuCopy16(gE02610[i], gBgVram.sbb1F[i], 64); //tilemap
 }
 
 static void sub_8026BE8 (void) {
   u32 i;
-  CpuCopy16(gE02E50, gBgVram.cbb1, 0xFC0);
+  CpuCopy16(gE02E50, gBgVram.cbb1, 0xFC0); //second Konami screen tils
   for (i = 0; i < 20; i++)
-    CpuCopy16(gE03E10[i], gBgVram.sbb1E[i], 64);
+    CpuCopy16(gE03E10[i], gBgVram.sbb1E[i], 64); //tilemap
 }
 
 static void sub_08026C28 (void) {
@@ -174,12 +177,12 @@ static void sub_08026C28 (void) {
 
 static void sub_8026C2C (void) {
   u32 i;
-  CpuCopy16(gE01390, gBgVram.sbb18, 0x3C0);
+  CpuCopy16(gE01390, gBgVram.sbb18, 0x3C0); //Licensed by Nintendo tiles
   for (i = 0; i < 20; i++)
-    CpuCopy16(gE01750[i], gBgVram.sbb1C[i], 64);
+    CpuCopy16(gE01750[i], gBgVram.sbb1C[i], 64); //Licensed by Nintendo tilemap
 }
 
-static void sub_8026C6C (void) {
+static void sub_8026C6C (void) { //language selection gfx
   u32 i;
   CpuCopy16(gE04810, gBgVram.cbb0, 0x2000);
   CpuCopy16(gE06810, &gBgVram.cbb0[0x2000], 0x2000);
@@ -191,7 +194,7 @@ static void sub_8026C6C (void) {
 }
 
 static void sub_8026CEC (void) {
-  CpuCopy16(gE01370, g02000000.bg, 32);
+  CpuCopy16(gE01370, g02000000.bg, 32); //g02000000.bg + (LICENSED_BY_NINTENDO_PAL_INDEX/BANK = 0) * (COLORS_PER_PALETTE = 16)
 }
 
 static void sub_8026D04 (void) {

@@ -27,7 +27,7 @@ struct Test8041240 {
 extern u16 gUnk2020DFC;
 extern u32* gFieldTilePtrs[];
 extern u16* g8E0D130[];
-extern const u8 gE0D15D[];
+extern const u8 gE0D15D[]; // all spaces. empty duel text box before displaying actual text.
 extern u16 (*gFieldTileMapPtrs[])[31];
 extern struct OamData gOamBuffer[];
 extern u8 g201EE70[];
@@ -143,6 +143,11 @@ void sub_8040EF0 (void) {
   CpuCopy16(g8E0D130[field], g02000000.bg, 96);
 
   // copying 64 bytes from 62 byte array? (sub_8044D34 does it right i think)
+  // this results in the last tile-column of the background being made up of tiles meant for the next row.
+  // however the last column is never seen on screen
+  // copies past array (2D array) by copying 40 rows (there are only 38 rows)
+  // is this UB? 
+  // TODO: i < 38; pass size of 62 to CpuCopy16
   for (i = 0; i < 40; i++)
     CpuCopy16(gFieldTileMapPtrs[field][i], gBgVram.cbb0 + 0xD800 + i * 64, 64);
   gBG2HOFS = 4;
@@ -189,10 +194,11 @@ void sub_8041090 (void) {
   sub_80081DC(LoadBgOffsets);
 }
 
-void sub_80410B4 (void) {
+void sub_80410B4 (void) { //updates all duel gfx
   sub_8008220();
   sub_8045718();
   sub_8041140(gDuel.field);
+  //below this is same as sub_8041104
   sub_8040B4C();
   sub_8041EC8();
   sub_8040C6C();
@@ -205,7 +211,7 @@ void sub_80410B4 (void) {
   REG_BLDY = 10;
 }
 
-void sub_8041104 (void) {
+void sub_8041104 (void) { //updates gfx except for field
   sub_8040B4C(); // init bg1 for b button menu and card details at the bottom
   sub_8041EC8();
   sub_8040C6C();
@@ -223,7 +229,8 @@ void sub_8041140 (u8 field) {
   REG_BG2CNT = 0x9B02;
   HuffUnComp(gFieldTilePtrs[field], gBgVram.cbb0);
   CpuCopy16(g8E0D130[field], g02000000.bg, 96);
-  // copying 64 bytes from 62 byte array?
+  // copying 64 bytes from 62 byte array? (see sub_8040EF0 comment)
+  // TODO: i < 38; pass size of 62 to CpuCopy16
   for (i = 0; i < 40; i++)
     CpuCopy16(gFieldTileMapPtrs[field][i], gBgVram.cbb0 + 0xD800 + i * 64, 64);
   gBG2HOFS = 4;
@@ -362,7 +369,7 @@ void sub_8041284 (struct Test8041240* arg0) {
   }
 }
 
-void sub_80415B8 (struct Test8041240* arg0) {
+void sub_80415B8 (struct Test8041240* arg0) { //waiting for player to press A, B, or R to close text box.
   if (gUnk2020DFC & 0x103) {
     PlayMusic(0xCA);
     arg0->unk0++;

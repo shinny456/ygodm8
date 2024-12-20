@@ -52,7 +52,7 @@ void UnlockCardsInRow(unsigned char);
 void SetDuelType(unsigned char);
 void ClearDuelDecks(void);
 void sub_8043E14(unsigned char, u16);
-void sub_8043D6C(unsigned char);
+void ShuffleDuelDeck(unsigned char);
 void InitBoard(void);
 void InitLifePointsBeforeDuel();
 void sub_80254DC(void);
@@ -144,7 +144,7 @@ static void InitIngameDuel (void) {
   sub_8043E14(0, 0);
   sub_8043E14(1, gDuelData.opponent);
   for (i = 0; i < 2; i++)
-    sub_8043D6C(i);
+    ShuffleDuelDeck(i);
   if (!sub_8056258(0, 1))
     gWhoseTurn = 0;
   else
@@ -638,7 +638,7 @@ void sub_8022234(void) {
   gDuelData.music = 44;
   ClearDuelDecks();
   InitDuelDeck(DUEL_PLAYER, gPlayerDeck.cards);
-  sub_8043D6C(0);
+  ShuffleDuelDeck(0);
   SetWhoseTurnToPlayer();
 }
 
@@ -681,7 +681,7 @@ void InitDeckData(void);
 void sub_8022A24(void);
 void sub_8022C10(int);
 void sub_8023998(void);
-int sub_8056208(void);
+unsigned char sub_8056208(void);
 bool8 IsDeckFull(void);
 s32 IsCostWithinCapacity(void);
 void sub_8022B7C(unsigned char);

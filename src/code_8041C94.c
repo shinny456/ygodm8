@@ -184,7 +184,7 @@ void sub_8041EC8 (void) {
   sub_80420C0();
   sub_8041FE4();
   sub_8042144();
-  sub_8042184();
+  sub_8042184(); // TryDisplayFacedownText/TryCopyToBuffer
 }
 
 void sub_8041F48 (void) {

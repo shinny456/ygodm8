@@ -1,5 +1,7 @@
     .section .rodata
 
+
+// cutscenes.c start
     .global gCreditsTileset
 gCreditsTileset:
     .incbin "baserom.gba", 0x5D2B0, 0x4AB0
@@ -74,8 +76,8 @@ gUnk_8063D20:
 gCreditsPalette:
     .incbin "baserom.gba", 0x63DA0, 0x200
 
-    .global gUnk_8063FA0
-gUnk_8063FA0:
+    .global g8063FA0
+g8063FA0:
     .incbin "baserom.gba", 0x63FA0, 0x20
 
     .global gUnk_8063FC0
@@ -85,6 +87,13 @@ gUnk_8063FC0:
     .global gUnk_8064038 @unk palette
 gUnk_8064038:
     .incbin "baserom.gba", 0x64038, 0x20
+
+// cutscenes.c end
+
+
+
+
+// worldmap.c start
 
     .global gWorldMapBgTileset
 gWorldMapBgTileset:
@@ -373,7 +382,13 @@ gUnk_80754C4:
     .global gUnk_80754EC
 gUnk_80754EC:
     .incbin "baserom.gba", 0x754EC, 0x28
+// worldmap.c end
 
+
+
+
+
+// start_menu.c start
     .global gStartMenuBgTiles
 gStartMenuBgTiles:
     .incbin "baserom.gba", 0x75514, 0x036F4
@@ -429,7 +444,12 @@ gUnk_807A95C:
     .global gUnk_807A9A4
 gUnk_807A9A4:
     .incbin "baserom.gba", 0x7A9A4, 0x48
+// start_menu.c end
 
+
+
+
+//naming_screen.c start
     .global gUnk_807A9EC
 gUnk_807A9EC:
     .incbin "baserom.gba", 0x7A9EC, 0x4904
@@ -741,7 +761,12 @@ gUnk_8084A5C:
     .global gUnk_8084AF8
 gUnk_8084AF8:
     .incbin "baserom.gba", 0x84AF8, 0x3790
+//naming_screen.c end
 
+
+
+
+// status_menu.c start
     .global gUnk_8088288
 gUnk_8088288:
     .incbin "baserom.gba", 0x88288, 0x4F0
@@ -833,19 +858,31 @@ gUnk_8088E62:
     .global gUnk_8088E6C
 gUnk_8088E6C:
     .incbin "baserom.gba", 0x88E6C, 0x68
+// status_menu.c end
+
+
+
+
+//code_8008030.c start
 
     .global sin_cos_table
 sin_cos_table:
-    .incbin "baserom.gba", 0x88ED4, 0x1C8
-
-    .global gUnk_808909C
-gUnk_808909C:
-    .incbin "baserom.gba", 0x8909C, 0xB8
+    .incbin "baserom.gba", 0x88ED4, 0x280
 
     .global gUnk_8089154
 gUnk_8089154:
     .incbin "baserom.gba", 0x89154, 0x38
 
+//code_8008030.c end
+
+
+
+
+
+
+
+
+//trunk?
     .global gUnk_808918C
 gUnk_808918C:
     .incbin "baserom.gba", 0x8918C, 0x26D4

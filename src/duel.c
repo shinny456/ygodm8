@@ -7,6 +7,24 @@
 #include "constants/card_ids.h"
 #include "gba/syscall.h"
 
+
+//card.c?
+static void sub_800B2B0 (void);
+static void sub_800BA04 (void);
+static void sub_800BC24 (void);
+static void sub_800BCC4 (void);
+static void sub_800BCEC (void);
+static unsigned char* sub_800BD14 (u16);
+
+
+
+
+void sub_800BCB0(void *);
+void PrintCard(void);
+extern u16 g08097C94[];
+extern u16 (*gUnk_8E0136C)[][14];
+extern u16 *gUnk_8E01368;
+extern u8 *gUnk_8E01364;
 extern u8 gUnk8094C37[];
 extern u8 gUnk8094CC3[];
 extern u8 gUnk8094FE4[NUM_FIELDS][NUM_CARD_TYPES];
@@ -32,13 +50,51 @@ extern u8 gShieldTile[];
 extern u8 gUnk_80AEB00[];
 extern u8 gUnk_80AEB30[];
 extern u16 gUnk_808E820[][30];
-
+extern u8 gUnk8DFB8A8[]; //french summon/cost tiles
+extern u8 gUnk8DFBAE8[]; //german type/summon/cost tiles
+extern u8 gUnk8DFBDE8[]; //italian and spanish type/summon/cost tiles (Type is spelled the same for both)
+void *GetCardAttributeString(u8 attribute);
+void *GetCardTypeString(u8 type);
+void CopyStringTilesToVRAMBuffer(void *, void *, u16);
+extern u8* g8DFC288[];
+extern u8* g8DFCF0C[];
+void sub_8020968(u8*, u16, u16);
+extern u16 gUnk8097D94[][31]; //248x160p (31x20t) tilemap
+extern u32 g0809553C[]; //tileset
+extern u16 g809508C[][30];
 extern u8 gUnk201CB38;
 extern s8 gUnk201CB39;
-
 static u16 GetFieldModifiedStat(u16 stat, u8 fieldMod);
 static u16 GetStageModifiedStat(u16 stat, s8 stageMod);
-u8 *sub_800BD14(u16);
+
+
+//functions that print the big cards during an attack in a duel?
+static void sub_800B200 (void) {
+  unsigned short i;
+  PrintCard();
+  for (i = 0; i < 19; i++)
+    CpuCopy32((*gUnk_8E0136C)[i], gBgVram.cbb0 + 0xF862 + i * 64, 28);
+  for (i = 64; i < 0x4000; i++)
+    gUnk_8E01364[i] |= 0x80;
+  CpuCopy16(gUnk_8E01368, g02000000.bg + 0x80, 256);
+  CpuCopy16(gUnk_8E01364, gBgVram.cbb1, 0x4000);
+}
+
+void sub_800B288 (unsigned char arg0) {
+  if (!arg0 || arg0 == 2)
+    sub_800B200();
+  if (arg0 == 1 || arg0 == 2)
+    sub_800B2B0();
+}
+
+static void sub_800B2B0 (void) {
+  unsigned char i;
+  PrintCard();
+  for (i = 0; i < 19; i++)
+    CpuCopy32((*gUnk_8E0136C)[i], gBgVram.cbb0 + 0xF040 + i * 64, 28);
+  CpuCopy16(gUnk_8E01368, g02000000.bg, 256);
+  CpuCopy16(gUnk_8E01364, gBgVram.cbb0, 0x4000);
+}
 
 void SetFinalStat(struct StatMod* ptr)
 {
@@ -52,7 +108,8 @@ void SetFinalStat(struct StatMod* ptr)
     }
 }
 
-void sub_800B384(void)
+//unused?
+static void sub_800B384(void)
 {
     gCardInfo.name = sub_800BD14(CARD_NONE);
     gCardInfo.unk4 = sub_800BD14(CARD_NONE);
@@ -94,7 +151,8 @@ void SetCardInfo(u16 id)
     gCardInfo.unk8 = gUnk8F985E0[id];
 }
 
-void sub_800B4AC(u16 id)
+//unused?
+static void sub_800B4AC(u16 id)
 {
     SetCardInfo(id);
     if (gCardInfo.spellEffect == 2)
@@ -106,7 +164,8 @@ void sub_800B4AC(u16 id)
     }
 }
 
-void sub_800B524(u8 val, s8 val2)
+//unused?
+static void sub_800B524(u8 val, s8 val2)
 {
     gUnk201CB38 = val;
     gUnk201CB39 = val2;
@@ -132,7 +191,6 @@ static u16 GetStageModifiedStat(u16 stat, s8 stage)
     return stat;
 }
 
-
 static u16 GetFieldModifiedStat(u16 stat, u8 fieldMod)
 {
     switch (fieldMod)
@@ -152,31 +210,6 @@ static u16 GetFieldModifiedStat(u16 stat, u8 fieldMod)
     }
     return stat;
 }
-
-extern u8 gUnk8DFB8A8[]; //french summon/cost tiles
-extern u8 gUnk8DFBAE8[]; //german type/summon/cost tiles
-extern u8 gUnk8DFBDE8[]; //italian and spanish type/summon/cost tiles (Type is spelled the same for both)
-
-
-extern u16 gUnk8097D94[][31]; //248x160p (31x20t) tilemap
-extern u32 g0809553C[]; //tileset
-
-extern u16 g809508C[][30];
-
-
-
-void sub_800BA04(void);
-void sub_800BC24(void);
-void sub_800BCEC(void);
-void sub_800BCC4(void);
-void sub_800BCB0(void *);
-void PrintCard(void);
-
-
-extern u16 g08097C94[];
-extern u16 (*gUnk_8E0136C)[][14];
-extern u16 *gUnk_8E01368;
-extern u16 **gUnk_8E01364;
 
 void sub_800B618(void *r6) //card details screen gfx
 {
@@ -244,8 +277,9 @@ void sub_800B618(void *r6) //card details screen gfx
     CpuCopy16(gUnk_8E01364, gBgVram.cbb0, 0x4000);
 }
 
+//unused?
 NAKED
-void sub_800B884(void)
+static void sub_800B884(void)
 {
     asm_unified("\n\
     push {r4, r5, r6, r7, lr}\n\
@@ -431,7 +465,7 @@ _0800BA00: .4byte 0x00004081");
 }
 
 NAKED
-void sub_800BA04(void)
+static void sub_800BA04(void)
 {
     asm_unified("\n\
     push {r4, r5, r6, r7, lr}\n\
@@ -729,7 +763,7 @@ _0800BC20: .4byte 0x02004420");
 }
 
 /*
-void sub_800BA04(void)
+static void sub_800BA04(void)
 {
     u8 *name, *r3;
     u8 r2, r5, ip, sl, r7;
@@ -783,9 +817,8 @@ void sub_800BA04(void)
     if (ip >= 0)
 }*/
 
-void sub_8020968(u8*, u16, u16);
 /*
-void sub_800BC24(void)
+static void sub_800BC24(void)
 {
     u8 i;
     u8* vram;
@@ -812,7 +845,7 @@ void sub_800BC24(void)
 }*/
 
 NAKED
-void sub_800BC24(void)
+static void sub_800BC24(void)
 {
     asm_unified("\n\
     push {r4, r5, lr}\n\
@@ -889,32 +922,34 @@ void sub_800BCB0(void *src)  //print card description
     CpuFastSet(src, &gBgVram.cbb1[148*32], 140*32/4);
 }
 
-void *GetCardAttributeString(u8 attribute);
-void *GetCardTypeString(u8 type);
-void CopyStringTilesToVRAMBuffer(void *, void *, u16);
-extern u8* g8DFC288[];
-extern u8* g8DFCF0C[];
-
-void sub_800BCC4(void)   //print summon (attribute) name
+static void sub_800BCC4(void)   //print summon (attribute) name
 {
     CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[96*32], GetCardAttributeString(gCardInfo.attribute), 0x901);
 }
 
-void sub_800BCEC(void)  //print type name
+static void sub_800BCEC(void)  //print type name
 {
     CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[68*32], GetCardTypeString(gCardInfo.type), 0x901);
 }
 
-u8 *sub_800BD14(u16 cardId)
+static u8 *sub_800BD14(u16 cardId)
 {
     return g8DFC288[cardId];
 }
 
-u8* sub_800BD24(u16 cardId)
+//unused? Japanese card names?
+static u8* sub_800BD24(u16 cardId)
 {
     return g8DFCF0C[cardId];
 }
 
+
+
+
+
+
+
+//********split?*************
 void sub_800BD44(void);
 void sub_800BDA0(void);
 
@@ -951,23 +986,92 @@ void sub_800BDA0(void)
 }
 
 
+
+
+
+
+
+// split? duel_trunk_menu.c
+
+static void sub_800BF28 (void);
+static unsigned sub_800BF54 (void);
+static void sub_800C0D8 (void);
+static void sub_800C1BC (void);
+static void sub_800C208 (void);
+static void sub_800C264 (void);
+static unsigned char sub_800C2C0 (void);
+static void sub_800C32C (void);
+static void sub_800C378 (void);
+static void sub_800C3C4 (void);
+static void sub_800C430 (void);
+static void sub_800C494 (void);
+static void sub_800C4F8 (void);
+static void sub_800C530 (void);
+static unsigned sub_800C558 (void);
+static void sub_800C608 (void);
+static void sub_800C7A0 (void);
+static void sub_800C7FC (void);
+
+extern u32 gUnk_808918C[];
+extern u8 gUnk_808C1C0[];
+extern u8 g8DFA6B4[];
+extern u8 g8DFAB54[];
+extern u8 g8DFAFF4[];
+extern u16 gUnk_808B860[][30];
+extern u8 g80AE544[];
+extern u8 g8DFF4AC[];
+extern u8 g8DFF4AE[];
+void LoadPalettes(void);
+void LoadCharblock1(void);
+extern u16 gUnk_808D050[][30];
+extern u8 g80AE02C[];
+extern u8 g80AE1A8[];
+extern u8 g80AE370[];
+u16 sub_800901C(u8);
+void sub_800ABA8(void);
 void sub_8035038(u16);
 void MosaicEffect(void);
 void InitTrunkData(void);
 void InitDeckData(void);
 void sub_80090B8(void);
-void sub_800BF28(void);
 s32 sub_8008644(void);
 void sub_8008F88(u8);
 void sub_800D904();
 void sub_800ABB4(void);
 void sub_800AA58(u8);
-bool32 sub_800BF54(void);
-bool32 sub_800C558(void);
+
 void sub_800DAA4(void);
 void sub_800ABE4(void);
 void sub_0800ABE0(void);
 void sub_8035020(u16);
+struct UnkStruct_2020E10
+{
+    s16 unk0; //current card position in trunk?
+    u8 unk2;
+    u8 unk3;            //show: nothing, atk/def, attribute(summon), cost,
+    u8 unk4;            //cursor
+    u8 filler5[7];
+    u16 unkC[TRUNK_SIZE - 1]; //trunk_layout?
+};
+
+extern struct UnkStruct_2020E10 gUnkStruct_2020E10;
+extern u8 g8DFF498[];
+extern u8 g8DFF49B[];
+extern u8 g8DFF4A4[];
+extern u8 g8DFF4A6[];
+int GetTrunkCardQty(u16);
+int IsGoodAnte(u16);
+void sub_80081DC(void (*)(void));
+void sub_8008220(void);
+s32 sub_80086D8(void);
+void sub_8008A48(void);
+extern u16 gUnk_808CBA0[][30];
+extern u8 g8DF811C[];
+extern u8 g80ADEFC[];
+u16 sub_08007FEC(u8, u8, u16);
+void sub_800800C(u8, u8, u16, u16);
+void LoadOam(void);
+
 
 void sub_800BE0C(void) //TrunkMenu before dueling ingame
 {
@@ -1046,55 +1150,21 @@ void sub_800BE0C(void) //TrunkMenu before dueling ingame
     sub_8035020(2);
 }
 
-void sub_800BF1C(void)
-{
-    gAnte = CARD_NONE;
+//unused?
+static void sub_800BF1C (void) {
+  gAnte = CARD_NONE;
 }
 
-void sub_800ABA8(void);
-
-void sub_800BF28(void)
-{
-    gAnte = CARD_NONE;
-    sub_800D904();
-    sub_800D904(2);
-    sub_800AA58(1);
-    sub_800ABA8();
-    sub_800AA58(3);
+static void sub_800BF28 (void) {
+  gAnte = CARD_NONE;
+  sub_800D904();
+  sub_800D904(2);
+  sub_800AA58(1);
+  sub_800ABA8();
+  sub_800AA58(3);
 }
 
-struct UnkStruct_2020E10
-{
-    s16 unk0; //current card position in trunk?
-    u8 unk2;
-    u8 unk3;            //show: nothing, atk/def, attribute(summon), cost,
-    u8 unk4;            //cursor
-    u8 filler5[7];
-    u16 unkC[TRUNK_SIZE - 1]; //trunk_layout?
-};
-
-extern struct UnkStruct_2020E10 gUnkStruct_2020E10;
-extern u8 g8DFF498[];
-extern u8 g8DFF49B[];
-extern u8 g8DFF4A4[];
-extern u8 g8DFF4A6[];
-
-
-void sub_800C0D8(void);
-void sub_800C208(void);
-void sub_80081DC(void (*)(void));
-void sub_8008220(void);
-s32 sub_80086D8(void);
-void sub_800C1BC(void);
-bool8 sub_800C2C0(void);
-void sub_8008A48(void);
-void sub_800C3C4(void);
-void sub_800C264(void);
-
-void LoadOam(void);
-void sub_800C4F8(void);
-
-bool32 sub_800BF54(void)   //handle trunk input?
+static unsigned sub_800BF54 (void)   //handle trunk input?
 {
     u8 r6;
     u8 r5 = 1;
@@ -1156,7 +1226,7 @@ bool32 sub_800BF54(void)   //handle trunk input?
     return r5;
 }
 
-bool8 sub_800C020(void)   //handle trunk input?
+static unsigned char sub_800C020 (void)   //handle trunk input?
 {
     bool8 r6;
     bool8 r5 = 1;
@@ -1214,13 +1284,7 @@ bool8 sub_800C020(void)   //handle trunk input?
     return r5;
 }
 
-extern u16 gUnk_808CBA0[][30];
-extern u8 g8DF811C[];
-extern u8 g80ADEFC[];
-u16 sub_08007FEC(u8, u8, u16);
-void sub_800800C(u8, u8, u16, u16);
-
-void sub_800C0D8(void)
+static void sub_800C0D8(void)
 {
     u8 i;
     u16 r7;
@@ -1241,9 +1305,7 @@ void sub_800C0D8(void)
     CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[32]/*fix*/, g80ADEFC, 0x900);
 }
 
-u16 sub_800901C(u8);
-
-void sub_800C1BC(void)
+static void sub_800C1BC (void)
 {
     SetCardInfo(sub_800901C(2));
     PlayMusic(55);
@@ -1259,7 +1321,7 @@ void sub_800C1BC(void)
 }
 
 NAKED
-void sub_800C208(void)
+static void sub_800C208 (void)
 {
     asm_unified("\n\
     push {r4, r5, lr}\n\
@@ -1306,7 +1368,7 @@ _0800C260: .4byte 0x40000800");
 }
 
 NAKED
-void sub_800C264(void)
+static void sub_800C264 (void)
 {
     asm_unified("\n\
     push {r4, r5, lr}\n\
@@ -1352,12 +1414,7 @@ _0800C2B8: .4byte 0x0000C120\n\
 _0800C2BC: .4byte 0x40000800");
 }
 
-int GetTrunkCardQty(u16);
-int IsGoodAnte(u16);
-void sub_800C378(void);
-void sub_800C32C(void);
-
-bool8 sub_800C2C0(void)
+static unsigned char sub_800C2C0 (void)
 {
     bool32 r6 = 1;
     u16 r4 = sub_800901C(2);
@@ -1391,14 +1448,8 @@ bool8 sub_800C2C0(void)
     return r6;
 }
 
-void sub_800C430(void);
-void sub_800C494(void);
-void sub_800C530(void);
-
-
-void sub_800C32C(void)
+static void sub_800C32C (void)
 {
-
     gUnkStruct_2020E10.unk4 = 0;
     sub_800C430();
     PlayMusic(57);
@@ -1407,7 +1458,7 @@ void sub_800C32C(void)
     sub_8008220();
     {
         s32 v, r;
-        while ((r=sub_80086D8()<<16), //fakematch
+        while ((r=sub_80086D8()<<16), //TODO: fakematch
                v=0x30000,
                !(v &= r))
             sub_8008220();
@@ -1416,7 +1467,7 @@ void sub_800C32C(void)
     PlayMusic(56);
 }
 
-void sub_800C378(void)
+static void sub_800C378(void)
 {
 
     gUnkStruct_2020E10.unk4 = 0;
@@ -1436,12 +1487,7 @@ void sub_800C378(void)
     PlayMusic(56);
 }
 
-extern u16 gUnk_808D050[][30];
-extern u8 g80AE02C[];
-extern u8 g80AE1A8[];
-extern u8 g80AE370[];
-
-void sub_800C3C4(void)
+static void sub_800C3C4(void)
 {
     u8 i;
 
@@ -1452,7 +1498,7 @@ void sub_800C3C4(void)
     CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[32]/*fix*/, g80AE02C, 0x900);
 }
 
-void sub_800C430(void)
+static void sub_800C430(void)
 {
     u32 i;
 
@@ -1463,7 +1509,7 @@ void sub_800C430(void)
     CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[32]/*fix*/, g80AE1A8, 0x900);
 }
 
-void sub_800C494(void)
+static void sub_800C494(void)
 {
     u32 i;
 
@@ -1474,10 +1520,7 @@ void sub_800C494(void)
     CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[32]/*fix*/, g80AE370, 0x900);
 }
 
-void LoadPalettes(void);
-void LoadCharblock1(void);
-
-void sub_800C4F8(void)
+static void sub_800C4F8(void)
 {
     LoadPalettes();
     LoadOam();
@@ -1489,7 +1532,7 @@ void sub_800C4F8(void)
 }
 
 NAKED
-void sub_800C530(void)
+static void sub_800C530(void)
 {
     asm_unified("\n\
     ldr r1, _0800C548\n\
@@ -1510,13 +1553,7 @@ _0800C550: .4byte 0x0000C120\n\
 _0800C554: .4byte 0x40F008A0");
 }
 
-extern u8 g8DFF4AC[];
-extern u8 g8DFF4AE[];
-void sub_800C608(void);
-void sub_800C7A0(void);
-void sub_800C7FC(void);
-
-bool32 sub_800C558(void)
+static unsigned sub_800C558 (void)
 {
     bool8 r5, r6;
 
@@ -1572,9 +1609,7 @@ bool32 sub_800C558(void)
     return r5;
 }
 
-extern u8 g80AE544[];
-
-void sub_800C608(void)
+static void sub_800C608 (void)
 {
     u8 i;
     u16 sb, r7;
@@ -1613,7 +1648,7 @@ void sub_800C608(void)
 }
 
 NAKED
-void sub_800C7A0(void)
+static void sub_800C7A0 (void)
 {
     asm_unified("\n\
     push {r4, r5, lr}\n\
@@ -1659,7 +1694,7 @@ _0800C7F4: .4byte 0x0000C120\n\
 _0800C7F8: .4byte 0x40000800");
 }
 
-void sub_800C7FC(void)
+static void sub_800C7FC (void)
 {
     LoadPalettes();
     LoadOam();
@@ -1670,14 +1705,7 @@ void sub_800C7FC(void)
     REG_BLDCNT |= 8; //todo
 }
 
-extern u32 gUnk_808918C[];
-extern u8 gUnk_808C1C0[];
-extern u8 g8DFA6B4[];
-extern u8 g8DFAB54[];
-extern u8 g8DFAFF4[];
-extern u16 gUnk_808B860[][30];
-
-void sub_800C834(void)
+void sub_800C834 (void)
 {
     u8 i;
 

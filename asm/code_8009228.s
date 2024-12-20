@@ -2542,8 +2542,6 @@ _0800ACE2:
 
 @SaveGame split?
 
-
-
 	THUMB_FUNC_START sub_800B0AC
 sub_800B0AC: @ 0x0800B0AC
 	push {lr}
@@ -2727,136 +2725,8 @@ sub_800B1E4: @ 0x0800B1E4
 	bx r1
 	.byte 0x00, 0x00
 
-	THUMB_FUNC_START sub_800B200
-sub_800B200: @ 0x0800B200
-	push {r4, r5, r6, r7, lr}
-	bl PrintCard
-	movs r4, #0
-	ldr r5, _0800B268
-_0800B20A:
-	lsls r1, r4, #3
-	subs r1, r1, r4
-	lsls r1, r1, #2
-	ldr r0, [r5]
-	adds r0, r0, r1
-	lsls r1, r4, #6
-	ldr r2, _0800B26C
-	adds r1, r1, r2
-	ldr r2, _0800B270
-	bl CpuSet
-	adds r0, r4, #1
-	lsls r0, r0, #0x10
-	lsrs r4, r0, #0x10
-	cmp r4, #0x12
-	bls _0800B20A
-	movs r4, #0x40
-	ldr r6, _0800B274
-	ldr r7, _0800B278
-	ldr r5, _0800B27C
-	movs r3, #0x80
-	ldr r2, _0800B280
-_0800B236:
-	ldr r0, [r5]
-	adds r0, r0, r4
-	ldrb r1, [r0]
-	orrs r1, r3
-	strb r1, [r0]
-	adds r0, r4, #1
-	lsls r0, r0, #0x10
-	lsrs r4, r0, #0x10
-	cmp r4, r2
-	bls _0800B236
-	ldr r0, [r6]
-	adds r1, r7, #0
-	movs r2, #0x80
-	bl CpuSet
-	ldr r0, _0800B27C
-	ldr r0, [r0]
-	ldr r1, _0800B284
-	movs r2, #0x80
-	lsls r2, r2, #6
-	bl CpuSet
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800B268: .4byte gUnk_8E0136C
-_0800B26C: .4byte 0x0200FC62
-_0800B270: .4byte 0x04000007
-_0800B274: .4byte gUnk_8E01368
-_0800B278: .4byte 0x02000100
-_0800B27C: .4byte gUnk_8E01364
-_0800B280: .4byte 0x00003FFF
-_0800B284: .4byte 0x02004400
 
-	THUMB_FUNC_START sub_800B288
-sub_800B288: @ 0x0800B288
-	push {r4, lr}
-	lsls r0, r0, #0x18
-	lsrs r4, r0, #0x18
-	cmp r4, #0
-	beq _0800B296
-	cmp r4, #2
-	bne _0800B29A
-_0800B296:
-	bl sub_800B200
-_0800B29A:
-	subs r0, r4, #1
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	cmp r0, #1
-	bhi _0800B2A8
-	bl sub_800B2B0
-_0800B2A8:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.byte 0x00, 0x00
 
-	THUMB_FUNC_START sub_800B2B0
-sub_800B2B0: @ 0x0800B2B0
-	push {r4, r5, r6, lr}
-	bl PrintCard
-	movs r4, #0
-	ldr r6, _0800B2FC
-_0800B2BA:
-	lsls r1, r4, #3
-	subs r1, r1, r4
-	lsls r1, r1, #2
-	ldr r0, [r6]
-	adds r0, r0, r1
-	lsls r1, r4, #6
-	ldr r5, _0800B300
-	adds r1, r1, r5
-	ldr r2, _0800B304
-	bl CpuSet
-	adds r0, r4, #1
-	lsls r0, r0, #0x18
-	lsrs r4, r0, #0x18
-	cmp r4, #0x12
-	bls _0800B2BA
-	ldr r0, _0800B308
-	ldr r0, [r0]
-	ldr r1, _0800B30C
-	movs r2, #0x80
-	bl CpuSet
-	ldr r0, _0800B310
-	ldr r0, [r0]
-	ldr r2, _0800B314
-	adds r1, r5, r2
-	movs r2, #0x80
-	lsls r2, r2, #6
-	bl CpuSet
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800B2FC: .4byte gUnk_8E0136C
-_0800B300: .4byte 0x0200F440
-_0800B304: .4byte 0x04000007
-_0800B308: .4byte gUnk_8E01368
-_0800B30C: .4byte 0x02000000
-_0800B310: .4byte gUnk_8E01364
-_0800B314: .4byte 0xFFFF0FC0
+	
 
 .align 2, 0

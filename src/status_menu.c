@@ -5,7 +5,7 @@
 #include "gba/macro.h"
 
 extern u16 gUnk_8088778[][30];
-extern u8 gUnk_8DF811C[];
+extern u8 g8DF811C[];
 /*
 void StatusMenu (void) {
   u8 i;
@@ -27,8 +27,8 @@ void StatusMenu (void) {
   }
   for (i = 0; i < 8; i++) {
     u8 temp = i + 3;
-    //sb = gUnk_8DF811C
-    u16 temp2 = r6 | gUnk_8DF811C[i] + 0x5C;
+    //sb = g8DF811C
+    u16 temp2 = r6 | g8DF811C[i] + 0x5C;
     void *ptr;
     u16 temp3 =  temp + 0x60;
     ptr = &((u8*)&gBgVram)[(0x7C00 + temp3) * 2];

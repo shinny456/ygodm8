@@ -1923,6 +1923,13 @@ sub_800DD1C: @ 0x0800DD1C
 	bx r0
 	.align 2, 0
 _0800DD48: .4byte 0x04000050
+// end of duel_trunk_menu?
+
+
+
+
+
+
 
 	THUMB_FUNC_START sub_800DD4C
 sub_800DD4C: @ 0x0800DD4C

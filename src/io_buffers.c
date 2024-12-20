@@ -5,6 +5,8 @@
 #include "gba/defines.h"
 #include "duel.h"
 
+//rename to gfx buffers or something similar?
+
 extern u16 gBG0HOFS;
 extern u16 gBG0VOFS;
 extern u16 gBG1HOFS;
@@ -117,6 +119,7 @@ void sub_8045718 (void) {
   REG_DISPCNT = 0;
 }
 
+//unused?
 void sub_8045728 (void) {
   CpuFastCopy(&gOamBuffer[0x290], (void*)(OAM + 0x290), 0x168);
 }

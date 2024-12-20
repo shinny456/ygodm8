@@ -5,6 +5,33 @@
 #include "duel.h"
 #include "gba/io_reg.h"
 
+
+static void sub_800876C (void);
+static void sub_8008780 (void);
+static void sub_8008794 (void);
+static void sub_80087A8 (void);
+static void sub_80087BC (void);
+static void sub_80087D0 (void);
+static void sub_80087E4 (void);
+static void sub_8008804 (void);
+static void sub_8008818 (void);
+static void sub_800882C (void);
+static void sub_8008854 (void);
+static void sub_80088F0 (void);
+static void sub_8008924 (void);
+static void sub_8008958 (void);
+static void sub_80089B4 (void);
+static void sub_80089D0 (void);
+static void sub_80089EC (void);
+void sub_8008A48 (void);
+static void sub_8008A5C (void);
+
+
+void sub_80090B8 (void);
+void sub_800ABB4 (void);
+
+
+
 struct UnkStruct_2020E10
 {
     s16 unk0; //current card position in trunk?
@@ -89,18 +116,12 @@ void sub_800ABD0 (void);
 void sub_800B538 (u16* id);
 void sub_800ABA8 (void);
 void sub_8009364 (void);
-void sub_80089EC (void);
+
 void sub_80081DC (void (*)(void));
 void LoadCharblock1 (void);
-void sub_8008A5C (void);
+
 int  sub_80086D8 (void);
-void sub_80088F0 (void);
-void sub_8008924 (void);
-void sub_8008958 (void);
-void sub_80089B4 (void);
-void sub_80089D0 (void);
-void sub_8008A48 (void);
-void sub_80090B8 (void);
+
 void sub_801DA7C (u8);
 
 
@@ -110,24 +131,17 @@ extern u16 gUnk2021DCC;
 
 void sub_802612C (void);
 u16 sub_8008644 (void);
-void sub_800882C (void);
-void sub_800876C (void);
-void sub_800ABB4 (void);
-void sub_8008780 (void);
-void sub_8008794 (void);
-void sub_80087A8 (void);
-void sub_80087BC (void);
-void sub_80087D0 (void);
-void sub_8008804 (void);
-void sub_8008854 (void);
-void sub_80087E4 (void);
+
+
+
+
 void sub_0800ABA4 (void);
 void SortingMenuMain (void);
-void sub_8008818 (void);
+
 void sub_800ABE4 (void);
 void sub_0800ABE0 (void);
 
-
+//TODO: rename to TrunkMenuMain?
 void TrunkMenu (void) {
   bool32 r4 = TRUE;
   sub_800882C();
@@ -244,54 +258,54 @@ int sub_80086D8 (void) {
   return ret;
 }
 
-void sub_800876C (void) {
+static void sub_800876C (void) {
   sub_8008F88(3);
   sub_800A3D8(3);
 }
 
-void sub_8008780 (void) {
+static void sub_8008780 (void) {
   sub_8008F88(5);
   sub_800A3D8(3);
 }
 
-void sub_8008794 (void) {
+static void sub_8008794 (void) {
   sub_8008F88(2);
   sub_800A3D8(3);
 }
 
-void sub_80087A8 (void) {
+static void sub_80087A8 (void) {
   sub_8008F88(4);
   sub_800A3D8(3);
 }
 
-void sub_80087BC (void) {
+static void sub_80087BC (void) {
   sub_8008F88(7);
   sub_800A3D8(3);
 }
 
-void sub_80087D0 (void) {
+static void sub_80087D0 (void) {
   sub_8008F88(8);
   sub_800A3D8(3);
 }
 
-void sub_80087E4 (void) {
+static void sub_80087E4 (void) {
   sub_8008F88(9);
   sub_800A3D8(1);
   sub_801DA7C(8);
   PlayMusic(0x38);
 }
 
-void sub_8008804 (void) {
+static void sub_8008804 (void) {
   sub_8008F88(6);
   sub_800A3D8(4);
 }
 
-void sub_8008818 (void) {
+static void sub_8008818 (void) {
   sub_8008F88(10);
   sub_800A3D8(7);
 }
 
-void sub_800882C (void) {
+static void sub_800882C (void) {
   sub_80090B8();
   sub_800A3D8(0);
   sub_800A3D8(2);
@@ -300,7 +314,7 @@ void sub_800882C (void) {
   sub_800AA58(3);
 }
 
-void sub_8008854 (void) {
+static void sub_8008854 (void) {
   bool32 r4;
   gUnkStruct_2020E10.cursorState = 0; //todo: cursor state enum
   sub_8009364();
@@ -343,7 +357,7 @@ void sub_8008854 (void) {
   sub_8008A48();
 }
 
-void sub_80088F0 (void) { //pressing up
+static void sub_80088F0 (void) { //pressing up
   gUnkStruct_2020E10.cursorState = gUnk_8DF813C[gUnkStruct_2020E10.cursorState];
   sub_80089EC();
   PlayMusic(0x36);
@@ -351,7 +365,7 @@ void sub_80088F0 (void) { //pressing up
   sub_8008220();
 }
 
-void sub_8008924 (void) { //pressing down
+static void sub_8008924 (void) { //pressing down
   gUnkStruct_2020E10.cursorState = gUnk_8DF813F[gUnkStruct_2020E10.cursorState];
   sub_80089EC();
   PlayMusic(0x36);
@@ -359,7 +373,7 @@ void sub_8008924 (void) { //pressing down
   sub_8008220();
 }
 
-void sub_8008958 (void) { //trunk menu card details
+static void sub_8008958 (void) { //trunk menu card details
   gStatMod.card = sub_800901C(2);
   gStatMod.field = 0;
   gStatMod.stage = 0;
@@ -377,21 +391,21 @@ void sub_8008958 (void) { //trunk menu card details
   LoadCharblock1();
 }
 
-void sub_80089B4 (void) {
+static void sub_80089B4 (void) {
   sub_8008F88(7);
   sub_800A3D8(3);
   sub_800ABD0();
   sub_800AA58(6);
 }
 
-void sub_80089D0 (void) {
+static void sub_80089D0 (void) {
   sub_8008F88(8);
   sub_800A3D8(3);
   sub_800ABD0();
   sub_800AA58(6);
 }
 
-void sub_80089EC (void) { //SetCursorOam
+static void sub_80089EC (void) { //SetCursorOam
   u32 *oam = (u32*)&gOamBuffer[6 * 4]; //todo
   oam[0] = gUnk_8DF8142[gUnkStruct_2020E10.cursorState] |
            gUnk_8DF8145[gUnkStruct_2020E10.cursorState] << 16 |
@@ -411,7 +425,7 @@ void sub_8008A48 (void) {
   oam[3] = 0;
 }
 
-void sub_8008A5C (void) {
+static void sub_8008A5C (void) {
   LoadPalettes();
   LoadOam();
   REG_DISPCNT = DISPCNT_BG_ALL_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON | DISPCNT_OBJWIN_ON;

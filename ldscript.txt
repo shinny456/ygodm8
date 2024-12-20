@@ -197,9 +197,13 @@ SECTIONS
         src/trunk.o(.text);
         asm/code_8009228.o(.text);
         src/code_800AC64.o(.text);
+
         asm/code_8009228.o(.text2);
-        src/duel.o(.text);
-        asm/code1.o(.text);
+
+        src/duel.o(.text); /*first part of this is part of card.c?*/
+                           /*second part is duel_trunk_menu?*/
+        asm/code1.o(.text);/*first part is duel_trunk_menu?*/
+
         src/code2.o(.text);
 
         src/deck_menu.o(.text);
@@ -233,14 +237,15 @@ SECTIONS
         asm/code3.o(.text3);
         src/code_802AEF4.o(.text);
         src/card_shop.o(.text);
-        
+
         src/code_8030B14.o(.text);
         asm/code3.o(.text4);
 
+        src/title_screen.o(.text);
         src/trade_menu.o(.text);
         asm/code3.o(.text5);
-        /* src/clear_gfx_ram_buffers */
-        
+        src/code_803ED78.o(.text); /*clear_gfx_ram_buffers.o */
+
         src/FINAL_effect.o(.text);
         src/code_803F02C.o(.text);
         src/code_8040C6C.o(.text);
@@ -248,10 +253,10 @@ SECTIONS
         src/code_80421CC.o(.text);
         src/code_8042F44.o(.text);
         src/code_8043EF4.o(.text);
-        
+
         src/code_8044E50.o(.text);
         asm/code_803F02C.o(.text);
-        
+
         src/code_80452A8.o(.text);
         src/tribute.o(.text);
         src/io_buffers.o(.text);
@@ -339,7 +344,6 @@ SECTIONS
     g8DFF4A4 = 0x8DFF4A4;
     g8DFF4A6 = 0x8DFF4A6;
     g80ADEFC = 0x80ADEFC;
-    g8DF811C = 0x8DF811C; /*gUnk_8DF811C*/
     g80AE02C = 0x80AE02C;
     g80AE1A8 = 0x80AE1A8;
     g80AE370 = 0x80AE370;
@@ -404,7 +408,7 @@ SECTIONS
     g8106D48 = 0x8106D48;
     g8106DAD = 0x8106DAD;
     g82AD2D0 = 0x82AD2D0;
-    
+
     g8E1165C = 0x8E1165C;
     g8E11664 = 0x8E11664;
     g8E1167C = 0x8E1167C;
@@ -472,7 +476,6 @@ SECTIONS
     gE00538 = 0x8E00538;
     gE0053F = 0x8E0053F;
     gE00546 = 0x8E00546;
-    gE00510 = 0x8E00510;
     gAED58 = 0x80AED58;
     gB0AE8 = 0x80B0AE8;
     gB0B18 = 0x80B0B18;
@@ -725,7 +728,6 @@ SECTIONS
     g80CDE96 = 0x80CDE96;
     g80CDE8A = 0x80CDE8A;
     g80CD830 = 0x80CD830;
-    g8063FA0 = 0x8063FA0;
     gFieldTilePtrs = 0x8E0D0F8;
     g8E0D130 = 0x8E0D130;
     gFieldTileMapPtrs = 0x8E0D114;
@@ -759,7 +761,6 @@ SECTIONS
     g80BE630 = 0x80BE630;
     g80BE631 = 0x80BE631;
     g80BE632 = 0x80BE632;
-    g8DF8030 = 0x8DF8030;
     g8A31F24 = 0x8A31F24;
     g80DD9DC = 0x80DD9DC;
     g8E116BC = 0x8E116BC;
@@ -784,6 +785,19 @@ SECTIONS
     g89A8CDE = 0x89A8CDE;
     g89A8A1E = 0x89A8A1E;
     g89A7BDE = 0x89A7BDE;
+    g8E0CD9C = 0x8E0CD9C;
+    g80DD498 = 0x80DD498;
+    g8E0CDA4 = 0x8E0CDA4;
+    g8E0CDA4 = 0x8E0CDA4;
+    g8E0CDA4 = 0x8E0CDA4;
+    g8E0CDA4 = 0x8E0CDA4;
+    g8E0CDA4 = 0x8E0CDA4;
+    g8E0CDA0 = 0x8E0CDA0;
+    g8E0CDB0 = 0x8E0CDB0;
+    g8E0CDB4 = 0x8E0CDB4;
+    g8E0CD80 = 0x8E0CD80;
+    g8E0CDA8 = 0x8E0CDA8;
+    g8E0CDAC = 0x8E0CDAC;
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :

@@ -2142,7 +2142,7 @@ void sub_805763C (unsigned char* arg0, signed char arg1) {
     CpuCopy16(g89A8CDE, arg0, 64); //minus sign tile
     arg0 += 0x40;
   }
-  absoluteVal = absoluteVal < 0 ? -absoluteVal : absoluteVal;
+  absoluteVal = absoluteVal < 0 ? -absoluteVal : absoluteVal; //TODO: use stdlib abs?
   if (absoluteVal <= 0)
     return;
   if (absoluteVal > 9)

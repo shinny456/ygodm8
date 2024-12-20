@@ -1,6 +1,8 @@
 #include "global.h"
 #include "duel.h"
 
+//TODO: rename file to game_menu.c?
+
 struct GameMenuData {
   unsigned char action;
   unsigned char cursorState;
@@ -67,7 +69,7 @@ struct Unk8FC488C {
   u8 unk1;
   struct OamStuff *unk4;
 };
-int sub_8056208 (void);
+unsigned char sub_8056208 (void);
 void LinkDuelMenu (void);
 void TradeMenu (void);
 extern u8 g80C1CF8[];
@@ -87,7 +89,7 @@ extern u8 g80C1D6E[];
 extern u8 g80C1D71[];
 extern struct Unk8FC488C *g8FC488C[];
 
-void GameMenu (void) {
+void GameMenuMain (void) {
   PlayMusic(0x2F);
   InitActionAndCursor(&sGameMenuData);
   InitTextAnimationData(&sGameMenuData);

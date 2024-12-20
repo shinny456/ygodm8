@@ -33,10 +33,19 @@ g8DF7590:
 g8DF7594:
     .4byte gSharedMem
 
+
+
+
+// ?????????????
     .global gUnk_8DF7598
 gUnk_8DF7598:
     .incbin "baserom.gba", 0xDF7598, 0x160
 
+
+
+
+
+// world_map.c begin
     .global gUnk_8DF76F8
 gUnk_8DF76F8:
     .4byte gUnk_80741F8
@@ -121,7 +130,15 @@ gUnk_8DF7A18:
 
     .global gUnk_8DF7A28
 gUnk_8DF7A28:
-    .incbin "baserom.gba", 0xDF7A28, 0x5AC
+    .4byte gSharedMem
+    
+    
+// world_map.c end
+
+
+
+// naming_screen.c begin
+.incbin "baserom.gba", 0xDF7A2C, 0x5A8
 
     .global gUnk_8DF7FD4
 gUnk_8DF7FD4:
@@ -149,8 +166,8 @@ gUnk_8DF7FD4:
     .4byte gUnk_8081F00
     .4byte 0
 
-    .global gUnk_8DF8030
-gUnk_8DF8030:
+    .global g8DF8030
+g8DF8030:
     .4byte gUnk_8084AF8
     .4byte gUnk_8084A5C
     .4byte gUnk_80849C0
@@ -212,12 +229,26 @@ gUnk_8DF8030:
     .global gUnk_8DF8114
 gUnk_8DF8114:
     .4byte gSharedMem
+
+// naming_screen.c end
+    
+    //unused?
+    .global g8DF8118
+g8DF8118:
     .4byte gSharedMem
 
-    .global gUnk_8DF811C
-gUnk_8DF811C:
+
+
+// defined in code_8008030.c or status_menu.c but used in other places as well?
+    .global g8DF811C
+g8DF811C:
     .incbin "baserom.gba", 0xDF811C, 0x20
 
+
+
+
+
+//trunk?
     .global gUnk_8DF813C
 gUnk_8DF813C:
     .incbin "baserom.gba", 0xDF813C, 0x3
@@ -230,9 +261,19 @@ gUnk_8DF813F:
 gUnk_8DF8142:
     .incbin "baserom.gba", 0xDF8142, 0x3
 
+//trunk end?
+
+
     .global gUnk_8DF8145
 gUnk_8DF8145:
-    .incbin "baserom.gba", 0xDF8145, 0x2203
+    .incbin "baserom.gba", 0xDF8145, 3
+    
+    .global gUnk_8DF8148
+gUnk_8DF8148:
+    .incbin "baserom.gba", 0xDF8148, 0x2200
+
+
+// card.c?
 
     .global gTypeIconPalettes
 gTypeIconPalettes:
@@ -261,7 +302,10 @@ gUnk_DFA6B2:
     .global g8DFC288 /*card name ptrs*/
 g8DFC288:
     .incbin "baserom.gba", 0xDFC288, 0x3210
+//end of card.c?
 
+
+//start of duel_trunk_menu?
     .global g8DFF498
 g8DFF498:
     .incbin "baserom.gba", 0xDFF498, 0x3
@@ -269,7 +313,12 @@ g8DFF498:
     .global g8DFF49B
 g8DFF49B:
     .incbin "baserom.gba", 0xDFF49B, 0xC1
+//end of duel_trunk_menu?
 
+
+
+
+// start of code2.c (aka AI.c)
     .global g8DFF55C
 g8DFF55C:
     .incbin "baserom.gba", 0xDFF55C, 0xA4
@@ -284,8 +333,16 @@ gUnk_8DFF6A4:
 
     .global gUnk_8DFF6A8
 gUnk_8DFF6A8:
-    .incbin "baserom.gba", 0xDFF6A8, 0x1788
+    .incbin "baserom.gba", 0xDFF6A8, 0xE68
 
+    .global gE00510
+gE00510:
+     .incbin "baserom.gba", 0xE00510, 0x920
+//code2.c end?
+
+
+
+// ?
     .global gUnk_8E00E30
 gUnk_8E00E30:
     .4byte gUnk_80BED1C
@@ -418,10 +475,13 @@ gUnk_8E010A4:
     .4byte sub_8024324
     .4byte sub_8024324
 
+
+// main_menu.s
     .global gUnk_8E010F4
 gUnk_8E010F4:
     .4byte gSharedMem
 
+//password_terminal
     .global sTerminal
 sTerminal:
     .4byte gSharedMem

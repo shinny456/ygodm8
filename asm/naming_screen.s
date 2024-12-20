@@ -628,7 +628,7 @@ _08006DA6:
 _08006E18: .4byte gUnk_8DF8114
 _08006E1C: .4byte gUnk_8DF7FD4
 _08006E20: .4byte gOamBuffer
-_08006E24: .4byte gUnk_8DF8030
+_08006E24: .4byte g8DF8030
 _08006E28:
 	mov r3, sb
 	lsls r2, r3, #3
