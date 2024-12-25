@@ -223,12 +223,12 @@ SECTIONS
         src/main.o(.text);
         src/exodia.o(.text);
         src/text.o(.text);
-        src/code3.o(.text);
+        src/duel_main.o(.text);
         asm/code3.o(.text);
         src/main_menu.o(.text);
         asm/main_menu.o(.text);
         src/duel_status.o(.text);
-        src/bad_ante.o(.text);
+        src/ante.o(.text);
         src/password_terminal.o(.text);
         src/god_cards.o(.text);
 
@@ -240,11 +240,11 @@ SECTIONS
         src/print_card.o(.text);
         src/copyright_screens.o(.text);
         src/money.o(.text);
-        src/code_802703C.o(.text); /*permanent effects*/
+        src/permanent_effect.o(.text);
 
 
         asm/code3.o(.text3);
-        src/code_802AEF4.o(.text); /*turn effects*/
+        src/turn_effect.o(.text);
         src/card_shop.o(.text);
 
         src/code_8030B14.o(.text);
