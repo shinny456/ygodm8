@@ -1,12 +1,74 @@
 #include "global.h"
-#include "gba/syscall.h"
-#include "duel.h"
-#include "gba/io_reg.h"
-#include "gba/macro.h"
-#include "card.h"
-#include "overworld.h"
+
+static void sub_804E288 (void);
+static void SetBg3Regs (void);
+static void SetBg2Regs (void);
+static void SetBg1Regs (void);
+static void SetBg0Data (void);
+static void sub_804EE6C (void);
+//r3 = gMapData
+
+//  9AAE98
+//0x200 per sprite
+//gOverworld = 0x02024270
+// 805247E
+//00 21
+//line 9801
+void TryWalking (u8);
+void sub_804F2F0 (void);
+
+void TryDueling (void);
+void sub_804EEE0 (void);
+void TryTalking (void);
 
 
+void sub_804F1E4 (void);
+void sub_8045284 (u16*, u16, u16);
+void sub_804F508 (void);
+void TryRunning (u8);
+
+extern u8 g8E0DA9C[];
+extern u8 g8E0DA56[];
+extern u8 g82AD2B6[];
+extern u16 gUnk08103284[];
+extern u8 g82AD20C[];
+unsigned sub_805222C (u8, s16, s16);
+u32 sub_8052194 (u16);
+
+enum Direction {
+  DOWN,
+  LEFT,
+  UP,
+  RIGHT
+};
+
+enum {
+  UNK0,
+  WALK_UP,
+  WALK_DOWN,
+  WALK_LEFT,
+  WALK_RIGHT,
+  TRY_DUELING,
+  TALK,
+  START_MENU,
+  UNK8,
+  UNK9,
+  UNKA,
+  RUN_UP,
+  RUN_DOWN,
+  RUN_LEFT,
+  RUN_RIGHT
+};
+
+extern u16 gUnk2020DFC;
+extern u16 gKeyState;
+extern u16 g2020DF4;
+extern u8 g82A906C[];
+extern u8 g82A8E4C[];
+extern u8 gUnk8E0DA40[];
+extern u16 g81032D2[];
+extern u8 gE0DA4F[];
+extern struct OamData gOamBuffer[];
 //2024270 + 1E0
 //2024450
 
@@ -36,7 +98,7 @@ extern u16* g8E11CD0[];
 extern u16 gCableCarTilemap[];
 
 /*
-void InitOverworld (void)
+static void InitOverworld (void)
 {
     u16 i, j;
 
@@ -137,7 +199,7 @@ void InitOverworld (void)
 }*/
 
 NAKED
-void InitOverworld(void)
+static void InitOverworld(void)
 {
     asm_unified("\n\
     push {r4, r5, r6, r7, lr}\n\
@@ -830,7 +892,7 @@ void OverworldMain (void) {
   // mark it as noreturn? (as well as AgbMain?)
 }
 
-void LoadOverworldBgGfx(void)
+static void LoadOverworldBgGfx (void)
 {
     switch (gOverworld.background)
     {
@@ -861,8 +923,6 @@ void LoadOverworldBgGfx(void)
     }
 }
 
-extern u8 g82A906C[];
-extern u8 g82A8E4C[];
 static inline void sub_804EFE8_inline (u8 arg0) {
   u32 i, j;
   u8* dest = &gBgVram.cbb4[g8103284[arg0] * 32];
@@ -872,7 +932,7 @@ static inline void sub_804EFE8_inline (u8 arg0) {
       *dest++ = *src++;
 }
 
-void sub_804DE74 (void) {
+static void sub_804DE74 (void) {
   u32 i, j;
   u8 *dest, *src;
   for (i = 0; i < 15; i++)
@@ -887,10 +947,6 @@ void sub_804DE74 (void) {
   }
 }
 
-extern u8 gUnk8E0DA40[];
-extern u16 g81032D2[];
-extern u8 gE0DA4F[];
-
 static inline void sub_804F054_inline (int spriteId, u8 arg1, u8* dest) {
   u32 i, j;
   u8* src = gUnk8E11790[spriteId] + g81032D2[arg1] * 32;
@@ -900,7 +956,7 @@ static inline void sub_804F054_inline (int spriteId, u8 arg1, u8* dest) {
       *dest++ = *src++;
 }
 
-void sub_804DF5C(int objectId) {
+void sub_804DF5C (int objectId) {
   u8 objectId_u8 = objectId;
   if (gOverworld.objects[objectId_u8].direction < 4) {
     u16 spriteId = gOverworld.objects[objectId_u8].spriteId;
@@ -916,7 +972,7 @@ void sub_804DF5C(int objectId) {
 
 
 NAKED
-void sub_804E050 (u8 arg0) {
+static void sub_804E050 (u8 arg0) {
   asm_unified("push {r4, lr}\n\
 	lsls r0, r0, #0x18\n\
 	lsrs r4, r0, #0x18\n\
@@ -1101,40 +1157,7 @@ _0804E1C0: .4byte 0x08E11790\n\
 _0804E1C4: .4byte 0x081032D2");
 }
 
-
-
-//r3 = gMapData
-
-//  9AAE98
-//0x200 per sprite
-//gOverworld = 0x02024270
-// 805247E
-//00 21
-//line 9801
-
-enum {
-  UNK0,
-  WALK_UP,
-  WALK_DOWN,
-  WALK_LEFT,
-  WALK_RIGHT,
-  TRY_DUELING,
-  TALK,
-  START_MENU,
-  UNK8,
-  UNK9,
-  UNKA,
-  RUN_UP,
-  RUN_DOWN,
-  RUN_LEFT,
-  RUN_RIGHT
-};
-
-extern u16 gUnk2020DFC;
-extern u16 gKeyState;
-extern u16 g2020DF4;
-
-u8 sub_804E1C8 (void) {
+static u8 sub_804E1C8 (void) {
   if (gUnk2020DFC & 1)
     return TALK;
   if (gUnk2020DFC & 0x100)
@@ -1165,32 +1188,6 @@ u8 sub_804E1C8 (void) {
     return START_MENU;
   return UNK0;
 }
-
-void TryWalking (u8);
-void sub_804F2F0 (void);
-
-void TryDueling (void);
-void sub_804EEE0 (void);
-void TryTalking (void);
-void InitStartMenu (void);
-void SetBg3Regs (void);
-void SetBg2Regs (void);
-void SetBg1Regs (void);
-void SetBg0Data (void);
-void sub_804EE6C (void);
-void sub_8045284 (u16*, u16, u16);
-void sub_804F508 (void);
-void TryRunning (u8);
-
-extern u8 g8E0DA9C[];
-extern u8 g8E0DA56[];
-
-enum Direction {
-  DOWN,
-  LEFT,
-  UP,
-  RIGHT
-};
 
 // inlining fixes argument passing order to sub_8044E50, and sub_8044EC8
 static inline void sub_804ED08_inline (void) {
@@ -1231,7 +1228,7 @@ static inline void sub_804EFA8_inline (void) {
   sub_804F508();
 }
 
-void sub_804E288 (void) {
+static void sub_804E288 (void) {
   u8 r5 = 102;
   while (!(gOverworld.unk240 & (1 | 2))) {
     gOverworld.objects[0].unk18 = 0;
@@ -1270,11 +1267,11 @@ void sub_804E288 (void) {
         sub_804ED08_inline();
         PlayOverworldMusic();
         break;
-      case UNK8: //_0804E3D0
+      case UNK8:
         gOverworld.objects[0].spriteId = g8E0DA9C[gOverworld.objects[0].spriteId];
         sub_804ED08_inline();
         break;
-      case UNKA: // _0804E478
+      case UNKA:
         r5 = g8E0DA56[r5];
         gOverworld.map.unk8 = r5;
         gOverworld.map.unkA = 0;
@@ -1312,7 +1309,7 @@ void sub_804E288 (void) {
 }
 
 NAKED
-void sub_804E518 (u8 arg0) {
+static void sub_804E518 (u8 arg0) {
   asm_unified("push {r4, r5, r6, r7, lr}\n\
 	lsls r0, r0, #0x18\n\
 	lsrs r6, r0, #0x18\n\
@@ -1446,7 +1443,7 @@ _0804E610:\n\
 	bx r0");
 }
 
-void sub_804E618 (void) {
+static void sub_804E618 (void) {
   signed short arr[15];
   u8 i;
   for (i = 0; i < 15; i++)
@@ -1476,13 +1473,8 @@ void sub_804E618 (void) {
   }
 }
 
-extern u8 g82AD20C[];
-int sub_805222C (u8, s16, s16);
-u32 sub_8052194 (u16);
-
-
 /*regswap r4, r5
-void sub_804E6E8 (u32* arg0, u32* unused, u32* arg2, u8 arg3) {
+static void sub_804E6E8 (u32* arg0, u32* unused, u32* arg2, u8 arg3) {
   u32 r1two;
   u32 r0;
   u32 r4;
@@ -1530,7 +1522,7 @@ void sub_804E6E8 (u32* arg0, u32* unused, u32* arg2, u8 arg3) {
 }*/
 
 NAKED
-void sub_804E6E8 (u32* arg0, u32* unused, u32* arg2, u8 arg3) {
+static void sub_804E6E8 (u32* arg0, u32* unused, u32* arg2, u8 arg3) {
   asm_unified("push {r4, r5, r6, r7, lr}\n\
 	mov r7, sb\n\
 	mov r6, r8\n\
@@ -1662,7 +1654,7 @@ _0804E7F0: .4byte 0x01FF0000\n\
 _0804E7F4: .4byte 0xFE00FF00");
 }
 
-void sub_804E7F8 (struct OamData* arg0, u8 arg1) {
+static void sub_804E7F8 (struct OamData* arg0, u8 arg1) {
   int tempY;
   int tempX;
   int temp;
@@ -1695,10 +1687,7 @@ void sub_804E7F8 (struct OamData* arg0, u8 arg1) {
   arg0->x = tempX + temp;
 }
 
-extern u8 g82AD2B6[];
-extern u16 gUnk08103284[];
-
-void sub_804E918 (struct OamData* arg0, u8 arg1) {
+static void sub_804E918 (struct OamData* arg0, u8 arg1) {
   int tempY;
   int tempX;
   int temp;
@@ -1731,7 +1720,7 @@ void sub_804E918 (struct OamData* arg0, u8 arg1) {
 }
 
 //unused?
-void sub_804EA48 (u32* arg0, u8 arg1) {
+static void sub_804EA48 (u32* arg0, u8 arg1) {
   u32 r2, r0, r00, r1;
   arg0[0] = 0x01C008C0;
   if (gOverworld.objects[arg1].spriteId == -1)
@@ -1796,9 +1785,8 @@ void sub_804EB04 (struct OamData* arg0, u8 arg1) {
   }
 }
 
-extern struct OamData gOamBuffer[];
 /*
-void sub_804EBE4 (void) {
+static void sub_804EBE4 (void) {
   u8 i;
   for (i = 0; i < 15; i++)
     sub_804E6E8(&gOamBuffer/*struct of u32s?*[(i + 97) * 2], &gOamBuffer[(i + 67) * 2],
@@ -1809,7 +1797,7 @@ void sub_804EBE4 (void) {
 }*/
 
 NAKED
-void sub_804EBE4 (void) {
+static void sub_804EBE4 (void) {
   asm_unified("push {r4, r5, r6, r7, lr}\n\
 	ldr r6, _0804EC44\n\
 	movs r4, #0\n\
@@ -1885,7 +1873,7 @@ void sub_804ECA8 (void) {
   LoadOam();
 }
 
-void sub_804ECE4 (void) {
+static void sub_804ECE4 (void) {
   u8 i;
   for (i = 0; i < 128; i++)
     sub_80411EC(gOamBuffer + i);
@@ -1914,25 +1902,25 @@ void sub_804ED08 (void) {
   sub_804F508();
 }
 
-void SetBg3Regs (void) {
+static void SetBg3Regs (void) {
   REG_BG3CNT = 0x1783;
   gBG3VOFS = 0;
   gBG3HOFS = 8;
 }
 
-void SetBg2Regs (void) {
+static void SetBg2Regs (void) {
   REG_BG2CNT = 0x1F82;
   gBG2VOFS = 0;
   gBG2HOFS = 8;
 }
 
-void SetBg1Regs (void) {
+static void SetBg1Regs (void) {
   REG_BG1CNT = 0x1E81;
   gBG1VOFS = 0;
   gBG1HOFS = 8;
 }
 
-void SetBg0Data (void) {
+static void SetBg0Data (void) {
   REG_BG0CNT = 0x1D0C;
   gBG0VOFS = 0;
   gBG0HOFS = 8;
@@ -1940,7 +1928,7 @@ void SetBg0Data (void) {
   CpuCopy16(g82AD48C, gBgVram.sbb1D, 0x500);
 }
 
-void sub_804EE6C (void) {
+static void sub_804EE6C (void) {
   sub_804ECE4();
   sub_804E618();
   sub_804DE74();
@@ -1957,8 +1945,6 @@ void sub_804EEAC (struct OamData* arg0, u16 arg1) {
   if (!sub_8052194(arg1))
     arg0->priority = 1;
 }
-
-void sub_804F1E4 (void);
 
 void sub_804EEE0 (void) {
   sub_804E618();
@@ -2056,7 +2042,8 @@ void sub_804F150 (u8 objectId) {
   gOverworld.objects[objectId].unkE--;
 }
 
-void sub_804F170 (u8 objectId) {
+//unused?
+static void sub_804F170 (u8 objectId) {
   if (gOverworld.objects[objectId].unkE > 15)
     gOverworld.objects[objectId].unkE = 15;
   if (gOverworld.objects[objectId].unkE - 1 < 0)

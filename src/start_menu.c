@@ -1,9 +1,5 @@
 #include "global.h"
-#include "duel.h"
-#include "text.h"
-#include "gba/syscall.h"
-#include "gba/io_reg.h"
-#include "gba/macro.h"
+
 
 static void LoadStartMenuGraphics (void);
 static void sub_8005BE0 (void);
@@ -27,7 +23,7 @@ extern u16 gBLDCNT;
 extern u16 gBLDY;
 void LoadBgOffsets (void);
 void LoadBlendingRegs (void);
-void sub_8035020 (u16);
+
 
 extern u32 gStartMenuCursorTiles[];
 extern u32 gStartMenuBgTiles[];

@@ -1,11 +1,5 @@
 #include "global.h"
-#include "duel.h"
-#include "card.h"
-#include "overworld.h"
-#include "constants/card_ids.h"
-#include "gba/io_reg.h"
-#include "gba/syscall.h"
-#include "gba/macro.h"
+
 
 void sub_800A5F0 (u8);
 void sub_801E27C (void);
@@ -49,7 +43,7 @@ void sub_801FB14 (void);
 void sub_801FB50 (u8*, u8);
 
 void sub_801DDDC (u8);
-void CopyStringTilesToVRAMBuffer(void *, void *, u16);
+
 
 extern u16 g80B9620[];
 extern u16 g80B96AA[];
@@ -66,7 +60,6 @@ extern struct OamData gOamBuffer[];
 extern u8 g201CB58;
 extern u8 g201CB59;
 extern u16 g201CB60[2][2240];
-u8* GetCurrentLanguageString(u8*);
 extern u16 gUnk2020DFC;
 
 void sub_801EF30 (u8 arg0) {
@@ -1120,13 +1113,10 @@ void sub_801FF90 (void);
 void sub_8020030 (void);
 void sub_801FD14 (void);
 void sub_801FE98 (void);
-void sub_8048CEC (void);
 int sub_8043E9C (u8 arg0);
 void RemoveCardFromTrunk(u16 id, u8 qty);
-void AddMoney (u64 amount);
 u16 sub_805629C (u16, u16);
 u16 sub_801FFE0 (void);
-int IsGoodAnte (u16);
 void sub_802D90C (u16, u8);
 u16 sub_8020050 (void);
 void sub_80201AC (u8);

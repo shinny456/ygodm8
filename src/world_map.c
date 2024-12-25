@@ -1,9 +1,5 @@
 #include "global.h"
-#include "text.h"
-#include "duel.h"
-#include "gba/syscall.h"
-#include "gba/io_reg.h"
-#include "gba/macro.h"
+
 
 static void sub_8004F90 (unsigned char, unsigned char);
 

@@ -5,7 +5,7 @@
 void sub_80452B4 (void);
 void SetWhoseTurnToPlayer (void);
 void InitBoard (void);
-void InitLifePointsBeforeDuel (void);
+
 
 void sub_80452A8 (void) {
   sub_80452B4();
@@ -14,7 +14,7 @@ void sub_80452A8 (void) {
 void sub_80452B4 (void) {
   SetWhoseTurnToPlayer();
   InitBoard();
-  InitLifePointsBeforeDuel();
+  InitDuelLifePoints();
 }
 
 void SetDuelTypeToIngameNormal (void) {

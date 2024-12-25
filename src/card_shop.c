@@ -1,12 +1,4 @@
 #include "global.h"
-#include "duel.h"
-#include "card.h"
-#include "overworld.h"
-#include "constants/card_ids.h"
-#include "gba/io_reg.h"
-#include "gba/defines.h"
-#include "gba/macro.h"
-#include "gba/syscall.h"
 
 struct {
   u16* unk0[5][7];
@@ -191,8 +183,8 @@ extern u16 g80CD280[];
 extern u16 g80CD2A0[][64];
 extern u16 g80CD4A0[];
 extern u16 g80CD4C0[][64];
-extern u32 g80CD6C0[];
-extern u32 g80CD778[];
+extern u8 g80CD6C0[];
+extern u8 g80CD778[];
 extern u8 g80CD830[];
 extern u8 g80CDA60[];
 extern u8 g80CDC28[];
@@ -232,7 +224,7 @@ extern u8 gTrunkCardQty[];
 void CopyStarTileToBuffer (void*);
 void CopySwordTileToBuffer (void*);
 void CopyShieldTileToBuffer (void*);
-void CopyStringTilesToVRAMBuffer (void*, void*, u16);
+
 int sub_8045410 (u16);
 void sub_800800C(u8, u8, u16, u16);
 u16 sub_08007FEC(u8, u8, u16);
@@ -243,18 +235,14 @@ void sub_800BD34 (void);
 void sub_8057418 (u16*);
 extern void* g8E1168C[];
 void sub_805742C (void*, u16);
-void AddMoney (u64 amount);
 void sub_8034A38 (void);
 void CopyAttributeIconTilesToBuffer (u8 attribute, void * dest);
 void CopyAttributeIconPalToBuffer (u8 attribute, void * dest);
 void CopyTypeIconTilesToBuffer (u8 type, void * dest);
 void CopyTypeIconPalToBuffer (u8 type, void * dest);
-u32 sub_8027018 (u64);
-void RemoveMoney (u64);
 extern u8 g2021BE0[];
 extern u64 gMoney;
 void sub_800DEAC (u64, u8);
-u32 ExceedsMoneyLimit (u64);
 
 void CardShopBuyMain (void) {
   u16 cardId;
@@ -1355,7 +1343,7 @@ static void sub_802D8D4 (void) {
   }
 }
 
-void sub_802D90C (u16 arg0, u8 arg1) {
+void sub_802D90C (unsigned short arg0, unsigned char arg1) {
   // this could be calling an inline func
   if ((u16)(arg0 - 1) >= 800)
     return;
@@ -1388,6 +1376,7 @@ static unsigned char sub_802D9D0 (u16 arg0, u8 arg1) {
 }
 
 // Init shop cards (when starting a new game)
+//TODO: NewGame_ShopCards, Init?
 void sub_802D9F0 (void) {
   u16 i;
   for (i = 0; i <= 800; i++)
@@ -1789,8 +1778,6 @@ static void sub_802E1D8 (void) {
 }
 /*
 extern struct OamData gOamBuffer[];
-void CopyStringTilesToVRAMBuffer(void *, void *, u16);
-
 
 static void sub_802E270 (void) {
   u16* oam = (u16*)gOamBuffer;

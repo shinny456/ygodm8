@@ -1,10 +1,6 @@
 #include "global.h"
-#include "duel.h"
-#include "gba/io_reg.h"
-#include "card.h"
-#include "constants/card_ids.h"
-#include "gba/syscall.h"
-#include "gba/macro.h"
+
+//TODO: rename file to duel_main.c
 
 struct TurnVoice {
   u16 duelistId;
@@ -21,14 +17,23 @@ static void sub_8021C98 (void);
 static void sub_8021CD0 (void);
 static void nullsub_8021CDC (void);
 static unsigned char sub_8021CFC (void);
+static void sub_8021E0C (void);
+static void sub_8021ED8 (void);
+static void sub_8021FF8 (void);
+static void sub_8022040 (void);
+static void sub_8022068 (void);
+static void sub_8022214 (void);
+static void sub_8022234 (void);
+static void sub_80222EC (void);
+static void sub_8022318 (void);
+static void sub_8022340 (void);
+
+
 
 extern struct Duelist* gUnk8E00B30[];
 extern struct TurnVoice gTurnVoices[];
 extern u32 gOamBuffer[];
 extern unsigned char g80C1824[];
-
-void MosaicEffect(void);
-
 void sub_8041104(void);
 u32 AdjustBackgroundBeforeTurnStart(unsigned char);
 void sub_8057808(void);
@@ -39,13 +44,10 @@ void sub_8040FDC(void);
 void sub_8040524(unsigned char);
 void sub_804004C(unsigned char);
 void WinConditionExodia();    //implicit declaration shenanigans
-void sub_802549C(void);
 void sub_802703C(void);
 void PlayerTurnMain(void);
 void AI_Main(void);
-void ReturnMonstersToOwner(void);
 void FlipAtkPosCardsFaceUp(unsigned char);
-void sub_80254F8(void);
 void SwitchTurn(void);
 void DecrementSorlTurns(unsigned char);
 void UnlockCardsInRow(unsigned char);
@@ -54,13 +56,11 @@ void ClearDuelDecks(void);
 void sub_8043E14(unsigned char, u16);
 void ShuffleDuelDeck(unsigned char);
 void InitBoard(void);
-void InitLifePointsBeforeDuel();
-void sub_80254DC(void);
 void sub_8041090();
 void sub_80081DC(void (*)(void));
 void LoadPalettes(void);
 void HandleOutcome(void);
-void sub_8035020(u16);
+
 
 
 
@@ -68,10 +68,10 @@ void LoadOam(void);
 
 void sub_804ED08(void);
 void sub_8035038(u16);
-void sub_8022040(void);
-void sub_8021E0C(void);
-void sub_8021ED8(void);
-void sub_8022068(void);
+
+
+
+
 
 void DuelMain (void) {
   struct DuelText duelText;
@@ -150,7 +150,7 @@ static void InitIngameDuel (void) {
   else
     gWhoseTurn = 1;
   InitBoard();
-  InitLifePointsBeforeDuel();
+  InitDuelLifePoints();
   sub_80254DC();
   gHideEffectText = 0;
   sub_8041090();
@@ -289,7 +289,7 @@ static unsigned char sub_8021CFC (void) {
   return 0;
 }
 
-unsigned char GetRitualNumTributes (u16 id) {
+unsigned char GetRitualNumTributes (unsigned short id) {
   SetCardInfo(id);
   return g80C1824[gCardInfo.ritualEffect];
 }
@@ -316,27 +316,24 @@ extern u32 g2021D70;
 extern unsigned char g2021D80[];
 extern u16 gUnk2020DFC;
 
-void sub_8021FF8(void);
+
 void sub_8024354(void);
 void sub_8024568(void);
 void sub_801B66C(void);
 void sub_80410B4(void);
 void sub_8041D54(void);
 void sub_803276C(void);
-void sub_8022234(void);
+
 void sub_80240CC(void);
 void sub_802417C(void);
-void sub_80222EC(void);
-void sub_8022318(void);
-void sub_8022214(void);
-void sub_8022340(void);
+
+
+
 s32 sub_8043E9C(unsigned char);
 void IncreaseDeckCapacity(u32);
 void SaveGame(void);
 void InitDuelDeck(unsigned char, u16*);
 void SetWhoseTurnToPlayer(void);
-void SetDuelLifePoints(unsigned char, u16);
-
 
 void LinkDuelMain (void) {
   unsigned char turn;
@@ -384,7 +381,7 @@ void LinkDuelMain (void) {
   sub_8022068();
 }
 
-void sub_8021E0C (void) {
+static void sub_8021E0C (void) {
   struct DuelText duelText;
   g3000C38.unk32 = 0;
   if (NumEmptyZonesInRow(gZones[4]) > 0) {
@@ -422,7 +419,7 @@ void sub_8021E0C (void) {
   } while (g3000C6C);
 }
 
-void sub_8021ED8(void) {
+static void sub_8021ED8 (void) {
   struct DuelText duelText; //unused
   struct DuelCursor curPos = gDuelCursor;
   bool32 r4 = 0;
@@ -457,7 +454,7 @@ void sub_8021ED8(void) {
 }
 
 NAKED
-void sub_8021F80(void) { //unused
+static void sub_8021F80 (void) { //unused
 
   asm_unified("\n\
   push {r4, r5, r6, lr}\n\
@@ -513,7 +510,7 @@ _08021FEE:\n\
 	bx r0");
 }
 
-void sub_8021FF8 (void) {
+static void sub_8021FF8 (void) {
   SetDuelType(6);
   sub_803276C();
   sub_8022234();
@@ -525,7 +522,7 @@ void sub_8021FF8 (void) {
       sub_802417C();
 }
 
-void sub_8022040 (void) {
+static void sub_8022040 (void) {
   sub_80222EC();
   sub_8041090();
   PlayMusic(gDuelData.unkC);
@@ -533,7 +530,7 @@ void sub_8022040 (void) {
   gHideEffectText = 0;
 }
 
-void sub_8022068 (void) {
+static void sub_8022068 (void) {
   sub_8022318();
   sub_8022214();
   sub_8035020(1);
@@ -554,7 +551,7 @@ void sub_8022080 (void) {
     sub_8041D54();
 }
 
-void sub_80220C8(void) {
+static void sub_80220C8 (void) {
   struct DuelText duelText;
   IncreaseDeckCapacity(gDuelData.capacityYield);
   SaveGame();
@@ -581,7 +578,7 @@ void sub_80220C8(void) {
   }
 }
 
-void sub_8022170(void) {
+static void sub_8022170 (void) {
   struct DuelText duelText;
   IncreaseDeckCapacity(5);
   SaveGame();
@@ -608,14 +605,14 @@ void sub_8022170(void) {
   }
 }
 
-void sub_8022214(void) {
+static void sub_8022214 (void) {
   if (gDuelData.unk2B == 1)
     sub_80220C8();
   else
     sub_8022170();
 }
 
-void sub_8022234(void) {
+static void sub_8022234 (void) {
   u32 i;
 
   for (i = 0; i < 9; i++)
@@ -642,22 +639,21 @@ void sub_8022234(void) {
   SetWhoseTurnToPlayer();
 }
 
-void sub_80222EC(void) {
+static void sub_80222EC (void) {
   sub_80254DC();
   SetDuelLifePoints(DUEL_PLAYER, gDuelData.duelist.playerLp);
   SetDuelLifePoints(DUEL_OPPONENT, gDuelData.duelist.lifePoints);
   InitBoard();
 }
 
-void sub_8022318(void) {
+static void sub_8022318(void) {
   if (gDuelistStatus[DUEL_OPPONENT] == 2)
     gDuelData.unk2B = 1;
   else
     gDuelData.unk2B = 2;
 }
 
-void sub_8022340(void) {  //fade to black after Link duel
-
+static void sub_8022340 (void) {  //fade to black after Link duel
   u16 i, j;
   struct PlttData* pltt;
 
@@ -675,6 +671,11 @@ void sub_8022340(void) {  //fade to black after Link duel
     sub_8008220();
   }
 }
+
+
+
+
+//split?
 
 void InitTrunkData(void);
 void InitDeckData(void);

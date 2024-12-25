@@ -1,11 +1,5 @@
 #include "global.h"
-#include "duel.h"
-#include "card.h"
-#include "constants/card_ids.h"
-#include "gba/syscall.h"
-#include "gba/io_reg.h"
-#include "gba/macro.h"
-#include "overworld.h"
+
 
 struct Test8041240 {
   u32 unk0;
@@ -47,8 +41,6 @@ void sub_80420C0 (void);
 void sub_8041FE4 (void);
 void sub_8042144 (void);
 void sub_8042184 (void);
-u8* GetCurrentLanguageString(u8*);
-void CopyStringTilesToVRAMBuffer(void *, void *, u16);
 void CopySwordTileToBuffer (void*);
 void CopyShieldTileToBuffer (void*);
 void CopyStarTileToBuffer (void*);
@@ -190,7 +182,7 @@ void sub_8041EC8 (void) {
 void sub_8041F48 (void) {
   u8 buffer[32];
   u8 i, r3;
-  u8* name;
+  const unsigned char* name;
   for (i = 0; i < 15; i++)
     CpuCopy16(gBgVram.cbb0 + 0x8000, gBgVram.cbb0 + 0x81E0 + i * 32, 32);
   name = GetCurrentLanguageString(gCardInfo.name);

@@ -1,29 +1,30 @@
 #include "global.h"
-#include "constants/card_ids.h"
 
-extern u16 gGodCards[];
-void RemoveCardFromDeckAndTrunk (u16 id);
+//TODO: rename file to god_card.c?
+
 static void RemoveObeliskFromDeckAndTrunk (void);
 static void RemoveSliferFromDeckAndTrunk (void);
 static void RemoveRaFromDeckAndTrunk (void);
 
+extern unsigned short gGodCards[];
+void RemoveCardFromDeckAndTrunk (unsigned short);
 
-unsigned IsGodCard (u16 id) {
-  u8 i;
+unsigned IsGodCard (unsigned short id) {
+  unsigned char i;
   for (i = 0; gGodCards[i] != CARD_NONE; i++)
     if (gGodCards[i] == id)
-      return TRUE;
-  return FALSE;
+      return 1;
+  return 0;
 }
 
-unsigned IsWingedDragonOfRa (u16 id) {
+unsigned IsWingedDragonOfRa (unsigned short id) {
   if (id == THE_WINGED_DRAGON_OF_RA_SPHERE_MODE)
-    return TRUE;
+    return 1;
   if (id == THE_WINGED_DRAGON_OF_RA_BATTLE_MODE)
-    return TRUE;
+    return 1;
   if (id == THE_WINGED_DRAGON_OF_RA_PHOENIX_MODE)
-    return TRUE;
-  return FALSE;
+    return 1;
+  return 0;
 }
 
 void RemoveGodCardsFromDeckAndTrunk (void) {

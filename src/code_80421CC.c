@@ -1,10 +1,5 @@
 #include "global.h"
-#include "duel.h"
-#include "card.h"
-#include "constants/card_ids.h"
-#include "gba/syscall.h"
-#include "gba/io_reg.h"
-#include "gba/macro.h"
+
 
 extern u8 g8E0D81D[];
 extern u8 g8E0D820[];
@@ -36,8 +31,6 @@ u32 CanPlayerSeeCard (u8 y, u8 x);
 extern u16 gUnk2020DFC;
 void sub_80410B4 (void);
 void sub_8041104 (void);
-void sub_8029820 (void);
-u8* GetCurrentLanguageString(u8*);
 int sub_8057790 (u8, u8);
 int sub_80575E0 (u8, u8);
 
@@ -46,7 +39,7 @@ extern u8 g8DF811C[];
 extern u8 g8E0D668[];
 extern u8 g8E0D753[];
 
-void CopyStringTilesToVRAMBuffer(void *, void *, u16);
+
 u16 sub_08007FEC(u8, u8, u16);
 void sub_800800C(u8, u8, u16, u16);
 s32 sub_8043E9C(u8);

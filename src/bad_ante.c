@@ -1,14 +1,13 @@
 #include "global.h"
-#include "constants/card_ids.h"
 
 //TODO: rename file to ante.c
 
-extern u16 gLowLevelAnte[];
+extern unsigned short gLowLevelAnte[];
 
-int IsGoodAnte (u16 cardId) {
-  u16 i;
+unsigned IsGoodAnte (unsigned short cardId) {
+  unsigned short i;
   for (i = 0; gLowLevelAnte[i] != CARD_NONE; i++)
     if (gLowLevelAnte[i] == cardId)
-      return FALSE;
-  return TRUE;
+      return 0;
+  return 1;
 }

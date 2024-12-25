@@ -1,9 +1,4 @@
 #include "global.h"
-#include "gba/macro.h"
-#include "gba/syscall.h"
-#include "card.h"
-#include "duel.h"
-#include "constants/card_ids.h"
 
 static void sub_80267E0 (void);
 static void CopyStarIconsToBuffer (void);
@@ -28,8 +23,8 @@ extern u32 gUnk_89385D8[]; //TODO: fix type? 2d array?
 extern u32 gUnk_8938618[]; //fix type?
 extern u32 gUnk_89385D8[]; //fix type?
 extern const u8* gUnk_8E00E30[];
-u8* GetCurrentLanguageString(u8*);
-void sub_8020968(u32* arg0, u16 arg1, u16 arg2);
+
+
 void sub_800E08C (u32*, u16*);
 void sub_800DDA0(u16, u8);
 void sub_800DD4C(void);
@@ -121,7 +116,7 @@ static void CopyCardNameToBuffer (void) {
   u8 pos;
   bool32 abbreviate;
   u32 buffer[16];
-  u8* name;
+  const unsigned char* name;
   if (gLanguage == ENGLISH && (gCardInfo.id == BLACK_LUSTER_SOLDIER || gCardInfo.id == BLACK_LUSTER_RITUAL))
     abbreviate = TRUE;
   else

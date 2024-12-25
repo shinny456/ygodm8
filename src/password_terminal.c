@@ -1,8 +1,4 @@
 #include "global.h"
-#include "duel.h"
-#include "gba/io_reg.h"
-#include "gba/macro.h"
-#include "gba/syscall.h"
 
 struct PasswordTerminal {
   unsigned char currentDisplayDigit;
@@ -82,7 +78,6 @@ extern unsigned short g80C5D70[];
 unsigned PasswordTerminalMain (void) {
   unsigned ret = 0;
   unsigned keepProcessing = 1;
-
   FadeToBlack();
   sub_80258AC();
   while (keepProcessing) {

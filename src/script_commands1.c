@@ -1,7 +1,4 @@
 #include "global.h"
-#include "overworld.h"
-#include "duel.h"
-#include "gba/io_reg.h"
 
 // displacement of 1px based on direction
 extern s8 g8E0E834[]; //x
@@ -13,7 +10,6 @@ extern s8 gE0E865[];
 
 extern int g8105114[][27][2];
 
-bool32 sub_8027018 (u64 amount);
 int sub_8056070 (u16);
 
 void sub_805345C (u8 obj, u8 direction, u8 distance, u8 arg3, struct ScriptCtx *script) {

@@ -1,10 +1,4 @@
 #include "global.h"
-#include "overworld.h"
-#include "gba/syscall.h"
-#include "duel.h"
-#include "gba/io_reg.h"
-#include "gba/macro.h"
-#include "card.h"
 
 // -----------------split?-------------
 extern struct UnkFC4618 {

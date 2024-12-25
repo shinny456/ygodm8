@@ -2,11 +2,14 @@ OUTPUT_ARCH(arm)
 
 SECTIONS
 {
+    /* bss*/
     g02000000 = 0x02000000;
     gBgVram = 0x02000400;
     gVr = 0x02000400;
     gOamBuffer = 0x02018400;
     gSharedMem = 0x02018800;
+    /*^these are possibly defined in share.c, because the next symbol is g201CB20, which is in that file*/
+
 
     g201CB20 = 0x201CB20;
     g201CB24 = 0x201CB24;
@@ -34,6 +37,11 @@ SECTIONS
       *libgcc.a:*o(.bss);
     }
 
+    . = 0x02021AC0;
+    COMMON : {
+      src/card.o(COMMON);
+    }
+
     g2020C00 = 0x2020C00;
 
     g2020DC8 = 0x02020DC8;
@@ -52,6 +60,7 @@ SECTIONS
     gTotalCardQty = 0x02021460;
     gTrunkCardQty = 0x02021790;
     gUnk2021AB4 = 0x02021AB4;
+
 
     gStatMod = 0x02021AC0;
     gCardInfo = 0x02021AD0;
@@ -200,7 +209,7 @@ SECTIONS
 
         asm/code_8009228.o(.text2);
 
-        src/duel.o(.text); /*first part of this is part of card.c?*/
+        src/card.o(.text); /*first part of this is part of card.c?*/
                            /*second part is duel_trunk_menu?*/
         asm/code1.o(.text);/*first part is duel_trunk_menu?*/
 
@@ -209,8 +218,8 @@ SECTIONS
         src/deck_menu.o(.text);
         asm/code2.o(.text);
         src/code_801EF30.o(.text);
-
         asm/code2.o(.text2);
+
         src/main.o(.text);
         src/exodia.o(.text);
         src/text.o(.text);
@@ -235,7 +244,7 @@ SECTIONS
 
 
         asm/code3.o(.text3);
-        src/code_802AEF4.o(.text);
+        src/code_802AEF4.o(.text); /*turn effects*/
         src/card_shop.o(.text);
 
         src/code_8030B14.o(.text);
@@ -265,14 +274,15 @@ SECTIONS
         src/spell_effects.o(.text)
 
 
-
+        /* move to overworld directory */
         src/code4.o(.text);
         src/overworld_gfx_effects.o(.text);
         src/code_8051958.o(.text);
         src/map_transition.o(.text);
-        src/script.o(.text);
+        src/script.o(.text); /*TODO: rename to script_main?*/
         src/script_commands1.o(.text);
         src/script_commands2.o(.text);
+
         src/flag.o(.text);
 
         src/spell_effects_util.o(.text); /*equip effects*/
@@ -303,6 +313,9 @@ SECTIONS
         data/data3.o(.rodata);
         src/data/decks.o(.rodata);
         data/data4.o(.rodata);
+        src/monster_effects.o(.rodata);
+        src/spell_effects.o(.rodata);
+        data/data4.o(.rodata2);
 
         *libgcc.a:*.o(.rodata);
 

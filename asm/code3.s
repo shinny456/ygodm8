@@ -3010,8 +3010,8 @@ sub_8024568: @ 0x08024568
 	.align 2, 0
 _08024580: .4byte 0x08E010CC
 _08024584: .4byte 0x03001078
-
-
+//^^^
+//link_duel_util ??
 
 .section .text2
 

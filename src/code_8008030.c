@@ -7,25 +7,25 @@
 union {
   u8 tileSet[0x8000];
   u16 tileMap[0x4000];
-} extern gBgVram;
+} extern gVr;
 
 extern u8 g8DF811C[];
 
 void sub_8007F6C (u8 arg0, u8 arg1, u16 arg2) {
-  gBgVram.tileMap[0x7C00 + arg1 * 32 + arg0] |= g8DF811C[arg2] + 1;
-  gBgVram.tileMap[0x7C00 + (arg1 + 1) * 32 + arg0] |= g8DF811C[arg2] + 3;
+  gVr.tileMap[0x7C00 + arg1 * 32 + arg0] |= g8DF811C[arg2] + 1;
+  gVr.tileMap[0x7C00 + (arg1 + 1) * 32 + arg0] |= g8DF811C[arg2] + 3;
 }
 
 void sub_8007FBC (u8 arg0, u8 arg1, u16 arg2) {
-  gBgVram.tileMap[0x7C00 + arg1 * 32 + arg0] |= arg2 + 0x76;
+  gVr.tileMap[0x7C00 + arg1 * 32 + arg0] |= arg2 + 0x76;
 }
 
 u16 sub_08007FEC (u8 arg0, u8 arg1, u16 arg2) {
-  return gBgVram.tileMap[arg2 / 2 + arg1 * 32 + arg0];
+  return gVr.tileMap[arg2 / 2 + arg1 * 32 + arg0];
 }
 
 void sub_800800C (u8 arg0, u8 arg1, u16 arg2, u16 arg3) {
-  gBgVram.tileMap[arg2 / 2 + arg1 * 32 + arg0] = arg3;
+  gVr.tileMap[arg2 / 2 + arg1 * 32 + arg0] = arg3;
 }
 
 

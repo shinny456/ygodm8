@@ -1,13 +1,5 @@
 #include "global.h"
-#include "gba/defines.h"
-#include "gba/types.h"
-#include "gba/io_reg.h"
-#include "gba/macro.h"
-#include "gba/syscall.h"
-#include "duel.h"
-#include "overworld.h"
-#include "card.h"
-#include "constants/card_ids.h"
+
 
 struct Test8041240 {
   u32 unk0;
@@ -43,7 +35,7 @@ inline void sub_8041B38 (void);
 inline void sub_8041BE8 (struct Test8041240*);
 inline void sub_8041C68 (struct Test8041240*);
 void HuffUnComp (void*, void*);
-void CopyStringTilesToVRAMBuffer(void *, const void *, u16);
+
 s16 fix_mul (s16, s16);
 s16 fix_inverse (s16);
 
@@ -524,8 +516,8 @@ inline void sub_8041B38 (void) {
   for (i = 0; i < 18; i++)
     CpuCopy32(g80F2C30[i], gBgVram.cbb0 + 0xE800 + i * 64, 64);
 
-  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x87A0, gE0D14C, 0x801);
-  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gE0D15D, 0x101);
+  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x87A0, gE0D14C, 0x801); 
+  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gE0D15D, 0x101); //empty text box
   sub_8008220();
   sub_8041014();
   REG_WINOUT = 30;

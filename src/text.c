@@ -1,19 +1,20 @@
 #include "global.h"
-#include "duel.h"
 
-extern u8* gUnk_8E00E30[];
+extern const u8* gUnk_8E00E30[];
+extern u8 g8DF1C2A[];
+extern u8 g8DF3C00[];
 
-void sub_8021664 (u32*, u16);
-void sub_80216D0 (u32* arg0);
-void sub_80214F4 (u32*, u16, u16);
-void sub_8021584 (u32*, u16, u16);
-void sub_8021688 (u32*, u16);
-void sub_80215BC (u32*, u16, u16);
-void sub_80214BC (u32*, u16, u16);
-void Convert1bppTo4bpp (u8*, u32*, u16);
-void sub_80215F4 (u8*, u32*, u16);
+static void sub_80214BC (u32*, u16, u16);
+static void sub_80214F4 (u32*, u16, u16);
+static void Convert1bppTo4bpp (u8*, u32*, u16);
+static void sub_8021584 (u32*, u16, u16);
+static void sub_80215BC (u32*, u16, u16);
+static void sub_80215F4 (u8*, u32*, u16);
+static void sub_8021664 (u32*, u16);
+static void sub_8021688 (u32*, u16);
+static void sub_80216D0 (u32* arg0);
 
-u16 sub_8020698(u8* name) //text parser
+unsigned short sub_8020698 (const unsigned char* name)
 {
     u8 r4;
     u16 i = 0;
@@ -159,7 +160,7 @@ u16 sub_8020698(u8* name) //text parser
     return i;
 }
 
-u8* GetCurrentLanguageString(u8* name)
+const unsigned char* GetCurrentLanguageString (const unsigned char* name)
 {
     if (*name == '$')
     {
@@ -264,8 +265,9 @@ u8* GetCurrentLanguageString(u8* name)
     return name;
 }
 
-void sub_8020968(u32* arg0, u16 arg1, u16 arg2)
+void sub_8020968 (void* arg00, u16 arg1, u16 arg2)
 {
+    u32* arg0 = arg00; //TODO: figure out a way to make vram buffer a type that can be converted to u32* in a non-UB way.
     u16 r2 = (arg1 & 0xFF) << 8 | (arg1 & 0xFF00) >> 8;
 
     switch (arg2 & 0x1F00)
@@ -298,9 +300,11 @@ void sub_8020968(u32* arg0, u16 arg1, u16 arg2)
     }
 }
 
-void CopyStringTilesToVRAMBuffer(u32* arg0, u8* name, u16 arg2)
+void CopyStringTilesToVRAMBuffer(void* arg00, const u8* namee, unsigned arg22)
 {
-
+    u32* arg0 = arg00; //TODO: figure out a way to make vram buffer a type that can be converted to u32* in a non-UB way.
+    const u8* name = namee;
+    u16 arg2 = arg22;
     bool32 r7;
     u16 r1;
     name = GetCurrentLanguageString(name);
@@ -480,7 +484,7 @@ void CopyStringTilesToVRAMBuffer(u32* arg0, u8* name, u16 arg2)
     }
 }
 
-void sub_8020DB8(u32* arg0, u8* name, u16 arg2)
+void sub_8020DB8 (u32* arg0, const u8* name, u16 arg2)
 {
     u16 r1;
     bool32 r7;
@@ -668,7 +672,7 @@ void sub_8020DB8(u32* arg0, u8* name, u16 arg2)
     }
 }
 
-u16 sub_80210B8(u16 arg0)
+static u16 sub_80210B8 (u16 arg0)
 {
     u16 r2;
 
@@ -695,7 +699,7 @@ u16 sub_80210B8(u16 arg0)
     return arg0;
 }
 
-void sub_8021138(u8* r7, u32* r8, u16 r6)
+static void sub_8021138 (u8* r7, u32* r8, u16 r6)
 {
     u8 i, j, r2;
     u32 r4;
@@ -726,7 +730,7 @@ void sub_8021138(u8* r7, u32* r8, u16 r6)
 }
 
 /*
-void sub_80211D4 (u8* unused0, u32* arg1, u16 ok)
+static void sub_80211D4 (u8* unused0, u32* arg1, u16 ok)
 {
   u8 i, j, k;
   for (i = 0; i < 2; i++) {
@@ -745,7 +749,7 @@ void sub_80211D4 (u8* unused0, u32* arg1, u16 ok)
   }
 }*/
 //Fakematch
-void sub_80211D4(u8* unused0, u32* arg1, u16 unused2)
+static void sub_80211D4 (u8* unused0, u32* arg1, u16 unused2)
 {
   u8 i, j, k;
   register u32 v asm("r1");
@@ -774,7 +778,7 @@ void sub_80211D4(u8* unused0, u32* arg1, u16 unused2)
   }
 }
 
-void sub_8021234 (u8* arg0, u32* arg1, u16 arg2, u16* arg3) {
+static void sub_8021234 (u8* arg0, u32* arg1, u16 arg2, u16* arg3) {
   u8 i, j;
   u16 r2;
   u32 r4;
@@ -862,17 +866,15 @@ void sub_8021234 (u8* arg0, u32* arg1, u16 arg2, u16* arg3) {
   }
 }
 
-extern u8 g8DF1C2A[];
-
-void sub_80214BC(u32* arg0, u16 arg1, u16 arg2) {
+static void sub_80214BC (u32* arg0, u16 arg1, u16 arg2) {
   Convert1bppTo4bpp(&g8DF1C2A[sub_80210B8(arg1) * 10], arg0, arg2);
 }
 
-void sub_80214F4(u32* arg0, u16 arg1, u16 arg2) {
+static void sub_80214F4 (u32* arg0, u16 arg1, u16 arg2) {
   sub_8021138(&g8DF1C2A[sub_80210B8(arg1) * 10], arg0, arg2);
 }
 
-void Convert1bppTo4bpp(u8* arg0, u32* arg1, u16 unused2) {
+static void Convert1bppTo4bpp (u8* arg0, u32* arg1, u16 unused2) {
   u8 i, j;
   for (i = 0; i < 8; i++) {
     u8 r2 = *arg0++;
@@ -888,16 +890,15 @@ void Convert1bppTo4bpp(u8* arg0, u32* arg1, u16 unused2) {
   }
 }
 
-extern u8 g8DF3C00[];
-void sub_8021584(u32* arg0, u16 arg1, u16 arg2) {
+static void sub_8021584 (u32* arg0, u16 arg1, u16 arg2) {
   sub_80215F4(&g8DF3C00[sub_80210B8(arg1) * 18], arg0, arg2);
 }
 
-void sub_80215BC(u32* arg0, u16 arg1, u16 arg2) {
+static void sub_80215BC (u32* arg0, u16 arg1, u16 arg2) {
   sub_80211D4(&g8DF3C00[sub_80210B8(arg1) * 18], arg0, arg2);
 }
 
-void sub_80215F4 (u8* arg0, u32* arg1, u16 unused2) {
+static void sub_80215F4 (u8* arg0, u32* arg1, u16 unused2) {
   u8 i, j, k;
   for (i = 0; i < 2; i++) {
     for (j = 0; j < 8; j++) {
@@ -917,7 +918,7 @@ void sub_80215F4 (u8* arg0, u32* arg1, u16 unused2) {
   }
 }
 
-void sub_8021664 (u32* arg0, u16 unused1) {
+static void sub_8021664 (u32* arg0, u16 unused1) {
   u8 i;
   u32 r1 = arg0[0];
   for (i = 0; i < 7; i++) {
@@ -930,7 +931,7 @@ void sub_8021664 (u32* arg0, u16 unused1) {
   }
 }
 
-void sub_8021688 (u32* arg0, u16 unused1) {
+static void sub_8021688 (u32* arg0, u16 unused1) {
   u8 i;
   u32 r2 = arg0[0];
   u32 r1;
@@ -953,7 +954,7 @@ void sub_8021688 (u32* arg0, u16 unused1) {
   }
 }
 
-void sub_80216D0 (u32* arg0) {
+static void sub_80216D0 (u32* arg0) {
   u8 i;
   for (i = 0; i < 7; i++) {
     *arg0 |= *arg0 << 4;
@@ -962,7 +963,7 @@ void sub_80216D0 (u32* arg0) {
 }
 
 //unused
-void sub_80216E8 (u32* arg0, u16 arg1, u16 arg2, u16* arg3) {
+static void sub_80216E8 (u32* arg0, u16 arg1, u16 arg2, u16* arg3) {
   u8* temp; //uninitialized var
   sub_80210B8((arg1 & 0xFF) << 8 | (arg1 & 0xFF00) >> 8);
   sub_8021234(temp, arg0, arg2, arg3);

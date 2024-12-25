@@ -1,12 +1,10 @@
 #include "global.h"
-#include "duel.h"
-#include "card.h"
-#include "constants/card_ids.h"
 
-void ActivateTrapEffect();
+void ActivateTrapEffect(); //TODO
+
 static void SetRitualMonsterInZone (struct DuelCard*, u16 id);
 
-void EffectMooyanCurry (void) {
+static void EffectMooyanCurry (void) {
   gTrapEffectData.unk2 = gSpellEffectData.unk2;
   gTrapEffectData.unk3 = gSpellEffectData.unk3;
   gTrapEffectData.id = gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
@@ -33,7 +31,7 @@ void EffectMooyanCurry (void) {
     ActivateTrapEffect(200);
 }
 
-void EffectRedMedicine (void) {
+static void EffectRedMedicine (void) {
   gTrapEffectData.unk2 = gSpellEffectData.unk2;
   gTrapEffectData.unk3 = gSpellEffectData.unk3;
   gTrapEffectData.id = gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
@@ -60,7 +58,7 @@ void EffectRedMedicine (void) {
     ActivateTrapEffect(500);
 }
 
-void EffectGoblinsSecretRemedy (void) {
+static void EffectGoblinsSecretRemedy (void) {
   gTrapEffectData.unk2 = gSpellEffectData.unk2;
   gTrapEffectData.unk3 = gSpellEffectData.unk3;
   gTrapEffectData.id = gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
@@ -87,7 +85,7 @@ void EffectGoblinsSecretRemedy (void) {
     ActivateTrapEffect(1000);
 }
 
-void EffectSoulOfThePure (void) {
+static void EffectSoulOfThePure (void) {
   gTrapEffectData.unk2 = gSpellEffectData.unk2;
   gTrapEffectData.unk3 = gSpellEffectData.unk3;
   gTrapEffectData.id = gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
@@ -114,7 +112,7 @@ void EffectSoulOfThePure (void) {
     ActivateTrapEffect(2000);
 }
 
-void EffectDianKetoTheCureMaster (void) {
+static void EffectDianKetoTheCureMaster (void) {
   gTrapEffectData.unk2 = gSpellEffectData.unk2;
   gTrapEffectData.unk3 = gSpellEffectData.unk3;
   gTrapEffectData.id = gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
@@ -141,7 +139,7 @@ void EffectDianKetoTheCureMaster (void) {
     ActivateTrapEffect(5000);
 }
 
-void EffectSparks (void) {
+static void EffectSparks (void) {
   gTrapEffectData.unk2 = gSpellEffectData.unk2;
   gTrapEffectData.unk3 = gSpellEffectData.unk3;
   gTrapEffectData.id = gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
@@ -168,7 +166,7 @@ void EffectSparks (void) {
     ActivateTrapEffect(50);
 }
 
-void EffectHinotama (void) {
+static void EffectHinotama (void) {
   gTrapEffectData.unk2 = gSpellEffectData.unk2;
   gTrapEffectData.unk3 = gSpellEffectData.unk3;
   gTrapEffectData.id = gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
@@ -195,7 +193,7 @@ void EffectHinotama (void) {
     ActivateTrapEffect(100);
 }
 
-void EffectFinalFlame (void) {
+static void EffectFinalFlame (void) {
   gTrapEffectData.unk2 = gSpellEffectData.unk2;
   gTrapEffectData.unk3 = gSpellEffectData.unk3;
   gTrapEffectData.id = gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
@@ -222,7 +220,7 @@ void EffectFinalFlame (void) {
     ActivateTrapEffect(200);
 }
 
-void EffectOokazi (void) {
+static void EffectOokazi (void) {
   gTrapEffectData.unk2 = gSpellEffectData.unk2;
   gTrapEffectData.unk3 = gSpellEffectData.unk3;
   gTrapEffectData.id = gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
@@ -249,7 +247,7 @@ void EffectOokazi (void) {
     ActivateTrapEffect(500);
 }
 
-void EffectTremendousFire (void) {
+static void EffectTremendousFire (void) {
   gTrapEffectData.unk2 = gSpellEffectData.unk2;
   gTrapEffectData.unk3 = gSpellEffectData.unk3;
   gTrapEffectData.id = gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
@@ -276,7 +274,7 @@ void EffectTremendousFire (void) {
     ActivateTrapEffect(1000);
 }
 
-void EffectDarkHole (void) {
+static void EffectDarkHole (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
@@ -296,7 +294,7 @@ void EffectDarkHole (void) {
   }
 }
 
-void EffectRaigeki (void) {
+static void EffectRaigeki (void) {
   gTrapEffectData.unk2 = gSpellEffectData.unk2;
   gTrapEffectData.unk3 = gSpellEffectData.unk3;
   gTrapEffectData.id = gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
@@ -321,7 +319,7 @@ void EffectRaigeki (void) {
     ActivateTrapEffect();
 }
 
-void EffectLegendarySword (void) {
+static void EffectLegendarySword (void) {
   if (sub_80555A4(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -349,7 +347,7 @@ void EffectLegendarySword (void) {
     PlayMusic(57);
 }
 
-void EffectSwordOfDarkDestruction (void) {
+static void EffectSwordOfDarkDestruction (void) {
   if (sub_80555D4(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -377,7 +375,7 @@ void EffectSwordOfDarkDestruction (void) {
     PlayMusic(57);
 }
 
-void EffectDarkEnergy (void) {
+static void EffectDarkEnergy (void) {
   if (sub_8055604(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -405,7 +403,7 @@ void EffectDarkEnergy (void) {
     PlayMusic(57);
 }
 
-void EffectAxeOfDespair (void) {
+static void EffectAxeOfDespair (void) {
   if (sub_8055634(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -433,7 +431,7 @@ void EffectAxeOfDespair (void) {
     PlayMusic(57);
 }
 
-void EffectLaserCannonArmor (void) {
+static void EffectLaserCannonArmor (void) {
   if (sub_8055664(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -461,7 +459,7 @@ void EffectLaserCannonArmor (void) {
     PlayMusic(57);
 }
 
-void EffectInsectArmorWithLaserCannon (void) {
+static void EffectInsectArmorWithLaserCannon (void) {
   if (sub_8055694(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -489,7 +487,7 @@ void EffectInsectArmorWithLaserCannon (void) {
     PlayMusic(57);
 }
 
-void EffectElfsLight (void) {
+static void EffectElfsLight (void) {
   if (sub_80556C4(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -517,7 +515,7 @@ void EffectElfsLight (void) {
     PlayMusic(57);
 }
 
-void EffectBeastFangs (void) {
+static void EffectBeastFangs (void) {
   if (sub_80556F4(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -545,7 +543,7 @@ void EffectBeastFangs (void) {
     PlayMusic(57);
 }
 
-void EffectSteelShell (void) {
+static void EffectSteelShell (void) {
   if (sub_8055724(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -573,7 +571,7 @@ void EffectSteelShell (void) {
     PlayMusic(57);
 }
 
-void EffectVileGerms (void) {
+static void EffectVileGerms (void) {
   if (sub_8055754(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -601,7 +599,7 @@ void EffectVileGerms (void) {
     PlayMusic(57);
 }
 
-void EffectBlackPendant (void) {
+static void EffectBlackPendant (void) {
   if (sub_8055784(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -629,7 +627,7 @@ void EffectBlackPendant (void) {
     PlayMusic(57);
 }
 
-void EffectSilverBowAndArrow (void) {
+static void EffectSilverBowAndArrow (void) {
   if (sub_80557B4(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -657,7 +655,7 @@ void EffectSilverBowAndArrow (void) {
     PlayMusic(57);
 }
 
-void EffectHornOfLight (void) {
+static void EffectHornOfLight (void) {
   if (sub_80557E4(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -685,7 +683,7 @@ void EffectHornOfLight (void) {
     PlayMusic(57);
 }
 
-void EffectHornOfTheUnicorn (void) {
+static void EffectHornOfTheUnicorn (void) {
   if (sub_8055814(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -713,7 +711,7 @@ void EffectHornOfTheUnicorn (void) {
     PlayMusic(57);
 }
 
-void EffectDragonTreasure (void) {
+static void EffectDragonTreasure (void) {
   if (sub_8055844(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -741,7 +739,7 @@ void EffectDragonTreasure (void) {
     PlayMusic(57);
 }
 
-void EffectElectroWhip (void) {
+static void EffectElectroWhip (void) {
   if (sub_8055874(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -769,7 +767,7 @@ void EffectElectroWhip (void) {
     PlayMusic(57);
 }
 
-void EffectCyberShield (void) {
+static void EffectCyberShield (void) {
   if (sub_80558A4(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -797,7 +795,7 @@ void EffectCyberShield (void) {
     PlayMusic(57);
 }
 
-void EffectMysticalMoon (void) {
+static void EffectMysticalMoon (void) {
   if (sub_80558D4(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -825,7 +823,7 @@ void EffectMysticalMoon (void) {
     PlayMusic(57);
 }
 
-void EffectMalevolentNuzzler (void) {
+static void EffectMalevolentNuzzler (void) {
   if (sub_8055904(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -853,7 +851,7 @@ void EffectMalevolentNuzzler (void) {
     PlayMusic(57);
 }
 
-void EffectVioletCrystal (void) {
+static void EffectVioletCrystal (void) {
   if (sub_8055934(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -881,7 +879,7 @@ void EffectVioletCrystal (void) {
     PlayMusic(57);
 }
 
-void EffectBookOfSecretArts (void) {
+static void EffectBookOfSecretArts (void) {
   if (sub_8055964(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -909,7 +907,7 @@ void EffectBookOfSecretArts (void) {
     PlayMusic(57);
 }
 
-void EffectInvigoration (void) {
+static void EffectInvigoration (void) {
   if (sub_8055994(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -937,7 +935,7 @@ void EffectInvigoration (void) {
     PlayMusic(57);
 }
 
-void EffectMachineConversionFactory (void) {
+static void EffectMachineConversionFactory (void) {
   if (sub_80559C4(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -965,7 +963,7 @@ void EffectMachineConversionFactory (void) {
     PlayMusic(57);
 }
 
-void EffectRaiseBodyHeat (void) {
+static void EffectRaiseBodyHeat (void) {
   if (sub_80559F4(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -993,7 +991,7 @@ void EffectRaiseBodyHeat (void) {
     PlayMusic(57);
 }
 
-void EffectFollowWind (void) {
+static void EffectFollowWind (void) {
   if (sub_8055A24(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -1021,7 +1019,7 @@ void EffectFollowWind (void) {
     PlayMusic(57);
 }
 
-void EffectPowerOfKaishin (void) {
+static void EffectPowerOfKaishin (void) {
   if (sub_8055A54(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -1049,17 +1047,17 @@ void EffectPowerOfKaishin (void) {
     PlayMusic(57);
 }
 
-void EffectStopDefense (void) {
+static void EffectStopDefense (void) {
   u8 i;
 
-  gNotSure[1]->unkTwo = 1; //canDefend = FALSE;
+  gNotSure[1]->unkTwo = 1; //canDefend = 0;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
   {
     if (gZones[1][i]->id != CARD_NONE)
     {
-      gZones[1][i]->isDefending = FALSE;
-      gZones[1][i]->isFaceUp = TRUE;
+      gZones[1][i]->isDefending = 0;
+      gZones[1][i]->isFaceUp = 1;
     }
   }
 
@@ -1072,14 +1070,14 @@ void EffectStopDefense (void) {
   }
 }
 
-void EffectSwordsOfRevealingLight (void) {
+static void EffectSwordsOfRevealingLight (void) {
   u8 i;
 
   InitSorlTurns(1);
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gZones[1][i]->id != CARD_NONE)
-      gZones[1][i]->isFaceUp = TRUE;
+      gZones[1][i]->isFaceUp = 1;
 
   ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
@@ -1090,12 +1088,12 @@ void EffectSwordsOfRevealingLight (void) {
   }
 }
 
-void EffectDarkPiercingLight (void) {
+static void EffectDarkPiercingLight (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gZones[1][i]->id != CARD_NONE)
-      gZones[1][i]->isFaceUp = TRUE;
+      gZones[1][i]->isFaceUp = 1;
 
   ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
@@ -1106,7 +1104,7 @@ void EffectDarkPiercingLight (void) {
   }
 }
 
-void EffectSpellBindingCircle (void) {
+static void EffectSpellBindingCircle (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
@@ -1122,7 +1120,7 @@ void EffectSpellBindingCircle (void) {
   }
 }
 
-void EffectElegantEgotist (void) {
+static void EffectElegantEgotist (void) {
   if (gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id == HARPIE_LADY)
   {
 
@@ -1151,7 +1149,7 @@ void EffectElegantEgotist (void) {
   }
 }
 
-void EffectBlackLusterRitual (void) {
+static void EffectBlackLusterRitual (void) {
   if (sub_804366C(gZones[2], gRitualComponents[1][0]) == 1)
   {
     u8 zone = sub_8043694(gZones[2], gRitualComponents[1][0]);
@@ -1172,7 +1170,7 @@ void EffectBlackLusterRitual (void) {
 //these ritual effects seem to be leftover from The Sacred Cards
 //(the card IDs do not match ROD's)
 
-void sub_804AED8 (void) {
+static void sub_804AED8 (void) {
   if (sub_804366C(gZones[2], gRitualComponents[2][0]) == 1)
   {
     u8 zone = sub_8043694(gZones[2], gRitualComponents[2][0]);
@@ -1190,7 +1188,7 @@ void sub_804AED8 (void) {
   }
 }
 
-void sub_804AF58 (void) {
+static void sub_804AF58 (void) {
   if (sub_804366C(gZones[2], gRitualComponents[3][0]) == 1)
   {
     u8 zone = sub_8043694(gZones[2], gRitualComponents[3][0]);
@@ -1208,7 +1206,7 @@ void sub_804AF58 (void) {
   }
 }
 
-void sub_804AFD8 (void) {
+static void sub_804AFD8 (void) {
   if (sub_804366C(gZones[2], gRitualComponents[4][0]) == 1)
   {
     u8 zone = sub_8043694(gZones[2], gRitualComponents[4][0]);
@@ -1226,19 +1224,17 @@ void sub_804AFD8 (void) {
   }
 }
 
-bool8 sub_804B144 (u8*, u16*); // implicit declaration elsewhere?
-
-void sub_804B058 (void) {
+static void sub_804B058 (void) {
   u8 zones[3];
   u8 ritualId;
 
-  if (sub_804B144(zones, gRitualComponents[29]) == TRUE)
+  if ((unsigned char)sub_804B144(zones, gRitualComponents[29]) == 1)
     ritualId = 29;
-  else if (sub_804B144(zones, gRitualComponents[28]) == TRUE)
+  else if ((unsigned char)sub_804B144(zones, gRitualComponents[28]) == 1)
     ritualId = 28;
-  else if (sub_804B144(zones, gRitualComponents[27]) == TRUE)
+  else if ((unsigned char)sub_804B144(zones, gRitualComponents[27]) == 1)
     ritualId = 27;
-  else if (sub_804B144(zones, gRitualComponents[5]) == TRUE)
+  else if ((unsigned char)sub_804B144(zones, gRitualComponents[5]) == 1)
     ritualId = 5;
   else
     return;
@@ -1258,7 +1254,7 @@ void sub_804B058 (void) {
   }
 }
 
-bool8 sub_804B144(u8* zones, u16* ritualArr)
+unsigned sub_804B144 (u8* zones, u16* ritualArr)
 {
   u8 i;
 
@@ -1267,7 +1263,7 @@ bool8 sub_804B144(u8* zones, u16* ritualArr)
       break;
 
   if (i == MAX_ZONES_IN_ROW)
-    return FALSE;
+    return 0;
 
   zones[0] = i;
 
@@ -1276,7 +1272,7 @@ bool8 sub_804B144(u8* zones, u16* ritualArr)
       break;
 
   if (i == MAX_ZONES_IN_ROW)
-    return FALSE;
+    return 0;
 
   zones[1] = i;
 
@@ -1285,13 +1281,13 @@ bool8 sub_804B144(u8* zones, u16* ritualArr)
       break;
 
   if (i == MAX_ZONES_IN_ROW)
-    return FALSE;
+    return 0;
 
   zones[2] = i;
-  return TRUE;
+  return 1;
 }
 
-void sub_804B20C (void) {
+static void sub_804B20C (void) {
   if (sub_804366C(gZones[2], gRitualComponents[9][0]) == 1)
   {
     u8 zone = sub_8043694(gZones[2], gRitualComponents[9][0]);
@@ -1309,7 +1305,7 @@ void sub_804B20C (void) {
   }
 }
 
-void sub_804B294 (void) {
+static void sub_804B294 (void) {
   if (sub_804366C(gZones[2], gRitualComponents[10][0]) == 1)
   {
     u8 zone = sub_8043694(gZones[2], gRitualComponents[10][0]);
@@ -1327,7 +1323,7 @@ void sub_804B294 (void) {
   }
 }
 
-void sub_804B31C (void) {
+static void sub_804B31C (void) {
   if (sub_804366C(gZones[2], gRitualComponents[11][0]) == 1)
   {
     u8 zone = sub_8043694(gZones[2], gRitualComponents[11][0]);
@@ -1345,7 +1341,7 @@ void sub_804B31C (void) {
   }
 }
 
-void sub_804B3A4 (void) {
+static void sub_804B3A4 (void) {
   if (sub_804366C(gZones[2], gRitualComponents[12][0]) == 1)
   {
     u8 zone = sub_8043694(gZones[2], gRitualComponents[12][0]);
@@ -1363,7 +1359,7 @@ void sub_804B3A4 (void) {
   }
 }
 
-void sub_804B42C (void) {
+static void sub_804B42C (void) {
   if (sub_804366C(gZones[2], gRitualComponents[13][0]) == 1)
   {
     u8 zone = sub_8043694(gZones[2], gRitualComponents[13][0]);
@@ -1381,7 +1377,7 @@ void sub_804B42C (void) {
   }
 }
 
-void sub_804B4B4 (void) {
+static void sub_804B4B4 (void) {
   if (sub_804366C(gZones[2], gRitualComponents[14][0]) == 1)
   {
     u8 zone = sub_8043694(gZones[2], gRitualComponents[14][0]);
@@ -1399,7 +1395,7 @@ void sub_804B4B4 (void) {
   }
 }
 
-void EffectMagicalLabyrinth (void) {
+static void EffectMagicalLabyrinth (void) {
   if (sub_8055A84(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -1427,7 +1423,7 @@ void EffectMagicalLabyrinth (void) {
     PlayMusic(57);
 }
 
-void EffectSalamandra (void) {
+static void EffectSalamandra (void) {
   if (sub_8055AB4(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -1455,7 +1451,7 @@ void EffectSalamandra (void) {
     PlayMusic(57);
 }
 
-void EffectKunaiWithChain (void) {
+static void EffectKunaiWithChain (void) {
   if (sub_8055AE4(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -1483,7 +1479,7 @@ void EffectKunaiWithChain (void) {
     PlayMusic(57);
 }
 
-void EffectBrightCastle (void) {
+static void EffectBrightCastle (void) {
   if (sub_8055B14(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -1511,12 +1507,12 @@ void EffectBrightCastle (void) {
     PlayMusic(57);
 }
 
-void EffectCrushCard (void) {
+static void EffectCrushCard (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
   {
-    if (gZones[1][i]->id != CARD_NONE && IsGodCard(gZones[1][i]->id) != TRUE)
+    if (gZones[1][i]->id != CARD_NONE && IsGodCard(gZones[1][i]->id) != 1)
     {
       gStatMod.card = gZones[1][i]->id;
       gStatMod.field = gDuel.field;
@@ -1536,7 +1532,7 @@ void EffectCrushCard (void) {
   }
 }
 
-void EffectShadowSpell (void) {
+static void EffectShadowSpell (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
@@ -1557,7 +1553,7 @@ void EffectShadowSpell (void) {
   }
 }
 
-void sub_804B9D0 (void) {
+static void sub_804B9D0 (void) {
   if (sub_804366C(gZones[2], gRitualComponents[15][0]) == 1)
   {
     u8 zone = sub_8043694(gZones[2], gRitualComponents[15][0]);
@@ -1575,7 +1571,7 @@ void sub_804B9D0 (void) {
   }
 }
 
-void sub_804BA58 (void) {
+static void sub_804BA58 (void) {
   if (sub_804366C(gZones[2], gRitualComponents[16][0]) == 1)
   {
     u8 zone = sub_8043694(gZones[2], gRitualComponents[16][0]);
@@ -1593,7 +1589,7 @@ void sub_804BA58 (void) {
   }
 }
 
-void sub_804BAE0 (void) {
+static void sub_804BAE0 (void) {
   if (sub_804366C(gZones[2], gRitualComponents[17][0]) == 1)
   {
     u8 zone = sub_8043694(gZones[2], gRitualComponents[17][0]);
@@ -1611,7 +1607,7 @@ void sub_804BAE0 (void) {
   }
 }
 
-void sub_804BB68 (void) {
+static void sub_804BB68 (void) {
   if (sub_804366C(gZones[2], gRitualComponents[18][0]) == 1)
   {
     u8 zone = sub_8043694(gZones[2], gRitualComponents[18][0]);
@@ -1629,7 +1625,7 @@ void sub_804BB68 (void) {
   }
 }
 
-void sub_804BBF0 (void) {
+static void sub_804BBF0 (void) {
   if (sub_804366C(gZones[2], gRitualComponents[19][0]) == 1)
   {
     u8 zone = sub_8043694(gZones[2], gRitualComponents[19][0]);
@@ -1647,7 +1643,7 @@ void sub_804BBF0 (void) {
   }
 }
 
-void sub_804BC78 (void) {
+static void sub_804BC78 (void) {
   if (sub_804366C(gZones[2], gRitualComponents[20][0]) == 1)
   {
     u8 zone = sub_8043694(gZones[2], gRitualComponents[20][0]);
@@ -1665,7 +1661,7 @@ void sub_804BC78 (void) {
   }
 }
 
-void sub_804BD00 (void) {
+static void sub_804BD00 (void) {
   if (sub_804366C(gZones[2], gRitualComponents[21][0]) == 1)
   {
     u8 zone = sub_8043694(gZones[2], gRitualComponents[21][0]);
@@ -1683,7 +1679,7 @@ void sub_804BD00 (void) {
   }
 }
 
-void sub_804BD88 (void) {
+static void sub_804BD88 (void) {
   if (sub_804366C(gZones[2], gRitualComponents[22][0]) == 1)
   {
     u8 zone = sub_8043694(gZones[2], gRitualComponents[22][0]);
@@ -1701,7 +1697,7 @@ void sub_804BD88 (void) {
   }
 }
 
-void sub_804BE10 (void) {
+static void sub_804BE10 (void) {
   if (sub_804366C(gZones[2], gRitualComponents[23][0]) == 1)
   {
     u8 zone = sub_8043694(gZones[2], gRitualComponents[23][0]);
@@ -1719,7 +1715,7 @@ void sub_804BE10 (void) {
   }
 }
 
-void sub_804BE98 (void) {
+static void sub_804BE98 (void) {
   if (sub_804366C(gZones[2], gRitualComponents[6][0]) == 1)
   {
     u8 zone = sub_8043694(gZones[2], gRitualComponents[6][0]);
@@ -1737,7 +1733,7 @@ void sub_804BE98 (void) {
   }
 }
 
-void sub_804BF18 (void) {
+static void sub_804BF18 (void) {
   if (sub_804366C(gZones[2], gRitualComponents[7][0]) == 1)
   {
     u8 zone = sub_8043694(gZones[2], gRitualComponents[7][0]);
@@ -1755,7 +1751,7 @@ void sub_804BF18 (void) {
   }
 }
 
-void sub_804BF98 (void) {
+static void sub_804BF98 (void) {
   if (sub_804366C(gZones[2], gRitualComponents[8][0]) == 1
    && sub_804366C(gZones[2], gRitualComponents[8][2]) == 1
    && sub_804366C(gZones[2], gRitualComponents[8][3]) == 1)
@@ -1782,12 +1778,12 @@ void sub_804BF98 (void) {
   }
 }
 
-void EffectWarriorElimination (void) {
+static void EffectWarriorElimination (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
   {
-    if (IsGodCard(gZones[1][i]->id) != TRUE)
+    if (IsGodCard(gZones[1][i]->id) != 1)
     {
       SetCardInfo(gZones[1][i]->id);
       if (gCardInfo.type == TYPE_WARRIOR)
@@ -1804,7 +1800,7 @@ void EffectWarriorElimination (void) {
   }
 }
 
-void EffectCurseBreaker (void) {
+static void EffectCurseBreaker (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
@@ -1820,7 +1816,7 @@ void EffectCurseBreaker (void) {
   }
 }
 
-void EffectEternalRest (void) {
+static void EffectEternalRest (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
@@ -1839,7 +1835,7 @@ void EffectEternalRest (void) {
   }
 }
 
-void EffectMegamorph (void) {
+static void EffectMegamorph (void) {
   if (sub_8055B44(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -1867,7 +1863,7 @@ void EffectMegamorph (void) {
     PlayMusic(57);
 }
 
-void EffectMetalmorph (void) {
+static void EffectMetalmorph (void) {
   if (gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id == ZOA)
   {
     gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id = METALZOA;
@@ -1893,7 +1889,7 @@ void EffectMetalmorph (void) {
   }
 }
 
-void EffectWingedTrumpeter (void) {
+static void EffectWingedTrumpeter (void) {
   if (sub_8055B74(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -1921,12 +1917,12 @@ void EffectWingedTrumpeter (void) {
     PlayMusic(57);
 }
 
-void EffectStainStorm (void) {
+static void EffectStainStorm (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
   {
-    if (IsGodCard(gZones[1][i]->id) != TRUE)
+    if (IsGodCard(gZones[1][i]->id) != 1)
     {
       SetCardInfo(gZones[1][i]->id);
       if (gCardInfo.type == TYPE_MACHINE)
@@ -1943,7 +1939,7 @@ void EffectStainStorm (void) {
   }
 }
 
-void EffectEradicatingAerosol (void) {
+static void EffectEradicatingAerosol (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
@@ -1962,7 +1958,7 @@ void EffectEradicatingAerosol (void) {
   }
 }
 
-void EffectBreathOfLight (void) {
+static void EffectBreathOfLight (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
@@ -1981,7 +1977,7 @@ void EffectBreathOfLight (void) {
   }
 }
 
-void EffectEternalDrought (void) {
+static void EffectEternalDrought (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
@@ -2000,12 +1996,12 @@ void EffectEternalDrought (void) {
   }
 }
 
-void EffectTheInexperiencedSpy (void) {
+static void EffectTheInexperiencedSpy (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gHands[1][i]->id != CARD_NONE)
-      gHands[1][i]->isFaceUp = TRUE;
+      gHands[1][i]->isFaceUp = 1;
 
   ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
@@ -2016,7 +2012,7 @@ void EffectTheInexperiencedSpy (void) {
   }
 }
 
-void sub_804C6B4 (void) {
+static void sub_804C6B4 (void) {
   u8 ritualId;
   u8 zone;
 
@@ -2041,7 +2037,7 @@ void sub_804C6B4 (void) {
   }
 }
 
-void EffectLastDayOfWitch (void) {
+static void EffectLastDayOfWitch (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
@@ -2060,7 +2056,7 @@ void EffectLastDayOfWitch (void) {
   }
 }
 
-void EffectExileOfTheWicked (void) {
+static void EffectExileOfTheWicked (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
@@ -2079,7 +2075,7 @@ void EffectExileOfTheWicked (void) {
   }
 }
 
-void EffectMultiply (void) {
+static void EffectMultiply (void) {
   if (NumCardInRow(gZones[2], KURIBOH))
   {
     u8 i;
@@ -2089,20 +2085,20 @@ void EffectMultiply (void) {
       if (gZones[2][i]->id == CARD_NONE)
       {
         gZones[2][i]->id = KURIBOH;
-        gZones[2][i]->isFaceUp = TRUE;
-        gZones[2][i]->isLocked = TRUE;
-        gZones[2][i]->isDefending = FALSE;
+        gZones[2][i]->isFaceUp = 1;
+        gZones[2][i]->isLocked = 1;
+        gZones[2][i]->isDefending = 0;
         gZones[2][i]->unkTwo = 0;
         gZones[2][i]->unk4 = 0;
         ResetPermanentPowerLevel(gZones[2][i]);
         ResetTemporaryPowerLevel(gZones[2][i]);
-        gZones[2][i]->willChangeSides = FALSE;
+        gZones[2][i]->willChangeSides = 0;
       }
       else if (gZones[2][i]->id == KURIBOH)
       {
-        gZones[2][i]->isFaceUp = TRUE;
-        gZones[2][i]->isLocked = TRUE;
-        gZones[2][i]->isDefending = FALSE;
+        gZones[2][i]->isFaceUp = 1;
+        gZones[2][i]->isLocked = 1;
+        gZones[2][i]->isDefending = 0;
       }
     }
   }
@@ -2116,21 +2112,21 @@ void EffectMultiply (void) {
   }
 }
 
-void EffectChangeOfHeart (void) {
+static void EffectChangeOfHeart (void) {
   if (NumEmptyZonesInRow(gZones[2]) && NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
   {
     u8 emptyZone = EmptyZoneInRow(gZones[2]);
     u8 highestAtkZone = HighestAtkMonInRowExceptGodCards(gZones[1]);
 
     gZones[2][emptyZone]->id = gZones[1][highestAtkZone]->id;
-    gZones[2][emptyZone]->isFaceUp = TRUE;
-    gZones[2][emptyZone]->isLocked = FALSE;
-    gZones[2][emptyZone]->isDefending = FALSE;
+    gZones[2][emptyZone]->isFaceUp = 1;
+    gZones[2][emptyZone]->isLocked = 0;
+    gZones[2][emptyZone]->isDefending = 0;
     gZones[2][emptyZone]->unkTwo = gZones[1][highestAtkZone]->unkTwo;
     gZones[2][emptyZone]->unk4 = 2;
 
     SetPermStage(gZones[2][emptyZone], PermStage(gZones[1][highestAtkZone]));
-    gZones[2][emptyZone]->willChangeSides = FALSE;
+    gZones[2][emptyZone]->willChangeSides = 0;
     ClearZone(gZones[1][highestAtkZone]);
   }
 
@@ -2143,7 +2139,7 @@ void EffectChangeOfHeart (void) {
   }
 }
 
-void EffectBlackIllusionRitual (void) {
+static void EffectBlackIllusionRitual (void) {
   if (sub_804366C(gZones[2], gRitualComponents[25][0]) == 1)
   {
     u8 zone = sub_8043694(gZones[2], gRitualComponents[25][0]);
@@ -2161,21 +2157,21 @@ void EffectBlackIllusionRitual (void) {
   }
 }
 
-void EffectBrainControl (void) {
+static void EffectBrainControl (void) {
   if (NumEmptyZonesInRow(gZones[2]) && NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
   {
     u8 emptyZone = EmptyZoneInRow(gZones[2]);
     u8 highestAtkZone = HighestAtkMonInRowExceptGodCards(gZones[1]);
 
     gZones[2][emptyZone]->id = gZones[1][highestAtkZone]->id;
-    gZones[2][emptyZone]->isFaceUp = TRUE;
-    gZones[2][emptyZone]->isLocked = FALSE;
-    gZones[2][emptyZone]->isDefending = FALSE;
+    gZones[2][emptyZone]->isFaceUp = 1;
+    gZones[2][emptyZone]->isLocked = 0;
+    gZones[2][emptyZone]->isDefending = 0;
     gZones[2][emptyZone]->unkTwo = gZones[1][highestAtkZone]->unkTwo;
     gZones[2][emptyZone]->unk4 = 2;
 
     SetPermStage(gZones[2][emptyZone], PermStage(gZones[1][highestAtkZone]));
-    gZones[2][emptyZone]->willChangeSides = TRUE;
+    gZones[2][emptyZone]->willChangeSides = 1;
     ClearZone(gZones[1][highestAtkZone]);
   }
 
@@ -2188,7 +2184,7 @@ void EffectBrainControl (void) {
   }
 }
 
-void sub_804CBBC (void) {
+static void sub_804CBBC (void) {
   if (NumEmptyZonesInRow(gZones[2]))
   {
     u8 emptyZone = EmptyZoneInRow(gZones[2]);
@@ -2197,14 +2193,14 @@ void sub_804CBBC (void) {
     if (id != CARD_NONE)
     {
       gZones[2][emptyZone]->id = id;
-      gZones[2][emptyZone]->isFaceUp = TRUE;
-      gZones[2][emptyZone]->isLocked = FALSE;
-      gZones[2][emptyZone]->isDefending = FALSE;
+      gZones[2][emptyZone]->isFaceUp = 1;
+      gZones[2][emptyZone]->isLocked = 0;
+      gZones[2][emptyZone]->isDefending = 0;
       gZones[2][emptyZone]->unkTwo = 0;
       gZones[2][emptyZone]->unk4 = 2;
       ResetPermanentPowerLevel(gZones[2][emptyZone]);
       ResetTemporaryPowerLevel(gZones[2][emptyZone]);
-      gZones[2][emptyZone]->willChangeSides = FALSE;
+      gZones[2][emptyZone]->willChangeSides = 0;
 
     }
   }
@@ -2218,7 +2214,7 @@ void sub_804CBBC (void) {
   }
 }
 
-void sub_804CC7C (void) {
+static void sub_804CC7C (void) {
   if (sub_8055BA4(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -2246,7 +2242,7 @@ void sub_804CC7C (void) {
     PlayMusic(57);
 }
 
-void EffectHeavyStorm (void) {
+static void EffectHeavyStorm (void) {
   u8 i, j;
 
   for (i = 0; i < 2; i++)
@@ -2274,7 +2270,7 @@ void EffectHeavyStorm (void) {
   }
 }
 
-void EffectFinalDestiny (void) {
+static void EffectFinalDestiny (void) {
   u8 i, j;
 
   for (i = 0; i < 2; i++)
@@ -2310,7 +2306,7 @@ void EffectFinalDestiny (void) {
   }
 }
 
-void EffectMessengerOfPeaceTSC (void) {
+static void EffectMessengerOfPeaceTSC (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
@@ -2322,7 +2318,7 @@ void EffectMessengerOfPeaceTSC (void) {
       gStatMod.stage = sub_804069C(gZones[1][i]);
       SetFinalStat(&gStatMod);
       if (gCardInfo.atk >= 1500)
-        gZones[1][i]->isLocked = TRUE;
+        gZones[1][i]->isLocked = 1;
     }
   }
 
@@ -2335,7 +2331,7 @@ void EffectMessengerOfPeaceTSC (void) {
   }
 }
 
-void EffectDarknessApproaches (void) {
+static void EffectDarknessApproaches (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
@@ -2355,7 +2351,7 @@ void EffectDarknessApproaches (void) {
   }
 }
 
-void EffectCyclonLaser (void) {
+static void EffectCyclonLaser (void) {
   if (sub_8055BD4(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -2383,26 +2379,26 @@ void EffectCyclonLaser (void) {
     PlayMusic(57);
 }
 
-void TryActivatingSpellEffect (void) {
+void ActivateSpellEffect (void) {
   ResetCardEffectTextData();
   sub_801D188(1);
   SetCardInfo(gSpellEffectData.id);
   gSpellEffects[gCardInfo.spellEffect]();
 }
 
-void sub_804D140(void) {
+static void sub_804D140(void) {
 }
 
-void sub_804D144(void) {
+static void sub_804D144(void) {
 }
 
-void sub_804D148(void) {
+static void sub_804D148(void) {
 }
 
-void sub_804D14C(void) {
+static void sub_804D14C(void) {
 }
 
-void EffectForest (void) {
+static void EffectForest (void) {
   gDuel.field = FIELD_FOREST;
 
   ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
@@ -2415,7 +2411,7 @@ void EffectForest (void) {
   }
 }
 
-void EffectWasteland (void) {
+static void EffectWasteland (void) {
   gDuel.field = FIELD_WASTELAND;
 
   ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
@@ -2428,7 +2424,7 @@ void EffectWasteland (void) {
   }
 }
 
-void EffectMountain (void) {
+static void EffectMountain (void) {
   gDuel.field = FIELD_MOUNTAIN;
 
   ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
@@ -2441,7 +2437,7 @@ void EffectMountain (void) {
   }
 }
 
-void EffectSogen (void) {
+static void EffectSogen (void) {
   gDuel.field = FIELD_SOGEN;
 
   ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
@@ -2454,7 +2450,7 @@ void EffectSogen (void) {
   }
 }
 
-void EffectUmi (void) {
+static void EffectUmi (void) {
   gDuel.field = FIELD_UMI;
 
   ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
@@ -2467,7 +2463,7 @@ void EffectUmi (void) {
   }
 }
 
-void EffectYami (void) {
+static void EffectYami (void) {
   gDuel.field = FIELD_YAMI;
 
   ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
@@ -2480,46 +2476,46 @@ void EffectYami (void) {
   }
 }
 
-void sub_804D378(void) {
+static void sub_804D378(void) {
 }
 
-void sub_804D37C(void) {
+static void sub_804D37C(void) {
 }
 
-void sub_804D380(void) {
+static void sub_804D380(void) {
 }
 
-void sub_804D384(void) {
+static void sub_804D384(void) {
 }
 
-void sub_804D388(void) {
+static void sub_804D388(void) {
 }
 
-void sub_804D38C(void) {
+static void sub_804D38C(void) {
 }
 
-void sub_804D390(void) {
+static void sub_804D390(void) {
 }
 
-void sub_804D394(void) {
+static void sub_804D394(void) {
 }
 
-void sub_804D398(void) {
+static void sub_804D398(void) {
 }
 
-void sub_804D39C(void) {
+static void sub_804D39C(void) {
 }
 
-void sub_804D3A0(void) {
+static void sub_804D3A0(void) {
 }
 
-void sub_804D3A4(void) {
+static void sub_804D3A4(void) {
 }
 
-void sub_804D3A8(void) {
+static void sub_804D3A8(void) {
 }
 
-void EffectHarpiesFeatherDuster (void) {
+static void EffectHarpiesFeatherDuster (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
@@ -2535,7 +2531,7 @@ void EffectHarpiesFeatherDuster (void) {
 }
 
 //not sure what this does
-void EffectPotOfGreed (void) {
+static void EffectPotOfGreed (void) {
   DrawCard(WhoseTurn());
   DrawCard(WhoseTurn());
 
@@ -2548,7 +2544,7 @@ void EffectPotOfGreed (void) {
   }
 }
 
-void EffectRestructerRevolution (void) {
+static void EffectRestructerRevolution (void) {
   u16 lifePoints = (MAX_ZONES_IN_ROW - NumEmptyZonesInRow(gHands[1])) * 200;
 
   if (WhoseTurn() == DUEL_PLAYER)
@@ -2568,13 +2564,13 @@ void EffectRestructerRevolution (void) {
   }
 }
 
-void sub_804D4E0(void) {
+static void sub_804D4E0(void) {
 }
 
-void sub_804D4E4(void) {
+static void sub_804D4E4(void) {
 }
 
-void EffectBeckonToDarkness (void) {
+static void EffectBeckonToDarkness (void) {
   if (NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
     ClearZoneAndSendMonToGraveyard(gZones[1][(u8)HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
 
@@ -2587,10 +2583,10 @@ void EffectBeckonToDarkness (void) {
   }
 }
 
-void sub_804D550(void) {
+static void sub_804D550(void) {
 }
 
-void EffectGravediggerGhoul (void) {
+static void EffectGravediggerGhoul (void) {
   GetGraveCardAndClearGrave2(0);
   GetGraveCardAndClearGrave2(1);
 
@@ -2603,83 +2599,237 @@ void EffectGravediggerGhoul (void) {
   }
 }
 
-void sub_804D5A4 (void) {
+static void sub_804D5A4 (void) {
 }
 
-void sub_804D5A8 (void) {
+static void sub_804D5A8 (void) {
 }
 
-void sub_804D5AC (void) {
+static void sub_804D5AC (void) {
 }
 
-void sub_804D5B0 (void) {
+static void sub_804D5B0 (void) {
 }
 
-void sub_804D5B4 (void) {
+static void sub_804D5B4 (void) {
 }
 
-void sub_804D5B8 (void) {
+static void sub_804D5B8 (void) {
 }
 
-void sub_804D5BC (void) {
+static void sub_804D5BC (void) {
 }
 
-void sub_804D5C0 (void) {
+static void sub_804D5C0 (void) {
 }
 
-void sub_804D5C4 (void) {
+static void sub_804D5C4 (void) {
 }
 
-void sub_804D5C8 (void) {
+static void sub_804D5C8 (void) {
 }
 
-void sub_804D5CC (void) {
+static void sub_804D5CC (void) {
 }
 
-void sub_804D5D0 (void) {
+static void sub_804D5D0 (void) {
 }
 
-void sub_804D5D4 (void) {
+static void sub_804D5D4 (void) {
 }
 
-void sub_804D5D8 (void) {
+static void sub_804D5D8 (void) {
 }
 
-void sub_804D5DC (void) {
+static void sub_804D5DC (void) {
 }
 
-void sub_804D5E0 (void) {
+static void sub_804D5E0 (void) {
 }
 
-void sub_804D5E4 (void) {
+static void sub_804D5E4 (void) {
 }
 
-void sub_804D5E8 (void) {
+static void sub_804D5E8 (void) {
 }
 
-void sub_804D5EC (void) {
+static void sub_804D5EC (void) {
 }
 
-void sub_804D5F0 (void) {
+static void sub_804D5F0 (void) {
 }
 
-void sub_804D5F4 (void) {
+static void sub_804D5F4 (void) {
 }
 
-void sub_804D5F8 (void) {
+static void sub_804D5F8 (void) {
 }
 
-void sub_804D5FC (void) {
+static void sub_804D5FC (void) {
 }
 
 static void SetRitualMonsterInZone(struct DuelCard* zone, u16 id) {
   zone->id = id;
-  zone->isFaceUp = FALSE;
-  zone->isLocked = FALSE;
-  zone->isDefending = FALSE;
+  zone->isFaceUp = 0;
+  zone->isLocked = 0;
+  zone->isDefending = 0;
   zone->unkTwo = 0;
   zone->unk4 = 0;
   ResetPermanentPowerLevel(zone);
   ResetTemporaryPowerLevel(zone);
-  zone->willChangeSides = FALSE;
+  zone->willChangeSides = 0;
 }
+
+//TODO: add spell effect constants
+void (*const gSpellEffects[])(void) = {
+  sub_804D144,
+  sub_804D148,
+  sub_804D14C,
+  EffectForest,
+  EffectWasteland,
+  EffectMountain,
+  EffectSogen,
+  EffectUmi,
+  EffectYami,
+  EffectMooyanCurry,
+  EffectRedMedicine,
+  EffectGoblinsSecretRemedy,
+  EffectSoulOfThePure,
+  EffectDianKetoTheCureMaster,
+  EffectSparks,
+  EffectHinotama,
+  EffectFinalFlame,
+  EffectOokazi,
+  EffectTremendousFire,
+  EffectDarkHole,
+  EffectRaigeki,
+  EffectLegendarySword,
+  EffectSwordOfDarkDestruction,
+  EffectDarkEnergy,
+  EffectAxeOfDespair,
+  EffectLaserCannonArmor,
+  EffectInsectArmorWithLaserCannon,
+  EffectElfsLight,
+  EffectBeastFangs,
+  EffectSteelShell,
+  EffectVileGerms,
+  EffectBlackPendant,
+  EffectSilverBowAndArrow,
+  EffectHornOfLight,
+  EffectHornOfTheUnicorn,
+  EffectDragonTreasure,
+  EffectElectroWhip,
+  EffectCyberShield,
+  EffectMysticalMoon,
+  EffectMalevolentNuzzler,
+  EffectVioletCrystal,
+  EffectBookOfSecretArts,
+  EffectInvigoration,
+  EffectMachineConversionFactory,
+  EffectRaiseBodyHeat,
+  EffectFollowWind,
+  EffectPowerOfKaishin,
+  sub_804D378,
+  EffectStopDefense,
+  sub_804D37C,
+  EffectSwordsOfRevealingLight,
+  EffectDarkPiercingLight,
+  EffectSpellBindingCircle,
+  EffectElegantEgotist,
+  sub_804D380,
+  sub_804D384,
+  sub_804D388,
+  sub_804D38C,
+  sub_804D390,
+  sub_804D394,
+  sub_804D398,
+  sub_804D39C,
+  sub_804D3A0,
+  sub_804D3A4,
+  sub_804D3A8,
+  EffectBlackLusterRitual,
+  sub_804AED8,
+  sub_804AF58,
+  sub_804AFD8,
+  sub_804B058,
+  sub_804B20C,
+  sub_804B294,
+  sub_804B31C,
+  sub_804B3A4,
+  sub_804B42C,
+  sub_804B4B4,
+  EffectHarpiesFeatherDuster,
+  EffectMagicalLabyrinth,
+  EffectSalamandra,
+  EffectKunaiWithChain,
+  EffectBrightCastle,
+  EffectCrushCard,
+  EffectShadowSpell,
+  sub_804B9D0,
+  sub_804BA58,
+  sub_804BAE0,
+  sub_804BB68,
+  sub_804BBF0,
+  sub_804BC78,
+  sub_804BD00,
+  sub_804BD88,
+  sub_804BE10,
+  sub_804BE98,
+  sub_804BF18,
+  sub_804BF98,
+  EffectWarriorElimination,
+  EffectCurseBreaker,
+  EffectEternalRest,
+  EffectMegamorph,
+  EffectMetalmorph,
+  EffectWingedTrumpeter,
+  EffectStainStorm,
+  EffectEradicatingAerosol,
+  EffectBreathOfLight,
+  EffectEternalDrought,
+  EffectTheInexperiencedSpy,
+  sub_804C6B4,
+  EffectPotOfGreed,
+  EffectRestructerRevolution,
+  EffectLastDayOfWitch,
+  EffectExileOfTheWicked,
+  EffectMultiply,
+  EffectChangeOfHeart,
+  EffectBlackIllusionRitual,
+  sub_804D4E0,
+  EffectBrainControl,
+  sub_804CBBC,
+  sub_804D4E4,
+  sub_804CC7C,
+  EffectBeckonToDarkness,
+  sub_804D550,
+  EffectGravediggerGhoul,
+  EffectHeavyStorm,
+  EffectFinalDestiny,
+  EffectMessengerOfPeaceTSC,
+  EffectDarknessApproaches,
+  sub_804D5A4,
+  sub_804D5A8,
+  sub_804D5AC,
+  sub_804D5B0,
+  sub_804D5B4,
+  sub_804D5B8,
+  sub_804D5BC,
+  EffectCyclonLaser,
+  sub_804D5C0,
+  sub_804D5C4,
+  sub_804D5C8,
+  sub_804D5CC,
+  sub_804D5D0,
+  sub_804D5D4,
+  sub_804D5D8,
+  sub_804D5DC,
+  sub_804D5E0,
+  sub_804D5E4,
+  sub_804D5E8,
+  sub_804D5EC,
+  sub_804D5F0,
+  sub_804D5F4,
+  sub_804D5F8,
+  sub_804D5FC
+};

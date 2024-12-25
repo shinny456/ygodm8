@@ -1,11 +1,4 @@
 #include "global.h"
-#include "FINAL_effect.h"
-#include "duel.h"
-#include "card.h"
-#include "constants/card_ids.h"
-#include "gba/macro.h"
-#include "gba/syscall.h"
-#include "gba/io_reg.h"
 
 extern u8 g8102E24[]; // opponent hand coordinates
 
@@ -190,7 +183,6 @@ void IncNumTributes (void);
 u32 sub_80429A4 (void);
 void sub_8044570 (void);
 void sub_8041104 (void);
-void sub_8029820 (void);
 void sub_801BC00 (void);
 void sub_80410B4 (void);
 void ActivateTrapEffect (void);
@@ -319,7 +311,7 @@ void HandlePlayerMonsterRowAction (void) {
           gMonEffect.id = gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id;
           gMonEffect.row = gDuelCursor.currentY;
           gMonEffect.zone = gDuelCursor.currentX;
-          ActivateMonEffect();
+          ActivateMonsterEffect();
           if (gNotSure[0]->unkThree)
             LockMonsterCardsInRow(4);
           sub_8041104();
@@ -395,7 +387,7 @@ void sub_80446E0 (void) {
       gSpellEffectData.id = id;
       gSpellEffectData.unk2 = gDuelCursor.currentY;
       gSpellEffectData.unk3 = gDuelCursor.currentX;
-      TryActivatingSpellEffect();
+      ActivateSpellEffect();
       if (gNotSure[0]->unkThree)
         LockMonsterCardsInRow(4);
       sub_8041104();
@@ -439,7 +431,7 @@ void sub_80447A8 (void) {
       gSpellEffectData.unk5 = gDuelCursor.destX;
       gSpellEffectData.unk2 = gDuelCursor.currentY;
       gSpellEffectData.unk3 = gDuelCursor.currentX;
-      TryActivatingSpellEffect();
+      ActivateSpellEffect();
     }
     gDuelCursor.state = 0;
     sub_804411C();

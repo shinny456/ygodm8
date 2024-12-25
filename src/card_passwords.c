@@ -1,7 +1,5 @@
 #include "global.h"
-#include "card.h"
-#include "duel.h"
-#include "constants/card_ids.h"
+
 
 // TODO: rename file to card_password.c?
 
@@ -845,7 +843,6 @@ extern u8 g8E1167C[];
 extern u8 g8E11684[];
 extern u8 gCardPasswordDigits[];
 extern u16 gKeyState;
-bool32 PasswordTerminalMain(void);
 void sub_802D90C(u16, u8);
 void sub_80258E8(void);
 u16 sub_803F04C (u8);
@@ -883,7 +880,7 @@ static void sub_8055C04 (void)
     }
 }
 
-void CardPasswordMain(void)
+void CardPasswordMain (void)
 {
     int i;
 

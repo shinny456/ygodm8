@@ -1,9 +1,6 @@
 #include "global.h"
-#include "duel.h"
-#include "card.h"
-#include "constants/card_ids.h"
 
-void EffectRelinquished(void)
+static void EffectRelinquished(void)
 {
     if (NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
     {
@@ -28,7 +25,7 @@ void EffectRelinquished(void)
     }
 }
 
-void EffectThousandEyesRestrict(void)
+static void EffectThousandEyesRestrict(void)
 {
     if (NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
     {
@@ -55,7 +52,7 @@ void EffectThousandEyesRestrict(void)
     }
 }
 
-void EffectTimeWizard(void)
+static void EffectTimeWizard(void)
 {
     u8 i;
 
@@ -75,7 +72,7 @@ void EffectTimeWizard(void)
     }
 }
 
-void EffectCastleOfDarkIllusions(void)
+static void EffectCastleOfDarkIllusions(void)
 {
     u8 i;
 
@@ -97,7 +94,7 @@ void EffectCastleOfDarkIllusions(void)
     }
 }
 
-void EffectPumpkingTheKingOfGhosts(void)
+static void EffectPumpkingTheKingOfGhosts(void)
 {
     u8 i;
 
@@ -118,7 +115,7 @@ void EffectPumpkingTheKingOfGhosts(void)
     }
 }
 
-void EffectCatapultTurtle(void)
+static void EffectCatapultTurtle(void)
 {
     u8 i;
     u16 totalAtk = 0;
@@ -150,7 +147,7 @@ void EffectCatapultTurtle(void)
     }
 }
 
-void EffectTrapMaster(void)
+static void EffectTrapMaster(void)
 {
     if (NumEmptyZonesInRow(gZones[3])) //num of empty zones
     {
@@ -174,7 +171,7 @@ void EffectTrapMaster(void)
     }
 }
 
-void EffectDarkMagicianGirl(void)
+static void EffectDarkMagicianGirl(void)
 {
     if (gNotSure[TURN_PLAYER]->graveyard == DARK_MAGICIAN)
         IncrementPermanentPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
@@ -189,7 +186,7 @@ void EffectDarkMagicianGirl(void)
     }
 }
 
-void EffectGyakutennoMegami(void)
+static void EffectGyakutennoMegami(void)
 {
     u8 i;
 
@@ -213,7 +210,7 @@ void EffectGyakutennoMegami(void)
     }
 }
 
-void EffectDoron(void)
+static void EffectDoron(void)
 {
     if (NumEmptyZonesInRow(gZones[2]))
     {
@@ -230,7 +227,7 @@ void EffectDoron(void)
     }
 }
 
-void EffectLabyrinthTank(void)
+static void EffectLabyrinthTank(void)
 {
     u8 i;
 
@@ -246,7 +243,7 @@ void EffectLabyrinthTank(void)
     }
 }
 
-void EffectSpiritOfTheBooks(void)
+static void EffectSpiritOfTheBooks(void)
 {
     if (NumEmptyZonesInRow(gZones[2]))
     {
@@ -271,7 +268,7 @@ void EffectSpiritOfTheBooks(void)
     }
 }
 
-void EffectBeastKingOfTheSwamps(void)
+static void EffectBeastKingOfTheSwamps(void)
 {
     u8 i;
 
@@ -290,7 +287,7 @@ void EffectBeastKingOfTheSwamps(void)
     }
 }
 
-void EffectNemuriko(void)
+static void EffectNemuriko(void)
 {
     u8 i;
 
@@ -312,7 +309,7 @@ void EffectNemuriko(void)
     }
 }
 
-void EffectToadMaster(void)
+static void EffectToadMaster(void)
 {
     if (NumEmptyZonesInRow(gZones[2]))
     {
@@ -337,7 +334,7 @@ void EffectToadMaster(void)
     }
 }
 
-void EffectHoshiningen(void)
+static void EffectHoshiningen(void)
 {
     u8 i;
 
@@ -357,7 +354,7 @@ void EffectHoshiningen(void)
     }
 }
 
-void EffectWitchsApprentice(void)
+static void EffectWitchsApprentice(void)
 {
     u8 i;
 
@@ -377,7 +374,7 @@ void EffectWitchsApprentice(void)
     }
 }
 
-void EffectMysticLamp(void)
+static void EffectMysticLamp(void)
 {
     gStatMod.card = gZones[gMonEffect.row][gMonEffect.zone]->id;
     gStatMod.field = gDuel.field;
@@ -399,7 +396,7 @@ void EffectMysticLamp(void)
     }
 }
 
-void EffectLeghul(void)
+static void EffectLeghul(void)
 {
     gStatMod.card = gZones[gMonEffect.row][gMonEffect.zone]->id;
     gStatMod.field = gDuel.field;
@@ -422,7 +419,7 @@ void EffectLeghul(void)
 }
 
 // Leftover from TSC; Moved to permanent effect
-void EffectInsectQueen(void)
+static void EffectInsectQueen(void)
 {
     u8 i;
 
@@ -447,7 +444,7 @@ void EffectInsectQueen(void)
     }
 }
 
-void EffectObeliskTheTormentor(void)
+static void EffectObeliskTheTormentor(void)
 {
     u8 i;
 
@@ -471,7 +468,7 @@ void EffectObeliskTheTormentor(void)
 }
 
 // Leftover from TSC; Moved to permanent effect
-void EffectSliferTheSkyDragon(void)
+static void EffectSliferTheSkyDragon(void)
 {
     u8 i;
 
@@ -492,7 +489,7 @@ void EffectSliferTheSkyDragon(void)
     }
 }
 
-void EffectDarkMagicianGirl2(void)
+static void EffectDarkMagicianGirl2(void)
 {
     if (gNotSure[TURN_PLAYER]->graveyard == DARK_MAGICIAN)
         IncrementPermanentPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
@@ -507,7 +504,7 @@ void EffectDarkMagicianGirl2(void)
     }
 }
 
-void EffectAlphaTheMagnetWarrior(void)
+static void EffectAlphaTheMagnetWarrior(void)
 {
     if (NumCardInRow(gZones[2], BETA_THE_MAGNET_WARRIOR) > 0)
     {
@@ -534,7 +531,7 @@ void EffectAlphaTheMagnetWarrior(void)
     }
 }
 
-void EffectBetaTheMagnetWarrior(void)
+static void EffectBetaTheMagnetWarrior(void)
 {
     if (NumCardInRow(gZones[2], ALPHA_THE_MAGNET_WARRIOR) > 0)
     {
@@ -561,7 +558,7 @@ void EffectBetaTheMagnetWarrior(void)
     }
 }
 
-void EffectGammaTheMagnetWarrior(void)
+static void EffectGammaTheMagnetWarrior(void)
 {
     if (NumCardInRow(gZones[2], ALPHA_THE_MAGNET_WARRIOR) > 0)
     {
@@ -588,7 +585,7 @@ void EffectGammaTheMagnetWarrior(void)
     }
 }
 
-void EffectValkyrionTheMagnaWarrior(void)
+static void EffectValkyrionTheMagnaWarrior(void)
 {
     if (NumEmptyZonesInRow(gZones[2]) > 1)
     {
@@ -631,7 +628,7 @@ void EffectValkyrionTheMagnaWarrior(void)
     }
 }
 
-void EffectBeastOfGilfer(void)
+static void EffectBeastOfGilfer(void)
 {
     if (NumEmptyZonesInRow(gZones[1]) < 5)
     {
@@ -650,7 +647,7 @@ void EffectBeastOfGilfer(void)
     }
 }
 
-void EffectDarkNecrofear(void)
+static void EffectDarkNecrofear(void)
 {
     if (NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW && NumEmptyZonesInRow(gZones[1]) != MAX_ZONES_IN_ROW)
     {
@@ -675,7 +672,7 @@ void EffectDarkNecrofear(void)
     }
 }
 
-void sub_8046D38(void)
+static void sub_8046D38(void)
 {
     if (NumEmptyZonesInRow(gZones[1]) != MAX_ZONES_IN_ROW)
     {
@@ -696,7 +693,7 @@ void sub_8046D38(void)
     }
 }
 
-void EffectReflectBounder(void)
+static void EffectReflectBounder(void)
 {
     if (NumEmptyZonesInRow(gZones[1]) != MAX_ZONES_IN_ROW)
     {
@@ -725,7 +722,7 @@ void EffectReflectBounder(void)
     }
 }
 
-void EffectParasiteParacide(void)
+static void EffectParasiteParacide(void)
 {
     if (NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
     {
@@ -749,7 +746,7 @@ void EffectParasiteParacide(void)
     }
 }
 
-void EffectPinchHopper(void)
+static void EffectPinchHopper(void)
 {
     ClearZoneAndSendMonToGraveyard(gZones[gMonEffect.row][gMonEffect.zone], 0);
 
@@ -777,7 +774,7 @@ void EffectPinchHopper(void)
     }
 }
 
-void EffectRevivalJam(void)
+static void EffectRevivalJam(void)
 {
      if (NumEmptyZonesInRow(gZones[2]) > 0)
      {
@@ -794,7 +791,7 @@ void EffectRevivalJam(void)
      }
 }
 
-void EffectAncientLamp(void)
+static void EffectAncientLamp(void)
 {
     if (NumEmptyZonesInRow(gZones[2]) != 0)
     {
@@ -819,7 +816,7 @@ void EffectAncientLamp(void)
     }
 }
 
-void EffectExarionUniverse (void)
+static void EffectExarionUniverse (void)
 {
     gStatMod.card = gZones[gMonEffect.row][gMonEffect.zone]->id;
     gStatMod.field = gDuel.field;
@@ -858,7 +855,7 @@ static inline u32 RemoveSpellCard(struct DuelCard* zone)
     return 0;
 }
 
-void EffectDarkPaladin(void)
+static void EffectDarkPaladin(void)
 {
     if (NumEmptyZonesInRow(gHands[0]) < 5 && sub_8043930(0, TYPE_SPELL) > 0)
     {
@@ -886,7 +883,7 @@ void EffectDarkPaladin(void)
 */
 
 NAKED
-void EffectDarkPaladin(void)
+static void EffectDarkPaladin(void)
 {
     asm_unified("\n\
 	push {r4, r5, r6, lr}\n\
@@ -955,7 +952,7 @@ _080472FC: .4byte gHideEffectText\n\
 _08047300: .4byte gCardEffectTextData");
 }
 /*
-void ReturnFaceDownCardsToHand(struct DuelCard* fieldZone, struct DuelCard* handZone) {
+static void ReturnFaceDownCardsToHand(struct DuelCard* fieldZone, struct DuelCard* handZone) {
   u8 r7 = 0, r8 = 0;
   while (r7 < MAX_ZONES_IN_ROW && r8 < MAX_ZONES_IN_ROW) {
     if (fieldZone->id == CARD_NONE || IsCardFaceUp(fieldZone) || fieldZone->willChangeSides) {
@@ -984,7 +981,7 @@ void ReturnFaceDownCardsToHand(struct DuelCard* fieldZone, struct DuelCard* hand
 
 
 NAKED
-void ReturnFaceDownCardsToHand(struct DuelCard* zone, struct DuelCard* zone2)
+static void ReturnFaceDownCardsToHand(struct DuelCard* zone, struct DuelCard* zone2)
 {
     asm_unified("\n\
 	push {r4, r5, r6, r7, lr}\n\
@@ -1077,7 +1074,7 @@ _080473A4:\n\
 	.byte 0x00, 0x00");
 }
 
-void EffectKingsKnight(void)
+static void EffectKingsKnight(void)
 {
     if (NumCardInRow(gZones[2], QUEENS_KNIGHT) != 0 && NumEmptyZonesInRow(gZones[2]) != 0)
     {
@@ -1103,7 +1100,7 @@ void EffectKingsKnight(void)
 }
 
 /*
-void EffectXHeadCannon(void)
+static void EffectXHeadCannon(void)
 {
     u8 yQty = NumCardInRow(gZones[2], Y_DRAGON_HEAD);
     u8 zQty = NumCardInRow(gZones[2], Z_METAL_TANK);
@@ -1152,7 +1149,7 @@ void EffectXHeadCannon(void)
 } */
 
 NAKED
-void EffectXHeadCannon(void)
+static void EffectXHeadCannon(void)
 {
     asm_unified("\n\
 	push {r4, r5, r6, r7, lr}\n\
@@ -1289,7 +1286,7 @@ _08047578: .4byte gCardEffectTextData");
 }
 
 NAKED
-void EffectYDragonHead(void)
+static void EffectYDragonHead(void)
 {
     asm_unified("\n\
 	push {r4, r5, r6, r7, lr}\n\
@@ -1417,7 +1414,7 @@ _08047680: .4byte 0x0000023F");
 }
 
 NAKED
-void EffectZMetalTank(void)
+static void EffectZMetalTank(void)
 {
     asm_unified("\n\
     push {r4, r5, r6, r7, lr}\n\
@@ -1543,7 +1540,7 @@ _08047784: .4byte gCardEffectTextData\n\
 _08047788: .4byte 0x0000024E");
 }
 /*
-void EffectXYDragonCannon(void)
+static void EffectXYDragonCannon(void)
 {
     if (NumEmptyZonesInRow(gHands[0]) < MAX_ZONES_IN_ROW)
     {
@@ -1574,7 +1571,7 @@ void EffectXYDragonCannon(void)
 }*/
 
 NAKED
-void EffectXYDragonCannon(void)
+static void EffectXYDragonCannon(void)
 {
     asm_unified("\n\
     push {r4, r5, r6, r7, lr}\n\
@@ -1644,7 +1641,7 @@ _08047810: .4byte gCardEffectTextData\n\
 _08047814: .4byte 0x00000251");
 }
 NAKED
-void EffectXZTankCannon(void)
+static void EffectXZTankCannon(void)
 {
     asm_unified("\n\
 	push {r4, r5, r6, r7, lr}\n\
@@ -1713,7 +1710,7 @@ _08047898: .4byte gHideEffectText\n\
 _0804789C: .4byte gCardEffectTextData");
 }
 /*
-void EffectYZTankDragon(void)
+static void EffectYZTankDragon(void)
 {
     if (NumEmptyZonesInRow(gHands[0]) < 5)
     {
@@ -1752,7 +1749,7 @@ void EffectYZTankDragon(void)
 */
 
 NAKED
-void EffectYZTankDragon(void)
+static void EffectYZTankDragon(void)
 {
     asm_unified("\n\
     push {r4, r5, r6, r7, lr}\n\
@@ -1863,7 +1860,7 @@ _08047988: .4byte 0x00000255");
 }
 
 
-void EffectXYZDragonCannon(void)
+static void EffectXYZDragonCannon(void)
 {
     if (NumEmptyZonesInRow(gHands[0]) < MAX_ZONES_IN_ROW)
     {
@@ -1882,7 +1879,7 @@ void EffectXYZDragonCannon(void)
 }
 
 /*
-void EffectPuppetMaster(void)
+static void EffectPuppetMaster(void)
 {
     if (NumEmptyZonesInRow(gZones[2]) > 0 && gNotSure[0]->graveyard == GERNIA)
     {
@@ -1952,7 +1949,7 @@ void EffectPuppetMaster(void)
 }
 */
 NAKED
-void EffectPuppetMaster(void)
+static void EffectPuppetMaster(void)
 {
     asm_unified("\n\
     	push {r4, r5, r6, r7, lr}\n\
@@ -2120,7 +2117,7 @@ _08047B6C: .4byte gCardEffectTextData\n\
 _08047B70: .4byte 0x02024250");
 }
 
-void EffectPenguinTorpedo(void)
+static void EffectPenguinTorpedo(void)
 {
     struct DuelCard* zone = gZones[2][gMonEffect.zone];
 
@@ -2144,7 +2141,7 @@ void EffectPenguinTorpedo(void)
     }
 }
 
-void EffectBerserkDragon(void)
+static void EffectBerserkDragon(void)
 {
     u8 i, turn = WhoseTurn();
 
@@ -2175,7 +2172,7 @@ void EffectBerserkDragon(void)
     }
 }
 
-void EffectFGD(void)
+static void EffectFGD(void)
 {
     u8 i;
     struct DuelCard* zone;
@@ -2201,7 +2198,7 @@ void EffectFGD(void)
     }
 }
 
-void ActivateMonEffect(void)
+void ActivateMonsterEffect (void)
 {
     ResetCardEffectTextData();
     sub_801D188(2);
@@ -2209,10 +2206,14 @@ void ActivateMonEffect(void)
     gMonEffects[gCardInfo.monsterEffect]();
 }
 
-void sub_8047D5C(void){}
-void sub_8047D60(void){}
+//unused?
+static void sub_8047D5C (void) {
+}
 
-void EffectReaperOfTheCards(void)
+static void sub_8047D60 (void) {
+}
+
+static void EffectReaperOfTheCards(void)
 {
     if (NumEmptyZonesInRow(gZones[0]) < MAX_ZONES_IN_ROW)
     {
@@ -2236,7 +2237,7 @@ void EffectReaperOfTheCards(void)
     }
 }
 
-void EffectFairysGift(void)
+static void EffectFairysGift(void)
 {
     if (WhoseTurn() == DUEL_PLAYER)
         SetPlayerLifePointsToAdd(1000);
@@ -2252,7 +2253,7 @@ void EffectFairysGift(void)
     }
 }
 
-void EffectSkelengel(void)
+static void EffectSkelengel(void)
 {
     DrawCard(WhoseTurn());
 
@@ -2263,7 +2264,7 @@ void EffectSkelengel(void)
     }
 }
 
-void EffectHarpieLady(void)
+static void EffectHarpieLady(void)
 {
     u8 i;
 
@@ -2280,7 +2281,7 @@ void EffectHarpieLady(void)
     }
 }
 
-void EffectHarpieLadySisters(void)
+static void EffectHarpieLadySisters(void)
 {
     u8 i;
 
@@ -2296,7 +2297,7 @@ void EffectHarpieLadySisters(void)
     }
 }
 
-void EffectMysticalElf(void)
+static void EffectMysticalElf(void)
 {
     u8 i;
 
@@ -2312,7 +2313,7 @@ void EffectMysticalElf(void)
     }
 }
 
-void EffectCurseOfDragon(void)
+static void EffectCurseOfDragon(void)
 {
     gDuel.field = FIELD_WASTELAND;
 
@@ -2324,7 +2325,7 @@ void EffectCurseOfDragon(void)
     }
 }
 
-void EffectFlameSwordsman(void)
+static void EffectFlameSwordsman(void)
 {
     u8 i;
 
@@ -2342,7 +2343,7 @@ void EffectFlameSwordsman(void)
     }
 }
 
-void EffectGiantSoldierOfStone(void)
+static void EffectGiantSoldierOfStone(void)
 {
     gDuel.field = FIELD_ARENA;
 
@@ -2354,7 +2355,7 @@ void EffectGiantSoldierOfStone(void)
     }
 }
 
-void EffectBattleOx(void)
+static void EffectBattleOx(void)
 {
     u8 i;
 
@@ -2372,7 +2373,7 @@ void EffectBattleOx(void)
     }
 }
 
-void EffectMonsterTamer(void)
+static void EffectMonsterTamer(void)
 {
     u8 i;
 
@@ -2390,7 +2391,7 @@ void EffectMonsterTamer(void)
     }
 }
 
-void EffectMammothGraveyard(void)
+static void EffectMammothGraveyard(void)
 {
     u8 i;
 
@@ -2405,7 +2406,7 @@ void EffectMammothGraveyard(void)
     }
 }
 
-void EffectGoddessOfWhim(void)
+static void EffectGoddessOfWhim(void)
 {
     DrawCard(WhoseTurn());
     ClearZoneAndSendMonToGraveyard(gZones[2][gMonEffect.zone], 0);
@@ -2417,7 +2418,7 @@ void EffectGoddessOfWhim(void)
     }
 }
 
-void EffectSpiritOfTheMountain(void)
+static void EffectSpiritOfTheMountain(void)
 {
     gDuel.field = FIELD_MOUNTAIN;
 
@@ -2429,7 +2430,7 @@ void EffectSpiritOfTheMountain(void)
     }
 }
 
-void EffectDragonSeeker(void)
+static void EffectDragonSeeker(void)
 {
     u8 i;
 
@@ -2447,7 +2448,7 @@ void EffectDragonSeeker(void)
     }
 }
 
-void EffectFiendsHand(void)
+static void EffectFiendsHand(void)
 {
     if (NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
         ClearZoneAndSendMonToGraveyard(gZones[1][(u8)HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
@@ -2461,7 +2462,7 @@ void EffectFiendsHand(void)
     }
 }
 
-void EffectIllusionistFacelessMage(void)
+static void EffectIllusionistFacelessMage(void)
 {
     u8 i;
 
@@ -2476,7 +2477,7 @@ void EffectIllusionistFacelessMage(void)
     }
 }
 
-void EffectElectricLizard(void)
+static void EffectElectricLizard(void)
 {
     if (sub_8043548(gZones[1]))
         gZones[1][(u8)sub_804304C(gZones[1])]->isLocked = TRUE;
@@ -2489,7 +2490,7 @@ void EffectElectricLizard(void)
     }
 }
 
-void EffectWodanTheResidentOfTheForest(void)
+static void EffectWodanTheResidentOfTheForest(void)
 {
     u8 i;
 
@@ -2507,7 +2508,7 @@ void EffectWodanTheResidentOfTheForest(void)
     }
 }
 
-void EffectMWarrior1(void)
+static void EffectMWarrior1(void)
 {
     u8 i;
 
@@ -2523,7 +2524,7 @@ void EffectMWarrior1(void)
     }
 }
 
-void EffectMWarrior2(void)
+static void EffectMWarrior2(void)
 {
     u8 i;
 
@@ -2539,7 +2540,7 @@ void EffectMWarrior2(void)
     }
 }
 
-void EffectRedArcheryGirl(void)
+static void EffectRedArcheryGirl(void)
 {
     if (sub_8043548(gZones[1]))
     {
@@ -2555,7 +2556,7 @@ void EffectRedArcheryGirl(void)
     }
 }
 
-void EffectLadyOfFaith(void)
+static void EffectLadyOfFaith(void)
 {
     if (WhoseTurn() == DUEL_PLAYER)
         SetPlayerLifePointsToAdd(500);
@@ -2571,7 +2572,7 @@ void EffectLadyOfFaith(void)
     }
 }
 
-void EffectFireReaper(void)
+static void EffectFireReaper(void)
 {
     if (WhoseTurn() == DUEL_PLAYER)
         SetOpponentLifePointsToSubtract(50);
@@ -2588,7 +2589,7 @@ void EffectFireReaper(void)
     }
 }
 
-void EffectKairyuShin(void)
+static void EffectKairyuShin(void)
 {
     gDuel.field = FIELD_UMI;
 
@@ -2600,7 +2601,7 @@ void EffectKairyuShin(void)
     }
 }
 
-void EffectMonsterEye(void)
+static void EffectMonsterEye(void)
 {
     u8 i;
 
@@ -2615,7 +2616,7 @@ void EffectMonsterEye(void)
     }
 }
 
-void EffectSwampBattleGuard(void)
+static void EffectSwampBattleGuard(void)
 {
     u8 i;
 
@@ -2631,7 +2632,7 @@ void EffectSwampBattleGuard(void)
     }
 }
 
-void EffectLavaBattleGuard(void)
+static void EffectLavaBattleGuard(void)
 {
     u8 i;
 
@@ -2647,7 +2648,7 @@ void EffectLavaBattleGuard(void)
     }
 }
 
-void EffectTrent(void)
+static void EffectTrent(void)
 {
     gDuel.field = FIELD_FOREST;
 
@@ -2659,7 +2660,7 @@ void EffectTrent(void)
     }
 }
 
-void EffectHourglassOfLife(void)
+static void EffectHourglassOfLife(void)
 {
     u8 i;
 
@@ -2682,7 +2683,7 @@ void EffectHourglassOfLife(void)
     }
 }
 
-void EffectInvitationToADarkSleep(void)
+static void EffectInvitationToADarkSleep(void)
 {
     u8 i;
 
@@ -2697,7 +2698,7 @@ void EffectInvitationToADarkSleep(void)
     }
 }
 
-void EffectTheWingedDragonOfRaBattleMode(void)
+static void EffectTheWingedDragonOfRaBattleMode(void)
 {
     if (WhoseTurn() == DUEL_PLAYER)
     {
@@ -2720,19 +2721,19 @@ void EffectTheWingedDragonOfRaBattleMode(void)
     }
 }
 
-void sub_80486EC (void) {
+static void sub_80486EC (void) {
 }
 
-void sub_80486F0 (void) {
+static void sub_80486F0 (void) {
 }
 
-void sub_80486F4 (void) {
+static void sub_80486F4 (void) {
 }
 
-void sub_80486F8 (void) {
+static void sub_80486F8 (void) {
 }
 
-void sub_80486FC(void)
+static void sub_80486FC(void)
 {
     u8 i;
 
@@ -2748,7 +2749,7 @@ void sub_80486FC(void)
     }
 }
 
-void EffectZombyraTheDark (void)
+static void EffectZombyraTheDark (void)
 {
     if (NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
     {
@@ -2764,10 +2765,10 @@ void EffectZombyraTheDark (void)
     }
 }
 
-void sub_80487BC (void) {
+static void sub_80487BC (void) {
 }
 
-void EffectGilfordTheLightning(void)
+static void EffectGilfordTheLightning(void)
 {
     u8 i;
 
@@ -2782,7 +2783,7 @@ void EffectGilfordTheLightning(void)
     }
 }
 
-void EffectMysticalBeastSerket(void)
+static void EffectMysticalBeastSerket(void)
 {
     if (NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
     {
@@ -2798,7 +2799,7 @@ void EffectMysticalBeastSerket(void)
     }
 }
 
-void EffectJinzo(void)
+static void EffectJinzo(void)
 {
     if (NumEmptyZonesInRow(gZones[0]) != MAX_ZONES_IN_ROW)
     {
@@ -2819,7 +2820,7 @@ void EffectJinzo(void)
     }
 }
 
-void EffectBarrelDragon(void)
+static void EffectBarrelDragon(void)
 {
     u8 i;
 
@@ -2838,7 +2839,7 @@ void EffectBarrelDragon(void)
     }
 }
 
-void EffectSkullMarkLadyBug(void)
+static void EffectSkullMarkLadyBug(void)
 {
     if (WhoseTurn() == DUEL_PLAYER)
         SetPlayerLifePointsToAdd(500);
@@ -2856,7 +2857,7 @@ void EffectSkullMarkLadyBug(void)
     }
 }
 
-void EffectRocketWarrior(void)
+static void EffectRocketWarrior(void)
 {
     if (NumEmptyZonesInRow(gZones[1]) < MAX_ZONES_IN_ROW)
         sub_804037C(gZones[1][(u8)HighestAtkMonInRow(gZones[1])]);
@@ -2868,7 +2869,7 @@ void EffectRocketWarrior(void)
     }
 }
 
-void sub_80489F0(void)
+static void sub_80489F0(void)
 {
     u8 i;
 
@@ -2886,7 +2887,7 @@ void sub_80489F0(void)
     }
 }
 
-void EffectLegendaryFiend(void)
+static void EffectLegendaryFiend(void)
 {
     IncrementPermanentPowerLevel(gZones[gMonEffect.row][gMonEffect.zone]);
 
@@ -2897,7 +2898,7 @@ void EffectLegendaryFiend(void)
     }
 }
 
-void EffectDesVolstgalph(void)
+static void EffectDesVolstgalph(void)
 {
     if (NumEmptyZonesAndGodCardsInRow(gZones[1]) < MAX_ZONES_IN_ROW)
         ClearZoneAndSendMonToGraveyard(gZones[1][(u8)HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
@@ -2917,9 +2918,10 @@ void EffectDesVolstgalph(void)
     }
 }
 
-void sub_8048B10(void){}
+static void sub_8048B10 (void) {
+}
 
-void EffectByserShock(void)
+static void EffectByserShock(void)
 {
     ReturnFaceDownCardsToHand(gZones[1][0], gHands[1][0]);
     ReturnFaceDownCardsToHand(gZones[0][0], gHands[1][0]);
@@ -2933,7 +2935,7 @@ void EffectByserShock(void)
     }
 }
 
-void EffectTheWingedDragonOfRaPhoenixMode(void)
+static void EffectTheWingedDragonOfRaPhoenixMode(void)
 {
     u8 i;
 
@@ -2955,7 +2957,7 @@ void EffectTheWingedDragonOfRaPhoenixMode(void)
     }
 }
 
-void EffectChironTheMage(void)
+static void EffectChironTheMage(void)
 {
     if (NumEmptyZonesAndGodCardsInRow(gZones[1]) < MAX_ZONES_IN_ROW)
         ClearZoneAndSendMonToGraveyard(gZones[1][(u8)HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
@@ -2967,21 +2969,180 @@ void EffectChironTheMage(void)
     }
 }
 
-void sub_8048C18(void){}
-void sub_8048C1C(void){}
-void sub_8048C20(void){}
-void sub_8048C24(void){}
-void sub_8048C28(void){}
-void sub_8048C2C(void){}
-void sub_8048C30(void){}
-void sub_8048C34(void){}
-void sub_8048C38(void){}
-void sub_8048C3C(void){}
-void sub_8048C40(void){}
-void sub_8048C44(void){}
-void sub_8048C48(void){}
-void sub_8048C4C(void){}
-void sub_8048C50(void){}
-void sub_8048C54(void){}
-void sub_8048C58(void){}
-void sub_8048C5C(void){}
+static void sub_8048C18 (void) {
+}
+
+static void sub_8048C1C (void) {
+}
+
+static void sub_8048C20 (void) {
+}
+
+static void sub_8048C24 (void) {
+}
+
+static void sub_8048C28 (void) {
+}
+
+static void sub_8048C2C (void) {
+}
+
+static void sub_8048C30 (void) {
+}
+
+static void sub_8048C34 (void) {
+}
+
+static void sub_8048C38 (void) {
+}
+
+static void sub_8048C3C (void) {
+}
+
+static void sub_8048C40 (void) {
+}
+
+static void sub_8048C44 (void) {
+}
+
+static void sub_8048C48 (void) {
+}
+
+static void sub_8048C4C (void) {
+}
+
+static void sub_8048C50 (void) {
+}
+
+static void sub_8048C54 (void) {
+}
+
+static void sub_8048C58 (void) {
+}
+
+static void sub_8048C5C (void) {
+}
+
+//TODO: use monster_effect constants, rename to gMonsterEffects?
+void (*const gMonEffects[])(void) = {
+  sub_8047D60,
+  EffectReaperOfTheCards,
+  EffectFairysGift,
+  EffectRelinquished,
+  EffectThousandEyesRestrict,
+  EffectSkelengel,
+  EffectHarpieLady,
+  EffectHarpieLadySisters,
+  EffectTimeWizard,
+  EffectCastleOfDarkIllusions,
+  EffectMysticalElf,
+  EffectCurseOfDragon,
+  EffectFlameSwordsman,
+  EffectGiantSoldierOfStone,
+  EffectBattleOx,
+  EffectMonsterTamer,
+  EffectPumpkingTheKingOfGhosts,
+  EffectMammothGraveyard,
+  EffectCatapultTurtle,
+  EffectGoddessOfWhim,
+  EffectSpiritOfTheMountain,
+  EffectDragonSeeker,
+  EffectTrapMaster,
+  EffectFiendsHand,
+  EffectIllusionistFacelessMage,
+  EffectElectricLizard,
+  EffectDarkMagicianGirl,
+  EffectWodanTheResidentOfTheForest,
+  EffectMWarrior1,
+  EffectMWarrior2,
+  EffectRedArcheryGirl,
+  EffectLadyOfFaith,
+  EffectFireReaper,
+  EffectKairyuShin,
+  EffectGyakutennoMegami,
+  EffectMonsterEye,
+  EffectDoron,
+  EffectSwampBattleGuard,
+  EffectLavaBattleGuard,
+  EffectTrent,
+  EffectLabyrinthTank,
+  EffectSpiritOfTheBooks,
+  EffectHourglassOfLife,
+  EffectBeastKingOfTheSwamps,
+  EffectNemuriko,
+  EffectToadMaster,
+  EffectHoshiningen,
+  EffectInvitationToADarkSleep,
+  EffectWitchsApprentice,
+  EffectMysticLamp,
+  EffectLeghul,
+  EffectInsectQueen,
+  EffectObeliskTheTormentor,
+  EffectSliferTheSkyDragon,
+  EffectTheWingedDragonOfRaBattleMode,
+  sub_80486EC,
+  sub_80486F0,
+  sub_80486F4,
+  sub_80486F8,
+  sub_80486FC,
+  EffectDarkMagicianGirl2,
+  EffectAlphaTheMagnetWarrior,
+  EffectBetaTheMagnetWarrior,
+  EffectGammaTheMagnetWarrior,
+  EffectValkyrionTheMagnaWarrior,
+  EffectBeastOfGilfer,
+  EffectDarkNecrofear,
+  EffectZombyraTheDark,
+  sub_80487BC,
+  EffectGilfordTheLightning,
+  EffectMysticalBeastSerket,
+  EffectJinzo,
+  sub_8046D38,
+  EffectBarrelDragon,
+  EffectReflectBounder,
+  EffectParasiteParacide,
+  EffectSkullMarkLadyBug,
+  EffectPinchHopper,
+  EffectRocketWarrior,
+  EffectRevivalJam,
+  sub_80489F0,
+  EffectLegendaryFiend,
+  EffectAncientLamp,
+  EffectDesVolstgalph,
+  EffectExarionUniverse,
+  EffectDarkPaladin,
+  sub_8048B10,
+  EffectByserShock,
+  EffectKingsKnight,
+  EffectXHeadCannon,
+  EffectYDragonHead,
+  EffectZMetalTank,
+  EffectXYDragonCannon,
+  EffectXZTankCannon,
+  EffectYZTankDragon,
+  EffectXYZDragonCannon,
+  EffectPuppetMaster,
+  EffectTheWingedDragonOfRaPhoenixMode,
+  EffectPenguinTorpedo,
+  EffectBerserkDragon,
+  EffectFGD,
+  EffectChironTheMage,
+  sub_8048C18,
+  sub_8048C1C,
+  sub_8048C20,
+  sub_8048C24,
+  sub_8048C28,
+  sub_8048C2C,
+  sub_8048C30,
+  sub_8048C34,
+  sub_8048C38,
+  sub_8048C3C,
+  sub_8048C40,
+  sub_8048C44,
+  sub_8048C48,
+  sub_8048C4C,
+  sub_8048C50,
+  sub_8048C54,
+  sub_8048C58,
+  sub_8048C5C
+};

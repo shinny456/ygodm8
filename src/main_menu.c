@@ -1,5 +1,4 @@
 #include "global.h"
-#include "duel.h"
 
 //TODO: rename file to game_menu.c?
 
@@ -41,7 +40,7 @@ static void sub_8024B84 (struct GameMenuData* menuData);
 
 void sub_8024ECC (struct GameMenuData* menuData);
 void sub_8024DF8 (void);
-void sub_8035020 (u16);
+
 void sub_802618C (void);
 void sub_8024F40 (struct GameMenuData* menuData);
 void sub_8024F6C (struct GameMenuData* menuData);
@@ -49,7 +48,6 @@ void sub_8024FB8 (struct GameMenuData* menuData);
 void sub_8025000 (struct GameMenuData* menuData);
 void sub_8008220 (void);
 void sub_801FB50 (u8 *, u8);
-void RemoveGodCardsFromDeckAndTrunk (void);
 void sub_8025048 (); //takes a u8 *?
 void sub_8025108 (); //takes a u8 *?
 
@@ -71,7 +69,7 @@ struct Unk8FC488C {
 };
 unsigned char sub_8056208 (void);
 void LinkDuelMenu (void);
-void TradeMenu (void);
+void TradeMenuMain (void);
 extern u8 g80C1CF8[];
 extern u8 g80C1CFC[];
 extern u8 g80C1D00[];
@@ -110,7 +108,7 @@ void GameMenuMain (void) {
     }
     if (sGameMenuData.action == 4) {
       sub_8024DF8();
-      TradeMenu();
+      TradeMenuMain();
       PlayMusic(0x2F);
       sGameMenuData.action = 0;
       InitTextAnimationData(&sGameMenuData);

@@ -1,9 +1,4 @@
 #include "global.h"
-#include "text.h"
-#include "duel.h"
-#include "gba/io_reg.h"
-#include "gba/syscall.h"
-#include "gba/macro.h"
 
 // TODO: this struct is likely used elsewhere too, or at least the substruct.
 const struct Unk8E0CD80{
@@ -47,9 +42,8 @@ unsigned char sub_800AC64 (void);
 void sub_800ACE8 (unsigned char);
 void sub_800AF68 (void);
 void sub_800ADC4 (void);
-void sub_8035020 (unsigned);
+
 unsigned char sub_8056208 (void);
-void GameMenuMain (void);
 void ClearGraphicsBuffers (void);
 extern unsigned short gUnk2020DFC;
 extern unsigned* g8E0CD9C;
@@ -185,7 +179,7 @@ static void sub_80353B0 (void) {
   }
 }
 
-void TitleScreen (void) {
+void TitleScreenMain (void) {
   unsigned char temp;
   if (!sub_800AC64())
     temp = sub_80354C0();

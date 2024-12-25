@@ -1,6 +1,5 @@
 #include "global.h"
-#include "gba/io_reg.h"
-#include "duel.h"
+
 
 extern u16 gUnk2021D00;
 extern u8 gUnk2021D04;
@@ -16,11 +15,11 @@ void sub_800AD24(void);
 void sub_80561FC(void);
 void sub_80327C8(void);
 void sub_803276C(void);
-void CopyrightScreensMain(void);
-void TitleScreen(void); //title screen and continue screen
+void TitleScreenMain(void);
 void OverworldMain(void);
 
-int AgbMain(void)
+//TODO: no return value
+int AgbMain (void)
 {
     gUnk2021D04 = 0;
     gUnk2021D00 = 0;
@@ -40,6 +39,6 @@ int AgbMain(void)
     sub_80327C8();
     sub_803276C();
     CopyrightScreensMain();
-    TitleScreen();
+    TitleScreenMain();
     OverworldMain();
 }

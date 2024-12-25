@@ -1,19 +1,13 @@
 #include "global.h"
-#include "duel.h"
-#include "card.h"
-#include "constants/card_ids.h"
 
-
-u8 sub_80270B4 (u16);
+unsigned char sub_80270B4 (u16);
 extern u16 g8E0C6B8[];
 extern u16 g8E0C6B0[];
 extern void (*g8E0C6C0[]) (void);
-extern u8 (*g8E0C800[]) (void);
-extern u8 g2021DD8;
+extern unsigned char (*g8E0C800[]) (void);
+extern unsigned char g2021DD8;
 void sub_802ACC0 (void);
-void sub_8034FEC (u16);
 void sub_802ADF4 (void);
-u8 GetFINAL_Flag (u16 id);
 void sub_80408BC (void);
 void sub_802ADA4 (void);
 void sub_8040258 (void);
@@ -25,7 +19,7 @@ void sub_802703C (void) {
   unsigned char unused[12];
   unsigned char i;
   for (i = 0; i < 5; i++) {
-    u8 temp = sub_80270B4(gZones[2][i]->id);
+    unsigned char temp = sub_80270B4(gZones[2][i]->id);
     if (temp > 3)
       continue;
     gZones[2][i]->id = g8E0C6B8[temp];
@@ -38,20 +32,20 @@ void sub_802703C (void) {
   }
 }
 
-u8 sub_80270B4 (u16 cardId) {
-  u8 i;
+unsigned char sub_80270B4 (u16 cardId) {
+  unsigned char i;
   for (i = 0; i < 4 && cardId != g8E0C6B0[i]; i++)
     ;
   return i;
 }
 
-static void sub_80270E0 (u8 arg0) {
+static void sub_80270E0 (unsigned char arg0) {
   g2021DD8 |= arg0 & 63;
 }
 
-static u8 sub_80270F8 (void) {
-  u8 temp = g2021DD8;
-  u8 r3 = 0, r2 = 0;
+static unsigned char sub_80270F8 (void) {
+  unsigned char temp = g2021DD8;
+  unsigned char r3 = 0, r2 = 0;
   for (; r2 < 6; temp >>= 1, r2++)
     if (temp & 1)
       r3++;
@@ -61,14 +55,19 @@ static u8 sub_80270F8 (void) {
 void sub_802712C (void) {
   g2021DD8 = 1;
 }
-//split?
 
-// permanent_effects.c
+
+
+
+
+//split
+
+// TODO: rename to permanent_effect.c
 static void sub_8029864 (void);
 static unsigned sub_802A478 (void);
 
 static void sub_8027138 (void) {
-  u8 i;
+  unsigned char i;
   g2021DE0.unk2 = 4;
   for (i = 0; i < 5; i++) {
     g2021DE0.unk3 = i;
@@ -213,7 +212,7 @@ static void sub_8027138 (void) {
 }
 
 static void sub_8027444 (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     FlipCardFaceUp(gZones[1][g2021DE0.unk3]);
     for (i = 0; i < 5; i++) {
@@ -242,7 +241,7 @@ static void sub_8027444 (void) {
 
 // Slifer effect
 static void sub_8027524 (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     for (i = 0; i < 5; i++) {
@@ -274,7 +273,7 @@ static void sub_8027524 (void) {
 }
 
 static void sub_8027678 (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 0) {
     FlipCardFaceUp(gZones[0][g2021DE0.unk3]);
     for (i = 0; i < 5; i++) {
@@ -308,7 +307,7 @@ static void sub_8027678 (void) {
 }
 
 static void sub_802779C (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     FlipCardFaceUp(gZones[1][g2021DE0.unk3]);
     for (i = 0; i < 5; i++) {
@@ -342,7 +341,7 @@ static void sub_802779C (void) {
 }
 
 static void sub_80278A4 (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     FlipCardFaceUp(gZones[1][g2021DE0.unk3]);
     for (i = 0; i < 5; i++) {
@@ -368,7 +367,7 @@ static void sub_80278A4 (void) {
 }
 
 static void sub_8027990 (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     FlipCardFaceUp(gZones[1][g2021DE0.unk3]);
     for (i = 0; i < 5; i++) {
@@ -398,7 +397,7 @@ static void sub_8027990 (void) {
 }
 
 static void sub_8027A88 (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     FlipCardFaceUp(gZones[1][g2021DE0.unk3]);
     for (i = 0; i < 5; i++) {
@@ -424,7 +423,7 @@ static void sub_8027A88 (void) {
 }
 
 static void sub_8027B54 (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     FlipCardFaceUp(gZones[1][g2021DE0.unk3]);
     for (i = 0; i < 5; i++) {
@@ -450,7 +449,7 @@ static void sub_8027B54 (void) {
 }
 
 static void sub_8027C44 (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     FlipCardFaceUp(gZones[1][g2021DE0.unk3]);
     for (i = 0; i < 5; i++) {
@@ -509,7 +508,7 @@ static void sub_8027D2C (void) {
 }
 
 static void sub_8027EB0 (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     for (i = 0; i < 5; i++) {
@@ -541,7 +540,7 @@ static void sub_8027EB0 (void) {
 }
 
 static void sub_8028008 (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     for (i = 0; i < 5; i++) {
@@ -569,7 +568,7 @@ static void sub_8028008 (void) {
 }
 
 static void sub_802812C (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     for (i = 0; i < 5; i++) {
@@ -597,7 +596,7 @@ static void sub_802812C (void) {
 }
 
 static void sub_8028244 (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     for (i = 0; i < 5; i++) {
@@ -625,7 +624,7 @@ static void sub_8028244 (void) {
 }
 
 static void sub_8028338 (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     for (i = 0; i < 5; i++) {
@@ -653,7 +652,7 @@ static void sub_8028338 (void) {
 }
 
 static void sub_802842C (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     for (i = 0; i < 5; i++) {
@@ -681,7 +680,7 @@ static void sub_802842C (void) {
 }
 
 static void sub_8028574 (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 != 1 && g2021DE0.unk2 != 2)
     return;
   FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
@@ -710,7 +709,7 @@ static void sub_8028574 (void) {
 }
 
 static void sub_802865C (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 != 1 && g2021DE0.unk2 != 2)
     return;
   FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
@@ -739,7 +738,7 @@ static void sub_802865C (void) {
 }
 
 static void sub_8028744 (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 != 1 && g2021DE0.unk2 != 2)
     return;
   FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
@@ -764,7 +763,7 @@ static void sub_8028744 (void) {
 }
 
 static void sub_802884C (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     for (i = 0; i < 5; i++) {
@@ -802,7 +801,7 @@ static void sub_802884C (void) {
 }
 
 static void sub_80289DC (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     for (i = 0; i < 5; i++) {
@@ -851,7 +850,7 @@ static void sub_8028B10 (void) {
 }
 
 static void sub_8028B98 (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 && g2021DE0.unk2 != 3)
     return;
   FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
@@ -883,7 +882,7 @@ static void sub_8028B98 (void) {
 
 static void sub_8028CAC (void) {
   u32 i;
-  u8 j, zone;
+  unsigned char j, zone;
   if (g2021DE0.unk2 != 4)
     return;
   for (i = 0, j = 0; j < 5 && i < 2; j++) {
@@ -906,7 +905,7 @@ static void sub_8028CAC (void) {
 static void sub_8028D74 (void) {
   if (g2021DE0.unk2 == 1) {
     FlipCardFaceUp(gZones[1][g2021DE0.unk3]);
-    sub_8040404(gZones[2][(u8)HighestAtkMonInRow(gZones[2])]);
+    sub_8040404(gZones[2][(unsigned char)HighestAtkMonInRow(gZones[2])]);
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
       sub_801CEBC();
@@ -914,7 +913,7 @@ static void sub_8028D74 (void) {
   }
   else if (g2021DE0.unk2 == 2) {
     FlipCardFaceUp(gZones[2][g2021DE0.unk3]);
-    sub_8040404(gZones[1][(u8)HighestAtkMonInRow(gZones[1])]);
+    sub_8040404(gZones[1][(unsigned char)HighestAtkMonInRow(gZones[1])]);
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
       sub_801CEBC();
@@ -946,7 +945,7 @@ static void sub_8028E18 (void) {
 }
 
 static void sub_8028ED8 (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 != 1 && g2021DE0.unk2 != 2)
     return;
   FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
@@ -973,7 +972,7 @@ static void sub_8028ED8 (void) {
 }
 
 static void sub_8029004 (void) {
-  u8 emptyZone;
+  unsigned char emptyZone;
   if (g2021DE0.unk2 == 7) {
     if (gNotSure[1]->graveyard != THE_WINGED_DRAGON_OF_RA_PHOENIX_MODE)
       return;
@@ -1019,7 +1018,7 @@ static void sub_8029004 (void) {
 }
 
 static void sub_8029158 (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 != 1 && g2021DE0.unk2 != 2)
     return;
   FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
@@ -1044,7 +1043,7 @@ static void sub_8029158 (void) {
 }
 
 static void sub_802923C (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 != 1 && g2021DE0.unk2 != 2)
     return;
   FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
@@ -1073,7 +1072,7 @@ static void sub_802923C (void) {
 }
 
 static void sub_802934C (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     FlipCardFaceUp(gZones[1][g2021DE0.unk3]);
     for (i = 0; i < 5; i++) {
@@ -1107,7 +1106,7 @@ static void sub_802934C (void) {
 }
 
 static void sub_8029450 (void) {
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     FlipCardFaceUp(gZones[1][g2021DE0.unk3]);
     for (i = 0; i < 5; i++) {
@@ -1155,7 +1154,7 @@ static void sub_8029578 (void) {
       return;
     if (NumEmptyZonesInRow(gZones[1]) > 0) {
       GetGraveCardAndClearGrave(1);
-      zone = gZones[1][(u8)EmptyZoneInRow(gZones[1])];
+      zone = gZones[1][(unsigned char)EmptyZoneInRow(gZones[1])];
       zone->id = MIRAGE_KNIGHT;
       ResetPermanentPowerLevel(zone);
       ResetTemporaryPowerLevel(zone);
@@ -1178,7 +1177,7 @@ static void sub_8029578 (void) {
       return;
     if (NumEmptyZonesInRow(gZones[2]) > 0) {
       GetGraveCardAndClearGrave(0);
-      zone = gZones[2][(u8)EmptyZoneInRow(gZones[2])];
+      zone = gZones[2][(unsigned char)EmptyZoneInRow(gZones[2])];
       zone->id = MIRAGE_KNIGHT;
       ResetPermanentPowerLevel(zone);
       ResetTemporaryPowerLevel(zone);
@@ -1218,7 +1217,7 @@ static void sub_80296B8 (void) {
 }
 
 static void sub_8029764 (void) {
-  u8 i;
+  unsigned char i;
   struct DuelCard* zone;
   if (g2021DE0.unk2 == 0) {
     for (i = 0; i < 5; i++) {
@@ -1417,9 +1416,9 @@ static void sub_80299D0 (void) {
 static void sub_80299D4 (void) {
 }
 
-static u8 sub_80299D8 (void) {
+static unsigned char sub_80299D8 (void) {
   u32 ret = 0;
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     if (g2021DE0.unk3 == sub_8043694(gZones[1], JINZO))
       for (i = 0; i < 5; i++) {
@@ -1447,9 +1446,9 @@ static u8 sub_80299D8 (void) {
   return ret;
 }
 
-static u8 sub_8029A7C (void) {
+static unsigned char sub_8029A7C (void) {
   u32 ret = 0;
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     for (i = 0; i < 5; i++) {
       if (gZones[1][i]->id == ARMORED_ZOMBIE) {
@@ -1485,9 +1484,9 @@ static u8 sub_8029A7C (void) {
   return ret;
 }
 
-static u8 sub_8029AF4 (void) {
+static unsigned char sub_8029AF4 (void) {
   u32 ret = 0;
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     for (i = 0; i < 5; i++) {
       if (gZones[1][i]->id == CARD_NONE || !IsCardFaceUp(gZones[1][i]))
@@ -1513,9 +1512,9 @@ static u8 sub_8029AF4 (void) {
   return ret;
 }
 
-static u8 sub_8029B94 (void) {
+static unsigned char sub_8029B94 (void) {
   u32 ret = 0;
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     for (i = 0; i < 5; i++) {
       if (gZones[1][i]->id == CARD_NONE)
@@ -1539,9 +1538,9 @@ static u8 sub_8029B94 (void) {
   return ret;
 }
 
-static u8 sub_8029C08 (void) {
+static unsigned char sub_8029C08 (void) {
   u32 ret = 0;
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     for (i = 0; i < 5; i++) {
       if (gZones[1][i]->id == CARD_NONE)
@@ -1565,9 +1564,9 @@ static u8 sub_8029C08 (void) {
   return ret;
 }
 
-static u8 sub_8029C8C (void) {
+static unsigned char sub_8029C8C (void) {
   u32 ret = 0;
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     for (i = 0; i < 5; i++) {
       if (gZones[1][i]->id == CARD_NONE)
@@ -1591,9 +1590,9 @@ static u8 sub_8029C8C (void) {
   return ret;
 }
 
-static u8 sub_8029D10 (void) {
+static unsigned char sub_8029D10 (void) {
   u32 ret = 0;
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     for (i = 0; i < 5; i++) {
       if (gZones[1][i]->id == CARD_NONE)
@@ -1617,9 +1616,9 @@ static u8 sub_8029D10 (void) {
   return ret;
 }
 
-u8 sub_8029D94 (void) {
+static unsigned char sub_8029D94 (void) {
   u32 ret = 0;
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     for (i = 0; i < 5; i++) {
       if (gZones[1][i]->id == CARD_NONE || !IsCardFaceUp(gZones[1][i]))
@@ -1643,9 +1642,9 @@ u8 sub_8029D94 (void) {
   return ret;
 }
 
-static u8 sub_8029E34 (void) {
+static unsigned char sub_8029E34 (void) {
   u32 ret = 0;
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1 || g2021DE0.unk2 == 2) {
     for (i = 0; i < 5; i++) {
       if (gZones[1][i]->id == CARD_NONE)
@@ -1679,9 +1678,9 @@ static u8 sub_8029E34 (void) {
   return ret;
 }
 
-static u8 sub_8029EBC (void) {
+static unsigned char sub_8029EBC (void) {
   u32 ret = 0;
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1 || g2021DE0.unk2 == 2) {
     for (i = 0; i < 5; i++) {
       if (gZones[1][i]->id == CARD_NONE)
@@ -1715,9 +1714,9 @@ static u8 sub_8029EBC (void) {
   return ret;
 }
 
-static u8 sub_8029F44 (void) {
+static unsigned char sub_8029F44 (void) {
   u32 ret = 0;
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     for (i = 0; i < 5; i++) {
       if (gZones[2][i]->id == CARD_NONE || !IsCardFaceUp(gZones[2][i]))
@@ -1753,9 +1752,9 @@ static u8 sub_8029F44 (void) {
   return ret;
 }
 
-static u8 sub_802A008 (void) {
+static unsigned char sub_802A008 (void) {
   u32 ret = 0;
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     for (i = 0; i < 5; i++) {
       if (gZones[1][i]->id == CARD_NONE)
@@ -1781,9 +1780,9 @@ static u8 sub_802A008 (void) {
   return ret;
 }
 
-static u8 sub_802A088 (void) {
+static unsigned char sub_802A088 (void) {
   u32 ret = 0;
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 == 0) {
     if (g2021DE0.unk3 == sub_8043694(gZones[0], g2021DE0.unk0)) {
       for (i = 0; i < 5; i++) {
@@ -1847,9 +1846,9 @@ static u8 sub_802A088 (void) {
   return ret;
 }
 
-static u8 sub_802A268 (void) {
+static unsigned char sub_802A268 (void) {
   u32 counter;
-  u8 i;
+  unsigned char i;
   if (g2021DE0.unk2 != 1 && g2021DE0.unk2 != 2)
     return 0;
   counter = 0;
@@ -1874,7 +1873,7 @@ static u8 sub_802A268 (void) {
   return 1;
 }
 
-static u8 sub_802A308 (void) {
+static unsigned char sub_802A308 (void) {
   if (g2021DE0.unk2 == 7) {
     if (gNotSure[1]->graveyard != THE_WINGED_DRAGON_OF_RA_PHOENIX_MODE)
       return 0;
@@ -1890,8 +1889,8 @@ static u8 sub_802A308 (void) {
   return 0;
 }
 
-static u8 sub_802A360 (void) {
-  u8 i;
+static unsigned char sub_802A360 (void) {
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     for (i = 0; i < 5; i++) {
       if (gZones[1][i]->id == CARD_NONE)
@@ -1915,8 +1914,8 @@ static u8 sub_802A360 (void) {
   return 0;
 }
 
-static u8 sub_802A3E0 (void) {
-  u8 i;
+static unsigned char sub_802A3E0 (void) {
+  unsigned char i;
   if (g2021DE0.unk2 == 1) {
     for (i = 0; i < 5; i++) {
       if (gZones[1][i]->id == CARD_NONE)
@@ -1948,7 +1947,7 @@ unsigned sub_802A478 (void) {
   return g8E0C800[gCardInfo.unk1E]();
 }
 
-static u8 sub_802A48 (void) {
+static unsigned char sub_802A48 (void) {
   return 0;
 }
 
@@ -1962,7 +1961,7 @@ static u8 sub_802A48 (void) {
    face down if it was already face down.
    The fix would be to pass in CARD_NONE (i.e 0) to NumCardInRow.
 */
-static u8 sub_802A4AC (void) {
+static unsigned char sub_802A4AC (void) {
   u32 ret = 0;
   u16 cardId; // UB, uninitialzed variable is used
   // NOTE: it could also be the case that NumCardInRow
@@ -1978,11 +1977,11 @@ static u8 sub_802A4AC (void) {
   return ret;
 }
 
-static u8 sub_802A4E0 (void) {
+static unsigned char sub_802A4E0 (void) {
   u32 ret = 0;
   if (g2021DE0.unk2 == 0) {
     if (g2021DE0.unk3 == sub_8043694(gZones[0], DRAGON_CAPTURE_JAR)) {
-      u8 i;
+      unsigned char i;
       for (i = 0; i < 5; i++) {
         if (IsCardLocked(gZones[2][i]) == 1)
           continue;
@@ -1997,11 +1996,11 @@ static u8 sub_802A4E0 (void) {
   return ret;
 }
 
-static u8 sub_802A548 (void) {
+static unsigned char sub_802A548 (void) {
   return 0;
 }
 
-static u8 sub_802A54C (void) {
+static unsigned char sub_802A54C (void) {
   u32 ret = 0;
   if (g2021DE0.unk2 == 1 && NumCardInRow(gZones[1], HARPIES_PET_DRAGON) > 0)
     ret = 1;
@@ -2010,7 +2009,7 @@ static u8 sub_802A54C (void) {
   return ret;
 }
 
-static u8 sub_802A594 (void) {
+static unsigned char sub_802A594 (void) {
   u32 ret = 0;
   if (g2021DE0.unk2 == 1 && NumCardInRow(gZones[1], HARPIES_PET_DRAGON) > 0)
     ret = 1;
@@ -2019,7 +2018,7 @@ static u8 sub_802A594 (void) {
   return ret;
 }
 
-static u8 sub_802A5DC (void) {
+static unsigned char sub_802A5DC (void) {
   u32 ret = 0;
   if (g2021DE0.unk2 == 1 && NumCardInRow(gZones[1], HARPIES_PET_DRAGON) > 0)
     ret = 1;
@@ -2028,7 +2027,7 @@ static u8 sub_802A5DC (void) {
   return ret;
 }
 
-static u8 sub_802A624 (void) {
+static unsigned char sub_802A624 (void) {
   u32 ret = 0;
   if (g2021DE0.unk2 == 1) {
     if (NumCardInRow(gZones[1], BLUE_EYES_WHITE_DRAGON) > 0)
@@ -2040,7 +2039,7 @@ static u8 sub_802A624 (void) {
   return ret;
 }
 
-static u8 sub_802A65C (void) {
+static unsigned char sub_802A65C (void) {
   u32 ret = 0;
   if (g2021DE0.unk2 == 1) {
     if (NumCardInRow(gZones[1], DUNGEON_WORM) > 0)
@@ -2052,7 +2051,7 @@ static u8 sub_802A65C (void) {
   return ret;
 }
 
-static u8 sub_802A6A4 (void) {
+static unsigned char sub_802A6A4 (void) {
   u32 ret = 0;
   if (g2021DE0.unk2 == 1) {
     if (NumEmptyZonesInRow(gZones[2]) < 5)
@@ -2064,7 +2063,7 @@ static u8 sub_802A6A4 (void) {
   return ret;
 }
 
-static u8 sub_802A6D8 (void) {
+static unsigned char sub_802A6D8 (void) {
   u32 ret = 0;
   if (gNotSure[1]->graveyard == DARK_MAGICIAN || gNotSure[1]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
     ret = 1;
@@ -2073,7 +2072,7 @@ static u8 sub_802A6D8 (void) {
   return ret;
 }
 
-static u8 sub_802A704 (void) {
+static unsigned char sub_802A704 (void) {
   u32 ret = 0;
   if (gNotSure[1]->graveyard == DARK_MAGICIAN || gNotSure[1]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
     ret = 1;
@@ -2082,14 +2081,14 @@ static u8 sub_802A704 (void) {
   return ret;
 }
 
-static u8 sub_802A730 (void) {
+static unsigned char sub_802A730 (void) {
   u32 ret = 0;
   if (g2021DE0.unk2 == 1 || g2021DE0.unk2 == 2)
     ret = 1;
   return ret;
 }
 
-static u8 sub_802A74C (void) {
+static unsigned char sub_802A74C (void) {
   u32 ret = 0;
   if (g2021DE0.unk2 == 1)
     ret = 1;
@@ -2098,18 +2097,18 @@ static u8 sub_802A74C (void) {
   return ret;
 }
 
-static u8 sub_802A764 (void) {
+static unsigned char sub_802A764 (void) {
   return 0;
 }
 
-static u8 sub_802A768 (void) {
+static unsigned char sub_802A768 (void) {
   return 0;
 }
 
-static u8 sub_802A76C (void) {
+static unsigned char sub_802A76C (void) {
   u32 ret = 0;
   if (g2021DE0.unk2 == 4) {
-    u8 i;
+    unsigned char i;
     u32 counter = 0;
     for (i = 0; i < 5; i++) {
       u16 cardId = gZones[1][i]->id;
@@ -2122,7 +2121,7 @@ static u8 sub_802A76C (void) {
   return ret;
 }
 
-static u8 sub_802A7D4 (void) {
+static unsigned char sub_802A7D4 (void) {
   u32 ret = 0;
   if (g2021DE0.unk2 == 1) {
     if (NumEmptyZonesInRow(gZones[2]) < 5)
@@ -2134,7 +2133,7 @@ static u8 sub_802A7D4 (void) {
   return ret;
 }
 
-static u8 sub_802A808 (void) {
+static unsigned char sub_802A808 (void) {
   if (g2021DE0.unk2 == 2) {
     if (NumEmptyZonesInRow(gHands[0]) > 3)
       return 1;
@@ -2145,11 +2144,11 @@ static u8 sub_802A808 (void) {
   return 0;
 }
 
-static u8 sub_802A840 (void) {
+static unsigned char sub_802A840 (void) {
   u32 ret = 0;
   if (g2021DE0.unk2 == 3) {
     if (g2021DE0.unk3 == sub_8043694(gZones[3], JAM_BREEDING_MACHINE)) {
-      u8 i;
+      unsigned char i;
       for (i = 0; i < 5; i++) {
         struct DuelCard* zone = gZones[4][i];
         if (zone->id != CARD_NONE && GetTypeGroup(zone->id) == 1 /*TYPE_GROUP_MONSTER*/ && IsCardLocked(zone) != 1) {
@@ -2162,37 +2161,37 @@ static u8 sub_802A840 (void) {
   return ret;
 }
 
-static u8 sub_802A8A0 (void) {
+static unsigned char sub_802A8A0 (void) {
   return 0;
 }
 
-static u8 sub_802A8A4 (void) {
+static unsigned char sub_802A8A4 (void) {
   return 0;
 }
 
-static u8 sub_802A8A8 (void) {
+static unsigned char sub_802A8A8 (void) {
   u32 ret = 0;
   if (g2021DE0.unk2 == 1 || g2021DE0.unk2 == 2)
     ret = 1;
   return ret;
 }
 
-static u8 sub_802A8C4 (void) {
+static unsigned char sub_802A8C4 (void) {
   u32 ret = 0;
   if (g2021DE0.unk2 == 1 || g2021DE0.unk2 == 2)
     ret = 1;
   return ret;
 }
 
-static u8 sub_802A8E0 (void) {
+static unsigned char sub_802A8E0 (void) {
   return 0;
 }
 
-static u8 sub_802A8E4 (void) {
+static unsigned char sub_802A8E4 (void) {
   return 0;
 }
 
-static u8 sub_802A8E8 (void) {
+static unsigned char sub_802A8E8 (void) {
   u32 ret = 0;
   if (g2021DE0.unk2 == 7) {
     if (gNotSure[1]->graveyard == DARK_FLARE_KNIGHT && NumEmptyZonesInRow(gZones[1]) > 0)
@@ -2204,15 +2203,15 @@ static u8 sub_802A8E8 (void) {
   return 0;
 }
 
-static u8 sub_802A948 (void) {
+static unsigned char sub_802A948 (void) {
   return 0;
 }
 
-static u8 sub_802A94C (void) {
+static unsigned char sub_802A94C (void) {
   return 0;
 }
 
-static u8 sub_802A950 (void) {
+static unsigned char sub_802A950 (void) {
   if (g2021DE0.unk2 == 1) {
     if (!GetExodiaFlag(gNotSure[1]->graveyard))
       return 1;
@@ -2222,7 +2221,7 @@ static u8 sub_802A950 (void) {
   return 0;
 }
 
-static u8 sub_802A98C (void) {
+static unsigned char sub_802A98C (void) {
   if (g2021DE0.unk2 == 0) {
     if (!NumCardInRow(gZones[0], DESTINY_BOARD))
       return 1;
@@ -2232,7 +2231,7 @@ static u8 sub_802A98C (void) {
   return 0;
 }
 
-static u8 sub_802A9C8 (void) {
+static unsigned char sub_802A9C8 (void) {
   if (g2021DE0.unk2 == 0) {
     if (!NumCardInRow(gZones[0], DESTINY_BOARD))
       return 1;
@@ -2242,7 +2241,7 @@ static u8 sub_802A9C8 (void) {
   return 0;
 }
 
-static u8 sub_802AA04 (void) {
+static unsigned char sub_802AA04 (void) {
   if (g2021DE0.unk2 == 0) {
     if (!NumCardInRow(gZones[0], DESTINY_BOARD))
       return 1;
@@ -2252,7 +2251,7 @@ static u8 sub_802AA04 (void) {
   return 0;
 }
 
-static u8 sub_802AA40 (void) {
+static unsigned char sub_802AA40 (void) {
   if (g2021DE0.unk2 == 0) {
     if (!NumCardInRow(gZones[0], DESTINY_BOARD))
       return 1;
@@ -2262,118 +2261,118 @@ static u8 sub_802AA40 (void) {
   return 0;
 }
 
-static u8 sub_802AA7C (void) {
+static unsigned char sub_802AA7C (void) {
   return 0;
 }
 
-static u8 sub_802AA80 (void) {
+static unsigned char sub_802AA80 (void) {
   return 0;
 }
 
-static u8 sub_802AA84 (void) {
+static unsigned char sub_802AA84 (void) {
   return 0;
 }
 
-static u8 sub_802AA88 (void) {
+static unsigned char sub_802AA88 (void) {
   return 0;
 }
 
-static u8 sub_802AA8C (void) {
+static unsigned char sub_802AA8C (void) {
   return 0;
 }
 
-static u8 sub_802AA90 (void) {
+static unsigned char sub_802AA90 (void) {
   return 0;
 }
 
-static u8 sub_802AA94 (void) {
+static unsigned char sub_802AA94 (void) {
   return 0;
 }
 
-static u8 sub_802AA98 (void) {
+static unsigned char sub_802AA98 (void) {
   return 0;
 }
 
-static u8 sub_802AA9C (void) {
+static unsigned char sub_802AA9C (void) {
   return 0;
 }
 
-static u8 sub_802AAA0 (void) {
+static unsigned char sub_802AAA0 (void) {
   return 0;
 }
 
-static u8 sub_802AAA4 (void) {
+static unsigned char sub_802AAA4 (void) {
   return 0;
 }
 
-static u8 sub_802AAA8 (void) {
+static unsigned char sub_802AAA8 (void) {
   return 0;
 }
 
-static u8 sub_802AAAC (void) {
+static unsigned char sub_802AAAC (void) {
   return 0;
 }
 
-static u8 sub_802AAB0 (void) {
+static unsigned char sub_802AAB0 (void) {
   return 0;
 }
 
-static u8 sub_802AAB4 (void) {
+static unsigned char sub_802AAB4 (void) {
   return 0;
 }
 
-static u8 sub_802AAB8 (void) {
+static unsigned char sub_802AAB8 (void) {
   return 0;
 }
 
-static u8 sub_802AABC (void) {
+static unsigned char sub_802AABC (void) {
   return 0;
 }
 
-static u8 sub_802AAC0 (void) {
+static unsigned char sub_802AAC0 (void) {
   return 0;
 }
 
-static u8 sub_802AAC4 (void) {
+static unsigned char sub_802AAC4 (void) {
   return 0;
 }
 
-static u8 sub_802AAC8 (void) {
+static unsigned char sub_802AAC8 (void) {
   return 0;
 }
 
-static u8 sub_802AACC (void) {
+static unsigned char sub_802AACC (void) {
   return 0;
 }
 
-static u8 sub_802AAD0 (void) {
+static unsigned char sub_802AAD0 (void) {
   return 0;
 }
 
-static u8 sub_802AAD4 (void) {
+static unsigned char sub_802AAD4 (void) {
   return 0;
 }
 
-static u8 sub_802AAD8 (void) {
+static unsigned char sub_802AAD8 (void) {
   return 0;
 }
 
-static u8 sub_802AADC (void) {
+static unsigned char sub_802AADC (void) {
   return 0;
 }
 
-static u8 sub_802AAE0 (void) {
+static unsigned char sub_802AAE0 (void) {
   return 0;
 }
 
-static u8 sub_802AAE4 (void) {
+static unsigned char sub_802AAE4 (void) {
   return 0;
 }
 
-static u8 sub_802AAE8 (void) {
+static unsigned char sub_802AAE8 (void) {
   return 0;
 }
 
-static u8 sub_802AAEC (void) {
+static unsigned char sub_802AAEC (void) {
   return 0;
 }

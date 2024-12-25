@@ -1,5 +1,4 @@
 #include "global.h"
-#include "duel.h"
 
 extern u8 g80C1D80[];
 
@@ -27,15 +26,15 @@ void sub_80254F8 (void) {
       gDuelistStatus[i] = 1;
 }
 
-void DeclareLoser (u8 duelist) {
+void DeclareLoser (unsigned char duelist) {
   gDuelistStatus[duelist] = 2;
 }
 
-u8 GetDuelistStatus (u8 duelist) {
+unsigned char GetDuelistStatus (unsigned char duelist) {
   return gDuelistStatus[duelist];
 }
 
-bool8 IsDuelOver (void) {
+unsigned char IsDuelOver (void) {
   u8 i;
   bool8 isDuelOver = FALSE;
   for (i = 0; i < 2; i++)

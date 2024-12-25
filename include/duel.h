@@ -24,16 +24,9 @@ enum {
 
 #define MAX_ZONES_IN_ROW 5
 
-struct StatMod
-{
-    u16 card;
-    u8 field;
-    s8 stage;
-};
 
-extern struct StatMod gStatMod;
-extern void (*gMonEffects[])(void);
-extern void (*gSpellEffects[])(void);
+extern void (*const gMonEffects[])(void);
+extern void (*const gSpellEffects[])(void);
 extern void (*g8DFF55C[])(void);
 extern void (*g8DFFA48[])(void);
 extern void (*g8DFF7F0[])(void);
@@ -175,14 +168,14 @@ enum Language
 extern u8 gLanguage; //move to another header
 
 extern u8 gDuelistStatus[]; //0 - player status, 1 - opponent status: 2 == loss, 1 == can attack, 0 == can't attack
-void SetFinalStat(struct StatMod*);
+
 
 void sub_801CEBC(void);
 
 void ResetCardEffectTextData(void);
 void sub_801D188(u8);
 void sub_801F6B0(void);
-bool8 IsDuelOver(void);
+
 
 
 
@@ -296,7 +289,6 @@ void ClearZoneAndSendMonToGraveyard(struct DuelCard* zone, u8 graveyard);
 
 u16 GetGraveCardAndClearGrave(u8);
 
-u32 sub_8048CE0(void);
 
 void InitSorlTurns(u8);
 
@@ -391,9 +383,9 @@ struct DuelData
     u16 unkE;
     u16 music;
     u16 opponent;
-    u16 unk14[10];
+    u16 unk14[10]; //reward cards
     u16 ante;
-    u8 unk2A;
+    u8 unk2A; //max num reward cards?
     u8 unk2B;
     /*2C-2F bitfields?*/
     u8 unk2c : 1;
@@ -430,9 +422,6 @@ extern u16 gRitualComponents[][4]; //ritual
 void sub_80404F0(u8);
 void LockMonsterCardsInRow(u8);
 void sub_803F8E0(int);
-void ActivateMonEffect(void);
-void TryActivatingSpellEffect(void);
-u8 GetRitualNumTributes(u16 id);
 
 struct DuelDeck
 {
@@ -521,7 +510,6 @@ int sub_8045390(u16);
 bool32 sub_80436EC(struct DuelCard*);
 
 void ClearZoneAndSendMonToGraveyard2 (struct DuelCard *zone, u8 player);
-void DeclareLoser(u8);
 
 void LoadObjVRAM(void);
 void LoadBgVRAM(void);
@@ -558,15 +546,14 @@ void InitDeckCapacity(void);
 void InitDuelistLevel(void);
 void sub_8020168(void);
 void sub_802712C(void);
-void sub_802D9F0(void);
-void InitMoney(void);
+
+
 void sub_80561FC(void);
 void sub_80554EC(void);
 void sub_8055FD0(void);
 void sub_801FB44(u8*);
-void sub_8048CB8(void);
+
 int GetNumCardsInRow (u8);
-u8 GetDuelistStatus (u8);
 u32 GetTotalAtkAndDefInRow (u8);
 
 extern u8 g201CB3C; //padding?
@@ -590,19 +577,8 @@ bool32 sub_8043790 (struct DuelCard *zone);
 bool32 sub_80437B4 (struct DuelCard *zone);
 
 
-
-
-struct DuelText {
-  u16 unk0;
-  u16 unk2;
-  u16 unk4;
-  u16 unk6;
-  u8 textId;
-};
-
 void sub_8045718 (void);
-void ResetDuelTextData(struct DuelText*);
-void sub_80219E4(struct DuelText*);
+
 void sub_80240BC(struct DuelText*);
 void sub_802405C(struct DuelText*);
 void sub_802408C(struct DuelText*);
@@ -616,7 +592,6 @@ void sub_803EEFC (u8, const u8*, u16);
 void sub_800DDA0(u16, u8);
 extern u8 g2021BD0[];
 void sub_801CF08(void);
-void sub_8022080(void);
 void sub_8041CCC (u16, u16);
 void sub_8041D14 (u16, u16);
 
@@ -690,7 +665,6 @@ void sub_804F2DC (void);
 void sub_8044EC8 (u16*, u16, u16, int);
 void sub_8044F80 (u16*, u16, u16, int);
 void sub_80411EC (struct OamData*);
-void sub_804EC4C (void);
 
 struct Unk2021DE0 {
   u16 unk0;

@@ -1,8 +1,6 @@
 #include "global.h"
-#include "duel.h"
-#include "constants/card_ids.h"
 
-void ReturnMonsterToOpponent (struct DuelCard *zone) {
+static void ReturnMonsterToOpponent (struct DuelCard *zone) {
   if (NumEmptyZonesInRow(gZones[1]) != 0) {
     u8 emptyZoneId = EmptyZoneInRow(gZones[1]);
     gZones[1][emptyZoneId]->id = zone->id;

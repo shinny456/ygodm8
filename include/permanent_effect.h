@@ -1,0 +1,6 @@
+#ifndef GUARD_PERMANENT_EFFECT_H
+#define GUARD_PERMANENT_EFFECT_H
+
+void sub_8029820 (void);
+
+#endif // GUARD_PERMANENT_EFFECT_H

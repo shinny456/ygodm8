@@ -1,9 +1,11 @@
 #include "global.h"
-#include "duel.h"
-#include "gba/syscall.h"
-#include "gba/macro.h"
 
 static void sub_800604C (void);
+static void sub_80064F4 (void);
+static void sub_8006764 (void);
+static void sub_800683C (void);
+static void sub_80068C4 (void);
+
 
 extern u8 gPlayerName[];
 void bzero (void*, unsigned);
@@ -11,28 +13,19 @@ char *strncpy(char * s1, const char * s2, unsigned n);
 u32 strlen(const char*);
 extern const char* g8DF8030[];
 extern u8 gSharedMem[];
-void sub_8020DB8(u32* arg0, u8* name, u16 arg2);
+
 extern u32 gUnk_807A9EC[];
 void ClearGraphicsBuffers (void);
-
-void sub_800683C (void);
 void sub_80074CC (void);
 void sub_80075B0 (void);
 void sub_8006B40 (void);
-void sub_8006764 (void);
-void sub_80064F4 (void);
 void sub_8006958 (void);
 void sub_8006C60 (void);
 void sub_8006E84 (void);
 void sub_8007068 (void);
 void sub_8007350 (void);
-void sub_80068C4 (void);
-void sub_8020968(u8*, u16, u16);
-
 extern u16 g2020DF4;
 extern u16 gUnk2020DFC;
-
-
 extern u16 gUnk_8081640[][30];
 extern u16 gUnk_8081F10[];
 extern u16 gUnk_8081440[];
@@ -203,7 +196,7 @@ static void sub_800604C (void) {
   gUnk_8DF8114->unk32 = 3;
 }
 /*
-void sub_80060BC (void) {
+static void sub_80060BC (void) {
   u16 i;
   if (gUnk_8DF8114->unk32 == 5)
     return;
@@ -313,7 +306,7 @@ void sub_80060BC (void) {
 */
 
 NAKED
-void sub_80060BC (void) {
+static void sub_80060BC (void) {
   asm_unified("push {r4, r5, r6, r7, lr}\n\
 	ldr r0, _0800616C\n\
 	mov ip, r0\n\
@@ -858,7 +851,7 @@ _080064F0: .4byte gUnk_8DF8114");
 }
 
 /*
-void sub_80064F4 (void) {
+static void sub_80064F4 (void) {
   if (g2020DF4 & 0x40) {
     PlayMusic(0x36);
     if (gUnk_8DF8114->unk1 == 7)
@@ -947,7 +940,7 @@ void sub_80064F4 (void) {
 }*/
 
 NAKED
-void sub_80064F4 (void) {
+static void sub_80064F4 (void) {
   asm_unified("push {r4, r5, r6, r7, lr}\n\
 	ldr r0, _0800651C\n\
 	ldrh r1, [r0]\n\
@@ -1253,7 +1246,7 @@ _0800675C:\n\
 	bx r0");
 }
 
-void sub_8006764 (void) {
+static void sub_8006764 (void) {
   if (strlen(g8DF8030[gUnk_8DF8114->unk32]) <= 154 * 2)
     return;
   if (g2020DF4 & 0x40 && !gUnk_8DF8114->unk1) {
@@ -1272,7 +1265,7 @@ void sub_8006764 (void) {
     sub_800683C();
 }
 
-void sub_800683C (void) {
+static void sub_800683C (void) {
   if (!gUnk_8DF8114->unk16A
     && gUnk_8DF8114->unk16A + 154 > strlen(g8DF8030[gUnk_8DF8114->unk32]) / 2
     && gUnk_8DF8114->unk32 != 5)
@@ -1282,7 +1275,7 @@ void sub_800683C (void) {
   LoadCharblock2();
 }
 
-void sub_80068C4 (void) {
+static void sub_80068C4 (void) {
   if (gUnk_8DF8114->unk32 == 5)
     return;
   if (gUnk_8DF8114->unk2) {

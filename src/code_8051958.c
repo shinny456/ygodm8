@@ -1,39 +1,41 @@
 #include "global.h"
-#include "duel.h"
-#include "overworld.h"
 
+void sub_8051A44 (u8, u8, s16*);
+void sub_8051C14 (u8, u8, s16*);
+void TryTalking (void);
+void TryDueling (void);
+void sub_8052088 (u8);
+u16 sub_80520E0 (u8, u8);
+unsigned sub_8052174 (u16);
+unsigned sub_8052194 (u16);
+unsigned sub_80521AC (u16);
+void TryWalking (u8);
+void TryRunning (u8);
+unsigned sub_805222C (int, u8, u8);
+
+static s8 sub_8051DAC (u8, u8, u8);
+static void sub_8052108 (u8*, u8*);
+
+//TODO: rename file to movement.c, interaction.c?
 extern u8 g8E0E3C0[]; // which direction the npc should face when the player talks to them (gFacePlayer)
 
 extern s16 gHorizontalDisplacements[];
 extern u16 g8E0E3CC[];
 extern u16 g8E0E404[];
 extern u16 g8E0E416[];
-
-
+extern u16* g20244AC;
 extern u16 g8E0E3D4[3][4];
 extern u16 g8E0E3EC[3][4];
-
 extern u16 g8E0E428[3][9];
 extern u16 g8E0E45E[3][9];
-
+extern u16 g8E0E494[][3];
 extern struct OamData gOamBuffer[];
-
-s8 sub_8051DAC (u8, u8, u8);
-u8 sub_8052174 (u16);
-void sub_8051D20 (u8, u8);
+void sub_804EEAC (struct OamData* arg0, u16 arg1);
+void sub_804EE84 (struct OamData* arg0, int arg1, int arg2);
 void sub_805236C (void);
 
-
-inline u8 sub_805222C (int unused, u8 x, u8 y) {
-  if (x > 119)
-    return 0;
-  if (y > 79)
-    return 0;
-  return 1;
-}
-
 // restrict player from going further than the specified coords
-inline u8 sub_8052244 (int unused, u8 x, u8 y) {
+static inline u8 sub_8052244_inline (int unused, u8 x, u8 y) {
   if (x > 223)
     return 0;
   if (x > 119)
@@ -45,16 +47,16 @@ inline u8 sub_8052244 (int unused, u8 x, u8 y) {
   return 1;
 }
 
-s8 sub_8051958 (u8 newXPos, u8 newYPos, u8 direction, u8 obj) {
+static s8 sub_8051958 (u8 newXPos, u8 newYPos, u8 direction, u8 obj) {
   int i;
   for (i = 0; i < 3; i++) {
-    if (sub_8052244(0, g8E0E3D4[i][direction] + newXPos, g8E0E3EC[i][direction] + newYPos)) {
+    if (sub_8052244_inline(0, g8E0E3D4[i][direction] + newXPos, g8E0E3EC[i][direction] + newYPos)) {
       u8 temp = g8E0E3D4[i][direction] + newXPos;
       u8 temp2 = g8E0E3EC[i][direction] + newYPos;
       if (sub_8051DAC(temp, temp2, obj) == -1) {
         temp = g8E0E3D4[i][direction] + newXPos;
         temp2 = g8E0E3EC[i][direction] + newYPos;
-        if (sub_8052174(gOverworld.unk23C[temp2 * 120 + temp]) != 1)
+        if ((unsigned char)sub_8052174(gOverworld.unk23C[temp2 * 120 + temp]) != 1)
           return i + 1;
       }
     }
@@ -91,9 +93,8 @@ void sub_8051A44 (u8 obj, u8 direction, s16 *displacement) {
   }
 }
 
-extern u16* g20244AC;
 /*
-s8 sub_8051B28 (u8 newXPos, u8 newYPos, u8 direction, u8 obj) {
+static s8 sub_8051B28 (u8 newXPos, u8 newYPos, u8 direction, u8 obj) {
   int i;
   for (i = 0; i < 3; i++) {
     if (sub_8052244_inline(0, g8E0E428[i][direction] + newXPos, g8E0E45E[i][direction] + newYPos)) {
@@ -111,7 +112,7 @@ s8 sub_8051B28 (u8 newXPos, u8 newYPos, u8 direction, u8 obj) {
 }*/
 
 NAKED
-s8 sub_8051B28 (u8 newXPos, u8 newYPos, u8 direction, u8 obj) {
+static s8 sub_8051B28 (u8 newXPos, u8 newYPos, u8 direction, u8 obj) {
   asm_unified("push {r4, r5, r6, r7, lr}\n\
 	mov r7, sl\n\
 	mov r6, sb\n\
@@ -233,8 +234,6 @@ _08051C02:\n\
 	bx r1");
 }
 
-extern u16 g8E0E494[][3];
-
 void sub_8051C14 (u8 obj, u8 direction, s16 *displacement) {
   u8 newXPos;
   u8 newYPos;
@@ -267,7 +266,7 @@ void sub_8051C14 (u8 obj, u8 direction, s16 *displacement) {
   }
 }
 
-void sub_8051D20 (u8 obj, u8 direction) {
+static void sub_8051D20 (u8 obj, u8 direction) {
   u8 x, y;
   u8 pos[2];
   u16 displacement[4];
@@ -281,11 +280,11 @@ void sub_8051D20 (u8 obj, u8 direction) {
   y = gOverworld.objects[obj].y;
   gOverworld.objects[obj].unkC = gOverworld.unk23C[y * 120 + x];
   sub_8052088(obj);
-  // hmmm... this only accesses the lower and upper bytes of x
+  // TODO: hmmm... this only accesses the lower and upper bytes of x
   sub_8052108(pos, (u8*)&gOverworld.objects[obj].x);
 }
 
-s8 sub_8051DAC (u8 x, u8 y, u8 objId) {
+static s8 sub_8051DAC (u8 x, u8 y, u8 objId) {
   u8 i;
   u8 temp;
   if (gOverworld.objects[objId].unk1Dl)
@@ -306,7 +305,7 @@ s8 sub_8051DAC (u8 x, u8 y, u8 objId) {
   return -1;
 }
 
-inline u8 sub_8052268 (int y, int x) {
+static inline u8 sub_8052268_inline (int y, int x) {
   u8 temp = 0;
   if (y <= 0)
     if (y >= -8)
@@ -319,7 +318,7 @@ inline u8 sub_8052268 (int y, int x) {
   return 0;
 }
 
-inline u8 sub_8052298 (int y, int x) {
+static inline u8 sub_8052298_inline (int y, int x) {
   u8 temp = 0;
   if (x <= 8)
     if (x >= 0)
@@ -332,7 +331,7 @@ inline u8 sub_8052298 (int y, int x) {
   return 0;
 }
 
-inline u8 sub_80522C0 (int y, int x) {
+static inline u8 sub_80522C0_inline (int y, int x) {
   u8 temp = 0;
   if (y <= 8)
     if (y >= 0)
@@ -345,7 +344,7 @@ inline u8 sub_80522C0 (int y, int x) {
   return 0;
 }
 
-inline u8 sub_80522E8 (int y, int x) {
+static inline u8 sub_80522E8_inline (int y, int x) {
   u8 temp = 0;
   if (x <= 0)
     if (x >= -8)
@@ -358,30 +357,30 @@ inline u8 sub_80522E8 (int y, int x) {
   return 0;
 }
 
-s8 GetObjectIdInFrontOfPlayer (u8 x, u8 y, u8 playerDirection) {
+static s8 GetObjectIdInFrontOfPlayer (u8 x, u8 y, u8 playerDirection) {
   u8 i, objExists;
   for (i = 1; i < 15; i++) {
     switch (playerDirection) {
       case 0:
-        if (sub_8052268(y - gOverworld.objects[i].y, x - gOverworld.objects[i].x))
+        if (sub_8052268_inline(y - gOverworld.objects[i].y, x - gOverworld.objects[i].x))
           objExists = 1;
         else
           objExists = 0;
         break;
       case 1:
-        if (sub_8052298(y - gOverworld.objects[i].y, x - gOverworld.objects[i].x))
+        if (sub_8052298_inline(y - gOverworld.objects[i].y, x - gOverworld.objects[i].x))
           objExists = 1;
         else
           objExists = 0;
         break;
       case 2:
-        if (sub_80522C0(y - gOverworld.objects[i].y, x - gOverworld.objects[i].x))
+        if (sub_80522C0_inline(y - gOverworld.objects[i].y, x - gOverworld.objects[i].x))
           objExists = 1;
         else
           objExists = 0;
         break;
       case 3:
-        if (sub_80522E8(y - gOverworld.objects[i].y, x - gOverworld.objects[i].x))
+        if (sub_80522E8_inline(y - gOverworld.objects[i].y, x - gOverworld.objects[i].x))
           objExists = 1;
         else
           objExists = 0;
@@ -427,8 +426,16 @@ void TryDueling (void) {
   InitiateScript(gOverworld.objects[objId].scriptR);
 }
 
+static inline u8 sub_805222C_inline (int unused, u8 x, u8 y) {
+  if (x > 119)
+    return 0;
+  if (y > 79)
+    return 0;
+  return 1;
+}
+
 void sub_8052088 (u8 obj) {
-  if (sub_805222C(0, gOverworld.objects[obj].x, gOverworld.objects[obj].y)) {
+  if (sub_805222C_inline(0, gOverworld.objects[obj].x, gOverworld.objects[obj].y)) {
     u8 y = gOverworld.objects[obj].y;
     u8 x = gOverworld.objects[obj].x;
     u16 temp = gOverworld.unk23C[y * 120 + x];
@@ -440,11 +447,8 @@ u16 sub_80520E0 (u8 x, u8 y) {
   return gOverworld.unk23C[y * 120 + x];
 }
 
-void sub_804EEAC (struct OamData* arg0, u16 arg1);
-void sub_804EE84 (struct OamData* arg0, int arg1, int arg2);
-
 /*
-void sub_8052108 (u8* arg0, u8* arg1) {
+static void sub_8052108 (u8* arg0, u8* arg1) {
   s8 sp[2];
   sub_804EEAC(gOamBuffer + 0, gOverworld.objects[0].unkC);
   sp[0] = (arg1[0] - arg0[0]) * 2;
@@ -454,7 +458,7 @@ void sub_8052108 (u8* arg0, u8* arg1) {
 }*/
 
 NAKED
-void sub_8052108 (u8* arg0, u8* arg1) {
+static void sub_8052108 (u8* arg0, u8* arg1) {
   asm_unified("push {r4, r5, r6, lr}\n\
 	mov r6, r8\n\
 	push {r6}\n\
@@ -508,7 +512,7 @@ _0805216C: .4byte gOamBuffer\n\
 _08052170: .4byte gOverworld");
 }
 
-u8 sub_8052174 (u16 arg0) {
+unsigned sub_8052174 (u16 arg0) {
   if (arg0 & 0xE000)
     return 0;
   if (arg0 & 1)
@@ -516,13 +520,13 @@ u8 sub_8052174 (u16 arg0) {
   return 0;
 }
 
-u32 sub_8052194 (u16 arg0) {
+unsigned sub_8052194 (u16 arg0) {
   if (!(arg0 & 0x1000))
     return 0;
   return 1;
 }
 
-u32 sub_80521AC (u16 arg0) {
+unsigned sub_80521AC (u16 arg0) {
   if (arg0 & 0x2000)
     return 1;
   if (arg0 & 0x4000)
@@ -544,4 +548,81 @@ void TryRunning (u8 direction) {
   }
   if (gOverworld.objects[0].unk18 == 1)
     gOverworld.objects[0].unk18 = 2;
+}
+
+unsigned sub_805222C (int unused, u8 x, u8 y) {
+  if (x > 119)
+    return 0;
+  if (y > 79)
+    return 0;
+  return 1;
+}
+
+//only the inline version is used
+static u8 sub_8052244 (int unused, u8 x, u8 y) {
+  if (x > 223)
+    return 0;
+  if (x > 119)
+    return 0;
+  if (y > 223)
+    return 0;
+  if (y > 79)
+    return 0;
+  return 1;
+}
+
+//only the inline version is used
+static u8 sub_8052268 (int y, int x) {
+  u8 temp = 0;
+  if (y <= 0)
+    if (y >= -8)
+      temp |= 1;
+  if (x <= 4)
+    if (x >= -4)
+      temp |= 2;
+  if (temp == (1 | 2))
+    return 1;
+  return 0;
+}
+
+//only the inline version is used
+static u8 sub_8052298 (int y, int x) {
+  u8 temp = 0;
+  if (x <= 8)
+    if (x >= 0)
+      temp = 1;
+  if (y <= 4)
+    if (y >= -4)
+      temp |= 2;
+  if (temp == 3)
+    return 1;
+  return 0;
+}
+
+//only the inline version is used
+static u8 sub_80522C0 (int y, int x) {
+  u8 temp = 0;
+  if (y <= 8)
+    if (y >= 0)
+      temp = 1;
+  if (x <= 4)
+    if (x >= -4)
+      temp |= 2;
+  if (temp == 3)
+    return 1;
+  return 0;
+}
+
+//only the inline version is used
+static u8 sub_80522E8 (int y, int x) {
+  u8 temp = 0;
+  if (x <= 0)
+    if (x >= -8)
+      temp = 1;
+  if (y <= 4)
+    if (y >= -4)
+      temp |= 2;
+  if (temp == 3)
+    return 1;
+  return 0;
 }

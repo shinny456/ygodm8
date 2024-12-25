@@ -1,10 +1,4 @@
 #include "global.h"
-#include "card.h"
-#include "gba/syscall.h"
-#include "gba/macro.h"
-#include "duel.h"
-#include "gba/io_reg.h"
-
 
 static void sub_800876C (void);
 static void sub_8008780 (void);
@@ -85,7 +79,7 @@ extern u8 gUnk_8DFAFF4[];
 
 extern u16 gUnk_8090470[];
 extern u64 gMoney;
-void SetMoney(u64);
+
 
 
 extern u8 gStarTile[];
@@ -565,8 +559,10 @@ void InitTrunkCards(void)
         gTrunkCardQty[id] = gStarterTrunk[id];
 }
 
-void AddCardToTrunk(u16 id, u8 qty)
+void AddCardToTrunk(unsigned idd, unsigned qtyy)
 {
+    unsigned short id = idd;
+    unsigned char qty = qtyy;
     if (qty > TRUNK_CARD_LIMIT - gTrunkCardQty[id])
         gTrunkCardQty[id] = TRUNK_CARD_LIMIT;
     else
@@ -621,7 +617,7 @@ void sub_8008D88 (u16 id) {
 }*/
 
 NAKED
-void sub_8008D88(u16 id)
+void sub_8008D88(unsigned id)
 {
     asm_unified("\n\
     push {r4, lr}\n\
@@ -941,7 +937,6 @@ extern u8 g8DF811C[];
 extern u8 g80907E4[];
 
 u16 sub_08007FEC(u8, u8, u16);
-void CopyStringTilesToVRAMBuffer(void *, void *, u16);
 void sub_800800C(u8, u8, u16, u16);
 
 

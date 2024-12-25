@@ -1,8 +1,4 @@
 #include "global.h"
-#include "duel.h"
-#include "gba/macro.h"
-#include "gba/syscall.h"
-#include "gba/io_reg.h"
 
 static void sub_8000724 (void);
 static void sub_8000810 (void);

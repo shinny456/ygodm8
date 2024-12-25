@@ -1,6 +1,14 @@
 #ifndef GUARD_OVERWORLD_H
 #define GUARD_OVERWORLD_H
 
+void OverworldMain (void);
+void sub_804DF5C (int objectId);
+void sub_804EB04 (struct OamData* arg0, u8 arg1);
+void sub_804EC4C (void);
+void sub_804EC64 (void);
+void sub_804ECA8 (void);
+void sub_804ED08 (void);
+
 //script structs
 struct Script
 {
@@ -149,18 +157,11 @@ extern u16 g81032A2[];
 extern struct Script* g8F04040;
 
 void sub_8052088(u8); //implicit declaration?
-void sub_8052108 (u8*, u8*);
 void sub_804DF5C(int);
 void sub_804EF10 (void);
 void InitiateScript (struct Script *);
 u16 sub_80520E0(u8 x, u8 y);
 u32 CheckFlag(u32);
-
-void sub_80527E8(struct ScriptCtx *script);
-void sub_8052F60(struct ScriptCtx *script);
-void sub_8053138(struct ScriptCtx *script);
-void sub_8053040(struct ScriptCtx *script);
-
 
 // inline prototype order matters
 inline void sub_8053334 (struct ScriptCtx* scriptCtx);
@@ -175,19 +176,13 @@ inline void sub_8053E94(struct ScriptCtx* script);
 
 extern const u32 g8E0E4CC[];
 extern const u32 g8E0E53C[];
-extern const u8 *gUnk_8E00E30[];
 
-void DisplayPortrait(struct ScriptCtx *script);
-void sub_80532E8(struct ScriptCtx *script);
 void ClearFlag(u32);
-void sub_8048D08(void);
-u16 sub_8020698(u8 *text);
 void sub_800BE0C(void);
-void DuelMain(void);
 void sub_804F544(void);
-void InitStartMenuFromScript(void);
-void sub_8034FEC(u32);
-void sub_8035020(u32);
+
+
+
 void sub_805345C(u8, u8, u8, u8, struct ScriptCtx *script);
 void sub_8034FE0(void);
 void sub_8053520(u8, u16, u16, u16, u8, u8, struct ScriptCtx *script);
@@ -196,16 +191,15 @@ void sub_8053A74(u8, u8, struct ScriptCtx *script);
 void sub_8053884(u16, u8, struct ScriptCtx *script);
 void sub_8054AB0(u8, struct ScriptCtx *script);
 void sub_804F218(void);
-void AddCardToTrunk(u32 id, u8 qty);
-void sub_8008D88(u32 id);
+
+
 void sub_8053C18(struct ScriptCtx *script, u8);
-int sub_80524A4(u16);
+unsigned sub_80524A4(u16);
 void sub_805339C(void);
 void sub_804F508(void);
 void sub_8053B40(u8, u16, struct ScriptCtx *script);
 void sub_80512E0(struct ScriptCtx *script, u8);
-void sub_8020968(void *arg0, u16 arg1, u16 arg2);
-void sub_8053284(struct ScriptCtx *script);
+
 void PlayOverworldMusic (void);
 
 
@@ -216,17 +210,13 @@ extern u8 g2020DCC; //where the player is going
 extern u8 g2020DD0; //world map state (how many places are unlocked)
 extern u16 g8E0D9C4[][3]; //change to struct
 void sub_804F750(u8);
-void WorldMapMain(void);
+
 void sub_80523EC(u16, u16, u16);
 void sub_0804F76C(void);
-void NamingScreenMain(void);
-void StartCutscene(u8);
 void SetFlag(u32);
 void SaveGame(void);
-void sub_804ED08(void);
 void InitiateScript(struct Script *);
 void PlayOverworldMusic(void);
-void sub_804E288(void);
 void sub_804F5D8(void);
 
 void sub_8035038(u16);

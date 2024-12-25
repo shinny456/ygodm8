@@ -1,10 +1,4 @@
 #include "global.h"
-#include "overworld.h"
-#include "card.h"
-#include "gba/syscall.h"
-#include "duel.h"
-#include "gba/io_reg.h"
-#include "gba/macro.h"
 
 extern u8* gUnk_8E0CD14;
 extern u8 g201EF50[];
@@ -25,8 +19,6 @@ extern s8 g8E0F69A[];
 extern s8 g8E0F6AC[];
 
 
-
-u8* GetCurrentLanguageString (u8*);
 u16 sub_805629C (u16, u16);
 void sub_80562E0 (void);
 void sub_8056208 (void);
@@ -44,12 +36,10 @@ void CardShopSellMain (void);
 void CardPasswordMain (void);
 void CreditsMain (void);
 
-void RemoveMoney (u64);
-
 
 /*
 void sub_8053F30 (struct ScriptCtx* script) {
-  u8* name;
+  const unsigned char* name;
   u32 temp;
   int i, ip;
   int r7, r6, r3;
@@ -310,7 +300,7 @@ _080540AC: .4byte 0x0201EF50");
 
 void sub_80540B0 (struct ScriptCtx* script) {
   u32 temp;
-  u8* text;
+  const unsigned char* text;
   int r4, r5;
 
   temp = gUnk_8E0CD14[0] << 24;
@@ -336,7 +326,7 @@ void sub_80540B0 (struct ScriptCtx* script) {
 
 void sub_8054150 (struct ScriptCtx* script) {
   u32 temp;
-  u8* text;
+  const unsigned char* text;
   int r4, r5;
 
   temp = gUnk_8E0CD14[0] << 24;
@@ -363,7 +353,7 @@ void sub_8054150 (struct ScriptCtx* script) {
 
 void sub_80541F4 (struct ScriptCtx* script) {
   u32 temp;
-  u8* text;
+  const unsigned char* text;
   int r1, r5;
 
   temp = gUnk_8E0CD14[0] << 24;
@@ -444,7 +434,7 @@ void sub_8054320 (struct ScriptCtx* script) {
 
 void sub_80543A4 (struct ScriptCtx* script) {
   u32 temp;
-  u8* text;
+  const unsigned char* text;
   int r1, r5;
 
   temp = gUnk_8E0CD14[0] << 24;
@@ -473,7 +463,7 @@ void sub_80543A4 (struct ScriptCtx* script) {
 
 void sub_805444C (struct ScriptCtx* script) {
   u32 temp;
-  u8* text;
+  const unsigned char* text;
   int r1, r5;
 
   temp = gUnk_8E0CD14[0] << 24;
@@ -502,7 +492,7 @@ void sub_805444C (struct ScriptCtx* script) {
 
 void sub_80544F4 (struct ScriptCtx* script) {
   u32 temp;
-  u8* text;
+  const unsigned char* text;
   int r1, r5;
 
   temp = gUnk_8E0CD14[0] << 24;
@@ -531,7 +521,7 @@ void sub_80544F4 (struct ScriptCtx* script) {
 
 void sub_805459C (struct ScriptCtx* script) {
   u32 temp;
-  u8* text;
+  const unsigned char* text;
   int r1, r5;
 
   temp = gUnk_8E0CD14[0] << 24;
@@ -759,7 +749,7 @@ _080547CC: .4byte 0x0201EF50");
 
 void sub_80547D0 (struct ScriptCtx* script) {
   u32 temp;
-  u8* text;
+  const unsigned char* text;
   int r1, r5;
 
   temp = gUnk_8E0CD14[0] << 24;
@@ -788,7 +778,7 @@ void sub_80547D0 (struct ScriptCtx* script) {
 
 void sub_8054878 (struct ScriptCtx* script) {
   u32 temp;
-  u8* text;
+  const unsigned char* text;
   int r1, r5;
 
   temp = gUnk_8E0CD14[0] << 24;

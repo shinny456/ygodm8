@@ -1,8 +1,4 @@
 #include "global.h"
-#include "duel.h"
-#include "gba/syscall.h"
-#include "gba/io_reg.h"
-#include "gba/macro.h"
 
 static void sub_8026A94 (void);
 static void sub_08026BA4 (void);
@@ -127,7 +123,7 @@ static void sub_8026A94 (void) {
   sub_8026CEC();
 }
 
-static void sub_8026AC4 (u8 arg0) { //flag tilemaps
+static void sub_8026AC4 (u8 arg0) { //country flag tilemaps
   u32 i;
   arg0--;
   switch (arg0) {

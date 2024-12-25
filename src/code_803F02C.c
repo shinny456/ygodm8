@@ -1233,8 +1233,6 @@ static unsigned char ProcessInput (void) {
 
 
 void sub_8041104 (void);
-void TryActivatingTurnEffects (void);
-void sub_8029820 (void);
 void sub_80082C0 (void);
 void sub_8041EC8 (void);
 void sub_8041E70 (unsigned char, unsigned char);

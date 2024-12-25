@@ -1,6 +1,7 @@
 #include "global.h"
-#include "duel.h"
-#include "card.h"
+
+
+//TODO: rename file to equip_effect.c
 
 extern u8 g81060A8[];
 extern u8 g810610D[];

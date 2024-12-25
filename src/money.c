@@ -3,36 +3,37 @@
 #define MAX_MONEY 9999999999999
 extern u64 gMoney;
 
+//TODO: NewGame_InitMoney or NewGameInitMoney
 void InitMoney (void) {
   gMoney = 500;
 }
 
-void SetMoney (u64 amount) {
+void SetMoney (unsigned long long amount) {
   gMoney = amount;
 }
 
-void AddMoney (u64 amount) {
+void AddMoney (unsigned long long amount) {
   if (amount > MAX_MONEY - gMoney)
     gMoney = MAX_MONEY;
   else
     gMoney += amount;
 }
 
-void RemoveMoney (u64 amount) {
+void RemoveMoney (unsigned long long amount) {
   if (amount > gMoney)
     gMoney = 0;
   else
     gMoney -= amount;
 }
 
-bool32 ExceedsMoneyLimit (u64 amount) {
+unsigned ExceedsMoneyLimit (unsigned long long amount) {
   if (amount > MAX_MONEY - gMoney)
-    return FALSE;
-  return TRUE;
+    return 0;
+  return 1;
 }
 
-bool32 sub_8027018 (u64 amount) {
+unsigned sub_8027018 (unsigned long long amount) {
   if (amount > gMoney)
-    return FALSE;
-  return TRUE;
+    return 0;
+  return 1;
 }

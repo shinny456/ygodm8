@@ -1,21 +1,22 @@
 #include "global.h"
-#include "duel.h"
-#include "overworld.h"
-#include "gba/io_reg.h"
-#include "gba/syscall.h"
-#include "gba/macro.h"
-#include "card.h"
+
+static void sub_80527E8 (struct ScriptCtx *);
+static void sub_8052F60 (struct ScriptCtx *);
+static void sub_8053040 (struct ScriptCtx *);
+static void sub_8053138 (struct ScriptCtx *);
+static void SetCurrentScript(struct ScriptCtx *, struct Script *);
+static void sub_8053284 (struct ScriptCtx *);
+static void sub_80532A8 (struct ScriptCtx *);
+static void sub_80532E8 (struct ScriptCtx *);
 
 //3007e54
 //related to scripting (printing text etc) sub_80526D0
 //E2AEC2...
 
-void SetCurrentScript(struct ScriptCtx*, struct Script *);
-void sub_80532A8 (struct ScriptCtx*);
+
+
 void sub_80526D0 (struct ScriptCtx*);
-void sub_804EB04 (struct OamData* arg0, u8 arg1);
 void sub_804F544 (void);
-void sub_804EC64 (void);
 void sub_804ECA8 (void);
 void sub_80553F8(struct ScriptCtx *script, u8);
 
@@ -84,7 +85,7 @@ inline void sub_805342C (u8* dest, u8* src) {
       *dest++ = *src++;
 }
 
-void DisplayPortrait (struct ScriptCtx* scriptCtx) {
+static void DisplayPortrait (struct ScriptCtx* scriptCtx) {
   struct OamData* oam = gOamBuffer;
   if (scriptCtx->unk86 == 1)
     sub_80533BC();
@@ -151,10 +152,18 @@ void sub_80526D0(struct ScriptCtx* scriptCtx)
           sub_80533BC();
         sub_804F218();
     }
-    sub_8053334(scriptCtx);
+    if (gOverworld.unk240 & 2)
+      return;
+    PlayOverworldMusic();
+    scriptCtx->unk0 = 0;
+    scriptCtx->unk84 = 0;
+    DisplayPortrait(scriptCtx);
+    REG_WINOUT = 0x3D3E;
+    sub_804F508();
+    REG_BLDCNT = 0;
 }
 
-void sub_80527E8(struct ScriptCtx *script)
+static void sub_80527E8(struct ScriptCtx *script)
 {
     u16 var;
     int i;
@@ -463,7 +472,7 @@ inline void sub_8053388 (struct ScriptCtx *script) {
     script->unk8 = 1;
 }
 
-void sub_8052F60 (struct ScriptCtx *script) {
+static void sub_8052F60 (struct ScriptCtx *script) {
   if (gUnk2020DFC & 259) {
     PlayMusic(202);
     script->pointer++;
@@ -492,7 +501,7 @@ void sub_8052F60 (struct ScriptCtx *script) {
   }
 }
 
-void sub_8053040 (struct ScriptCtx *script) {
+static void sub_8053040 (struct ScriptCtx *script) {
   int temp = gUnk2020DFC & 259;
   if (temp) {
     PlayMusic(55);
@@ -523,7 +532,7 @@ void sub_8053040 (struct ScriptCtx *script) {
   }
 }
 
-void sub_8053138 (struct ScriptCtx *script) {
+static void sub_8053138 (struct ScriptCtx *script) {
   u16 var;
   script->unk86 = 1;
   if (script->unk22[script->unk78] <= 127) {
@@ -550,7 +559,8 @@ void sub_8053138 (struct ScriptCtx *script) {
     script->unkC = 0;
 }
 
-void sub_80531FC (struct ScriptCtx* script) {
+//unused?
+static void sub_80531FC (struct ScriptCtx* script) {
   int i;
   SetCardInfo(script->unk20);
   script->unk78 = 0;
@@ -564,20 +574,20 @@ void sub_80531FC (struct ScriptCtx* script) {
   script->unkC = 2;
 }
 
-void SetCurrentScript (struct ScriptCtx *scriptCtxPtr, struct Script *script) {
+static void SetCurrentScript (struct ScriptCtx *scriptCtxPtr, struct Script *script) {
   scriptCtxPtr->currentScript.start = script->start;
   scriptCtxPtr->currentScript.unk4 = script->unk4;
   scriptCtxPtr->currentScript.unk8 = script->unk8;
 }
 
-void sub_8053284 (struct ScriptCtx *script) {
+static void sub_8053284 (struct ScriptCtx *script) {
   if (script->unkD == 1)
     script->unk8 = gE0E674[script->unk8];
   else
     script->unk8 = gE0E754[script->unk8];
 }
 
-void sub_80532A8 (struct ScriptCtx* unused) {
+static void sub_80532A8 (struct ScriptCtx* unused) {
   LZ77UnCompWram(g82AD2D0, gBgVram.sbb1B);
   CpuCopy16(g82AD48C, gBgVram.sbb1D, 0x500);
   sub_80081DC(sub_804ECA8);
@@ -585,7 +595,7 @@ void sub_80532A8 (struct ScriptCtx* unused) {
 }
 
 /*
-void sub_80532E8 (struct ScriptCtx* script) {
+static void sub_80532E8 (struct ScriptCtx* script) {
   int i;
   for (i = 0; i < 80 && gPlayerName[i]; i++)
     script->unk22[i] = gPlayerName[i];
@@ -595,7 +605,7 @@ void sub_80532E8 (struct ScriptCtx* script) {
 }*/
 
 NAKED
-void sub_80532E8 (struct ScriptCtx* script) {
+static void sub_80532E8 (struct ScriptCtx* script) {
   asm_unified("push {r4, r5, r6, lr}\n\
 	adds r3, r0, #0\n\
 	movs r2, #0\n\

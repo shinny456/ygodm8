@@ -1,10 +1,5 @@
 #include "global.h"
-#include "duel.h"
-#include "card.h"
-#include "gba/io_reg.h"
-#include "constants/card_ids.h"
-#include "gba/syscall.h"
-#include "gba/macro.h"
+
 
 static u16 ProcessInput (void);
 static void sub_801D414 (void);
@@ -397,6 +392,7 @@ u8 sub_801D760 (void) {
 extern u16 g2024144[];
 extern u16 g80B9144[];
 
+//unused?
 void sub_801D7A4 (void) {
   u8 i;
   for (i = 0; i < 40; i++)
@@ -740,7 +736,6 @@ extern u8 g80B9194[];
 extern u8 g8DF811C[];
 
 u16 sub_08007FEC(u8, u8, u16);
-void CopyStringTilesToVRAMBuffer(void *, void *, u16);
 void sub_800800C(u8, u8, u16, u16);
 
 void sub_801DE5C (void) {
@@ -1508,12 +1503,10 @@ _0801E7CC: .4byte 0x02000400\n\
 _0801E7D0: .4byte 0x00005C36");
 }
 
-u8* GetCurrentLanguageString (u8*);
-
 void sub_801E7D4 (u16 unused_CardId, u32* arg1) {
   u8 buffer[52];
   u8 r6, r5, r3;
-  u8* name = gCardInfo.name;
+  const unsigned char* name = gCardInfo.name;
   name = GetCurrentLanguageString(name);
   r6 = 0, r5 = 0, r3 = 0;
   while (name[r5] && name[r5] != '$') {

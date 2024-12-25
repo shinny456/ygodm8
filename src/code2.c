@@ -1,11 +1,4 @@
 #include "global.h"
-#include "duel.h"
-#include "card.h"
-#include "constants/card_ids.h"
-#include "gba/io_reg.h"
-#include "gba/macro.h"
-#include "gba/syscall.h"
-#include "FINAL_effect.h"
 
 struct AI_Command
 {
@@ -398,7 +391,7 @@ static void sub_800E8B4(void)
     gMonEffect.id = gZones[row2][col2]->id;
     gMonEffect.row = row2;
     gMonEffect.zone = col2;
-    ActivateMonEffect();
+    ActivateMonsterEffect();
     if (gNotSure[TURN_PLAYER]->unkThree)
         LockMonsterCardsInRow(4);
 }
@@ -521,7 +514,7 @@ static void sub_800EB40(void)
     gSpellEffectData.unk5 = col2;
     gSpellEffectData.unk2 = row3;
     gSpellEffectData.unk3 = col3;
-    TryActivatingSpellEffect();
+    ActivateSpellEffect();
     ClearZone(gZones[row2][col2]);
 }
 
@@ -537,7 +530,7 @@ static void sub_800EB8C(void)
     gSpellEffectData.unk5 = col2;
     gSpellEffectData.unk2 = row3;
     gSpellEffectData.unk3 = col3;
-    TryActivatingSpellEffect();
+    ActivateSpellEffect();
     ClearZone(gZones[row2][col2]);
 }
 
@@ -571,7 +564,7 @@ static void sub_800EC68(void)
     gSpellEffectData.id = gZones[row2][col2]->id;
     gSpellEffectData.unk2 = row2;
     gSpellEffectData.unk3 = col2;
-    TryActivatingSpellEffect();
+    ActivateSpellEffect();
     if (gNotSure[TURN_PLAYER]->unkThree)
         LockMonsterCardsInRow(4);
     ClearZone(gZones[row2][col2]);
@@ -585,7 +578,7 @@ static void sub_800ECC0(void)
     gSpellEffectData.id = gZones[row2][col2]->id;
     gSpellEffectData.unk2 = row2;
     gSpellEffectData.unk3 = col2;
-    TryActivatingSpellEffect();
+    ActivateSpellEffect();
     ClearZone(gZones[row2][col2]);
 }
 
@@ -624,7 +617,7 @@ static void sub_800ED48(void)
     gSpellEffectData.id = gZones[row2][col2]->id;
     gSpellEffectData.unk2 = row2;
     gSpellEffectData.unk3 = col2;
-    TryActivatingSpellEffect();
+    ActivateSpellEffect();
     ClearZone(gZones[row2][col2]);
 }
 
@@ -2103,8 +2096,6 @@ static void sub_8011AB0 (void) {
     }
   }
 }
-
-bool32 sub_804B144(u8*, u16*); // implicit declaration? TODO
 
 static void sub_8011C04 (void) {
   u8 zones[3];
@@ -7156,8 +7147,6 @@ void ClearAICommandData (void) {
   sAI_Command.unk7 = 0;
 }
 
-void TryActivatingTurnEffects (void);
-void sub_8029820 (void);
 static u8 sub_801A08C (void);
 void TryAttackVoicing (void);
 void sub_801B66C (void);
@@ -10107,8 +10096,6 @@ static void sub_801CFEC (void) {
   PlayMusic(0x42);
   sub_8041D14(gCardEffectTextData.cardId, gCardEffectTextData.cardId2);
 }
-
-void sub_8035020 (u16);
 
 static void sub_801D008 (void) {
   sub_8035020(4);

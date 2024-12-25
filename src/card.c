@@ -1,15 +1,12 @@
 #include "global.h"
-#include "gba/io_reg.h"
-#include "gba/macro.h"
-#include "duel.h"
 #include "card.h"
-#include "player.h"
-#include "constants/card_ids.h"
-#include "gba/syscall.h"
 
+struct StatMod gStatMod;
+struct CardInfo gCardInfo;
 
-//card.c?
 static void sub_800B2B0 (void);
+static u16 GetStageModifiedStat(u16 stat, s8 stageMod);
+static u16 GetFieldModifiedStat(u16 stat, u8 fieldMod);
 static void sub_800BA04 (void);
 static void sub_800BC24 (void);
 static void sub_800BCC4 (void);
@@ -17,10 +14,6 @@ static void sub_800BCEC (void);
 static unsigned char* sub_800BD14 (u16);
 
 
-
-
-void sub_800BCB0(void *);
-void PrintCard(void);
 extern u16 g08097C94[];
 extern u16 (*gUnk_8E0136C)[][14];
 extern u16 *gUnk_8E01368;
@@ -55,17 +48,15 @@ extern u8 gUnk8DFBAE8[]; //german type/summon/cost tiles
 extern u8 gUnk8DFBDE8[]; //italian and spanish type/summon/cost tiles (Type is spelled the same for both)
 void *GetCardAttributeString(u8 attribute);
 void *GetCardTypeString(u8 type);
-void CopyStringTilesToVRAMBuffer(void *, void *, u16);
+
 extern u8* g8DFC288[];
 extern u8* g8DFCF0C[];
-void sub_8020968(u8*, u16, u16);
 extern u16 gUnk8097D94[][31]; //248x160p (31x20t) tilemap
 extern u32 g0809553C[]; //tileset
 extern u16 g809508C[][30];
 extern u8 gUnk201CB38;
 extern s8 gUnk201CB39;
-static u16 GetFieldModifiedStat(u16 stat, u8 fieldMod);
-static u16 GetStageModifiedStat(u16 stat, s8 stageMod);
+
 
 
 //functions that print the big cards during an attack in a duel?
@@ -945,10 +936,6 @@ static u8* sub_800BD24(u16 cardId)
 
 
 
-
-
-
-
 //********split?*************
 void sub_800BD44(void);
 void sub_800BDA0(void);
@@ -1030,7 +1017,6 @@ extern u8 g80AE370[];
 u16 sub_800901C(u8);
 void sub_800ABA8(void);
 void sub_8035038(u16);
-void MosaicEffect(void);
 void InitTrunkData(void);
 void InitDeckData(void);
 void sub_80090B8(void);
@@ -1043,7 +1029,7 @@ void sub_800AA58(u8);
 void sub_800DAA4(void);
 void sub_800ABE4(void);
 void sub_0800ABE0(void);
-void sub_8035020(u16);
+
 struct UnkStruct_2020E10
 {
     s16 unk0; //current card position in trunk?
@@ -1060,7 +1046,6 @@ extern u8 g8DFF49B[];
 extern u8 g8DFF4A4[];
 extern u8 g8DFF4A6[];
 int GetTrunkCardQty(u16);
-int IsGoodAnte(u16);
 void sub_80081DC(void (*)(void));
 void sub_8008220(void);
 s32 sub_80086D8(void);

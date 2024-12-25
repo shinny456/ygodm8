@@ -1,8 +1,4 @@
 #include "global.h"
-#include "duel.h"
-#include "gba/io_reg.h"
-#include "gba/macro.h"
-#include "gba/syscall.h"
 
 static u16 sub_8035BF0 (void);
 static void TradeSucceeded (void);
@@ -191,7 +187,7 @@ extern u8 g80DD670[];
 extern u8 g80DD674[];
 extern u8 g80DD678[];
 
-void TradeMenu (void) {
+void TradeMenuMain (void) {
   u32 r5;
   void (**funcTable) (void);
   PlayMusic(0x2F);
@@ -1846,7 +1842,7 @@ void sub_8038B3C (void) {
 }
 
 void RemoveCardFromTrunk(u32 id, u32 qty);
-void AddCardToTrunk(u32 id, u32 qty);
+
 
 void sub_8038B50 (void) {
   u32 i;
@@ -1937,7 +1933,7 @@ void CopyStarTileToBuffer(void*);
 void CopySwordTileToBuffer(void*);
 void CopyShieldTileToBuffer(void*);
 
-void CopyStringTilesToVRAMBuffer(void*, const u8*, u16);
+
 extern u16 g8A31F24[][30];
 extern const u8 g80DD9DC[];
 extern const u8 g80DDF34[];
