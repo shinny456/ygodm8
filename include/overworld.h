@@ -178,7 +178,7 @@ extern const u32 g8E0E4CC[];
 extern const u32 g8E0E53C[];
 
 void ClearFlag(u32);
-void sub_800BE0C(void);
+void DuelTrunkMenu(void);
 void sub_804F544(void);
 
 

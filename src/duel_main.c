@@ -1404,11 +1404,3 @@ void sub_8022C54 (void) {
 
 // sl = 0xF000
 // r8 = 0xD000
-
-/*
-
-void sub_8044B90 (void) {
-  const unsigned char arr[] = {0x10, 0x3C, 0x68, 0x94, 0xC0};
-}*/
-
-

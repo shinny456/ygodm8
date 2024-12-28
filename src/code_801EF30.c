@@ -1114,7 +1114,6 @@ void sub_8020030 (void);
 void sub_801FD14 (void);
 void sub_801FE98 (void);
 int sub_8043E9C (u8 arg0);
-void RemoveCardFromTrunk(u16 id, u8 qty);
 u16 sub_805629C (u16, u16);
 u16 sub_801FFE0 (void);
 void sub_802D90C (u16, u8);
@@ -1177,7 +1176,7 @@ void HandleWin (void) {
 void HandleLoss (void) {
   struct DuelText duelText;
   if (gAnte != CARD_NONE)
-    RemoveCardFromTrunk(gAnte, 1);
+    RemoveCardQtyFromTrunk(gAnte, 1);
   if (!gDuelLifePoints[0]) {
     sub_8035020(4);
     ResetDuelTextData(&duelText);
@@ -1294,7 +1293,7 @@ void sub_801FF90 (void) {
     return;
   for (i = 0; i < 10 && i < gDuelData.unk2A; i++) {
     gDuelData.unk14[i] = sub_801FFE0();
-    AddCardToTrunk(gDuelData.unk14[i], 1);
+    AddCardQtyToTrunk(gDuelData.unk14[i], 1);
   }
 }
 

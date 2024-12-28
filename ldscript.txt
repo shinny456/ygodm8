@@ -56,7 +56,7 @@ SECTIONS
     g2020E00 = 0x2020E00;
     g2020E04 = 0x2020E04;
 
-    gUnkStruct_2020E10 = 0x02020E10;
+    gTrunkData = 0x02020E10;
     gTotalCardQty = 0x02021460;
     gTrunkCardQty = 0x02021790;
     gUnk2021AB4 = 0x02021AB4;
@@ -209,10 +209,11 @@ SECTIONS
 
         asm/code_8009228.o(.text2);
 
-        src/card.o(.text); /*first part of this is part of card.c?*/
-                           /*second part is duel_trunk_menu?*/
-        asm/code1.o(.text);/*first part is duel_trunk_menu?*/
-
+        src/card.o(.text); /*second part is duel_trunk_menu?*/
+                           
+        asm/code1.o(.text);
+        src/digit.o(.text);
+        src/compression.o(.text);
         src/code2.o(.text);
 
         src/deck_menu.o(.text);
@@ -311,6 +312,8 @@ SECTIONS
         data/data2.o(.rodata);
         src/data/cards_data.o(.rodata);
         data/data3.o(.rodata);
+        src/compression.o(.rodata);
+        data/data3.o(.rodata2);
         src/data/decks.o(.rodata);
         data/data4.o(.rodata);
         src/monster_effects.o(.rodata);
@@ -479,7 +482,6 @@ SECTIONS
     g8E0D0D7 = 0x8E0D0D7;
     gE0D0F0 = 0x8E0D0F0;
     g80DFDA4 = 0x80DFDA4;
-    gCurrentTurnOpponent = 0x80AED54;
     gDFBA4 = 0x80DFBA4;
     g80F09D0 = 0x80F09D0;
     g80F0F00 = 0x80F0F00;

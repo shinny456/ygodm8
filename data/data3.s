@@ -12,8 +12,10 @@ gUnk_80AEB00:
 
     .global gUnk_80AEB30
 gUnk_80AEB30:
-    .incbin "baserom.gba", 0xAEB30, 0x224
+    .incbin "baserom.gba", 0xAEB30, 0x20C
 
+
+    .section .rodata2
     .global gCurrentTurnOpponent
 gCurrentTurnOpponent:
     .incbin "baserom.gba", 0xAED54, 0xA96C

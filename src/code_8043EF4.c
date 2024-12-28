@@ -1,7 +1,5 @@
 #include "global.h"
 
-extern u8 g8102E24[]; // opponent hand coordinates
-
 //are field graphics repeated?
 extern u8* g8E0D960[];
 extern u16* g8E0D998[];
@@ -800,9 +798,8 @@ _08044CFC: .4byte 0x0000FEFF");
 /*
 void sub_8044B90 (void) {
   u8 i;
-  u8 arr[5];
+  const unsigned char arr[] = {0x10, 0x3C, 0x68, 0x94, 0xC0}; //opponent hand coords
   u8* ptr;
-  memcpy(arr, g8102E24, sizeof(arr));
   for (i = 0; i < 5; i++) {
     u16 cardId = gHands[1][4 - i]->id;
     if (cardId == CARD_NONE)

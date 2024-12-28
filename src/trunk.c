@@ -1,5 +1,7 @@
 #include "global.h"
 
+
+
 static void sub_800876C (void);
 static void sub_8008780 (void);
 static void sub_8008794 (void);
@@ -25,106 +27,92 @@ void sub_80090B8 (void);
 void sub_800ABB4 (void);
 
 
-
-struct UnkStruct_2020E10
-{
-    s16 unk0; //current card position in trunk?
-    u8 unk2;
-    u8 unk3;            //show: nothing, atk/def, attribute(summon), cost,
-    u8 cursorState;
-    u8 filler5[7];
-    u16 unkC[TRUNK_SIZE - 1]; //trunk_layout?
-};
-
 void sub_8008220(void);
-u16 sub_800901C(u8);
+unsigned short sub_800901C(unsigned char);
 void sub_80090E8(void);
 void sub_8009110(void);
 void sub_8009140(void);
 void sub_800916C(void);
 void sub_800919C(void);
 void sub_80091C0(void);
-void sub_80091EC(u8);
+void sub_80091EC(unsigned char);
 void sub_08009224(void);
-void sub_800B3E4(u16);
+void sub_800B3E4(unsigned short);
 
 u32 GetDuelistLevel(void);
-void SetCardInfo(u16 id);
-u8 GetDeckSize(void);
-bool8 sub_801D878(u16 id);
-void sub_801D960(u16 id);
-void sub_801D9B8(u16);
-void sub_801DB64(u16);
-u8 GetDeckCardQty(u16);
+void SetCardInfo(unsigned short id);
+unsigned char GetDeckSize(void);
+bool8 sub_801D878(unsigned short id);
+void sub_801D960(unsigned short id);
+void sub_801D9B8(unsigned short);
+void sub_801DB64(unsigned short);
+unsigned char GetDeckCardQty(unsigned short);
 
 
-bool8 sub_801F098(u16 id);
+bool8 sub_801F098(unsigned short id);
 
 void sub_8034A38(void);
 
-extern u16 gKeyState; //0x02020DF8
-extern struct UnkStruct_2020E10 gUnkStruct_2020E10; //2020E10
-extern u8 gTotalCardQty[];
-extern u8 gTrunkCardQty[]; //2021790
+extern unsigned short gKeyState; //0x02020DF8
+extern unsigned char gTotalCardQty[];
+extern unsigned char gTrunkCardQty[]; //2021790
 
 extern struct CardInfo gCardInfo; //2021AD0
 
 
-extern const u8 gStarterTrunk[];
+extern const unsigned char gStarterTrunk[];
 
-extern u8 gUnk_8DFA6A8[];  //change these to struct?
-extern u8 gUnk_8DFA6B4[];
-extern u8 gUnk_8DFAB54[];
-extern u8 gUnk_8DFAFF4[];
+extern unsigned char gUnk_8DFA6A8[];  //change these to struct?
+extern unsigned char gUnk_8DFA6B4[];
+extern unsigned char gUnk_8DFAB54[];
+extern unsigned char gUnk_8DFAFF4[];
 
-extern u16 gUnk_8090470[];
+extern unsigned short gUnk_8090470[];
 extern u64 gMoney;
 
 
 
-extern u8 gStarTile[];
-extern u8 gSwordTile[];
-extern u8 gShieldTile[];
-extern u16 gUnk_808ECD0[]; //trunk character palette?
-extern u16 *gAttributeIconPalettes[];
-extern u16 *gTypeIconPalettes[];
-extern u8 *gTypeIconTiles[][NUM_LANGUAGES];
-extern u8 *gAttributeIconTiles[][NUM_LANGUAGES];
-extern u8 gUnk_8DF8142[]; //cursor y coords
-extern u8 gUnk_8DF8145[]; //cursor x coords
-extern u8 gUnk_8DF813C[]; //cursor state change when pressing up
-extern u8 gUnk_8DF813F[]; //cursor state change when pressing down
+extern unsigned char gStarTile[];
+extern unsigned char gSwordTile[];
+extern unsigned char gShieldTile[];
+extern unsigned short gUnk_808ECD0[]; //trunk character palette?
+extern unsigned short *gAttributeIconPalettes[];
+extern unsigned short *gTypeIconPalettes[];
+extern unsigned char *gTypeIconTiles[][NUM_LANGUAGES];
+extern unsigned char *gAttributeIconTiles[][NUM_LANGUAGES];
+extern unsigned char gUnk_8DF8142[]; //cursor y coords
+extern unsigned char gUnk_8DF8145[]; //cursor x coords
+extern unsigned char gUnk_8DF813C[]; //cursor state change when pressing up
+extern unsigned char gUnk_8DF813F[]; //cursor state change when pressing down
 
-extern u8 *g201CB30;
-extern u16 *g201CB34;
+extern unsigned char *g201CB30;
+extern unsigned short *g201CB34;
 
 void LoadPalettes(void);
 void LoadOam(void);
 
-extern u16 gOamBuffer[];
-void sub_8008F88 (u8);
-void sub_800A3D8 (u8);
-void sub_800AA58 (u8);
+extern unsigned short gOamBuffer[];
+void ExecuteTrunkAction (unsigned char);
+void sub_800A3D8 (unsigned char);
+void sub_800AA58 (unsigned char);
 void sub_800ABD0 (void);
 
-void sub_800B538 (u16* id);
+void sub_800B538 (unsigned short* id);
 void sub_800ABA8 (void);
 void sub_8009364 (void);
 
 void sub_80081DC (void (*)(void));
 void LoadCharblock1 (void);
 
-int  sub_80086D8 (void);
-
-void sub_801DA7C (u8);
+void sub_801DA7C (unsigned char);
 
 
-extern u16 g2020DF4;
-extern u16 gUnk2020DFC;
-extern u16 gUnk2021DCC;
+extern unsigned short g2020DF4;
+extern unsigned short gUnk2020DFC;
+extern unsigned short gUnk2021DCC;
 
 void sub_802612C (void);
-u16 sub_8008644 (void);
+int TrunkProcessInput (void);
 
 
 
@@ -137,10 +125,10 @@ void sub_0800ABE0 (void);
 
 //TODO: rename to TrunkMenuMain?
 void TrunkMenu (void) {
-  bool32 r4 = TRUE;
+  bool32 r4 = 1;
   sub_800882C();
   while (r4) {
-    switch (sub_8008644()) {
+    switch ((unsigned short)TrunkProcessInput()) {
       case 0x40:
         sub_800876C();
         sub_800ABB4();
@@ -206,10 +194,10 @@ void TrunkMenu (void) {
   }
 }
 
-u16 sub_8008644 (void) {
-  u8 i;
-  u16 r2;
-  u16 ret = 0;
+int TrunkProcessInput (void) {
+  unsigned char i;
+  unsigned short r2;
+  unsigned short ret = 0;
   sub_802612C();
   r2 = 1;
   for (i = 0; i < 10; i++) {
@@ -230,10 +218,10 @@ u16 sub_8008644 (void) {
   return ret;
 }
 
-int sub_80086D8 (void) {
-  u8 i;
-  u16 ret = 0;
-  u16 r2 = 1;
+int TrunkSubmenuProcessInput (void) {
+  unsigned char i;
+  unsigned short ret = 0;
+  unsigned short r2 = 1;
   for (i = 0; i < 10; i++) {
     if (r2 & gUnk2020DFC)
       ret = r2 & gUnk2020DFC;
@@ -253,49 +241,49 @@ int sub_80086D8 (void) {
 }
 
 static void sub_800876C (void) {
-  sub_8008F88(3);
+  ExecuteTrunkAction(3);
   sub_800A3D8(3);
 }
 
 static void sub_8008780 (void) {
-  sub_8008F88(5);
+  ExecuteTrunkAction(5);
   sub_800A3D8(3);
 }
 
 static void sub_8008794 (void) {
-  sub_8008F88(2);
+  ExecuteTrunkAction(2);
   sub_800A3D8(3);
 }
 
 static void sub_80087A8 (void) {
-  sub_8008F88(4);
+  ExecuteTrunkAction(4);
   sub_800A3D8(3);
 }
 
 static void sub_80087BC (void) {
-  sub_8008F88(7);
+  ExecuteTrunkAction(7);
   sub_800A3D8(3);
 }
 
 static void sub_80087D0 (void) {
-  sub_8008F88(8);
+  ExecuteTrunkAction(8);
   sub_800A3D8(3);
 }
 
 static void sub_80087E4 (void) {
-  sub_8008F88(9);
+  ExecuteTrunkAction(9);
   sub_800A3D8(1);
   sub_801DA7C(8);
   PlayMusic(0x38);
 }
 
 static void sub_8008804 (void) {
-  sub_8008F88(6);
+  ExecuteTrunkAction(6);
   sub_800A3D8(4);
 }
 
 static void sub_8008818 (void) {
-  sub_8008F88(10);
+  ExecuteTrunkAction(10);
   sub_800A3D8(7);
 }
 
@@ -309,19 +297,20 @@ static void sub_800882C (void) {
 }
 
 static void sub_8008854 (void) {
-  bool32 r4;
-  gUnkStruct_2020E10.cursorState = 0; //todo: cursor state enum
+  unsigned keepProcessing;
+  gTrunkData.cursorState = TRUNK_CURSOR_DETAILS;
   sub_8009364();
   sub_80089EC();
   LoadCharblock1();
   sub_80081DC(sub_8008A5C);
   sub_8008220();
   PlayMusic(0x37);
-  r4 = TRUE;
-  while (r4) {
-    switch (sub_80086D8()) {
+  keepProcessing = 1;
+  while (keepProcessing) {
+    switch (TrunkSubmenuProcessInput()) {
       case 2:
-        goto end;
+        keepProcessing = 0;
+        break;
       case 0x40:
         sub_80088F0();
         break;
@@ -329,14 +318,14 @@ static void sub_8008854 (void) {
         sub_8008924();
         break;
       case 1:
-        switch (gUnkStruct_2020E10.cursorState) {
-          case 0:
+        switch (gTrunkData.cursorState) {
+          case TRUNK_CURSOR_DETAILS:
             sub_8008958();
             break;
-          case 1:
+          case TRUNK_CURSOR_ADD_CARD:
             sub_80089B4();
             break;
-          case 2:
+          case TRUNK_CURSOR_REMOVE_CARD:
             sub_80089D0();
             break;
         }
@@ -346,13 +335,12 @@ static void sub_8008854 (void) {
         break;
     }
   }
-  end:
   PlayMusic(0x38);
   sub_8008A48();
 }
 
 static void sub_80088F0 (void) { //pressing up
-  gUnkStruct_2020E10.cursorState = gUnk_8DF813C[gUnkStruct_2020E10.cursorState];
+  gTrunkData.cursorState = gUnk_8DF813C[gTrunkData.cursorState];
   sub_80089EC();
   PlayMusic(0x36);
   sub_80081DC(LoadOam);
@@ -360,7 +348,7 @@ static void sub_80088F0 (void) { //pressing up
 }
 
 static void sub_8008924 (void) { //pressing down
-  gUnkStruct_2020E10.cursorState = gUnk_8DF813F[gUnkStruct_2020E10.cursorState];
+  gTrunkData.cursorState = gUnk_8DF813F[gTrunkData.cursorState];
   sub_80089EC();
   PlayMusic(0x36);
   sub_80081DC(LoadOam);
@@ -386,14 +374,14 @@ static void sub_8008958 (void) { //trunk menu card details
 }
 
 static void sub_80089B4 (void) {
-  sub_8008F88(7);
+  ExecuteTrunkAction(7);
   sub_800A3D8(3);
   sub_800ABD0();
   sub_800AA58(6);
 }
 
 static void sub_80089D0 (void) {
-  sub_8008F88(8);
+  ExecuteTrunkAction(8);
   sub_800A3D8(3);
   sub_800ABD0();
   sub_800AA58(6);
@@ -401,12 +389,12 @@ static void sub_80089D0 (void) {
 
 static void sub_80089EC (void) { //SetCursorOam
   u32 *oam = (u32*)&gOamBuffer[6 * 4]; //todo
-  oam[0] = gUnk_8DF8142[gUnkStruct_2020E10.cursorState] |
-           gUnk_8DF8145[gUnkStruct_2020E10.cursorState] << 16 |
+  oam[0] = gUnk_8DF8142[gTrunkData.cursorState] |
+           gUnk_8DF8145[gTrunkData.cursorState] << 16 |
            0x40000000; //sprite size bits
   oam[1] = 0xC120;
-  oam[2] = gUnk_8DF8142[gUnkStruct_2020E10.cursorState] |
-           gUnk_8DF8145[gUnkStruct_2020E10.cursorState] << 16 |
+  oam[2] = gUnk_8DF8142[gTrunkData.cursorState] |
+           gUnk_8DF8145[gTrunkData.cursorState] << 16 |
            0x40000800;
   oam[3] = 0x120;
 }
@@ -428,8 +416,8 @@ static void sub_8008A5C (void) {
   REG_BLDCNT |= 8;
 }
 
-void CopyTypeIconTilesToBuffer (u8 type, void * dest) {
-  //u8 temp = type + 235; (decomp_note)
+void CopyTypeIconTilesToBuffer (unsigned char type, void * dest) {
+  //unsigned char temp = type + 235; (decomp_note)
   if (type == 21 || type == 22 || type == 23) {
     CpuCopy16(gTypeIconTiles[type][gLanguage], dest, 0x40);
     CpuCopy16(gTypeIconTiles[type][gLanguage] + 0x80, dest + 0x40, 0x40);
@@ -440,19 +428,19 @@ void CopyTypeIconTilesToBuffer (u8 type, void * dest) {
     CpuCopy16(gTypeIconTiles[type][gLanguage], dest, 0x80);
 }
 
-void CopyTypeIconPalToBuffer (u8 type, void * palDest) {
-  //u8 temp = type - 21; (decomp_note)
+void CopyTypeIconPalToBuffer (unsigned char type, void * palDest) {
+  //unsigned char temp = type - 21; (decomp_note)
   if (type == 21 || type == 22 || type == 23)
     CpuCopy16(gTypeIconPalettes[type], g201CB34, 32);
   CpuCopy16(gTypeIconPalettes[type], palDest, 32);
 }
 
-void CopyAttributeIconTilesToBuffer (u8 attribute, void * dest) {
+void CopyAttributeIconTilesToBuffer (unsigned char attribute, void * dest) {
   g201CB30 = dest;
   CpuCopy16(gAttributeIconTiles[attribute][gLanguage], dest, 0x80);
 }
 
-void CopyAttributeIconPalToBuffer (u8 attribute, void * palDest) {
+void CopyAttributeIconPalToBuffer (unsigned char attribute, void * palDest) {
   g201CB34 = palDest;
   CpuCopy16(gAttributeIconPalettes[attribute], palDest, 32);
 }
@@ -559,50 +547,52 @@ void InitTrunkCards(void)
         gTrunkCardQty[id] = gStarterTrunk[id];
 }
 
-void AddCardToTrunk(unsigned idd, unsigned qtyy)
+void AddCardQtyToTrunk (unsigned cardId, unsigned quantity)
 {
-    unsigned short id = idd;
-    unsigned char qty = qtyy;
+    unsigned short id = cardId;
+    unsigned char qty = quantity;
     if (qty > TRUNK_CARD_LIMIT - gTrunkCardQty[id])
         gTrunkCardQty[id] = TRUNK_CARD_LIMIT;
     else
         gTrunkCardQty[id] += qty;
 }
 
-void RemoveCardFromTrunk(u16 id, u8 qty)
+void RemoveCardQtyFromTrunk (unsigned cardId, unsigned quantity)
 {
+    unsigned short id = cardId;
+    unsigned char qty = quantity;
     if (qty > gTrunkCardQty[id])
         gTrunkCardQty[id] = 0;
     else
         gTrunkCardQty[id] -= qty;
 }
 
-bool8 ExceedsTrunkCardLimit(u16 id, u8 qty)
+unsigned char ExceedsTrunkCardLimit (unsigned short id, unsigned char qty)
 {
     if (qty > TRUNK_CARD_LIMIT - gTrunkCardQty[id])
         return FALSE;
-    return TRUE;
+    return 1;
 }
 
-bool8 sub_8008D48(u16 id, u8 qty)
+bool8 sub_8008D48(unsigned short id, unsigned char qty)
 {
     if (qty > gTrunkCardQty[id])
         return FALSE;
-    return TRUE;
+    return 1;
 }
 
-void SetTrunkCardQty(u16 id, u8 qty)
+void SetTrunkCardQty(unsigned short id, unsigned char qty)
 {
     gTrunkCardQty[id] = qty;
 }
 
-u8 GetTrunkCardQty(u16 id)
+unsigned char GetTrunkCardQty(unsigned short id)
 {
     return gTrunkCardQty[id];
 }
 
 /*
-static inline void sub_8008D88_inline (u16 id, u8 arg1) {
+static inline void sub_8008D88_inline (unsigned short id, unsigned char arg1) {
   if (gTrunkCardQty[id])
     if (gTrunkCardQty[id] < arg1)
       gTrunkCardQty[id] = 0;
@@ -612,7 +602,7 @@ static inline void sub_8008D88_inline (u16 id, u8 arg1) {
     sub_801D9B8(id);
 }
 
-void sub_8008D88 (u16 id) {
+void sub_8008D88 (unsigned short id) {
   sub_8008D88_inline(id, 1);
 }*/
 
@@ -656,7 +646,7 @@ _08008DC4:\n\
 	");
 }
 
-void RemoveCardFromDeckAndTrunk(u16 id)
+void RemoveCardFromDeckAndTrunk(unsigned short id)
 {
     gTrunkCardQty[id] = 0;
     sub_801D960(id);
@@ -675,9 +665,9 @@ void SetTrunkCardsTo50(void)
 void sub_8008E0C(void)
 {
     bool32 r5 = 0;
-    u16 id = sub_800901C(2);
+    unsigned short id = sub_800901C(2);
 
-    if (gTrunkCardQty[id] && GetDeckSize() < DECK_SIZE && sub_801F098(id) == TRUE)
+    if (gTrunkCardQty[id] && GetDeckSize() < DECK_SIZE && sub_801F098(id) == 1)
     {
         SetCardInfo(id);
         if (GetDuelistLevel() < gCardInfo.cost)
@@ -703,7 +693,7 @@ void sub_8008E0C(void)
 void sub_8008EA8(void)
 {
     u32 r5 = 0;
-    u16 id = sub_800901C(2);
+    unsigned short id = sub_800901C(2);
 
     if (!GetDeckCardQty(id) || sub_801D878(id) != 1)
         r5 = 1;
@@ -724,23 +714,22 @@ void sub_8008EA8(void)
     }
 }
 
-void InitTrunkData(void)
-{
-    u16 id;
-    gUnkStruct_2020E10.unk0 = 0;
-    gUnkStruct_2020E10.unk3 = 1;
-    gUnkStruct_2020E10.unk2 = 0;
+void InitTrunkData (void) {
+    unsigned short cardId;
+    gTrunkData.unk0 = 0;
+    gTrunkData.unk3 = 1;
+    gTrunkData.sortingMethod = TRUNK_SORT_NUMBER;
 
-    for (id = 0; id < TRUNK_SIZE; id++)
-        gTotalCardQty[id] = gTrunkCardQty[id] + GetDeckCardQty(id);
+    for (cardId = 0; cardId < TRUNK_SIZE; cardId++)
+        gTotalCardQty[cardId] = gTrunkCardQty[cardId] + GetDeckCardQty(cardId);
 
-    for (id = 0; id < TRUNK_SIZE - 1; id++)
-        gUnkStruct_2020E10.unkC[id] = id + 1;
+    for (cardId = 0; cardId < TRUNK_SIZE - 1; cardId++)
+        gTrunkData.unkC[cardId] = cardId + 1;
 }
 
-void sub_8008F88(u8 val)
+void ExecuteTrunkAction (unsigned char action)
 {
-    switch (val)
+    switch (action)
     {
     case 0:
         InitTrunkCards();
@@ -778,122 +767,119 @@ void sub_8008F88(u8 val)
     }
 }
 
-u8 sub_8009010(void)
-{
-    return gUnkStruct_2020E10.unk3;
+unsigned char sub_8009010 (void) {
+  return gTrunkData.unk3;
 }
 
-u16 sub_800901C(u8 val)
+// get nth card on screen?
+unsigned short sub_800901C (unsigned char n)
 {
-    s16 r2 = gUnkStruct_2020E10.unk0 + val - 2;
+    signed short r2 = gTrunkData.unk0 + n - 2;
 
     if (r2 >= 800)
         r2 -= 800;
     else if (r2 < 0)
         r2 += 800;
 
-    return gUnkStruct_2020E10.unkC[r2];
+    return gTrunkData.unkC[r2];
 }
 
-u8 sub_8009060(u16 id)
-{
-    return gTrunkCardQty[id];
+unsigned char GetTrunkCardQuantity (unsigned short cardId) {
+  return gTrunkCardQty[cardId];
 }
 
-u8 sub_8009070(void)
-{
-    return gUnkStruct_2020E10.unk2;
+//unused?
+static unsigned char GetCurrentSortingMethod (void) {
+  return gTrunkData.sortingMethod;
 }
 
-void sub_800907C(void)
-{
-    gUnk2021AB4.unk0 = gUnkStruct_2020E10.unk0;
-    gUnk2021AB4.unk2 = TRUNK_SIZE - 2;
+void sub_800907C (void) {
+  gUnk2021AB4.unk0 = gTrunkData.unk0;
+  gUnk2021AB4.unk2 = TRUNK_SIZE - 2;
 }
 
-void sub_8009098(u16 id)
-{
-    if (gTrunkCardQty[id] < 250)
-        gTrunkCardQty[id]++;
-    else
-        gTrunkCardQty[id] = 250;
+void AddCardToTrunk (unsigned short cardId) {
+  if (gTrunkCardQty[cardId] < 250)
+      gTrunkCardQty[cardId]++;
+  else
+      gTrunkCardQty[cardId] = 250;
 }
 
 void sub_80090B8(void)
 {
-    gUnk2022EB0.unk0 = gUnkStruct_2020E10.unkC;
+    gUnk2022EB0.unk0 = gTrunkData.unkC;
     gUnk2022EB0.unk8 = TRUNK_SIZE - 1;
-    gUnk2022EB0.unkA = gUnk_8DFA6A8[gUnkStruct_2020E10.unk2];
-    sub_8034A38();
+    gUnk2022EB0.unkA = gUnk_8DFA6A8[gTrunkData.sortingMethod];
+    sub_8034A38(); //one of sorting funcs?
 }
 
 void sub_80090E8(void)
 {
-    if (--gUnkStruct_2020E10.unk0 < 0)
-        gUnkStruct_2020E10.unk0 += TRUNK_SIZE - 1;
+    if (--gTrunkData.unk0 < 0)
+        gTrunkData.unk0 += TRUNK_SIZE - 1;
     PlayMusic(54);
 }
 
 void sub_8009110(void)
 {
-    if (++gUnkStruct_2020E10.unk0 > TRUNK_SIZE - 2)
-        gUnkStruct_2020E10.unk0 -= TRUNK_SIZE - 1;
+    if (++gTrunkData.unk0 > TRUNK_SIZE - 2)
+        gTrunkData.unk0 -= TRUNK_SIZE - 1;
     PlayMusic(54);
 }
 
 void sub_8009140(void)
 {
-    gUnkStruct_2020E10.unk0 -= 50;
-    if (gUnkStruct_2020E10.unk0 < 0)
-        gUnkStruct_2020E10.unk0 += TRUNK_SIZE - 1;
+    gTrunkData.unk0 -= 50;
+    if (gTrunkData.unk0 < 0)
+        gTrunkData.unk0 += TRUNK_SIZE - 1;
     PlayMusic(54);
 }
 
 void sub_800916C(void)
 {
-    gUnkStruct_2020E10.unk0 += 50;
-    if (gUnkStruct_2020E10.unk0 > TRUNK_SIZE - 2)
-        gUnkStruct_2020E10.unk0 -= TRUNK_SIZE - 1;
+    gTrunkData.unk0 += 50;
+    if (gTrunkData.unk0 > TRUNK_SIZE - 2)
+        gTrunkData.unk0 -= TRUNK_SIZE - 1;
     PlayMusic(54);
 }
 
 void sub_800919C(void)
 {
-    if (++gUnkStruct_2020E10.unk3 > 3)
-        gUnkStruct_2020E10.unk3 = 0;
+    if (++gTrunkData.unk3 > 3)
+        gTrunkData.unk3 = 0;
     PlayMusic(54);
 }
 
 void sub_80091C0(void)
 {
-    if (++gUnkStruct_2020E10.unk2 > 9)
-        gUnkStruct_2020E10.unk2 = 0;
-    sub_80091EC(gUnkStruct_2020E10.unk2);
+    if (++gTrunkData.sortingMethod >= TRUNK_SORT_EXIT)
+      gTrunkData.sortingMethod = TRUNK_SORT_NUMBER;
+    sub_80091EC(gTrunkData.sortingMethod);
     PlayMusic(54);
 }
 
-void sub_80091EC(u8 val)
+void sub_80091EC(unsigned char val)
 {
-    gUnk2022EB0.unk0 = gUnkStruct_2020E10.unkC;
+    gUnk2022EB0.unk0 = gTrunkData.unkC;
     gUnk2022EB0.unk8 = TRUNK_SIZE - 1;
     gUnk2022EB0.unkA = gUnk_8DFA6A8[val];
     sub_8034A38();
-    gUnkStruct_2020E10.unk0 = 0;
+    gTrunkData.unk0 = 0;
 }
 
 void sub_08009224(void){}
 
 extern u32 gUnk_808918C[];
-extern u8 gUnk_808C1C0[];
-extern u8 g8DFA6B4[];
-extern u8 g8DFAB54[];
-extern u8 g8DFAFF4[];
-extern u16 gUnk_808B860[][30];
+extern unsigned char gUnk_808C1C0[];
+extern unsigned char g8DFA6B4[];
+extern unsigned char g8DFAB54[];
+extern unsigned char g8DFAFF4[];
+extern unsigned short gUnk_808B860[][30];
 
 // Same exact function as sub_800C834
 void sub_8009228 (void)
 {
-    u8 i;
+    unsigned char i;
 
     LZ77UnCompWram(gUnk_808918C, gBgVram.cbb0);
 
@@ -932,18 +918,18 @@ void sub_8009228 (void)
     CpuFill16(0, gBgVram.sbb18, 32);
 }
 
-extern u16 gUnk_808C240[][30];
-extern u8 g8DF811C[];
-extern u8 g80907E4[];
+extern unsigned short gUnk_808C240[][30];
+extern unsigned char g8DF811C[];
+extern unsigned char g80907E4[];
 
-u16 sub_08007FEC(u8, u8, u16);
-void sub_800800C(u8, u8, u16, u16);
+unsigned short sub_08007FEC(unsigned char, unsigned char, unsigned short);
+void sub_800800C(unsigned char, unsigned char, unsigned short, unsigned short);
 
 
 
 void sub_8009364 (void) {
-  u8 i;
-  u16 r7;
+  unsigned char i;
+  unsigned short r7;
   for (i = 0; i < 20; i++)
     CpuCopy32(gUnk_808C240[i],  &(((struct Sbb*)&gBgVram)->sbbF[i]), 60);
   CpuFill16(0, gBgVram.cbb1, 32);
@@ -958,15 +944,15 @@ void sub_8009364 (void) {
 }
 
 
-extern u16 gUnk_808C6F0[][30];
-extern u8 g8090920[];
-extern u8 g8090B94[];
-extern u8 g8090B98[];
+extern unsigned short gUnk_808C6F0[][30];
+extern unsigned char g8090920[];
+extern unsigned char g8090B94[];
+extern unsigned char g8090B98[];
 
 void sub_8009448(void)
 {
-    u8 i;
-    u16 r8, sb;
+    unsigned char i;
+    unsigned short r8, sb;
 
     for (i = 0; i < 20; i++)
         CpuCopy32(gUnk_808C6F0[i], &(((struct Sbb*)&gBgVram)->sbbF[i])/*fix*/, 60);
@@ -1033,8 +1019,8 @@ void sub_8009448(void)
 }
 
 union {
-  u8 a[0x4000]; //2d array?
-  u16 b[0x2000]; //3d array?
+  unsigned char a[0x4000]; //2d array?
+  unsigned short b[0x2000]; //3d array?
 }extern gVr;
 unsigned GetDeckCapacity(void);
 
@@ -1056,5 +1042,5 @@ void sub_8009784 (void) {
 // same as sub_800CD88
 /*
 void sub_8009860 (void) {
-  
+
 }*/

@@ -1841,15 +1841,12 @@ void sub_8038B3C (void) {
   g2022EC0.unkFBD = 3;
 }
 
-void RemoveCardFromTrunk(u32 id, u32 qty);
-
-
 void sub_8038B50 (void) {
   u32 i;
   for (i = 1; i < 801; i++) {
     sub_80378AC(i, g3001078[i]);
-    RemoveCardFromTrunk(i, g2022EC0.unk321[i]);
-    AddCardToTrunk(i, g2022EC0.unk642[i]);
+    RemoveCardQtyFromTrunk(i, g2022EC0.unk321[i]);
+    AddCardQtyToTrunk(i, g2022EC0.unk642[i]);
   }
 }
 

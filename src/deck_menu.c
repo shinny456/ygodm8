@@ -30,7 +30,7 @@ void sub_801F644 (void);
 void sub_801F630 (void);
 void sub_0801F62C (void);
 void sub_801DA7C (u8);
-void sub_8008F88 (u8);
+void ExecuteTrunkAction (u8);
 void sub_0801F5EC (void);
 void sub_802612C (void);
 u8 GetDeckSize (void);
@@ -125,7 +125,7 @@ void DeckMenuMain (void) {
   }
   sub_801DA7C(8);
   sub_801EF30(1);
-  sub_8008F88(9);
+  ExecuteTrunkAction(9);
   sub_0801F5EC();
   sub_801F4A0(2);
 }
@@ -401,7 +401,7 @@ void sub_801D7A4 (void) {
 
 void sub_801DD88 (u8);
 void sub_801DD34 (u32);
-void sub_8009098 (u16);
+void AddCardToTrunk (u16);
 u8 sub_801DD50 (u16);
 void sub_8034A38 (void);
 void CalculateCurrentDeckCost (void);
@@ -413,7 +413,7 @@ void sub_801D7D0 (void) {
     return;
   }
   SetCardInfo(cardId);
-  sub_8009098(cardId);
+  AddCardToTrunk(cardId);
   sub_801DD88(gPlayerDeck.unk4); // s8 to u8 conversion
   if (gPlayerDeck.unk4 >= gPlayerDeck.count) {
     u8 temp = gPlayerDeck.unk4 - gPlayerDeck.count + 1;

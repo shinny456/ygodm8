@@ -471,7 +471,7 @@ _0800D16C:
 	bls _0800D134
 	ldr r1, _0800D250
 	ldrh r0, [r1, #0x10]
-	bl sub_8009060
+	bl GetTrunkCardQuantity
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #1
@@ -1439,7 +1439,7 @@ _0800D944:
 	bl sub_800A5F0
 	b _0800D99E
 	.align 2, 0
-_0800D968: .4byte gUnkStruct_2020E10
+_0800D968: .4byte gTrunkData
 _0800D96C:
 	bl sub_800CFD0
 	b _0800D988
@@ -1457,7 +1457,7 @@ _0800D988:
 	bl sub_800A5F0
 	b _0800D99E
 	.align 2, 0
-_0800D994: .4byte gUnkStruct_2020E10
+_0800D994: .4byte gTrunkData
 _0800D998:
 	movs r0, #3
 	bl sub_800A5F0
@@ -1619,7 +1619,7 @@ sub_800DAA4: @ 0x0800DAA4
 	bl sub_8008220
 	movs r4, #1
 _0800DACA:
-	bl sub_80086D8
+	bl TrunkSubmenuProcessInput
 	cmp r0, #0x10
 	beq _0800DB18
 	cmp r0, #0x10
@@ -1632,7 +1632,7 @@ _0800DACA:
 	beq _0800DB1E
 	b _0800DB30
 	.align 2, 0
-_0800DAE4: .4byte gUnkStruct_2020E10
+_0800DAE4: .4byte gTrunkData
 _0800DAE8: .4byte sub_800DD1C
 _0800DAEC:
 	cmp r0, #8
@@ -1701,7 +1701,7 @@ sub_800DB4C: @ 0x0800DB4C
 	bl sub_800A380
 	b _0800DB7A
 	.align 2, 0
-_0800DB6C: .4byte gUnkStruct_2020E10
+_0800DB6C: .4byte gTrunkData
 _0800DB70: .4byte 0x08DFF4B4
 _0800DB74:
 	ldrb r0, [r2, #2]
@@ -1736,7 +1736,7 @@ sub_800DB9C: @ 0x0800DB9C
 	bl sub_800A380
 	b _0800DBCA
 	.align 2, 0
-_0800DBBC: .4byte gUnkStruct_2020E10
+_0800DBBC: .4byte gTrunkData
 _0800DBC0: .4byte 0x08DFF4BF
 _0800DBC4:
 	ldrb r0, [r2, #2]
@@ -1771,7 +1771,7 @@ sub_800DBEC: @ 0x0800DBEC
 	bl sub_800A380
 	b _0800DC1A
 	.align 2, 0
-_0800DC0C: .4byte gUnkStruct_2020E10
+_0800DC0C: .4byte gTrunkData
 _0800DC10: .4byte 0x08DFF4CA
 _0800DC14:
 	ldrb r0, [r2, #2]
@@ -1806,7 +1806,7 @@ sub_800DC3C: @ 0x0800DC3C
 	bl sub_800A380
 	b _0800DC6A
 	.align 2, 0
-_0800DC5C: .4byte gUnkStruct_2020E10
+_0800DC5C: .4byte gTrunkData
 _0800DC60: .4byte 0x08DFF4D5
 _0800DC64:
 	ldrb r0, [r2, #2]
@@ -1840,7 +1840,7 @@ _0800DCA4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800DCA8: .4byte gUnkStruct_2020E10
+_0800DCA8: .4byte gTrunkData
 
 	THUMB_FUNC_START sub_800DCAC
 sub_800DCAC: @ 0x0800DCAC
@@ -1881,7 +1881,7 @@ sub_800DCAC: @ 0x0800DCAC
 	.align 2, 0
 _0800DCF0: .4byte gOamBuffer+0x30
 _0800DCF4: .4byte 0x08DFF4E0
-_0800DCF8: .4byte gUnkStruct_2020E10
+_0800DCF8: .4byte gTrunkData
 _0800DCFC: .4byte 0x08DFF4EB
 _0800DD00: .4byte 0x0000C120
 _0800DD04: .4byte 0x40000800
@@ -1924,503 +1924,3 @@ sub_800DD1C: @ 0x0800DD1C
 	.align 2, 0
 _0800DD48: .4byte 0x04000050
 // end of duel_trunk_menu?
-
-
-
-
-
-
-
-	THUMB_FUNC_START sub_800DD4C
-sub_800DD4C: @ 0x0800DD4C
-	push {r4, r5, lr}
-	movs r2, #0
-	ldr r5, _0800DD68
-	ldr r3, _0800DD6C
-	ldr r4, _0800DD70
-_0800DD56:
-	adds r0, r2, r5
-	ldrb r1, [r0]
-	cmp r1, #0
-	bne _0800DD74
-	adds r0, r2, r3
-	adds r1, r2, r4
-	ldrb r1, [r1]
-	b _0800DD76
-	.align 2, 0
-_0800DD68: .4byte 0x02021B50
-_0800DD6C: .4byte 0x02021B90
-_0800DD70: .4byte 0x02021B10
-_0800DD74:
-	adds r0, r2, r3
-_0800DD76:
-	strb r1, [r0]
-	adds r0, r2, #1
-	lsls r0, r0, #0x18
-	lsrs r2, r0, #0x18
-	cmp r2, #0x3f
-	bls _0800DD56
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_START sub_800DD88
-sub_800DD88: @ 0x0800DD88
-	movs r3, #0
-_0800DD8A:
-	ldrb r2, [r0]
-	cmp r2, #0
-	beq _0800DD92
-	strb r2, [r1]
-_0800DD92:
-	adds r0, #1
-	adds r1, #1
-	adds r3, #1
-	cmp r3, #0x3f
-	bls _0800DD8A
-	bx lr
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_800DDA0
-sub_800DDA0: @ 0x0800DDA0
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, sb
-	mov r5, r8
-	push {r5, r6, r7}
-	lsls r0, r0, #0x10
-	lsrs r5, r0, #0x10
-	lsls r1, r1, #0x18
-	lsrs r1, r1, #0x18
-	mov sl, r1
-	movs r0, #0
-	mov sb, r0
-	movs r4, #0
-	ldr r7, _0800DE14
-	movs r2, #0
-	ldr r6, _0800DE18
-	adds r3, r6, #0
-	movs r1, #0xa
-_0800DDC4:
-	adds r0, r2, r3
-	strb r1, [r0]
-	adds r0, r2, #1
-	lsls r0, r0, #0x18
-	lsrs r2, r0, #0x18
-	cmp r2, #4
-	bls _0800DDC4
-	ldr r0, _0800DE1C
-	cmp r5, r0
-	beq _0800DE74
-	movs r1, #1
-	mov r0, sl
-	ands r1, r0
-	cmp r1, #0
-	beq _0800DDE6
-	movs r0, #0
-	strb r0, [r6]
-_0800DDE6:
-	mov r0, sb
-	cmp r0, #4
-	bhi _0800DE74
-	mov r8, r1
-_0800DDEE:
-	adds r0, r5, #0
-	adds r1, r7, #0
-	bl __udivsi3
-	lsls r0, r0, #0x10
-	lsrs r1, r0, #0x10
-	cmp r1, #0
-	bne _0800DE0C
-	cmp r4, #0
-	beq _0800DE26
-	subs r0, r4, #1
-	adds r0, r0, r6
-	ldrb r0, [r0]
-	cmp r0, #0xa
-	beq _0800DE20
-_0800DE0C:
-	adds r0, r4, r6
-	strb r1, [r0]
-	b _0800DE26
-	.align 2, 0
-_0800DE14: .4byte 0x00002710
-_0800DE18: .4byte 0x02021BD0
-_0800DE1C: .4byte 0x0000FFFF
-_0800DE20:
-	cmp r4, #4
-	bne _0800DE26
-	strb r1, [r6, #4]
-_0800DE26:
-	cmp r1, #0
-	bne _0800DE48
-	cmp r4, #0
-	bne _0800DE38
-	mov r0, r8
-	cmp r0, #0
-	bne _0800DE4E
-	movs r4, #1
-	b _0800DE4E
-_0800DE38:
-	subs r0, r4, #1
-	adds r0, r0, r6
-	ldrb r0, [r0]
-	cmp r0, #0xa
-	bne _0800DE48
-	mov r0, r8
-	cmp r0, #0
-	bne _0800DE4E
-_0800DE48:
-	adds r0, r4, #1
-	lsls r0, r0, #0x18
-	lsrs r4, r0, #0x18
-_0800DE4E:
-	mov r0, sb
-	adds r0, #1
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	mov sb, r0
-	adds r0, r1, #0
-	muls r0, r7, r0
-	subs r0, r5, r0
-	lsls r0, r0, #0x10
-	lsrs r5, r0, #0x10
-	adds r0, r7, #0
-	movs r1, #0xa
-	bl __udivsi3
-	lsls r0, r0, #0x10
-	lsrs r7, r0, #0x10
-	mov r1, sb
-	cmp r1, #4
-	bls _0800DDEE
-_0800DE74:
-	movs r0, #2
-	mov r1, sl
-	ands r0, r1
-	cmp r0, #0
-	beq _0800DE98
-	movs r2, #0
-	ldr r4, _0800DEA8
-	movs r3, #0
-_0800DE84:
-	adds r1, r2, r4
-	ldrb r0, [r1]
-	cmp r0, #0xa
-	bne _0800DE8E
-	strb r3, [r1]
-_0800DE8E:
-	adds r0, r2, #1
-	lsls r0, r0, #0x18
-	lsrs r2, r0, #0x18
-	cmp r2, #4
-	bls _0800DE84
-_0800DE98:
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov sb, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800DEA8: .4byte 0x02021BD0
-
-	THUMB_FUNC_START sub_800DEAC
-sub_800DEAC: @ 0x0800DEAC
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, sb
-	mov r5, r8
-	push {r5, r6, r7}
-	sub sp, #8
-	str r0, [sp]
-	str r1, [sp, #4]
-	lsls r2, r2, #0x18
-	lsrs r2, r2, #0x18
-	mov sl, r2
-	movs r0, #0
-	mov sb, r0
-	movs r4, #0
-	movs r2, #0
-	ldr r7, _0800DF24
-	adds r3, r7, #0
-	movs r1, #0xa
-_0800DED0:
-	adds r0, r2, r3
-	strb r1, [r0]
-	adds r0, r2, #1
-	lsls r0, r0, #0x18
-	lsrs r2, r0, #0x18
-	cmp r2, #0x12
-	bls _0800DED0
-	movs r1, #1
-	mov r2, sl
-	ands r1, r2
-	cmp r1, #0
-	beq _0800DEEC
-	movs r0, #0
-	strb r0, [r7]
-_0800DEEC:
-	ldr r5, _0800DF28
-	ldr r6, _0800DF2C
-	mov r3, sb
-	cmp r3, #0x12
-	bhi _0800DF9A
-	mov r8, r1
-_0800DEF8:
-	ldr r0, [sp]
-	ldr r1, [sp, #4]
-	adds r3, r6, #0
-	adds r2, r5, #0
-	bl __udivdi3
-	adds r2, r1, #0
-	adds r1, r0, #0
-	adds r0, r2, #0
-	orrs r0, r1
-	cmp r0, #0
-	bne _0800DF1E
-	cmp r4, #0
-	beq _0800DF36
-	subs r0, r4, #1
-	adds r0, r0, r7
-	ldrb r0, [r0]
-	cmp r0, #0xa
-	beq _0800DF30
-_0800DF1E:
-	adds r0, r4, r7
-	strb r1, [r0]
-	b _0800DF36
-	.align 2, 0
-_0800DF24: .4byte 0x02021BE0
-_0800DF28: .4byte 0xA7640000
-_0800DF2C: .4byte 0x0DE0B6B3
-_0800DF30:
-	cmp r4, #0x12
-	bne _0800DF36
-	strb r1, [r7, #0x12]
-_0800DF36:
-	adds r0, r2, #0
-	orrs r0, r1
-	cmp r0, #0
-	bne _0800DF5C
-	cmp r4, #0
-	bne _0800DF4C
-	mov r0, r8
-	cmp r0, #0
-	bne _0800DF62
-	movs r4, #1
-	b _0800DF62
-_0800DF4C:
-	subs r0, r4, #1
-	adds r0, r0, r7
-	ldrb r0, [r0]
-	cmp r0, #0xa
-	bne _0800DF5C
-	mov r3, r8
-	cmp r3, #0
-	bne _0800DF62
-_0800DF5C:
-	adds r0, r4, #1
-	lsls r0, r0, #0x18
-	lsrs r4, r0, #0x18
-_0800DF62:
-	mov r0, sb
-	adds r0, #1
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	mov sb, r0
-	adds r0, r1, #0
-	adds r1, r2, #0
-	adds r3, r6, #0
-	adds r2, r5, #0
-	bl __muldi3
-	ldr r2, [sp]
-	ldr r3, [sp, #4]
-	subs r2, r2, r0
-	sbcs r3, r1
-	str r2, [sp]
-	str r3, [sp, #4]
-	adds r1, r6, #0
-	adds r0, r5, #0
-	movs r2, #0xa
-	movs r3, #0
-	bl __udivdi3
-	adds r6, r1, #0
-	adds r5, r0, #0
-	mov r3, sb
-	cmp r3, #0x12
-	bls _0800DEF8
-_0800DF9A:
-	movs r0, #2
-	mov r1, sl
-	ands r0, r1
-	cmp r0, #0
-	beq _0800DFBE
-	movs r2, #0
-	ldr r4, _0800DFD0
-	movs r3, #0
-_0800DFAA:
-	adds r1, r2, r4
-	ldrb r0, [r1]
-	cmp r0, #0xa
-	bne _0800DFB4
-	strb r3, [r1]
-_0800DFB4:
-	adds r0, r2, #1
-	lsls r0, r0, #0x18
-	lsrs r2, r0, #0x18
-	cmp r2, #0x12
-	bls _0800DFAA
-_0800DFBE:
-	add sp, #8
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov sb, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800DFD0: .4byte 0x02021BE0
-
-	THUMB_FUNC_START DeltaDecode @decomped
-DeltaDecode: @ 0x0800DFD4
-	movs r3, #0
-	adds r2, r0, #0
-	cmp r1, #0
-	beq _0800DFEC
-_0800DFDC:
-	ldrb r0, [r2]
-	adds r0, r3, r0
-	strb r0, [r2]
-	ldrb r3, [r2]
-	adds r2, #1
-	subs r1, #1
-	cmp r1, #0
-	bne _0800DFDC
-_0800DFEC:
-	bx lr
-	.byte 0x00, 0x00
-
-	THUMB_FUNC_START sub_800DFF0
-sub_800DFF0: @ 0x0800DFF0
-	push {r4, r5, r6, r7, lr}
-	mov r7, r8
-	push {r7}
-	sub sp, #0x18
-	adds r5, r0, #0
-	adds r4, r1, #0
-	lsls r4, r4, #0x18
-	lsrs r4, r4, #0x18
-	lsls r2, r2, #0x18
-	lsrs r6, r2, #0x18
-	ldr r1, _0800E06C
-	mov r0, sp
-	movs r2, #8
-	bl memcpy //struct copy?
-	add r7, sp, #8
-	ldr r1, _0800E070
-	adds r0, r7, #0
-	movs r2, #0x10
-	bl memcpy
-	movs r2, #0
-	lsls r4, r4, #3
-	cmp r2, r4
-	bhs _0800E05E
-	lsls r6, r6, #3
-	mov ip, r4
-	mov r8, r7
-_0800E028:
-	movs r3, #0
-	movs r1, #0
-	adds r7, r2, #1
-	cmp r1, r6
-	bhs _0800E04C
-	movs r4, #7
-_0800E034:
-	ldrb r0, [r5]
-	adds r0, r3, r0
-	strb r0, [r5]
-	ldrb r3, [r5]
-	adds r0, r1, #0
-	ands r0, r4
-	add r0, sp
-	ldrb r0, [r0]
-	adds r5, r5, r0
-	adds r1, #1
-	cmp r1, r6
-	blo _0800E034
-_0800E04C:
-	movs r0, #7
-	ands r0, r2
-	lsls r0, r0, #1
-	add r0, r8
-	ldrh r0, [r0]
-	subs r5, r5, r0
-	adds r2, r7, #0
-	cmp r2, ip
-	blo _0800E028
-_0800E05E:
-	add sp, #0x18
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800E06C: .4byte 0x080AED3C
-_0800E070: .4byte 0x080AED44
-
-	THUMB_FUNC_START HuffUnCompAndDeltaDecode
-HuffUnCompAndDeltaDecode: @ 0x0800E074
-	push {r4, r5, lr}
-	adds r4, r1, #0
-	adds r5, r2, #0
-	bl HuffUnComp
-	adds r0, r4, #0
-	adds r1, r5, #0
-	bl DeltaDecode
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_START sub_800E08C
-sub_800E08C: @ 0x0800E08C
-	push {r4, lr}
-	adds r4, r1, #0
-	bl HuffUnComp
-	adds r0, r4, #0
-	movs r1, #0xa
-	movs r2, #0xa
-	bl sub_800DFF0
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_START LZ77UnCompWramAndDeltaDecode
-LZ77UnCompWramAndDeltaDecode: @ 0x0800E0A4
-	push {r4, r5, lr}
-	adds r4, r1, #0
-	adds r5, r2, #0
-	bl LZ77UnCompWram
-	adds r0, r4, #0
-	adds r1, r5, #0
-	bl DeltaDecode
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_START sub_800E0BC
-sub_800E0BC: @ 0x0800E0BC
-	push {r4, lr}
-	adds r4, r1, #0
-	bl LZ77UnCompWram
-	adds r0, r4, #0
-	movs r1, #0xa
-	movs r2, #0xa
-	bl sub_800DFF0
-	pop {r4}
-	pop {r0}
-	bx r0
-
-    .align 2, 0

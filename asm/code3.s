@@ -6943,6 +6943,8 @@ sub_8032830: @ 0x08032830
 _08032840: .4byte 0x03000C54
 _08032844: .4byte 0x04000120
 
+
+//trunk_sort funcs start?
 	THUMB_FUNC_START sub_8032848
 sub_8032848: @ 0x08032848
 	push {r4, r5, r6, r7, lr}
@@ -11844,6 +11846,8 @@ sub_8034E1C: @ 0x08034E1C
 	bx lr
 	.align 2, 0
 _08034E2C: .4byte gUnk2022EB0
+
+//trunk_sort funcs end??
 
 	THUMB_FUNC_START sub_8034E30
 sub_8034E30: @ 0x08034E30

@@ -5,25 +5,25 @@ struct StatMod gStatMod;
 struct CardInfo gCardInfo;
 
 static void sub_800B2B0 (void);
-static u16 GetStageModifiedStat(u16 stat, s8 stageMod);
-static u16 GetFieldModifiedStat(u16 stat, u8 fieldMod);
+static unsigned short GetStageModifiedStat(unsigned short stat, s8 stageMod);
+static unsigned short GetFieldModifiedStat(unsigned short stat, u8 fieldMod);
 static void sub_800BA04 (void);
 static void sub_800BC24 (void);
 static void sub_800BCC4 (void);
 static void sub_800BCEC (void);
-static unsigned char* sub_800BD14 (u16);
+static unsigned char* sub_800BD14 (unsigned short);
 
 
-extern u16 g08097C94[];
-extern u16 (*gUnk_8E0136C)[][14];
-extern u16 *gUnk_8E01368;
+extern unsigned short g08097C94[];
+extern unsigned short (*gUnk_8E0136C)[][14];
+extern unsigned short *gUnk_8E01368;
 extern u8 *gUnk_8E01364;
 extern u8 gUnk8094C37[];
 extern u8 gUnk8094CC3[];
 extern u8 gUnk8094FE4[NUM_FIELDS][NUM_CARD_TYPES];
 extern u8* gUnk8F985E0[];
-extern u16 gCardAtks[];
-extern u16 gCardDefs[];
+extern unsigned short gCardAtks[];
+extern unsigned short gCardDefs[];
 extern u32 gCardCosts[];
 extern u8 gCardAttributes[];
 extern u8 gCardLevels[];
@@ -33,8 +33,8 @@ extern u8 gCardMagicEffect[];
 extern u8 gCardMonsterEffects[];
 extern u8 gCardTrapEffect[];
 extern u8 gUnk8DFB654[];
-extern u16 gUnk_808ECD0[];
-extern u16 gUnk_808ECF0[];
+extern unsigned short gUnk_808ECD0[];
+extern unsigned short gUnk_808ECF0[];
 extern u8 *gAttributeIconTiles[][NUM_LANGUAGES];
 extern u8 *gTypeIconTiles[][NUM_LANGUAGES];
 extern u8 gStarTile[];
@@ -42,7 +42,7 @@ extern u8 gSwordTile[];
 extern u8 gShieldTile[];
 extern u8 gUnk_80AEB00[];
 extern u8 gUnk_80AEB30[];
-extern u16 gUnk_808E820[][30];
+extern unsigned short gUnk_808E820[][30];
 extern u8 gUnk8DFB8A8[]; //french summon/cost tiles
 extern u8 gUnk8DFBAE8[]; //german type/summon/cost tiles
 extern u8 gUnk8DFBDE8[]; //italian and spanish type/summon/cost tiles (Type is spelled the same for both)
@@ -51,9 +51,9 @@ void *GetCardTypeString(u8 type);
 
 extern u8* g8DFC288[];
 extern u8* g8DFCF0C[];
-extern u16 gUnk8097D94[][31]; //248x160p (31x20t) tilemap
+extern unsigned short gUnk8097D94[][31]; //248x160p (31x20t) tilemap
 extern u32 g0809553C[]; //tileset
-extern u16 g809508C[][30];
+extern unsigned short g809508C[][30];
 extern u8 gUnk201CB38;
 extern s8 gUnk201CB39;
 
@@ -122,7 +122,7 @@ static void sub_800B384(void)
     gUnk201CB39 = 0;
 }
 
-void SetCardInfo(u16 id)
+void SetCardInfo(unsigned short id)
 {
     gCardInfo.id = id;
     gCardInfo.atk = gCardAtks[id];
@@ -143,7 +143,7 @@ void SetCardInfo(u16 id)
 }
 
 //unused?
-static void sub_800B4AC(u16 id)
+static void sub_800B4AC(unsigned short id)
 {
     SetCardInfo(id);
     if (gCardInfo.spellEffect == 2)
@@ -162,14 +162,14 @@ static void sub_800B524(u8 val, s8 val2)
     gUnk201CB39 = val2;
 }
 
-void sub_800B538(u16* id)
+void sub_800B538(unsigned short* id)
 {
     SetCardInfo(*id);
     if (gCardInfo.cost > GetDuelistLevel())
         gCardInfo.unk8 = gUnk8DFB654;
 }
 
-static u16 GetStageModifiedStat(u16 stat, s8 stage)
+static unsigned short GetStageModifiedStat(unsigned short stat, s8 stage)
 {
     int finalStat = stage * 500 + stat;
 
@@ -182,7 +182,7 @@ static u16 GetStageModifiedStat(u16 stat, s8 stage)
     return stat;
 }
 
-static u16 GetFieldModifiedStat(u16 stat, u8 fieldMod)
+static unsigned short GetFieldModifiedStat(unsigned short stat, u8 fieldMod)
 {
     switch (fieldMod)
     {
@@ -923,13 +923,13 @@ static void sub_800BCEC(void)  //print type name
     CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[68*32], GetCardTypeString(gCardInfo.type), 0x901);
 }
 
-static u8 *sub_800BD14(u16 cardId)
+static u8 *sub_800BD14(unsigned short cardId)
 {
     return g8DFC288[cardId];
 }
 
 //unused? Japanese card names?
-static u8* sub_800BD24(u16 cardId)
+static u8* sub_800BD24(unsigned short cardId)
 {
     return g8DFCF0C[cardId];
 }
@@ -981,12 +981,12 @@ void sub_800BDA0(void)
 // split? duel_trunk_menu.c
 
 static void sub_800BF28 (void);
-static unsigned sub_800BF54 (void);
+static unsigned SelectionMenu (void);
 static void sub_800C0D8 (void);
 static void sub_800C1BC (void);
 static void sub_800C208 (void);
 static void sub_800C264 (void);
-static unsigned char sub_800C2C0 (void);
+static unsigned char TrySelectingAnte (void);
 static void sub_800C32C (void);
 static void sub_800C378 (void);
 static void sub_800C3C4 (void);
@@ -994,7 +994,7 @@ static void sub_800C430 (void);
 static void sub_800C494 (void);
 static void sub_800C4F8 (void);
 static void sub_800C530 (void);
-static unsigned sub_800C558 (void);
+static unsigned NoAntePrompt (void);
 static void sub_800C608 (void);
 static void sub_800C7A0 (void);
 static void sub_800C7FC (void);
@@ -1004,25 +1004,25 @@ extern u8 gUnk_808C1C0[];
 extern u8 g8DFA6B4[];
 extern u8 g8DFAB54[];
 extern u8 g8DFAFF4[];
-extern u16 gUnk_808B860[][30];
+extern unsigned short gUnk_808B860[][30];
 extern u8 g80AE544[];
-extern u8 g8DFF4AC[];
-extern u8 g8DFF4AE[];
+extern u8 g8DFF4AC[]; //NoAntePrompt press up cursor state
+extern u8 g8DFF4AE[]; //NoAntePrompt press down cursor state
 void LoadPalettes(void);
 void LoadCharblock1(void);
-extern u16 gUnk_808D050[][30];
+extern unsigned short gUnk_808D050[][30];
 extern u8 g80AE02C[];
 extern u8 g80AE1A8[];
 extern u8 g80AE370[];
-u16 sub_800901C(u8);
+unsigned short sub_800901C(u8);
 void sub_800ABA8(void);
-void sub_8035038(u16);
+void sub_8035038(unsigned short);
 void InitTrunkData(void);
 void InitDeckData(void);
 void sub_80090B8(void);
-s32 sub_8008644(void);
-void sub_8008F88(u8);
-void sub_800D904();
+s32 TrunkProcessInput(void);
+void ExecuteTrunkAction(u8);
+void sub_800D904(); //TODO
 void sub_800ABB4(void);
 void sub_800AA58(u8);
 
@@ -1030,37 +1030,27 @@ void sub_800DAA4(void);
 void sub_800ABE4(void);
 void sub_0800ABE0(void);
 
-struct UnkStruct_2020E10
-{
-    s16 unk0; //current card position in trunk?
-    u8 unk2;
-    u8 unk3;            //show: nothing, atk/def, attribute(summon), cost,
-    u8 unk4;            //cursor
-    u8 filler5[7];
-    u16 unkC[TRUNK_SIZE - 1]; //trunk_layout?
-};
 
-extern struct UnkStruct_2020E10 gUnkStruct_2020E10;
 extern u8 g8DFF498[];
 extern u8 g8DFF49B[];
 extern u8 g8DFF4A4[];
 extern u8 g8DFF4A6[];
-int GetTrunkCardQty(u16);
+int GetTrunkCardQty(unsigned short);
 void sub_80081DC(void (*)(void));
 void sub_8008220(void);
-s32 sub_80086D8(void);
+int TrunkSubmenuProcessInput(void);
 void sub_8008A48(void);
-extern u16 gUnk_808CBA0[][30];
+extern unsigned short gUnk_808CBA0[][30];
 extern u8 g8DF811C[];
 extern u8 g80ADEFC[];
-u16 sub_08007FEC(u8, u8, u16);
-void sub_800800C(u8, u8, u16, u16);
+unsigned short sub_08007FEC(u8, u8, unsigned short);
+void sub_800800C(u8, u8, unsigned short, unsigned short);
 void LoadOam(void);
 
 
-void sub_800BE0C(void) //TrunkMenu before dueling ingame
+void DuelTrunkMenu (void)
 {
-    u8 r4;
+    unsigned keepProcessing;
 
     sub_8035038(2);
     PlayMusic(213);
@@ -1071,65 +1061,65 @@ void sub_800BE0C(void) //TrunkMenu before dueling ingame
     PlayMusic(143);
     sub_800BF28();
 
-    r4 = 1;
-    while (r4)
+    keepProcessing = 1;
+    while (keepProcessing)
     {
-        switch (sub_8008644())
+        switch (TrunkProcessInput())
         {
         case 0x40:
-            sub_8008F88(3);
+            ExecuteTrunkAction(3);
             sub_800D904(3);
             sub_800ABB4();
             sub_800AA58(4);
             break;
         case 0x140:
-            sub_8008F88(5);
+            ExecuteTrunkAction(5);
             sub_800D904(3);
             sub_800ABB4();
             sub_800AA58(4);
             break;
         case 0x80:
-            sub_8008F88(2);
+            ExecuteTrunkAction(2);
             sub_800D904(3);
             sub_800ABB4();
             sub_800AA58(4);
             break;
         case 0x180:
-            sub_8008F88(4);
+            ExecuteTrunkAction(4);
             sub_800D904(3);
             sub_800ABB4();
             sub_800AA58(4);
             break;
         case 1:
-            if (!sub_800BF54())
-                r4 = 0;
+            if (!SelectionMenu())
+                keepProcessing = 0;
             sub_800AA58(7);
             break;
         case 2:
-            if (!sub_800C558())
-                r4 = 0;
+            if (!NoAntePrompt())
+                keepProcessing = 0;
             sub_800AA58(7);
             break;
         case 0x200:
-            sub_8008F88(6);
+            ExecuteTrunkAction(6);
             sub_800D904(4);
             sub_800ABB4();
             sub_800AA58(4);
             break;
         case 8:
-            sub_800DAA4();
+            sub_800DAA4(); // SortingMenu
             sub_800D904(8);
             sub_800AA58(8);
             break;
         case 4:
-            sub_8008F88(10);
+            ExecuteTrunkAction(10);
             sub_800D904(7);
             sub_800AA58(9);
             sub_800ABE4();
             break;
         default:
             sub_0800ABE0();
-            sub_800AA58(5);
+            sub_800AA58(5); //Set and execute vblank function (graphics function?)
         }
     }
     sub_8035020(2);
@@ -1142,18 +1132,17 @@ static void sub_800BF1C (void) {
 
 static void sub_800BF28 (void) {
   gAnte = CARD_NONE;
-  sub_800D904();
+  sub_800D904(); //TODO
   sub_800D904(2);
   sub_800AA58(1);
   sub_800ABA8();
   sub_800AA58(3);
 }
 
-static unsigned sub_800BF54 (void)   //handle trunk input?
+static unsigned SelectionMenu (void)
 {
-    u8 r6;
-    u8 r5 = 1;
-    gUnkStruct_2020E10.unk4 = 0;
+    unsigned keepProcessing, r5 = 1;
+    gTrunkData.cursorState = 0;
 
     sub_800C0D8();
     sub_800C208();
@@ -1161,38 +1150,40 @@ static unsigned sub_800BF54 (void)   //handle trunk input?
     sub_80081DC(sub_800C4F8);
     sub_8008220();
 
-    r6 = 1;
-    while (r6)
+    keepProcessing = 1;
+    while (keepProcessing)
     {
-        switch (sub_80086D8())
+        switch (TrunkSubmenuProcessInput())
         {
         case 0x40:
-            gUnkStruct_2020E10.unk4 = g8DFF498[gUnkStruct_2020E10.unk4];
+            gTrunkData.cursorState = g8DFF498[gTrunkData.cursorState];
             sub_800C208();
             PlayMusic(54);
             sub_80081DC(LoadOam);
             sub_8008220();
             break;
         case 0x80:
-            gUnkStruct_2020E10.unk4 = g8DFF49B[gUnkStruct_2020E10.unk4];
+            gTrunkData.cursorState = g8DFF49B[gTrunkData.cursorState];
             sub_800C208();
             PlayMusic(54);
             sub_80081DC(LoadOam);
             sub_8008220();
             break;
         case 1:
-            switch (gUnkStruct_2020E10.unk4)
+            switch (gTrunkData.cursorState)
             {
-            case 0:  //DETAILS
+            case DUEL_TRUNK_CURSOR_DETAILS:
                 sub_800C1BC();
                 break;
-            case 1:   //USE AS ANTE
-                if (!sub_800C2C0())
-                    r5 = 0;
-                goto end;
-            case 2:  //EXIT
+            case DUEL_TRUNK_CURSOR_ANTE:
+                if (!TrySelectingAnte())
+                  r5 = 0;
+                keepProcessing = 0;
+                break;
+            case DUEL_TRUNK_CURSOR_EXIT:
                 PlayMusic(55);
-                goto end;
+                keepProcessing = 0;
+                break;
             default:
                 sub_8008220();
                 break;
@@ -1200,22 +1191,21 @@ static unsigned sub_800BF54 (void)   //handle trunk input?
             break;
         case 2:
             PlayMusic(56);
-            goto end;
+            keepProcessing = 0;
+            break;
         default:
             sub_8008220();
             break;
         }
     }
-    end:
     sub_8008A48();
     return r5;
 }
 
-static unsigned char sub_800C020 (void)   //handle trunk input?
+static unsigned char LowLevelAntePrompt (void)
 {
-    bool8 r6;
-    bool8 r5 = 1;
-    gUnkStruct_2020E10.unk4 = 0;
+    unsigned keepProcessing, selectNo = 1;
+    gTrunkData.cursorState = 0;
 
     sub_800C3C4();
     sub_800C264();
@@ -1223,35 +1213,37 @@ static unsigned char sub_800C020 (void)   //handle trunk input?
     sub_80081DC(sub_800C4F8);
     sub_8008220();
 
-    r6 = 1;
-    while (r6)
+    keepProcessing = 1;
+    while (keepProcessing)
     {
-        switch (sub_80086D8())
+        switch (TrunkSubmenuProcessInput())
         {
         case 0x40:
-            gUnkStruct_2020E10.unk4 = g8DFF4A4[gUnkStruct_2020E10.unk4];
+            gTrunkData.cursorState = g8DFF4A4[gTrunkData.cursorState];
             sub_800C264();
             PlayMusic(54);
             sub_80081DC(LoadOam);
             sub_8008220();
             break;
         case 0x80:
-            gUnkStruct_2020E10.unk4 = g8DFF4A6[gUnkStruct_2020E10.unk4];
+            gTrunkData.cursorState = g8DFF4A6[gTrunkData.cursorState];
             sub_800C264();
             PlayMusic(54);
             sub_80081DC(LoadOam);
             sub_8008220();
             break;
         case 1:
-            switch (gUnkStruct_2020E10.unk4)
+            switch (gTrunkData.cursorState)
             {
             case 0:
                 PlayMusic(55);
-                goto end;
+                keepProcessing = 0;
+                break;
             case 1:
                 PlayMusic(222);
-                r5 = 0;
-                goto end;
+                selectNo = 0;
+                keepProcessing = 0;
+                break;
             default:
                 sub_8008220();
                 break;
@@ -1259,20 +1251,20 @@ static unsigned char sub_800C020 (void)   //handle trunk input?
             break;
         case 2:
             PlayMusic(56);
-            goto end;
+            keepProcessing = 0;
+            break;
         default:
             sub_8008220();
             break;
         }
     }
-    end:
-    return r5;
+    return selectNo;
 }
 
 static void sub_800C0D8(void)
 {
     u8 i;
-    u16 r7;
+    unsigned short r7;
 
     for (i = 0; i < 20; i++)
         CpuCopy32(gUnk_808CBA0[i], &(((struct Sbb*)&gBgVram)->sbbF[i])/*fix*/, 60);
@@ -1346,7 +1338,7 @@ static void sub_800C208 (void)
 	.align 2, 0\n\
 _0800C24C: .4byte 0x02018430 @oambuff + i (cursor icon?)\n\
 _0800C250: .4byte 0x08DFF49E\n\
-_0800C254: .4byte gUnkStruct_2020E10\n\
+_0800C254: .4byte gTrunkData\n\
 _0800C258: .4byte 0x08DFF4A1\n\
 _0800C25C: .4byte 0x0000C120\n\
 _0800C260: .4byte 0x40000800");
@@ -1393,57 +1385,45 @@ static void sub_800C264 (void)
 	.align 2, 0\n\
 _0800C2A8: .4byte 0x02018430\n\
 _0800C2AC: .4byte 0x08DFF4A8\n\
-_0800C2B0: .4byte gUnkStruct_2020E10\n\
+_0800C2B0: .4byte gTrunkData\n\
 _0800C2B4: .4byte 0x08DFF4AA\n\
 _0800C2B8: .4byte 0x0000C120\n\
 _0800C2BC: .4byte 0x40000800");
 }
 
-static unsigned char sub_800C2C0 (void)
-{
-    bool32 r6 = 1;
-    u16 r4 = sub_800901C(2);
-
-    if (GetTrunkCardQty(r4) < 2)
-        sub_800C32C();
-    else
-    {
-        if (IsGodCard(r4) == TRUE)
-            sub_800C378();
-        else
-        {
-            if (!IsGoodAnte(r4))
-            {
-                if (!sub_800C020())
-                {
-                    r6 = 0;
-                    gAnte = r4;
-                }
-            }
-            else
-            {
-                r6 = 0;
-                gAnte = r4;
-                PlayMusic(222);
-            }
-        }
+static unsigned char TrySelectingAnte (void) {
+  unsigned selectionFailed = 1;
+  unsigned short cardId = sub_800901C(2);
+  if (GetTrunkCardQty(cardId) < 2)
+    sub_800C32C(); // one of a kind card can't be made an ante
+  else if (IsGodCard(cardId) == 1)
+    sub_800C378();
+  else if (!IsGoodAnte(cardId)) {
+    if (!LowLevelAntePrompt()) {
+      selectionFailed = 0;
+      gAnte = cardId;
     }
-
-    sub_8008220();
-    return r6;
+  }
+  else {
+    selectionFailed = 0;
+    gAnte = cardId;
+    PlayMusic(222);
+  }
+  sub_8008220();
+  return selectionFailed;
 }
 
 static void sub_800C32C (void)
 {
-    gUnkStruct_2020E10.unk4 = 0;
+    gTrunkData.cursorState = 0;
     sub_800C430();
     PlayMusic(57);
     sub_800C530();
     sub_80081DC(sub_800C4F8);
     sub_8008220();
     {
-        s32 v, r;
-        while ((r=sub_80086D8()<<16), //TODO: fakematch
+        unsigned v, r;
+        while ((r=TrunkSubmenuProcessInput()<<16), //TODO: fakematch
                v=0x30000,
                !(v &= r))
             sub_8008220();
@@ -1455,15 +1435,15 @@ static void sub_800C32C (void)
 static void sub_800C378(void)
 {
 
-    gUnkStruct_2020E10.unk4 = 0;
+    gTrunkData.cursorState = 0;
     sub_800C494();
     PlayMusic(57);
     sub_800C530();
     sub_80081DC(sub_800C4F8);
     sub_8008220();
     {
-        s32 v, r;
-        while ((r=sub_80086D8()<<16),  //fakematch
+        unsigned v, r;
+        while ((r=TrunkSubmenuProcessInput()<<16),  //fakematch
                v=0x30000,
                !(v &= r))
             sub_8008220();
@@ -1538,66 +1518,65 @@ _0800C550: .4byte 0x0000C120\n\
 _0800C554: .4byte 0x40F008A0");
 }
 
-static unsigned sub_800C558 (void)
-{
-    bool8 r5, r6;
+static unsigned NoAntePrompt (void) {
+  unsigned noAnte, keepProcessing;
+  gTrunkData.cursorState = DUEL_TRUNK_ANTE_NO;
+  noAnte = 1;
+  sub_800C608();
+  sub_800C7A0();
+  PlayMusic(55);
+  sub_80081DC(sub_800C7FC);
+  sub_8008220();
 
-    gUnkStruct_2020E10.unk4 = 0;
-    r5 = 1;
-    sub_800C608();
-    sub_800C7A0();
-    PlayMusic(55);
-    sub_80081DC(sub_800C7FC);
-    sub_8008220();
-
-    r6 = 1;
-    while (r6)
-    {
-        switch (sub_80086D8())
-        {
-        case 0x40:
-            gUnkStruct_2020E10.unk4 = g8DFF4AC[gUnkStruct_2020E10.unk4];
-            PlayMusic(54);
-            sub_800C7A0();
-            sub_80081DC(LoadOam);
-            sub_8008220();
-            break;
-        case 0x80:
-            gUnkStruct_2020E10.unk4 = g8DFF4AE[gUnkStruct_2020E10.unk4];
-            PlayMusic(54);
-            sub_800C7A0();
-            sub_80081DC(LoadOam);
-            sub_8008220();
-            break;
-        case 1:
-            switch (gUnkStruct_2020E10.unk4)
-            {
-            case 1:
-                r5 = 0;
-                PlayMusic(222);
-                break;
-            default:
-                PlayMusic(55);
-                break;
-            }
-            goto end;
-        case 2:
-            PlayMusic(56);
-            goto end;
-        default:
-            sub_8008220();
-            break;
-        }
-    }
-    end:
-    sub_8008A48();
-    return r5;
+  keepProcessing = 1;
+  while (keepProcessing)
+  {
+      switch (TrunkSubmenuProcessInput())
+      {
+      case 0x40:
+          gTrunkData.cursorState = g8DFF4AC[gTrunkData.cursorState];
+          PlayMusic(54);
+          sub_800C7A0();
+          sub_80081DC(LoadOam);
+          sub_8008220();
+          break;
+      case 0x80:
+          gTrunkData.cursorState = g8DFF4AE[gTrunkData.cursorState];
+          PlayMusic(54);
+          sub_800C7A0();
+          sub_80081DC(LoadOam);
+          sub_8008220();
+          break;
+      case 1:
+          switch (gTrunkData.cursorState)
+          {
+          case DUEL_TRUNK_ANTE_YES:
+              noAnte = 0;
+              PlayMusic(222);
+              break;
+          default:
+              PlayMusic(55);
+              break;
+          }
+          keepProcessing = 0;
+          break;
+      case 2:
+          PlayMusic(56);
+          keepProcessing = 0;
+          break;
+      default:
+          sub_8008220();
+          break;
+      }
+  }
+  sub_8008A48();
+  return noAnte;
 }
 
 static void sub_800C608 (void)
 {
     u8 i;
-    u16 sb, r7;
+    unsigned short sb, r7;
 
     for (i = 0; i < 20; i++)
         CpuCopy32(gUnk_808D050[i], &(((struct Sbb*)&gBgVram)->sbbF[i])/*fix*/, 60);
@@ -1673,7 +1652,7 @@ static void sub_800C7A0 (void)
 	.align 2, 0\n\
 _0800C7E4: .4byte 0x02018430\n\
 _0800C7E8: .4byte 0x08DFF4B0\n\
-_0800C7EC: .4byte gUnkStruct_2020E10\n\
+_0800C7EC: .4byte gTrunkData\n\
 _0800C7F0: .4byte 0x08DFF4B2\n\
 _0800C7F4: .4byte 0x0000C120\n\
 _0800C7F8: .4byte 0x40000800");
@@ -1731,13 +1710,13 @@ void sub_800C834 (void)
     CpuFill16(0, gBgVram.sbb18, 32);
 }
 
-extern u16 gUnk_808C6F0[][30];
+extern unsigned short gUnk_808C6F0[][30];
 extern u8 g80AE800[];
 
 void sub_800C970(void)
 {
     u8 i;
-    u16 r8, sb;
+    unsigned short r8, sb;
 
     for (i = 0; i < 20; i++)
         CpuCopy32(gUnk_808C6F0[i], &(((struct Sbb*)&gBgVram)->sbbF[i])/*fix*/, 60);
@@ -1810,7 +1789,7 @@ u32 GetDeckCapacity(void);
 
 union N {
   u8 a[0x4000]; //2d array?
-  u16 b[0x2000]; //3d array?
+  unsigned short b[0x2000]; //3d array?
 }extern gVr;
 
 void sub_800CCAC(void)
@@ -1875,5 +1854,23 @@ void sub_800CD88 (void) {
       gVr.b[(r6 + 4 + r7 * 3) * 32 + 0x7C03 + i * 2] = i * 4 + (r7 * 40 + 0x50F8) +3;
     }
   }
+}
+
+
+void sub_800CFD0 (void) {
+  unsigned char i;
+  CpuFill32(0, gVr.a + 0xE300 / 2, 0x1900);
+  for (i = 0; i < 5; i++) {
+    unsigned r4;
+    unsigned short sp30 = sub_800DA48(sub_800901C(i));
+    SetCardInfo(sub_800901C(i));
+    r4 = 0;
+    if (i > 1) {
+      r4 = 2;
+      if (i == 2)
+        r4 = 1;
+    }
+  }
+  //_0800D2C8
 }
 */

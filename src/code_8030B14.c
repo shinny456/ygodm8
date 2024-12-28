@@ -1,7 +1,4 @@
 #include "global.h"
-#include "duel.h"
-#include "gba/io_reg.h"
-
 
 //link_duel.c
 u32 sub_80327B8 (void);

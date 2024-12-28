@@ -236,7 +236,7 @@ static void sub_80527E8(struct ScriptCtx *script)
         switch (script->currentScript.start[++script->pointer])
         {
         case '0': //duel
-            sub_800BE0C();
+            DuelTrunkMenu();
             gDuelData.opponent = script->currentScript.start[script->pointer + 1];
             DuelMain();
             if (gDuelData.unk2B == 1)
@@ -351,7 +351,7 @@ static void sub_80527E8(struct ScriptCtx *script)
             script->pointer += 2;
             break;
         case '7':
-            AddCardToTrunk(script->currentScript.start[script->pointer + 1] +
+            AddCardQtyToTrunk(script->currentScript.start[script->pointer + 1] +
                           (script->currentScript.start[script->pointer + 2] << 8),
                            1);
             script->pointer += 3;

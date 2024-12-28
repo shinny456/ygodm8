@@ -40,9 +40,63 @@
 
 void sub_8035020 (unsigned);
 void sub_8034FEC (unsigned);
-void AddCardToTrunk(unsigned, unsigned);
+void AddCardQtyToTrunk (unsigned, unsigned);
+void RemoveCardQtyFromTrunk (unsigned, unsigned);
 extern const u8 *gUnk_8E00E30[];
 void sub_8008D88(unsigned);
+extern u8 g2021B10[];
+extern u8 g2021B50[];
+extern u8 g2021B90[];
+extern u8 g2021BE0[];
+void HuffUnComp (void*, void*);
+
+enum {
+  TRUNK_CURSOR_DETAILS,
+  TRUNK_CURSOR_ADD_CARD,
+  TRUNK_CURSOR_REMOVE_CARD
+};
+
+enum {
+  DUEL_TRUNK_CURSOR_DETAILS,
+  DUEL_TRUNK_CURSOR_ANTE,
+  DUEL_TRUNK_CURSOR_EXIT
+};
+
+enum {
+  DUEL_TRUNK_ANTE_NO,
+  DUEL_TRUNK_ANTE_YES
+};
+
+enum {
+  TRUNK_SORT_NUMBER,
+  TRUNK_SORT_NAME,
+  TRUNK_SORT_ATTACK,
+  TRUNK_SORT_DEFENSE,
+  TRUNK_SORT_TYPE,
+  TRUNK_SORT_SUMMON, //TODO: attribute?
+  TRUNK_SORT_QTY,
+  TRUNK_SORT_COST,
+  TRUNK_SORT_STARS,
+  TRUNK_SORT_EFFECT,
+  TRUNK_SORT_EXIT
+};
+
+#define TRUNK_CARD_LIMIT 250
+#define TRUNK_SIZE 801
+//^TODO: change to NUM_CARDS
+#define DECK_SIZE 40
+struct UnkStruct_2020E10
+{
+    s16 unk0; //current card position in trunk?
+    u8 sortingMethod; //TODO: sortingMethodId?
+    u8 unk3;    //show: nothing, atk/def, attribute(summon), cost,
+    u8 cursorState;
+    u8 filler5[7];
+    u16 unkC[TRUNK_SIZE - 1]; //sortedCards
+};
+
+extern struct UnkStruct_2020E10 gTrunkData;
+
 
 #define asm_comment(x) asm volatile("@ -- " x " -- ")
 #define asm_unified(x) asm(".syntax unified\n" x "\n.syntax divided")
@@ -53,9 +107,7 @@ void sub_8008D88(unsigned);
 
 #define ARRAY_COUNT(array) (size_t)(sizeof(array) / sizeof((array)[0]))
 
-#define TRUNK_CARD_LIMIT 250
-#define TRUNK_SIZE 801
-#define DECK_SIZE 40
+
 
 /*NOTES:
 Card details:
