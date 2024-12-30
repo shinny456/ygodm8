@@ -1,5 +1,11 @@
 #include "global.h"
 
+static unsigned char g201CB3C;
+static unsigned char sFiller201CB3D[2];
+static unsigned char g201CB40;
+static unsigned char sFiller201CB41[2];
+static unsigned char g201CB44;
+
 struct AI_Command
 {
     u16 action; //actionID?

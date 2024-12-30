@@ -97,6 +97,29 @@ struct UnkStruct_2020E10
 
 extern struct UnkStruct_2020E10 gTrunkData;
 
+struct UnkStruct_2022EB0
+{
+    u16* unk0;
+    u8 filler_4[4];
+    u16 unk8;
+    u8 unkA;
+};
+
+struct UnkStruct_2021AB4
+{
+    u16 unk0;
+    u16 unk2;
+};
+
+extern struct UnkStruct_2022EB0 gUnk2022EB0;
+extern struct UnkStruct_2021AB4 gUnk2021AB4;
+extern unsigned char gTrunkCardQty[];
+extern unsigned char gTotalCardQty[];
+extern unsigned char g2022120[];
+extern unsigned char g2022B80[];
+extern unsigned short g80D0444[][801];
+extern const unsigned short gCardAtks[];
+extern const unsigned short gCardDefs[];
 
 #define asm_comment(x) asm volatile("@ -- " x " -- ")
 #define asm_unified(x) asm(".syntax unified\n" x "\n.syntax divided")

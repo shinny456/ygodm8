@@ -62,11 +62,10 @@ struct Unk2022EC0 {
 
 struct Unk8E0CC20 {
   u16 unk0;
-  u16 filler2;
   u64 unk4;
 };
 
-extern struct Unk8E0CC20 (*g8E0CC20)[];
+extern struct Unk8E0CC20 *g8E0CC20;
 
 extern u8 g2023E7B; //cursor state: select, confirm, start, exit
 extern u8 g2023E68;
@@ -141,8 +140,6 @@ void sub_8034A8C (void);
 u16 sub_8037798 (u8);
 u16 sub_80383E4 (u8);
 void SetCardInfo(); //TODO
-extern u16 gCardAtks[];
-extern u16 gCardDefs[];
 extern u8 gCardTypes[];
 extern u8 gCardAttributes[];
 extern u8 gCardLevels[];
@@ -724,10 +721,10 @@ static void sub_8036458 (void) {
   u32 i;
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     u16 r1 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r1;
-    (*g8E0CC20)[i].unk4 = 800 - r1;
+    g8E0CC20[i].unk0 = r1;
+    g8E0CC20[i].unk4 = 800 - r1;
     if (g2022EC0.unk0[r1] || g2022EC0.unk321[r1])
-      (*g8E0CC20)[i].unk4 += 800;
+      g8E0CC20[i].unk4 += 800;
   }
 }
 
@@ -736,9 +733,9 @@ static void sub_8036500 (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     int temp;
     u16 r3 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r3;
+    g8E0CC20[i].unk0 = r3;
     temp = (g2022EC0.unk0[r3] + g2022EC0.unk321[r3]) * 800 + 800;
-    (*g8E0CC20)[i].unk4 = temp - r3;
+    g8E0CC20[i].unk4 = temp - r3;
   }
 }
 
@@ -747,11 +744,11 @@ static void sub_803658C (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r4;
+    g8E0CC20[i].unk0 = r4;
     temp = (gCardAtks[r4] + 1 & 0xFFFF) * 800 + 800;
-    (*g8E0CC20)[i].unk4 = temp - r4;
+    g8E0CC20[i].unk4 = temp - r4;
     if (g2022EC0.unk0[r4] || g2022EC0.unk321[r4])
-      (*g8E0CC20)[i].unk4 += 0x031FFCE0;
+      g8E0CC20[i].unk4 += 0x031FFCE0;
   }
 }
 
@@ -760,11 +757,11 @@ static void sub_8036644 (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r4;
+    g8E0CC20[i].unk0 = r4;
     temp = (gCardDefs[r4] + 1 & 0xFFFF) * 800 + 800;
-    (*g8E0CC20)[i].unk4 = temp - r4;
+    g8E0CC20[i].unk4 = temp - r4;
     if (g2022EC0.unk0[r4] || g2022EC0.unk321[r4])
-      (*g8E0CC20)[i].unk4 += 0x031FFCE0;
+      g8E0CC20[i].unk4 += 0x031FFCE0;
   }
 }
 
@@ -773,11 +770,11 @@ static void sub_80366FC (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r4;
+    g8E0CC20[i].unk0 = r4;
     temp = (23 - gCardTypes[r4]) * 800 + 800;
-    (*g8E0CC20)[i].unk4 = temp - r4;
+    g8E0CC20[i].unk4 = temp - r4;
     if (g2022EC0.unk0[r4] || g2022EC0.unk321[r4])
-      (*g8E0CC20)[i].unk4 += 0x4B00;
+      g8E0CC20[i].unk4 += 0x4B00;
   }
 }
 
@@ -786,11 +783,11 @@ static void sub_80367B0 (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r4;
+    g8E0CC20[i].unk0 = r4;
     temp = (256 - gCardAttributes[r4] & 0xFF) * 800 + 800;
-    (*g8E0CC20)[i].unk4 = temp - r4;
+    g8E0CC20[i].unk4 = temp - r4;
     if (g2022EC0.unk0[r4] || g2022EC0.unk321[r4])
-      (*g8E0CC20)[i].unk4 += 0x32000;
+      g8E0CC20[i].unk4 += 0x32000;
   }
 }
 
@@ -798,10 +795,10 @@ static void sub_8036868 (void) {
   u32 i;
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     u16 r4 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r4;
-    (*g8E0CC20)[i].unk4 = 800 - g80D0444[gLanguage][r4];
+    g8E0CC20[i].unk0 = r4;
+    g8E0CC20[i].unk4 = 800 - g80D0444[gLanguage][r4];
     if (g2022EC0.unk0[r4] || g2022EC0.unk321[r4])
-      (*g8E0CC20)[i].unk4 += 0x320;
+      g8E0CC20[i].unk4 += 0x320;
   }
 }
 
@@ -810,11 +807,11 @@ static void sub_8036920 (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r4;
+    g8E0CC20[i].unk0 = r4;
     temp = gCardLevels[r4] * 800 + 800;
-    (*g8E0CC20)[i].unk4 = temp - r4;
+    g8E0CC20[i].unk4 = temp - r4;
     if (g2022EC0.unk0[r4] || g2022EC0.unk321[r4])
-      (*g8E0CC20)[i].unk4 += 0x28A0;
+      g8E0CC20[i].unk4 += 0x28A0;
   }
 }
 
@@ -823,11 +820,11 @@ static void sub_80369D0 (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     u32 temp;
     u16 r4 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r4;
+    g8E0CC20[i].unk0 = r4;
     temp = gCardCosts[r4] * 800 + 800;
-    (*g8E0CC20)[i].unk4 = temp - r4;
+    g8E0CC20[i].unk4 = temp - r4;
     if (g2022EC0.unk0[r4] || g2022EC0.unk321[r4])
-      (*g8E0CC20)[i].unk4 += 0x03200000;
+      g8E0CC20[i].unk4 += 0x03200000;
   }
 }
 
@@ -835,12 +832,12 @@ static void sub_8036A80 (void) {
   u32 i;
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     u16 r4 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r4;
-    (*g8E0CC20)[i].unk4 = 800 - r4;
+    g8E0CC20[i].unk0 = r4;
+    g8E0CC20[i].unk4 = 800 - r4;
     if (gCardMonsterEffects[r4] || gUnk8094CC3[r4])
-      (*g8E0CC20)[i].unk4 += 0x320;
+      g8E0CC20[i].unk4 += 0x320;
     if (g2022EC0.unk0[r4] || g2022EC0.unk321[r4])
-      (*g8E0CC20)[i].unk4 += 0x640;
+      g8E0CC20[i].unk4 += 0x640;
   }
 }
 
@@ -856,7 +853,7 @@ static void sub_8036B54 (void) {
   g8E0CE18[g2022EC0.unkFAA]();
   sub_8034A8C();
   for (ii = 0; ii < gUnk2022EB0.unk8; ii++)
-    g2022EC0.unk964[ii] = (*g8E0CC20)[ii].unk0;
+    g2022EC0.unk964[ii] = g8E0CC20[ii].unk0;
 }
 
 static void sub_8036BE8 (void) {
@@ -991,7 +988,7 @@ static void sub_8036E64 (void) {
   g8E0CE18[g2022EC0.unkFAA]();
   sub_8034A8C();
   for (i = 0; i < gUnk2022EB0.unk8; i++)
-    g2022EC0.unk964[i] = (*g8E0CC20)[i].unk0;
+    g2022EC0.unk964[i] = g8E0CC20[i].unk0;
 }
 
 static void sub_8036ECC (void) {
@@ -1068,10 +1065,10 @@ static void sub_8037088 (void) {
   u32 i;
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     u16 r1 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r1;
-    (*g8E0CC20)[i].unk4 = 800 - r1;
+    g8E0CC20[i].unk0 = r1;
+    g8E0CC20[i].unk4 = 800 - r1;
     if (g2022EC0.unk642[r1])
-      (*g8E0CC20)[i].unk4 += 800;
+      g8E0CC20[i].unk4 += 800;
   }
 }
 
@@ -1080,11 +1077,11 @@ static void sub_8037110 (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     int temp;
     u16 r2 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r2;
+    g8E0CC20[i].unk0 = r2;
     temp = (gCardAtks[r2] + 1 & 0xFFFF) * 800 + 800;
-    (*g8E0CC20)[i].unk4 = temp - r2;
+    g8E0CC20[i].unk4 = temp - r2;
     if (g2022EC0.unk642[r2])
-      (*g8E0CC20)[i].unk4 += 0x031FFCE0;
+      g8E0CC20[i].unk4 += 0x031FFCE0;
   }
 }
 
@@ -1093,11 +1090,11 @@ static void sub_80371C0 (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     int temp;
     u16 r2 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r2;
+    g8E0CC20[i].unk0 = r2;
     temp = (gCardDefs[r2] + 1 & 0xFFFF) * 800 + 800;
-    (*g8E0CC20)[i].unk4 = temp - r2;
+    g8E0CC20[i].unk4 = temp - r2;
     if (g2022EC0.unk642[r2])
-      (*g8E0CC20)[i].unk4 += 0x031FFCE0;
+      g8E0CC20[i].unk4 += 0x031FFCE0;
   }
 }
 
@@ -1106,11 +1103,11 @@ static void sub_8037270 (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r4;
+    g8E0CC20[i].unk0 = r4;
     temp = (23 - gCardTypes[r4]) * 800 + 800;
-    (*g8E0CC20)[i].unk4 = temp - r4;
+    g8E0CC20[i].unk4 = temp - r4;
     if (g2022EC0.unk642[r4])
-      (*g8E0CC20)[i].unk4 += 0x4B00;
+      g8E0CC20[i].unk4 += 0x4B00;
   }
 }
 
@@ -1119,11 +1116,11 @@ static void sub_803731C (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r4;
+    g8E0CC20[i].unk0 = r4;
     temp = (256 - gCardAttributes[r4] & 0xFF) * 800 + 800;
-    (*g8E0CC20)[i].unk4 = temp - r4;
+    g8E0CC20[i].unk4 = temp - r4;
     if (g2022EC0.unk642[r4])
-      (*g8E0CC20)[i].unk4 += 0x32000;
+      g8E0CC20[i].unk4 += 0x32000;
   }
 }
 
@@ -1131,10 +1128,10 @@ static void sub_80373CC (void) {
   u32 i;
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     u16 r4 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r4;
-    (*g8E0CC20)[i].unk4 = 800 - g80D0444[gLanguage][r4];
+    g8E0CC20[i].unk0 = r4;
+    g8E0CC20[i].unk4 = 800 - g80D0444[gLanguage][r4];
     if (g2022EC0.unk642[r4])
-      (*g8E0CC20)[i].unk4 += 0x320;
+      g8E0CC20[i].unk4 += 0x320;
   }
 }
 
@@ -1143,11 +1140,11 @@ static void sub_803747C (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r4;
+    g8E0CC20[i].unk0 = r4;
     temp = gCardLevels[r4] * 800 + 800;
-    (*g8E0CC20)[i].unk4 = temp - r4;
+    g8E0CC20[i].unk4 = temp - r4;
     if (g2022EC0.unk642[r4])
-      (*g8E0CC20)[i].unk4 += 0x28A0;
+      g8E0CC20[i].unk4 += 0x28A0;
   }
 }
 
@@ -1156,11 +1153,11 @@ static void sub_8037524 (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     u32 temp;
     u16 r4 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r4;
+    g8E0CC20[i].unk0 = r4;
     temp = gCardCosts[r4] * 800 + 800;
-    (*g8E0CC20)[i].unk4 = temp - r4;
+    g8E0CC20[i].unk4 = temp - r4;
     if (g2022EC0.unk642[r4])
-      (*g8E0CC20)[i].unk4 += 0x03200000;
+      g8E0CC20[i].unk4 += 0x03200000;
   }
 }
 
@@ -1168,12 +1165,12 @@ static void sub_80375CC (void) {
   u32 i;
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     u16 r4 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r4;
-    (*g8E0CC20)[i].unk4 = 800 - r4;
+    g8E0CC20[i].unk0 = r4;
+    g8E0CC20[i].unk4 = 800 - r4;
     if (gCardMonsterEffects[r4] || gUnk8094CC3[r4])
-      (*g8E0CC20)[i].unk4 += 0x320;
+      g8E0CC20[i].unk4 += 0x320;
     if (g2022EC0.unk642[r4])
-      (*g8E0CC20)[i].unk4 += 0x640;
+      g8E0CC20[i].unk4 += 0x640;
   }
 }
 
@@ -1190,7 +1187,7 @@ static void sub_803769C (void) {
   g8E0CE40[g2022EC0.unkFBA]();
   sub_8034A8C();
   for (ii = 0; ii < gUnk2022EB0.unk8; ii++)
-    g2022EC0.unk964[ii] = (*g8E0CC20)[ii].unk0;
+    g2022EC0.unk964[ii] = g8E0CC20[ii].unk0;
 }
 
 void sub_8037740 (void) {
@@ -1318,7 +1315,7 @@ void sub_80379D8 (void) {
   g8E0CE40[g2022EC0.unkFBA]();
   sub_8034A8C();
   for (i = 0; i < gUnk2022EB0.unk8; i++)
-    g2022EC0.unk964[i] = (*g8E0CC20)[i].unk0;
+    g2022EC0.unk964[i] = g8E0CC20[i].unk0;
 }
 
 void sub_8037A40 (void) {
@@ -1326,9 +1323,9 @@ void sub_8037A40 (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     int temp;
     u16 r3 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r3;
+    g8E0CC20[i].unk0 = r3;
     temp = g2022EC0.unk642[r3] * 800 + 800;
-    (*g8E0CC20)[i].unk4 = temp - r3;
+    g8E0CC20[i].unk4 = temp - r3;
   }
 }
 
@@ -1406,10 +1403,10 @@ void sub_8037C78 (void) {
   u32 i;
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     u16 r1 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r1;
-    (*g8E0CC20)[i].unk4 = 800 - r1;
+    g8E0CC20[i].unk0 = r1;
+    g8E0CC20[i].unk4 = 800 - r1;
     if (g2022EC0.unk321[r1])
-      (*g8E0CC20)[i].unk4 += 800;
+      g8E0CC20[i].unk4 += 800;
   }
 }
 
@@ -1418,11 +1415,11 @@ void sub_8037D00 (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     int temp;
     u16 r2 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r2;
+    g8E0CC20[i].unk0 = r2;
     temp = (gCardAtks[r2] + 1 & 0xFFFF) * 800 + 800;
-    (*g8E0CC20)[i].unk4 = temp - r2;
+    g8E0CC20[i].unk4 = temp - r2;
     if (g2022EC0.unk321[r2])
-      (*g8E0CC20)[i].unk4 += 0x031FFCE0;
+      g8E0CC20[i].unk4 += 0x031FFCE0;
   }
 }
 
@@ -1431,11 +1428,11 @@ void sub_8037DB0 (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     int temp;
     u16 r2 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r2;
+    g8E0CC20[i].unk0 = r2;
     temp = (gCardDefs[r2] + 1 & 0xFFFF) * 800 + 800;
-    (*g8E0CC20)[i].unk4 = temp - r2;
+    g8E0CC20[i].unk4 = temp - r2;
     if (g2022EC0.unk321[r2])
-      (*g8E0CC20)[i].unk4 += 0x031FFCE0;
+      g8E0CC20[i].unk4 += 0x031FFCE0;
   }
 }
 
@@ -1444,11 +1441,11 @@ void sub_8037E60 (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r4;
+    g8E0CC20[i].unk0 = r4;
     temp = (23 - gCardTypes[r4]) * 800 + 800;
-    (*g8E0CC20)[i].unk4 = temp - r4;
+    g8E0CC20[i].unk4 = temp - r4;
     if (g2022EC0.unk321[r4])
-      (*g8E0CC20)[i].unk4 += 0x4B00;
+      g8E0CC20[i].unk4 += 0x4B00;
   }
 }
 
@@ -1457,11 +1454,11 @@ void sub_8037F0C (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r4;
+    g8E0CC20[i].unk0 = r4;
     temp = (256 - gCardAttributes[r4] & 0xFF) * 800 + 800;
-    (*g8E0CC20)[i].unk4 = temp - r4;
+    g8E0CC20[i].unk4 = temp - r4;
     if (g2022EC0.unk321[r4])
-      (*g8E0CC20)[i].unk4 += 0x32000;
+      g8E0CC20[i].unk4 += 0x32000;
   }
 }
 
@@ -1469,10 +1466,10 @@ void sub_8037FBC (void) {
   u32 i;
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     u16 r4 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r4;
-    (*g8E0CC20)[i].unk4 = 800 - g80D0444[gLanguage][r4];
+    g8E0CC20[i].unk0 = r4;
+    g8E0CC20[i].unk4 = 800 - g80D0444[gLanguage][r4];
     if (g2022EC0.unk321[r4])
-      (*g8E0CC20)[i].unk4 += 0x320;
+      g8E0CC20[i].unk4 += 0x320;
   }
 }
 
@@ -1481,11 +1478,11 @@ void sub_8038070 (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r4;
+    g8E0CC20[i].unk0 = r4;
     temp = gCardLevels[r4] * 800 + 800;
-    (*g8E0CC20)[i].unk4 = temp - r4;
+    g8E0CC20[i].unk4 = temp - r4;
     if (g2022EC0.unk321[r4])
-      (*g8E0CC20)[i].unk4 += 0x28A0;
+      g8E0CC20[i].unk4 += 0x28A0;
   }
 }
 
@@ -1494,11 +1491,11 @@ void sub_8038118 (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     u32 temp;
     u16 r4 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r4;
+    g8E0CC20[i].unk0 = r4;
     temp = gCardCosts[r4] * 800 + 800;
-    (*g8E0CC20)[i].unk4 = temp - r4;
+    g8E0CC20[i].unk4 = temp - r4;
     if (g2022EC0.unk321[r4])
-      (*g8E0CC20)[i].unk4 += 0x03200000;
+      g8E0CC20[i].unk4 += 0x03200000;
   }
 }
 
@@ -1506,12 +1503,12 @@ void sub_80381C0 (void) {
   u32 i;
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     u16 r4 = g2022EC0.unk964[i];
-    (*g8E0CC20)[i].unk0 = r4;
-    (*g8E0CC20)[i].unk4 = 800 - r4;
+    g8E0CC20[i].unk0 = r4;
+    g8E0CC20[i].unk4 = 800 - r4;
     if (gCardMonsterEffects[r4] || gUnk8094CC3[r4])
-      (*g8E0CC20)[i].unk4 += 0x320;
+      g8E0CC20[i].unk4 += 0x320;
     if (g2022EC0.unk321[r4])
-      (*g8E0CC20)[i].unk4 += 0x640;
+      g8E0CC20[i].unk4 += 0x640;
   }
 }
 
@@ -1528,7 +1525,7 @@ void sub_8038290 (void) {
   g8E0CE68[g2022EC0.unkFB2]();
   sub_8034A8C();
   for (ii = 0; ii < gUnk2022EB0.unk8; ii++)
-    g2022EC0.unk964[ii] = (*g8E0CC20)[ii].unk0;
+    g2022EC0.unk964[ii] = g8E0CC20[ii].unk0;
 }
 
 void sub_8038330 (void) {
@@ -1675,7 +1672,7 @@ void sub_803867C (void) {
   g8E0CE68[g2022EC0.unkFB2]();
   sub_8034A8C();
   for (i = 0; i < gUnk2022EB0.unk8; i++)
-    g2022EC0.unk964[i] = (*g8E0CC20)[i].unk0;
+    g2022EC0.unk964[i] = g8E0CC20[i].unk0;
 }
 
 void sub_80386E4 (void) {
@@ -1683,9 +1680,9 @@ void sub_80386E4 (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     u16 r3 = g2022EC0.unk964[i];
     int temp;
-    (*g8E0CC20)[i].unk0 = r3;
+    g8E0CC20[i].unk0 = r3;
     temp = g2022EC0.unk321[r3] * 800 + 800;
-    (*g8E0CC20)[i].unk4 = temp - r3;
+    g8E0CC20[i].unk4 = temp - r3;
   }
 }
 
@@ -1746,6 +1743,7 @@ void sub_8038B3C (void);
 
 void sub_8038860 (void) {
   u32 i;
+  //TODO: use initializer
   u8 arr[6]; //sizeof g80DD668
   memcpy(arr, g80DD668, 6); //sizeof arr
   sub_80325D4();

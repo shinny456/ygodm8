@@ -556,9 +556,7 @@ void sub_801FB44(u8*);
 int GetNumCardsInRow (u8);
 u32 GetTotalAtkAndDefInRow (u8);
 
-extern u8 g201CB3C; //padding?
-extern u8 g201CB40; //^
-extern u8 g201CB44;
+
 extern u8 gCurrentTurnOpponent[];
 u32 sub_8043A5C (u8);
 u32 sub_80438A0 (u8);
@@ -601,23 +599,6 @@ extern u8* gDuelTextStrings[];
 extern u8* gMyTurnStrings[];
 extern u8* g8F9E35C[];
 extern u8* g8FA0964[];
-
-struct UnkStruct_2022EB0
-{
-    u16* unk0;
-    u8 filler_4[4];
-    u16 unk8;
-    u8 unkA;
-};
-
-struct UnkStruct_2021AB4
-{
-    u16 unk0;
-    u16 unk2;
-};
-
-extern struct UnkStruct_2022EB0 gUnk2022EB0;
-extern struct UnkStruct_2021AB4 gUnk2021AB4;
 
 struct Unk3000C38 {
   u32 unk0;

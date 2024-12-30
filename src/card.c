@@ -1,6 +1,10 @@
 #include "global.h"
 #include "card.h"
 
+
+static unsigned char gUnk201CB38;
+static signed char gUnk201CB39;
+static signed char sFiller201CB3A[2];
 struct StatMod gStatMod;
 struct CardInfo gCardInfo;
 
@@ -22,8 +26,6 @@ extern u8 gUnk8094C37[];
 extern u8 gUnk8094CC3[];
 extern u8 gUnk8094FE4[NUM_FIELDS][NUM_CARD_TYPES];
 extern u8* gUnk8F985E0[];
-extern unsigned short gCardAtks[];
-extern unsigned short gCardDefs[];
 extern u32 gCardCosts[];
 extern u8 gCardAttributes[];
 extern u8 gCardLevels[];
@@ -54,8 +56,7 @@ extern u8* g8DFCF0C[];
 extern unsigned short gUnk8097D94[][31]; //248x160p (31x20t) tilemap
 extern u32 g0809553C[]; //tileset
 extern unsigned short g809508C[][30];
-extern u8 gUnk201CB38;
-extern s8 gUnk201CB39;
+
 
 
 
@@ -143,7 +144,7 @@ void SetCardInfo(unsigned short id)
 }
 
 //unused?
-static void sub_800B4AC(unsigned short id)
+static void sub_800B4AC (unsigned short id)
 {
     SetCardInfo(id);
     if (gCardInfo.spellEffect == 2)
@@ -156,13 +157,13 @@ static void sub_800B4AC(unsigned short id)
 }
 
 //unused?
-static void sub_800B524(u8 val, s8 val2)
+static void sub_800B524 (u8 val, s8 val2)
 {
     gUnk201CB38 = val;
     gUnk201CB39 = val2;
 }
 
-void sub_800B538(unsigned short* id)
+void sub_800B538 (unsigned short* id)
 {
     SetCardInfo(*id);
     if (gCardInfo.cost > GetDuelistLevel())

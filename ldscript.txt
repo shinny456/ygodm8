@@ -15,14 +15,27 @@ SECTIONS
     g201CB24 = 0x201CB24;
     g201CB28 = 0x201CB28;
     g201CB2C = 0x201CB2C;
+    
+    
     g201CB30 = 0x0201CB30;
     g201CB34 = 0x0201CB34;
+    
+    . = 0x0201CB38;
+    .bss : {
+      src/card.o(.bss);
+      src/code2.o(.bss);
+    }
+    
+    /*
     gUnk201CB38 = 0x0201CB38;
     gUnk201CB39 = 0x0201CB39;
+    
     g201CB3C = 0x201CB3C;
     g201CB40 = 0x201CB40;
     g201CB44 = 0x201CB44;
+    */
     g201CB48 = 0x201CB48;
+    
     g201CB50 = 0x201CB50;
     g201CB58 = 0x201CB58;
     g201CB59 = 0x201CB59;
@@ -250,10 +263,13 @@ SECTIONS
 
         src/code_8030B14.o(.text);
         asm/code3.o(.text4);
-
+        
+        src/card_sort.o(.text);
+        asm/code3.o(.text5);
+        
         src/title_screen.o(.text);
         src/trade_menu.o(.text);
-        asm/code3.o(.text5);
+        asm/code3.o(.text6);
         src/code_803ED78.o(.text); /*clear_gfx_ram_buffers.o */
 
         src/FINAL_effect.o(.text);
@@ -813,6 +829,7 @@ SECTIONS
     g8E0CD80 = 0x8E0CD80;
     g8E0CDA8 = 0x8E0CDA8;
     g8E0CDAC = 0x8E0CDAC;
+    g8E0CC24 = 0x8E0CC24;
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :

@@ -300,6 +300,7 @@ void sub_8020968 (void* arg00, u16 arg1, u16 arg2)
     }
 }
 
+//TODO: rename; destination is not necessarily VRAM buffer.
 void CopyStringTilesToVRAMBuffer(void* arg00, const u8* namee, unsigned arg22)
 {
     u32* arg0 = arg00; //TODO: figure out a way to make vram buffer a type that can be converted to u32* in a non-UB way.
