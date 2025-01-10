@@ -15,27 +15,27 @@ SECTIONS
     g201CB24 = 0x201CB24;
     g201CB28 = 0x201CB28;
     g201CB2C = 0x201CB2C;
-    
-    
+
+
     g201CB30 = 0x0201CB30;
     g201CB34 = 0x0201CB34;
-    
+
     . = 0x0201CB38;
     .bss : {
       src/card.o(.bss);
       src/code2.o(.bss);
     }
-    
+
     /*
     gUnk201CB38 = 0x0201CB38;
     gUnk201CB39 = 0x0201CB39;
-    
+
     g201CB3C = 0x201CB3C;
     g201CB40 = 0x201CB40;
     g201CB44 = 0x201CB44;
     */
     g201CB48 = 0x201CB48;
-    
+
     g201CB50 = 0x201CB50;
     g201CB58 = 0x201CB58;
     g201CB59 = 0x201CB59;
@@ -63,11 +63,11 @@ SECTIONS
     gPlayerName = 0x02020DE0;
 
 
-    g2020DF4 = 0x02020DF4;
-    gKeyState = 0x02020DF8;
-    gUnk2020DFC = 0x02020DFC;
+    gRepeatedOrNewButtons = 0x02020DF4;
+    gPressedButtons = 0x02020DF8; /* TODO: rename to gButtons */
+    gNewButtons = 0x02020DFC;
     g2020E00 = 0x2020E00;
-    g2020E04 = 0x2020E04;
+    gRepeatedButtonsCounter = 0x2020E04;
 
     gTrunkData = 0x02020E10;
     gTotalCardQty = 0x02021460;
@@ -104,7 +104,7 @@ SECTIONS
     g2021D80 = 0x02021D80;
     g2021D98 = 0x02021D98;
     g2021D9C = 0x02021D9C;
-    g2021DA0 = 0x02021DA0;
+    gLinkDuelMenuData = 0x02021DA0;
     sGameMenuData = 0x02021DB0;
     gDuelistStatus = 0x02021DB8;
     gCardPasswordDigits = 0x02021DC0;
@@ -223,7 +223,7 @@ SECTIONS
         asm/code_8009228.o(.text2);
 
         src/card.o(.text); /*second part is duel_trunk_menu?*/
-                           
+
         asm/code1.o(.text);
         src/digit.o(.text);
         src/compression.o(.text);
@@ -245,11 +245,7 @@ SECTIONS
         src/ante.o(.text);
         src/password_terminal.o(.text);
         src/god_cards.o(.text);
-
-
-        asm/code3.o(.text2);
-
-
+        src/code_802612C.o(.text);
         src/return_monster.o(.text);
         src/print_card.o(.text);
         src/copyright_screens.o(.text);
@@ -263,10 +259,10 @@ SECTIONS
 
         src/code_8030B14.o(.text);
         asm/code3.o(.text4);
-        
+
         src/card_sort.o(.text);
         asm/code3.o(.text5);
-        
+
         src/title_screen.o(.text);
         src/trade_menu.o(.text);
         asm/code3.o(.text6);
@@ -358,7 +354,6 @@ SECTIONS
     gMyTurnStrings = 0x8FA2C14;
     gTurnVoices = 0x80C180C;
     g80C1824 = 0x80C1824;
-    g8FC4A8C = 0x8FC4A8C;
     g80C1852 = 0x80C1852;
     g80C188C = 0x80C188C;
     g80C1891 = 0x80C1891;

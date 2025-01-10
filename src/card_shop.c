@@ -213,8 +213,8 @@ extern u8 g89A849E[][64];
 
 
 extern u16 gOamBuffer[];
-extern u16 g2020DF4;
-extern u16 gUnk2020DFC;
+extern u16 gRepeatedOrNewButtons;
+extern u16 gNewButtons;
 extern u8 g2022120[];
 extern u8 g2021DF0[];
 extern u8 g2022B80[];
@@ -242,7 +242,6 @@ void CopyTypeIconTilesToBuffer (u8 type, void * dest);
 void CopyTypeIconPalToBuffer (u8 type, void * dest);
 extern u8 g2021BE0[];
 extern u64 gMoney;
-void sub_800DEAC (u64, u8);
 
 void CardShopBuyMain (void) {
   u16 cardId;
@@ -328,29 +327,29 @@ void CardShopBuyMain (void) {
 static int ProcessInput (void) {
   u16 ret = 0;
 
-  if (g2020DF4 & 0x20)
+  if (gRepeatedOrNewButtons & 0x20)
     ret = 0x20;
-  if (g2020DF4 & 0x10)
+  if (gRepeatedOrNewButtons & 0x10)
     ret = 0x10;
-  if (g2020DF4 & 0x40) {
-    u32 test = g2020DF4 & 0x100;
+  if (gRepeatedOrNewButtons & 0x40) {
+    u32 test = gRepeatedOrNewButtons & 0x100;
     ret = 0x40;
     if (test)
       ret = 0x140;
   }
-  if (g2020DF4 & 0x80) {
-    u32 test = g2020DF4 & 0x100;
+  if (gRepeatedOrNewButtons & 0x80) {
+    u32 test = gRepeatedOrNewButtons & 0x100;
     ret = 0x80;
     if (test)
       ret = 0x180;
   }
-  if (gUnk2020DFC & 1)
+  if (gNewButtons & 1)
     ret = 1;
-  if (gUnk2020DFC & 2)
+  if (gNewButtons & 2)
     ret = 2;
-  if (gUnk2020DFC & 4)
+  if (gNewButtons & 4)
     ret = 4;
-  if (gUnk2020DFC & 8)
+  if (gNewButtons & 8)
     ret = 8;
 
   return ret;
@@ -796,7 +795,7 @@ static void sub_802CBB8 (void) {
   else {
     PlayMusic(0x39);
     sub_802E270();
-    while (!(gUnk2020DFC & 3))
+    while (!(gNewButtons & 3))
       sub_8008220();
     PlayMusic(0x38);
     sub_802FC88();

@@ -25,7 +25,7 @@ extern u32** g8FA31C0[];
 extern u16** g8FA3360[];
 extern u8 gSharedMem[];
 extern struct OamData gOamBuffer[];
-extern u16 gUnk2020DFC;
+extern u16 gNewButtons;
 extern u8 gPlayerName[];
 
 
@@ -473,7 +473,7 @@ inline void sub_8053388 (struct ScriptCtx *script) {
 }
 
 static void sub_8052F60 (struct ScriptCtx *script) {
-  if (gUnk2020DFC & 259) {
+  if (gNewButtons & 259) {
     PlayMusic(202);
     script->pointer++;
     sub_8053388(script);
@@ -502,7 +502,7 @@ static void sub_8052F60 (struct ScriptCtx *script) {
 }
 
 static void sub_8053040 (struct ScriptCtx *script) {
-  int temp = gUnk2020DFC & 259;
+  int temp = gNewButtons & 259;
   if (temp) {
     PlayMusic(55);
     script->pointer += 2;
@@ -512,11 +512,11 @@ static void sub_8053040 (struct ScriptCtx *script) {
     LZ77UnCompWram(g82AD2D0, gBgVram.sbb1B);
     return;
   }
-  if (gUnk2020DFC & 96 && script->unk1E == 1) {
+  if (gNewButtons & 96 && script->unk1E == 1) {
     PlayMusic(54);
     script->unk1E = temp;
   }
-  if (gUnk2020DFC & 144 && !script->unk1E) {
+  if (gNewButtons & 144 && !script->unk1E) {
     PlayMusic(54);
     script->unk1E = 1;
   }

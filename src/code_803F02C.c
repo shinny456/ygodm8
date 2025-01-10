@@ -1204,29 +1204,29 @@ void sub_80409AC (struct DuelCard *zone) {
   CopyCard(zone, &gSelectedCard);
 }
 
-extern u16 g2020DF4;
-extern u16 gUnk2020DFC;
+extern u16 gRepeatedOrNewButtons;
+extern u16 gNewButtons;
 
 static unsigned char ProcessInput (void) {
-  if (g2020DF4 & 0x40)
+  if (gRepeatedOrNewButtons & 0x40)
     return 1;
-  if (g2020DF4 & 0x80)
+  if (gRepeatedOrNewButtons & 0x80)
     return 2;
-  if (g2020DF4 & 0x20)
+  if (gRepeatedOrNewButtons & 0x20)
     return 3;
-  if (g2020DF4 & 0x10)
+  if (gRepeatedOrNewButtons & 0x10)
     return 4;
-  if (gUnk2020DFC & 0x1)
+  if (gNewButtons & A_BUTTON)
     return 5;
-  if (gUnk2020DFC & 0x200)
+  if (gNewButtons & 0x200)
     return 6;
-  if (gUnk2020DFC & 0x100)
+  if (gNewButtons & 0x100)
     return 7;
-  if (gUnk2020DFC & 2)
+  if (gNewButtons & B_BUTTON)
     return 8;
-  if (g2020DF4 & 8)
+  if (gRepeatedOrNewButtons & 8)
     return 0;
-  if (g2020DF4 & 4)
+  if (gRepeatedOrNewButtons & 4)
     return 0;
   return 0;
 }

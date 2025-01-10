@@ -11,6 +11,7 @@ union {
 
 extern u8 g8DF811C[];
 
+//unused?
 void sub_8007F6C (u8 arg0, u8 arg1, u16 arg2) {
   gVr.tileMap[0x7C00 + arg1 * 32 + arg0] |= g8DF811C[arg2] + 1;
   gVr.tileMap[0x7C00 + (arg1 + 1) * 32 + arg0] |= g8DF811C[arg2] + 3;
@@ -127,10 +128,10 @@ extern void (*g201CB28)(void);
 extern void (*g201CB2C)(void);
 extern u32 g3000400[0x200];
 extern vu16 g2020E00;
-extern vu8 g2020E04; //vu8?
-extern vu16 gKeyState;
-extern u16 gUnk2020DFC;
-extern u16 g2020DF4;
+extern vu8 gRepeatedButtonsCounter; //vu8?
+extern vu16 gPressedButtons;
+extern u16 gNewButtons;
+extern u16 gRepeatedOrNewButtons;
 void m4aSoundVSync (void);
 void m4aSoundMain (void);
 void sub_8034E48 (void);
@@ -189,30 +190,31 @@ void sub_8008288 (void) {
 }
 
 void sub_80082C0 (void) {
-  gKeyState = 0;
-  gUnk2020DFC = 0;
-  g2020DF4 = 0;
-  g2020E04 = 10;
+  gPressedButtons = 0;
+  gNewButtons = 0;
+  gRepeatedOrNewButtons = 0;
+  gRepeatedButtonsCounter = 10;
 }
 
 void sub_80082E8 (void) {
-  u16 r4 = ~REG_KEYINPUT;
-  gUnk2020DFC = r4 & ~gKeyState;
-  if (gKeyState == r4) {
-    g2020DF4 = 0;
-    g2020E04--;
-    if (!g2020E04) {
-      g2020E04 = 3;
-      g2020DF4 = gKeyState;
+  unsigned short currentInputs = ~REG_KEYINPUT;
+  gNewButtons = currentInputs & ~gPressedButtons;
+  if (gPressedButtons == currentInputs) {
+    gRepeatedOrNewButtons = 0;
+    gRepeatedButtonsCounter--;
+    if (!gRepeatedButtonsCounter) {
+      gRepeatedButtonsCounter = 3;
+      gRepeatedOrNewButtons = gPressedButtons;
     }
   }
   else {
-    g2020DF4 = r4;
-    g2020E04 = 10;
+    gRepeatedOrNewButtons = currentInputs;
+    gRepeatedButtonsCounter = 10;
   }
-  gKeyState = r4;
+  gPressedButtons = currentInputs;
 }
 
+// unused?
 s32 MathUtil_Mul32(s32 x, s32 y)
 {
     s64 result;
@@ -223,6 +225,7 @@ s32 MathUtil_Mul32(s32 x, s32 y)
     return result;
 }
 
+// unused?
 s32 MathUtil_Div32(s32 x, s32 y)
 {
     s64 _x;

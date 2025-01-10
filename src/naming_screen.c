@@ -24,8 +24,8 @@ void sub_8006C60 (void);
 void sub_8006E84 (void);
 void sub_8007068 (void);
 void sub_8007350 (void);
-extern u16 g2020DF4;
-extern u16 gUnk2020DFC;
+extern u16 gRepeatedOrNewButtons;
+extern u16 gNewButtons;
 extern u16 gUnk_8081640[][30];
 extern u16 gUnk_8081F10[];
 extern u16 gUnk_8081440[];
@@ -75,7 +75,7 @@ void NamingScreenMain (void) {
   sub_80075B0();
 
   while (1) {
-    if (gUnk2020DFC & 8) {
+    if (gNewButtons & 8) {
       if (gUnk_8DF8114->unk32 != 5) {
         PlayMusic(0x36);
         gUnk_8DF8114->unk32 = 5;
@@ -90,7 +90,7 @@ void NamingScreenMain (void) {
         PlayMusic(0x39);
       gUnk_8DF8114->unk16A = 0;
     }
-    if (gUnk2020DFC & 1 && gUnk_8DF8114->unk32 == 5) {
+    if (gNewButtons & 1 && gUnk_8DF8114->unk32 == 5) {
       if (gUnk_8DF8114->unkE[0] != 0x4081) {
         PlayMusic(0x37);
         gUnk_8DF8114->unk9 = 1;
@@ -100,13 +100,13 @@ void NamingScreenMain (void) {
       else
         PlayMusic(0x39);
     }
-    if (g2020DF4 & 0x100) {
+    if (gRepeatedOrNewButtons & 0x100) {
       if (gUnk_8DF8114->unk2 < 8) {
         PlayMusic(0x36);
         gUnk_8DF8114->unk2++;
       }
     }
-    else if (g2020DF4 & 0x200 && gUnk_8DF8114->unk2) {
+    else if (gRepeatedOrNewButtons & 0x200 && gUnk_8DF8114->unk2) {
       PlayMusic(0x36);
       gUnk_8DF8114->unk2--;
     }
@@ -116,14 +116,14 @@ void NamingScreenMain (void) {
         sub_80064F4();
         break;
       case 1:
-        if (gUnk2020DFC & 1) {
+        if (gNewButtons & 1) {
           if (gUnk_8DF8114->unk32 != 5)
             PlayMusic(0x37);
           gUnk_8DF8114->unk0 = 0;
           gUnk_8DF8114->unk1 = 0;
           gUnk_8DF8114->unk3 = 0;
         }
-        if (gUnk2020DFC & 2) {
+        if (gNewButtons & 2) {
           if (gUnk_8DF8114->unk32 == 5) {
             PlayMusic(0x38);
             gUnk_8DF8114->unk32 = 3;
@@ -140,12 +140,12 @@ void NamingScreenMain (void) {
             gUnk_8DF8114->unk3 = 0;
           }
         }
-        if (g2020DF4 & 0x20) {
+        if (gRepeatedOrNewButtons & 0x20) {
           gUnk_8DF8114->unk3 = 0;
           gUnk_8DF8114->unk0 = 10;
           gUnk_8DF8114->unk32 = 3;
         }
-        else if (g2020DF4 & 0x10) {
+        else if (gRepeatedOrNewButtons & 0x10) {
           gUnk_8DF8114->unk3 = 0;
           gUnk_8DF8114->unk0 = 0;
           gUnk_8DF8114->unk32 = 3;
@@ -852,7 +852,7 @@ _080064F0: .4byte gUnk_8DF8114");
 
 /*
 static void sub_80064F4 (void) {
-  if (g2020DF4 & 0x40) {
+  if (gRepeatedOrNewButtons & 0x40) {
     PlayMusic(0x36);
     if (gUnk_8DF8114->unk1 == 7)
       gUnk_8DF8114->unk1 = 6;
@@ -861,7 +861,7 @@ static void sub_80064F4 (void) {
     else if (!gUnk_8DF8114->unk16A && gUnk_8DF8114->unk16A + 154 >= strlen(g8DF8030[gUnk_8DF8114->unk32]) / 2)
       gUnk_8DF8114->unk1 = 6;
   }
-  if (g2020DF4 & 0x80) {
+  if (gRepeatedOrNewButtons & 0x80) {
     PlayMusic(0x36);
     if (gUnk_8DF8114->unk1 == -1)
       gUnk_8DF8114->unk1 = 0;
@@ -870,7 +870,7 @@ static void sub_80064F4 (void) {
     else if (!gUnk_8DF8114->unk16A && gUnk_8DF8114->unk16A + 154 >= strlen(g8DF8030[gUnk_8DF8114->unk32]) / 2)
       gUnk_8DF8114->unk1 = 0;
   }
-  if (g2020DF4 & 0x20) {
+  if (gRepeatedOrNewButtons & 0x20) {
     PlayMusic(0x36);
     if (gUnk_8DF8114->unk0 > 0) {
       if (gUnk_8DF8114->unk32 < 3 && gUnk_8DF8114->unk0 == 6)
@@ -884,7 +884,7 @@ static void sub_80064F4 (void) {
       gUnk_8DF8114->unk32 = 5;
     }
   }
-  if (g2020DF4 & 0x10) {
+  if (gRepeatedOrNewButtons & 0x10) {
     PlayMusic(0x36);
     if (gUnk_8DF8114->unk0 < 10) {
       if (gUnk_8DF8114->unk32 < 3 && gUnk_8DF8114->unk0 == 4)
@@ -898,7 +898,7 @@ static void sub_80064F4 (void) {
       gUnk_8DF8114->unk32 = 5;
     }
   }
-  if (g2020DF4 & 1) {
+  if (gRepeatedOrNewButtons & 1) {
     PlayMusic(0x37);
     if (gUnk_8DF8114->unk32 == 2) {
       //problematic part
@@ -926,7 +926,7 @@ static void sub_80064F4 (void) {
       }
     }
   }
-  if (g2020DF4 & 2) {
+  if (gRepeatedOrNewButtons & 2) {
     if (gUnk_8DF8114->unk32 > 5) {
       gUnk_8DF8114->unk32 = 2;
       gUnk_8DF8114->unk0 = gUnk_8DF8114->unkA;
@@ -1249,19 +1249,19 @@ _0800675C:\n\
 static void sub_8006764 (void) {
   if (strlen(g8DF8030[gUnk_8DF8114->unk32]) <= 154 * 2)
     return;
-  if (g2020DF4 & 0x40 && !gUnk_8DF8114->unk1) {
+  if (gRepeatedOrNewButtons & 0x40 && !gUnk_8DF8114->unk1) {
     if (gUnk_8DF8114->unk16A > 11)
       gUnk_8DF8114->unk16A -= 11;
     else
       gUnk_8DF8114->unk16A = 0;
   }
-  if (g2020DF4 & 0x80 && gUnk_8DF8114->unk1 == 6) {
+  if (gRepeatedOrNewButtons & 0x80 && gUnk_8DF8114->unk1 == 6) {
     if (gUnk_8DF8114->unk16A + 165 < strlen(g8DF8030[gUnk_8DF8114->unk32]) / 2)
       gUnk_8DF8114->unk16A += 11;
     else
       gUnk_8DF8114->unk16A = strlen(g8DF8030[gUnk_8DF8114->unk32]) / 2 - 154;
   }
-  if (g2020DF4 & 0xC0)
+  if (gRepeatedOrNewButtons & 0xC0)
     sub_800683C();
 }
 

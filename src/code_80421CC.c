@@ -12,8 +12,8 @@ extern u8 g8E0D926[];
 extern u8 g8E0D92A[];
 extern u8 g8E0D92E[];
 
-extern u16 g2020DF4;
-extern u16 gKeyState;
+extern u16 gRepeatedOrNewButtons;
+extern u16 gPressedButtons;
 extern u8 gIsPlayerTurnOver;
 
 extern u16 g8E0D814[];
@@ -28,7 +28,7 @@ void sub_80428EC (u8);
 void sub_8041014 (void);
 u32 CanPlayerSeeCard (u8 y, u8 x);
 
-extern u16 gUnk2020DFC;
+extern u16 gNewButtons;
 void sub_80410B4 (void);
 void sub_8041104 (void);
 int sub_8057790 (u8, u8);
@@ -53,35 +53,35 @@ void BMenuMain (void) {
   u8 r4 = 0;
   InitBMenu(0);
   while (1) {
-    if (g2020DF4 & 0x40) {
+    if (gRepeatedOrNewButtons & 0x40) {
       PlayMusic(0x36);
       r4 = g8E0D81A[r4];
       sub_80428EC(r4);
       sub_8008220();
       sub_8041014();
     }
-    else if (g2020DF4 & 0x80) {
+    else if (gRepeatedOrNewButtons & 0x80) {
       PlayMusic(0x36);
       r4 = g8E0D81D[r4];
       sub_80428EC(r4);
       sub_8008220();
       sub_8041014();
     }
-    else if (g2020DF4 & 0x10) {
+    else if (gRepeatedOrNewButtons & 0x10) {
       PlayMusic(0x36);
       r4 = g8E0D820[r4];
       sub_80428EC(r4);
       sub_8008220();
       sub_8041014();
     }
-    else if (g2020DF4 & 0x20) {
+    else if (gRepeatedOrNewButtons & 0x20) {
       PlayMusic(0x36);
       r4 = g8E0D823[r4];
       sub_80428EC(r4);
       sub_8008220();
       sub_8041014();
     }
-    else if (gUnk2020DFC & 1) {
+    else if (gNewButtons & 1) {
       switch (r4) {
         case 0:
           if (CanPlayerSeeCard(gDuelCursor.currentY, gDuelCursor.currentX) == 1
@@ -122,7 +122,7 @@ void BMenuMain (void) {
       }
       break;
     }
-    else if (gUnk2020DFC & 2) {
+    else if (gNewButtons & 2) {
       PlayMusic(0x38);
       break;
     }
@@ -947,19 +947,19 @@ unsigned sub_80429A4 (void) {
   sub_8042ADC(0);
   while (1) {
     while (1) {
-      if (g2020DF4 & 0x40) {
+      if (gRepeatedOrNewButtons & 0x40) {
         PlayMusic(0x36);
         r4 = g8E0D922[r4];
       }
-      else if (g2020DF4 & 0x80) {
+      else if (gRepeatedOrNewButtons & 0x80) {
         PlayMusic(0x36);
         r4 = g8E0D926[r4];
       }
-      else if (g2020DF4 & 0x20) {
+      else if (gRepeatedOrNewButtons & 0x20) {
         PlayMusic(0x36);
         r4 = g8E0D92E[r4];
       }
-      else if (g2020DF4 & 0x10) {
+      else if (gRepeatedOrNewButtons & 0x10) {
         PlayMusic(0x36);
         r4 = g8E0D92A[r4];
       }
@@ -969,7 +969,7 @@ unsigned sub_80429A4 (void) {
       sub_8008220();
       sub_8041014();
     }
-    if (gUnk2020DFC & 1) {
+    if (gNewButtons & 1) {
       switch (r4) {
         case 0:
           return 1;
@@ -981,7 +981,7 @@ unsigned sub_80429A4 (void) {
           return 4;
       }
     }
-    if (gUnk2020DFC & 2) {
+    if (gNewButtons & 2) {
       PlayMusic(0x38);
       return 5;
     }
@@ -1096,7 +1096,7 @@ void sub_8042E80 (void) {
 
 void sub_8042F04 (void) {
   sub_8042E80();
-  while (gKeyState & 0x200)
+  while (gPressedButtons & 0x200)
     sub_8008220();
   REG_DISPCNT = 0x3600;
   sub_8008220();

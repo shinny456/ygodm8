@@ -52,7 +52,7 @@ void sub_8025048 (); //takes a u8 *?
 void sub_8025108 (); //takes a u8 *?
 
 extern u8 g2021C8C[]; //change type?
-extern u16 gUnk2020DFC;
+extern u16 gNewButtons;
 extern u16 gUnk2021DCC;
 
 struct OamStuff {
@@ -139,9 +139,9 @@ void GameMenuMain (void) {
 
 static unsigned short ProcessInput (void) {
   sub_802618C();
-  if (gUnk2020DFC & 1)
+  if (gNewButtons & 1)
     return 1;
-  if (gUnk2020DFC & 2)
+  if (gNewButtons & 2)
     return 2;
   if (gUnk2021DCC & 0x40)
     return 0x40;

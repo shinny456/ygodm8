@@ -1,1004 +1,7 @@
     .INCLUDE "asm/macro.inc"
     .SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_8022C54
-sub_8022C54: @ 0x08022C54
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, sb
-	mov r5, r8
-	push {r5, r6, r7}
-	sub sp, #0x78
-	ldr r0, _08022C74
-	ldrb r0, [r0]
-	cmp r0, #2
-	bne _08022C6A
-	b _08022E38
-_08022C6A:
-	cmp r0, #2
-	bgt _08022C78
-	cmp r0, #1
-	beq _08022C86
-	b _08023348
-	.align 2, 0
-_08022C74: .4byte gLanguage
-_08022C78:
-	cmp r0, #3
-	bne _08022C7E
-	b _08022FE8
-_08022C7E:
-	cmp r0, #4
-	bne _08022C84
-	b _08023198
-_08022C84:
-	b _08023348
-_08022C86:
-	ldr r0, _08022DDC
-	ldr r5, _08022DE0
-	adds r1, r5, #0
-	bl LZ77UnCompWram
-	ldr r0, _08022DE4
-	ldrh r1, [r0]
-	movs r4, #0xf0
-	lsls r4, r4, #8
-	adds r0, r4, #0
-	ands r0, r1
-	str r0, [sp]
-	movs r0, #0xe0
-	lsls r0, r0, #7
-	adds r1, r5, r0
-	ldr r6, _08022DE8
-	mov r0, sp
-	adds r2, r6, #0
-	bl CpuFastSet
-	ldr r0, _08022DEC
-	ldrh r1, [r0]
-	adds r0, r4, #0
-	ands r0, r1
-	str r0, [sp, #4]
-	add r0, sp, #4
-	movs r2, #0xd0
-	lsls r2, r2, #7
-	adds r1, r5, r2
-	adds r2, r6, #0
-	bl CpuFastSet
-	ldr r0, _08022DF0
-	ldrh r1, [r0]
-	adds r0, r4, #0
-	ands r0, r1
-	str r0, [sp, #8]
-	add r0, sp, #8
-	movs r2, #0xc0
-	lsls r2, r2, #7
-	adds r1, r5, r2
-	adds r2, r6, #0
-	bl CpuFastSet
-	ldr r0, _08022DF4
-	ldrh r1, [r0]
-	adds r0, r4, #0
-	ands r0, r1
-	str r0, [sp, #0xc]
-	add r0, sp, #0xc
-	movs r2, #0xb0
-	lsls r2, r2, #7
-	adds r1, r5, r2
-	adds r2, r6, #0
-	bl CpuFastSet
-	ldr r0, _08022DF8
-	ldrh r1, [r0]
-	adds r0, r4, #0
-	ands r0, r1
-	str r0, [sp, #0x10]
-	add r0, sp, #0x10
-	movs r2, #0xa0
-	lsls r2, r2, #7
-	adds r1, r5, r2
-	adds r2, r6, #0
-	bl CpuFastSet
-	ldr r0, _08022DFC
-	ldrh r0, [r0]
-	ands r4, r0
-	str r4, [sp, #0x14]
-	add r0, sp, #0x14
-	movs r2, #0x80
-	lsls r2, r2, #7
-	adds r1, r5, r2
-	adds r2, r6, #0
-	bl CpuFastSet
 
-
-	movs r7, #0
-	ldr r0, _08022E00
-	adds r0, r0, r5
-	mov sl, r0
-	ldr r1, _08022E04
-	adds r1, r1, r5
-	mov sb, r1
-	ldr r2, _08022E08
-	adds r2, r2, r5
-	mov r8, r2
-	movs r5, #0x80
-	lsls r5, r5, #2
-	movs r6, #0
-_08022D3E:
-	ldr r0, _08022E0C
-	adds r0, r6, r0
-	mov r1, r8
-	movs r2, #0xc
-	bl CpuSet
-	movs r0, #0x34
-	muls r0, r7, r0
-	ldr r1, _08022E10
-	adds r0, r0, r1
-	ldr r4, _08022E14
-	add r4, sl
-	adds r1, r5, r4
-	movs r2, #0x1a
-	bl CpuSet
-	lsls r0, r7, #4
-	ldr r1, _08022E18
-	adds r0, r0, r1
-	mov r1, sb
-	movs r2, #8
-	bl CpuSet
-	movs r0, #0x40
-	add sb, r0
-	add r8, r0
-	adds r5, #0x40
-	adds r6, #0x18
-	adds r7, #1
-	cmp r7, #3
-	bls _08022D3E
-
-
-	movs r7, #0
-	ldr r1, _08022E1C
-	adds r1, r1, r4
-	mov sl, r1
-	ldr r2, _08022E20
-	adds r5, r4, r2
-	movs r0, #0
-	mov sb, r0
-	ldr r1, _08022E24
-	adds r4, r4, r1
-	movs r2, #0xe0
-	lsls r2, r2, #1
-	mov r8, r2
-	movs r6, #0
-_08022D98:
-	ldr r0, _08022E28
-	adds r0, r6, r0
-	adds r1, r4, #0
-	movs r2, #0x1c
-	bl CpuSet
-	movs r0, #0x34
-	muls r0, r7, r0
-	ldr r1, _08022E2C
-	adds r0, r0, r1
-	ldr r1, _08022E30
-	add r1, sl
-	add r1, r8
-	movs r2, #0x1a
-	bl CpuSet
-	ldr r0, _08022E34
-	add r0, sb
-	adds r1, r5, #0
-	movs r2, #0x18
-	bl CpuSet
-	adds r5, #0x40
-	movs r0, #0x30
-	add sb, r0
-	adds r4, #0x40
-	movs r1, #0x40
-	add r8, r1
-	adds r6, #0x38
-	adds r7, #1
-	cmp r7, #5
-	bls _08022D98
-	b _08023478
-	.align 2, 0
-_08022DDC: .4byte gDE8C1C
-_08022DE0: .4byte 0x02008400
-_08022DE4: .4byte gDEDE60
-_08022DE8: .4byte 0x01000200
-_08022DEC: .4byte gDEDF50
-_08022DF0: .4byte gDEE0B8
-_08022DF4: .4byte gDEE220
-_08022DF8: .4byte gDEE388
-_08022DFC: .4byte gDEE478
-_08022E00: .4byte 0x00007012
-_08022E04: .4byte 0x00004216
-_08022E08: .4byte 0x00007212
-_08022E0C: .4byte gDEE568
-_08022E10: .4byte gDEE970
-_08022E14: .4byte 0xFFFFDFF2
-_08022E18: .4byte gDEEA40
-_08022E1C: .4byte 0x000017FE
-_08022E20: .4byte 0x000009C2
-_08022E24: .4byte 0x000019BE
-_08022E28: .4byte gDEE5C8
-_08022E2C: .4byte gDEE718
-_08022E30: .4byte 0xFFFFF802
-_08022E34: .4byte gDEE850
-_08022E38:
-	ldr r0, _08022F8C
-	ldr r5, _08022F90
-	adds r1, r5, #0
-	bl LZ77UnCompWram
-	ldr r0, _08022F94
-	ldrh r1, [r0]
-	movs r4, #0xf0
-	lsls r4, r4, #8
-	adds r0, r4, #0
-	ands r0, r1
-	str r0, [sp, #0x18]
-	add r0, sp, #0x18
-	movs r2, #0xe0
-	lsls r2, r2, #7
-	adds r1, r5, r2
-	ldr r6, _08022F98
-	adds r2, r6, #0
-	bl CpuFastSet
-	ldr r0, _08022F9C
-	ldrh r1, [r0]
-	adds r0, r4, #0
-	ands r0, r1
-	str r0, [sp, #0x1c]
-	add r0, sp, #0x1c
-	movs r2, #0xd0
-	lsls r2, r2, #7
-	adds r1, r5, r2
-	adds r2, r6, #0
-	bl CpuFastSet
-	ldr r0, _08022FA0
-	ldrh r1, [r0]
-	adds r0, r4, #0
-	ands r0, r1
-	str r0, [sp, #0x20]
-	add r0, sp, #0x20
-	movs r2, #0xc0
-	lsls r2, r2, #7
-	adds r1, r5, r2
-	adds r2, r6, #0
-	bl CpuFastSet
-	ldr r0, _08022FA4
-	ldrh r1, [r0]
-	adds r0, r4, #0
-	ands r0, r1
-	str r0, [sp, #0x24]
-	add r0, sp, #0x24
-	movs r2, #0xb0
-	lsls r2, r2, #7
-	adds r1, r5, r2
-	adds r2, r6, #0
-	bl CpuFastSet
-	ldr r0, _08022FA8
-	ldrh r1, [r0]
-	adds r0, r4, #0
-	ands r0, r1
-	str r0, [sp, #0x28]
-	add r0, sp, #0x28
-	movs r2, #0xa0
-	lsls r2, r2, #7
-	adds r1, r5, r2
-	adds r2, r6, #0
-	bl CpuFastSet
-	ldr r0, _08022FAC
-	ldrh r0, [r0]
-	ands r4, r0
-	str r4, [sp, #0x2c]
-	add r0, sp, #0x2c
-	movs r2, #0x80
-	lsls r2, r2, #7
-	adds r1, r5, r2
-	adds r2, r6, #0
-	bl CpuFastSet
-	movs r7, #0
-	ldr r0, _08022FB0
-	adds r0, r0, r5
-	mov sl, r0
-	ldr r1, _08022FB4
-	adds r1, r1, r5
-	mov sb, r1
-	ldr r2, _08022FB8
-	adds r2, r2, r5
-	mov r8, r2
-	movs r5, #0x80
-	lsls r5, r5, #2
-	movs r6, #0
-_08022EF0:
-	ldr r0, _08022FBC
-	adds r0, r6, r0
-	mov r1, r8
-	movs r2, #0xc
-	bl CpuSet
-	movs r0, #0x34
-	muls r0, r7, r0
-	ldr r1, _08022FC0
-	adds r0, r0, r1
-	ldr r4, _08022FC4
-	add r4, sl
-	adds r1, r5, r4
-	movs r2, #0x1a
-	bl CpuSet
-	lsls r0, r7, #4
-	ldr r1, _08022FC8
-	adds r0, r0, r1
-	mov r1, sb
-	movs r2, #8
-	bl CpuSet
-	movs r0, #0x40
-	add sb, r0
-	add r8, r0
-	adds r5, #0x40
-	adds r6, #0x18
-	adds r7, #1
-	cmp r7, #3
-	bls _08022EF0
-	movs r7, #0
-	ldr r1, _08022FCC
-	adds r1, r1, r4
-	mov sl, r1
-	ldr r2, _08022FD0
-	adds r5, r4, r2
-	movs r0, #0
-	mov sb, r0
-	ldr r1, _08022FD4
-	adds r4, r4, r1
-	movs r2, #0xe0
-	lsls r2, r2, #1
-	mov r8, r2
-	movs r6, #0
-_08022F4A:
-	ldr r0, _08022FD8
-	adds r0, r6, r0
-	adds r1, r4, #0
-	movs r2, #0x1c
-	bl CpuSet
-	movs r0, #0x34
-	muls r0, r7, r0
-	ldr r1, _08022FDC
-	adds r0, r0, r1
-	ldr r1, _08022FE0
-	add r1, sl
-	add r1, r8
-	movs r2, #0x1a
-	bl CpuSet
-	ldr r0, _08022FE4
-	add r0, sb
-	adds r1, r5, #0
-	movs r2, #0x18
-	bl CpuSet
-	adds r5, #0x40
-	movs r0, #0x30
-	add sb, r0
-	adds r4, #0x40
-	movs r1, #0x40
-	add r8, r1
-	adds r6, #0x38
-	adds r7, #1
-	cmp r7, #5
-	bls _08022F4A
-	b _08023478
-	.align 2, 0
-_08022F8C: .4byte gDE9FD8
-_08022F90: .4byte 0x02008400
-_08022F94: .4byte gDEDE60
-_08022F98: .4byte 0x01000200
-_08022F9C: .4byte gDEDF50
-_08022FA0: .4byte gDEE0B8
-_08022FA4: .4byte gDEE220
-_08022FA8: .4byte gDEE388
-_08022FAC: .4byte gDEE478
-_08022FB0: .4byte 0x00007012
-_08022FB4: .4byte 0x00004216
-_08022FB8: .4byte 0x00007212
-_08022FBC: .4byte gDEEA80
-_08022FC0: .4byte gDEEE88
-_08022FC4: .4byte 0xFFFFDFF2
-_08022FC8: .4byte gDEEF58
-_08022FCC: .4byte 0x000017FE
-_08022FD0: .4byte 0x000009C2
-_08022FD4: .4byte 0x000019BE
-_08022FD8: .4byte gDEEAE0
-_08022FDC: .4byte gDEEC30
-_08022FE0: .4byte 0xFFFFF802
-_08022FE4: .4byte gDEED68
-_08022FE8:
-	ldr r0, _0802313C
-	ldr r5, _08023140
-	adds r1, r5, #0
-	bl LZ77UnCompWram
-	ldr r0, _08023144
-	ldrh r1, [r0]
-	movs r4, #0xf0
-	lsls r4, r4, #8
-	adds r0, r4, #0
-	ands r0, r1
-	str r0, [sp, #0x30]
-	add r0, sp, #0x30
-	movs r2, #0xe0
-	lsls r2, r2, #7
-	adds r1, r5, r2
-	ldr r6, _08023148
-	adds r2, r6, #0
-	bl CpuFastSet
-	ldr r0, _0802314C
-	ldrh r1, [r0]
-	adds r0, r4, #0
-	ands r0, r1
-	str r0, [sp, #0x34]
-	add r0, sp, #0x34
-	movs r2, #0xd0
-	lsls r2, r2, #7
-	adds r1, r5, r2
-	adds r2, r6, #0
-	bl CpuFastSet
-	ldr r0, _08023150
-	ldrh r1, [r0]
-	adds r0, r4, #0
-	ands r0, r1
-	str r0, [sp, #0x38]
-	add r0, sp, #0x38
-	movs r2, #0xc0
-	lsls r2, r2, #7
-	adds r1, r5, r2
-	adds r2, r6, #0
-	bl CpuFastSet
-	ldr r0, _08023154
-	ldrh r1, [r0]
-	adds r0, r4, #0
-	ands r0, r1
-	str r0, [sp, #0x3c]
-	add r0, sp, #0x3c
-	movs r2, #0xb0
-	lsls r2, r2, #7
-	adds r1, r5, r2
-	adds r2, r6, #0
-	bl CpuFastSet
-	ldr r0, _08023158
-	ldrh r1, [r0]
-	adds r0, r4, #0
-	ands r0, r1
-	str r0, [sp, #0x40]
-	add r0, sp, #0x40
-	movs r2, #0xa0
-	lsls r2, r2, #7
-	adds r1, r5, r2
-	adds r2, r6, #0
-	bl CpuFastSet
-	ldr r0, _0802315C
-	ldrh r0, [r0]
-	ands r4, r0
-	str r4, [sp, #0x44]
-	add r0, sp, #0x44
-	movs r2, #0x80
-	lsls r2, r2, #7
-	adds r1, r5, r2
-	adds r2, r6, #0
-	bl CpuFastSet
-	movs r7, #0
-	ldr r0, _08023160
-	adds r0, r0, r5
-	mov sl, r0
-	ldr r1, _08023164
-	adds r1, r1, r5
-	mov sb, r1
-	ldr r2, _08023168
-	adds r2, r2, r5
-	mov r8, r2
-	movs r5, #0x80
-	lsls r5, r5, #2
-	movs r6, #0
-_080230A0:
-	ldr r0, _0802316C
-	adds r0, r6, r0
-	mov r1, r8
-	movs r2, #0xc
-	bl CpuSet
-	movs r0, #0x34
-	muls r0, r7, r0
-	ldr r1, _08023170
-	adds r0, r0, r1
-	ldr r4, _08023174
-	add r4, sl
-	adds r1, r5, r4
-	movs r2, #0x1a
-	bl CpuSet
-	lsls r0, r7, #4
-	ldr r1, _08023178
-	adds r0, r0, r1
-	mov r1, sb
-	movs r2, #8
-	bl CpuSet
-	movs r0, #0x40
-	add sb, r0
-	add r8, r0
-	adds r5, #0x40
-	adds r6, #0x18
-	adds r7, #1
-	cmp r7, #3
-	bls _080230A0
-	movs r7, #0
-	ldr r1, _0802317C
-	adds r1, r1, r4
-	mov sl, r1
-	ldr r2, _08023180
-	adds r5, r4, r2
-	movs r0, #0
-	mov sb, r0
-	ldr r1, _08023184
-	adds r4, r4, r1
-	movs r2, #0xe0
-	lsls r2, r2, #1
-	mov r8, r2
-	movs r6, #0
-_080230FA:
-	ldr r0, _08023188
-	adds r0, r6, r0
-	adds r1, r4, #0
-	movs r2, #0x1c
-	bl CpuSet
-	movs r0, #0x34
-	muls r0, r7, r0
-	ldr r1, _0802318C
-	adds r0, r0, r1
-	ldr r1, _08023190
-	add r1, sl
-	add r1, r8
-	movs r2, #0x1a
-	bl CpuSet
-	ldr r0, _08023194
-	add r0, sb
-	adds r1, r5, #0
-	movs r2, #0x18
-	bl CpuSet
-	adds r5, #0x40
-	movs r0, #0x30
-	add sb, r0
-	adds r4, #0x40
-	movs r1, #0x40
-	add r8, r1
-	adds r6, #0x38
-	adds r7, #1
-	cmp r7, #5
-	bls _080230FA
-	b _08023478
-	.align 2, 0
-_0802313C: .4byte gDEB77C
-_08023140: .4byte 0x02008400
-_08023144: .4byte gDEDE60
-_08023148: .4byte 0x01000200
-_0802314C: .4byte gDEDF50
-_08023150: .4byte gDEE0B8
-_08023154: .4byte gDEE220
-_08023158: .4byte gDEE388
-_0802315C: .4byte gDEE478
-_08023160: .4byte 0x00007012
-_08023164: .4byte 0x00004216
-_08023168: .4byte 0x00007212
-_0802316C: .4byte gDEEF98
-_08023170: .4byte gDEFB40
-_08023174: .4byte 0xFFFFDFF2
-_08023178: .4byte gDEFC10
-_0802317C: .4byte 0x000017FE
-_08023180: .4byte 0x000009C2
-_08023184: .4byte 0x000019BE
-_08023188: .4byte gDEF798
-_0802318C: .4byte gDEF8E8
-_08023190: .4byte 0xFFFFF802
-_08023194: .4byte gDEFA20
-_08023198:
-	ldr r0, _080232EC
-	ldr r5, _080232F0
-	adds r1, r5, #0
-	bl LZ77UnCompWram
-	ldr r0, _080232F4
-	ldrh r1, [r0]
-	movs r4, #0xf0
-	lsls r4, r4, #8
-	adds r0, r4, #0
-	ands r0, r1
-	str r0, [sp, #0x48]
-	add r0, sp, #0x48
-	movs r2, #0xe0
-	lsls r2, r2, #7
-	adds r1, r5, r2
-	ldr r6, _080232F8
-	adds r2, r6, #0
-	bl CpuFastSet
-	ldr r0, _080232FC
-	ldrh r1, [r0]
-	adds r0, r4, #0
-	ands r0, r1
-	str r0, [sp, #0x4c]
-	add r0, sp, #0x4c
-	movs r2, #0xd0
-	lsls r2, r2, #7
-	adds r1, r5, r2
-	adds r2, r6, #0
-	bl CpuFastSet
-	ldr r0, _08023300
-	ldrh r1, [r0]
-	adds r0, r4, #0
-	ands r0, r1
-	str r0, [sp, #0x50]
-	add r0, sp, #0x50
-	movs r2, #0xc0
-	lsls r2, r2, #7
-	adds r1, r5, r2
-	adds r2, r6, #0
-	bl CpuFastSet
-	ldr r0, _08023304
-	ldrh r1, [r0]
-	adds r0, r4, #0
-	ands r0, r1
-	str r0, [sp, #0x54]
-	add r0, sp, #0x54
-	movs r2, #0xb0
-	lsls r2, r2, #7
-	adds r1, r5, r2
-	adds r2, r6, #0
-	bl CpuFastSet
-	ldr r0, _08023308
-	ldrh r1, [r0]
-	adds r0, r4, #0
-	ands r0, r1
-	str r0, [sp, #0x58]
-	add r0, sp, #0x58
-	movs r2, #0xa0
-	lsls r2, r2, #7
-	adds r1, r5, r2
-	adds r2, r6, #0
-	bl CpuFastSet
-	ldr r0, _0802330C
-	ldrh r0, [r0]
-	ands r4, r0
-	str r4, [sp, #0x5c]
-	add r0, sp, #0x5c
-	movs r2, #0x80
-	lsls r2, r2, #7
-	adds r1, r5, r2
-	adds r2, r6, #0
-	bl CpuFastSet
-	movs r7, #0
-	ldr r0, _08023310
-	adds r0, r0, r5
-	mov sl, r0
-	ldr r1, _08023314
-	adds r1, r1, r5
-	mov sb, r1
-	ldr r2, _08023318
-	adds r2, r2, r5
-	mov r8, r2
-	movs r5, #0x80
-	lsls r5, r5, #2
-	movs r6, #0
-_08023250:
-	ldr r0, _0802331C
-	adds r0, r6, r0
-	mov r1, r8
-	movs r2, #0xc
-	bl CpuSet
-	movs r0, #0x34
-	muls r0, r7, r0
-	ldr r1, _08023320
-	adds r0, r0, r1
-	ldr r4, _08023324
-	add r4, sl
-	adds r1, r5, r4
-	movs r2, #0x1a
-	bl CpuSet
-	lsls r0, r7, #4
-	ldr r1, _08023328
-	adds r0, r0, r1
-	mov r1, sb
-	movs r2, #8
-	bl CpuSet
-	movs r0, #0x40
-	add sb, r0
-	add r8, r0
-	adds r5, #0x40
-	adds r6, #0x18
-	adds r7, #1
-	cmp r7, #3
-	bls _08023250
-	movs r7, #0
-	ldr r1, _0802332C
-	adds r1, r1, r4
-	mov sl, r1
-	ldr r2, _08023330
-	adds r5, r4, r2
-	movs r0, #0
-	mov sb, r0
-	ldr r1, _08023334
-	adds r4, r4, r1
-	movs r2, #0xe0
-	lsls r2, r2, #1
-	mov r8, r2
-	movs r6, #0
-_080232AA:
-	ldr r0, _08023338
-	adds r0, r6, r0
-	adds r1, r4, #0
-	movs r2, #0x1c
-	bl CpuSet
-	movs r0, #0x34
-	muls r0, r7, r0
-	ldr r1, _0802333C
-	adds r0, r0, r1
-	ldr r1, _08023340
-	add r1, sl
-	add r1, r8
-	movs r2, #0x1a
-	bl CpuSet
-	ldr r0, _08023344
-	add r0, sb
-	adds r1, r5, #0
-	movs r2, #0x18
-	bl CpuSet
-	adds r5, #0x40
-	movs r0, #0x30
-	add sb, r0
-	adds r4, #0x40
-	movs r1, #0x40
-	add r8, r1
-	adds r6, #0x38
-	adds r7, #1
-	cmp r7, #5
-	bls _080232AA
-	b _08023478
-	.align 2, 0
-_080232EC: .4byte gDECAAC
-_080232F0: .4byte 0x02008400
-_080232F4: .4byte gDEDE60
-_080232F8: .4byte 0x01000200
-_080232FC: .4byte gDEDF50
-_08023300: .4byte gDEE0B8
-_08023304: .4byte gDEE220
-_08023308: .4byte gDEE388
-_0802330C: .4byte gDEE478
-_08023310: .4byte 0x00007012
-_08023314: .4byte 0x00004216
-_08023318: .4byte 0x00007212
-_0802331C: .4byte gDEFC50
-_08023320: .4byte gDF07F8
-_08023324: .4byte 0xFFFFDFF2
-_08023328: .4byte gDF08C8
-_0802332C: .4byte 0x000017FE
-_08023330: .4byte 0x000009C2
-_08023334: .4byte 0x000019BE
-_08023338: .4byte gDF0450
-_0802333C: .4byte gDF05A0
-_08023340: .4byte 0xFFFFF802
-_08023344: .4byte gDF06D8
-_08023348:
-	ldr r0, _08023494
-	ldr r4, _08023498
-	adds r1, r4, #0
-	bl LZ77UnCompWram
-	ldr r0, _0802349C
-	ldrh r0, [r0]
-	str r0, [sp, #0x60]
-	add r0, sp, #0x60
-	movs r2, #0xe0
-	lsls r2, r2, #7
-	adds r6, r4, r2
-	ldr r5, _080234A0
-	adds r1, r6, #0
-	adds r2, r5, #0
-	bl CpuFastSet
-	ldr r0, _080234A4
-	ldrh r0, [r0]
-	str r0, [sp, #0x64]
-	add r0, sp, #0x64
-	movs r2, #0xd0
-	lsls r2, r2, #7
-	adds r1, r4, r2
-	adds r2, r5, #0
-	bl CpuFastSet
-	ldr r0, _080234A8
-	ldrh r0, [r0]
-	str r0, [sp, #0x68]
-	add r0, sp, #0x68
-	movs r2, #0xc0
-	lsls r2, r2, #7
-	adds r1, r4, r2
-	adds r2, r5, #0
-	bl CpuFastSet
-	ldr r0, _080234AC
-	ldrh r0, [r0]
-	str r0, [sp, #0x6c]
-	add r0, sp, #0x6c
-	movs r2, #0xb0
-	lsls r2, r2, #7
-	adds r1, r4, r2
-	adds r2, r5, #0
-	bl CpuFastSet
-	ldr r0, _080234B0
-	ldrh r0, [r0]
-	str r0, [sp, #0x70]
-	add r0, sp, #0x70
-	movs r2, #0xa0
-	lsls r2, r2, #7
-	adds r1, r4, r2
-	adds r2, r5, #0
-	bl CpuFastSet
-	ldr r0, _080234B4
-	ldrh r0, [r0]
-	str r0, [sp, #0x74]
-	add r0, sp, #0x74
-	movs r2, #0x80
-	lsls r2, r2, #7
-	adds r1, r4, r2
-	adds r2, r5, #0
-	bl CpuFastSet
-	movs r7, #0
-	mov sl, r6
-	movs r0, #0x84
-	lsls r0, r0, #7
-	adds r6, r4, r0
-	movs r1, #0xe4
-	lsls r1, r1, #7
-	adds r4, r4, r1
-	movs r2, #0x80
-	lsls r2, r2, #2
-	mov sb, r2
-	movs r5, #0
-_080233E6:
-	ldr r0, _0802349C
-	adds r0, r5, r0
-	adds r1, r4, #0
-	movs r2, #0x1e
-	bl CpuSet
-	ldr r0, _080234B0
-	adds r0, r5, r0
-	ldr r1, _080234B8
-	add r1, sl
-	mov r8, r1
-	mov r1, sb
-	add r1, r8
-	movs r2, #0x1e
-	bl CpuSet
-	ldr r0, _080234B4
-	adds r0, r5, r0
-	adds r1, r6, #0
-	movs r2, #0x1e
-	bl CpuSet
-	adds r6, #0x40
-	adds r4, #0x40
-	movs r2, #0x40
-	add sb, r2
-	adds r5, #0x3c
-	adds r7, #1
-	cmp r7, #3
-	bls _080233E6
-	movs r7, #0
-	movs r0, #0xc0
-	lsls r0, r0, #5
-	add r0, r8
-	mov sb, r0
-	movs r6, #0x9c
-	lsls r6, r6, #4
-	add r6, r8
-	movs r5, #0xce
-	lsls r5, r5, #5
-	add r5, r8
-	movs r1, #0xe0
-	lsls r1, r1, #1
-	mov r8, r1
-	movs r4, #0
-_08023440:
-	ldr r0, _080234A4
-	adds r0, r4, r0
-	adds r1, r5, #0
-	movs r2, #0x1e
-	bl CpuSet
-	ldr r0, _080234A8
-	adds r0, r4, r0
-	ldr r1, _080234BC
-	add r1, sb
-	add r1, r8
-	movs r2, #0x1e
-	bl CpuSet
-	ldr r0, _080234AC
-	adds r0, r4, r0
-	adds r1, r6, #0
-	movs r2, #0x1e
-	bl CpuSet
-	adds r6, #0x40
-	adds r5, #0x40
-	movs r2, #0x40
-	add r8, r2
-	adds r4, #0x3c
-	adds r7, #1
-	cmp r7, #5
-	bls _08023440
-_08023478:
-	ldr r0, _080234C0
-	ldr r1, _080234C4
-	movs r2, #0x10
-	bl CpuSet
-	add sp, #0x78
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov sb, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08023494: .4byte gDE7888
-_08023498: .4byte 0x02008400
-_0802349C: .4byte gDEDE60
-_080234A0: .4byte 0x01000200
-_080234A4: .4byte gDEDF50
-_080234A8: .4byte gDEE0B8
-_080234AC: .4byte gDEE220
-_080234B0: .4byte gDEE388
-_080234B4: .4byte gDEE478
-_080234B8: .4byte 0xFFFFE000
-_080234BC: .4byte 0xFFFFF800
-_080234C0: .4byte gDF0908
-_080234C4: .4byte 0x020000A0
-
-	THUMB_FUNC_START sub_80234C8
-sub_80234C8: @ 0x080234C8
-	push {r4, r5, lr}
-	sub sp, #4
-	ldr r5, _0802352C
-	ldr r1, _08023530
-	ldr r2, _08023534
-	adds r0, r5, #0
-	bl CopyStringTilesToVRAMBuffer
-	mov r0, sp
-	movs r4, #0
-	strh r4, [r0]
-	movs r0, #0xd0
-	lsls r0, r0, #7
-	adds r5, r5, r0
-	ldr r2, _08023538
-	mov r0, sp
-	adds r1, r5, #0
-	bl CpuSet
-	ldr r2, _0802353C
-	movs r1, #0xe0
-	lsls r1, r1, #1
-	adds r0, r2, r1
-	movs r1, #0
-	strh r1, [r0]
-	movs r0, #0xe1
-	lsls r0, r0, #1
-	adds r3, r2, r0
-	ldr r0, _08023540
-	strh r0, [r3]
-	movs r3, #0xe2
-	lsls r3, r3, #1
-	adds r0, r2, r3
-	strh r1, [r0]
-	adds r3, #0x1c
-	adds r0, r2, r3
-	strh r1, [r0]
-	movs r0, #0xf1
-	lsls r0, r0, #1
-	adds r3, r2, r0
-	movs r0, #0x1f
-	strh r0, [r3]
-	movs r3, #0xf2
-	lsls r3, r3, #1
-	adds r0, r2, r3
-	strh r1, [r0]
-	add sp, #4
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0802352C: .4byte 0x02006400
-_08023530: .4byte gC18BC
-_08023534: .4byte 0x00001801
-_08023538: .4byte 0x01000400
-_0802353C: .4byte 0x02000000
-_08023540: .4byte 0x00007FFF
 
 	THUMB_FUNC_START sub_8023544
 sub_8023544: @ 0x08023544
@@ -1061,7 +64,7 @@ _08023584:
 	.align 2, 0
 _080235B0: .4byte gOamBuffer+0x50
 _080235B4: .4byte gFC4A8C
-_080235B8: .4byte 0x02021DA0
+_080235B8: .4byte gLinkDuelMenuData
 _080235BC: .4byte 0x080C184B
 _080235C0: .4byte 0xFFFFF3FF
 _080235C4:
@@ -1181,7 +184,7 @@ _08023674:
 	.align 2, 0
 _0802369C: .4byte gOamBuffer+0x50
 _080236A0: .4byte gFC4A8C
-_080236A4: .4byte 0x02021DA0
+_080236A4: .4byte gLinkDuelMenuData
 _080236A8: .4byte 0x080C184B
 _080236AC: .4byte 0xFFFFF3FF
 _080236B0:
@@ -1291,7 +294,7 @@ _0802376E:
 	bx r0
 	.align 2, 0
 _08023774: .4byte 0x080C1852
-_08023778: .4byte 0x02021DA0
+_08023778: .4byte gLinkDuelMenuData
 _0802377C: .4byte gFC4A8C
 _08023780: .4byte gOamBuffer+8
 _08023784: .4byte 0xFFFFF3FF
@@ -1865,7 +868,7 @@ sub_8023C58: @ 0x08023C58
 	bl sub_8023CC0
 	b _08023C78
 	.align 2, 0
-_08023C6C: .4byte 0x02021DA0
+_08023C6C: .4byte gLinkDuelMenuData
 _08023C70:
 	ldrb r0, [r1, #8]
 	movs r1, #0xf
@@ -1881,7 +884,7 @@ _08023C78:
 	bl sub_8023D7C
 	b _08023C98
 	.align 2, 0
-_08023C8C: .4byte 0x02021DA0
+_08023C8C: .4byte gLinkDuelMenuData
 _08023C90:
 	adds r0, r1, #0
 	movs r1, #0xf
@@ -1897,7 +900,7 @@ _08023C98:
 	bl sub_8023D20
 	b _08023CBC
 	.align 2, 0
-_08023CB0: .4byte 0x02021DA0
+_08023CB0: .4byte gLinkDuelMenuData
 _08023CB4:
 	adds r0, r1, #0
 	movs r1, #0xf
@@ -2250,7 +1253,7 @@ _08023FBC: .4byte 0x00000CD8
 _08023FC0: .4byte gBLDALPHA
 _08023FC4: .4byte 0x080C1868
 _08023FC8: .4byte 0x080C185F
-_08023FCC: .4byte 0x02021DA0
+_08023FCC: .4byte gLinkDuelMenuData
 _08023FD0: .4byte gBLDY
 
 	THUMB_FUNC_START sub_8023FD4
@@ -2280,7 +1283,7 @@ _08024000: .4byte 0x00000CD8
 _08024004: .4byte gBLDALPHA
 _08024008: .4byte 0x080C1868
 _0802400C: .4byte 0x080C185F
-_08024010: .4byte 0x02021DA0
+_08024010: .4byte gLinkDuelMenuData
 _08024014: .4byte gBLDY
 
 	THUMB_FUNC_START sub_8024018
@@ -2310,7 +1313,7 @@ _08024044: .4byte 0x00000EDC
 _08024048: .4byte gBLDALPHA
 _0802404C: .4byte 0x080C1882
 _08024050: .4byte 0x080C187A
-_08024054: .4byte 0x02021DA0
+_08024054: .4byte gLinkDuelMenuData
 _08024058: .4byte gBLDY
 
 	THUMB_FUNC_START sub_802405C
@@ -3012,106 +2015,6 @@ _08024580: .4byte 0x08E010CC
 _08024584: .4byte 0x03001078
 //^^^
 //link_duel_util ??
-
-.section .text2
-
-
-	THUMB_FUNC_START sub_802612C @decomped
-sub_802612C: @ 0x0802612C
-	push {r4, lr}
-	ldr r0, _08026148
-	ldrh r2, [r0]
-	ldr r1, _0802614C
-	ands r1, r2
-	cmp r1, #0
-	beq _08026158
-	ldr r0, _08026150
-	strh r2, [r0]
-	ldr r1, _08026154
-	movs r0, #0x14
-	strb r0, [r1]
-	b _0802617E
-	.align 2, 0
-_08026148: .4byte gUnk2020DFC
-_0802614C: .4byte 0x000003FF
-_08026150: .4byte gUnk2021DCC
-_08026154: .4byte gUnk2021DC8
-_08026158:
-	ldr r4, _0802616C
-	ldrb r2, [r4]
-	adds r3, r2, #0
-	cmp r3, #0
-	beq _08026174
-	ldr r0, _08026170
-	strh r1, [r0]
-	subs r0, r2, #1
-	strb r0, [r4]
-	b _0802617E
-	.align 2, 0
-_0802616C: .4byte gUnk2021DC8
-_08026170: .4byte gUnk2021DCC
-_08026174:
-	ldr r0, _08026184
-	ldr r1, _08026188
-	ldrh r1, [r1]
-	strh r1, [r0]
-	strb r3, [r4]
-_0802617E:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08026184: .4byte gUnk2021DCC
-_08026188: .4byte gKeyState
-
-	THUMB_FUNC_START sub_802618C @decomped
-sub_802618C: @ 0x0802618C
-	ldr r0, _080261A4
-	ldrh r2, [r0]
-	ldr r1, _080261A8
-	ands r1, r2
-	cmp r1, #0
-	beq _080261B4
-	ldr r0, _080261AC
-	strh r2, [r0]
-	ldr r1, _080261B0
-	movs r0, #0x14
-	strb r0, [r1]
-	b _080261D8
-	.align 2, 0
-_080261A4: .4byte gUnk2020DFC
-_080261A8: .4byte 0x000003FF
-_080261AC: .4byte gUnk2021DCC
-_080261B0: .4byte gUnk2021DC8
-_080261B4:
-	ldr r3, _080261C4
-	ldrb r2, [r3]
-	cmp r2, #0
-	beq _080261CC
-	ldr r0, _080261C8
-	strh r1, [r0]
-	subs r0, r2, #1
-	b _080261D6
-	.align 2, 0
-_080261C4: .4byte gUnk2021DC8
-_080261C8: .4byte gUnk2021DCC
-_080261CC:
-	ldr r1, _080261DC
-	ldr r0, _080261E0
-	ldrh r0, [r0]
-	strh r0, [r1]
-	movs r0, #3
-_080261D6:
-	strb r0, [r3]
-_080261D8:
-	bx lr
-	.align 2, 0
-_080261DC: .4byte gUnk2021DCC
-_080261E0: .4byte gKeyState
-
-
-
-
 
 .section .text3
 
@@ -21448,7 +20351,7 @@ sub_803E6F8: @ 0x0803E6F8
 	movs r0, #1
 	b _0803E7C8
 	.align 2, 0
-_0803E710: .4byte gUnk2020DFC
+_0803E710: .4byte gNewButtons
 _0803E714:
 	movs r0, #2
 	ands r0, r1
@@ -21498,7 +20401,7 @@ _0803E748:
 	b _0803E7C8
 	.align 2, 0
 _0803E768: .4byte gUnk2021DCC
-_0803E76C: .4byte gKeyState
+_0803E76C: .4byte gPressedButtons
 _0803E770:
 	ldrh r1, [r2]
 	movs r0, #0x80
@@ -21516,7 +20419,7 @@ _0803E770:
 	lsls r0, r0, #1
 	b _0803E7C8
 	.align 2, 0
-_0803E790: .4byte gKeyState
+_0803E790: .4byte gPressedButtons
 _0803E794:
 	ldrh r1, [r2]
 	movs r0, #0x40
@@ -21565,7 +20468,7 @@ sub_803E7CC: @ 0x0803E7CC
 	movs r0, #1
 	b _0803E84A
 	.align 2, 0
-_0803E7E4: .4byte gUnk2020DFC
+_0803E7E4: .4byte gNewButtons
 _0803E7E8:
 	movs r0, #2
 	ands r0, r1
@@ -21987,7 +20890,7 @@ sub_803EB00: @ 0x0803EB00
 	movs r0, #1
 	b _0803EBD0
 	.align 2, 0
-_0803EB18: .4byte gUnk2020DFC
+_0803EB18: .4byte gNewButtons
 _0803EB1C:
 	movs r0, #2
 	ands r0, r1
@@ -22037,7 +20940,7 @@ _0803EB50:
 	b _0803EBD0
 	.align 2, 0
 _0803EB70: .4byte gUnk2021DCC
-_0803EB74: .4byte gKeyState
+_0803EB74: .4byte gPressedButtons
 _0803EB78:
 	ldrh r1, [r2]
 	movs r0, #0x80
@@ -22055,7 +20958,7 @@ _0803EB78:
 	lsls r0, r0, #1
 	b _0803EBD0
 	.align 2, 0
-_0803EB98: .4byte gKeyState
+_0803EB98: .4byte gPressedButtons
 _0803EB9C:
 	ldrh r1, [r2]
 	movs r0, #0x40
@@ -22104,7 +21007,7 @@ sub_803EBD4: @ 0x0803EBD4
 	movs r0, #1
 	b _0803EC52
 	.align 2, 0
-_0803EBEC: .4byte gUnk2020DFC
+_0803EBEC: .4byte gNewButtons
 _0803EBF0:
 	movs r0, #2
 	ands r0, r1

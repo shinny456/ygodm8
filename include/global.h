@@ -13,6 +13,9 @@
 #include "start_menu.h"
 #include "naming_screen.h"
 #include "card.h"
+#include "digit.h"
+#include "compression.h"
+#include "deck_menu.h"
 #include "text.h"
 #include "duel_main.h"
 #include "game_menu.h"
@@ -85,6 +88,7 @@ enum {
 #define TRUNK_SIZE 801
 //^TODO: change to NUM_CARDS
 #define DECK_SIZE 40
+//^TODO: change to MAX_DECK_SIZE, DECK_MAX_SIZE, or _COUNT? (or MIN? in vanilla it has to be exactly 40)
 struct UnkStruct_2020E10
 {
     s16 unk0; //current card position in trunk?
@@ -95,7 +99,7 @@ struct UnkStruct_2020E10
     u16 unkC[TRUNK_SIZE - 1]; //sortedCards
 };
 
-extern struct UnkStruct_2020E10 gTrunkData;
+extern struct UnkStruct_2020E10 gTrunkData; //todo: rename to gTrunkMenuData?
 
 struct UnkStruct_2022EB0
 {

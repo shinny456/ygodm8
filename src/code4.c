@@ -60,9 +60,9 @@ enum {
   RUN_RIGHT
 };
 
-extern u16 gUnk2020DFC;
-extern u16 gKeyState;
-extern u16 g2020DF4;
+extern u16 gNewButtons;
+extern u16 gPressedButtons;
+extern u16 gRepeatedOrNewButtons;
 extern u8 g82A906C[];
 extern u8 g82A8E4C[];
 extern u8 gUnk8E0DA40[];
@@ -1158,33 +1158,33 @@ _0804E1C4: .4byte 0x081032D2");
 }
 
 static u8 sub_804E1C8 (void) {
-  if (gUnk2020DFC & 1)
+  if (gNewButtons & 1)
     return TALK;
-  if (gUnk2020DFC & 0x100)
+  if (gNewButtons & 0x100)
     return TRY_DUELING;
-  if (gKeyState & 2) {
-    if (gKeyState & 0x40)
+  if (gPressedButtons & 2) {
+    if (gPressedButtons & 0x40)
       return RUN_UP;
-    if (gKeyState & 0x80)
+    if (gPressedButtons & 0x80)
       return RUN_DOWN;
-    if (gKeyState & 0x20)
+    if (gPressedButtons & 0x20)
       return RUN_LEFT;
-    if (gKeyState & 0x10)
+    if (gPressedButtons & 0x10)
       return RUN_RIGHT;
   }
-  if (gKeyState & 0x40)
+  if (gPressedButtons & 0x40)
     return WALK_UP;
-  if (gKeyState & 0x80)
+  if (gPressedButtons & 0x80)
       return WALK_DOWN;
-  if (gKeyState & 0x20)
+  if (gPressedButtons & 0x20)
     return WALK_LEFT;
-  if (gKeyState & 0x10)
+  if (gPressedButtons & 0x10)
     return WALK_RIGHT;
-  if (g2020DF4 & 4)
+  if (gRepeatedOrNewButtons & 4)
     return START_MENU;
-  if (g2020DF4 & 8)
+  if (gRepeatedOrNewButtons & 8)
     return START_MENU;
-  if (g2020DF4 & 0x200)
+  if (gRepeatedOrNewButtons & 0x200)
     return START_MENU;
   return UNK0;
 }

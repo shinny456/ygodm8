@@ -403,13 +403,13 @@ extern u16 gAnte;
 struct {
   unsigned cost;
   s8 unk4; // current position
-  u8 unk5;
-  u8 unk6;
-  u8 unk7;
-  u8 count;
+  u8 sortingMethod;
+  u8 unk6; //show: nothing, atk/def, attribute(summon), cost,
+  u8 sortingCursorState;
+  u8 count; //TODO: cardCount?
   u8 filler9;
-  unsigned short cards[40];
-} extern gPlayerDeck;
+  unsigned short cards[40]; //TODO: sortedCards?
+} extern gPlayerDeck; //TODO: rename to gDeckMenuData?
 
 
 
@@ -587,7 +587,6 @@ void sub_8024354(void);
 extern u8 g3000C6C;
 
 void sub_803EEFC (u8, const u8*, u16);
-void sub_800DDA0(u16, u8);
 extern u8 g2021BD0[];
 void sub_801CF08(void);
 void sub_8041CCC (u16, u16);

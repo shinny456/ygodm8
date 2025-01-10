@@ -1,7 +1,5 @@
 #include "global.h"
 
-//TODO: rename file to duel_main.c
-
 struct TurnVoice {
   u16 duelistId;
   u16 soundId;
@@ -299,7 +297,7 @@ unsigned char GetRitualNumTributes (unsigned short id) {
 
 //file split?
 struct Unk2021DA0 {
-  int deckCapacity;
+  int deckCapacity;  //TODO: long type?
   u32 unk4;
   unsigned char unk8;
   unsigned char unk9;
@@ -311,10 +309,10 @@ struct Unk2021DA0 {
 };
 
 extern unsigned char g2021D9C;
-extern struct Unk2021DA0 g2021DA0;
+extern struct Unk2021DA0 gLinkDuelMenuData;
 extern u32 g2021D70;
 extern unsigned char g2021D80[];
-extern u16 gUnk2020DFC;
+extern u16 gNewButtons;
 
 
 void sub_8024354(void);
@@ -339,7 +337,7 @@ void LinkDuelMain (void) {
   unsigned char turn;
   struct DuelText duelText;
   sub_8021FF8();
-  if (g3000C38.unk34) 
+  if (g3000C38.unk34)
     return;
   sub_8035038(2);
   PlayMusic(213);
@@ -516,7 +514,7 @@ static void sub_8021FF8 (void) {
   sub_8022234();
   sub_80240CC();
   if (!g3000C38.unk34)
-    if (g2021DA0.deckCapacity != g2021D70)
+    if (gLinkDuelMenuData.deckCapacity != g2021D70)
       g3000C38.unk34 = 0xFE;
     else
       sub_802417C();
@@ -676,11 +674,24 @@ static void sub_8022340 (void) {  //fade to black after Link duel
 
 
 //split?
+static unsigned short ProcessInput(void);
+static void sub_80226D8 (void);
+static void sub_8022764 (void);
+static void sub_8022794 (void);
+static void sub_80227C4 (void);
+static void sub_80227F4 (void);
+static void sub_8022824 (void);
+static void sub_8022858 (void);
+static void sub_802288C (void);
+static void sub_80228CC (void);
+static void sub_802293C (void);
+static void sub_8022990 (void);
+
 
 void InitTrunkData(void);
 void InitDeckData(void);
 void sub_8022A24(void);
-void sub_8022C10(int);
+void LinkDuelInitDeckCapacity(int);
 void sub_8023998(void);
 unsigned char sub_8056208(void);
 bool8 IsDeckFull(void);
@@ -691,26 +702,35 @@ void sub_8023AE4(void);
 void sub_8023A98(void);
 void TrunkMenu(void);
 void sub_8022A94(unsigned char);
-u32 sub_801D3FC(void);
-void sub_80226D8(void);
-void DeckMenuMain(void);
-u32 GetDeckCost(void);
+u32 IsPlayerDeckNonempty(void);
+
+u32 GetPlayerDeckCost(void);
 void sub_8023B30(void);
 void sub_8023C14(void);
 void sub_8023B7C(void);
 void sub_8023BC8(void);
-u16 sub_8022610(void);
-void sub_8022764(void);
-void sub_8022794(void);
-void sub_80227C4(void);
-void sub_80227F4(void);
-void sub_8022824(void);
-void sub_8022858(void);
-void sub_802288C(void);
-void sub_802293C(void);
-void sub_8022990(void);
+
+
+
 void sub_80238C4(void);
 void sub_8022B04(void);
+extern u16 gPressedButtons;
+extern u16 gRepeatedOrNewButtons;
+
+
+
+void sub_802618C(void);
+void sub_8022ABC(void);
+void sub_80229C0(void);
+void sub_8023A14(void);
+void sub_8022AE0(void);
+void sub_8022A64(void);
+void sub_8022A7C(void);
+void sub_8022BC8(unsigned);
+void sub_8022BA0(unsigned);
+
+void sub_8023A44(void);
+void LinkDuelSetDeckCapacity(int);
 
 //Link Duel Menu?
 
@@ -719,11 +739,11 @@ void LinkDuelMenu (void) {
   InitTrunkData();
   InitDeckData();
   sub_8022A24();
-  sub_8022C10(g2021DA0.unk4);
+  LinkDuelInitDeckCapacity(gLinkDuelMenuData.unk4);
   sub_8023998();
   while (1) {
     sub_8056208();
-    if (g2021DA0.unk9 == 1) {
+    if (gLinkDuelMenuData.unk9 == 1) { //ACTION_EXIT
       if (IsDeckFull() != 1) {
         sub_8022B7C(5);
         sub_8022AA0();
@@ -739,7 +759,7 @@ void LinkDuelMenu (void) {
       else
         break;
     }
-    else if (g2021DA0.unk9 == 2) { //TRUNK
+    else if (gLinkDuelMenuData.unk9 == 2) { //ACTION_OPEN_TRUNK
       PlayMusic(55);
       TrunkMenu();
       sub_8022B7C(0);
@@ -747,8 +767,8 @@ void LinkDuelMenu (void) {
       sub_8022A94(0);
       sub_8023998();
     }
-    else if (g2021DA0.unk9 == 3)
-      if (sub_801D3FC() != 1) {
+    else if (gLinkDuelMenuData.unk9 == 3)
+      if (IsPlayerDeckNonempty() != 1) {
         sub_8022B7C(0);
         PlayMusic(57);
         sub_80226D8();
@@ -761,7 +781,7 @@ void LinkDuelMenu (void) {
         sub_8022A94(1);
         sub_8023998();
       }
-    else if (g2021DA0.unk9 == 4)
+    else if (gLinkDuelMenuData.unk9 == 4)
       if (IsDeckFull() != 1) {
         sub_8022B7C(5);
         sub_8022AA0();
@@ -774,7 +794,7 @@ void LinkDuelMenu (void) {
         PlayMusic(57);
         sub_8023AE4();
       }
-      else if (GetDeckCost() > g2021DA0.deckCapacity) {
+      else if (GetPlayerDeckCost() > gLinkDuelMenuData.deckCapacity) {
         sub_8022B7C(6);
         sub_8022AA0();
         PlayMusic(57);
@@ -806,7 +826,7 @@ void LinkDuelMenu (void) {
         }
       }
     else
-      switch (sub_8022610()) {
+      switch (ProcessInput()) {
         case 0x40:
           sub_8022764();
           break;
@@ -819,7 +839,7 @@ void LinkDuelMenu (void) {
         case 0x10:
           sub_80227F4();
           break;
-        case 0x120:
+        case 0x120:     //R and RIGHT
           sub_8022824();
           break;
         case 0x110:
@@ -845,85 +865,66 @@ void LinkDuelMenu (void) {
   sub_80238C4();
 }
 
-extern u16 gKeyState;
-extern u16 g2020DF4;
-
-
-
-void sub_802618C(void);
-void sub_8022ABC(void);
-void sub_80229C0(void);
-void sub_8023A14(void);
-void sub_8022AE0(void);
-void sub_8022A64(void);
-void sub_8022A7C(void);
-void sub_8022BC8(u32);
-void sub_8022BA0(u32);
-void sub_80228CC(void);
-void sub_8023A44(void);
-void sub_8022BF0(int);
-
-u16 sub_8022610(void) { //GetKeyMask?
-
+static unsigned short ProcessInput (void) {
   sub_802618C();
-  if (gUnk2020DFC & 1)
+  if (gNewButtons & 1)
     return 1;
-  if (gUnk2020DFC & 2)
+  if (gNewButtons & 2)
     return 2;
-  if (gUnk2020DFC & 4)
+  if (gNewButtons & 4)
     return 4;
-  if (gUnk2020DFC & 8)
+  if (gNewButtons & 8)
     return 8;
-  if (g2020DF4 & 0x40)
+  if (gRepeatedOrNewButtons & 0x40)
     return 0x40;
-  if (g2020DF4 & 0x80)
+  if (gRepeatedOrNewButtons & 0x80)
     return 0x80;
-  if ((g2020DF4 & 0x20) && (gKeyState & 0x100))
+  if ((gRepeatedOrNewButtons & 0x20) && (gPressedButtons & 0x100))
     return 0x120;
-  if ((g2020DF4 & 0x10) && (gKeyState & 0x100))
+  if ((gRepeatedOrNewButtons & 0x10) && (gPressedButtons & 0x100))
     return 0x110;
-  if (g2020DF4 & 0x20)
+  if (gRepeatedOrNewButtons & 0x20)
     return 0x20;
-  if (g2020DF4 & 0x10)
+  if (gRepeatedOrNewButtons & 0x10)
     return 0x10;
   return 0;
 }
 
-void sub_80226D8(void) {
-  switch (g2021DA0.unk9) {
-  case 0:
-    sub_8022ABC();
-    sub_80229C0();
-    sub_8023A14();
-    break;
-  case 5:
-    sub_8022AE0();
-    sub_8023A98();
-    break;
-  case 6:
-    sub_8022AE0();
-    sub_8023B30();
-    break;
-  case 7:
-    sub_8022AE0();
-    sub_8023AE4();
-    break;
-  case 8:
-    sub_8022AE0();
-    sub_8023B7C();
-    break;
-  case 9:
-    sub_8022AE0();
-    sub_8023BC8();
-    break;
-  default:
-    sub_8008220();
-    break;
+static void sub_80226D8 (void) {
+  switch (gLinkDuelMenuData.unk9) {
+    case 0:
+      sub_8022ABC();
+      sub_80229C0();
+      sub_8023A14();
+      break;
+    case 5:
+      sub_8022AE0();
+      sub_8023A98();
+      break;
+    case 6:
+      sub_8022AE0();
+      sub_8023B30();
+      break;
+    case 7:
+      sub_8022AE0();
+      sub_8023AE4();
+      break;
+    case 8:
+      sub_8022AE0();
+      sub_8023B7C();
+      break;
+    case 9:
+      sub_8022AE0();
+      sub_8023BC8();
+      break;
+    default:
+      sub_8008220();
+      break;
   }
 }
 
-void sub_8022764(void) {
-  if (g2021DA0.unk9 == 0) {
+static void sub_8022764 (void) {
+  if (gLinkDuelMenuData.unk9 == 0) {
     sub_8022A64();
     sub_8022ABC();
     sub_80229C0();
@@ -934,8 +935,8 @@ void sub_8022764(void) {
     sub_8008220();
 }
 
-void sub_8022794(void) {
-  if (g2021DA0.unk9 == 0) {
+static void sub_8022794 (void) {
+  if (gLinkDuelMenuData.unk9 == 0) {
     sub_8022A7C();
     sub_8022ABC();
     sub_80229C0();
@@ -946,8 +947,8 @@ void sub_8022794(void) {
     sub_8008220();
 }
 
-void sub_80227C4(void) {
-  if (g2021DA0.unk9 == 0) {
+static void sub_80227C4 (void) {
+  if (gLinkDuelMenuData.unk9 == 0) {
     sub_8022BC8(100);
     sub_8022ABC();
     sub_80229C0();
@@ -958,8 +959,8 @@ void sub_80227C4(void) {
     sub_8008220();
 }
 
-void sub_80227F4(void) {
-  if (g2021DA0.unk9 == 0) {
+static void sub_80227F4 (void) {
+  if (gLinkDuelMenuData.unk9 == 0) {
     sub_8022BA0(100);
     sub_8022ABC();
     sub_80229C0();
@@ -970,8 +971,8 @@ void sub_80227F4(void) {
     sub_8008220();
 }
 
-void sub_8022824(void) {
-  if (g2021DA0.unk9 == 0) {
+static void sub_8022824 (void) {
+  if (gLinkDuelMenuData.unk9 == 0) {
     sub_8022BC8(1000);
     sub_8022ABC();
     sub_80229C0();
@@ -982,8 +983,8 @@ void sub_8022824(void) {
     sub_8008220();
 }
 
-void sub_8022858(void) {
-  if (g2021DA0.unk9 == 0) {
+static void sub_8022858 (void) {
+  if (gLinkDuelMenuData.unk9 == 0) {
     sub_8022BA0(1000);
     sub_8022ABC();
     sub_80229C0();
@@ -994,8 +995,8 @@ void sub_8022858(void) {
     sub_8008220();
 }
 
-void sub_802288C(void) {
-  switch (g2021DA0.unk9) {
+static void sub_802288C (void) {
+  switch (gLinkDuelMenuData.unk9) {
     case 0:
       sub_80228CC();
       break;
@@ -1014,66 +1015,66 @@ void sub_802288C(void) {
   }
 }
 
-void sub_80228CC(void) {
-  switch (g2021DA0.unkA) {
-  case 0:
-    sub_8022B7C(2);
-    sub_8022ABC();
-    sub_8023A14();
-    break;
-  case 1:
-    sub_8022B7C(3);
-    sub_8022ABC();
-    sub_8023A14();
-    break;
-  case 2:
-    sub_8022C10(g2021DA0.unk4);
-    sub_8022ABC();
-    PlayMusic(0x37);
-    sub_8023A14();
-    break;
-  case 3:
-    sub_8022B7C(4);
-    sub_8022ABC();
-    sub_8023A14();
-    break;
-  case 4:
-    sub_8022B7C(1);
-    sub_8022ABC();
-    sub_8023A14();
-    break;
-  default:
-    sub_8008220();
+static void sub_80228CC (void) {
+  switch (gLinkDuelMenuData.unkA) {
+    case 0:
+      sub_8022B7C(2);
+      sub_8022ABC();
+      sub_8023A14();
+      break;
+    case 1:
+      sub_8022B7C(3);
+      sub_8022ABC();
+      sub_8023A14();
+      break;
+    case 2:
+      LinkDuelInitDeckCapacity(gLinkDuelMenuData.unk4);
+      sub_8022ABC();
+      PlayMusic(0x37);
+      sub_8023A14();
+      break;
+    case 3:
+      sub_8022B7C(4);
+      sub_8022ABC();
+      sub_8023A14();
+      break;
+    case 4:
+      sub_8022B7C(1);
+      sub_8022ABC();
+      sub_8023A14();
+      break;
+    default:
+      sub_8008220();
   }
 }
 
-void sub_802293C(void) {
-  switch (g2021DA0.unk9) {
-  case 0:
-    sub_8022A94(4);
-    sub_8022ABC();
-    sub_80229C0();
-    PlayMusic(0x38);
-    sub_8023A14();
-    break;
-  case 5:
-  case 6:
-  case 7:
-  case 8:
-  case 9:
-    sub_8022B7C(0);
-    sub_8022AA0();
-    PlayMusic(0x38);
-    sub_8023A44();
-    break;
-  default:
-    sub_8008220();
+static void sub_802293C (void) {
+  switch (gLinkDuelMenuData.unk9) {
+    case 0:
+      sub_8022A94(4);
+      sub_8022ABC();
+      sub_80229C0();
+      PlayMusic(0x38);
+      sub_8023A14();
+      break;
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+      sub_8022B7C(0);
+      sub_8022AA0();
+      PlayMusic(0x38);
+      sub_8023A44();
+      break;
+    default:
+      sub_8008220();
   }
 }
 
-void sub_8022990(void) {
-  if (g2021DA0.unk9 == 0) {
-    sub_8022BF0(65000);
+static void sub_8022990 (void) {
+  if (gLinkDuelMenuData.unk9 == 0) {
+    LinkDuelSetDeckCapacity(65000);
     sub_8022ABC();
     PlayMusic(0x37);
     sub_8023A14();
@@ -1086,41 +1087,41 @@ struct Unk8f {
   unsigned char unk0;
   unsigned char unk1;
   unsigned char filler2[2];
-  u32 unk4;
+  struct {u16 unk0, unk2, unk4;} * unk4;
 };
 
 extern unsigned char g80C1852[];
-extern struct Unk8f (*g8FC4A8C[])[1];
+extern struct Unk8f (*gFC4A8C[]);
 
 void sub_80229C0(void) {
-  if (g2021DA0.unkE == 0) {
-    unsigned char temp = g80C1852[g2021DA0.unkA];
-    g2021DA0.unkD++;
-    if (g8FC4A8C[temp][g2021DA0.unkD]->unk0 == 0)
-      g2021DA0.unkD = 0;
+  if (gLinkDuelMenuData.unkE == 0) {
+    unsigned char temp = g80C1852[gLinkDuelMenuData.unkA];
+    gLinkDuelMenuData.unkD++;
+    if (gFC4A8C[temp][gLinkDuelMenuData.unkD].unk0 == 0)
+      gLinkDuelMenuData.unkD = 0;
   }
-  if (g2021DA0.unkE == 0) {
-    unsigned char temp = g80C1852[g2021DA0.unkA];
-    g2021DA0.unkE = g8FC4A8C[temp][g2021DA0.unkD]->unk0;
+  if (gLinkDuelMenuData.unkE == 0) {
+    unsigned char temp = g80C1852[gLinkDuelMenuData.unkA];
+    gLinkDuelMenuData.unkE = gFC4A8C[temp][gLinkDuelMenuData.unkD].unk0;
   }
   else
-    g2021DA0.unkE--;
+    gLinkDuelMenuData.unkE--;
 }
 
-unsigned char GetDeckSize(void);
+unsigned char GetPlayerDeckSize(void);
 
 void sub_8022A24(void) {
   unsigned char temp;
 
-  g2021DA0.unk4 = GetDeckCost();
-  g2021DA0.unk8 = GetDeckSize();
-  g2021DA0.unkA = 0;
-  g2021DA0.unk9 = 0;
-  g2021DA0.unkB = 0;
-  g2021DA0.unkC = 0;
+  gLinkDuelMenuData.unk4 = GetPlayerDeckCost();
+  gLinkDuelMenuData.unk8 = GetPlayerDeckSize();
+  gLinkDuelMenuData.unkA = 0;
+  gLinkDuelMenuData.unk9 = 0;
+  gLinkDuelMenuData.unkB = 0;
+  gLinkDuelMenuData.unkC = 0;
   temp = g80C1852[0];
-  g2021DA0.unkD = 0;
-  g2021DA0.unkE = g8FC4A8C[temp][0]->unk0;
+  gLinkDuelMenuData.unkD = 0;
+  gLinkDuelMenuData.unkE = gFC4A8C[temp][0].unk0;
 }
 
 extern unsigned char g80C188C[];
@@ -1130,118 +1131,120 @@ extern unsigned char g80C1852[];
 extern unsigned char g80C1872[];
 
 void sub_8022A64(void) {
-  g2021DA0.unkA = g80C188C[g2021DA0.unkA];
+  gLinkDuelMenuData.unkA = g80C188C[gLinkDuelMenuData.unkA];
 }
 
 void sub_8022A7C(void) {
-  g2021DA0.unkA = g80C1891[g2021DA0.unkA];
+  gLinkDuelMenuData.unkA = g80C1891[gLinkDuelMenuData.unkA];
 }
 
 void sub_8022A94(unsigned char arg0) {
-  g2021DA0.unkA = arg0;
+  gLinkDuelMenuData.unkA = arg0;
 }
 
 void sub_8022AA0(void) {
-  g2021DA0.unkB = 0;
-  g2021DA0.unkC = 0;
+  gLinkDuelMenuData.unkB = 0;
+  gLinkDuelMenuData.unkC = 0;
 }
 
 unsigned char sub_8022AB0(void) {
-  return g2021DA0.unkB;
+  return gLinkDuelMenuData.unkB;
 }
 
 void sub_8022ABC(void) {
-  if (g2021DA0.unkC == 0)
-    g2021DA0.unkB = g80C1857[g2021DA0.unkB];
-
+  if (gLinkDuelMenuData.unkC == 0)
+    gLinkDuelMenuData.unkB = g80C1857[gLinkDuelMenuData.unkB];
   sub_8022B04();
 }
 
 void sub_8022AE0(void) {
-  if (g2021DA0.unkC == 0)
-    g2021DA0.unkB = g80C1872[g2021DA0.unkB];
+  if (gLinkDuelMenuData.unkC == 0)
+    gLinkDuelMenuData.unkB = g80C1872[gLinkDuelMenuData.unkB];
   sub_8022B04();
 }
 
 void sub_8022B04(void) {
-  if (g2021DA0.unkC == 0)
-    g2021DA0.unkC = 3;
+  if (gLinkDuelMenuData.unkC == 0)
+    gLinkDuelMenuData.unkC = 3;
   else
-    g2021DA0.unkC--;
+    gLinkDuelMenuData.unkC--;
 }
 
 void sub_8022B1C(void) {
-  unsigned char temp = g80C1852[g2021DA0.unkA];
-  g2021DA0.unkD = 0;
-  g2021DA0.unkE = g8FC4A8C[temp][0]->unk0;
+  unsigned char temp = g80C1852[gLinkDuelMenuData.unkA];
+  gLinkDuelMenuData.unkD = 0;
+  gLinkDuelMenuData.unkE = gFC4A8C[temp][0].unk0;
 }
 
 void sub_8022B44(void) {
-  if (g2021DA0.unkE == 0) {
-    unsigned char temp = g80C1852[g2021DA0.unkA];
-    g2021DA0.unkE = g8FC4A8C[temp][g2021DA0.unkD]->unk0;
+  if (gLinkDuelMenuData.unkE == 0) {
+    unsigned char temp = g80C1852[gLinkDuelMenuData.unkA];
+    gLinkDuelMenuData.unkE = gFC4A8C[temp][gLinkDuelMenuData.unkD].unk0;
   }
   else
-     g2021DA0.unkE--;
+     gLinkDuelMenuData.unkE--;
 }
 
-void sub_8022B7C(unsigned char arg0) {
-  g2021DA0.unk9 = arg0;
+void sub_8022B7C (unsigned char arg0) {
+  gLinkDuelMenuData.unk9 = arg0;
 }
 
-unsigned char sub_8022B88(void) {
-  return g2021DA0.unk9;
+//unused?
+static unsigned char sub_8022B88 (void) {
+  return gLinkDuelMenuData.unk9;
 }
 
-void sub_8022B94(void) {
-  g2021DA0.deckCapacity = 100;
+//unused?
+static void sub_8022B94 (void) {
+  gLinkDuelMenuData.deckCapacity = 100;
 }
 
-void sub_8022BA0(u32 capacity) {
-  if (g2021DA0.deckCapacity == 65000)
-    g2021DA0.deckCapacity = 100;
+//TODO: param name: capacityToAdd?
+void sub_8022BA0 (unsigned capacity) {
+  if (gLinkDuelMenuData.deckCapacity == 65000)
+    gLinkDuelMenuData.deckCapacity = 100;
   else {
-    s32 cost = g2021DA0.deckCapacity + capacity;
-    g2021DA0.deckCapacity = cost;
-    if (cost > 65000)
-      g2021DA0.deckCapacity = 65000;
+    gLinkDuelMenuData.deckCapacity += capacity;
+    if (gLinkDuelMenuData.deckCapacity > 65000)
+      gLinkDuelMenuData.deckCapacity = 65000;
   }
 }
 
-void sub_8022BC8(u32 capacity) {
-  if (g2021DA0.deckCapacity == 100)
-    g2021DA0.deckCapacity = 65000;
+//TODO: param name: capacityToRemove?
+void sub_8022BC8 (unsigned capacity) {
+  if (gLinkDuelMenuData.deckCapacity == 100)
+    gLinkDuelMenuData.deckCapacity = 65000;
   else {
-    int cost = g2021DA0.deckCapacity - capacity;
-    g2021DA0.deckCapacity = cost;
-    if (cost < 100)
-      g2021DA0.deckCapacity = 100;
+    gLinkDuelMenuData.deckCapacity -= capacity;
+    if (gLinkDuelMenuData.deckCapacity < 100)
+      gLinkDuelMenuData.deckCapacity = 100;
   }
 }
 
-void sub_8022BF0 (int arg0) {
-  if (arg0 > 65000)
-    arg0 = 65000;
-  else if (arg0 < 100)
-    arg0 = 100;
-  g2021DA0.deckCapacity = arg0;
+void LinkDuelSetDeckCapacity (int capacity) {
+  if (capacity > 65000)
+    capacity = 65000;
+  else if (capacity < 100)
+    capacity = 100;
+  gLinkDuelMenuData.deckCapacity = capacity;
 }
 
-void sub_8022C10 (int arg0) {
-  if (arg0 > 65000)
+//TODO: replace numbers with MAX_CAPACITY and MIN_CAPACITY?
+void LinkDuelInitDeckCapacity (int deckCost) {
+  if (deckCost > 65000)
     return;
-  g2021DA0.deckCapacity = 100;
-  if (arg0 <= 100)
+  gLinkDuelMenuData.deckCapacity = 100;
+  if (deckCost <= 100)
     return;
   do {
-    if (g2021DA0.deckCapacity == 65000)
-      g2021DA0.deckCapacity = 100;
+    if (gLinkDuelMenuData.deckCapacity == 65000)
+      gLinkDuelMenuData.deckCapacity = 100;
     else {
-      g2021DA0.deckCapacity += 100;
-      if (g2021DA0.deckCapacity > 65000)
-      g2021DA0.deckCapacity = 65000;
+      gLinkDuelMenuData.deckCapacity += 100;
+      if (gLinkDuelMenuData.deckCapacity > 65000)
+        gLinkDuelMenuData.deckCapacity = 65000;
     }
-  } while (arg0 > g2021DA0.deckCapacity);
+  } while (deckCost > gLinkDuelMenuData.deckCapacity);
 }
 
 extern u32 gDE8C1C[];
@@ -1289,6 +1292,8 @@ extern u16 gDF06D8[][24];
 extern u32 gDE7888[];
 
 extern u16 gDF0908[];
+extern unsigned char gC18BC[];
+extern unsigned char g80C184B[];
 
 // r5 = 0x8000
 // sl = 0xF012
@@ -1404,3 +1409,999 @@ void sub_8022C54 (void) {
 
 // sl = 0xF000
 // r8 = 0xD000
+
+NAKED
+void sub_8022C54 (void) {
+  asm_unified("push {r4, r5, r6, r7, lr}\n\
+	mov r7, sl\n\
+	mov r6, sb\n\
+	mov r5, r8\n\
+	push {r5, r6, r7}\n\
+	sub sp, #0x78\n\
+	ldr r0, _08022C74\n\
+	ldrb r0, [r0]\n\
+	cmp r0, #2\n\
+	bne _08022C6A\n\
+	b _08022E38\n\
+_08022C6A:\n\
+	cmp r0, #2\n\
+	bgt _08022C78\n\
+	cmp r0, #1\n\
+	beq _08022C86\n\
+	b _08023348\n\
+	.align 2, 0\n\
+_08022C74: .4byte gLanguage\n\
+_08022C78:\n\
+	cmp r0, #3\n\
+	bne _08022C7E\n\
+	b _08022FE8\n\
+_08022C7E:\n\
+	cmp r0, #4\n\
+	bne _08022C84\n\
+	b _08023198\n\
+_08022C84:\n\
+	b _08023348\n\
+_08022C86:\n\
+	ldr r0, _08022DDC\n\
+	ldr r5, _08022DE0\n\
+	adds r1, r5, #0\n\
+	bl LZ77UnCompWram\n\
+	ldr r0, _08022DE4\n\
+	ldrh r1, [r0]\n\
+	movs r4, #0xf0\n\
+	lsls r4, r4, #8\n\
+	adds r0, r4, #0\n\
+	ands r0, r1\n\
+	str r0, [sp]\n\
+	movs r0, #0xe0\n\
+	lsls r0, r0, #7\n\
+	adds r1, r5, r0\n\
+	ldr r6, _08022DE8\n\
+	mov r0, sp\n\
+	adds r2, r6, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _08022DEC\n\
+	ldrh r1, [r0]\n\
+	adds r0, r4, #0\n\
+	ands r0, r1\n\
+	str r0, [sp, #4]\n\
+	add r0, sp, #4\n\
+	movs r2, #0xd0\n\
+	lsls r2, r2, #7\n\
+	adds r1, r5, r2\n\
+	adds r2, r6, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _08022DF0\n\
+	ldrh r1, [r0]\n\
+	adds r0, r4, #0\n\
+	ands r0, r1\n\
+	str r0, [sp, #8]\n\
+	add r0, sp, #8\n\
+	movs r2, #0xc0\n\
+	lsls r2, r2, #7\n\
+	adds r1, r5, r2\n\
+	adds r2, r6, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _08022DF4\n\
+	ldrh r1, [r0]\n\
+	adds r0, r4, #0\n\
+	ands r0, r1\n\
+	str r0, [sp, #0xc]\n\
+	add r0, sp, #0xc\n\
+	movs r2, #0xb0\n\
+	lsls r2, r2, #7\n\
+	adds r1, r5, r2\n\
+	adds r2, r6, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _08022DF8\n\
+	ldrh r1, [r0]\n\
+	adds r0, r4, #0\n\
+	ands r0, r1\n\
+	str r0, [sp, #0x10]\n\
+	add r0, sp, #0x10\n\
+	movs r2, #0xa0\n\
+	lsls r2, r2, #7\n\
+	adds r1, r5, r2\n\
+	adds r2, r6, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _08022DFC\n\
+	ldrh r0, [r0]\n\
+	ands r4, r0\n\
+	str r4, [sp, #0x14]\n\
+	add r0, sp, #0x14\n\
+	movs r2, #0x80\n\
+	lsls r2, r2, #7\n\
+	adds r1, r5, r2\n\
+	adds r2, r6, #0\n\
+	bl CpuFastSet\n\
+	movs r7, #0\n\
+	ldr r0, _08022E00\n\
+	adds r0, r0, r5\n\
+	mov sl, r0\n\
+	ldr r1, _08022E04\n\
+	adds r1, r1, r5\n\
+	mov sb, r1\n\
+	ldr r2, _08022E08\n\
+	adds r2, r2, r5\n\
+	mov r8, r2\n\
+	movs r5, #0x80\n\
+	lsls r5, r5, #2\n\
+	movs r6, #0\n\
+_08022D3E:\n\
+	ldr r0, _08022E0C\n\
+	adds r0, r6, r0\n\
+	mov r1, r8\n\
+	movs r2, #0xc\n\
+	bl CpuSet\n\
+	movs r0, #0x34\n\
+	muls r0, r7, r0\n\
+	ldr r1, _08022E10\n\
+	adds r0, r0, r1\n\
+	ldr r4, _08022E14\n\
+	add r4, sl\n\
+	adds r1, r5, r4\n\
+	movs r2, #0x1a\n\
+	bl CpuSet\n\
+	lsls r0, r7, #4\n\
+	ldr r1, _08022E18\n\
+	adds r0, r0, r1\n\
+	mov r1, sb\n\
+	movs r2, #8\n\
+	bl CpuSet\n\
+	movs r0, #0x40\n\
+	add sb, r0\n\
+	add r8, r0\n\
+	adds r5, #0x40\n\
+	adds r6, #0x18\n\
+	adds r7, #1\n\
+	cmp r7, #3\n\
+	bls _08022D3E\n\
+	movs r7, #0\n\
+	ldr r1, _08022E1C\n\
+	adds r1, r1, r4\n\
+	mov sl, r1\n\
+	ldr r2, _08022E20\n\
+	adds r5, r4, r2\n\
+	movs r0, #0\n\
+	mov sb, r0\n\
+	ldr r1, _08022E24\n\
+	adds r4, r4, r1\n\
+	movs r2, #0xe0\n\
+	lsls r2, r2, #1\n\
+	mov r8, r2\n\
+	movs r6, #0\n\
+_08022D98:\n\
+	ldr r0, _08022E28\n\
+	adds r0, r6, r0\n\
+	adds r1, r4, #0\n\
+	movs r2, #0x1c\n\
+	bl CpuSet\n\
+	movs r0, #0x34\n\
+	muls r0, r7, r0\n\
+	ldr r1, _08022E2C\n\
+	adds r0, r0, r1\n\
+	ldr r1, _08022E30\n\
+	add r1, sl\n\
+	add r1, r8\n\
+	movs r2, #0x1a\n\
+	bl CpuSet\n\
+	ldr r0, _08022E34\n\
+	add r0, sb\n\
+	adds r1, r5, #0\n\
+	movs r2, #0x18\n\
+	bl CpuSet\n\
+	adds r5, #0x40\n\
+	movs r0, #0x30\n\
+	add sb, r0\n\
+	adds r4, #0x40\n\
+	movs r1, #0x40\n\
+	add r8, r1\n\
+	adds r6, #0x38\n\
+	adds r7, #1\n\
+	cmp r7, #5\n\
+	bls _08022D98\n\
+	b _08023478\n\
+	.align 2, 0\n\
+_08022DDC: .4byte gDE8C1C\n\
+_08022DE0: .4byte 0x02008400\n\
+_08022DE4: .4byte gDEDE60\n\
+_08022DE8: .4byte 0x01000200\n\
+_08022DEC: .4byte gDEDF50\n\
+_08022DF0: .4byte gDEE0B8\n\
+_08022DF4: .4byte gDEE220\n\
+_08022DF8: .4byte gDEE388\n\
+_08022DFC: .4byte gDEE478\n\
+_08022E00: .4byte 0x00007012\n\
+_08022E04: .4byte 0x00004216\n\
+_08022E08: .4byte 0x00007212\n\
+_08022E0C: .4byte gDEE568\n\
+_08022E10: .4byte gDEE970\n\
+_08022E14: .4byte 0xFFFFDFF2\n\
+_08022E18: .4byte gDEEA40\n\
+_08022E1C: .4byte 0x000017FE\n\
+_08022E20: .4byte 0x000009C2\n\
+_08022E24: .4byte 0x000019BE\n\
+_08022E28: .4byte gDEE5C8\n\
+_08022E2C: .4byte gDEE718\n\
+_08022E30: .4byte 0xFFFFF802\n\
+_08022E34: .4byte gDEE850\n\
+_08022E38:\n\
+	ldr r0, _08022F8C\n\
+	ldr r5, _08022F90\n\
+	adds r1, r5, #0\n\
+	bl LZ77UnCompWram\n\
+	ldr r0, _08022F94\n\
+	ldrh r1, [r0]\n\
+	movs r4, #0xf0\n\
+	lsls r4, r4, #8\n\
+	adds r0, r4, #0\n\
+	ands r0, r1\n\
+	str r0, [sp, #0x18]\n\
+	add r0, sp, #0x18\n\
+	movs r2, #0xe0\n\
+	lsls r2, r2, #7\n\
+	adds r1, r5, r2\n\
+	ldr r6, _08022F98\n\
+	adds r2, r6, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _08022F9C\n\
+	ldrh r1, [r0]\n\
+	adds r0, r4, #0\n\
+	ands r0, r1\n\
+	str r0, [sp, #0x1c]\n\
+	add r0, sp, #0x1c\n\
+	movs r2, #0xd0\n\
+	lsls r2, r2, #7\n\
+	adds r1, r5, r2\n\
+	adds r2, r6, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _08022FA0\n\
+	ldrh r1, [r0]\n\
+	adds r0, r4, #0\n\
+	ands r0, r1\n\
+	str r0, [sp, #0x20]\n\
+	add r0, sp, #0x20\n\
+	movs r2, #0xc0\n\
+	lsls r2, r2, #7\n\
+	adds r1, r5, r2\n\
+	adds r2, r6, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _08022FA4\n\
+	ldrh r1, [r0]\n\
+	adds r0, r4, #0\n\
+	ands r0, r1\n\
+	str r0, [sp, #0x24]\n\
+	add r0, sp, #0x24\n\
+	movs r2, #0xb0\n\
+	lsls r2, r2, #7\n\
+	adds r1, r5, r2\n\
+	adds r2, r6, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _08022FA8\n\
+	ldrh r1, [r0]\n\
+	adds r0, r4, #0\n\
+	ands r0, r1\n\
+	str r0, [sp, #0x28]\n\
+	add r0, sp, #0x28\n\
+	movs r2, #0xa0\n\
+	lsls r2, r2, #7\n\
+	adds r1, r5, r2\n\
+	adds r2, r6, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _08022FAC\n\
+	ldrh r0, [r0]\n\
+	ands r4, r0\n\
+	str r4, [sp, #0x2c]\n\
+	add r0, sp, #0x2c\n\
+	movs r2, #0x80\n\
+	lsls r2, r2, #7\n\
+	adds r1, r5, r2\n\
+	adds r2, r6, #0\n\
+	bl CpuFastSet\n\
+	movs r7, #0\n\
+	ldr r0, _08022FB0\n\
+	adds r0, r0, r5\n\
+	mov sl, r0\n\
+	ldr r1, _08022FB4\n\
+	adds r1, r1, r5\n\
+	mov sb, r1\n\
+	ldr r2, _08022FB8\n\
+	adds r2, r2, r5\n\
+	mov r8, r2\n\
+	movs r5, #0x80\n\
+	lsls r5, r5, #2\n\
+	movs r6, #0\n\
+_08022EF0:\n\
+	ldr r0, _08022FBC\n\
+	adds r0, r6, r0\n\
+	mov r1, r8\n\
+	movs r2, #0xc\n\
+	bl CpuSet\n\
+	movs r0, #0x34\n\
+	muls r0, r7, r0\n\
+	ldr r1, _08022FC0\n\
+	adds r0, r0, r1\n\
+	ldr r4, _08022FC4\n\
+	add r4, sl\n\
+	adds r1, r5, r4\n\
+	movs r2, #0x1a\n\
+	bl CpuSet\n\
+	lsls r0, r7, #4\n\
+	ldr r1, _08022FC8\n\
+	adds r0, r0, r1\n\
+	mov r1, sb\n\
+	movs r2, #8\n\
+	bl CpuSet\n\
+	movs r0, #0x40\n\
+	add sb, r0\n\
+	add r8, r0\n\
+	adds r5, #0x40\n\
+	adds r6, #0x18\n\
+	adds r7, #1\n\
+	cmp r7, #3\n\
+	bls _08022EF0\n\
+	movs r7, #0\n\
+	ldr r1, _08022FCC\n\
+	adds r1, r1, r4\n\
+	mov sl, r1\n\
+	ldr r2, _08022FD0\n\
+	adds r5, r4, r2\n\
+	movs r0, #0\n\
+	mov sb, r0\n\
+	ldr r1, _08022FD4\n\
+	adds r4, r4, r1\n\
+	movs r2, #0xe0\n\
+	lsls r2, r2, #1\n\
+	mov r8, r2\n\
+	movs r6, #0\n\
+_08022F4A:\n\
+	ldr r0, _08022FD8\n\
+	adds r0, r6, r0\n\
+	adds r1, r4, #0\n\
+	movs r2, #0x1c\n\
+	bl CpuSet\n\
+	movs r0, #0x34\n\
+	muls r0, r7, r0\n\
+	ldr r1, _08022FDC\n\
+	adds r0, r0, r1\n\
+	ldr r1, _08022FE0\n\
+	add r1, sl\n\
+	add r1, r8\n\
+	movs r2, #0x1a\n\
+	bl CpuSet\n\
+	ldr r0, _08022FE4\n\
+	add r0, sb\n\
+	adds r1, r5, #0\n\
+	movs r2, #0x18\n\
+	bl CpuSet\n\
+	adds r5, #0x40\n\
+	movs r0, #0x30\n\
+	add sb, r0\n\
+	adds r4, #0x40\n\
+	movs r1, #0x40\n\
+	add r8, r1\n\
+	adds r6, #0x38\n\
+	adds r7, #1\n\
+	cmp r7, #5\n\
+	bls _08022F4A\n\
+	b _08023478\n\
+	.align 2, 0\n\
+_08022F8C: .4byte gDE9FD8\n\
+_08022F90: .4byte 0x02008400\n\
+_08022F94: .4byte gDEDE60\n\
+_08022F98: .4byte 0x01000200\n\
+_08022F9C: .4byte gDEDF50\n\
+_08022FA0: .4byte gDEE0B8\n\
+_08022FA4: .4byte gDEE220\n\
+_08022FA8: .4byte gDEE388\n\
+_08022FAC: .4byte gDEE478\n\
+_08022FB0: .4byte 0x00007012\n\
+_08022FB4: .4byte 0x00004216\n\
+_08022FB8: .4byte 0x00007212\n\
+_08022FBC: .4byte gDEEA80\n\
+_08022FC0: .4byte gDEEE88\n\
+_08022FC4: .4byte 0xFFFFDFF2\n\
+_08022FC8: .4byte gDEEF58\n\
+_08022FCC: .4byte 0x000017FE\n\
+_08022FD0: .4byte 0x000009C2\n\
+_08022FD4: .4byte 0x000019BE\n\
+_08022FD8: .4byte gDEEAE0\n\
+_08022FDC: .4byte gDEEC30\n\
+_08022FE0: .4byte 0xFFFFF802\n\
+_08022FE4: .4byte gDEED68\n\
+_08022FE8:\n\
+	ldr r0, _0802313C\n\
+	ldr r5, _08023140\n\
+	adds r1, r5, #0\n\
+	bl LZ77UnCompWram\n\
+	ldr r0, _08023144\n\
+	ldrh r1, [r0]\n\
+	movs r4, #0xf0\n\
+	lsls r4, r4, #8\n\
+	adds r0, r4, #0\n\
+	ands r0, r1\n\
+	str r0, [sp, #0x30]\n\
+	add r0, sp, #0x30\n\
+	movs r2, #0xe0\n\
+	lsls r2, r2, #7\n\
+	adds r1, r5, r2\n\
+	ldr r6, _08023148\n\
+	adds r2, r6, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _0802314C\n\
+	ldrh r1, [r0]\n\
+	adds r0, r4, #0\n\
+	ands r0, r1\n\
+	str r0, [sp, #0x34]\n\
+	add r0, sp, #0x34\n\
+	movs r2, #0xd0\n\
+	lsls r2, r2, #7\n\
+	adds r1, r5, r2\n\
+	adds r2, r6, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _08023150\n\
+	ldrh r1, [r0]\n\
+	adds r0, r4, #0\n\
+	ands r0, r1\n\
+	str r0, [sp, #0x38]\n\
+	add r0, sp, #0x38\n\
+	movs r2, #0xc0\n\
+	lsls r2, r2, #7\n\
+	adds r1, r5, r2\n\
+	adds r2, r6, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _08023154\n\
+	ldrh r1, [r0]\n\
+	adds r0, r4, #0\n\
+	ands r0, r1\n\
+	str r0, [sp, #0x3c]\n\
+	add r0, sp, #0x3c\n\
+	movs r2, #0xb0\n\
+	lsls r2, r2, #7\n\
+	adds r1, r5, r2\n\
+	adds r2, r6, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _08023158\n\
+	ldrh r1, [r0]\n\
+	adds r0, r4, #0\n\
+	ands r0, r1\n\
+	str r0, [sp, #0x40]\n\
+	add r0, sp, #0x40\n\
+	movs r2, #0xa0\n\
+	lsls r2, r2, #7\n\
+	adds r1, r5, r2\n\
+	adds r2, r6, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _0802315C\n\
+	ldrh r0, [r0]\n\
+	ands r4, r0\n\
+	str r4, [sp, #0x44]\n\
+	add r0, sp, #0x44\n\
+	movs r2, #0x80\n\
+	lsls r2, r2, #7\n\
+	adds r1, r5, r2\n\
+	adds r2, r6, #0\n\
+	bl CpuFastSet\n\
+	movs r7, #0\n\
+	ldr r0, _08023160\n\
+	adds r0, r0, r5\n\
+	mov sl, r0\n\
+	ldr r1, _08023164\n\
+	adds r1, r1, r5\n\
+	mov sb, r1\n\
+	ldr r2, _08023168\n\
+	adds r2, r2, r5\n\
+	mov r8, r2\n\
+	movs r5, #0x80\n\
+	lsls r5, r5, #2\n\
+	movs r6, #0\n\
+_080230A0:\n\
+	ldr r0, _0802316C\n\
+	adds r0, r6, r0\n\
+	mov r1, r8\n\
+	movs r2, #0xc\n\
+	bl CpuSet\n\
+	movs r0, #0x34\n\
+	muls r0, r7, r0\n\
+	ldr r1, _08023170\n\
+	adds r0, r0, r1\n\
+	ldr r4, _08023174\n\
+	add r4, sl\n\
+	adds r1, r5, r4\n\
+	movs r2, #0x1a\n\
+	bl CpuSet\n\
+	lsls r0, r7, #4\n\
+	ldr r1, _08023178\n\
+	adds r0, r0, r1\n\
+	mov r1, sb\n\
+	movs r2, #8\n\
+	bl CpuSet\n\
+	movs r0, #0x40\n\
+	add sb, r0\n\
+	add r8, r0\n\
+	adds r5, #0x40\n\
+	adds r6, #0x18\n\
+	adds r7, #1\n\
+	cmp r7, #3\n\
+	bls _080230A0\n\
+	movs r7, #0\n\
+	ldr r1, _0802317C\n\
+	adds r1, r1, r4\n\
+	mov sl, r1\n\
+	ldr r2, _08023180\n\
+	adds r5, r4, r2\n\
+	movs r0, #0\n\
+	mov sb, r0\n\
+	ldr r1, _08023184\n\
+	adds r4, r4, r1\n\
+	movs r2, #0xe0\n\
+	lsls r2, r2, #1\n\
+	mov r8, r2\n\
+	movs r6, #0\n\
+_080230FA:\n\
+	ldr r0, _08023188\n\
+	adds r0, r6, r0\n\
+	adds r1, r4, #0\n\
+	movs r2, #0x1c\n\
+	bl CpuSet\n\
+	movs r0, #0x34\n\
+	muls r0, r7, r0\n\
+	ldr r1, _0802318C\n\
+	adds r0, r0, r1\n\
+	ldr r1, _08023190\n\
+	add r1, sl\n\
+	add r1, r8\n\
+	movs r2, #0x1a\n\
+	bl CpuSet\n\
+	ldr r0, _08023194\n\
+	add r0, sb\n\
+	adds r1, r5, #0\n\
+	movs r2, #0x18\n\
+	bl CpuSet\n\
+	adds r5, #0x40\n\
+	movs r0, #0x30\n\
+	add sb, r0\n\
+	adds r4, #0x40\n\
+	movs r1, #0x40\n\
+	add r8, r1\n\
+	adds r6, #0x38\n\
+	adds r7, #1\n\
+	cmp r7, #5\n\
+	bls _080230FA\n\
+	b _08023478\n\
+	.align 2, 0\n\
+_0802313C: .4byte gDEB77C\n\
+_08023140: .4byte 0x02008400\n\
+_08023144: .4byte gDEDE60\n\
+_08023148: .4byte 0x01000200\n\
+_0802314C: .4byte gDEDF50\n\
+_08023150: .4byte gDEE0B8\n\
+_08023154: .4byte gDEE220\n\
+_08023158: .4byte gDEE388\n\
+_0802315C: .4byte gDEE478\n\
+_08023160: .4byte 0x00007012\n\
+_08023164: .4byte 0x00004216\n\
+_08023168: .4byte 0x00007212\n\
+_0802316C: .4byte gDEEF98\n\
+_08023170: .4byte gDEFB40\n\
+_08023174: .4byte 0xFFFFDFF2\n\
+_08023178: .4byte gDEFC10\n\
+_0802317C: .4byte 0x000017FE\n\
+_08023180: .4byte 0x000009C2\n\
+_08023184: .4byte 0x000019BE\n\
+_08023188: .4byte gDEF798\n\
+_0802318C: .4byte gDEF8E8\n\
+_08023190: .4byte 0xFFFFF802\n\
+_08023194: .4byte gDEFA20\n\
+_08023198:\n\
+	ldr r0, _080232EC\n\
+	ldr r5, _080232F0\n\
+	adds r1, r5, #0\n\
+	bl LZ77UnCompWram\n\
+	ldr r0, _080232F4\n\
+	ldrh r1, [r0]\n\
+	movs r4, #0xf0\n\
+	lsls r4, r4, #8\n\
+	adds r0, r4, #0\n\
+	ands r0, r1\n\
+	str r0, [sp, #0x48]\n\
+	add r0, sp, #0x48\n\
+	movs r2, #0xe0\n\
+	lsls r2, r2, #7\n\
+	adds r1, r5, r2\n\
+	ldr r6, _080232F8\n\
+	adds r2, r6, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _080232FC\n\
+	ldrh r1, [r0]\n\
+	adds r0, r4, #0\n\
+	ands r0, r1\n\
+	str r0, [sp, #0x4c]\n\
+	add r0, sp, #0x4c\n\
+	movs r2, #0xd0\n\
+	lsls r2, r2, #7\n\
+	adds r1, r5, r2\n\
+	adds r2, r6, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _08023300\n\
+	ldrh r1, [r0]\n\
+	adds r0, r4, #0\n\
+	ands r0, r1\n\
+	str r0, [sp, #0x50]\n\
+	add r0, sp, #0x50\n\
+	movs r2, #0xc0\n\
+	lsls r2, r2, #7\n\
+	adds r1, r5, r2\n\
+	adds r2, r6, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _08023304\n\
+	ldrh r1, [r0]\n\
+	adds r0, r4, #0\n\
+	ands r0, r1\n\
+	str r0, [sp, #0x54]\n\
+	add r0, sp, #0x54\n\
+	movs r2, #0xb0\n\
+	lsls r2, r2, #7\n\
+	adds r1, r5, r2\n\
+	adds r2, r6, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _08023308\n\
+	ldrh r1, [r0]\n\
+	adds r0, r4, #0\n\
+	ands r0, r1\n\
+	str r0, [sp, #0x58]\n\
+	add r0, sp, #0x58\n\
+	movs r2, #0xa0\n\
+	lsls r2, r2, #7\n\
+	adds r1, r5, r2\n\
+	adds r2, r6, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _0802330C\n\
+	ldrh r0, [r0]\n\
+	ands r4, r0\n\
+	str r4, [sp, #0x5c]\n\
+	add r0, sp, #0x5c\n\
+	movs r2, #0x80\n\
+	lsls r2, r2, #7\n\
+	adds r1, r5, r2\n\
+	adds r2, r6, #0\n\
+	bl CpuFastSet\n\
+	movs r7, #0\n\
+	ldr r0, _08023310\n\
+	adds r0, r0, r5\n\
+	mov sl, r0\n\
+	ldr r1, _08023314\n\
+	adds r1, r1, r5\n\
+	mov sb, r1\n\
+	ldr r2, _08023318\n\
+	adds r2, r2, r5\n\
+	mov r8, r2\n\
+	movs r5, #0x80\n\
+	lsls r5, r5, #2\n\
+	movs r6, #0\n\
+_08023250:\n\
+	ldr r0, _0802331C\n\
+	adds r0, r6, r0\n\
+	mov r1, r8\n\
+	movs r2, #0xc\n\
+	bl CpuSet\n\
+	movs r0, #0x34\n\
+	muls r0, r7, r0\n\
+	ldr r1, _08023320\n\
+	adds r0, r0, r1\n\
+	ldr r4, _08023324\n\
+	add r4, sl\n\
+	adds r1, r5, r4\n\
+	movs r2, #0x1a\n\
+	bl CpuSet\n\
+	lsls r0, r7, #4\n\
+	ldr r1, _08023328\n\
+	adds r0, r0, r1\n\
+	mov r1, sb\n\
+	movs r2, #8\n\
+	bl CpuSet\n\
+	movs r0, #0x40\n\
+	add sb, r0\n\
+	add r8, r0\n\
+	adds r5, #0x40\n\
+	adds r6, #0x18\n\
+	adds r7, #1\n\
+	cmp r7, #3\n\
+	bls _08023250\n\
+	movs r7, #0\n\
+	ldr r1, _0802332C\n\
+	adds r1, r1, r4\n\
+	mov sl, r1\n\
+	ldr r2, _08023330\n\
+	adds r5, r4, r2\n\
+	movs r0, #0\n\
+	mov sb, r0\n\
+	ldr r1, _08023334\n\
+	adds r4, r4, r1\n\
+	movs r2, #0xe0\n\
+	lsls r2, r2, #1\n\
+	mov r8, r2\n\
+	movs r6, #0\n\
+_080232AA:\n\
+	ldr r0, _08023338\n\
+	adds r0, r6, r0\n\
+	adds r1, r4, #0\n\
+	movs r2, #0x1c\n\
+	bl CpuSet\n\
+	movs r0, #0x34\n\
+	muls r0, r7, r0\n\
+	ldr r1, _0802333C\n\
+	adds r0, r0, r1\n\
+	ldr r1, _08023340\n\
+	add r1, sl\n\
+	add r1, r8\n\
+	movs r2, #0x1a\n\
+	bl CpuSet\n\
+	ldr r0, _08023344\n\
+	add r0, sb\n\
+	adds r1, r5, #0\n\
+	movs r2, #0x18\n\
+	bl CpuSet\n\
+	adds r5, #0x40\n\
+	movs r0, #0x30\n\
+	add sb, r0\n\
+	adds r4, #0x40\n\
+	movs r1, #0x40\n\
+	add r8, r1\n\
+	adds r6, #0x38\n\
+	adds r7, #1\n\
+	cmp r7, #5\n\
+	bls _080232AA\n\
+	b _08023478\n\
+	.align 2, 0\n\
+_080232EC: .4byte gDECAAC\n\
+_080232F0: .4byte 0x02008400\n\
+_080232F4: .4byte gDEDE60\n\
+_080232F8: .4byte 0x01000200\n\
+_080232FC: .4byte gDEDF50\n\
+_08023300: .4byte gDEE0B8\n\
+_08023304: .4byte gDEE220\n\
+_08023308: .4byte gDEE388\n\
+_0802330C: .4byte gDEE478\n\
+_08023310: .4byte 0x00007012\n\
+_08023314: .4byte 0x00004216\n\
+_08023318: .4byte 0x00007212\n\
+_0802331C: .4byte gDEFC50\n\
+_08023320: .4byte gDF07F8\n\
+_08023324: .4byte 0xFFFFDFF2\n\
+_08023328: .4byte gDF08C8\n\
+_0802332C: .4byte 0x000017FE\n\
+_08023330: .4byte 0x000009C2\n\
+_08023334: .4byte 0x000019BE\n\
+_08023338: .4byte gDF0450\n\
+_0802333C: .4byte gDF05A0\n\
+_08023340: .4byte 0xFFFFF802\n\
+_08023344: .4byte gDF06D8\n\
+_08023348:\n\
+	ldr r0, _08023494\n\
+	ldr r4, _08023498\n\
+	adds r1, r4, #0\n\
+	bl LZ77UnCompWram\n\
+	ldr r0, _0802349C\n\
+	ldrh r0, [r0]\n\
+	str r0, [sp, #0x60]\n\
+	add r0, sp, #0x60\n\
+	movs r2, #0xe0\n\
+	lsls r2, r2, #7\n\
+	adds r6, r4, r2\n\
+	ldr r5, _080234A0\n\
+	adds r1, r6, #0\n\
+	adds r2, r5, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _080234A4\n\
+	ldrh r0, [r0]\n\
+	str r0, [sp, #0x64]\n\
+	add r0, sp, #0x64\n\
+	movs r2, #0xd0\n\
+	lsls r2, r2, #7\n\
+	adds r1, r4, r2\n\
+	adds r2, r5, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _080234A8\n\
+	ldrh r0, [r0]\n\
+	str r0, [sp, #0x68]\n\
+	add r0, sp, #0x68\n\
+	movs r2, #0xc0\n\
+	lsls r2, r2, #7\n\
+	adds r1, r4, r2\n\
+	adds r2, r5, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _080234AC\n\
+	ldrh r0, [r0]\n\
+	str r0, [sp, #0x6c]\n\
+	add r0, sp, #0x6c\n\
+	movs r2, #0xb0\n\
+	lsls r2, r2, #7\n\
+	adds r1, r4, r2\n\
+	adds r2, r5, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _080234B0\n\
+	ldrh r0, [r0]\n\
+	str r0, [sp, #0x70]\n\
+	add r0, sp, #0x70\n\
+	movs r2, #0xa0\n\
+	lsls r2, r2, #7\n\
+	adds r1, r4, r2\n\
+	adds r2, r5, #0\n\
+	bl CpuFastSet\n\
+	ldr r0, _080234B4\n\
+	ldrh r0, [r0]\n\
+	str r0, [sp, #0x74]\n\
+	add r0, sp, #0x74\n\
+	movs r2, #0x80\n\
+	lsls r2, r2, #7\n\
+	adds r1, r4, r2\n\
+	adds r2, r5, #0\n\
+	bl CpuFastSet\n\
+	movs r7, #0\n\
+	mov sl, r6\n\
+	movs r0, #0x84\n\
+	lsls r0, r0, #7\n\
+	adds r6, r4, r0\n\
+	movs r1, #0xe4\n\
+	lsls r1, r1, #7\n\
+	adds r4, r4, r1\n\
+	movs r2, #0x80\n\
+	lsls r2, r2, #2\n\
+	mov sb, r2\n\
+	movs r5, #0\n\
+_080233E6:\n\
+	ldr r0, _0802349C\n\
+	adds r0, r5, r0\n\
+	adds r1, r4, #0\n\
+	movs r2, #0x1e\n\
+	bl CpuSet\n\
+	ldr r0, _080234B0\n\
+	adds r0, r5, r0\n\
+	ldr r1, _080234B8\n\
+	add r1, sl\n\
+	mov r8, r1\n\
+	mov r1, sb\n\
+	add r1, r8\n\
+	movs r2, #0x1e\n\
+	bl CpuSet\n\
+	ldr r0, _080234B4\n\
+	adds r0, r5, r0\n\
+	adds r1, r6, #0\n\
+	movs r2, #0x1e\n\
+	bl CpuSet\n\
+	adds r6, #0x40\n\
+	adds r4, #0x40\n\
+	movs r2, #0x40\n\
+	add sb, r2\n\
+	adds r5, #0x3c\n\
+	adds r7, #1\n\
+	cmp r7, #3\n\
+	bls _080233E6\n\
+	movs r7, #0\n\
+	movs r0, #0xc0\n\
+	lsls r0, r0, #5\n\
+	add r0, r8\n\
+	mov sb, r0\n\
+	movs r6, #0x9c\n\
+	lsls r6, r6, #4\n\
+	add r6, r8\n\
+	movs r5, #0xce\n\
+	lsls r5, r5, #5\n\
+	add r5, r8\n\
+	movs r1, #0xe0\n\
+	lsls r1, r1, #1\n\
+	mov r8, r1\n\
+	movs r4, #0\n\
+_08023440:\n\
+	ldr r0, _080234A4\n\
+	adds r0, r4, r0\n\
+	adds r1, r5, #0\n\
+	movs r2, #0x1e\n\
+	bl CpuSet\n\
+	ldr r0, _080234A8\n\
+	adds r0, r4, r0\n\
+	ldr r1, _080234BC\n\
+	add r1, sb\n\
+	add r1, r8\n\
+	movs r2, #0x1e\n\
+	bl CpuSet\n\
+	ldr r0, _080234AC\n\
+	adds r0, r4, r0\n\
+	adds r1, r6, #0\n\
+	movs r2, #0x1e\n\
+	bl CpuSet\n\
+	adds r6, #0x40\n\
+	adds r5, #0x40\n\
+	movs r2, #0x40\n\
+	add r8, r2\n\
+	adds r4, #0x3c\n\
+	adds r7, #1\n\
+	cmp r7, #5\n\
+	bls _08023440\n\
+_08023478:\n\
+	ldr r0, _080234C0\n\
+	ldr r1, _080234C4\n\
+	movs r2, #0x10\n\
+	bl CpuSet\n\
+	add sp, #0x78\n\
+	pop {r3, r4, r5}\n\
+	mov r8, r3\n\
+	mov sb, r4\n\
+	mov sl, r5\n\
+	pop {r4, r5, r6, r7}\n\
+	pop {r0}\n\
+	bx r0\n\
+	.align 2, 0\n\
+_08023494: .4byte gDE7888\n\
+_08023498: .4byte 0x02008400\n\
+_0802349C: .4byte gDEDE60\n\
+_080234A0: .4byte 0x01000200\n\
+_080234A4: .4byte gDEDF50\n\
+_080234A8: .4byte gDEE0B8\n\
+_080234AC: .4byte gDEE220\n\
+_080234B0: .4byte gDEE388\n\
+_080234B4: .4byte gDEE478\n\
+_080234B8: .4byte 0xFFFFE000\n\
+_080234BC: .4byte 0xFFFFF800\n\
+_080234C0: .4byte gDF0908\n\
+_080234C4: .4byte 0x020000A0");
+}
+
+void sub_80234C8 (void) {
+  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x6000, gC18BC, 0x1801);
+  CpuFill16(0, gBgVram.cbb0 + 0xC800, 0x800);
+  g02000000.bg[0xE0] = 0;
+  g02000000.bg[0xE1] = 0x7FFF;
+  g02000000.bg[0xE2] = 0;
+  g02000000.bg[0xF0] = 0;
+  g02000000.bg[0xF1] = 0x1F;
+  g02000000.bg[0xF2] = 0;
+}
+
+/*
+//sl = gFC4A8C
+//r7 = g80C184B[i]
+
+struct OamTemp {
+  unsigned long unk0, unk4;
+} gOamBufferr[128];
+void sub_8023544 (void) {
+  unsigned i, j;
+  for (i = 0; i < 7; i++) {
+    if (i == gLinkDuelMenuData.unkA) {
+      for (j = 0; j < gFC4A8C[g80C184B[i]][0].unk1; j++) {
+
+      }
+
+    }
+    else {
+
+    }
+  }
+}
+
+void sub_8023EB8 (struct Unk8f* arg0, unsigned long* arg1) {
+  unsigned i;
+  for (i = 0; i < arg0->unk1; i++) {
+    *arg1++ = 0x200;
+    *arg1++ = 0x1000000;
+  }
+}
+
+void sub_8023EDC (void) {
+  unsigned i;
+  unsigned long* ptr = (unsigned long*)gOamBuffer;
+  for (i = 0; i < 128; i++) {
+    *ptr++ = 0x200;
+    *ptr++ = 0x1000000;
+  }
+}
+
+void sub_8023EF8 (unsigned char arg0) {
+  unsigned i;
+  for (i = 0; i < gFC4A8C[arg0].unk1; i++) {
+    gOamBuffer[2 * 2 + 
+  }
+}
+*/

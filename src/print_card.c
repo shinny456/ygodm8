@@ -24,10 +24,7 @@ extern u32 gUnk_8938618[]; //fix type?
 extern u32 gUnk_89385D8[]; //fix type?
 extern const u8* gUnk_8E00E30[];
 
-
-void sub_800E08C (u32*, u16*);
 void sub_800DDA0(u16, u8);
-void sub_800DD4C(void);
 
 extern u8 g2021BD0[]; // digit buffer
 extern u8 g2021B50[]; //TODO: fix type?

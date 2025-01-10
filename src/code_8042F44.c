@@ -620,9 +620,9 @@ _08043BAC: .4byte 0x00000101\n\
 _08043BB0: .4byte 0x08E0D950\n\
 _08043BB4: .4byte 0x08E0D94C\n\
 _08043BB8: .4byte 0x020093A0\n\
-_08043BBC: .4byte g2020DF4\n\
+_08043BBC: .4byte gRepeatedOrNewButtons\n\
 _08043BC0: .4byte 0x00000385\n\
-_08043BC4: .4byte gUnk2020DFC");
+_08043BC4: .4byte gNewButtons");
 }
 
 // unused?

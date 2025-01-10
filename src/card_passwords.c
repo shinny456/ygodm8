@@ -842,7 +842,7 @@ extern u8 g8E11664[][8];
 extern u8 g8E1167C[];
 extern u8 g8E11684[];
 extern u8 gCardPasswordDigits[];
-extern u16 gKeyState;
+extern u16 gPressedButtons;
 void sub_802D90C(u16, u8);
 void sub_80258E8(void);
 u16 sub_803F04C (u8);
@@ -1129,7 +1129,7 @@ _0805609C: .4byte 0x02024588");
 static u32 sub_80560A0 (void) {
   u32 ret, r6 = 0;
   while (!r6) {
-    switch (gKeyState) {
+    switch (gPressedButtons) {
       case 0x40:
         sPasswordData.digits[g2024590] = 255;
         sPasswordData.digits[g2024590]++;

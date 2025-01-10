@@ -45,7 +45,7 @@ void sub_800ADC4 (void);
 
 unsigned char sub_8056208 (void);
 void ClearGraphicsBuffers (void);
-extern unsigned short gUnk2020DFC;
+extern unsigned short gNewButtons;
 extern unsigned* g8E0CD9C;
 extern unsigned char g80DD498[];
 extern unsigned short (*g8E0CDA4)[][30];
@@ -258,9 +258,9 @@ static unsigned short sub_8035558 (void) {
   unsigned short r4 = 0;
   sub_802612C();
   r1 = 1;
-  if (gUnk2020DFC & 0x3FF) {
+  if (gNewButtons & 0x3FF) {
     for (i = 0; i < 10; i++) {
-      if (gUnk2020DFC & r1)
+      if (gNewButtons & r1)
         r4 = r1;
       r1 <<= 1;
     }

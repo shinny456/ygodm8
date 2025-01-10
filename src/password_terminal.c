@@ -53,7 +53,7 @@ void sub_802618C (void);
 extern unsigned char gCardPasswordDigits[];
 extern unsigned short gBLDCNT;
 extern unsigned short gBLDY;
-extern unsigned short gUnk2020DFC;
+extern unsigned short gNewButtons;
 extern unsigned short gUnk2021DCC;
 extern unsigned short gOamBuffer[];
 
@@ -67,7 +67,6 @@ extern struct Oam *gE01328[];
 extern struct Oam *gE0119C[];
 
 extern unsigned char g80C1DD4[];
-void HuffUnCompAndDeltaDecode (void*, void*, int);
 extern unsigned short g80C5840[];
 extern unsigned g80C61B8[];
 extern unsigned short g80C58C0[][30];
@@ -232,9 +231,9 @@ static unsigned short ProcessInput (void) {
   unsigned short r2;
   sub_802618C();
   r2 = 1;
-  if (gUnk2020DFC & 0x3FF) {
+  if (gNewButtons & 0x3FF) {
     for (i = 0; i < 10; i++) {
-      if (r2 & gUnk2020DFC)
+      if (r2 & gNewButtons)
         ret = r2;
       r2 <<= 1;
     }

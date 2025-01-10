@@ -42,7 +42,7 @@ void sub_801FB38 (void);
 void sub_801FB14 (void);
 void sub_801FB50 (u8*, u8);
 
-void sub_801DDDC (u8);
+void DeckMenuSortBy (u8);
 
 
 extern u16 g80B9620[];
@@ -60,7 +60,7 @@ extern struct OamData gOamBuffer[];
 extern u8 g201CB58;
 extern u8 g201CB59;
 extern u16 g201CB60[2][2240];
-extern u16 gUnk2020DFC;
+extern u16 gNewButtons;
 
 void sub_801EF30 (u8 arg0) {
   switch (arg0) {
@@ -71,7 +71,7 @@ void sub_801EF30 (u8 arg0) {
       sub_801E27C();
       sub_801E66C();
       sub_801F060();
-      sub_801EED8(gPlayerDeck.unk5);
+      sub_801EED8(gPlayerDeck.sortingMethod);
       sub_800A5F0(1);
       break;
     case 3:
@@ -85,7 +85,7 @@ void sub_801EF30 (u8 arg0) {
     case 7:
       sub_801E66C();
       sub_801F060();
-      sub_801EED8(gPlayerDeck.unk5);
+      sub_801EED8(gPlayerDeck.sortingMethod);
       sub_800A5F0(3);
       break;
   }
@@ -157,16 +157,16 @@ u8 sub_801F0F0 (u16 cardId, u16* arg1) {
 }
 
 void sub_801F120 (void) {
-  u32 r4;
-  gPlayerDeck.unk7 = gPlayerDeck.unk5;
+  unsigned keepProcessing;
+  gPlayerDeck.sortingCursorState = gPlayerDeck.sortingMethod;
   sub_801DF40();
   sub_801F320();
   LoadCharblock1();
   PlayMusic(0x37);
   sub_80081DC(sub_801F390);
   sub_8008220();
-  r4 = 1;
-  while (r4 == 1) {
+  keepProcessing = 1;
+  while (keepProcessing == 1) {
     switch (sub_801D368()) {
       case 0x40:
         sub_801F1C0();
@@ -182,12 +182,12 @@ void sub_801F120 (void) {
         break;
       case 1:
         sub_801F300();
-        r4 = 0;
+        keepProcessing = 0;
         break;
       case 2:
       case 8:
         PlayMusic(0x38);
-        r4 = 0;
+        keepProcessing = 0;
         break;
       default:
         sub_8008220();
@@ -198,11 +198,11 @@ void sub_801F120 (void) {
 }
 
 void sub_801F1C0 (void) {
-  gPlayerDeck.unk7 = g8E00AEC[gPlayerDeck.unk7];
-  if (gPlayerDeck.unk7 < 10)
-    sub_801EED8(gPlayerDeck.unk7);
+  gPlayerDeck.sortingCursorState = g8E00AEC[gPlayerDeck.sortingCursorState];
+  if (gPlayerDeck.sortingCursorState < 10)
+    sub_801EED8(gPlayerDeck.sortingCursorState);
   else
-    sub_801EED8(gPlayerDeck.unk5);
+    sub_801EED8(gPlayerDeck.sortingMethod);
   sub_801F320();
   PlayMusic(0x36);
   sub_80081DC(LoadOam);
@@ -211,11 +211,11 @@ void sub_801F1C0 (void) {
 }
 
 void sub_801F210 (void) {
-  gPlayerDeck.unk7 = g8E00AF7[gPlayerDeck.unk7];
-  if (gPlayerDeck.unk7 < 10)
-    sub_801EED8(gPlayerDeck.unk7);
+  gPlayerDeck.sortingCursorState = g8E00AF7[gPlayerDeck.sortingCursorState];
+  if (gPlayerDeck.sortingCursorState < 10)
+    sub_801EED8(gPlayerDeck.sortingCursorState);
   else
-    sub_801EED8(gPlayerDeck.unk5);
+    sub_801EED8(gPlayerDeck.sortingMethod);
   sub_801F320();
   PlayMusic(0x36);
   sub_80081DC(LoadOam);
@@ -224,11 +224,11 @@ void sub_801F210 (void) {
 }
 
 void sub_801F260 (void) {
-  gPlayerDeck.unk7 = g8E00B02[gPlayerDeck.unk7];
-  if (gPlayerDeck.unk7 < 10)
-    sub_801EED8(gPlayerDeck.unk7);
+  gPlayerDeck.sortingCursorState = g8E00B02[gPlayerDeck.sortingCursorState];
+  if (gPlayerDeck.sortingCursorState < 10)
+    sub_801EED8(gPlayerDeck.sortingCursorState);
   else
-    sub_801EED8(gPlayerDeck.unk5);
+    sub_801EED8(gPlayerDeck.sortingMethod);
   sub_801F320();
   PlayMusic(0x36);
   sub_80081DC(LoadOam);
@@ -237,11 +237,11 @@ void sub_801F260 (void) {
 }
 
 void sub_801F2B0 (void) {
-  gPlayerDeck.unk7 = g8E00B0D[gPlayerDeck.unk7];
-  if (gPlayerDeck.unk7 < 10)
-    sub_801EED8(gPlayerDeck.unk7);
+  gPlayerDeck.sortingCursorState = g8E00B0D[gPlayerDeck.sortingCursorState];
+  if (gPlayerDeck.sortingCursorState < 10)
+    sub_801EED8(gPlayerDeck.sortingCursorState);
   else
-    sub_801EED8(gPlayerDeck.unk5);
+    sub_801EED8(gPlayerDeck.sortingMethod);
   sub_801F320();
   PlayMusic(0x36);
   sub_80081DC(LoadOam);
@@ -251,17 +251,17 @@ void sub_801F2B0 (void) {
 
 void sub_801F300 (void) {
   PlayMusic(0x37);
-  if (gPlayerDeck.unk7 < 10) {
-    gPlayerDeck.unk5 = gPlayerDeck.unk7;
-    sub_801DDDC(gPlayerDeck.unk5);
+  if (gPlayerDeck.sortingCursorState < 10) {
+    gPlayerDeck.sortingMethod = gPlayerDeck.sortingCursorState;
+    DeckMenuSortBy(gPlayerDeck.sortingMethod);
   }
 }
 
 void sub_801F320 (void) {
   u32* oam = (u32*)&gOamBuffer[6];
-  oam[0] = g8E00B18[gPlayerDeck.unk7] | g8E00B23[gPlayerDeck.unk7] << 16 | 0x40000000;
+  oam[0] = g8E00B18[gPlayerDeck.sortingCursorState] | g8E00B23[gPlayerDeck.sortingCursorState] << 16 | 0x40000000;
   oam[1] = 0xC120;
-  oam[2] = g8E00B18[gPlayerDeck.unk7] | g8E00B23[gPlayerDeck.unk7] << 16 | 0x40000800;
+  oam[2] = g8E00B18[gPlayerDeck.sortingCursorState] | g8E00B23[gPlayerDeck.sortingCursorState] << 16 | 0x40000800;
   oam[3] = 0x120;
 }
 
@@ -561,19 +561,19 @@ void sub_801F6B0 (void) {
   sub_80081DC(sub_801FB14);
   sub_8008220();
   while (1) {
-    if (gUnk2020DFC & 0x40 && g201CB59 > 1 && g201CB58) {
+    if (gNewButtons & 0x40 && g201CB59 > 1 && g201CB58) {
       g201CB58--;
       PlayMusic(0x36);
       sub_800BCB0(g201CB60[g201CB58]);
       LoadCharblock1();
     }
-    if (gUnk2020DFC & 0x80 && g201CB59 > 1 && g201CB59 < g201CB58 - 1) {
+    if (gNewButtons & 0x80 && g201CB59 > 1 && g201CB59 < g201CB58 - 1) {
       g201CB58++;
       PlayMusic(0x36);
       sub_800BCB0(g201CB60[g201CB58]);
       LoadCharblock1();
     }
-    if (gUnk2020DFC & 2 || gUnk2020DFC & 1)
+    if (gNewButtons & 2 || gNewButtons & 1)
       break;
     sub_8008220();
   }
@@ -1042,7 +1042,7 @@ _0801FA54: .4byte 0x0201CB58\n\
 _0801FA58: .4byte 0x0201CB60\n\
 _0801FA5C: .4byte 0x0801FADD\n\
 _0801FA60: .4byte 0x0801FB15\n\
-_0801FA64: .4byte gUnk2020DFC\n\
+_0801FA64: .4byte gNewButtons\n\
 _0801FA68:\n\
 	movs r0, #0x38\n\
 	bl PlayMusic\n\
@@ -1123,10 +1123,7 @@ void sub_802018C (u8);
 void sub_80201CC (void);
 void sub_80201E4 (void);
 
-extern const u8 g80BE630[];
-extern const u8 g80BE631[];
-extern const u8 g80BE632[];
-extern struct {u16 unk0, unk2;} g2021C90[][1];
+
 
 void HandleWin (void) {
   struct DuelText duelText;
@@ -1325,7 +1322,17 @@ u16 sub_8020050 (void) {
   return cardDrops->card;
 }
 
+
+
 // nonsensical 2d array?
+// these funcs seem to be unused.
+// UB: these funcs access g80BE630 out of bounds.
+extern const u8 g80BE630[];
+extern const u8 g80BE631[];
+extern const u8 g80BE632[];
+extern struct {u16 unk0, unk2;} g2021C90[][1];
+
+
 u8 sub_8020084 (void) {
   u32 i;
   u8 r3 = 0;
@@ -1368,11 +1375,15 @@ void sub_8020168 (void) {
   g2021C90[0][0].unk0 = 0;
   g2021C90[0][0].unk2 = 0;
   for (i = 0; i < 25; i++) {
-    g2021C90[i][1].unk0 = 0;
-    g2021C90[i][1].unk2 = 0;
+    g2021C90[i + 1][0].unk0 = 0;
+    g2021C90[i + 1][0].unk2 = 0;
   }
 }
 
 void sub_8020188 (void) {
+}
 
+void sub_802018C (unsigned char arg0) {
+  if (g2021C90[1][arg0].unk0 <= 999)
+    g2021C90[1][arg0].unk0++;
 }

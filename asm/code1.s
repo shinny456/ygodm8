@@ -633,7 +633,7 @@ _0800D270:
 	bhi _0800D2C8
 	b _0800CFEC
 _0800D2C8:
-	bl GetDeckCost
+	bl GetPlayerDeckCost
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	movs r1, #0
@@ -657,7 +657,7 @@ _0800D2E2:
 	lsrs r3, r0, #0x18
 	cmp r3, #4
 	bls _0800D2E2
-	bl GetDeckSize
+	bl GetPlayerDeckSize
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #0
@@ -1569,7 +1569,7 @@ _0800DA64:
 	THUMB_FUNC_START sub_800DA68
 sub_800DA68: @ 0x0800DA68
 	push {r4, lr}
-	bl GetDeckCost
+	bl GetPlayerDeckCost
 	adds r4, r0, #0
 	bl GetDeckCapacity
 	cmp r4, r0
@@ -1588,7 +1588,7 @@ _0800DA82:
 	THUMB_FUNC_START sub_800DA88
 sub_800DA88: @ 0x0800DA88
 	push {lr}
-	bl GetDeckSize
+	bl GetPlayerDeckSize
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #0x27

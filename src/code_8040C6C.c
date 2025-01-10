@@ -16,7 +16,7 @@ struct Test8041240 {
   u8 unk1C;
 };
 
-extern u16 gUnk2020DFC;
+extern u16 gNewButtons;
 extern u32* gFieldTilePtrs[];
 extern u16* g8E0D130[];
 extern const u8 gE0D15D[]; // all spaces. empty duel text box before displaying actual text.
@@ -362,7 +362,7 @@ void sub_8041284 (struct Test8041240* arg0) {
 }
 
 void sub_80415B8 (struct Test8041240* arg0) { //waiting for player to press A, B, or R to close text box.
-  if (gUnk2020DFC & 0x103) {
+  if (gNewButtons & 0x103) {
     PlayMusic(0xCA);
     arg0->unk0++;
     arg0->unk4 = 0;

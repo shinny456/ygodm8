@@ -756,23 +756,7 @@ _0801EF28: .4byte 0x00005005
 _0801EF2C: .4byte 0x0000B87A
 
 .section .text2
-	THUMB_FUNC_START sub_802018C
-sub_802018C: @ 0x0802018C
-	lsls r0, r0, #0x18
-	ldr r1, _080201A4
-	lsrs r0, r0, #0x16
-	adds r2, r0, r1
-	ldrh r1, [r2, #4]
-	ldr r0, _080201A8
-	cmp r1, r0
-	bhi _080201A0
-	adds r0, r1, #1
-	strh r0, [r2, #4]
-_080201A0:
-	bx lr
-	.align 2, 0
-_080201A4: .4byte 0x02021C90
-_080201A8: .4byte 0x000003E7
+
 
 	THUMB_FUNC_START sub_80201AC
 sub_80201AC: @ 0x080201AC

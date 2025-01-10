@@ -48,14 +48,14 @@ void StatusMenu (void);
 void TrunkMenu (void);
 bool8 IsDeckFull (void);
 bool32 IsCostWithinCapacity (void);
-u32 sub_801D3FC (void);
-void DeckMenuMain (void);
+u32 IsPlayerDeckNonempty (void);
+
 
 void LoadOam (void);
 void sub_8008220 (void);
 void sub_8045718 (void);
 
-extern u16 gUnk2020DFC;
+extern u16 gNewButtons;
 
 extern u16 gStartMenuBgPalette[];
 extern u16 gStartMenuCursorPalette[];
@@ -67,7 +67,7 @@ void sub_8045718 (void);
 static void StartMenuMain (void) {
   u8 cursorState = 0;
   while (1) {
-    if (gUnk2020DFC & 2) {
+    if (gNewButtons & 2) {
       if (!IsDeckFull()) {
         PlayMusic(0x39);
         DisplayIncompleteDeckMessage();
@@ -86,32 +86,32 @@ static void StartMenuMain (void) {
       }
     }
     here:
-    if (gUnk2020DFC & 0x40 && cursorState != 0) {
+    if (gNewButtons & 0x40 && cursorState != 0) {
       PlayMusic(0x36);
       cursorState--;
     }
-    if (gUnk2020DFC & 0x80 && cursorState < 2) {
+    if (gNewButtons & 0x80 && cursorState < 2) {
       PlayMusic(0x36);
       cursorState++;
     }
     switch (cursorState) {
       case 0:
-        if (gUnk2020DFC & 1) {
+        if (gNewButtons & 1) {
           PlayMusic(0x37);
           StatusMenu();
           sub_8005BE0();
         }
         break;
       case 1:
-        if (gUnk2020DFC & 1) {
+        if (gNewButtons & 1) {
           PlayMusic(0x37);
           TrunkMenu();
           LoadStartMenuGraphics();
         }
         break;
       case 2:
-        if (gUnk2020DFC & 1) {
-          if (sub_801D3FC() == 1) {
+        if (gNewButtons & 1) {
+          if (IsPlayerDeckNonempty() == 1) {
             PlayMusic(0x37);
             DeckMenuMain();
             LoadStartMenuGraphics();
@@ -402,7 +402,7 @@ static void sub_8005CB8 (void) {
   gBLDY = 8;
   LoadBlendingRegs();
   sub_8008220();
-  while (!(gUnk2020DFC & 0x3FF))
+  while (!(gNewButtons & 0x3FF))
     sub_8008220();
   sub_8008220();
 }

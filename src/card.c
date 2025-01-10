@@ -1020,9 +1020,9 @@ void sub_800ABA8(void);
 void sub_8035038(unsigned short);
 void InitTrunkData(void);
 void InitDeckData(void);
-void sub_80090B8(void);
+void TrunkMenuDefaultSort(void);
 s32 TrunkProcessInput(void);
-void ExecuteTrunkAction(u8);
+void RunTrunkTask(u8);
 void sub_800D904(); //TODO
 void sub_800ABB4(void);
 void sub_800AA58(u8);
@@ -1058,7 +1058,7 @@ void DuelTrunkMenu (void)
     MosaicEffect();
     InitTrunkData();
     InitDeckData();
-    sub_80090B8();
+    TrunkMenuDefaultSort();
     PlayMusic(143);
     sub_800BF28();
 
@@ -1068,25 +1068,25 @@ void DuelTrunkMenu (void)
         switch (TrunkProcessInput())
         {
         case 0x40:
-            ExecuteTrunkAction(3);
+            RunTrunkTask(3);
             sub_800D904(3);
             sub_800ABB4();
             sub_800AA58(4);
             break;
         case 0x140:
-            ExecuteTrunkAction(5);
+            RunTrunkTask(5);
             sub_800D904(3);
             sub_800ABB4();
             sub_800AA58(4);
             break;
         case 0x80:
-            ExecuteTrunkAction(2);
+            RunTrunkTask(2);
             sub_800D904(3);
             sub_800ABB4();
             sub_800AA58(4);
             break;
         case 0x180:
-            ExecuteTrunkAction(4);
+            RunTrunkTask(4);
             sub_800D904(3);
             sub_800ABB4();
             sub_800AA58(4);
@@ -1102,7 +1102,7 @@ void DuelTrunkMenu (void)
             sub_800AA58(7);
             break;
         case 0x200:
-            ExecuteTrunkAction(6);
+            RunTrunkTask(6);
             sub_800D904(4);
             sub_800ABB4();
             sub_800AA58(4);
@@ -1113,7 +1113,7 @@ void DuelTrunkMenu (void)
             sub_800AA58(8);
             break;
         case 4:
-            ExecuteTrunkAction(10);
+            RunTrunkTask(10);
             sub_800D904(7);
             sub_800AA58(9);
             sub_800ABE4();

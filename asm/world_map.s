@@ -453,7 +453,7 @@ sub_8005590: @ 0x08005590
 	movs r0, #0xa
 	b _080055D0
 	.align 2, 0
-_080055A8: .4byte gUnk2020DFC
+_080055A8: .4byte gNewButtons
 _080055AC: .4byte 0x000003FF
 _080055B0: .4byte gUnk_8DF7A28
 _080055B4:
@@ -476,7 +476,7 @@ _080055D0:
 	strb r0, [r1, #2]
 	bx lr
 	.align 2, 0
-_080055D4: .4byte gKeyState
+_080055D4: .4byte gPressedButtons
 
 	THUMB_FUNC_START sub_80055D8
 sub_80055D8: @ 0x080055D8

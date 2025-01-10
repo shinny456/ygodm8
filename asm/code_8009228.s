@@ -626,7 +626,7 @@ _08009D88:
 	bl sub_800A508
 	lsls r0, r0, #0x10
 	lsrs r4, r0, #0x10
-	bl GetDeckCost
+	bl GetPlayerDeckCost
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	movs r1, #0
@@ -654,7 +654,7 @@ _08009DAA:
 	bl sub_800A528
 	lsls r0, r0, #0x10
 	lsrs r4, r0, #0x10
-	bl GetDeckSize
+	bl GetPlayerDeckSize
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #0
@@ -1512,7 +1512,7 @@ sub_800A4B0: @ 0x0800A4B0
 	lsrs r0, r0, #0x18
 	cmp r0, #1
 	bne _0800A4FC
-	bl GetDeckSize
+	bl GetPlayerDeckSize
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #0x28
@@ -1542,7 +1542,7 @@ _0800A500:
 	THUMB_FUNC_START sub_800A508 @decomped
 sub_800A508: @ 0x0800A508
 	push {r4, lr}
-	bl GetDeckCost
+	bl GetPlayerDeckCost
 	adds r4, r0, #0
 	bl GetDeckCapacity
 	cmp r4, r0
@@ -1561,7 +1561,7 @@ _0800A522:
 	THUMB_FUNC_START sub_800A528 @decomped
 sub_800A528: @ 0x0800A528
 	push {lr}
-	bl GetDeckSize
+	bl GetPlayerDeckSize
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #0x27

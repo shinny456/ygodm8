@@ -15,8 +15,8 @@ extern unsigned char g2020DC8;
 extern unsigned char g2020DD0;
 extern unsigned char g2020DCC;
 
-extern u16 gKeyState;
-extern u16 gUnk2020DFC;
+extern u16 gPressedButtons;
+extern u16 gNewButtons;
 
 extern u16 gUnk_8DF79F8[];
 extern unsigned char gUnk_8DF7A18[];
@@ -69,8 +69,8 @@ void WorldMapMain (void) {
   unsigned char r7 = g2020DD0 & 0xF;
   sub_8004F90(r4, r7);
   PlayMusic(3);
-  while (!(gUnk2020DFC & 3)) {
-    if (gKeyState & 0xF0) {
+  while (!(gNewButtons & 3)) {
+    if (gPressedButtons & 0xF0) {
       if (gUnk_8DF7A28->unk0 & 0x60)
         do {
           if (r4)
@@ -163,7 +163,7 @@ _08004EC0:\n\
 	lsrs r4, r0, #0x18\n\
 	b _08004ED6\n\
 	.align 2, 0\n\
-_08004ECC: .4byte gKeyState\n\
+_08004ECC: .4byte gPressedButtons\n\
 _08004ED0: .4byte gUnk_8DF7A28\n\
 _08004ED4:\n\
 	movs r4, #0xc\n\
@@ -247,7 +247,7 @@ _08004F4A:\n\
 	pop {r0}\n\
 	bx r0\n\
 	.align 2, 0\n\
-_08004F88: .4byte gUnk2020DFC\n\
+_08004F88: .4byte gNewButtons\n\
 _08004F8C: .4byte 0x02020DCC");
 }
 

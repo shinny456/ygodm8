@@ -1,6 +1,6 @@
 #include "global.h"
 
-void DeltaDecode (void* ptr2, unsigned size) {
+static void DeltaDecode (void* ptr2, unsigned size) {
   unsigned char r3 = 0;
   unsigned char* ptr = ptr2;
   for (; size; size--) {
@@ -10,7 +10,7 @@ void DeltaDecode (void* ptr2, unsigned size) {
   }
 }
 
-void sub_800DFF0 (unsigned char* arg0, unsigned char arg1, unsigned char arg2) {
+static void sub_800DFF0 (unsigned char* arg0, unsigned char arg1, unsigned char arg2) {
   const unsigned char temp[] = {1, 1, 1, 1, 1, 1, 1, 57};
   const unsigned short temp2[] = {632, 632, 632, 632, 632, 632, 632, 56};
   unsigned i;

@@ -191,7 +191,7 @@ u16 sub_8044B68(void);
 void BMenuMain (void);
 void sub_8044D00 (void);
 
-extern u16 gUnk2020DFC;
+extern u16 gNewButtons;
 
 void sub_80441D0 (void) {
   switch (gDuelCursor.currentY) {
@@ -609,9 +609,9 @@ void sub_8044B2C (void) {
 }
 
 u16 sub_8044B68 (void) {
-  if (gUnk2020DFC & 0x100)
+  if (gNewButtons & 0x100)
     return 0x100;
-  if (gUnk2020DFC & 2)
+  if (gNewButtons & 2)
     return 2;
   return 0;
 }
