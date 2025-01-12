@@ -275,12 +275,12 @@ void HandlePlayerMonsterRowAction (void) {
     case 2:
       if (!gNotSure[0]->unkTwo) {
         PlayMusic(0x37);
-        gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = TRUE;
-        gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = TRUE;
+        gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 1;
+        gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
       }
       else {
         PlayMusic(0x39);
-        gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = FALSE;
+        gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
       }
       sub_8041104();
       sub_8029820();
@@ -294,7 +294,7 @@ void HandlePlayerMonsterRowAction (void) {
       break;
     case 4:
       if (gNotSure[0]->unkTwo)
-        gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = FALSE;
+        gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
       if (!gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp) {
         SetCardInfo(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id);
         if (gCardInfo.monsterEffect == /*MONSTER_EFFECT_NONE*/ 0) {
@@ -303,9 +303,9 @@ void HandlePlayerMonsterRowAction (void) {
           sub_8041104();
         }
         else {
-          gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = FALSE;
-          gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp = TRUE;
-          gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = TRUE;
+          gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
+          gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp = 1;
+          gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
           gMonEffect.id = gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id;
           gMonEffect.row = gDuelCursor.currentY;
           gMonEffect.zone = gDuelCursor.currentX;
@@ -314,7 +314,7 @@ void HandlePlayerMonsterRowAction (void) {
             LockMonsterCardsInRow(4);
           sub_8041104();
           WinConditionExodia();
-          if (IsDuelOver() != TRUE)
+          if (IsDuelOver() != 1)
             sub_8029820();
         }
       }
@@ -324,7 +324,7 @@ void HandlePlayerMonsterRowAction (void) {
     case 5:
       if (gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending)
         if (gNotSure[0]->unkTwo)
-          gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = FALSE;
+          gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
       sub_8041104();
       break;
   }
@@ -335,7 +335,7 @@ void sub_8044570 (void) {
   u8 turn = WhoseTurn();
   if (!GetDuelistStatus(turn) || gNotSure[0]->sorlTurns) {
     PlayMusic(0x39);
-    gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = TRUE;
+    gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
     sub_8041104();
   }
   else if (NumEmptyZonesInRow(gZones[1]) == 5) { // Direct Attack
@@ -344,9 +344,9 @@ void sub_8044570 (void) {
     gTrapEffectData.id = gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id;
     if (sub_80586DC() != 1) {
       PlayMusic(0x37);
-      gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = FALSE;
-      gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp = TRUE;
-      gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = TRUE;
+      gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
+      gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp = 1;
+      gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
       sub_803F8E0(gDuelCursor.currentX);
       HandleDuelAction();
       sub_803F224();
@@ -453,10 +453,10 @@ void sub_8044840 (void) {
     gTrapEffectData.id = gDuelBoard[gDuelCursor.destY][gDuelCursor.destX]->id;
     if (sub_80586DC() != 1) {
       PlayMusic(0x37);
-      gDuelBoard[gDuelCursor.destY][gDuelCursor.destX]->isDefending = FALSE;
-      gDuelBoard[gDuelCursor.destY][gDuelCursor.destX]->isFaceUp = TRUE;
-      gDuelBoard[gDuelCursor.destY][gDuelCursor.destX]->isLocked = TRUE;
-      gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp = TRUE;
+      gDuelBoard[gDuelCursor.destY][gDuelCursor.destX]->isDefending = 0;
+      gDuelBoard[gDuelCursor.destY][gDuelCursor.destX]->isFaceUp = 1;
+      gDuelBoard[gDuelCursor.destY][gDuelCursor.destX]->isLocked = 1;
+      gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp = 1;
       SetDuelActionAttack(gDuelCursor.destX, gDuelCursor.currentX);
       HandleDuelAction();
       sub_803F224();
@@ -609,9 +609,9 @@ void sub_8044B2C (void) {
 }
 
 u16 sub_8044B68 (void) {
-  if (gNewButtons & 0x100)
+  if (gNewButtons & R_BUTTON)
     return 0x100;
-  if (gNewButtons & 2)
+  if (gNewButtons & B_BUTTON)
     return 2;
   return 0;
 }

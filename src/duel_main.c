@@ -867,25 +867,25 @@ void LinkDuelMenu (void) {
 
 static unsigned short ProcessInput (void) {
   sub_802618C();
-  if (gNewButtons & 1)
+  if (gNewButtons & A_BUTTON)
     return 1;
-  if (gNewButtons & 2)
+  if (gNewButtons & B_BUTTON)
     return 2;
-  if (gNewButtons & 4)
+  if (gNewButtons & SELECT_BUTTON)
     return 4;
-  if (gNewButtons & 8)
+  if (gNewButtons & START_BUTTON)
     return 8;
-  if (gRepeatedOrNewButtons & 0x40)
+  if (gRepeatedOrNewButtons & DPAD_UP)
     return 0x40;
-  if (gRepeatedOrNewButtons & 0x80)
+  if (gRepeatedOrNewButtons & DPAD_DOWN)
     return 0x80;
-  if ((gRepeatedOrNewButtons & 0x20) && (gPressedButtons & 0x100))
+  if ((gRepeatedOrNewButtons & DPAD_LEFT) && (gPressedButtons & 0x100))
     return 0x120;
-  if ((gRepeatedOrNewButtons & 0x10) && (gPressedButtons & 0x100))
+  if ((gRepeatedOrNewButtons & DPAD_RIGHT) && (gPressedButtons & 0x100))
     return 0x110;
-  if (gRepeatedOrNewButtons & 0x20)
+  if (gRepeatedOrNewButtons & DPAD_LEFT)
     return 0x20;
-  if (gRepeatedOrNewButtons & 0x10)
+  if (gRepeatedOrNewButtons & DPAD_RIGHT)
     return 0x10;
   return 0;
 }

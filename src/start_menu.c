@@ -67,8 +67,8 @@ void sub_8045718 (void);
 static void StartMenuMain (void) {
   u8 cursorState = 0;
   while (1) {
-    if (gNewButtons & 2) {
-      if (!IsDeckFull()) {
+    if (gNewButtons & B_BUTTON) {
+      if (!IsDeckFull()) { //TODO: rename to IsPlayerDeckFull
         PlayMusic(0x39);
         DisplayIncompleteDeckMessage();
         sub_8005BE0();
@@ -86,31 +86,31 @@ static void StartMenuMain (void) {
       }
     }
     here:
-    if (gNewButtons & 0x40 && cursorState != 0) {
+    if (gNewButtons & DPAD_UP && cursorState != 0) {
       PlayMusic(0x36);
       cursorState--;
     }
-    if (gNewButtons & 0x80 && cursorState < 2) {
+    if (gNewButtons & DPAD_DOWN && cursorState < 2) {
       PlayMusic(0x36);
       cursorState++;
     }
     switch (cursorState) {
       case 0:
-        if (gNewButtons & 1) {
+        if (gNewButtons & A_BUTTON) {
           PlayMusic(0x37);
           StatusMenu();
           sub_8005BE0();
         }
         break;
       case 1:
-        if (gNewButtons & 1) {
+        if (gNewButtons & A_BUTTON) {
           PlayMusic(0x37);
           TrunkMenu();
           LoadStartMenuGraphics();
         }
         break;
       case 2:
-        if (gNewButtons & 1) {
+        if (gNewButtons & A_BUTTON) {
           if (IsPlayerDeckNonempty() == 1) {
             PlayMusic(0x37);
             DeckMenuMain();

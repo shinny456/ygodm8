@@ -175,9 +175,9 @@ int sub_801D368 (void) {
       ret = r2 & gRepeatedOrNewButtons;
     r2 <<= 1;
   }
-  if (gRepeatedOrNewButtons & 0x40 && gPressedButtons & 0x100)
+  if (gRepeatedOrNewButtons & DPAD_UP && gPressedButtons & 0x100)
     ret = 0x140;
-  if (gRepeatedOrNewButtons & 0x80 && gPressedButtons & 0x100)
+  if (gRepeatedOrNewButtons & DPAD_DOWN && gPressedButtons & 0x100)
     ret = 0x180;
   return ret;
 }
@@ -253,7 +253,8 @@ static void sub_801D4B8 (void) {
             break;
           case 1:
             sub_801D600();
-            goto end;
+            r4 = 0;
+            break;
         }
         break;
       case 2:
@@ -265,7 +266,6 @@ static void sub_801D4B8 (void) {
         break;
     }
   }
-  end:
   sub_801D678();
 }
 
@@ -430,7 +430,7 @@ void sub_801D7D0 (void) {
     }
     else if (GetPlayerDeckSize()) {
       PlayMusic(0x39);
-      while (gPressedButtons & 0x40)
+      while (gPressedButtons & DPAD_UP)
         sub_8008220();
     }
   }
@@ -459,7 +459,7 @@ unsigned char TryRemoveCardFromDeck (unsigned short cardId) {
     }
     else if (GetPlayerDeckSize()) {
       PlayMusic(0x39);
-      while (gPressedButtons & 0x40)
+      while (gPressedButtons & DPAD_UP)
         sub_8008220();
     }
   }
@@ -650,7 +650,7 @@ void sub_801DC04 (unsigned char arg0) {
   }
   else {
     PlayMusic(0x39);
-    while (gPressedButtons & 0x80)
+    while (gPressedButtons & DPAD_DOWN)
       sub_8008220();
   }
 }
@@ -665,7 +665,7 @@ void sub_801DC64 (unsigned char arg0) {
   }
   else if (GetPlayerDeckSize()){
     PlayMusic(0x39);
-    while (gPressedButtons & 0x40)
+    while (gPressedButtons & DPAD_UP)
       sub_8008220();
   }
 }

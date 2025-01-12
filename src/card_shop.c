@@ -241,7 +241,7 @@ void CopyAttributeIconPalToBuffer (u8 attribute, void * dest);
 void CopyTypeIconTilesToBuffer (u8 type, void * dest);
 void CopyTypeIconPalToBuffer (u8 type, void * dest);
 extern u8 g2021BE0[];
-extern u64 gMoney;
+extern unsigned long long gMoney;
 
 void CardShopBuyMain (void) {
   u16 cardId;
@@ -327,29 +327,29 @@ void CardShopBuyMain (void) {
 static int ProcessInput (void) {
   u16 ret = 0;
 
-  if (gRepeatedOrNewButtons & 0x20)
+  if (gRepeatedOrNewButtons & DPAD_LEFT)
     ret = 0x20;
-  if (gRepeatedOrNewButtons & 0x10)
+  if (gRepeatedOrNewButtons & DPAD_RIGHT)
     ret = 0x10;
-  if (gRepeatedOrNewButtons & 0x40) {
-    u32 test = gRepeatedOrNewButtons & 0x100;
+  if (gRepeatedOrNewButtons & DPAD_UP) {
+    u32 test = gRepeatedOrNewButtons & R_BUTTON;
     ret = 0x40;
     if (test)
       ret = 0x140;
   }
-  if (gRepeatedOrNewButtons & 0x80) {
-    u32 test = gRepeatedOrNewButtons & 0x100;
+  if (gRepeatedOrNewButtons & DPAD_DOWN) {
+    u32 test = gRepeatedOrNewButtons & R_BUTTON;
     ret = 0x80;
     if (test)
       ret = 0x180;
   }
-  if (gNewButtons & 1)
+  if (gNewButtons & A_BUTTON)
     ret = 1;
-  if (gNewButtons & 2)
+  if (gNewButtons & B_BUTTON)
     ret = 2;
-  if (gNewButtons & 4)
+  if (gNewButtons & SELECT_BUTTON)
     ret = 4;
-  if (gNewButtons & 8)
+  if (gNewButtons & START_BUTTON)
     ret = 8;
 
   return ret;
@@ -758,18 +758,18 @@ static void sub_802CABC (void) {
         sub_802CDCC();
         if (sCardShop.unk726 == 2)
           r4 = 0;
-        if (*sCardShop.unk0[sCardShop.unk723][sCardShop.unk722] != CARD_NONE)
-          break;
-        goto out;
+        if (*sCardShop.unk0[sCardShop.unk723][sCardShop.unk722] == CARD_NONE)
+          r4 = 0;
+        break;
       case 2:
         PlayMusic(0x38);
-        goto out;
+        r4 = 0;
+        break;
       default:
         sub_8008220();
         break;
     }
   }
-  out:
   sub_802FBF4();
   sub_802EA74();
   cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
@@ -782,7 +782,7 @@ static void sub_802CABC (void) {
 
 static void sub_802CBB8 (void) {
   u16 cardId;
-  u64 money;
+  unsigned long long money;
 
   cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
   if (sub_802D274(cardId, 2) == 1) {
@@ -795,7 +795,7 @@ static void sub_802CBB8 (void) {
   else {
     PlayMusic(0x39);
     sub_802E270();
-    while (!(gNewButtons & 3))
+    while (!(gNewButtons & (A_BUTTON | B_BUTTON)))
       sub_8008220();
     PlayMusic(0x38);
     sub_802FC88();
@@ -1199,7 +1199,7 @@ static void sub_802D59C (void) {
 }
 
 static void sub_802D5D4 (void) {
-  u32 r4;
+  unsigned keepProcessing;
 
   sub_802E080();
   sub_802FC14();
@@ -1210,8 +1210,8 @@ static void sub_802D5D4 (void) {
   sub_80081DC(sub_8030690);
   sub_8008220();
   PlayMusic(0x37);
-  r4 = 1;
-  while (r4) {
+  keepProcessing = 1;
+  while (keepProcessing) {
     switch (ProcessInput()) {
       case 0x40:
         sub_802D884();
@@ -1222,19 +1222,19 @@ static void sub_802D5D4 (void) {
       case 1:
         sub_802D8D4();
         if (sCardShop.unk726 == 2)
-          r4 = 0;
-        if (*sCardShop.unk0[sCardShop.unk723][sCardShop.unk722] != CARD_NONE)
-          break;
-        goto out;
+          keepProcessing = 0;
+        if (*sCardShop.unk0[sCardShop.unk723][sCardShop.unk722] == CARD_NONE)
+          keepProcessing = 0;
+        break;
       case 2:
         PlayMusic(0x38);
-        goto out;
+        keepProcessing = 0;
+        break;
       default:
         sub_8008220();
         break;
     }
   }
-  out:
   sub_802FBF4();
   sub_802EA74();
   sub_802FD48(*sCardShop.unk0[sCardShop.unk723][sCardShop.unk722]);
@@ -1251,7 +1251,7 @@ static void sub_802D6D0 (void) {
 
   if (sub_802E1B8(cardId, 1) == 1) {
     if (sub_802D250(cardId, 1) == 1) {
-      u64 temp = g2021AF0.unk0;
+      unsigned long long temp = g2021AF0.unk0;
       if (sub_8027018(temp) == 1) {
         sub_802E154(cardId, 1);
         RemoveMoney(temp);
@@ -1971,10 +1971,10 @@ static void sub_802E4F4 (void) {
 
 static void sub_802E5E4 (void) {
   u32 r8;
-  u64 diff;
+  unsigned long long diff;
   u16* ptr;
   u8 i;
-  u64 cost, money;
+  unsigned long long cost, money;
   money = gMoney;
   cost = g2021AF0.unk0;
 
@@ -2019,8 +2019,8 @@ static void sub_802E5E4 (void) {
 }
 
 static void sub_802E72C (void) {
-  u64 temp = g2021AF0.unk8;
-  u64 temp2;
+  unsigned long long temp = g2021AF0.unk8;
+  unsigned long long temp2;
   u32 r0 = 0;
   u8 i;
   u16* ptr;
@@ -2220,7 +2220,7 @@ static void sub_802ECCC (void) {
 // print money left if player were to buy the currently selected card
 static void sub_802EE34 (void) {
   u32 r8;
-  u64 diff;
+  unsigned long long diff;
   u8 paletteBank;
   u16* ptr = gBgVram.sbb1F[3] + 29;
   u8 i = 0;
@@ -2272,7 +2272,7 @@ static void sub_802EE34 (void) {
 
 static void sub_802EFFC (void) {
   u32 r8 = 0;
-  u64 temp;
+  unsigned long long temp;
   u8 paletteBank;
   u16* ptr = gBgVram.sbb1F[3] + 29;
   u8 i = 0;

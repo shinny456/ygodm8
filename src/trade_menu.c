@@ -231,19 +231,19 @@ void TradeMenuMain (void) {
 }
 
 static u16 sub_8035BF0 (void) {
-  if (gNewButtons & 1)
+  if (gNewButtons & A_BUTTON)
     return 1;
-  if (gNewButtons & 2)
+  if (gNewButtons & B_BUTTON)
     return 2;
-  if (gNewButtons & 0x200)
+  if (gNewButtons & L_BUTTON)
     return 0x200;
-  if (gRepeatedOrNewButtons & 0x10)
+  if (gRepeatedOrNewButtons & DPAD_RIGHT)
     return 0x10;
-  if (gRepeatedOrNewButtons & 0x20)
+  if (gRepeatedOrNewButtons & DPAD_LEFT)
     return 0x20;
-  if (gRepeatedOrNewButtons & 0x40)
+  if (gRepeatedOrNewButtons & DPAD_UP)
     return 0x40;
-  if (gRepeatedOrNewButtons & 0x80)
+  if (gRepeatedOrNewButtons & DPAD_DOWN)
     return 0x80;
   return 0;
 }
@@ -398,7 +398,7 @@ static void sub_8035E14 (void) {
           else {
             PlayMusic(0x39);
             sub_8039D68();
-            while (gPressedButtons & 0x20)
+            while (gPressedButtons & DPAD_LEFT)
               sub_8008220();
           }
         }
@@ -416,7 +416,7 @@ static void sub_8035E14 (void) {
           else {
             PlayMusic(0x39);
             sub_8039F64();
-            while (gPressedButtons & 0x10)
+            while (gPressedButtons & DPAD_RIGHT)
               sub_8008220();
             sub_8038CE0();
           }
@@ -455,12 +455,12 @@ static void sub_8035E14 (void) {
 }
 
 static void sub_8035FC0 (void) {
-  u32 r4;
+  unsigned keepProcessing;
   sub_8036BE8();
   PlayMusic(0x37);
   sub_8039DDC();
-  r4 = 0;
-  while (r4 != 1) {
+  keepProcessing = 0;
+  while (keepProcessing != 1) {
     switch (sub_8036224()) {
       case 0x40:
         sub_8036ECC();
@@ -485,10 +485,10 @@ static void sub_8035FC0 (void) {
       case 1:
         g8E0CE00[g2023E68]();
         if (g2023E68 == 3)
-          r4 = 1;
+          keepProcessing = 1;
         break;
       case 2:
-        r4 = 1;
+        keepProcessing = 1;
         PlayMusic(0x38);
         sub_8008220();
         break;
@@ -592,15 +592,15 @@ static void sub_8036080 (void) {
 
 static u16 sub_8036150 (void) {
   sub_802612C();
-  if (gNewButtons & 1)
+  if (gNewButtons & A_BUTTON)
     return 1;
-  if (gNewButtons & 2)
+  if (gNewButtons & B_BUTTON)
     return 2;
-  if (gNewButtons & 0x200)
+  if (gNewButtons & L_BUTTON)
     return 0x200;
-  if (gNewButtons & 8)
+  if (gNewButtons & START_BUTTON)
     return 8;
-  if (gNewButtons & 4)
+  if (gNewButtons & SELECT_BUTTON)
     return 4;
   if (gUnk2021DCC & 0x40 && gPressedButtons & 0x100)
     return 0x140;
@@ -619,13 +619,13 @@ static u16 sub_8036150 (void) {
 
 static u16 sub_8036224 (void) {
   sub_802618C();
-  if (gNewButtons & 1)
+  if (gNewButtons & A_BUTTON)
     return 1;
-  if (gNewButtons & 2)
+  if (gNewButtons & B_BUTTON)
     return 2;
-  if (gNewButtons & 0x200)
+  if (gNewButtons & L_BUTTON)
     return 0x200;
-  if (gNewButtons & 8)
+  if (gNewButtons & START_BUTTON)
     return 8;
   if (gUnk2021DCC & 0x40)
     return 0x40;
@@ -650,7 +650,7 @@ static void sub_80362C8 (void) {
   if (sub_8036E14(r4) < 2) {
     PlayMusic(0x39);
     sub_8039F64();
-    while (!(gNewButtons & 3))
+    while (!(gNewButtons & (A_BUTTON | B_BUTTON)))
       sub_8008220();
     PlayMusic(0x38);
     sub_8039DDC();
@@ -669,7 +669,7 @@ static void sub_8036338 (void) {
   if (temp < 2) {
     PlayMusic(0x39);
     sub_8039F64();
-    while (!(gNewButtons & 3))
+    while (!(gNewButtons & (A_BUTTON | B_BUTTON)))
       sub_8008220();
     PlayMusic(0x38);
     sub_8039DDC();

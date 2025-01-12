@@ -36,10 +36,10 @@ unsigned sub_805222C (u8, s16, s16);
 u32 sub_8052194 (u16);
 
 enum Direction {
-  DOWN,
-  LEFT,
-  UP,
-  RIGHT
+  DIRECTION_DOWN,
+  DIRECTION_LEFT,
+  DIRECTION_UP,
+  DIRECTION_RIGHT
 };
 
 enum {
@@ -1157,34 +1157,34 @@ _0804E1C0: .4byte 0x08E11790\n\
 _0804E1C4: .4byte 0x081032D2");
 }
 
-static u8 sub_804E1C8 (void) {
-  if (gNewButtons & 1)
+static u8 ProcessInput (void) {
+  if (gNewButtons & A_BUTTON)
     return TALK;
-  if (gNewButtons & 0x100)
+  if (gNewButtons & R_BUTTON)
     return TRY_DUELING;
-  if (gPressedButtons & 2) {
-    if (gPressedButtons & 0x40)
+  if (gPressedButtons & B_BUTTON) {
+    if (gPressedButtons & DPAD_UP)
       return RUN_UP;
-    if (gPressedButtons & 0x80)
+    if (gPressedButtons & DPAD_DOWN)
       return RUN_DOWN;
-    if (gPressedButtons & 0x20)
+    if (gPressedButtons & DPAD_LEFT)
       return RUN_LEFT;
-    if (gPressedButtons & 0x10)
+    if (gPressedButtons & DPAD_RIGHT)
       return RUN_RIGHT;
   }
-  if (gPressedButtons & 0x40)
+  if (gPressedButtons & DPAD_UP)
     return WALK_UP;
-  if (gPressedButtons & 0x80)
+  if (gPressedButtons & DPAD_DOWN)
       return WALK_DOWN;
-  if (gPressedButtons & 0x20)
+  if (gPressedButtons & DPAD_LEFT)
     return WALK_LEFT;
-  if (gPressedButtons & 0x10)
+  if (gPressedButtons & DPAD_RIGHT)
     return WALK_RIGHT;
-  if (gRepeatedOrNewButtons & 4)
+  if (gRepeatedOrNewButtons & SELECT_BUTTON)
     return START_MENU;
-  if (gRepeatedOrNewButtons & 8)
+  if (gRepeatedOrNewButtons & START_BUTTON)
     return START_MENU;
-  if (gRepeatedOrNewButtons & 0x200)
+  if (gRepeatedOrNewButtons & L_BUTTON)
     return START_MENU;
   return UNK0;
 }
@@ -1232,24 +1232,24 @@ static void sub_804E288 (void) {
   u8 r5 = 102;
   while (!(gOverworld.unk240 & (1 | 2))) {
     gOverworld.objects[0].unk18 = 0;
-    switch (sub_804E1C8()) {
+    switch (ProcessInput()) {
       case WALK_UP:
-        TryWalking(UP);
+        TryWalking(DIRECTION_UP);
         sub_804F2F0();
         sub_804EF10();
         break;
       case WALK_DOWN:
-        TryWalking(DOWN);
+        TryWalking(DIRECTION_DOWN);
         sub_804F2F0();
         sub_804EF10();
         break;
       case WALK_LEFT:
-        TryWalking(LEFT);
+        TryWalking(DIRECTION_LEFT);
         sub_804F2F0();
         sub_804EF10();
         break;
       case WALK_RIGHT:
-        TryWalking(RIGHT);
+        TryWalking(DIRECTION_RIGHT);
         sub_804F2F0();
         sub_804EF10();
         break;
@@ -1281,22 +1281,22 @@ static void sub_804E288 (void) {
         sub_804EEE0();
         break;
       case RUN_UP:
-        TryRunning(2);
+        TryRunning(DIRECTION_UP);
         sub_804F2F0();
         sub_804EF10();
         break;
       case RUN_DOWN:
-        TryRunning(0);
+        TryRunning(DIRECTION_DOWN);
         sub_804F2F0();
         sub_804EF10();
         break;
       case RUN_LEFT:
-        TryRunning(1);
+        TryRunning(DIRECTION_LEFT);
         sub_804F2F0();
         sub_804EF10();
         break;
       case RUN_RIGHT:
-        TryRunning(3);
+        TryRunning(DIRECTION_RIGHT);
         sub_804F2F0();
         sub_804EF10();
         break;
@@ -2132,9 +2132,8 @@ void sub_804F2F0 (void) {
     if (gOverworld.objects[i].wander != 1)
       continue;
     if (gOverworld.objects[i].unk1A > 1) {
-      if (gOverworld.objects[i].unk1A % 2 == 0) {
+      if (gOverworld.objects[i].unk1A % 2 == 0)
         sub_804F62C_inline(i, gOverworld.objects[i].direction);
-      }
       gOverworld.objects[i].unk1A--;
     }
     else if (gOverworld.objects[i].unk1A == 1) {

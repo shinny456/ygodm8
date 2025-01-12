@@ -561,19 +561,19 @@ void sub_801F6B0 (void) {
   sub_80081DC(sub_801FB14);
   sub_8008220();
   while (1) {
-    if (gNewButtons & 0x40 && g201CB59 > 1 && g201CB58) {
+    if (gNewButtons & DPAD_UP && g201CB59 > 1 && g201CB58) {
       g201CB58--;
       PlayMusic(0x36);
       sub_800BCB0(g201CB60[g201CB58]);
       LoadCharblock1();
     }
-    if (gNewButtons & 0x80 && g201CB59 > 1 && g201CB59 < g201CB58 - 1) {
+    if (gNewButtons & DPAD_DOWN && g201CB59 > 1 && g201CB59 < g201CB58 - 1) {
       g201CB58++;
       PlayMusic(0x36);
       sub_800BCB0(g201CB60[g201CB58]);
       LoadCharblock1();
     }
-    if (gNewButtons & 2 || gNewButtons & 1)
+    if (gNewButtons & B_BUTTON || gNewButtons & A_BUTTON)
       break;
     sub_8008220();
   }

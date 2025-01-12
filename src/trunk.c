@@ -233,9 +233,9 @@ int TrunkSubmenuProcessInput (void) {
       ret = buttonMask & gRepeatedOrNewButtons;
     buttonMask <<= 1;
   }
-  if (gRepeatedOrNewButtons & 0x40 && gPressedButtons & 0x100)
+  if (gRepeatedOrNewButtons & DPAD_UP && gPressedButtons & 0x100)
     ret = 0x140;
-  if (gRepeatedOrNewButtons & 0x80 && gPressedButtons & 0x100)
+  if (gRepeatedOrNewButtons & DPAD_DOWN && gPressedButtons & 0x100)
     ret = 0x180;
   return ret;
 }
@@ -670,7 +670,7 @@ static void TryAddSelectedCardToDeck (void) {
     isCardRejected = 1;
   if (isCardRejected == 1) {
     PlayMusic(57);
-    while (gPressedButtons & 0x10)
+    while (gPressedButtons & DPAD_RIGHT)
       sub_8008220();
   }
   else {
@@ -687,7 +687,7 @@ void sub_8008EA8 (void) {
     removalFailed = 1;
   if (removalFailed == 1) {
     PlayMusic(57);
-    while (gPressedButtons & 0x20)
+    while (gPressedButtons & DPAD_LEFT)
       sub_8008220();
   }
   else {

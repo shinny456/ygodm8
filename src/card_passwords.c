@@ -1011,7 +1011,7 @@ static void sub_8055F48 (void)
     u8 i;
 
     for (i = 0; i < 8; i++)
-        sPasswordData.digits[i] = 0;
+      sPasswordData.digits[i] = 0;
 }
 
 static void sub_08055F64(u16 cardId) {
@@ -1126,32 +1126,33 @@ _08056096:\n\
 _0805609C: .4byte 0x02024588");
 }
 
+// all functions below unused?
 static u32 sub_80560A0 (void) {
-  u32 ret, r6 = 0;
-  while (!r6) {
+  unsigned ret, stopProcessing = 0;
+  while (!stopProcessing) {
     switch (gPressedButtons) {
-      case 0x40:
+      case DPAD_UP:
         sPasswordData.digits[g2024590] = 255;
         sPasswordData.digits[g2024590]++;
         break;
-      case 0x80:
+      case DPAD_DOWN:
         sPasswordData.digits[g2024590] = 10;
         sPasswordData.digits[g2024590]--;
         break;
-      case 0x20:
+      case DPAD_LEFT:
         if (g2024590)
           g2024590--;
         break;
-      case 0x10:
+      case DPAD_RIGHT:
         if (g2024590 != 7)
           g2024590++;
         break;
-      case 1:
-        r6 = 1;
+      case A_BUTTON:
+        stopProcessing = 1;
         ret = 1;
         break;
-      case 2:
-        r6 = 1;
+      case B_BUTTON:
+        stopProcessing = 1;
         ret = 0;
         break;
     }

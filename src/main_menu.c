@@ -139,9 +139,9 @@ void GameMenuMain (void) {
 
 static unsigned short ProcessInput (void) {
   sub_802618C();
-  if (gNewButtons & 1)
+  if (gNewButtons & A_BUTTON)
     return 1;
-  if (gNewButtons & 2)
+  if (gNewButtons & B_BUTTON)
     return 2;
   if (gUnk2021DCC & 0x40)
     return 0x40;

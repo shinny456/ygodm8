@@ -53,35 +53,35 @@ void BMenuMain (void) {
   u8 r4 = 0;
   InitBMenu(0);
   while (1) {
-    if (gRepeatedOrNewButtons & 0x40) {
+    if (gRepeatedOrNewButtons & DPAD_UP) {
       PlayMusic(0x36);
       r4 = g8E0D81A[r4];
       sub_80428EC(r4);
       sub_8008220();
       sub_8041014();
     }
-    else if (gRepeatedOrNewButtons & 0x80) {
+    else if (gRepeatedOrNewButtons & DPAD_DOWN) {
       PlayMusic(0x36);
       r4 = g8E0D81D[r4];
       sub_80428EC(r4);
       sub_8008220();
       sub_8041014();
     }
-    else if (gRepeatedOrNewButtons & 0x10) {
+    else if (gRepeatedOrNewButtons & DPAD_RIGHT) {
       PlayMusic(0x36);
       r4 = g8E0D820[r4];
       sub_80428EC(r4);
       sub_8008220();
       sub_8041014();
     }
-    else if (gRepeatedOrNewButtons & 0x20) {
+    else if (gRepeatedOrNewButtons & DPAD_LEFT) {
       PlayMusic(0x36);
       r4 = g8E0D823[r4];
       sub_80428EC(r4);
       sub_8008220();
       sub_8041014();
     }
-    else if (gNewButtons & 1) {
+    else if (gNewButtons & A_BUTTON) {
       switch (r4) {
         case 0:
           if (CanPlayerSeeCard(gDuelCursor.currentY, gDuelCursor.currentX) == 1
@@ -122,7 +122,7 @@ void BMenuMain (void) {
       }
       break;
     }
-    else if (gNewButtons & 2) {
+    else if (gNewButtons & B_BUTTON) {
       PlayMusic(0x38);
       break;
     }
@@ -947,19 +947,19 @@ unsigned sub_80429A4 (void) {
   sub_8042ADC(0);
   while (1) {
     while (1) {
-      if (gRepeatedOrNewButtons & 0x40) {
+      if (gRepeatedOrNewButtons & DPAD_UP) {
         PlayMusic(0x36);
         r4 = g8E0D922[r4];
       }
-      else if (gRepeatedOrNewButtons & 0x80) {
+      else if (gRepeatedOrNewButtons & DPAD_DOWN) {
         PlayMusic(0x36);
         r4 = g8E0D926[r4];
       }
-      else if (gRepeatedOrNewButtons & 0x20) {
+      else if (gRepeatedOrNewButtons & DPAD_LEFT) {
         PlayMusic(0x36);
         r4 = g8E0D92E[r4];
       }
-      else if (gRepeatedOrNewButtons & 0x10) {
+      else if (gRepeatedOrNewButtons & DPAD_RIGHT) {
         PlayMusic(0x36);
         r4 = g8E0D92A[r4];
       }
@@ -969,7 +969,7 @@ unsigned sub_80429A4 (void) {
       sub_8008220();
       sub_8041014();
     }
-    if (gNewButtons & 1) {
+    if (gNewButtons & A_BUTTON) {
       switch (r4) {
         case 0:
           return 1;
@@ -981,7 +981,7 @@ unsigned sub_80429A4 (void) {
           return 4;
       }
     }
-    if (gNewButtons & 2) {
+    if (gNewButtons & B_BUTTON) {
       PlayMusic(0x38);
       return 5;
     }

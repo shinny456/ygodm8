@@ -75,7 +75,7 @@ void NamingScreenMain (void) {
   sub_80075B0();
 
   while (1) {
-    if (gNewButtons & 8) {
+    if (gNewButtons & START_BUTTON) {
       if (gUnk_8DF8114->unk32 != 5) {
         PlayMusic(0x36);
         gUnk_8DF8114->unk32 = 5;
@@ -90,7 +90,7 @@ void NamingScreenMain (void) {
         PlayMusic(0x39);
       gUnk_8DF8114->unk16A = 0;
     }
-    if (gNewButtons & 1 && gUnk_8DF8114->unk32 == 5) {
+    if (gNewButtons & A_BUTTON && gUnk_8DF8114->unk32 == 5) {
       if (gUnk_8DF8114->unkE[0] != 0x4081) {
         PlayMusic(0x37);
         gUnk_8DF8114->unk9 = 1;
@@ -100,13 +100,13 @@ void NamingScreenMain (void) {
       else
         PlayMusic(0x39);
     }
-    if (gRepeatedOrNewButtons & 0x100) {
+    if (gRepeatedOrNewButtons & R_BUTTON) {
       if (gUnk_8DF8114->unk2 < 8) {
         PlayMusic(0x36);
         gUnk_8DF8114->unk2++;
       }
     }
-    else if (gRepeatedOrNewButtons & 0x200 && gUnk_8DF8114->unk2) {
+    else if (gRepeatedOrNewButtons & L_BUTTON && gUnk_8DF8114->unk2) {
       PlayMusic(0x36);
       gUnk_8DF8114->unk2--;
     }
@@ -116,14 +116,14 @@ void NamingScreenMain (void) {
         sub_80064F4();
         break;
       case 1:
-        if (gNewButtons & 1) {
+        if (gNewButtons & A_BUTTON) {
           if (gUnk_8DF8114->unk32 != 5)
             PlayMusic(0x37);
           gUnk_8DF8114->unk0 = 0;
           gUnk_8DF8114->unk1 = 0;
           gUnk_8DF8114->unk3 = 0;
         }
-        if (gNewButtons & 2) {
+        if (gNewButtons & B_BUTTON) {
           if (gUnk_8DF8114->unk32 == 5) {
             PlayMusic(0x38);
             gUnk_8DF8114->unk32 = 3;
@@ -140,12 +140,12 @@ void NamingScreenMain (void) {
             gUnk_8DF8114->unk3 = 0;
           }
         }
-        if (gRepeatedOrNewButtons & 0x20) {
+        if (gRepeatedOrNewButtons & DPAD_LEFT) {
           gUnk_8DF8114->unk3 = 0;
           gUnk_8DF8114->unk0 = 10;
           gUnk_8DF8114->unk32 = 3;
         }
-        else if (gRepeatedOrNewButtons & 0x10) {
+        else if (gRepeatedOrNewButtons & DPAD_RIGHT) {
           gUnk_8DF8114->unk3 = 0;
           gUnk_8DF8114->unk0 = 0;
           gUnk_8DF8114->unk32 = 3;
@@ -852,7 +852,7 @@ _080064F0: .4byte gUnk_8DF8114");
 
 /*
 static void sub_80064F4 (void) {
-  if (gRepeatedOrNewButtons & 0x40) {
+  if (gRepeatedOrNewButtons & DPAD_UP) {
     PlayMusic(0x36);
     if (gUnk_8DF8114->unk1 == 7)
       gUnk_8DF8114->unk1 = 6;
@@ -861,7 +861,7 @@ static void sub_80064F4 (void) {
     else if (!gUnk_8DF8114->unk16A && gUnk_8DF8114->unk16A + 154 >= strlen(g8DF8030[gUnk_8DF8114->unk32]) / 2)
       gUnk_8DF8114->unk1 = 6;
   }
-  if (gRepeatedOrNewButtons & 0x80) {
+  if (gRepeatedOrNewButtons & DPAD_DOWN) {
     PlayMusic(0x36);
     if (gUnk_8DF8114->unk1 == -1)
       gUnk_8DF8114->unk1 = 0;
@@ -870,7 +870,7 @@ static void sub_80064F4 (void) {
     else if (!gUnk_8DF8114->unk16A && gUnk_8DF8114->unk16A + 154 >= strlen(g8DF8030[gUnk_8DF8114->unk32]) / 2)
       gUnk_8DF8114->unk1 = 0;
   }
-  if (gRepeatedOrNewButtons & 0x20) {
+  if (gRepeatedOrNewButtons & DPAD_LEFT) {
     PlayMusic(0x36);
     if (gUnk_8DF8114->unk0 > 0) {
       if (gUnk_8DF8114->unk32 < 3 && gUnk_8DF8114->unk0 == 6)
@@ -884,7 +884,7 @@ static void sub_80064F4 (void) {
       gUnk_8DF8114->unk32 = 5;
     }
   }
-  if (gRepeatedOrNewButtons & 0x10) {
+  if (gRepeatedOrNewButtons & DPAD_RIGHT) {
     PlayMusic(0x36);
     if (gUnk_8DF8114->unk0 < 10) {
       if (gUnk_8DF8114->unk32 < 3 && gUnk_8DF8114->unk0 == 4)
@@ -1249,13 +1249,13 @@ _0800675C:\n\
 static void sub_8006764 (void) {
   if (strlen(g8DF8030[gUnk_8DF8114->unk32]) <= 154 * 2)
     return;
-  if (gRepeatedOrNewButtons & 0x40 && !gUnk_8DF8114->unk1) {
+  if (gRepeatedOrNewButtons & DPAD_UP && !gUnk_8DF8114->unk1) {
     if (gUnk_8DF8114->unk16A > 11)
       gUnk_8DF8114->unk16A -= 11;
     else
       gUnk_8DF8114->unk16A = 0;
   }
-  if (gRepeatedOrNewButtons & 0x80 && gUnk_8DF8114->unk1 == 6) {
+  if (gRepeatedOrNewButtons & DPAD_DOWN && gUnk_8DF8114->unk1 == 6) {
     if (gUnk_8DF8114->unk16A + 165 < strlen(g8DF8030[gUnk_8DF8114->unk32]) / 2)
       gUnk_8DF8114->unk16A += 11;
     else

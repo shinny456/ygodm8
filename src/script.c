@@ -472,8 +472,9 @@ inline void sub_8053388 (struct ScriptCtx *script) {
     script->unk8 = 1;
 }
 
+//waiting for player to press A, B, or R to close text box.
 static void sub_8052F60 (struct ScriptCtx *script) {
-  if (gNewButtons & 259) {
+  if (gNewButtons & (A_BUTTON | B_BUTTON | R_BUTTON)) {
     PlayMusic(202);
     script->pointer++;
     sub_8053388(script);
@@ -501,9 +502,9 @@ static void sub_8052F60 (struct ScriptCtx *script) {
   }
 }
 
+//waiting for player to press A, B, or R to close text box.
 static void sub_8053040 (struct ScriptCtx *script) {
-  int temp = gNewButtons & 259;
-  if (temp) {
+  if (gNewButtons & (A_BUTTON | B_BUTTON | R_BUTTON)) {
     PlayMusic(55);
     script->pointer += 2;
     sub_8053388(script);
@@ -512,11 +513,11 @@ static void sub_8053040 (struct ScriptCtx *script) {
     LZ77UnCompWram(g82AD2D0, gBgVram.sbb1B);
     return;
   }
-  if (gNewButtons & 96 && script->unk1E == 1) {
+  if (gNewButtons & (DPAD_LEFT | DPAD_UP) && script->unk1E == 1) {
     PlayMusic(54);
-    script->unk1E = temp;
+    script->unk1E = 0;
   }
-  if (gNewButtons & 144 && !script->unk1E) {
+  if (gNewButtons & (DPAD_RIGHT | DPAD_DOWN) && !script->unk1E) {
     PlayMusic(54);
     script->unk1E = 1;
   }

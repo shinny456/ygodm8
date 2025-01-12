@@ -361,8 +361,9 @@ void sub_8041284 (struct Test8041240* arg0) {
   }
 }
 
-void sub_80415B8 (struct Test8041240* arg0) { //waiting for player to press A, B, or R to close text box.
-  if (gNewButtons & 0x103) {
+//waiting for player to press A, B, or R to close text box.
+void sub_80415B8 (struct Test8041240* arg0) {
+  if (gNewButtons & (A_BUTTON | B_BUTTON | R_BUTTON)) {
     PlayMusic(0xCA);
     arg0->unk0++;
     arg0->unk4 = 0;

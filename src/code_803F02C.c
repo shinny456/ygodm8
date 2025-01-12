@@ -1208,25 +1208,25 @@ extern u16 gRepeatedOrNewButtons;
 extern u16 gNewButtons;
 
 static unsigned char ProcessInput (void) {
-  if (gRepeatedOrNewButtons & 0x40)
+  if (gRepeatedOrNewButtons & DPAD_UP)
     return 1;
-  if (gRepeatedOrNewButtons & 0x80)
+  if (gRepeatedOrNewButtons & DPAD_DOWN)
     return 2;
-  if (gRepeatedOrNewButtons & 0x20)
+  if (gRepeatedOrNewButtons & DPAD_LEFT)
     return 3;
-  if (gRepeatedOrNewButtons & 0x10)
+  if (gRepeatedOrNewButtons & DPAD_RIGHT)
     return 4;
   if (gNewButtons & A_BUTTON)
     return 5;
-  if (gNewButtons & 0x200)
+  if (gNewButtons & L_BUTTON)
     return 6;
-  if (gNewButtons & 0x100)
+  if (gNewButtons & R_BUTTON)
     return 7;
   if (gNewButtons & B_BUTTON)
     return 8;
-  if (gRepeatedOrNewButtons & 8)
+  if (gRepeatedOrNewButtons & START_BUTTON)
     return 0;
-  if (gRepeatedOrNewButtons & 4)
+  if (gRepeatedOrNewButtons & SELECT_BUTTON)
     return 0;
   return 0;
 }
