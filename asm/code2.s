@@ -1146,7 +1146,7 @@ sub_80204BC: @ 0x080204BC
 	strh r5, [r0]
 	bl sub_80201FC
 	bl sub_8020404
-	bl sub_8008220
+	bl WaitForVBlank
 	add sp, #8
 	pop {r4, r5}
 	pop {r0}

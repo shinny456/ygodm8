@@ -32,7 +32,7 @@ inline void sub_8041B38 (void);
 inline void sub_8041BE8 (struct Test8041240*);
 void sub_8041104 (void);
 void sub_8057808 (void);
-void sub_8008220 (void);
+void WaitForVBlank (void);
 void sub_8040FDC (void);
 void sub_804078C (void);
 u32 CanPlayerSeeCard (u8 y, u8 x);
@@ -117,13 +117,13 @@ void sub_8041D78 (u8 arg0) {
   while (gBG2VOFS > g8E0D5A6[arg0] + 256) {
     gBG2VOFS -= 256;
     sub_8057808();
-    sub_8008220();
+    WaitForVBlank();
     sub_8040FDC();
   }
   gBG2VOFS = g8E0D5A6[arg0];
   sub_8057808();
   sub_804078C();
-  sub_8008220();
+  WaitForVBlank();
   sub_8040FDC();
 }
 
@@ -131,13 +131,13 @@ void sub_8041DF0 (u8 arg0) {
   while (gBG2VOFS < g8E0D5A6[arg0] - 256) {
     gBG2VOFS += 256;
     sub_8057808();
-    sub_8008220();
+    WaitForVBlank();
     sub_8040FDC();
   }
   gBG2VOFS = g8E0D5A6[arg0];
   sub_8057808();
   sub_804078C();
-  sub_8008220();
+  WaitForVBlank();
   sub_8040FDC();
 }
 
@@ -150,7 +150,7 @@ void sub_8041E70 (u8 arg0, u8 arg1) {
   switch (g8E0D588[arg0][arg1]) {
     case 0:
       sub_804078C();
-      sub_8008220();
+      WaitForVBlank();
       sub_8040FDC();
       break;
     case 1:

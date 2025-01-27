@@ -1156,7 +1156,7 @@ static u32 sub_80560A0 (void) {
         ret = 0;
         break;
     }
-    sub_8008220();
+    WaitForVBlank();
   }
   return ret;
 }

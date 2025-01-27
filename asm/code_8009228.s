@@ -234,7 +234,7 @@ _080099F0:
 	cmp r7, #4
 	bls _080099C8
 	ldr r0, _08009A90
-	bl sub_8057418
+	bl CopyMiniCardPalette
 	add sp, #8
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -1782,8 +1782,8 @@ SortingMenuMain: @ 0x0800A6D0
 	movs r0, #0x37
 	bl PlayMusic
 	ldr r0, _0800A714
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	movs r4, #1
 _0800A6F6:
 	bl TrunkSubmenuProcessInput
@@ -1839,7 +1839,7 @@ _0800A752:
 	movs r4, #0
 	b _0800A760
 _0800A75C:
-	bl sub_8008220
+	bl WaitForVBlank
 _0800A760:
 	cmp r4, #1
 	beq _0800A6F6
@@ -1878,8 +1878,8 @@ _0800A7A6:
 	movs r0, #0x36
 	bl PlayMusic
 	ldr r0, _0800A7C4
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadCharblock2
 	pop {r0}
 	bx r0
@@ -1913,8 +1913,8 @@ _0800A7F6:
 	movs r0, #0x36
 	bl PlayMusic
 	ldr r0, _0800A814
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadCharblock2
 	pop {r0}
 	bx r0
@@ -1948,8 +1948,8 @@ _0800A846:
 	movs r0, #0x36
 	bl PlayMusic
 	ldr r0, _0800A864
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadCharblock2
 	pop {r0}
 	bx r0
@@ -1983,8 +1983,8 @@ _0800A896:
 	movs r0, #0x36
 	bl PlayMusic
 	ldr r0, _0800A8B4
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadCharblock2
 	pop {r0}
 	bx r0
@@ -2213,57 +2213,57 @@ _0800AA74: @ jump table
 	.4byte _0800AAF8 @ case 8
 _0800AA98:
 	ldr r0, _0800AAA0
-	bl sub_80081DC
+	bl SetVBlankCallback
 	b _0800AAFE
 	.align 2, 0
 _0800AAA0: .4byte sub_800A978
 _0800AAA4:
 	ldr r0, _0800AAAC
-	bl sub_80081DC
+	bl SetVBlankCallback
 	b _0800AAFE
 	.align 2, 0
 _0800AAAC: .4byte sub_800AB0C
 _0800AAB0:
 	ldr r0, _0800AAB8
-	bl sub_80081DC
+	bl SetVBlankCallback
 	b _0800AAFE
 	.align 2, 0
 _0800AAB8: .4byte sub_800AB10
 _0800AABC:
 	ldr r0, _0800AAC4
-	bl sub_80081DC
+	bl SetVBlankCallback
 	b _0800AAFE
 	.align 2, 0
 _0800AAC4: .4byte sub_800AB2C
 _0800AAC8:
 	ldr r0, _0800AAD0
-	bl sub_80081DC
+	bl SetVBlankCallback
 	b _0800AAFE
 	.align 2, 0
 _0800AAD0: .4byte sub_800AB30
 _0800AAD4:
 	ldr r0, _0800AADC
-	bl sub_80081DC
+	bl SetVBlankCallback
 	b _0800AAFE
 	.align 2, 0
 _0800AADC: .4byte sub_800AB34
 _0800AAE0:
 	ldr r0, _0800AAE8
-	bl sub_80081DC
+	bl SetVBlankCallback
 	b _0800AAFE
 	.align 2, 0
 _0800AAE8: .4byte sub_800AB38
 _0800AAEC:
 	ldr r0, _0800AAF4
-	bl sub_80081DC
+	bl SetVBlankCallback
 	b _0800AAFE
 	.align 2, 0
 _0800AAF4: .4byte sub_800AB74
 _0800AAF8:
 	ldr r0, _0800AB08
-	bl sub_80081DC
+	bl SetVBlankCallback
 _0800AAFE:
-	bl sub_8008220
+	bl WaitForVBlank
 	pop {r0}
 	bx r0
 	.align 2, 0

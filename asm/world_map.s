@@ -631,7 +631,7 @@ sub_80056F8: @ 0x080056F8
 	strh r0, [r1]
 	movs r4, #0
 _0800570C:
-	bl sub_8008220
+	bl WaitForVBlank
 	adds r0, r4, #1
 	lsls r0, r0, #0x10
 	lsrs r4, r0, #0x10
@@ -661,14 +661,14 @@ _08005740:
 	bl LoadBlendingRegs
 	adds r5, r6, #0
 _0800574C:
-	bl sub_8008220
+	bl WaitForVBlank
 	ldrh r0, [r4]
 	cmp r0, #0xf
 	bls _0800572A
 _08005756:
 	movs r4, #0
 _08005758:
-	bl sub_8008220
+	bl WaitForVBlank
 	adds r0, r4, #1
 	lsls r0, r0, #0x10
 	lsrs r4, r0, #0x10

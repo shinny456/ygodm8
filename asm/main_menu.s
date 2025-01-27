@@ -415,8 +415,8 @@ _08024E9E:
 	cmp r4, ip
 	bls _08024E20
 	ldr r0, _08024EC8
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	lsls r0, r5, #0x10
 	lsrs r0, r0, #0x10
 	cmp r0, #0xf
@@ -456,8 +456,8 @@ sub_8024ECC: @ 0x08024ECC
 	bl LoadBgOffsets
 	bl LoadBlendingRegs
 	ldr r0, _08024F34
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	ldr r1, _08024F38
 	ldr r2, _08024F3C
 	adds r0, r2, #0
@@ -485,8 +485,8 @@ sub_8024F40: @ 0x08024F40
 	adds r0, r4, #0
 	bl sub_8025424
 	ldr r0, _08024F68
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadBlendingRegs
 	pop {r4}
 	pop {r0}
@@ -506,8 +506,8 @@ sub_8024F6C: @ 0x08024F6C
 	adds r0, r2, #0
 	strh r0, [r1]
 	ldr r0, _08024FB0
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadBlendingRegs
 	movs r2, #0x80
 	lsls r2, r2, #0x13
@@ -538,8 +538,8 @@ sub_8024FB8: @ 0x08024FB8
 	adds r0, r2, #0
 	strh r0, [r1]
 	ldr r0, _08024FFC
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadBlendingRegs
 	movs r2, #0x80
 	lsls r2, r2, #0x13
@@ -569,8 +569,8 @@ sub_8025000: @ 0x08025000
 	adds r0, r2, #0
 	strh r0, [r1]
 	ldr r0, _08025044
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadBlendingRegs
 	movs r2, #0x80
 	lsls r2, r2, #0x13
@@ -610,8 +610,8 @@ sub_8025048: @ 0x08025048
 	adds r0, r6, #0
 	bl sub_8025424
 	ldr r0, _080250A0
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadBlendingRegs
 	movs r2, #0x80
 	lsls r2, r2, #0x13
@@ -658,8 +658,8 @@ sub_8025108: @ 0x08025108
 	adds r0, r6, #0
 	bl sub_8025424
 	ldr r0, _08025160
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadBlendingRegs
 	movs r2, #0x80
 	lsls r2, r2, #0x13

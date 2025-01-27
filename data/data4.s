@@ -6997,7 +6997,16 @@ gUnk_893B282:
     .global gUnk_893B290
 gUnk_893B290:
     .incbin "baserom.gba", 0x93B290, 0x109CCC
-
+//93B290 = facedown card tiles
+//93B690 = mini-card border (normal monster?)
+//93DE90 = start of lz compressed (-search 8) mini-card tiles (24x24 pixels 3x3 tiles)
+//9A77DC = card lock tile (E symbol)
+//9A781C = mini-card palette (is used by facedown, attribute icons, and other little icons placed on top of cards)
+//9A7C1E = start of mini attribute icons
+//
+    //end of rodata?
+    
+    
     .global gUnk_8A44F5C
 gUnk_8A44F5C:
     .incbin "baserom.gba", 0xA44F5C, 0x40

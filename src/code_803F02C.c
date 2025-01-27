@@ -1,9 +1,5 @@
 #include "global.h"
-#include "duel.h"
-#include "card.h"
-#include "gba/syscall.h"
-#include "gba/io_reg.h"
-#include "gba/macro.h"
+
 
 static void sub_0803F330 (void);
 static void sub_803F334 (void);
@@ -724,7 +720,6 @@ static unsigned char sub_803FCA8 (void) {
 
 
 // new file?
-#include "constants/card_ids.h"
 extern s8 gE0CFDC[];
 extern s8 gE0CFF4[];
 extern s8 g80DF790[];
@@ -1287,7 +1282,7 @@ void PlayerTurnMain (void) {
         break;
       case 6:
         sub_8042F04();
-        sub_8008220();
+        WaitForVBlank();
         sub_8041014();
         break;
       case 7:
@@ -1296,7 +1291,7 @@ void PlayerTurnMain (void) {
         break;
       case 8:
         HandleBButtonAction();
-        sub_8008220();
+        WaitForVBlank();
         break;
       case 9:
         DeclareLoser(0);
@@ -1305,7 +1300,7 @@ void PlayerTurnMain (void) {
         DeclareLoser(1);
         break;
       default:
-        sub_8008220();
+        WaitForVBlank();
         break;
     }
   }

@@ -802,5 +802,7 @@
 #define BEAST_OF_TALWAR                             0x031E
 #define CYBER_TECH_ALLIGATOR                        0x031F
 #define TALONS_OF_SHURILANE                         0x0320
+#define NUM_CARDS                                   0x0321
+#define NUM_TRUE_CARDS                              (NUM_CARDS - 1)
 
 #endif // GUARD_CONSTANTS_CARD_IDS_H

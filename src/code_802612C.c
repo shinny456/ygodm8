@@ -6,7 +6,7 @@ extern u16 gUnk2021DCC;
 extern u8 gUnk2021DC8;
 
 void sub_802612C (void) {
-  if (gNewButtons & 0x3FF) {
+  if (gNewButtons & KEYS_MASK) {
     gUnk2021DCC = gNewButtons;
     gUnk2021DC8 = 20;
   }
@@ -21,7 +21,7 @@ void sub_802612C (void) {
 }
 
 void sub_802618C (void) {
-  if (gNewButtons & 0x3FF) {
+  if (gNewButtons & KEYS_MASK) {
     gUnk2021DCC = gNewButtons;
     gUnk2021DC8 = 20;
   }

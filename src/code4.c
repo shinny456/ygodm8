@@ -1206,7 +1206,7 @@ static inline void sub_804ED08_inline (void) {
   if (CheckFlag(0xEF)) // completely black
     sub_8045284(g02000000.bg, 0x10, 0xFF);
   REG_BLDY = 7;
-  sub_8008220();
+  WaitForVBlank();
   sub_804EC4C();
   REG_WINOUT = 0x3D3F;
   sub_804F508();
@@ -1223,7 +1223,7 @@ static inline void sub_804EFA8_inline (void) {
   SetBg0Data();
   sub_804EE6C();
   REG_BLDY = 7;
-  sub_8008220();
+  WaitForVBlank();
   sub_804EC4C();
   sub_804F508();
 }
@@ -1896,7 +1896,7 @@ void sub_804ED08 (void) {
   if (CheckFlag(0xEF)) // completely black
     sub_8045284(g02000000.bg, 0x10, 0xFF);
   REG_BLDY = 7;
-  sub_8008220();
+  WaitForVBlank();
   sub_804EC4C();
   REG_WINOUT = 0x3D3F;
   sub_804F508();
@@ -1949,8 +1949,8 @@ void sub_804EEAC (struct OamData* arg0, u16 arg1) {
 void sub_804EEE0 (void) {
   sub_804E618();
   sub_804EBE4();
-  sub_80081DC(sub_804F1E4);
-  sub_8008220();
+  SetVBlankCallback(sub_804F1E4);
+  WaitForVBlank();
   CpuFastCopy(gBgVram.cbb4, (void*)0x6010000, 0x4000);
 }
 
@@ -1965,8 +1965,8 @@ void sub_804EF10 (void) {
   sub_80551B8();
   sub_804E618();
   sub_804EBE4();
-  sub_80081DC(sub_804F1E4);
-  sub_8008220();
+  SetVBlankCallback(sub_804F1E4);
+  WaitForVBlank();
   CpuFastCopy(gBgVram.cbb4, (void*)0x6010000, 0x4000);
 }
 
@@ -1993,7 +1993,7 @@ void sub_804EFA8 (void) {
   SetBg0Data();
   sub_804EE6C();
   REG_BLDY = 7;
-  sub_8008220();
+  WaitForVBlank();
   sub_804EC4C();
   sub_804F508();
 }
@@ -2069,7 +2069,7 @@ void sub_804F1E4 (void) {
 }
 
 void sub_804F1F4 (void) {
-  sub_8008220();
+  WaitForVBlank();
   CpuFastCopy(gBgVram.cbb4, (void*)0x06010000, 0x2000);
   LoadPalettes();
 }
@@ -2078,8 +2078,8 @@ void sub_804F218 (void) {
   sub_804E618();
   sub_804EBE4();
   sub_80551B8();
-  sub_80081DC(LoadBgOffsets);
-  sub_8008220();
+  SetVBlankCallback(LoadBgOffsets);
+  WaitForVBlank();
   LoadOam();
   CpuCopy32(gBgVram.sbb1B, (void*)0x0600D800, 0xE20);
 }
@@ -2088,8 +2088,8 @@ void sub_804F254 (void) {
   sub_804E618();
   sub_804EBE4();
   sub_80551B8();
-  sub_80081DC(LoadBgOffsets);
-  sub_8008220();
+  SetVBlankCallback(LoadBgOffsets);
+  WaitForVBlank();
   LoadOam();
   CpuFastCopy(gBgVram.cbb4, (void*)0x06010000, 0x2000);
 }
@@ -2100,8 +2100,8 @@ void sub_804F28C (void) {
   for (i = 0; i < 15; i++)
     sub_804E918(&oam[67 + i], gOverworld.unk21C[i]);
   sub_80551B8();
-  sub_80081DC(LoadBgOffsets);
-  sub_8008220();
+  SetVBlankCallback(LoadBgOffsets);
+  WaitForVBlank();
   LoadCharblock5();
   LoadOam();
 }

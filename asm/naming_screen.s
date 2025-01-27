@@ -1248,7 +1248,7 @@ sub_80072A8: @ 0x080072A8
 	bl LoadOam
 	movs r4, #0
 _080072DA:
-	bl sub_8008220
+	bl WaitForVBlank
 	adds r0, r4, #1
 	lsls r0, r0, #0x10
 	lsrs r4, r0, #0x10
@@ -1289,7 +1289,7 @@ _0800732C:
 	bl LoadBlendingRegs
 	mov r5, r8
 _08007336:
-	bl sub_8008220
+	bl WaitForVBlank
 	adds r0, r4, #1
 	lsls r0, r0, #0x10
 	lsrs r4, r0, #0x10

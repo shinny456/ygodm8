@@ -70,8 +70,8 @@ void NamingScreenMain (void) {
   LZ77UnCompWram(gUnk_807F2F0, gBgVram.cbb0 + 0x10000);
   sub_8020DB8((u32*)(gBgVram.cbb0 + 0x8020), (u8*)gUnk_8DF8114->unkE, 0x901);
   sub_800683C();
-  sub_80081DC(sub_80074CC);
-  sub_8008220();
+  SetVBlankCallback(sub_80074CC);
+  WaitForVBlank();
   sub_80075B0();
 
   while (1) {
@@ -178,7 +178,7 @@ void NamingScreenMain (void) {
         break;
     }
     LoadOam();
-    sub_8008220();
+    WaitForVBlank();
   }
 }
 

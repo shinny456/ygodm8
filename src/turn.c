@@ -1,5 +1,4 @@
 #include "global.h"
-#include "duel.h"
 
 //TODO: NUM_DUELISTS as array size?
 static const unsigned char gUnk_8E1178C[] = {

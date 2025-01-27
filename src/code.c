@@ -88,8 +88,8 @@ extern const u16 gUnk_8AABD04[][30];
 extern const u16 gUnk_8AADBF4[][30];
 extern const u16 gUnk_8AAC010[][30];
 extern const u16 gUnk_8AAC394[][30];
-extern const u8 gUnk_8A96358[];
-extern const u8 gUnk_8A98358[];
+extern const u16 gUnk_8A96358[];
+extern const u16 gUnk_8A98358[];
 extern const u16 gUnk_8AA6758[];
 extern u16 (*gUnk_8FA3ADC[])[30];
 extern u16 (*gUnk_8FA3B10[])[30];
@@ -146,10 +146,10 @@ extern u16 gUnk_8A4542E[][45];
 extern u16 gUnk_8063FC0[][30];
 extern u16 gUnk_8A4A430[];
 extern u16 gUnk_8064038[];
-extern const u8 gUnk_8A4A490[];
-extern const u8 gUnk_8A4E490[];
-extern const u8 gUnk_8A50490[];
-extern const u8 gUnk_8AA4358[];
+extern const u16 gUnk_8A4A490[];
+extern const u16 gUnk_8A4E490[];
+extern const u16 gUnk_8A50490[];
+extern const u16 gUnk_8AA4358[];
 extern u16 gUnk_8A52490[];
 
 
@@ -399,7 +399,7 @@ void CreditsMain (void) {
         gCreditsData->state = 0;
         break;
     }
-    sub_8008220();
+    WaitForVBlank();
     gCreditsData->frameCounter++;
   }
 }
@@ -422,8 +422,8 @@ static void sub_8000724 (void) {
     CpuCopy16(gCreditsTilemaps[0][i], &gBgVram.sbb1F[g8063FA0[0][0] + i], 62);
   LoadBgVRAM();
   LoadPalettes();
-  sub_80081DC(sub_8000810);
-  sub_8008220();
+  SetVBlankCallback(sub_8000810);
+  WaitForVBlank();
 }
 
 static void sub_8000810 (void) {
@@ -616,8 +616,8 @@ static void ReshefVisionMain (void) {
     LoadBlendingRegs();
     sub_80082E8();
     g8DF7590->unk80++;
-    sub_80081DC(LoadAffineRegs);
-    sub_8008220();
+    SetVBlankCallback(LoadAffineRegs);
+    WaitForVBlank();
   }
 }
 
@@ -674,13 +674,13 @@ static void sub_8000D74 (void) {
   CpuCopy16(gUnk_8A4A430, g02000000.bg, 96);
   CpuCopy16(gUnk_8064038, g02000000.bg + 0xF0, 32);
   sub_8001788();
-  sub_80081DC(sub_80019C4);
+  SetVBlankCallback(sub_80019C4);
   sub_8001068();
   LoadOam();
   LoadVRAM();
   LoadPalettes();
   LoadAffineRegs();
-  sub_8008220();
+  WaitForVBlank();
 }
 
 //unused?
@@ -1463,7 +1463,7 @@ static void sub_8001AD8 (void) {
     if (g8DF7594->unk1FE == 1)
       break;
     g8DF7594->unk1FC++;
-    sub_8008220();
+    WaitForVBlank();
   }
 }
 
@@ -1492,7 +1492,7 @@ static void sub_8001B88 (void) {
     if (g8DF7594->unk1FE == 1)
       break;
     g8DF7594->unk1FC++;
-    sub_8008220();
+    WaitForVBlank();
   }
 }
 
@@ -1521,7 +1521,7 @@ static void sub_8001BFC (void) {
     if (g8DF7594->unk1FE == 1)
       break;
     g8DF7594->unk1FC++;
-    sub_8008220();
+    WaitForVBlank();
   }
 }
 
@@ -1550,7 +1550,7 @@ static void sub_8001C70 (void) {
     if (g8DF7594->unk1FE == 1)
       break;
     g8DF7594->unk1FC++;
-    sub_8008220();
+    WaitForVBlank();
   }
 }
 
@@ -1579,7 +1579,7 @@ static void sub_8001CE4 (void) {
     if (g8DF7594->unk1FE == 1)
       break;
     g8DF7594->unk1FC++;
-    sub_8008220();
+    WaitForVBlank();
   }
 }
 
@@ -1609,7 +1609,7 @@ static void sub_8001D58 (void) {
     if (g8DF7594->unk1FE == 1)
       break;
     g8DF7594->unk1FC++;
-    sub_8008220();
+    WaitForVBlank();
   }
 }
 
@@ -1644,7 +1644,7 @@ static void sub_8001DD4 (void) {
     if (g8DF7594->unk1FE == 1)
       break;
     g8DF7594->unk1FC++;
-    sub_8008220();
+    WaitForVBlank();
   }
 }
 
@@ -2309,11 +2309,11 @@ static void sub_8002E98 (void) {
   for (ii = 0; ii < 13; ii++)
     DmaCopy16(3, gUnk_8AA90F4[ii], &gBgVram.cbb0[0xF800 + (ii + 2) * 64], 60);
 
-  sub_80081DC(sub_80048F8);
+  SetVBlankCallback(sub_80048F8);
   LoadVRAM();
   CpuCopy16(gUnk_8AA6358, g02000000.bg, 512);
   LoadPalettes();
-  sub_8008220();
+  WaitForVBlank();
 }
 
 static void sub_8003020 (void) {
@@ -2358,7 +2358,7 @@ static void sub_8003020 (void) {
     DmaCopy16(3, gUnk_8AAB9F8[ii], &gBgVram.cbb0[0xA000 + (ii + 2) * 64], 60);
   for (ii = 0; ii < 13; ii++)
     DmaCopy16(3, gUnk_8AABD04[ii], &gBgVram.cbb0[0xA800 + (ii + 2) * 64], 60);
-  sub_80081DC(sub_8004A18);
+  SetVBlankCallback(sub_8004A18);
   sub_8003D10();
   sub_8004D34();
   sub_80043D0();
@@ -2372,7 +2372,7 @@ static void sub_8003020 (void) {
     g8DF7594->unk96[ii] = (g02000000.bg[0x30 + ii] & (0x1F << 5)) >> 5;
     g8DF7594->unkF6[ii] = (g02000000.bg[0x30 + ii] & (0x1F << 10)) >> 10;
   }
-  sub_8008220();
+  WaitForVBlank();
 }
 
 static void sub_8003268 (void) {
@@ -2413,7 +2413,7 @@ static void sub_8003268 (void) {
   for (ii = 0; ii < 20; ii++)
     DmaCopy16(3, gUnk_8AADBF4[ii], &gBgVram.cbb0[0xF800 + ii * 64], 60);
 
-  sub_80081DC(sub_8004B44);
+  SetVBlankCallback(sub_8004B44);
   LoadVRAM();
   CpuCopy16(gUnk_8AA6358, g02000000.bg, 512);
 
@@ -2423,7 +2423,7 @@ static void sub_8003268 (void) {
     g8DF7594->unkF6[ii + 0x20] = (g02000000.bg[0x90 + ii] & (0x1F << 10)) >> 10;
   }
   LoadPalettes();
-  sub_8008220();
+  WaitForVBlank();
 }
 
 static void sub_8003444 (void) {
@@ -2451,7 +2451,7 @@ static void sub_8003444 (void) {
   for (ii = 0; ii < 13; ii++)
     DmaCopy16(3, gUnk_8AAC394[ii], &gBgVram.cbb0[0xF800 + (ii + 2) * 64], 60);
 
-  sub_80081DC(sub_8004C30);
+  SetVBlankCallback(sub_8004C30);
   g8DF7594->unk18A = 96;
   sub_8003CA8();
   sub_8004E54();
@@ -2459,7 +2459,7 @@ static void sub_8003444 (void) {
   LoadVRAM();
   CpuCopy16(gUnk_8AA6558, g02000000.bg, 512);
   LoadPalettes();
-  sub_8008220();
+  WaitForVBlank();
 }
 
 static void sub_8003560 (void) {
@@ -2500,7 +2500,7 @@ static void sub_8003560 (void) {
   for (ii = 0; ii < 20; ii++)
     DmaCopy16(3, gUnk_8AADBF4[ii], &gBgVram.cbb0[0xF800 + ii * 64], 60);
 
-  sub_80081DC(sub_8004B44);
+  SetVBlankCallback(sub_8004B44);
   LoadVRAM();
   CpuCopy16(gUnk_8AA6358, g02000000.bg, 512);
 
@@ -2510,7 +2510,7 @@ static void sub_8003560 (void) {
     g8DF7594->unkF6[ii + 0x20] = (g02000000.bg[0xA0 + ii] & (0x1F << 10)) >> 10;
   }
   LoadPalettes();
-  sub_8008220();
+  WaitForVBlank();
 }
 
 static void sub_800373C (void) {
@@ -2561,7 +2561,7 @@ static void sub_80037B4 (void) {
       g8DF7594->unk4--;
       break;
   }
-  sub_8008220();
+  WaitForVBlank();
 }
 
 static void sub_8003820 (void) {

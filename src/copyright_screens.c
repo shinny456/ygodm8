@@ -45,16 +45,16 @@ extern u16 gE04610[];
 void CopyrightScreensMain (void) {
   u8 i;
   sub_8026A94();
-  sub_80081DC(sub_8026D74);
-  sub_8008220();
+  SetVBlankCallback(sub_8026D74);
+  WaitForVBlank();
   for (i = 0; i < 120; i++)
-    sub_8008220();
+    WaitForVBlank();
   sub_8026D04();
-  sub_80081DC(sub_8026E44);
+  SetVBlankCallback(sub_8026E44);
   REG_BLDCNT = 0x3FFF;
   g201EE61 = 16; //blend value
   g201EE60 = 0; //blend timer
-  sub_8008220();
+  WaitForVBlank();
   while (g201EE61) {
     if (++g201EE60 > 3) {
       if (g201EE61 != 0)
@@ -62,10 +62,10 @@ void CopyrightScreensMain (void) {
       g201EE60 = 0;
     }
     REG_BLDY = g201EE61;
-    sub_8008220();
+    WaitForVBlank();
   }
   for (i = 0; i < 120; i++)
-    sub_8008220();
+    WaitForVBlank();
   g201EE61 = 0;
   g201EE60 = 0;
   while (g201EE61 < 16) {
@@ -75,14 +75,14 @@ void CopyrightScreensMain (void) {
       g201EE60 = 0;
     }
     REG_BLDY = g201EE61;
-    sub_8008220();
+    WaitForVBlank();
   }
   sub_8026D20();
-  sub_80081DC(sub_8026E94);
+  SetVBlankCallback(sub_8026E94);
   REG_BLDCNT = 0x3FFF;
   g201EE61 = 16;
   g201EE60 = 0;
-  sub_8008220();
+  WaitForVBlank();
   while (g201EE61) {
     if (++g201EE60 > 3) {
       if (g201EE61 != 0)
@@ -90,10 +90,10 @@ void CopyrightScreensMain (void) {
       g201EE60 = 0;
     }
     REG_BLDY = g201EE61;
-    sub_8008220();
+    WaitForVBlank();
   }
   for (i = 0; i < 120; i++)
-    sub_8008220();
+    WaitForVBlank();
   g201EE61 = 0;
   g201EE60 = 0;
   while (g201EE61 < 16) {
@@ -103,7 +103,7 @@ void CopyrightScreensMain (void) {
       g201EE60 = 0;
     }
     REG_BLDY = g201EE61;
-    sub_8008220();
+    WaitForVBlank();
   }
   REG_BLDCNT = 0x3FFF;
   g201EE61 = 16;
@@ -113,8 +113,8 @@ void CopyrightScreensMain (void) {
 
 static void sub_8026A94 (void) {
   sub_08026BA4();
-  sub_80081DC(sub_8026D58);
-  sub_8008220();
+  SetVBlankCallback(sub_8026D58);
+  WaitForVBlank();
   sub_8026C2C();
   sub_8026BA8();
   sub_8026BE8();

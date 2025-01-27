@@ -1,7 +1,4 @@
 #include "global.h"
-#include "duel.h"
-#include "card.h"
-#include "constants/card_ids.h"
 
 // name this file duel_util.c?
 
@@ -565,7 +562,7 @@ _08043B2C:\n\
 	ldr r0, _08043BB8\n\
 	ldr r2, _08043BAC\n\
 	bl sub_8020968\n\
-	bl sub_8008220\n\
+	bl WaitForVBlank\n\
 	bl sub_8041014\n\
 	ldr r0, _08043BBC\n\
 	ldrh r1, [r0]\n\
@@ -607,7 +604,7 @@ _08043B88:\n\
 	ands r0, r1\n\
 	cmp r0, #0\n\
 	beq _08043AAC\n\
-	bl sub_8008220\n\
+	bl WaitForVBlank\n\
 	pop {r3}\n\
 	mov r8, r3\n\
 	pop {r4, r5, r6, r7}\n\

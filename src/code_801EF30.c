@@ -163,8 +163,8 @@ void sub_801F120 (void) {
   sub_801F320();
   LoadCharblock1();
   PlayMusic(0x37);
-  sub_80081DC(sub_801F390);
-  sub_8008220();
+  SetVBlankCallback(sub_801F390);
+  WaitForVBlank();
   keepProcessing = 1;
   while (keepProcessing == 1) {
     switch (sub_801D368()) {
@@ -190,7 +190,7 @@ void sub_801F120 (void) {
         keepProcessing = 0;
         break;
       default:
-        sub_8008220();
+        WaitForVBlank();
         break;
     }
   }
@@ -205,8 +205,8 @@ void sub_801F1C0 (void) {
     sub_801EED8(gPlayerDeck.sortingMethod);
   sub_801F320();
   PlayMusic(0x36);
-  sub_80081DC(LoadOam);
-  sub_8008220();
+  SetVBlankCallback(LoadOam);
+  WaitForVBlank();
   LoadCharblock2();
 }
 
@@ -218,8 +218,8 @@ void sub_801F210 (void) {
     sub_801EED8(gPlayerDeck.sortingMethod);
   sub_801F320();
   PlayMusic(0x36);
-  sub_80081DC(LoadOam);
-  sub_8008220();
+  SetVBlankCallback(LoadOam);
+  WaitForVBlank();
   LoadCharblock2();
 }
 
@@ -231,8 +231,8 @@ void sub_801F260 (void) {
     sub_801EED8(gPlayerDeck.sortingMethod);
   sub_801F320();
   PlayMusic(0x36);
-  sub_80081DC(LoadOam);
-  sub_8008220();
+  SetVBlankCallback(LoadOam);
+  WaitForVBlank();
   LoadCharblock2();
 }
 
@@ -244,8 +244,8 @@ void sub_801F2B0 (void) {
     sub_801EED8(gPlayerDeck.sortingMethod);
   sub_801F320();
   PlayMusic(0x36);
-  sub_80081DC(LoadOam);
-  sub_8008220();
+  SetVBlankCallback(LoadOam);
+  WaitForVBlank();
   LoadCharblock2();
 }
 
@@ -294,7 +294,7 @@ void sub_801F3C0 (void) {
   REG_BLDALPHA = 0x10;
   REG_BLDY = 4;
   REG_BG0CNT = 0xF04;
-  REG_BG1CNT = 0x1F0D;
+  REG_BG1CNT = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(3) | BGCNT_16COLOR | BGCNT_SCREENBASE(31);
   REG_BG2CNT = 0x170A;
   REG_BG3CNT = 0x703;
   gBG0VOFS = 0;
@@ -313,35 +313,35 @@ void sub_801F4A0 (u8 arg0) {
     case 0:
       break;
     case 1:
-      sub_80081DC(sub_801F3C0);
+      SetVBlankCallback(sub_801F3C0);
       break;
     case 2:
-      sub_80081DC(sub_801F554);
+      SetVBlankCallback(sub_801F554);
       break;
     case 3:
-      sub_80081DC(sub_801F558);
+      SetVBlankCallback(sub_801F558);
       break;
     case 4:
-      sub_80081DC(sub_801F574);
+      SetVBlankCallback(sub_801F574);
       break;
     case 6:
-      sub_80081DC(sub_801F578);
+      SetVBlankCallback(sub_801F578);
       break;
     case 5:
-      sub_80081DC(sub_801F57C);
+      SetVBlankCallback(sub_801F57C);
       break;
     case 7:
-      sub_80081DC(sub_801F580);
+      SetVBlankCallback(sub_801F580);
       break;
     case 8:
-      sub_80081DC(sub_801F5AC);
+      SetVBlankCallback(sub_801F5AC);
       break;
     case 9:
-      sub_80081DC(sub_801F5BC);
+      SetVBlankCallback(sub_801F5BC);
       break;
 
   }
-  sub_8008220();
+  WaitForVBlank();
 }
 
 void sub_801F554 (void) {
@@ -368,8 +368,8 @@ void sub_801F57C (void) {
 
 void sub_801F580 (void) {
   sub_801F658();
-  REG_DISPCNT |= 0x4000;
-  REG_DISPCNT &= 0xFEFF;
+  REG_DISPCNT |= DISPCNT_WIN1_ON;
+  REG_DISPCNT &= ~DISPCNT_BG0_ON;
   LoadOam();
 }
 
@@ -382,12 +382,11 @@ void sub_801F5BC (void) {
   LoadOam();
   LoadPalettes();
   sub_801F658();
-  REG_DISPCNT |= 0x4000;
-  REG_DISPCNT &= 0xFEFF;
+  REG_DISPCNT |= DISPCNT_WIN1_ON;
+  REG_DISPCNT &= ~DISPCNT_BG0_ON;
 }
 
 void sub_0801F5EC (void) {
-
 }
 
 void sub_801F5F0 (void) {
@@ -409,7 +408,6 @@ void sub_801F614 (void) {
 }
 
 void sub_0801F62C (void) {
-
 }
 
 void sub_801F630 (void) {
@@ -555,11 +553,11 @@ void sub_801F6B0 (void) {
   sub_801FB2C();
   sub_800B618(g201CB60[g201CB58]);
   sub_801FA84();
-  sub_80081DC(sub_801FADC);
-  sub_8008220();
+  SetVBlankCallback(sub_801FADC);
+  WaitForVBlank();
   sub_801FB38();
-  sub_80081DC(sub_801FB14);
-  sub_8008220();
+  SetVBlankCallback(sub_801FB14);
+  WaitForVBlank();
   while (1) {
     if (gNewButtons & DPAD_UP && g201CB59 > 1 && g201CB58) {
       g201CB58--;
@@ -575,7 +573,7 @@ void sub_801F6B0 (void) {
     }
     if (gNewButtons & B_BUTTON || gNewButtons & A_BUTTON)
       break;
-    sub_8008220();
+    WaitForVBlank();
   }
   PlayMusic(0x38);
   sub_801FB2C();
@@ -959,12 +957,12 @@ _0801F97C:\n\
 	bl sub_800B618\n\
 	bl sub_801FA84\n\
 	ldr r0, _0801FA5C\n\
-	bl sub_80081DC\n\
-	bl sub_8008220\n\
+	bl SetVBlankCallback\n\
+	bl WaitForVBlank\n\
 	bl sub_801FB38\n\
 	ldr r0, _0801FA60\n\
-	bl sub_80081DC\n\
-	bl sub_8008220\n\
+	bl SetVBlankCallback\n\
+	bl WaitForVBlank\n\
 	ldr r5, _0801FA64\n\
 _0801F9B8:\n\
 	ldrh r1, [r5]\n\
@@ -1033,7 +1031,7 @@ _0801FA32:\n\
 	ands r0, r1\n\
 	cmp r0, #0\n\
 	bne _0801FA68\n\
-	bl sub_8008220\n\
+	bl WaitForVBlank\n\
 	b _0801F9B8\n\
 	.align 2, 0\n\
 _0801FA4C: .4byte 0x00000901\n\

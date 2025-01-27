@@ -36,7 +36,7 @@ void sub_8041104(void);
 u32 AdjustBackgroundBeforeTurnStart(unsigned char);
 void sub_8057808(void);
 void sub_804078C(void);
-void sub_8008220(void);
+void WaitForVBlank(void);
 void sub_8040FDC(void);
 
 void sub_8040524(unsigned char);
@@ -55,7 +55,7 @@ void sub_8043E14(unsigned char, u16);
 void ShuffleDuelDeck(unsigned char);
 void InitBoard(void);
 void sub_8041090();
-void sub_80081DC(void (*)(void));
+void SetVBlankCallback(void (*)(void));
 void LoadPalettes(void);
 void HandleOutcome(void);
 
@@ -84,7 +84,7 @@ void DuelMain (void) {
       AdjustBackgroundBeforeTurnStart(1);
     sub_8057808();
     sub_804078C();
-    sub_8008220();
+    WaitForVBlank();
     sub_8040FDC();
     ResetDuelTextData(&duelText);
     if (turn == DUEL_PLAYER) {
@@ -166,8 +166,8 @@ static void FadeToBlack (void) {
       if (pltt->g) pltt->g--;
       if (pltt->b) pltt->b--;
     }
-    sub_80081DC(LoadPalettes);
-    sub_8008220();
+    SetVBlankCallback(LoadPalettes);
+    WaitForVBlank();
   }
 }
 
@@ -239,8 +239,8 @@ void MosaicEffect (void) {
   for (i = 0; i < 128; i++)
     gOamBuffer[i * 2] |= 0x1000; //oam buffer nested structs?
 
-  sub_80081DC(sub_8021C98);
-  sub_8008220();
+  SetVBlankCallback(sub_8021C98);
+  WaitForVBlank();
 
   for (i = 0; i < 32; i++) {
     for (j = 0; j < 512; j++) {
@@ -252,8 +252,8 @@ void MosaicEffect (void) {
       if (pltt->b)
         pltt->b--;
     }
-    sub_80081DC(sub_8021CD0);
-    sub_8008220();
+    SetVBlankCallback(sub_8021CD0);
+    WaitForVBlank();
     nullsub_8021CDC();
     mos = (i >> 1);
     REG_MOSAIC = (mos & 0xF) << 8 | (mos & 0xF);
@@ -665,8 +665,8 @@ static void sub_8022340 (void) {  //fade to black after Link duel
       if (pltt->b)
         pltt->b--;
     }
-    sub_80081DC(LoadPalettes);
-    sub_8008220();
+    SetVBlankCallback(LoadPalettes);
+    WaitForVBlank();
   }
 }
 
@@ -918,7 +918,7 @@ static void sub_80226D8 (void) {
       sub_8023BC8();
       break;
     default:
-      sub_8008220();
+      WaitForVBlank();
       break;
   }
 }
@@ -932,7 +932,7 @@ static void sub_8022764 (void) {
     sub_8023A14();
   }
   else
-    sub_8008220();
+    WaitForVBlank();
 }
 
 static void sub_8022794 (void) {
@@ -944,7 +944,7 @@ static void sub_8022794 (void) {
     sub_8023A14();
   }
   else
-    sub_8008220();
+    WaitForVBlank();
 }
 
 static void sub_80227C4 (void) {
@@ -956,7 +956,7 @@ static void sub_80227C4 (void) {
     sub_8023A14();
   }
   else
-    sub_8008220();
+    WaitForVBlank();
 }
 
 static void sub_80227F4 (void) {
@@ -968,7 +968,7 @@ static void sub_80227F4 (void) {
     sub_8023A14();
   }
   else
-    sub_8008220();
+    WaitForVBlank();
 }
 
 static void sub_8022824 (void) {
@@ -980,7 +980,7 @@ static void sub_8022824 (void) {
     sub_8023A14();
   }
   else
-    sub_8008220();
+    WaitForVBlank();
 }
 
 static void sub_8022858 (void) {
@@ -992,7 +992,7 @@ static void sub_8022858 (void) {
     sub_8023A14();
   }
   else
-    sub_8008220();
+    WaitForVBlank();
 }
 
 static void sub_802288C (void) {
@@ -1011,7 +1011,7 @@ static void sub_802288C (void) {
       sub_8023A44();
       break;
     default:
-      sub_8008220();
+      WaitForVBlank();
   }
 }
 
@@ -1044,7 +1044,7 @@ static void sub_80228CC (void) {
       sub_8023A14();
       break;
     default:
-      sub_8008220();
+      WaitForVBlank();
   }
 }
 
@@ -1068,7 +1068,7 @@ static void sub_802293C (void) {
       sub_8023A44();
       break;
     default:
-      sub_8008220();
+      WaitForVBlank();
   }
 }
 
@@ -1080,7 +1080,7 @@ static void sub_8022990 (void) {
     sub_8023A14();
   }
   else
-    sub_8008220();
+    WaitForVBlank();
 }
 
 struct Unk8f {

@@ -375,7 +375,7 @@ _08007792:
 	adds r2, r5, #0
 	bl CopyStringTilesToVRAMBuffer
 	ldr r0, _08007994
-	bl sub_80081DC
+	bl SetVBlankCallback
 	bl sub_80079C4
 	bl sub_8007AB8
 	bl sub_8007BB0
@@ -383,8 +383,8 @@ _08007792:
 	bl LoadCharblock3
 	bl LoadPalettes
 	ldr r0, _08007998
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	ldr r4, _0800799C
 	movs r5, #2
 	b _080079A4
@@ -425,7 +425,7 @@ _08007994: .4byte sub_8007EA8
 _08007998: .4byte sub_8007DE4
 _0800799C: .4byte gNewButtons
 _080079A0:
-	bl sub_8008220
+	bl WaitForVBlank
 _080079A4:
 	ldrh r1, [r4]
 	adds r0, r5, #0

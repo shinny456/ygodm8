@@ -85,8 +85,6 @@ enum {
 };
 
 #define TRUNK_CARD_LIMIT 250
-#define TRUNK_SIZE 801
-//^TODO: change to NUM_CARDS
 #define DECK_SIZE 40
 //^TODO: change to MAX_DECK_SIZE, DECK_MAX_SIZE, or _COUNT? (or MIN? in vanilla it has to be exactly 40)
 struct UnkStruct_2020E10
@@ -96,7 +94,7 @@ struct UnkStruct_2020E10
     u8 unk3;    //show: nothing, atk/def, attribute(summon), cost,
     u8 cursorState;
     u8 filler5[7];
-    u16 unkC[TRUNK_SIZE - 1]; //sortedCards
+    u16 unkC[NUM_TRUE_CARDS]; //sortedCards
 };
 
 extern struct UnkStruct_2020E10 gTrunkData; //todo: rename to gTrunkMenuData?
@@ -133,6 +131,29 @@ extern const unsigned short gCardDefs[];
 #define FALSE 0
 
 #define ARRAY_COUNT(array) (size_t)(sizeof(array) / sizeof((array)[0]))
+#define NUM_BUTTONS 10
+
+#define NEW_A_BUTTON A_BUTTON     
+#define NEW_B_BUTTON B_BUTTON     
+#define NEW_SELECT_BUTTON SELECT_BUTTON
+#define NEW_START_BUTTON START_BUTTON 
+#define NEW_DPAD_RIGHT DPAD_RIGHT   
+#define NEW_DPAD_LEFT DPAD_LEFT    
+#define NEW_DPAD_UP DPAD_UP      
+#define NEW_DPAD_DOWN DPAD_DOWN    
+#define NEW_R_BUTTON R_BUTTON     
+#define NEW_L_BUTTON L_BUTTON  
+
+#define REPEAT_A_BUTTON A_BUTTON     
+#define REPEAT_B_BUTTON B_BUTTON     
+#define REPEAT_SELECT_BUTTON SELECT_BUTTON
+#define REPEAT_START_BUTTON START_BUTTON 
+#define REPEAT_DPAD_RIGHT DPAD_RIGHT   
+#define REPEAT_DPAD_LEFT DPAD_LEFT    
+#define REPEAT_DPAD_UP DPAD_UP      
+#define REPEAT_DPAD_DOWN DPAD_DOWN    
+#define REPEAT_R_BUTTON R_BUTTON     
+#define REPEAT_L_BUTTON L_BUTTON     
 
 
 

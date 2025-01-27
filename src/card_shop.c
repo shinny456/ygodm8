@@ -1,13 +1,16 @@
 #include "global.h"
 
+#define SHOP_BOARD_NUM_ROWS 5 
+#define SHOP_BOARD_NUM_COLS 7
+
 struct {
-  u16* unk0[5][7];
-  u16 unk8C[5][7];
-  u16 unkD2[806];
+  unsigned short* unk0[SHOP_BOARD_NUM_ROWS][SHOP_BOARD_NUM_COLS];
+  unsigned short unk8C[SHOP_BOARD_NUM_ROWS][SHOP_BOARD_NUM_COLS];
+  unsigned short unkD2[806]; //805 is divisible by 35 (7x5 which are the slot dimensions of the card shop board)
   s16 unk71E;
   s16 unk720;
-  s8 unk722;
-  s8 unk723;
+  s8 cursorColumn;
+  s8 cursorRow;
   u8 unk724;
   u8 unk725;
   u8 unk726;
@@ -15,7 +18,7 @@ struct {
 
 static int ProcessInput (void);
 static void sub_802C14C (void);
-static void sub_802C1D4 (void);
+static void FadeToBlack (void);
 static void sub_802C2A0 (void);
 static void sub_802C318 (void);
 static void sub_802C390 (void);
@@ -109,8 +112,8 @@ static void sub_802FDC0 (void);
 static void sub_802FE00 (void);
 static void sub_802FE68 (void);
 static void sub_802FE84 (int);
-static void sub_802FF14 (u8*, u16);
-static void sub_802FF4C (u8*, u16);
+static void CopyAttributeIconTile (u8*, u16);
+static void CopyNumTributesTile (u8*, u16);
 static void sub_802FF78 (u8*, u16);
 static void sub_802FFF0 (u8*, u16);
 static void sub_8030068 (void);
@@ -232,7 +235,7 @@ extern u8 g8DF811C[];
 void sub_8008BF8 (void * dest);
 int GetDeckCardQty (u16);
 void sub_800BD34 (void);
-void sub_8057418 (u16*);
+void CopyMiniCardPalette (u16*);
 extern void* g8E1168C[];
 void sub_805742C (void*, u16);
 void sub_8034A38 (void);
@@ -244,13 +247,11 @@ extern u8 g2021BE0[];
 extern unsigned long long gMoney;
 
 void CardShopBuyMain (void) {
-  u16 cardId;
-  u32 temp;
-
-  sub_802C1D4();
+  unsigned short cardId;
+  unsigned keepProcessing;
+  FadeToBlack();
   sub_802DC0C();
-
-  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -261,108 +262,104 @@ void CardShopBuyMain (void) {
   sub_8030090();
   sub_802F9E8();
   sub_8030068();
-  sub_80081DC(sub_803060C);
-  sub_8008220();
+  SetVBlankCallback(sub_803060C);
+  WaitForVBlank();
   sub_802FBF4();
-  sub_80081DC(sub_8030654);
-  sub_8008220();
+  SetVBlankCallback(sub_8030654);
+  WaitForVBlank();
   sub_8030760();
-  temp = 1;
-
-  while (temp) {
-    switch ((u16)ProcessInput()) {
-      case 0x40:
+  keepProcessing = 1;
+  while (keepProcessing) {
+    switch ((unsigned short)ProcessInput()) {
+      case REPEAT_DPAD_UP:
         sub_802C2A0();
         PlayMusic(0x36);
         break;
-      case 0x80:
+      case REPEAT_DPAD_DOWN:
         sub_802C318();
         PlayMusic(0x36);
         break;
-      case 0x20:
+      case REPEAT_DPAD_LEFT:
         sub_802C390();
         PlayMusic(0x36);
         break;
-      case 0x10:
+      case REPEAT_DPAD_RIGHT:
         sub_802C408();
         PlayMusic(0x36);
         break;
-      case 0x140:
+      case REPEAT_DPAD_UP | REPEAT_R_BUTTON:
         sub_802C480();
         PlayMusic(0x36);
         break;
-      case 0x180:
+      case REPEAT_DPAD_DOWN | REPEAT_R_BUTTON:
         sub_802C4F8();
         PlayMusic(0x36);
         break;
-      case 1:
+      case NEW_A_BUTTON:
         if (!IsSelectedCardUnbuyable())
           sub_802D5D4();
         else {
           PlayMusic(0x39);
-          sub_8008220();
+          WaitForVBlank();
         }
         break;
-      case 2:
-        temp = 0;
+      case NEW_B_BUTTON:
+        keepProcessing = 0;
         PlayMusic(0x38);
-        sub_8008220();
+        WaitForVBlank();
         break;
-      case 8:
+      case NEW_START_BUTTON:
         sub_803030C();
         break;
-      case 4:
+      case NEW_SELECT_BUTTON:
         sub_802C14C();
         PlayMusic(0x37);
         break;
       default:
-        sub_8008220();
+        WaitForVBlank();
         break;
     }
   }
   sub_802DD98();
-  sub_802C1D4();
+  FadeToBlack();
 }
 
 static int ProcessInput (void) {
-  u16 ret = 0;
-
+  unsigned short buttons = 0;
   if (gRepeatedOrNewButtons & DPAD_LEFT)
-    ret = 0x20;
+    buttons = REPEAT_DPAD_LEFT;
   if (gRepeatedOrNewButtons & DPAD_RIGHT)
-    ret = 0x10;
+    buttons = REPEAT_DPAD_RIGHT;
   if (gRepeatedOrNewButtons & DPAD_UP) {
-    u32 test = gRepeatedOrNewButtons & R_BUTTON;
-    ret = 0x40;
-    if (test)
-      ret = 0x140;
+    unsigned rButtonPressed = gRepeatedOrNewButtons & R_BUTTON;
+    buttons = REPEAT_DPAD_UP;
+    if (rButtonPressed)
+      buttons = REPEAT_DPAD_UP | REPEAT_R_BUTTON;
   }
   if (gRepeatedOrNewButtons & DPAD_DOWN) {
-    u32 test = gRepeatedOrNewButtons & R_BUTTON;
-    ret = 0x80;
-    if (test)
-      ret = 0x180;
+    unsigned rButtonPressed = gRepeatedOrNewButtons & R_BUTTON;
+    buttons = REPEAT_DPAD_DOWN;
+    if (rButtonPressed)
+      buttons = REPEAT_DPAD_DOWN | REPEAT_R_BUTTON;
   }
   if (gNewButtons & A_BUTTON)
-    ret = 1;
+    buttons = NEW_A_BUTTON;
   if (gNewButtons & B_BUTTON)
-    ret = 2;
+    buttons = NEW_B_BUTTON;
   if (gNewButtons & SELECT_BUTTON)
-    ret = 4;
+    buttons = NEW_SELECT_BUTTON;
   if (gNewButtons & START_BUTTON)
-    ret = 8;
-
-  return ret;
+    buttons = NEW_START_BUTTON;
+  return buttons;
 }
 
 static void sub_802C14C (void) {
-  u16 cardId;
-
+  unsigned short cardId;
   sub_802DBA8();
   sub_802DF1C();
   sub_802DF88();
 
-  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -371,12 +368,12 @@ static void sub_802C14C (void) {
   sub_802FE68();
   sub_8030068();
   sub_803028C();
-  sub_80081DC(sub_8030684);
-  sub_8008220();
+  SetVBlankCallback(sub_8030684);
+  WaitForVBlank();
   sub_8030898();
 }
 
-static void sub_802C1D4 (void) {
+static void FadeToBlack (void) {
   u16 i, j;
   for (i = 0; i < 32; i++) {
     for (j = 0; j < 512; j++) {
@@ -388,16 +385,16 @@ static void sub_802C1D4 (void) {
       if (pltt->b)
         pltt->b--;
     }
-    sub_80081DC(LoadPalettes);
-    sub_8008220();
+    SetVBlankCallback(LoadPalettes);
+    WaitForVBlank();
   }
 }
 
 static void sub_802C2A0 (void) {
-  u16 cardId;
+  unsigned short cardId;
   sub_802DDD8();
 
-  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -405,16 +402,15 @@ static void sub_802C2A0 (void) {
   sub_802FB08();
   sub_80300F8();
   sub_803028C();
-  sub_80081DC(sub_8030678);
-  sub_8008220();
+  SetVBlankCallback(sub_8030678);
+  WaitForVBlank();
   sub_80307E4(sub_802DE84(0));
 }
 
 static void sub_802C318 (void) {
-  u16 cardId;
-
+  unsigned short cardId;
   sub_802DE1C();
-  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -422,16 +418,15 @@ static void sub_802C318 (void) {
   sub_802FB08();
   sub_80300F8();
   sub_803028C();
-  sub_80081DC(sub_8030678);
-  sub_8008220();
+  SetVBlankCallback(sub_8030678);
+  WaitForVBlank();
   sub_803083C(sub_802DE84(4));
 }
 
 static void sub_802C390 (void) {
-  u16 cardId;
-
+  unsigned short cardId;
   sub_802DA1C();
-  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -439,16 +434,15 @@ static void sub_802C390 (void) {
   sub_802FB08();
   sub_80300F8();
   sub_803028C();
-  sub_80081DC(sub_8030678);
-  sub_8008220();
+  SetVBlankCallback(sub_8030678);
+  WaitForVBlank();
   sub_80307E4(sub_802DE84(0));
 }
 
 static void sub_802C408 (void) {
-  u16 cardId;
-
+  unsigned short cardId;
   sub_802DA8C();
-  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -456,18 +450,17 @@ static void sub_802C408 (void) {
   sub_802FB08();
   sub_80300F8();
   sub_803028C();
-  sub_80081DC(sub_8030678);
-  sub_8008220();
+  SetVBlankCallback(sub_8030678);
+  WaitForVBlank();
   sub_80307E4(sub_802DE84(4));
 }
 
 static void sub_802C480 (void) {
-  u16 cardId;
-
+  unsigned short cardId;
   sub_802DE60();
   sub_802DF1C();
   sub_802DF88();
-  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -475,18 +468,17 @@ static void sub_802C480 (void) {
   sub_802FE68();
   sub_8030068();
   sub_803028C();
-  sub_80081DC(sub_8030684);
-  sub_8008220();
+  SetVBlankCallback(sub_8030684);
+  WaitForVBlank();
   sub_8030898();
 }
 
 static void sub_802C4F8 (void) {
-  u16 cardId;
-
+  unsigned short cardId;
   sub_802DE74();
   sub_802DF1C();
   sub_802DF88();
-  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -494,13 +486,13 @@ static void sub_802C4F8 (void) {
   sub_802FE68();
   sub_8030068();
   sub_803028C();
-  sub_80081DC(sub_8030684);
-  sub_8008220();
+  SetVBlankCallback(sub_8030684);
+  WaitForVBlank();
   sub_8030898();
 }
 
 static unsigned char IsSelectedCardUnbuyable (void) {
-  u16 cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  u16 cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   if (cardId != CARD_NONE && IsGodCard(cardId) != 1)
     return 0;
   return 1;
@@ -512,13 +504,11 @@ static unsigned char IsSelectedCardUnbuyable (void) {
   and therefore this would belong in a different file
 */
 void CardShopSellMain (void) {
-  u16 cardId;
-  u32 temp;
-
-  sub_802C1D4();
+  unsigned short cardId;
+  unsigned keepProcessing;
+  FadeToBlack();
   sub_802CFB4();
-
-  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -529,73 +519,71 @@ void CardShopSellMain (void) {
   sub_8030090();
   sub_802F9E8();
   sub_8030068();
-  sub_80081DC(sub_803060C);
-  sub_8008220();
+  SetVBlankCallback(sub_803060C);
+  WaitForVBlank();
   sub_802FBF4();
-  sub_80081DC(sub_8030654);
-  sub_8008220();
+  SetVBlankCallback(sub_8030654);
+  WaitForVBlank();
   sub_8030760();
-  temp = 1;
-
-  while (temp) {
+  keepProcessing = 1;
+  while (keepProcessing) {
     switch (ProcessInput()) {
-      case 0x40:
+      case REPEAT_DPAD_UP:
         sub_802C788();
         break;
-      case 0x80:
+      case REPEAT_DPAD_DOWN:
         sub_802C804();
         break;
-      case 0x20:
+      case REPEAT_DPAD_LEFT:
         sub_802C880();
         break;
-      case 0x10:
+      case REPEAT_DPAD_RIGHT:
         sub_802C8FC();
         break;
-      case 0x140:
+      case REPEAT_DPAD_UP | REPEAT_R_BUTTON:
         sub_802C978();
         break;
-      case 0x180:
+      case REPEAT_DPAD_DOWN | REPEAT_R_BUTTON:
         sub_802C9F8();
         break;
-      case 0x200:
-        sub_8008220();
+      case L_BUTTON:
+        WaitForVBlank();
         break;
-      case 1:
+      case NEW_A_BUTTON:
         if (!IsSelectedCardUnsellable())
           sub_802CABC();
         else {
           PlayMusic(0x39);
-          sub_8008220();
+          WaitForVBlank();
         }
         break;
-      case 2:
-        temp = 0;
+      case NEW_B_BUTTON:
+        keepProcessing = 0;
         PlayMusic(0x38);
-        sub_8008220();
+        WaitForVBlank();
         break;
-      case 8:
+      case NEW_START_BUTTON:
         sub_802D2D4();
         break;
-      case 4:
+      case NEW_SELECT_BUTTON:
         sub_802C6FC();
         break;
       default:
-        sub_8008220();
+        WaitForVBlank();
         break;
     }
   }
   sub_802D294();
-  sub_802C1D4();
+  FadeToBlack();
 }
 
 static void sub_802C6FC (void) {
-  u16 cardId;
-
+  unsigned short cardId;
   sub_802CF58();
   sub_802DF1C();
   sub_802D174();
 
-  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -605,16 +593,15 @@ static void sub_802C6FC (void) {
   sub_8030068();
   sub_803028C();
   PlayMusic(0x37);
-  sub_80081DC(sub_8030684);
-  sub_8008220();
+  SetVBlankCallback(sub_8030684);
+  WaitForVBlank();
   sub_8030898();
 }
 
 static void sub_802C788 (void) {
-  u16 cardId;
-
+  unsigned short cardId;
   sub_802D0EC();
-  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -622,17 +609,17 @@ static void sub_802C788 (void) {
   sub_802FB08();
   sub_80300F8();
   sub_803028C();
-  sub_80081DC(sub_8030678);
-  sub_8008220();
+  SetVBlankCallback(sub_8030678);
+  WaitForVBlank();
   sub_80307E4(sub_802DE84(0));
   PlayMusic(0x36);
 }
 
 static void sub_802C804 (void) {
-  u16 cardId;
+  unsigned short cardId;
   sub_802D130();
 
-  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -640,17 +627,16 @@ static void sub_802C804 (void) {
   sub_802FB08();
   sub_80300F8();
   sub_803028C();
-  sub_80081DC(sub_8030678);
-  sub_8008220();
+  SetVBlankCallback(sub_8030678);
+  WaitForVBlank();
   sub_803083C(sub_802DE84(4));
   PlayMusic(0x36);
 }
 
 static void sub_802C880 (void) {
-  u16 cardId;
-
+  unsigned short cardId;
   sub_802CE04();
-  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -658,17 +644,16 @@ static void sub_802C880 (void) {
   sub_802FB08();
   sub_80300F8();
   sub_803028C();
-  sub_80081DC(sub_8030678);
-  sub_8008220();
+  SetVBlankCallback(sub_8030678);
+  WaitForVBlank();
   sub_80307E4(sub_802DE84(0));
   PlayMusic(0x36);
 }
 
 static void sub_802C8FC (void) {
-  u16 cardId;
-
+  unsigned short cardId;
   sub_802CE74();
-  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -676,20 +661,18 @@ static void sub_802C8FC (void) {
   sub_802FB08();
   sub_80300F8();
   sub_803028C();
-  sub_80081DC(sub_8030678);
-  sub_8008220();
+  SetVBlankCallback(sub_8030678);
+  WaitForVBlank();
   sub_80307E4(sub_802DE84(4));
   PlayMusic(0x36);
 }
 
 static void sub_802C978 (void) {
-  u16 cardId;
-
+  unsigned short cardId;
   sub_802DE60();
   sub_802DF1C();
   sub_802D174();
-
-  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -698,19 +681,17 @@ static void sub_802C978 (void) {
   sub_8030068();
   sub_803028C();
   PlayMusic(0x36);
-  sub_80081DC(sub_8030684);
-  sub_8008220();
+  SetVBlankCallback(sub_8030684);
+  WaitForVBlank();
   sub_8030898();
 }
 
 static void sub_802C9F8 (void) {
-  u16 cardId;
-
+  unsigned short cardId;
   sub_802DE74();
   sub_802DF1C();
   sub_802D174();
-
-  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -719,72 +700,70 @@ static void sub_802C9F8 (void) {
   sub_8030068();
   sub_803028C();
   PlayMusic(0x36);
-  sub_80081DC(sub_8030684);
-  sub_8008220();
+  SetVBlankCallback(sub_8030684);
+  WaitForVBlank();
   sub_8030898();
 }
 
 static unsigned char IsSelectedCardUnsellable (void) {
-  u16 cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  u16 cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   if (cardId != CARD_NONE && IsGodCard(cardId) != 1)
     return 0;
   return 1;
 }
 
 static void sub_802CABC (void) {
-  u32 r4;
-  u16 cardId;
-
+  unsigned keepProcessing;
+  unsigned short cardId;
   sub_802E080();
   sub_802FC14();
   sub_802FC50();
   sub_803015C();
   sub_80301A8();
   sub_8030934();
-  sub_80081DC(sub_8030690);
-  sub_8008220();
+  SetVBlankCallback(sub_8030690);
+  WaitForVBlank();
   PlayMusic(0x37);
-
-  r4 = 1;
-  while (r4) {
+  keepProcessing = 1;
+  while (keepProcessing) {
     switch (ProcessInput()) {
-      case 0x40:
+      case REPEAT_DPAD_UP:
         sub_802CD7C();
         break;
-      case 0x80:
+      case REPEAT_DPAD_DOWN:
         sub_802CDA4();
         break;
-      case 1:
+      case NEW_A_BUTTON:
         sub_802CDCC();
         if (sCardShop.unk726 == 2)
-          r4 = 0;
-        if (*sCardShop.unk0[sCardShop.unk723][sCardShop.unk722] == CARD_NONE)
-          r4 = 0;
+          keepProcessing = 0;
+        if (*sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn] == CARD_NONE)
+          keepProcessing = 0;
         break;
-      case 2:
+      case NEW_B_BUTTON:
         PlayMusic(0x38);
-        r4 = 0;
+        keepProcessing = 0;
         break;
       default:
-        sub_8008220();
+        WaitForVBlank();
         break;
     }
   }
   sub_802FBF4();
   sub_802EA74();
-  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   sub_802FD84(cardId);
   sub_802FC6C();
   sub_80300F8();
-  sub_80081DC(sub_80306C0);
-  sub_8008220();
+  SetVBlankCallback(sub_80306C0);
+  WaitForVBlank();
 }
 
 static void sub_802CBB8 (void) {
-  u16 cardId;
+  unsigned short cardId;
   unsigned long long money;
 
-  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   if (sub_802D274(cardId, 2) == 1) {
     money = g2021AF0.unk8;
     sub_802D210(cardId, 1);
@@ -796,7 +775,7 @@ static void sub_802CBB8 (void) {
     PlayMusic(0x39);
     sub_802E270();
     while (!(gNewButtons & (A_BUTTON | B_BUTTON)))
-      sub_8008220();
+      WaitForVBlank();
     PlayMusic(0x38);
     sub_802FC88();
   }
@@ -804,19 +783,18 @@ static void sub_802CBB8 (void) {
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
   sub_802D174();
-  sub_802CEE0(sCardShop.unk723);
-  sub_802FE84(sCardShop.unk723);
+  sub_802CEE0(sCardShop.cursorRow);
+  sub_802FE84(sCardShop.cursorRow);
   sub_802EA74();
-  sub_802FD84(*sCardShop.unk0[sCardShop.unk723][sCardShop.unk722]);
-  sub_80081DC(sub_8030690);
-  sub_8008220();
-  sub_803096C(sub_802DE84(sCardShop.unk723));
+  sub_802FD84(*sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn]);
+  SetVBlankCallback(sub_8030690);
+  WaitForVBlank();
+  sub_803096C(sub_802DE84(sCardShop.cursorRow));
 }
 
 static void sub_802CCD0 (void) {
-  u16 cardId;
-
-  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  unsigned short cardId;
+  cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   SetCardInfo(cardId);
   PlayMusic(0x37);
   sub_801F6B0();
@@ -835,10 +813,10 @@ static void sub_802CCD0 (void) {
   sub_802FC50();
   sub_803015C();
   sub_80301A8();
-  sub_80081DC(sub_803060C);
-  sub_8008220();
-  sub_80081DC(sub_8030660);
-  sub_8008220();
+  SetVBlankCallback(sub_803060C);
+  WaitForVBlank();
+  SetVBlankCallback(sub_8030660);
+  WaitForVBlank();
   sub_8030784();
 }
 
@@ -846,8 +824,8 @@ static void sub_802CD7C (void) {
   sub_802E040();
   sub_803015C();
   sub_80301A8();
-  sub_80081DC(sub_8030690);
-  sub_8008220();
+  SetVBlankCallback(sub_8030690);
+  WaitForVBlank();
   PlayMusic(0x36);
 }
 
@@ -855,8 +833,8 @@ static void sub_802CDA4 (void) {
   sub_802E060();
   sub_803015C();
   sub_80301A8();
-  sub_80081DC(sub_8030690);
-  sub_8008220();
+  SetVBlankCallback(sub_8030690);
+  WaitForVBlank();
   PlayMusic(0x36);
 }
 
@@ -870,18 +848,18 @@ static void sub_802CDCC (void) {
       break;
     default:
       PlayMusic(0x37);
-      sub_8008220();
+      WaitForVBlank();
       break;
   }
 }
 
 static void sub_802CE04 (void) {
-  if (sCardShop.unk722 >= 1) {
-    sCardShop.unk722--;
+  if (sCardShop.cursorColumn >= 1) {
+    sCardShop.cursorColumn--;
     return;
   }
-  if (sCardShop.unk723 >= 2)
-    sCardShop.unk723--;
+  if (sCardShop.cursorRow >= 2)
+    sCardShop.cursorRow--;
   else {
     sub_802DEAC(-1);
     sub_802DFA4();
@@ -890,16 +868,16 @@ static void sub_802CE04 (void) {
     sub_802FE84(0);
     sub_8030068();
   }
-  sCardShop.unk722 = 6;
+  sCardShop.cursorColumn = 6;
 }
 
 static void sub_802CE74 (void) {
-  if (sCardShop.unk722 <= 5) {
-    sCardShop.unk722++;
+  if (sCardShop.cursorColumn <= 5) {
+    sCardShop.cursorColumn++;
     return;
   }
-  if (sCardShop.unk723 <= 2)
-    sCardShop.unk723++;
+  if (sCardShop.cursorRow <= 2)
+    sCardShop.cursorRow++;
   else {
     sub_802DEAC(1);
     sub_802DFC4();
@@ -908,7 +886,7 @@ static void sub_802CE74 (void) {
     sub_802FE84(4);
     sub_8030068();
   }
-  sCardShop.unk722 = 0;
+  sCardShop.cursorColumn = 0;
 }
 
 static void sub_802CEE0 (int arg0) {
@@ -935,7 +913,7 @@ static void sub_802CF58 (void) {
   // sub_802D190
   temp = sCardShop.unk725;
   gUnk2022EB0.unk0 = sCardShop.unkD2 + 1;
-  gUnk2022EB0.unk8 = 800;
+  gUnk2022EB0.unk8 = NUM_TRUE_CARDS;
   gUnk2022EB0.unkA = g80C9D84[temp];
   sub_8034A38();
   sub_802DFE4();
@@ -945,9 +923,9 @@ static void sub_802CF58 (void) {
 static void sub_802CFB4 (void) {
   u16 i;
   u8 ii;
-  for (i = 0; i <= 805; i++)
-    sCardShop.unkD2[i] = 0;
-  for (i = 0; i <= 800; i++) {
+  for (i = 0; i < 806; i++)
+    sCardShop.unkD2[i] = CARD_NONE;
+  for (i = 0; i < NUM_CARDS; i++) {
     g2022120[i] = g2021DF0[i];
     g2022B80[i] = gTrunkCardQty[i];
   }
@@ -956,15 +934,15 @@ static void sub_802CFB4 (void) {
   sCardShop.unk720 = 115;
   sCardShop.unk724 = 4;
   sCardShop.unk725 = 0;
-  sCardShop.unk722 = 0;
-  sCardShop.unk723 = 1;
-  sCardShop.unkD2[0] = 0;
-  for (i = 1; i <= 800; i++)
+  sCardShop.cursorColumn = 0;
+  sCardShop.cursorRow = 1;
+  sCardShop.unkD2[0] = CARD_NONE;
+  for (i = 1; i < NUM_CARDS; i++)
     sCardShop.unkD2[i] = i;
 
   // sub_802D190
   gUnk2022EB0.unk0 = sCardShop.unkD2 + 1;
-  gUnk2022EB0.unk8 = 800;
+  gUnk2022EB0.unk8 = NUM_TRUE_CARDS;
   gUnk2022EB0.unkA = g80C9D84[0];
   sub_8034A38();
   sub_802DFE4();
@@ -980,8 +958,8 @@ static void sub_802CFB4 (void) {
 // functions below inline?
 
 static void sub_802D0EC (void) {
-  if (sCardShop.unk723 >= 2) {
-    sCardShop.unk723--;
+  if (sCardShop.cursorRow >= 2) {
+    sCardShop.cursorRow--;
     return;
   }
   sub_802DEAC(-1);
@@ -993,8 +971,8 @@ static void sub_802D0EC (void) {
 }
 
 static void sub_802D130 (void) {
-  if (sCardShop.unk723 <= 2) {
-    sCardShop.unk723++;
+  if (sCardShop.cursorRow <= 2) {
+    sCardShop.cursorRow++;
     return;
   }
   sub_802DEAC(1);
@@ -1013,7 +991,7 @@ static void sub_802D174 (void) {
 
 static void sub_802D190 (u8 arg0) {
   gUnk2022EB0.unk0 = sCardShop.unkD2 + 1;
-  gUnk2022EB0.unk8 = 800;
+  gUnk2022EB0.unk8 = NUM_TRUE_CARDS;
   gUnk2022EB0.unkA = g80C9D84[arg0];
   sub_8034A38();
   sub_802DFE4();
@@ -1051,44 +1029,44 @@ static unsigned sub_802D274 (u16 arg0, u8 arg1) {
 }
 
 static void sub_802D294 (void) {
-  u16 i;
-  for (i = 0; i <= 800; i++) {
-    g2021DF0[i] = g2022120[i];
-    gTrunkCardQty[i] = g2022B80[i];
+  unsigned short cardId;
+  for (cardId = 0; cardId < NUM_CARDS; cardId++) {
+    g2021DF0[cardId] = g2022120[cardId];
+    gTrunkCardQty[cardId] = g2022B80[cardId];
   }
 }
 
 static void sub_802D2D4 (void) {
-  u32 r4;
+  unsigned keepProcessing;
   sCardShop.unk726 = sCardShop.unk725;
   sub_802FC14();
   sub_80302F0();
   sub_80301F4();
   sub_8030240();
   sub_80309D8();
-  sub_80081DC(sub_80306E0);
-  sub_8008220();
+  SetVBlankCallback(sub_80306E0);
+  WaitForVBlank();
   PlayMusic(0x37);
-  r4 = 1;
-  while (r4) {
+  keepProcessing = 1;
+  while (keepProcessing) {
     switch (ProcessInput()) {
-      case 0x40:
+      case REPEAT_DPAD_UP:
         sub_802D45C();
         PlayMusic(0x36);
         break;
-      case 0x80:
+      case REPEAT_DPAD_DOWN:
         sub_802D4AC();
         PlayMusic(0x36);
         break;
-      case 0x20:
+      case REPEAT_DPAD_LEFT:
         sub_802D4FC();
         PlayMusic(0x36);
         break;
-      case 0x10:
+      case REPEAT_DPAD_RIGHT:
         sub_802D54C();
         PlayMusic(0x36);
         break;
-      case 1:
+      case NEW_A_BUTTON:
         if (sCardShop.unk726 == 10) {
           sub_802D59C();
           PlayMusic(0x37);
@@ -1098,27 +1076,26 @@ static void sub_802D2D4 (void) {
           sub_802D3B8();
         }
         return;
-      case 2:
-      case 8:
+      case NEW_B_BUTTON:
+      case NEW_START_BUTTON:
         sub_802D59C();
         PlayMusic(0x38);
         return;
       default:
-        sub_8008220();
+        WaitForVBlank();
         break;
     }
   }
 }
 
 static void sub_802D3B8 (void) {
-  u16 cardId;
-
+  unsigned short cardId;
   sCardShop.unk725 = sCardShop.unk726;
   sub_802D190(sCardShop.unk725);
   sub_802DF1C();
   sub_802D174();
 
-  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -1131,8 +1108,8 @@ static void sub_802D3B8 (void) {
   sub_803028C();
   sub_80300F8();
   sub_802FC6C();
-  sub_80081DC(sub_803071C);
-  sub_8008220();
+  SetVBlankCallback(sub_803071C);
+  WaitForVBlank();
   sub_8030A48();
 }
 
@@ -1144,8 +1121,8 @@ static void sub_802D45C (void) {
     sub_802FCF0(sCardShop.unk726);
   sub_80301F4();
   sub_8030240();
-  sub_80081DC(sub_8030710);
-  sub_8008220();
+  SetVBlankCallback(sub_8030710);
+  WaitForVBlank();
   sub_8030A10();
 }
 
@@ -1157,8 +1134,8 @@ static void sub_802D4AC (void) {
     sub_802FCF0(sCardShop.unk726);
   sub_80301F4();
   sub_8030240();
-  sub_80081DC(sub_8030710);
-  sub_8008220();
+  SetVBlankCallback(sub_8030710);
+  WaitForVBlank();
   sub_8030A10();
 }
 
@@ -1170,8 +1147,8 @@ static void sub_802D4FC (void) {
     sub_802FCF0(sCardShop.unk726);
   sub_80301F4();
   sub_8030240();
-  sub_80081DC(sub_8030710);
-  sub_8008220();
+  SetVBlankCallback(sub_8030710);
+  WaitForVBlank();
   sub_8030A10();
 }
 
@@ -1183,8 +1160,8 @@ static void sub_802D54C (void) {
     sub_802FCF0(sCardShop.unk726);
   sub_80301F4();
   sub_8030240();
-  sub_80081DC(sub_8030710);
-  sub_8008220();
+  SetVBlankCallback(sub_8030710);
+  WaitForVBlank();
   sub_8030A10();
 }
 
@@ -1193,61 +1170,59 @@ static void sub_802D59C (void) {
   sub_80300F8();
   sub_802FBF4();
   sub_802FC6C();
-  sub_80081DC(sub_803073C);
-  sub_8008220();
+  SetVBlankCallback(sub_803073C);
+  WaitForVBlank();
   sub_8030AF8();
 }
 
 static void sub_802D5D4 (void) {
   unsigned keepProcessing;
-
   sub_802E080();
   sub_802FC14();
   sub_802FC34();
   sub_803015C();
   sub_80301A8();
   sub_8030934();
-  sub_80081DC(sub_8030690);
-  sub_8008220();
+  SetVBlankCallback(sub_8030690);
+  WaitForVBlank();
   PlayMusic(0x37);
   keepProcessing = 1;
   while (keepProcessing) {
     switch (ProcessInput()) {
-      case 0x40:
+      case REPEAT_DPAD_UP:
         sub_802D884();
         break;
-      case 0x80:
+      case REPEAT_DPAD_DOWN:
         sub_802D8AC();
         break;
-      case 1:
+      case NEW_A_BUTTON:
         sub_802D8D4();
         if (sCardShop.unk726 == 2)
           keepProcessing = 0;
-        if (*sCardShop.unk0[sCardShop.unk723][sCardShop.unk722] == CARD_NONE)
+        if (*sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn] == CARD_NONE)
           keepProcessing = 0;
         break;
-      case 2:
+      case NEW_B_BUTTON:
         PlayMusic(0x38);
         keepProcessing = 0;
         break;
       default:
-        sub_8008220();
+        WaitForVBlank();
         break;
     }
   }
   sub_802FBF4();
   sub_802EA74();
-  sub_802FD48(*sCardShop.unk0[sCardShop.unk723][sCardShop.unk722]);
+  sub_802FD48(*sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn]);
   sub_802FC6C();
   sub_80300F8();
-  sub_80081DC(sub_80306C0);
-  sub_8008220();
+  SetVBlankCallback(sub_80306C0);
+  WaitForVBlank();
 }
 
 static void sub_802D6D0 (void) {
-  u16 cardId;
-
-  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  unsigned short cardId;
+  cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
 
   if (sub_802E1B8(cardId, 1) == 1) {
     if (sub_802D250(cardId, 1) == 1) {
@@ -1271,19 +1246,18 @@ static void sub_802D6D0 (void) {
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
   sub_802DF88();
-  sub_802DAF8(sCardShop.unk723);
-  sub_802FE84(sCardShop.unk723);
+  sub_802DAF8(sCardShop.cursorRow);
+  sub_802FE84(sCardShop.cursorRow);
   sub_802EA74();
-  sub_802FD48(*sCardShop.unk0[sCardShop.unk723][sCardShop.unk722]);
-  sub_80081DC(sub_8030690);
-  sub_8008220();
-  sub_803096C(sub_802DE84(sCardShop.unk723));
+  sub_802FD48(*sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn]);
+  SetVBlankCallback(sub_8030690);
+  WaitForVBlank();
+  sub_803096C(sub_802DE84(sCardShop.cursorRow));
 }
 
 static void sub_802D7D8 (void) {
-  u16 cardId;
-
-  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  unsigned short cardId;
+  cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   SetCardInfo(cardId);
   PlayMusic(0x37);
   sub_801F6B0();
@@ -1302,10 +1276,10 @@ static void sub_802D7D8 (void) {
   sub_802FC34();
   sub_803015C();
   sub_80301A8();
-  sub_80081DC(sub_803060C);
-  sub_8008220();
-  sub_80081DC(sub_8030660);
-  sub_8008220();
+  SetVBlankCallback(sub_803060C);
+  WaitForVBlank();
+  SetVBlankCallback(sub_8030660);
+  WaitForVBlank();
   sub_8030784();
 }
 
@@ -1313,8 +1287,8 @@ static void sub_802D884 (void) {
   sub_802E040();
   sub_803015C();
   sub_80301A8();
-  sub_80081DC(sub_8030690);
-  sub_8008220();
+  SetVBlankCallback(sub_8030690);
+  WaitForVBlank();
   PlayMusic(0x36);
 }
 
@@ -1322,8 +1296,8 @@ static void sub_802D8AC (void) {
   sub_802E060();
   sub_803015C();
   sub_80301A8();
-  sub_80081DC(sub_8030690);
-  sub_8008220();
+  SetVBlankCallback(sub_8030690);
+  WaitForVBlank();
   PlayMusic(0x36);
 }
 
@@ -1337,7 +1311,7 @@ static void sub_802D8D4 (void) {
       break;
     default:
       PlayMusic(0x37);
-      sub_8008220();
+      WaitForVBlank();
       break;
   }
 }
@@ -1352,6 +1326,7 @@ void sub_802D90C (unsigned short arg0, unsigned char arg1) {
     g2021DF0[arg0] = 250;
 }
 
+// unused?
 static void sub_802D95C (u16 arg0, u8 arg1) {
   // this could be calling an inline func
   if ((u16)(arg0 - 1) >= 800)
@@ -1377,18 +1352,18 @@ static unsigned char sub_802D9D0 (u16 arg0, u8 arg1) {
 // Init shop cards (when starting a new game)
 //TODO: NewGame_ShopCards, Init?
 void sub_802D9F0 (void) {
-  u16 i;
-  for (i = 0; i <= 800; i++)
-    g2021DF0[i] = g80C9D90[i];
+  unsigned short cardId;
+  for (cardId = 0; cardId < NUM_CARDS; cardId++)
+    g2021DF0[cardId] = g80C9D90[cardId];
 }
 
 static void sub_802DA1C (void) {
-  if (sCardShop.unk722 >= 1) {
-    sCardShop.unk722--;
+  if (sCardShop.cursorColumn >= 1) {
+    sCardShop.cursorColumn--;
     return;
   }
-  if (sCardShop.unk723 >= 2)
-    sCardShop.unk723--;
+  if (sCardShop.cursorRow >= 2)
+    sCardShop.cursorRow--;
   else {
     sub_802DEAC(-1);
     sub_802DFA4();
@@ -1397,16 +1372,16 @@ static void sub_802DA1C (void) {
     sub_802FE84(0);
     sub_8030068();
   }
-  sCardShop.unk722 = 6;
+  sCardShop.cursorColumn = 6;
 }
 
 static void sub_802DA8C (void) {
-  if (sCardShop.unk722 <= 5) {
-    sCardShop.unk722++;
+  if (sCardShop.cursorColumn <= 5) {
+    sCardShop.cursorColumn++;
     return;
   }
-  if (sCardShop.unk723 <= 2)
-    sCardShop.unk723++;
+  if (sCardShop.cursorRow <= 2)
+    sCardShop.cursorRow++;
   else {
     sub_802DEAC(1);
     sub_802DFC4();
@@ -1415,7 +1390,7 @@ static void sub_802DA8C (void) {
     sub_802FE84(4);
     sub_8030068();
   }
-  sCardShop.unk722 = 0;
+  sCardShop.cursorColumn = 0;
 }
 
 /*
@@ -1546,7 +1521,7 @@ static void sub_802DBA8 (void) {
   // sub_802DFF8
   temp = sCardShop.unk725;
   gUnk2022EB0.unk0 = sCardShop.unkD2 + 1;
-  gUnk2022EB0.unk8 = 800;
+  gUnk2022EB0.unk8 = NUM_TRUE_CARDS;
   gUnk2022EB0.unkA = g80CA0D7[temp];
   sub_8034A38();
   //sub_802DFE4();
@@ -1567,9 +1542,9 @@ static inline void sub_802DF1C_inline (void) {
 static void sub_802DC0C (void) {
   u16 i;
   u8 ii;
-  for (i = 0; i <= 805; i++)
+  for (i = 0; i < 806; i++)
     sCardShop.unkD2[i] = 0;
-  for (i = 0; i <= 800; i++) {
+  for (i = 0; i < NUM_CARDS; i++) {
     g2022120[i] = g2021DF0[i];
     g2022B80[i] = gTrunkCardQty[i];
   }
@@ -1578,15 +1553,15 @@ static void sub_802DC0C (void) {
   sCardShop.unk720 = 115;
   sCardShop.unk724 = 4;
   sCardShop.unk725 = 0;
-  sCardShop.unk722 = 0;
-  sCardShop.unk723 = 1;
+  sCardShop.cursorColumn = 0;
+  sCardShop.cursorRow = 1;
   sCardShop.unkD2[0] = 0;
-  for (i = 1; i <= 800; i++)
+  for (i = 1; i < NUM_CARDS; i++)
     sCardShop.unkD2[i] = i;
 
   // sub_802DFF8
   gUnk2022EB0.unk0 = sCardShop.unkD2 + 1;
-  gUnk2022EB0.unk8 = 800;
+  gUnk2022EB0.unk8 = NUM_TRUE_CARDS;
   gUnk2022EB0.unkA = g80CA0D7[0];
   sub_8034A38();
   //sub_802DFE4();
@@ -1602,16 +1577,16 @@ static void sub_802DC0C (void) {
 }
 
 static void sub_802DD98 (void) {
-  u16 i;
-  for (i = 0; i <= 800; i++) {
-    g2021DF0[i] = g2022120[i];
-    gTrunkCardQty[i] = g2022B80[i];
+  unsigned short cardId;
+  for (cardId = 0; cardId < NUM_CARDS; cardId++) {
+    g2021DF0[cardId] = g2022120[cardId];
+    gTrunkCardQty[cardId] = g2022B80[cardId];
   }
 }
 
 static void sub_802DDD8 (void) {
-  if (sCardShop.unk723 > 1) {
-    sCardShop.unk723--;
+  if (sCardShop.cursorRow > 1) {
+    sCardShop.cursorRow--;
     return;
   }
   else {
@@ -1625,8 +1600,8 @@ static void sub_802DDD8 (void) {
 }
 
 static void sub_802DE1C (void) {
-  if (sCardShop.unk723 <= 2) {
-    sCardShop.unk723++;
+  if (sCardShop.cursorRow <= 2) {
+    sCardShop.cursorRow++;
     return;
   }
   else {
@@ -1697,7 +1672,7 @@ static void sub_802DFE4 (void) {
 
 static void sub_802DFF8 (u8 arg0) {
   gUnk2022EB0.unk0 = sCardShop.unkD2 + 1;
-  gUnk2022EB0.unk8 = 800;
+  gUnk2022EB0.unk8 = NUM_TRUE_CARDS;
   gUnk2022EB0.unkA = g80CA0D7[arg0];
   sub_8034A38();
   //sub_802DFE4();
@@ -1765,7 +1740,6 @@ static unsigned sub_802E1B8 (u16 arg0, u8 arg1) {
 
 static void sub_802E1D8 (void) {
   u8 i;
-
   gBG0VOFS = 0;
   gBG0HOFS = 0;
   for (i = 0; i < 20; i++)
@@ -1797,13 +1771,13 @@ static void sub_802E270 (void) {
   for (i = 0; i < 20; i++)
     CpuCopy16(g80CAF24[i], ((struct Sbb*)&gBgVram)->sbb16[i], 60);
 
-  REG_DISPCNT &= 0xFEFF;
-  sub_80081DC(LoadOam);
-  sub_8008220();
+  REG_DISPCNT &= ~DISPCNT_BG0_ON;
+  SetVBlankCallback(LoadOam);
+  WaitForVBlank();
   LoadCharblock2();
   LoadCharblock3();
   REG_BG0CNT = 0x160C;
-  REG_DISPCNT |= 0x100;
+  REG_DISPCNT |= DISPCNT_BG0_ON;
 }*/
 
 NAKED
@@ -1847,8 +1821,8 @@ _0802E29A:\n\
 	ands r0, r1\n\
 	strh r0, [r4]\n\
 	ldr r0, _0802E308\n\
-	bl sub_80081DC\n\
-	bl sub_8008220\n\
+	bl SetVBlankCallback\n\
+	bl WaitForVBlank\n\
 	bl LoadCharblock2\n\
 	bl LoadCharblock3\n\
 	ldr r1, _0802E30C\n\
@@ -2979,9 +2953,9 @@ static void sub_802F9E8 (void) {
 /*
 static void sub_802FB08 (void) {
   u32* oam = (u32*)gOamBuffer;
-  u32 r1 = g80CDE64[sCardShop.unk722] << 16;
+  u32 r1 = g80CDE64[sCardShop.cursorColumn] << 16;
   r1 &= 0x1FF0000;
-  r1 |= g80CDE5A[sCardShop.unk723] & 0xFF;
+  r1 |= g80CDE5A[sCardShop.cursorRow] & 0xFF;
   r1 |= 0x80000000;
   oam[0] = r1;
   oam[1] = 0x8800;
@@ -3135,13 +3109,13 @@ static void sub_802FC88 (void) {
   CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x1000, g80CD778, 0x901);
   sub_803015C();
   sub_80301A8();
-  REG_DISPCNT &= 0xFEFF;
-  sub_80081DC(LoadOam);
-  sub_8008220();
+  REG_DISPCNT &= ~DISPCNT_BG0_ON;
+  SetVBlankCallback(LoadOam);
+  WaitForVBlank();
   LoadCharblock2();
   LoadCharblock3();
-  REG_BG0CNT = 0x140C;
-  REG_DISPCNT |= 0x100;
+  REG_BG0CNT = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(3) | BGCNT_16COLOR | BGCNT_SCREENBASE(20);
+  REG_DISPCNT |= DISPCNT_BG0_ON;
 }
 
 /*
@@ -3249,10 +3223,10 @@ static void sub_802FE00 (void) {
   sub_8030068();
   CpuFill16(0, gBgVram.cbb0, 64);
   sub_802FE68();
-  sub_8057418(g02000000.bg);
+  CopyMiniCardPalette(g02000000.bg);
   g02000000.bg[0] = 0;
   for (i = 0; i < 36; i++)
-    CpuCopy16(g80CB884[i], ((struct Sbb*)&gBgVram)->sbb12[i], 60);
+    CpuCopy16(g80CB884[i], gBgVram.cbb0 + 0x12 * 0x800 + i * 64, 60);
 }
 
 static void sub_802FE68 (void) {
@@ -3272,23 +3246,23 @@ static void sub_802FE84 (int arg0) {
       CpuCopy16(g80CC0F4, r5, 0x400);
     else {
       sub_805742C(r5, cardId);
-      sub_802FF4C(r5, cardId);
-      sub_802FF14(r5, cardId);
+      CopyNumTributesTile(r5, cardId);
+      CopyAttributeIconTile(r5, cardId);
       sub_802FF78(r5, cardId);
       sub_802FFF0(r5, cardId);
     }
   }
 }
 // almost same as sub_80576B4
-static void sub_802FF14 (u8* arg0, u16 cardId) {
+static void CopyAttributeIconTile (u8* arg0, u16 cardId) {
   arg0 += 0xC0;
   SetCardInfo(cardId);
-  if (gCardInfo.attribute != TYPE_NONE)
+  if (gCardInfo.attribute != ATTRIBUTE_NONE)
     CpuCopy16(g8E1168C[gCardInfo.attribute], arg0, 64);
 }
 
 //almost same as sub_80576EC
-static void sub_802FF4C (u8* arg0, u16 cardId) {
+static void CopyNumTributesTile (u8* arg0, u16 cardId) {
   u8 numTributes = sub_8045410(cardId);
   if (numTributes)
     CpuCopy16(g89A7ADE[numTributes], arg0, 64);
@@ -3340,9 +3314,9 @@ static void sub_8030090 (void) {
 
 static void sub_80300F8 (void) {
   u32* oam = (u32*)gOamBuffer + 8;
-  u32 r1 = g80CDE7C[sCardShop.unk722] << 16;
+  u32 r1 = g80CDE7C[sCardShop.cursorColumn] << 16;
   r1 &= 0x01FF0000;
-  r1 |= g80CDE72[sCardShop.unk723][0];
+  r1 |= g80CDE72[sCardShop.cursorRow][0];
   r1 |= 0x80000800;
   oam[0] = r1;
   oam[1] = 0x804;
@@ -3391,7 +3365,7 @@ static void sub_8030240 (void) {
 // see this for oam access clues
 static void sub_803028C (void) {
   u32* oam;
-  u8 r0 = sub_802DED4(sCardShop.unk71E + sCardShop.unk723) * 127 / sCardShop.unk720 + 1;
+  u8 r0 = sub_802DED4(sCardShop.unk71E + sCardShop.cursorRow) * 127 / sCardShop.unk720 + 1;
   oam = (u32*)gOamBuffer + 12;
   oam[0] = r0 | 0x8000;
   oam[1] = 0xAC48;
@@ -3402,36 +3376,36 @@ static void sub_80302F0 (void) {
 }
 
 static void sub_803030C (void) {
-  u32 r4;
+  unsigned keepProcessing;
   sCardShop.unk726 = sCardShop.unk725;
   sub_802FC14();
   sub_80302F0();
   sub_80301F4();
   sub_8030240();
   sub_80309D8();
-  sub_80081DC(sub_80306E0);
-  sub_8008220();
+  SetVBlankCallback(sub_80306E0);
+  WaitForVBlank();
   PlayMusic(0x37);
-  r4 = 1;
-  while (r4) {
+  keepProcessing = 1;
+  while (keepProcessing) {
     switch (ProcessInput()) {
-      case 0x40:
+      case REPEAT_DPAD_UP:
         sub_8030494();
         PlayMusic(0x36);
         break;
-      case 0x80:
+      case REPEAT_DPAD_DOWN:
         sub_80304E4();
         PlayMusic(0x36);
         break;
-      case 0x20:
+      case REPEAT_DPAD_LEFT:
         sub_8030534();
         PlayMusic(0x36);
         break;
-      case 0x10:
+      case REPEAT_DPAD_RIGHT:
         sub_8030584();
         PlayMusic(0x36);
         break;
-      case 1:
+      case NEW_A_BUTTON:
         if (sCardShop.unk726 == 10) {
           sub_80305D4();
           PlayMusic(0x37);
@@ -3441,27 +3415,26 @@ static void sub_803030C (void) {
           sub_80303F0();
         }
         return;
-      case 2:
-      case 8:
+      case NEW_B_BUTTON:
+      case NEW_START_BUTTON:
         sub_80305D4();
         PlayMusic(0x38);
         return;
       default:
-        sub_8008220();
+        WaitForVBlank();
         break;
     }
   }
 }
 
 static void sub_80303F0 (void) {
-  u16 cardId;
-
+  unsigned short cardId;
   sCardShop.unk725 = sCardShop.unk726;
   sub_802DFF8(sCardShop.unk725);
   sub_802DF1C();
   sub_802DF88();
 
-  cardId = *sCardShop.unk0[sCardShop.unk723][sCardShop.unk722];
+  cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   g2021AF0.unk10 = cardId;
   g2021AF0.unk12 = g2022120[cardId];
   sub_800BD34();
@@ -3474,8 +3447,8 @@ static void sub_80303F0 (void) {
   sub_803028C();
   sub_80300F8();
   sub_802FC6C();
-  sub_80081DC(sub_803071C);
-  sub_8008220();
+  SetVBlankCallback(sub_803071C);
+  WaitForVBlank();
   sub_8030A48();
 }
 
@@ -3487,8 +3460,8 @@ static void sub_8030494 (void) {
     sub_802FCF0(sCardShop.unk726);
   sub_80301F4();
   sub_8030240();
-  sub_80081DC(sub_8030710);
-  sub_8008220();
+  SetVBlankCallback(sub_8030710);
+  WaitForVBlank();
   sub_8030A10();
 }
 
@@ -3500,8 +3473,8 @@ static void sub_80304E4 (void) {
     sub_802FCF0(sCardShop.unk726);
   sub_80301F4();
   sub_8030240();
-  sub_80081DC(sub_8030710);
-  sub_8008220();
+  SetVBlankCallback(sub_8030710);
+  WaitForVBlank();
   sub_8030A10();
 }
 
@@ -3513,8 +3486,8 @@ static void sub_8030534 (void) {
     sub_802FCF0(sCardShop.unk726);
   sub_80301F4();
   sub_8030240();
-  sub_80081DC(sub_8030710);
-  sub_8008220();
+  SetVBlankCallback(sub_8030710);
+  WaitForVBlank();
   sub_8030A10();
 }
 
@@ -3526,8 +3499,8 @@ static void sub_8030584 (void) {
     sub_802FCF0(sCardShop.unk726);
   sub_80301F4();
   sub_8030240();
-  sub_80081DC(sub_8030710);
-  sub_8008220();
+  SetVBlankCallback(sub_8030710);
+  WaitForVBlank();
   sub_8030A10();
 }
 
@@ -3536,15 +3509,15 @@ static void sub_80305D4 (void) {
   sub_80300F8();
   sub_802FBF4();
   sub_802FC6C();
-  sub_80081DC(sub_803073C);
-  sub_8008220();
+  SetVBlankCallback(sub_803073C);
+  WaitForVBlank();
   sub_8030AF8();
 }
 
 static void sub_803060C (void) {
   sub_8045718();
-  REG_BG1CNT = 0x1F0D;
-  REG_BG2CNT = 0x9282;
+  REG_BG1CNT = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(3) | BGCNT_16COLOR | BGCNT_SCREENBASE(31);
+  REG_BG2CNT = BGCNT_PRIORITY(2) | BGCNT_CHARBASE(0) | BGCNT_256COLOR | BGCNT_SCREENBASE(18) | BGCNT_TXT256x512;
   REG_BG3CNT = 0x170F;
   REG_WINOUT = 0x1C3F;
   LoadBgOffsets();
@@ -3572,21 +3545,21 @@ static void sub_8030684 (void) {
 }
 
 static void sub_8030690 (void) {
-  REG_BG0CNT = 0x140C;
-  REG_DISPCNT |= 0x100;
+  REG_BG0CNT = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(3) | BGCNT_16COLOR | BGCNT_SCREENBASE(20);
+  REG_DISPCNT |= DISPCNT_BG0_ON;
   LoadOam();
   LoadBlendingRegs();
 }
 
 static void sub_80306C0 (void) {
-  REG_DISPCNT &= 0xFEFF;
+  REG_DISPCNT &= ~DISPCNT_BG0_ON;
   LoadOam();
   LoadBlendingRegs();
 }
 
 static void sub_80306E0 (void) {
-  REG_BG0CNT = 0x150C;
-  REG_DISPCNT |= 0x100;
+  REG_BG0CNT = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(3) | BGCNT_16COLOR | BGCNT_SCREENBASE(21);
+  REG_DISPCNT |= DISPCNT_BG0_ON;
   LoadOam();
   LoadBlendingRegs();
 }
@@ -3596,13 +3569,13 @@ static void sub_8030710 (void) {
 }
 
 static void sub_803071C (void) {
-  REG_DISPCNT &= 0xFEFF;
+  REG_DISPCNT &= ~DISPCNT_BG0_ON;
   LoadOam();
   LoadBlendingRegs();
 }
 
 static void sub_803073C (void) {
-  REG_DISPCNT &= 0xFEFF;
+  REG_DISPCNT &= ~DISPCNT_BG0_ON;
   LoadOam();
   LoadBlendingRegs();
 }
@@ -3615,21 +3588,21 @@ static void sub_8030760 (void) {
   LoadPalettes();
   LoadBlendingRegs();
   LoadBgOffsets();
-  REG_DISPCNT = 0x9E00;
+  REG_DISPCNT = DISPCNT_MODE_0 | DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON | DISPCNT_OBJWIN_ON;
 }
 
 static void sub_8030784 (void) {
-  REG_BG0CNT = 0x140C;
+  REG_BG0CNT = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(3) | BGCNT_16COLOR | BGCNT_SCREENBASE(20);
   LoadVRAM();
   LoadPalettes();
   LoadBlendingRegs();
   LoadBgOffsets();
-  REG_DISPCNT = 0x9F00;
+  REG_DISPCNT = DISPCNT_MODE_0 | DISPCNT_BG0_ON | DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON | DISPCNT_OBJWIN_ON;
 }
 
 static void sub_80307B8 (void) {
-  CpuCopy16(g02000000.bg + 0xB0, (u16*)PLTT + 0xB0, 0x40);
-  CpuCopy16(gBgVram.cbb0 + 0xF520, (u8*)BG_VRAM + 0xF520, 0x1C00);
+  CpuCopy16(g02000000.bg + 0xB0, (u16*)(PLTT + 0x160), 0x40);
+  CpuCopy16(gBgVram.cbb0 + 0xF520, (u8*)(BG_VRAM + 0xF520), 0x1C00);
 }
 
 static void sub_80307E4 (int arg0) {

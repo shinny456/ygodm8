@@ -64,8 +64,8 @@ inline void sub_8053404 (struct ScriptCtx* script) {
 
 inline void sub_805339C (void) {
   sub_804EB04(gOamBuffer, 2);
-  sub_80081DC(LoadOam);
-  sub_8008220();
+  SetVBlankCallback(LoadOam);
+  WaitForVBlank();
 }
 
 inline void sub_80533BC (void) {
@@ -96,7 +96,7 @@ static void DisplayPortrait (struct ScriptCtx* scriptCtx) {
   CpuCopy16(*g8FA3360[scriptCtx->unk0], g02000000.obj + 0xC0, 128);
   if (CheckFlag(0xF3))
     sub_8044E50(g02000000.bg, 0x1C0, 0x1FF);
-  sub_8008220();
+  WaitForVBlank();
   sub_804EC64();
 }
 
@@ -591,8 +591,8 @@ static void sub_8053284 (struct ScriptCtx *script) {
 static void sub_80532A8 (struct ScriptCtx* unused) {
   LZ77UnCompWram(g82AD2D0, gBgVram.sbb1B);
   CpuCopy16(g82AD48C, gBgVram.sbb1D, 0x500);
-  sub_80081DC(sub_804ECA8);
-  sub_8008220();
+  SetVBlankCallback(sub_804ECA8);
+  WaitForVBlank();
 }
 
 /*

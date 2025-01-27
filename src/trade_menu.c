@@ -1,13 +1,13 @@
 #include "global.h"
 
-static u16 sub_8035BF0 (void);
+static unsigned short ProcessInput (void); //TODO: there's 3 different ProcessInput funcs in this file
 static void TradeSucceeded (void);
 static void TradeFailed (void);
 static void sub_8035E14 (void);
 static void sub_8035FC0 (void);
 static void sub_8036080 (void);
-static u16 sub_8036150 (void);
-static u16 sub_8036224 (void);
+static unsigned short sub_8036150 (void);
+static unsigned short sub_8036224 (void);
 static void sub_8036B54 (void);
 static void sub_8036BE8 (void);
 static u32 sub_8036BFC (void);
@@ -35,7 +35,7 @@ struct Unk2022EC0 {
   u8 unk321[801];
   u8 unk642[801];
   u8 filler963;
-  u16 unk964[800]; // sorted trunk
+  u16 unk964[NUM_TRUE_CARDS]; // sorted trunk
   u16 unkFA4;
   u16 unkFA6;
   u8 unkFA8;
@@ -117,7 +117,7 @@ void sub_8039B24 (void);
 void sub_8039C68 (void);
 void sub_8039CE8 (void);
 void sub_8039BDC (void);
-u32 sub_8036C3C (u8);
+u32 sub_8036C3C (unsigned);
 u32 sub_80384BC (u16, u8);
 void sub_8038574 (u16, u8);
 void sub_8039D68 (void);
@@ -185,36 +185,36 @@ extern u8 g80DD674[];
 extern u8 g80DD678[];
 
 void TradeMenuMain (void) {
-  u32 r5;
+  unsigned stopProcessing;
   void (**funcTable) (void);
   PlayMusic(0x2F);
   sub_80389B4();
   sub_8038BA0();
   sub_803DB1C();
-  r5 = 0;
+  stopProcessing = 0;
   funcTable = g8E0CDF0;
-  while (r5 != 1) {
-    switch (sub_8035BF0()) {
-      case 0x40:
+  while (stopProcessing != 1) {
+    switch (ProcessInput()) {
+      case REPEAT_DPAD_UP:
         sub_8038A84();
         sub_8038AC4();
         sub_8038958();
         PlayMusic(0x36);
         sub_803E214();
         break;
-      case 0x80:
+      case REPEAT_DPAD_DOWN:
         sub_8038AA4();
         sub_8038AC4();
         sub_8038958();
         PlayMusic(0x36);
         sub_803E214();
         break;
-      case 1:
+      case NEW_A_BUTTON:
         funcTable[g2023E7B]();
         if (g2023E7B == 3)
-          r5 = 1;
+          stopProcessing = 1;
         break;
-      case 2:
+      case NEW_B_BUTTON:
         g2023E7B = 3;
         sub_8038AC4();
         sub_8038958();
@@ -230,21 +230,21 @@ void TradeMenuMain (void) {
   }
 }
 
-static u16 sub_8035BF0 (void) {
+static unsigned short ProcessInput (void) {
   if (gNewButtons & A_BUTTON)
-    return 1;
+    return NEW_A_BUTTON;
   if (gNewButtons & B_BUTTON)
-    return 2;
+    return NEW_B_BUTTON;
   if (gNewButtons & L_BUTTON)
-    return 0x200;
+    return NEW_L_BUTTON;
   if (gRepeatedOrNewButtons & DPAD_RIGHT)
-    return 0x10;
+    return REPEAT_DPAD_RIGHT;
   if (gRepeatedOrNewButtons & DPAD_LEFT)
-    return 0x20;
+    return REPEAT_DPAD_LEFT;
   if (gRepeatedOrNewButtons & DPAD_UP)
-    return 0x40;
+    return REPEAT_DPAD_UP;
   if (gRepeatedOrNewButtons & DPAD_DOWN)
-    return 0x80;
+    return REPEAT_DPAD_DOWN;
   return 0;
 }
 
@@ -254,8 +254,8 @@ static void SelectCardsToBeTraded (void) {
     sub_8038AF8();
     sub_803DFE8();
     while (1) {
-      u16 temp = sub_8035BF0();
-      if (temp == 1 || temp == 2)
+      unsigned short buttons = ProcessInput();
+      if (buttons == NEW_A_BUTTON || buttons == NEW_B_BUTTON)
         break;
       sub_8038AC4();
       sub_803E254();
@@ -278,8 +278,8 @@ static void ConfirmCardsToBeTraded (void) {
     PlayMusic(0x39);
     sub_803E094();
     while (1) {
-      u16 temp = sub_8035BF0();
-      if (temp == 1 || temp == 2)
+      unsigned short buttons = ProcessInput();
+      if (buttons == NEW_A_BUTTON || buttons == NEW_B_BUTTON)
         break;
       sub_8038AC4();
       sub_803E254();
@@ -324,8 +324,8 @@ static void TradeSucceeded (void) {
   PlayMusic(0x37);
   sub_803DF3C();
   while (1) {
-    u16 temp = sub_8035BF0();
-    if (temp == 1 || temp == 2)
+    unsigned short buttons = ProcessInput();
+    if (buttons == NEW_A_BUTTON || buttons == NEW_B_BUTTON)
       break;
     sub_8038AC4();
     sub_803E254();
@@ -349,8 +349,8 @@ static void TradeFailed (void) {
   PlayMusic(0x39);
   sub_803DE90();
   while (1) {
-    u16 temp = sub_8035BF0();
-    if (temp == 1 || temp == 2)
+    unsigned short buttons = ProcessInput();
+    if (buttons == NEW_A_BUTTON || buttons == NEW_B_BUTTON)
       break;
     sub_8038AC4();
     sub_803E254();
@@ -361,12 +361,12 @@ static void TradeFailed (void) {
 }
 
 static void sub_8035E14 (void) {
-  u32 r6;
+  unsigned stopProcessing;
   sub_8039B24();
-  r6 = 0;
-  while (r6 != 1) {
-    u16 temp = sub_8036150();
-    switch (temp) {
+  stopProcessing = 0;
+  while (stopProcessing != 1) {
+    unsigned short temp2;
+    switch (sub_8036150()) {
       case 0x40:
         sub_8036CB0(1);
         PlayMusic(0x36);
@@ -388,27 +388,25 @@ static void sub_8035E14 (void) {
         sub_8039BDC();
         break;
       case 0x20:
-        {
-          temp = sub_8036C3C(2);
-          if (!sub_80384BC(temp, 1)) {
-            sub_8038574(temp, 1);
-            sub_8036D5C(temp, 1);
+          temp2 = sub_8036C3C(2);
+          if (!sub_80384BC(temp2, 1)) {
+            sub_8038574(temp2, 1);
+            sub_8036D5C(temp2, 1);
             goto a;
           }
           else {
             PlayMusic(0x39);
             sub_8039D68();
             while (gPressedButtons & DPAD_LEFT)
-              sub_8008220();
+              WaitForVBlank();
           }
-        }
+        
         break;
       case 0x10:
-        {
-          temp = sub_8036C3C(2);
-          if (sub_8036E14(temp) > 1) {
-            sub_8036DBC(temp, 1);
-            sub_80384FC(temp, 1);
+          temp2 = sub_8036C3C(2);
+          if (sub_8036E14(temp2) > 1) {
+            sub_8036DBC(temp2, 1);
+            sub_80384FC(temp2, 1);
             a:
             PlayMusic(0x36);
             sub_8039D68();
@@ -417,19 +415,19 @@ static void sub_8035E14 (void) {
             PlayMusic(0x39);
             sub_8039F64();
             while (gPressedButtons & DPAD_RIGHT)
-              sub_8008220();
+              WaitForVBlank();
             sub_8038CE0();
           }
-        }
+        
         break;
       case 1:
         sub_8035FC0();
         sub_8039D9C();
         break;
       case 2:
-        r6 = 1;
+        stopProcessing = 1;
         PlayMusic(0x38);
-        sub_8008220();
+        WaitForVBlank();
         break;
       case 0x200:
         sub_8036FCC();
@@ -448,7 +446,7 @@ static void sub_8035E14 (void) {
         sub_8039BDC();
         break;
       default:
-        sub_8008220();
+        WaitForVBlank();
         break;
     }
   }
@@ -490,7 +488,7 @@ static void sub_8035FC0 (void) {
       case 2:
         keepProcessing = 1;
         PlayMusic(0x38);
-        sub_8008220();
+        WaitForVBlank();
         break;
       case 0x200:
         sub_8036FCC();
@@ -498,7 +496,7 @@ static void sub_8035FC0 (void) {
         sub_8039B88();
         break;
       default:
-        sub_8008220();
+        WaitForVBlank();
         break;
     }
   }
@@ -506,13 +504,13 @@ static void sub_8035FC0 (void) {
 
 static void sub_8036080 (void) {
   u8 r6;
-  u32 r7;
+  unsigned stopProcessing;
   g2022EC0.unkFA8 = g2022EC0.unkFAA;
   r6 = g2022EC0.unkFAA;
   PlayMusic(0x37);
   sub_8039EDC();
-  r7 = 0;
-  while (r7 != 1) {
+  stopProcessing = 0;
+  while (stopProcessing != 1) {
     switch (sub_8036224()) {
       case 0x40:
         sub_8036F4C();
@@ -573,35 +571,35 @@ static void sub_8036080 (void) {
         sub_8036E64();
         sub_8036CD4();
         PlayMusic(0x37);
-        sub_8008220();
-        r7 = 1;
+        WaitForVBlank();
+        stopProcessing = 1;
         break;
       case 2:
       case 8:
         PlayMusic(0x38);
         g2022EC0.unkFAA = r6;
-        sub_8008220();
-        r7 = 1;
+        WaitForVBlank();
+        stopProcessing = 1;
         break;
       default:
-        sub_8008220();
+        WaitForVBlank();
         break;
     }
   }
 }
 
-static u16 sub_8036150 (void) {
+static unsigned short sub_8036150 (void) {
   sub_802612C();
   if (gNewButtons & A_BUTTON)
-    return 1;
+    return NEW_A_BUTTON;
   if (gNewButtons & B_BUTTON)
-    return 2;
+    return NEW_B_BUTTON;
   if (gNewButtons & L_BUTTON)
-    return 0x200;
+    return NEW_L_BUTTON;
   if (gNewButtons & START_BUTTON)
-    return 8;
+    return NEW_START_BUTTON;
   if (gNewButtons & SELECT_BUTTON)
-    return 4;
+    return NEW_SELECT_BUTTON;
   if (gUnk2021DCC & 0x40 && gPressedButtons & 0x100)
     return 0x140;
   if (gUnk2021DCC & 0x80 && gPressedButtons & 0x100)
@@ -617,16 +615,16 @@ static u16 sub_8036150 (void) {
   return 0;
 }
 
-static u16 sub_8036224 (void) {
+static unsigned short sub_8036224 (void) {
   sub_802618C();
   if (gNewButtons & A_BUTTON)
-    return 1;
+    return NEW_A_BUTTON;
   if (gNewButtons & B_BUTTON)
-    return 2;
+    return NEW_B_BUTTON;
   if (gNewButtons & L_BUTTON)
-    return 0x200;
+    return NEW_L_BUTTON;
   if (gNewButtons & START_BUTTON)
-    return 8;
+    return NEW_START_BUTTON;
   if (gUnk2021DCC & 0x40)
     return 0x40;
   if (gUnk2021DCC & 0x80)
@@ -651,7 +649,7 @@ static void sub_80362C8 (void) {
     PlayMusic(0x39);
     sub_8039F64();
     while (!(gNewButtons & (A_BUTTON | B_BUTTON)))
-      sub_8008220();
+      WaitForVBlank();
     PlayMusic(0x38);
     sub_8039DDC();
   }
@@ -670,7 +668,7 @@ static void sub_8036338 (void) {
     PlayMusic(0x39);
     sub_8039F64();
     while (!(gNewButtons & (A_BUTTON | B_BUTTON)))
-      sub_8008220();
+      WaitForVBlank();
     PlayMusic(0x38);
     sub_8039DDC();
   }
@@ -714,7 +712,7 @@ static void sub_80363F8 (void) {
 
 static void sub_8036448 (void) {
   PlayMusic(0x38);
-  sub_8008220();
+  WaitForVBlank();
 }
 
 static void sub_8036458 (void) {
@@ -871,10 +869,11 @@ static u32 sub_8036BFC (void) {
   return ret;
 }
 
-u32 sub_8036C3C (u8 arg0) {
-  int temp = arg0 + g2022EC0.unkFA6 - 2;
+u32 sub_8036C3C (unsigned arg0) {
+  unsigned char arg0_u8 = arg0;
+  int temp = arg0_u8 + g2022EC0.unkFA6 - 2;
   if (temp < 0)
-    temp = arg0 + g2022EC0.unkFA6 + 798;
+    temp = arg0_u8 + g2022EC0.unkFA6 + 798;
   if (temp >= 800)
     temp -= 800;
   return g2022EC0.unk964[(u16)temp];
@@ -1923,7 +1922,6 @@ void sub_803A424 (void);
 void sub_80396B0 (void);
 extern u8 g2023E69;
 extern void (*g8E0CE90[])(u8);
-u32 sub_8036C3C(); // TODO
 void CopyStarTileToBuffer(void*);
 void CopySwordTileToBuffer(void*);
 void CopyShieldTileToBuffer(void*);
@@ -1963,15 +1961,15 @@ void sub_8038CE0 (void) {
 	sub_8039918();
 	sub_80396B0();
   gBLDY = 4;
-  sub_80081DC(LoadOam);
-  sub_8008220();
+  SetVBlankCallback(LoadOam);
+  WaitForVBlank();
   LoadPalettes();
 	LoadCharblock3();
 	LoadCharblock4();
 	LoadCharblock1();
 	LoadBlendingRegs();
-  REG_DISPCNT &= 0xFEFF;
-  REG_DISPCNT |= 0x4000;
+  REG_DISPCNT &= ~DISPCNT_BG0_ON;
+  REG_DISPCNT |= DISPCNT_WIN1_ON;
 }
 
 void sub_8038DA0 (void) {

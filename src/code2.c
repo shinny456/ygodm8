@@ -7205,7 +7205,7 @@ void AI_Main (void) {
     sub_8029820();
   }
   for (i = 0; i < 30; i++)
-    sub_8008220();
+    WaitForVBlank();
 }
 
 struct AttackVoicing {
@@ -8394,13 +8394,13 @@ void sub_801B66C (void) {
   sub_801BAEC(0, 1);
   if (g201CB48[1].a)
     sub_800B288(0);
-  sub_80081DC(sub_801BC4C);
-  sub_8008220();
+  SetVBlankCallback(sub_801BC4C);
+  WaitForVBlank();
   sub_801BB7C();
-  sub_80081DC(sub_801BC58);
-  sub_8008220();
+  SetVBlankCallback(sub_801BC58);
+  WaitForVBlank();
   for (i = 0; i < 15; i++)
-    sub_8008220();
+    WaitForVBlank();
   if (g201CB48[1].b || g201CB48[1].c) {
     if (g201CB48[1].b) {
       if (g201CB48[1].h)
@@ -8408,7 +8408,7 @@ void sub_801B66C (void) {
       else
         sub_801C6BC(1);
       for (i = 0; i < 6; i++)
-        sub_8008220();
+        WaitForVBlank();
     }
     if (g201CB48[1].c)
       sub_801C1DC(1);
@@ -8417,7 +8417,7 @@ void sub_801B66C (void) {
     if (g201CB48[1].b || g201CB48[1].c) {
       if (g201CB48[0].b || g201CB48[0].c)
         for (i = 0; i < 30; i++)
-          sub_8008220();
+          WaitForVBlank();
       else {
         goto a;
       }
@@ -8430,7 +8430,7 @@ void sub_801B66C (void) {
       else
         sub_801C6BC(0);
       for (i = 0; i < 6; i++)
-        sub_8008220();
+        WaitForVBlank();
     }
     if (g201CB48[0].c)
       sub_801C1DC(0);
@@ -8440,7 +8440,7 @@ void sub_801B66C (void) {
   a:
   if (gUnk2023EA0.unk18 == 5 || gUnk2023EA0.unk18 == 8)
     for (i = 0; i < 30; i++)
-      sub_8008220();
+      WaitForVBlank();
 }
 
 static void sub_801B808 (void) {
@@ -9235,8 +9235,8 @@ extern u8 g80B0D50[];
 static void sub_801C218 (void) {
   u16 r5 = 0, r4;
   sub_801BFB0(1);
-  sub_80081DC(sub_801C368);
-  sub_8008220();
+  SetVBlankCallback(sub_801C368);
+  WaitForVBlank();
   sub_801C3C0();
   r4 = 1;
   PlayMusic(0x46);
@@ -9247,8 +9247,8 @@ static void sub_801C218 (void) {
       sub_801BE54();
       sub_801C334(r4);
     }
-    sub_80081DC(sub_801C38C);
-    sub_8008220();
+    SetVBlankCallback(sub_801C38C);
+    WaitForVBlank();
     sub_801C3CC();
     r5++;
     if (r5 > 2) {
@@ -9256,15 +9256,15 @@ static void sub_801C218 (void) {
       r4++;
     }
   } while (sub_801C328(r4, 1));
-  sub_80081DC(sub_801C3AC);
-  sub_8008220();
+  SetVBlankCallback(sub_801C3AC);
+  WaitForVBlank();
 }
 
 static void sub_801C2A0 (void) {
   u16 r5 = 0, r4;
   sub_801BFB0(0);
-  sub_80081DC(sub_801C368);
-  sub_8008220();
+  SetVBlankCallback(sub_801C368);
+  WaitForVBlank();
   sub_801C3C0();
   r4 = 1;
   PlayMusic(0x46);
@@ -9275,8 +9275,8 @@ static void sub_801C2A0 (void) {
       sub_801BE54();
       sub_801C334(r4);
     }
-    sub_80081DC(sub_801C39C);
-    sub_8008220();
+    SetVBlankCallback(sub_801C39C);
+    WaitForVBlank();
     sub_801C3D8();
     r5++;
     if (r5 > 2) {
@@ -9284,8 +9284,8 @@ static void sub_801C2A0 (void) {
       r4++;
     }
   } while (sub_801C328(r4, 0));
-  sub_80081DC(sub_801C3AC);
-  sub_8008220();
+  SetVBlankCallback(sub_801C3AC);
+  WaitForVBlank();
 }
 
 static u8 sub_801C328 (u32 arg0, u32 arg1) {
@@ -9306,7 +9306,7 @@ static void sub_801C368 (void) {
   LoadOam();
   LoadPalettes();
   LoadBlendingRegs();
-  REG_DISPCNT |= 0x1000;
+  REG_DISPCNT |= DISPCNT_OBJ_ON;
 }
 
 static void sub_801C38C (void) {
@@ -9500,8 +9500,8 @@ static void sub_801C5C4 (void) {
 }
 
 extern u16 g80B4894[];
-extern u8 g80B1E94[];
-extern u8 g80B3E94[];
+extern u16 g80B1E94[];
+extern u16 g80B3E94[];
 
 static void sub_801C610 (u8 arg0) {
   u16 i;
@@ -9530,19 +9530,19 @@ static void sub_801C768 (void);
 
 static void sub_801C6BC (u8 arg0) {
   sub_801C610(arg0);
-  sub_80081DC(sub_801C734);
-  sub_8008220();
+  SetVBlankCallback(sub_801C734);
+  WaitForVBlank();
   sub_801C7AC();
   PlayMusic(0x44);
   do {
     sub_801C3E4(arg0);
-    sub_80081DC(sub_801C758);
-    sub_8008220();
+    SetVBlankCallback(sub_801C758);
+    WaitForVBlank();
     sub_801C5C4();
   } while (sub_801C71C());
   sub_0801C730();
-  sub_80081DC(sub_801C768);
-  sub_8008220();
+  SetVBlankCallback(sub_801C768);
+  WaitForVBlank();
 }
 
 
@@ -9556,7 +9556,7 @@ static void sub_801C734 (void) {
   LoadOam();
   LoadPalettes();
   LoadBlendingRegs();
-  REG_DISPCNT |= 0x1000;
+  REG_DISPCNT |= DISPCNT_OBJ_ON;
 }
 
 static void sub_801C758 (void) {
@@ -9594,27 +9594,27 @@ static void sub_801CAAC (void);
 static void sub_801C7B8 (u8 arg0) {
   u16 i;
   sub_801C98C(arg0);
-  sub_80081DC(sub_801CA70);
-  sub_8008220();
+  SetVBlankCallback(sub_801CA70);
+  WaitForVBlank();
   sub_801CA90();
   sub_801C870(arg0);
-  sub_80081DC(sub_801CAA0);
+  SetVBlankCallback(sub_801CAA0);
   for (i = 0; i < 15; i++)
-    sub_8008220();
+    WaitForVBlank();
   if (gE008B4->unk2 > gE008B4->unk4) {
     for (i = 0; i < 10000 && gE008B4->unk0 > gE008B4->unk4; i++) {
       sub_801CA50(); // subtracts 72 lifepoints every frame
       sub_801C870(arg0);
-      sub_80081DC(sub_801CAA0);
-      sub_8008220();
+      SetVBlankCallback(sub_801CAA0);
+      WaitForVBlank();
       if (i % 2 == 0)
         PlayMusic(0x47); //life points dropping
     }
     for (i = 0; i < 30; i++)
-      sub_8008220();
+      WaitForVBlank();
   }
-  sub_80081DC(sub_801CAAC);
-  sub_8008220();
+  SetVBlankCallback(sub_801CAAC);
+  WaitForVBlank();
 }
 
 struct OAMTemplate {
@@ -9660,7 +9660,7 @@ static void sub_801C870 (u8 arg0) {
 }
 
 extern u16 g80B8954[];
-extern u8 g80B6954[];
+extern u16 g80B6954[];
 
 static void sub_801C98C (u8 arg0) {
   u16 i;
@@ -9698,7 +9698,7 @@ static void sub_801CA50 (void) {
 static void sub_801CA70 (void) {
   LoadOam();
   LoadPalettes();
-  REG_DISPCNT |= 0x1000;
+  REG_DISPCNT |= DISPCNT_OBJ_ON;
 }
 
 static void sub_801CA90 (void) {
@@ -9739,7 +9739,7 @@ static void sub_801CAC0 (void) {
     gOamBuffer[i * 4 + 3] = g80B68D4[g8E00AA0->unk8][i];
 }
 
-extern u8 g80B48B4[];
+extern u16 g80B48B4[];
 extern u16 g80B68B4[];
 
 static void sub_801CB24 (u8 arg0) {
@@ -10003,19 +10003,19 @@ static u8 sub_801CE44 (void);
 
 static void sub_801CDEC (u8 arg0) {
   sub_801CB24(arg0);
-  sub_80081DC(sub_801CE78);
-  sub_8008220();
+  SetVBlankCallback(sub_801CE78);
+  WaitForVBlank();
   sub_801CE6C();
   PlayMusic(0x45);
   do {
     sub_801CC50();
-    sub_80081DC(sub_801CE9C);
-    sub_8008220();
+    SetVBlankCallback(sub_801CE9C);
+    WaitForVBlank();
     sub_801CAC0();
   } while (sub_801CE44());
   sub_0801CE68();
-  sub_80081DC(sub_801CEA8);
-  sub_8008220();
+  SetVBlankCallback(sub_801CEA8);
+  WaitForVBlank();
 }
 
 static u8 sub_801CE44 (void) {
@@ -10034,7 +10034,7 @@ static void sub_801CE78 (void) {
   LoadOam();
   LoadPalettes();
   LoadBlendingRegs();
-  REG_DISPCNT |= 0x1000;
+  REG_DISPCNT |= DISPCNT_OBJ_ON;
 }
 
 static void sub_801CE9C (void) {

@@ -211,7 +211,7 @@ inline void sub_80515F4 (void) {
   for (i = 0; g8E0E091[i] >= 0; i++) {
     sub_80515A0();
     sub_8044F80(g02000000.bg, 0, 0x1FF, g8E0E091[i]);
-    sub_8008220();
+    WaitForVBlank();
     LoadPalettes();
   }
 }
@@ -222,7 +222,7 @@ inline void sub_8051648 (void) {
     sub_80515A0();
     sub_8044F80(g02000000.bg, 0, 0x16F, g8E0E099[i]);
     sub_8044F80(g02000000.bg, 0x1C0, 0x1FF, g8E0E099[i]);
-    sub_8008220();
+    WaitForVBlank();
     LoadPalettes();
   }
 }
@@ -231,7 +231,7 @@ inline void sub_80516B0 (u32 unsued, u8 arg0) {
   u32 i;
   for (i = 0; g8E0E0A2[i] >= 0; i++) {
     gBLDALPHA = g8E0E0A2[i] << 8 | 0x10;
-    sub_8008220();
+    WaitForVBlank();
     LoadBlendingRegs();
     sub_805787C(arg0);
   }
@@ -251,7 +251,7 @@ inline void sub_805171C (void) {
 
 inline void sub_8051740 (void) {
   sub_80516F8();
-  sub_8008220();
+  WaitForVBlank();
   LoadOam();
 }
 
@@ -544,7 +544,7 @@ void sub_804FA28 (struct Unk1234* arg0) {
   CpuCopy16(g8FC452C[arg0->unk0], g02000000.bg + 0x170, 0xA0);
   if (CheckFlag(0xF3))
     sub_8044E50(g02000000.bg, 0x170, 0x1BF);
-  sub_8008220();
+  WaitForVBlank();
   sub_804F2DC();
 }
 
@@ -555,7 +555,7 @@ inline void sub_805176C (struct Unk1234* arg0, u32 arg1) {
   for (i = 0; g8FC4618[arg0->unk0][arg1][i].unk0; i++) {
     sub_804F850(arg0, arg1, i);
     for (j = 0; j < g8FC4618[arg0->unk0][arg1][i].unk0; j++) {
-      sub_8008220();
+      WaitForVBlank();
       LoadOam();
     }
   }
@@ -674,7 +674,7 @@ void sub_804FB04 (struct Unk1234* arg0) {
       sub_8044EC8(g02000000.bg, 0x1C0, 0x1FF, g8E0E0D2[j]);
       sub_8044F80(g02000000.bg, 0, 0x1FF, g8E0E0AC[j]);
       for (k = 0; k < g8FC4618[arg0->unk0][i][j].unk0; k++) {
-        sub_8008220();
+        WaitForVBlank();
         LoadOam();
         LoadPalettes();
       }
@@ -704,7 +704,7 @@ void sub_804FC84 (struct Unk1234* arg0) {
     sub_805176C(arg0, arg0->unk1);
     gBLDALPHA = gE0E0F8[i / 3] << 8 | 0x10;
     for (k = gE0DB14[i + 2]; k > 0; k--) {
-      sub_8008220();
+      WaitForVBlank();
       LoadBlendingRegs();
     }
   }
@@ -713,7 +713,7 @@ void sub_804FC84 (struct Unk1234* arg0) {
   for (i = 0; g8E0E11C[i] >= 0; i++) {
     sub_80515A0();
     sub_8044F80(g02000000.bg, 0, 0x1FF, g8E0E11C[i]);
-    sub_8008220();
+    WaitForVBlank();
     LoadPalettes();
   }
 }
@@ -735,7 +735,7 @@ void sub_804FE78 (struct Unk1234* arg0) {
     if (g8E0E1D2[arg0->unk0] == i)
       PlayMusic(0x14E);
     for (j = g8E0DFC0[arg0->unk0][i][2]; j > 0; j--)
-      sub_8008220();
+      WaitForVBlank();
   }
 }
 
@@ -762,7 +762,7 @@ void sub_8050114 (struct Unk1234* arg0) {
     if (g8E0E1D2[arg0->unk0] == i)
       PlayMusic(0x14E);
     for (j = 0; j < g8FC4618[arg0->unk0][arg0->unk1][i].unk0; j++) {
-      sub_8008220();
+      WaitForVBlank();
       LoadOam();
     }
   }
@@ -793,18 +793,18 @@ void sub_805022C (struct Unk1234* arg0) {
       sub_8044EC8(g02000000.bg, 0, 0x16F, g8E0E20E[i]);
       sub_8044EC8(g02000000.bg, 0x1C0, 0x1FF, g8E0E20E[i]);
     }
-    sub_8008220();
+    WaitForVBlank();
     LoadOam();
     LoadPalettes();
     j = 1;
     while (g8FC4618[arg0->unk0][arg0->unk1][i].unk0 > j++)
-      sub_8008220();
+      WaitForVBlank();
   }
   for (i = 0; g8E0E284[i] >= 0; i++) {
     sub_80515A0();
     sub_8044EC8(g02000000.bg, 0, 0x16F, g8E0E284[i]);
     sub_8044EC8(g02000000.bg, 0x1C0, 0x1FF, g8E0E284[i]);
-    sub_8008220();
+    WaitForVBlank();
     LoadPalettes();
   }
   sub_8051740();
@@ -833,7 +833,7 @@ void sub_80503D8 (struct Unk1234* arg0) {
             sb = 16;
           sub_8044F80(g02000000.bg, 0, 0x1FF, sb);
         }
-        sub_8008220();
+        WaitForVBlank();
         LoadOam();
         LoadPalettes();
       }
@@ -868,7 +868,7 @@ void sub_8050584 (struct Unk1234* arg0) {
         sub_8044F80(g02000000.bg, 0, 0x1FF, sl);
       }
       for (k = 0; k < g8FC4618[arg0->unk0][i][j].unk0; k++) {
-        sub_8008220();
+        WaitForVBlank();
         LoadOam();
         LoadPalettes();
       }
@@ -893,25 +893,25 @@ void sub_8050748 (struct Unk1234* arg0) {
   sub_8051584();
   sub_80515BC();
   sub_805171C();
-  sub_8008220();
+  WaitForVBlank();
   LoadOam();
   for (i = 0; g8E0E2A0[i] >= 0; i++) {
     sub_8044EC8(g02000000.bg, 1, 0x19F, g8E0E2A0[i]);
     sub_8044EC8(g02000000.bg, 0x1C0, 0x1FF, g8E0E2A0[i]);
     g02000000.bg[0] = 0xFFFF;
-    sub_8008220();
+    WaitForVBlank();
     LoadPalettes();
   }
   REG_WINOUT = 0x3F;
   REG_DISPCNT = 0x9F00;
   sub_804F850(arg0, 0, 0);
-  sub_8008220();
+  WaitForVBlank();
   LoadOam();
   for (i = 0; g8FC4618[arg0->unk0][i]; i++) {
     for (r5 = 0; g8E0E295[r5 / 29] >= 0; r5++) {
       sub_804F78C(r5);
       for (r4 = 0; r4 <= g8E0E295[r5 / 29]; r4++) {
-        sub_8008220();
+        WaitForVBlank();
         LoadPalettes();
         LoadOam();
       }
@@ -924,7 +924,7 @@ void sub_8050748 (struct Unk1234* arg0) {
     sub_80515A0();
     sub_8044EC8(g02000000.bg, 0, 0x16F, g8E0E2B2[i]);
     sub_8044EC8(g02000000.bg, 0x1C0, 0x1FF, g8E0E2B2[i]);
-    sub_8008220();
+    WaitForVBlank();
     LoadPalettes();
   }
 }
@@ -947,7 +947,7 @@ void sub_8050978 (struct Unk1234* arg0) {
       sub_8044EC8(g02000000.bg, 0x150, 0x16F, g8E0E20E[j]);
       sub_8044EC8(g02000000.bg, 0x1C0, 0x1FF, g8E0E20E[j]);
       for (k = 0; k < g8FC4618[arg0->unk0][i][j].unk0; k++) {
-        sub_8008220();
+        WaitForVBlank();
         LoadOam();
         LoadPalettes();
       }
@@ -958,7 +958,7 @@ void sub_8050978 (struct Unk1234* arg0) {
     sub_8044EC8(g02000000.bg, 0, 0x13F, g8E0E284[i]);
     sub_8044EC8(g02000000.bg, 0x150, 0x16F, g8E0E284[i]);
     sub_8044EC8(g02000000.bg, 0x1C0, 0x1FF, g8E0E284[i]);
-    sub_8008220();
+    WaitForVBlank();
     LoadPalettes();
   }
   sub_8051740();
@@ -987,7 +987,7 @@ void sub_8050B50 (struct Unk1234* arg0) {
             sb = 16;
           sub_8044F80(g02000000.bg, 0, 0x1FF, sb);
         }
-        sub_8008220();
+        WaitForVBlank();
         LoadOam();
         LoadPalettes();
       }
@@ -1017,7 +1017,7 @@ void sub_8050CC0 (struct Unk1234* arg0) {
       gBLDY = 0;
       if (k == 0 && g8E0E2C4[j] == 1) {
         gBLDY = 8;
-        sub_8008220();
+        WaitForVBlank();
         LoadBlendingRegs();
         LoadOam();
         LoadPalettes();
@@ -1030,13 +1030,13 @@ void sub_8050CC0 (struct Unk1234* arg0) {
         if (r8 > 16)
           r8 = 16;
         gBLDY = r8;
-        sub_8008220();
+        WaitForVBlank();
         LoadBlendingRegs();
         LoadOam();
         LoadPalettes();
       }
       else {
-        sub_8008220();
+        WaitForVBlank();
         LoadBlendingRegs();
         LoadOam();
         LoadPalettes();
@@ -1047,7 +1047,7 @@ void sub_8050CC0 (struct Unk1234* arg0) {
   for (j = 0; g8E0E091[j] >= 0; j++) {
     sub_80515A0();
     sub_8044F80(g02000000.bg, 0, 0x1FF, g8E0E091[j]);
-    sub_8008220();
+    WaitForVBlank();
     LoadPalettes();
   }
 }
@@ -1065,21 +1065,21 @@ void sub_8050EE0 (struct Unk1234* arg0) {
   for (i = 0; g8E0E2FF[i] >= 0; i++) {
     sub_80515A0();
     sub_8044EC8(g02000000.bg, 0, 0x1FF, g8E0E2FF[i]);
-    sub_8008220();
+    WaitForVBlank();
     LoadPalettes();
   }
   for (i = 0; i < 6; i++) {
     LZ77UnCompWram(g8E0E324[i], gBgVram.cbb0 + g8E0E36C[i]);
     CpuCopy16(g8E0E33C[i], gBgVram.cbb0 + g8E0E372[i] * 2, 0x800); /*use u16 ptr arithmetic instead*/
     CpuCopy16(g8E0E354[i], g02000000.bg + g8E0E37E[i], 0x1E0);
-    sub_8008220();
+    WaitForVBlank();
     sub_804EC4C();
     sub_805787C(0x80);
   }
   for (i = 0; g8E0E311[i] >= 0; i++) {
     sub_80515A0();
     sub_8044EC8(g02000000.bg, 0, 0x1FF, g8E0E311[i]);
-    sub_8008220();
+    WaitForVBlank();
     LoadPalettes();
   }
 }
@@ -1097,7 +1097,7 @@ void sub_8051010 (struct Unk1234* arg0) {
   sub_8051648();
 
   sub_804F850(arg0, arg0->unk1, 0);
-  sub_8008220();
+  WaitForVBlank();
   LoadOam();
   sub_805787C(8);
   sub_80516B0(0, 0);
@@ -1112,7 +1112,7 @@ void sub_8051144 (struct Unk1234* arg0) {
   gBLDALPHA = 0x10;
   sub_804FA28(arg0);
   sub_804F850(arg0, arg0->unk1, 0);
-  sub_8008220();
+  WaitForVBlank();
   LoadOam();
   sub_805787C(8);
   sub_80516B0(0, 0);
@@ -1127,7 +1127,7 @@ void sub_80511EC (struct Unk1234* arg0) {
   gBLDALPHA = 0x10;
   sub_804FA28(arg0);
   sub_804F850(arg0, arg0->unk1, 0);
-  sub_8008220();
+  WaitForVBlank();
   LoadOam();
   sub_805787C(32);
   sub_80516B0(0, 1);

@@ -1,8 +1,4 @@
 #include "global.h"
-#include "duel.h"
-#include "card.h"
-#include "player.h"
-#include "constants/card_ids.h"
 
 static bool8 sub_8057998 (void);
 static bool8 sub_8057A1C (void);

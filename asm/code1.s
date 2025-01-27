@@ -241,7 +241,7 @@ _0800CF28:
 	cmp r7, #4
 	bls _0800CF00
 	ldr r0, _0800CFCC
-	bl sub_8057418
+	bl CopyMiniCardPalette
 	add sp, #0xc
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -1615,8 +1615,8 @@ sub_800DAA4: @ 0x0800DAA4
 	movs r0, #0x37
 	bl PlayMusic
 	ldr r0, _0800DAE8
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	movs r4, #1
 _0800DACA:
 	bl TrunkSubmenuProcessInput
@@ -1672,7 +1672,7 @@ _0800DB26:
 	movs r4, #0
 	b _0800DB34
 _0800DB30:
-	bl sub_8008220
+	bl WaitForVBlank
 _0800DB34:
 	cmp r4, #1
 	beq _0800DACA
@@ -1711,8 +1711,8 @@ _0800DB7A:
 	movs r0, #0x36
 	bl PlayMusic
 	ldr r0, _0800DB98
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadCharblock2
 	pop {r0}
 	bx r0
@@ -1746,8 +1746,8 @@ _0800DBCA:
 	movs r0, #0x36
 	bl PlayMusic
 	ldr r0, _0800DBE8
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadCharblock2
 	pop {r0}
 	bx r0
@@ -1781,8 +1781,8 @@ _0800DC1A:
 	movs r0, #0x36
 	bl PlayMusic
 	ldr r0, _0800DC38
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadCharblock2
 	pop {r0}
 	bx r0
@@ -1816,8 +1816,8 @@ _0800DC6A:
 	movs r0, #0x36
 	bl PlayMusic
 	ldr r0, _0800DC88
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadCharblock2
 	pop {r0}
 	bx r0

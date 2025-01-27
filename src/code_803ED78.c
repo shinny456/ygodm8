@@ -1,7 +1,4 @@
 #include "global.h"
-#include "duel.h"
-#include "gba/syscall.h"
-#include "gba/macro.h"
 
 extern unsigned short gVr[];
 extern unsigned short gOamBuffer[];
@@ -76,12 +73,12 @@ void ClearOamBuffer (void) {
   CpuFill16(0, gOamBuffer, 1024);
 }
 
-void sub_803EEFC (unsigned char arg0, const unsigned char* arg1, unsigned short arg2) {
+void sub_803EEFC (unsigned char arg0, const unsigned short* arg1, unsigned short arg2) {
   unsigned char i;
   unsigned short* r5;
   switch (arg0) {
     case 0:
-      r5 = gVr + 0x8000;
+      r5 = gVr + 0x10000 / 2;
       break;
     case 1:
       r5 = gVr + 0xA000;
@@ -97,5 +94,5 @@ void sub_803EEFC (unsigned char arg0, const unsigned char* arg1, unsigned short 
       break;
   }
   for (i = 0; i < arg2 / 16; i++)
-    CpuCopy16(arg1 + i * 512, r5 + i * 512, 512);
+    CpuCopy16(arg1 + i * 512 / 2, r5 + i * 512, 512);
 }

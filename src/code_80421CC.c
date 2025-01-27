@@ -57,28 +57,28 @@ void BMenuMain (void) {
       PlayMusic(0x36);
       r4 = g8E0D81A[r4];
       sub_80428EC(r4);
-      sub_8008220();
+      WaitForVBlank();
       sub_8041014();
     }
     else if (gRepeatedOrNewButtons & DPAD_DOWN) {
       PlayMusic(0x36);
       r4 = g8E0D81D[r4];
       sub_80428EC(r4);
-      sub_8008220();
+      WaitForVBlank();
       sub_8041014();
     }
     else if (gRepeatedOrNewButtons & DPAD_RIGHT) {
       PlayMusic(0x36);
       r4 = g8E0D820[r4];
       sub_80428EC(r4);
-      sub_8008220();
+      WaitForVBlank();
       sub_8041014();
     }
     else if (gRepeatedOrNewButtons & DPAD_LEFT) {
       PlayMusic(0x36);
       r4 = g8E0D823[r4];
       sub_80428EC(r4);
-      sub_8008220();
+      WaitForVBlank();
       sub_8041014();
     }
     else if (gNewButtons & A_BUTTON) {
@@ -127,7 +127,7 @@ void BMenuMain (void) {
       break;
     }
     else {
-      sub_8008220();
+      WaitForVBlank();
     }
   }
   sub_8041104();
@@ -747,7 +747,7 @@ _0804287C:\n\
 	bls _0804287C\n\
 	mov r0, sl\n\
 	bl sub_80428EC\n\
-	bl sub_8008220\n\
+	bl WaitForVBlank\n\
 	bl sub_8041014\n\
   \n\
 	movs r1, #0x80\n\
@@ -905,7 +905,7 @@ void InitBMenu (u8 arg0) {
   for (i = 0; i < 2; i++)
     *(u16*)(gBgVram.cbb0 + (0x74CA - i) * 2) = g2021BD0[4 - i] + 65 | 0x3000;
   sub_80428EC(arg0);
-  sub_8008220();
+  WaitForVBlank();
   sub_8041014();
   REG_DISPCNT = 0x7600;
   REG_WIN1H = 0xF0;
@@ -966,7 +966,7 @@ unsigned sub_80429A4 (void) {
       else
         break;
       sub_8042C64(r4);
-      sub_8008220();
+      WaitForVBlank();
       sub_8041014();
     }
     if (gNewButtons & A_BUTTON) {
@@ -991,9 +991,9 @@ unsigned sub_80429A4 (void) {
       else
         gZones[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 1;
       sub_80574A8(gDuelCursor.currentX, gDuelCursor.currentY);
-      sub_80081DC(LoadOam);
+      SetVBlankCallback(LoadOam);
     }
-    sub_8008220();
+    WaitForVBlank();
   }
 }
 
@@ -1018,7 +1018,7 @@ void sub_8042ADC (unsigned char arg0) {
   }
   CopyStringTilesToVRAMBuffer(gVr.a + 0x8820, g8E0D828, 0x901);
   sub_8042C64(arg0);
-  sub_8008220();
+  WaitForVBlank();
   REG_WIN1H = 0xCD4;
   REG_WIN1V = 0x143C;
   *(vu8*)(0x4000049) = 54;
@@ -1084,7 +1084,7 @@ void sub_8042E80 (void) {
   REG_BG0CNT = 0x9E08;
   gBG0HOFS = gBG2HOFS;
   gBG0VOFS = gBG2VOFS;
-  sub_8008220();
+  WaitForVBlank();
   sub_8041050();
   REG_DISPCNT = 0x7700;
   REG_WIN1H = 0xF0;
@@ -1097,7 +1097,7 @@ void sub_8042E80 (void) {
 void sub_8042F04 (void) {
   sub_8042E80();
   while (gPressedButtons & 0x200)
-    sub_8008220();
+    WaitForVBlank();
   REG_DISPCNT = 0x3600;
-  sub_8008220();
+  WaitForVBlank();
 }

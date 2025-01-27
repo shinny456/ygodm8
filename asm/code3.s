@@ -562,8 +562,8 @@ _0802396A:
 	cmp r4, ip
 	bls _080238EC
 	ldr r0, _08023994
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	lsls r0, r5, #0x10
 	lsrs r0, r0, #0x10
 	cmp r0, #0xf
@@ -598,8 +598,8 @@ sub_8023998: @ 0x08023998
 	bl LoadBgOffsets
 	bl LoadBlendingRegs
 	ldr r0, _08023A04
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	ldr r1, _08023A08
 	ldr r2, _08023A0C
 	adds r0, r2, #0
@@ -630,8 +630,8 @@ sub_8023A14: @ 0x08023A14
 	bl sub_8023788
 	bl sub_8023FD4
 	ldr r0, _08023A40
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadCharblock3
 	bl LoadBlendingRegs
 	pop {r0}
@@ -655,8 +655,8 @@ sub_8023A44: @ 0x08023A44
 	bl sub_8023EB8
 	bl sub_8023FD4
 	ldr r0, _08023A90
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadBlendingRegs
 	movs r2, #0x80
 	lsls r2, r2, #0x13
@@ -686,8 +686,8 @@ sub_8023A98: @ 0x08023A98
 	adds r0, r2, #0
 	strh r0, [r1]
 	ldr r0, _08023AE0
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadBlendingRegs
 	movs r2, #0x80
 	lsls r2, r2, #0x13
@@ -717,8 +717,8 @@ sub_8023AE4: @ 0x08023AE4
 	adds r0, r2, #0
 	strh r0, [r1]
 	ldr r0, _08023B2C
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadBlendingRegs
 	movs r2, #0x80
 	lsls r2, r2, #0x13
@@ -748,8 +748,8 @@ sub_8023B30: @ 0x08023B30
 	adds r0, r2, #0
 	strh r0, [r1]
 	ldr r0, _08023B78
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadBlendingRegs
 	movs r2, #0x80
 	lsls r2, r2, #0x13
@@ -779,8 +779,8 @@ sub_8023B7C: @ 0x08023B7C
 	adds r0, r2, #0
 	strh r0, [r1]
 	ldr r0, _08023BC4
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadBlendingRegs
 	movs r2, #0x80
 	lsls r2, r2, #0x13
@@ -810,8 +810,8 @@ sub_8023BC8: @ 0x08023BC8
 	adds r0, r2, #0
 	strh r0, [r1]
 	ldr r0, _08023C10
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadBlendingRegs
 	movs r2, #0x80
 	lsls r2, r2, #0x13
@@ -839,8 +839,8 @@ sub_8023C14: @ 0x08023C14
 	adds r0, r2, #0
 	strh r0, [r1]
 	ldr r0, _08023C54
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadBlendingRegs
 	movs r2, #0x80
 	lsls r2, r2, #0x13
@@ -2390,9 +2390,9 @@ sub_802ADCC: @ 0x0802ADCC
 	adds r0, r4, #0
 	bl sub_802AAF0
 	ldr r0, _0802ADF0
-	bl sub_80081DC
+	bl SetVBlankCallback
 	bl LoadCharblock4
-	bl sub_8008220
+	bl WaitForVBlank
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -2431,8 +2431,8 @@ sub_802ADF4: @ 0x0802ADF4
 	adds r0, #2
 	strh r1, [r0]
 	ldr r0, _0802AE40
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -2472,8 +2472,8 @@ sub_802AE44: @ 0x0802AE44
 	strh r1, [r0]
 	bl sub_804078C
 	ldr r0, _0802AE94
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -3023,7 +3023,7 @@ sub_8031090: @ 0x08031090
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne _08031128
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_803171C
 	ldrb r0, [r4]
 	cmp r0, #0
@@ -3244,7 +3244,7 @@ sub_8031278: @ 0x08031278
 _08031284:
 	ldr r0, _0803133C
 	strh r0, [r5, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -3267,7 +3267,7 @@ _08031284:
 	bne _08031316
 	ldr r0, _08031344
 	strh r0, [r5, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -3286,7 +3286,7 @@ _08031284:
 	bne _08031316
 	ldr r0, _0803134C
 	strh r0, [r5, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -3440,7 +3440,7 @@ sub_8031424: @ 0x08031424
 _0803143A:
 	ldr r0, _080314D4
 	strh r0, [r5, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -3456,7 +3456,7 @@ _0803143A:
 	bne _080314AE
 	ldr r0, _080314D8
 	strh r0, [r5, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -3471,7 +3471,7 @@ _0803143A:
 	bne _080314AE
 	ldr r0, _080314E0
 	strh r0, [r5, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -3609,7 +3609,7 @@ sub_80315A0: @ 0x080315A0
 _080315B6:
 	ldr r0, _08031650
 	strh r0, [r5, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -3625,7 +3625,7 @@ _080315B6:
 	bne _0803162A
 	ldr r0, _08031654
 	strh r0, [r5, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -3640,7 +3640,7 @@ _080315B6:
 	bne _0803162A
 	ldr r0, _0803165C
 	strh r0, [r5, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -3778,7 +3778,7 @@ sub_803171C: @ 0x0803171C
 _08031732:
 	ldr r0, _080317C0
 	strh r0, [r5, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -3794,7 +3794,7 @@ _08031732:
 	bne _080317A6
 	ldr r0, _080317C4
 	strh r0, [r5, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -3809,7 +3809,7 @@ _08031732:
 	bne _080317A6
 	ldr r0, _080317CC
 	strh r0, [r5, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -3951,7 +3951,7 @@ sub_8031880: @ 0x08031880
 _080318BA:
 	mov r0, sb
 	strh r0, [r7, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -3986,7 +3986,7 @@ _080318EC:
 	movs r0, #0
 	orrs r5, r0
 	strh r5, [r7, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -4002,7 +4002,7 @@ _080318EC:
 	bne _080319F8
 	mov r0, sb
 	strh r0, [r7, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -4017,7 +4017,7 @@ _080318EC:
 	cmp r1, r0
 	bne _080319F8
 	strh r5, [r7, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -4034,7 +4034,7 @@ _080318EC:
 	mov r0, sp
 	ldrh r0, [r0, #4]
 	strh r0, [r7, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -4053,7 +4053,7 @@ _080318EC:
 	mov r1, sl
 	orrs r4, r1
 	strh r4, [r7, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -4069,7 +4069,7 @@ _080318EC:
 	bne _080319F8
 	ldr r0, _08031A3C
 	strh r0, [r7, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -4356,7 +4356,7 @@ sub_8031C24: @ 0x08031C24
 _08031C3C:
 	ldr r0, _08031E00
 	strh r0, [r5, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -4388,7 +4388,7 @@ _08031C78:
 	strh r1, [r5, #0x2a]
 	ldr r0, _08031E04
 	strh r0, [r5, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -4423,7 +4423,7 @@ _08031CBA:
 	strh r0, [r5, #0x2a]
 	ldr r0, _08031E08
 	strh r0, [r5, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -4446,7 +4446,7 @@ _08031CBA:
 	strh r1, [r5, #0x2c]
 	ldr r0, _08031E0C
 	strh r0, [r5, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -4473,7 +4473,7 @@ _08031CBA:
 	strh r1, [r5, #0x2c]
 	ldr r0, _08031E10
 	strh r0, [r5, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -4495,7 +4495,7 @@ _08031CBA:
 	strh r1, [r5, #0x2e]
 	ldr r0, _08031E14
 	strh r0, [r5, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -4523,7 +4523,7 @@ _08031CBA:
 	bne _08031DD8
 	ldr r0, _08031E18
 	strh r0, [r5, #0x24]
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -4791,7 +4791,7 @@ _08031FFC:
 	cmp r4, #0
 	beq _0803202C
 _08032002:
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -4928,7 +4928,7 @@ _080320F6:
 	movs r5, #0xd0
 	lsls r5, r5, #5
 _080320FE:
-	bl sub_8008220
+	bl WaitForVBlank
 	bl sub_80327FC
 	bl sub_8030DDC
 	cmp r0, #0
@@ -5053,7 +5053,7 @@ sub_80321CC: @ 0x080321CC
 	adds r7, r2, #0
 _080321E8:
 	movs r6, #0xc
-	bl sub_8008220
+	bl WaitForVBlank
 	cmp r5, #0
 	bne _08032272
 	ldr r1, [r7, #4]
@@ -5159,7 +5159,7 @@ sub_803229C: @ 0x0803229C
 	adds r7, r2, #0
 _080322BA:
 	movs r6, #0xc
-	bl sub_8008220
+	bl WaitForVBlank
 	cmp r5, #0
 	bne _08032356
 	ldr r1, [r7, #4]
@@ -11480,7 +11480,7 @@ sub_8039724: @ 0x08039724
 	ldr r2, _0803984C
 	adds r6, r6, r2
 	adds r0, r6, #0
-	bl sub_8057418
+	bl CopyMiniCardPalette
 	movs r5, #0
 	mov sb, r5
 	movs r0, #4
@@ -11919,8 +11919,8 @@ sub_8039B24: @ 0x08039B24
 	bl sub_803A424
 	bl sub_8045718
 	ldr r0, _08039B78
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadPalettes
 	bl LoadVRAM
 	bl LoadBgOffsets
@@ -11976,8 +11976,8 @@ _08039B90:
 	cmp r4, #4
 	bls _08039B90
 	ldr r0, _08039BD8
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadPalettes
 	bl LoadCharblock3
 	pop {r4, r5, r6}
@@ -12027,8 +12027,8 @@ _08039BE4:
 	bl sub_803A424
 	bl sub_80396B0
 	ldr r0, _08039C64
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadPalettes
 	bl LoadCharblock1
 	bl LoadCharblock3
@@ -12078,8 +12078,8 @@ _08039C70:
 	bl sub_8039870
 	bl sub_803A424
 	ldr r0, _08039CE4
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadPalettes
 	bl LoadCharblock3
 	bl LoadCharblock4
@@ -12128,8 +12128,8 @@ _08039CF0:
 	bl sub_8039870
 	bl sub_803A424
 	ldr r0, _08039D64
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadPalettes
 	bl LoadCharblock3
 	bl LoadCharblock4
@@ -12154,8 +12154,8 @@ sub_8039D68: @ 0x08039D68
 	movs r0, #2
 	bl sub_803A2D4
 	ldr r0, _08039D98
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadCharblock3
 	pop {r0}
 	bx r0
@@ -12172,8 +12172,8 @@ sub_8039D9C: @ 0x08039D9C
 	movs r0, #4
 	strh r0, [r1]
 	ldr r0, _08039DD4
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadBlendingRegs
 	movs r2, #0x80
 	lsls r2, r2, #0x13
@@ -12204,8 +12204,8 @@ sub_8039DDC: @ 0x08039DDC
 	ands r0, r1
 	strh r0, [r4]
 	ldr r0, _08039E38
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadPalettes
 	bl LoadCharblock2
 	bl LoadBlendingRegs
@@ -12234,8 +12234,8 @@ sub_8039E44: @ 0x08039E44
 	bl sub_80399C4
 	bl sub_803A490
 	ldr r0, _08039E5C
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -12251,8 +12251,8 @@ sub_8039E60: @ 0x08039E60
 	bl sub_803A588
 	bl sub_8045718
 	ldr r0, _08039EC8
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadPalettes
 	bl LoadVRAM
 	bl LoadBgOffsets
@@ -12299,8 +12299,8 @@ sub_8039EDC: @ 0x08039EDC
 	bl sub_803A4FC
 	bl sub_803A5A8
 	ldr r0, _08039F30
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadPalettes
 	bl LoadCharblock2
 	bl LoadBlendingRegs
@@ -12335,8 +12335,8 @@ sub_8039F40: @ 0x08039F40
 	bl sub_8039A74
 	bl sub_803A4FC
 	ldr r0, _08039F60
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadCharblock1
 	pop {r0}
 	bx r0
@@ -12359,8 +12359,8 @@ sub_8039F64: @ 0x08039F64
 	ands r0, r1
 	strh r0, [r4]
 	ldr r0, _08039FC8
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadPalettes
 	bl LoadCharblock2
 	bl LoadBlendingRegs
@@ -13268,8 +13268,8 @@ _0803A700:
 	movs r0, #4
 	strh r0, [r1]
 	ldr r0, _0803A7AC
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadPalettes
 	bl LoadCharblock3
 	bl LoadCharblock4
@@ -14676,7 +14676,7 @@ sub_803B31C: @ 0x0803B31C
 	ldr r2, _0803B444
 	adds r6, r6, r2
 	adds r0, r6, #0
-	bl sub_8057418
+	bl CopyMiniCardPalette
 	movs r5, #0
 	mov sb, r5
 	movs r0, #4
@@ -15115,8 +15115,8 @@ sub_803B71C: @ 0x0803B71C
 	bl sub_803BE54
 	bl sub_8045718
 	ldr r0, _0803B770
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadPalettes
 	bl LoadVRAM
 	bl LoadBgOffsets
@@ -15182,8 +15182,8 @@ _0803B7B6:
 	cmp r4, #4
 	bls _0803B78C
 	ldr r0, _0803B7E8
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadPalettes
 	bl LoadCharblock3
 	pop {r4, r5, r6, r7}
@@ -15204,8 +15204,8 @@ sub_803B7EC: @ 0x0803B7EC
 	bl sub_803BE54
 	bl sub_803B2A8
 	ldr r0, _0803B81C
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadPalettes
 	bl LoadCharblock1
 	bl LoadCharblock3
@@ -15242,8 +15242,8 @@ sub_803B924: @ 0x0803B924
 	movs r0, #4
 	strh r0, [r1]
 	ldr r0, _0803B95C
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadBlendingRegs
 	movs r2, #0x80
 	lsls r2, r2, #0x13
@@ -15267,8 +15267,8 @@ sub_803B964: @ 0x0803B964
 	bl sub_803BEC0
 	bl sub_803BFB8
 	ldr r0, _0803B9AC
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadPalettes
 	bl LoadCharblock2
 	bl LoadBlendingRegs
@@ -15297,8 +15297,8 @@ sub_803B9B8: @ 0x0803B9B8
 	bl sub_803B5BC
 	bl sub_803BEC0
 	ldr r0, _0803B9D0
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -15314,8 +15314,8 @@ sub_803B9D4: @ 0x0803B9D4
 	bl sub_803BFB8
 	bl sub_8045718
 	ldr r0, _0803BA3C
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadPalettes
 	bl LoadVRAM
 	bl LoadBgOffsets
@@ -15362,8 +15362,8 @@ sub_803BA50: @ 0x0803BA50
 	bl sub_803BF2C
 	bl sub_803BFD8
 	ldr r0, _0803BAA4
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadPalettes
 	bl LoadCharblock2
 	bl LoadBlendingRegs
@@ -15398,8 +15398,8 @@ sub_803BAB4: @ 0x0803BAB4
 	bl sub_803B66C
 	bl sub_803BF2C
 	ldr r0, _0803BAD4
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadCharblock1
 	pop {r0}
 	bx r0
@@ -16190,8 +16190,8 @@ _0803C130:
 	movs r0, #4
 	strh r0, [r1]
 	ldr r0, _0803C1DC
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadPalettes
 	bl LoadCharblock3
 	bl LoadCharblock4
@@ -17643,7 +17643,7 @@ sub_803CDAC: @ 0x0803CDAC
 	ldr r2, _0803CED4
 	adds r6, r6, r2
 	adds r0, r6, #0
-	bl sub_8057418
+	bl CopyMiniCardPalette
 	movs r5, #0
 	mov sb, r5
 	movs r0, #4
@@ -18082,8 +18082,8 @@ sub_803D1A4: @ 0x0803D1A4
 	bl sub_803D934
 	bl sub_8045718
 	ldr r0, _0803D1F8
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadPalettes
 	bl LoadVRAM
 	bl LoadBgOffsets
@@ -18149,8 +18149,8 @@ _0803D23E:
 	cmp r4, #4
 	bls _0803D214
 	ldr r0, _0803D270
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadPalettes
 	bl LoadCharblock3
 	pop {r4, r5, r6, r7}
@@ -18171,8 +18171,8 @@ sub_803D274: @ 0x0803D274
 	bl sub_803D934
 	bl sub_803CD38
 	ldr r0, _0803D2A4
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadPalettes
 	bl LoadCharblock1
 	bl LoadCharblock3
@@ -18211,8 +18211,8 @@ sub_803D3CC: @ 0x0803D3CC
 	movs r0, #4
 	strh r0, [r1]
 	ldr r0, _0803D404
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadBlendingRegs
 	movs r2, #0x80
 	lsls r2, r2, #0x13
@@ -18234,8 +18234,8 @@ sub_803D40C: @ 0x0803D40C
 	bl sub_803CEF8
 	bl sub_803CD38
 	ldr r0, _0803D438
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadPalettes
 	bl LoadCharblock1
 	bl LoadCharblock3
@@ -18254,8 +18254,8 @@ sub_803D43C: @ 0x0803D43C
 	bl sub_803D9A0
 	bl sub_803DA98
 	ldr r0, _0803D484
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadPalettes
 	bl LoadCharblock2
 	bl LoadBlendingRegs
@@ -18284,8 +18284,8 @@ sub_803D490: @ 0x0803D490
 	bl sub_803D04C
 	bl sub_803D9A0
 	ldr r0, _0803D4A8
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -18301,8 +18301,8 @@ sub_803D4AC: @ 0x0803D4AC
 	bl sub_803DA98
 	bl sub_8045718
 	ldr r0, _0803D514
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadPalettes
 	bl LoadVRAM
 	bl LoadBgOffsets
@@ -18351,8 +18351,8 @@ sub_803D528: @ 0x0803D528
 	movs r0, #8
 	strh r0, [r1]
 	ldr r0, _0803D584
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadPalettes
 	bl LoadCharblock2
 	bl LoadBlendingRegs
@@ -18388,8 +18388,8 @@ sub_803D594: @ 0x0803D594
 	bl sub_803D0F8
 	bl sub_803DA0C
 	ldr r0, _0803D5B4
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadCharblock1
 	pop {r0}
 	bx r0
@@ -19202,8 +19202,8 @@ _0803DC0C:
 	bl LoadBgOffsets
 	bl LoadBlendingRegs
 	ldr r0, _0803DD5C
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	ldr r1, _0803DD60
 	ldr r7, _0803DD64
 	adds r0, r7, #0
@@ -19457,8 +19457,8 @@ sub_803DE90: @ 0x0803DE90
 	adds r0, r2, #0
 	strh r0, [r1]
 	ldr r0, _0803DF38
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadBlendingRegs
 	movs r1, #0x80
 	lsls r1, r1, #0x13
@@ -19533,8 +19533,8 @@ sub_803DF3C: @ 0x0803DF3C
 	adds r0, r2, #0
 	strh r0, [r1]
 	ldr r0, _0803DFE4
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadBlendingRegs
 	movs r1, #0x80
 	lsls r1, r1, #0x13
@@ -19609,8 +19609,8 @@ sub_803DFE8: @ 0x0803DFE8
 	adds r0, r2, #0
 	strh r0, [r1]
 	ldr r0, _0803E090
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadBlendingRegs
 	movs r1, #0x80
 	lsls r1, r1, #0x13
@@ -19685,8 +19685,8 @@ sub_803E094: @ 0x0803E094
 	adds r0, r2, #0
 	strh r0, [r1]
 	ldr r0, _0803E13C
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadBlendingRegs
 	movs r1, #0x80
 	lsls r1, r1, #0x13
@@ -19805,8 +19805,8 @@ _0803E1E6:
 	cmp r4, ip
 	bls _0803E168
 	ldr r0, _0803E210
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	lsls r0, r5, #0x10
 	lsrs r0, r0, #0x10
 	cmp r0, #0xf
@@ -19836,8 +19836,8 @@ sub_803E214: @ 0x0803E214
 	strh r0, [r2]
 	bl sub_803DD68
 	ldr r0, _0803E250
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadBlendingRegs
 	pop {r0}
 	bx r0
@@ -19862,8 +19862,8 @@ sub_803E254: @ 0x0803E254
 	ldrh r0, [r0]
 	strh r0, [r2]
 	ldr r0, _0803E28C
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadBlendingRegs
 	pop {r0}
 	bx r0
@@ -19937,8 +19937,8 @@ sub_803E35C: @ 0x0803E35C
 	adds r0, r2, #0
 	strh r0, [r1]
 	ldr r0, _0803E3F8
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	bl LoadBlendingRegs
 	movs r1, #0x80
 	lsls r1, r1, #0x13
@@ -20002,8 +20002,8 @@ sub_803E3FC: @ 0x0803E3FC
 	ldr r0, _0803E480
 	strh r3, [r0]
 	ldr r0, _0803E484
-	bl sub_80081DC
-	bl sub_8008220
+	bl SetVBlankCallback
+	bl WaitForVBlank
 	movs r1, #0x80
 	lsls r1, r1, #0x13
 	ldrh r0, [r1]
@@ -20104,7 +20104,7 @@ _0803E51C:
 	movs r0, #0x38
 _0803E520:
 	bl PlayMusic
-	bl sub_8008220
+	bl WaitForVBlank
 	b _0803E560
 _0803E52A:
 	bl sub_8037BBC
@@ -20126,7 +20126,7 @@ _0803E550:
 	bl sub_803B7EC
 	b _0803E560
 _0803E55C:
-	bl sub_8008220
+	bl WaitForVBlank
 _0803E560:
 	cmp r4, #1
 	bne _0803E492
@@ -20213,7 +20213,7 @@ _0803E600:
 	movs r4, #1
 	movs r0, #0x38
 	bl PlayMusic
-	bl sub_8008220
+	bl WaitForVBlank
 	b _0803E622
 _0803E60E:
 	bl sub_8037BBC
@@ -20222,7 +20222,7 @@ _0803E60E:
 	bl sub_803B780
 	b _0803E622
 _0803E61E:
-	bl sub_8008220
+	bl WaitForVBlank
 _0803E622:
 	cmp r4, #1
 	bne _0803E580
@@ -20326,11 +20326,11 @@ _0803E6DA:
 	movs r0, #0x38
 _0803E6DE:
 	bl PlayMusic
-	bl sub_8008220
+	bl WaitForVBlank
 	movs r7, #1
 	b _0803E6EE
 _0803E6EA:
-	bl sub_8008220
+	bl WaitForVBlank
 _0803E6EE:
 	cmp r7, #1
 	bne _0803E64A
@@ -20550,7 +20550,7 @@ sub_803E870: @ 0x0803E870
 	push {lr}
 	movs r0, #0x37
 	bl PlayMusic
-	bl sub_8008220
+	bl WaitForVBlank
 	pop {r0}
 	bx r0
 
@@ -20640,7 +20640,7 @@ _0803E91E:
 	movs r0, #0x38
 _0803E922:
 	bl PlayMusic
-	bl sub_8008220
+	bl WaitForVBlank
 	b _0803E962
 _0803E92C:
 	bl sub_8038840
@@ -20662,7 +20662,7 @@ _0803E952:
 	bl sub_803D274
 	b _0803E962
 _0803E95E:
-	bl sub_8008220
+	bl WaitForVBlank
 _0803E962:
 	cmp r4, #1
 	bne _0803E88A
@@ -20752,7 +20752,7 @@ _0803EA08:
 	movs r4, #1
 	movs r0, #0x38
 	bl PlayMusic
-	bl sub_8008220
+	bl WaitForVBlank
 	b _0803EA2A
 _0803EA16:
 	bl sub_8038840
@@ -20761,7 +20761,7 @@ _0803EA16:
 	bl sub_803D208
 	b _0803EA2A
 _0803EA26:
-	bl sub_8008220
+	bl WaitForVBlank
 _0803EA2A:
 	cmp r4, #1
 	bne _0803E980
@@ -20865,11 +20865,11 @@ _0803EAE2:
 	movs r0, #0x38
 _0803EAE6:
 	bl PlayMusic
-	bl sub_8008220
+	bl WaitForVBlank
 	movs r7, #1
 	b _0803EAF6
 _0803EAF2:
-	bl sub_8008220
+	bl WaitForVBlank
 _0803EAF6:
 	cmp r7, #1
 	bne _0803EA54

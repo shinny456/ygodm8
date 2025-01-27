@@ -1,22 +1,17 @@
 #include "global.h"
-#include "duel.h"
-#include "card.h"
-#include "constants/card_ids.h"
-#include "gba/macro.h"
-#include "gba/syscall.h"
 
 int sub_8045410 (unsigned short);
 extern u8 g89A7ADE[][64];
 extern s16 g8E116EE[][5];
 extern s16 g8E11720[];
 extern const u8 gUnk_893B290[];
-extern u16* g8E1168C[];
+extern u16* g8E1168C[]; //attribute mini-icons
 extern u16 g89A7BDE[];
 extern u16 g89A77DC[];
 extern u16 g89A781C[];
 extern u16 g89A8A1E[];
 extern u16 g89A8CDE[];
-extern u8* gUnk_8E17F48[];
+extern u8* gUnk_8E17F48[]; // card-border tile pointers (index is card color)
 extern u8 gSharedMem[];
 extern u8 g89A81DE[][64];
 extern u8 g89A7F1E[][64];
@@ -28,7 +23,7 @@ void sub_80573D0 (u8*, u16);
 void sub_80576EC (u8*, u16);
 void sub_80576B4 (u8*, u16);
 void sub_8057718 (u8*, u16);
-void sub_8057474 (u8*);
+void CopyFaceDownCardTiles (u8*);
 void sub_8057620 (u8*);
 void sub_8057698 (u8*);
 void sub_805763C (u8*, s8);
@@ -40,13 +35,13 @@ extern struct O {unsigned long a; unsigned short b;} gOamBuffer[];
 void sub_805754C (struct O*, unsigned char, unsigned char);
 
 
-void sub_80562F4 (void) {
+static void sub_80562F4 (void) {
   unsigned char i;
   for (i = 0; i < 5; i++) {
     if (gDuelBoard[0][i]->isFaceUp)
       sub_80573D0(gBgVram.cbb0 + 0x10000 + g8E116BC[i] * 32, gDuelBoard[0][i]->id);
     else
-      sub_8057474(gBgVram.cbb0 + 0x10000 + g8E116BC[i] * 32);
+      CopyFaceDownCardTiles(gBgVram.cbb0 + 0x10000 + g8E116BC[i] * 32);
   }
   for (i = 0; i < 5; i++) {
     if (gDuelBoard[1][i]->isFaceUp) {
@@ -58,7 +53,7 @@ void sub_80562F4 (void) {
       sub_805733C(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32, gDuelBoard[1][i]);
     }
     else
-      sub_8057474(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32);
+      CopyFaceDownCardTiles(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32);
     if (gDuelBoard[1][i]->isLocked)
       sub_8057620(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32);
   }
@@ -92,8 +87,9 @@ void sub_80562F4 (void) {
       sub_8057698(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 20] * 32);
   }
 }
+//24x24 pixels
 /*
-void sub_80565F0 (unsigned char* dest, unsigned char* r7, unsigned char* src) {
+static void sub_80565F0 (unsigned char* dest, unsigned char* r7, unsigned char* src) {
   unsigned i, j, r8 = 0, ip;
   unsigned char* r4;
   for (j = 0; j < 16; j++)
@@ -154,7 +150,7 @@ void sub_80565F0 (unsigned char* dest, unsigned char* r7, unsigned char* src) {
 }*/
 
 NAKED
-void sub_80565F0 (unsigned char* dest, unsigned char* r7, unsigned char* src) {
+static void sub_80565F0 (unsigned char* dest, unsigned char* r7, unsigned char* src) {
   asm_unified("push {r4, r5, r6, r7, lr}\n\
 	mov r7, r8\n\
 	push {r7}\n\
@@ -1056,7 +1052,7 @@ _08056C3C:\n\
 }
 
 NAKED
-void sub_8056C54 (unsigned char* dest, unsigned char* r7, unsigned char* src) {
+static void CopyShopCardBorderTiles (unsigned char* dest, unsigned char* r7, unsigned char* src) {
   asm_unified("push {r4, r5, r6, r7, lr}\n\
 	mov r7, r8\n\
 	push {r7}\n\
@@ -1988,20 +1984,21 @@ void sub_80573D0 (u8* arg0, u16 cardId) {
   sub_80565F0(arg0, gSharedMem, gUnk_8E17F48[gCardInfo.color]);
 }
 
-void sub_8057418 (u16* arg0) {
-  CpuCopy16(g89A781C, arg0, 320);
+void CopyMiniCardPalette (u16* arg0) {
+  CpuCopy16(g89A781C, arg0, 320); //copy mini-card palette to buffer
 }
 
 void sub_805742C (u8* arg0, u16 cardId) {
   SetCardInfo(cardId);
   LZ77UnCompWram(g8E17F70[cardId], gSharedMem);
-  sub_8056C54(arg0, gSharedMem, gUnk_8E17F48[gCardInfo.color]);
+  CopyShopCardBorderTiles(arg0, gSharedMem, gUnk_8E17F48[gCardInfo.color]);
 }
 
-void sub_8057474 (u8* arg0) {
+//CopyFaceDownCardTiles (uses same palette as mini-card)
+void CopyFaceDownCardTiles (u8* arg0) {
   unsigned i, j;
   for (i = 0; i < 4; i++) {
-    for (j = 0; j < 256; j++) {
+    for (j = 0; j < 256; j++) { //copy 4 tiles in one row
       *arg0 = gUnk_893B290[i * 256 + j];
       arg0++;
     }
@@ -2211,7 +2208,6 @@ void sub_8057808 (void) {
 
 
 //new file
-#include "gba/io_reg.h"
 void InitAllRAM (void);
 void InitGfxRAM (void);
 void sub_8034E30 (void);
@@ -2228,5 +2224,5 @@ void sub_8057854 (void) {
 void sub_805787C (int arg0) {
   int i;
   for (i = 0; i < arg0; i++)
-    sub_8008220();
+    WaitForVBlank();
 }

@@ -1,6 +1,4 @@
 #include "global.h"
-#include "duel.h"
-#include "constants/card_ids.h"
 
 void sub_80452B4 (void);
 void SetWhoseTurnToPlayer (void);

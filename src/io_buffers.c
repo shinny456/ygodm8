@@ -1,9 +1,4 @@
 #include "global.h"
-#include "gba/io_reg.h"
-#include "gba/macro.h"
-#include "gba/syscall.h"
-#include "gba/defines.h"
-#include "duel.h"
 
 //rename to gfx buffers or something similar?
 

@@ -818,12 +818,12 @@ void sub_8054920 (struct ScriptCtx* script) {
   }
   sub_805787C(10);
   REG_BLDY = 16;
-  sub_8008220();
+  WaitForVBlank();
   LZ77UnCompWram(g84C9FBC, gBgVram.cbb0);
   CpuCopy16(g84D0CE0, g02000000.bg + 16, 0x1E0);
   CpuCopy16(g84CFCE0, gBgVram.sbb1F, 0x800);
   CpuCopy16(g84D04E0, gBgVram.sbb1E, 0x800);
-  sub_8008220();
+  WaitForVBlank();
   sub_804EC4C();
 
   for (i = 16; i >= 0; i--) {
@@ -832,7 +832,7 @@ void sub_8054920 (struct ScriptCtx* script) {
   }
   sub_805787C(100);
   REG_BLDY = 0;
-  sub_8008220();
+  WaitForVBlank();
 }
 
 void sub_80549E8 (struct ScriptCtx* script) {
@@ -848,12 +848,12 @@ void sub_80549E8 (struct ScriptCtx* script) {
   }
   sub_805787C(10);
   REG_BLDY = 16;
-  sub_8008220();
+  WaitForVBlank();
   LZ77UnCompWram(g84D0EC0, gBgVram.cbb0);
   CpuCopy16(g84D69D0, g02000000.bg + 16, 0x1E0);
   CpuCopy16(g84D59D0, gBgVram.sbb1F, 0x800);
   CpuCopy16(g84D61D0, gBgVram.sbb1E, 0x800);
-  sub_8008220();
+  WaitForVBlank();
   sub_804EC4C();
 
   for (i = 16; i >= 0; i--) {
@@ -862,7 +862,7 @@ void sub_80549E8 (struct ScriptCtx* script) {
   }
   sub_805787C(100);
   REG_BLDY = 0;
-  sub_8008220();
+  WaitForVBlank();
 }
 
 inline void sub_8054EC8 (void) {
@@ -873,16 +873,16 @@ inline void sub_8054EC8 (void) {
   for (i = 0; i <= 16; i++) {
     REG_BLDY = i;
     for (j = 1; j != -1; j--)
-      sub_8008220();
+      WaitForVBlank();
   }
   for (i = 0; i < 10; i++)
-    sub_8008220();
+    WaitForVBlank();
   for (i = 16; i >= 0; i -= 4) {
     REG_BLDY = i;
-    sub_8008220();
+    WaitForVBlank();
   }
   REG_BLDY = 0;
-  sub_8008220();
+  WaitForVBlank();
 }
 
 inline void sub_8054F28 (void) {
@@ -892,21 +892,21 @@ inline void sub_8054F28 (void) {
   REG_BLDCNT = 0x9F;
   REG_BLDY = 16;
   for (i = 0; i < 2; i++)
-    sub_8008220();
+    WaitForVBlank();
   REG_BLDY = 0;
   for (i = 0; i < 30; i++)
-    sub_8008220();
+    WaitForVBlank();
   REG_BLDY = 16;
   for (i = 0; i < 2; i++)
-    sub_8008220();
+    WaitForVBlank();
   REG_BLDY = 0;
   for (i = 0; i < 8; i++)
-    sub_8008220();
+    WaitForVBlank();
   REG_BLDY = 16;
   for (i = 0; i < 2; i++)
-    sub_8008220();
+    WaitForVBlank();
   REG_BLDY = 0;
-  sub_8008220();
+  WaitForVBlank();
 }
 
 inline void sub_8054FB0 (void) {
@@ -918,10 +918,10 @@ inline void sub_8054FB0 (void) {
     REG_BLDY = g8E0F618[i];
     j = g8E0F618[i + 1];
     while (--j != -1)
-      sub_8008220();
+      WaitForVBlank();
   }
   REG_BLDY = 0;
-  sub_8008220();
+  WaitForVBlank();
 }
 
 inline void sub_8055048 (void) {
@@ -942,7 +942,7 @@ inline void sub_8055048 (void) {
   }
   sub_805787C(10);
   REG_BLDY = 0;
-  sub_8008220();
+  WaitForVBlank();
 }
 
 inline void sub_80550C0 (struct ScriptCtx* script) {
@@ -955,7 +955,7 @@ inline void sub_80550C0 (struct ScriptCtx* script) {
   for (i = 0; g8E0F688[i] != -1; i++) {
     sub_80515A0();
     sub_8044F80(g02000000.bg, 0, 0x1FF, g8E0F688[i]);
-    sub_8008220();
+    WaitForVBlank();
     LoadPalettes();
   }
   script->unk86 = 0;
@@ -973,7 +973,7 @@ inline void sub_8055124 (struct ScriptCtx* script) {
     sub_80515A0();
     sub_8044F80(g02000000.bg, 0x100, 0x1FF, g8E0F69A[i]);
     sub_8044EC8(g02000000.bg, 0x10, 0xFF, g8E0F6AC[i]);
-    sub_8008220();
+    WaitForVBlank();
     LoadPalettes();
   }
   script->unk86 = 0;

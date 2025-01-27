@@ -1,6 +1,4 @@
 #include "global.h"
-#include "duel.h"
-#include "card.h"
 
 extern u8 gNumTributes;
 void ResetNumTributes (void) {

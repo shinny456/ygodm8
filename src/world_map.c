@@ -94,7 +94,7 @@ void WorldMapMain (void) {
     sub_80052E4(r7);
     LoadOam();
     LoadPalettes();
-    sub_8008220();
+    WaitForVBlank();
     sub_8005590();
   }
   PlayMusic(0x37);
@@ -220,7 +220,7 @@ _08004F28:\n\
 	bl sub_80052E4\n\
 	bl LoadOam\n\
 	bl LoadPalettes\n\
-	bl sub_8008220\n\
+	bl WaitForVBlank\n\
 	bl sub_8005590\n\
 _08004F4A:\n\
 	ldr r0, _08004F88\n\
@@ -289,7 +289,7 @@ static void sub_8004F90 (unsigned char arg0, unsigned char arg1) {
   CpuCopy16(gUnk_80741D8, g02000000.bg + 0x180, 0x20);
   CpuCopy16(gUnk_8074400, g02000000.bg + 0x190, 0x20);
 
-  sub_80081DC(sub_80055D8);
+  SetVBlankCallback(sub_80055D8);
   sub_80054C4(gUnk_8DF7A18[arg0]);
   sub_80056AC();
   sub_800521C(gUnk_8DF7A18[arg0]);
@@ -297,7 +297,7 @@ static void sub_8004F90 (unsigned char arg0, unsigned char arg1) {
   LoadOam();
   LoadVRAM();
   LoadPalettes();
-  sub_8008220();
+  WaitForVBlank();
 }
 
 /*

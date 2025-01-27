@@ -46,7 +46,7 @@ void sub_8024F40 (struct GameMenuData* menuData);
 void sub_8024F6C (struct GameMenuData* menuData);
 void sub_8024FB8 (struct GameMenuData* menuData);
 void sub_8025000 (struct GameMenuData* menuData);
-void sub_8008220 (void);
+void WaitForVBlank (void);
 void sub_801FB50 (u8 *, u8);
 void sub_8025048 (); //takes a u8 *?
 void sub_8025108 (); //takes a u8 *?
@@ -174,7 +174,7 @@ static void sub_80246D0 (struct GameMenuData* menuData) {
       sub_8025000(menuData);
       break;
     default:
-      sub_8008220();
+      WaitForVBlank();
       break;
   }
 }
@@ -204,7 +204,7 @@ static void HandleInputUp (struct GameMenuData* menuData) {
       sub_8025000(menuData);
       break;
     default:
-      sub_8008220();
+      WaitForVBlank();
       break;
   }
 }
@@ -234,7 +234,7 @@ static void HandleInputDown (struct GameMenuData* menuData) {
       sub_8025000(menuData);
       break;
     default:
-      sub_8008220();
+      WaitForVBlank();
     break;
   }
 }
@@ -252,7 +252,7 @@ static void HandleInputA (struct GameMenuData* menuData) {
       sub_802491C(menuData);
       break;
     default:
-      sub_8008220();
+      WaitForVBlank();
       break;
   }
 }
@@ -262,21 +262,21 @@ static void sub_802489C (struct GameMenuData* menuData) {
     case 1:
       menuData->action = 1;
       PlayMusic(0x37);
-      sub_8008220();
+      WaitForVBlank();
       break;
     case 2:
       menuData->action = 3;
       PlayMusic(0x37);
-      sub_8008220();
+      WaitForVBlank();
       break;
     case 3:
       menuData->action = 4;
       PlayMusic(0x37);
-      sub_8008220();
+      WaitForVBlank();
       break;
     case 0:
     default:
-      sub_8008220();
+      WaitForVBlank();
       break;
   }
 }
@@ -284,14 +284,14 @@ static void sub_802489C (struct GameMenuData* menuData) {
 static void sub_80248D0 (struct GameMenuData* menuData) {
   switch (menuData->cursorState) {
     default:
-      sub_8008220();
+      WaitForVBlank();
       break;
     case 0:
       sub_801FB50(g2021C8C, 1);
       RemoveGodCardsFromDeckAndTrunk();
       menuData->action = 1;
       PlayMusic(0x37);
-      sub_8008220();
+      WaitForVBlank();
       break;
     case 1:
       menuData->action = 0;
@@ -308,22 +308,22 @@ static void sub_802491C (struct GameMenuData* menuData) {
       sub_801FB50(g2021C8C, 1);
       menuData->action = 1;
       PlayMusic(0x37);
-      sub_8008220();
+      WaitForVBlank();
       break;
     case 1:
       sub_801FB50(g2021C8C, 2);
       menuData->action = 1;
       PlayMusic(0x37);
-      sub_8008220();
+      WaitForVBlank();
       break;
     case 2:
       sub_801FB50(g2021C8C, 3);
       menuData->action = 1;
       PlayMusic(0x37);
-      sub_8008220();
+      WaitForVBlank();
       break;
     default:
-      sub_8008220();
+      WaitForVBlank();
       break;
   }
 }
@@ -346,7 +346,7 @@ static void HandleInputB (struct GameMenuData* menuData) {
       sub_8025048();
       break;
     default:
-      sub_8008220();
+      WaitForVBlank();
       break;
   }
 }

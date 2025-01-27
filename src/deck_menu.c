@@ -235,8 +235,8 @@ static void sub_801D4B8 (void) {
   sub_801DE5C();
   sub_801D61C();
   LoadCharblock1();
-  sub_80081DC(sub_801D68C);
-  sub_8008220();
+  SetVBlankCallback(sub_801D68C);
+  WaitForVBlank();
   r4 = 1;
   while (r4) {
     switch (sub_801D368()) {
@@ -262,7 +262,7 @@ static void sub_801D4B8 (void) {
         PlayMusic(0x38);
         break;
       default:
-        sub_8008220();
+        WaitForVBlank();
         break;
     }
   }
@@ -273,16 +273,16 @@ static void sub_801D548 (void) {
   g201CB50 = gE00AD4[g201CB50];
   sub_801D61C();
   PlayMusic(0x36);
-  sub_80081DC(LoadOam);
-  sub_8008220();
+  SetVBlankCallback(LoadOam);
+  WaitForVBlank();
 }
 
 static void sub_801D57C (void) {
   g201CB50 = gE00AD6[g201CB50];
   sub_801D61C();
   PlayMusic(0x36);
-  sub_80081DC(LoadOam);
-  sub_8008220();
+  SetVBlankCallback(LoadOam);
+  WaitForVBlank();
 }
 
 static void sub_801D5B0 (void) {
@@ -295,8 +295,8 @@ static void sub_801D5B0 (void) {
   sub_801F5F0();
   sub_801DE5C();
   sub_801D61C();
-  sub_80081DC(sub_801D68C);
-  sub_8008220();
+  SetVBlankCallback(sub_801D68C);
+  WaitForVBlank();
   LoadCharblock1();
 }
 
@@ -431,7 +431,7 @@ void sub_801D7D0 (void) {
     else if (GetPlayerDeckSize()) {
       PlayMusic(0x39);
       while (gPressedButtons & DPAD_UP)
-        sub_8008220();
+        WaitForVBlank();
     }
   }
   sub_801DD34(gCardInfo.cost);
@@ -460,7 +460,7 @@ unsigned char TryRemoveCardFromDeck (unsigned short cardId) {
     else if (GetPlayerDeckSize()) {
       PlayMusic(0x39);
       while (gPressedButtons & DPAD_UP)
-        sub_8008220();
+        WaitForVBlank();
     }
   }
   return removalSucceeded;
@@ -651,7 +651,7 @@ void sub_801DC04 (unsigned char arg0) {
   else {
     PlayMusic(0x39);
     while (gPressedButtons & DPAD_DOWN)
-      sub_8008220();
+      WaitForVBlank();
   }
 }
 
@@ -666,7 +666,7 @@ void sub_801DC64 (unsigned char arg0) {
   else if (GetPlayerDeckSize()){
     PlayMusic(0x39);
     while (gPressedButtons & DPAD_UP)
-      sub_8008220();
+      WaitForVBlank();
   }
 }
 
@@ -1290,7 +1290,7 @@ _0801E5CC:\n\
 	cmp r3, #4\n\
 	bls _0801E58A\n\
 	ldr r0, _0801E668\n\
-	bl sub_8057418\n\
+	bl CopyMiniCardPalette\n\
 	add sp, #0x14\n\
 	pop {r3, r4, r5}\n\
 	mov r8, r3\n\

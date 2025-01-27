@@ -1037,8 +1037,8 @@ extern u8 g8DFF49B[];
 extern u8 g8DFF4A4[];
 extern u8 g8DFF4A6[];
 int GetTrunkCardQty(unsigned short);
-void sub_80081DC(void (*)(void));
-void sub_8008220(void);
+void SetVBlankCallback(void (*)(void));
+void WaitForVBlank(void);
 int TrunkSubmenuProcessInput(void);
 void sub_8008A48(void);
 extern unsigned short gUnk_808CBA0[][30];
@@ -1148,8 +1148,8 @@ static unsigned SelectionMenu (void)
     sub_800C0D8();
     sub_800C208();
     PlayMusic(55);
-    sub_80081DC(sub_800C4F8);
-    sub_8008220();
+    SetVBlankCallback(sub_800C4F8);
+    WaitForVBlank();
 
     keepProcessing = 1;
     while (keepProcessing)
@@ -1160,15 +1160,15 @@ static unsigned SelectionMenu (void)
             gTrunkData.cursorState = g8DFF498[gTrunkData.cursorState];
             sub_800C208();
             PlayMusic(54);
-            sub_80081DC(LoadOam);
-            sub_8008220();
+            SetVBlankCallback(LoadOam);
+            WaitForVBlank();
             break;
         case 0x80:
             gTrunkData.cursorState = g8DFF49B[gTrunkData.cursorState];
             sub_800C208();
             PlayMusic(54);
-            sub_80081DC(LoadOam);
-            sub_8008220();
+            SetVBlankCallback(LoadOam);
+            WaitForVBlank();
             break;
         case 1:
             switch (gTrunkData.cursorState)
@@ -1186,7 +1186,7 @@ static unsigned SelectionMenu (void)
                 keepProcessing = 0;
                 break;
             default:
-                sub_8008220();
+                WaitForVBlank();
                 break;
             }
             break;
@@ -1195,7 +1195,7 @@ static unsigned SelectionMenu (void)
             keepProcessing = 0;
             break;
         default:
-            sub_8008220();
+            WaitForVBlank();
             break;
         }
     }
@@ -1211,8 +1211,8 @@ static unsigned char LowLevelAntePrompt (void)
     sub_800C3C4();
     sub_800C264();
     PlayMusic(55);
-    sub_80081DC(sub_800C4F8);
-    sub_8008220();
+    SetVBlankCallback(sub_800C4F8);
+    WaitForVBlank();
 
     keepProcessing = 1;
     while (keepProcessing)
@@ -1223,15 +1223,15 @@ static unsigned char LowLevelAntePrompt (void)
             gTrunkData.cursorState = g8DFF4A4[gTrunkData.cursorState];
             sub_800C264();
             PlayMusic(54);
-            sub_80081DC(LoadOam);
-            sub_8008220();
+            SetVBlankCallback(LoadOam);
+            WaitForVBlank();
             break;
         case 0x80:
             gTrunkData.cursorState = g8DFF4A6[gTrunkData.cursorState];
             sub_800C264();
             PlayMusic(54);
-            sub_80081DC(LoadOam);
-            sub_8008220();
+            SetVBlankCallback(LoadOam);
+            WaitForVBlank();
             break;
         case 1:
             switch (gTrunkData.cursorState)
@@ -1246,7 +1246,7 @@ static unsigned char LowLevelAntePrompt (void)
                 keepProcessing = 0;
                 break;
             default:
-                sub_8008220();
+                WaitForVBlank();
                 break;
             }
             break;
@@ -1255,7 +1255,7 @@ static unsigned char LowLevelAntePrompt (void)
             keepProcessing = 0;
             break;
         default:
-            sub_8008220();
+            WaitForVBlank();
             break;
         }
     }
@@ -1294,8 +1294,8 @@ static void sub_800C1BC (void)
     sub_800ABA8();
     sub_800C0D8();
     sub_800C208();
-    sub_80081DC(sub_800C4F8);
-    sub_8008220();
+    SetVBlankCallback(sub_800C4F8);
+    WaitForVBlank();
 }
 
 NAKED
@@ -1410,7 +1410,7 @@ static unsigned char TrySelectingAnte (void) {
     gAnte = cardId;
     PlayMusic(222);
   }
-  sub_8008220();
+  WaitForVBlank();
   return selectionFailed;
 }
 
@@ -1420,14 +1420,14 @@ static void sub_800C32C (void)
     sub_800C430();
     PlayMusic(57);
     sub_800C530();
-    sub_80081DC(sub_800C4F8);
-    sub_8008220();
+    SetVBlankCallback(sub_800C4F8);
+    WaitForVBlank();
     {
         unsigned v, r;
         while ((r=TrunkSubmenuProcessInput()<<16), //TODO: fakematch
                v=0x30000,
                !(v &= r))
-            sub_8008220();
+            WaitForVBlank();
     }
 
     PlayMusic(56);
@@ -1440,14 +1440,14 @@ static void sub_800C378(void)
     sub_800C494();
     PlayMusic(57);
     sub_800C530();
-    sub_80081DC(sub_800C4F8);
-    sub_8008220();
+    SetVBlankCallback(sub_800C4F8);
+    WaitForVBlank();
     {
         unsigned v, r;
         while ((r=TrunkSubmenuProcessInput()<<16),  //fakematch
                v=0x30000,
                !(v &= r))
-            sub_8008220();
+            WaitForVBlank();
     }
 
     PlayMusic(56);
@@ -1526,8 +1526,8 @@ static unsigned NoAntePrompt (void) {
   sub_800C608();
   sub_800C7A0();
   PlayMusic(55);
-  sub_80081DC(sub_800C7FC);
-  sub_8008220();
+  SetVBlankCallback(sub_800C7FC);
+  WaitForVBlank();
 
   keepProcessing = 1;
   while (keepProcessing)
@@ -1538,15 +1538,15 @@ static unsigned NoAntePrompt (void) {
           gTrunkData.cursorState = g8DFF4AC[gTrunkData.cursorState];
           PlayMusic(54);
           sub_800C7A0();
-          sub_80081DC(LoadOam);
-          sub_8008220();
+          SetVBlankCallback(LoadOam);
+          WaitForVBlank();
           break;
       case 0x80:
           gTrunkData.cursorState = g8DFF4AE[gTrunkData.cursorState];
           PlayMusic(54);
           sub_800C7A0();
-          sub_80081DC(LoadOam);
-          sub_8008220();
+          SetVBlankCallback(LoadOam);
+          WaitForVBlank();
           break;
       case 1:
           switch (gTrunkData.cursorState)
@@ -1566,7 +1566,7 @@ static unsigned NoAntePrompt (void) {
           keepProcessing = 0;
           break;
       default:
-          sub_8008220();
+          WaitForVBlank();
           break;
       }
   }

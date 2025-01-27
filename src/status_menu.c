@@ -1,8 +1,4 @@
 #include "global.h"
-#include "duel.h"
-#include "gba/syscall.h"
-#include "gba/io_reg.h"
-#include "gba/macro.h"
 
 extern u16 gUnk_8088778[][30];
 extern u8 g8DF811C[];

@@ -47,8 +47,8 @@ static void sub_8026070 (void);
 
 void LoadBlendingRegs (void);
 void LoadPalettes(void);
-void sub_80081DC (void (*)(void));
-void sub_8008220 (void);
+void SetVBlankCallback (void (*)(void));
+void WaitForVBlank (void);
 void sub_802618C (void);
 extern unsigned char gCardPasswordDigits[];
 extern unsigned short gBLDCNT;
@@ -87,8 +87,8 @@ unsigned PasswordTerminalMain (void) {
         sub_8025CCC();
         sub_8025E80();
         PlayMusic(0x36);
-        sub_80081DC(sub_8026014);
-        sub_8008220();
+        SetVBlankCallback(sub_8026014);
+        WaitForVBlank();
         sub_8026070();
         break;
       case 0x80:
@@ -97,8 +97,8 @@ unsigned PasswordTerminalMain (void) {
         sub_8025CCC();
         sub_8025E80();
         PlayMusic(0x36);
-        sub_80081DC(sub_8026014);
-        sub_8008220();
+        SetVBlankCallback(sub_8026014);
+        WaitForVBlank();
         sub_8026070();
         break;
       case 0x20:
@@ -107,8 +107,8 @@ unsigned PasswordTerminalMain (void) {
         sub_8025CCC();
         sub_8025E80();
         PlayMusic(0x36);
-        sub_80081DC(sub_8026014);
-        sub_8008220();
+        SetVBlankCallback(sub_8026014);
+        WaitForVBlank();
         sub_8026070();
         break;
       case 0x10:
@@ -117,8 +117,8 @@ unsigned PasswordTerminalMain (void) {
         sub_8025CCC();
         sub_8025E80();
         PlayMusic(0x36);
-        sub_80081DC(sub_8026014);
-        sub_8008220();
+        SetVBlankCallback(sub_8026014);
+        WaitForVBlank();
         sub_8026070();
         break;
       case 0x200:
@@ -129,8 +129,8 @@ unsigned PasswordTerminalMain (void) {
         sub_8025E80();
         sub_8025CCC();
         PlayMusic(0x36);
-        sub_80081DC(sub_8026014);
-        sub_8008220();
+        SetVBlankCallback(sub_8026014);
+        WaitForVBlank();
         sub_8026070();
         break;
       case 0x100:
@@ -141,8 +141,8 @@ unsigned PasswordTerminalMain (void) {
         sub_8025E80();
         sub_8025CCC();
         PlayMusic(0x36);
-        sub_80081DC(sub_8026014);
-        sub_8008220();
+        SetVBlankCallback(sub_8026014);
+        WaitForVBlank();
         sub_8026070();
         break;
       case 1:
@@ -172,8 +172,8 @@ unsigned PasswordTerminalMain (void) {
             sub_8025E80();
           }
           PlayMusic(0x37);
-          sub_80081DC(sub_8026014);
-          sub_8008220();
+          SetVBlankCallback(sub_8026014);
+          WaitForVBlank();
           sub_8026070();
           break;
         }
@@ -186,8 +186,8 @@ unsigned PasswordTerminalMain (void) {
         sub_8025E80();
         sub_8025CCC();
         PlayMusic(0x36);
-        sub_80081DC(sub_8026014);
-        sub_8008220();
+        SetVBlankCallback(sub_8026014);
+        WaitForVBlank();
         sub_8026070();
         break;
       case 4:
@@ -197,15 +197,15 @@ unsigned PasswordTerminalMain (void) {
         sub_8025E80();
         sub_8025CCC();
         PlayMusic(0x36);
-        sub_80081DC(sub_8026014);
-        sub_8008220();
+        SetVBlankCallback(sub_8026014);
+        WaitForVBlank();
         sub_8026070();
         break;
       default:
         sub_8025E80();
         sub_8025CCC();
-        sub_80081DC(sub_8026014);
-        sub_8008220();
+        SetVBlankCallback(sub_8026014);
+        WaitForVBlank();
         sub_8026070();
         break;
     }
@@ -215,8 +215,8 @@ unsigned PasswordTerminalMain (void) {
   while (1) {
     sub_8025E80();
     sub_8025CCC();
-    sub_80081DC(sub_8026014);
-    sub_8008220();
+    SetVBlankCallback(sub_8026014);
+    WaitForVBlank();
     if (!sub_8025C88())
       break;
     UpdateDisplayCounter();
@@ -231,7 +231,7 @@ static unsigned short ProcessInput (void) {
   unsigned short r2;
   sub_802618C();
   r2 = 1;
-  if (gNewButtons & 0x3FF) {
+  if (gNewButtons & KEYS_MASK) {
     for (i = 0; i < 10; i++) {
       if (r2 & gNewButtons)
         ret = r2;
@@ -267,8 +267,8 @@ static void FadeToBlack (void) {
       else
         pltt->b = 0;
     }
-    sub_80081DC(LoadPalettes);
-    sub_8008220();
+    SetVBlankCallback(LoadPalettes);
+    WaitForVBlank();
   }
 }
 
@@ -278,11 +278,11 @@ static void sub_80258AC (void) {
   sub_8025F64();
   sub_8025DB4();
   sub_8025CCC();
-  sub_80081DC(sub_802601C);
-  sub_8008220();
+  SetVBlankCallback(sub_802601C);
+  WaitForVBlank();
   sub_8026060();
-  sub_80081DC(sub_8025FFC);
-  sub_8008220();
+  SetVBlankCallback(sub_8025FFC);
+  WaitForVBlank();
 }
 
 void sub_80258E8 (void) {
@@ -290,8 +290,8 @@ void sub_80258E8 (void) {
   gBLDCNT = 0xFF;
   for (i = 0; i < 16; i++) {
     gBLDY = i & 31; //%32?
-    sub_80081DC(LoadBlendingRegs);
-    sub_8008220();
+    SetVBlankCallback(LoadBlendingRegs);
+    WaitForVBlank();
   }
 }
 

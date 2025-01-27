@@ -27,7 +27,7 @@ void TrunkMenuDefaultSort (void);
 void sub_800ABB4 (void);
 
 
-void sub_8008220(void);
+void WaitForVBlank(void);
 unsigned short sub_800901C(unsigned char);
 void sub_80090E8(void);
 void sub_8009110(void);
@@ -101,7 +101,7 @@ void sub_800B538 (unsigned short* id);
 void sub_800ABA8 (void);
 void sub_8009364 (void);
 
-void sub_80081DC (void (*)(void));
+void SetVBlankCallback (void (*)(void));
 void LoadCharblock1 (void);
 
 void RunPlayerDeckTask (unsigned char);
@@ -302,8 +302,8 @@ static void Trunk_A_Submenu (void) {
   sub_8009364();
   sub_80089EC();
   LoadCharblock1();
-  sub_80081DC(sub_8008A5C);
-  sub_8008220();
+  SetVBlankCallback(sub_8008A5C);
+  WaitForVBlank();
   PlayMusic(0x37);
   keepProcessing = 1;
   while (keepProcessing) {
@@ -331,7 +331,7 @@ static void Trunk_A_Submenu (void) {
         }
         break;
       default:
-        sub_8008220();
+        WaitForVBlank();
         break;
     }
   }
@@ -343,16 +343,16 @@ static void sub_80088F0 (void) { //pressing up
   gTrunkData.cursorState = gUnk_8DF813C[gTrunkData.cursorState];
   sub_80089EC();
   PlayMusic(0x36);
-  sub_80081DC(LoadOam);
-  sub_8008220();
+  SetVBlankCallback(LoadOam);
+  WaitForVBlank();
 }
 
 static void sub_8008924 (void) { //pressing down
   gTrunkData.cursorState = gUnk_8DF813F[gTrunkData.cursorState];
   sub_80089EC();
   PlayMusic(0x36);
-  sub_80081DC(LoadOam);
-  sub_8008220();
+  SetVBlankCallback(LoadOam);
+  WaitForVBlank();
 }
 
 static void sub_8008958 (void) { //trunk menu card details
@@ -368,8 +368,8 @@ static void sub_8008958 (void) { //trunk menu card details
   sub_800ABA8();
   sub_8009364();
   sub_80089EC();
-  sub_80081DC(sub_8008A5C);
-  sub_8008220();
+  SetVBlankCallback(sub_8008A5C);
+  WaitForVBlank();
   LoadCharblock1();
 }
 
@@ -543,7 +543,7 @@ void InitTrunkCards(void)
 {
     u32 id;
 
-    for (id = 0; id < TRUNK_SIZE; id++)
+    for (id = 0; id < NUM_CARDS; id++)
         gTrunkCardQty[id] = gStarterTrunk[id];
 }
 
@@ -654,7 +654,7 @@ void RemoveCardFromDeckAndTrunk (unsigned short id) {
 static void SetTrunkCardsTo50 (void) {
   unsigned cardId;
   gTrunkCardQty[0] = 0;
-  for (cardId = 1; cardId < TRUNK_SIZE; cardId++)
+  for (cardId = 1; cardId < NUM_CARDS; cardId++)
     gTrunkCardQty[cardId] = 50;
 }
 
@@ -671,7 +671,7 @@ static void TryAddSelectedCardToDeck (void) {
   if (isCardRejected == 1) {
     PlayMusic(57);
     while (gPressedButtons & DPAD_RIGHT)
-      sub_8008220();
+      WaitForVBlank();
   }
   else {
     gTrunkCardQty[cardId]--;
@@ -688,7 +688,7 @@ void sub_8008EA8 (void) {
   if (removalFailed == 1) {
     PlayMusic(57);
     while (gPressedButtons & DPAD_LEFT)
-      sub_8008220();
+      WaitForVBlank();
   }
   else {
     if (gTrunkCardQty[id] < 250)
@@ -704,9 +704,9 @@ void InitTrunkData (void) {
   gTrunkData.unk0 = 0;
   gTrunkData.unk3 = 1;
   gTrunkData.sortingMethod = TRUNK_SORT_NUMBER;
-  for (cardId = 0; cardId < TRUNK_SIZE; cardId++)
+  for (cardId = 0; cardId < NUM_CARDS; cardId++)
     gTotalCardQty[cardId] = gTrunkCardQty[cardId] + GetDeckCardQty(cardId);
-  for (cardId = 0; cardId < TRUNK_SIZE - 1; cardId++)
+  for (cardId = 0; cardId < NUM_TRUE_CARDS; cardId++)
     gTrunkData.unkC[cardId] = cardId + 1;
 }
 
@@ -755,16 +755,13 @@ unsigned char sub_8009010 (void) {
 }
 
 // get nth card on screen?
-unsigned short sub_800901C (unsigned char n)
-{
-    signed short r2 = gTrunkData.unk0 + n - 2;
-
-    if (r2 >= 800)
-        r2 -= 800;
-    else if (r2 < 0)
-        r2 += 800;
-
-    return gTrunkData.unkC[r2];
+unsigned short sub_800901C (unsigned char n) {
+  signed short r2 = gTrunkData.unk0 + n - 2;
+  if (r2 >= NUM_TRUE_CARDS)
+    r2 -= NUM_TRUE_CARDS;
+  else if (r2 < 0)
+    r2 += NUM_TRUE_CARDS;
+  return gTrunkData.unkC[r2];
 }
 
 unsigned char GetTrunkCardQuantity (unsigned short cardId) {
@@ -778,7 +775,7 @@ static unsigned char GetCurrentSortingMethod (void) {
 
 void sub_800907C (void) {
   gUnk2021AB4.unk0 = gTrunkData.unk0;
-  gUnk2021AB4.unk2 = TRUNK_SIZE - 2;
+  gUnk2021AB4.unk2 = NUM_TRUE_CARDS - 1;
 }
 
 void AddCardToTrunk (unsigned short cardId) {
@@ -790,47 +787,42 @@ void AddCardToTrunk (unsigned short cardId) {
 
 void TrunkMenuDefaultSort (void)
 {
-    gUnk2022EB0.unk0 = gTrunkData.unkC;
-    gUnk2022EB0.unk8 = TRUNK_SIZE - 1;
-    gUnk2022EB0.unkA = gUnk_8DFA6A8[gTrunkData.sortingMethod];
-    sub_8034A38(); //one of sorting funcs?
+  gUnk2022EB0.unk0 = gTrunkData.unkC;
+  gUnk2022EB0.unk8 = NUM_TRUE_CARDS;
+  gUnk2022EB0.unkA = gUnk_8DFA6A8[gTrunkData.sortingMethod];
+  sub_8034A38(); //one of sorting funcs?
 }
 
-void sub_80090E8(void)
-{
-    if (--gTrunkData.unk0 < 0)
-        gTrunkData.unk0 += TRUNK_SIZE - 1;
-    PlayMusic(54);
+void sub_80090E8 (void) {
+  if (--gTrunkData.unk0 < 0)
+    gTrunkData.unk0 += NUM_TRUE_CARDS;
+  PlayMusic(54);
 }
 
-void sub_8009110(void)
-{
-    if (++gTrunkData.unk0 > TRUNK_SIZE - 2)
-        gTrunkData.unk0 -= TRUNK_SIZE - 1;
-    PlayMusic(54);
+void sub_8009110 (void) {
+  if (++gTrunkData.unk0 > NUM_TRUE_CARDS - 1)
+    gTrunkData.unk0 -= NUM_TRUE_CARDS;
+  PlayMusic(54);
 }
 
-void sub_8009140(void)
-{
-    gTrunkData.unk0 -= 50;
-    if (gTrunkData.unk0 < 0)
-        gTrunkData.unk0 += TRUNK_SIZE - 1;
-    PlayMusic(54);
+void sub_8009140 (void) {
+  gTrunkData.unk0 -= 50;
+  if (gTrunkData.unk0 < 0)
+    gTrunkData.unk0 += NUM_TRUE_CARDS;
+  PlayMusic(54);
 }
 
-void sub_800916C(void)
-{
-    gTrunkData.unk0 += 50;
-    if (gTrunkData.unk0 > TRUNK_SIZE - 2)
-        gTrunkData.unk0 -= TRUNK_SIZE - 1;
-    PlayMusic(54);
+void sub_800916C (void) {
+  gTrunkData.unk0 += 50;
+  if (gTrunkData.unk0 > NUM_TRUE_CARDS - 1)
+    gTrunkData.unk0 -= NUM_TRUE_CARDS;
+  PlayMusic(54);
 }
 
-void sub_800919C(void)
-{
-    if (++gTrunkData.unk3 > 3)
-        gTrunkData.unk3 = 0;
-    PlayMusic(54);
+void sub_800919C (void) {
+  if (++gTrunkData.unk3 > 3)
+    gTrunkData.unk3 = 0;
+  PlayMusic(54);
 }
 
 void sub_80091C0(void)
@@ -844,7 +836,7 @@ void sub_80091C0(void)
 void sub_80091EC(unsigned char val)
 {
     gUnk2022EB0.unk0 = gTrunkData.unkC;
-    gUnk2022EB0.unk8 = TRUNK_SIZE - 1;
+    gUnk2022EB0.unk8 = NUM_TRUE_CARDS;
     gUnk2022EB0.unkA = gUnk_8DFA6A8[val];
     sub_8034A38();
     gTrunkData.unk0 = 0;

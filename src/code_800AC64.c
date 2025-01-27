@@ -1,8 +1,4 @@
 #include "global.h"
-#include "gba/syscall.h"
-#include "duel.h"
-#include "gba/io_reg.h"
-#include "gba/macro.h"
 
 u8 sub_800B194 (void);
 u8 sub_800B088 (void);
@@ -269,5 +265,5 @@ u8 sub_800B088 (void) {
 int sub_800B0AC (u16 arg0) {
   u16 fill = arg0;
   u32 temp = 0x0E00401E;
-  return sub_80588C4(&fill, temp, 2);;
+  return sub_80588C4(&fill, temp, 2);
 }*/

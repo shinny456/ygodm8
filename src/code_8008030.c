@@ -1,8 +1,4 @@
 #include "global.h"
-#include "gba/macro.h"
-#include "gba/io_reg.h"
-#include "gba/defines.h"
-#include "gba/syscall.h"
 
 union {
   u8 tileSet[0x8000];
@@ -147,7 +143,7 @@ void sub_800818C (void) {
   *(vu32*)0x3007FFC = (vu32)g3000400; // (u32)?
 }
 
-void sub_80081DC(void (*func)(void)) {
+void SetVBlankCallback(void (*func)(void)) {
   g201CB20 = func ? func : sub_800842C;
 }
 
@@ -160,7 +156,7 @@ void sub_8008208 (void) {
   g2020E00 |= 1;
 }
 
-void sub_8008220 (void) {
+void WaitForVBlank (void) {
   g2020E00 &= 0xFFFE;
   while (1) {
     // Halt()?

@@ -127,7 +127,7 @@ gFieldPalettePtrs
 */
 void sub_8040EF0 (void) {
   u8 i, field;
-  sub_8008220();
+  WaitForVBlank();
   sub_8045718();
   field = gDuel.field;
   REG_BG2CNT = 0x9B02;
@@ -150,7 +150,7 @@ void sub_8040EF0 (void) {
   sub_8040C6C();
   sub_80577A4();
   sub_80408FC();
-  sub_8008220();
+  WaitForVBlank();
   LoadVRAM();
   LoadBgOffsets();
   LoadOam();
@@ -183,11 +183,11 @@ void sub_8041090 (void) {
   REG_DISPCNT = 0;
   sub_804405C();
   sub_80410B4();
-  sub_80081DC(LoadBgOffsets);
+  SetVBlankCallback(LoadBgOffsets);
 }
 
 void sub_80410B4 (void) { //updates all duel gfx
-  sub_8008220();
+  WaitForVBlank();
   sub_8045718();
   sub_8041140(gDuel.field);
   //below this is same as sub_8041104
@@ -196,7 +196,7 @@ void sub_80410B4 (void) { //updates all duel gfx
   sub_8040C6C();
   sub_80577A4();
   sub_80408FC();
-  sub_8008220();
+  WaitForVBlank();
   sub_80411D4();
   REG_DISPCNT = 0x3600;
   REG_BLDCNT = 0xD4;
@@ -209,7 +209,7 @@ void sub_8041104 (void) { //updates gfx except for field
   sub_8040C6C();
   sub_80577A4();
   sub_80408FC();
-  sub_8008220();
+  WaitForVBlank();
   sub_80411D4();
   REG_DISPCNT = 0x3600;
   REG_BLDCNT = 0xD4;
@@ -317,7 +317,7 @@ void sub_8041284 (struct Test8041240* arg0) {
           {
             u32 i;
             for (i = arg0->unkC[arg0->unk0 + 1]; i; i--)
-              sub_8008220();
+              WaitForVBlank();
           }
           arg0->unk0 += 2;
           break;
@@ -519,12 +519,12 @@ inline void sub_8041B38 (void) {
 
   CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x87A0, gE0D14C, 0x801); 
   CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gE0D15D, 0x101); //empty text box
-  sub_8008220();
+  WaitForVBlank();
   sub_8041014();
   REG_WINOUT = 30;
   REG_WIN1H = 0x3ED;
   REG_WIN1V = 0x438D;
-  sub_8008220();
+  WaitForVBlank();
   *(vu8*)(0x4000049) = 54;
   REG_BLDY = 7;
   REG_DISPCNT = 0x7600;
@@ -552,7 +552,7 @@ inline void sub_8041BE8 (struct Test8041240* test) {
         sub_8041924(test);
         break;
     }
-    sub_8008220();
+    WaitForVBlank();
     sub_8041014();
   }
 }

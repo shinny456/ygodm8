@@ -202,13 +202,13 @@ void sub_80441D0 (void) {
       }
       else {
         PlayMusic(0x39);
-        sub_8008220();
+        WaitForVBlank();
       }
       break;
     case 3:
       if (gDuelBoard[3][gDuelCursor.currentX]->id == CARD_NONE) {
         PlayMusic(0x39);
-        sub_8008220();
+        WaitForVBlank();
       }
       else {
         u8 numTributes = sub_80453D8(gDuelBoard[3][gDuelCursor.currentX]->id);
@@ -224,7 +224,7 @@ void sub_80441D0 (void) {
     case 4:
       if (gDuelBoard[4][gDuelCursor.currentX]->id == CARD_NONE || gDuelBoard[4][gDuelCursor.currentX]->isLocked) {
         PlayMusic(0x39);
-        sub_8008220();
+        WaitForVBlank();
       }
       else {
         u8 numTributes = sub_8045390(gDuelBoard[4][gDuelCursor.currentX]->id);
@@ -240,7 +240,7 @@ void sub_80441D0 (void) {
       break;
     default:
       PlayMusic(0x39);
-      sub_8008220();
+      WaitForVBlank();
   }
 }
 
@@ -411,15 +411,15 @@ void sub_80446E0 (void) {
 void sub_80447A8 (void) {
   if (gDuelCursor.currentY != 2) {
     PlayMusic(0x39);
-    sub_8008220();
+    WaitForVBlank();
   }
   else if (gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id == CARD_NONE) {
     PlayMusic(0x39);
-    sub_8008220();
+    WaitForVBlank();
   }
   else if (gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked) {
     PlayMusic(0x39);
-    sub_8008220();
+    WaitForVBlank();
   }
   else {
     SetCardInfo(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id);
@@ -441,11 +441,11 @@ void sub_80447A8 (void) {
 void sub_8044840 (void) {
   if (gDuelCursor.currentY != 1) {
     PlayMusic(0x39);
-    sub_8008220();
+    WaitForVBlank();
   }
   else if (gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id == CARD_NONE) {
     PlayMusic(0x39);
-    sub_8008220();
+    WaitForVBlank();
   }
   else {
     gTrapEffectData.unk2 = gDuelCursor.destY;
@@ -490,13 +490,13 @@ void TryPlacingSelectedCardOnField (void) {
       }
       else {
         PlayMusic(0x39);
-        sub_8008220();
+        WaitForVBlank();
       }
       break;
     default:
       if (gDuelCursor.currentY != 2) {
         PlayMusic(0x39);
-        sub_8008220();
+        WaitForVBlank();
       }
       else {
         PlayMusic(0x3A);
@@ -603,7 +603,7 @@ void sub_8044B2C (void) {
         r4 = 0;
         break;
     }
-    sub_8008220();
+    WaitForVBlank();
   }
   PlayMusic(0x38);
 }
@@ -677,7 +677,7 @@ _08044C08: .4byte gHands+0x14\n\
 _08044C0C: .4byte 0x02000400\n\
 _08044C10:\n\
 	adds r0, r4, #0\n\
-	bl sub_8057474\n\
+	bl CopyFaceDownCardTiles\n\
 _08044C16:\n\
 	adds r0, r6, #1\n\
 	lsls r0, r0, #0x18\n\
@@ -687,7 +687,7 @@ _08044C16:\n\
   \n\
   \n\
 	ldr r0, _08044CE8\n\
-	bl sub_8057418\n\
+	bl CopyMiniCardPalette\n\
 	movs r6, #0\n\
 	ldr r3, _08044CEC\n\
 	movs r7, #0\n\
@@ -813,20 +813,20 @@ void sub_8044B90 (void) {
       sub_805733C(ptr, cardId);
     }
     else
-      sub_8057474(ptr);
+      CopyFaceDownCardTiles(ptr);
   }
-  sub_8057418(g02000000.obj);
+  CopyMiniCardPalette(g02000000.obj);
 }*/
 
 void sub_8044D00 (void) {
   sub_803EE44();
   sub_8044D34();
   sub_8044B90();
-  sub_80081DC(sub_8045718);
-  sub_8008220();
+  SetVBlankCallback(sub_8045718);
+  WaitForVBlank();
   sub_8044DAC();
-  sub_80081DC(sub_8044DC8);
-  sub_8008220();
+  SetVBlankCallback(sub_8044DC8);
+  WaitForVBlank();
 }
 
 void sub_8044D34 (void) {

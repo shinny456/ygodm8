@@ -52,7 +52,7 @@ u32 IsPlayerDeckNonempty (void);
 
 
 void LoadOam (void);
-void sub_8008220 (void);
+void WaitForVBlank (void);
 void sub_8045718 (void);
 
 extern u16 gNewButtons;
@@ -123,7 +123,7 @@ static void StartMenuMain (void) {
     }
     UpdateCursorPosition(cursorState);
     LoadOam();
-    sub_8008220();
+    WaitForVBlank();
   }
   PlayMusic(0x38);
   sub_8045718();
@@ -350,23 +350,23 @@ static void LoadStartMenuGraphics (void) {
   for (i = 0; i < 20; i++)
     DmaCopy16(3, gUnk_8079444[i], gBgVram.sbb1E[i], 60);
   CpuCopy16(gUnk_8079424, &g02000000.bg[0xF0], 32);
-  sub_80081DC(sub_8005C38);
+  SetVBlankCallback(sub_8005C38);
   LoadBgVRAM();
   LoadCharblock4();
   LoadPalettes();
-  sub_8008220();
+  WaitForVBlank();
 }
 
 static void sub_8005BE0 (void) {
   CpuCopy16(gStartMenuBgPalette, g02000000.bg, 32);
   CpuCopy16(gStartMenuCursorPalette, g02000000.obj, 32);
   sub_8005894();
-  sub_80081DC(sub_8005C54);
+  SetVBlankCallback(sub_8005C54);
   LoadCharblock4();
   LoadCharblock3();
   LoadPalettes();
-  sub_80081DC(sub_8005C38);
-  sub_8008220();
+  SetVBlankCallback(sub_8005C38);
+  WaitForVBlank();
 }
 
 static void sub_8005C38 (void) {
@@ -401,10 +401,10 @@ static void sub_8005CB8 (void) {
   gBLDCNT = 0xFC;
   gBLDY = 8;
   LoadBlendingRegs();
-  sub_8008220();
-  while (!(gNewButtons & 0x3FF))
-    sub_8008220();
-  sub_8008220();
+  WaitForVBlank();
+  while (!(gNewButtons & KEYS_MASK))
+    WaitForVBlank();
+  WaitForVBlank();
 }
 
 static void InitStartMenuData (void) {
