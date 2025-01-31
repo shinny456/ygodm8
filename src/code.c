@@ -439,7 +439,7 @@ static void sub_8000810 (void) {
   REG_IME = 1;
   REG_IE = 1;
   REG_DISPSTAT = 8;
-  REG_DISPCNT = 0x300;
+  REG_DISPCNT = DISPCNT_BG0_ON | DISPCNT_BG1_ON;
   gBG0HOFS = 0;
   gBG0VOFS = 0x1C0;
   gBG1HOFS = 0;
@@ -1417,7 +1417,7 @@ static void sub_80019C4 (void) {
   REG_IME = 1;
   REG_IE = 1;
   REG_DISPSTAT = 8;
-  REG_DISPCNT = 0x3701;
+  REG_DISPCNT = DISPCNT_MODE_1 | DISPCNT_BG0_ON | DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON;
   REG_WIN0H = 0xF0;
   REG_WIN0V = 0x1078;
   *((vu8*)REG_ADDR_WININ) = 0x3F;
@@ -1677,7 +1677,7 @@ static void sub_8001E8C (void) {
         gBLDCNT = 0x3F54;
         gBLDALPHA = 0x1000;
         LoadBlendingRegs();
-        REG_DISPCNT = 0x2C00;
+        REG_DISPCNT = DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_WIN0_ON;
       }
       break;
     case 2:
@@ -1706,7 +1706,7 @@ static void sub_8001E8C (void) {
       if (g8DF7594->unkA / r8 >= 16) {
         g8DF7594->unk8++;
         g8DF7594->unkA = 0;
-        REG_DISPCNT = 0x3400;
+        REG_DISPCNT = DISPCNT_BG2_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON;
         gBLDALPHA = 0x1010;
         LoadBlendingRegs();
       }
@@ -1760,7 +1760,7 @@ static void sub_80020D8 (void) {
       sub_8003D10();
       LoadOam();
       if (g8DF7594->unkA / 2 >= 16) {
-        REG_DISPCNT = 0x3E00;
+        REG_DISPCNT = DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON;
         gBLDCNT = 0x3F40;
         gBLDALPHA = 0x808;
         LoadBlendingRegs();
@@ -1833,7 +1833,7 @@ static void sub_80020D8 (void) {
         LoadBlendingRegs();
       }
       else {
-        REG_DISPCNT = 0x3600;
+        REG_DISPCNT = DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON;
         gBLDCNT = 0x3FBF;
         gBLDY = 0;
         LoadBlendingRegs();
@@ -1882,7 +1882,7 @@ static void sub_80020D8 (void) {
         gBLDCNT = 0x3F40;
         gBLDY = 16;
         LoadBlendingRegs();
-        REG_DISPCNT = 0x3600;
+        REG_DISPCNT = DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON;
       }
       sub_8003D10();
       sub_80043D0();
@@ -1914,7 +1914,7 @@ static void sub_80020D8 (void) {
         gBLDALPHA = 0x808;
         gBLDY = 16;
         LoadBlendingRegs();
-        REG_DISPCNT = 0x2E00;
+        REG_DISPCNT = DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_WIN0_ON;
       }
       sub_8003D10();
       sub_80043D0();
@@ -2018,7 +2018,7 @@ static void sub_80027F0 (void) {
       if (++g8DF7594->unkA >= 30) {
         g8DF7594->unk8++;
         g8DF7594->unkA = 0;
-        REG_DISPCNT = 0x3400;
+        REG_DISPCNT = DISPCNT_BG2_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON;
       }
       break;
     case 3:
@@ -2035,7 +2035,7 @@ static void sub_80027F0 (void) {
       sub_80045D4();
       LoadPalettes();
       if (g8DF7594->unk156 >= 128) {
-        REG_DISPCNT = 0x2C00;
+        REG_DISPCNT = DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_WIN0_ON;
         g8DF7594->unk8++;
         g8DF7594->unkA = 0;
       }
@@ -2246,7 +2246,7 @@ static void sub_8002D10 (void) {
       if (++g8DF7594->unkA >= 30) {
         g8DF7594->unk8++;
         g8DF7594->unkA = 0;
-        REG_DISPCNT = 0x3800;
+        REG_DISPCNT = DISPCNT_BG3_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON;
       }
       break;
     case 3:
@@ -2418,7 +2418,7 @@ static void sub_8003268 (void) {
   CpuCopy16(gUnk_8AA6358, g02000000.bg, 512);
 
   for (ii = 0; ii < 16; ii++) {
-    g8DF7594->unk36[ii + 0x20] =  g02000000.bg[0x90 + ii] & 0x1F;
+    g8DF7594->unk36[ii + 0x20] = g02000000.bg[0x90 + ii] & 0x1F;
     g8DF7594->unk96[ii + 0x20] = (g02000000.bg[0x90 + ii] & (0x1F << 5)) >> 5;
     g8DF7594->unkF6[ii + 0x20] = (g02000000.bg[0x90 + ii] & (0x1F << 10)) >> 10;
   }
@@ -2505,7 +2505,7 @@ static void sub_8003560 (void) {
   CpuCopy16(gUnk_8AA6358, g02000000.bg, 512);
 
   for (ii = 0; ii < 16; ii++) {
-    g8DF7594->unk36[ii + 0x20] =  g02000000.bg[0xA0 + ii] & 0x1F;
+    g8DF7594->unk36[ii + 0x20] = g02000000.bg[0xA0 + ii] & 0x1F;
     g8DF7594->unk96[ii + 0x20] = (g02000000.bg[0xA0 + ii] & (0x1F << 5)) >> 5;
     g8DF7594->unkF6[ii + 0x20] = (g02000000.bg[0xA0 + ii] & (0x1F << 10)) >> 10;
   }

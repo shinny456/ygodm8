@@ -888,7 +888,7 @@ inline void sub_8054EC8 (void) {
 inline void sub_8054F28 (void) {
   int i;
   sub_805339C();
-  REG_DISPCNT = 0x1F00;
+  REG_DISPCNT = DISPCNT_BG_ALL_ON | DISPCNT_OBJ_ON;
   REG_BLDCNT = 0x9F;
   REG_BLDY = 16;
   for (i = 0; i < 2; i++)

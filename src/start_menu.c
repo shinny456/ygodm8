@@ -386,13 +386,13 @@ static void UpdateCursorPosition (u8 cursorPos) {
 }
 
 static void DisplayCostMessage (void) {
-  REG_DISPCNT = 0x1D00;
+  REG_DISPCNT = DISPCNT_BG0_ON | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
   LoadBgOffsets();
   sub_8005CB8();
 }
 
 static void DisplayIncompleteDeckMessage (void) {
-  REG_DISPCNT = 0x1E00;
+  REG_DISPCNT = DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
   LoadBgOffsets();
   sub_8005CB8();
 }

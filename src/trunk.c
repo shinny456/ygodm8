@@ -416,7 +416,7 @@ static void sub_8008A5C (void) {
   REG_BLDCNT |= 8;
 }
 
-void CopyTypeIconTilesToBuffer (unsigned char type, void * dest) {
+void CopyTypeIconTiles (unsigned char type, void * dest) {
   //unsigned char temp = type + 235; (decomp_note)
   if (type == 21 || type == 22 || type == 23) {
     CpuCopy16(gTypeIconTiles[type][gLanguage], dest, 0x40);
@@ -428,24 +428,24 @@ void CopyTypeIconTilesToBuffer (unsigned char type, void * dest) {
     CpuCopy16(gTypeIconTiles[type][gLanguage], dest, 0x80);
 }
 
-void CopyTypeIconPalToBuffer (unsigned char type, void * palDest) {
+void CopyTypeIconPal (unsigned char type, void * palDest) {
   //unsigned char temp = type - 21; (decomp_note)
   if (type == 21 || type == 22 || type == 23)
     CpuCopy16(gTypeIconPalettes[type], g201CB34, 32);
   CpuCopy16(gTypeIconPalettes[type], palDest, 32);
 }
 
-void CopyAttributeIconTilesToBuffer (unsigned char attribute, void * dest) {
+void CopyAttributeIconTiles (unsigned char attribute, void * dest) {
   g201CB30 = dest;
   CpuCopy16(gAttributeIconTiles[attribute][gLanguage], dest, 0x80);
 }
 
-void CopyAttributeIconPalToBuffer (unsigned char attribute, void * palDest) {
+void CopyAttributeIconPal (unsigned char attribute, void * palDest) {
   g201CB34 = palDest;
   CpuCopy16(gAttributeIconPalettes[attribute], palDest, 32);
 }
 
-void CopyStarTileToBuffer (void * dest) {
+void CopyStarTile (void * dest) {
   CpuCopy16(gStarTile, dest, 32);
 }
 
@@ -453,11 +453,11 @@ void sub_8008BF8 (void * dest) {
   CpuCopy16(gUnk_808ECD0, dest, 32);
 }
 
-void CopySwordTileToBuffer (void * dest) {
+void CopySwordTile (void * dest) {
   CpuCopy16(gSwordTile, dest, 32);
 }
 
-void CopyShieldTileToBuffer (void * dest) {
+void CopyShieldTile (void * dest) {
   CpuCopy16(gShieldTile, dest, 32);
 }
 

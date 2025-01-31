@@ -34,7 +34,6 @@ extern u32 gOamBuffer[];
 extern unsigned char g80C1824[];
 void sub_8041104(void);
 u32 AdjustBackgroundBeforeTurnStart(unsigned char);
-void sub_8057808(void);
 void sub_804078C(void);
 void WaitForVBlank(void);
 void sub_8040FDC(void);

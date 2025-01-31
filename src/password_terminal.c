@@ -712,7 +712,7 @@ static void sub_8025F64 (void) {
 
 static void sub_8025FFC (void) {
   LoadPalettes();
-  REG_DISPCNT = 0x1800;
+  REG_DISPCNT = DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
 }
 
 static void sub_8026014 (void) {

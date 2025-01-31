@@ -903,7 +903,7 @@ void sub_8050748 (struct Unk1234* arg0) {
     LoadPalettes();
   }
   REG_WINOUT = 0x3F;
-  REG_DISPCNT = 0x9F00;
+  REG_DISPCNT = DISPCNT_BG_ALL_ON | DISPCNT_OBJ_ON | DISPCNT_OBJWIN_ON;
   sub_804F850(arg0, 0, 0);
   WaitForVBlank();
   LoadOam();
@@ -919,7 +919,7 @@ void sub_8050748 (struct Unk1234* arg0) {
   }
   sub_80515D8();
   sub_8051740();
-  REG_DISPCNT = 0x1F00;
+  REG_DISPCNT = DISPCNT_BG_ALL_ON | DISPCNT_OBJ_ON;
   for (i = 0; g8E0E2B2[i] >= 0; i++) {
     sub_80515A0();
     sub_8044EC8(g02000000.bg, 0, 0x16F, g8E0E2B2[i]);

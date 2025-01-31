@@ -71,8 +71,7 @@ void MoveCursorLeft (void) {
   gDuelCursor.currentX--;
 }
 
-int sub_80575E0(u8, u8);
-int sub_8057600(u8, u8);
+
 extern s8 g8E0D954[];
 extern u8 g8E0D958[];
 extern u8 g8E0D95C[];
@@ -141,6 +140,8 @@ void sub_8044148 (void) {
 
 void sub_8044160 (u8 arg0) {
   switch (arg0) {
+    case 0:
+      break;
     case 1:
     case 2:
     case 3:
@@ -154,14 +155,6 @@ void sub_8044160 (u8 arg0) {
     case 17:
       gDuelCursor.currentY = gDuelCursor.destY;
       gDuelCursor.currentX = gDuelCursor.destX;
-      break;
-    case 0:
-    case 10:
-    case 11:
-    case 12:
-    case 13:
-    case 14:
-    case 15:
       break;
   }
 }
@@ -476,7 +469,7 @@ void sub_8044840 (void) {
   }
 }
 
-void TryPlacingSelectedCardOnField (void) {
+static void TryPlaceSelectedCardOnField (void) {
   SetCardInfo(gDuelBoard[gDuelCursor.destY][gDuelCursor.destX]->id);
   switch (GetTypeGroup(gCardInfo.id)) {
     case TYPE_GROUP_SPELL:
@@ -558,7 +551,7 @@ void HandleAButtonAction (void) {
       sub_80441D0();
       break;
     case 1: //HAND_CARD_SELECTED
-      TryPlacingSelectedCardOnField();
+      TryPlaceSelectedCardOnField();
       break;
     case 2: //EQUIP_SPELL_SELECTED
       sub_80447A8();
@@ -860,6 +853,6 @@ void sub_8044DC8 (void) {
   gBLDY = 0;
   LoadBgOffsets();
   LoadBlendingRegs();
-  REG_BG3CNT = 0x1F03;
-  REG_DISPCNT = 0x1800;
+  REG_BG3CNT = BGCNT_PRIORITY(3) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(31);
+  REG_DISPCNT = DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
 }

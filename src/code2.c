@@ -8659,7 +8659,7 @@ static void sub_801BC58 (void) {
   LoadPalettes();
   REG_BG2CNT = 0x1E81;
   REG_BG3CNT = 0x1F86;
-  REG_DISPCNT = 0xC00;
+  REG_DISPCNT = DISPCNT_BG2_ON | DISPCNT_BG3_ON;
 }
 
 static void sub_801BC88 (u8 arg0, u32 arg1) {
@@ -9320,7 +9320,7 @@ static void sub_801C39C (void) {
 }
 
 static void sub_801C3AC (void) {
-  REG_DISPCNT &= 0xEFFF;
+  REG_DISPCNT &= ~DISPCNT_OBJ_ON;
 }
 
 static void sub_801C3C0 (void) {
@@ -9565,7 +9565,7 @@ static void sub_801C758 (void) {
 }
 
 static void sub_801C768 (void) {
-  REG_DISPCNT &= 0xEFFF;
+  REG_DISPCNT &= ~DISPCNT_OBJ_ON;
   gBG2VOFS = 4;
   gBG2HOFS = 508;
   gBG3VOFS = 4;
@@ -9711,7 +9711,7 @@ static void sub_801CAA0 (void) {
 }
 
 static void sub_801CAAC (void) {
-  REG_DISPCNT &= 0xEFFF;
+  REG_DISPCNT &= ~DISPCNT_OBJ_ON;
 }
 
 struct Unk8E00AA0 {
@@ -10042,7 +10042,7 @@ static void sub_801CE9C (void) {
 }
 
 static void sub_801CEA8 (void) {
-  REG_DISPCNT &= 0xEFFF;
+  REG_DISPCNT &= ~DISPCNT_OBJ_ON;
 }
 
 void sub_801CEBC (void) {

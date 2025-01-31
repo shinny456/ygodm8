@@ -26,7 +26,7 @@ void StatusMenu (void) {
     //sb = g8DF811C
     u16 temp2 = r6 | g8DF811C[i] + 0x5C;
     void *ptr;
-    u16 temp3 =  temp + 0x60;
+    u16 temp3 = temp + 0x60;
     ptr = &((u8*)&gBgVram)[(0x7C00 + temp3) * 2];
     *(u16*)ptr = temp2;
   }

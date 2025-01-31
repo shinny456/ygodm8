@@ -10468,13 +10468,13 @@ sub_8038F1C: @ 0x08038F1C
 	bl CpuSet
 	adds r0, r4, #0
 	adds r0, #0x20
-	bl CopyStarTileToBuffer
+	bl CopyStarTile
 	adds r0, r4, #0
 	adds r0, #0x40
-	bl CopySwordTileToBuffer
+	bl CopySwordTile
 	adds r0, r4, #0
 	adds r0, #0x60
-	bl CopyShieldTileToBuffer
+	bl CopyShieldTile
 	adds r0, r4, #0
 	adds r0, #0xe0
 	ldr r1, _08039078
@@ -10811,10 +10811,10 @@ sub_80391F8: @ 0x080391F8
 	lsrs r4, r4, #0x18
 	ldr r0, _080392E8
 	mov r8, r0
-	bl CopySwordTileToBuffer
+	bl CopySwordTile
 	mov r0, r8
 	adds r0, #0x20
-	bl CopyShieldTileToBuffer
+	bl CopyShieldTile
 	ldr r1, _080392EC
 	mov sl, r1
 	ldrh r0, [r1, #0x12]
@@ -13402,13 +13402,13 @@ sub_803A878: @ 0x0803A878
 	bl CpuSet
 	adds r0, r4, #0
 	adds r0, #0x20
-	bl CopyStarTileToBuffer
+	bl CopyStarTile
 	adds r0, r4, #0
 	adds r0, #0x40
-	bl CopySwordTileToBuffer
+	bl CopySwordTile
 	adds r0, r4, #0
 	adds r0, #0x60
-	bl CopyShieldTileToBuffer
+	bl CopyShieldTile
 	adds r0, r4, #0
 	adds r0, #0xe0
 	ldr r1, _0803A9D4
@@ -13858,10 +13858,10 @@ sub_803ACC4: @ 0x0803ACC4
 	lsrs r4, r0, #0x18
 	ldr r5, _0803ADB4
 	adds r0, r5, #0
-	bl CopySwordTileToBuffer
+	bl CopySwordTile
 	adds r0, r5, #0
 	adds r0, #0x20
-	bl CopyShieldTileToBuffer
+	bl CopyShieldTile
 	ldr r0, _0803ADB8
 	ldr r1, _0803ADBC
 	mov sl, r1
@@ -16369,13 +16369,13 @@ sub_803C308: @ 0x0803C308
 	bl CpuSet
 	adds r0, r4, #0
 	adds r0, #0x20
-	bl CopyStarTileToBuffer
+	bl CopyStarTile
 	adds r0, r4, #0
 	adds r0, #0x40
-	bl CopySwordTileToBuffer
+	bl CopySwordTile
 	adds r0, r4, #0
 	adds r0, #0x60
-	bl CopyShieldTileToBuffer
+	bl CopyShieldTile
 	adds r0, r4, #0
 	adds r0, #0xe0
 	ldr r1, _0803C464
@@ -16825,10 +16825,10 @@ sub_803C754: @ 0x0803C754
 	lsrs r4, r0, #0x18
 	ldr r5, _0803C844
 	adds r0, r5, #0
-	bl CopySwordTileToBuffer
+	bl CopySwordTile
 	adds r0, r5, #0
 	adds r0, #0x20
-	bl CopyShieldTileToBuffer
+	bl CopyShieldTile
 	ldr r0, _0803C848
 	ldr r1, _0803C84C
 	mov sl, r1

@@ -1922,9 +1922,9 @@ void sub_803A424 (void);
 void sub_80396B0 (void);
 extern u8 g2023E69;
 extern void (*g8E0CE90[])(u8);
-void CopyStarTileToBuffer(void*);
-void CopySwordTileToBuffer(void*);
-void CopyShieldTileToBuffer(void*);
+void CopyStarTile(void*);
+void CopySwordTile(void*);
+void CopyShieldTile(void*);
 
 
 extern u16 g8A31F24[][30];
@@ -2001,9 +2001,9 @@ void sub_8038DA0 (void) {
 void sub_8038F1C (void) {
   u8 i, j;
   CpuFill16(0, gBgVram.cbb0 + 0xC000, 32);
-  CopyStarTileToBuffer(gBgVram.cbb0 + 0xC020);
-  CopySwordTileToBuffer(gBgVram.cbb0 + 0xC040);
-  CopyShieldTileToBuffer(gBgVram.cbb0 + 0xC060);
+  CopyStarTile(gBgVram.cbb0 + 0xC020);
+  CopySwordTile(gBgVram.cbb0 + 0xC040);
+  CopyShieldTile(gBgVram.cbb0 + 0xC060);
   CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0xC0E0, g80DDF34, 0x1801);
   for (i = 0; i < 2; i++)
     CpuCopy16(gAttributeIconTiles[i][gLanguage], gBgVram.cbb0 + 0xD2A0 + i * 256, 256);

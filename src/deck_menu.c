@@ -47,8 +47,6 @@ extern unsigned short gStarterDeck[];
 
 void sub_801F614 (void);
 unsigned short sub_801DAF8 (unsigned char);
-void sub_80573D0 (unsigned char*, unsigned short);
-
 
 extern unsigned short gNewButtons;
 extern unsigned short gUnk2021DCC;
@@ -328,7 +326,7 @@ static void sub_801D678 (void) {
 static void sub_801D68C (void) {
   LoadPalettes();
   LoadOam();
-  REG_DISPCNT = 0xBF00;
+  REG_DISPCNT = DISPCNT_BG_ALL_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON | DISPCNT_OBJWIN_ON;
   REG_BLDALPHA = 6;
   REG_BLDY = 10;
   REG_BLDCNT |= 8;

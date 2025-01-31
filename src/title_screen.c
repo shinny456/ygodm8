@@ -453,7 +453,7 @@ static void VBlankCbInitGfxRegs (void) {
 
 static void VBlankCbTitleScreen (void) {
   LoadPalettes();
-  REG_DISPCNT = DISPCNT_MODE_0 | DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
+  REG_DISPCNT = DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
 }
 
 static void VBlankCbOptionSwitch (void) {

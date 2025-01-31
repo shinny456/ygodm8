@@ -474,6 +474,8 @@ g80F09D0:
 gUnk08103264:
     .incbin "baserom.gba", 0x103264, 0x4F99B0
 
+
+//big card art tiles start
     .global gUnk_85fcc14
 gUnk_85fcc14:
     .incbin "baserom.gba", 0x5fcc14, 0x1220
@@ -3674,6 +3676,8 @@ gUnk_891a944:
 gUnk_891b9b0:
     .incbin "baserom.gba", 0x91b9b0, 0x13C8
 
+
+//big card palettes start
         .global gUnk_891cd78
 gUnk_891cd78:
     .incbin "baserom.gba", 0x91cd78, 0x80
@@ -6886,6 +6890,8 @@ gUnk_89360b0:
 gUnk_8936130:
     .incbin "baserom.gba", 0x936130, 0xC8
 
+
+// big card border tiles
     .global gUnk_89361F8
 gUnk_89361F8:
     .incbin "baserom.gba", 0x9361F8, 0x2000
@@ -6930,6 +6936,8 @@ gUnk_8938358:
 gUnk_8938384:
     .incbin "baserom.gba", 0x938384, 0x214
 
+
+// A, D (attack defense letters) and digits 0-9 in card details screen
     .global gUnk_8938598
 gUnk_8938598:
     .incbin "baserom.gba", 0x938598, 0x40
@@ -6946,6 +6954,8 @@ gUnk_8938618:
 gUnk_8938658:
     .incbin "baserom.gba", 0x938658, 0x2B90
 
+
+// card attribute data in card details screen
     .global gUnk_893B1E8
 gUnk_893B1E8:
     .incbin "baserom.gba", 0x93B1E8, 0xE

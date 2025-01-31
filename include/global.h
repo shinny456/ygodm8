@@ -18,6 +18,9 @@
 #include "deck_menu.h"
 #include "text.h"
 #include "duel_main.h"
+
+#include "duel.h"
+
 #include "game_menu.h"
 #include "duel_status.h"
 #include "ante.h"
@@ -34,11 +37,11 @@
 #include "life_points.h"
 #include "spell_effect.h"
 #include "overworld.h"
-
+#include "mini_card.h"
 
 #include "FINAL_effect.h"
 #include "player.h"
-#include "duel.h"
+
 #include "constants/card_ids.h"
 
 void sub_8035020 (unsigned);
@@ -70,6 +73,7 @@ enum {
   DUEL_TRUNK_ANTE_YES
 };
 
+//rename to CARD_SORT since the same numbers are used for deck, and card shop sorting
 enum {
   TRUNK_SORT_NUMBER,
   TRUNK_SORT_NAME,
@@ -122,6 +126,7 @@ extern unsigned char g2022B80[];
 extern unsigned short g80D0444[][801];
 extern const unsigned short gCardAtks[];
 extern const unsigned short gCardDefs[];
+int sub_8045410 (unsigned short);
 
 #define asm_comment(x) asm volatile("@ -- " x " -- ")
 #define asm_unified(x) asm(".syntax unified\n" x "\n.syntax divided")

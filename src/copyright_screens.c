@@ -209,7 +209,7 @@ static void sub_8026D3C (void) {
 }
 
 static void sub_8026D58 (void) {
-  REG_DISPCNT = 0x80;
+  REG_DISPCNT = DISPCNT_FORCED_BLANK;
   REG_BLDCNT = 0;
   REG_BLDALPHA = 0;
   REG_BLDY = 0;
@@ -223,7 +223,7 @@ static void sub_8026D74 (void) {
   REG_BG3CNT &= 0xE0F3;
   REG_BG3CNT |= 0x1C00;
   REG_BG3CNT |= 0xC;
-  REG_DISPCNT = 0x800;
+  REG_DISPCNT = DISPCNT_BG3_ON;
 }
 
 static void sub_8026DC8 (void) {
@@ -239,7 +239,7 @@ static void sub_8026DC8 (void) {
   REG_BG3CNT &= 0xE0F3;
   REG_BG3CNT |= 0x1E00;
   REG_BG3CNT = REG_BG3CNT;
-  REG_DISPCNT = 0xC00;
+  REG_DISPCNT = DISPCNT_BG2_ON | DISPCNT_BG3_ON;
 }
 
 static void sub_8026E44 (void) {
@@ -250,7 +250,7 @@ static void sub_8026E44 (void) {
   REG_BG3CNT &= 0xE0F3;
   REG_BG3CNT |= 0x1F00;
   REG_BG3CNT = REG_BG3CNT;
-  REG_DISPCNT = 0x800;
+  REG_DISPCNT = DISPCNT_BG3_ON;
 }
 
 static void sub_8026E94 (void) {
@@ -261,7 +261,7 @@ static void sub_8026E94 (void) {
   REG_BG3CNT &= 0xE0F3;
   REG_BG3CNT |= 0x1E00;
   REG_BG3CNT |= 4;
-  REG_DISPCNT = 0x800;
+  REG_DISPCNT = DISPCNT_BG3_ON;
 }
 
 static void sub_8026EE8 (void) {
@@ -272,5 +272,5 @@ static void sub_8026EE8 (void) {
   REG_BG3CNT &= 0xE0F3;
   REG_BG3CNT |= 0x1D00;
   REG_BG3CNT |= 8;
-  REG_DISPCNT = 0x800;
+  REG_DISPCNT = DISPCNT_BG3_ON;
 }

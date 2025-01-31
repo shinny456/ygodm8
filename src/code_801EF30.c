@@ -275,7 +275,7 @@ void sub_801F37C (void) {
 
 void sub_801F390 (void) {
   LoadOam();
-  REG_DISPCNT = 0xBF00;
+  REG_DISPCNT = DISPCNT_BG0_ON | DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON | DISPCNT_OBJWIN_ON;
   REG_BLDALPHA = 6;
   REG_BLDY = 10;
   REG_BLDCNT |= 8;
@@ -345,25 +345,21 @@ void sub_801F4A0 (u8 arg0) {
 }
 
 void sub_801F554 (void) {
-
 }
 
 void sub_801F558 (void) {
   LoadOam();
   LoadPalettes();
-  REG_DISPCNT = 0x7E00;
+  REG_DISPCNT = DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON | DISPCNT_WIN1_ON;
 }
 
 void sub_801F574 (void) {
-
 }
 
 void sub_801F578 (void) {
-
 }
 
 void sub_801F57C (void) {
-
 }
 
 void sub_801F580 (void) {
@@ -1078,7 +1074,7 @@ void sub_801FADC (void) {
 
 void sub_801FB14 (void) {
   LoadPalettes();
-  REG_DISPCNT = 0xE00;
+  REG_DISPCNT = DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_BG3_ON;
 }
 
 void sub_801FB2C (void) {

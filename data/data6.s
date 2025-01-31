@@ -3,6 +3,10 @@
 gUnk8E11790:
     .incbin "baserom.gba", 0xE11790, 0x728
 
+
+
+
+
     .global gCardArts //card arts
 gCardArts:
     .4byte gUnk_8935d78

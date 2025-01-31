@@ -31,8 +31,7 @@ u32 CanPlayerSeeCard (u8 y, u8 x);
 extern u16 gNewButtons;
 void sub_80410B4 (void);
 void sub_8041104 (void);
-int sub_8057790 (u8, u8);
-int sub_80575E0 (u8, u8);
+
 
 extern u16 g80F13D0[][30];
 extern u8 g8DF811C[];
@@ -45,7 +44,6 @@ void sub_800800C(u8, u8, u16, u16);
 s32 sub_8043E9C(u8);
 void sub_8042ADC (u8);
 void sub_8042C64 (u8);
-void sub_80574A8 (u8, u8);
 void sub_8041050 (void);
 
 
@@ -907,7 +905,7 @@ void InitBMenu (u8 arg0) {
   sub_80428EC(arg0);
   WaitForVBlank();
   sub_8041014();
-  REG_DISPCNT = 0x7600;
+  REG_DISPCNT = DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON | DISPCNT_WIN1_ON;
   REG_WIN1H = 0xF0;
   REG_WIN1V = 0x98;
   (*(vu8 *)(REG_BASE + 0x49)) = 0x36;
@@ -1025,7 +1023,7 @@ void sub_8042ADC (unsigned char arg0) {
   sub_8041014();
   REG_BLDY = 10;
   REG_WINOUT = 31;
-  REG_DISPCNT = 0x7600;
+  REG_DISPCNT = DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON | DISPCNT_WIN1_ON;
 }
 
 void sub_8042C64 (unsigned char arg0) {
@@ -1086,7 +1084,7 @@ void sub_8042E80 (void) {
   gBG0VOFS = gBG2VOFS;
   WaitForVBlank();
   sub_8041050();
-  REG_DISPCNT = 0x7700;
+  REG_DISPCNT = DISPCNT_BG0_ON | DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON | DISPCNT_WIN1_ON;
   REG_WIN1H = 0xF0;
   REG_WIN1V = 0x98;
   *(vu8*)(0x4000049) = 53;
@@ -1098,6 +1096,6 @@ void sub_8042F04 (void) {
   sub_8042E80();
   while (gPressedButtons & 0x200)
     WaitForVBlank();
-  REG_DISPCNT = 0x3600;
+  REG_DISPCNT = DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON;
   WaitForVBlank();
 }

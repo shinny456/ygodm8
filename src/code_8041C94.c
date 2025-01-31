@@ -31,7 +31,6 @@ extern u8 g8E0D617[];
 inline void sub_8041B38 (void);
 inline void sub_8041BE8 (struct Test8041240*);
 void sub_8041104 (void);
-void sub_8057808 (void);
 void WaitForVBlank (void);
 void sub_8040FDC (void);
 void sub_804078C (void);
@@ -41,13 +40,13 @@ void sub_80420C0 (void);
 void sub_8041FE4 (void);
 void sub_8042144 (void);
 void sub_8042184 (void);
-void CopySwordTileToBuffer (void*);
-void CopyShieldTileToBuffer (void*);
-void CopyStarTileToBuffer (void*);
-void CopyAttributeIconTilesToBuffer (u8, u8*);
-void CopyAttributeIconPalToBuffer (u8, u16*);
-void CopyTypeIconTilesToBuffer (u8, u8*);
-void CopyTypeIconPalToBuffer (u8, u16*);
+void CopySwordTile (void*);
+void CopyShieldTile (void*);
+void CopyStarTile (void*);
+void CopyAttributeIconTiles (u8, u8*);
+void CopyAttributeIconPal (u8, u16*);
+void CopyTypeIconTiles (u8, u8*);
+void CopyTypeIconPal (u8, u16*);
 u32 CanOpponentSeeCard (u8, u8);
 void sub_80428EC(u8);
 
@@ -176,7 +175,7 @@ void sub_8041EC8 (void) {
   sub_80420C0();
   sub_8041FE4();
   sub_8042144();
-  sub_8042184(); // TryDisplayFacedownText/TryCopyToBuffer
+  sub_8042184(); // TryDisplayFacedownText/TryCopy
 }
 
 void sub_8041F48 (void) {
@@ -212,7 +211,7 @@ void sub_8041FE4 (void) {
   sub_800DDA0(gCardInfo.atk, 0);
   if (gCardInfo.atk != 0xFFFF && g2021BD0[0] == 10) {
     r5 = 1;
-    CopySwordTileToBuffer(gBgVram.cbb0 + 0x83C0);
+    CopySwordTile(gBgVram.cbb0 + 0x83C0);
   }
   for (; r5 < 5; r5++) {
     sub_8020968(gBgVram.cbb0 + 0x83C0 + r5 * 32, g2021BD0[r5][g8E0D5B0], 0x801);
@@ -221,7 +220,7 @@ void sub_8041FE4 (void) {
   sub_800DDA0(gCardInfo.def, 0);
   if (gCardInfo.def != 0xFFFF && g2021BD0[0] == 10) {
     r5 = 1;
-    CopyShieldTileToBuffer(gBgVram.cbb0 + 0x8460);
+    CopyShieldTile(gBgVram.cbb0 + 0x8460);
   }
   for (; r5 < 5; r5++)
     sub_8020968(gBgVram.cbb0 + 0x8460 + r5 * 32, g2021BD0[r5][g8E0D5B0], 0x801);
@@ -230,7 +229,7 @@ void sub_8041FE4 (void) {
 void sub_80420C0 (void) {
   if (gCardInfo.level) {
     u8 i;
-    CopyStarTileToBuffer(gBgVram.cbb0 + 0x8040);
+    CopyStarTile(gBgVram.cbb0 + 0x8040);
     sub_800DDA0(gCardInfo.level, 1);
     for (i = 0; i < 2; i++)
       sub_8020968(gBgVram.cbb0 + 0x8040 + (i + 1) * 32, g2021BD0[i][g8E0D5B0], 0x801);
@@ -243,10 +242,10 @@ void sub_80420C0 (void) {
 }
 
 void sub_8042144 (void) {
-  CopyAttributeIconTilesToBuffer(gCardInfo.attribute, gBgVram.cbb0 + 0x8580);
-  CopyAttributeIconPalToBuffer(gCardInfo.attribute, g02000000.bg + 96);
-  CopyTypeIconTilesToBuffer(gCardInfo.type, gBgVram.cbb0 + 0x8500);
-  CopyTypeIconPalToBuffer(gCardInfo.type, g02000000.bg + 80);
+  CopyAttributeIconTiles(gCardInfo.attribute, gBgVram.cbb0 + 0x8580);
+  CopyAttributeIconPal(gCardInfo.attribute, g02000000.bg + 96);
+  CopyTypeIconTiles(gCardInfo.type, gBgVram.cbb0 + 0x8500);
+  CopyTypeIconPal(gCardInfo.type, g02000000.bg + 80);
 }
 
 void sub_8042184 (void) {

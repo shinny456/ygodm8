@@ -625,10 +625,10 @@ void sub_8040404 (struct DuelCard*);
 u32 GetExodiaFlag(u16);
 
 struct DuelCursor {
-  u8 currentX;
-  u8 currentY;
-  u8 destX;   //targetCoordX?
-  u8 destY;   //targetCoordY?
+  u8 currentX; //sourceRow
+  u8 currentY; //sourceColumn
+  u8 destX;   //targetRow?
+  u8 destY;   //targetColumn?
   u8 state;
   u8 unk5;
   u8 filler6;

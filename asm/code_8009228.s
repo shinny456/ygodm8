@@ -1034,7 +1034,7 @@ _0800A082:
 	ldr r2, _0800A1DC
 	adds r1, r1, r2
 	str r3, [sp, #8]
-	bl CopyAttributeIconPalToBuffer
+	bl CopyAttributeIconPal
 	ldr r1, _0800A1E0
 	adds r0, r5, r1
 	lsls r0, r0, #1
@@ -1086,7 +1086,7 @@ _0800A082:
 	ldr r2, _0800A1DC
 	adds r1, r1, r2
 	str r3, [sp, #8]
-	bl CopyTypeIconPalToBuffer
+	bl CopyTypeIconPal
 	ldrb r0, [r6, #0x16]
 	subs r0, #0x15
 	lsls r0, r0, #0x18

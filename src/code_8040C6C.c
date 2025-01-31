@@ -91,7 +91,6 @@ u32 AdjustBackgroundBeforeTurnStart (u8);
 
 void sub_8040B4C (void);
 void sub_8041EC8 (void);
-void sub_80577A4 (void);
 void sub_80408FC (void);
 void sub_8041E64 (void);
 void sub_804405C (void);
@@ -155,7 +154,7 @@ void sub_8040EF0 (void) {
   LoadBgOffsets();
   LoadOam();
   LoadPalettes();
-  REG_DISPCNT = 0x3600;
+  REG_DISPCNT = DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON;
   REG_BLDCNT = 0xD4;
   REG_BLDY = 10;
 }
@@ -198,7 +197,7 @@ void sub_80410B4 (void) { //updates all duel gfx
   sub_80408FC();
   WaitForVBlank();
   sub_80411D4();
-  REG_DISPCNT = 0x3600;
+  REG_DISPCNT = DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON;
   REG_BLDCNT = 0xD4;
   REG_BLDY = 10;
 }
@@ -211,7 +210,7 @@ void sub_8041104 (void) { //updates gfx except for field
   sub_80408FC();
   WaitForVBlank();
   sub_80411D4();
-  REG_DISPCNT = 0x3600;
+  REG_DISPCNT = DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON;
   REG_BLDCNT = 0xD4;
   REG_BLDY = 10;
 }
@@ -527,7 +526,7 @@ inline void sub_8041B38 (void) {
   WaitForVBlank();
   *(vu8*)(0x4000049) = 54;
   REG_BLDY = 7;
-  REG_DISPCNT = 0x7600;
+  REG_DISPCNT = DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON | DISPCNT_WIN1_ON;
 }
 
 inline void sub_8041BE8 (struct Test8041240* test) {

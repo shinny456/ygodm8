@@ -1,38 +1,36 @@
 #include "global.h"
 
-int sub_8045410 (unsigned short);
-extern u8 g89A7ADE[][64];
+//TODO: rename to mini_card.c
+
+extern const unsigned char gUnk_893B290[]; //facedown card tiles
+extern const unsigned char g89A77DC[]; //card lock tile (E symbol)
+extern const unsigned char g89A781C[]; //mini-card palette
+extern const unsigned char g89A7ADE[][64]; //numTribute tiles
+extern const unsigned char g89A7BDE[]; //face down icon (R symbol)
+extern const unsigned char g89A7F1E[][64];
+extern const unsigned char g89A81DE[]; 
+extern const unsigned char g89A849E[][64];
+extern const unsigned char g89A875E[][64];
+extern const unsigned char g89A8A1E[]; //stage digits?
+extern const unsigned char g89A8CDE[]; //minus sign (combine with digits?)
+
+extern unsigned char* g8E1168C[]; //attribute mini-icons
+extern u16 g8E116BC[];
 extern s16 g8E116EE[][5];
 extern s16 g8E11720[];
-extern const u8 gUnk_893B290[];
-extern u16* g8E1168C[]; //attribute mini-icons
-extern u16 g89A7BDE[];
-extern u16 g89A77DC[];
-extern u16 g89A781C[];
-extern u16 g89A8A1E[];
-extern u16 g89A8CDE[];
-extern u8* gUnk_8E17F48[]; // card-border tile pointers (index is card color)
-extern u8 gSharedMem[];
-extern u8 g89A81DE[][64];
-extern u8 g89A7F1E[][64];
-extern u8 g89A875E[][64];
-extern u8 g89A849E[][64];
-extern u16 g8E116BC[];
-extern u32* g8E17F70[];
-void sub_80573D0 (u8*, u16);
-void sub_80576EC (u8*, u16);
-void sub_80576B4 (u8*, u16);
-void sub_8057718 (u8*, u16);
-void CopyFaceDownCardTiles (u8*);
-void sub_8057620 (u8*);
-void sub_8057698 (u8*);
-void sub_805763C (u8*, s8);
-void sub_80572A8 (u8*, struct DuelCard*);
-void sub_805733C (u8*, struct DuelCard*);
-s16 sub_80575E0 (unsigned char, unsigned char);
-s16 sub_8057600 (unsigned char, unsigned char);
+extern unsigned char* gUnk_8E17F48[]; // card-border tile pointers (index is card color)
+extern unsigned char* g8E17F70[];
+
+
 extern struct O {unsigned long a; unsigned short b;} gOamBuffer[];
-void sub_805754C (struct O*, unsigned char, unsigned char);
+
+static void sub_805754C (struct O*, unsigned char, unsigned char);
+static void sub_8057620 (unsigned char*);
+static void sub_805763C (unsigned char*, signed char);
+static void sub_8057698 (unsigned char*);
+static void sub_8057718 (unsigned char*, unsigned short);
+
+extern unsigned char gSharedMem[];
 
 
 static void sub_80562F4 (void) {
@@ -1944,7 +1942,7 @@ _0805728E:\n\
 	bx r0");
 }
 // same as sub_802FF78 except for arg0 + 0x800, and stat mod
-void sub_80572A8 (u8* arg0, struct DuelCard* arg1) {
+void sub_80572A8 (unsigned char* arg0, struct DuelCard* arg1) {
   gStatMod.card = arg1->id;
   gStatMod.field = gDuel.field;
   gStatMod.stage = sub_804069C(arg1);
@@ -1956,12 +1954,12 @@ void sub_80572A8 (u8* arg0, struct DuelCard* arg1) {
   else
     sub_800DDA0(gCardInfo.atk / 100, 0);
   arg0 += 0x800;
-  CpuCopy16(g89A81DE[g2021BD0[3]], arg0, 0x40);
+  CpuCopy16(g89A81DE + g2021BD0[3] * 64, arg0, 0x40);
   arg0 += 0x40;
   CpuCopy16(g89A7F1E[g2021BD0[4]], arg0, 0x40);
 }
 
-void sub_805733C (u8* arg0, struct DuelCard* arg1) {
+void sub_805733C (unsigned char* arg0, struct DuelCard* arg1) {
   gStatMod.card = arg1->id;
   gStatMod.field = gDuel.field;
   gStatMod.stage = sub_804069C(arg1);
@@ -1978,24 +1976,24 @@ void sub_805733C (u8* arg0, struct DuelCard* arg1) {
   CpuCopy16(g89A849E[g2021BD0[4]], arg0, 0x40);
 }
 
-void sub_80573D0 (u8* arg0, u16 cardId) {
+void sub_80573D0 (unsigned char* arg0, unsigned short cardId) {
   SetCardInfo(cardId);
   LZ77UnCompWram(g8E17F70[cardId], gSharedMem);
   sub_80565F0(arg0, gSharedMem, gUnk_8E17F48[gCardInfo.color]);
 }
 
-void CopyMiniCardPalette (u16* arg0) {
-  CpuCopy16(g89A781C, arg0, 320); //copy mini-card palette to buffer
+void CopyMiniCardPalette (unsigned short* dest) {
+  CpuCopy16(g89A781C, dest, 320); //copy mini-card palette to buffer
 }
 
-void sub_805742C (u8* arg0, u16 cardId) {
+void sub_805742C (unsigned char* arg0, unsigned short cardId) {
   SetCardInfo(cardId);
   LZ77UnCompWram(g8E17F70[cardId], gSharedMem);
   CopyShopCardBorderTiles(arg0, gSharedMem, gUnk_8E17F48[gCardInfo.color]);
 }
 
 //CopyFaceDownCardTiles (uses same palette as mini-card)
-void CopyFaceDownCardTiles (u8* arg0) {
+void CopyFaceDownCardTiles (unsigned char* arg0) {
   unsigned i, j;
   for (i = 0; i < 4; i++) {
     for (j = 0; j < 256; j++) { //copy 4 tiles in one row
@@ -2093,7 +2091,7 @@ _08057544: .4byte 0x000003FF\n\
 _08057548: .4byte 0xFFFFFCD0");
 }
 
-void sub_805754C (struct O* arg0, unsigned char arg1, unsigned char arg2) {
+static void sub_805754C (struct O* arg0, unsigned char arg1, unsigned char arg2) {
   switch (arg2) {
     case 0:
       arg0->a |= 0x6000000;
@@ -2115,24 +2113,25 @@ void sub_805754C (struct O* arg0, unsigned char arg1, unsigned char arg2) {
   }
 }
 
-void sub_80575C8 (void) {
+// unused?
+static void sub_80575C8 (void) {
   CpuCopy16(g89A781C, g02000000.obj, 320);
 }
 
-s16 sub_80575E0 (unsigned char arg0, unsigned char arg1) {
+int sub_80575E0 (unsigned char arg0, unsigned char arg1) {
   return g8E116EE[arg1][arg0];
 }
 
-s16 sub_8057600 (unsigned char arg0_unused, unsigned char arg1) {
-  return g8E11720[arg1] - gBG2VOFS;
+int sub_8057600 (unsigned char arg0_unused, unsigned char arg1) {
+  return (signed short)(g8E11720[arg1] - gBG2VOFS);
 }
 
-void sub_8057620 (unsigned char* arg0) {
+static void sub_8057620 (unsigned char* arg0) {
   arg0 += 0xCC0;
   CpuCopy16(g89A77DC, arg0, 64);
 }
 
-void sub_805763C (unsigned char* arg0, signed char arg1) {
+static void sub_805763C (unsigned char* arg0, signed char arg1) {
   s16 absoluteVal = arg1;
   arg0 += 0xC00;
   if (arg1 < 0) {
@@ -2144,10 +2143,10 @@ void sub_805763C (unsigned char* arg0, signed char arg1) {
     return;
   if (absoluteVal > 9)
     absoluteVal = 10;
-  CpuCopy16(g89A8A1E + absoluteVal * 32, arg0, 64);
+  CpuCopy16(g89A8A1E + absoluteVal * 64, arg0, 64);
 }
 
-void sub_8057698 (unsigned char* arg0) {
+static void sub_8057698 (unsigned char* arg0) {
   arg0 += 0xC80;
   CpuCopy16(g89A7BDE, arg0, 64);
 }
@@ -2163,19 +2162,19 @@ void sub_80576B4 (unsigned char* arg0, unsigned short cardId) {
 
 //almost same as sub_802FF4C
 void sub_80576EC (unsigned char* arg0, unsigned short cardId) {
-  s8 numTributes = sub_8045410(cardId);
+  signed char numTributes = sub_8045410(cardId);
   if (numTributes > 0)
     CpuCopy16(g89A7ADE[numTributes], arg0, 64);
 }
 
-void sub_8057718 (unsigned char* arg0, unsigned short cardId) {
-  u8 numTributes = GetRitualNumTributes(cardId);
+static void sub_8057718 (unsigned char* arg0, unsigned short cardId) {
+  unsigned char numTributes = GetRitualNumTributes(cardId);
   if (numTributes)
     CpuCopy16(g89A7ADE[numTributes], arg0, 64);
 }
 
 //unused?
-void sub_8057744 (void) {
+static void sub_8057744 (void) {
   unsigned char i, j;
   for (i = 0; i < 5; i++)
     for (j = 0; j < 5; j++)

@@ -206,12 +206,13 @@ extern u16 g80CDE96[];
 extern u8 g80CDEAC[][2]; //u16?
 
 
+//1d array?
+extern u8 g89A7ADE[][64]; //numTribute tiles?
+extern u8 g89A7F1E[][64]; //atk digits most significant
+extern u8 g89A81DE[][64]; //atk digits least significant
+extern u8 g89A849E[][64]; //defense digits most significant
+extern u8 g89A875E[][64]; //defense digits least significant
 
-extern u8 g89A7ADE[][64]; //tribute tiles?
-extern u8 g89A81DE[][64];
-extern u8 g89A7F1E[][64];
-extern u8 g89A875E[][64];
-extern u8 g89A849E[][64];
 
 
 
@@ -224,9 +225,9 @@ extern u8 g2022B80[];
 
 
 extern u8 gTrunkCardQty[];
-void CopyStarTileToBuffer (void*);
-void CopySwordTileToBuffer (void*);
-void CopyShieldTileToBuffer (void*);
+void CopyStarTile (void*);
+void CopySwordTile (void*);
+void CopyShieldTile (void*);
 
 int sub_8045410 (u16);
 void sub_800800C(u8, u8, u16, u16);
@@ -235,14 +236,12 @@ extern u8 g8DF811C[];
 void sub_8008BF8 (void * dest);
 int GetDeckCardQty (u16);
 void sub_800BD34 (void);
-void CopyMiniCardPalette (u16*);
 extern void* g8E1168C[];
-void sub_805742C (void*, u16);
 void sub_8034A38 (void);
-void CopyAttributeIconTilesToBuffer (u8 attribute, void * dest);
-void CopyAttributeIconPalToBuffer (u8 attribute, void * dest);
-void CopyTypeIconTilesToBuffer (u8 type, void * dest);
-void CopyTypeIconPalToBuffer (u8 type, void * dest);
+void CopyAttributeIconTiles (u8 attribute, void * dest);
+void CopyAttributeIconPal (u8 attribute, void * dest);
+void CopyTypeIconTiles (u8 type, void * dest);
+void CopyTypeIconPal (u8 type, void * dest);
 extern u8 g2021BE0[];
 extern unsigned long long gMoney;
 
@@ -2042,9 +2041,9 @@ static void sub_802E868 (void) {
 
   gBG1VOFS = 3;
   gBG1HOFS = 0;
-  CopyStarTileToBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x3400);
-  CopySwordTileToBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x3420);
-  CopyShieldTileToBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x3440);
+  CopyStarTile(((struct Cbb*)&gBgVram)->cbb3 + 0x3400);
+  CopySwordTile(((struct Cbb*)&gBgVram)->cbb3 + 0x3420);
+  CopyShieldTile(((struct Cbb*)&gBgVram)->cbb3 + 0x3440);
   CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x2780, g80CDC28, 0x801); // Cost
   CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x2800, g80CDC50, 0x801);
   CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x2B00, g80CDCF0, 0x901);
@@ -3212,10 +3211,10 @@ static void sub_802FD84 (u16 cardId) {
 }
 
 static void sub_802FDC0 (void) {
-  CopyAttributeIconTilesToBuffer(gCardInfo.attribute, ((struct Cbb*)&gBgVram)->cbb3 + 0x35A0);
-  CopyAttributeIconPalToBuffer(gCardInfo.attribute, g02000000.bg + 0xC0);
-  CopyTypeIconTilesToBuffer(gCardInfo.type, ((struct Cbb*)&gBgVram)->cbb3 + 0x3520);
-  CopyTypeIconPalToBuffer(gCardInfo.type, g02000000.bg + 0xB0);
+  CopyAttributeIconTiles(gCardInfo.attribute, ((struct Cbb*)&gBgVram)->cbb3 + 0x35A0);
+  CopyAttributeIconPal(gCardInfo.attribute, g02000000.bg + 0xC0);
+  CopyTypeIconTiles(gCardInfo.type, ((struct Cbb*)&gBgVram)->cbb3 + 0x3520);
+  CopyTypeIconPal(gCardInfo.type, g02000000.bg + 0xB0);
 }
 
 static void sub_802FE00 (void) {
@@ -3532,6 +3531,7 @@ static void sub_8030660 (void) {
   LoadOam();
 }
 
+//unused?
 static void sub_803066C (void) {
   LoadOam();
 }
@@ -3588,7 +3588,7 @@ static void sub_8030760 (void) {
   LoadPalettes();
   LoadBlendingRegs();
   LoadBgOffsets();
-  REG_DISPCNT = DISPCNT_MODE_0 | DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON | DISPCNT_OBJWIN_ON;
+  REG_DISPCNT = DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON | DISPCNT_OBJWIN_ON;
 }
 
 static void sub_8030784 (void) {
@@ -3597,7 +3597,7 @@ static void sub_8030784 (void) {
   LoadPalettes();
   LoadBlendingRegs();
   LoadBgOffsets();
-  REG_DISPCNT = DISPCNT_MODE_0 | DISPCNT_BG0_ON | DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON | DISPCNT_OBJWIN_ON;
+  REG_DISPCNT = DISPCNT_BG0_ON | DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON | DISPCNT_OBJWIN_ON;
 }
 
 static void sub_80307B8 (void) {

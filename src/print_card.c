@@ -1,7 +1,7 @@
 #include "global.h"
 
 static void sub_80267E0 (void);
-static void CopyStarIconsToBuffer (void);
+static void CopyStarIcons (void);
 
 
 extern u32* gCardArts[]; //card arts, TODO: fix type?
@@ -43,7 +43,7 @@ static void CopyCardArtDataToBuffers (void) {
     CpuCopy32(gUnk_8936130[i], gUnk_8E0136C + (10 * i + ok + i * 4), 20);
 }
 
-static void CopyAttributeIconToBuffer (void) {
+static void CopyAttributeIcon (void) {
   if (gCardInfo.attribute == ATTRIBUTE_NONE)
     return;
   CpuCopy16(gUnk_8E17F18[gCardInfo.attribute], gUnk_8E01368 + 0x56, 14);
@@ -51,7 +51,7 @@ static void CopyAttributeIconToBuffer (void) {
   CpuCopy32(gUnk_8E17E28[gCardInfo.attribute][gLanguage] + 32, gUnk_8E01364 + 0x1A00, 128);
 }
 
-static void CopyTypeIconToBuffer (void) {
+static void CopyTypeIcon (void) {
   u8 type;
   u8 sb;
   if (gCardInfo.type == TYPE_NONE)
@@ -71,7 +71,7 @@ static void CopyTypeIconToBuffer (void) {
   CpuCopy32(gUnk_8E14FE8[gCardInfo.type][gLanguage] + sb * 16, gUnk_8E01364 + 0x19C0, sb * 64);
 }
 
-static void CopyAtkDigitsToBuffer (void) {
+static void CopyAtkDigits (void) {
   u8 i;
   sub_800DDA0(gCardInfo.atk, 0);
   for (i = 0; i < 5; i++) {
@@ -90,7 +90,7 @@ static void CopyAtkDigitsToBuffer (void) {
   }
 }
 
-static void CopyDefDigitsToBuffer (void) {
+static void CopyDefDigits (void) {
   u8 i;
   sub_800DDA0(gCardInfo.def, 0);
   for (i = 0; i < 5; i++) {
@@ -109,7 +109,7 @@ static void CopyDefDigitsToBuffer (void) {
   }
 }
 
-static void CopyCardNameToBuffer (void) {
+static void CopyCardName (void) {
   u8 pos;
   bool32 abbreviate;
   u32 buffer[16];
@@ -158,12 +158,12 @@ static void CopyCardNameToBuffer (void) {
 void PrintCard (void) {
   sub_80267E0();
   CopyCardArtDataToBuffers();
-  CopyAttributeIconToBuffer();
-  CopyTypeIconToBuffer();
-  CopyStarIconsToBuffer();
-  CopyAtkDigitsToBuffer();
-  CopyDefDigitsToBuffer();
-  CopyCardNameToBuffer();
+  CopyAttributeIcon();
+  CopyTypeIcon();
+  CopyStarIcons();
+  CopyAtkDigits();
+  CopyDefDigits();
+  CopyCardName();
 }
 
 static void sub_80267E0 (void) {
@@ -175,7 +175,7 @@ static void sub_80267E0 (void) {
   CpuCopy32(gUnk_8E137C4[gCardInfo.color], gUnk_8E01368 + 0x40, 40); // Palette
 }
 
-static void CopyStarIconsToBuffer (void) {
+static void CopyStarIcons (void) {
   u8 numStars = gCardInfo.level;
   if (!numStars)
     return;
