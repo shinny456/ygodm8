@@ -203,7 +203,7 @@ SECTIONS
     {
         asm/crt0.o(.text);
 
-        src/code.o(.text);
+        src/cutscene.o(.text);
         asm/cutscenes.o(.text);
         src/world_map.o(.text);
         asm/world_map.o(.text);
@@ -288,7 +288,7 @@ SECTIONS
 
 
         /* move to overworld directory */
-        src/code4.o(.text);
+        src/overworld.o(.text);
         src/overworld_gfx_effects.o(.text);
         src/code_8051958.o(.text);
         src/map_transition.o(.text);
@@ -301,7 +301,7 @@ SECTIONS
         src/spell_effects_util.o(.text); /*equip effects*/
         src/card_passwords.o(.text); /*card_password*/
         src/rng.o(.text);
-        src/code_80562F4.o(.text);
+        src/mini_card.o(.text);
         src/trap_effects.o(.text);
         src/turn.o(.text);
 
