@@ -17,7 +17,7 @@ static void EffectMooyanCurry (void) {
       SetOpponentLifePointsToAdd(200);
 
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
@@ -44,7 +44,7 @@ static void EffectRedMedicine (void) {
       SetOpponentLifePointsToAdd(500);
 
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
@@ -71,7 +71,7 @@ static void EffectGoblinsSecretRemedy (void) {
       SetOpponentLifePointsToAdd(1000);
 
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
@@ -98,7 +98,7 @@ static void EffectSoulOfThePure (void) {
       SetOpponentLifePointsToAdd(2000);
 
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
@@ -125,7 +125,7 @@ static void EffectDianKetoTheCureMaster (void) {
       SetOpponentLifePointsToAdd(5000);
 
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
@@ -152,7 +152,7 @@ static void EffectSparks (void) {
       SetPlayerLifePointsToSubtract(50);
 
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
@@ -179,7 +179,7 @@ static void EffectHinotama (void) {
       SetPlayerLifePointsToSubtract(100);
 
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
@@ -206,7 +206,7 @@ static void EffectFinalFlame (void) {
       SetPlayerLifePointsToSubtract(200);
 
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
@@ -233,7 +233,7 @@ static void EffectOokazi (void) {
       SetPlayerLifePointsToSubtract(500);
 
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
@@ -260,7 +260,7 @@ static void EffectTremendousFire (void) {
       SetPlayerLifePointsToSubtract(1000);
 
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
@@ -2381,7 +2381,7 @@ static void EffectCyclonLaser (void) {
 
 void ActivateSpellEffect (void) {
   ResetCardEffectTextData();
-  sub_801D188(1);
+  SetCardEffectTextType(1);
   SetCardInfo(gSpellEffectData.id);
   gSpellEffects[gCardInfo.spellEffect]();
 }
@@ -2553,7 +2553,7 @@ static void EffectRestructerRevolution (void) {
     SetPlayerLifePointsToSubtract(lifePoints);
 
   HandleDuelAction();
-  sub_803F4C0();
+  CheckLoserFlags();
 
   ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 

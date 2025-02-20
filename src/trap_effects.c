@@ -219,7 +219,7 @@ static void EffectWideSpreadRuin(void)
         gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
         if (!gHideEffectText)
         {
-            sub_801D188(4);
+            SetCardEffectTextType(4);
             gCardEffectTextData.cardId = WIDESPREAD_RUIN;
             gCardEffectTextData.cardId2 = gTrapEffectData.id;
             sub_801CEBC();
@@ -246,7 +246,7 @@ static void EffectHouseOfAdhesiveTape(void)
         gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
         if (!gHideEffectText)
         {
-            sub_801D188(4);
+            SetCardEffectTextType(4);
             gCardEffectTextData.cardId = HOUSE_OF_ADHESIVE_TAPE;
             gCardEffectTextData.cardId2 = gTrapEffectData.id;
             sub_801CEBC();
@@ -273,7 +273,7 @@ static void EffectEatgaboon(void)
         gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
         if (!gHideEffectText)
         {
-            sub_801D188(4);
+            SetCardEffectTextType(4);
             gCardEffectTextData.cardId = EATGABOON;
             gCardEffectTextData.cardId2 = gTrapEffectData.id;
             sub_801CEBC();
@@ -300,7 +300,7 @@ static void EffectBearTrap(void)
         gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
         if (!gHideEffectText)
         {
-            sub_801D188(4);
+            SetCardEffectTextType(4);
             gCardEffectTextData.cardId = BEAR_TRAP;
             gCardEffectTextData.cardId2 = gTrapEffectData.id;
             sub_801CEBC();
@@ -327,7 +327,7 @@ static void EffectInvisibleWire(void)
         gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
         if (!gHideEffectText)
         {
-            sub_801D188(4);
+            SetCardEffectTextType(4);
             gCardEffectTextData.cardId = INVISIBLE_WIRE;
             gCardEffectTextData.cardId2 = gTrapEffectData.id;
             sub_801CEBC();
@@ -354,7 +354,7 @@ static void EffectAcidTrapHole(void)
         gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
         if (!gHideEffectText)
         {
-            sub_801D188(4);
+            SetCardEffectTextType(4);
             gCardEffectTextData.cardId = ACID_TRAP_HOLE;
             gCardEffectTextData.cardId2 = gTrapEffectData.id;
             sub_801CEBC();
@@ -415,7 +415,7 @@ static void EffectAmazonArchers(void)
 void ActivateTrapEffect (u16 arg0)
 {
     ResetCardEffectTextData();
-    sub_801D188(3);
+    SetCardEffectTextType(3);
 
     switch (gTrapEffectData.unk5)
     {
@@ -493,7 +493,7 @@ static void EffectGoblinFan(u16 lp)
         SetOpponentLifePointsToSubtract(lp);
 
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
 
     ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
     ClearZoneAndSendMonToGraveyard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
@@ -514,7 +514,7 @@ static void EffectBadReactionToSimochi(u16 lp)
         SetOpponentLifePointsToSubtract(lp);
 
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
 
     ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
     ClearZoneAndSendMonToGraveyard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);

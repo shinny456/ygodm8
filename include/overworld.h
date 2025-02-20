@@ -202,12 +202,6 @@ void sub_80512E0(struct ScriptCtx *script, u8);
 
 void PlayOverworldMusic (void);
 
-
-
-//World Map
-extern u8 g2020DC8; //where the player came from
-extern u8 g2020DCC; //where the player is going
-extern u8 g2020DD0; //world map state (how many places are unlocked)
 extern u16 g8E0D9C4[][3]; //change to struct
 void sub_804F750(u8);
 

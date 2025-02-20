@@ -28,8 +28,8 @@ extern u8 g8E0D5C7[];
 extern u8 g8E0D617[];
 
 
-inline void sub_8041B38 (void);
-inline void sub_8041BE8 (struct Test8041240*);
+void sub_8041B38 (void);
+void sub_8041BE8 (struct Test8041240*);
 void sub_8041104 (void);
 void WaitForVBlank (void);
 void sub_8040FDC (void);

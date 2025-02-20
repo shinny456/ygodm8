@@ -1,5 +1,10 @@
 #include "global.h"
 
+extern const signed short sin_cos_table[]; //TODO: move to header
+
+// unused after initialization?
+signed short g2020C00[/*ARRAY_COUNT(sin_cos_table)*/228];
+
 static void sub_8000724 (void);
 static void sub_8000810 (void);
 static void sub_80008EC (unsigned char);
@@ -130,8 +135,8 @@ extern u32 gCreditsTileset[];
 void sub_8008288 (void);
 
 
-extern s16 g2020C00[];
-extern const s16 sin_cos_table[];
+
+
 extern u32 gUnk_8A47010[];
 extern u32 gUnk_8A481C8[];
 extern u32 gUnk_8A492D8[];
@@ -652,7 +657,7 @@ static void sub_8000D74 (void) {
   LoadVRAM();
   sub_8045718();
   sub_8000CC8();
-  for (i = 0; i < 228; i++)
+  for (i = 0; i < ARRAY_COUNT(g2020C00); i++)
     g2020C00[i] = sin_cos_table[i] / 4;
   LZ77UnCompWram(gUnk_8A47010, gBgVram.cbb0);
   LZ77UnCompWram(gUnk_8A481C8, gBgVram.cbb0 + 0x4000);

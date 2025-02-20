@@ -1,5 +1,7 @@
 #include "global.h"
 
+// TODO: macroize if (!HideEffectText) statements? same in other effect files.
+
 static void EffectRelinquished(void)
 {
     if (NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
@@ -138,7 +140,7 @@ static void EffectCatapultTurtle(void)
         SetPlayerLifePointsToSubtract(totalAtk);
 
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
 
     if (!gHideEffectText)
     {
@@ -387,7 +389,7 @@ static void EffectMysticLamp(void)
         SetPlayerLifePointsToSubtract(gCardInfo.atk);
 
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
 
     if (!gHideEffectText)
     {
@@ -409,7 +411,7 @@ static void EffectLeghul(void)
         SetPlayerLifePointsToSubtract(gCardInfo.atk);
 
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
 
     if (!gHideEffectText)
     {
@@ -458,7 +460,7 @@ static void EffectObeliskTheTormentor(void)
         SetPlayerLifePointsToSubtract(4000);
 
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
 
     if (!gHideEffectText)
     {
@@ -710,7 +712,7 @@ static void EffectReflectBounder(void)
             SetPlayerLifePointsToSubtract(gCardInfo.atk);
 
         HandleDuelAction();
-        sub_803F4C0();
+        CheckLoserFlags();
     }
 
     ClearZoneAndSendMonToGraveyard(gZones[gMonEffect.row][gMonEffect.zone], 0);
@@ -829,7 +831,7 @@ static void EffectExarionUniverse (void)
         SetPlayerLifePointsToSubtract(gCardInfo.atk);
 
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
 
     sub_804037C(gZones[gMonEffect.row][gMonEffect.zone]);
 
@@ -1895,7 +1897,7 @@ static void EffectPuppetMaster(void)
             SetOpponentLifePointsToSubtract(1000);
             HandleDuelAction();
         }
-        sub_803F4C0();
+        CheckLoserFlags();
         GetGraveCardAndClearGrave(0);  //this returns something
 
         zone = EmptyZoneInRow(gZones[2]);
@@ -1989,7 +1991,7 @@ _08047A40:\n\
 	bl SetOpponentLifePointsToSubtract\n\
 	bl HandleDuelAction\n\
 _08047A4C:\n\
-	bl sub_803F4C0\n\
+	bl CheckLoserFlags\n\
 	movs r0, #0\n\
 	bl GetGraveCardAndClearGrave\n\
 	ldr r5, _08047B60\n\
@@ -2132,7 +2134,7 @@ static void EffectPenguinTorpedo(void)
         SetPlayerLifePointsToSubtract(gCardInfo.atk);
 
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
 
     if (!gHideEffectText)
     {
@@ -2159,7 +2161,7 @@ static void EffectBerserkDragon(void)
                 SetDuelActionAttack(i, 4 - gMonEffect.zone);
 
             HandleDuelAction();
-            sub_803F224();
+            CheckGraveyardAndLoserFlags();
             if (turn != DUEL_PLAYER)
                 gUnk2023EA0.unk18 = 0;
         }
@@ -2201,7 +2203,7 @@ static void EffectFGD(void)
 void ActivateMonsterEffect (void)
 {
     ResetCardEffectTextData();
-    sub_801D188(2);
+    SetCardEffectTextType(2);
     SetCardInfo(gMonEffect.id);
     gMonEffects[gCardInfo.monsterEffect]();
 }
@@ -2580,7 +2582,7 @@ static void EffectFireReaper(void)
         SetPlayerLifePointsToSubtract(50);
 
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
 
     if (!gHideEffectText)
     {
@@ -2674,7 +2676,7 @@ static void EffectHourglassOfLife(void)
         SetOpponentLifePointsToSubtract(1000);
 
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
 
     if (!gHideEffectText)
     {
@@ -2712,7 +2714,7 @@ static void EffectTheWingedDragonOfRaBattleMode(void)
         HandleDuelAction();
         gDuelLifePoints[1] = 1;
     }
-    sub_803F4C0();
+    CheckLoserFlags();
 
     if (!gHideEffectText)
     {
@@ -2909,7 +2911,7 @@ static void EffectDesVolstgalph(void)
         SetPlayerLifePointsToSubtract(500);
 
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
 
     if (!gHideEffectText)
     {
@@ -2945,7 +2947,7 @@ static void EffectTheWingedDragonOfRaPhoenixMode(void)
         SetOpponentLifePointsToSubtract(1000);
 
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);

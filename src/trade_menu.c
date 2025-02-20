@@ -1,5 +1,7 @@
 #include "global.h"
 
+unsigned char g2023E7B; //cursor state: select, confirm, start, exit
+
 static unsigned short ProcessInput (void); //TODO: there's 3 different ProcessInput funcs in this file
 static void TradeSucceeded (void);
 static void TradeFailed (void);
@@ -67,7 +69,7 @@ struct Unk8E0CC20 {
 
 extern struct Unk8E0CC20 *g8E0CC20;
 
-extern u8 g2023E7B; //cursor state: select, confirm, start, exit
+
 extern u8 g2023E68;
 extern void (*g8E0CDF0[])(void); // TradeMenu funcs (input: cursor state)
 extern void (*g8E0CE00[])(void);

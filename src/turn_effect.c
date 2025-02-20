@@ -373,7 +373,7 @@ void TryActivatingTurnEffects (void) {
 
 static void TryActivatingTurnEffect (void) {
   ResetCardEffectTextData();
-  sub_801D188(9);
+  SetCardEffectTextType(9);
   SetCardInfo(g2021DE0.unk0);
   g8E0C940[gCardInfo.unk1E]();
 }
@@ -460,12 +460,12 @@ static void sub_802B770 (void) {
   if (g2021DE0.unk4 == 0) {
     SetPlayerLifePointsToSubtract(1000);
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
   }
   else {
     SetOpponentLifePointsToSubtract(1000);
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
   }
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = g2021DE0.unk0;
@@ -490,12 +490,12 @@ static void EffectLavaGolemLifePoints (void) {
   if (g2021DE0.unk4 == 0) {
     SetPlayerLifePointsToSubtract(700);
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
   }
   else {
     SetOpponentLifePointsToSubtract(700);
     HandleDuelAction();
-    sub_803F4C0();
+    CheckLoserFlags();
   }
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = g2021DE0.unk0;

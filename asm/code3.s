@@ -2016,6 +2016,10 @@ _08024584: .4byte 0x03001078
 //^^^
 //link_duel_util ??
 
+
+
+
+// between permanent_effect and turn_effect (maybe these 2 files are combined?)
 .section .text3
 
 	THUMB_FUNC_START sub_802AAF0

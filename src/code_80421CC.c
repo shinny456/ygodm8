@@ -1,32 +1,32 @@
 #include "global.h"
 
+extern unsigned char g8E0D81A[];
+extern unsigned char g8E0D81D[];
+extern unsigned char g8E0D820[];
+extern unsigned char g8E0D823[];
 
-extern u8 g8E0D81D[];
-extern u8 g8E0D820[];
-extern u8 g8E0D823[];
-extern u8 g8E0D81A[];
-extern u8 g8E0D934[];
+extern unsigned char g8E0D934[];
 
-extern u8 g8E0D922[];
-extern u8 g8E0D926[];
-extern u8 g8E0D92A[];
-extern u8 g8E0D92E[];
+extern unsigned char g8E0D922[];
+extern unsigned char g8E0D926[];
+extern unsigned char g8E0D92A[];
+extern unsigned char g8E0D92E[];
 
 extern u16 gRepeatedOrNewButtons;
 extern u16 gPressedButtons;
-extern u8 gIsPlayerTurnOver;
+extern unsigned char gIsPlayerTurnOver;
 
 extern u16 g8E0D814[];
 extern u16 g8E0D91A[];
 extern u16 g80F1880[][30];
 extern u16 g80F1D30[][30];
 extern u16 g80F30E0[];
-extern u8 g8E0D828[];
+extern unsigned char g8E0D828[];
 
-void InitBMenu (u8);
-void sub_80428EC (u8);
+void InitBMenu (unsigned char);
+void sub_80428EC (unsigned char);
 void sub_8041014 (void);
-u32 CanPlayerSeeCard (u8 y, u8 x);
+u32 CanPlayerSeeCard (unsigned char y, unsigned char x);
 
 extern u16 gNewButtons;
 void sub_80410B4 (void);
@@ -34,21 +34,26 @@ void sub_8041104 (void);
 
 
 extern u16 g80F13D0[][30];
-extern u8 g8DF811C[];
-extern u8 g8E0D668[];
-extern u8 g8E0D753[];
+extern unsigned char g8DF811C[];
+extern unsigned char g8E0D668[];
+extern unsigned char g8E0D753[];
 
 
-u16 sub_08007FEC(u8, u8, u16);
-void sub_800800C(u8, u8, u16, u16);
-s32 sub_8043E9C(u8);
-void sub_8042ADC (u8);
-void sub_8042C64 (u8);
+u16 sub_08007FEC(unsigned char, unsigned char, u16);
+void sub_800800C(unsigned char, unsigned char, u16, u16);
+s32 sub_8043E9C(unsigned char);
+void sub_8042ADC (unsigned char);
+void sub_8042C64 (unsigned char);
 void sub_8041050 (void);
 
+enum {
+  B_MENU_DETAILS,
+  B_MENU_END_TURN,
+  B_MENU_DISCARD
+};
 
 void BMenuMain (void) {
-  u8 r4 = 0;
+  unsigned char r4 = B_MENU_DETAILS;
   InitBMenu(0);
   while (1) {
     if (gRepeatedOrNewButtons & DPAD_UP) {
@@ -81,7 +86,7 @@ void BMenuMain (void) {
     }
     else if (gNewButtons & A_BUTTON) {
       switch (r4) {
-        case 0:
+        case B_MENU_DETAILS:
           if (CanPlayerSeeCard(gDuelCursor.currentY, gDuelCursor.currentX) == 1
           && GetTypeGroup(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id)) {
             PlayMusic(0x37);
@@ -97,12 +102,12 @@ void BMenuMain (void) {
             sub_8041104();
           }
           return;
-        case 1:
+        case B_MENU_END_TURN:
           PlayMusic(0x37);
           gIsPlayerTurnOver = 1;
           sub_8041104();
           return;
-        case 2:
+        case B_MENU_DISCARD:
           if (gDuelCursor.currentY > 1 &&
               gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id != CARD_NONE &&
               !gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->willChangeSides)
@@ -124,15 +129,14 @@ void BMenuMain (void) {
       PlayMusic(0x38);
       break;
     }
-    else {
+    else
       WaitForVBlank();
-    }
   }
   sub_8041104();
 }
 
 NAKED
-void InitBMenu (u8 arg0) {
+void InitBMenu (unsigned char arg0) {
   asm_unified("push {r4, r5, r6, r7, lr}\n\
 	mov r7, sl\n\
 	mov r6, sb\n\
@@ -784,12 +788,12 @@ _080428E8: .4byte 0x02021BD0");
 }
 
 /*
-void InitBMenu (u8 arg0) {
+void InitBMenu (unsigned char arg0) {
   u16 r0;
-  u8 i, r4, r4two;
+  unsigned char i, r4, r4two;
   u16 sb, r8;
-  u8* name;
-  u8 buffer[44];
+  unsigned char* name;
+  unsigned char buffer[44];
   for (i = 0; i < 18; i++)
     CpuCopy32(g80F13D0[i], gBgVram.cbb0 + 0xE800 + i * 64, 64);
   CpuCopy16(g80F30E0, gBgVram.cbb0 + 0x87A0, 128);
@@ -883,7 +887,7 @@ void InitBMenu (u8 arg0) {
     *(u16*)(gBgVram.cbb0 + (0x74EC - i) * 2) = g2021BD0[4 - i] + 65 | 0x3000;
   }
   r4two = sub_8043E9C(0);
-  r0 = (u8)sub_8043E70(0);
+  r0 = (unsigned char)sub_8043E70(0);
   if (r0 >= r4two)
     r0 -= r4two;
   else
@@ -894,7 +898,7 @@ void InitBMenu (u8 arg0) {
     *(u16*)(gBgVram.cbb0 + (0x758A - i) * 2) = g2021BD0[4 - i] + 65 | 0x3000;
 
   r4two = sub_8043E9C(1);
-  r0 = (u8)sub_8043E70(1);
+  r0 = (unsigned char)sub_8043E70(1);
   if (r0 >= r4two)
     r0 -= r4two;
   else
@@ -914,11 +918,11 @@ void InitBMenu (u8 arg0) {
 }*/
 
 union N {
-  u8 a[0x4000];
+  unsigned char a[0x4000];
   u16 b[0x2000];
 }extern gVr;
 
-void sub_80428EC (u8 arg0) {
+void sub_80428EC (unsigned char arg0) {
   unsigned char i;
   for (i = 0; i < 3; i++) {
     if (arg0 != i) {

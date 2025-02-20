@@ -1,5 +1,7 @@
 #include "global.h"
 
+unsigned char gPlayerName[19]; //TODO: use define for array size
+
 static void sub_800604C (void);
 static void sub_80064F4 (void);
 static void sub_8006764 (void);
@@ -7,7 +9,7 @@ static void sub_800683C (void);
 static void sub_80068C4 (void);
 
 
-extern u8 gPlayerName[];
+
 void bzero (void*, unsigned);
 char *strncpy(char * s1, const char * s2, unsigned n);
 u32 strlen(const char*);

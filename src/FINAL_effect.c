@@ -50,6 +50,6 @@ static void sub_803EFF8 (void) {
   DeclareLoser(loser);
   ResetCardEffectTextData();
   gCardEffectTextData.textId = 0x12;
-  sub_801D188(6);
+  SetCardEffectTextType(6);
   sub_801CEBC();
 }

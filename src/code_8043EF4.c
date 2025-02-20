@@ -342,7 +342,7 @@ void sub_8044570 (void) {
       gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
       sub_803F8E0(gDuelCursor.currentX);
       HandleDuelAction();
-      sub_803F224();
+      CheckGraveyardAndLoserFlags();
       gDuelCursor.state = 0;
       sub_801BC00();
       sub_80410B4();
@@ -452,7 +452,7 @@ void sub_8044840 (void) {
       gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp = 1;
       SetDuelActionAttack(gDuelCursor.destX, gDuelCursor.currentX);
       HandleDuelAction();
-      sub_803F224();
+      CheckGraveyardAndLoserFlags();
       gDuelCursor.state = 0;
       sub_804412C();
       sub_801BC00();

@@ -26,63 +26,19 @@ extern u8 g201EE70[];
 extern u8 g201EEE0[];
 extern u8* gNumTributesRequiredStrings[];
 extern const s16 sin_cos_table[];
-extern u8 gPlayerName[];
 extern u8 g8E0D1D0[];
 extern u16 g80F2C30[][30];
 extern u8 gE0D14C[];
 
-inline void sub_8041B38 (void);
-inline void sub_8041BE8 (struct Test8041240*);
-inline void sub_8041C68 (struct Test8041240*);
+void sub_8041B38 (void);
+void sub_8041BE8 (struct Test8041240*);
+static void sub_8041C68 (struct Test8041240*);
 void HuffUnComp (void*, void*);
 
 s16 fix_mul (s16, s16);
 s16 fix_inverse (s16);
 
-// todo: replace with affine struct
-void sub_8040C6C (void) {
-  u8 i;
-  for (i = 0; i < 128; i++)
-    sub_80411EC(gOamBuffer + i);
-
-  gOamBuffer[0].affineParam = fix_mul(sin_cos_table[64], fix_inverse(256));
-  gOamBuffer[1].affineParam = fix_mul(sin_cos_table[0], fix_inverse(256));
-  gOamBuffer[2].affineParam = fix_mul(-sin_cos_table[0], fix_inverse(256));
-  gOamBuffer[3].affineParam = fix_mul(sin_cos_table[64], fix_inverse(256));
-
-  gOamBuffer[4].affineParam = fix_mul(sin_cos_table[64], fix_inverse(256));
-  gOamBuffer[5].affineParam = fix_mul(sin_cos_table[0], fix_inverse(256));
-  gOamBuffer[6].affineParam = fix_mul(-sin_cos_table[0], fix_inverse(256));
-  gOamBuffer[7].affineParam = fix_mul(sin_cos_table[64], fix_inverse(256));
-
-  gOamBuffer[8].affineParam = fix_mul(sin_cos_table[128], fix_inverse(256));
-  gOamBuffer[9].affineParam = fix_mul(sin_cos_table[64], fix_inverse(256));
-  gOamBuffer[10].affineParam = fix_mul(-sin_cos_table[64], fix_inverse(256));
-  gOamBuffer[11].affineParam = fix_mul(sin_cos_table[128], fix_inverse(256));
-  gOamBuffer[8].affineParam = 0;
-  gOamBuffer[9].affineParam = 256; //1.0 fixed point
-  gOamBuffer[10].affineParam = -257;
-  gOamBuffer[11].affineParam = 0;
-
-  gOamBuffer[12].affineParam = fix_mul(sin_cos_table[0xC0], fix_inverse(256));
-  gOamBuffer[13].affineParam = fix_mul(sin_cos_table[128], fix_inverse(256));
-  gOamBuffer[14].affineParam = fix_mul(-sin_cos_table[128], fix_inverse(256));
-  gOamBuffer[15].affineParam = fix_mul(sin_cos_table[0xC0], fix_inverse(256));
-  gOamBuffer[12].affineParam = 0xFF00;
-  gOamBuffer[13].affineParam = 0;
-  gOamBuffer[14].affineParam = 0;
-  gOamBuffer[15].affineParam = -257;
-
-  gOamBuffer[16].affineParam = fix_mul(sin_cos_table[256], fix_inverse(256));
-  gOamBuffer[17].affineParam = fix_mul(sin_cos_table[0xC0], fix_inverse(256));
-  gOamBuffer[18].affineParam = fix_mul(-sin_cos_table[0xC0], fix_inverse(256));
-  gOamBuffer[19].affineParam = fix_mul(sin_cos_table[256], fix_inverse(256));
-}
-
-
-
-// must be declared as either int or u32 to match
-// the assignments in sub_8040EF0:
+// must be declared as either int or u32 to match the assignments in sub_8040EF0:
 // gBG2VOFS = AdjustBackgroundBeforeTurnStart(gDuelCursor.currentY);
 // gBG2VOFS = AdjustBackgroundBeforeTurnStart(1);
 // (most likely due to implicit declarations?)
@@ -124,6 +80,47 @@ gFieldPalettePtrs
 080F0910 gFieldUmiPalette
 080F0970 gFieldYamiPalette
 */
+
+// todo: replace with affine struct
+static void sub_8040C6C (void) {
+  u8 i;
+  for (i = 0; i < 128; i++)
+    sub_80411EC(gOamBuffer + i);
+
+  gOamBuffer[0].affineParam = fix_mul(sin_cos_table[64], fix_inverse(256));
+  gOamBuffer[1].affineParam = fix_mul(sin_cos_table[0], fix_inverse(256));
+  gOamBuffer[2].affineParam = fix_mul(-sin_cos_table[0], fix_inverse(256));
+  gOamBuffer[3].affineParam = fix_mul(sin_cos_table[64], fix_inverse(256));
+
+  gOamBuffer[4].affineParam = fix_mul(sin_cos_table[64], fix_inverse(256));
+  gOamBuffer[5].affineParam = fix_mul(sin_cos_table[0], fix_inverse(256));
+  gOamBuffer[6].affineParam = fix_mul(-sin_cos_table[0], fix_inverse(256));
+  gOamBuffer[7].affineParam = fix_mul(sin_cos_table[64], fix_inverse(256));
+
+  gOamBuffer[8].affineParam = fix_mul(sin_cos_table[128], fix_inverse(256));
+  gOamBuffer[9].affineParam = fix_mul(sin_cos_table[64], fix_inverse(256));
+  gOamBuffer[10].affineParam = fix_mul(-sin_cos_table[64], fix_inverse(256));
+  gOamBuffer[11].affineParam = fix_mul(sin_cos_table[128], fix_inverse(256));
+  gOamBuffer[8].affineParam = 0;
+  gOamBuffer[9].affineParam = 256; //1.0 fixed point
+  gOamBuffer[10].affineParam = -257;
+  gOamBuffer[11].affineParam = 0;
+
+  gOamBuffer[12].affineParam = fix_mul(sin_cos_table[0xC0], fix_inverse(256));
+  gOamBuffer[13].affineParam = fix_mul(sin_cos_table[128], fix_inverse(256));
+  gOamBuffer[14].affineParam = fix_mul(-sin_cos_table[128], fix_inverse(256));
+  gOamBuffer[15].affineParam = fix_mul(sin_cos_table[0xC0], fix_inverse(256));
+  gOamBuffer[12].affineParam = 0xFF00;
+  gOamBuffer[13].affineParam = 0;
+  gOamBuffer[14].affineParam = 0;
+  gOamBuffer[15].affineParam = -257;
+
+  gOamBuffer[16].affineParam = fix_mul(sin_cos_table[256], fix_inverse(256));
+  gOamBuffer[17].affineParam = fix_mul(sin_cos_table[0xC0], fix_inverse(256));
+  gOamBuffer[18].affineParam = fix_mul(-sin_cos_table[0xC0], fix_inverse(256));
+  gOamBuffer[19].affineParam = fix_mul(sin_cos_table[256], fix_inverse(256));
+}
+
 void sub_8040EF0 (void) {
   u8 i, field;
   WaitForVBlank();
@@ -510,7 +507,7 @@ void sub_8041924 (struct Test8041240* arg0) {
     arg0->unk8 = 0;
 }
 
-inline void sub_8041B38 (void) {
+static inline void sub_8041B38_inline (void) {
   u8 i;
   // copying 4 bytes past source buffer g80F2C30?
   for (i = 0; i < 18; i++)
@@ -529,7 +526,7 @@ inline void sub_8041B38 (void) {
   REG_DISPCNT = DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON | DISPCNT_WIN1_ON;
 }
 
-inline void sub_8041BE8 (struct Test8041240* test) {
+static inline void sub_8041BE8_inline (struct Test8041240* test) {
   while (test->unkC[test->unk0]) {
     switch (test->unk8) {
       case 0:
@@ -556,14 +553,6 @@ inline void sub_8041BE8 (struct Test8041240* test) {
   }
 }
 
-inline void sub_8041C68 (struct Test8041240* arg0) {
-  arg0->unk0++;
-  arg0->unk4 = 0;
-  arg0->unk10 = 0;
-  arg0->unk8 = 0;
-  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gE0D15D, 0x101);
-}
-
 void sub_80419EC (u8* arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4) {
   struct Test8041240 test;
   test.unk0 = 0;
@@ -576,6 +565,60 @@ void sub_80419EC (u8* arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4) {
   test.unk16 = arg2;
   test.unk18 = arg3;
   test.unk1A = arg4;
-  sub_8041B38();
-  sub_8041BE8(&test);
+  sub_8041B38_inline();
+  sub_8041BE8_inline(&test);
+}
+
+void sub_8041B38 (void) {
+  u8 i;
+  // copying 4 bytes past source buffer g80F2C30?
+  for (i = 0; i < 18; i++)
+    CpuCopy32(g80F2C30[i], gBgVram.cbb0 + 0xE800 + i * 64, 64);
+
+  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x87A0, gE0D14C, 0x801); 
+  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gE0D15D, 0x101); //empty text box
+  WaitForVBlank();
+  sub_8041014();
+  REG_WINOUT = 30;
+  REG_WIN1H = 0x3ED;
+  REG_WIN1V = 0x438D;
+  WaitForVBlank();
+  *(vu8*)(0x4000049) = 54;
+  REG_BLDY = 7;
+  REG_DISPCNT = DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON | DISPCNT_WIN1_ON;
+}
+
+void sub_8041BE8 (struct Test8041240* test) {
+  while (test->unkC[test->unk0]) {
+    switch (test->unk8) {
+      case 0:
+        sub_8041284(test);
+        break;
+      case 1:
+        sub_80415B8(test);
+        break;
+      case 6:
+        sub_8041C68(test);
+        break;
+      case 2:
+        sub_8041690(test);
+        break;
+      case 4:
+        sub_8041884(test);
+        break;
+      case 5:
+        sub_8041924(test);
+        break;
+    }
+    WaitForVBlank();
+    sub_8041014();
+  }
+}
+
+static void sub_8041C68 (struct Test8041240* arg0) {
+  arg0->unk0++;
+  arg0->unk4 = 0;
+  arg0->unk10 = 0;
+  arg0->unk8 = 0;
+  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gE0D15D, 0x101);
 }

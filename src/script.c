@@ -26,7 +26,7 @@ extern u16** g8FA3360[];
 extern u8 gSharedMem[];
 extern struct OamData gOamBuffer[];
 extern u16 gNewButtons;
-extern u8 gPlayerName[];
+
 
 
 void InitiateScript(struct Script *script) {

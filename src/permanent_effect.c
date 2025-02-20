@@ -1,6 +1,6 @@
 #include "global.h"
 
-unsigned char sub_80270B4 (u16);
+static unsigned char sub_80270B4 (u16);
 extern u16 g8E0C6B8[];
 extern u16 g8E0C6B0[];
 extern void (*g8E0C6C0[]) (void);
@@ -24,7 +24,7 @@ void sub_802703C (void) {
       continue;
     gZones[2][i]->id = g8E0C6B8[temp];
     ResetCardEffectTextData();
-    sub_801D188(10);
+    SetCardEffectTextType(10);
     gCardEffectTextData.textId = 14;
     gCardEffectTextData.cardId = g8E0C6B0[temp];
     gCardEffectTextData.cardId2 = g8E0C6B8[temp];
@@ -32,7 +32,7 @@ void sub_802703C (void) {
   }
 }
 
-unsigned char sub_80270B4 (u16 cardId) {
+static unsigned char sub_80270B4 (u16 cardId) {
   unsigned char i;
   for (i = 0; i < 4 && cardId != g8E0C6B0[i]; i++)
     ;
@@ -62,7 +62,6 @@ void sub_802712C (void) {
 
 //split
 
-// TODO: rename to permanent_effect.c
 static void sub_8029864 (void);
 static unsigned sub_802A478 (void);
 
@@ -1261,7 +1260,7 @@ void sub_8029820 (void) {
 
 static void sub_8029864 (void) {
   ResetCardEffectTextData();
-  sub_801D188(8);
+  SetCardEffectTextType(8);
   SetCardInfo(g2021DE0.unk0);
   g8E0C6C0[gCardInfo.unk1E]();
 }

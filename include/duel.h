@@ -173,18 +173,18 @@ extern u8 gDuelistStatus[]; //0 - player status, 1 - opponent status: 2 == loss,
 void sub_801CEBC(void);
 
 void ResetCardEffectTextData(void);
-void sub_801D188(u8);
+void SetCardEffectTextType(u8);
 void sub_801F6B0(void);
 
 
 
 
-void sub_803F224(void);
+void CheckGraveyardAndLoserFlags(void);
 
 
 //TODO: change name to duel command for all these functions?
 void HandleDuelAction(void);
-void sub_803F4C0(void);
+void CheckLoserFlags(void);
 void SetDuelActionAttack(s32, s32);
 void SetPlayerLifePointsToAdd(u32);
 void SetOpponentLifePointsToAdd(u32);
@@ -305,48 +305,43 @@ bool32 sub_80586DC(void);
 u16 GetGraveCardAndClearGrave2(u8);
 
 struct Unk2023E80 {
-  // substruct?
-  u16 unk0;
-  u16 unk2;
-  u16 unk4;
-  u16 unk6;
-  u8 unk8;
-  u8 unk9;
-  u8 unkA;
-  u8 fillerB;
-  // substruct?
-  u16 unkC;
-  u16 unkE;
-  u16 unk10;
-  u16 unk12;
-  u8 unk14;
-  u8 unk15;
-  u8 unk16;
-  u8 filler17;
+  unsigned short playerCardId;
+  unsigned short playerCardAttack;
+  unsigned short playerCardDefense;
+  unsigned short playerLifePoints;
+  unsigned char playerCardAttribute;
+  unsigned char playerMonsterRow;
+  unsigned char unkA; //playerMonsterCol/Zone
+  unsigned short opponentCardId;
+  unsigned short opponentCardAttack;
+  unsigned short opponentCardDefense;
+  unsigned short opponentLifePoints;
+  unsigned char opponentCardAttribute;
+  unsigned char opponentMonsterRow;
+  unsigned char unk16;
+  unsigned char filler17;
 //--------------
-  u8 action;
-  u8 unk19;
-  u8 unk1A;
-  u8 unk1B;
+  unsigned char action;
+  unsigned char flags;
+  unsigned char unk1A;
+  unsigned char unk1B;
 };
 extern struct Unk2023E80 g2023E80;
 
 struct Unk2023EA0 {
-  struct Unk2023EA0_sub {
-    u16 unk0;
-    u16 unk2;
-    u16 unk4;
-    u16 unk6;
-    u16 unk8;
-    u8 unkA;
-    u8 fillerB;
+  struct {
+    unsigned short cardId;
+    unsigned short initialLifePoints;
+    unsigned short lifePointsAfterDamage;
+    unsigned short cardAttack;
+    unsigned short cardDefense;
+    unsigned char cardAttribute;
   } unk0[2];
   u8 unk18;
 };
 
 extern struct Unk2023EA0 gUnk2023EA0;
-//0x02023EA0 data used when cards clash
-//0x02023E80 ^
+
 
 struct CardDrop {
     u16 card;

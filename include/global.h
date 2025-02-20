@@ -128,6 +128,12 @@ extern const unsigned short gCardAtks[];
 extern const unsigned short gCardDefs[];
 int sub_8045410 (unsigned short);
 
+void ClearCbb0Buffer (void);
+void ClearCbb1Buffer (void);
+void ClearCbb3Buffer (void);
+void sub_800B288 (u8);
+
+
 #define asm_comment(x) asm volatile("@ -- " x " -- ")
 #define asm_unified(x) asm(".syntax unified\n" x "\n.syntax divided")
 #define NAKED __attribute__((naked))

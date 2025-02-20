@@ -24,6 +24,7 @@ SECTIONS
     .bss : {
       src/card.o(.bss);
       src/code2.o(.bss);
+      src/monster_attack_screen.o(.bss);
     }
 
     /*
@@ -50,16 +51,12 @@ SECTIONS
       *libgcc.a:*o(.bss);
     }
 
-    . = 0x02021AC0;
-    COMMON : {
-      src/card.o(COMMON);
-    }
-
     g2020C00 = 0x2020C00;
 
     g2020DC8 = 0x02020DC8;
     g2020DCC = 0x02020DCC;
     g2020DD0 = 0x02020DD0;
+    
     gPlayerName = 0x02020DE0;
 
 
@@ -104,28 +101,50 @@ SECTIONS
     g2021D80 = 0x02021D80;
     g2021D98 = 0x02021D98;
     g2021D9C = 0x02021D9C;
+
+
     gLinkDuelMenuData = 0x02021DA0;
+
     sGameMenuData = 0x02021DB0;
+
     gDuelistStatus = 0x02021DB8;
+
     gCardPasswordDigits = 0x02021DC0;
+
+    /*menu_input (menu_button_input?)*/
     gUnk2021DC8 = 0x02021DC8;
     gUnk2021DCC = 0x02021DCC;
 
+
+
+
     gMoney = 0x2021DD0;
 
+    /*???*/
     g2021DD8 = 0x2021DD8;
+
+    /*permanent_effect but also used in turn_effect (might be one file)*/
     g2021DE0 = 0x2021DE0;
+
+    /*card_shop*/
     g2021DF0 = 0x2021DF0;
     g2022120 = 0x2022120;
     sCardShop = 0x2022450;
     g2022B80 = 0x2022B80;
 
+
+    /*card_sort*/
     gUnk2022EB0 = 0x02022EB0;
+
+
+    /*trade_menu*/
     g2022EC0 = 0x02022EC0;
     g20231E1 = 0x20231E1;
     g2023E68 = 0x2023E68;
     g2023E69 = 0x2023E69;
     g2023E7B = 0x2023E7B;
+
+
     g2023E80 = 0x02023E80;
     gUnk2023EA0 = 0x02023EA0;
     gDuel = 0x02023EC0;
@@ -228,6 +247,8 @@ SECTIONS
         src/digit.o(.text);
         src/compression.o(.text);
         src/code2.o(.text);
+        src/monster_attack_screen.o(.text);
+        src/effect_text.o(.text);
 
         src/deck_menu.o(.text);
         asm/code2.o(.text);
@@ -245,16 +266,27 @@ SECTIONS
         src/ante.o(.text);
         src/password_terminal.o(.text);
         src/god_cards.o(.text);
+
+
+        /*menu_input*/
         src/code_802612C.o(.text);
+
+
         src/return_monster.o(.text);
         src/print_card.o(.text);
         src/copyright_screens.o(.text);
+
+
         src/money.o(.text);
+
+
+        /*combine these 3 files?*/
         src/permanent_effect.o(.text);
-
-
         asm/code3.o(.text3);
         src/turn_effect.o(.text);
+
+
+
         src/card_shop.o(.text);
 
         src/code_8030B14.o(.text);

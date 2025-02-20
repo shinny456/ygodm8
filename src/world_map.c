@@ -1,5 +1,8 @@
 #include "global.h"
 
+unsigned char g2020DC8; //where the player came from
+unsigned char g2020DCC; //where the player is going
+unsigned char g2020DD0; //world map state (how many places are unlocked)
 
 static void sub_8004F90 (unsigned char, unsigned char);
 
@@ -11,9 +14,7 @@ extern struct Unk8DF76F8 {
 
 extern struct OamData gOamBuffer[];
 void sub_80055D8 (void);
-extern unsigned char g2020DC8;
-extern unsigned char g2020DD0;
-extern unsigned char g2020DCC;
+
 
 extern u16 gPressedButtons;
 extern u16 gNewButtons;

@@ -1,5 +1,7 @@
 #include "global.h"
 
+//TODO: rename file something similar to big card gfx copy
+
 static void sub_80267E0 (void);
 static void CopyStarIcons (void);
 
@@ -155,6 +157,7 @@ static void CopyCardName (void) {
   }
 }
 
+//TODO: rename to CopyCardGraphics (BigCardGraphics?)
 void PrintCard (void) {
   sub_80267E0();
   CopyCardArtDataToBuffers();

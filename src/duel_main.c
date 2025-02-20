@@ -97,13 +97,13 @@ void DuelMain (void) {
     sub_804004C(turn);
     if (NumEmptyZonesInRow(gZones[4]) > 0) {
       DrawCard(turn);
-      if (IsDuelOver() == TRUE)
+      if (IsDuelOver() == 1)
         break;
       PlayMusic(59);
     }
     sub_8041104();
     WinConditionExodia(turn);
-    if (IsDuelOver() == TRUE)
+    if (IsDuelOver() == 1)
       break;
     sub_802549C();
     sub_802703C();
@@ -111,7 +111,7 @@ void DuelMain (void) {
       PlayerTurnMain();
     else
       AI_Main();
-    if (IsDuelOver() == TRUE)
+    if (IsDuelOver() == 1)
       break;
     ReturnMonstersToOwner();
     FlipAtkPosCardsFaceUp(2);
@@ -200,7 +200,7 @@ static bool8 DoesDuelistHaveTurnVoice (struct TurnVoice* turnVoice) {
   for (i = 0; gTurnVoices[i].duelistId; i++)
     if (gTurnVoices[i].duelistId == turnVoice->duelistId) {
       turnVoice->soundId = gTurnVoices[i].soundId;
-      return TRUE;
+      return 1;
     }
   turnVoice->soundId = 0;
   return FALSE;
@@ -362,7 +362,7 @@ void LinkDuelMain (void) {
       sub_8021E0C();
     else
       sub_8021ED8();
-    if (IsDuelOver() == TRUE) break;
+    if (IsDuelOver() == 1) break;
     ReturnMonstersToOwner();
     FlipAtkPosCardsFaceUp(2);
     sub_80254F8();
@@ -383,7 +383,7 @@ static void sub_8021E0C (void) {
   g3000C38.unk32 = 0;
   if (NumEmptyZonesInRow(gZones[4]) > 0) {
     DrawCard(DUEL_PLAYER);
-    if (IsDuelOver() == TRUE) {
+    if (IsDuelOver() == 1) {
       g2021D98 = 3;
       sub_8024548();
       sub_80240BC(&duelText);
@@ -399,12 +399,12 @@ static void sub_8021E0C (void) {
   }
   sub_8041104();
   WinConditionExodia();
-  if (IsDuelOver() == TRUE)
+  if (IsDuelOver() == 1)
     return;
   sub_802549C();
   sub_802703C();
   PlayerTurnMain();
-  if (IsDuelOver() == TRUE)
+  if (IsDuelOver() == 1)
     return;
   g2021D98 = 3;
   sub_8024548();
