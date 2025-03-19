@@ -62,11 +62,11 @@ void ClearPaletteBuffers (void) {
 }
 
 void ClearBackgroundPaletteBuffer (void) {
-  CpuFill16(0, g02000000.bg, 512);
+  CpuFill16(0, gPaletteBuffer, 512);
 }
 
 void ClearSpritePaletteBuffer (void) {
-  CpuFill16(0, g02000000.obj, 512);
+  CpuFill16(0, gPaletteBuffer + 256, 512);
 }
 
 void ClearOamBuffer (void) {

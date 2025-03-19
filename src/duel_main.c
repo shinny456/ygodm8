@@ -160,7 +160,7 @@ static void FadeToBlack (void) {
   struct PlttData* pltt;
   for (i = 0; i < 32; i++) {
     for (j = 0; j < 512; j++) {
-      pltt = (struct PlttData*)&g02000000.bg[j];
+      pltt = (struct PlttData*)&gPaletteBuffer[j];
       if (pltt->r) pltt->r--;
       if (pltt->g) pltt->g--;
       if (pltt->b) pltt->b--;
@@ -243,7 +243,7 @@ void MosaicEffect (void) {
 
   for (i = 0; i < 32; i++) {
     for (j = 0; j < 512; j++) {
-      pltt = (struct PlttData*)&g02000000.bg[j];
+      pltt = (struct PlttData*)&gPaletteBuffer[j];
       if (pltt->r)
         pltt->r--;
       if (pltt->g)
@@ -656,7 +656,7 @@ static void sub_8022340 (void) {  //fade to black after Link duel
 
   for (i = 0; i < 32; i++) {
     for (j = 0; j < 512; j++) {
-      pltt = (struct PlttData*)&g02000000.bg[j];
+      pltt = (struct PlttData*)&gPaletteBuffer[j];
       if (pltt->r)
         pltt->r--;
       if (pltt->g)
@@ -1403,7 +1403,7 @@ void sub_8022C54 (void) {
       }
       break;
   }
-  CpuCopy16(gDF0908, g02000000.bg + 80, 32);
+  CpuCopy16(gDF0908, gPaletteBuffer + 80, 32);
 }*/
 
 // sl = 0xF000
@@ -2350,12 +2350,12 @@ _080234C4: .4byte 0x020000A0");
 void sub_80234C8 (void) {
   CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x6000, gC18BC, 0x1801);
   CpuFill16(0, gBgVram.cbb0 + 0xC800, 0x800);
-  g02000000.bg[0xE0] = 0;
-  g02000000.bg[0xE1] = 0x7FFF;
-  g02000000.bg[0xE2] = 0;
-  g02000000.bg[0xF0] = 0;
-  g02000000.bg[0xF1] = 0x1F;
-  g02000000.bg[0xF2] = 0;
+  gPaletteBuffer[0xE0] = 0;
+  gPaletteBuffer[0xE1] = 0x7FFF;
+  gPaletteBuffer[0xE2] = 0;
+  gPaletteBuffer[0xF0] = 0;
+  gPaletteBuffer[0xF1] = 0x1F;
+  gPaletteBuffer[0xF2] = 0;
 }
 
 /*

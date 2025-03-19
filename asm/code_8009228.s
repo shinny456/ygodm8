@@ -2094,7 +2094,7 @@ _0800A974: .4byte 0x04000050
 	THUMB_FUNC_START sub_800A978
 sub_800A978: @ 0x0800A978
 	push {lr}
-	bl sub_8045718
+	bl DisableDisplay
 	ldr r1, _0800AA10
 	movs r0, #0xf0
 	strh r0, [r1]

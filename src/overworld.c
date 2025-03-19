@@ -35,12 +35,7 @@ extern u8 g82AD20C[];
 unsigned sub_805222C (u8, s16, s16);
 u32 sub_8052194 (u16);
 
-enum Direction {
-  DIRECTION_DOWN,
-  DIRECTION_LEFT,
-  DIRECTION_UP,
-  DIRECTION_RIGHT
-};
+
 
 enum {
   UNK0,
@@ -134,7 +129,7 @@ static void InitOverworld (void)
         gOverworld.objects[j].unk8 = 0;
         gOverworld.objects[j].wander = 0;
         gOverworld.objects[j].unk1Dl = 0;
-        gOverworld.objects[j].unk1Dm = 0;
+        gOverworld.objects[j].enableBlending = 0;
         gOverworld.objects[j].unk1C = 0;
         gOverworld.objects[j].unkA = 0;
     }
@@ -143,8 +138,8 @@ static void InitOverworld (void)
     gOverworld.objects[0].direction = gMapData[gOverworld.map.id][gOverworld.map.state]->playerInitialState[gOverworld.map.unk4].direction;
     gOverworld.objects[0].unk10 = gMapData[gOverworld.map.id][gOverworld.map.state]->playerInitialState[gOverworld.map.unk4].unk8;
     gOverworld.objects[0].unkE = 19;
-    gOverworld.objects[0].unk18 = 0;
-    gOverworld.objects[0].unk1Di = 1;
+    gOverworld.objects[0].motionState = 0;
+    gOverworld.objects[0].hasShadow = 1;
     gOverworld.objects[0].facePlayer = 1;
     gOverworld.objects[0].wander = 1;
     gOverworld.objects[0].x = gMapData[gOverworld.map.id][gOverworld.map.state]->playerInitialState[gOverworld.map.unk4].x;
@@ -161,7 +156,7 @@ static void InitOverworld (void)
         gOverworld.objects[j].unk10 = &g8F04040;
         gOverworld.objects[j].unk14 = &g8F04040;
         gOverworld.objects[j].wander = 0;
-        gOverworld.objects[j].unk1Di = 1;
+        gOverworld.objects[j].hasShadow = 1;
         gOverworld.objects[j].unk1Dl = 1;
         sub_8052088(j);
         j = 14;
@@ -175,7 +170,7 @@ static void InitOverworld (void)
         gOverworld.objects[j].unk10 = &g8F04040;
         gOverworld.objects[j].unk14 = &g8F04040;
         gOverworld.objects[j].wander = 0;
-        gOverworld.objects[j].unk1Di = 1;
+        gOverworld.objects[j].hasShadow = 1;
         gOverworld.objects[j].unk1Dl = 1;
         sub_8052088(j);
     }
@@ -191,9 +186,9 @@ static void InitOverworld (void)
         gOverworld.objects[i].unk10 = gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].unk8;
         gOverworld.objects[i].unk14 = gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].unkC;
         gOverworld.objects[i].unk1E = 19;
-        gOverworld.objects[i].unk1Di = gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].unk10i;
-        gOverworld.objects[i].facePlayer = gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].unk10j;
-        gOverworld.objects[i].wander = gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].unk10k;
+        gOverworld.objects[i].hasShadow = gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].hasShadow;
+        gOverworld.objects[i].facePlayer = gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].facePlayer;
+        gOverworld.objects[i].wander = gMapData[gOverworld.map.id][gOverworld.map.state]->objects[j].wander;
         gOverworld.objects[i].unk1A = 0;
     }
 }*/
@@ -906,17 +901,17 @@ static void LoadOverworldBgGfx (void)
         break;
     case 1: //reshef bg
         LZ77UnCompWram(g84C9FBC, gBgVram.cbb0);
-        CpuCopy16(g82AD06C, g02000000.obj, 0x180);
-        CpuCopy16(g82ADC8C, g02000000.bg, 0x20);
-        CpuCopy16(g84D0CE0, &g02000000.bg[16], 0x1E0);
+        CpuCopy16(g82AD06C, gPaletteBuffer + 256, 0x180);
+        CpuCopy16(g82ADC8C, gPaletteBuffer, 0x20);
+        CpuCopy16(g84D0CE0, &gPaletteBuffer[16], 0x1E0);
         CpuCopy16(g84CFCE0, gBgVram.sbb1F, 0x800);
         CpuCopy16(g84D04E0, gBgVram.sbb1E, 0x800);
         break;
     case 2: //goemon bg
         LZ77UnCompWram(g84D0EC0, gBgVram.cbb0);
-        CpuCopy16(g82AD06C, g02000000.obj, 0x180);
-        CpuCopy16(g82ADC8C, g02000000.bg, 0x20);
-        CpuCopy16(g84D69D0, &g02000000.bg[16], 0x1E0);
+        CpuCopy16(g82AD06C, gPaletteBuffer + 256, 0x180);
+        CpuCopy16(g82ADC8C, gPaletteBuffer, 0x20);
+        CpuCopy16(g84D69D0, &gPaletteBuffer[16], 0x1E0);
         CpuCopy16(g84D59D0, gBgVram.sbb1F, 0x800);
         CpuCopy16(g84D61D0, gBgVram.sbb1E, 0x800);
         break;
@@ -1200,11 +1195,11 @@ static inline void sub_804ED08_inline (void) {
   SetBg0Data();
   sub_804EE6C();
   if (CheckFlag(0xF3)) // tint effects
-    sub_8044E50(g02000000.bg, 0x10, 0x1FF);
+    sub_8044E50(gPaletteBuffer, 0x10, 0x1FF);
   if (CheckFlag(0xF0))
-    sub_8044EC8(g02000000.bg, 0x10, 0x1FF, 6);
+    sub_8044EC8(gPaletteBuffer, 0x10, 0x1FF, 6);
   if (CheckFlag(0xEF)) // completely black
-    sub_8045284(g02000000.bg, 0x10, 0xFF);
+    sub_8045284(gPaletteBuffer, 0x10, 0xFF);
   REG_BLDY = 7;
   WaitForVBlank();
   sub_804EC4C();
@@ -1231,7 +1226,7 @@ static inline void sub_804EFA8_inline (void) {
 static void sub_804E288 (void) {
   u8 r5 = 102;
   while (!(gOverworld.unk240 & (1 | 2))) {
-    gOverworld.objects[0].unk18 = 0;
+    gOverworld.objects[0].motionState = 0;
     switch (ProcessInput()) {
       case WALK_UP:
         TryWalking(DIRECTION_UP);
@@ -1487,7 +1482,7 @@ static void sub_804E6E8 (u32* arg0, u32* unused, u32* arg2, u8 arg3) {
   if (!sub_805222C(arg3, gOverworld.objects[arg3].x, gOverworld.objects[arg3].y))
     return;
   arg0[0] |= 0x80000000;
-  if (gOverworld.objects[arg3].unk1Dm)
+  if (gOverworld.objects[arg3].enableBlending)
     *arg0 |= 0x400;
   r1two = gUnk08103264[arg3];
   r1two |= g82AD20C[gOverworld.objects[arg3].spriteId] << 12;
@@ -1669,14 +1664,14 @@ static void sub_804E7F8 (struct OamData* arg0, u8 arg1) {
   arg0->y = 192;
   arg0->x = 448;
 
-  if (gOverworld.objects[arg1].spriteId == -1 || !gOverworld.objects[arg1].unk1Di)
+  if (gOverworld.objects[arg1].spriteId == -1 || !gOverworld.objects[arg1].hasShadow)
     return;
   if (!sub_805222C(arg1, gOverworld.objects[arg1].x, gOverworld.objects[arg1].y))
     return;
 
   arg0->size = 0;
   arg0->shape = 1;
-  if (gOverworld.objects[arg1].unk1Dm)
+  if (gOverworld.objects[arg1].enableBlending)
     arg0->objMode = 1;
   arg0->tileNum = gUnk08103264[15] & 1023;
   arg0->priority = 2;
@@ -1708,7 +1703,7 @@ static void sub_804E918 (struct OamData* arg0, u8 arg1) {
 
   arg0->size = 1;
   arg0->shape = 0;
-  if (gOverworld.objects[arg1].unk1Dm)
+  if (gOverworld.objects[arg1].enableBlending)
     arg0->objMode = 1;
   tempY = gOverworld.objects[arg1].y * 2 - gOverworld.objects[arg1].unk8;
   arg0->y = tempY - 28 + gOverworld.unk24C;
@@ -1780,7 +1775,7 @@ void sub_804EB04 (struct OamData* arg0, u8 arg1) {
       arg0->x = 168;
       break;
     case 2:
-      sub_80411EC(arg0);
+      sub_80411EC(arg0); // move sprite(oam) off screen (clears a bunch of stuff like setting tileNum to 0 etc)
       break;
   }
 }
@@ -1890,11 +1885,11 @@ void sub_804ED08 (void) {
   SetBg0Data();
   sub_804EE6C();
   if (CheckFlag(0xF3)) // tint effects
-    sub_8044E50(g02000000.bg, 0x10, 0x1FF);
+    sub_8044E50(gPaletteBuffer, 0x10, 0x1FF);
   if (CheckFlag(0xF0))
-    sub_8044EC8(g02000000.bg, 0x10, 0x1FF, 6);
+    sub_8044EC8(gPaletteBuffer, 0x10, 0x1FF, 6);
   if (CheckFlag(0xEF)) // completely black
-    sub_8045284(g02000000.bg, 0x10, 0xFF);
+    sub_8045284(gPaletteBuffer, 0x10, 0xFF);
   REG_BLDY = 7;
   WaitForVBlank();
   sub_804EC4C();
@@ -2168,6 +2163,7 @@ static inline void sub_804F6D4_inline (s16* arr, u8 i) {
 
 void sub_804F3E4 (void) {
   u8 i;
+  //TODO: replace 2 with NUM_FOLLOWERS?
   s16 arr[2];
   for (i = 0; i < 2; i++) {
     s8 r3;
@@ -2183,7 +2179,7 @@ void sub_804F3E4 (void) {
       r3 += 6;
     if (!gOverworld.objects[i + 13].unk1Dl)
       continue;
-    gOverworld.objects[i + 13].unk18 = 0;
+    gOverworld.objects[i + 13].motionState = 0;
     if (r3 == 4)
       gOverworld.objects[i + 13].direction = gOverworld.objects[0].direction;
     else {
@@ -2219,21 +2215,21 @@ void sub_804F544 (void) {
 }
 // inline?
 void sub_804F580 (void) {
-  CpuCopy16(g82AD06C, g02000000.obj, 0x180);
+  CpuCopy16(g82AD06C, gPaletteBuffer + 256, 0x180);
 }
 // inline?
 void sub_804F598 (void) {
-  CpuCopy16(g82ADC8C, g02000000.bg, 0x20);
+  CpuCopy16(g82ADC8C, gPaletteBuffer, 0x20);
 }
 
 void sub_804F5B0 (void) {
-  CpuCopy16(g8E11CD0[gOverworld.map.id], g02000000.bg + 0x10, 0x1E0);
+  CpuCopy16(g8E11CD0[gOverworld.map.id], gPaletteBuffer + 0x10, 0x1E0);
 }
 
 void sub_804F5D8 (void) {
-  CpuCopy16(g82AD06C, g02000000.obj, 0x180);
-  CpuCopy16(g82ADC8C, g02000000.bg, 0x20);
-  CpuCopy16(g8E11CD0[gOverworld.map.id], g02000000.bg + 0x10, 0x1E0);
+  CpuCopy16(g82AD06C, gPaletteBuffer + 256, 0x180);
+  CpuCopy16(g82ADC8C, gPaletteBuffer, 0x20);
+  CpuCopy16(g8E11CD0[gOverworld.map.id], gPaletteBuffer + 0x10, 0x1E0);
 }
 
 // inline

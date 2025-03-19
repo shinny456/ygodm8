@@ -416,9 +416,9 @@ static void sub_8000724 (void) {
   LoadOam();
   LoadPalettes();
   LoadVRAM();
-  sub_8045718();
+  DisableDisplay();
   PlayMusic(0x31);
-  CpuCopy16(gCreditsPalette, g02000000.bg, 0x200);
+  CpuCopy16(gCreditsPalette, gPaletteBuffer, 0x200);
   LZ77UnCompWram(gCreditsTileset, gBgVram.cbb0);
   CpuFastCopy(gBgVram.cbb0, gBgVram.cbb0 + 0x8000, 32);
   CpuFastFill(0, gBgVram.cbb0 + 0xF000, 0x800);
@@ -655,7 +655,7 @@ static void sub_8000D74 (void) {
   LoadOam();
   LoadPalettes();
   LoadVRAM();
-  sub_8045718();
+  DisableDisplay();
   sub_8000CC8();
   for (i = 0; i < ARRAY_COUNT(g2020C00); i++)
     g2020C00[i] = sin_cos_table[i] / 4;
@@ -676,8 +676,8 @@ static void sub_8000D74 (void) {
     DmaCopy16(3, gUnk_8A4542E[i], &gBgVram.cbb0[0xF800 + (i + 2) * 64], 26);
   for (i = 0; i < 2; i++)
     DmaCopy16(3, gUnk_8063FC0[i], &gBgVram.cbb0[0xF000 + (i + 17) * 64], 60);
-  CpuCopy16(gUnk_8A4A430, g02000000.bg, 96);
-  CpuCopy16(gUnk_8064038, g02000000.bg + 0xF0, 32);
+  CpuCopy16(gUnk_8A4A430, gPaletteBuffer, 96);
+  CpuCopy16(gUnk_8064038, gPaletteBuffer + 0xF0, 32);
   sub_8001788();
   SetVBlankCallback(sub_80019C4);
   sub_8001068();
@@ -711,13 +711,13 @@ static void sub_8001068 (void) {
   sub_803EEFC(0, gUnk_8A4A490, 0x100);
   sub_803EEFC(2, gUnk_8A4E490, 0x100);
   sub_803EEFC(3, gUnk_8A50490, 0x100);
-  CpuCopy16(gUnk_8A52490, g02000000.bg + 256, 96);
+  CpuCopy16(gUnk_8A52490, gPaletteBuffer + 256, 96);
   for (i = 0; i < 16; i++) {
     // this goes into obj pal, make g02000000 a unified array
     // for both palettes
-    g8DF7590->unkE[i] = g02000000.bg[272 + i] & 0x1F;
-    g8DF7590->unk1E[i] = (g02000000.bg[272 + i] & (0x1F << 5)) >> 5;
-    g8DF7590->unk2E[i] = (g02000000.bg[272 + i] & (0x1F << 10)) >> 10;
+    g8DF7590->unkE[i] = gPaletteBuffer[272 + i] & 0x1F;
+    g8DF7590->unk1E[i] = (gPaletteBuffer[272 + i] & (0x1F << 5)) >> 5;
+    g8DF7590->unk2E[i] = (gPaletteBuffer[272 + i] & (0x1F << 10)) >> 10;
   }
 }
 
@@ -729,7 +729,7 @@ static void sub_8001110 (void) {
     g8DF7590->unk3E = 128;
   for (i = 0; i < 16; i++) {
     // macro?
-    g02000000.bg[272 + i] =
+    gPaletteBuffer[272 + i] =
       g8DF7590->unkE[i] - g8DF7590->unkE[i] * g8DF7590->unk3E / 128
     | g8DF7590->unk1E[i] - g8DF7590->unk1E[i] * g8DF7590->unk3E / 128 << 5
     | g8DF7590->unk2E[i] - g8DF7590->unk2E[i] * g8DF7590->unk3E / 128 << 10;
@@ -744,20 +744,20 @@ static void sub_80011B4 (void) {
     g8DF7590->unk3F = 128;
   for (i = 0; i < 48; i++) {
     // macro?
-    int temp = g02000000.bg[i] & 0x1F;
-    int temp2 = (g02000000.bg[i] & (0x1F << 5)) >> 5;
-    int temp3 = (g02000000.bg[i] & (0x1F << 10)) >> 10;
-    g02000000.bg[i] =
+    int temp = gPaletteBuffer[i] & 0x1F;
+    int temp2 = (gPaletteBuffer[i] & (0x1F << 5)) >> 5;
+    int temp3 = (gPaletteBuffer[i] & (0x1F << 10)) >> 10;
+    gPaletteBuffer[i] =
       temp - temp * g8DF7590->unk3F / 128
     | (temp2 - temp2 * g8DF7590->unk3F / 128) << 5
     | (temp3 - temp3 * g8DF7590->unk3F / 128) << 10;
   }
   for (i = 0; i < 16; i++) {
     // macro?
-    int temp = g02000000.bg[256 + i] & 0x1F;
-    int temp2 = (g02000000.bg[256 + i] & (0x1F << 5)) >> 5;
-    int temp3 = (g02000000.bg[256 + i] & (0x1F << 10)) >> 10;
-    g02000000.bg[256 + i] =
+    int temp = gPaletteBuffer[256 + i] & 0x1F;
+    int temp2 = (gPaletteBuffer[256 + i] & (0x1F << 5)) >> 5;
+    int temp3 = (gPaletteBuffer[256 + i] & (0x1F << 10)) >> 10;
+    gPaletteBuffer[256 + i] =
       temp - temp * g8DF7590->unk3F / 128
     | (temp2 - temp2 * g8DF7590->unk3F / 128) << 5
     | (temp3 - temp3 * g8DF7590->unk3F / 128) << 10;
@@ -772,10 +772,10 @@ static void sub_80012B4 (void) {
     g8DF7590->unk40 = 128;
   for (i = 0; i < 16; i++) {
     // macro?
-    u16 temp = g02000000.bg[288 + i] & 0x1F;
-    u16 temp2 = (g02000000.bg[288 + i] & (0x1F << 5)) >> 5;
-    u16 temp3 = (g02000000.bg[288 + i] & (0x1F << 10)) >> 10;
-    g02000000.bg[288 + i] =
+    u16 temp = gPaletteBuffer[288 + i] & 0x1F;
+    u16 temp2 = (gPaletteBuffer[288 + i] & (0x1F << 5)) >> 5;
+    u16 temp3 = (gPaletteBuffer[288 + i] & (0x1F << 10)) >> 10;
+    gPaletteBuffer[288 + i] =
       temp - temp * g8DF7590->unk40 / 128
     | (temp2 - temp2 * g8DF7590->unk40 / 128) << 5
     | (temp3 - temp3 * g8DF7590->unk40 / 128) << 10;
@@ -1858,7 +1858,7 @@ static void sub_80020D8 (void) {
       else if (g8DF7594->unkA == 17) {
         for (i = 0; i < 96; i++) {
           //rgb macro?
-          g02000000.bg[48 + i] = ((g8DF7594->unk36[i] * 77 +
+          gPaletteBuffer[48 + i] = ((g8DF7594->unk36[i] * 77 +
                                 g8DF7594->unk96[i] * 151 +
                                 g8DF7594->unkF6[i] * 28) / 256) |
                               ((g8DF7594->unk36[i] * 77 +
@@ -2292,7 +2292,7 @@ static void sub_8002E98 (void) {
   LoadOam();
   LoadPalettes();
   LoadVRAM();
-  sub_8045718();
+  DisableDisplay();
 
   temp = g8DF7594->unk0;
   // macro for clearing gSharedMem?
@@ -2316,7 +2316,7 @@ static void sub_8002E98 (void) {
 
   SetVBlankCallback(sub_80048F8);
   LoadVRAM();
-  CpuCopy16(gUnk_8AA6358, g02000000.bg, 512);
+  CpuCopy16(gUnk_8AA6358, gPaletteBuffer, 512);
   LoadPalettes();
   WaitForVBlank();
 }
@@ -2330,7 +2330,7 @@ static void sub_8003020 (void) {
   LoadOam();
   LoadPalettes();
   LoadVRAM();
-  sub_8045718();
+  DisableDisplay();
 
   temp = g8DF7594->unk0;
   // macro for clearing gSharedMem?
@@ -2369,13 +2369,13 @@ static void sub_8003020 (void) {
   sub_80043D0();
   LoadOam();
   LoadVRAM();
-  CpuCopy16(gUnk_8AA6358, g02000000.bg, 512);
+  CpuCopy16(gUnk_8AA6358, gPaletteBuffer, 512);
   LoadPalettes();
 
   for (ii = 0; ii < 96; ii++) {
-    g8DF7594->unk36[ii] = g02000000.bg[0x30 + ii] & 0x1F;
-    g8DF7594->unk96[ii] = (g02000000.bg[0x30 + ii] & (0x1F << 5)) >> 5;
-    g8DF7594->unkF6[ii] = (g02000000.bg[0x30 + ii] & (0x1F << 10)) >> 10;
+    g8DF7594->unk36[ii] = gPaletteBuffer[0x30 + ii] & 0x1F;
+    g8DF7594->unk96[ii] = (gPaletteBuffer[0x30 + ii] & (0x1F << 5)) >> 5;
+    g8DF7594->unkF6[ii] = (gPaletteBuffer[0x30 + ii] & (0x1F << 10)) >> 10;
   }
   WaitForVBlank();
 }
@@ -2389,7 +2389,7 @@ static void sub_8003268 (void) {
   LoadOam();
   LoadPalettes();
   LoadVRAM();
-  sub_8045718();
+  DisableDisplay();
 
   temp = g8DF7594->unk0;
   // macro for clearing gSharedMem?
@@ -2420,12 +2420,12 @@ static void sub_8003268 (void) {
 
   SetVBlankCallback(sub_8004B44);
   LoadVRAM();
-  CpuCopy16(gUnk_8AA6358, g02000000.bg, 512);
+  CpuCopy16(gUnk_8AA6358, gPaletteBuffer, 512);
 
   for (ii = 0; ii < 16; ii++) {
-    g8DF7594->unk36[ii + 0x20] = g02000000.bg[0x90 + ii] & 0x1F;
-    g8DF7594->unk96[ii + 0x20] = (g02000000.bg[0x90 + ii] & (0x1F << 5)) >> 5;
-    g8DF7594->unkF6[ii + 0x20] = (g02000000.bg[0x90 + ii] & (0x1F << 10)) >> 10;
+    g8DF7594->unk36[ii + 0x20] = gPaletteBuffer[0x90 + ii] & 0x1F;
+    g8DF7594->unk96[ii + 0x20] = (gPaletteBuffer[0x90 + ii] & (0x1F << 5)) >> 5;
+    g8DF7594->unkF6[ii + 0x20] = (gPaletteBuffer[0x90 + ii] & (0x1F << 10)) >> 10;
   }
   LoadPalettes();
   WaitForVBlank();
@@ -2440,7 +2440,7 @@ static void sub_8003444 (void) {
   LoadOam();
   LoadPalettes();
   LoadVRAM();
-  sub_8045718();
+  DisableDisplay();
 
   temp = g8DF7594->unk0;
   // macro for clearing gSharedMem?
@@ -2462,7 +2462,7 @@ static void sub_8003444 (void) {
   sub_8004E54();
   LoadOam();
   LoadVRAM();
-  CpuCopy16(gUnk_8AA6558, g02000000.bg, 512);
+  CpuCopy16(gUnk_8AA6558, gPaletteBuffer, 512);
   LoadPalettes();
   WaitForVBlank();
 }
@@ -2476,7 +2476,7 @@ static void sub_8003560 (void) {
   LoadOam();
   LoadPalettes();
   LoadVRAM();
-  sub_8045718();
+  DisableDisplay();
 
   temp = g8DF7594->unk0;
   // macro for clearing gSharedMem?
@@ -2507,12 +2507,12 @@ static void sub_8003560 (void) {
 
   SetVBlankCallback(sub_8004B44);
   LoadVRAM();
-  CpuCopy16(gUnk_8AA6358, g02000000.bg, 512);
+  CpuCopy16(gUnk_8AA6358, gPaletteBuffer, 512);
 
   for (ii = 0; ii < 16; ii++) {
-    g8DF7594->unk36[ii + 0x20] = g02000000.bg[0xA0 + ii] & 0x1F;
-    g8DF7594->unk96[ii + 0x20] = (g02000000.bg[0xA0 + ii] & (0x1F << 5)) >> 5;
-    g8DF7594->unkF6[ii + 0x20] = (g02000000.bg[0xA0 + ii] & (0x1F << 10)) >> 10;
+    g8DF7594->unk36[ii + 0x20] = gPaletteBuffer[0xA0 + ii] & 0x1F;
+    g8DF7594->unk96[ii + 0x20] = (gPaletteBuffer[0xA0 + ii] & (0x1F << 5)) >> 5;
+    g8DF7594->unkF6[ii + 0x20] = (gPaletteBuffer[0xA0 + ii] & (0x1F << 10)) >> 10;
   }
   LoadPalettes();
   WaitForVBlank();
@@ -2662,11 +2662,11 @@ static void sub_8003B78 (void) {
   // UB/Bug: copying past palette buffer
   // happens to land 256 bytes into VRAM buffer
   // probably can't exploit
-  CpuCopy16(gUnk_8AA6758, g02000000.bg + 256, 512);
+  CpuCopy16(gUnk_8AA6758, gPaletteBuffer + 256, 512);
   for (i = 0; i < 32; i++) {
-    g8DF7594->unk36[i] = g02000000.bg[256 + i] & 0x1F;
-    g8DF7594->unk96[i] = (g02000000.bg[256 + i] & (0x1F << 5)) >> 5;
-    g8DF7594->unkF6[i] = (g02000000.bg[256 + i] & (0x1F << 10)) >> 10;
+    g8DF7594->unk36[i] = gPaletteBuffer[256 + i] & 0x1F;
+    g8DF7594->unk96[i] = (gPaletteBuffer[256 + i] & (0x1F << 5)) >> 5;
+    g8DF7594->unkF6[i] = (gPaletteBuffer[256 + i] & (0x1F << 10)) >> 10;
   }
 }
 
@@ -2678,11 +2678,11 @@ static void sub_8003C10 (void) {
   // happens to land 256 bytes into VRAM buffer
   // probably can't exploit
   // (maybe not UB, since CpuCopy16 is a builtin gba function)
-  CpuCopy16(gUnk_8AA6758, g02000000.bg + 256, 512);
+  CpuCopy16(gUnk_8AA6758, gPaletteBuffer + 256, 512);
   for (i = 0; i < 32; i++) {
-    g8DF7594->unk36[i] = g02000000.bg[256 + i] & 0x1F;
-    g8DF7594->unk96[i] = (g02000000.bg[256 + i] & (0x1F << 5)) >> 5;
-    g8DF7594->unkF6[i] = (g02000000.bg[256 + i] & (0x1F << 10)) >> 10;
+    g8DF7594->unk36[i] = gPaletteBuffer[256 + i] & 0x1F;
+    g8DF7594->unk96[i] = (gPaletteBuffer[256 + i] & (0x1F << 5)) >> 5;
+    g8DF7594->unkF6[i] = (gPaletteBuffer[256 + i] & (0x1F << 10)) >> 10;
   }
 }
 
@@ -2692,10 +2692,10 @@ static void sub_8003CA8 (void) {
   // UB/Bug: copying past palette buffer
   // happens to land 256 bytes into VRAM buffer
   // probably can't exploit
-  CpuCopy16(gUnk_8AA6758, g02000000.bg + 256, 512);
+  CpuCopy16(gUnk_8AA6758, gPaletteBuffer + 256, 512);
   for (i = 0; i < 16; i++) {
-    g8DF7594->unk16[i] = g02000000.bg[0x160 + i];
-    g02000000.bg[0x160 + i] = g02000000.bg[0x160];
+    g8DF7594->unk16[i] = gPaletteBuffer[0x160 + i];
+    gPaletteBuffer[0x160 + i] = gPaletteBuffer[0x160];
   }
 }
 

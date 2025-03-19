@@ -104,7 +104,7 @@ void WorldMapMain (void) {
   LoadOam();
   LoadPalettes();
   LoadVRAM();
-  sub_8045718();
+  DisableDisplay();
   g2020DCC = gUnk_8DF7A18[r4];
 }*/
 
@@ -237,7 +237,7 @@ _08004F4A:\n\
 	bl LoadOam\n\
 	bl LoadPalettes\n\
 	bl LoadVRAM\n\
-	bl sub_8045718\n\
+	bl DisableDisplay\n\
 	ldr r0, _08004F8C\n\
 	adds r1, r4, r6\n\
 	ldrb r1, [r1]\n\
@@ -260,7 +260,7 @@ static void sub_8004F90 (unsigned char arg0, unsigned char arg1) {
   LoadOam();
   LoadPalettes();
   LoadVRAM();
-  sub_8045718();
+  DisableDisplay();
   LZ77UnCompWram(gWorldMapBgTileset, gBgVram.cbb0);
   for (i = 0; i < 20; i++)
     DmaCopy16(3, gUnk_80666F0[i], gBgVram.cbb0 + 0x9800 + i * 64, 60);
@@ -284,11 +284,11 @@ static void sub_8004F90 (unsigned char arg0, unsigned char arg1) {
   CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x3220, gUnk_80754C4, 0x901);
   CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x3720, gUnk_80754EC, 0x901);
 
-  CpuCopy16(gWorldMapBgPalette, g02000000.bg, 0x180);
-  CpuCopy16(gUnk_80741B8, g02000000.bg + 0xF0, 0x20);
-  CpuCopy16(gUnk_8072EA0, g02000000.bg + 0x100, 0x100);
-  CpuCopy16(gUnk_80741D8, g02000000.bg + 0x180, 0x20);
-  CpuCopy16(gUnk_8074400, g02000000.bg + 0x190, 0x20);
+  CpuCopy16(gWorldMapBgPalette, gPaletteBuffer, 0x180);
+  CpuCopy16(gUnk_80741B8, gPaletteBuffer + 0xF0, 0x20);
+  CpuCopy16(gUnk_8072EA0, gPaletteBuffer + 0x100, 0x100);
+  CpuCopy16(gUnk_80741D8, gPaletteBuffer + 0x180, 0x20);
+  CpuCopy16(gUnk_8074400, gPaletteBuffer + 0x190, 0x20);
 
   SetVBlankCallback(sub_80055D8);
   sub_80054C4(gUnk_8DF7A18[arg0]);

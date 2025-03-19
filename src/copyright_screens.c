@@ -190,22 +190,22 @@ static void sub_8026C6C (void) { //language selection gfx
 }
 
 static void sub_8026CEC (void) {
-  CpuCopy16(gE01370, g02000000.bg, 32); //g02000000.bg + (LICENSED_BY_NINTENDO_PAL_INDEX/BANK = 0) * (COLORS_PER_PALETTE = 16)
+  CpuCopy16(gE01370, gPaletteBuffer, 32); //gPaletteBuffer + (LICENSED_BY_NINTENDO_PAL_INDEX/BANK = 0) * (COLORS_PER_PALETTE = 16)
 }
 
 static void sub_8026D04 (void) {
-  CpuCopy16(gE01C50, g02000000.bg, 512);
+  CpuCopy16(gE01C50, gPaletteBuffer, 512);
 }
 
 static void sub_8026D20 (void) {
-  CpuCopy16(gE02E10, g02000000.bg, 64);
+  CpuCopy16(gE02E10, gPaletteBuffer, 64);
 }
 
 static void sub_8026D38 (void) {
 }
 
 static void sub_8026D3C (void) {
-  CpuCopy16(gE04610, g02000000.bg, 512);
+  CpuCopy16(gE04610, gPaletteBuffer, 512);
 }
 
 static void sub_8026D58 (void) {

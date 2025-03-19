@@ -376,7 +376,7 @@ static void FadeToBlack (void) {
   u16 i, j;
   for (i = 0; i < 32; i++) {
     for (j = 0; j < 512; j++) {
-      struct PlttData *pltt = (struct PlttData*)&g02000000.bg[j];
+      struct PlttData *pltt = (struct PlttData*)&gPaletteBuffer[j];
       if (pltt->r)
         pltt->r--;
       if (pltt->g)
@@ -2070,7 +2070,7 @@ static void sub_802E868 (void) {
     sub_800800C(i + 22, 19, 0xF800, (g8DF811C[i] + 431) | r7);
   }
 
-  sub_8008BF8(&g02000000.bg[0xA0]);
+  sub_8008BF8(&gPaletteBuffer[0xA0]);
   sub_802EA74();
   sub_802FCF0(sCardShop.unk725);
 }
@@ -2932,7 +2932,7 @@ static void sub_802F9E8 (void) {
   for (i = 0; i < 4; i++)
     CpuCopy16(g80CD2A0[i], gBgVram.cbb4 + i * 0x400, 0x80);
 
-  CpuCopy16(g80CD4A0, g02000000.obj + 128, 0x20);
+  CpuCopy16(g80CD4A0, gPaletteBuffer + 256 + 128, 0x20);
   sub_802FB08();
 
   for (i = 0; i < 4; i++)
@@ -2941,11 +2941,11 @@ static void sub_802F9E8 (void) {
 
   for (i = 0; i < 2; i++)
     CpuCopy16(g80CD200[i], gBgVram.cbb4 + 0x100 + i * 0x400, 0x40);
-  CpuCopy16(g80CD280, g02000000.obj + 144, 0x20);
+  CpuCopy16(g80CD280, gPaletteBuffer + 256 + 144, 0x20);
 
   for (i = 0; i < 2; i++)
     CpuCopy16(g80CD1A0[i], gBgVram.cbb4 + 0x900 + i * 0x400, 0x20);
-  CpuCopy16(g80CD1E0, g02000000.obj + 160, 0x20);
+  CpuCopy16(g80CD1E0, gPaletteBuffer + 256 + 160, 0x20);
   sub_803028C();
 }
 
@@ -3212,9 +3212,9 @@ static void sub_802FD84 (u16 cardId) {
 
 static void sub_802FDC0 (void) {
   CopyAttributeIconTiles(gCardInfo.attribute, ((struct Cbb*)&gBgVram)->cbb3 + 0x35A0);
-  CopyAttributeIconPal(gCardInfo.attribute, g02000000.bg + 0xC0);
+  CopyAttributeIconPal(gCardInfo.attribute, gPaletteBuffer + 0xC0);
   CopyTypeIconTiles(gCardInfo.type, ((struct Cbb*)&gBgVram)->cbb3 + 0x3520);
-  CopyTypeIconPal(gCardInfo.type, g02000000.bg + 0xB0);
+  CopyTypeIconPal(gCardInfo.type, gPaletteBuffer + 0xB0);
 }
 
 static void sub_802FE00 (void) {
@@ -3222,8 +3222,8 @@ static void sub_802FE00 (void) {
   sub_8030068();
   CpuFill16(0, gBgVram.cbb0, 64);
   sub_802FE68();
-  CopyMiniCardPalette(g02000000.bg);
-  g02000000.bg[0] = 0;
+  CopyMiniCardPalette(gPaletteBuffer);
+  gPaletteBuffer[0] = 0;
   for (i = 0; i < 36; i++)
     CpuCopy16(g80CB884[i], gBgVram.cbb0 + 0x12 * 0x800 + i * 64, 60);
 }
@@ -3306,7 +3306,7 @@ static void sub_8030090 (void) {
   gBG3VOFS = 0;
   gBG3HOFS = 0;
   LZ77UnCompWram(g80CC4F4, ((struct Cbb*)&gBgVram)->cbb3);
-  CpuCopy16(g80CCC90, g02000000.bg + 0xD0, 0x60);
+  CpuCopy16(g80CCC90, gPaletteBuffer + 0xD0, 0x60);
   for (i = 0; i < 20; i++)
     CpuCopy16(g80CCCF0[i], ((struct Sbb*)&gBgVram)->sbb17[i], 60);
 }
@@ -3514,7 +3514,7 @@ static void sub_80305D4 (void) {
 }
 
 static void sub_803060C (void) {
-  sub_8045718();
+  DisableDisplay();
   REG_BG1CNT = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(3) | BGCNT_16COLOR | BGCNT_SCREENBASE(31);
   REG_BG2CNT = BGCNT_PRIORITY(2) | BGCNT_CHARBASE(0) | BGCNT_256COLOR | BGCNT_SCREENBASE(18) | BGCNT_TXT256x512;
   REG_BG3CNT = 0x170F;
@@ -3601,7 +3601,7 @@ static void sub_8030784 (void) {
 }
 
 static void sub_80307B8 (void) {
-  CpuCopy16(g02000000.bg + 0xB0, (u16*)(PLTT + 0x160), 0x40);
+  CpuCopy16(gPaletteBuffer + 0xB0, (u16*)(PLTT + 0x160), 0x40);
   CpuCopy16(gBgVram.cbb0 + 0xF520, (u8*)(BG_VRAM + 0xF520), 0x1C00);
 }
 
@@ -3609,7 +3609,7 @@ static void sub_80307E4 (int arg0) {
   u8 arg0_u8 = arg0;
   u32 r1 = arg0_u8 * 0x1C00;
   CpuCopy16(gBgVram.cbb0 + 0x40 + r1, (u8*)BG_VRAM + 0x40 + r1, 0x1C00);
-  CpuCopy16(g02000000.bg + 0xB0, (u16*)PLTT + 0xB0, 0x40);
+  CpuCopy16(gPaletteBuffer + 0xB0, (u16*)PLTT + 0xB0, 0x40);
   CpuCopy16(gBgVram.cbb0 + 0xF520, (u8*)BG_VRAM + 0xF520, 0x1C00);
   LoadBgOffsets();
 }
@@ -3620,7 +3620,7 @@ static void sub_803083C (int arg0) {
   LoadBgOffsets();
   r1 = arg0_u8 * 0x1C00;
   CpuCopy16(gBgVram.cbb0 + 0x40 + r1, (u8*)BG_VRAM + 0x40 + r1, 0x1C00);
-  CpuCopy16(g02000000.bg + 0xB0, (u16*)PLTT + 0xB0, 0x40);
+  CpuCopy16(gPaletteBuffer + 0xB0, (u16*)PLTT + 0xB0, 0x40);
   CpuCopy16(gBgVram.cbb0 + 0xF520, (u8*)BG_VRAM + 0xF520, 0x1C00);
 }
 
@@ -3631,7 +3631,7 @@ static void sub_8030898 (void) {
   CpuCopy16(gBgVram.cbb0 + 0x1C40, (u8*)BG_VRAM + 0x1C40, 0x1C00);
   CpuCopy16(gBgVram.cbb0 + 0x3840, (u8*)BG_VRAM + 0x3840, 0x1C00);
   CpuCopy16(gBgVram.cbb0 + 0x5440, (u8*)BG_VRAM + 0x5440, 0x1C00);
-  CpuCopy16(g02000000.bg + 0xB0, (u16*)PLTT + 0xB0, 0x40);
+  CpuCopy16(gPaletteBuffer + 0xB0, (u16*)PLTT + 0xB0, 0x40);
   CpuCopy16(gBgVram.cbb0 + 0xF520, (u8*)BG_VRAM + 0xF520, 0x1C00);
 }
 
@@ -3644,7 +3644,7 @@ static void sub_803096C (int arg0) {
   u8 arg0_u8 = arg0;
   u32 r1 = arg0_u8 * 0x1C00;
   CpuCopy16(gBgVram.cbb0 + 0x40 + r1, (u8*)BG_VRAM + 0x40 + r1, 0x1C00);
-  CpuCopy16(g02000000.bg + 0xB0, (u16*)PLTT + 0xB0, 0x40);
+  CpuCopy16(gPaletteBuffer + 0xB0, (u16*)PLTT + 0xB0, 0x40);
   CpuCopy16(gBgVram.cbb0 + 0xF520, (u8*)BG_VRAM + 0xF520, 0x1C00);
   CpuCopy16(gBgVram.cbb0 + 0xA000, (u8*)BG_VRAM + 0xA000, 0x800);
 }
@@ -3666,7 +3666,7 @@ static void sub_8030A48 (void) {
   CpuCopy16(gBgVram.cbb0 + 0x1C40, (u8*)BG_VRAM + 0x1C40, 0x1C00);
   CpuCopy16(gBgVram.cbb0 + 0x3840, (u8*)BG_VRAM + 0x3840, 0x1C00);
   CpuCopy16(gBgVram.cbb0 + 0x5440, (u8*)BG_VRAM + 0x5440, 0x1C00);
-  CpuCopy16(g02000000.bg + 0xB0, (u16*)PLTT + 0xB0, 0x40);
+  CpuCopy16(gPaletteBuffer + 0xB0, (u16*)PLTT + 0xB0, 0x40);
   CpuCopy16(gBgVram.cbb0 + 0xF520, (u8*)BG_VRAM + 0xF520, 0x1C00);
   CpuCopy16(gBgVram.cbb0 + 0xA800, (u8*)BG_VRAM + 0xA800, 0x800);
 }

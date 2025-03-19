@@ -4,31 +4,31 @@
 struct Test8041240 {
   u32 unk0;
   u32 unk4;
-  u8 unk8;
-  u8 filler9[3];
-  u8* unkC;
+  unsigned char unk8;
+  unsigned char filler9[3];
+  unsigned char* unkC;
   u16 unk10;
   u16 unk12;
   u16 unk14;
   u16 unk16;
   u16 unk18;
   u16 unk1A;
-  u8 unk1C;
+  unsigned char unk1C;
 };
 
 extern u16 gNewButtons;
 extern u32* gFieldTilePtrs[];
 extern u16* g8E0D130[];
-extern const u8 gE0D15D[]; // all spaces. empty duel text box before displaying actual text.
+extern const unsigned char gE0D15D[]; // all spaces. empty duel text box before displaying actual text.
 extern u16 (*gFieldTileMapPtrs[])[31];
 extern struct OamData gOamBuffer[];
-extern u8 g201EE70[];
-extern u8 g201EEE0[];
-extern u8* gNumTributesRequiredStrings[];
+extern unsigned char g201EE70[];
+extern unsigned char g201EEE0[];
+extern unsigned char* gNumTributesRequiredStrings[];
 extern const s16 sin_cos_table[];
-extern u8 g8E0D1D0[];
+extern unsigned char g8E0D1D0[];
 extern u16 g80F2C30[][30];
-extern u8 gE0D14C[];
+extern unsigned char gE0D14C[];
 
 void sub_8041B38 (void);
 void sub_8041BE8 (struct Test8041240*);
@@ -42,7 +42,7 @@ s16 fix_inverse (s16);
 // gBG2VOFS = AdjustBackgroundBeforeTurnStart(gDuelCursor.currentY);
 // gBG2VOFS = AdjustBackgroundBeforeTurnStart(1);
 // (most likely due to implicit declarations?)
-u32 AdjustBackgroundBeforeTurnStart (u8);
+u32 AdjustBackgroundBeforeTurnStart (unsigned char);
 
 
 void sub_8040B4C (void);
@@ -83,7 +83,7 @@ gFieldPalettePtrs
 
 // todo: replace with affine struct
 static void sub_8040C6C (void) {
-  u8 i;
+  unsigned char i;
   for (i = 0; i < 128; i++)
     sub_80411EC(gOamBuffer + i);
 
@@ -122,13 +122,13 @@ static void sub_8040C6C (void) {
 }
 
 void sub_8040EF0 (void) {
-  u8 i, field;
+  unsigned char i, field;
   WaitForVBlank();
-  sub_8045718();
+  DisableDisplay();
   field = gDuel.field;
-  REG_BG2CNT = 0x9B02;
+  REG_BG2CNT = BGCNT_PRIORITY(2) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(27) | BGCNT_TXT256x512;
   HuffUnComp(gFieldTilePtrs[field], gBgVram.cbb0);
-  CpuCopy16(g8E0D130[field], g02000000.bg, 96);
+  CpuCopy16(g8E0D130[field], gPaletteBuffer, 96);
 
   // copying 64 bytes from 62 byte array? (sub_8044D34 does it right i think)
   // this results in the last tile-column of the background being made up of tiles meant for the next row.
@@ -159,19 +159,19 @@ void sub_8040EF0 (void) {
 void sub_8040FDC (void) {
   LoadOam();
   LoadBgOffsets();
-  CpuCopy32(gBgVram.cbb0 + 0x8040, (u8*)BG_VRAM + 0x8040, 0x740);
-  CpuCopy16(g02000000.bg + 0x50, (u16*)PLTT + 0x50, 0x40);
+  CpuCopy32(gBgVram.cbb0 + 0x8040, (unsigned char*)BG_VRAM + 0x8040, 0x740);
+  CpuCopy16(gPaletteBuffer + 0x50, (u16*)PLTT + 0x50, 0x40);
 }
 
 void sub_8041014 (void) {
-  CpuCopy32(gBgVram.cbb0 + 0x87A0, (u8*)BG_VRAM + 0x87A0, 0x1D00);
-  CpuCopy32(gBgVram.cbb0 + 0xE800, (u8*)BG_VRAM + 0xE800, 0x480);
+  CpuCopy32(gBgVram.cbb0 + 0x87A0, (unsigned char*)BG_VRAM + 0x87A0, 0x1D00);
+  CpuCopy32(gBgVram.cbb0 + 0xE800, (unsigned char*)BG_VRAM + 0xE800, 0x480);
 }
 
 void sub_8041050 (void) {
   LoadBgOffsets();
-  CpuCopy32(gBgVram.cbb0 + 0x87A0, (u8*)BG_VRAM + 0x87A0, 0x160);
-  CpuCopy32(gBgVram.cbb0 + 0xF000, (u8*)BG_VRAM + 0xF000, 0x1000);
+  CpuCopy32(gBgVram.cbb0 + 0x87A0, (unsigned char*)BG_VRAM + 0x87A0, 0x160);
+  CpuCopy32(gBgVram.cbb0 + 0xF000, (unsigned char*)BG_VRAM + 0xF000, 0x1000);
 }
 
 void sub_8041090 (void) {
@@ -184,7 +184,7 @@ void sub_8041090 (void) {
 
 void sub_80410B4 (void) { //updates all duel gfx
   WaitForVBlank();
-  sub_8045718();
+  DisableDisplay();
   sub_8041140(gDuel.field);
   //below this is same as sub_8041104
   sub_8040B4C();
@@ -212,11 +212,11 @@ void sub_8041104 (void) { //updates gfx except for field
   REG_BLDY = 10;
 }
 
-void sub_8041140 (u8 field) {
-  u8 i;
+void sub_8041140 (unsigned char field) {
+  unsigned char i;
   REG_BG2CNT = 0x9B02;
   HuffUnComp(gFieldTilePtrs[field], gBgVram.cbb0);
-  CpuCopy16(g8E0D130[field], g02000000.bg, 96);
+  CpuCopy16(g8E0D130[field], gPaletteBuffer, 96);
   // copying 64 bytes from 62 byte array? (see sub_8040EF0 comment)
   // TODO: i < 38; pass size of 62 to CpuCopy16
   for (i = 0; i < 40; i++)
@@ -244,9 +244,9 @@ void sub_80411EC (struct OamData* arg0) {
   arg0->affineMode = 0;
 }
 
-void DisplayNumRequiredTributesText (u8 numTributes) {
+void DisplayNumRequiredTributesText (unsigned char numTributes) {
   struct Test8041240 test;
-  u8* string = gNumTributesRequiredStrings[numTributes - 1];
+  unsigned char* string = gNumTributesRequiredStrings[numTributes - 1];
   test.unk0 = 0;
   test.unk4 = 0;
   test.unk8 = 0;
@@ -486,7 +486,7 @@ void sub_8041884 (struct Test8041240* arg0) {
 
 void sub_8041924 (struct Test8041240* arg0) {
   u16 r3;
-  u8* r0;
+  unsigned char* r0;
   if (!arg0->unk1C) {
     sub_800DDA0(arg0->unk12, 0);
     while (g2021BD0[arg0->unk1C] == 10)
@@ -508,7 +508,7 @@ void sub_8041924 (struct Test8041240* arg0) {
 }
 
 static inline void sub_8041B38_inline (void) {
-  u8 i;
+  unsigned char i;
   // copying 4 bytes past source buffer g80F2C30?
   for (i = 0; i < 18; i++)
     CpuCopy32(g80F2C30[i], gBgVram.cbb0 + 0xE800 + i * 64, 64);
@@ -553,7 +553,7 @@ static inline void sub_8041BE8_inline (struct Test8041240* test) {
   }
 }
 
-void sub_80419EC (u8* arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4) {
+void sub_80419EC (unsigned char* arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4) {
   struct Test8041240 test;
   test.unk0 = 0;
   test.unk4 = 0;
@@ -570,7 +570,7 @@ void sub_80419EC (u8* arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4) {
 }
 
 void sub_8041B38 (void) {
-  u8 i;
+  unsigned char i;
   // copying 4 bytes past source buffer g80F2C30?
   for (i = 0; i < 18; i++)
     CpuCopy32(g80F2C30[i], gBgVram.cbb0 + 0xE800 + i * 64, 64);

@@ -8,7 +8,6 @@ void sub_8052088 (u8);
 u16 sub_80520E0 (u8, u8);
 unsigned sub_8052174 (u16);
 unsigned sub_8052194 (u16);
-unsigned sub_80521AC (u16);
 void TryWalking (u8);
 void TryRunning (u8);
 unsigned sub_805222C (int, u8, u8);
@@ -73,20 +72,20 @@ void sub_8051A44 (u8 obj, u8 direction, s16 *displacement) {
   newYPos = gOverworld.objects[obj].y + g8E0E3CC[direction];
   switch (sub_8051958(newXPos, newYPos, direction, obj)) {
     case 0:
-      gOverworld.objects[obj].unk18 = 0;
+      gOverworld.objects[obj].motionState = 0;
       displacement[0] = 0;
       displacement[1] = 0;
       break;
     case 1:
-      gOverworld.objects[obj].unk18 = 1;
+      gOverworld.objects[obj].motionState = 1;
       break;
     case 2:
-      gOverworld.objects[obj].unk18 = 1;
+      gOverworld.objects[obj].motionState = 1;
       displacement[0] += g8E0E3D4[1][direction];
       displacement[1] += g8E0E3EC[1][direction];
       break;
     case 3:
-      gOverworld.objects[obj].unk18 = 1;
+      gOverworld.objects[obj].motionState = 1;
       displacement[0] += g8E0E3D4[2][direction];
       displacement[1] += g8E0E3EC[2][direction];
       break;
@@ -243,22 +242,22 @@ void sub_8051C14 (u8 obj, u8 direction, s16 *displacement) {
   newYPos = gOverworld.objects[obj].y + g8E0E416[direction];
   switch (sub_8051B28(newXPos, newYPos, direction, obj)) {
     case 0:
-      gOverworld.objects[obj].unk18 = 0;
+      gOverworld.objects[obj].motionState = 0;
       displacement[0] = 0;
       displacement[1] = 0;
       break;
     case 1:
-      gOverworld.objects[obj].unk18 = 1;
+      gOverworld.objects[obj].motionState = 1;
       gOverworld.objects[obj].direction = g8E0E494[0][direction];
       break;
     case 2:
-      gOverworld.objects[obj].unk18 = 1;
+      gOverworld.objects[obj].motionState = 1;
       gOverworld.objects[obj].direction = g8E0E494[3][direction];
       displacement[0] += g8E0E428[1][direction];
       displacement[1] += g8E0E45E[1][direction];
       break;
     case 3:
-      gOverworld.objects[obj].unk18 = 1;
+      gOverworld.objects[obj].motionState = 1;
       gOverworld.objects[obj].direction = g8E0E494[6][direction];
       displacement[0] += g8E0E428[2][direction];
       displacement[1] += g8E0E45E[2][direction];
@@ -534,6 +533,7 @@ unsigned sub_80521AC (u16 arg0) {
   return 0;
 }
 
+//PlayerTryWalk
 void TryWalking (u8 direction) {
   sub_8051D20(0, direction);
   sub_805236C(); // check transitioning to a new map/the world map
@@ -546,8 +546,8 @@ void TryRunning (u8 direction) {
     sub_8051D20(0, direction);
     sub_805236C();
   }
-  if (gOverworld.objects[0].unk18 == 1)
-    gOverworld.objects[0].unk18 = 2;
+  if (gOverworld.objects[0].motionState == 1)
+    gOverworld.objects[0].motionState = 2;
 }
 
 unsigned sub_805222C (int unused, u8 x, u8 y) {

@@ -592,7 +592,7 @@ sub_8023998: @ 0x08023998
 	bl sub_8023720
 	bl sub_8023544
 	bl sub_8023788
-	bl sub_8045718
+	bl DisableDisplay
 	bl LoadPalettes
 	bl LoadVRAM
 	bl LoadBgOffsets
@@ -11921,7 +11921,7 @@ sub_8039B24: @ 0x08039B24
 	push {lr}
 	bl sub_8038BF4
 	bl sub_803A424
-	bl sub_8045718
+	bl DisableDisplay
 	ldr r0, _08039B78
 	bl SetVBlankCallback
 	bl WaitForVBlank
@@ -12253,7 +12253,7 @@ sub_8039E60: @ 0x08039E60
 	bl sub_80399C4
 	bl sub_803A490
 	bl sub_803A588
-	bl sub_8045718
+	bl DisableDisplay
 	ldr r0, _08039EC8
 	bl SetVBlankCallback
 	bl WaitForVBlank
@@ -15117,7 +15117,7 @@ sub_803B71C: @ 0x0803B71C
 	push {lr}
 	bl sub_803A60C
 	bl sub_803BE54
-	bl sub_8045718
+	bl DisableDisplay
 	ldr r0, _0803B770
 	bl SetVBlankCallback
 	bl WaitForVBlank
@@ -15316,7 +15316,7 @@ sub_803B9D4: @ 0x0803B9D4
 	bl sub_803B5BC
 	bl sub_803BEC0
 	bl sub_803BFB8
-	bl sub_8045718
+	bl DisableDisplay
 	ldr r0, _0803BA3C
 	bl SetVBlankCallback
 	bl WaitForVBlank
@@ -18084,7 +18084,7 @@ sub_803D1A4: @ 0x0803D1A4
 	push {lr}
 	bl sub_803C03C
 	bl sub_803D934
-	bl sub_8045718
+	bl DisableDisplay
 	ldr r0, _0803D1F8
 	bl SetVBlankCallback
 	bl WaitForVBlank
@@ -18303,7 +18303,7 @@ sub_803D4AC: @ 0x0803D4AC
 	bl sub_803D04C
 	bl sub_803D9A0
 	bl sub_803DA98
-	bl sub_8045718
+	bl DisableDisplay
 	ldr r0, _0803D514
 	bl SetVBlankCallback
 	bl WaitForVBlank
@@ -19200,7 +19200,7 @@ _0803DC0C:
 	movs r2, #0x50
 	bl CpuSet
 	bl sub_803DD68
-	bl sub_8045718
+	bl DisableDisplay
 	bl LoadPalettes
 	bl LoadVRAM
 	bl LoadBgOffsets

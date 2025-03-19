@@ -2115,7 +2115,7 @@ static void sub_805754C (struct O* arg0, unsigned char arg1, unsigned char arg2)
 
 // unused?
 static void sub_80575C8 (void) {
-  CpuCopy16(g89A781C, g02000000.obj, 320);
+  CpuCopy16(g89A781C, gPaletteBuffer + 256, 320);
 }
 
 int sub_80575E0 (unsigned char arg0, unsigned char arg1) {
@@ -2189,7 +2189,7 @@ int sub_8057790 (unsigned char arg0_unused, unsigned char arg1) {
 void sub_80577A4 (void) {
   unsigned char i, j;
   sub_80562F4();
-  CpuCopy16(g89A781C, g02000000.obj, 320);
+  CpuCopy16(g89A781C, gPaletteBuffer + 256, 320);
   for (i = 0; i < 5; i++)
     for (j = 0; j < 5; j++)
       if (gDuelBoard[i][j]->id != CARD_NONE)

@@ -316,19 +316,19 @@ static void CopyBgGfx (void) {
   }
   switch (gLanguage) {
     case 1:
-      CpuCopy32(g8E0CDA0, g02000000.bg, 512);
+      CpuCopy32(g8E0CDA0, gPaletteBuffer, 512);
       break;
     case 2:
-      CpuCopy32(g8E0CDA0, g02000000.bg, 512);
+      CpuCopy32(g8E0CDA0, gPaletteBuffer, 512);
       break;
     case 3:
-      CpuCopy32(g8E0CDA0, g02000000.bg, 512);
+      CpuCopy32(g8E0CDA0, gPaletteBuffer, 512);
       break;
     case 4:
-      CpuCopy32(g8E0CDA0, g02000000.bg, 512);
+      CpuCopy32(g8E0CDA0, gPaletteBuffer, 512);
       break;
     default:
-      CpuCopy32(g8E0CDA0, g02000000.bg, 512);
+      CpuCopy32(g8E0CDA0, gPaletteBuffer, 512);
       break;
   }
 }
@@ -405,7 +405,7 @@ static void sub_80358F8 (void) {
 
 static void CopySpriteTilesAndPalette (void) {
   sub_803EEFC(0, g8E0CDA8, 0x100);
-  CpuCopy32(g8E0CDAC, g02000000.obj, 96);
+  CpuCopy32(g8E0CDAC, gPaletteBuffer + 256, 96);
 }
 
 static void sub_8035988 (void) {
@@ -433,7 +433,7 @@ static void sub_80359F0 (void) {
 }
 
 static void VBlankCbInitGfxRegs (void) {
-  sub_8045718();
+  DisableDisplay();
   gBLDCNT = 0x8D8;
   gBLDALPHA = 0x1000;
   gBLDY = 0;

@@ -1,6 +1,6 @@
 #include "global.h"
 
-void sub_805236C (void);
+
 void sub_80523EC (u16, u16, u16);
 unsigned sub_80524A4 (u16);
 
@@ -84,7 +84,7 @@ static void sub_80524D8 (u16 arg0) {
 
 // unused
 static void sub_8052510 (void) {
-  if (gOverworld.objects[0].unk18 == 1) {
+  if (gOverworld.objects[0].motionState == 1) {
     if (!sub_8052174(sub_80520E0(gOverworld.objects[0].x, gOverworld.objects[0].y))) {
       g2021D6C[0] = 0;
       g2021D6C[1] = 0;

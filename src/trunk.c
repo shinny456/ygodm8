@@ -416,6 +416,9 @@ static void sub_8008A5C (void) {
   REG_BLDCNT |= 8;
 }
 
+
+
+//split?
 void CopyTypeIconTiles (unsigned char type, void * dest) {
   //unsigned char temp = type + 235; (decomp_note)
   if (type == 21 || type == 22 || type == 23) {
@@ -601,12 +604,12 @@ static inline void sub_8008D88_inline (unsigned short id, unsigned char arg1) {
     sub_801D9B8(id);
 }
 
-void sub_8008D88 (unsigned short id) {
+void RemoveCardFromTrunkOrDeck (unsigned short id) {
   sub_8008D88_inline(id, 1);
 }*/
 
 NAKED
-void sub_8008D88(unsigned id)
+void RemoveCardFromTrunkOrDeck(unsigned id)
 {
     asm_unified("\n\
     push {r4, lr}\n\
@@ -889,7 +892,7 @@ void sub_8009228 (void)
     for (i = 0; i < 20; i++)
         CpuCopy32(gUnk_808B860[i], &((struct Sbb*)&gBgVram)->sbb7[i], 60);
 
-    CpuCopy32(gUnk_808C1C0, g02000000.bg, 0x80);
+    CpuCopy32(gUnk_808C1C0, gPaletteBuffer, 0x80);
     CpuFill16(0, gBgVram.sbb18, 32);
 }
 

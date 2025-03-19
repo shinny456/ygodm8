@@ -243,9 +243,9 @@ void sub_80420C0 (void) {
 
 void sub_8042144 (void) {
   CopyAttributeIconTiles(gCardInfo.attribute, gBgVram.cbb0 + 0x8580);
-  CopyAttributeIconPal(gCardInfo.attribute, g02000000.bg + 96);
+  CopyAttributeIconPal(gCardInfo.attribute, gPaletteBuffer + 96);
   CopyTypeIconTiles(gCardInfo.type, gBgVram.cbb0 + 0x8500);
-  CopyTypeIconPal(gCardInfo.type, g02000000.bg + 80);
+  CopyTypeIconPal(gCardInfo.type, gPaletteBuffer + 80);
 }
 
 void sub_8042184 (void) {

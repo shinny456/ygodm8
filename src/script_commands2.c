@@ -820,7 +820,7 @@ void sub_8054920 (struct ScriptCtx* script) {
   REG_BLDY = 16;
   WaitForVBlank();
   LZ77UnCompWram(g84C9FBC, gBgVram.cbb0);
-  CpuCopy16(g84D0CE0, g02000000.bg + 16, 0x1E0);
+  CpuCopy16(g84D0CE0, gPaletteBuffer + 16, 0x1E0);
   CpuCopy16(g84CFCE0, gBgVram.sbb1F, 0x800);
   CpuCopy16(g84D04E0, gBgVram.sbb1E, 0x800);
   WaitForVBlank();
@@ -850,7 +850,7 @@ void sub_80549E8 (struct ScriptCtx* script) {
   REG_BLDY = 16;
   WaitForVBlank();
   LZ77UnCompWram(g84D0EC0, gBgVram.cbb0);
-  CpuCopy16(g84D69D0, g02000000.bg + 16, 0x1E0);
+  CpuCopy16(g84D69D0, gPaletteBuffer + 16, 0x1E0);
   CpuCopy16(g84D59D0, gBgVram.sbb1F, 0x800);
   CpuCopy16(g84D61D0, gBgVram.sbb1E, 0x800);
   WaitForVBlank();
@@ -954,7 +954,7 @@ inline void sub_80550C0 (struct ScriptCtx* script) {
 
   for (i = 0; g8E0F688[i] != -1; i++) {
     sub_80515A0();
-    sub_8044F80(g02000000.bg, 0, 0x1FF, g8E0F688[i]);
+    sub_8044F80(gPaletteBuffer, 0, 0x1FF, g8E0F688[i]);
     WaitForVBlank();
     LoadPalettes();
   }
@@ -971,8 +971,8 @@ inline void sub_8055124 (struct ScriptCtx* script) {
 
   for (i = 0; g8E0F69A[i] != -1; i++) {
     sub_80515A0();
-    sub_8044F80(g02000000.bg, 0x100, 0x1FF, g8E0F69A[i]);
-    sub_8044EC8(g02000000.bg, 0x10, 0xFF, g8E0F6AC[i]);
+    sub_8044F80(gPaletteBuffer, 0x100, 0x1FF, g8E0F69A[i]);
+    sub_8044EC8(gPaletteBuffer, 0x10, 0xFF, g8E0F6AC[i]);
     WaitForVBlank();
     LoadPalettes();
   }

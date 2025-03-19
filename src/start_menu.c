@@ -53,7 +53,7 @@ u32 IsPlayerDeckNonempty (void);
 
 void LoadOam (void);
 void WaitForVBlank (void);
-void sub_8045718 (void);
+void DisableDisplay (void);
 
 extern u16 gNewButtons;
 
@@ -62,7 +62,7 @@ extern u16 gStartMenuCursorPalette[];
 extern u16 gUnk_8079444[][30];
 extern u16 gUnk_8079424[];
 void ClearGraphicsBuffers (void);
-void sub_8045718 (void);
+void DisableDisplay (void);
 
 static void StartMenuMain (void) {
   u8 cursorState = 0;
@@ -126,7 +126,7 @@ static void StartMenuMain (void) {
     WaitForVBlank();
   }
   PlayMusic(0x38);
-  sub_8045718();
+  DisableDisplay();
 }
 
 static void sub_8005894 (void) {
@@ -138,8 +138,8 @@ static void sub_8005894 (void) {
     DmaCopy16(3, gUnk_8079CB4[i], gBgVram.sbb1D[i], 60);
   for (i = 0; i < 20; i++)
     DmaCopy16(3, gUnk_807A164[i], gBgVram.sbb1C[i], 60);
-  CpuCopy16(gStartMenuBgPalette, g02000000.bg, 32);
-  CpuCopy16(gStartMenuCursorPalette, g02000000.obj, 32);
+  CpuCopy16(gStartMenuBgPalette, gPaletteBuffer, 32);
+  CpuCopy16(gStartMenuCursorPalette, gPaletteBuffer + 256, 32);
   CopyStringTilesToVRAMBuffer(&gBgVram.cbb2[32], gText_DeckMustHave40Cards, 0x901);
   CopyStringTilesToVRAMBuffer(&gBgVram.cbb2[0x1020], gText_CardCostTotal, 0x901);
   CopyStringTilesToVRAMBuffer(&gBgVram.cbb2[0x5020], gUnk_807A910, 0x901);
@@ -344,12 +344,12 @@ static void LoadStartMenuGraphics (void) {
   LoadOam();
   LoadPalettes();
   LoadVRAM();
-  sub_8045718();
+  DisableDisplay();
   LZ77UnCompWram(gStartMenuBgTiles, gBgVram.cbb0);
   sub_8005894();
   for (i = 0; i < 20; i++)
     DmaCopy16(3, gUnk_8079444[i], gBgVram.sbb1E[i], 60);
-  CpuCopy16(gUnk_8079424, &g02000000.bg[0xF0], 32);
+  CpuCopy16(gUnk_8079424, &gPaletteBuffer[0xF0], 32);
   SetVBlankCallback(sub_8005C38);
   LoadBgVRAM();
   LoadCharblock4();
@@ -358,8 +358,8 @@ static void LoadStartMenuGraphics (void) {
 }
 
 static void sub_8005BE0 (void) {
-  CpuCopy16(gStartMenuBgPalette, g02000000.bg, 32);
-  CpuCopy16(gStartMenuCursorPalette, g02000000.obj, 32);
+  CpuCopy16(gStartMenuBgPalette, gPaletteBuffer, 32);
+  CpuCopy16(gStartMenuCursorPalette, gPaletteBuffer + 256, 32);
   sub_8005894();
   SetVBlankCallback(sub_8005C54);
   LoadCharblock4();

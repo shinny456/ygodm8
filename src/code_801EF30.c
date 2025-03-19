@@ -282,7 +282,7 @@ void sub_801F390 (void) {
 }
 
 void sub_801F3C0 (void) {
-  sub_8045718();
+  DisableDisplay();
   // sub_801F658 inline?
   REG_WIN0H = 0xF0;
   REG_WIN0V = 0x18;
@@ -1064,7 +1064,7 @@ void sub_801FA84 (void) {
 }
 
 void sub_801FADC (void) {
-  sub_8045718();
+  DisableDisplay();
   REG_BG1CNT = 0x1D81;
   REG_BG2CNT = 0x1E06;
   REG_BG3CNT = 0x1F0B;

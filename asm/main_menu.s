@@ -450,7 +450,7 @@ sub_8024ECC: @ 0x08024ECC
 	bl sub_80253A4
 	adds r0, r4, #0
 	bl sub_80253E8
-	bl sub_8045718
+	bl DisableDisplay
 	bl LoadPalettes
 	bl LoadVRAM
 	bl LoadBgOffsets

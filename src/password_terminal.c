@@ -253,7 +253,7 @@ static void FadeToBlack (void) {
   unsigned short i, j;
   for (i = 0; i < 16; i++) {
     for (j = 0; j < 512; j++) {
-      struct PlttData *pltt = (struct PlttData*)&g02000000.bg[j];
+      struct PlttData *pltt = (struct PlttData*)&gPaletteBuffer[j];
       if (pltt->r > 1)
         pltt->r -= 2;
       else
@@ -702,12 +702,12 @@ static void InitOAMBuffer (void) {
 static void sub_8025F64 (void) {
   unsigned i;
   HuffUnCompAndDeltaDecode(g80C1DD4, gBgVram.cbb0, 0x4000);
-  CpuCopy32(g80C5840, g02000000.bg, 0x80);
+  CpuCopy32(g80C5840, gPaletteBuffer, 0x80);
   for (i = 0; i < 20; i++)
     CpuCopy32(g80C58C0[i], gBgVram.sbb1F[i], 60);
   LZ77UnCompWram(g80C61B8, gBgVram.cbb4);
-  CpuCopy32(g80C5EF0, g02000000.obj, 96);
-  CpuCopy32(g80C5D70, g02000000.obj + 48, 64);
+  CpuCopy32(g80C5EF0, gPaletteBuffer + 256, 96);
+  CpuCopy32(g80C5D70, gPaletteBuffer + 256 + 48, 64);
 }
 
 static void sub_8025FFC (void) {
@@ -722,7 +722,7 @@ static void sub_8026018 (void) {
 }
 
 static void sub_802601C (void) {
-  sub_8045718();
+  DisableDisplay();
   REG_BLDCNT = 0;
   REG_BLDALPHA = 0;
   REG_BLDY = 0;

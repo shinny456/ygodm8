@@ -2009,7 +2009,7 @@ void sub_8038F1C (void) {
   CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0xC0E0, g80DDF34, 0x1801);
   for (i = 0; i < 2; i++)
     CpuCopy16(gAttributeIconTiles[i][gLanguage], gBgVram.cbb0 + 0xD2A0 + i * 256, 256);
-  sub_8008BF8(g02000000.bg + 0xA0);
+  sub_8008BF8(gPaletteBuffer + 0xA0);
   CpuFill16(0x5000, gBgVram.cbb0 + 0xF7A6, 0x800);
   for (i = 0; i < 5; i++) {
     u16 r3 = g80DD6C8[i];

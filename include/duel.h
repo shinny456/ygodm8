@@ -490,15 +490,8 @@ struct Sbb
     u16 sbb1F[32][32];
 };
 
-struct PaletteBuffer
-{
-    u16 bg[256];
-    u16 obj[256];
-};
-
 extern struct BgVram gBgVram;
-extern struct PaletteBuffer g02000000; //palette buffer
-extern u8 gObjVram[];
+extern unsigned short gPaletteBuffer[];
 
 extern u16 g2021BF8;
 int sub_8045390(u16);
@@ -570,7 +563,7 @@ bool32 sub_8043790 (struct DuelCard *zone);
 bool32 sub_80437B4 (struct DuelCard *zone);
 
 
-void sub_8045718 (void);
+void DisableDisplay (void);
 
 void sub_80240BC(struct DuelText*);
 void sub_802405C(struct DuelText*);

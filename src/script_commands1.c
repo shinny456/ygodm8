@@ -34,25 +34,23 @@ void sub_805345C (u8 obj, u8 direction, u8 distance, u8 arg3, struct ScriptCtx *
   sub_804F254();
 }
 
-inline void sub_8053CF0 (u8 obj, u16 x, u16 y, u16 arg3, struct ScriptCtx* script) {
-  gOverworld.objects[obj].x = x;
-  gOverworld.objects[obj].y = y;
-  gOverworld.objects[obj].wander = 0;
-  sub_8052088(obj);
-  sub_804F054(gOverworld.objects[obj].spriteId,
-              gOverworld.objects[obj].direction * 3 + arg3,
-              gBgVram.cbb4 + gUnk08103264[obj] * 32);
-  sub_804F218();
-}
+
 
 void sub_8053520 (u8 obj, u16 x, u16 y, u16 arg3, u8 arg4, u8 arg5, struct ScriptCtx *script) {
   int i;
   switch (arg4) {
     case 0:
-      sub_8053CF0(obj, x, y, arg3, script);
+      gOverworld.objects[obj].x = x;
+      gOverworld.objects[obj].y = y;
+      gOverworld.objects[obj].wander = 0;
+      sub_8052088(obj);
+      sub_804F054(gOverworld.objects[obj].spriteId,
+                  gOverworld.objects[obj].direction * 3 + arg3,
+                  gBgVram.cbb4 + gUnk08103264[obj] * 32);
+      sub_804F218();
       break;
     case 1:
-      gOverworld.objects[obj].unk1Dm = 1;
+      gOverworld.objects[obj].enableBlending = 1;
       REG_BLDCNT = 0xE40;
       gOverworld.objects[obj].x = x;
       gOverworld.objects[obj].y = y;
@@ -86,7 +84,7 @@ void sub_8053520 (u8 obj, u16 x, u16 y, u16 arg3, u8 arg4, u8 arg5, struct Scrip
       gOverworld.objects[obj].x = x;
       gOverworld.objects[obj].y = y;
       gOverworld.objects[obj].wander = 0;
-      gOverworld.objects[obj].unk1Di = 1;
+      gOverworld.objects[obj].hasShadow = 1;
       sub_8052088(obj);
       sub_804F054(gOverworld.objects[obj].spriteId,
                   gOverworld.objects[obj].direction * 3 + arg3,
@@ -97,7 +95,7 @@ void sub_8053520 (u8 obj, u16 x, u16 y, u16 arg3, u8 arg4, u8 arg5, struct Scrip
       gOverworld.objects[obj].x = x;
       gOverworld.objects[obj].y = y;
       gOverworld.objects[obj].wander = 0;
-      gOverworld.objects[obj].unk1Di = 0;
+      gOverworld.objects[obj].hasShadow = 0;
       sub_8052088(obj);
       sub_804F054(gOverworld.objects[obj].spriteId,
                   gOverworld.objects[obj].direction * 3 + arg3,
@@ -155,7 +153,7 @@ void sub_8053884 (u16 arg0, u8 arg1, struct ScriptCtx* script) {
       for (mask = 1, i = 0; i < 15; mask <<= 1, i++)
         if (arg0 & mask) {
           gOverworld.objects[i].wander = 0;
-          gOverworld.objects[i].unk1Di = 0;
+          gOverworld.objects[i].hasShadow = 0;
           gOverworld.objects[i].facePlayer = 0;
           gOverworld.objects[i].direction = 4;
           gOverworld.objects[i].unkE = 0;
@@ -382,46 +380,11 @@ void sub_8053B40(u8 reaction, u16 arg1, struct ScriptCtx* script) {
   }
 }*/
 
-inline void sub_8053D50 (u8 obj, u8 arg1, struct ScriptCtx* script) {
-  script->unk86 = 0;
-  sub_8053404(script);
-  gOverworld.objects[obj].spriteId = arg1;
-  sub_804DF5C(obj);
-  sub_804F1F4();
-}
 
-// move object faster (twice the "normal" speed)
-inline void sub_8053D88 (u8 obj, u8 direction, u8 distance, struct ScriptCtx* script) {
-  int i;
 
-  script->unk86 = 0;
-  sub_8053404(script);
-  for (i = 0; i < distance / 2; i++) {
-    gOverworld.objects[obj].x += g8E0E834[direction] * 2;
-    gOverworld.objects[obj].y += g8E0E838[direction] * 2;
-    sub_8052088(obj);
-    sub_804DF5C(obj);
-    sub_804F254();
-  }
-  gOverworld.objects[obj].wander = 0;
-  sub_804F19C(obj);
-  sub_804DF5C(obj);
-  sub_804F254();
-}
 
-inline void sub_8053E34 (u8 arg0) {
-  int i, temp;
-  sub_805339C();
-  sub_804F508();
-  REG_BLDCNT = 0xFF;
-  REG_WINOUT = 0x3D3E;
-  for (i = 0; i < 16; i++) {
-    REG_BLDY = i;
-    temp = arg0;
-    while (--temp != -1)
-      sub_804F218();
-  }
-}
+
+
 
 inline void sub_8053E94 (struct ScriptCtx* script) {
   script->unk1E = 0;
@@ -474,4 +437,56 @@ void sub_8053CA8 (u8 obj, u16 x, u16 y, struct ScriptCtx* script) {
   sub_8052088(obj);
   sub_804DF5C(obj);
   sub_804F218();
+}
+
+void sub_8053CF0 (u8 obj, u16 x, u16 y, u16 arg3, struct ScriptCtx* script) {
+  gOverworld.objects[obj].x = x;
+  gOverworld.objects[obj].y = y;
+  gOverworld.objects[obj].wander = 0;
+  sub_8052088(obj);
+  sub_804F054(gOverworld.objects[obj].spriteId,
+              gOverworld.objects[obj].direction * 3 + arg3,
+              gBgVram.cbb4 + gUnk08103264[obj] * 32);
+  sub_804F218();
+}
+
+void sub_8053D50 (u8 obj, u8 arg1, struct ScriptCtx* script) {
+  script->unk86 = 0;
+  sub_8053404(script);
+  gOverworld.objects[obj].spriteId = arg1;
+  sub_804DF5C(obj);
+  sub_804F1F4();
+}
+
+// move object faster (twice the "normal" speed)
+void sub_8053D88 (u8 obj, u8 direction, u8 distance, struct ScriptCtx* script) {
+  int i;
+
+  script->unk86 = 0;
+  sub_8053404(script);
+  for (i = 0; i < distance / 2; i++) {
+    gOverworld.objects[obj].x += g8E0E834[direction] * 2;
+    gOverworld.objects[obj].y += g8E0E838[direction] * 2;
+    sub_8052088(obj);
+    sub_804DF5C(obj);
+    sub_804F254();
+  }
+  gOverworld.objects[obj].wander = 0;
+  sub_804F19C(obj);
+  sub_804DF5C(obj);
+  sub_804F254();
+}
+
+void sub_8053E34 (u8 arg0) {
+  int i, temp;
+  sub_805339C();
+  sub_804F508();
+  REG_BLDCNT = 0xFF;
+  REG_WINOUT = 0x3D3E;
+  for (i = 0; i < 16; i++) {
+    REG_BLDY = i;
+    temp = arg0;
+    while (--temp != -1)
+      sub_804F218();
+  }
 }

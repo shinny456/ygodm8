@@ -68,7 +68,7 @@ static void sub_800B200 (void) {
     CpuCopy32((*gUnk_8E0136C)[i], gBgVram.cbb0 + 0xF862 + i * 64, 28);
   for (i = 64; i < 0x4000; i++)
     gUnk_8E01364[i] |= 0x80;
-  CpuCopy16(gUnk_8E01368, g02000000.bg + 0x80, 256);
+  CpuCopy16(gUnk_8E01368, gPaletteBuffer + 0x80, 256);
   CpuCopy16(gUnk_8E01364, gBgVram.cbb1, 0x4000);
 }
 
@@ -84,7 +84,7 @@ static void sub_800B2B0 (void) {
   PrintCard();
   for (i = 0; i < 19; i++)
     CpuCopy32((*gUnk_8E0136C)[i], gBgVram.cbb0 + 0xF040 + i * 64, 28);
-  CpuCopy16(gUnk_8E01368, g02000000.bg, 256);
+  CpuCopy16(gUnk_8E01368, gPaletteBuffer, 256);
   CpuCopy16(gUnk_8E01364, gBgVram.cbb0, 0x4000);
 }
 
@@ -250,7 +250,7 @@ void sub_800B618(void *r6) //card details screen gfx
         break;
     }
 
-    CpuCopy32(g08097C94, &g02000000.bg[8 * 16], 256); //copy palette
+    CpuCopy32(g08097C94, &gPaletteBuffer[8 * 16], 256); //copy palette
 
     for (i = 0; i < 20; i++)
         CpuCopy32(g809508C[i], gBgVram.sbb1E[i], 60);
@@ -265,7 +265,7 @@ void sub_800B618(void *r6) //card details screen gfx
     for (i = 0; i < 19; i++)
         CpuCopy16((*gUnk_8E0136C)[i], &gBgVram.sbb1D[i][32], 28);
 
-    CpuCopy16(gUnk_8E01368, g02000000.bg, 256); //copy palette
+    CpuCopy16(gUnk_8E01368, gPaletteBuffer, 256); //copy palette
     CpuCopy16(gUnk_8E01364, gBgVram.cbb0, 0x4000);
 }
 
@@ -1707,7 +1707,7 @@ void sub_800C834 (void)
     for (i = 0; i < 20; i++)
         CpuCopy32(gUnk_808B860[i], &((struct Sbb*)&gBgVram)->sbb7[i], 60);
 
-    CpuCopy32(gUnk_808C1C0, g02000000.bg, 128);
+    CpuCopy32(gUnk_808C1C0, gPaletteBuffer, 128);
     CpuFill16(0, gBgVram.sbb18, 32);
 }
 
@@ -1813,8 +1813,8 @@ void sub_800CCAC(void)
 /*
 void sub_800CD88 (void) {
   unsigned char i, r4, r7;
-  CpuCopy32(gUnk_808ECD0, g02000000.bg + 0xA0, 32);
-  CpuCopy32(gUnk_808ECF0, g02000000.bg + 0x80, 32);
+  CpuCopy32(gUnk_808ECD0, gPaletteBuffer + 0xA0, 32);
+  CpuCopy32(gUnk_808ECF0, gPaletteBuffer + 0x80, 32);
   CpuCopy32(gStarTile, gVr.a + 0xC020, 32);
   CpuCopy32(gSwordTile, gVr.a + 0xC040, 32);
   CpuCopy32(gShieldTile, gVr.a + 0xC060, 32);

@@ -808,14 +808,14 @@ void sub_8044B90 (void) {
     else
       CopyFaceDownCardTiles(ptr);
   }
-  CopyMiniCardPalette(g02000000.obj);
+  CopyMiniCardPalette(gPaletteBuffer + 256);
 }*/
 
 void sub_8044D00 (void) {
   sub_803EE44();
   sub_8044D34();
   sub_8044B90();
-  SetVBlankCallback(sub_8045718);
+  SetVBlankCallback(DisableDisplay);
   WaitForVBlank();
   sub_8044DAC();
   SetVBlankCallback(sub_8044DC8);
@@ -827,7 +827,7 @@ void sub_8044D34 (void) {
   HuffUnComp(g8E0D960[gDuel.field], gBgVram.cbb0);
   for (i = 0; i < 20; i++)
     CpuCopy16(g8E0D97C[gDuel.field][i], gBgVram.cbb0 + 0xF800 + i * 64, 62);
-  CpuCopy16(g8E0D998[gDuel.field], g02000000.bg, 96);
+  CpuCopy16(g8E0D998[gDuel.field], gPaletteBuffer, 96);
 }
 
 void sub_8044DAC (void) {

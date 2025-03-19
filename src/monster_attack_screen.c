@@ -399,7 +399,7 @@ void sub_801BC00 (void) {
 }
 
 static void VBlankCbDisableDisplay (void) {
-  sub_8045718();
+  DisableDisplay();
 }
 
 static void sub_801BC58 (void) {
@@ -417,7 +417,7 @@ static void sub_801BC88 (unsigned char arg0, unsigned arg1) {
   if (arg0 == 1)
     sl = 128;
   for (temp1 = 2, i = 0, temp2 = 2; i < 128; i++) {
-    struct PlttData *pltt = (struct PlttData*)&g02000000.bg[i + sl];
+    struct PlttData *pltt = (struct PlttData*)&gPaletteBuffer[i + sl];
     if (pltt->r > temp2)
       pltt->r -= temp1;
     else
@@ -1202,7 +1202,7 @@ static void sub_801C5C4 (void) {
 
 static void sub_801C610 (unsigned char arg0) {
   unsigned short i;
-  CpuCopy16(g80B4894, g02000000.obj, 32);
+  CpuCopy16(g80B4894, gPaletteBuffer + 256, 32);
   sub_803EEFC(0, g80B1E94, 0x100);
   sub_803EEFC(1, g80B3E94, 0x50);
   for (i = 0; i < 128; i++) {
@@ -1325,7 +1325,7 @@ static void sub_801C870 (unsigned char arg0) {
 
 static void sub_801C98C (unsigned char arg0) {
   unsigned short i;
-  CpuCopy32(g80B8954, g02000000.obj, 32);
+  CpuCopy32(g80B8954, gPaletteBuffer + 256, 32);
   sub_803EEFC(0, g80B6954, 256);
   for (i = 0; i < 128; i++) {
     gOamBuffer[i * 4] = 0xA0;
@@ -1405,8 +1405,8 @@ static void sub_801CB24 (unsigned char arg0) {
   g8E00AA0->unk6 = 0;
   g8E00AA0->unk7 = 0;
   g8E00AA0->unk8 = 0;
-  CpuCopy16(g80B4894, g02000000.obj, 32);
-  CpuCopy16(g80B68B4, &g02000000.obj[16], 32);
+  CpuCopy16(g80B4894, gPaletteBuffer + 256, 32);
+  CpuCopy16(g80B68B4, gPaletteBuffer + 256 + 16, 32);
   sub_803EEFC(0, g80B1E94, 256);
   sub_803EEFC(1, g80B3E94, 80);
   sub_803EEFC(2, g80B48B4, 256);

@@ -46,7 +46,7 @@ void LoadOam (void) {
 }
 
 void LoadPalettes (void) {
-  CpuCopy16(&g02000000, (void*)PLTT, BG_PLTT_SIZE + OBJ_PLTT_SIZE);
+  CpuCopy16(gPaletteBuffer, (void*)PLTT, BG_PLTT_SIZE + OBJ_PLTT_SIZE);
 }
 
 static inline void Foo (void *src, void* dest, int size) {
@@ -109,7 +109,7 @@ void LoadCharblock5 (void) {
   Foo(gBgVram.cbb5, (void*)BG_CHAR_ADDR(5), BG_CHAR_SIZE);
 }
 
-void sub_8045718 (void) {
+void DisableDisplay (void) {
   *(u16*)BG_PLTT = 0;
   REG_DISPCNT = 0;
 }

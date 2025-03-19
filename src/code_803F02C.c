@@ -1141,7 +1141,7 @@ void sub_804078C (void) {
 }
 
 void sub_8040868 (void) {
-  CpuCopy16(g80DFDA4, &g02000000.obj[160], 32);
+  CpuCopy16(g80DFDA4, gPaletteBuffer + 256 + 160, 32);
 }
 
 //copy tiles to obj vram in 2D mode, 4bpp
@@ -1337,9 +1337,9 @@ void sub_8040B4C (void) {
   gBG1HOFS = 0;
   gBG1VOFS = 0;
   CpuCopy16(g80F09D0, gBgVram.cbb2, 64);
-  CpuCopy16(g80F0F00, &g02000000.bg[0x30], 32);
-  sub_8008BF8(&g02000000.bg[0x40]);
-  CpuCopy16(g80F3160, &g02000000.bg[0x70], 32);
+  CpuCopy16(g80F0F00, &gPaletteBuffer[0x30], 32);
+  sub_8008BF8(&gPaletteBuffer[0x40]);
+  CpuCopy16(g80F3160, &gPaletteBuffer[0x70], 32);
   for (i = 0; i < 20; i++)
     CpuCopy16(g80F0A50[i], gBgVram.sbb1D[i], 64);
   r6 = sub_08007FEC(17, 19, 0xE800);

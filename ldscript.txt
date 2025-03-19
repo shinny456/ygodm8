@@ -3,13 +3,12 @@ OUTPUT_ARCH(arm)
 SECTIONS
 {
     /* bss*/
-    g02000000 = 0x02000000;
+    gPaletteBuffer = 0x02000000;
     gBgVram = 0x02000400;
     gVr = 0x02000400;
     gOamBuffer = 0x02018400;
     gSharedMem = 0x02018800;
     /*^these are possibly defined in share.c, because the next symbol is g201CB20, which is in that file*/
-
 
     g201CB20 = 0x201CB20;
     g201CB24 = 0x201CB24;
@@ -25,6 +24,7 @@ SECTIONS
       src/card.o(.bss);
       src/code2.o(.bss);
       src/monster_attack_screen.o(.bss);
+      src/deck_menu.o(.bss);
     }
 
     /*
@@ -34,10 +34,11 @@ SECTIONS
     g201CB3C = 0x201CB3C;
     g201CB40 = 0x201CB40;
     g201CB44 = 0x201CB44;
-    */
-    g201CB48 = 0x201CB48;
-
+    
     g201CB50 = 0x201CB50;
+    */
+
+    
     g201CB58 = 0x201CB58;
     g201CB59 = 0x201CB59;
     g201CB60 = 0x201CB60;

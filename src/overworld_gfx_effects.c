@@ -49,13 +49,13 @@ void sub_804F78C (u16 arg0) {
     if (r4 >= 29)
       r4 -= 29;
     for (j = 0; j < 16; j++)
-      g02000000.bg[i * 16 + j] = 0;
+      gPaletteBuffer[i * 16 + j] = 0;
     if (arg0 <= g8E0E08C[i - 23])
       continue;
     for (j = 1; j < 16; j++) {
       if (r4 + j > 14)
         if (r4 + j < 31) {
-          *(g02000000.bg - 14 + i * 16 + r4 + j) = gSharedMem[i * 16 + j];
+          *(gPaletteBuffer - 14 + i * 16 + r4 + j) = gSharedMem[i * 16 + j];
         }
     }
   }
@@ -191,11 +191,11 @@ inline u16 sub_8051554_inline (struct Unk1234* arg0, s16 arg1) {
 }
 
 inline void sub_8051584 (void) {
-  CpuCopy16(g02000000.bg, gSharedMem, 0x400);
+  CpuCopy16(gPaletteBuffer, gSharedMem, 0x400);
 }
 
 inline void sub_80515A0 (void) {
-  CpuCopy16(gSharedMem, g02000000.bg, 0x400);
+  CpuCopy16(gSharedMem, gPaletteBuffer, 0x400);
 }
 
 inline void sub_80515BC (void) {
@@ -210,7 +210,7 @@ inline void sub_80515F4 (void) {
   u32 i;
   for (i = 0; g8E0E091[i] >= 0; i++) {
     sub_80515A0();
-    sub_8044F80(g02000000.bg, 0, 0x1FF, g8E0E091[i]);
+    sub_8044F80(gPaletteBuffer, 0, 0x1FF, g8E0E091[i]);
     WaitForVBlank();
     LoadPalettes();
   }
@@ -220,8 +220,8 @@ inline void sub_8051648 (void) {
   u32 i;
   for (i = 0; g8E0E099[i] >= 0; i++) {
     sub_80515A0();
-    sub_8044F80(g02000000.bg, 0, 0x16F, g8E0E099[i]);
-    sub_8044F80(g02000000.bg, 0x1C0, 0x1FF, g8E0E099[i]);
+    sub_8044F80(gPaletteBuffer, 0, 0x16F, g8E0E099[i]);
+    sub_8044F80(gPaletteBuffer, 0x1C0, 0x1FF, g8E0E099[i]);
     WaitForVBlank();
     LoadPalettes();
   }
@@ -541,9 +541,9 @@ void sub_804FA28 (struct Unk1234* arg0) {
     for (j = 0; j < 512; j++)
       *dest++ = *src++;
 
-  CpuCopy16(g8FC452C[arg0->unk0], g02000000.bg + 0x170, 0xA0);
+  CpuCopy16(g8FC452C[arg0->unk0], gPaletteBuffer + 0x170, 0xA0);
   if (CheckFlag(0xF3))
-    sub_8044E50(g02000000.bg, 0x170, 0x1BF);
+    sub_8044E50(gPaletteBuffer, 0x170, 0x1BF);
   WaitForVBlank();
   sub_804F2DC();
 }
@@ -670,9 +670,9 @@ void sub_804FB04 (struct Unk1234* arg0) {
     for (j = 0; g8FC4618[arg0->unk0][i][j].unk0; j++) {
       sub_804F850(arg0, i, j);
       sub_80515A0();
-      sub_8044EC8(g02000000.bg, 0, 0x16F, g8E0E0D2[j]);
-      sub_8044EC8(g02000000.bg, 0x1C0, 0x1FF, g8E0E0D2[j]);
-      sub_8044F80(g02000000.bg, 0, 0x1FF, g8E0E0AC[j]);
+      sub_8044EC8(gPaletteBuffer, 0, 0x16F, g8E0E0D2[j]);
+      sub_8044EC8(gPaletteBuffer, 0x1C0, 0x1FF, g8E0E0D2[j]);
+      sub_8044F80(gPaletteBuffer, 0, 0x1FF, g8E0E0AC[j]);
       for (k = 0; k < g8FC4618[arg0->unk0][i][j].unk0; k++) {
         WaitForVBlank();
         LoadOam();
@@ -712,7 +712,7 @@ void sub_804FC84 (struct Unk1234* arg0) {
 
   for (i = 0; g8E0E11C[i] >= 0; i++) {
     sub_80515A0();
-    sub_8044F80(g02000000.bg, 0, 0x1FF, g8E0E11C[i]);
+    sub_8044F80(gPaletteBuffer, 0, 0x1FF, g8E0E11C[i]);
     WaitForVBlank();
     LoadPalettes();
   }
@@ -790,8 +790,8 @@ void sub_805022C (struct Unk1234* arg0) {
       PlayMusic(0x14E);
     if (g8E0E20E[i] < 6) {
       sub_80515A0();
-      sub_8044EC8(g02000000.bg, 0, 0x16F, g8E0E20E[i]);
-      sub_8044EC8(g02000000.bg, 0x1C0, 0x1FF, g8E0E20E[i]);
+      sub_8044EC8(gPaletteBuffer, 0, 0x16F, g8E0E20E[i]);
+      sub_8044EC8(gPaletteBuffer, 0x1C0, 0x1FF, g8E0E20E[i]);
     }
     WaitForVBlank();
     LoadOam();
@@ -802,8 +802,8 @@ void sub_805022C (struct Unk1234* arg0) {
   }
   for (i = 0; g8E0E284[i] >= 0; i++) {
     sub_80515A0();
-    sub_8044EC8(g02000000.bg, 0, 0x16F, g8E0E284[i]);
-    sub_8044EC8(g02000000.bg, 0x1C0, 0x1FF, g8E0E284[i]);
+    sub_8044EC8(gPaletteBuffer, 0, 0x16F, g8E0E284[i]);
+    sub_8044EC8(gPaletteBuffer, 0x1C0, 0x1FF, g8E0E284[i]);
     WaitForVBlank();
     LoadPalettes();
   }
@@ -831,7 +831,7 @@ void sub_80503D8 (struct Unk1234* arg0) {
           sb += 2;
           if (sb > 16)
             sb = 16;
-          sub_8044F80(g02000000.bg, 0, 0x1FF, sb);
+          sub_8044F80(gPaletteBuffer, 0, 0x1FF, sb);
         }
         WaitForVBlank();
         LoadOam();
@@ -859,13 +859,13 @@ void sub_8050584 (struct Unk1234* arg0) {
     for (j = 0; g8FC4618[arg0->unk0][i][j].unk0; j++) {
       sub_804F850(arg0, i, j);
       sub_80515A0();
-      sub_8044EC8(g02000000.bg, 0, 0x16F, g8E0E20E[j]);
-      sub_8044EC8(g02000000.bg, 0x1C0, 0x1FF, g8E0E20E[j]);
+      sub_8044EC8(gPaletteBuffer, 0, 0x16F, g8E0E20E[j]);
+      sub_8044EC8(gPaletteBuffer, 0x1C0, 0x1FF, g8E0E20E[j]);
       if (j > 10) {
         sl += 3;
         if (sl > 16)
           sl = 16;
-        sub_8044F80(g02000000.bg, 0, 0x1FF, sl);
+        sub_8044F80(gPaletteBuffer, 0, 0x1FF, sl);
       }
       for (k = 0; k < g8FC4618[arg0->unk0][i][j].unk0; k++) {
         WaitForVBlank();
@@ -896,9 +896,9 @@ void sub_8050748 (struct Unk1234* arg0) {
   WaitForVBlank();
   LoadOam();
   for (i = 0; g8E0E2A0[i] >= 0; i++) {
-    sub_8044EC8(g02000000.bg, 1, 0x19F, g8E0E2A0[i]);
-    sub_8044EC8(g02000000.bg, 0x1C0, 0x1FF, g8E0E2A0[i]);
-    g02000000.bg[0] = 0xFFFF;
+    sub_8044EC8(gPaletteBuffer, 1, 0x19F, g8E0E2A0[i]);
+    sub_8044EC8(gPaletteBuffer, 0x1C0, 0x1FF, g8E0E2A0[i]);
+    gPaletteBuffer[0] = 0xFFFF;
     WaitForVBlank();
     LoadPalettes();
   }
@@ -922,8 +922,8 @@ void sub_8050748 (struct Unk1234* arg0) {
   REG_DISPCNT = DISPCNT_BG_ALL_ON | DISPCNT_OBJ_ON;
   for (i = 0; g8E0E2B2[i] >= 0; i++) {
     sub_80515A0();
-    sub_8044EC8(g02000000.bg, 0, 0x16F, g8E0E2B2[i]);
-    sub_8044EC8(g02000000.bg, 0x1C0, 0x1FF, g8E0E2B2[i]);
+    sub_8044EC8(gPaletteBuffer, 0, 0x16F, g8E0E2B2[i]);
+    sub_8044EC8(gPaletteBuffer, 0x1C0, 0x1FF, g8E0E2B2[i]);
     WaitForVBlank();
     LoadPalettes();
   }
@@ -943,9 +943,9 @@ void sub_8050978 (struct Unk1234* arg0) {
     for (j = 0; g8FC4618[arg0->unk0][i][j].unk0; j++) {
       sub_804F850(arg0, i, j);
       sub_80515A0();
-      sub_8044EC8(g02000000.bg, 0, 0x13F, g8E0E20E[j]);
-      sub_8044EC8(g02000000.bg, 0x150, 0x16F, g8E0E20E[j]);
-      sub_8044EC8(g02000000.bg, 0x1C0, 0x1FF, g8E0E20E[j]);
+      sub_8044EC8(gPaletteBuffer, 0, 0x13F, g8E0E20E[j]);
+      sub_8044EC8(gPaletteBuffer, 0x150, 0x16F, g8E0E20E[j]);
+      sub_8044EC8(gPaletteBuffer, 0x1C0, 0x1FF, g8E0E20E[j]);
       for (k = 0; k < g8FC4618[arg0->unk0][i][j].unk0; k++) {
         WaitForVBlank();
         LoadOam();
@@ -955,9 +955,9 @@ void sub_8050978 (struct Unk1234* arg0) {
   }
   for (i = 0; g8E0E284[i] >= 0; i++) {
     sub_80515A0();
-    sub_8044EC8(g02000000.bg, 0, 0x13F, g8E0E284[i]);
-    sub_8044EC8(g02000000.bg, 0x150, 0x16F, g8E0E284[i]);
-    sub_8044EC8(g02000000.bg, 0x1C0, 0x1FF, g8E0E284[i]);
+    sub_8044EC8(gPaletteBuffer, 0, 0x13F, g8E0E284[i]);
+    sub_8044EC8(gPaletteBuffer, 0x150, 0x16F, g8E0E284[i]);
+    sub_8044EC8(gPaletteBuffer, 0x1C0, 0x1FF, g8E0E284[i]);
     WaitForVBlank();
     LoadPalettes();
   }
@@ -985,7 +985,7 @@ void sub_8050B50 (struct Unk1234* arg0) {
           sb++;
           if (sb > 16)
             sb = 16;
-          sub_8044F80(g02000000.bg, 0, 0x1FF, sb);
+          sub_8044F80(gPaletteBuffer, 0, 0x1FF, sb);
         }
         WaitForVBlank();
         LoadOam();
@@ -1022,8 +1022,8 @@ void sub_8050CC0 (struct Unk1234* arg0) {
         LoadOam();
         LoadPalettes();
         sub_80515A0();
-        sub_8044EC8(g02000000.bg, 0, 0x16F, g8E0E20E[j]);
-        sub_8044EC8(g02000000.bg, 0x1C0, 0x1FF, g8E0E20E[j]);
+        sub_8044EC8(gPaletteBuffer, 0, 0x16F, g8E0E20E[j]);
+        sub_8044EC8(gPaletteBuffer, 0x1C0, 0x1FF, g8E0E20E[j]);
       }
       else if (g8E0E2C4[j] > 2) {
         r8 += 2;
@@ -1046,7 +1046,7 @@ void sub_8050CC0 (struct Unk1234* arg0) {
   sub_8051740();
   for (j = 0; g8E0E091[j] >= 0; j++) {
     sub_80515A0();
-    sub_8044F80(g02000000.bg, 0, 0x1FF, g8E0E091[j]);
+    sub_8044F80(gPaletteBuffer, 0, 0x1FF, g8E0E091[j]);
     WaitForVBlank();
     LoadPalettes();
   }
@@ -1064,21 +1064,21 @@ void sub_8050EE0 (struct Unk1234* arg0) {
 
   for (i = 0; g8E0E2FF[i] >= 0; i++) {
     sub_80515A0();
-    sub_8044EC8(g02000000.bg, 0, 0x1FF, g8E0E2FF[i]);
+    sub_8044EC8(gPaletteBuffer, 0, 0x1FF, g8E0E2FF[i]);
     WaitForVBlank();
     LoadPalettes();
   }
   for (i = 0; i < 6; i++) {
     LZ77UnCompWram(g8E0E324[i], gBgVram.cbb0 + g8E0E36C[i]);
     CpuCopy16(g8E0E33C[i], gBgVram.cbb0 + g8E0E372[i] * 2, 0x800); /*use u16 ptr arithmetic instead*/
-    CpuCopy16(g8E0E354[i], g02000000.bg + g8E0E37E[i], 0x1E0);
+    CpuCopy16(g8E0E354[i], gPaletteBuffer + g8E0E37E[i], 0x1E0);
     WaitForVBlank();
     sub_804EC4C();
     sub_805787C(0x80);
   }
   for (i = 0; g8E0E311[i] >= 0; i++) {
     sub_80515A0();
-    sub_8044EC8(g02000000.bg, 0, 0x1FF, g8E0E311[i]);
+    sub_8044EC8(gPaletteBuffer, 0, 0x1FF, g8E0E311[i]);
     WaitForVBlank();
     LoadPalettes();
   }

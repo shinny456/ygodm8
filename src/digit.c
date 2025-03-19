@@ -37,12 +37,11 @@ void sub_800DDA0 (unsigned short arg0, unsigned char arg1) {
       r1 = arg0 / r7;
       if (r1)
         g2021BD0[r4] = r1;
-      else {
-        if (r4)
-          if (g2021BD0[r4 - 1] != 10)
-            g2021BD0[r4] = r1;
-          else if (r4 == 4)
-            g2021BD0[4] = r1;
+      else if (r4) {
+        if (g2021BD0[r4 - 1] != 10)
+          g2021BD0[r4] = r1;
+        else if (r4 == 4)
+          g2021BD0[4] = r1;
       }
       if (!r1) {
         if (!r4) {
@@ -79,12 +78,11 @@ void sub_800DEAC (unsigned long long arg0, unsigned char arg1) {
     r1 = arg0 / r56;
     if (r1)
       g2021BE0[r4] = r1;
-    else {
-      if (r4)
-        if (g2021BE0[r4 - 1] != 10)
-          g2021BE0[r4] = r1;
-        else if (r4 == 18)
-          g2021BE0[18] = r1;
+    else if (r4) {
+      if (g2021BE0[r4 - 1] != 10)
+        g2021BE0[r4] = r1;
+      else if (r4 == 18)
+        g2021BE0[18] = r1;
     }
     if (!r1) {
       if (!r4) {

@@ -1,5 +1,6 @@
 #include "global.h"
 
+static void sub_80526D0 (struct ScriptCtx*);
 static void sub_80527E8 (struct ScriptCtx *);
 static void sub_8052F60 (struct ScriptCtx *);
 static void sub_8053040 (struct ScriptCtx *);
@@ -9,13 +10,7 @@ static void sub_8053284 (struct ScriptCtx *);
 static void sub_80532A8 (struct ScriptCtx *);
 static void sub_80532E8 (struct ScriptCtx *);
 
-//3007e54
-//related to scripting (printing text etc) sub_80526D0
-//E2AEC2...
 
-
-
-void sub_80526D0 (struct ScriptCtx*);
 void sub_804F544 (void);
 void sub_804ECA8 (void);
 void sub_80553F8(struct ScriptCtx *script, u8);
@@ -29,7 +24,7 @@ extern u16 gNewButtons;
 
 
 
-void InitiateScript(struct Script *script) {
+void InitiateScript (struct Script *script) {
   struct ScriptCtx scriptCtx;
   scriptCtx.unk0 = 0;
   scriptCtx.pointer = 0;
@@ -55,30 +50,13 @@ void InitiateScript(struct Script *script) {
   scriptCtx.unk8 = 0;
 }
 
-inline void sub_8053404 (struct ScriptCtx* script) {
-  sub_805339C();
-  REG_WINOUT = 0x3D3E;
-  sub_804F508();
-  REG_BLDCNT = 0;
-}
 
-inline void sub_805339C (void) {
-  sub_804EB04(gOamBuffer, 2);
-  SetVBlankCallback(LoadOam);
-  WaitForVBlank();
-}
 
-inline void sub_80533BC (void) {
-  REG_WIN1H = 0x03ED;
-  REG_WIN1V = 0x739D;
-  (*(vu8 *)(REG_BASE + 0x49)) = 0x3F;
-  REG_WINOUT = 0x1D1E;
-  sub_804F544();
-  REG_BLDCNT = 0xDE;
-  REG_BLDY = 7;
-}
 
-inline void sub_805342C (u8* dest, u8* src) {
+
+
+
+static inline void sub_805342C_inline (u8* dest, u8* src) {
   int i, j;
   for (i = 0; i < 8; dest += 512, i++)
     for (j = 0; j < 512; j++)
@@ -87,20 +65,73 @@ inline void sub_805342C (u8* dest, u8* src) {
 
 static void DisplayPortrait (struct ScriptCtx* scriptCtx) {
   struct OamData* oam = gOamBuffer;
-  if (scriptCtx->unk86 == 1)
-    sub_80533BC();
-  sub_805339C();
+  if (scriptCtx->unk86 == 1) {
+    REG_WIN1H = 0x03ED;
+    REG_WIN1V = 0x739D;
+    (*(vu8 *)(REG_BASE + 0x49)) = 0x3F;
+    REG_WINOUT = 0x1D1E;
+    sub_804F544();
+    REG_BLDCNT = 0xDE;
+    REG_BLDY = 7;
+  }
+  sub_804EB04(oam, 2);
+  SetVBlankCallback(LoadOam);
+  WaitForVBlank();
   sub_804EB04(oam, scriptCtx->unk85);
   LZ77UnCompWram(g8FA31C0[scriptCtx->unk0][scriptCtx->unk84], gSharedMem);
-  sub_805342C(gBgVram.cbb4 + 0x2000, gSharedMem);
-  CpuCopy16(*g8FA3360[scriptCtx->unk0], g02000000.obj + 0xC0, 128);
+  sub_805342C_inline(gBgVram.cbb4 + 0x2000, gSharedMem);
+  CpuCopy16(*g8FA3360[scriptCtx->unk0], gPaletteBuffer + 256 + 0xC0, 128);
   if (CheckFlag(0xF3))
-    sub_8044E50(g02000000.bg, 0x1C0, 0x1FF);
+    sub_8044E50(gPaletteBuffer, 0x1C0, 0x1FF);
   WaitForVBlank();
   sub_804EC64();
 }
 
-inline void sub_8053334 (struct ScriptCtx* scriptCtx) {
+static void sub_80526D0 (struct ScriptCtx* scriptCtx) {
+  while (1) {
+    if (scriptCtx->currentScript.start[scriptCtx->pointer] == 0)
+    {
+        struct Script *chooseScript;
+        if (!scriptCtx->unk1E)
+            chooseScript = scriptCtx->currentScript.unk4;
+        else
+            chooseScript = scriptCtx->currentScript.unk8;
+
+        scriptCtx->currentScript.start = chooseScript->start;
+        scriptCtx->currentScript.unk4 = chooseScript->unk4;
+        scriptCtx->currentScript.unk8 = chooseScript->unk8;
+        scriptCtx->pointer = 0;
+        scriptCtx->unk1E = 0;
+        sub_8053388(scriptCtx);
+    }
+    if (scriptCtx->currentScript.start[0] == 0x5D)
+        break;
+    switch (scriptCtx->unkC)
+    {
+    case 0:
+        sub_80527E8(scriptCtx); //handle scripting commands? including text?
+        break;
+    case 1:
+        sub_8052F60(scriptCtx); //new paragraph?
+        break;
+    case 2:
+        sub_8053138(scriptCtx); //unused?
+        break;
+    case 3:
+        sub_8053040(scriptCtx); //handle option command
+        break;
+    }
+    if (scriptCtx->unk86 == 1) {
+      REG_WIN1H = 0x03ED;
+      REG_WIN1V = 0x739D;
+      (*(vu8 *)(REG_BASE + 0x49)) = 0x3F;
+      REG_WINOUT = 0x1D1E;
+      sub_804F544();
+      REG_BLDCNT = 0xDE;
+      REG_BLDY = 7;
+    }
+    sub_804F218();
+  }
   if (gOverworld.unk240 & 2)
     return;
   PlayOverworldMusic();
@@ -110,57 +141,6 @@ inline void sub_8053334 (struct ScriptCtx* scriptCtx) {
   REG_WINOUT = 0x3D3E;
   sub_804F508();
   REG_BLDCNT = 0;
-}
-
-void sub_80526D0(struct ScriptCtx* scriptCtx)
-{
-    while (1)
-    {
-        if (scriptCtx->currentScript.start[scriptCtx->pointer] == 0)
-        {
-            struct Script *chooseScript;
-            if (!scriptCtx->unk1E)
-                chooseScript = scriptCtx->currentScript.unk4;
-            else
-                chooseScript = scriptCtx->currentScript.unk8;
-
-            scriptCtx->currentScript.start = chooseScript->start;
-            scriptCtx->currentScript.unk4 = chooseScript->unk4;
-            scriptCtx->currentScript.unk8 = chooseScript->unk8;
-            scriptCtx->pointer = 0;
-            scriptCtx->unk1E = 0;
-            sub_8053388(scriptCtx);
-        }
-        if (scriptCtx->currentScript.start[0] == 0x5D)
-            break;
-        switch (scriptCtx->unkC)
-        {
-        case 0:
-            sub_80527E8(scriptCtx); //handle scripting commands? including text?
-            break;
-        case 1:
-            sub_8052F60(scriptCtx); //new paragraph?
-            break;
-        case 2:
-            sub_8053138(scriptCtx);
-            break;
-        case 3:
-            sub_8053040(scriptCtx); //handle option command
-            break;
-        }
-        if (scriptCtx->unk86 == 1)
-          sub_80533BC();
-        sub_804F218();
-    }
-    if (gOverworld.unk240 & 2)
-      return;
-    PlayOverworldMusic();
-    scriptCtx->unk0 = 0;
-    scriptCtx->unk84 = 0;
-    DisplayPortrait(scriptCtx);
-    REG_WINOUT = 0x3D3E;
-    sub_804F508();
-    REG_BLDCNT = 0;
 }
 
 static void sub_80527E8(struct ScriptCtx *script)
@@ -215,7 +195,7 @@ static void sub_80527E8(struct ScriptCtx *script)
             SetFlag(script->currentScript.start[script->pointer + 1]);
             script->pointer += 2;
             break;
-        case '7': //is flag set
+        case '7': //check flag
             script->unk1E = CheckFlag(script->currentScript.start[script->pointer + 1]);
             script->pointer += 2;
             break;
@@ -243,7 +223,13 @@ static void sub_80527E8(struct ScriptCtx *script)
             {
                 script->unk1E = 0;
                 sub_804ED08();
-                sub_80533BC();
+                REG_WIN1H = 0x03ED;
+                REG_WIN1V = 0x739D;
+                (*(vu8 *)(REG_BASE + 0x49)) = 0x3F;
+                REG_WINOUT = 0x1D1E;
+                sub_804F544();
+                REG_BLDCNT = 0xDE;
+                REG_BLDY = 7;
             }
             else
                 script->unk1E = 1;
@@ -253,7 +239,7 @@ static void sub_80527E8(struct ScriptCtx *script)
         case '1':
             InitStartMenuFromScript();
             sub_804ED08();
-            script->pointer += 2;
+            script->pointer += 2; // unused arg?
             break;
         case '2':
             SaveGame();
@@ -261,7 +247,7 @@ static void sub_80527E8(struct ScriptCtx *script)
             break;
         case '3': //play music (arg0 = id, .2byte)
             PlayMusic(script->currentScript.start[script->pointer + 1] +
-                       (script->currentScript.start[script->pointer + 2] << 8));
+                       (script->currentScript.start[script->pointer + 2] << 8)); //TODO: replace these 8's by CHAR_BIT (does it correspond to GAS .byte?)
             script->pointer += 3;
             break;
         case '4':
@@ -279,7 +265,7 @@ static void sub_80527E8(struct ScriptCtx *script)
                        (script->currentScript.start[script->pointer + 2] << 8));
             script->pointer += 3;
             break;
-        case '7': //move_object (arg0 = obj_id, arg1 = orientation(UDLR), arg2 = displacement, arg3 = ?)
+        case '7': //move_object (arg0 = obj_id, arg1 = direction(UDLR), arg2 = displacement, arg3 = ?)
             sub_805345C(script->currentScript.start[script->pointer + 1],
                         script->currentScript.start[script->pointer + 2],
                         script->currentScript.start[script->pointer + 3],
@@ -291,7 +277,7 @@ static void sub_80527E8(struct ScriptCtx *script)
             sub_8034FE0();
             script->pointer++;
             break;
-        case '9':  //move_object(instantaneous) arg0 = obj_id, arg1 = x, arg2 = y, arg3 = frame of the sprite
+        case '9':  //move_object(instantaneous, set_object?) arg0 = obj_id, arg1 = x, arg2 = y, arg3 = frame of the sprite
             sub_8053CF0(script->currentScript.start[script->pointer + 1],
                         script->currentScript.start[script->pointer + 2],
                         script->currentScript.start[script->pointer + 3],
@@ -304,7 +290,9 @@ static void sub_80527E8(struct ScriptCtx *script)
     case 0x5E:
         switch (script->currentScript.start[++script->pointer])
         {
-        case '0': //drop_object (obj_id, x, y, frame, ?, ?)
+        case '0': //show_object (obj_id, x, y, frame, ?, unused)
+                  //arg4 = 0: instant, 1: blend, 2:drop, 3:instant with shadow, 4: instant no shadow?
+                  //how is 0 different from 4?
             sub_8053520(script->currentScript.start[script->pointer + 1],
                         script->currentScript.start[script->pointer + 2],
                         script->currentScript.start[script->pointer + 3],
@@ -357,7 +345,7 @@ static void sub_80527E8(struct ScriptCtx *script)
             script->pointer += 3;
             break;
         case '8':
-            sub_8008D88(script->currentScript.start[script->pointer + 1] +
+            RemoveCardFromTrunkOrDeck(script->currentScript.start[script->pointer + 1] +
                        (script->currentScript.start[script->pointer + 2] << 8));
             script->pointer += 3;
             break;
@@ -389,7 +377,10 @@ static void sub_80527E8(struct ScriptCtx *script)
             break;
         case '3':
             script->unk86 = 0;
-            sub_8053404(script);
+            sub_805339C();
+            REG_WINOUT = 0x3D3E;
+            sub_804F508();
+            REG_BLDCNT = 0;
             script->pointer++;
             break;
         case '4':
@@ -398,7 +389,7 @@ static void sub_80527E8(struct ScriptCtx *script)
                         script);
             script->pointer += 3;
             break;
-        case '5': //warp to another map (arg0 = map, arg1 = state, arg2 = connection)
+        case '5': //warp to another map (arg0 = map, arg1 = state, arg2 = connection, arg3 unused)
             gOverworld.unk240 |= 2;
             sub_80523EC(script->currentScript.start[script->pointer + 1],
                         script->currentScript.start[script->pointer + 2],
@@ -465,19 +456,15 @@ static void sub_80527E8(struct ScriptCtx *script)
     }
 }
 
-inline void sub_8053388 (struct ScriptCtx *script) {
-  if (script->unkD == 1)
-    script->unk8 = 0;
-  else
-    script->unk8 = 1;
-}
-
 //waiting for player to press A, B, or R to close text box.
 static void sub_8052F60 (struct ScriptCtx *script) {
   if (gNewButtons & (A_BUTTON | B_BUTTON | R_BUTTON)) {
     PlayMusic(202);
     script->pointer++;
-    sub_8053388(script);
+    if (script->unkD == 1)
+      script->unk8 = 0;
+    else
+      script->unk8 = 1;
     script->unk1C = 0;
     script->unkC = 0;
     LZ77UnCompWram(g82AD2D0, gBgVram.sbb1B);
@@ -502,12 +489,15 @@ static void sub_8052F60 (struct ScriptCtx *script) {
   }
 }
 
-//waiting for player to press A, B, or R to close text box.
+//waiting for player to press A, B, or R to close text box. (option text box)
 static void sub_8053040 (struct ScriptCtx *script) {
   if (gNewButtons & (A_BUTTON | B_BUTTON | R_BUTTON)) {
     PlayMusic(55);
     script->pointer += 2;
-    sub_8053388(script);
+    if (script->unkD == 1)
+      script->unk8 = 0;
+    else
+      script->unk8 = 1;
     script->unk1C = 0;
     script->unkC = 0;
     LZ77UnCompWram(g82AD2D0, gBgVram.sbb1B);
@@ -646,4 +636,53 @@ _08053314:\n\
 	bx r0\n\
 	.align 2, 0\n\
 _08053330: .4byte gPlayerName");
+}
+
+void sub_8053334 (struct ScriptCtx* scriptCtx) {
+  if (gOverworld.unk240 & 2)
+    return;
+  PlayOverworldMusic();
+  scriptCtx->unk0 = 0;
+  scriptCtx->unk84 = 0;
+  DisplayPortrait(scriptCtx);
+  REG_WINOUT = 0x3D3E;
+  sub_804F508();
+  REG_BLDCNT = 0;
+}
+
+void sub_8053388 (struct ScriptCtx *script) {
+  if (script->unkD == 1)
+    script->unk8 = 0;
+  else
+    script->unk8 = 1;
+}
+
+void sub_805339C (void) {
+  sub_804EB04(gOamBuffer, 2);
+  SetVBlankCallback(LoadOam);
+  WaitForVBlank();
+}
+
+void sub_80533BC (void) {
+  REG_WIN1H = 0x03ED;
+  REG_WIN1V = 0x739D;
+  (*(vu8 *)(REG_BASE + 0x49)) = 0x3F;
+  REG_WINOUT = 0x1D1E;
+  sub_804F544();
+  REG_BLDCNT = 0xDE;
+  REG_BLDY = 7;
+}
+
+void sub_8053404 () {
+  sub_805339C();
+  REG_WINOUT = 0x3D3E;
+  sub_804F508();
+  REG_BLDCNT = 0;
+}
+
+static void sub_805342C (u8* dest, u8* src) {
+  int i, j;
+  for (i = 0; i < 8; dest += 512, i++)
+    for (j = 0; j < 512; j++)
+      *dest++ = *src++;
 }

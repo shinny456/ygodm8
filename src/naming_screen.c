@@ -64,11 +64,11 @@ void NamingScreenMain (void) {
   sub_800604C();
   PlayMusic(0x2E);
   LZ77UnCompWram(gUnk_807A9EC, gBgVram.cbb0);
-  CpuCopy16(gUnk_8081440, g02000000.bg, 512);
+  CpuCopy16(gUnk_8081440, gPaletteBuffer, 512);
   for (i = 0; i < 20; i++)
     CpuCopy16(gUnk_8081640[i], gBgVram.cbb0 + 0xF000 + i * 64, 60);
   CpuCopy16(gUnk_8081F10, gBgVram.cbb0 + 0xF800, 1216);
-  CpuCopy16(gUnk_8081AF0, g02000000.obj, 512);
+  CpuCopy16(gUnk_8081AF0, gPaletteBuffer + 256, 512);
   LZ77UnCompWram(gUnk_807F2F0, gBgVram.cbb0 + 0x10000);
   sub_8020DB8((u32*)(gBgVram.cbb0 + 0x8020), (u8*)gUnk_8DF8114->unkE, 0x901);
   sub_800683C();

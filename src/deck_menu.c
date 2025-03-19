@@ -1,5 +1,6 @@
 #include "global.h"
 
+static unsigned char g201CB50;
 
 static unsigned short ProcessInput (void);
 static void DeckMenuDefaultSort (void);
@@ -52,7 +53,6 @@ extern unsigned short gNewButtons;
 extern unsigned short gUnk2021DCC;
 extern unsigned short gPressedButtons;
 extern unsigned short gRepeatedOrNewButtons;
-extern unsigned char g201CB50;
 extern unsigned char gE00AD4[];
 extern unsigned char gE00AD6[];
 extern unsigned short gOamBuffer[];
@@ -227,7 +227,7 @@ static void sub_801D4A4 (void) {
 }
 
 static void sub_801D4B8 (void) {
-  unsigned char r4;
+  unsigned char keepProcessing;
   g201CB50 = 0;
   PlayMusic(0x37);
   sub_801DE5C();
@@ -235,8 +235,8 @@ static void sub_801D4B8 (void) {
   LoadCharblock1();
   SetVBlankCallback(sub_801D68C);
   WaitForVBlank();
-  r4 = 1;
-  while (r4) {
+  keepProcessing = 1;
+  while (keepProcessing) {
     switch (sub_801D368()) {
       case 0x40:
         sub_801D548();
@@ -251,12 +251,12 @@ static void sub_801D4B8 (void) {
             break;
           case 1:
             sub_801D600();
-            r4 = 0;
+            keepProcessing = 0;
             break;
         }
         break;
       case 2:
-        r4 = 0;
+        keepProcessing = 0;
         PlayMusic(0x38);
         break;
       default:
@@ -478,6 +478,7 @@ void sub_801D918 (void) {
   gPlayerDeck.unk4 = 0;
 }
 
+// remove all copies
 void sub_801D960 (unsigned short id) {
   unsigned i, j;
   for (i = 0; i < 40; i++)
@@ -502,6 +503,7 @@ void sub_801D960 (unsigned short id) {
   }
 }
 
+// remove one copy
 void sub_801D9B8 (unsigned short id) {
   unsigned i, j;
   for (i = 0; i < 40; i++)
@@ -854,7 +856,7 @@ void sub_801E27C (void) {
       CpuFastSet(g8DFB494, &gBgVram.cbb0[320], 0x50);
       break;
   }
-  CpuCopy32(gUnk_808C1C0, g02000000.bg, 128);
+  CpuCopy32(gUnk_808C1C0, gPaletteBuffer, 128);
   for (i = 0; i < 20; i++)
     CpuCopy32(gUnk_808BD10[i], &((struct Sbb*)&gBgVram)->sbb7[i], 60);
   CpuFill16(0, &((struct Sbb*)&gBgVram)->sbb10[i], 32);
