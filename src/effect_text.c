@@ -24,7 +24,7 @@ gE00AA4 = {
 
 void sub_801CEBC (void) {
   struct DuelText duelText;
-  if (gDuelType == 6) {
+  if (gDuelType == DUEL_TYPE_LINK) {
     sub_80240BC(&duelText);
     duelText.textId = 24;
     sub_802408C(&duelText);

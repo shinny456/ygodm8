@@ -99,6 +99,10 @@ gBoard[]:
 // 6: Link Duel
 extern u8 gDuelType;
 
+enum DuelType {
+  DUEL_TYPE_INGAME = 0,
+  DUEL_TYPE_LINK = 6
+};
 
 //*********************
 void sub_803FEA4(int unused);
@@ -652,10 +656,6 @@ struct Unk2021AF0
 };
 
 extern struct Unk2021AF0 g2021AF0;
-
-enum DuelType {
-  DUEL_TYPE_INGAME
-};
 
 
 #endif // GUARD_DUEL_H

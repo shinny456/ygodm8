@@ -1170,7 +1170,7 @@ static void EffectBlackLusterRitual (void) {
 //these ritual effects seem to be leftover from The Sacred Cards
 //(the card IDs do not match ROD's)
 
-static void sub_804AED8 (void) {
+static void LeftoverRitualFromSacredCards_804AED8 (void) {
   if (RowHasCardMatch(gZones[2], gRitualComponents[2][0]) == 1)
   {
     u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[2][0]);
@@ -1181,14 +1181,14 @@ static void sub_804AED8 (void) {
 
     if (!gHideEffectText)
     {
-      gCardEffectTextData.cardId = 0x029F; //hardcoded id
+      gCardEffectTextData.cardId = 0x029F; // leftover id from Sacred Cards
       gCardEffectTextData.cardId2 = gRitualComponents[2][1];
       sub_801CEBC();
     }
   }
 }
 
-static void sub_804AF58 (void) {
+static void LeftoverRitualFromSacredCards_804AF58 (void) {
   if (RowHasCardMatch(gZones[2], gRitualComponents[3][0]) == 1)
   {
     u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[3][0]);
@@ -1199,14 +1199,14 @@ static void sub_804AF58 (void) {
 
     if (!gHideEffectText)
     {
-      gCardEffectTextData.cardId = 0x02A1; //hardcoded id
+      gCardEffectTextData.cardId = 0x02A1; // leftover id from Sacred Cards
       gCardEffectTextData.cardId2 = gRitualComponents[3][1];
       sub_801CEBC();
     }
   }
 }
 
-static void sub_804AFD8 (void) {
+static void LeftoverRitualFromSacredCards_804AFD8 (void) {
   if (RowHasCardMatch(gZones[2], gRitualComponents[4][0]) == 1)
   {
     u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[4][0]);
@@ -1217,14 +1217,14 @@ static void sub_804AFD8 (void) {
 
     if (!gHideEffectText)
     {
-      gCardEffectTextData.cardId = 0x02A2; //hardcoded id
+      gCardEffectTextData.cardId = 0x02A2; // leftover id from Sacred Cards
       gCardEffectTextData.cardId2 = gRitualComponents[4][1];
       sub_801CEBC();
     }
   }
 }
 
-static void sub_804B058 (void) {
+static void LeftoverRitualFromSacredCards_804B058 (void) {
   u8 zones[3];
   u8 ritualId;
 
@@ -1248,7 +1248,7 @@ static void sub_804B058 (void) {
 
   if (!gHideEffectText)
   {
-    gCardEffectTextData.cardId = 0x02A3; //hardcoded id
+    gCardEffectTextData.cardId = 0x02A3; // leftover id from Sacred Cards
     gCardEffectTextData.cardId2 = gRitualComponents[ritualId][1];
     sub_801CEBC();
   }
@@ -1287,7 +1287,7 @@ unsigned sub_804B144 (u8* zones, u16* ritualArr)
   return 1;
 }
 
-static void sub_804B20C (void) {
+static void LeftoverRitualFromSacredCards_804B20C (void) {
   if (RowHasCardMatch(gZones[2], gRitualComponents[9][0]) == 1)
   {
     u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[9][0]);
@@ -1298,14 +1298,14 @@ static void sub_804B20C (void) {
 
     if (!gHideEffectText)
     {
-      gCardEffectTextData.cardId = 0x02A4; //hardcoded id
+      gCardEffectTextData.cardId = 0x02A4; // leftover id from Sacred Cards
       gCardEffectTextData.cardId2 = gRitualComponents[9][1];
       sub_801CEBC();
     }
   }
 }
 
-static void sub_804B294 (void) {
+static void LeftoverRitualFromSacredCards_804B294 (void) {
   if (RowHasCardMatch(gZones[2], gRitualComponents[10][0]) == 1)
   {
     u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[10][0]);
@@ -1316,14 +1316,14 @@ static void sub_804B294 (void) {
 
     if (!gHideEffectText)
     {
-      gCardEffectTextData.cardId = 0x02A5; //hardcoded id
+      gCardEffectTextData.cardId = 0x02A5; // leftover id from Sacred Cards
       gCardEffectTextData.cardId2 = gRitualComponents[10][1];
       sub_801CEBC();
     }
   }
 }
 
-static void sub_804B31C (void) {
+static void LeftoverRitualFromSacredCards_804B31C (void) {
   if (RowHasCardMatch(gZones[2], gRitualComponents[11][0]) == 1)
   {
     u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[11][0]);
@@ -1334,14 +1334,14 @@ static void sub_804B31C (void) {
 
     if (!gHideEffectText)
     {
-      gCardEffectTextData.cardId = 0x02A6; //hardcoded id
+      gCardEffectTextData.cardId = 0x02A6; // leftover id from Sacred Cards
       gCardEffectTextData.cardId2 = gRitualComponents[11][1];
       sub_801CEBC();
     }
   }
 }
 
-static void sub_804B3A4 (void) {
+static void LeftoverRitualFromSacredCards_804B3A4 (void) {
   if (RowHasCardMatch(gZones[2], gRitualComponents[12][0]) == 1)
   {
     u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[12][0]);
@@ -1352,14 +1352,14 @@ static void sub_804B3A4 (void) {
 
     if (!gHideEffectText)
     {
-      gCardEffectTextData.cardId = 0x02A7; //hardcoded id
+      gCardEffectTextData.cardId = 0x02A7; // leftover id from Sacred Cards
       gCardEffectTextData.cardId2 = gRitualComponents[12][1];
       sub_801CEBC();
     }
   }
 }
 
-static void sub_804B42C (void) {
+static void LeftoverRitualFromSacredCards_804B42C (void) {
   if (RowHasCardMatch(gZones[2], gRitualComponents[13][0]) == 1)
   {
     u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[13][0]);
@@ -1370,14 +1370,14 @@ static void sub_804B42C (void) {
 
     if (!gHideEffectText)
     {
-      gCardEffectTextData.cardId = 0x02A8; //hardcoded id
+      gCardEffectTextData.cardId = 0x02A8; // leftover id from Sacred Cards
       gCardEffectTextData.cardId2 = gRitualComponents[13][1];
       sub_801CEBC();
     }
   }
 }
 
-static void sub_804B4B4 (void) {
+static void LeftoverRitualFromSacredCards_804B4B4 (void) {
   if (RowHasCardMatch(gZones[2], gRitualComponents[14][0]) == 1)
   {
     u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[14][0]);
@@ -1388,7 +1388,7 @@ static void sub_804B4B4 (void) {
 
     if (!gHideEffectText)
     {
-      gCardEffectTextData.cardId = 0x02B3; //hardcoded id
+      gCardEffectTextData.cardId = 0x02B3; // leftover id from Sacred Cards
       gCardEffectTextData.cardId2 = gRitualComponents[14][1];
       sub_801CEBC();
     }
@@ -1553,7 +1553,7 @@ static void EffectShadowSpell (void) {
   }
 }
 
-static void sub_804B9D0 (void) {
+static void LeftoverRitualFromSacredCards_804B9D0 (void) {
   if (RowHasCardMatch(gZones[2], gRitualComponents[15][0]) == 1)
   {
     u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[15][0]);
@@ -1564,14 +1564,14 @@ static void sub_804B9D0 (void) {
 
     if (!gHideEffectText)
     {
-      gCardEffectTextData.cardId = 0x02B4; //hardcoded id
+      gCardEffectTextData.cardId = 0x02B4; // leftover id from Sacred Cards
       gCardEffectTextData.cardId2 = gRitualComponents[15][1];
       sub_801CEBC();
     }
   }
 }
 
-static void sub_804BA58 (void) {
+static void LeftoverRitualFromSacredCards_804BA58 (void) {
   if (RowHasCardMatch(gZones[2], gRitualComponents[16][0]) == 1)
   {
     u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[16][0]);
@@ -1582,14 +1582,14 @@ static void sub_804BA58 (void) {
 
     if (!gHideEffectText)
     {
-      gCardEffectTextData.cardId = 0x02B5; //hardcoded id
+      gCardEffectTextData.cardId = 0x02B5; // leftover id from Sacred Cards (fake match for Beckon To Darkness)
       gCardEffectTextData.cardId2 = gRitualComponents[16][1];
       sub_801CEBC();
     }
   }
 }
 
-static void sub_804BAE0 (void) {
+static void LeftoverRitualFromSacredCards_804BAE0 (void) {
   if (RowHasCardMatch(gZones[2], gRitualComponents[17][0]) == 1)
   {
     u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[17][0]);
@@ -1600,14 +1600,14 @@ static void sub_804BAE0 (void) {
 
     if (!gHideEffectText)
     {
-      gCardEffectTextData.cardId = 0x02B6; //hardcoded id
+      gCardEffectTextData.cardId = 0x02B6; // leftover id from Sacred Cards
       gCardEffectTextData.cardId2 = gRitualComponents[17][1];
       sub_801CEBC();
     }
   }
 }
 
-static void sub_804BB68 (void) {
+static void LeftoverRitualFromSacredCards_804BB68 (void) {
   if (RowHasCardMatch(gZones[2], gRitualComponents[18][0]) == 1)
   {
     u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[18][0]);
@@ -1618,14 +1618,14 @@ static void sub_804BB68 (void) {
 
     if (!gHideEffectText)
     {
-      gCardEffectTextData.cardId = 0x02B7; //hardcoded id
+      gCardEffectTextData.cardId = 0x02B7; // leftover id from Sacred Cards (fake match for 7 Completed)
       gCardEffectTextData.cardId2 = gRitualComponents[18][1];
       sub_801CEBC();
     }
   }
 }
 
-static void sub_804BBF0 (void) {
+static void LeftoverRitualFromSacredCards_804BBF0 (void) {
   if (RowHasCardMatch(gZones[2], gRitualComponents[19][0]) == 1)
   {
     u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[19][0]);
@@ -1636,14 +1636,14 @@ static void sub_804BBF0 (void) {
 
     if (!gHideEffectText)
     {
-      gCardEffectTextData.cardId = 0x02B8; //hardcoded id
+      gCardEffectTextData.cardId = 0x02B8; // leftover id from Sacred Cards
       gCardEffectTextData.cardId2 = gRitualComponents[19][1];
       sub_801CEBC();
     }
   }
 }
 
-static void sub_804BC78 (void) {
+static void LeftoverRitualFromSacredCards_804BC78 (void) {
   if (RowHasCardMatch(gZones[2], gRitualComponents[20][0]) == 1)
   {
     u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[20][0]);
@@ -1654,14 +1654,14 @@ static void sub_804BC78 (void) {
 
     if (!gHideEffectText)
     {
-      gCardEffectTextData.cardId = 0x02B9; //hardcoded id
+      gCardEffectTextData.cardId = 0x02B9; // leftover id from Sacred Cards
       gCardEffectTextData.cardId2 = gRitualComponents[20][1];
       sub_801CEBC();
     }
   }
 }
 
-static void sub_804BD00 (void) {
+static void LeftoverRitualFromSacredCards_804BD00 (void) {
   if (RowHasCardMatch(gZones[2], gRitualComponents[21][0]) == 1)
   {
     u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[21][0]);
@@ -1672,14 +1672,14 @@ static void sub_804BD00 (void) {
 
     if (!gHideEffectText)
     {
-      gCardEffectTextData.cardId = 0x02BA; //hardcoded id
+      gCardEffectTextData.cardId = 0x02BA; // leftover id from Sacred Cards
       gCardEffectTextData.cardId2 = gRitualComponents[21][1];
       sub_801CEBC();
     }
   }
 }
 
-static void sub_804BD88 (void) {
+static void LeftoverRitualFromSacredCards_804BD88 (void) {
   if (RowHasCardMatch(gZones[2], gRitualComponents[22][0]) == 1)
   {
     u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[22][0]);
@@ -1690,14 +1690,14 @@ static void sub_804BD88 (void) {
 
     if (!gHideEffectText)
     {
-      gCardEffectTextData.cardId = MESSENGER_OF_PEACE;
+      gCardEffectTextData.cardId = 0x02BB; // leftover id from Sacred Cards (fake match for Messenger of Peace)
       gCardEffectTextData.cardId2 = gRitualComponents[22][1];
       sub_801CEBC();
     }
   }
 }
 
-static void sub_804BE10 (void) {
+static void LeftoverRitualFromSacredCards_804BE10 (void) {
   if (RowHasCardMatch(gZones[2], gRitualComponents[23][0]) == 1)
   {
     u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[23][0]);
@@ -1708,14 +1708,14 @@ static void sub_804BE10 (void) {
 
     if (!gHideEffectText)
     {
-      gCardEffectTextData.cardId = DARKNESS_APPROACHES;
+      gCardEffectTextData.cardId = 0x02BC; // leftover id from Sacred Cards (fake match for Darkness approaches)
       gCardEffectTextData.cardId2 = gRitualComponents[23][1];
       sub_801CEBC();
     }
   }
 }
 
-static void sub_804BE98 (void) {
+static void LeftoverRitualFromSacredCards_804BE98 (void) {
   if (RowHasCardMatch(gZones[2], gRitualComponents[6][0]) == 1)
   {
     u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[6][0]);
@@ -1726,14 +1726,14 @@ static void sub_804BE98 (void) {
 
     if (!gHideEffectText)
     {
-      gCardEffectTextData.cardId = 0x0299; //hardcoded id
+      gCardEffectTextData.cardId = 0x0299; // leftover id from Sacred Cards
       gCardEffectTextData.cardId2 = gRitualComponents[6][1];
       sub_801CEBC();
     }
   }
 }
 
-static void sub_804BF18 (void) {
+static void LeftoverRitualFromSacredCards_804BF18 (void) {
   if (RowHasCardMatch(gZones[2], gRitualComponents[7][0]) == 1)
   {
     u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[7][0]);
@@ -1744,14 +1744,14 @@ static void sub_804BF18 (void) {
 
     if (!gHideEffectText)
     {
-      gCardEffectTextData.cardId = 0x029A; //hardcoded id
+      gCardEffectTextData.cardId = 0x029A; // leftover id from Sacred Cards
       gCardEffectTextData.cardId2 = gRitualComponents[7][1];
       sub_801CEBC();
     }
   }
 }
 
-static void sub_804BF98 (void) {
+static void LeftoverRitualFromSacredCards_804BF98 (void) {
   if (RowHasCardMatch(gZones[2], gRitualComponents[8][0]) == 1
    && RowHasCardMatch(gZones[2], gRitualComponents[8][2]) == 1
    && RowHasCardMatch(gZones[2], gRitualComponents[8][3]) == 1)
@@ -1771,7 +1771,7 @@ static void sub_804BF98 (void) {
 
     if (!gHideEffectText)
     {
-      gCardEffectTextData.cardId = 0x029B; //hardcoded id
+      gCardEffectTextData.cardId = 0x029B; // leftover id from Sacred Cards
       gCardEffectTextData.cardId2 = gRitualComponents[8][1];
       sub_801CEBC();
     }
@@ -2012,7 +2012,8 @@ static void EffectTheInexperiencedSpy (void) {
   }
 }
 
-static void sub_804C6B4 (void) {
+// 804C6B4
+static void EffectDarkMagicRitual (void) {
   u8 ritualId;
   u8 zone;
 
@@ -2031,7 +2032,7 @@ static void sub_804C6B4 (void) {
 
   if (!gHideEffectText)
   {
-    gCardEffectTextData.cardId = 0x02D2; //hardcoded id
+    gCardEffectTextData.cardId = DARK_MAGIC_RITUAL;
     gCardEffectTextData.cardId2 = gRitualComponents[ritualId][1];
     sub_801CEBC();
   }
@@ -2184,11 +2185,12 @@ static void EffectBrainControl (void) {
   }
 }
 
-static void sub_804CBBC (void) {
+// 804CBBC
+static void EffectMonsterReborn (void) {
   if (NumEmptyZonesInRow(gZones[2]))
   {
     u8 emptyZone = FirstEmptyZoneInRow(gZones[2]);
-    u16 id = GetGraveCardAndClearGrave(1);
+    u16 id = GetGraveCardAndClearGrave(DUEL_OPPONENT);
 
     if (id != CARD_NONE)
     {
@@ -2201,7 +2203,6 @@ static void sub_804CBBC (void) {
       ResetPermStage(gZones[2][emptyZone]);
       ResetTempStage(gZones[2][emptyZone]);
       gZones[2][emptyZone]->willChangeSides = 0;
-
     }
   }
 
@@ -2214,7 +2215,8 @@ static void sub_804CBBC (void) {
   }
 }
 
-static void sub_804CC7C (void) {
+// 804CC7C
+static void Effect7Completed (void) {
   if (sub_8055BA4(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == 1)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
@@ -2386,16 +2388,16 @@ void ActivateSpellEffect (void) {
   gSpellEffects[gCardInfo.spellEffect]();
 }
 
-static void sub_804D140(void) {
+static void EmptyFunc_804D140(void) {
 }
 
-static void sub_804D144(void) {
+static void EmptyFunc_804D144(void) {
 }
 
-static void sub_804D148(void) {
+static void EmptyFunc_804D148(void) {
 }
 
-static void sub_804D14C(void) {
+static void EmptyFunc_804D14C(void) {
 }
 
 static void EffectForest (void) {
@@ -2476,43 +2478,43 @@ static void EffectYami (void) {
   }
 }
 
-static void sub_804D378(void) {
+static void EmptyFunc_804D378(void) {
 }
 
-static void sub_804D37C(void) {
+static void EmptyFunc_804D37C(void) {
 }
 
-static void sub_804D380(void) {
+static void EmptyFunc_804D380(void) {
 }
 
-static void sub_804D384(void) {
+static void EmptyFunc_804D384(void) {
 }
 
-static void sub_804D388(void) {
+static void EmptyFunc_804D388(void) {
 }
 
-static void sub_804D38C(void) {
+static void EmptyFunc_804D38C(void) {
 }
 
-static void sub_804D390(void) {
+static void EmptyFunc_804D390(void) {
 }
 
-static void sub_804D394(void) {
+static void EmptyFunc_804D394(void) {
 }
 
-static void sub_804D398(void) {
+static void EmptyFunc_804D398(void) {
 }
 
-static void sub_804D39C(void) {
+static void EmptyFunc_804D39C(void) {
 }
 
-static void sub_804D3A0(void) {
+static void EmptyFunc_804D3A0(void) {
 }
 
-static void sub_804D3A4(void) {
+static void EmptyFunc_804D3A4(void) {
 }
 
-static void sub_804D3A8(void) {
+static void EmptyFunc_804D3A8(void) {
 }
 
 static void EffectHarpiesFeatherDuster (void) {
@@ -2564,10 +2566,10 @@ static void EffectRestructerRevolution (void) {
   }
 }
 
-static void sub_804D4E0(void) {
+static void EmptyFunc_804D4E0(void) {
 }
 
-static void sub_804D4E4(void) {
+static void EmptyFunc_804D4E4(void) {
 }
 
 static void EffectBeckonToDarkness (void) {
@@ -2583,7 +2585,7 @@ static void EffectBeckonToDarkness (void) {
   }
 }
 
-static void sub_804D550(void) {
+static void EmptyFunc_804D550(void) {
 }
 
 static void EffectGravediggerGhoul (void) {
@@ -2599,73 +2601,73 @@ static void EffectGravediggerGhoul (void) {
   }
 }
 
-static void sub_804D5A4 (void) {
+static void EmptyFunc_804D5A4 (void) {
 }
 
-static void sub_804D5A8 (void) {
+static void EmptyFunc_804D5A8 (void) {
 }
 
-static void sub_804D5AC (void) {
+static void EmptyFunc_804D5AC (void) {
 }
 
-static void sub_804D5B0 (void) {
+static void EmptyFunc_804D5B0 (void) {
 }
 
-static void sub_804D5B4 (void) {
+static void EmptyFunc_804D5B4 (void) {
 }
 
-static void sub_804D5B8 (void) {
+static void EmptyFunc_804D5B8 (void) {
 }
 
-static void sub_804D5BC (void) {
+static void EmptyFunc_804D5BC (void) {
 }
 
-static void sub_804D5C0 (void) {
+static void EmptyFunc_804D5C0 (void) {
 }
 
-static void sub_804D5C4 (void) {
+static void EmptyFunc_804D5C4 (void) {
 }
 
-static void sub_804D5C8 (void) {
+static void EmptyFunc_804D5C8 (void) {
 }
 
-static void sub_804D5CC (void) {
+static void EmptyFunc_804D5CC (void) {
 }
 
-static void sub_804D5D0 (void) {
+static void EmptyFunc_804D5D0 (void) {
 }
 
-static void sub_804D5D4 (void) {
+static void EmptyFunc_804D5D4 (void) {
 }
 
-static void sub_804D5D8 (void) {
+static void EmptyFunc_804D5D8 (void) {
 }
 
-static void sub_804D5DC (void) {
+static void EmptyFunc_804D5DC (void) {
 }
 
-static void sub_804D5E0 (void) {
+static void EmptyFunc_804D5E0 (void) {
 }
 
-static void sub_804D5E4 (void) {
+static void EmptyFunc_804D5E4 (void) {
 }
 
-static void sub_804D5E8 (void) {
+static void EmptyFunc_804D5E8 (void) {
 }
 
-static void sub_804D5EC (void) {
+static void EmptyFunc_804D5EC (void) {
 }
 
-static void sub_804D5F0 (void) {
+static void EmptyFunc_804D5F0 (void) {
 }
 
-static void sub_804D5F4 (void) {
+static void EmptyFunc_804D5F4 (void) {
 }
 
-static void sub_804D5F8 (void) {
+static void EmptyFunc_804D5F8 (void) {
 }
 
-static void sub_804D5FC (void) {
+static void EmptyFunc_804D5FC (void) {
 }
 
 static void SetRitualMonsterInZone(struct DuelCard* zone, u16 id) {
@@ -2682,9 +2684,9 @@ static void SetRitualMonsterInZone(struct DuelCard* zone, u16 id) {
 
 //TODO: add spell effect constants
 void (*const gSpellEffects[])(void) = {
-  sub_804D144,
-  sub_804D148,
-  sub_804D14C,
+  EmptyFunc_804D144,
+  EmptyFunc_804D148,
+  EmptyFunc_804D14C,
   EffectForest,
   EffectWasteland,
   EffectMountain,
@@ -2729,35 +2731,35 @@ void (*const gSpellEffects[])(void) = {
   EffectRaiseBodyHeat,
   EffectFollowWind,
   EffectPowerOfKaishin,
-  sub_804D378,
+  EmptyFunc_804D378,
   EffectStopDefense,
-  sub_804D37C,
+  EmptyFunc_804D37C,
   EffectSwordsOfRevealingLight,
   EffectDarkPiercingLight,
   EffectSpellBindingCircle,
   EffectElegantEgotist,
-  sub_804D380,
-  sub_804D384,
-  sub_804D388,
-  sub_804D38C,
-  sub_804D390,
-  sub_804D394,
-  sub_804D398,
-  sub_804D39C,
-  sub_804D3A0,
-  sub_804D3A4,
-  sub_804D3A8,
+  EmptyFunc_804D380,
+  EmptyFunc_804D384,
+  EmptyFunc_804D388,
+  EmptyFunc_804D38C,
+  EmptyFunc_804D390,
+  EmptyFunc_804D394,
+  EmptyFunc_804D398,
+  EmptyFunc_804D39C,
+  EmptyFunc_804D3A0,
+  EmptyFunc_804D3A4,
+  EmptyFunc_804D3A8,
   EffectBlackLusterRitual,
-  sub_804AED8,
-  sub_804AF58,
-  sub_804AFD8,
-  sub_804B058,
-  sub_804B20C,
-  sub_804B294,
-  sub_804B31C,
-  sub_804B3A4,
-  sub_804B42C,
-  sub_804B4B4,
+  LeftoverRitualFromSacredCards_804AED8,
+  LeftoverRitualFromSacredCards_804AF58,
+  LeftoverRitualFromSacredCards_804AFD8,
+  LeftoverRitualFromSacredCards_804B058,
+  LeftoverRitualFromSacredCards_804B20C,
+  LeftoverRitualFromSacredCards_804B294,
+  LeftoverRitualFromSacredCards_804B31C,
+  LeftoverRitualFromSacredCards_804B3A4,
+  LeftoverRitualFromSacredCards_804B42C,
+  LeftoverRitualFromSacredCards_804B4B4,
   EffectHarpiesFeatherDuster,
   EffectMagicalLabyrinth,
   EffectSalamandra,
@@ -2765,18 +2767,18 @@ void (*const gSpellEffects[])(void) = {
   EffectBrightCastle,
   EffectCrushCard,
   EffectShadowSpell,
-  sub_804B9D0,
-  sub_804BA58,
-  sub_804BAE0,
-  sub_804BB68,
-  sub_804BBF0,
-  sub_804BC78,
-  sub_804BD00,
-  sub_804BD88,
-  sub_804BE10,
-  sub_804BE98,
-  sub_804BF18,
-  sub_804BF98,
+  LeftoverRitualFromSacredCards_804B9D0,
+  LeftoverRitualFromSacredCards_804BA58,
+  LeftoverRitualFromSacredCards_804BAE0,
+  LeftoverRitualFromSacredCards_804BB68,
+  LeftoverRitualFromSacredCards_804BBF0,
+  LeftoverRitualFromSacredCards_804BC78,
+  LeftoverRitualFromSacredCards_804BD00,
+  LeftoverRitualFromSacredCards_804BD88,
+  LeftoverRitualFromSacredCards_804BE10,
+  LeftoverRitualFromSacredCards_804BE98,
+  LeftoverRitualFromSacredCards_804BF18,
+  LeftoverRitualFromSacredCards_804BF98,
   EffectWarriorElimination,
   EffectCurseBreaker,
   EffectEternalRest,
@@ -2788,7 +2790,7 @@ void (*const gSpellEffects[])(void) = {
   EffectBreathOfLight,
   EffectEternalDrought,
   EffectTheInexperiencedSpy,
-  sub_804C6B4,
+  EffectDarkMagicRitual,
   EffectPotOfGreed,
   EffectRestructerRevolution,
   EffectLastDayOfWitch,
@@ -2796,40 +2798,40 @@ void (*const gSpellEffects[])(void) = {
   EffectMultiply,
   EffectChangeOfHeart,
   EffectBlackIllusionRitual,
-  sub_804D4E0,
+  EmptyFunc_804D4E0,
   EffectBrainControl,
-  sub_804CBBC,
-  sub_804D4E4,
-  sub_804CC7C,
+  EffectMonsterReborn,
+  EmptyFunc_804D4E4,
+  Effect7Completed,
   EffectBeckonToDarkness,
-  sub_804D550,
+  EmptyFunc_804D550,
   EffectGravediggerGhoul,
   EffectHeavyStorm,
   EffectFinalDestiny,
   EffectMessengerOfPeaceTSC,
   EffectDarknessApproaches,
-  sub_804D5A4,
-  sub_804D5A8,
-  sub_804D5AC,
-  sub_804D5B0,
-  sub_804D5B4,
-  sub_804D5B8,
-  sub_804D5BC,
+  EmptyFunc_804D5A4,
+  EmptyFunc_804D5A8,
+  EmptyFunc_804D5AC,
+  EmptyFunc_804D5B0,
+  EmptyFunc_804D5B4,
+  EmptyFunc_804D5B8,
+  EmptyFunc_804D5BC,
   EffectCyclonLaser,
-  sub_804D5C0,
-  sub_804D5C4,
-  sub_804D5C8,
-  sub_804D5CC,
-  sub_804D5D0,
-  sub_804D5D4,
-  sub_804D5D8,
-  sub_804D5DC,
-  sub_804D5E0,
-  sub_804D5E4,
-  sub_804D5E8,
-  sub_804D5EC,
-  sub_804D5F0,
-  sub_804D5F4,
-  sub_804D5F8,
-  sub_804D5FC
+  EmptyFunc_804D5C0,
+  EmptyFunc_804D5C4,
+  EmptyFunc_804D5C8,
+  EmptyFunc_804D5CC,
+  EmptyFunc_804D5D0,
+  EmptyFunc_804D5D4,
+  EmptyFunc_804D5D8,
+  EmptyFunc_804D5DC,
+  EmptyFunc_804D5E0,
+  EmptyFunc_804D5E4,
+  EmptyFunc_804D5E8,
+  EmptyFunc_804D5EC,
+  EmptyFunc_804D5F0,
+  EmptyFunc_804D5F4,
+  EmptyFunc_804D5F8,
+  EmptyFunc_804D5FC
 };
