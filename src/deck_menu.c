@@ -37,13 +37,13 @@ void sub_802612C (void);
 unsigned char GetPlayerDeckSize (void);
 void DeckMenuSort (void);
 void sub_801F5F0 (void);
-void sub_801D918 (void);
+void ToggleDeckSortMethod (void);
 void sub_801DE5C (void);
 void sub_801DC04 (unsigned char);
 void sub_801DC64 (unsigned char);
 void sub_801DCC8 (void);
 void sub_0801DCEC (void);
-unsigned char sub_801DE3C (unsigned char);
+unsigned char DecreaseDeckCardCount (unsigned char);
 extern unsigned short gStarterDeck[];
 
 void sub_801F614 (void);
@@ -212,7 +212,7 @@ static void sub_801D46C (void) {
 }
 
 static void sub_801D480 (void) {
-  sub_801D918();
+  ToggleDeckSortMethod();
   sub_801EF30(6);
 }
 
@@ -342,7 +342,7 @@ extern unsigned gDuelistLevel;
 extern unsigned short g80B8974[];
 
 void IncreaseDuelistLevel (void);
-unsigned char sub_801D760 (void);
+unsigned char ShouldDuellistLevelIncrease (void);
 
 void InitDeckCapacity (void) {
   gDeckCapacity = 1600;
@@ -376,11 +376,12 @@ unsigned GetDuelistLevel (void) {
 }
 
 void IncreaseDuelistLevel (void) {
-  while (sub_801D760())
+  while (ShouldDuellistLevelIncrease())
     gDuelistLevel++;
 }
 
-unsigned char sub_801D760 (void) {
+// 801D760
+unsigned char ShouldDuellistLevelIncrease (void) {
   if (gDuelistLevel < 999) {
     unsigned short temp = g80B8974[gDuelistLevel + 1];
     if (gDeckCapacity >= temp) {
@@ -401,8 +402,8 @@ void sub_801D7A4 (void) {
     g2024144[i] = g80B9144[i];
 }
 
-void sub_801DD88 (unsigned char);
-void sub_801DD34 (unsigned);
+void RemoveCardFromDeckAtIndex (unsigned char);
+void SubtractCostFromDeckCapacity (unsigned);
 void AddCardToTrunk (unsigned short);
 unsigned char GetCardIndexInDeck (unsigned short);
 void sub_8034A38 (void);
@@ -416,7 +417,7 @@ void sub_801D7D0 (void) {
   }
   SetCardInfo(cardId);
   AddCardToTrunk(cardId);
-  sub_801DD88(gPlayerDeck.unk4); // s8 to unsigned char conversion
+  RemoveCardFromDeckAtIndex(gPlayerDeck.unk4); // s8 to unsigned char conversion
   if (gPlayerDeck.unk4 >= gPlayerDeck.count) {
     unsigned char temp = gPlayerDeck.unk4 - gPlayerDeck.count + 1;
     if (gPlayerDeck.unk4) {
@@ -432,7 +433,7 @@ void sub_801D7D0 (void) {
         WaitForVBlank();
     }
   }
-  sub_801DD34(gCardInfo.cost);
+  SubtractCostFromDeckCapacity(gCardInfo.cost);
   PlayMusic(0x37);
 }
 
@@ -442,8 +443,8 @@ unsigned char TryRemoveCardFromDeck (unsigned short cardId) {
   SetCardInfo(cardId);
   deckIndex = GetCardIndexInDeck(cardId);
   if (deckIndex < gPlayerDeck.count) {
-    sub_801DD88(deckIndex);
-    sub_801DD34(gCardInfo.cost);
+    RemoveCardFromDeckAtIndex(deckIndex);
+    SubtractCostFromDeckCapacity(gCardInfo.cost);
     removalSucceeded = 1;
   }
   if (gPlayerDeck.unk4 >= gPlayerDeck.count) {
@@ -466,7 +467,8 @@ unsigned char TryRemoveCardFromDeck (unsigned short cardId) {
 
 extern unsigned char gE00AE0[];
 
-void sub_801D918 (void) {
+// 801D918
+void ToggleDeckSortMethod (void) {
   unsigned char temp;
   if (++gPlayerDeck.sortingMethod > 9)
     gPlayerDeck.sortingMethod = 0;
@@ -688,7 +690,8 @@ void CalculateCurrentDeckCost (void) {
   }
 }
 
-void sub_801DD34 (unsigned subtractCost) {
+// 801DD34
+void SubtractCostFromDeckCapacity (unsigned subtractCost) {
   if (subtractCost > gPlayerDeck.cost)
     gPlayerDeck.cost = 0;
   else
@@ -702,11 +705,13 @@ unsigned char GetCardIndexInDeck (unsigned short cardId) {
   return index;
 }
 
-void sub_801DD88 (unsigned char arg0) {
-  for (; arg0 < gPlayerDeck.count - 1; arg0++)
-    gPlayerDeck.cards[arg0] = gPlayerDeck.cards[arg0 + 1];
+// 801DD88
+// shuffle all later cards "up" by one to fill the gap
+void RemoveCardFromDeckAtIndex (unsigned char i) {
+  for (; i < gPlayerDeck.count - 1; i++)
+    gPlayerDeck.cards[i] = gPlayerDeck.cards[i + 1];
   gPlayerDeck.cards[gPlayerDeck.count - 1] = CARD_NONE;
-  sub_801DE3C(1);
+  DecreaseDeckCardCount(1);
 }
 
 void DeckMenuSortBy (unsigned char arg0) {
@@ -724,14 +729,15 @@ void DeckMenuSort (void) {
   sub_8034A38();
 }
 
-unsigned char sub_801DE3C (unsigned char arg0) {
-  if (gPlayerDeck.count < arg0) {
-    arg0 = gPlayerDeck.count;
+// 801DE3C
+unsigned char DecreaseDeckCardCount (unsigned char amt) {
+  if (gPlayerDeck.count < amt) {
+    amt = gPlayerDeck.count;
     gPlayerDeck.count = 0;
   }
   else
-    gPlayerDeck.count -= arg0;
-  return arg0;
+    gPlayerDeck.count -= amt;
+  return amt;
 }
 
 extern unsigned short gUnk_808D9B0[][30];

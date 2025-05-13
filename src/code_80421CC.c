@@ -41,7 +41,7 @@ extern unsigned char g8E0D753[];
 
 u16 sub_08007FEC(unsigned char, unsigned char, u16);
 void sub_800800C(unsigned char, unsigned char, u16, u16);
-s32 sub_8043E9C(unsigned char);
+s32 GetCardsDrawn(unsigned char);
 void sub_8042ADC (unsigned char);
 void sub_8042C64 (unsigned char);
 void sub_8041050 (void);
@@ -653,11 +653,11 @@ _080427B6:\n\
   \n\
   \n\
 	movs r0, #0\n\
-	bl sub_8043E9C\n\
+	bl GetCardsDrawn\n\
 	lsls r0, r0, #0x18\n\
 	lsrs r4, r0, #0x18\n\
 	movs r0, #0\n\
-	bl sub_8043E70\n\
+	bl NumCardsInDeck\n\
 	lsls r0, r0, #0x18\n\
 	lsrs r0, r0, #0x18\n\
 	cmp r0, r4\n\
@@ -702,11 +702,11 @@ _0804281C:\n\
 	cmp r6, #1\n\
 	bls _0804281C\n\
 	movs r0, #1\n\
-	bl sub_8043E9C\n\
+	bl GetCardsDrawn\n\
 	lsls r0, r0, #0x18\n\
 	lsrs r4, r0, #0x18\n\
 	movs r0, #1\n\
-	bl sub_8043E70\n\
+	bl NumCardsInDeck\n\
 	lsls r0, r0, #0x18\n\
 	lsrs r0, r0, #0x18\n\
 	cmp r0, r4\n\
@@ -886,8 +886,8 @@ void InitBMenu (unsigned char arg0) {
   for (i = 0; i < 5; i++) {
     *(u16*)(gBgVram.cbb0 + (0x74EC - i) * 2) = g2021BD0[4 - i] + 65 | 0x3000;
   }
-  r4two = sub_8043E9C(0);
-  r0 = (unsigned char)sub_8043E70(0);
+  r4two = GetCardsDrawn(0);
+  r0 = (unsigned char)NumCardsInDeck(0);
   if (r0 >= r4two)
     r0 -= r4two;
   else
@@ -897,8 +897,8 @@ void InitBMenu (unsigned char arg0) {
   for (i = 0; i < 2; i++)
     *(u16*)(gBgVram.cbb0 + (0x758A - i) * 2) = g2021BD0[4 - i] + 65 | 0x3000;
 
-  r4two = sub_8043E9C(1);
-  r0 = (unsigned char)sub_8043E70(1);
+  r4two = GetCardsDrawn(1);
+  r0 = (unsigned char)NumCardsInDeck(1);
   if (r0 >= r4two)
     r0 -= r4two;
   else

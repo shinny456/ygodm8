@@ -4,7 +4,7 @@
 struct DuelText {
   unsigned short unk0;
   unsigned short unk2;
-  unsigned short unk4;
+  unsigned short rewardAmount; // used for capacity/money yield
   unsigned short unk6;
   unsigned char textId;
 };

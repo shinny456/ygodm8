@@ -623,7 +623,7 @@ struct DuelCursor {
 };
 
 extern struct DuelCursor gDuelCursor;
-int sub_8043E70(u8);
+int NumCardsInDeck(u8);
 
 
 

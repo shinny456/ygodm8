@@ -174,13 +174,13 @@ static void FadeToBlack (void) {
 // might also involve waiting for player input?
 void DisplayDuelText (struct DuelText* arg0) {
   if (arg0->textId != 0xFF)
-    sub_8041C94(gDuelTextStrings[arg0->textId], arg0->unk0, arg0->unk2, arg0->unk4, 0);
+    sub_8041C94(gDuelTextStrings[arg0->textId], arg0->unk0, arg0->unk2, arg0->rewardAmount, 0);
 }
 
 void ResetDuelTextData (struct DuelText* arg0) {
   arg0->unk0 = 0;
   arg0->unk2 = 0;
-  arg0->unk4 = 0;
+  arg0->rewardAmount = 0;
   arg0->unk6 = 0;
   arg0->textId = 0xFF;
 }
@@ -328,7 +328,7 @@ void sub_802417C(void);
 
 
 
-s32 sub_8043E9C(unsigned char);
+s32 GetCardsDrawn(unsigned char);
 void IncreaseDeckCapacity(u32);
 void SaveGame(void);
 void InitDuelDeck(unsigned char, u16*);
@@ -560,7 +560,7 @@ static void sub_80220C8 (void) {
     duelText.textId = 19;
     DisplayDuelText(&duelText);
   }
-  else if (sub_8043E70(1) < sub_8043E9C(1)) {
+  else if (NumCardsInDeck(1) < GetCardsDrawn(1)) {
     ResetDuelTextData(&duelText);
     duelText.textId = 21;
     DisplayDuelText(&duelText);
@@ -572,7 +572,7 @@ static void sub_80220C8 (void) {
     DisplayDuelText(&duelText);
     ResetDuelTextData(&duelText);
     duelText.textId = 6;
-    duelText.unk4 = gDuelData.capacityYield;
+    duelText.rewardAmount = gDuelData.capacityYield;
     DisplayDuelText(&duelText);
   }
 }
@@ -587,7 +587,7 @@ static void sub_8022170 (void) {
     duelText.textId = 20;
     DisplayDuelText(&duelText);
   }
-  else if (sub_8043E70(0) < sub_8043E9C(0)) {
+  else if (NumCardsInDeck(0) < GetCardsDrawn(0)) {
     ResetDuelTextData(&duelText);
     duelText.textId = 22;
     DisplayDuelText(&duelText);
@@ -599,7 +599,7 @@ static void sub_8022170 (void) {
     DisplayDuelText(&duelText);
     ResetDuelTextData(&duelText);
     duelText.textId = 6;
-    duelText.unk4 = 5;
+    duelText.rewardAmount = 5;
     DisplayDuelText(&duelText);
   }
 }

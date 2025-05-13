@@ -671,7 +671,7 @@ void sub_8043CBC (void) {
 
 inline unsigned short DrawTopDeckCard (unsigned char turn) {
   unsigned short cardDrawn;
-  if ((unsigned char)sub_8043E70(turn) < gDuelDecks[turn].cardsDrawn)
+  if ((unsigned char)NumCardsInDeck(turn) < gDuelDecks[turn].cardsDrawn)
     return CARD_NONE;
   cardDrawn = gDuelDecks[turn].cards[gDuelDecks[turn].cardsDrawn];
   gDuelDecks[turn].cardsDrawn++;
@@ -695,7 +695,7 @@ void TryDrawingCard (unsigned turn) {
 }
 
 void ShuffleDuelDeck (unsigned char arg0) {
-  unsigned char temp = sub_8043E70(arg0);
+  unsigned char temp = NumCardsInDeck(arg0);
   int i;
   if (!temp)
     return;
@@ -731,13 +731,13 @@ void InitDuelDeck (unsigned char duelist, unsigned short* deck) {
     gDuelDecks[duelist].cards[i] = *deck++;
 }
 
-int sub_8043E70 (unsigned char arg0) {
+int NumCardsInDeck (unsigned char duelist) {
   unsigned char i = 0;
-  while (gDuelDecks[arg0].cards[i] != CARD_NONE)
+  while (gDuelDecks[duelist].cards[i] != CARD_NONE)
     i++;
   return i;
 }
 
-int sub_8043E9C (unsigned char arg0) {
-  return gDuelDecks[arg0].cardsDrawn;
+int GetCardsDrawn (unsigned char duelist) {
+  return gDuelDecks[duelist].cardsDrawn;
 }

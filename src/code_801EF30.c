@@ -1103,11 +1103,11 @@ u8 sub_801FB54 (u8* arg0) {
 
 extern struct Duelist* gUnk8E00B30[];
 void IncreaseDeckCapacity(u32);
-void sub_801FF90 (void);
-void sub_8020030 (void);
-void sub_801FD14 (void);
+void AddAnteCardToTrunk (void);
+void AddCardDropsToShop (void);
+void AddMoneyFromDuelVictory (void);
 void DisplayMoneyRewardText (void);
-int sub_8043E9C (u8 arg0);
+int GetCardsDrawn (u8 arg0);
 u16 RandRangeU16 (u16, u16);
 u16 sub_801FFE0 (void);
 void sub_802D90C (u16, u8);
@@ -1123,16 +1123,16 @@ void HandleWin (void) {
   struct DuelText duelText;
   gDuelData.capacityYield = gUnk8E00B30[gDuelData.opponent]->capacityYield;
   IncreaseDeckCapacity(gDuelData.capacityYield);
-  sub_801FF90();
-  sub_8020030();
-  sub_801FD14();
+  AddAnteCardToTrunk();
+  AddCardDropsToShop();
+  AddMoneyFromDuelVictory();
   if (!gDuelLifePoints[1]) {
     sub_8035020(4);
     ResetDuelTextData(&duelText);
     duelText.textId = 19;
     DisplayDuelText(&duelText);
   }
-  else if (sub_8043E70(1) < sub_8043E9C(1)) {
+  else if (NumCardsInDeck(1) < GetCardsDrawn(1)) {
     sub_8035020(4);
     ResetDuelTextData(&duelText);
     duelText.textId = 21;
@@ -1146,7 +1146,7 @@ void HandleWin (void) {
     DisplayDuelText(&duelText);
     ResetDuelTextData(&duelText);
     duelText.textId = 6;
-    duelText.unk4 = gDuelData.capacityYield;
+    duelText.rewardAmount = gDuelData.capacityYield;
     DisplayDuelText(&duelText);
     DisplayMoneyRewardText();
     for (i = 0; i < 10; i++) {
@@ -1174,7 +1174,7 @@ void HandleLoss (void) {
     duelText.textId = 20;
     DisplayDuelText(&duelText);
   }
-  else if (sub_8043E70(0) < sub_8043E9C(0)) {
+  else if (NumCardsInDeck(0) < GetCardsDrawn(0)) {
     sub_8035020(4);
     ResetDuelTextData(&duelText);
     duelText.textId = 22;
@@ -1188,7 +1188,8 @@ void HandleLoss (void) {
   }
 }
 
-void sub_801FD14 (void) {
+// 801FD14
+void AddMoneyFromDuelVictory (void) {
   u64 temp;
   switch (gUnk8E00B30[gDuelData.opponent]->unk20) {
     case 1:
@@ -1251,23 +1252,23 @@ void DisplayMoneyRewardText (void) {
   ResetDuelTextData(&duelText);
   if (!gDuelData.moneyReward) {
     duelText.textId = 12;
-    duelText.unk4 = gDuelData.moneyReward;
+    duelText.rewardAmount = gDuelData.moneyReward;
   }
   else if (gDuelData.moneyReward <= 9999) {
     duelText.textId = 8;
-    duelText.unk4 = gDuelData.moneyReward;
+    duelText.rewardAmount = gDuelData.moneyReward;
   }
   else if (gDuelData.moneyReward <= 99999999) {
     duelText.textId = 9;
-    duelText.unk4 = gDuelData.moneyReward / 10000;
+    duelText.rewardAmount = gDuelData.moneyReward / 10000;
   }
   else if (gDuelData.moneyReward <= 999999999999) {
     duelText.textId = 10;
-    duelText.unk4 = gDuelData.moneyReward / 100000000;
+    duelText.rewardAmount = gDuelData.moneyReward / 100000000;
   }
   else {
     duelText.textId = 11;
-    duelText.unk4 = gDuelData.moneyReward / 1000000000000;
+    duelText.rewardAmount = gDuelData.moneyReward / 1000000000000;
   }
   DisplayDuelText(&duelText);
 }
@@ -1279,7 +1280,8 @@ void HandleOutcome (void) {
     HandleLoss();
 }
 
-void sub_801FF90 (void) {
+// 801FF90
+void AddAnteCardToTrunk (void) {
   u8 i;
   if (gAnte == CARD_NONE)
     return;
@@ -1292,7 +1294,7 @@ void sub_801FF90 (void) {
 u16 sub_801FFE0 (void) {
   u16 random;
   struct CardDrop* cardDrops;
-  if (IsGoodAnte(gAnte) == 1)
+  if (IsGoodAnte(gAnte) == TRUE)
     cardDrops = gDuelData.duelist.goodDrops;
   else
     cardDrops = gDuelData.duelist.badDrops;
@@ -1302,7 +1304,8 @@ u16 sub_801FFE0 (void) {
   return cardDrops->card;
 }
 
-void sub_8020030 (void) {
+// 8020030
+void AddCardDropsToShop (void) {
   u32 i;
   for (i = 0; i < 3; i++)
     sub_802D90C(sub_8020050(), 1);
