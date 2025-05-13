@@ -395,7 +395,7 @@ extern struct DuelData gDuelData;
 
 extern u16 gAnte;
 
-struct {
+extern struct {
   unsigned cost;
   s8 unk4; // current position
   u8 sortingMethod;
@@ -404,7 +404,7 @@ struct {
   u8 count; //TODO: cardCount?
   u8 filler9;
   unsigned short cards[40]; //TODO: sortedCards?
-} extern gPlayerDeck; //TODO: rename to gDeckMenuData?
+} gPlayerDeck; //TODO: rename to gDeckMenuData?
 
 
 
@@ -634,12 +634,12 @@ void sub_8044EC8 (u16*, u16, u16, int);
 void sub_8044F80 (u16*, u16, u16, int);
 void sub_80411EC (struct OamData*);
 
-struct Unk2021DE0 {
+extern struct Unk2021DE0 {
   u16 unk0;
   u8 unk2;
   u8 unk3;
   u8 unk4;
-} extern g2021DE0;
+} g2021DE0;
 
 void sub_802ACC0(void);
 
