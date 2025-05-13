@@ -316,7 +316,7 @@ static void sub_800E734(void)
     gTrapEffectData.unk2 = row2;
     gTrapEffectData.unk3 = col2;
     gTrapEffectData.id = gZones[row2][col2]->id;
-    sub_80586DC();
+    IsTrapTriggered();
     ActivateTrapEffect();
 }
 
@@ -331,7 +331,7 @@ static void sub_800E794(void)
     gTrapEffectData.unk2 = row2;
     gTrapEffectData.unk3 = col2;
     gTrapEffectData.id = gZones[row2][col2]->id;
-    sub_80586DC();
+    IsTrapTriggered();
     ActivateTrapEffect();
 }
 
@@ -346,7 +346,7 @@ static void sub_800E7F4(void)
     gTrapEffectData.unk2 = row2;
     gTrapEffectData.unk3 = col2;
     gTrapEffectData.id = gZones[row2][col2]->id;
-    sub_80586DC();
+    IsTrapTriggered();
     ActivateTrapEffect();
 }
 
@@ -361,7 +361,7 @@ static void sub_800E854(void)
     gTrapEffectData.unk2 = row2;
     gTrapEffectData.unk3 = col2;
     gTrapEffectData.id = gZones[row2][col2]->id;
-    sub_80586DC();
+    IsTrapTriggered();
     ActivateTrapEffect();
 }
 
@@ -7425,7 +7425,7 @@ static u8 sub_801A630 (void) {
   u8 r5 = 0;
   u8 row2;
   u8 col2;
-  if (gNotSure[0]->unkTwo)
+  if (gNotSure[0]->defenseBlocked)
     return 0;
   row2 = sAI_Command.unk2 >> 4;
   col2 = sAI_Command.unk2 & 0xF;
@@ -7440,7 +7440,7 @@ static u8 sub_801A630 (void) {
 static u8 sub_801A690 (void) {
   u8 row2;
   u8 col2;
-  if (gNotSure[0]->unkTwo)
+  if (gNotSure[0]->defenseBlocked)
     return 0;
   row2 = sAI_Command.unk2 >> 4;
   col2 = sAI_Command.unk2 & 0xF;
@@ -7477,7 +7477,7 @@ static u8 sub_801A784 (void) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
       gTrapEffectData.id = gZones[row2][col2]->id;
-      if (sub_80586DC() != 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
+      if (IsTrapTriggered() != 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
           !GetNumCardsInRow(1))
         return 1;
     }
@@ -7494,7 +7494,7 @@ static u8 sub_801A814 (void) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
       gTrapEffectData.id = gZones[row2][col2]->id;
-      if (sub_80586DC() != 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
+      if (IsTrapTriggered() != 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
           !GetNumCardsInRow(1))
         return 1;
     }
@@ -7513,7 +7513,7 @@ static u8 sub_801A8A4 (void) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
       gTrapEffectData.id = gZones[row2][col2]->id;
-      if (sub_80586DC() != 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
+      if (IsTrapTriggered() != 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
           gZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gZones[row3][col3]->id) == 1 &&
           gZones[row3][col3]->isFaceUp)
         return 1;
@@ -7533,7 +7533,7 @@ static u8 sub_801A974 (void) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
       gTrapEffectData.id = gZones[row2][col2]->id;
-      if (sub_80586DC() != 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
+      if (IsTrapTriggered() != 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
           gZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gZones[row3][col3]->id) == 1 &&
           gZones[row3][col3]->isFaceUp)
         return 1;
@@ -7553,7 +7553,7 @@ static u8 sub_801AA44 (void) {
     gTrapEffectData.unk2 = row2;
     gTrapEffectData.unk3 = col2;
     gTrapEffectData.id = gZones[row2][col2]->id;
-    if (sub_80586DC() != 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
+    if (IsTrapTriggered() != 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
         gZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gZones[row3][col3]->id) == 1 &&
         !gZones[row3][col3]->isFaceUp)
       return 1;
@@ -7613,7 +7613,7 @@ static u8 sub_801AA44 (void) {
 	ldr r0, [r4]\n\
 	ldrh r0, [r0]\n\
 	strh r0, [r1]\n\
-	bl sub_80586DC\n\
+	bl IsTrapTriggered\n\
 	cmp r0, #1\n\
 	beq _0801AB04\n\
 	ldr r0, [r4]\n\
@@ -7711,7 +7711,7 @@ static u8 sub_801AB14 (void) {
 	ldr r0, [r4]\n\
 	ldrh r0, [r0]\n\
 	strh r0, [r1]\n\
-	bl sub_80586DC\n\
+	bl IsTrapTriggered\n\
 	cmp r0, #1\n\
 	beq _0801ABD4\n\
 	ldr r0, [r4]\n\
@@ -7766,7 +7766,7 @@ static u8 sub_801ABE4 (void) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
       gTrapEffectData.id = gZones[row2][col2]->id;
-      if (sub_80586DC() == 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
+      if (IsTrapTriggered() == 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
           !GetNumCardsInRow(1))
         return 1;
     }
@@ -7783,7 +7783,7 @@ static u8 sub_801AC74 (void) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
       gTrapEffectData.id = gZones[row2][col2]->id;
-      if (sub_80586DC() == 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
+      if (IsTrapTriggered() == 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
           !GetNumCardsInRow(1))
         return 1;
     }
@@ -7802,7 +7802,7 @@ static u8 sub_801AD04 (void) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
       gTrapEffectData.id = gZones[row2][col2]->id;
-      if (sub_80586DC() == 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
+      if (IsTrapTriggered() == 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
           gZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gZones[row3][col3]->id) == 1 &&
           gZones[row3][col3]->isFaceUp)
         return 1;
@@ -7822,7 +7822,7 @@ static u8 sub_801ADD4 (void) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
       gTrapEffectData.id = gZones[row2][col2]->id;
-      if (sub_80586DC() == 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
+      if (IsTrapTriggered() == 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
           gZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gZones[row3][col3]->id) == 1 &&
           gZones[row3][col3]->isFaceUp)
         return 1;
@@ -7842,7 +7842,7 @@ static u8 sub_801AEA4 (void) {
     gTrapEffectData.unk2 = row2;
     gTrapEffectData.unk3 = col2;
     gTrapEffectData.id = gZones[row2][col2]->id;
-    if (sub_80586DC() != 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
+    if (IsTrapTriggered() != 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
         gZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gZones[row3][col3]->id) == 1 &&
         !gZones[row3][col3]->isFaceUp)
       return 1;
@@ -7902,7 +7902,7 @@ static u8 sub_801AEA4 (void) {
 	ldr r0, [r4]\n\
 	ldrh r0, [r0]\n\
 	strh r0, [r1]\n\
-	bl sub_80586DC\n\
+	bl IsTrapTriggered\n\
 	cmp r0, #1\n\
 	bne _0801AF64\n\
 	ldr r0, [r4]\n\
@@ -8000,7 +8000,7 @@ static u8 sub_801AF74 (void) {
 	ldr r0, [r4]\n\
 	ldrh r0, [r0]\n\
 	strh r0, [r1]\n\
-	bl sub_80586DC\n\
+	bl IsTrapTriggered\n\
 	cmp r0, #1\n\
 	bne _0801B034\n\
 	ldr r0, [r4]\n\
@@ -8144,7 +8144,7 @@ static u8 sub_801B1B0 (void) {
 	ldr r0, [r7]\n\
 	ldrh r0, [r0]\n\
 	strh r0, [r1]\n\
-	bl sub_80586DC\n\
+	bl IsTrapTriggered\n\
 	cmp r0, #1\n\
 	beq _0801B224\n\
 	movs r0, #1\n\
@@ -8210,7 +8210,7 @@ static u8 sub_801B234 (void) {
 	ldr r0, [r7]\n\
 	ldrh r0, [r0]\n\
 	strh r0, [r1]\n\
-	bl sub_80586DC\n\
+	bl IsTrapTriggered\n\
 	cmp r0, #1\n\
 	bne _0801B2A8\n\
 	movs r0, #1\n\
@@ -8259,7 +8259,7 @@ static u8 sub_801B35C (void) {
     gTrapEffectData.unk2 = row2;
     gTrapEffectData.unk3 = col2;
     gTrapEffectData.id = gZones[row2][col2]->id;
-    if (sub_80586DC() != 1)
+    if (IsTrapTriggered() != 1)
       return 1;
   }
   return 0;
@@ -8272,7 +8272,7 @@ static u8 sub_801B3AC (void) {
     gTrapEffectData.unk2 = row2;
     gTrapEffectData.unk3 = col2;
     gTrapEffectData.id = gZones[row2][col2]->id;
-    if (sub_80586DC() == 1)
+    if (IsTrapTriggered() == 1)
       return 1;
   }
   return 0;

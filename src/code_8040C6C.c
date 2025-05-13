@@ -46,7 +46,7 @@ u32 AdjustBackgroundBeforeTurnStart (unsigned char);
 
 
 void sub_8040B4C (void);
-void sub_8041EC8 (void);
+void DisplayCardInfoBar (void);
 void sub_80408FC (void);
 void sub_8041E64 (void);
 void sub_804405C (void);
@@ -142,7 +142,7 @@ void sub_8040EF0 (void) {
   gBG2VOFS = AdjustBackgroundBeforeTurnStart(gDuelCursor.currentY);
   gBG2VOFS = AdjustBackgroundBeforeTurnStart(1);
   sub_8040B4C();
-  sub_8041EC8();
+  DisplayCardInfoBar();
   sub_8040C6C();
   sub_80577A4();
   sub_80408FC();
@@ -188,7 +188,7 @@ void sub_80410B4 (void) { //updates all duel gfx
   sub_8041140(gDuel.field);
   //below this is same as sub_8041104
   sub_8040B4C();
-  sub_8041EC8();
+  DisplayCardInfoBar();
   sub_8040C6C();
   sub_80577A4();
   sub_80408FC();
@@ -201,7 +201,7 @@ void sub_80410B4 (void) { //updates all duel gfx
 
 void sub_8041104 (void) { //updates gfx except for field
   sub_8040B4C(); // init bg1 for b button menu and card details at the bottom
-  sub_8041EC8();
+  DisplayCardInfoBar();
   sub_8040C6C();
   sub_80577A4();
   sub_80408FC();

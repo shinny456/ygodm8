@@ -40,7 +40,7 @@ struct DuelCard
     u16 id;
     s8 permStage;
     s8 tempStage;
-    u8 unk4;
+    u8 unk4; // something to do with special summoning? CoH/BC/Ra=2, otherwise mostly 0
     u8 isLocked : 1;
     u8 isDefending : 1;
     u8 unkTwo : 1;
@@ -54,8 +54,8 @@ struct NotSureWhatToName //rename to duelist status?
 {
     u16 graveyard;
     u8 sorlTurns : 2;
-    u8 unkTwo : 1; //can defend?
-    u8 unkThree : 1;
+    u8 defenseBlocked : 1; // stop defence active this turn
+    u8 unkThree : 1; // something that causes all monsters to get locked?
 };
 
 //Zones to Cards
@@ -299,7 +299,7 @@ s32 WhoseTurn(void); //8058744
 
 s32 sub_8056258(u8, u8);
 
-bool32 sub_80586DC(void);
+bool32 IsTrapTriggered(void);
 
 
 u16 GetGraveCardAndClearGrave2(u8);

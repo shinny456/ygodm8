@@ -797,7 +797,7 @@ void InitBoard (void) {
   gDuel.field = gDuelData.duelist.field;
   for (i = 0; i < 2; i++) {
     gDuel.notSure[i].sorlTurns = 0;
-    gDuel.notSure[i].unkTwo = 0;
+    gDuel.notSure[i].defenseBlocked = 0;
     gDuel.notSure[i].graveyard = CARD_NONE;
     sub_8040508(i);
   }
@@ -1059,12 +1059,12 @@ int PermStage (struct DuelCard *zone) {
 }
 
 // unused?
-void sub_8040690 (struct DuelCard *zone, unsigned char tempStage) {
+void SetTempStage (struct DuelCard *zone, unsigned char tempStage) {
   zone->tempStage = tempStage;
 }
 
 // unused?
-s8 sub_8040694 (struct DuelCard *zone) {
+s8 GetTempStage (struct DuelCard *zone) {
   return zone->tempStage;
 }
 
@@ -1211,11 +1211,14 @@ void CopyCard (struct DuelCard *dst, struct DuelCard *src) {
 }
 
 extern struct DuelCard gSelectedCard;
-void sub_8040998 (struct DuelCard *zone) {
+
+// 8040998
+void SelectZone (struct DuelCard *zone) {
   CopyCard(&gSelectedCard, zone);
 }
 
-void sub_80409AC (struct DuelCard *zone) {
+// 80409AC
+void CopySelectedCardToZone (struct DuelCard *zone) {
   CopyCard(zone, &gSelectedCard);
 }
 
@@ -1249,7 +1252,7 @@ static unsigned char ProcessInput (void) {
 
 void sub_8041104 (void);
 void sub_80082C0 (void);
-void sub_8041EC8 (void);
+void DisplayCardInfoBar (void);
 void sub_8041E70 (unsigned char, unsigned char);
 void MoveCursorUp (void);
 void MoveCursorDown (void);
@@ -1279,22 +1282,22 @@ void PlayerTurnMain (void) {
     switch (ProcessInput()) {
       case 1:
         MoveCursorUp();
-        sub_8041EC8();
+        DisplayCardInfoBar();
         sub_8041E70(y, gDuelCursor.currentY);
         break;
       case 2:
         MoveCursorDown();
-        sub_8041EC8();
+        DisplayCardInfoBar();
         sub_8041E70(y, gDuelCursor.currentY);
         break;
       case 3:
         MoveCursorLeft();
-        sub_8041EC8();
+        DisplayCardInfoBar();
         sub_8041E70(y, gDuelCursor.currentY);
         break;
       case 4:
         MoveCursorRight();
-        sub_8041EC8();
+        DisplayCardInfoBar();
         sub_8041E70(y, gDuelCursor.currentY);
         break;
       case 5:

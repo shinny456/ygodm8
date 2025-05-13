@@ -1,37 +1,61 @@
 #include "global.h"
 
-static bool8 sub_8057998 (void);
-static bool8 sub_8057A1C (void);
-static bool8 sub_8057AA0 (void);
-static bool8 sub_8057B28 (void);
-static bool8 sub_8057BAC (void);
-static void sub_080582D8 (void);
+// TrapId -- not the same as CardId
+// can move if needed, just defined here lazily
+#define TRAP_NONE 0
+#define TRAP_WIDESPREAD_RUIN 1
+#define TRAP_HOUSE_OF_ADHESIVE_TAPE 2
+#define TRAP_EATGABOON 3
+#define TRAP_BEAR_TRAP 4
+#define TRAP_INVISIBLE_WIRE 5
+#define TRAP_ACID_TRAP_HOLE 6
+#define TRAP_GOBLIN_FAN 7
+#define TRAP_BAD_REACTION_TO_SIMOCHI 8
+#define TRAP_REVERSE_TRAP 9
+#define TRAP_FAKE_TRAP 10
+#define TRAP_ANTI_RAIGEKI 11
+#define TRAP_INFINITE_DISMISSAL 12
+#define TRAP_TORRENTIAL_TRIBUTE 13
+#define TRAP_AMAZON_ARCHERS 14
+#define TRAP_DESTINY_BOARD 15
+#define TRAP_SPIRIT_MESSAGE_I 16
+#define TRAP_SPIRIT_MESSAGE_N 17
+#define TRAP_SPIRIT_MESSAGE_A 18
+#define TRAP_SPIRIT_MESSAGE_L 19
+#define TRAP_DRAGON_CAPTURE_JAR 20
+
+static bool8 ConditionHouseOfAdhesiveTape (void);
+static bool8 ConditionEatgaboon (void);
+static bool8 ConditionBearTrap (void);
+static bool8 ConditionInvisibleWire (void);
+static bool8 ConditionAcidTrapHole (void);
+static void EffectTrapNone (void);
 static void EffectGoblinFan (u16);
 static void EffectBadReactionToSimochi (u16);
 static void EffectReverseTrap (void);
-static void sub_08058430 (void);
+static void EffectFakeTrap (void);
 static void EffectTorrentialTribute (void);
-static void sub_0805849C (void);
-static void sub_080584A0 (void);
-static void sub_080584A4 (void);
-static void sub_080584A8 (void);
-static void sub_080584AC (void);
-static bool8 sub_80584B4 (void);
-static bool8 sub_80584B8 (void);
-static bool8 sub_80584E4 (void);
-static bool8 sub_8058540 (void);
-static bool8 sub_805859C (void);
-static bool8 sub_80585F0 (void);
-static bool8 sub_80585F4 (void);
-static bool8 sub_8058650 (void);
-static bool8 sub_8058674 (void);
-static bool8 sub_80586A0 (void);
-static bool8 sub_80586C4 (void);
-static bool8 sub_80586C8 (void);
-static bool8 sub_80586CC (void);
-static bool8 sub_80586D0 (void);
-static bool8 sub_80586D4 (void);
-static bool8 sub_80586D8 (void);
+static void EffectDestinyBoard (void);
+static void EffectSpiritMessageI (void);
+static void EffectSpiritMessageN (void);
+static void EffectSpiritMessageA (void);
+static void EffectSpiritMessageL (void);
+static bool8 ConditionTrapNone (void);
+static bool8 ConditionWidespreadRuin (void);
+static bool8 ConditionGoblinFan (void);
+static bool8 ConditionBadReactionToSimochi (void);
+static bool8 ConditionReverseTrap (void);
+static bool8 ConditionFakeTrap (void);
+static bool8 ConditionAntiRaigeki (void);
+static bool8 ConditionInfiniteDismissal (void);
+static bool8 ConditionTorrentialTribute (void);
+static bool8 ConditionAmazonArchers (void);
+static bool8 ConditionDestinyBoard (void);
+static bool8 ConditionSpiritMessageI (void);
+static bool8 ConditionSpiritMessageN (void);
+static bool8 ConditionSpiritMessageA (void);
+static bool8 ConditionSpiritMessageL (void);
+static bool8 ConditionDragonCaptureJar (void);
 
 
 extern s16 gUnk_8E1172C[];
@@ -39,75 +63,75 @@ extern s16 gUnk_8E11738[];
 extern s16 gUnk_8E11744[];
 extern s16 gUnk_8E11788[];
 
-
-static signed char sub_8057894 (u16 id) {
+// 8057894
+static signed char CheckTrapActivationConditions (u16 id) {
     unsigned char ret;
 
     SetCardInfo(id);
     switch (gCardInfo.trapEffect)
     {
-    case 0:
-        ret = sub_80584B4();
+    case TRAP_NONE:
+        ret = ConditionTrapNone();
         break;
-    case 1:
-        ret = sub_80584B8();
+    case TRAP_WIDESPREAD_RUIN:
+        ret = ConditionWidespreadRuin();
         break;
-    case 2:
-        ret = sub_8057998();
+    case TRAP_HOUSE_OF_ADHESIVE_TAPE:
+        ret = ConditionHouseOfAdhesiveTape();
         break;
-    case 3:
-        ret = sub_8057A1C();
+    case TRAP_EATGABOON:
+        ret = ConditionEatgaboon();
         break;
-    case 4:
-        ret = sub_8057AA0();
+    case TRAP_BEAR_TRAP:
+        ret = ConditionBearTrap();
         break;
-    case 5:
-        ret = sub_8057B28();
+    case TRAP_INVISIBLE_WIRE:
+        ret = ConditionInvisibleWire();
         break;
-    case 6:
-        ret = sub_8057BAC();
+    case TRAP_ACID_TRAP_HOLE:
+        ret = ConditionAcidTrapHole();
         break;
-    case 7:
-        ret = sub_80584E4();
+    case TRAP_GOBLIN_FAN:
+        ret = ConditionGoblinFan();
         break;
-    case 8:
-        ret = sub_8058540();
+    case TRAP_BAD_REACTION_TO_SIMOCHI:
+        ret = ConditionBadReactionToSimochi();
         break;
-    case 9:
-        ret = sub_805859C();
+    case TRAP_REVERSE_TRAP:
+        ret = ConditionReverseTrap();
         break;
-    case 10:
-        ret = sub_80585F0();
+    case TRAP_FAKE_TRAP:
+        ret = ConditionFakeTrap();
         break;
-    case 11:
-        ret = sub_80585F4();
+    case TRAP_ANTI_RAIGEKI:
+        ret = ConditionAntiRaigeki();
         break;
-    case 12:
-        ret = sub_8058650();
+    case TRAP_INFINITE_DISMISSAL:
+        ret = ConditionInfiniteDismissal();
         break;
-    case 13:
-        ret = sub_8058674();
+    case TRAP_TORRENTIAL_TRIBUTE:
+        ret = ConditionTorrentialTribute();
         break;
-    case 14:
-        ret = sub_80586A0();
+    case TRAP_AMAZON_ARCHERS:
+        ret = ConditionAmazonArchers();
         break;
-    case 15:
-        ret = sub_80586C4();
+    case TRAP_DESTINY_BOARD:
+        ret = ConditionDestinyBoard();
         break;
-    case 16:
-        ret = sub_80586C8();
+    case TRAP_SPIRIT_MESSAGE_I:
+        ret = ConditionSpiritMessageI();
         break;
-    case 17:
-        ret = sub_80586CC();
+    case TRAP_SPIRIT_MESSAGE_N:
+        ret = ConditionSpiritMessageN();
         break;
-    case 18:
-        ret = sub_80586D0();
+    case TRAP_SPIRIT_MESSAGE_A:
+        ret = ConditionSpiritMessageA();
         break;
-    case 19:
-        ret = sub_80586D4();
+    case TRAP_SPIRIT_MESSAGE_L:
+        ret = ConditionSpiritMessageL();
         break;
-    case 20:
-        ret = sub_80586D8();
+    case TRAP_DRAGON_CAPTURE_JAR:
+        ret = ConditionDragonCaptureJar();
         break;
     default:
         ret = 0;
@@ -115,9 +139,10 @@ static signed char sub_8057894 (u16 id) {
     return ret;
 }
 
-static bool8 sub_8057998(void)
+// 8057998
+static bool8 ConditionHouseOfAdhesiveTape(void)
 {
-    if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TRUE)
+    if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_MONSTER)
     {
         gStatMod.card = gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
         gStatMod.field = gDuel.field;
@@ -125,16 +150,17 @@ static bool8 sub_8057998(void)
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 500)
         {
-            gTrapEffectData.unk5 = 2;
+            gTrapEffectData.unk5 = TRAP_HOUSE_OF_ADHESIVE_TAPE;
             return TRUE;
         }
     }
     return 0;
 }
 
-static bool8 sub_8057A1C(void)
+// 8057A1C
+static bool8 ConditionEatgaboon(void)
 {
-    if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TRUE)
+    if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_MONSTER)
     {
         gStatMod.card = gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
         gStatMod.field = gDuel.field;
@@ -142,16 +168,17 @@ static bool8 sub_8057A1C(void)
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 1000)
         {
-            gTrapEffectData.unk5 = 3;
+            gTrapEffectData.unk5 = TRAP_EATGABOON;
             return TRUE;
         }
     }
     return 0;
 }
 
-static bool8 sub_8057AA0(void)
+// 8057AA0
+static bool8 ConditionBearTrap(void)
 {
-    if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TRUE)
+    if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_MONSTER)
     {
         gStatMod.card = gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
         gStatMod.field = gDuel.field;
@@ -159,16 +186,17 @@ static bool8 sub_8057AA0(void)
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 1500)
         {
-            gTrapEffectData.unk5 = 4;
+            gTrapEffectData.unk5 = TRAP_BEAR_TRAP;
             return TRUE;
         }
     }
     return 0;
 }
 
-static bool8 sub_8057B28(void)
+// 8057B28
+static bool8 ConditionInvisibleWire(void)
 {
-    if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TRUE)
+    if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_MONSTER)
     {
         gStatMod.card = gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
         gStatMod.field = gDuel.field;
@@ -176,16 +204,17 @@ static bool8 sub_8057B28(void)
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 2000)
         {
-            gTrapEffectData.unk5 = 5;
+            gTrapEffectData.unk5 = TRAP_INVISIBLE_WIRE;
             return TRUE;
         }
     }
     return 0;
 }
 
-static bool8 sub_8057BAC(void)
+// 8057BAC
+static bool8 ConditionAcidTrapHole(void)
 {
-    if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TRUE)
+    if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_MONSTER)
     {
         gStatMod.card = gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
         gStatMod.field = gDuel.field;
@@ -193,7 +222,7 @@ static bool8 sub_8057BAC(void)
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 3000)
         {
-            gTrapEffectData.unk5 = 6;
+            gTrapEffectData.unk5 = TRAP_ACID_TRAP_HOLE;
             return TRUE;
         }
     }
@@ -411,78 +440,79 @@ static void EffectAmazonArchers(void)
     }
 }
 
-//TODO: this function is called with no arguments in some places
-void ActivateTrapEffect (u16 arg0)
+// argument only exists when an lp amount needs to be trapped/inverted
+void ActivateTrapEffect (u16 lp)
 {
     ResetCardEffectTextData();
     SetCardEffectTextType(3);
 
     switch (gTrapEffectData.unk5)
     {
-    case 0:
-        sub_080582D8();
+    case TRAP_NONE:
+        EffectTrapNone();
         break;
-    case 1:
+    case TRAP_WIDESPREAD_RUIN:
         EffectWideSpreadRuin();
         break;
-    case 2:
+    case TRAP_HOUSE_OF_ADHESIVE_TAPE:
         EffectHouseOfAdhesiveTape();
         break;
-    case 3:
+    case TRAP_EATGABOON:
         EffectEatgaboon();
         break;
-    case 4:
+    case TRAP_BEAR_TRAP:
         EffectBearTrap();
         break;
-    case 5:
+    case TRAP_INVISIBLE_WIRE:
         EffectInvisibleWire();
         break;
-    case 6:
+    case TRAP_ACID_TRAP_HOLE:
         EffectAcidTrapHole();
         break;
-    case 7:
-        EffectGoblinFan(arg0);
+    case TRAP_GOBLIN_FAN:
+        EffectGoblinFan(lp);
         break;
-    case 8:
-        EffectBadReactionToSimochi(arg0);
+    case TRAP_BAD_REACTION_TO_SIMOCHI:
+        EffectBadReactionToSimochi(lp);
         break;
-    case 9:
+    case TRAP_REVERSE_TRAP:
         EffectReverseTrap();
         break;
-    case 10:
-        sub_08058430();
+    case TRAP_FAKE_TRAP:
+        EffectFakeTrap();
         break;
-    case 11:
+    case TRAP_ANTI_RAIGEKI:
         EffectAntiRaigeki();
         break;
-    case 12:
+    case TRAP_INFINITE_DISMISSAL:
         EffectInfiniteDismissal();
         break;
-    case 13:
+    case TRAP_TORRENTIAL_TRIBUTE:
         EffectTorrentialTribute();
         break;
-    case 14:
+    case TRAP_AMAZON_ARCHERS:
         EffectAmazonArchers();
         break;
-    case 15:
-        sub_0805849C();
+    case TRAP_DESTINY_BOARD:
+        EffectDestinyBoard();
         break;
-    case 16:
-        sub_080584A0();
+    case TRAP_SPIRIT_MESSAGE_I:
+        EffectSpiritMessageI();
         break;
-    case 17:
-        sub_080584A4();
+    case TRAP_SPIRIT_MESSAGE_N:
+        EffectSpiritMessageN();
         break;
-    case 18:
-        sub_080584A8();
+    case TRAP_SPIRIT_MESSAGE_A:
+        EffectSpiritMessageA();
         break;
-    case 19:
-        sub_080584AC();
+    case TRAP_SPIRIT_MESSAGE_L:
+        EffectSpiritMessageL();
         break;
     }
 }
 
-static void sub_080582D8(void){
+// 080582D8
+static void EffectTrapNone(void){
 }
 
 static void EffectGoblinFan(u16 lp)
@@ -540,7 +570,8 @@ static void EffectReverseTrap(void)
     }
 }
 
-static void sub_08058430 (void) {
+// 08058430
+static void EffectFakeTrap (void) {
 }
 
 static void EffectTorrentialTribute(void)
@@ -560,41 +591,50 @@ static void EffectTorrentialTribute(void)
     }
 }
 
-static void sub_0805849C (void) {
+// 0805849C
+static void EffectDestinyBoard (void) {
 }
 
-static void sub_080584A0 (void) {
+// 080584A0
+static void EffectSpiritMessageI (void) {
 }
 
-static void sub_080584A4 (void) {
+// 080584A4
+static void EffectSpiritMessageN (void) {
 }
 
-static void sub_080584A8 (void) {
+// 080584A8
+static void EffectSpiritMessageA (void) {
 }
 
-static void sub_080584AC (void) {
+// 080584AC
+static void EffectSpiritMessageL (void) {
 }
 
-static void sub_080584B0 (void) {
+// 080584B0
+static void EffectDragonCaptureJar (void) {
 }
 
-static u8 sub_80584B4 (void)
+// 80584B4
+static u8 ConditionTrapNone (void)
 {
     return 0;
 }
 
-static bool8 sub_80584B8(void)
+//80584B8
+static bool8 ConditionWidespreadRuin(void)
 {
-    if (IsGodCard(gTrapEffectData.id) == TRUE || GetTypeGroup(gTrapEffectData.id) != 1)
+    if (IsGodCard(gTrapEffectData.id) == TRUE || GetTypeGroup(gTrapEffectData.id) != TYPE_GROUP_MONSTER)
         return 0;
 
-    gTrapEffectData.unk5 = 1;
+    gTrapEffectData.unk5 = TRAP_WIDESPREAD_RUIN;
     return TRUE;
 }
 
-static bool8 sub_80584E4(void)
+//80584E4
+static bool8 ConditionGoblinFan(void)
 {
-    if (GetTypeGroup(gTrapEffectData.id) == 2)
+    if (GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_SPELL)
     {
         u32 i;
 
@@ -603,7 +643,7 @@ static bool8 sub_80584E4(void)
         {
             if (gUnk_8E1172C[i] == gCardInfo.spellEffect)
             {
-                gTrapEffectData.unk5 = 7;
+                gTrapEffectData.unk5 = TRAP_GOBLIN_FAN;
                 return TRUE;
             }
         }
@@ -611,9 +651,10 @@ static bool8 sub_80584E4(void)
     return 0;
 }
 
-static bool8 sub_8058540(void)
+//8058540
+static bool8 ConditionBadReactionToSimochi(void)
 {
-    if (GetTypeGroup(gTrapEffectData.id) == 2)
+    if (GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_SPELL)
     {
         u32 i;
 
@@ -622,7 +663,7 @@ static bool8 sub_8058540(void)
         {
             if (gUnk_8E11738[i] == gCardInfo.spellEffect)
             {
-                gTrapEffectData.unk5 = 8;
+                gTrapEffectData.unk5 = TRAP_BAD_REACTION_TO_SIMOCHI;
                 return TRUE;
             }
         }
@@ -630,7 +671,8 @@ static bool8 sub_8058540(void)
     return 0;
 }
 
-static bool8 sub_805859C(void)
+//805859C
+static bool8 ConditionReverseTrap(void)
 {
     u32 i;
 
@@ -639,21 +681,23 @@ static bool8 sub_805859C(void)
     {
         if (gUnk_8E11744[i] == gCardInfo.spellEffect)
         {
-            gTrapEffectData.unk5 = 9;
+            gTrapEffectData.unk5 = TRAP_REVERSE_TRAP;
             return TRUE;
         }
     }
     return 0;
 }
 
-static u8 sub_80585F0(void)
+//80585F0
+static u8 ConditionFakeTrap(void)
 {
     return 0;
 }
 
-static bool8 sub_80585F4(void)
+//80585F4
+static bool8 ConditionAntiRaigeki(void)
 {
-    if (GetTypeGroup(gTrapEffectData.id) == 2)
+    if (GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_SPELL)
     {
         u32 i;
 
@@ -662,7 +706,7 @@ static bool8 sub_80585F4(void)
         {
             if (gUnk_8E11788[i] == gCardInfo.spellEffect)
             {
-                gTrapEffectData.unk5 = 11;
+                gTrapEffectData.unk5 = TRAP_ANTI_RAIGEKI;
                 return TRUE;
             }
         }
@@ -670,74 +714,84 @@ static bool8 sub_80585F4(void)
     return 0;
 }
 
-static bool8 sub_8058650(void)
+//8058650
+static bool8 ConditionInfiniteDismissal(void)
 {
-    if (GetTypeGroup(gTrapEffectData.id) == 1)
+    if (GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_MONSTER)
     {
-        gTrapEffectData.unk5 = 12;
+        gTrapEffectData.unk5 = TRAP_INFINITE_DISMISSAL;
         return TRUE;
     }
     return 0;
 }
 
-static bool8 sub_8058674(void)
+//8058674
+static bool8 ConditionTorrentialTribute(void)
 {
-    if (IsGodCard(gTrapEffectData.id) == TRUE || GetTypeGroup(gTrapEffectData.id) != 1)
+    if (IsGodCard(gTrapEffectData.id) == TRUE || GetTypeGroup(gTrapEffectData.id) != TYPE_GROUP_MONSTER)
         return 0;
 
-    gTrapEffectData.unk5 = 13;
+    gTrapEffectData.unk5 = TRAP_TORRENTIAL_TRIBUTE;
     return TRUE;
 }
 
-static bool8 sub_80586A0(void)
+//80586A0
+static bool8 ConditionAmazonArchers(void)
 {
-    if (GetTypeGroup(gTrapEffectData.id) == 1)
+    if (GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_MONSTER)
     {
-        gTrapEffectData.unk5 = 14;
+        gTrapEffectData.unk5 = TRAP_AMAZON_ARCHERS;
         return TRUE;
     }
     return 0;
 }
 
-static bool8 sub_80586C4(void)
+//80586C4
+static bool8 ConditionDestinyBoard(void)
 {
     return 0;
 }
 
-static bool8 sub_80586C8(void)
+//80586C8
+static bool8 ConditionSpiritMessageI(void)
 {
     return 0;
 }
 
-static bool8 sub_80586CC(void)
+//80586CC
+static bool8 ConditionSpiritMessageN(void)
 {
     return 0;
 }
 
-static bool8 sub_80586D0(void)
+//80586D0
+static bool8 ConditionSpiritMessageA(void)
 {
     return 0;
 }
 
-static bool8 sub_80586D4(void)
+//80586D4
+static bool8 ConditionSpiritMessageL(void)
 {
     return 0;
 }
 
-static bool8 sub_80586D8(void)
+// 80586D8
+static bool8 ConditionDragonCaptureJar(void)
 {
     return 0;
 }
 
-unsigned sub_80586DC (void) {
+// 80586DC
+unsigned IsTrapTriggered (void) {
   unsigned char i;
 
   gTrapEffectData.unk5 = 0;
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
   {
       gTrapEffectData.trapZoneId = i;
-      if (sub_8057894(gZones[0][i]->id) == 1)
-          return 1;
+      if (CheckTrapActivationConditions(gZones[0][i]->id) == 1)
+          return TRUE;
   }
-  return 0;
+  return FALSE;
 }
