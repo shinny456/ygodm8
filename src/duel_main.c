@@ -306,7 +306,7 @@ struct Unk2021DA0 {
   unsigned char unkB;
   unsigned char unkC;
   unsigned char unkD;
-  unsigned char winMusic;
+  unsigned char unkE;
 };
 
 extern unsigned char g2021D9C;
@@ -1095,18 +1095,18 @@ extern unsigned char g80C1852[];
 extern struct Unk8f (*gFC4A8C[]);
 
 void sub_80229C0(void) {
-  if (gLinkDuelMenuData.winMusic == 0) {
+  if (gLinkDuelMenuData.unkE == 0) {
     unsigned char temp = g80C1852[gLinkDuelMenuData.unkA];
     gLinkDuelMenuData.unkD++;
     if (gFC4A8C[temp][gLinkDuelMenuData.unkD].unk0 == 0)
       gLinkDuelMenuData.unkD = 0;
   }
-  if (gLinkDuelMenuData.winMusic == 0) {
+  if (gLinkDuelMenuData.unkE == 0) {
     unsigned char temp = g80C1852[gLinkDuelMenuData.unkA];
-    gLinkDuelMenuData.winMusic = gFC4A8C[temp][gLinkDuelMenuData.unkD].unk0;
+    gLinkDuelMenuData.unkE = gFC4A8C[temp][gLinkDuelMenuData.unkD].unk0;
   }
   else
-    gLinkDuelMenuData.winMusic--;
+    gLinkDuelMenuData.unkE--;
 }
 
 unsigned char GetPlayerDeckSize(void);
@@ -1122,7 +1122,7 @@ void sub_8022A24(void) {
   gLinkDuelMenuData.unkC = 0;
   temp = g80C1852[0];
   gLinkDuelMenuData.unkD = 0;
-  gLinkDuelMenuData.winMusic = gFC4A8C[temp][0].unk0;
+  gLinkDuelMenuData.unkE = gFC4A8C[temp][0].unk0;
 }
 
 extern unsigned char g80C188C[];
@@ -1174,16 +1174,16 @@ void sub_8022B04(void) {
 void sub_8022B1C(void) {
   unsigned char temp = g80C1852[gLinkDuelMenuData.unkA];
   gLinkDuelMenuData.unkD = 0;
-  gLinkDuelMenuData.winMusic = gFC4A8C[temp][0].unk0;
+  gLinkDuelMenuData.unkE = gFC4A8C[temp][0].unk0;
 }
 
 void sub_8022B44(void) {
-  if (gLinkDuelMenuData.winMusic == 0) {
+  if (gLinkDuelMenuData.unkE == 0) {
     unsigned char temp = g80C1852[gLinkDuelMenuData.unkA];
-    gLinkDuelMenuData.winMusic = gFC4A8C[temp][gLinkDuelMenuData.unkD].unk0;
+    gLinkDuelMenuData.unkE = gFC4A8C[temp][gLinkDuelMenuData.unkD].unk0;
   }
   else
-     gLinkDuelMenuData.winMusic--;
+     gLinkDuelMenuData.unkE--;
 }
 
 void sub_8022B7C (unsigned char arg0) {
