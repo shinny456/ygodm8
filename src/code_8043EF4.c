@@ -162,14 +162,14 @@ void sub_8044160 (u8 arg0) {
 
 u8 sub_80453D8(u16);
 void HandlePlayerMonsterRowAction (void);
-void sub_80446E0 (void);
+void HandlePlayerSpellRowAction (void);
 void DisplayNumRequiredTributesText (u8);
 void sub_80442AC (void);
 void sub_8040998 (struct DuelCard *zone);
 void sub_80409AC (struct DuelCard *zone);
 void sub_8041EC8 (void);
 void sub_8041E70 (u8, u8);
-void WinConditionExodia (void);
+void CheckWinConditionExodia (void);
 void IncNumTributes (void);
 u32 sub_80429A4 (void);
 void sub_8044570 (void);
@@ -177,8 +177,8 @@ void sub_8041104 (void);
 void sub_801BC00 (void);
 void sub_80410B4 (void);
 void ActivateTrapEffect (void);
-s8 sub_804363C (struct DuelCard** zonePtr);
-s8 GetNonEmptyMonZoneId (struct DuelCard** zonePtr);
+s8 GetLastNonEmptyMonZoneId (struct DuelCard** zonePtr);
+s8 GetFirstNonEmptyMonZoneId (struct DuelCard** zonePtr);
 void sub_80449D8 (void);
 u16 sub_8044B68(void);
 void BMenuMain (void);
@@ -206,7 +206,7 @@ void sub_80441D0 (void) {
       else {
         u8 numTributes = sub_80453D8(gDuelBoard[3][gDuelCursor.currentX]->id);
         if (!numTributes) {
-          sub_80446E0();
+          HandlePlayerSpellRowAction();
         }
         else {
           PlayMusic(0x39);
@@ -244,13 +244,13 @@ void sub_80442AC (void) {
   sub_804411C();
   switch (GetTypeGroup(id)) {
     case TYPE_GROUP_MONSTER:
-      gDuelCursor.currentX = EmptyZoneInRow(gDuelBoard[2]);
+      gDuelCursor.currentX = FirstEmptyZoneInRow(gDuelBoard[2]);
       gDuelCursor.currentY = 2;
       break;
     case TYPE_GROUP_SPELL:
     case TYPE_GROUP_TRAP:
     case TYPE_GROUP_RITUAL:
-      gDuelCursor.currentX = EmptyZoneInRow(gDuelBoard[3]);
+      gDuelCursor.currentX = FirstEmptyZoneInRow(gDuelBoard[3]);
       gDuelCursor.currentY = 3;
       break;
     default:
@@ -306,7 +306,7 @@ void HandlePlayerMonsterRowAction (void) {
           if (gNotSure[0]->unkThree)
             LockMonsterCardsInRow(4);
           sub_8041104();
-          WinConditionExodia();
+          CheckWinConditionExodia();
           if (IsDuelOver() != 1)
             sub_8029820();
         }
@@ -360,7 +360,7 @@ void sub_8044570 (void) {
     sub_8040998(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]);
     gDuelCursor.state = 4;
     sub_804411C();
-    gDuelCursor.currentX = sub_804363C(&gDuelBoard[1][4]);
+    gDuelCursor.currentX = GetLastNonEmptyMonZoneId(&gDuelBoard[1][4]);
     gDuelCursor.currentY = 1;
     sub_8041EC8();
     sub_8041E70(gDuelCursor.destY, gDuelCursor.currentY);
@@ -368,7 +368,8 @@ void sub_8044570 (void) {
   }
 }
 
-void sub_80446E0 (void) {
+// HandlePlayerSpellRowAction
+void HandlePlayerSpellRowAction (void) {
   u16 id = gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id;
   sub_8040998(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]);
   sub_804411C();
@@ -382,14 +383,14 @@ void sub_80446E0 (void) {
       if (gNotSure[0]->unkThree)
         LockMonsterCardsInRow(4);
       sub_8041104();
-      WinConditionExodia();
+      CheckWinConditionExodia();
       if (IsDuelOver() != 1)
         sub_8029820();
       break;
     case 1: //SPELL_TYPE_EQUIP
       PlayMusic(0x37);
       gDuelCursor.state = 2;
-      gDuelCursor.currentX = GetNonEmptyMonZoneId(gDuelBoard[2]);
+      gDuelCursor.currentX = GetFirstNonEmptyMonZoneId(gDuelBoard[2]);
       gDuelCursor.currentY = 2;
       break;
     case 2: //SPELL_TYPE_INVALID?

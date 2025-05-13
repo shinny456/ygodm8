@@ -40,7 +40,7 @@ void sub_8040FDC(void);
 
 void sub_8040524(unsigned char);
 void sub_804004C(unsigned char);
-void WinConditionExodia();    //implicit declaration shenanigans
+void CheckWinConditionExodia();    //implicit declaration shenanigans
 void sub_802703C(void);
 void PlayerTurnMain(void);
 void AI_Main(void);
@@ -96,14 +96,14 @@ void DuelMain (void) {
     ResetNumTributes();
     sub_804004C(turn);
     if (NumEmptyZonesInRow(gZones[4]) > 0) {
-      DrawCard(turn);
-      if (IsDuelOver() == 1)
+      TryDrawingCard(turn);
+      if (IsDuelOver() == TRUE)
         break;
       PlayMusic(59);
     }
     sub_8041104();
-    WinConditionExodia(turn);
-    if (IsDuelOver() == 1)
+    CheckWinConditionExodia(turn);
+    if (IsDuelOver() == TRUE)
       break;
     sub_802549C();
     sub_802703C();
@@ -111,11 +111,11 @@ void DuelMain (void) {
       PlayerTurnMain();
     else
       AI_Main();
-    if (IsDuelOver() == 1)
+    if (IsDuelOver() == TRUE)
       break;
     ReturnMonstersToOwner();
     FlipAtkPosCardsFaceUp(2);
-    sub_80254F8();
+    EndFirstTurnAttackBan();
     SwitchTurn();
     if (gNotSure[TURN_PLAYER]->unkTwo)
       gNotSure[TURN_PLAYER]->unkTwo = 0;
@@ -148,7 +148,7 @@ static void InitIngameDuel (void) {
     gWhoseTurn = 1;
   InitBoard();
   InitDuelLifePoints();
-  sub_80254DC();
+  InitDuelistStatus();
   gHideEffectText = 0;
   sub_8041090();
   PlayMusic(gDuelData.unkC);
@@ -207,7 +207,7 @@ static bool8 DoesDuelistHaveTurnVoice (struct TurnVoice* turnVoice) {
 }
 
 static void DuelEnd (void) {
-  if (gDuelistStatus[DUEL_OPPONENT] == 2)
+  if (gDuelistStatus[DUEL_OPPONENT] == DEFEAT)
     gDuelData.unk2B = 1;
   else
     gDuelData.unk2B = 2;
@@ -362,10 +362,10 @@ void LinkDuelMain (void) {
       sub_8021E0C();
     else
       sub_8021ED8();
-    if (IsDuelOver() == 1) break;
+    if (IsDuelOver() == TRUE) break;
     ReturnMonstersToOwner();
     FlipAtkPosCardsFaceUp(2);
-    sub_80254F8();
+    EndFirstTurnAttackBan();
     SwitchTurn();
     if (gNotSure[0]->unkTwo)
       gNotSure[0]->unkTwo = 0;
@@ -382,8 +382,8 @@ static void sub_8021E0C (void) {
   struct DuelText duelText;
   g3000C38.unk32 = 0;
   if (NumEmptyZonesInRow(gZones[4]) > 0) {
-    DrawCard(DUEL_PLAYER);
-    if (IsDuelOver() == 1) {
+    TryDrawingCard(DUEL_PLAYER);
+    if (IsDuelOver() == TRUE) {
       g2021D98 = 3;
       sub_8024548();
       sub_80240BC(&duelText);
@@ -398,13 +398,13 @@ static void sub_8021E0C (void) {
       PlayMusic(59);
   }
   sub_8041104();
-  WinConditionExodia();
-  if (IsDuelOver() == 1)
+  CheckWinConditionExodia();
+  if (IsDuelOver() == TRUE)
     return;
   sub_802549C();
   sub_802703C();
   PlayerTurnMain();
-  if (IsDuelOver() == 1)
+  if (IsDuelOver() == TRUE)
     return;
   g2021D98 = 3;
   sub_8024548();
@@ -441,7 +441,7 @@ static void sub_8021ED8 (void) {
       sub_801CF08();
       break;
     }
-    if (IsDuelOver() == 1)
+    if (IsDuelOver() == TRUE)
       r4 = 1;
     if (r4 == 1)
       break;
@@ -637,14 +637,14 @@ static void sub_8022234 (void) {
 }
 
 static void sub_80222EC (void) {
-  sub_80254DC();
+  InitDuelistStatus();
   SetDuelLifePoints(DUEL_PLAYER, gDuelData.duelist.playerLp);
   SetDuelLifePoints(DUEL_OPPONENT, gDuelData.duelist.lifePoints);
   InitBoard();
 }
 
 static void sub_8022318(void) {
-  if (gDuelistStatus[DUEL_OPPONENT] == 2)
+  if (gDuelistStatus[DUEL_OPPONENT] == DEFEAT)
     gDuelData.unk2B = 1;
   else
     gDuelData.unk2B = 2;

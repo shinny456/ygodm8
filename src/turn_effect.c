@@ -2,7 +2,7 @@
 
 void sub_802ADA4 (void);
 void sub_802ADF4 (void);
-void sub_8040258 (void);
+void ResetTempStagesForAllCards (void);
 void sub_80408BC (void);
 
 
@@ -229,7 +229,7 @@ static void sub_802B2FC (void) {
 
   if (g2021DE0.unk2 != 3 || NumEmptyZonesInRow(gZones[3]) >= 5)
     return;
-  zone = EmptyZoneInRow(gZones[3]);
+  zone = FirstEmptyZoneInRow(gZones[3]);
   flags = GetFINAL_Flags();
   if (!(flags & FLAG_F))
     return;
@@ -261,7 +261,7 @@ static void EffectJamBreedingMachineSummon (void) {
     return;
   FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
   if (NumEmptyZonesInRow(gZones[2]) > 0) {
-    unsigned char zone = EmptyZoneInRow(gZones[2]);
+    unsigned char zone = FirstEmptyZoneInRow(gZones[2]);
     gZones[2][zone]->id = CHANGE_SLIME;
     gZones[2][zone]->isDefending = FALSE;
     FlipCardFaceUp(gZones[2][zone]);
@@ -280,8 +280,8 @@ static void EffectMirageKnight (void) {
 
   ptr = gZones[g2021DE0.unk2][g2021DE0.unk3];
   ptr->id = DARK_MAGICIAN;
-  ResetPermanentPowerLevel(ptr);
-  ResetTemporaryPowerLevel(ptr);
+  ResetPermStage(ptr);
+  ResetTempStage(ptr);
   ptr->unk4 = 0;
   UnlockCard(ptr);
   ptr->isDefending = FALSE;
@@ -291,10 +291,10 @@ static void EffectMirageKnight (void) {
   ptr->willChangeSides = 0;
 
   if (NumEmptyZonesInRow(gZones[1]) > 0) {
-    ptr = gZones[1][(unsigned char)EmptyZoneInRow(gZones[1])];
+    ptr = gZones[1][(unsigned char)FirstEmptyZoneInRow(gZones[1])];
     ptr->id = FLAME_SWORDSMAN;
-    ResetPermanentPowerLevel(ptr);
-    ResetTemporaryPowerLevel(ptr);
+    ResetPermStage(ptr);
+    ResetTempStage(ptr);
     ptr->unk4 = 0;
     UnlockCard(ptr);
     ptr->isDefending = FALSE;
@@ -318,10 +318,10 @@ static void sub_802B560 (void) {
   if (!NumEmptyZonesInRow(gZones[2]))
     return;
   r5 = GetGraveCardAndClearGrave(0);
-  ptr = gZones[2][(unsigned char)EmptyZoneInRow(gZones[2])];
+  ptr = gZones[2][(unsigned char)FirstEmptyZoneInRow(gZones[2])];
   ptr->id = r5;
-  ResetPermanentPowerLevel(ptr);
-  ResetTemporaryPowerLevel(ptr);
+  ResetPermStage(ptr);
+  ResetTempStage(ptr);
   ptr->unk4 = 0;
   UnlockCard(ptr);
   ptr->isDefending = FALSE;
@@ -344,10 +344,10 @@ static void sub_802B604 (void) {
   if (!NumEmptyZonesInRow(gZones[2]))
     return;
   r5 = GetGraveCardAndClearGrave(0);
-  ptr = gZones[2][(unsigned char)EmptyZoneInRow(gZones[2])];
+  ptr = gZones[2][(unsigned char)FirstEmptyZoneInRow(gZones[2])];
   ptr->id = r5;
-  ResetPermanentPowerLevel(ptr);
-  ResetTemporaryPowerLevel(ptr);
+  ResetPermStage(ptr);
+  ResetTempStage(ptr);
   ptr->unk4 = 0;
   UnlockCard(ptr);
   ptr->isDefending = FALSE;
@@ -367,7 +367,7 @@ void TryActivatingTurnEffects (void) {
     sub_80408BC(); //clear oam stuff?
     sub_802ADA4(); //Init sweeping cursor gfx
   }
-  sub_8040258();
+  ResetTempStagesForAllCards();
   sub_802AEF4();
 }
 
@@ -476,7 +476,7 @@ static void sub_802B770 (void) {
 static void EffectHelpoemer (void) {
   if (g2021DE0.unk2 != 7 || NumEmptyZonesInRow(gHands[0]) == 5)
     return;
-  ClearZoneAndSendMonToGraveyard(gHands[0][(unsigned char)sub_8043468(gHands[0])], 0);
+  ClearZoneAndSendMonToGraveyard(gHands[0][(unsigned char)FirstNonEmptyZoneInRow(gHands[0])], 0);
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = g2021DE0.unk0;
     sub_801CEBC();
@@ -516,7 +516,7 @@ static void EffectViserDes (void) {
   if (g2021DE0.unk2 != 2 || NumEmptyZonesInRow(gZones[1]) == 5)
     return;
   FlipCardFaceUp(gZones[2][g2021DE0.unk3]);
-  sub_804037C(gZones[1][(unsigned char)HighestAtkMonInRow(gZones[1])]);
+  DecrementPermStage(gZones[1][(unsigned char)HighestAtkMonInRow(gZones[1])]);
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = g2021DE0.unk0;
     sub_801CEBC();
@@ -553,7 +553,7 @@ static void sub_802B988 (void) {
   if (g2021DE0.unk2 != 1)
     return;
   FlipCardFaceUp(gZones[1][g2021DE0.unk3]);
-  sub_804037C(gZones[g2021DE0.unk2][g2021DE0.unk3]);
+  DecrementPermStage(gZones[g2021DE0.unk2][g2021DE0.unk3]);
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
     sub_801CEBC();
@@ -569,7 +569,7 @@ static void sub_802B9F4 (void) {
     return;
   ptr = gZones[2][g2021DE0.unk3];
   FlipCardFaceUp(ptr);
-  IncrementPermanentPowerLevel(ptr);
+  IncrementPermStage(ptr);
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = g2021DE0.unk0;
     sub_801CEBC();
@@ -597,8 +597,8 @@ static void sub_802BA50 (void) {
   ptr = gZones[2][g2021DE0.unk3];
   FlipCardFaceUp(ptr);
 
-  for (i = 2; i && sub_804069C(ptr) <= 5; i--)
-    IncrementPermanentPowerLevel(ptr);
+  for (i = 2; i && GetFinalStage(ptr) <= 5; i--)
+    IncrementPermStage(ptr);
 
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = g2021DE0.unk0;
@@ -697,7 +697,7 @@ static unsigned char sub_802BB24 (void) {
   if (g2021DE0.unk2 == 1) {
     if (gDuel.field != FIELD_YAMI)
       ret = 1;
-    else if (g2021DE0.unk3 == sub_8043694(gZones[1], CASTLE_OF_DARK_ILLUSIONS))
+    else if (g2021DE0.unk3 == GetFirstCardMatchZoneId(gZones[1], CASTLE_OF_DARK_ILLUSIONS))
       for (i = 0; i < 5; i++) {
         if (gZones[1][i]->id == CARD_NONE)
           continue;
@@ -712,7 +712,7 @@ static unsigned char sub_802BB24 (void) {
   else if (g2021DE0.unk2 == 2) {
     if (gDuel.field != FIELD_YAMI)
       ret = 1;
-    else if (g2021DE0.unk3 == sub_8043694(gZones[2], CASTLE_OF_DARK_ILLUSIONS))
+    else if (g2021DE0.unk3 == GetFirstCardMatchZoneId(gZones[2], CASTLE_OF_DARK_ILLUSIONS))
       for (i = 0; i < 5; i++) {
         if (gZones[2][i]->id == CARD_NONE)
           continue;
@@ -835,7 +835,7 @@ static unsigned char sub_802BC80 (void) {
 static unsigned char sub_802BC84 (void) {
   unsigned char ret = 0;
   if (g2021DE0.unk2 == 3 &&
-      g2021DE0.unk3 == sub_8043694(gZones[3], g2021DE0.unk0))
+      g2021DE0.unk3 == GetFirstCardMatchZoneId(gZones[3], g2021DE0.unk0))
     ret = 1;
   return ret;
 }
@@ -843,7 +843,7 @@ static unsigned char sub_802BC84 (void) {
 static unsigned char sub_802BCB0 (void) {
   unsigned char ret = 0;
   if (g2021DE0.unk2 == 3 &&
-      g2021DE0.unk3 == sub_8043694(gZones[3], DESTINY_BOARD) &&
+      g2021DE0.unk3 == GetFirstCardMatchZoneId(gZones[3], DESTINY_BOARD) &&
       NumEmptyZonesInRow(gZones[3]) > 0)
     ret = 1;
   return ret;
@@ -878,7 +878,7 @@ static unsigned char sub_802BD30 (void) {
 static unsigned char sub_802BD34 (void) {
   if (g2021DE0.unk2 == 3 &&
       NumEmptyZonesInRow(gZones[2]) != 0 &&
-      g2021DE0.unk3 == sub_8043694(gZones[3], JAM_BREEDING_MACHINE))
+      g2021DE0.unk3 == GetFirstCardMatchZoneId(gZones[3], JAM_BREEDING_MACHINE))
     return 1;
   return 0;
 }
@@ -970,7 +970,7 @@ static unsigned char sub_802BEA8 (void) {
 }
 
 static unsigned char sub_802BEAC (void) {
-  if (g2021DE0.unk2 == 2 && sub_804069C(gZones[2][g2021DE0.unk3]) <= 5)
+  if (g2021DE0.unk2 == 2 && GetFinalStage(gZones[2][g2021DE0.unk3]) <= 5)
     return 1;
   return 0;
 }

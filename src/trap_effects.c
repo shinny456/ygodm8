@@ -121,7 +121,7 @@ static bool8 sub_8057998(void)
     {
         gStatMod.card = gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = sub_804069C(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
+        gStatMod.stage = GetFinalStage(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 500)
         {
@@ -138,7 +138,7 @@ static bool8 sub_8057A1C(void)
     {
         gStatMod.card = gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = sub_804069C(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
+        gStatMod.stage = GetFinalStage(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 1000)
         {
@@ -155,7 +155,7 @@ static bool8 sub_8057AA0(void)
     {
         gStatMod.card = gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = sub_804069C(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
+        gStatMod.stage = GetFinalStage(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 1500)
         {
@@ -172,7 +172,7 @@ static bool8 sub_8057B28(void)
     {
         gStatMod.card = gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = sub_804069C(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
+        gStatMod.stage = GetFinalStage(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 2000)
         {
@@ -189,7 +189,7 @@ static bool8 sub_8057BAC(void)
     {
         gStatMod.card = gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = sub_804069C(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
+        gStatMod.stage = GetFinalStage(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 3000)
         {
@@ -397,7 +397,7 @@ static void EffectInfiniteDismissal(void)
 
 static void EffectAmazonArchers(void)
 {
-    sub_804037C(gZones[2][gTrapEffectData.unk3]);
+    DecrementPermStage(gZones[2][gTrapEffectData.unk3]);
     gZones[2][gTrapEffectData.unk3]->isFaceUp = TRUE;
     gZones[2][gTrapEffectData.unk3]->isLocked = TRUE;
 

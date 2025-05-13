@@ -313,9 +313,9 @@ static void SetLoserFlag (unsigned char arg0) {
 
 void CheckLoserFlags (void) {
   if (g2023E80.flags & FLAG_LOSER_PLAYER)
-    DeclareLoser(0);
+    DeclareLoser(DUEL_PLAYER);
   if (g2023E80.flags & FLAG_LOSER_OPPONENT)
-    DeclareLoser(1);
+    DeclareLoser(DUEL_OPPONENT);
 }
 
 // SetActionDirectAttackFromPlayer
@@ -327,7 +327,7 @@ static void sub_803F4F0 (unsigned char arg0) {
   g2023E80.playerCardId = gDuelBoard[2][arg0]->id;
   gStatMod.card = gDuelBoard[2][arg0]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = sub_804069C(gDuelBoard[2][arg0]);
+  gStatMod.stage = GetFinalStage(gDuelBoard[2][arg0]);
   SetFinalStat(&gStatMod);
   g2023E80.playerCardAttack = gCardInfo.atk;
   g2023E80.playerCardDefense = gCardInfo.def;
@@ -347,7 +347,7 @@ static void sub_803F574 (unsigned char arg0) {
   g2023E80.opponentCardId = gDuelBoard[1][arg0]->id;
   gStatMod.card = gDuelBoard[1][arg0]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = sub_804069C(gDuelBoard[1][arg0]);
+  gStatMod.stage = GetFinalStage(gDuelBoard[1][arg0]);
   SetFinalStat(&gStatMod);
   g2023E80.opponentCardAttack = gCardInfo.atk;
   g2023E80.opponentCardDefense = gCardInfo.def;
@@ -367,7 +367,7 @@ static void sub_803F604 (unsigned char arg0, unsigned char arg1) {
   g2023E80.playerCardId = gDuelBoard[2][arg0]->id;
   gStatMod.card = gDuelBoard[2][arg0]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = sub_804069C(gDuelBoard[2][arg0]);
+  gStatMod.stage = GetFinalStage(gDuelBoard[2][arg0]);
   SetFinalStat(&gStatMod);
   g2023E80.playerCardAttack = gCardInfo.atk;
   g2023E80.playerCardDefense = gCardInfo.def;
@@ -379,7 +379,7 @@ static void sub_803F604 (unsigned char arg0, unsigned char arg1) {
   g2023E80.opponentCardId = gDuelBoard[1][arg1]->id;
   gStatMod.card = gDuelBoard[1][arg1]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = sub_804069C(gDuelBoard[1][arg1]);
+  gStatMod.stage = GetFinalStage(gDuelBoard[1][arg1]);
   SetFinalStat(&gStatMod);
   g2023E80.opponentCardAttack = gCardInfo.atk;
   g2023E80.opponentCardDefense = gCardInfo.def;
@@ -398,7 +398,7 @@ static void sub_803F6F8 (unsigned char arg0, unsigned char arg1) {
   g2023E80.playerCardId = gDuelBoard[2][arg0]->id;
   gStatMod.card = gDuelBoard[2][arg0]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = sub_804069C(gDuelBoard[2][arg0]);
+  gStatMod.stage = GetFinalStage(gDuelBoard[2][arg0]);
   SetFinalStat(&gStatMod);
   g2023E80.playerCardAttack = gCardInfo.atk;
   g2023E80.playerCardDefense = gCardInfo.def;
@@ -410,7 +410,7 @@ static void sub_803F6F8 (unsigned char arg0, unsigned char arg1) {
   g2023E80.opponentCardId = gDuelBoard[1][arg1]->id;
   gStatMod.card = gDuelBoard[1][arg1]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = sub_804069C(gDuelBoard[1][arg1]);
+  gStatMod.stage = GetFinalStage(gDuelBoard[1][arg1]);
   SetFinalStat(&gStatMod);
   g2023E80.opponentCardAttack = gCardInfo.atk;
   g2023E80.opponentCardDefense = gCardInfo.def;
@@ -429,7 +429,7 @@ static void sub_803F7EC (unsigned char arg0, unsigned char arg1) {
   g2023E80.playerCardId = gDuelBoard[2][arg0]->id;
   gStatMod.card = gDuelBoard[2][arg0]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = sub_804069C(gDuelBoard[2][arg0]);
+  gStatMod.stage = GetFinalStage(gDuelBoard[2][arg0]);
   SetFinalStat(&gStatMod);
   g2023E80.playerCardAttack = gCardInfo.atk;
   g2023E80.playerCardDefense = gCardInfo.def;
@@ -441,7 +441,7 @@ static void sub_803F7EC (unsigned char arg0, unsigned char arg1) {
   g2023E80.opponentCardId = gDuelBoard[1][arg1]->id;
   gStatMod.card = gDuelBoard[1][arg1]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = sub_804069C(gDuelBoard[1][arg1]);
+  gStatMod.stage = GetFinalStage(gDuelBoard[1][arg1]);
   SetFinalStat(&gStatMod);
   g2023E80.opponentCardAttack = gCardInfo.atk;
   g2023E80.opponentCardDefense = gCardInfo.def;
@@ -792,7 +792,7 @@ void InitBoard (void) {
   for (i = 0; i < 2; i++)
     for (j = 0; j < 5; j++) {
       ClearZone(&gDuel.hands[i][j]);
-      DrawCard(i);
+      TryDrawingCard(i);
     }
   gDuel.field = gDuelData.duelist.field;
   for (i = 0; i < 2; i++) {
@@ -873,19 +873,20 @@ void sub_804004C (unsigned char turn) {
   }
 }
 
-//this could be a non-static inline (ResetTemporaryPowerLevel a few functions below)
-static inline void ResetTemp (struct DuelCard *zone) {
+//this could be a non-static inline (ResetTempStage a few functions below)
+static inline void ResetTempStage_inline (struct DuelCard *zone) {
     zone->tempStage = 0;
 }
 
-void sub_8040258 (void) {
+// 8040258
+void ResetTempStagesForAllCards (void) {
   unsigned char i, j;
   for (i = 0; i < 4; i++)
     for (j = 0; j < 5; j++)
-      ResetTemp(&gDuel.zones[i][j]);
+      ResetTempStage_inline(&gDuel.zones[i][j]);
   for (i = 0; i < 2; i++)
     for (j = 0; j < 5; j++)
-      ResetTemp(&gDuel.hands[i][j]);
+      ResetTempStage_inline(&gDuel.hands[i][j]);
 }
 
 void ClearZone (struct DuelCard *zone) {
@@ -895,8 +896,8 @@ void ClearZone (struct DuelCard *zone) {
   zone->isDefending = 0;
   zone->unkTwo = 0;
   zone->unkThree = 0;
-  ResetPermanentPowerLevel(zone);
-  ResetTemporaryPowerLevel(zone);
+  ResetPermStage(zone);
+  ResetTempStage(zone);
   zone->unk4 = 0;
   zone->willChangeSides = 0;
 }
@@ -921,57 +922,64 @@ bool8 IsCardFaceUp (struct DuelCard *zone) {
   return zone->isFaceUp;
 }
 
-void ResetPermanentPowerLevel (struct DuelCard *zone) {
+void ResetPermStage (struct DuelCard *zone) {
   zone->permStage = 0;
 }
 
-void IncrementPermanentPowerLevel (struct DuelCard *zone) {
+void IncrementPermStage (struct DuelCard *zone) {
   if (zone->permStage < 127)
     zone->permStage++;
 }
 
-void sub_804037C (struct DuelCard *zone) {
+// 804037C
+void DecrementPermStage (struct DuelCard *zone) {
   if (zone->permStage > -128)
     zone->permStage--;
 }
 
-void sub_8040394 (struct DuelCard *zone, unsigned char arg) {
-  for (; arg; arg--)
+// 8040394
+void IncreasePermStageByAmount (struct DuelCard *zone, unsigned char amt) {
+  for (; amt; amt--)
     if (zone->permStage < 127)
       zone->permStage++;
 }
 
 //unused?
-void sub_80403B8 (struct DuelCard *zone, unsigned char arg) {
-  for (; arg; arg--)
+// 80403B8
+void DecreasePermStageByAmount (struct DuelCard *zone, unsigned char amt) {
+  for (; amt; amt--)
     if (zone->permStage > -128)
       zone->permStage--;
 }
 
-void ResetTemporaryPowerLevel (struct DuelCard *zone) {
+void ResetTempStage (struct DuelCard *zone) {
   zone->tempStage = 0;
 }
 
-void sub_80403F0 (struct DuelCard *zone) {
+// 80403F0
+void IncrementTempStage (struct DuelCard *zone) {
   if (zone->tempStage < 127)
     zone->tempStage++;
 }
 
-void sub_8040404 (struct DuelCard *zone) {
+// 8040404
+void DecrementTempStage (struct DuelCard *zone) {
   if (zone->tempStage > -128)
     zone->tempStage--;
 }
 
 // unused?
-void sub_804041C (struct DuelCard *zone, unsigned char arg) {
-  for (; arg; arg--)
+// 804041C
+void IncreaseTempStageByAmount (struct DuelCard *zone, unsigned char amt) {
+  for (; amt; amt--)
     if (zone->tempStage < 127)
       zone->tempStage++;
 }
 
 // unused?
-void sub_8040440 (struct DuelCard *zone, unsigned char arg) {
-  for (; arg; arg--)
+// 8040440
+void DecreaseTempStageByAmount (struct DuelCard *zone, unsigned char amt) {
+  for (; amt; amt--)
     if (zone->tempStage > -128)
       zone->tempStage--;
 }
@@ -1006,7 +1014,7 @@ void sub_8040524 (unsigned char currPlayer) {
 void LockMonsterCardsInRow (unsigned char row) {
   unsigned char i;
   for (i = 0; i < 5; i++)
-    if (gZones[row][i]->id != CARD_NONE && GetTypeGroup(gZones[row][i]->id) == 1)
+    if (gZones[row][i]->id != CARD_NONE && GetTypeGroup(gZones[row][i]->id) == TYPE_GROUP_MONSTER)
       gZones[row][i]->isLocked = 1;
 }
 
@@ -1034,11 +1042,12 @@ void FlipAtkPosCardsFaceUp (unsigned char row) {
 }
 
 // unused?
-void sub_8040650 (unsigned char col, unsigned char row) {
+// 8040650
+void ToggleDefenseModeAtCoords (unsigned char col, unsigned char row) {
   if (!gDuel.zones[row][col].isDefending)
-    gDuel.zones[row][col].isDefending = 1;
+    gDuel.zones[row][col].isDefending = TRUE;
   else
-    gDuel.zones[row][col].isDefending = 0;
+    gDuel.zones[row][col].isDefending = FALSE;
 }
 
 void SetPermStage (struct DuelCard *zone, int permStage) {
@@ -1059,7 +1068,8 @@ s8 sub_8040694 (struct DuelCard *zone) {
   return zone->tempStage;
 }
 
-int sub_804069C (struct DuelCard *zone) {
+// 804069C
+int GetFinalStage (struct DuelCard *zone) {
   int stage = zone->permStage + zone->tempStage;
   if (stage > 127)
     stage = 127;
@@ -1190,7 +1200,7 @@ void sub_80408FC (void) {
 void CopyCard (struct DuelCard *dst, struct DuelCard *src) {
   dst->id = src->id;
   SetPermStage(dst, PermStage(src));
-  ResetTemporaryPowerLevel(dst);
+  ResetTempStage(dst);
   dst->unk4 = src->unk4;
   dst->isFaceUp = src->isFaceUp;
   dst->isLocked = src->isLocked;

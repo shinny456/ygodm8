@@ -46,7 +46,7 @@ static void sub_80562F4 (void) {
       sub_80573D0(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32, gDuelBoard[1][i]->id);
       sub_80576EC(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32, gDuelBoard[1][i]->id);
       sub_80576B4(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32, gDuelBoard[1][i]->id);
-      sub_805763C(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32, sub_804069C(gDuelBoard[1][i]));
+      sub_805763C(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32, GetFinalStage(gDuelBoard[1][i]));
       sub_80572A8(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32, gDuelBoard[1][i]);
       sub_805733C(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32, gDuelBoard[1][i]);
     }
@@ -61,7 +61,7 @@ static void sub_80562F4 (void) {
       sub_8057620(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 10] * 32);
     sub_80576B4(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 10] * 32, gDuelBoard[2][i]->id);
     sub_80576EC(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 10] * 32, gDuelBoard[2][i]->id);
-    sub_805763C(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 10] * 32, sub_804069C(gDuelBoard[2][i]));
+    sub_805763C(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 10] * 32, GetFinalStage(gDuelBoard[2][i]));
     sub_80572A8(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 10] * 32, gDuelBoard[2][i]);
     sub_805733C(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 10] * 32, gDuelBoard[2][i]);
     if (!gDuelBoard[2][i]->isFaceUp)
@@ -1945,7 +1945,7 @@ _0805728E:\n\
 void sub_80572A8 (unsigned char* arg0, struct DuelCard* arg1) {
   gStatMod.card = arg1->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = sub_804069C(arg1);
+  gStatMod.stage = GetFinalStage(arg1);
   SetFinalStat(&gStatMod);
   if (gCardInfo.spellEffect != 2 /*TODO: SPELL_EFFECT_NONE_MONSTER*/)
     return;
@@ -1962,7 +1962,7 @@ void sub_80572A8 (unsigned char* arg0, struct DuelCard* arg1) {
 void sub_805733C (unsigned char* arg0, struct DuelCard* arg1) {
   gStatMod.card = arg1->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = sub_804069C(arg1);
+  gStatMod.stage = GetFinalStage(arg1);
   SetFinalStat(&gStatMod);
   if (gCardInfo.spellEffect != 2 /*TODO: SPELL_EFFECT_NONE_MONSTER*/)
     return;

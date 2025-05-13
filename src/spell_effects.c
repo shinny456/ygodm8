@@ -328,7 +328,7 @@ static void EffectLegendarySword (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -339,7 +339,7 @@ static void EffectLegendarySword (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -356,7 +356,7 @@ static void EffectSwordOfDarkDestruction (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -367,7 +367,7 @@ static void EffectSwordOfDarkDestruction (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -384,7 +384,7 @@ static void EffectDarkEnergy (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -395,7 +395,7 @@ static void EffectDarkEnergy (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -412,7 +412,7 @@ static void EffectAxeOfDespair (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -423,7 +423,7 @@ static void EffectAxeOfDespair (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -440,7 +440,7 @@ static void EffectLaserCannonArmor (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -451,7 +451,7 @@ static void EffectLaserCannonArmor (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -468,7 +468,7 @@ static void EffectInsectArmorWithLaserCannon (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -479,7 +479,7 @@ static void EffectInsectArmorWithLaserCannon (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -496,7 +496,7 @@ static void EffectElfsLight (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -507,7 +507,7 @@ static void EffectElfsLight (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -524,7 +524,7 @@ static void EffectBeastFangs (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -535,7 +535,7 @@ static void EffectBeastFangs (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -552,7 +552,7 @@ static void EffectSteelShell (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -563,7 +563,7 @@ static void EffectSteelShell (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -580,7 +580,7 @@ static void EffectVileGerms (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -591,7 +591,7 @@ static void EffectVileGerms (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -608,7 +608,7 @@ static void EffectBlackPendant (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -619,7 +619,7 @@ static void EffectBlackPendant (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -636,7 +636,7 @@ static void EffectSilverBowAndArrow (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -647,7 +647,7 @@ static void EffectSilverBowAndArrow (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -664,7 +664,7 @@ static void EffectHornOfLight (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -675,7 +675,7 @@ static void EffectHornOfLight (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -692,7 +692,7 @@ static void EffectHornOfTheUnicorn (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -703,7 +703,7 @@ static void EffectHornOfTheUnicorn (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -720,7 +720,7 @@ static void EffectDragonTreasure (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -731,7 +731,7 @@ static void EffectDragonTreasure (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -748,7 +748,7 @@ static void EffectElectroWhip (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -759,7 +759,7 @@ static void EffectElectroWhip (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -776,7 +776,7 @@ static void EffectCyberShield (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -787,7 +787,7 @@ static void EffectCyberShield (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -804,7 +804,7 @@ static void EffectMysticalMoon (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -815,7 +815,7 @@ static void EffectMysticalMoon (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -832,7 +832,7 @@ static void EffectMalevolentNuzzler (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -843,7 +843,7 @@ static void EffectMalevolentNuzzler (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -860,7 +860,7 @@ static void EffectVioletCrystal (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -871,7 +871,7 @@ static void EffectVioletCrystal (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -888,7 +888,7 @@ static void EffectBookOfSecretArts (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -899,7 +899,7 @@ static void EffectBookOfSecretArts (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -916,7 +916,7 @@ static void EffectInvigoration (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -927,7 +927,7 @@ static void EffectInvigoration (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -944,7 +944,7 @@ static void EffectMachineConversionFactory (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -955,7 +955,7 @@ static void EffectMachineConversionFactory (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -972,7 +972,7 @@ static void EffectRaiseBodyHeat (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -983,7 +983,7 @@ static void EffectRaiseBodyHeat (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -1000,7 +1000,7 @@ static void EffectFollowWind (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -1011,7 +1011,7 @@ static void EffectFollowWind (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -1028,7 +1028,7 @@ static void EffectPowerOfKaishin (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -1039,7 +1039,7 @@ static void EffectPowerOfKaishin (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -1109,7 +1109,7 @@ static void EffectSpellBindingCircle (void) {
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gZones[1][i]->id != CARD_NONE)
-      sub_804037C(gZones[1][i]);
+      DecrementPermStage(gZones[1][i]);
 
   ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
@@ -1150,9 +1150,9 @@ static void EffectElegantEgotist (void) {
 }
 
 static void EffectBlackLusterRitual (void) {
-  if (sub_804366C(gZones[2], gRitualComponents[1][0]) == 1)
+  if (RowHasCardMatch(gZones[2], gRitualComponents[1][0]) == 1)
   {
-    u8 zone = sub_8043694(gZones[2], gRitualComponents[1][0]);
+    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[1][0]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
     SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[1][1]);
@@ -1171,9 +1171,9 @@ static void EffectBlackLusterRitual (void) {
 //(the card IDs do not match ROD's)
 
 static void sub_804AED8 (void) {
-  if (sub_804366C(gZones[2], gRitualComponents[2][0]) == 1)
+  if (RowHasCardMatch(gZones[2], gRitualComponents[2][0]) == 1)
   {
-    u8 zone = sub_8043694(gZones[2], gRitualComponents[2][0]);
+    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[2][0]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
     SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[2][1]);
@@ -1189,9 +1189,9 @@ static void sub_804AED8 (void) {
 }
 
 static void sub_804AF58 (void) {
-  if (sub_804366C(gZones[2], gRitualComponents[3][0]) == 1)
+  if (RowHasCardMatch(gZones[2], gRitualComponents[3][0]) == 1)
   {
-    u8 zone = sub_8043694(gZones[2], gRitualComponents[3][0]);
+    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[3][0]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
     SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[3][1]);
@@ -1207,9 +1207,9 @@ static void sub_804AF58 (void) {
 }
 
 static void sub_804AFD8 (void) {
-  if (sub_804366C(gZones[2], gRitualComponents[4][0]) == 1)
+  if (RowHasCardMatch(gZones[2], gRitualComponents[4][0]) == 1)
   {
-    u8 zone = sub_8043694(gZones[2], gRitualComponents[4][0]);
+    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[4][0]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
     SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[4][1]);
@@ -1288,9 +1288,9 @@ unsigned sub_804B144 (u8* zones, u16* ritualArr)
 }
 
 static void sub_804B20C (void) {
-  if (sub_804366C(gZones[2], gRitualComponents[9][0]) == 1)
+  if (RowHasCardMatch(gZones[2], gRitualComponents[9][0]) == 1)
   {
-    u8 zone = sub_8043694(gZones[2], gRitualComponents[9][0]);
+    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[9][0]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
     SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[9][1]);
@@ -1306,9 +1306,9 @@ static void sub_804B20C (void) {
 }
 
 static void sub_804B294 (void) {
-  if (sub_804366C(gZones[2], gRitualComponents[10][0]) == 1)
+  if (RowHasCardMatch(gZones[2], gRitualComponents[10][0]) == 1)
   {
-    u8 zone = sub_8043694(gZones[2], gRitualComponents[10][0]);
+    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[10][0]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
     SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[10][1]);
@@ -1324,9 +1324,9 @@ static void sub_804B294 (void) {
 }
 
 static void sub_804B31C (void) {
-  if (sub_804366C(gZones[2], gRitualComponents[11][0]) == 1)
+  if (RowHasCardMatch(gZones[2], gRitualComponents[11][0]) == 1)
   {
-    u8 zone = sub_8043694(gZones[2], gRitualComponents[11][0]);
+    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[11][0]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
     SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[11][1]);
@@ -1342,9 +1342,9 @@ static void sub_804B31C (void) {
 }
 
 static void sub_804B3A4 (void) {
-  if (sub_804366C(gZones[2], gRitualComponents[12][0]) == 1)
+  if (RowHasCardMatch(gZones[2], gRitualComponents[12][0]) == 1)
   {
-    u8 zone = sub_8043694(gZones[2], gRitualComponents[12][0]);
+    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[12][0]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
     SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[12][1]);
@@ -1360,9 +1360,9 @@ static void sub_804B3A4 (void) {
 }
 
 static void sub_804B42C (void) {
-  if (sub_804366C(gZones[2], gRitualComponents[13][0]) == 1)
+  if (RowHasCardMatch(gZones[2], gRitualComponents[13][0]) == 1)
   {
-    u8 zone = sub_8043694(gZones[2], gRitualComponents[13][0]);
+    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[13][0]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
     SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[13][1]);
@@ -1378,9 +1378,9 @@ static void sub_804B42C (void) {
 }
 
 static void sub_804B4B4 (void) {
-  if (sub_804366C(gZones[2], gRitualComponents[14][0]) == 1)
+  if (RowHasCardMatch(gZones[2], gRitualComponents[14][0]) == 1)
   {
-    u8 zone = sub_8043694(gZones[2], gRitualComponents[14][0]);
+    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[14][0]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
     SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[14][1]);
@@ -1404,7 +1404,7 @@ static void EffectMagicalLabyrinth (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -1415,7 +1415,7 @@ static void EffectMagicalLabyrinth (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -1432,7 +1432,7 @@ static void EffectSalamandra (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -1443,7 +1443,7 @@ static void EffectSalamandra (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -1460,7 +1460,7 @@ static void EffectKunaiWithChain (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -1471,7 +1471,7 @@ static void EffectKunaiWithChain (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -1488,7 +1488,7 @@ static void EffectBrightCastle (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -1499,7 +1499,7 @@ static void EffectBrightCastle (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -1516,7 +1516,7 @@ static void EffectCrushCard (void) {
     {
       gStatMod.card = gZones[1][i]->id;
       gStatMod.field = gDuel.field;
-      gStatMod.stage = sub_804069C(gZones[1][i]);
+      gStatMod.stage = GetFinalStage(gZones[1][i]);
       SetFinalStat(&gStatMod);
       if (gCardInfo.atk >= 1500)
         ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
@@ -1539,8 +1539,8 @@ static void EffectShadowSpell (void) {
   {
     if (gZones[1][i]->id != CARD_NONE)
     {
-      sub_804037C(gZones[1][i]);
-      sub_804037C(gZones[1][i]);
+      DecrementPermStage(gZones[1][i]);
+      DecrementPermStage(gZones[1][i]);
     }
   }
 
@@ -1554,9 +1554,9 @@ static void EffectShadowSpell (void) {
 }
 
 static void sub_804B9D0 (void) {
-  if (sub_804366C(gZones[2], gRitualComponents[15][0]) == 1)
+  if (RowHasCardMatch(gZones[2], gRitualComponents[15][0]) == 1)
   {
-    u8 zone = sub_8043694(gZones[2], gRitualComponents[15][0]);
+    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[15][0]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
     SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[15][1]);
@@ -1572,9 +1572,9 @@ static void sub_804B9D0 (void) {
 }
 
 static void sub_804BA58 (void) {
-  if (sub_804366C(gZones[2], gRitualComponents[16][0]) == 1)
+  if (RowHasCardMatch(gZones[2], gRitualComponents[16][0]) == 1)
   {
-    u8 zone = sub_8043694(gZones[2], gRitualComponents[16][0]);
+    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[16][0]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
     SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[16][1]);
@@ -1590,9 +1590,9 @@ static void sub_804BA58 (void) {
 }
 
 static void sub_804BAE0 (void) {
-  if (sub_804366C(gZones[2], gRitualComponents[17][0]) == 1)
+  if (RowHasCardMatch(gZones[2], gRitualComponents[17][0]) == 1)
   {
-    u8 zone = sub_8043694(gZones[2], gRitualComponents[17][0]);
+    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[17][0]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
     SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[17][1]);
@@ -1608,9 +1608,9 @@ static void sub_804BAE0 (void) {
 }
 
 static void sub_804BB68 (void) {
-  if (sub_804366C(gZones[2], gRitualComponents[18][0]) == 1)
+  if (RowHasCardMatch(gZones[2], gRitualComponents[18][0]) == 1)
   {
-    u8 zone = sub_8043694(gZones[2], gRitualComponents[18][0]);
+    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[18][0]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
     SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[18][1]);
@@ -1626,9 +1626,9 @@ static void sub_804BB68 (void) {
 }
 
 static void sub_804BBF0 (void) {
-  if (sub_804366C(gZones[2], gRitualComponents[19][0]) == 1)
+  if (RowHasCardMatch(gZones[2], gRitualComponents[19][0]) == 1)
   {
-    u8 zone = sub_8043694(gZones[2], gRitualComponents[19][0]);
+    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[19][0]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
     SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[19][1]);
@@ -1644,9 +1644,9 @@ static void sub_804BBF0 (void) {
 }
 
 static void sub_804BC78 (void) {
-  if (sub_804366C(gZones[2], gRitualComponents[20][0]) == 1)
+  if (RowHasCardMatch(gZones[2], gRitualComponents[20][0]) == 1)
   {
-    u8 zone = sub_8043694(gZones[2], gRitualComponents[20][0]);
+    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[20][0]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
     SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[20][1]);
@@ -1662,9 +1662,9 @@ static void sub_804BC78 (void) {
 }
 
 static void sub_804BD00 (void) {
-  if (sub_804366C(gZones[2], gRitualComponents[21][0]) == 1)
+  if (RowHasCardMatch(gZones[2], gRitualComponents[21][0]) == 1)
   {
-    u8 zone = sub_8043694(gZones[2], gRitualComponents[21][0]);
+    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[21][0]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
     SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[21][1]);
@@ -1680,9 +1680,9 @@ static void sub_804BD00 (void) {
 }
 
 static void sub_804BD88 (void) {
-  if (sub_804366C(gZones[2], gRitualComponents[22][0]) == 1)
+  if (RowHasCardMatch(gZones[2], gRitualComponents[22][0]) == 1)
   {
-    u8 zone = sub_8043694(gZones[2], gRitualComponents[22][0]);
+    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[22][0]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
     SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[22][1]);
@@ -1698,9 +1698,9 @@ static void sub_804BD88 (void) {
 }
 
 static void sub_804BE10 (void) {
-  if (sub_804366C(gZones[2], gRitualComponents[23][0]) == 1)
+  if (RowHasCardMatch(gZones[2], gRitualComponents[23][0]) == 1)
   {
-    u8 zone = sub_8043694(gZones[2], gRitualComponents[23][0]);
+    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[23][0]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
     SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[23][1]);
@@ -1716,9 +1716,9 @@ static void sub_804BE10 (void) {
 }
 
 static void sub_804BE98 (void) {
-  if (sub_804366C(gZones[2], gRitualComponents[6][0]) == 1)
+  if (RowHasCardMatch(gZones[2], gRitualComponents[6][0]) == 1)
   {
-    u8 zone = sub_8043694(gZones[2], gRitualComponents[6][0]);
+    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[6][0]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
     SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[6][1]);
@@ -1734,9 +1734,9 @@ static void sub_804BE98 (void) {
 }
 
 static void sub_804BF18 (void) {
-  if (sub_804366C(gZones[2], gRitualComponents[7][0]) == 1)
+  if (RowHasCardMatch(gZones[2], gRitualComponents[7][0]) == 1)
   {
-    u8 zone = sub_8043694(gZones[2], gRitualComponents[7][0]);
+    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[7][0]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
     SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[7][1]);
@@ -1752,19 +1752,19 @@ static void sub_804BF18 (void) {
 }
 
 static void sub_804BF98 (void) {
-  if (sub_804366C(gZones[2], gRitualComponents[8][0]) == 1
-   && sub_804366C(gZones[2], gRitualComponents[8][2]) == 1
-   && sub_804366C(gZones[2], gRitualComponents[8][3]) == 1)
+  if (RowHasCardMatch(gZones[2], gRitualComponents[8][0]) == 1
+   && RowHasCardMatch(gZones[2], gRitualComponents[8][2]) == 1
+   && RowHasCardMatch(gZones[2], gRitualComponents[8][3]) == 1)
   {
-    u8 zone = sub_8043694(gZones[2], gRitualComponents[8][0]);
+    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[8][0]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
     SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[8][1]);
 
-    zone = sub_8043694(gZones[2], gRitualComponents[8][2]);
+    zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[8][2]);
     ClearZone(gZones[2][zone]);
 
-    zone = sub_8043694(gZones[2], gRitualComponents[8][3]);
+    zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[8][3]);
     ClearZone(gZones[2][zone]);
 
     ResetNumTributes();
@@ -1805,7 +1805,7 @@ static void EffectCurseBreaker (void) {
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gZones[2][i]->id != CARD_NONE && PermStage(gZones[2][i]) < 0)
-      ResetPermanentPowerLevel(gZones[2][i]);
+      ResetPermStage(gZones[2][i]);
 
   ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
@@ -1844,7 +1844,7 @@ static void EffectMegamorph (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -1855,7 +1855,7 @@ static void EffectMegamorph (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -1898,7 +1898,7 @@ static void EffectWingedTrumpeter (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -1909,7 +1909,7 @@ static void EffectWingedTrumpeter (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -2016,14 +2016,14 @@ static void sub_804C6B4 (void) {
   u8 ritualId;
   u8 zone;
 
-  if (sub_804366C(gZones[2], gRitualComponents[26][0]) == 1)
+  if (RowHasCardMatch(gZones[2], gRitualComponents[26][0]) == 1)
     ritualId = 26;
-  else if (sub_804366C(gZones[2], gRitualComponents[24][0]) == 1)
+  else if (RowHasCardMatch(gZones[2], gRitualComponents[24][0]) == 1)
     ritualId = 24;
   else
     return;
 
-  zone = sub_8043694(gZones[2], gRitualComponents[ritualId][0]);
+  zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[ritualId][0]);
 
   ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
   SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[ritualId][1]);
@@ -2076,7 +2076,7 @@ static void EffectExileOfTheWicked (void) {
 }
 
 static void EffectMultiply (void) {
-  if (NumCardInRow(gZones[2], KURIBOH))
+  if (NumCardMatchesInRow(gZones[2], KURIBOH))
   {
     u8 i;
 
@@ -2090,8 +2090,8 @@ static void EffectMultiply (void) {
         gZones[2][i]->isDefending = 0;
         gZones[2][i]->unkTwo = 0;
         gZones[2][i]->unk4 = 0;
-        ResetPermanentPowerLevel(gZones[2][i]);
-        ResetTemporaryPowerLevel(gZones[2][i]);
+        ResetPermStage(gZones[2][i]);
+        ResetTempStage(gZones[2][i]);
         gZones[2][i]->willChangeSides = 0;
       }
       else if (gZones[2][i]->id == KURIBOH)
@@ -2115,7 +2115,7 @@ static void EffectMultiply (void) {
 static void EffectChangeOfHeart (void) {
   if (NumEmptyZonesInRow(gZones[2]) && NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
   {
-    u8 emptyZone = EmptyZoneInRow(gZones[2]);
+    u8 emptyZone = FirstEmptyZoneInRow(gZones[2]);
     u8 highestAtkZone = HighestAtkMonInRowExceptGodCards(gZones[1]);
 
     gZones[2][emptyZone]->id = gZones[1][highestAtkZone]->id;
@@ -2140,9 +2140,9 @@ static void EffectChangeOfHeart (void) {
 }
 
 static void EffectBlackIllusionRitual (void) {
-  if (sub_804366C(gZones[2], gRitualComponents[25][0]) == 1)
+  if (RowHasCardMatch(gZones[2], gRitualComponents[25][0]) == 1)
   {
-    u8 zone = sub_8043694(gZones[2], gRitualComponents[25][0]);
+    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[25][0]);
 
     ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
     SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[25][1]);
@@ -2160,7 +2160,7 @@ static void EffectBlackIllusionRitual (void) {
 static void EffectBrainControl (void) {
   if (NumEmptyZonesInRow(gZones[2]) && NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
   {
-    u8 emptyZone = EmptyZoneInRow(gZones[2]);
+    u8 emptyZone = FirstEmptyZoneInRow(gZones[2]);
     u8 highestAtkZone = HighestAtkMonInRowExceptGodCards(gZones[1]);
 
     gZones[2][emptyZone]->id = gZones[1][highestAtkZone]->id;
@@ -2187,7 +2187,7 @@ static void EffectBrainControl (void) {
 static void sub_804CBBC (void) {
   if (NumEmptyZonesInRow(gZones[2]))
   {
-    u8 emptyZone = EmptyZoneInRow(gZones[2]);
+    u8 emptyZone = FirstEmptyZoneInRow(gZones[2]);
     u16 id = GetGraveCardAndClearGrave(1);
 
     if (id != CARD_NONE)
@@ -2198,8 +2198,8 @@ static void sub_804CBBC (void) {
       gZones[2][emptyZone]->isDefending = 0;
       gZones[2][emptyZone]->unkTwo = 0;
       gZones[2][emptyZone]->unk4 = 2;
-      ResetPermanentPowerLevel(gZones[2][emptyZone]);
-      ResetTemporaryPowerLevel(gZones[2][emptyZone]);
+      ResetPermStage(gZones[2][emptyZone]);
+      ResetTempStage(gZones[2][emptyZone]);
       gZones[2][emptyZone]->willChangeSides = 0;
 
     }
@@ -2223,7 +2223,7 @@ static void sub_804CC7C (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -2234,7 +2234,7 @@ static void sub_804CC7C (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -2315,7 +2315,7 @@ static void EffectMessengerOfPeaceTSC (void) {
     {
       gStatMod.card = gZones[1][i]->id;
       gStatMod.field = gDuel.field;
-      gStatMod.stage = sub_804069C(gZones[1][i]);
+      gStatMod.stage = GetFinalStage(gZones[1][i]);
       SetFinalStat(&gStatMod);
       if (gCardInfo.atk >= 1500)
         gZones[1][i]->isLocked = 1;
@@ -2360,7 +2360,7 @@ static void EffectCyclonLaser (void) {
 
     if (sub_80586DC() != 1 || gHideEffectText)
     {
-      IncrementPermanentPowerLevel(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
@@ -2371,7 +2371,7 @@ static void EffectCyclonLaser (void) {
     }
     else
     {
-      sub_804037C(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -2532,8 +2532,8 @@ static void EffectHarpiesFeatherDuster (void) {
 
 //not sure what this does
 static void EffectPotOfGreed (void) {
-  DrawCard(WhoseTurn());
-  DrawCard(WhoseTurn());
+  TryDrawingCard(WhoseTurn());
+  TryDrawingCard(WhoseTurn());
 
   ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
@@ -2675,8 +2675,8 @@ static void SetRitualMonsterInZone(struct DuelCard* zone, u16 id) {
   zone->isDefending = 0;
   zone->unkTwo = 0;
   zone->unk4 = 0;
-  ResetPermanentPowerLevel(zone);
-  ResetTemporaryPowerLevel(zone);
+  ResetPermStage(zone);
+  ResetTempStage(zone);
   zone->willChangeSides = 0;
 }
 

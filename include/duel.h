@@ -197,10 +197,10 @@ void SetOpponentLifePointsToSubtract(u32); //sub opponent life points
 void ClearZone(struct DuelCard*);
 void FlipCardFaceUp(struct DuelCard*); //flip card face up
 u8 IsCardFaceUp(struct DuelCard*);
-void ResetPermanentPowerLevel(struct DuelCard*); //reset num perm powerups
-void IncrementPermanentPowerLevel(struct DuelCard*);
+void ResetPermStage(struct DuelCard*); //reset num perm powerups
+void IncrementPermStage(struct DuelCard*);
 
-void sub_804037C(struct DuelCard*); //dec num powerups?
+void DecrementPermStage(struct DuelCard*); //dec num powerups?
 void SetPermStage(struct DuelCard*, int);
 
 //change to bool32
@@ -244,12 +244,12 @@ void PlayMusic(int);
 s32 GetTypeGroup(u16);
 s32 GetSpellType(u16);
 void FlipCardFaceDown(struct DuelCard*);
-void sub_8040394(struct DuelCard*, u8);
+void IncreasePermStageByAmount(struct DuelCard*, u8);
 
-void ResetTemporaryPowerLevel(struct DuelCard*);
+void ResetTempStage(struct DuelCard*);
 
 s32 PermStage(struct DuelCard*);
-int sub_804069C(struct DuelCard*); //getnumpowerups?
+int GetFinalStage(struct DuelCard*); //getnumpowerups?
 
 void LockCard(struct DuelCard*); //lock card
 void UnlockCard(struct DuelCard*); //clear isLocked
@@ -261,29 +261,29 @@ void sub_8041140(u8); //set field gfx
 int HighestAtkMonInRow(struct DuelCard** row); //get highest atk mon
 int HighestAtkMonInRowExceptGodCards(struct DuelCard** row); //get highest atk mon excluding god cards?
 
-bool32 sub_804366C(struct DuelCard** row, u16 id);
-int sub_8043164(struct DuelCard**, u8);
+bool32 RowHasCardMatch(struct DuelCard** row, u16 id);
+int HighestAtkMonOfTypeInRow(struct DuelCard**, u8);
 
-s32 NumCardInRow(struct DuelCard** row, u16 id); //num of card in a particular row
+s32 NumCardMatchesInRow(struct DuelCard** row, u16 id); //num of card in a particular row
 
-int sub_8043468(struct DuelCard**);
+int FirstNonEmptyZoneInRow(struct DuelCard**);
 
 s32 NumEmptyZonesInRow(struct DuelCard** row);
 s32 NumEmptyZonesAndGodCardsInRow(struct DuelCard** row);
 
-int sub_804304C(struct DuelCard**);
+int HighestAtkUnlockedMonInRow(struct DuelCard**);
 s32 sub_8043548(struct DuelCard**);
 s32 sub_8043584(struct DuelCard**, u8);
 
-s8 EmptyZoneInRow(struct DuelCard**);  //get empty zone?
+s8 FirstEmptyZoneInRow(struct DuelCard**);  //get empty zone?
 
-s32 sub_8043694(struct DuelCard**, u16 card); //get zone card is located at
+s32 GetFirstCardMatchZoneId(struct DuelCard**, u16 card); //get zone card is located at
 
 
 
 s32 sub_8043930(u8, u8);
 
-void DrawCard(u32);
+void TryDrawingCard(u32);
 
 void ClearZoneAndSendMonToGraveyard(struct DuelCard* zone, u8 graveyard);
 
@@ -495,7 +495,7 @@ extern unsigned short gPaletteBuffer[];
 
 extern u16 g2021BF8;
 int sub_8045390(u16);
-bool32 sub_80436EC(struct DuelCard*);
+bool32 IsUnlockedMonsterCard(struct DuelCard*);
 
 void ClearZoneAndSendMonToGraveyard2 (struct DuelCard *zone, u8 player);
 
@@ -546,21 +546,21 @@ u32 GetTotalAtkAndDefInRow (u8);
 
 
 extern u8 gCurrentTurnOpponent[];
-u32 sub_8043A5C (u8);
+u32 GetNumCardsUnlockedInRow (u8);
 u32 sub_80438A0 (u8);
 u32 GetNumCardsDefendingInRow (u8);     //implicit decl? (just create a u8 return variable)
 u32 GetTotalFaceUpAtkAndDefInRow (u8);     //implicit decl? (just create a u8 return variable)
 u32 GetNumFaceUpCardsInRow (u8);
 u32 sub_804398C (u8, u8); //implicit decl? (^)
 u32 sub_80439F4 (u8, u8);  //^
-int sub_80430D8 (struct DuelCard**); //implicit decl? (^)
+int HighestAtkFaceUpMonInRow (struct DuelCard**); //implicit decl? (^)
 u8 sub_803FBCC (u8, u8);
 bool32 IsCardLocked (struct DuelCard *zone);
 bool32 sub_8043714 (struct DuelCard *zone);
-bool32 sub_804374C (struct DuelCard *zone);
+bool32 IsTrapCard (struct DuelCard *zone);
 bool32 sub_804376C (struct DuelCard *zone);
 bool32 sub_8043790 (struct DuelCard *zone);
-bool32 sub_80437B4 (struct DuelCard *zone);
+bool32 IsRitualCard (struct DuelCard *zone);
 
 
 void DisableDisplay (void);
@@ -608,8 +608,8 @@ struct Unk3000C38 {
 
 extern struct Unk3000C38 g3000C38;
 
-void sub_80403F0 (struct DuelCard*);
-void sub_8040404 (struct DuelCard*);
+void IncrementTempStage (struct DuelCard*);
+void DecrementTempStage (struct DuelCard*);
 u32 GetExodiaFlag(u16);
 
 struct DuelCursor {

@@ -2,7 +2,7 @@
 
 static void ReturnMonsterToOpponent (struct DuelCard *zone) {
   if (NumEmptyZonesInRow(gZones[1]) != 0) {
-    u8 emptyZoneId = EmptyZoneInRow(gZones[1]);
+    u8 emptyZoneId = FirstEmptyZoneInRow(gZones[1]);
     gZones[1][emptyZoneId]->id = zone->id;
     gZones[1][emptyZoneId]->isFaceUp = TRUE;
     gZones[1][emptyZoneId]->isLocked = FALSE;
@@ -10,7 +10,7 @@ static void ReturnMonsterToOpponent (struct DuelCard *zone) {
     gZones[1][emptyZoneId]->unkTwo = zone->unkTwo;
     gZones[1][emptyZoneId]->unk4 = 2;
     SetPermStage(gZones[1][emptyZoneId], PermStage(zone));
-    ResetTemporaryPowerLevel(gZones[1][emptyZoneId]);
+    ResetTempStage(gZones[1][emptyZoneId]);
     gZones[1][emptyZoneId]->willChangeSides = FALSE;
   }
   ClearZone(zone);

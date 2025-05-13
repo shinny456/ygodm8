@@ -16,7 +16,7 @@ static unsigned char GetExodiaFlags(void);
 static void sub_8020664 (void);
 
 // TODO: there is an instance of this being implicitly declared and called with an argument
-void WinConditionExodia (void) {
+void CheckWinConditionExodia (void) {
   if ((GetExodiaFlags() & FLAG_EXODIA_ALL) == FLAG_EXODIA_ALL)
     sub_8020664();
 }

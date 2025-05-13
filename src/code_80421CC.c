@@ -92,7 +92,7 @@ void BMenuMain (void) {
             PlayMusic(0x37);
             gStatMod.card = gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id;
             gStatMod.field = gDuel.field;
-            gStatMod.stage = sub_804069C(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]);
+            gStatMod.stage = GetFinalStage(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]);
             SetFinalStat(&gStatMod);
             sub_801F6B0();
             sub_80410B4();
@@ -1058,7 +1058,7 @@ void sub_8042D14 (void) {
       if (CanPlayerSeeCard(i, j) == 1) {
         gStatMod.card = gDuelBoard[i][j]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = sub_804069C(gDuelBoard[i][j]);
+        gStatMod.stage = GetFinalStage(gDuelBoard[i][j]);
         SetFinalStat(&gStatMod);
       }
       else

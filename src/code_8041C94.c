@@ -165,7 +165,7 @@ void sub_8041EC8 (void) {
   if (CanPlayerSeeCard(gDuelCursor.currentY, gDuelCursor.currentX) == 1) {
     gStatMod.card = gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = sub_804069C(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]);
+    gStatMod.stage = GetFinalStage(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]);
     SetFinalStat(&gStatMod);
   }
   else {

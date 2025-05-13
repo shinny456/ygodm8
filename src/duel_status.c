@@ -13,21 +13,23 @@ void sub_802549C (void) {
   sub_80219E4(&duelText);
 }
 
-void sub_80254DC (void) {
+// 80254DC
+void InitDuelistStatus (void) {
   u8 i;
   for (i = 0; i < 2; i++)
-    gDuelistStatus[i] = 0;
+    gDuelistStatus[i] = CANNOT_ATTACK;
 }
 
-void sub_80254F8 (void) {
+// 80254F8
+void EndFirstTurnAttackBan (void) {
   u8 i;
   for (i = 0; i < 2; i++)
-    if (gDuelistStatus[i] == 0)
-      gDuelistStatus[i] = 1;
+    if (gDuelistStatus[i] == CANNOT_ATTACK)
+      gDuelistStatus[i] = CAN_ATTACK;
 }
 
 void DeclareLoser (unsigned char duelist) {
-  gDuelistStatus[duelist] = 2;
+  gDuelistStatus[duelist] = DEFEAT;
 }
 
 unsigned char GetDuelistStatus (unsigned char duelist) {
@@ -38,7 +40,7 @@ unsigned char IsDuelOver (void) {
   u8 i;
   bool8 isDuelOver = FALSE;
   for (i = 0; i < 2; i++)
-    if (gDuelistStatus[i] == 2)
+    if (gDuelistStatus[i] == DEFEAT)
       isDuelOver = TRUE;
   return isDuelOver;
 }
