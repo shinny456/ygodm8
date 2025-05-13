@@ -1106,9 +1106,9 @@ void IncreaseDeckCapacity(u32);
 void sub_801FF90 (void);
 void sub_8020030 (void);
 void sub_801FD14 (void);
-void sub_801FE98 (void);
+void DisplayMoneyRewardText (void);
 int sub_8043E9C (u8 arg0);
-u16 sub_805629C (u16, u16);
+u16 RandRangeU16 (u16, u16);
 u16 sub_801FFE0 (void);
 void sub_802D90C (u16, u8);
 u16 sub_8020050 (void);
@@ -1130,32 +1130,32 @@ void HandleWin (void) {
     sub_8035020(4);
     ResetDuelTextData(&duelText);
     duelText.textId = 19;
-    sub_80219E4(&duelText);
+    DisplayDuelText(&duelText);
   }
   else if (sub_8043E70(1) < sub_8043E9C(1)) {
     sub_8035020(4);
     ResetDuelTextData(&duelText);
     duelText.textId = 21;
-    sub_80219E4(&duelText);
+    DisplayDuelText(&duelText);
   }
   if (gDuelData.unk2d) {
     u8 i;
-    PlayMusic(gDuelData.unkE);
+    PlayMusic(gDuelData.winMusic);
     ResetDuelTextData(&duelText);
     duelText.textId = 2;
-    sub_80219E4(&duelText);
+    DisplayDuelText(&duelText);
     ResetDuelTextData(&duelText);
     duelText.textId = 6;
     duelText.unk4 = gDuelData.capacityYield;
-    sub_80219E4(&duelText);
-    sub_801FE98();
+    DisplayDuelText(&duelText);
+    DisplayMoneyRewardText();
     for (i = 0; i < 10; i++) {
       if (!gDuelData.unk14[i])
         break;
       ResetDuelTextData(&duelText);
       duelText.textId = 5;
       duelText.unk0 = gDuelData.unk14[i];
-      sub_80219E4(&duelText);
+      DisplayDuelText(&duelText);
       SetCardInfo(gDuelData.unk14[i]);
       sub_801F6B0();
     }
@@ -1172,19 +1172,19 @@ void HandleLoss (void) {
     sub_8035020(4);
     ResetDuelTextData(&duelText);
     duelText.textId = 20;
-    sub_80219E4(&duelText);
+    DisplayDuelText(&duelText);
   }
   else if (sub_8043E70(0) < sub_8043E9C(0)) {
     sub_8035020(4);
     ResetDuelTextData(&duelText);
     duelText.textId = 22;
-    sub_80219E4(&duelText);
+    DisplayDuelText(&duelText);
   }
   if (gDuelData.unk2d) {
-    PlayMusic(gDuelData.music);
+    PlayMusic(gDuelData.lossMusic);
     ResetDuelTextData(&duelText);
     duelText.textId = 3;
-    sub_80219E4(&duelText);
+    DisplayDuelText(&duelText);
   }
 }
 
@@ -1241,34 +1241,35 @@ void sub_801FD14 (void) {
       temp = 1;
       break;
   }
-  gDuelData.unk0 = sub_805629C(gUnk8E00B30[gDuelData.opponent]->minDomino, gUnk8E00B30[gDuelData.opponent]->maxDomino) * temp;
-  AddMoney(gDuelData.unk0);
+  gDuelData.moneyReward = RandRangeU16(gUnk8E00B30[gDuelData.opponent]->minDomino, gUnk8E00B30[gDuelData.opponent]->maxDomino) * temp;
+  AddMoney(gDuelData.moneyReward);
 }
 
-void sub_801FE98 (void) {
+// 801FE98
+void DisplayMoneyRewardText (void) {
   struct DuelText duelText;
   ResetDuelTextData(&duelText);
-  if (!gDuelData.unk0) {
+  if (!gDuelData.moneyReward) {
     duelText.textId = 12;
-    duelText.unk4 = gDuelData.unk0;
+    duelText.unk4 = gDuelData.moneyReward;
   }
-  else if (gDuelData.unk0 <= 9999) {
+  else if (gDuelData.moneyReward <= 9999) {
     duelText.textId = 8;
-    duelText.unk4 = gDuelData.unk0;
+    duelText.unk4 = gDuelData.moneyReward;
   }
-  else if (gDuelData.unk0 <= 99999999) {
+  else if (gDuelData.moneyReward <= 99999999) {
     duelText.textId = 9;
-    duelText.unk4 = gDuelData.unk0 / 10000;
+    duelText.unk4 = gDuelData.moneyReward / 10000;
   }
-  else if (gDuelData.unk0 <= 999999999999) {
+  else if (gDuelData.moneyReward <= 999999999999) {
     duelText.textId = 10;
-    duelText.unk4 = gDuelData.unk0 / 100000000;
+    duelText.unk4 = gDuelData.moneyReward / 100000000;
   }
   else {
     duelText.textId = 11;
-    duelText.unk4 = gDuelData.unk0 / 1000000000000;
+    duelText.unk4 = gDuelData.moneyReward / 1000000000000;
   }
-  sub_80219E4(&duelText);
+  DisplayDuelText(&duelText);
 }
 
 void HandleOutcome (void) {
@@ -1295,7 +1296,7 @@ u16 sub_801FFE0 (void) {
     cardDrops = gDuelData.duelist.goodDrops;
   else
     cardDrops = gDuelData.duelist.badDrops;
-  random = sub_805629C(0, 2047);
+  random = RandRangeU16(0, 2047);
   while (cardDrops->card != CARD_NONE && random > cardDrops->chance)
     cardDrops++;
   return cardDrops->card;
@@ -1310,7 +1311,7 @@ void sub_8020030 (void) {
 // TODO: is >= problematic here?
 u16 sub_8020050 (void) {
   struct CardDrop* cardDrops = gDuelData.duelist.shopCards;
-  u16 random = sub_805629C(0, 29999);
+  u16 random = RandRangeU16(0, 29999);
   while (cardDrops->card != CARD_NONE && random >= cardDrops->chance)
     cardDrops++;
   return cardDrops->card;

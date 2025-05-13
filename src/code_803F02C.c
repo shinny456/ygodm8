@@ -835,7 +835,7 @@ void sub_803FEA4 (int unused) {
 
 void sub_804004C (unsigned char turn) {
   unsigned char i;
-  if (turn == 0) {
+  if (turn == TURN_PLAYER) {
     for (i = 0; i < 5; i++)
       gZones[0][i] = &gDuel.zones[0][i];
     for (i = 0; i < 5; i++)

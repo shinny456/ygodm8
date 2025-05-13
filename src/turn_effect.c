@@ -362,7 +362,7 @@ static void sub_802B604 (void) {
 }
 
 void TryActivatingTurnEffects (void) {
-  g2021DE0.unk4 = WhoseTurn();
+  g2021DE0.turn = WhoseTurn();
   if (!gHideEffectText) {
     sub_80408BC(); //clear oam stuff?
     sub_802ADA4(); //Init sweeping cursor gfx
@@ -457,7 +457,7 @@ static void sub_802B770 (void) {
   if (g2021DE0.unk2 != 3)
     return;
   FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
-  if (g2021DE0.unk4 == 0) {
+  if (g2021DE0.turn == TURN_PLAYER) {
     SetPlayerLifePointsToSubtract(1000);
     HandleDuelAction();
     CheckLoserFlags();
@@ -487,7 +487,7 @@ static void EffectLavaGolemLifePoints (void) {
   if (g2021DE0.unk2 != 2)
     return;
   FlipCardFaceUp(gZones[2][g2021DE0.unk3]);
-  if (g2021DE0.unk4 == 0) {
+  if (g2021DE0.turn == TURN_PLAYER) {
     SetPlayerLifePointsToSubtract(700);
     HandleDuelAction();
     CheckLoserFlags();

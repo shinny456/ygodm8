@@ -67,7 +67,7 @@ struct Unk8FC488C {
   u8 unk1;
   struct OamStuff *unk4;
 };
-unsigned char sub_8056208 (void);
+unsigned char LfsrNextByte (void);
 void LinkDuelMenu (void);
 void TradeMenuMain (void);
 extern u8 g80C1CF8[];
@@ -94,7 +94,7 @@ void GameMenuMain (void) {
   InitCursorAnimationData(&sGameMenuData);
   sub_8024ECC(&sGameMenuData);
   while (1) {
-    sub_8056208();
+    LfsrNextByte();
     if (sGameMenuData.action == 1)
       break;
     if (sGameMenuData.action == 3) {

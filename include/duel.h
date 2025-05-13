@@ -372,16 +372,16 @@ struct Duelist
 // duel metadata, external?
 struct DuelData
 {
-    u64 unk0; //moneyReward?
+    u64 moneyReward;
     u32 capacityYield; //TODO: capacityReward
-    u16 unkC;
-    u16 unkE;
-    u16 music;
+    u16 duelMusic;
+    u16 winMusic;
+    u16 lossMusic;
     u16 opponent;
     u16 unk14[10]; //reward cards
     u16 ante;
     u8 unk2A; //max num reward cards?
-    u8 unk2B;
+    u8 unk2B; // duel victor?; 1=player, 2=opponent
     /*2C-2F bitfields?*/
     u8 unk2c : 1;
     u8 unk2d : 1;
@@ -536,7 +536,7 @@ void sub_8020168(void);
 void sub_802712C(void);
 
 
-void sub_80561FC(void);
+void ResetLfsrStateBit(void);
 void sub_80554EC(void);
 void sub_8055FD0(void);
 void sub_801FB44(u8*);
@@ -638,7 +638,7 @@ extern struct Unk2021DE0 {
   u16 unk0;
   u8 unk2;
   u8 unk3;
-  u8 unk4;
+  u8 turn;
 } g2021DE0;
 
 void sub_802ACC0(void);

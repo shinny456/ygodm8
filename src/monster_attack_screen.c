@@ -681,7 +681,7 @@ static void sub_801BFB0 (unsigned char arg0) {
 	lsrs r0, r0, #0x16\n\
 	adds r0, r0, r1\n\
 	ldr r0, [r0]\n\
-	bl sub_80562CC\n\
+	bl SaveLfsrState\n\
 	ldr r1, _0801BFF0\n\
 	ldr r2, _0801BFF4\n\
 	adds r0, r2, #0\n\
@@ -803,7 +803,7 @@ _0801C0B2:\n\
 	strb r1, [r0, #0x1b]\n\
 	cmp r6, #0\n\
 	bne _0801C0FC\n\
-	bl sub_8056208\n\
+	bl LfsrNextByte\n\
 	adds r3, r0, #0\n\
 	ldr r1, [r5]\n\
 	lsls r0, r7, #7\n\
@@ -823,7 +823,7 @@ _0801C0E8:\n\
 	.align 2, 0\n\
 _0801C0F8: .4byte gE0061C\n\
 _0801C0FC:\n\
-	bl sub_8056208\n\
+	bl LfsrNextByte\n\
 	ldr r2, [r5]\n\
 	adds r2, r4, r2\n\
 	adds r3, r2, #0\n\
@@ -853,7 +853,7 @@ _0801C11E:\n\
 	adds r0, r4, r0\n\
 	movs r2, #0\n\
 	strb r2, [r0, #0x1d]\n\
-	bl sub_8056208\n\
+	bl LfsrNextByte\n\
 	mov r2, sl\n\
 	ldr r1, [r2]\n\
 	adds r4, r4, r1\n\
@@ -884,7 +884,7 @@ _0801C16A:\n\
 	mov r8, r1\n\
 	lsls r7, r7, #5\n\
 _0801C172:\n\
-	bl sub_8056208\n\
+	bl LfsrNextByte\n\
 	adds r1, r0, #0\n\
 	mov r2, sb\n\
 	ldr r0, [r2]\n\
@@ -902,7 +902,7 @@ _0801C18A:\n\
 	movs r1, #0x10\n\
 	subs r1, r1, r0\n\
 	strb r1, [r2, #4]\n\
-	bl sub_8056208\n\
+	bl LfsrNextByte\n\
 	mov r1, sb\n\
 	ldr r4, [r1]\n\
 	adds r4, r7, r4\n\
@@ -922,7 +922,7 @@ _0801C18A:\n\
 	lsrs r7, r0, #0x10\n\
 	cmp r7, #0xb\n\
 	bls _0801C16A\n\
-	bl sub_80562E0\n\
+	bl RestoreLfsrState\n\
 	add sp, #8\n\
 	pop {r3, r4, r5}\n\
 	mov r8, r3\n\

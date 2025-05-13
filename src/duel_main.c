@@ -88,7 +88,7 @@ void DuelMain (void) {
     ResetDuelTextData(&duelText);
     if (turn == DUEL_PLAYER) {
       duelText.textId = 0;
-      sub_80219E4(&duelText);
+      DisplayDuelText(&duelText);
     }
     else
       OpponentTurnTextAndVoice();
@@ -134,24 +134,24 @@ static void InitIngameDuel (void) {
   gDuelData.duelist = *gUnk8E00B30[gDuelData.opponent];
   gDuelData.unk2B = 2;
   gDuelData.unk2A = 1;
-  gDuelData.unkC = gUnk8E00B30[gDuelData.opponent]->unk24;
-  gDuelData.unkE = gUnk8E00B30[gDuelData.opponent]->unk26;
-  gDuelData.music = gUnk8E00B30[gDuelData.opponent]->unk28;
+  gDuelData.duelMusic = gUnk8E00B30[gDuelData.opponent]->unk24;
+  gDuelData.winMusic = gUnk8E00B30[gDuelData.opponent]->unk26;
+  gDuelData.lossMusic = gUnk8E00B30[gDuelData.opponent]->unk28;
   ClearDuelDecks();
   sub_8043E14(0, 0);
   sub_8043E14(1, gDuelData.opponent);
   for (i = 0; i < 2; i++)
     ShuffleDuelDeck(i);
   if (!sub_8056258(0, 1))
-    gWhoseTurn = 0;
+    gWhoseTurn = TURN_PLAYER;
   else
-    gWhoseTurn = 1;
+    gWhoseTurn = TURN_OPPONENT;
   InitBoard();
   InitDuelLifePoints();
   InitDuelistStatus();
   gHideEffectText = 0;
   sub_8041090();
-  PlayMusic(gDuelData.unkC);
+  PlayMusic(gDuelData.duelMusic);
 }
 
 //FadeToBlackAfterDuel
@@ -170,7 +170,9 @@ static void FadeToBlack (void) {
   }
 }
 
-void sub_80219E4 (struct DuelText* arg0) {
+// 80219E4
+// might also involve waiting for player input?
+void DisplayDuelText (struct DuelText* arg0) {
   if (arg0->textId != 0xFF)
     sub_8041C94(gDuelTextStrings[arg0->textId], arg0->unk0, arg0->unk2, arg0->unk4, 0);
 }
@@ -218,8 +220,8 @@ static void DuelEnd (void) {
 
 static void InitDuelMetaData (void) {
   unsigned char i;
-  gDuelData.unk0 = 0;
-  gDuelData.unkC = 0;
+  gDuelData.moneyReward = 0;
+  gDuelData.duelMusic = 0;
   for (i = 0; i < 10; i++)
     gDuelData.unk14[i] = 0;
   gDuelData.capacityYield = 0;
@@ -304,7 +306,7 @@ struct Unk2021DA0 {
   unsigned char unkB;
   unsigned char unkC;
   unsigned char unkD;
-  unsigned char unkE;
+  unsigned char winMusic;
 };
 
 extern unsigned char g2021D9C;
@@ -522,7 +524,7 @@ static void sub_8021FF8 (void) {
 static void sub_8022040 (void) {
   sub_80222EC();
   sub_8041090();
-  PlayMusic(gDuelData.unkC);
+  PlayMusic(gDuelData.duelMusic);
   sub_8041104();
   gHideEffectText = 0;
 }
@@ -556,22 +558,22 @@ static void sub_80220C8 (void) {
   if (gDuelLifePoints[DUEL_OPPONENT] == 0) {
     ResetDuelTextData(&duelText);
     duelText.textId = 19;
-    sub_80219E4(&duelText);
+    DisplayDuelText(&duelText);
   }
   else if (sub_8043E70(1) < sub_8043E9C(1)) {
     ResetDuelTextData(&duelText);
     duelText.textId = 21;
-    sub_80219E4(&duelText);
+    DisplayDuelText(&duelText);
   }
   if (gDuelData.unk2d) {
-    PlayMusic(gDuelData.unkE);
+    PlayMusic(gDuelData.winMusic);
     ResetDuelTextData(&duelText);
     duelText.textId = 2;
-    sub_80219E4(&duelText);
+    DisplayDuelText(&duelText);
     ResetDuelTextData(&duelText);
     duelText.textId = 6;
     duelText.unk4 = gDuelData.capacityYield;
-    sub_80219E4(&duelText);
+    DisplayDuelText(&duelText);
   }
 }
 
@@ -583,22 +585,22 @@ static void sub_8022170 (void) {
   if (gDuelLifePoints[DUEL_PLAYER] == 0) {
     ResetDuelTextData(&duelText);
     duelText.textId = 20;
-    sub_80219E4(&duelText);
+    DisplayDuelText(&duelText);
   }
   else if (sub_8043E70(0) < sub_8043E9C(0)) {
     ResetDuelTextData(&duelText);
     duelText.textId = 22;
-    sub_80219E4(&duelText);
+    DisplayDuelText(&duelText);
   }
   if (gDuelData.unk2d) {
-    PlayMusic(gDuelData.music);
+    PlayMusic(gDuelData.lossMusic);
     ResetDuelTextData(&duelText);
     duelText.textId = 3;
-    sub_80219E4(&duelText);
+    DisplayDuelText(&duelText);
     ResetDuelTextData(&duelText);
     duelText.textId = 6;
     duelText.unk4 = 5;
-    sub_80219E4(&duelText);
+    DisplayDuelText(&duelText);
   }
 }
 
@@ -618,7 +620,7 @@ static void sub_8022234 (void) {
   for (i = 0; i < 10; i++)
     gDuelData.unk14[i] = 0;
 
-  gDuelData.unk0 = 0;
+  gDuelData.moneyReward = 0;
   gDuelData.opponent = 0;
   gDuelData.ante = gAnte;
   gDuelData.capacityYield = 10;
@@ -627,9 +629,9 @@ static void sub_8022234 (void) {
   gDuelData.unk2c = 0;
   gDuelData.unk2d = 1;
   gDuelData.duelist = *gUnk8E00B30[0];
-  gDuelData.unkC = 500;
-  gDuelData.unkE = 43;
-  gDuelData.music = 44;
+  gDuelData.duelMusic = 500;
+  gDuelData.winMusic = 43;
+  gDuelData.lossMusic = 44;
   ClearDuelDecks();
   InitDuelDeck(DUEL_PLAYER, gPlayerDeck.cards);
   ShuffleDuelDeck(0);
@@ -692,7 +694,7 @@ void InitDeckData(void);
 void sub_8022A24(void);
 void LinkDuelInitDeckCapacity(int);
 void sub_8023998(void);
-unsigned char sub_8056208(void);
+unsigned char LfsrNextByte(void);
 bool8 IsDeckFull(void);
 s32 IsCostWithinCapacity(void);
 void sub_8022B7C(unsigned char);
@@ -741,7 +743,7 @@ void LinkDuelMenu (void) {
   LinkDuelInitDeckCapacity(gLinkDuelMenuData.unk4);
   sub_8023998();
   while (1) {
-    sub_8056208();
+    LfsrNextByte();
     if (gLinkDuelMenuData.unk9 == 1) { //ACTION_EXIT
       if (IsDeckFull() != 1) {
         sub_8022B7C(5);
@@ -1093,18 +1095,18 @@ extern unsigned char g80C1852[];
 extern struct Unk8f (*gFC4A8C[]);
 
 void sub_80229C0(void) {
-  if (gLinkDuelMenuData.unkE == 0) {
+  if (gLinkDuelMenuData.winMusic == 0) {
     unsigned char temp = g80C1852[gLinkDuelMenuData.unkA];
     gLinkDuelMenuData.unkD++;
     if (gFC4A8C[temp][gLinkDuelMenuData.unkD].unk0 == 0)
       gLinkDuelMenuData.unkD = 0;
   }
-  if (gLinkDuelMenuData.unkE == 0) {
+  if (gLinkDuelMenuData.winMusic == 0) {
     unsigned char temp = g80C1852[gLinkDuelMenuData.unkA];
-    gLinkDuelMenuData.unkE = gFC4A8C[temp][gLinkDuelMenuData.unkD].unk0;
+    gLinkDuelMenuData.winMusic = gFC4A8C[temp][gLinkDuelMenuData.unkD].unk0;
   }
   else
-    gLinkDuelMenuData.unkE--;
+    gLinkDuelMenuData.winMusic--;
 }
 
 unsigned char GetPlayerDeckSize(void);
@@ -1120,7 +1122,7 @@ void sub_8022A24(void) {
   gLinkDuelMenuData.unkC = 0;
   temp = g80C1852[0];
   gLinkDuelMenuData.unkD = 0;
-  gLinkDuelMenuData.unkE = gFC4A8C[temp][0].unk0;
+  gLinkDuelMenuData.winMusic = gFC4A8C[temp][0].unk0;
 }
 
 extern unsigned char g80C188C[];
@@ -1172,16 +1174,16 @@ void sub_8022B04(void) {
 void sub_8022B1C(void) {
   unsigned char temp = g80C1852[gLinkDuelMenuData.unkA];
   gLinkDuelMenuData.unkD = 0;
-  gLinkDuelMenuData.unkE = gFC4A8C[temp][0].unk0;
+  gLinkDuelMenuData.winMusic = gFC4A8C[temp][0].unk0;
 }
 
 void sub_8022B44(void) {
-  if (gLinkDuelMenuData.unkE == 0) {
+  if (gLinkDuelMenuData.winMusic == 0) {
     unsigned char temp = g80C1852[gLinkDuelMenuData.unkA];
-    gLinkDuelMenuData.unkE = gFC4A8C[temp][gLinkDuelMenuData.unkD].unk0;
+    gLinkDuelMenuData.winMusic = gFC4A8C[temp][gLinkDuelMenuData.unkD].unk0;
   }
   else
-     gLinkDuelMenuData.unkE--;
+     gLinkDuelMenuData.winMusic--;
 }
 
 void sub_8022B7C (unsigned char arg0) {

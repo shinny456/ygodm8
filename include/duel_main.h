@@ -10,7 +10,7 @@ struct DuelText {
 };
 
 void DuelMain (void);
-void sub_80219E4 (struct DuelText*);
+void DisplayDuelText (struct DuelText*);
 void ResetDuelTextData (struct DuelText*);
 void MosaicEffect (void);
 unsigned char GetRitualNumTributes (unsigned short);

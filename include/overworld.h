@@ -226,7 +226,7 @@ void sub_804F124 (u8 objectId);
 void sub_804F254 (void);
 void sub_804F054 (int spriteId, int arg1, u8* dest);
 void sub_804F1F4 (void);
-void sub_80562CC (u32);
+void SaveLfsrState (u32);
 
 extern u32 g84C9FBC[];
 extern u16 g82AD06C[];

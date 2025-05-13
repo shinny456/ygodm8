@@ -46,7 +46,7 @@ void sub_800ACE8 (unsigned char);
 void sub_800AF68 (void);
 void sub_800ADC4 (void);
 
-unsigned char sub_8056208 (void);
+unsigned char LfsrNextByte (void);
 void ClearGraphicsBuffers (void);
 extern unsigned short gNewButtons;
 extern unsigned* g8E0CD9C;
@@ -80,7 +80,7 @@ static unsigned char TitleScreenChooseOption (void) {
   WaitForVBlank();
   keepProcessing = 1;
   while (keepProcessing == 1) {
-    sub_8056208();
+    LfsrNextByte();
     newButton = ProcessInput();
     if (newButton == A_BUTTON) {
       if (option != OPTION_NEW_GAME || !TryStartNewGame()) {
@@ -225,7 +225,7 @@ static unsigned char TitleScreenNewGameOnly (void) {
   PlayMusic(1);
   WaitForVBlank();
   while (1) {
-    sub_8056208();
+    LfsrNextByte();
     if (ProcessInput() == 1)
       break;
     sub_80357F8();

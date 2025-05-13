@@ -19,9 +19,9 @@ extern s8 g8E0F69A[];
 extern s8 g8E0F6AC[];
 
 
-u16 sub_805629C (u16, u16);
-void sub_80562E0 (void);
-void sub_8056208 (void);
+u16 RandRangeU16 (u16, u16);
+void RestoreLfsrState (void);
+void LfsrNextByte (void);
 int sub_8056258 (u8, u8);
 void sub_805787C (int);
 
@@ -49,8 +49,8 @@ void sub_8053F30 (struct ScriptCtx* script) {
   temp |= gUnk_8E0CD14[1] << 16;
   temp |= gUnk_8E0CD14[2] << 8;
   temp |= gUnk_8E0CD14[3];
-  sub_80562CC(temp);
-  SetCardInfo(sub_805629C(1, 800));
+  SaveLfsrState(temp);
+  SetCardInfo(RandRangeU16(1, 800));
   name = gCardInfo.name;
   name = GetCurrentLanguageString(name);
   for (i = 0; i < 112; i++) {
@@ -94,7 +94,7 @@ void sub_8053F30 (struct ScriptCtx* script) {
   script->unk22[i] = '\0';
   script->unk78 = 0;
   script->unkC = 0;
-  sub_80562E0();
+  RestoreLfsrState();
 }*/
 
 NAKED
@@ -118,11 +118,11 @@ void sub_8053F30 (struct ScriptCtx* script) {
 	orrs r0, r1\n\
 	ldrb r1, [r2, #3]\n\
 	orrs r0, r1\n\
-	bl sub_80562CC\n\
+	bl SaveLfsrState\n\
 	movs r1, #0xc8\n\
 	lsls r1, r1, #2\n\
 	movs r0, #1\n\
-	bl sub_805629C\n\
+	bl RandRangeU16\n\
 	lsls r0, r0, #0x10\n\
 	lsrs r0, r0, #0x10\n\
 	bl SetCardInfo\n\
@@ -284,7 +284,7 @@ _08054080:\n\
 	movs r0, #2\n\
 	mov r1, r8\n\
 	strb r0, [r1, #0xc]\n\
-	bl sub_80562E0\n\
+	bl RestoreLfsrState\n\
 	add sp, #4\n\
 	pop {r3, r4, r5}\n\
 	mov r8, r3\n\
@@ -307,8 +307,8 @@ void sub_80540B0 (struct ScriptCtx* script) {
   temp |= gUnk_8E0CD14[1] << 16;
   temp |= gUnk_8E0CD14[2] << 8;
   temp |= gUnk_8E0CD14[3];
-  sub_80562CC(temp);
-  sub_8056208();
+  SaveLfsrState(temp);
+  LfsrNextByte();
   text = GetCurrentLanguageString(g8E0F4F4[sub_8056258(0, 3)]);
 
   for (r4 = 0, r5 = 0; r5 < 80 && text[r4] && text[r4] != '$'; r4++, r5++) {
@@ -321,7 +321,7 @@ void sub_80540B0 (struct ScriptCtx* script) {
   script->unk22[r4] = '\0';
   script->unk78 = 0;
   script->unkC = 2;
-  sub_80562E0();
+  RestoreLfsrState();
 }
 
 void sub_8054150 (struct ScriptCtx* script) {
@@ -333,9 +333,9 @@ void sub_8054150 (struct ScriptCtx* script) {
   temp |= gUnk_8E0CD14[1] << 16;
   temp |= gUnk_8E0CD14[2] << 8;
   temp |= gUnk_8E0CD14[3];
-  sub_80562CC(temp);
-  sub_8056208();
-  sub_8056208();
+  SaveLfsrState(temp);
+  LfsrNextByte();
+  LfsrNextByte();
   text = GetCurrentLanguageString(g8E0F504[sub_8056258(0, 8)]);
 
   for (r4 = 0, r5 = 0; r5 < 80 && text[r4] && text[r4] != '$'; r4++, r5++) {
@@ -348,7 +348,7 @@ void sub_8054150 (struct ScriptCtx* script) {
   script->unk22[r4] = '\0';
   script->unk78 = 0;
   script->unkC = 2;
-  sub_80562E0();
+  RestoreLfsrState();
 }
 
 void sub_80541F4 (struct ScriptCtx* script) {
@@ -360,10 +360,10 @@ void sub_80541F4 (struct ScriptCtx* script) {
   temp |= gUnk_8E0CD14[1] << 16;
   temp |= gUnk_8E0CD14[2] << 8;
   temp |= gUnk_8E0CD14[3];
-  sub_80562CC(temp);
+  SaveLfsrState(temp);
 
   for (r5 = 0; r5 < 3; r5++)
-    sub_8056208();
+    LfsrNextByte();
 
   text = GetCurrentLanguageString(g8E0F528[sub_8056258(0, 5)]);
 
@@ -377,7 +377,7 @@ void sub_80541F4 (struct ScriptCtx* script) {
   script->unk22[r5] = '\0';
   script->unk78 = 0;
   script->unkC = 2;
-  sub_80562E0();
+  RestoreLfsrState();
 }
 
 void sub_805429C (struct ScriptCtx* script) {
@@ -389,10 +389,10 @@ void sub_805429C (struct ScriptCtx* script) {
   temp |= gUnk_8E0CD14[1] << 16;
   temp |= gUnk_8E0CD14[2] << 8;
   temp |= gUnk_8E0CD14[3];
-  sub_80562CC(temp);
+  SaveLfsrState(temp);
 
   for (r5 = 0; r5 < 4; r5++)
-    sub_8056208();
+    LfsrNextByte();
 
   text = g8E0F540[sub_8056258(0, 20)];
 
@@ -403,7 +403,7 @@ void sub_805429C (struct ScriptCtx* script) {
   script->unk22[r5] = '\0';
   script->unk78 = 0;
   script->unkC = 2;
-  sub_80562E0();
+  RestoreLfsrState();
 }
 
 void sub_8054320 (struct ScriptCtx* script) {
@@ -415,10 +415,10 @@ void sub_8054320 (struct ScriptCtx* script) {
   temp |= gUnk_8E0CD14[1] << 16;
   temp |= gUnk_8E0CD14[2] << 8;
   temp |= gUnk_8E0CD14[3];
-  sub_80562CC(temp);
+  SaveLfsrState(temp);
 
   for (r5 = 0; r5 < 5; r5++)
-    sub_8056208();
+    LfsrNextByte();
 
   text = g8E0F594[sub_8056258(0, 20)];
 
@@ -429,7 +429,7 @@ void sub_8054320 (struct ScriptCtx* script) {
   script->unk22[r5] = '\0';
   script->unk78 = 0;
   script->unkC = 2;
-  sub_80562E0();
+  RestoreLfsrState();
 }
 
 void sub_80543A4 (struct ScriptCtx* script) {
@@ -441,10 +441,10 @@ void sub_80543A4 (struct ScriptCtx* script) {
   temp |= gUnk_8E0CD14[1] << 16;
   temp |= gUnk_8E0CD14[2] << 8;
   temp |= gUnk_8E0CD14[3];
-  sub_80562CC(temp);
+  SaveLfsrState(temp);
 
   for (r5 = 0; r5 < 6; r5++)
-    sub_8056208();
+    LfsrNextByte();
 
   text = GetCurrentLanguageString(g8E0F5E8[sub_8056258(0, 5)]);
 
@@ -458,7 +458,7 @@ void sub_80543A4 (struct ScriptCtx* script) {
   script->unk22[r5] = '\0';
   script->unk78 = 0;
   script->unkC = 2;
-  sub_80562E0();
+  RestoreLfsrState();
 }
 
 void sub_805444C (struct ScriptCtx* script) {
@@ -470,10 +470,10 @@ void sub_805444C (struct ScriptCtx* script) {
   temp |= gUnk_8E0CD14[1] << 16;
   temp |= gUnk_8E0CD14[2] << 8;
   temp |= gUnk_8E0CD14[3];
-  sub_80562CC(temp);
+  SaveLfsrState(temp);
 
   for (r5 = 0; r5 < 7; r5++)
-    sub_8056208();
+    LfsrNextByte();
 
   text = GetCurrentLanguageString(g8E0F600[sub_8056258(0, 5)]);
 
@@ -487,7 +487,7 @@ void sub_805444C (struct ScriptCtx* script) {
   script->unk22[r5] = '\0';
   script->unk78 = 0;
   script->unkC = 2;
-  sub_80562E0();
+  RestoreLfsrState();
 }
 
 void sub_80544F4 (struct ScriptCtx* script) {
@@ -499,10 +499,10 @@ void sub_80544F4 (struct ScriptCtx* script) {
   temp |= gUnk_8E0CD14[1] << 16;
   temp |= gUnk_8E0CD14[2] << 8;
   temp |= gUnk_8E0CD14[3];
-  sub_80562CC(temp);
+  SaveLfsrState(temp);
 
   for (r5 = 0; r5 < 8; r5++)
-    sub_8056208();
+    LfsrNextByte();
 
   text = GetCurrentLanguageString(g8E0F4F4[sub_8056258(0, 3)]);
 
@@ -516,7 +516,7 @@ void sub_80544F4 (struct ScriptCtx* script) {
   script->unk22[r5] = '\0';
   script->unk78 = 0;
   script->unkC = 2;
-  sub_80562E0();
+  RestoreLfsrState();
 }
 
 void sub_805459C (struct ScriptCtx* script) {
@@ -528,10 +528,10 @@ void sub_805459C (struct ScriptCtx* script) {
   temp |= gUnk_8E0CD14[1] << 16;
   temp |= gUnk_8E0CD14[2] << 8;
   temp |= gUnk_8E0CD14[3];
-  sub_80562CC(temp);
+  SaveLfsrState(temp);
 
   for (r5 = 0; r5 < 9; r5++)
-    sub_8056208();
+    LfsrNextByte();
 
   text = GetCurrentLanguageString(g8E0F528[sub_8056258(0, 5)]);
 
@@ -545,7 +545,7 @@ void sub_805459C (struct ScriptCtx* script) {
   script->unk22[r5] = '\0';
   script->unk78 = 0;
   script->unkC = 2;
-  sub_80562E0();
+  RestoreLfsrState();
 }
 
 NAKED
@@ -569,17 +569,17 @@ void sub_8054644 (struct ScriptCtx* script) {
 	orrs r0, r1\n\
 	ldrb r1, [r2, #3]\n\
 	orrs r0, r1\n\
-	bl sub_80562CC\n\
+	bl SaveLfsrState\n\
 	movs r4, #9\n\
 _08054670:\n\
-	bl sub_8056208\n\
+	bl LfsrNextByte\n\
 	subs r4, #1\n\
 	cmp r4, #0\n\
 	bge _08054670\n\
 	movs r1, #0xc8\n\
 	lsls r1, r1, #2\n\
 	movs r0, #1\n\
-	bl sub_805629C\n\
+	bl RandRangeU16\n\
 	lsls r0, r0, #0x10\n\
 	lsrs r0, r0, #0x10\n\
 	bl SetCardInfo\n\
@@ -733,7 +733,7 @@ _080547A0:\n\
 	movs r0, #2\n\
 	mov r1, r8\n\
 	strb r0, [r1, #0xc]\n\
-	bl sub_80562E0\n\
+	bl RestoreLfsrState\n\
 	add sp, #4\n\
 	pop {r3, r4, r5}\n\
 	mov r8, r3\n\
@@ -756,10 +756,10 @@ void sub_80547D0 (struct ScriptCtx* script) {
   temp |= gUnk_8E0CD14[1] << 16;
   temp |= gUnk_8E0CD14[2] << 8;
   temp |= gUnk_8E0CD14[3];
-  sub_80562CC(temp);
+  SaveLfsrState(temp);
 
   for (r5 = 0; r5 < 11; r5++)
-    sub_8056208();
+    LfsrNextByte();
 
   text = GetCurrentLanguageString(g8E0F4F4[sub_8056258(0, 3)]);
 
@@ -773,7 +773,7 @@ void sub_80547D0 (struct ScriptCtx* script) {
   script->unk22[r5] = '\0';
   script->unk78 = 0;
   script->unkC = 2;
-  sub_80562E0();
+  RestoreLfsrState();
 }
 
 void sub_8054878 (struct ScriptCtx* script) {
@@ -785,10 +785,10 @@ void sub_8054878 (struct ScriptCtx* script) {
   temp |= gUnk_8E0CD14[1] << 16;
   temp |= gUnk_8E0CD14[2] << 8;
   temp |= gUnk_8E0CD14[3];
-  sub_80562CC(temp);
+  SaveLfsrState(temp);
 
   for (r5 = 0; r5 < 12; r5++)
-    sub_8056208();
+    LfsrNextByte();
 
   text = GetCurrentLanguageString(g8E0F504[sub_8056258(0, 8)]);
 
@@ -802,7 +802,7 @@ void sub_8054878 (struct ScriptCtx* script) {
   script->unk22[r5] = '\0';
   script->unk78 = 0;
   script->unkC = 2;
-  sub_80562E0();
+  RestoreLfsrState();
 }
 
 void sub_8054920 (struct ScriptCtx* script) {

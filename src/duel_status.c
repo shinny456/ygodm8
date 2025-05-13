@@ -10,7 +10,7 @@ void sub_802549C (void) {
     return;
   ResetDuelTextData(&duelText);
   duelText.textId = g80C1D80[gNotSure[0]->sorlTurns];
-  sub_80219E4(&duelText);
+  DisplayDuelText(&duelText);
 }
 
 // 80254DC

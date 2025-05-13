@@ -230,7 +230,7 @@ void sub_800AFF0 (void) {
   sub_802712C();
   sub_802D9F0();
   InitMoney();
-  sub_80561FC();
+  ResetLfsrStateBit();
   sub_80554EC();
   sub_8055FD0();
   sub_801FB44(&g2021C8C);

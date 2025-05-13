@@ -12,7 +12,7 @@ void sub_80595C4(void);
 void m4aSoundMode(u32);
 void sub_800AEC4(void);
 void sub_800AD24(void);
-void sub_80561FC(void);
+void ResetLfsrStateBit(void);
 void sub_80327C8(void);
 void sub_803276C(void);
 void TitleScreenMain(void);
@@ -35,7 +35,7 @@ int AgbMain (void)
     m4aSoundMode(0x0097FC00);
     sub_800AEC4();
     sub_800AD24();
-    sub_80561FC();
+    ResetLfsrStateBit();
     sub_80327C8();
     sub_803276C();
     CopyrightScreensMain();

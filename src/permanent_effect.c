@@ -1245,7 +1245,7 @@ static void sub_8029764 (void) {
 }
 
 void sub_8029820 (void) {
-  g2021DE0.unk4 = WhoseTurn();
+  g2021DE0.turn = WhoseTurn();
   if (!gHideEffectText) {
     sub_80408BC();
     sub_802ADA4();
