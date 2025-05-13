@@ -35,7 +35,7 @@ DATA_ASM_BUILDDIR = $(BUILD_DIR)/$(DATA_ASM_SUBDIR)
 ROM          := $(BUILD_NAME).gba
 ELF          := $(ROM:.gba=.elf)
 MAP          := $(ROM:.gba=.map)
-LDSCRIPT     := ldscript.txt
+LDSCRIPT     := ldscript.ld
 SYM_FILES    := sym_iwram.txt sym_ewram.txt
 
 C_SRCS := $(wildcard $(C_SUBDIR)/*.c $(C_SUBDIR)/*/*.c $(C_SUBDIR)/*/*/*.c)
