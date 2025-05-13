@@ -87,7 +87,7 @@ void sub_8032A50 (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     g8E0CC20[i].unk0 = gUnk2022EB0.unk0[i];
     g8E0CC20[i].unk4 = 800 - gUnk2022EB0.unk0[i];
-    if (g2022120[gUnk2022EB0.unk0[i]])
+    if (gShopTempCardQty[gUnk2022EB0.unk0[i]])
       g8E0CC20[i].unk4 |= 0x1000000000000000;
   }
 }
@@ -98,7 +98,7 @@ void sub_8032AD0 (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     g8E0CC20[i].unk0 = gUnk2022EB0.unk0[i];
     g8E0CC20[i].unk4 = 800 - gUnk2022EB0.unk0[i];
-    if (g2022B80[gUnk2022EB0.unk0[i]])
+    if (gPlayerTempCardQty[gUnk2022EB0.unk0[i]])
       g8E0CC20[i].unk4 |= 0x1000000000000000;
   }
 }
@@ -128,7 +128,7 @@ void sub_8032C88 (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     g8E0CC20[i].unk0 = gUnk2022EB0.unk0[i];
     g8E0CC20[i].unk4 = 800 - g80D0444[gLanguage][gUnk2022EB0.unk0[i]];
-    if (g2022120[gUnk2022EB0.unk0[i]])
+    if (gShopTempCardQty[gUnk2022EB0.unk0[i]])
       g8E0CC20[i].unk4 += 800;
   }
 }
@@ -138,7 +138,7 @@ void sub_8032D38 (void) {
   for (i = 0; i < gUnk2022EB0.unk8; i++) {
     g8E0CC20[i].unk0 = gUnk2022EB0.unk0[i];
     g8E0CC20[i].unk4 = 800 - g80D0444[gLanguage][gUnk2022EB0.unk0[i]];
-    if (g2022B80[gUnk2022EB0.unk0[i]])
+    if (gPlayerTempCardQty[gUnk2022EB0.unk0[i]])
       g8E0CC20[i].unk4 += 800;
   }
 }

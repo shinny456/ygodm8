@@ -121,8 +121,8 @@ extern struct UnkStruct_2022EB0 gUnk2022EB0;
 extern struct UnkStruct_2021AB4 gUnk2021AB4;
 extern unsigned char gTrunkCardQty[];
 extern unsigned char gTotalCardQty[];
-extern unsigned char g2022120[];
-extern unsigned char g2022B80[];
+extern unsigned char gShopTempCardQty[]; // local shop card qty list while shopping
+extern unsigned char gPlayerTempCardQty[]; // local player card qty list while shopping
 extern unsigned short g80D0444[][801];
 extern const unsigned short gCardAtks[];
 extern const unsigned short gCardDefs[];

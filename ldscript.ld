@@ -128,10 +128,10 @@ SECTIONS
     g2021DE0 = 0x2021DE0;
 
     /*card_shop*/
-    g2021DF0 = 0x2021DF0;
-    g2022120 = 0x2022120;
+    gShopCardQty = 0x2021DF0;
+    gShopTempCardQty = 0x2022120;
     sCardShop = 0x2022450;
-    g2022B80 = 0x2022B80;
+    gPlayerTempCardQty = 0x2022B80;
 
 
     /*card_sort*/

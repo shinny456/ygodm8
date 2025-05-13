@@ -407,7 +407,7 @@ inline void sub_8053EF0 (struct ScriptCtx* script) {
 
 inline void sub_8053F0C (struct ScriptCtx* script) {
   script->unk1E = 0;
-  if (sub_8027018(1000) == 1)
+  if (CanAfford(1000) == 1)
     script->unk1E = 1;
 }
 
