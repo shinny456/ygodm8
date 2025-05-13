@@ -26,7 +26,7 @@ void RemoveMoney (unsigned long long amount) {
     gMoney -= amount;
 }
 
-unsigned ExceedsMoneyLimit (unsigned long long amount) {
+unsigned DoesNotExceedMoneyLimit (unsigned long long amount) {
   if (amount > MAX_MONEY - gMoney)
     return 0;
   return 1;

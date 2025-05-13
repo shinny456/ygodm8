@@ -949,28 +949,32 @@ void sub_800BD34(void)
 
 extern u64 g8DFDB90[];
 
+// TODO: rename to ScaleBuyPriceToQty -- dependency in code3.s
+// the more of a card the shop has, the lower the buying price
 void sub_800BD44(void)
 {
-    u8 val = g2021AF0.unk12 - 1;
+    u8 val = gShopSelectedCard.shopQty - 1;
 
     if (val < 250)
     {
-        g2021AF0.unk0 = g8DFDB90[g2021AF0.unk10] * (251 - g2021AF0.unk12) / 250;
-        if (!g2021AF0.unk0)
-            g2021AF0.unk0 = 1;
+        gShopSelectedCard.buyPrice = g8DFDB90[gShopSelectedCard.cardId] * (251 - gShopSelectedCard.shopQty) / 250;
+        if (!gShopSelectedCard.buyPrice)
+            gShopSelectedCard.buyPrice = 1;
     }
     else
-        g2021AF0.unk0 = 0;
+        gShopSelectedCard.buyPrice = 0;
 }
 
+// TODO: rename to ScaleSellPriceToQty -- dependency in code3.s
+// the less of a card the shop has, the higher the selling price
 void sub_800BDA0(void)
 {
-    if (g2021AF0.unk12 < 250)
-        g2021AF0.unk8 = g8DFDB90[g2021AF0.unk10] * (250 - g2021AF0.unk12) / 5000;
+    if (gShopSelectedCard.shopQty < 250)
+        gShopSelectedCard.sellPrice = g8DFDB90[gShopSelectedCard.cardId] * (250 - gShopSelectedCard.shopQty) / 5000;
     else
-        g2021AF0.unk8 = g8DFDB90[g2021AF0.unk10] / 5000;
-    if (!g2021AF0.unk8)
-        g2021AF0.unk8 = 1;
+        gShopSelectedCard.sellPrice = g8DFDB90[gShopSelectedCard.cardId] / 5000;
+    if (!gShopSelectedCard.sellPrice)
+        gShopSelectedCard.sellPrice = 1;
 }
 
 

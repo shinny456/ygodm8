@@ -75,7 +75,7 @@ SECTIONS
 
     gStatMod = 0x02021AC0;
     gCardInfo = 0x02021AD0;
-    g2021AF0 = 0x2021AF0;
+    gShopSelectedCard = 0x2021AF0;
     gAnte = 0x02021B04;
 
     g2021B10 = 0x2021B10;

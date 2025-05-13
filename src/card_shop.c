@@ -259,8 +259,8 @@ void CardShopBuyMain (void) {
   FadeToBlack();
   InitBuyShop();
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
-  g2021AF0.unk10 = cardId;
-  g2021AF0.unk12 = gShopTempCardQty[cardId];
+  gShopSelectedCard.cardId = cardId;
+  gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   sub_800BD34();
   sub_802E1D8();
   sub_802E868();
@@ -367,8 +367,8 @@ static void sub_802C14C (void) {
   sub_802DF88();
 
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
-  g2021AF0.unk10 = cardId;
-  g2021AF0.unk12 = gShopTempCardQty[cardId];
+  gShopSelectedCard.cardId = cardId;
+  gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   sub_800BD34();
   sub_802FCF0(sCardShop.currentSortMode);
   sub_802FD48(cardId);
@@ -403,8 +403,8 @@ static void sub_802C2A0 (void) {
   MoveCursorUpInBuyShop();
 
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
-  g2021AF0.unk10 = cardId;
-  g2021AF0.unk12 = gShopTempCardQty[cardId];
+  gShopSelectedCard.cardId = cardId;
+  gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   sub_800BD34();
   sub_802FD48(cardId);
   sub_802FB08();
@@ -420,8 +420,8 @@ static void sub_802C318 (void) {
   unsigned short cardId;
   MoveCursorDownInBuyShop();
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
-  g2021AF0.unk10 = cardId;
-  g2021AF0.unk12 = gShopTempCardQty[cardId];
+  gShopSelectedCard.cardId = cardId;
+  gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   sub_800BD34();
   sub_802FD48(cardId);
   sub_802FB08();
@@ -437,8 +437,8 @@ static void sub_802C390 (void) {
   unsigned short cardId;
   MoveCursorLeftInBuyShop();
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
-  g2021AF0.unk10 = cardId;
-  g2021AF0.unk12 = gShopTempCardQty[cardId];
+  gShopSelectedCard.cardId = cardId;
+  gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   sub_800BD34();
   sub_802FD48(cardId);
   sub_802FB08();
@@ -454,8 +454,8 @@ static void sub_802C408 (void) {
   unsigned short cardId;
   MoveCursorRightInBuyShop();
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
-  g2021AF0.unk10 = cardId;
-  g2021AF0.unk12 = gShopTempCardQty[cardId];
+  gShopSelectedCard.cardId = cardId;
+  gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   sub_800BD34();
   sub_802FD48(cardId);
   sub_802FB08();
@@ -472,8 +472,8 @@ static void sub_802C480 (void) {
   sub_802DF1C();
   sub_802DF88();
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
-  g2021AF0.unk10 = cardId;
-  g2021AF0.unk12 = gShopTempCardQty[cardId];
+  gShopSelectedCard.cardId = cardId;
+  gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   sub_800BD34();
   sub_802FD48(cardId);
   sub_802FE68();
@@ -490,8 +490,8 @@ static void sub_802C4F8 (void) {
   sub_802DF1C();
   sub_802DF88();
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
-  g2021AF0.unk10 = cardId;
-  g2021AF0.unk12 = gShopTempCardQty[cardId];
+  gShopSelectedCard.cardId = cardId;
+  gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   sub_800BD34();
   sub_802FD48(cardId);
   sub_802FE68();
@@ -520,8 +520,8 @@ void CardShopSellMain (void) {
   FadeToBlack();
   InitSellShop();
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
-  g2021AF0.unk10 = cardId;
-  g2021AF0.unk12 = gShopTempCardQty[cardId];
+  gShopSelectedCard.cardId = cardId;
+  gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   sub_800BD34();
   sub_802E1D8();
   sub_802E868();
@@ -596,8 +596,8 @@ static void ToggleSortModeInSellShop (void) {
   sub_802D174();
 
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
-  g2021AF0.unk10 = cardId;
-  g2021AF0.unk12 = gShopTempCardQty[cardId];
+  gShopSelectedCard.cardId = cardId;
+  gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   sub_800BD34();
   sub_802FCF0(sCardShop.currentSortMode);
   sub_802FD84(cardId);
@@ -615,8 +615,8 @@ static void sub_802C788 (void) {
   unsigned short cardId;
   MoveCursorUpInSellShop();
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
-  g2021AF0.unk10 = cardId;
-  g2021AF0.unk12 = gShopTempCardQty[cardId];
+  gShopSelectedCard.cardId = cardId;
+  gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   sub_800BD34();
   sub_802FD84(cardId);
   sub_802FB08();
@@ -634,8 +634,8 @@ static void sub_802C804 (void) {
   MoveCursorDownInSellShop();
 
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
-  g2021AF0.unk10 = cardId;
-  g2021AF0.unk12 = gShopTempCardQty[cardId];
+  gShopSelectedCard.cardId = cardId;
+  gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   sub_800BD34();
   sub_802FD84(cardId);
   sub_802FB08();
@@ -652,8 +652,8 @@ static void sub_802C880 (void) {
   unsigned short cardId;
   MoveCursorLeftInSellShop();
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
-  g2021AF0.unk10 = cardId;
-  g2021AF0.unk12 = gShopTempCardQty[cardId];
+  gShopSelectedCard.cardId = cardId;
+  gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   sub_800BD34();
   sub_802FD84(cardId);
   sub_802FB08();
@@ -670,8 +670,8 @@ static void sub_802C8FC (void) {
   unsigned short cardId;
   MoveCursorRightInSellShop();
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
-  g2021AF0.unk10 = cardId;
-  g2021AF0.unk12 = gShopTempCardQty[cardId];
+  gShopSelectedCard.cardId = cardId;
+  gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   sub_800BD34();
   sub_802FD84(cardId);
   sub_802FB08();
@@ -689,8 +689,8 @@ static void sub_802C978 (void) {
   sub_802DF1C();
   sub_802D174();
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
-  g2021AF0.unk10 = cardId;
-  g2021AF0.unk12 = gShopTempCardQty[cardId];
+  gShopSelectedCard.cardId = cardId;
+  gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   sub_800BD34();
   sub_802FD84(cardId);
   sub_802FE68();
@@ -708,8 +708,8 @@ static void sub_802C9F8 (void) {
   sub_802DF1C();
   sub_802D174();
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
-  g2021AF0.unk10 = cardId;
-  g2021AF0.unk12 = gShopTempCardQty[cardId];
+  gShopSelectedCard.cardId = cardId;
+  gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   sub_800BD34();
   sub_802FD84(cardId);
   sub_802FE68();
@@ -783,7 +783,7 @@ static void TrySellCard (void) {
 
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   if (PlayerInShopHasAtLeastCardQty(cardId, 2) == 1) {
-    money = g2021AF0.unk8;
+    money = gShopSelectedCard.sellPrice;
     RemoveCardQtyFromPlayerInShop(cardId, 1);
     AddMoney(money);
     AddCardQtyToShop(cardId, 1);
@@ -797,8 +797,8 @@ static void TrySellCard (void) {
     PlayMusic(0x38);
     sub_802FC88();
   }
-  g2021AF0.unk10 = cardId;
-  g2021AF0.unk12 = gShopTempCardQty[cardId];
+  gShopSelectedCard.cardId = cardId;
+  gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   sub_800BD34();
   sub_802D174();
   sub_802CEE0(sCardShop.cursorRow);
@@ -817,8 +817,8 @@ static void SelectDetailsInConfirmSellMenu (void) {
   SetCardInfo(cardId);
   PlayMusic(0x37);
   sub_801F6B0();
-  g2021AF0.unk10 = cardId;
-  g2021AF0.unk12 = gShopTempCardQty[cardId];
+  gShopSelectedCard.cardId = cardId;
+  gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   sub_800BD34();
   sub_802FC14();
   sub_802E1D8();
@@ -1128,8 +1128,8 @@ static void SelectSortModeInSellShop (void) {
   sub_802D174();
 
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
-  g2021AF0.unk10 = cardId;
-  g2021AF0.unk12 = gShopTempCardQty[cardId];
+  gShopSelectedCard.cardId = cardId;
+  gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   sub_800BD34();
   PlayMusic(0x37);
   sub_802FBF4();
@@ -1264,7 +1264,7 @@ static void TryBuyCard (void) {
 
   if (ShopHasAtLeastQtyOfCard(cardId, 1) == 1) {
     if (PlayerInShopHasSpaceForCardQty(cardId, 1) == 1) {
-      unsigned long long temp = g2021AF0.unk0;
+      unsigned long long temp = gShopSelectedCard.buyPrice;
       if (CanAfford(temp) == 1) {
         RemoveCardQtyFromShop(cardId, 1);
         RemoveMoney(temp);
@@ -1280,8 +1280,8 @@ static void TryBuyCard (void) {
   else
     PlayMusic(0x39);
 
-  g2021AF0.unk10 = cardId;
-  g2021AF0.unk12 = gShopTempCardQty[cardId];
+  gShopSelectedCard.cardId = cardId;
+  gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   sub_800BD34();
   sub_802DF88();
   sub_802DAF8(sCardShop.cursorRow);
@@ -1300,8 +1300,8 @@ static void SelectDetailsInConfirmBuyMenu (void) {
   SetCardInfo(cardId);
   PlayMusic(0x37);
   sub_801F6B0();
-  g2021AF0.unk10 = cardId;
-  g2021AF0.unk12 = gShopTempCardQty[cardId];
+  gShopSelectedCard.cardId = cardId;
+  gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   sub_800BD34();
   sub_802FC14();
   sub_802E1D8();
@@ -1936,7 +1936,7 @@ static void sub_802E314 (void) {
 static void sub_802E404 (void) {
   u16* ptr;
   u8 i;
-  sub_800DEAC(g2021AF0.unk0, 0);
+  sub_800DEAC(gShopSelectedCard.buyPrice, 0);
 
   ptr = ((struct Sbb*)&gBgVram)->sbb14[2] + 27;
   for (i = 0; i < 16 && g2021BE0[18 - i] != 10; i++) {
@@ -1963,11 +1963,11 @@ static void sub_802E404 (void) {
     *ptr-- &= 0xF000;
 }
 
-// same as above, except for g2021AF0.unk8
+// same as above, except for gShopHoveredCard.unk8
 static void sub_802E4F4 (void) {
   u16* ptr;
   u8 i;
-  sub_800DEAC(g2021AF0.unk8, 0);
+  sub_800DEAC(gShopSelectedCard.sellPrice, 0);
 
   ptr = ((struct Sbb*)&gBgVram)->sbb14[2] + 27;
   for (i = 0; i < 16 && g2021BE0[18 - i] != 10; i++) {
@@ -2001,7 +2001,7 @@ static void sub_802E5E4 (void) {
   u8 i;
   unsigned long long cost, money;
   money = gMoney;
-  cost = g2021AF0.unk0;
+  cost = gShopSelectedCard.buyPrice;
 
   if (cost > money) {
     r8 = 1;
@@ -2044,13 +2044,13 @@ static void sub_802E5E4 (void) {
 }
 
 static void sub_802E72C (void) {
-  unsigned long long temp = g2021AF0.unk8;
+  unsigned long long temp = gShopSelectedCard.sellPrice;
   unsigned long long temp2;
   u32 r0 = 0;
   u8 i;
   u16* ptr;
 
-  if (ExceedsMoneyLimit(temp) == 1)
+  if (DoesNotExceedMoneyLimit(temp) == 1)
     temp2 = gMoney + temp;
   else
     temp2 = 9999999999999;
@@ -2173,7 +2173,7 @@ static void sub_802EB64 (void) {
     *ptr-- |= 0x1A3;
 
     i = 6;
-    sub_800DEAC(g2021AF0.unk0, 0);
+    sub_800DEAC(gShopSelectedCard.buyPrice, 0);
     for (j = 0; j < 16 && g2021BE0[18 - j] != 10; j++, i++) {
       *ptr &= 0xF000;
       *ptr |= g2021BE0[18 - j] + 0x195;
@@ -2215,7 +2215,7 @@ static void sub_802ECCC (void) {
     *ptr-- |= 0x1A3;
 
     i = 6;
-    sub_800DEAC(g2021AF0.unk8, 0);
+    sub_800DEAC(gShopSelectedCard.sellPrice, 0);
     for (j = 0; j < 16 && g2021BE0[18 - j] != 10; j++, i++) {
       *ptr &= 0xF000;
       *ptr |= g2021BE0[18 - j] + 0x195;
@@ -2252,15 +2252,15 @@ static void sub_802EE34 (void) {
   u8 j;
 
   if (gCardInfo.id != CARD_NONE) {
-    if (g2021AF0.unk0 > gMoney) {
+    if (gShopSelectedCard.buyPrice > gMoney) {
       r8 = 1;
       paletteBank = 14; // red
-      diff = g2021AF0.unk0 - gMoney;
+      diff = gShopSelectedCard.buyPrice - gMoney;
     }
     else {
       r8 = 0;
       paletteBank = 13;
-      diff = gMoney - g2021AF0.unk0;
+      diff = gMoney - gShopSelectedCard.buyPrice;
     }
     *ptr-- = paletteBank << 12 | 0x1A8;
     *ptr-- = paletteBank << 12 | 0x1A7;
@@ -2304,8 +2304,8 @@ static void sub_802EFFC (void) {
   u8 j;
 
   if (gCardInfo.id != CARD_NONE) {
-    if (ExceedsMoneyLimit(g2021AF0.unk8) == 1)
-      temp = gMoney + g2021AF0.unk8;
+    if (DoesNotExceedMoneyLimit(gShopSelectedCard.sellPrice) == 1)
+      temp = gMoney + gShopSelectedCard.sellPrice;
     else
       temp = 9999999999999;
 
@@ -2359,7 +2359,7 @@ static void sub_802F1B4 (void) {
   u8 i = 0;
 
   if (gCardInfo.id != CARD_NONE) {
-    sub_800DEAC(g2021AF0.unk0, 1);
+    sub_800DEAC(gShopHoveredCard.unk0, 1);
     for (i = 0; i < 16 && g2021BE0[i] != 10; i++) {
       *ptr = 0xFFFFD000 | g2021BE0[i] + 0x195; // problematic part
       ptr++
@@ -3486,8 +3486,8 @@ static void sub_80303F0 (void) {
   sub_802DF88();
 
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
-  g2021AF0.unk10 = cardId;
-  g2021AF0.unk12 = gShopTempCardQty[cardId];
+  gShopSelectedCard.cardId = cardId;
+  gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   sub_800BD34();
   PlayMusic(0x37);
   sub_802FBF4();

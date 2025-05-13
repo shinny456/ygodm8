@@ -647,15 +647,15 @@ extern struct Unk2021DE0 {
 
 void sub_802ACC0(void);
 
-struct Unk2021AF0
+struct ShopSelectedCard
 {
-    u64 unk0;
-    u64 unk8;
-    u16 unk10;
-    u8 unk12;
+    u64 buyPrice;
+    u64 sellPrice;
+    u16 cardId;
+    u8 shopQty;
 };
 
-extern struct Unk2021AF0 g2021AF0;
+extern struct ShopSelectedCard gShopSelectedCard;
 
 
 #endif // GUARD_DUEL_H
