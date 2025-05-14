@@ -326,11 +326,11 @@ _08005B14: .4byte gBLDY");
 }
 
 void InitStartMenu (void) {
-  sub_8035020(1);
+  FadeOutMusic(1);
   InitStartMenuData();
   PlayMusic(0x2F);
   StartMenuMain();
-  sub_8035020(1);
+  FadeOutMusic(1);
 }
 
 void InitStartMenuFromScript (void) {

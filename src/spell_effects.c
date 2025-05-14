@@ -2407,7 +2407,7 @@ static void EffectForest (void) {
 
   if (!gHideEffectText)
   {
-    sub_8041140(gDuel.field);
+    SetDuelFieldGfx(gDuel.field);
     gCardEffectTextData.cardId = FOREST;
     sub_801CEBC();
   }
@@ -2420,7 +2420,7 @@ static void EffectWasteland (void) {
 
   if (!gHideEffectText)
   {
-    sub_8041140(gDuel.field);
+    SetDuelFieldGfx(gDuel.field);
     gCardEffectTextData.cardId = WASTELAND;
     sub_801CEBC();
   }
@@ -2433,7 +2433,7 @@ static void EffectMountain (void) {
 
   if (!gHideEffectText)
   {
-    sub_8041140(gDuel.field);
+    SetDuelFieldGfx(gDuel.field);
     gCardEffectTextData.cardId = MOUNTAIN;
     sub_801CEBC();
   }
@@ -2446,7 +2446,7 @@ static void EffectSogen (void) {
 
   if (!gHideEffectText)
   {
-    sub_8041140(gDuel.field);
+    SetDuelFieldGfx(gDuel.field);
     gCardEffectTextData.cardId = SOGEN;
     sub_801CEBC();
   }
@@ -2459,7 +2459,7 @@ static void EffectUmi (void) {
 
   if (!gHideEffectText)
   {
-    sub_8041140(gDuel.field);
+    SetDuelFieldGfx(gDuel.field);
     gCardEffectTextData.cardId = UMI;
     sub_801CEBC();
   }
@@ -2472,7 +2472,7 @@ static void EffectYami (void) {
 
   if (!gHideEffectText)
   {
-    sub_8041140(gDuel.field);
+    SetDuelFieldGfx(gDuel.field);
     gCardEffectTextData.cardId = YAMI;
     sub_801CEBC();
   }

@@ -49,8 +49,8 @@ void sub_8040B4C (void);
 void DisplayCardInfoBar (void);
 void sub_80408FC (void);
 void sub_8041E64 (void);
-void sub_804405C (void);
-void sub_80410B4 (void);
+void InitDuelCursor (void);
+void UpdateAllDuelGfx (void);
 void sub_80411D4 (void);
 /*
 gFieldTilePtrs:
@@ -177,16 +177,17 @@ void sub_8041050 (void) {
 void sub_8041090 (void) {
   sub_8041E64();
   REG_DISPCNT = 0;
-  sub_804405C();
-  sub_80410B4();
+  InitDuelCursor();
+  UpdateAllDuelGfx();
   SetVBlankCallback(LoadBgOffsets);
 }
 
-void sub_80410B4 (void) { //updates all duel gfx
+// 80410B4
+void UpdateAllDuelGfx (void) {
   WaitForVBlank();
   DisableDisplay();
-  sub_8041140(gDuel.field);
-  //below this is same as sub_8041104
+  SetDuelFieldGfx(gDuel.field);
+  //below this is same as UpdateDuelGfxExceptField
   sub_8040B4C();
   DisplayCardInfoBar();
   sub_8040C6C();
@@ -199,7 +200,8 @@ void sub_80410B4 (void) { //updates all duel gfx
   REG_BLDY = 10;
 }
 
-void sub_8041104 (void) { //updates gfx except for field
+// 8041104
+void UpdateDuelGfxExceptField (void) {
   sub_8040B4C(); // init bg1 for b button menu and card details at the bottom
   DisplayCardInfoBar();
   sub_8040C6C();
@@ -212,7 +214,8 @@ void sub_8041104 (void) { //updates gfx except for field
   REG_BLDY = 10;
 }
 
-void sub_8041140 (unsigned char field) {
+// 8041140
+void SetDuelFieldGfx (unsigned char field) {
   unsigned char i;
   REG_BG2CNT = 0x9B02;
   HuffUnComp(gFieldTilePtrs[field], gBgVram.cbb0);
@@ -259,7 +262,7 @@ void DisplayNumRequiredTributesText (unsigned char numTributes) {
   test.unk1A = 0;
   sub_8041B38();
   sub_8041BE8(&test);
-  sub_8041104();
+  UpdateDuelGfxExceptField();
 }
 
 void sub_8041284 (struct Test8041240* arg0) {

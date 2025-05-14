@@ -260,7 +260,7 @@ void UnlockCard(struct DuelCard*); //clear isLocked
 
 void CopyCard(struct DuelCard* dst, struct DuelCard* src);
 
-void sub_8041140(u8); //set field gfx
+void SetDuelFieldGfx(u8);
 
 int HighestAtkMonInRow(struct DuelCard** row); //get highest atk mon
 int HighestAtkMonInRowExceptGodCards(struct DuelCard** row); //get highest atk mon excluding god cards?
@@ -367,9 +367,9 @@ struct Duelist
     u16 maxDomino;         //0x1E
     u8 unk20;              //0x20
     u8 filler21[3];
-    u16 unk24;             //0x24  music
-    u16 unk26;             //0x26
-    u16 unk28;             //0x28
+    u16 duelMusic;             //0x24  music
+    u16 winMusic;             //0x26
+    u16 lossMusic;             //0x28
     u16 unk2A;             //0x2A
 };
 
@@ -385,7 +385,7 @@ struct DuelData
     u16 unk14[10]; //reward cards
     u16 ante;
     u8 unk2A; //max num reward cards?
-    u8 unk2B; // duel victor?; 1=player, 2=opponent
+    u8 outcomeFlag; // 1=player win, 2=opponent win
     /*2C-2F bitfields?*/
     u8 unk2c : 1;
     u8 unk2d : 1;

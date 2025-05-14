@@ -85,7 +85,7 @@ static unsigned char TitleScreenChooseOption (void) {
     if (newButton == A_BUTTON) {
       if (option != OPTION_NEW_GAME || !TryStartNewGame()) {
         keepProcessing = 0;
-        sub_8035020(1);
+        FadeOutMusic(1);
       }
     }
     else if (newButton == B_BUTTON) {
@@ -232,7 +232,7 @@ static unsigned char TitleScreenNewGameOnly (void) {
     SetVBlankCallback(VBlankCbNoInput);
     WaitForVBlank();
   }
-  sub_8035020(1);
+  FadeOutMusic(1);
   sub_80357F8();
   SetVBlankCallback(VBlankCbNoInput);
   WaitForVBlank();

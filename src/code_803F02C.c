@@ -1250,7 +1250,7 @@ static unsigned char ProcessInput (void) {
 }
 
 
-void sub_8041104 (void);
+void UpdateDuelGfxExceptField (void);
 void sub_80082C0 (void);
 void DisplayCardInfoBar (void);
 void sub_8041E70 (unsigned char, unsigned char);
@@ -1262,14 +1262,14 @@ void HandleAButtonAction (void);
 void sub_8042F04 (void);
 void sub_8041014 (void);
 void sub_8044B2C (void);
-void sub_80410B4 (void);
+void UpdateAllDuelGfx (void);
 void HandleBButtonAction (void);
 
 extern unsigned char gIsPlayerTurnOver;
 
 void PlayerTurnMain (void) {
   gIsPlayerTurnOver = 0;
-  sub_8041104();
+  UpdateDuelGfxExceptField();
   TryActivatingTurnEffects();
   if (IsDuelOver() == 1)
     return;
@@ -1310,7 +1310,7 @@ void PlayerTurnMain (void) {
         break;
       case 7:
         sub_8044B2C();
-        sub_80410B4();
+        UpdateAllDuelGfx();
         break;
       case 8:
         HandleBButtonAction();

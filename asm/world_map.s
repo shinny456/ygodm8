@@ -638,7 +638,7 @@ _0800570C:
 	cmp r4, #0xe
 	bls _0800570C
 	movs r0, #4
-	bl sub_8035020
+	bl FadeOutMusic
 	ldr r1, _0800573C
 	ldrh r0, [r1]
 	cmp r0, #0xf

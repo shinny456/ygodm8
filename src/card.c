@@ -1128,7 +1128,7 @@ void DuelTrunkMenu (void)
             sub_800AA58(5); //Set and execute vblank function (graphics function?)
         }
     }
-    sub_8035020(2);
+    FadeOutMusic(2);
 }
 
 //unused?

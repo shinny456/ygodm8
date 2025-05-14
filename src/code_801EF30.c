@@ -1127,13 +1127,13 @@ void HandleWin (void) {
   AddCardDropsToShop();
   AddMoneyFromDuelVictory();
   if (!gDuelLifePoints[1]) {
-    sub_8035020(4);
+    FadeOutMusic(4);
     ResetDuelTextData(&duelText);
     duelText.textId = 19;
     DisplayDuelText(&duelText);
   }
   else if (NumCardsInDeck(1) < GetCardsDrawn(1)) {
-    sub_8035020(4);
+    FadeOutMusic(4);
     ResetDuelTextData(&duelText);
     duelText.textId = 21;
     DisplayDuelText(&duelText);
@@ -1169,13 +1169,13 @@ void HandleLoss (void) {
   if (gAnte != CARD_NONE)
     RemoveCardQtyFromTrunk(gAnte, 1);
   if (!gDuelLifePoints[0]) {
-    sub_8035020(4);
+    FadeOutMusic(4);
     ResetDuelTextData(&duelText);
     duelText.textId = 20;
     DisplayDuelText(&duelText);
   }
   else if (NumCardsInDeck(0) < GetCardsDrawn(0)) {
-    sub_8035020(4);
+    FadeOutMusic(4);
     ResetDuelTextData(&duelText);
     duelText.textId = 22;
     DisplayDuelText(&duelText);
@@ -1274,7 +1274,7 @@ void DisplayMoneyRewardText (void) {
 }
 
 void HandleOutcome (void) {
-  if (gDuelData.unk2B == 1)
+  if (gDuelData.outcomeFlag == 1)
     HandleWin();
   else
     HandleLoss();

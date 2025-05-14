@@ -219,7 +219,7 @@ static void sub_80527E8(struct ScriptCtx *script)
             DuelTrunkMenu();
             gDuelData.opponent = script->currentScript.start[script->pointer + 1];
             DuelMain();
-            if (gDuelData.unk2B == 1)
+            if (gDuelData.outcomeFlag == 1)
             {
                 script->unk1E = 0;
                 sub_804ED08();
@@ -261,7 +261,7 @@ static void sub_80527E8(struct ScriptCtx *script)
             script->pointer += 3;
             break;
         case '6':
-            sub_8035020(script->currentScript.start[script->pointer + 1] +
+            FadeOutMusic(script->currentScript.start[script->pointer + 1] +
                        (script->currentScript.start[script->pointer + 2] << 8));
             script->pointer += 3;
             break;

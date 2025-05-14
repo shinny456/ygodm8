@@ -12,7 +12,7 @@ void sub_80408BC (void);
 void sub_802ADA4 (void);
 void ResetTempStagesForAllCards (void);
 void sub_802AE44 (void);
-void sub_8041104 (void);
+void UpdateDuelGfxExceptField (void);
 
 
 void sub_802703C (void) {
@@ -1252,7 +1252,7 @@ void sub_8029820 (void) {
   }
   ResetTempStagesForAllCards();
   if (!gHideEffectText)
-    sub_8041104();
+    UpdateDuelGfxExceptField();
   sub_8027138();
   if (!gHideEffectText)
     sub_802AE44();

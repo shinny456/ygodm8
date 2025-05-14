@@ -29,8 +29,8 @@ void sub_8041014 (void);
 u32 CanPlayerSeeCard (unsigned char y, unsigned char x);
 
 extern u16 gNewButtons;
-void sub_80410B4 (void);
-void sub_8041104 (void);
+void UpdateAllDuelGfx (void);
+void UpdateDuelGfxExceptField (void);
 
 
 extern u16 g80F13D0[][30];
@@ -95,17 +95,17 @@ void BMenuMain (void) {
             gStatMod.stage = GetFinalStage(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]);
             SetFinalStat(&gStatMod);
             sub_801F6B0();
-            sub_80410B4();
+            UpdateAllDuelGfx();
           }
           else {
             PlayMusic(0x39);
-            sub_8041104();
+            UpdateDuelGfxExceptField();
           }
           return;
         case B_MENU_END_TURN:
           PlayMusic(0x37);
           gIsPlayerTurnOver = 1;
-          sub_8041104();
+          UpdateDuelGfxExceptField();
           return;
         case B_MENU_DISCARD:
           if (gDuelCursor.currentY > 1 &&
@@ -114,12 +114,12 @@ void BMenuMain (void) {
             {
               PlayMusic(0x3E);
               ClearZoneAndSendMonToGraveyard2(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX], 0);
-              sub_8041104();
+              UpdateDuelGfxExceptField();
               sub_8029820();
             }
           else {
             PlayMusic(0x39);
-            sub_8041104();
+            UpdateDuelGfxExceptField();
           }
           return;
       }
@@ -132,7 +132,7 @@ void BMenuMain (void) {
     else
       WaitForVBlank();
   }
-  sub_8041104();
+  UpdateDuelGfxExceptField();
 }
 
 NAKED

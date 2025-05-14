@@ -318,8 +318,8 @@ _08024DEC: .4byte gOamBuffer+0x10
 _08024DF0: .4byte 0x08FC488C
 _08024DF4: .4byte 0xFFFFF3FF
 
-	THUMB_FUNC_START sub_8024DF8
-sub_8024DF8: @ 0x08024DF8
+	THUMB_FUNC_START FadeToBlack
+FadeToBlack: @ 0x08024DF8
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb

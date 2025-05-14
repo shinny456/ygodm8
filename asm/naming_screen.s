@@ -1255,7 +1255,7 @@ _080072DA:
 	cmp r4, #0x1d
 	bls _080072DA
 	movs r0, #8
-	bl sub_8035020
+	bl FadeOutMusic
 	movs r4, #0
 	mov r1, r8
 	lsls r0, r1, #1

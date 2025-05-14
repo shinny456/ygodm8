@@ -44,7 +44,7 @@
 
 #include "constants/card_ids.h"
 
-void sub_8035020 (unsigned);
+void FadeOutMusic (unsigned);
 void sub_8034FEC (unsigned);
 void AddCardQtyToTrunk (unsigned, unsigned);
 void RemoveCardQtyFromTrunk (unsigned, unsigned);

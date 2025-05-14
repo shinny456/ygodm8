@@ -86,7 +86,8 @@ u8 sub_804402C (u8 arg0) {
 }
 
 // TODO/UB?: doesn't return a value; only way to match?
-int sub_804405C (void) {
+// 804405C
+int InitDuelCursor (void) {
   gDuelCursor.state = 0;
   gDuelCursor.currentX = 0;
   gDuelCursor.currentY = 4;
@@ -175,9 +176,9 @@ void CheckWinConditionExodia (void);
 void IncNumTributes (void);
 u32 sub_80429A4 (void);
 void sub_8044570 (void);
-void sub_8041104 (void);
+void UpdateDuelGfxExceptField (void);
 void sub_801BC00 (void);
-void sub_80410B4 (void);
+void UpdateAllDuelGfx (void);
 void ActivateTrapEffect (void);
 s8 GetLastNonEmptyMonZoneId (struct DuelCard** zonePtr);
 s8 GetFirstNonEmptyMonZoneId (struct DuelCard** zonePtr);
@@ -277,14 +278,14 @@ void HandlePlayerMonsterRowAction (void) {
         PlayMusic(0x39);
         gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
       }
-      sub_8041104();
+      UpdateDuelGfxExceptField();
       sub_8029820();
       break;
     case 3:
       PlayMusic(0x3D);
       IncNumTributes();
       ClearZoneAndSendMonToGraveyard2(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX], 0);
-      sub_8041104();
+      UpdateDuelGfxExceptField();
       sub_8029820();
       break;
     case 4:
@@ -295,7 +296,7 @@ void HandlePlayerMonsterRowAction (void) {
         if (gCardInfo.monsterEffect == /*MONSTER_EFFECT_NONE*/ 0) {
           FAILED:
           PlayMusic(0x39);
-          sub_8041104();
+          UpdateDuelGfxExceptField();
         }
         else {
           gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
@@ -307,7 +308,7 @@ void HandlePlayerMonsterRowAction (void) {
           ActivateMonsterEffect();
           if (gNotSure[0]->unkThree)
             LockMonsterCardsInRow(4);
-          sub_8041104();
+          UpdateDuelGfxExceptField();
           CheckWinConditionExodia();
           if (IsDuelOver() != 1)
             sub_8029820();
@@ -320,7 +321,7 @@ void HandlePlayerMonsterRowAction (void) {
       if (gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending)
         if (gNotSure[0]->defenseBlocked)
           gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
-      sub_8041104();
+      UpdateDuelGfxExceptField();
       break;
   }
 }
@@ -331,7 +332,7 @@ void sub_8044570 (void) {
   if (GetDuelistStatus(turn) == CANNOT_ATTACK || gNotSure[0]->sorlTurns) { // attacking forbidden
     PlayMusic(0x39);
     gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
-    sub_8041104();
+    UpdateDuelGfxExceptField();
   }
   else if (NumEmptyZonesInRow(gZones[1]) == 5) { // Direct Attack
     gTrapEffectData.unk2 = gDuelCursor.currentY;
@@ -347,7 +348,7 @@ void sub_8044570 (void) {
       CheckGraveyardAndLoserFlags();
       gDuelCursor.state = 0;
       sub_801BC00();
-      sub_80410B4();
+      UpdateAllDuelGfx();
       sub_8022080();
     }
     else {
@@ -366,7 +367,7 @@ void sub_8044570 (void) {
     gDuelCursor.currentY = 1;
     DisplayCardInfoBar();
     sub_8041E70(gDuelCursor.destY, gDuelCursor.currentY);
-    sub_8041104();
+    UpdateDuelGfxExceptField();
   }
 }
 
@@ -384,7 +385,7 @@ void HandlePlayerSpellRowAction (void) {
       ActivateSpellEffect();
       if (gNotSure[0]->unkThree)
         LockMonsterCardsInRow(4);
-      sub_8041104();
+      UpdateDuelGfxExceptField();
       CheckWinConditionExodia();
       if (IsDuelOver() != 1)
         sub_8029820();
@@ -429,7 +430,7 @@ void sub_80447A8 (void) {
     }
     gDuelCursor.state = 0;
     ResetCursorDestToCurrentPos();
-    sub_8041104();
+    UpdateDuelGfxExceptField();
     sub_8029820();
   }
 }
@@ -459,14 +460,14 @@ void sub_8044840 (void) {
       gDuelCursor.state = 0;
       SetCursorToCardDest();
       sub_801BC00();
-      sub_80410B4();
+      UpdateAllDuelGfx();
       sub_8022080();
     }
     else {
       ActivateTrapEffect();
       gDuelCursor.state = 0;
       SetCursorToCardDest();
-      sub_8041104();
+      UpdateDuelGfxExceptField();
     }
     sub_8029820();
   }
@@ -510,7 +511,7 @@ void sub_80449D8 (void) {
   CopySelectedCardToZone(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]);
   gDuelCursor.state = 0;
   ResetCursorDestToCurrentPos();
-  sub_8041104();
+  UpdateDuelGfxExceptField();
 }
 
 void OpenBMenu (void) {

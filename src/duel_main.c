@@ -18,13 +18,13 @@ static unsigned char sub_8021CFC (void);
 static void sub_8021E0C (void);
 static void sub_8021ED8 (void);
 static void sub_8021FF8 (void);
-static void sub_8022040 (void);
-static void sub_8022068 (void);
-static void sub_8022214 (void);
+static void InitLinkDuel (void);
+static void OnLinkDuelEnd (void);
+static void HandleLinkDuelResult (void);
 static void sub_8022234 (void);
-static void sub_80222EC (void);
-static void sub_8022318 (void);
-static void sub_8022340 (void);
+static void InitDuelistsAndBoard (void);
+static void SetLinkDuelOutcomeFlag (void);
+static void FadeToBlackAfterLinkDuel (void);
 
 
 
@@ -32,7 +32,7 @@ extern struct Duelist* gUnk8E00B30[];
 extern struct TurnVoice gTurnVoices[];
 extern u32 gOamBuffer[];
 extern unsigned char g80C1824[];
-void sub_8041104(void);
+void UpdateDuelGfxExceptField(void);
 u32 AdjustBackgroundBeforeTurnStart(unsigned char);
 void sub_804078C(void);
 void WaitForVBlank(void);
@@ -76,7 +76,7 @@ void DuelMain (void) {
   InitIngameDuel();
   while (1) {
     unsigned char turn = WhoseTurn();
-    sub_8041104(); //UpdateDuelGraphics/UpdateGraphics?
+    UpdateDuelGfxExceptField(); //UpdateDuelGraphics/UpdateGraphics?
     if (turn == DUEL_PLAYER)
       AdjustBackgroundBeforeTurnStart(gDuelCursor.currentY);
     else
@@ -101,7 +101,7 @@ void DuelMain (void) {
         break;
       PlayMusic(59);
     }
-    sub_8041104();
+    UpdateDuelGfxExceptField();
     CheckWinConditionExodia(turn);
     if (IsDuelOver() == TRUE)
       break;
@@ -132,11 +132,11 @@ static void InitIngameDuel (void) {
   SetDuelType(0);
   InitDuelMetaData();
   gDuelData.duelist = *gUnk8E00B30[gDuelData.opponent];
-  gDuelData.unk2B = 2;
+  gDuelData.outcomeFlag = 2;
   gDuelData.unk2A = 1;
-  gDuelData.duelMusic = gUnk8E00B30[gDuelData.opponent]->unk24;
-  gDuelData.winMusic = gUnk8E00B30[gDuelData.opponent]->unk26;
-  gDuelData.lossMusic = gUnk8E00B30[gDuelData.opponent]->unk28;
+  gDuelData.duelMusic = gUnk8E00B30[gDuelData.opponent]->duelMusic;
+  gDuelData.winMusic = gUnk8E00B30[gDuelData.opponent]->winMusic;
+  gDuelData.lossMusic = gUnk8E00B30[gDuelData.opponent]->lossMusic;
   ClearDuelDecks();
   sub_8043E14(0, 0);
   sub_8043E14(1, gDuelData.opponent);
@@ -210,11 +210,11 @@ static bool8 DoesDuelistHaveTurnVoice (struct TurnVoice* turnVoice) {
 
 static void DuelEnd (void) {
   if (gDuelistStatus[DUEL_OPPONENT] == DEFEAT)
-    gDuelData.unk2B = 1;
+    gDuelData.outcomeFlag = 1;
   else
-    gDuelData.unk2B = 2;
+    gDuelData.outcomeFlag = 2;
   HandleOutcome();
-  sub_8035020(2);
+  FadeOutMusic(2);
   FadeToBlack();
 }
 
@@ -226,7 +226,7 @@ static void InitDuelMetaData (void) {
     gDuelData.unk14[i] = 0;
   gDuelData.capacityYield = 0;
   gDuelData.unk2A = 0;
-  gDuelData.unk2B = 2;
+  gDuelData.outcomeFlag = 2;
   gDuelData.unk2c = 0;
   gDuelData.unk2d = 1;
   gDuelData.duelist = *gUnk8E00B30[0]; //dummy duelist?
@@ -319,7 +319,7 @@ extern u16 gNewButtons;
 void sub_8024354(void);
 void sub_8024568(void);
 void sub_801B66C(void);
-void sub_80410B4(void);
+void UpdateAllDuelGfx(void);
 void sub_8041D54(void);
 void sub_803276C(void);
 
@@ -343,10 +343,10 @@ void LinkDuelMain (void) {
   sub_8035038(2);
   PlayMusic(213);
   MosaicEffect();
-  sub_8022040();
+  InitLinkDuel();
   while (1) {
     turn = WhoseTurn();
-    sub_8041104();
+    UpdateDuelGfxExceptField();
     sub_80240BC(&duelText);
     if (turn == DUEL_PLAYER) {
       duelText.textId = 0;
@@ -377,7 +377,7 @@ void LinkDuelMain (void) {
     UnlockCardsInRow(4);
     if (g3000C38.unk34) break;
   }
-  sub_8022068();
+  OnLinkDuelEnd();
 }
 
 static void sub_8021E0C (void) {
@@ -399,7 +399,7 @@ static void sub_8021E0C (void) {
     else
       PlayMusic(59);
   }
-  sub_8041104();
+  UpdateDuelGfxExceptField();
   CheckWinConditionExodia();
   if (IsDuelOver() == TRUE)
     return;
@@ -435,11 +435,11 @@ static void sub_8021ED8 (void) {
       break;
     case 4:
       sub_801B66C();
-      sub_80410B4();
+      UpdateAllDuelGfx();
       sub_8022080();
       break;
     case 5:
-      sub_8041140(gDuel.field);
+      SetDuelFieldGfx(gDuel.field);
       sub_801CF08();
       break;
     }
@@ -521,19 +521,21 @@ static void sub_8021FF8 (void) {
       sub_802417C();
 }
 
-static void sub_8022040 (void) {
-  sub_80222EC();
+// 8022040
+static void InitLinkDuel (void) {
+  InitDuelistsAndBoard();
   sub_8041090();
   PlayMusic(gDuelData.duelMusic);
-  sub_8041104();
+  UpdateDuelGfxExceptField();
   gHideEffectText = 0;
 }
 
-static void sub_8022068 (void) {
-  sub_8022318();
-  sub_8022214();
-  sub_8035020(1);
-  sub_8022340();
+// 8022068
+static void OnLinkDuelEnd (void) {
+  SetLinkDuelOutcomeFlag();
+  HandleLinkDuelResult();
+  FadeOutMusic(1);
+  FadeToBlackAfterLinkDuel();
 }
 
 void sub_8022080 (void) {
@@ -550,11 +552,12 @@ void sub_8022080 (void) {
     sub_8041D54();
 }
 
-static void sub_80220C8 (void) {
+// 80220C8
+static void LinkDuelWin (void) {
   struct DuelText duelText;
   IncreaseDeckCapacity(gDuelData.capacityYield);
   SaveGame();
-  sub_8035020(4);
+  FadeOutMusic(4);
   if (gDuelLifePoints[DUEL_OPPONENT] == 0) {
     ResetDuelTextData(&duelText);
     duelText.textId = 19;
@@ -577,11 +580,12 @@ static void sub_80220C8 (void) {
   }
 }
 
-static void sub_8022170 (void) {
+// 8022170
+static void LinkDuelLoss (void) {
   struct DuelText duelText;
   IncreaseDeckCapacity(5);
   SaveGame();
-  sub_8035020(4);
+  FadeOutMusic(4);
   if (gDuelLifePoints[DUEL_PLAYER] == 0) {
     ResetDuelTextData(&duelText);
     duelText.textId = 20;
@@ -604,11 +608,12 @@ static void sub_8022170 (void) {
   }
 }
 
-static void sub_8022214 (void) {
-  if (gDuelData.unk2B == 1)
-    sub_80220C8();
+// 8022214
+static void HandleLinkDuelResult (void) {
+  if (gDuelData.outcomeFlag == 1)
+    LinkDuelWin();
   else
-    sub_8022170();
+    LinkDuelLoss();
 }
 
 static void sub_8022234 (void) {
@@ -625,7 +630,7 @@ static void sub_8022234 (void) {
   gDuelData.ante = gAnte;
   gDuelData.capacityYield = 10;
   gDuelData.unk2A = 0;
-  gDuelData.unk2B = 2;
+  gDuelData.outcomeFlag = 2;
   gDuelData.unk2c = 0;
   gDuelData.unk2d = 1;
   gDuelData.duelist = *gUnk8E00B30[0];
@@ -638,21 +643,24 @@ static void sub_8022234 (void) {
   SetWhoseTurnToPlayer();
 }
 
-static void sub_80222EC (void) {
+// 80222EC
+static void InitDuelistsAndBoard (void) {
   InitDuelistStatus();
   SetDuelLifePoints(DUEL_PLAYER, gDuelData.duelist.playerLp);
   SetDuelLifePoints(DUEL_OPPONENT, gDuelData.duelist.lifePoints);
   InitBoard();
 }
 
-static void sub_8022318(void) {
+// 8022318
+static void SetLinkDuelOutcomeFlag (void) {
   if (gDuelistStatus[DUEL_OPPONENT] == DEFEAT)
-    gDuelData.unk2B = 1;
+    gDuelData.outcomeFlag = 1;
   else
-    gDuelData.unk2B = 2;
+    gDuelData.outcomeFlag = 2;
 }
 
-static void sub_8022340 (void) {  //fade to black after Link duel
+// 8022340
+static void FadeToBlackAfterLinkDuel (void) {
   u16 i, j;
   struct PlttData* pltt;
 

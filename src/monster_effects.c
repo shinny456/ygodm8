@@ -90,7 +90,7 @@ static void EffectCastleOfDarkIllusions(void)
 
     if (!gHideEffectText)
     {
-        sub_8041140(gDuel.field);
+        SetDuelFieldGfx(gDuel.field);
         gCardEffectTextData.cardId = CASTLE_OF_DARK_ILLUSIONS;
         sub_801CEBC();
     }
@@ -2321,7 +2321,7 @@ static void EffectCurseOfDragon(void)
 
     if (!gHideEffectText)
     {
-        sub_8041140(FIELD_WASTELAND);
+        SetDuelFieldGfx(FIELD_WASTELAND);
         gCardEffectTextData.cardId = CURSE_OF_DRAGON;
         sub_801CEBC();
     }
@@ -2351,7 +2351,7 @@ static void EffectGiantSoldierOfStone(void)
 
     if (!gHideEffectText)
     {
-        sub_8041140(FIELD_ARENA);
+        SetDuelFieldGfx(FIELD_ARENA);
         gCardEffectTextData.cardId = GIANT_SOLDIER_OF_STONE;
         sub_801CEBC();
     }
@@ -2426,7 +2426,7 @@ static void EffectSpiritOfTheMountain(void)
 
     if (!gHideEffectText)
     {
-        sub_8041140(FIELD_MOUNTAIN);
+        SetDuelFieldGfx(FIELD_MOUNTAIN);
         gCardEffectTextData.cardId = SPIRIT_OF_THE_MOUNTAIN;
         sub_801CEBC();
     }
@@ -2597,7 +2597,7 @@ static void EffectKairyuShin(void)
 
     if (!gHideEffectText)
     {
-        sub_8041140(FIELD_UMI);
+        SetDuelFieldGfx(FIELD_UMI);
         gCardEffectTextData.cardId = KAIRYU_SHIN;
         sub_801CEBC();
     }
@@ -2656,7 +2656,7 @@ static void EffectTrent(void)
 
     if (!gHideEffectText)
     {
-        sub_8041140(FIELD_FOREST);
+        SetDuelFieldGfx(FIELD_FOREST);
         gCardEffectTextData.cardId = TRENT;
         sub_801CEBC();
     }

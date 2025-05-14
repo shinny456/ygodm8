@@ -204,7 +204,7 @@ static void sub_802B210 (void) {
 
     FlipCardFaceUp(gZones[1][g2021DE0.unk3]);
     if (!gHideEffectText) {
-      sub_8041140(gDuel.field);
+      SetDuelFieldGfx(gDuel.field);
       gCardEffectTextData.cardId = CASTLE_OF_DARK_ILLUSIONS;
       sub_801CEBC();
     }
@@ -216,7 +216,7 @@ static void sub_802B210 (void) {
 
     FlipCardFaceUp(gZones[2][g2021DE0.unk3]);
     if (!gHideEffectText) {
-      sub_8041140(gDuel.field);
+      SetDuelFieldGfx(gDuel.field);
       gCardEffectTextData.cardId = CASTLE_OF_DARK_ILLUSIONS;
       sub_801CEBC();
     }

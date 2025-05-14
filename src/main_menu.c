@@ -39,7 +39,7 @@ static void sub_8024B84 (struct GameMenuData* menuData);
 
 
 void sub_8024ECC (struct GameMenuData* menuData);
-void sub_8024DF8 (void);
+void FadeToBlack (void);
 
 void sub_802618C (void);
 void sub_8024F40 (struct GameMenuData* menuData);
@@ -98,7 +98,7 @@ void GameMenuMain (void) {
     if (sGameMenuData.action == 1)
       break;
     if (sGameMenuData.action == 3) {
-      sub_8024DF8();
+      FadeToBlack();
       LinkDuelMenu();
       PlayMusic(0x2F);
       sGameMenuData.action = 0;
@@ -107,7 +107,7 @@ void GameMenuMain (void) {
       sub_8024ECC(&sGameMenuData);
     }
     if (sGameMenuData.action == 4) {
-      sub_8024DF8();
+      FadeToBlack();
       TradeMenuMain();
       PlayMusic(0x2F);
       sGameMenuData.action = 0;
@@ -133,8 +133,8 @@ void GameMenuMain (void) {
         break;
     }
   }
-  sub_8035020(1);
-  sub_8024DF8();
+  FadeOutMusic(1);
+  FadeToBlack();
 }
 
 static unsigned short ProcessInput (void) {

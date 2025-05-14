@@ -30,7 +30,7 @@ extern u8 g8E0D617[];
 
 void sub_8041B38 (void);
 void sub_8041BE8 (struct Test8041240*);
-void sub_8041104 (void);
+void UpdateDuelGfxExceptField (void);
 void WaitForVBlank (void);
 void sub_8040FDC (void);
 void sub_804078C (void);
@@ -65,7 +65,7 @@ void sub_8041C94 (u8* arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4) {
   test.unk1A = arg4;
   sub_8041B38();
   sub_8041BE8(&test);
-  sub_8041104();
+  UpdateDuelGfxExceptField();
 }
 
 void sub_8041CCC (u16 arg0, u16 arg1) {
@@ -83,7 +83,7 @@ void sub_8041CCC (u16 arg0, u16 arg1) {
   test.unk1A = 0;
   sub_8041B38();
   sub_8041BE8(&test);
-  sub_8041104();
+  UpdateDuelGfxExceptField();
 }
 
 void sub_8041D14 (u16 arg0, u16 arg1) {
@@ -101,11 +101,11 @@ void sub_8041D14 (u16 arg0, u16 arg1) {
   test.unk1A = 0;
   sub_8041B38();
   sub_8041BE8(&test);
-  sub_8041104();
+  UpdateDuelGfxExceptField();
 }
 
 void sub_8041D54 (void) {
-  sub_8041104();
+  UpdateDuelGfxExceptField();
 }
 
 u32 AdjustBackgroundBeforeTurnStart (u8 arg0) {

@@ -10192,8 +10192,8 @@ _0803501C:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_START sub_8035020
-sub_8035020: @ 0x08035020
+	THUMB_FUNC_START FadeOutMusic
+FadeOutMusic: @ 0x08035020
 	push {lr}
 	adds r1, r0, #0
 	lsls r1, r1, #0x10

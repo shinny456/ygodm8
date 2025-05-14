@@ -77,13 +77,13 @@ static void sub_801CFEC (void) {
 }
 
 static void sub_801D008 (void) {
-  sub_8035020(4);
+  FadeOutMusic(4);
   PlayMusic(0x52);
   sub_8041C94(gDuelTextStrings[gCardEffectTextData.textId], gCardEffectTextData.cardId2, gCardEffectTextData.unk4, gCardEffectTextData.unk6, 0);
 }
 
 static void sub_801D044 (void) {
-  sub_8035020(4);
+  FadeOutMusic(4);
   PlayMusic(0x52);
   sub_8041C94(gDuelTextStrings[gCardEffectTextData.textId], gCardEffectTextData.cardId2, gCardEffectTextData.unk4, gCardEffectTextData.unk6, 0);
 }

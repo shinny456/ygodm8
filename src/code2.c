@@ -7136,7 +7136,7 @@ static u8 sub_801A08C (void);
 void TryAttackVoicing (void);
 void sub_801B66C (void);
 void sub_8040EF0 (void);
-void sub_8041104 (void);
+void UpdateDuelGfxExceptField (void);
 void PlayActionSoundEffect (void);
 void CheckWinConditionExodia (void);
 
@@ -7177,7 +7177,7 @@ void AI_Main (void) {
       sub_8040EF0();
     }
     else
-      sub_8041104();
+      UpdateDuelGfxExceptField();
     PlayActionSoundEffect();
     WinConditionFINAL();
     CheckWinConditionExodia();
