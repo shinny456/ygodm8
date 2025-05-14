@@ -790,9 +790,9 @@ void AddCardToTrunk (unsigned short cardId) {
 
 void TrunkMenuDefaultSort (void)
 {
-  gUnk2022EB0.unk0 = gTrunkData.unkC;
-  gUnk2022EB0.unk8 = NUM_TRUE_CARDS;
-  gUnk2022EB0.unkA = gUnk_8DFA6A8[gTrunkData.sortingMethod];
+  gUnk2022EB0.cards = gTrunkData.unkC;
+  gUnk2022EB0.cardCount = NUM_TRUE_CARDS;
+  gUnk2022EB0.sortMode = gUnk_8DFA6A8[gTrunkData.sortingMethod];
   sub_8034A38(); //one of sorting funcs?
 }
 
@@ -838,9 +838,9 @@ void sub_80091C0(void)
 
 void sub_80091EC(unsigned char val)
 {
-    gUnk2022EB0.unk0 = gTrunkData.unkC;
-    gUnk2022EB0.unk8 = NUM_TRUE_CARDS;
-    gUnk2022EB0.unkA = gUnk_8DFA6A8[val];
+    gUnk2022EB0.cards = gTrunkData.unkC;
+    gUnk2022EB0.cardCount = NUM_TRUE_CARDS;
+    gUnk2022EB0.sortMode = gUnk_8DFA6A8[val];
     sub_8034A38();
     gTrunkData.unk0 = 0;
 }

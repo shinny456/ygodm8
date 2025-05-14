@@ -4,6 +4,6 @@
 void CardShopBuyMain (void);
 void CardShopSellMain (void);
 void sub_802D90C (unsigned short, unsigned char);
-void sub_802D9F0 (void);
+void InitNewGameShopCards (void);
 
 #endif // GUARD_CARD_SHOP_H

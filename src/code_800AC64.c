@@ -228,7 +228,7 @@ void sub_800AFF0 (void) {
   InitDuelistLevel();
   sub_8020168();
   sub_802712C();
-  sub_802D9F0();
+  InitNewGameShopCards();
   InitMoney();
   ResetLfsrStateBit();
   sub_80554EC();

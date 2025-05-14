@@ -473,9 +473,9 @@ void ToggleDeckSortMethod (void) {
   if (++gPlayerDeck.sortingMethod > 9)
     gPlayerDeck.sortingMethod = 0;
   temp = gPlayerDeck.sortingMethod;
-  gUnk2022EB0.unk0 = gPlayerDeck.cards;
-  gUnk2022EB0.unk8 = gPlayerDeck.count;
-  gUnk2022EB0.unkA = gE00AE0[temp];
+  gUnk2022EB0.cards = gPlayerDeck.cards;
+  gUnk2022EB0.cardCount = gPlayerDeck.count;
+  gUnk2022EB0.sortMode = gE00AE0[temp];
   sub_8034A38();
   gPlayerDeck.unk4 = 0;
 }
@@ -715,17 +715,17 @@ void RemoveCardFromDeckAtIndex (unsigned char i) {
 }
 
 void DeckMenuSortBy (unsigned char arg0) {
-  gUnk2022EB0.unk0 = gPlayerDeck.cards;
-  gUnk2022EB0.unk8 = gPlayerDeck.count;
-  gUnk2022EB0.unkA = gE00AE0[arg0];
+  gUnk2022EB0.cards = gPlayerDeck.cards;
+  gUnk2022EB0.cardCount = gPlayerDeck.count;
+  gUnk2022EB0.sortMode = gE00AE0[arg0];
   sub_8034A38();
   gPlayerDeck.unk4 = 0;
 }
 
 void DeckMenuSort (void) {
-  gUnk2022EB0.unk0 = gPlayerDeck.cards;
-  gUnk2022EB0.unk8 = gPlayerDeck.count;
-  gUnk2022EB0.unkA = gE00AE0[gPlayerDeck.sortingMethod];
+  gUnk2022EB0.cards = gPlayerDeck.cards;
+  gUnk2022EB0.cardCount = gPlayerDeck.count;
+  gUnk2022EB0.sortMode = gE00AE0[gPlayerDeck.sortingMethod];
   sub_8034A38();
 }
 

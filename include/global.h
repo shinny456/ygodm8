@@ -105,10 +105,10 @@ extern struct UnkStruct_2020E10 gTrunkData; //todo: rename to gTrunkMenuData?
 
 struct UnkStruct_2022EB0
 {
-    u16* unk0;
+    u16* cards;
     u8 filler_4[4];
-    u16 unk8;
-    u8 unkA;
+    u16 cardCount;
+    u8 sortMode;
 };
 
 struct UnkStruct_2021AB4
