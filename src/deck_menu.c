@@ -100,7 +100,7 @@ void DeckMenuMain (void) {
         break;
       case 2:
         keepProcessing = 0;
-        PlayMusic(0x38);
+        PlayMusic(SFX_CANCEL);
         break;
       case 8:
         sub_801F120();
@@ -111,7 +111,7 @@ void DeckMenuMain (void) {
       case 4:
         sub_801D480();
         sub_801EF30(6);
-        PlayMusic(0x37);
+        PlayMusic(SFX_SELECT);
         sub_801F4A0(8);
         sub_801F630();
         break;
@@ -229,7 +229,7 @@ static void sub_801D4A4 (void) {
 static void sub_801D4B8 (void) {
   unsigned char keepProcessing;
   g201CB50 = 0;
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
   sub_801DE5C();
   sub_801D61C();
   LoadCharblock1();
@@ -257,7 +257,7 @@ static void sub_801D4B8 (void) {
         break;
       case 2:
         keepProcessing = 0;
-        PlayMusic(0x38);
+        PlayMusic(SFX_CANCEL);
         break;
       default:
         WaitForVBlank();
@@ -270,7 +270,7 @@ static void sub_801D4B8 (void) {
 static void sub_801D548 (void) {
   g201CB50 = gE00AD4[g201CB50];
   sub_801D61C();
-  PlayMusic(0x36);
+  PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(LoadOam);
   WaitForVBlank();
 }
@@ -278,14 +278,14 @@ static void sub_801D548 (void) {
 static void sub_801D57C (void) {
   g201CB50 = gE00AD6[g201CB50];
   sub_801D61C();
-  PlayMusic(0x36);
+  PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(LoadOam);
   WaitForVBlank();
 }
 
 static void sub_801D5B0 (void) {
   SetCardInfo(sub_801DAF8(2));
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
   sub_801F6B0();
   sub_801EF30(0);
   sub_801EF30(2);
@@ -412,7 +412,7 @@ void CalculateCurrentDeckCost (void);
 void sub_801D7D0 (void) {
   unsigned short cardId = sub_801DAF8(2);
   if (!cardId) {
-    PlayMusic(0x39);
+    PlayMusic(SFX_FORBIDDEN);
     return;
   }
   SetCardInfo(cardId);
@@ -425,16 +425,16 @@ void sub_801D7D0 (void) {
         gPlayerDeck.unk4 -= temp;
       else
         gPlayerDeck.unk4 = 0;
-      PlayMusic(0x36);
+      PlayMusic(SFX_MOVE_CURSOR);
     }
     else if (GetPlayerDeckSize()) {
-      PlayMusic(0x39);
+      PlayMusic(SFX_FORBIDDEN);
       while (gPressedButtons & DPAD_UP)
         WaitForVBlank();
     }
   }
   SubtractCostFromDeckCapacity(gCardInfo.cost);
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
 }
 
 unsigned char TryRemoveCardFromDeck (unsigned short cardId) {
@@ -454,10 +454,10 @@ unsigned char TryRemoveCardFromDeck (unsigned short cardId) {
         gPlayerDeck.unk4 -= deckIndex;
       else
         gPlayerDeck.unk4 = 0;
-      PlayMusic(0x36);
+      PlayMusic(SFX_MOVE_CURSOR);
     }
     else if (GetPlayerDeckSize()) {
-      PlayMusic(0x39);
+      PlayMusic(SFX_FORBIDDEN);
       while (gPressedButtons & DPAD_UP)
         WaitForVBlank();
     }
@@ -648,10 +648,10 @@ void sub_801DC04 (unsigned char arg0) {
       gPlayerDeck.unk4 += arg0;
     else
       gPlayerDeck.unk4 = gPlayerDeck.count - 1;
-    PlayMusic(0x36);
+    PlayMusic(SFX_MOVE_CURSOR);
   }
   else {
-    PlayMusic(0x39);
+    PlayMusic(SFX_FORBIDDEN);
     while (gPressedButtons & DPAD_DOWN)
       WaitForVBlank();
   }
@@ -663,10 +663,10 @@ void sub_801DC64 (unsigned char arg0) {
       gPlayerDeck.unk4 -= arg0;
     else
       gPlayerDeck.unk4 = 0;
-    PlayMusic(0x36);
+    PlayMusic(SFX_MOVE_CURSOR);
   }
   else if (GetPlayerDeckSize()){
-    PlayMusic(0x39);
+    PlayMusic(SFX_FORBIDDEN);
     while (gPressedButtons & DPAD_UP)
       WaitForVBlank();
   }
@@ -675,7 +675,7 @@ void sub_801DC64 (unsigned char arg0) {
 void sub_801DCC8 (void) {
   if (++gPlayerDeck.unk6 > 3)
     gPlayerDeck.unk6 = 0;
-  PlayMusic(0x36);
+  PlayMusic(SFX_MOVE_CURSOR);
 }
 
 void sub_0801DCEC (void) {

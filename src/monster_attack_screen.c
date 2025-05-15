@@ -950,7 +950,7 @@ static void sub_801C218 (void) {
   WaitForVBlank();
   sub_801C3C0();
   r4 = 1;
-  PlayMusic(0x46);
+  PlayMusic(SFX_ATTACK_EXPLOSION_2);
   do {
     if (!r5) {
       sub_801BD50(r4);
@@ -978,7 +978,7 @@ static void sub_801C2A0 (void) {
   WaitForVBlank();
   sub_801C3C0();
   r4 = 1;
-  PlayMusic(0x46);
+  PlayMusic(SFX_ATTACK_EXPLOSION_2);
   do {
     if (!r5) {
       sub_801BD50(r4);
@@ -1223,7 +1223,7 @@ static void sub_801C6BC (unsigned char arg0) {
   SetVBlankCallback(sub_801C734);
   WaitForVBlank();
   sub_801C7AC();
-  PlayMusic(0x44);
+  PlayMusic(SFX_ATTACK_EXPLOSION_1);
   do {
     sub_801C3E4(arg0);
     SetVBlankCallback(sub_801C758);
@@ -1284,7 +1284,7 @@ static void sub_801C7B8 (unsigned char arg0) {
       SetVBlankCallback(sub_801CAA0);
       WaitForVBlank();
       if (i % 2 == 0)
-        PlayMusic(0x47); //life points dropping
+        PlayMusic(SFX_LP_DROP_BLIP); // play sfx (individual blips) every 2 frames
     }
     for (i = 0; i < 30; i++)
       WaitForVBlank();
@@ -1638,7 +1638,7 @@ static void sub_801CDEC (unsigned char arg0) {
   SetVBlankCallback(sub_801CE78);
   WaitForVBlank();
   sub_801CE6C();
-  PlayMusic(0x45);
+  PlayMusic(SFX_ATTACK_SUCCESSFUL);
   do {
     sub_801CC50();
     SetVBlankCallback(sub_801CE9C);

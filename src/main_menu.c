@@ -88,7 +88,7 @@ extern u8 g80C1D71[];
 extern struct Unk8FC488C *g8FC488C[];
 
 void GameMenuMain (void) {
-  PlayMusic(0x2F);
+  PlayMusic(MUSIC_DECK_ADJUSTMENT_MENU);
   InitActionAndCursor(&sGameMenuData);
   InitTextAnimationData(&sGameMenuData);
   InitCursorAnimationData(&sGameMenuData);
@@ -100,7 +100,7 @@ void GameMenuMain (void) {
     if (sGameMenuData.action == 3) {
       FadeToBlack();
       LinkDuelMenu();
-      PlayMusic(0x2F);
+      PlayMusic(MUSIC_DECK_ADJUSTMENT_MENU);
       sGameMenuData.action = 0;
       InitTextAnimationData(&sGameMenuData);
       InitCursorAnimationData(&sGameMenuData);
@@ -109,7 +109,7 @@ void GameMenuMain (void) {
     if (sGameMenuData.action == 4) {
       FadeToBlack();
       TradeMenuMain();
-      PlayMusic(0x2F);
+      PlayMusic(MUSIC_DECK_ADJUSTMENT_MENU);
       sGameMenuData.action = 0;
       InitTextAnimationData(&sGameMenuData);
       InitCursorAnimationData(&sGameMenuData);
@@ -185,22 +185,22 @@ static void HandleInputUp (struct GameMenuData* menuData) {
       UpdateCursorOnInputUp(menuData);
       sub_8024A94(menuData);
       sub_80249C8(&sGameMenuData);
-      PlayMusic(0x36);
+      PlayMusic(SFX_MOVE_CURSOR);
       sub_8024F40(menuData);
       break;
     case 2:
       sub_8024A54(menuData);
-      PlayMusic(0x36);
+      PlayMusic(SFX_MOVE_CURSOR);
       sub_8024F6C(menuData);
       break;
     case 6:
       sub_8024B54(menuData);
-      PlayMusic(0x36);
+      PlayMusic(SFX_MOVE_CURSOR);
       sub_8024FB8(menuData);
       break;
     case 7:
       sub_8024B74(menuData);
-      PlayMusic(0x36);
+      PlayMusic(SFX_MOVE_CURSOR);
       sub_8025000(menuData);
       break;
     default:
@@ -215,22 +215,22 @@ static void HandleInputDown (struct GameMenuData* menuData) {
       UpdateCursorOnInputDown(menuData);
       sub_8024A94(menuData);
       sub_80249C8(&sGameMenuData);
-      PlayMusic(0x36);
+      PlayMusic(SFX_MOVE_CURSOR);
       sub_8024F40(menuData);
       break;
     case 2:
       sub_8024A64(menuData);
-      PlayMusic(0x36);
+      PlayMusic(SFX_MOVE_CURSOR);
       sub_8024F6C(menuData);
       break;
     case 6:
       sub_8024B64(menuData);
-      PlayMusic(0x36);
+      PlayMusic(SFX_MOVE_CURSOR);
       sub_8024FB8(menuData);
       break;
     case 7:
       sub_8024B84(menuData);
-      PlayMusic(0x36);
+      PlayMusic(SFX_MOVE_CURSOR);
       sub_8025000(menuData);
       break;
     default:
@@ -261,17 +261,17 @@ static void sub_802489C (struct GameMenuData* menuData) {
   switch (menuData->cursorState) {
     case 1:
       menuData->action = 1;
-      PlayMusic(0x37);
+      PlayMusic(SFX_SELECT);
       WaitForVBlank();
       break;
     case 2:
       menuData->action = 3;
-      PlayMusic(0x37);
+      PlayMusic(SFX_SELECT);
       WaitForVBlank();
       break;
     case 3:
       menuData->action = 4;
-      PlayMusic(0x37);
+      PlayMusic(SFX_SELECT);
       WaitForVBlank();
       break;
     case 0:
@@ -290,13 +290,13 @@ static void sub_80248D0 (struct GameMenuData* menuData) {
       sub_801FB50(g2021C8C, 1);
       RemoveGodCardsFromDeckAndTrunk();
       menuData->action = 1;
-      PlayMusic(0x37);
+      PlayMusic(SFX_SELECT);
       WaitForVBlank();
       break;
     case 1:
       menuData->action = 0;
       menuData->cursorState = 0;
-      PlayMusic(0x38);
+      PlayMusic(SFX_CANCEL);
       sub_8025048();
       break;
   }
@@ -307,19 +307,19 @@ static void sub_802491C (struct GameMenuData* menuData) {
     case 0:
       sub_801FB50(g2021C8C, 1);
       menuData->action = 1;
-      PlayMusic(0x37);
+      PlayMusic(SFX_SELECT);
       WaitForVBlank();
       break;
     case 1:
       sub_801FB50(g2021C8C, 2);
       menuData->action = 1;
-      PlayMusic(0x37);
+      PlayMusic(SFX_SELECT);
       WaitForVBlank();
       break;
     case 2:
       sub_801FB50(g2021C8C, 3);
       menuData->action = 1;
-      PlayMusic(0x37);
+      PlayMusic(SFX_SELECT);
       WaitForVBlank();
       break;
     default:
@@ -335,14 +335,14 @@ static void HandleInputB (struct GameMenuData* menuData) {
       menuData->action = 0;
       menuData->cursorState = 0;
       InitTextAnimationData(menuData);
-      PlayMusic(0x38);
+      PlayMusic(SFX_CANCEL);
       sub_8025108();
       break;
     case 2:
       menuData->action = 0;
       menuData->cursorState = 0;
       InitTextAnimationData(menuData);
-      PlayMusic(0x38);
+      PlayMusic(SFX_CANCEL);
       sub_8025048();
       break;
     default:

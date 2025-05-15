@@ -46,26 +46,26 @@ void sub_8043EF4 (void) {
 }
 
 void MoveCursorUp (void) {
-  PlayMusic(0x36);
+  PlayMusic(SFX_MOVE_CURSOR);
   if (gDuelCursor.currentY == 0)
     gDuelCursor.currentY++;
   gDuelCursor.currentY--;
 }
 
 void MoveCursorDown (void) {
-  PlayMusic(0x36);
+  PlayMusic(SFX_MOVE_CURSOR);
   if (++gDuelCursor.currentY > 4)
     gDuelCursor.currentY--;
 }
 
 void MoveCursorRight (void) {
-  PlayMusic(0x36);
+  PlayMusic(SFX_MOVE_CURSOR);
   if (++gDuelCursor.currentX == 5)
     gDuelCursor.currentX = 0;
 }
 
 void MoveCursorLeft (void) {
-  PlayMusic(0x36);
+  PlayMusic(SFX_MOVE_CURSOR);
   if (gDuelCursor.currentX == 0)
     gDuelCursor.currentX = 5;
   gDuelCursor.currentX--;
@@ -193,17 +193,17 @@ void sub_80441D0 (void) {
   switch (gDuelCursor.currentY) {
     case 2:
       if (gDuelBoard[2][gDuelCursor.currentX]->id != CARD_NONE && !gDuelBoard[2][gDuelCursor.currentX]->isLocked) {
-        PlayMusic(0x37);
+        PlayMusic(SFX_SELECT);
         HandlePlayerMonsterRowAction();
       }
       else {
-        PlayMusic(0x39);
+        PlayMusic(SFX_FORBIDDEN);
         WaitForVBlank();
       }
       break;
     case 3:
       if (gDuelBoard[3][gDuelCursor.currentX]->id == CARD_NONE) {
-        PlayMusic(0x39);
+        PlayMusic(SFX_FORBIDDEN);
         WaitForVBlank();
       }
       else {
@@ -212,30 +212,30 @@ void sub_80441D0 (void) {
           HandlePlayerSpellRowAction();
         }
         else {
-          PlayMusic(0x39);
+          PlayMusic(SFX_FORBIDDEN);
           DisplayNumRequiredTributesText(numTributes);
         }
       }
       break;
     case 4:
       if (gDuelBoard[4][gDuelCursor.currentX]->id == CARD_NONE || gDuelBoard[4][gDuelCursor.currentX]->isLocked) {
-        PlayMusic(0x39);
+        PlayMusic(SFX_FORBIDDEN);
         WaitForVBlank();
       }
       else {
         u8 numTributes = sub_8045390(gDuelBoard[4][gDuelCursor.currentX]->id);
         if (numTributes) {
-          PlayMusic(0x39);
+          PlayMusic(SFX_FORBIDDEN);
           DisplayNumRequiredTributesText(numTributes);
         }
         else {
-          PlayMusic(0x37);
+          PlayMusic(SFX_SELECT);
           sub_80442AC();
         }
       }
       break;
     default:
-      PlayMusic(0x39);
+      PlayMusic(SFX_FORBIDDEN);
       WaitForVBlank();
   }
 }
@@ -270,19 +270,19 @@ void HandlePlayerMonsterRowAction (void) {
       break;
     case 2:
       if (!gNotSure[0]->defenseBlocked) {
-        PlayMusic(0x37);
+        PlayMusic(SFX_SELECT);
         gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 1;
         gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
       }
       else {
-        PlayMusic(0x39);
+        PlayMusic(SFX_FORBIDDEN);
         gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
       }
       UpdateDuelGfxExceptField();
       sub_8029820();
       break;
     case 3:
-      PlayMusic(0x3D);
+      PlayMusic(SFX_TRIBUTE);
       IncNumTributes();
       ClearZoneAndSendMonToGraveyard2(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX], 0);
       UpdateDuelGfxExceptField();
@@ -295,7 +295,7 @@ void HandlePlayerMonsterRowAction (void) {
         SetCardInfo(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id);
         if (gCardInfo.monsterEffect == /*MONSTER_EFFECT_NONE*/ 0) {
           FAILED:
-          PlayMusic(0x39);
+          PlayMusic(SFX_FORBIDDEN);
           UpdateDuelGfxExceptField();
         }
         else {
@@ -330,7 +330,7 @@ void HandlePlayerMonsterRowAction (void) {
 void sub_8044570 (void) {
   u8 turn = WhoseTurn();
   if (GetDuelistStatus(turn) == CANNOT_ATTACK || gNotSure[0]->sorlTurns) { // attacking forbidden
-    PlayMusic(0x39);
+    PlayMusic(SFX_FORBIDDEN);
     gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
     UpdateDuelGfxExceptField();
   }
@@ -339,7 +339,7 @@ void sub_8044570 (void) {
     gTrapEffectData.unk3 = gDuelCursor.currentX;
     gTrapEffectData.id = gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id;
     if (IsTrapTriggered() != 1) {
-      PlayMusic(0x37);
+      PlayMusic(SFX_SELECT);
       gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
       gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp = 1;
       gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
@@ -352,14 +352,14 @@ void sub_8044570 (void) {
       sub_8022080();
     }
     else {
-      PlayMusic(0x42);
+      PlayMusic(SFX_ATTACK_REBUFFED);
       ActivateTrapEffect();
       gDuelCursor.state = 0;
     }
     sub_8029820();
   }
   else {
-    PlayMusic(0x37);
+    PlayMusic(SFX_SELECT);
     SelectZone(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]);
     gDuelCursor.state = 4;
     ResetCursorDestToCurrentPos();
@@ -391,13 +391,13 @@ void HandlePlayerSpellRowAction (void) {
         sub_8029820();
       break;
     case 1: //SPELL_TYPE_EQUIP
-      PlayMusic(0x37);
+      PlayMusic(SFX_SELECT);
       gDuelCursor.state = 2;
       gDuelCursor.currentX = GetFirstNonEmptyMonZoneId(gDuelBoard[2]);
       gDuelCursor.currentY = 2;
       break;
     case 2: //SPELL_TYPE_INVALID?
-      PlayMusic(0x39);
+      PlayMusic(SFX_FORBIDDEN);
       gDuelCursor.state = 0;
       break;
   }
@@ -407,15 +407,15 @@ void HandlePlayerSpellRowAction (void) {
 
 void sub_80447A8 (void) {
   if (gDuelCursor.currentY != 2) {
-    PlayMusic(0x39);
+    PlayMusic(SFX_FORBIDDEN);
     WaitForVBlank();
   }
   else if (gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id == CARD_NONE) {
-    PlayMusic(0x39);
+    PlayMusic(SFX_FORBIDDEN);
     WaitForVBlank();
   }
   else if (gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked) {
-    PlayMusic(0x39);
+    PlayMusic(SFX_FORBIDDEN);
     WaitForVBlank();
   }
   else {
@@ -437,11 +437,11 @@ void sub_80447A8 (void) {
 
 void sub_8044840 (void) {
   if (gDuelCursor.currentY != 1) {
-    PlayMusic(0x39);
+    PlayMusic(SFX_FORBIDDEN);
     WaitForVBlank();
   }
   else if (gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id == CARD_NONE) {
-    PlayMusic(0x39);
+    PlayMusic(SFX_FORBIDDEN);
     WaitForVBlank();
   }
   else {
@@ -449,7 +449,7 @@ void sub_8044840 (void) {
     gTrapEffectData.unk3 = gDuelCursor.destX;
     gTrapEffectData.id = gDuelBoard[gDuelCursor.destY][gDuelCursor.destX]->id;
     if (IsTrapTriggered() != 1) {
-      PlayMusic(0x37);
+      PlayMusic(SFX_SELECT);
       gDuelBoard[gDuelCursor.destY][gDuelCursor.destX]->isDefending = 0;
       gDuelBoard[gDuelCursor.destY][gDuelCursor.destX]->isFaceUp = 1;
       gDuelBoard[gDuelCursor.destY][gDuelCursor.destX]->isLocked = 1;
@@ -480,23 +480,23 @@ static void TryPlaceSelectedCardOnField (void) {
     case TYPE_GROUP_TRAP:
     case TYPE_GROUP_RITUAL:
       if (gDuelCursor.currentY == 3) {
-        PlayMusic(0x3A);
+        PlayMusic(SFX_PLACE_CARD);
         sub_80449D8();
         WinConditionFINAL();
         sub_8029820();
       }
       else {
-        PlayMusic(0x39);
+        PlayMusic(SFX_FORBIDDEN);
         WaitForVBlank();
       }
       break;
     default: // monster card
       if (gDuelCursor.currentY != 2) {
-        PlayMusic(0x39);
+        PlayMusic(SFX_FORBIDDEN);
         WaitForVBlank();
       }
       else {
-        PlayMusic(0x3A);
+        PlayMusic(SFX_PLACE_CARD);
         sub_80404F0(0);
         LockMonsterCardsInRow(4);
         ResetNumTributes();
@@ -515,13 +515,13 @@ void sub_80449D8 (void) {
 }
 
 void OpenBMenu (void) {
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
   BMenuMain();
 }
 
 void sub_8044A30 (void) {
   u8 currY;
-  PlayMusic(0x38);
+  PlayMusic(SFX_CANCEL);
   currY = gDuelCursor.currentY;
   gDuelCursor.state = 0;
   SetCursorToCardDest();
@@ -531,7 +531,7 @@ void sub_8044A30 (void) {
 
 void sub_8044A5C (void) {
   u8 currY;
-  PlayMusic(0x38);
+  PlayMusic(SFX_CANCEL);
   currY = gDuelCursor.currentY;
   gDuelCursor.state = 0;
   SetCursorToCardDest();
@@ -541,7 +541,7 @@ void sub_8044A5C (void) {
 
 void sub_8044A88 (void) {
   u8 currY;
-  PlayMusic(0x38);
+  PlayMusic(SFX_CANCEL);
   currY = gDuelCursor.currentY;
   gDuelCursor.state = 0;
   SetCursorToCardDest();
@@ -585,7 +585,7 @@ void HandleBButtonAction (void) {
 
 void sub_8044B2C (void) {
   u8 r4;
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
   sub_8044D00();
   r4 = 1;
   while (r4) {
@@ -602,7 +602,7 @@ void sub_8044B2C (void) {
     }
     WaitForVBlank();
   }
-  PlayMusic(0x38);
+  PlayMusic(SFX_CANCEL);
 }
 
 u16 sub_8044B68 (void) {

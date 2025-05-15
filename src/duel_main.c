@@ -99,7 +99,7 @@ void DuelMain (void) {
       TryDrawingCard(turn);
       if (IsDuelOver() == TRUE)
         break;
-      PlayMusic(59);
+      PlayMusic(SFX_DRAW_CARD);
     }
     UpdateDuelGfxExceptField();
     CheckWinConditionExodia(turn);
@@ -341,7 +341,7 @@ void LinkDuelMain (void) {
   if (g3000C38.unk34)
     return;
   sub_8035038(2);
-  PlayMusic(213);
+  PlayMusic(SFX_TRANSITION_OVERWORLD_TO_ANTE);
   MosaicEffect();
   InitLinkDuel();
   while (1) {
@@ -397,7 +397,7 @@ static void sub_8021E0C (void) {
       return;
     }
     else
-      PlayMusic(59);
+      PlayMusic(SFX_DRAW_CARD);
   }
   UpdateDuelGfxExceptField();
   CheckWinConditionExodia();
@@ -744,7 +744,7 @@ void LinkDuelSetDeckCapacity(int);
 //Link Duel Menu?
 
 void LinkDuelMenu (void) {
-  PlayMusic(47);
+  PlayMusic(MUSIC_DECK_ADJUSTMENT_MENU);
   InitTrunkData();
   InitDeckData();
   sub_8022A24();
@@ -756,20 +756,20 @@ void LinkDuelMenu (void) {
       if (IsDeckFull() != 1) {
         sub_8022B7C(5);
         sub_8022AA0();
-        PlayMusic(57);
+        PlayMusic(SFX_FORBIDDEN);
         sub_8023A98();
       }
       else if (IsCostWithinCapacity() != 1) {
         sub_8022B7C(7);
         sub_8022AA0();
-        PlayMusic(57);
+        PlayMusic(SFX_FORBIDDEN);
         sub_8023AE4();
       }
       else
         break;
     }
     else if (gLinkDuelMenuData.unk9 == 2) { //ACTION_OPEN_TRUNK
-      PlayMusic(55);
+      PlayMusic(SFX_SELECT);
       TrunkMenu();
       sub_8022B7C(0);
       sub_8022A24();
@@ -779,11 +779,11 @@ void LinkDuelMenu (void) {
     else if (gLinkDuelMenuData.unk9 == 3)
       if (IsPlayerDeckNonempty() != 1) {
         sub_8022B7C(0);
-        PlayMusic(57);
+        PlayMusic(SFX_FORBIDDEN);
         sub_80226D8();
       }
       else {
-        PlayMusic(55);
+        PlayMusic(SFX_SELECT);
         DeckMenuMain();
         sub_8022B7C(0);
         sub_8022A24();
@@ -794,35 +794,35 @@ void LinkDuelMenu (void) {
       if (IsDeckFull() != 1) {
         sub_8022B7C(5);
         sub_8022AA0();
-        PlayMusic(57);
+        PlayMusic(SFX_FORBIDDEN);
         sub_8023A98();
       }
       else if (IsCostWithinCapacity() != 1) {
         sub_8022B7C(7);
         sub_8022AA0();
-        PlayMusic(57);
+        PlayMusic(SFX_FORBIDDEN);
         sub_8023AE4();
       }
       else if (GetPlayerDeckCost() > gLinkDuelMenuData.deckCapacity) {
         sub_8022B7C(6);
         sub_8022AA0();
-        PlayMusic(57);
+        PlayMusic(SFX_FORBIDDEN);
         sub_8023B30();
       }
       else {
         sub_8023C14();
         LinkDuelMain();
-        PlayMusic(47);
+        PlayMusic(MUSIC_DECK_ADJUSTMENT_MENU);
         if (g3000C38.unk34 == 0xFE) {
           sub_8022B7C(8);
           sub_8022AA0();
-          PlayMusic(57);
+          PlayMusic(SFX_FORBIDDEN);
           sub_8023B7C();
         }
         else if (g3000C38.unk34) {
           sub_8022B7C(9);
           sub_8022AA0();
-          PlayMusic(57);
+          PlayMusic(SFX_FORBIDDEN);
           sub_8023BC8();
         }
         else {
@@ -870,7 +870,7 @@ void LinkDuelMenu (void) {
       }
   }
   SaveGame();
-  PlayMusic(55);
+  PlayMusic(SFX_SELECT);
   sub_80238C4();
 }
 
@@ -937,7 +937,7 @@ static void sub_8022764 (void) {
     sub_8022A64();
     sub_8022ABC();
     sub_80229C0();
-    PlayMusic(0x36);
+    PlayMusic(SFX_MOVE_CURSOR);
     sub_8023A14();
   }
   else
@@ -949,7 +949,7 @@ static void sub_8022794 (void) {
     sub_8022A7C();
     sub_8022ABC();
     sub_80229C0();
-    PlayMusic(0x36);
+    PlayMusic(SFX_MOVE_CURSOR);
     sub_8023A14();
   }
   else
@@ -961,7 +961,7 @@ static void sub_80227C4 (void) {
     sub_8022BC8(100);
     sub_8022ABC();
     sub_80229C0();
-    PlayMusic(0x36);
+    PlayMusic(SFX_MOVE_CURSOR);
     sub_8023A14();
   }
   else
@@ -973,7 +973,7 @@ static void sub_80227F4 (void) {
     sub_8022BA0(100);
     sub_8022ABC();
     sub_80229C0();
-    PlayMusic(0x36);
+    PlayMusic(SFX_MOVE_CURSOR);
     sub_8023A14();
   }
   else
@@ -985,7 +985,7 @@ static void sub_8022824 (void) {
     sub_8022BC8(1000);
     sub_8022ABC();
     sub_80229C0();
-    PlayMusic(0x36);
+    PlayMusic(SFX_MOVE_CURSOR);
     sub_8023A14();
   }
   else
@@ -997,7 +997,7 @@ static void sub_8022858 (void) {
     sub_8022BA0(1000);
     sub_8022ABC();
     sub_80229C0();
-    PlayMusic(0x36);
+    PlayMusic(SFX_MOVE_CURSOR);
     sub_8023A14();
   }
   else
@@ -1016,7 +1016,7 @@ static void sub_802288C (void) {
     case 9:
       sub_8022B7C(0);
       sub_8022AA0();
-      PlayMusic(0x38);
+      PlayMusic(SFX_CANCEL);
       sub_8023A44();
       break;
     default:
@@ -1039,7 +1039,7 @@ static void sub_80228CC (void) {
     case 2:
       LinkDuelInitDeckCapacity(gLinkDuelMenuData.unk4);
       sub_8022ABC();
-      PlayMusic(0x37);
+      PlayMusic(SFX_SELECT);
       sub_8023A14();
       break;
     case 3:
@@ -1063,7 +1063,7 @@ static void sub_802293C (void) {
       sub_8022A94(4);
       sub_8022ABC();
       sub_80229C0();
-      PlayMusic(0x38);
+      PlayMusic(SFX_CANCEL);
       sub_8023A14();
       break;
     case 5:
@@ -1073,7 +1073,7 @@ static void sub_802293C (void) {
     case 9:
       sub_8022B7C(0);
       sub_8022AA0();
-      PlayMusic(0x38);
+      PlayMusic(SFX_CANCEL);
       sub_8023A44();
       break;
     default:
@@ -1085,7 +1085,7 @@ static void sub_8022990 (void) {
   if (gLinkDuelMenuData.unk9 == 0) {
     LinkDuelSetDeckCapacity(65000);
     sub_8022ABC();
-    PlayMusic(0x37);
+    PlayMusic(SFX_SELECT);
     sub_8023A14();
   }
   else

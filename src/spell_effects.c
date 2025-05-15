@@ -344,7 +344,7 @@ static void EffectLegendarySword (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectSwordOfDarkDestruction (void) {
@@ -372,7 +372,7 @@ static void EffectSwordOfDarkDestruction (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectDarkEnergy (void) {
@@ -400,7 +400,7 @@ static void EffectDarkEnergy (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectAxeOfDespair (void) {
@@ -428,7 +428,7 @@ static void EffectAxeOfDespair (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectLaserCannonArmor (void) {
@@ -456,7 +456,7 @@ static void EffectLaserCannonArmor (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectInsectArmorWithLaserCannon (void) {
@@ -484,7 +484,7 @@ static void EffectInsectArmorWithLaserCannon (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectElfsLight (void) {
@@ -512,7 +512,7 @@ static void EffectElfsLight (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectBeastFangs (void) {
@@ -540,7 +540,7 @@ static void EffectBeastFangs (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectSteelShell (void) {
@@ -568,7 +568,7 @@ static void EffectSteelShell (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectVileGerms (void) {
@@ -596,7 +596,7 @@ static void EffectVileGerms (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectBlackPendant (void) {
@@ -624,7 +624,7 @@ static void EffectBlackPendant (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectSilverBowAndArrow (void) {
@@ -652,7 +652,7 @@ static void EffectSilverBowAndArrow (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectHornOfLight (void) {
@@ -680,7 +680,7 @@ static void EffectHornOfLight (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectHornOfTheUnicorn (void) {
@@ -708,7 +708,7 @@ static void EffectHornOfTheUnicorn (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectDragonTreasure (void) {
@@ -736,7 +736,7 @@ static void EffectDragonTreasure (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectElectroWhip (void) {
@@ -764,7 +764,7 @@ static void EffectElectroWhip (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectCyberShield (void) {
@@ -792,7 +792,7 @@ static void EffectCyberShield (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectMysticalMoon (void) {
@@ -820,7 +820,7 @@ static void EffectMysticalMoon (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectMalevolentNuzzler (void) {
@@ -848,7 +848,7 @@ static void EffectMalevolentNuzzler (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectVioletCrystal (void) {
@@ -876,7 +876,7 @@ static void EffectVioletCrystal (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectBookOfSecretArts (void) {
@@ -904,7 +904,7 @@ static void EffectBookOfSecretArts (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectInvigoration (void) {
@@ -932,7 +932,7 @@ static void EffectInvigoration (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectMachineConversionFactory (void) {
@@ -960,7 +960,7 @@ static void EffectMachineConversionFactory (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectRaiseBodyHeat (void) {
@@ -988,7 +988,7 @@ static void EffectRaiseBodyHeat (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectFollowWind (void) {
@@ -1016,7 +1016,7 @@ static void EffectFollowWind (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectPowerOfKaishin (void) {
@@ -1044,7 +1044,7 @@ static void EffectPowerOfKaishin (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectStopDefense (void) {
@@ -1420,7 +1420,7 @@ static void EffectMagicalLabyrinth (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectSalamandra (void) {
@@ -1448,7 +1448,7 @@ static void EffectSalamandra (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectKunaiWithChain (void) {
@@ -1476,7 +1476,7 @@ static void EffectKunaiWithChain (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectBrightCastle (void) {
@@ -1504,7 +1504,7 @@ static void EffectBrightCastle (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectCrushCard (void) {
@@ -1860,7 +1860,7 @@ static void EffectMegamorph (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectMetalmorph (void) {
@@ -1914,7 +1914,7 @@ static void EffectWingedTrumpeter (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectStainStorm (void) {
@@ -2241,7 +2241,7 @@ static void Effect7Completed (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 static void EffectHeavyStorm (void) {
@@ -2378,7 +2378,7 @@ static void EffectCyclonLaser (void) {
     }
   }
   else if (!gHideEffectText)
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
 }
 
 void ActivateSpellEffect (void) {

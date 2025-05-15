@@ -197,7 +197,7 @@ void sub_8053984 (u8 obj, u8 arg1, struct ScriptCtx* script) {
     // Paradox brothers sound effect
     if (gOverworld.objects[obj].spriteId == 122 || gOverworld.objects[obj].spriteId == 123)
       if (i % 15 == 0)
-        PlayMusic(0x139);
+        PlayMusic(MUSIC_313);
 
     gOverworld.objects[obj].x += g8E0E834[gOverworld.objects[obj].direction];
     gOverworld.objects[obj].y += g8E0E838[gOverworld.objects[obj].direction];

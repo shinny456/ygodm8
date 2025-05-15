@@ -61,7 +61,7 @@ static void sub_802AEF4 (void) {
       sub_8034FEC(375);
       TryActivatingTurnEffect();
       if (!gHideEffectText)
-        PlayMusic(375);
+        PlayMusic(MUSIC_375);
     }
     if (IsDuelOver() == 1) {
       sub_8034FEC(375);
@@ -78,7 +78,7 @@ static void sub_802AEF4 (void) {
       sub_8034FEC(375);
       TryActivatingTurnEffect();
       if (!gHideEffectText)
-        PlayMusic(375);
+        PlayMusic(MUSIC_375);
     }
     if (IsDuelOver() == 1) {
       sub_8034FEC(375);
@@ -86,7 +86,7 @@ static void sub_802AEF4 (void) {
     }
   }
   if (!gHideEffectText)
-    PlayMusic(375);
+    PlayMusic(MUSIC_375);
   g2021DE0.unk2 = 6;
   g2021DE0.unk3 = 0;
   g2021DE0.unk0 = gNotSure[0]->graveyard;
@@ -96,7 +96,7 @@ static void sub_802AEF4 (void) {
     sub_8034FEC(375);
     TryActivatingTurnEffect();
     if (!gHideEffectText)
-      PlayMusic(375);
+      PlayMusic(MUSIC_375);
   }
   if (IsDuelOver() == 1) {
     sub_8034FEC(375);
@@ -111,7 +111,7 @@ static void sub_802AEF4 (void) {
     sub_8034FEC(375);
     TryActivatingTurnEffect();
     if (!gHideEffectText)
-      PlayMusic(375);
+      PlayMusic(MUSIC_375);
   }
   if (IsDuelOver() == 1) {
     sub_8034FEC(375);
@@ -128,7 +128,7 @@ static void sub_802AEF4 (void) {
       sub_8034FEC(375);
       TryActivatingTurnEffect();
       if (!gHideEffectText)
-        PlayMusic(375);
+        PlayMusic(MUSIC_375);
     }
     if (IsDuelOver() == 1) {
       sub_8034FEC(375);
@@ -146,7 +146,7 @@ static void sub_802AEF4 (void) {
       sub_8034FEC(375);
       TryActivatingTurnEffect();
       if (!gHideEffectText)
-        PlayMusic(375);
+        PlayMusic(MUSIC_375);
     }
     if (IsDuelOver() == 1) {
       sub_8034FEC(375);
@@ -165,7 +165,7 @@ static void sub_802AEF4 (void) {
       TryActivatingTurnEffect();
       WinConditionFINAL();
       if (!gHideEffectText)
-        PlayMusic(375);
+        PlayMusic(MUSIC_375);
     }
     if (IsDuelOver() == 1) {
       sub_8034FEC(375);
@@ -183,7 +183,7 @@ static void sub_802AEF4 (void) {
       sub_8034FEC(375);
       TryActivatingTurnEffect();
       if (!gHideEffectText)
-        PlayMusic(375);
+        PlayMusic(MUSIC_375);
     }
     if (IsDuelOver() == 1) {
       sub_8034FEC(375);

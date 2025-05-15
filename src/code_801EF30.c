@@ -162,7 +162,7 @@ void sub_801F120 (void) {
   sub_801DF40();
   sub_801F320();
   LoadCharblock1();
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
   SetVBlankCallback(sub_801F390);
   WaitForVBlank();
   keepProcessing = 1;
@@ -186,7 +186,7 @@ void sub_801F120 (void) {
         break;
       case 2:
       case 8:
-        PlayMusic(0x38);
+        PlayMusic(SFX_CANCEL);
         keepProcessing = 0;
         break;
       default:
@@ -204,7 +204,7 @@ void sub_801F1C0 (void) {
   else
     sub_801EED8(gPlayerDeck.sortingMethod);
   sub_801F320();
-  PlayMusic(0x36);
+  PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(LoadOam);
   WaitForVBlank();
   LoadCharblock2();
@@ -217,7 +217,7 @@ void sub_801F210 (void) {
   else
     sub_801EED8(gPlayerDeck.sortingMethod);
   sub_801F320();
-  PlayMusic(0x36);
+  PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(LoadOam);
   WaitForVBlank();
   LoadCharblock2();
@@ -230,7 +230,7 @@ void sub_801F260 (void) {
   else
     sub_801EED8(gPlayerDeck.sortingMethod);
   sub_801F320();
-  PlayMusic(0x36);
+  PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(LoadOam);
   WaitForVBlank();
   LoadCharblock2();
@@ -243,14 +243,14 @@ void sub_801F2B0 (void) {
   else
     sub_801EED8(gPlayerDeck.sortingMethod);
   sub_801F320();
-  PlayMusic(0x36);
+  PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(LoadOam);
   WaitForVBlank();
   LoadCharblock2();
 }
 
 void sub_801F300 (void) {
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
   if (gPlayerDeck.sortingCursorState < 10) {
     gPlayerDeck.sortingMethod = gPlayerDeck.sortingCursorState;
     DeckMenuSortBy(gPlayerDeck.sortingMethod);
@@ -557,13 +557,13 @@ void sub_801F6B0 (void) {
   while (1) {
     if (gNewButtons & DPAD_UP && g201CB59 > 1 && g201CB58) {
       g201CB58--;
-      PlayMusic(0x36);
+      PlayMusic(SFX_MOVE_CURSOR);
       sub_800BCB0(g201CB60[g201CB58]);
       LoadCharblock1();
     }
     if (gNewButtons & DPAD_DOWN && g201CB59 > 1 && g201CB59 < g201CB58 - 1) {
       g201CB58++;
-      PlayMusic(0x36);
+      PlayMusic(SFX_MOVE_CURSOR);
       sub_800BCB0(g201CB60[g201CB58]);
       LoadCharblock1();
     }
@@ -571,7 +571,7 @@ void sub_801F6B0 (void) {
       break;
     WaitForVBlank();
   }
-  PlayMusic(0x38);
+  PlayMusic(SFX_CANCEL);
   sub_801FB2C();
 }*/
 

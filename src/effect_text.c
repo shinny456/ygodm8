@@ -51,40 +51,40 @@ static void sub_801CF34 (void) {
 }
 
 static void sub_801CF38 (void) {
-  PlayMusic(0x41);
+  PlayMusic(SFX_SPELL_ACTIVATION_START);
   sub_8041CCC(gCardEffectTextData.cardId, gCardEffectTextData.cardId2);
   SetCardInfo(gCardEffectTextData.cardId);
   PlayMusic(g89DC020[gCardInfo.spellEffect]);
 }
 
 static void sub_801CF74 (void) {
-  PlayMusic(0x40);
+  PlayMusic(SFX_MONSTER_EFFECT_ACTIVATION);
   sub_8041CCC(gCardEffectTextData.cardId, gCardEffectTextData.cardId2);
   SetCardInfo(gCardEffectTextData.cardId);
   PlayMusic(g89DC14C[gCardInfo.monsterEffect]);
 }
 
 static void sub_801CFB0 (void) {
-  PlayMusic(0x42);
+  PlayMusic(SFX_ATTACK_REBUFFED);
   sub_8041CCC(gCardEffectTextData.cardId, gCardEffectTextData.cardId2);
   SetCardInfo(gCardEffectTextData.cardId);
   PlayMusic(g89DC020[gCardInfo.spellEffect]);
 }
 
 static void sub_801CFEC (void) {
-  PlayMusic(0x42);
+  PlayMusic(SFX_ATTACK_REBUFFED);
   sub_8041D14(gCardEffectTextData.cardId, gCardEffectTextData.cardId2);
 }
 
 static void sub_801D008 (void) {
   FadeOutMusic(4);
-  PlayMusic(0x52);
+  PlayMusic(MUSIC_82);
   sub_8041C94(gDuelTextStrings[gCardEffectTextData.textId], gCardEffectTextData.cardId2, gCardEffectTextData.unk4, gCardEffectTextData.unk6, 0);
 }
 
 static void sub_801D044 (void) {
   FadeOutMusic(4);
-  PlayMusic(0x52);
+  PlayMusic(MUSIC_82);
   sub_8041C94(gDuelTextStrings[gCardEffectTextData.textId], gCardEffectTextData.cardId2, gCardEffectTextData.unk4, gCardEffectTextData.unk6, 0);
 }
 
@@ -93,23 +93,23 @@ static void sub_801D080 (void) {
 }
 
 static void sub_801D0B0 (void) {
-  PlayMusic(0x41);
+  PlayMusic(SFX_SPELL_ACTIVATION_START);
   sub_8041C94(g8F9E35C[gCardEffectTextData.cardId], gCardEffectTextData.cardId, gCardEffectTextData.cardId2, 0, 0);
   SetCardInfo(gCardEffectTextData.cardId);
   PlayMusic(g89DC23C[gCardInfo.unk1E]);
 }
 
 static void sub_801D100 (void) {
-  PlayMusic(0x41);
+  PlayMusic(SFX_SPELL_ACTIVATION_START);
   sub_8041C94(g8FA0964[gCardEffectTextData.cardId], gCardEffectTextData.cardId, gCardEffectTextData.cardId2, 0, 0);
   SetCardInfo(gCardEffectTextData.cardId);
   PlayMusic(g89DC2DC[gCardInfo.unk1E]);
 }
 
 static void sub_801D150 (void) {
-  PlayMusic(0x41);
+  PlayMusic(SFX_SPELL_ACTIVATION_START);
   sub_8041C94(gDuelTextStrings[gCardEffectTextData.textId], gCardEffectTextData.cardId, gCardEffectTextData.cardId2, 0, 0);
-  PlayMusic(0x5A);
+  PlayMusic(SFX_DESTROY_MON_WITH_SPELL_TRAP);
 }
 
 void SetCardEffectTextType (unsigned char type) {

@@ -891,7 +891,7 @@ void CardPasswordMain (void)
     if (sPasswordData.unk2 == 10)
     {
         SetCardInfo(sPasswordData.cardId);
-        PlayMusic(201);
+        PlayMusic(SFX_CODE_ENTRY_SUCCESS);
         sub_801F6B0();
         sub_802D90C(sPasswordData.cardId, 1);
         goto end;
@@ -905,7 +905,7 @@ void CardPasswordMain (void)
             sub_08055F64(sPasswordData.cardId);
         }
         else
-            PlayMusic(57);
+            PlayMusic(SFX_FORBIDDEN);
         goto end;
     }
     sub_8055DEC();
@@ -915,7 +915,7 @@ void CardPasswordMain (void)
         sub_8055F68(sPasswordData.cardId);
     }
     else
-        PlayMusic(57);
+        PlayMusic(SFX_FORBIDDEN);
 
     end:
     sub_80258E8();
@@ -1020,10 +1020,10 @@ static void sub_08055F64(u16 cardId) {
 static void sub_8055F68(u16 cardId) {
   switch (cardId) {
     case 0:
-      PlayMusic(0xC9);
+      PlayMusic(SFX_CODE_ENTRY_SUCCESS);
       break;
     case 1:
-      PlayMusic(0xC9);
+      PlayMusic(SFX_CODE_ENTRY_SUCCESS);
       break;
   }
 }

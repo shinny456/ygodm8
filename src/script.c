@@ -459,7 +459,7 @@ static void sub_80527E8(struct ScriptCtx *script)
 //waiting for player to press A, B, or R to close text box.
 static void sub_8052F60 (struct ScriptCtx *script) {
   if (gNewButtons & (A_BUTTON | B_BUTTON | R_BUTTON)) {
-    PlayMusic(202);
+    PlayMusic(SFX_DIALOGUE);
     script->pointer++;
     if (script->unkD == 1)
       script->unk8 = 0;
@@ -492,7 +492,7 @@ static void sub_8052F60 (struct ScriptCtx *script) {
 //waiting for player to press A, B, or R to close text box. (option text box)
 static void sub_8053040 (struct ScriptCtx *script) {
   if (gNewButtons & (A_BUTTON | B_BUTTON | R_BUTTON)) {
-    PlayMusic(55);
+    PlayMusic(SFX_SELECT);
     script->pointer += 2;
     if (script->unkD == 1)
       script->unk8 = 0;
@@ -504,11 +504,11 @@ static void sub_8053040 (struct ScriptCtx *script) {
     return;
   }
   if (gNewButtons & (DPAD_LEFT | DPAD_UP) && script->unk1E == 1) {
-    PlayMusic(54);
+    PlayMusic(SFX_MOVE_CURSOR);
     script->unk1E = 0;
   }
   if (gNewButtons & (DPAD_RIGHT | DPAD_DOWN) && !script->unk1E) {
-    PlayMusic(54);
+    PlayMusic(SFX_MOVE_CURSOR);
     script->unk1E = 1;
   }
   switch (script->unk1E) {

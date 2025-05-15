@@ -69,7 +69,7 @@ void WorldMapMain (void) {
   unsigned char r4 = sub_80056CC(g2020DC8);
   unsigned char r7 = g2020DD0 & 0xF;
   sub_8004F90(r4, r7);
-  PlayMusic(3);
+  PlayMusic(MUSIC_WORLD_MAP);
   while (!(gNewButtons & 3)) {
     if (gPressedButtons & 0xF0) {
       if (gUnk_8DF7A28->unk0 & 0x60)
@@ -78,7 +78,7 @@ void WorldMapMain (void) {
             r4--;
           else
             r4 = 12;
-          PlayMusic(0x36);
+          PlayMusic(SFX_MOVE_CURSOR);
         } while (!(gUnk_8DF79F8[r7] >> gUnk_8DF7A18[r4] & 1));
       else if (gUnk_8DF7A28->unk0 & 0x90)
         do {
@@ -86,7 +86,7 @@ void WorldMapMain (void) {
             r4++;
           else
             r4 = 0;
-          PlayMusic(0x36);
+          PlayMusic(SFX_MOVE_CURSOR);
         } while (!(gUnk_8DF79F8[r7] >> gUnk_8DF7A18[r4] & 1));
       sub_80054C4(gUnk_8DF7A18[r4]);
     }
@@ -98,7 +98,7 @@ void WorldMapMain (void) {
     WaitForVBlank();
     sub_8005590();
   }
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
   sub_80056F8();
   ClearGraphicsBuffers();
   LoadOam();

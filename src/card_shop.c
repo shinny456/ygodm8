@@ -281,27 +281,27 @@ void CardShopBuyMain (void) {
     switch ((unsigned short)ProcessInput()) {
       case REPEAT_DPAD_UP:
         GoOneRowUpInBuyShop();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         break;
       case REPEAT_DPAD_DOWN:
         GoOneRowDownInBuyShop();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         break;
       case REPEAT_DPAD_LEFT:
         GoOneColLeftInBuyShop();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         break;
       case REPEAT_DPAD_RIGHT:
         GoOneColRightInBuyShop();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         break;
       case REPEAT_DPAD_UP | REPEAT_R_BUTTON:
         GoTenRowsUpInBuyShop();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         break;
       case REPEAT_DPAD_DOWN | REPEAT_R_BUTTON:
         GoTenRowsDownInBuyShop();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         break;
       case NEW_A_BUTTON:
         if (!IsSelectedCardUnbuyable())
@@ -313,7 +313,7 @@ void CardShopBuyMain (void) {
         break;
       case NEW_B_BUTTON:
         keepProcessing = 0;
-        PlayMusic(0x38);
+        PlayMusic(SFX_CANCEL);
         WaitForVBlank();
         break;
       case NEW_START_BUTTON:
@@ -321,7 +321,7 @@ void CardShopBuyMain (void) {
         break;
       case NEW_SELECT_BUTTON:
         ToggleSortModeInBuyShop();
-        PlayMusic(0x37);
+        PlayMusic(SFX_SELECT);
         break;
       default:
         WaitForVBlank();
@@ -574,7 +574,7 @@ void CardShopSellMain (void) {
         break;
       case NEW_B_BUTTON: // exit sell menu altoogether
         keepProcessing = 0;
-        PlayMusic(0x38);
+        PlayMusic(SFX_CANCEL);
         WaitForVBlank();
         break;
       case NEW_START_BUTTON:
@@ -608,7 +608,7 @@ static void ToggleSortModeInSellShop (void) {
   sub_802FE68();
   sub_8030068();
   sub_803028C();
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
   SetVBlankCallback(sub_8030684);
   WaitForVBlank();
   sub_8030898();
@@ -629,7 +629,7 @@ static void GoOneRowUpInSellShop (void) {
   SetVBlankCallback(sub_8030678);
   WaitForVBlank();
   sub_80307E4(sub_802DE84(0));
-  PlayMusic(0x36);
+  PlayMusic(SFX_MOVE_CURSOR);
 }
 
 // 802C804
@@ -648,7 +648,7 @@ static void GoOneRowDownInSellShop (void) {
   SetVBlankCallback(sub_8030678);
   WaitForVBlank();
   sub_803083C(sub_802DE84(4));
-  PlayMusic(0x36);
+  PlayMusic(SFX_MOVE_CURSOR);
 }
 
 // 802C880
@@ -666,7 +666,7 @@ static void GoOneColLeftInSellShop (void) {
   SetVBlankCallback(sub_8030678);
   WaitForVBlank();
   sub_80307E4(sub_802DE84(0));
-  PlayMusic(0x36);
+  PlayMusic(SFX_MOVE_CURSOR);
 }
 
 // 802C8FC
@@ -684,7 +684,7 @@ static void GoOneColRightInSellShop (void) {
   SetVBlankCallback(sub_8030678);
   WaitForVBlank();
   sub_80307E4(sub_802DE84(4));
-  PlayMusic(0x36);
+  PlayMusic(SFX_MOVE_CURSOR);
 }
 
 // 802C978
@@ -701,7 +701,7 @@ static void GoTenRowsUpInSellShop (void) {
   sub_802FE68();
   sub_8030068();
   sub_803028C();
-  PlayMusic(0x36);
+  PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(sub_8030684);
   WaitForVBlank();
   sub_8030898();
@@ -721,7 +721,7 @@ static void GoTenRowsDownInSellShop (void) {
   sub_802FE68();
   sub_8030068();
   sub_803028C();
-  PlayMusic(0x36);
+  PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(sub_8030684);
   WaitForVBlank();
   sub_8030898();
@@ -746,7 +746,7 @@ static void OpenConfirmSellMenu (void) {
   sub_8030934();
   SetVBlankCallback(sub_8030690);
   WaitForVBlank();
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
   keepProcessing = 1;
   while (keepProcessing) {
     switch (ProcessInput()) {
@@ -764,7 +764,7 @@ static void OpenConfirmSellMenu (void) {
           keepProcessing = 0;
         break;
       case NEW_B_BUTTON: // cancel confirm menu
-        PlayMusic(0x38);
+        PlayMusic(SFX_CANCEL);
         keepProcessing = 0;
         break;
       default:
@@ -793,14 +793,14 @@ static void TrySellCard (void) {
     RemoveCardQtyFromPlayerInShop(cardId, 1);
     AddMoney(money);
     AddCardQtyToShop(cardId, 1);
-    PlayMusic(0x37);
+    PlayMusic(SFX_SELECT);
   }
   else { // can't sell
     PlayMusic(0x39);
     sub_802E270();
     while (!(gNewButtons & (A_BUTTON | B_BUTTON)))
       WaitForVBlank();
-    PlayMusic(0x38);
+    PlayMusic(SFX_CANCEL);
     sub_802FC88();
   }
   gShopSelectedCard.cardId = cardId;
@@ -821,7 +821,7 @@ static void SelectDetailsInConfirmSellMenu (void) {
   unsigned short cardId;
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   SetCardInfo(cardId);
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
   sub_801F6B0();
   gShopSelectedCard.cardId = cardId;
   gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
@@ -852,7 +852,7 @@ static void TryMoveUpInConfirmSellMenu (void) {
   UpdateConfirmBuyMenuCursorBgSpritePos();
   SetVBlankCallback(sub_8030690);
   WaitForVBlank();
-  PlayMusic(0x36);
+  PlayMusic(SFX_MOVE_CURSOR);
 }
 
 // 802CDA4
@@ -862,7 +862,7 @@ static void TryMoveDownInConfirmSellMenu (void) {
   UpdateConfirmBuyMenuCursorBgSpritePos();
   SetVBlankCallback(sub_8030690);
   WaitForVBlank();
-  PlayMusic(0x36);
+  PlayMusic(SFX_MOVE_CURSOR);
 }
 
 // 802CDCC
@@ -875,7 +875,7 @@ static void SelectOptionInConfirmSellMenu (void) {
       SelectDetailsInConfirmSellMenu();
       break;
     default: // Exit Confirm Menu
-      PlayMusic(0x37);
+      PlayMusic(SFX_SELECT);
       WaitForVBlank();
       break;
   }
@@ -1086,30 +1086,30 @@ static void OpenSortSelectMenuInSellShop (void) {
   sub_80309D8();
   SetVBlankCallback(sub_80306E0);
   WaitForVBlank();
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
   keepProcessing = 1;
   while (keepProcessing) {
     switch (ProcessInput()) {
       case REPEAT_DPAD_UP:
         MoveCursorUpInSortSelectSellMenu();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         break;
       case REPEAT_DPAD_DOWN:
         MoveCursorDownInSortSelectSellMenu();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         break;
       case REPEAT_DPAD_LEFT:
         MoveCursorLeftInSortSelectSellMenu();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         break;
       case REPEAT_DPAD_RIGHT:
         MoveCursorRightInSortSelectSellMenu();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         break;
       case NEW_A_BUTTON:
         if (sCardShop.selectedMenuOption == SHOP_SORT_MODE_MENU_OPTION_EXIT) { // cancel sort-select menu
           CancelSellShopSortModeMenu();
-          PlayMusic(0x37);
+          PlayMusic(SFX_SELECT);
         }
         else {
           sCardShop.currentSortMode = sCardShop.selectedMenuOption;
@@ -1119,7 +1119,7 @@ static void OpenSortSelectMenuInSellShop (void) {
       case NEW_B_BUTTON:
       case NEW_START_BUTTON:
         CancelSellShopSortModeMenu();
-        PlayMusic(0x38);
+        PlayMusic(SFX_CANCEL);
         return;
       default:
         WaitForVBlank();
@@ -1140,7 +1140,7 @@ static void SelectSortModeInSellShop (void) {
   gShopSelectedCard.cardId = cardId;
   gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   ScalePriceToQty();
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
   SetBgDimEffectLow();
   sub_802FCF0(sCardShop.currentSortMode);
   sub_802FD84(cardId);
@@ -1232,7 +1232,7 @@ static void OpenConfirmBuyMenu (void) {
   sub_8030934();
   SetVBlankCallback(sub_8030690);
   WaitForVBlank();
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
   keepProcessing = 1;
   while (keepProcessing) {
     switch (ProcessInput()) {
@@ -1250,7 +1250,7 @@ static void OpenConfirmBuyMenu (void) {
           keepProcessing = 0;
         break;
       case NEW_B_BUTTON: // cancel confirm menu
-        PlayMusic(0x38);
+        PlayMusic(SFX_CANCEL);
         keepProcessing = 0;
         break;
       default:
@@ -1279,7 +1279,7 @@ static void TryBuyCard (void) {
         RemoveCardQtyFromShop(cardId, 1);
         RemoveMoney(temp);
         AddCardQtyToPlayerInShop(cardId, 1);
-        PlayMusic(0x37);
+        PlayMusic(SFX_SELECT);
       }
       else
         PlayMusic(0x39);
@@ -1308,7 +1308,7 @@ static void SelectDetailsInConfirmBuyMenu (void) {
   unsigned short cardId;
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   SetCardInfo(cardId);
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
   sub_801F6B0();
   gShopSelectedCard.cardId = cardId;
   gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
@@ -1339,7 +1339,7 @@ static void TryMoveUpInConfirmBuyMenu (void) {
   UpdateConfirmBuyMenuCursorBgSpritePos();
   SetVBlankCallback(sub_8030690);
   WaitForVBlank();
-  PlayMusic(0x36);
+  PlayMusic(SFX_MOVE_CURSOR);
 }
 
 // 802D8AC
@@ -1349,7 +1349,7 @@ static void TryMoveDownInConfirmBuyMenu (void) {
   UpdateConfirmBuyMenuCursorBgSpritePos();
   SetVBlankCallback(sub_8030690);
   WaitForVBlank();
-  PlayMusic(0x36);
+  PlayMusic(SFX_MOVE_CURSOR);
 }
 
 // 802D8D4
@@ -1362,7 +1362,7 @@ static void SelectOptionInConfirmBuyMenu (void) {
       SelectDetailsInConfirmBuyMenu();
       break;
     default: // Exit
-      PlayMusic(0x37);
+      PlayMusic(SFX_SELECT);
       WaitForVBlank();
       break;
   }
@@ -3465,30 +3465,30 @@ static void OpenSortSelectMenuInBuyShop (void) {
   sub_80309D8();
   SetVBlankCallback(sub_80306E0);
   WaitForVBlank();
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
   keepProcessing = 1;
   while (keepProcessing) {
     switch (ProcessInput()) {
       case REPEAT_DPAD_UP:
         MoveUpInBuyShopSortModeMenu();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         break;
       case REPEAT_DPAD_DOWN:
         MoveDownInBuyShopSortModeMenu();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         break;
       case REPEAT_DPAD_LEFT:
         MoveLeftInBuyShopSortModeMenu();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         break;
       case REPEAT_DPAD_RIGHT:
         MoveRightInBuyShopSortModeMenu();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         break;
       case NEW_A_BUTTON:
         if (sCardShop.selectedMenuOption == SHOP_SORT_MODE_MENU_OPTION_EXIT) {
           CancelBuyShopSortModeMenu();
-          PlayMusic(0x37);
+          PlayMusic(SFX_SELECT);
         }
         else {
           sCardShop.currentSortMode = sCardShop.selectedMenuOption;
@@ -3498,7 +3498,7 @@ static void OpenSortSelectMenuInBuyShop (void) {
       case NEW_B_BUTTON:
       case NEW_START_BUTTON:
         CancelBuyShopSortModeMenu();
-        PlayMusic(0x38);
+        PlayMusic(SFX_CANCEL);
         return;
       default:
         WaitForVBlank();
@@ -3519,7 +3519,7 @@ static void SelectSortModeInBuyShop (void) {
   gShopSelectedCard.cardId = cardId;
   gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   ScalePriceToQty();
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
   SetBgDimEffectLow();
   sub_802FCF0(sCardShop.currentSortMode);
   sub_802FD48(cardId);

@@ -7235,7 +7235,7 @@ void PlayActionSoundEffect (void) {
     case 24:
       break;
     case 1:
-      PlayMusic(0x3E); // Discard
+      PlayMusic(SFX_DISCARD);
       break;
     case 2:
     case 3:
@@ -7245,17 +7245,17 @@ void PlayActionSoundEffect (void) {
     case 15:
     case 18:
     case 21:
-      PlayMusic(0x3A); // place card?
+      PlayMusic(SFX_PLACE_CARD);
       break;
     case 5:
     case 6:
-      PlayMusic(0x3C); // reveal card (flip face up)?
+      PlayMusic(SFX_FLIP_FACE_UP);
       break;
   }
 }
 
 static void sub_8019FFC (void) {
-  PlayMusic(0x3D);
+  PlayMusic(SFX_TRIBUTE);
 }
 
 static void sub_801A008 (struct AttackVoicing* attackVoicing) {

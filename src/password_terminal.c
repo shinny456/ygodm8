@@ -86,7 +86,7 @@ unsigned PasswordTerminalMain (void) {
         HandleInputUp();
         sub_8025CCC();
         sub_8025E80();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         SetVBlankCallback(sub_8026014);
         WaitForVBlank();
         sub_8026070();
@@ -96,7 +96,7 @@ unsigned PasswordTerminalMain (void) {
         HandleInputDown();
         sub_8025CCC();
         sub_8025E80();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         SetVBlankCallback(sub_8026014);
         WaitForVBlank();
         sub_8026070();
@@ -106,7 +106,7 @@ unsigned PasswordTerminalMain (void) {
         HandleInputLeft();
         sub_8025CCC();
         sub_8025E80();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         SetVBlankCallback(sub_8026014);
         WaitForVBlank();
         sub_8026070();
@@ -116,7 +116,7 @@ unsigned PasswordTerminalMain (void) {
         HandleInputRight();
         sub_8025CCC();
         sub_8025E80();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         SetVBlankCallback(sub_8026014);
         WaitForVBlank();
         sub_8026070();
@@ -128,7 +128,7 @@ unsigned PasswordTerminalMain (void) {
         sub_8025C34();
         sub_8025E80();
         sub_8025CCC();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         SetVBlankCallback(sub_8026014);
         WaitForVBlank();
         sub_8026070();
@@ -140,7 +140,7 @@ unsigned PasswordTerminalMain (void) {
         sub_8025C34();
         sub_8025E80();
         sub_8025CCC();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         SetVBlankCallback(sub_8026014);
         WaitForVBlank();
         sub_8026070();
@@ -171,7 +171,7 @@ unsigned PasswordTerminalMain (void) {
             sub_8025C34();
             sub_8025E80();
           }
-          PlayMusic(0x37);
+          PlayMusic(SFX_SELECT);
           SetVBlankCallback(sub_8026014);
           WaitForVBlank();
           sub_8026070();
@@ -185,7 +185,7 @@ unsigned PasswordTerminalMain (void) {
         sub_8025C34();
         sub_8025E80();
         sub_8025CCC();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         SetVBlankCallback(sub_8026014);
         WaitForVBlank();
         sub_8026070();
@@ -196,7 +196,7 @@ unsigned PasswordTerminalMain (void) {
         SetButtonToOK();
         sub_8025E80();
         sub_8025CCC();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         SetVBlankCallback(sub_8026014);
         WaitForVBlank();
         sub_8026070();

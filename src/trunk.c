@@ -274,7 +274,7 @@ static void sub_80087E4 (void) {
   RunTrunkTask(9);
   sub_800A3D8(1);
   RunPlayerDeckTask(8);
-  PlayMusic(0x38);
+  PlayMusic(SFX_CANCEL);
 }
 
 static void sub_8008804 (void) {
@@ -304,7 +304,7 @@ static void Trunk_A_Submenu (void) {
   LoadCharblock1();
   SetVBlankCallback(sub_8008A5C);
   WaitForVBlank();
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
   keepProcessing = 1;
   while (keepProcessing) {
     switch (TrunkSubmenuProcessInput()) {
@@ -335,14 +335,14 @@ static void Trunk_A_Submenu (void) {
         break;
     }
   }
-  PlayMusic(0x38);
+  PlayMusic(SFX_CANCEL);
   sub_8008A48();
 }
 
 static void sub_80088F0 (void) { //pressing up
   gTrunkData.cursorState = gUnk_8DF813C[gTrunkData.cursorState];
   sub_80089EC();
-  PlayMusic(0x36);
+  PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(LoadOam);
   WaitForVBlank();
 }
@@ -350,7 +350,7 @@ static void sub_80088F0 (void) { //pressing up
 static void sub_8008924 (void) { //pressing down
   gTrunkData.cursorState = gUnk_8DF813F[gTrunkData.cursorState];
   sub_80089EC();
-  PlayMusic(0x36);
+  PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(LoadOam);
   WaitForVBlank();
 }
@@ -360,7 +360,7 @@ static void sub_8008958 (void) { //trunk menu card details
   gStatMod.field = 0;
   gStatMod.stage = 0;
   sub_800B538(&gStatMod.card);
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
   sub_801F6B0();
   sub_800A3D8(0);
   sub_800A3D8(2);
@@ -672,14 +672,14 @@ static void TryAddSelectedCardToDeck (void) {
   else
     isCardRejected = 1;
   if (isCardRejected == 1) {
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
     while (gPressedButtons & DPAD_RIGHT)
       WaitForVBlank();
   }
   else {
     gTrunkCardQty[cardId]--;
     AddCardToDeck(cardId);
-    PlayMusic(55);
+    PlayMusic(SFX_SELECT);
   }
 }
 
@@ -689,7 +689,7 @@ void sub_8008EA8 (void) {
   if (!GetDeckCardQty(id) || TryRemoveCardFromDeck(id) != 1)
     removalFailed = 1;
   if (removalFailed == 1) {
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
     while (gPressedButtons & DPAD_LEFT)
       WaitForVBlank();
   }
@@ -698,7 +698,7 @@ void sub_8008EA8 (void) {
       gTrunkCardQty[id]++;
     else
       gTrunkCardQty[id] = 250;
-    PlayMusic(55);
+    PlayMusic(SFX_SELECT);
   }
 }
 
@@ -799,33 +799,33 @@ void TrunkMenuDefaultSort (void)
 void sub_80090E8 (void) {
   if (--gTrunkData.unk0 < 0)
     gTrunkData.unk0 += NUM_TRUE_CARDS;
-  PlayMusic(54);
+  PlayMusic(SFX_MOVE_CURSOR);
 }
 
 void sub_8009110 (void) {
   if (++gTrunkData.unk0 > NUM_TRUE_CARDS - 1)
     gTrunkData.unk0 -= NUM_TRUE_CARDS;
-  PlayMusic(54);
+  PlayMusic(SFX_MOVE_CURSOR);
 }
 
 void sub_8009140 (void) {
   gTrunkData.unk0 -= 50;
   if (gTrunkData.unk0 < 0)
     gTrunkData.unk0 += NUM_TRUE_CARDS;
-  PlayMusic(54);
+  PlayMusic(SFX_MOVE_CURSOR);
 }
 
 void sub_800916C (void) {
   gTrunkData.unk0 += 50;
   if (gTrunkData.unk0 > NUM_TRUE_CARDS - 1)
     gTrunkData.unk0 -= NUM_TRUE_CARDS;
-  PlayMusic(54);
+  PlayMusic(SFX_MOVE_CURSOR);
 }
 
 void sub_800919C (void) {
   if (++gTrunkData.unk3 > 3)
     gTrunkData.unk3 = 0;
-  PlayMusic(54);
+  PlayMusic(SFX_MOVE_CURSOR);
 }
 
 void sub_80091C0(void)
@@ -833,7 +833,7 @@ void sub_80091C0(void)
     if (++gTrunkData.sortingMethod >= TRUNK_SORT_EXIT)
       gTrunkData.sortingMethod = TRUNK_SORT_NUMBER;
     sub_80091EC(gTrunkData.sortingMethod);
-    PlayMusic(54);
+    PlayMusic(SFX_MOVE_CURSOR);
 }
 
 void sub_80091EC(unsigned char val)

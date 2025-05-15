@@ -43,6 +43,7 @@
 #include "player.h"
 
 #include "constants/card_ids.h"
+#include "constants/music_ids.h"
 
 void FadeOutMusic (unsigned);
 void sub_8034FEC (unsigned);

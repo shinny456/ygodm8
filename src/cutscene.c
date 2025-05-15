@@ -5,7 +5,7 @@ extern const signed short sin_cos_table[]; //TODO: move to header
 // unused after initialization?
 signed short g2020C00[/*ARRAY_COUNT(sin_cos_table)*/228];
 
-static void sub_8000724 (void);
+static void InitCredits (void);
 static void sub_8000810 (void);
 static void sub_80008EC (unsigned char);
 static void ReshefVisionMain (void);
@@ -252,7 +252,7 @@ enum {
 
 
 void CreditsMain (void) {
-  sub_8000724();
+  InitCredits();
   while (1) {
     switch (gCreditsData->state) {
       case 0:
@@ -409,7 +409,8 @@ void CreditsMain (void) {
   }
 }
 
-static void sub_8000724 (void) {
+// 8000724
+static void InitCredits (void) {
   u8 i;
   bzero(gSharedMem, 0x4314);
   ClearGraphicsBuffers();
@@ -417,7 +418,7 @@ static void sub_8000724 (void) {
   LoadPalettes();
   LoadVRAM();
   DisableDisplay();
-  PlayMusic(0x31);
+  PlayMusic(MUSIC_CREDITS);
   CpuCopy16(gCreditsPalette, gPaletteBuffer, 0x200);
   LZ77UnCompWram(gCreditsTileset, gBgVram.cbb0);
   CpuFastCopy(gBgVram.cbb0, gBgVram.cbb0 + 0x8000, 32);
@@ -510,8 +511,8 @@ static void ReshefVisionMain (void) {
   u8 i;
   s16 r5;
   u8 r6 = 16, r7 = 16;
-  PlayMusic(600);
-  PlayMusic(353);
+  PlayMusic(MUSIC_600);
+  PlayMusic(MUSIC_353);
   sub_8000D74();
   while (1) {
     switch (g8DF7590->unk4) {
@@ -1589,7 +1590,7 @@ static void sub_8001CE4 (void) {
 }
 
 static void sub_8001D58 (void) {
-  PlayMusic(0);
+  PlayMusic(MUSIC_NONE);
   sub_8002E98();
   g8DF7594->unk0 = 0;
   while (1) {
@@ -1660,7 +1661,7 @@ static void sub_8001E8C (void) {
 
   switch (g8DF7594->unk8) {
     case 0:
-      PlayMusic(0x162);
+      PlayMusic(SFX_NEW_GAME_INTRO_CUTSCENE_1);
       sub_8002E98();
       g8DF7594->unk156 = 128;
       g8DF7594->unk158 = 0;
@@ -1751,7 +1752,7 @@ static void sub_80020D8 (void) {
   u16 temp;
   switch (g8DF7594->unk8) {
     case 0:
-      PlayMusic(0x163);
+      PlayMusic(MUSIC_355);
       sub_8003020();
       g8DF7594->unkA = 0;
       g8DF7594->unk8++;
@@ -1995,7 +1996,7 @@ static void sub_80027F0 (void) {
   int r6 = 1;
   switch (g8DF7594->unk8) {
     case 0:
-      PlayMusic(0x165);
+      PlayMusic(MUSIC_357);
       sub_8003268();
       g8DF7594->unk156 = 128;
       g8DF7594->unk157 = 128;
@@ -2072,7 +2073,7 @@ static void sub_80027F0 (void) {
 static void sub_80029D4 (void) {
   switch (g8DF7594->unk8) {
     case 0:
-      PlayMusic(0x164);
+      PlayMusic(SFX_NEW_GAME_INTRO_CUTSCENE_2);
       sub_8003444();
       g8DF7594->unk8++;
       g8DF7594->unkA = 0;

@@ -62,7 +62,7 @@ void NamingScreenMain (void) {
   u16 i;
   ClearGraphicsBuffers();
   sub_800604C();
-  PlayMusic(0x2E);
+  PlayMusic(MUSIC_NAMING_SCREEN);
   LZ77UnCompWram(gUnk_807A9EC, gBgVram.cbb0);
   CpuCopy16(gUnk_8081440, gPaletteBuffer, 512);
   for (i = 0; i < 20; i++)
@@ -79,37 +79,37 @@ void NamingScreenMain (void) {
   while (1) {
     if (gNewButtons & START_BUTTON) {
       if (gUnk_8DF8114->unk32 != 5) {
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         gUnk_8DF8114->unk32 = 5;
       }
       else if (gUnk_8DF8114->unkE[0] != 0x4081) {
-        PlayMusic(0x37);
+        PlayMusic(SFX_SELECT);
         gUnk_8DF8114->unk9 = 1;
         sub_8006B40();
         return;
       }
       else
-        PlayMusic(0x39);
+        PlayMusic(SFX_FORBIDDEN);
       gUnk_8DF8114->unk16A = 0;
     }
     if (gNewButtons & A_BUTTON && gUnk_8DF8114->unk32 == 5) {
       if (gUnk_8DF8114->unkE[0] != 0x4081) {
-        PlayMusic(0x37);
+        PlayMusic(SFX_SELECT);
         gUnk_8DF8114->unk9 = 1;
         sub_8006B40();
         return;
       }
       else
-        PlayMusic(0x39);
+        PlayMusic(SFX_FORBIDDEN);
     }
     if (gRepeatedOrNewButtons & R_BUTTON) {
       if (gUnk_8DF8114->unk2 < 8) {
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         gUnk_8DF8114->unk2++;
       }
     }
     else if (gRepeatedOrNewButtons & L_BUTTON && gUnk_8DF8114->unk2) {
-      PlayMusic(0x36);
+      PlayMusic(SFX_MOVE_CURSOR);
       gUnk_8DF8114->unk2--;
     }
     switch (gUnk_8DF8114->unk3) {
@@ -120,14 +120,14 @@ void NamingScreenMain (void) {
       case 1:
         if (gNewButtons & A_BUTTON) {
           if (gUnk_8DF8114->unk32 != 5)
-            PlayMusic(0x37);
+            PlayMusic(SFX_SELECT);
           gUnk_8DF8114->unk0 = 0;
           gUnk_8DF8114->unk1 = 0;
           gUnk_8DF8114->unk3 = 0;
         }
         if (gNewButtons & B_BUTTON) {
           if (gUnk_8DF8114->unk32 == 5) {
-            PlayMusic(0x38);
+            PlayMusic(SFX_CANCEL);
             gUnk_8DF8114->unk32 = 3;
             gUnk_8DF8114->unk0 = 0;
             gUnk_8DF8114->unk1 = 0;
@@ -136,7 +136,7 @@ void NamingScreenMain (void) {
             sub_800683C();
           }
           else {
-            PlayMusic(0x37);
+            PlayMusic(SFX_SELECT);
             gUnk_8DF8114->unk0 = 0;
             gUnk_8DF8114->unk1 = 0;
             gUnk_8DF8114->unk3 = 0;
@@ -855,7 +855,7 @@ _080064F0: .4byte gUnk_8DF8114");
 /*
 static void sub_80064F4 (void) {
   if (gRepeatedOrNewButtons & DPAD_UP) {
-    PlayMusic(0x36);
+    PlayMusic(SFX_MOVE_CURSOR);
     if (gUnk_8DF8114->unk1 == 7)
       gUnk_8DF8114->unk1 = 6;
     else if (gUnk_8DF8114->unk1 > 0)
@@ -864,7 +864,7 @@ static void sub_80064F4 (void) {
       gUnk_8DF8114->unk1 = 6;
   }
   if (gRepeatedOrNewButtons & DPAD_DOWN) {
-    PlayMusic(0x36);
+    PlayMusic(SFX_MOVE_CURSOR);
     if (gUnk_8DF8114->unk1 == -1)
       gUnk_8DF8114->unk1 = 0;
     else if (gUnk_8DF8114->unk1 < 6)
@@ -873,7 +873,7 @@ static void sub_80064F4 (void) {
       gUnk_8DF8114->unk1 = 0;
   }
   if (gRepeatedOrNewButtons & DPAD_LEFT) {
-    PlayMusic(0x36);
+    PlayMusic(SFX_MOVE_CURSOR);
     if (gUnk_8DF8114->unk0 > 0) {
       if (gUnk_8DF8114->unk32 < 3 && gUnk_8DF8114->unk0 == 6)
         gUnk_8DF8114->unk0 -= 2;
@@ -887,7 +887,7 @@ static void sub_80064F4 (void) {
     }
   }
   if (gRepeatedOrNewButtons & DPAD_RIGHT) {
-    PlayMusic(0x36);
+    PlayMusic(SFX_MOVE_CURSOR);
     if (gUnk_8DF8114->unk0 < 10) {
       if (gUnk_8DF8114->unk32 < 3 && gUnk_8DF8114->unk0 == 4)
         gUnk_8DF8114->unk0 += 2;
@@ -901,7 +901,7 @@ static void sub_80064F4 (void) {
     }
   }
   if (gRepeatedOrNewButtons & 1) {
-    PlayMusic(0x37);
+    PlayMusic(SFX_SELECT);
     if (gUnk_8DF8114->unk32 == 2) {
       //problematic part
       if (gUnk_8DF8114->unk34[gUnk_8DF8114->unk1][gUnk_8DF8114->unk0].unk0 != 0x4081) {
@@ -1281,7 +1281,7 @@ static void sub_80068C4 (void) {
   if (gUnk_8DF8114->unk32 == 5)
     return;
   if (gUnk_8DF8114->unk2) {
-    PlayMusic(0x38);
+    PlayMusic(SFX_CANCEL);
     gUnk_8DF8114->unk2--;
   }
   gUnk_8DF8114->unkE[gUnk_8DF8114->unk2] = 0x4081;

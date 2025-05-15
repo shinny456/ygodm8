@@ -189,7 +189,7 @@ extern u8 g80DD678[];
 void TradeMenuMain (void) {
   unsigned stopProcessing;
   void (**funcTable) (void);
-  PlayMusic(0x2F);
+  PlayMusic(MUSIC_DECK_ADJUSTMENT_MENU);
   sub_80389B4();
   sub_8038BA0();
   sub_803DB1C();
@@ -201,14 +201,14 @@ void TradeMenuMain (void) {
         sub_8038A84();
         sub_8038AC4();
         sub_8038958();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         sub_803E214();
         break;
       case REPEAT_DPAD_DOWN:
         sub_8038AA4();
         sub_8038AC4();
         sub_8038958();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         sub_803E214();
         break;
       case NEW_A_BUTTON:
@@ -220,7 +220,7 @@ void TradeMenuMain (void) {
         g2023E7B = 3;
         sub_8038AC4();
         sub_8038958();
-        PlayMusic(0x38);
+        PlayMusic(SFX_CANCEL);
         sub_803E214();
         break;
       default:
@@ -265,7 +265,7 @@ static void SelectCardsToBeTraded (void) {
     sub_803E3FC();
   }
   else {
-    PlayMusic(0x37);
+    PlayMusic(SFX_SELECT);
     sub_8035E14();
     sub_8038AF8();
     sub_8038BA0();
@@ -277,7 +277,7 @@ static void ConfirmCardsToBeTraded (void) {
   sub_8038290();
   if (sub_80383A0()) {
     sub_8038AF8();
-    PlayMusic(0x39);
+    PlayMusic(SFX_FORBIDDEN);
     sub_803E094();
     while (1) {
       unsigned short buttons = ProcessInput();
@@ -286,11 +286,11 @@ static void ConfirmCardsToBeTraded (void) {
       sub_8038AC4();
       sub_803E254();
     }
-    PlayMusic(0x38);
+    PlayMusic(SFX_CANCEL);
     sub_803E3FC();
   }
   else {
-    PlayMusic(0x37);
+    PlayMusic(SFX_SELECT);
     sub_803E880();
     sub_8038AF8();
     sub_8038BA0();
@@ -301,7 +301,7 @@ static void ConfirmCardsToBeTraded (void) {
 // TryStartTrade
 static void sub_8035D18 (void) {
   sub_8038AF8();
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
   sub_803E35C();
   sub_8038860();
   sub_803276C();
@@ -313,7 +313,7 @@ static void sub_8035D18 (void) {
 }
 
 static void ExitTradeMenu (void) {
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
   sub_803E214();
   sub_803E140();
 }
@@ -323,7 +323,7 @@ static void TradeSucceeded (void) {
   IncreaseDeckCapacity(2);
   SaveGame();
   sub_8038AF8();
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
   sub_803DF3C();
   while (1) {
     unsigned short buttons = ProcessInput();
@@ -334,21 +334,21 @@ static void TradeSucceeded (void) {
   }
   sub_803769C();
   if (!sub_8037754()) {
-    PlayMusic(0x37);
+    PlayMusic(SFX_SELECT);
     sub_803E488();
     sub_80389B4();
     sub_803DB1C();
   }
   else {
     sub_80389B4();
-    PlayMusic(0x38);
+    PlayMusic(SFX_CANCEL);
     sub_803E3FC();
   }
 }
 
 static void TradeFailed (void) {
   sub_8038AF8();
-  PlayMusic(0x39);
+  PlayMusic(SFX_FORBIDDEN);
   sub_803DE90();
   while (1) {
     unsigned short buttons = ProcessInput();
@@ -358,7 +358,7 @@ static void TradeFailed (void) {
     sub_803E254();
   }
   sub_8038AF8();
-  PlayMusic(0x38);
+  PlayMusic(SFX_CANCEL);
   sub_803E3FC();
 }
 
@@ -371,22 +371,22 @@ static void sub_8035E14 (void) {
     switch (sub_8036150()) {
       case 0x40:
         sub_8036CB0(1);
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         sub_8039C68();
         break;
       case 0x80:
         sub_8036C84(1);
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         sub_8039CE8();
         break;
       case 0x140:
         sub_8036CB0(0x32);
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         sub_8039BDC();
         break;
       case 0x180:
         sub_8036C84(0x32);
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         sub_8039BDC();
         break;
       case 0x20:
@@ -397,7 +397,7 @@ static void sub_8035E14 (void) {
             goto a;
           }
           else {
-            PlayMusic(0x39);
+            PlayMusic(SFX_FORBIDDEN);
             sub_8039D68();
             while (gPressedButtons & DPAD_LEFT)
               WaitForVBlank();
@@ -410,11 +410,11 @@ static void sub_8035E14 (void) {
             sub_8036DBC(temp2, 1);
             sub_80384FC(temp2, 1);
             a:
-            PlayMusic(0x36);
+            PlayMusic(SFX_MOVE_CURSOR);
             sub_8039D68();
           }
           else {
-            PlayMusic(0x39);
+            PlayMusic(SFX_FORBIDDEN);
             sub_8039F64();
             while (gPressedButtons & DPAD_RIGHT)
               WaitForVBlank();
@@ -428,12 +428,12 @@ static void sub_8035E14 (void) {
         break;
       case 2:
         stopProcessing = 1;
-        PlayMusic(0x38);
+        PlayMusic(SFX_CANCEL);
         WaitForVBlank();
         break;
       case 0x200:
         sub_8036FCC();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         sub_8039B88();
         break;
       case 8:
@@ -444,7 +444,7 @@ static void sub_8035E14 (void) {
         sub_8036E24();
         sub_8036E64();
         sub_8036CD4();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         sub_8039BDC();
         break;
       default:
@@ -457,29 +457,29 @@ static void sub_8035E14 (void) {
 static void sub_8035FC0 (void) {
   unsigned keepProcessing;
   sub_8036BE8();
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
   sub_8039DDC();
   keepProcessing = 0;
   while (keepProcessing != 1) {
     switch (sub_8036224()) {
       case 0x40:
         sub_8036ECC();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         sub_8039E44();
         break;
       case 0x80:
         sub_8036EEC();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         sub_8039E44();
         break;
       case 0x20:
         sub_8036F0C();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         sub_8039E44();
         break;
       case 0x10:
         sub_8036F2C();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         sub_8039E44();
         break;
       case 1:
@@ -489,12 +489,12 @@ static void sub_8035FC0 (void) {
         break;
       case 2:
         keepProcessing = 1;
-        PlayMusic(0x38);
+        PlayMusic(SFX_CANCEL);
         WaitForVBlank();
         break;
       case 0x200:
         sub_8036FCC();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         sub_8039B88();
         break;
       default:
@@ -509,7 +509,7 @@ static void sub_8036080 (void) {
   unsigned stopProcessing;
   g2022EC0.unkFA8 = g2022EC0.unkFAA;
   r6 = g2022EC0.unkFAA;
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
   sub_8039EDC();
   stopProcessing = 0;
   while (stopProcessing != 1) {
@@ -523,7 +523,7 @@ static void sub_8036080 (void) {
           default:
             g2022EC0.unkFAA = g2022EC0.unkFA8;
         }
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         sub_8039F40();
         break;
       case 0x80:
@@ -535,7 +535,7 @@ static void sub_8036080 (void) {
           default:
             g2022EC0.unkFAA = g2022EC0.unkFA8;
         }
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         sub_8039F40();
         break;
       case 0x20:
@@ -547,7 +547,7 @@ static void sub_8036080 (void) {
           default:
             g2022EC0.unkFAA = g2022EC0.unkFA8;
         }
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         sub_8039F40();
         break;
       case 0x10:
@@ -559,7 +559,7 @@ static void sub_8036080 (void) {
           default:
             g2022EC0.unkFAA = g2022EC0.unkFA8;
         }
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         sub_8039F40();
         break;
       case 1:
@@ -572,13 +572,13 @@ static void sub_8036080 (void) {
         }
         sub_8036E64();
         sub_8036CD4();
-        PlayMusic(0x37);
+        PlayMusic(SFX_SELECT);
         WaitForVBlank();
         stopProcessing = 1;
         break;
       case 2:
       case 8:
-        PlayMusic(0x38);
+        PlayMusic(SFX_CANCEL);
         g2022EC0.unkFAA = r6;
         WaitForVBlank();
         stopProcessing = 1;
@@ -639,7 +639,7 @@ static unsigned short sub_8036224 (void) {
 }
 
 static void sub_80362A8 (void) {
-  PlayMusic(0x37);
+  PlayMusic(SFX_SELECT);
   SetCardInfo(sub_8036C3C(2));
   sub_801F6B0();
   sub_8039E60();
@@ -648,17 +648,17 @@ static void sub_80362A8 (void) {
 static void sub_80362C8 (void) {
   u16 r4 = sub_8036C3C(2);
   if (sub_8036E14(r4) < 2) {
-    PlayMusic(0x39);
+    PlayMusic(SFX_FORBIDDEN);
     sub_8039F64();
     while (!(gNewButtons & (A_BUTTON | B_BUTTON)))
       WaitForVBlank();
-    PlayMusic(0x38);
+    PlayMusic(SFX_CANCEL);
     sub_8039DDC();
   }
   else {
     sub_8036DBC(r4, 1);
     sub_80384FC(r4, 1);
-    PlayMusic(0x37);
+    PlayMusic(SFX_SELECT);
     sub_8039D68();
   }
 }
@@ -667,18 +667,18 @@ static void sub_8036338 (void) {
   u16 r5 = sub_8036C3C(2);
   u8 temp = sub_8036E14(r5);
   if (temp < 2) {
-    PlayMusic(0x39);
+    PlayMusic(SFX_FORBIDDEN);
     sub_8039F64();
     while (!(gNewButtons & (A_BUTTON | B_BUTTON)))
       WaitForVBlank();
-    PlayMusic(0x38);
+    PlayMusic(SFX_CANCEL);
     sub_8039DDC();
   }
   else {
     temp--;
     sub_8036DBC(r5, temp);
     sub_80384FC(r5, temp);
-    PlayMusic(0x37);
+    PlayMusic(SFX_SELECT);
     sub_8039D68();
   }
 }
@@ -688,11 +688,11 @@ static void sub_80363B4 (void) {
   if (!sub_80384BC(r4, 1)) {
     sub_8038574(r4, 1);
     sub_8036D5C(r4, 1);
-    PlayMusic(0x37);
+    PlayMusic(SFX_SELECT);
     sub_8039D68();
   }
   else {
-    PlayMusic(0x39);
+    PlayMusic(SFX_FORBIDDEN);
     sub_8039D68();
   }
 }
@@ -703,17 +703,17 @@ static void sub_80363F8 (void) {
   if (temp) {
     sub_8038574(r5, temp);
     sub_8036D5C(r5, temp);
-    PlayMusic(0x37);
+    PlayMusic(SFX_SELECT);
     sub_8039D68();
   }
   else {
-    PlayMusic(0x39);
+    PlayMusic(SFX_FORBIDDEN);
     sub_8039D68();
   }
 }
 
 static void sub_8036448 (void) {
-  PlayMusic(0x38);
+  PlayMusic(SFX_CANCEL);
   WaitForVBlank();
 }
 

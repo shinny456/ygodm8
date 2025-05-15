@@ -77,7 +77,7 @@ static void sub_8027138 (void) {
       sub_8034FEC(0x177);
       sub_8029864();
       if (!gHideEffectText)
-        PlayMusic(0x177);
+        PlayMusic(MUSIC_375);
     }
     if (IsDuelOver() == 1) {
       sub_8034FEC(0x177);
@@ -95,7 +95,7 @@ static void sub_8027138 (void) {
       sub_8034FEC(0x177);
       sub_8029864();
       if (!gHideEffectText)
-        PlayMusic(0x177);
+        PlayMusic(MUSIC_375);
     }
     if (IsDuelOver() == 1) {
       sub_8034FEC(0x177);
@@ -103,7 +103,7 @@ static void sub_8027138 (void) {
     }
   }
   if (!gHideEffectText)
-    PlayMusic(0x177);
+    PlayMusic(MUSIC_375);
 
   g2021DE0.unk2 = 6;
   g2021DE0.unk3 = 0;
@@ -114,7 +114,7 @@ static void sub_8027138 (void) {
     sub_8034FEC(0x177);
     sub_8029864();
     if (!gHideEffectText)
-      PlayMusic(0x177);
+      PlayMusic(MUSIC_375);
   }
   if (IsDuelOver() == 1) {
     sub_8034FEC(0x177);
@@ -129,7 +129,7 @@ static void sub_8027138 (void) {
   if (sub_802A478() == 1) {
     sub_8034FEC(0x177);
     sub_8029864();
-    PlayMusic(0x177);
+    PlayMusic(MUSIC_375);
   }
   if (IsDuelOver() == 1) {
     sub_8034FEC(0x177);
@@ -146,7 +146,7 @@ static void sub_8027138 (void) {
       sub_8034FEC(0x177);
       sub_8029864();
       if (!gHideEffectText)
-        PlayMusic(0x177);
+        PlayMusic(MUSIC_375);
     }
     if (IsDuelOver() == 1) {
       sub_8034FEC(0x177);
@@ -164,7 +164,7 @@ static void sub_8027138 (void) {
       sub_8034FEC(0x177);
       sub_8029864();
       if (!gHideEffectText)
-        PlayMusic(0x177);
+        PlayMusic(MUSIC_375);
     }
     if (IsDuelOver() == 1) {
       sub_8034FEC(0x177);
@@ -182,7 +182,7 @@ static void sub_8027138 (void) {
       sub_8034FEC(0x177);
       sub_8029864();
       if (!gHideEffectText)
-        PlayMusic(0x177);
+        PlayMusic(MUSIC_375);
     }
     if (IsDuelOver() == 1) {
       sub_8034FEC(0x177);
@@ -200,7 +200,7 @@ static void sub_8027138 (void) {
       sub_8034FEC(0x177);
       sub_8029864();
       if (!gHideEffectText)
-        PlayMusic(0x177);
+        PlayMusic(MUSIC_375);
     }
     if (IsDuelOver() == 1) {
       sub_8034FEC(0x177);

@@ -69,7 +69,7 @@ static void StartMenuMain (void) {
   while (1) {
     if (gNewButtons & B_BUTTON) {
       if (!IsDeckFull()) { //TODO: rename to IsPlayerDeckFull
-        PlayMusic(0x39);
+        PlayMusic(SFX_FORBIDDEN);
         DisplayIncompleteDeckMessage();
         sub_8005BE0();
       }
@@ -80,31 +80,31 @@ static void StartMenuMain (void) {
           break;
       }
       else {
-        PlayMusic(0x39);
+        PlayMusic(SFX_FORBIDDEN);
         DisplayCostMessage();
         sub_8005BE0();
       }
     }
     here:
     if (gNewButtons & DPAD_UP && cursorState != 0) {
-      PlayMusic(0x36);
+      PlayMusic(SFX_MOVE_CURSOR);
       cursorState--;
     }
     if (gNewButtons & DPAD_DOWN && cursorState < 2) {
-      PlayMusic(0x36);
+      PlayMusic(SFX_MOVE_CURSOR);
       cursorState++;
     }
     switch (cursorState) {
       case 0:
         if (gNewButtons & A_BUTTON) {
-          PlayMusic(0x37);
+          PlayMusic(SFX_SELECT);
           StatusMenu();
           sub_8005BE0();
         }
         break;
       case 1:
         if (gNewButtons & A_BUTTON) {
-          PlayMusic(0x37);
+          PlayMusic(SFX_SELECT);
           TrunkMenu();
           LoadStartMenuGraphics();
         }
@@ -112,12 +112,12 @@ static void StartMenuMain (void) {
       case 2:
         if (gNewButtons & A_BUTTON) {
           if (IsPlayerDeckNonempty() == 1) {
-            PlayMusic(0x37);
+            PlayMusic(SFX_SELECT);
             DeckMenuMain();
             LoadStartMenuGraphics();
           }
           else
-            PlayMusic(0x39);
+            PlayMusic(SFX_FORBIDDEN);
         }
         break;
     }
@@ -125,7 +125,7 @@ static void StartMenuMain (void) {
     LoadOam();
     WaitForVBlank();
   }
-  PlayMusic(0x38);
+  PlayMusic(SFX_CANCEL);
   DisableDisplay();
 }
 
@@ -328,7 +328,7 @@ _08005B14: .4byte gBLDY");
 void InitStartMenu (void) {
   FadeOutMusic(1);
   InitStartMenuData();
-  PlayMusic(0x2F);
+  PlayMusic(MUSIC_DECK_ADJUSTMENT_MENU);
   StartMenuMain();
   FadeOutMusic(1);
 }

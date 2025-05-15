@@ -1059,12 +1059,12 @@ void DuelTrunkMenu (void)
     unsigned keepProcessing;
 
     sub_8035038(2);
-    PlayMusic(213);
+    PlayMusic(SFX_TRANSITION_OVERWORLD_TO_ANTE);
     MosaicEffect();
     InitTrunkData();
     InitDeckData();
     TrunkMenuDefaultSort();
-    PlayMusic(143);
+    PlayMusic(MUSIC_143);
     sub_800BF28();
 
     keepProcessing = 1;
@@ -1152,7 +1152,7 @@ static unsigned SelectionMenu (void)
 
     sub_800C0D8();
     sub_800C208();
-    PlayMusic(55);
+    PlayMusic(SFX_SELECT);
     SetVBlankCallback(sub_800C4F8);
     WaitForVBlank();
 
@@ -1164,14 +1164,14 @@ static unsigned SelectionMenu (void)
         case 0x40:
             gTrunkData.cursorState = g8DFF498[gTrunkData.cursorState];
             sub_800C208();
-            PlayMusic(54);
+            PlayMusic(SFX_MOVE_CURSOR);
             SetVBlankCallback(LoadOam);
             WaitForVBlank();
             break;
         case 0x80:
             gTrunkData.cursorState = g8DFF49B[gTrunkData.cursorState];
             sub_800C208();
-            PlayMusic(54);
+            PlayMusic(SFX_MOVE_CURSOR);
             SetVBlankCallback(LoadOam);
             WaitForVBlank();
             break;
@@ -1187,7 +1187,7 @@ static unsigned SelectionMenu (void)
                 keepProcessing = 0;
                 break;
             case DUEL_TRUNK_CURSOR_EXIT:
-                PlayMusic(55);
+                PlayMusic(SFX_SELECT);
                 keepProcessing = 0;
                 break;
             default:
@@ -1196,7 +1196,7 @@ static unsigned SelectionMenu (void)
             }
             break;
         case 2:
-            PlayMusic(56);
+            PlayMusic(SFX_CANCEL);
             keepProcessing = 0;
             break;
         default:
@@ -1215,7 +1215,7 @@ static unsigned char LowLevelAntePrompt (void)
 
     sub_800C3C4();
     sub_800C264();
-    PlayMusic(55);
+    PlayMusic(SFX_SELECT);
     SetVBlankCallback(sub_800C4F8);
     WaitForVBlank();
 
@@ -1227,14 +1227,14 @@ static unsigned char LowLevelAntePrompt (void)
         case 0x40:
             gTrunkData.cursorState = g8DFF4A4[gTrunkData.cursorState];
             sub_800C264();
-            PlayMusic(54);
+            PlayMusic(SFX_MOVE_CURSOR);
             SetVBlankCallback(LoadOam);
             WaitForVBlank();
             break;
         case 0x80:
             gTrunkData.cursorState = g8DFF4A6[gTrunkData.cursorState];
             sub_800C264();
-            PlayMusic(54);
+            PlayMusic(SFX_MOVE_CURSOR);
             SetVBlankCallback(LoadOam);
             WaitForVBlank();
             break;
@@ -1242,11 +1242,11 @@ static unsigned char LowLevelAntePrompt (void)
             switch (gTrunkData.cursorState)
             {
             case 0:
-                PlayMusic(55);
+                PlayMusic(SFX_SELECT);
                 keepProcessing = 0;
                 break;
             case 1:
-                PlayMusic(222);
+                PlayMusic(SFX_TRANSITION_ANTE_TO_DUEL);
                 selectNo = 0;
                 keepProcessing = 0;
                 break;
@@ -1256,7 +1256,7 @@ static unsigned char LowLevelAntePrompt (void)
             }
             break;
         case 2:
-            PlayMusic(56);
+            PlayMusic(SFX_CANCEL);
             keepProcessing = 0;
             break;
         default:
@@ -1291,7 +1291,7 @@ static void sub_800C0D8(void)
 static void sub_800C1BC (void)
 {
     SetCardInfo(sub_800901C(2));
-    PlayMusic(55);
+    PlayMusic(SFX_SELECT);
     sub_801F6B0();
     sub_800D904(0);
     sub_800D904(2);
@@ -1413,7 +1413,7 @@ static unsigned char TrySelectingAnte (void) {
   else {
     selectionFailed = 0;
     gAnte = cardId;
-    PlayMusic(222);
+    PlayMusic(SFX_TRANSITION_ANTE_TO_DUEL);
   }
   WaitForVBlank();
   return selectionFailed;
@@ -1423,7 +1423,7 @@ static void sub_800C32C (void)
 {
     gTrunkData.cursorState = 0;
     sub_800C430();
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
     sub_800C530();
     SetVBlankCallback(sub_800C4F8);
     WaitForVBlank();
@@ -1435,7 +1435,7 @@ static void sub_800C32C (void)
             WaitForVBlank();
     }
 
-    PlayMusic(56);
+    PlayMusic(SFX_CANCEL);
 }
 
 static void sub_800C378(void)
@@ -1443,7 +1443,7 @@ static void sub_800C378(void)
 
     gTrunkData.cursorState = 0;
     sub_800C494();
-    PlayMusic(57);
+    PlayMusic(SFX_FORBIDDEN);
     sub_800C530();
     SetVBlankCallback(sub_800C4F8);
     WaitForVBlank();
@@ -1455,7 +1455,7 @@ static void sub_800C378(void)
             WaitForVBlank();
     }
 
-    PlayMusic(56);
+    PlayMusic(SFX_CANCEL);
 }
 
 static void sub_800C3C4(void)
@@ -1530,7 +1530,7 @@ static unsigned NoAntePrompt (void) {
   noAnte = 1;
   sub_800C608();
   sub_800C7A0();
-  PlayMusic(55);
+  PlayMusic(SFX_SELECT);
   SetVBlankCallback(sub_800C7FC);
   WaitForVBlank();
 
@@ -1541,14 +1541,14 @@ static unsigned NoAntePrompt (void) {
       {
       case 0x40:
           gTrunkData.cursorState = g8DFF4AC[gTrunkData.cursorState];
-          PlayMusic(54);
+          PlayMusic(SFX_MOVE_CURSOR);
           sub_800C7A0();
           SetVBlankCallback(LoadOam);
           WaitForVBlank();
           break;
       case 0x80:
           gTrunkData.cursorState = g8DFF4AE[gTrunkData.cursorState];
-          PlayMusic(54);
+          PlayMusic(SFX_MOVE_CURSOR);
           sub_800C7A0();
           SetVBlankCallback(LoadOam);
           WaitForVBlank();
@@ -1558,16 +1558,16 @@ static unsigned NoAntePrompt (void) {
           {
           case DUEL_TRUNK_ANTE_YES:
               noAnte = 0;
-              PlayMusic(222);
+              PlayMusic(SFX_TRANSITION_ANTE_TO_DUEL);
               break;
           default:
-              PlayMusic(55);
+              PlayMusic(SFX_SELECT);
               break;
           }
           keepProcessing = 0;
           break;
       case 2:
-          PlayMusic(56);
+          PlayMusic(SFX_CANCEL);
           keepProcessing = 0;
           break;
       default:

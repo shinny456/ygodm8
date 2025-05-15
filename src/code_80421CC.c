@@ -57,28 +57,28 @@ void BMenuMain (void) {
   InitBMenu(0);
   while (1) {
     if (gRepeatedOrNewButtons & DPAD_UP) {
-      PlayMusic(0x36);
+      PlayMusic(SFX_MOVE_CURSOR);
       r4 = g8E0D81A[r4];
       sub_80428EC(r4);
       WaitForVBlank();
       sub_8041014();
     }
     else if (gRepeatedOrNewButtons & DPAD_DOWN) {
-      PlayMusic(0x36);
+      PlayMusic(SFX_MOVE_CURSOR);
       r4 = g8E0D81D[r4];
       sub_80428EC(r4);
       WaitForVBlank();
       sub_8041014();
     }
     else if (gRepeatedOrNewButtons & DPAD_RIGHT) {
-      PlayMusic(0x36);
+      PlayMusic(SFX_MOVE_CURSOR);
       r4 = g8E0D820[r4];
       sub_80428EC(r4);
       WaitForVBlank();
       sub_8041014();
     }
     else if (gRepeatedOrNewButtons & DPAD_LEFT) {
-      PlayMusic(0x36);
+      PlayMusic(SFX_MOVE_CURSOR);
       r4 = g8E0D823[r4];
       sub_80428EC(r4);
       WaitForVBlank();
@@ -89,7 +89,7 @@ void BMenuMain (void) {
         case B_MENU_DETAILS:
           if (CanPlayerSeeCard(gDuelCursor.currentY, gDuelCursor.currentX) == 1
           && GetTypeGroup(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id)) {
-            PlayMusic(0x37);
+            PlayMusic(SFX_SELECT);
             gStatMod.card = gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id;
             gStatMod.field = gDuel.field;
             gStatMod.stage = GetFinalStage(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]);
@@ -98,12 +98,12 @@ void BMenuMain (void) {
             UpdateAllDuelGfx();
           }
           else {
-            PlayMusic(0x39);
+            PlayMusic(SFX_FORBIDDEN);
             UpdateDuelGfxExceptField();
           }
           return;
         case B_MENU_END_TURN:
-          PlayMusic(0x37);
+          PlayMusic(SFX_SELECT);
           gIsPlayerTurnOver = 1;
           UpdateDuelGfxExceptField();
           return;
@@ -112,13 +112,13 @@ void BMenuMain (void) {
               gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id != CARD_NONE &&
               !gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->willChangeSides)
             {
-              PlayMusic(0x3E);
+              PlayMusic(SFX_DISCARD);
               ClearZoneAndSendMonToGraveyard2(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX], 0);
               UpdateDuelGfxExceptField();
               sub_8029820();
             }
           else {
-            PlayMusic(0x39);
+            PlayMusic(SFX_FORBIDDEN);
             UpdateDuelGfxExceptField();
           }
           return;
@@ -126,7 +126,7 @@ void BMenuMain (void) {
       break;
     }
     else if (gNewButtons & B_BUTTON) {
-      PlayMusic(0x38);
+      PlayMusic(SFX_CANCEL);
       break;
     }
     else
@@ -950,19 +950,19 @@ unsigned sub_80429A4 (void) {
   while (1) {
     while (1) {
       if (gRepeatedOrNewButtons & DPAD_UP) {
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         r4 = g8E0D922[r4];
       }
       else if (gRepeatedOrNewButtons & DPAD_DOWN) {
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         r4 = g8E0D926[r4];
       }
       else if (gRepeatedOrNewButtons & DPAD_LEFT) {
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         r4 = g8E0D92E[r4];
       }
       else if (gRepeatedOrNewButtons & DPAD_RIGHT) {
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         r4 = g8E0D92A[r4];
       }
       else
@@ -984,7 +984,7 @@ unsigned sub_80429A4 (void) {
       }
     }
     if (gNewButtons & B_BUTTON) {
-      PlayMusic(0x38);
+      PlayMusic(SFX_CANCEL);
       return 5;
     }
     if (r4 < 2) {

@@ -76,7 +76,7 @@ static unsigned char TitleScreenChooseOption (void) {
   sub_8035894();
   LoadVramAndOam();
   SetVBlankCallback(VBlankCbTitleScreen);
-  PlayMusic(1);
+  PlayMusic(MUSIC_TITLE_SCREEN);
   WaitForVBlank();
   keepProcessing = 1;
   while (keepProcessing == 1) {
@@ -89,14 +89,14 @@ static unsigned char TitleScreenChooseOption (void) {
       }
     }
     else if (newButton == B_BUTTON) {
-      PlayMusic(0x36);
+      PlayMusic(SFX_MOVE_CURSOR);
       option = SwitchToOptionContinue();
       sub_8035B3C();
       SetVBlankCallback(VBlankCbOptionSwitch);
       WaitForVBlank();
     }
     else if (newButton == SELECT_BUTTON) {
-      PlayMusic(0x36);
+      PlayMusic(SFX_MOVE_CURSOR);
       option = SwitchOption(option);
       sub_8035B3C();
       SetVBlankCallback(VBlankCbOptionSwitch);
@@ -111,7 +111,7 @@ static unsigned char TitleScreenChooseOption (void) {
   sub_80357F8();
   SetVBlankCallback(VBlankCbNoInput);
   WaitForVBlank();
-  PlayMusic(0xD2);
+  PlayMusic(SFX_TITLE_SCREEN_SELECT);
   sub_80353B0();
   return option;
 }
@@ -119,7 +119,7 @@ static unsigned char TitleScreenChooseOption (void) {
 static unsigned char TryStartNewGame (void) {
   unsigned char choseNo = 1;
   unsigned keepProcessing;
-  PlayMusic(0xC9);
+  PlayMusic(SFX_CODE_ENTRY_SUCCESS);
   SetVBlankCallback(VBlankCbTryStartNewGame);
   WaitForVBlank();
   sub_80359F0(); // set arrow tilemap entry to No
@@ -137,14 +137,14 @@ static unsigned char TryStartNewGame (void) {
       case NEW_DPAD_UP:
         choseNo = 1;
         sub_80359F0();
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         WaitForVBlank();
         LoadCharblock3();
         break;
       case NEW_DPAD_DOWN:
         choseNo = 0;
         sub_80359D0(); //set arrow tilemap entry to Yes
-        PlayMusic(0x36);
+        PlayMusic(SFX_MOVE_CURSOR);
         WaitForVBlank();
         LoadCharblock3();
         break;
@@ -155,7 +155,7 @@ static unsigned char TryStartNewGame (void) {
     }
   }
   if (choseNo == 1)
-    PlayMusic(0x38);
+    PlayMusic(SFX_CANCEL);
   SetVBlankCallback(VBlankCbTryStartNewGameEnd);
   WaitForVBlank();
   return choseNo;
@@ -222,7 +222,7 @@ static unsigned char TitleScreenNewGameOnly (void) {
   sub_803584C();
   LoadVramAndOam();
   SetVBlankCallback(VBlankCbTitleScreen);
-  PlayMusic(1);
+  PlayMusic(MUSIC_TITLE_SCREEN);
   WaitForVBlank();
   while (1) {
     LfsrNextByte();
@@ -236,7 +236,7 @@ static unsigned char TitleScreenNewGameOnly (void) {
   sub_80357F8();
   SetVBlankCallback(VBlankCbNoInput);
   WaitForVBlank();
-  PlayMusic(0xD2);
+  PlayMusic(SFX_TITLE_SCREEN_SELECT);
   sub_80353B0();
   return OPTION_NEW_GAME;
 }

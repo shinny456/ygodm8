@@ -733,7 +733,7 @@ void sub_804FE78 (struct Unk1234* arg0) {
     arg0->unk4 = g8E0DFC0[arg0->unk0][i][1];
     sub_8051814(arg0);
     if (g8E0E1D2[arg0->unk0] == i)
-      PlayMusic(0x14E);
+      PlayMusic(MUSIC_334);
     for (j = g8E0DFC0[arg0->unk0][i][2]; j > 0; j--)
       WaitForVBlank();
   }
@@ -760,7 +760,7 @@ void sub_8050114 (struct Unk1234* arg0) {
     sub_80516F8();
     sub_804F850(arg0, arg0->unk1, i);
     if (g8E0E1D2[arg0->unk0] == i)
-      PlayMusic(0x14E);
+      PlayMusic(MUSIC_334);
     for (j = 0; j < g8FC4618[arg0->unk0][arg0->unk1][i].unk0; j++) {
       WaitForVBlank();
       LoadOam();
@@ -787,7 +787,7 @@ void sub_805022C (struct Unk1234* arg0) {
   for (i = 0; g8FC4618[arg0->unk0][arg0->unk1][i].unk0; i++) {
     sub_804F850(arg0, arg0->unk1, i);
     if (g8E0E1D2[arg0->unk0] == i)
-      PlayMusic(0x14E);
+      PlayMusic(MUSIC_334);
     if (g8E0E20E[i] < 6) {
       sub_80515A0();
       sub_8044EC8(gPaletteBuffer, 0, 0x16F, g8E0E20E[i]);

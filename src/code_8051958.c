@@ -398,7 +398,7 @@ void TryTalking (void) {
   objId = GetObjectIdInFrontOfPlayer(temp, temp2, gOverworld.objects[0].direction);
   if (objId == -1)
     return;
-  PlayMusic(0xCA);
+  PlayMusic(SFX_DIALOGUE);
   if (gOverworld.objects[objId].facePlayer)
     gOverworld.objects[objId].direction = g8E0E3C0[gOverworld.objects[0].direction];
   sub_804F19C(objId);
@@ -415,7 +415,7 @@ void TryDueling (void) {
   objId = GetObjectIdInFrontOfPlayer(temp, temp2, gOverworld.objects[0].direction);
   if (objId == -1)
     return;
-  PlayMusic(0xCA);
+  PlayMusic(SFX_DIALOGUE);
   if (gOverworld.objects[objId].facePlayer)
     gOverworld.objects[objId].direction = g8E0E3C0[gOverworld.objects[0].direction];
   sub_804F19C(objId);

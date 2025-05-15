@@ -1259,7 +1259,7 @@ static void sub_804E288 (void) {
         sub_804EEE0();
         break;
       case START_MENU:
-        PlayMusic(0x37);
+        PlayMusic(SFX_SELECT);
         InitStartMenu();
         sub_804ED08_inline();
         PlayOverworldMusic();
