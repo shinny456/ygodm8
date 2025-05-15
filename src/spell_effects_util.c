@@ -2,41 +2,40 @@
 
 
 //TODO: rename file to equip_effect.c
-
-extern u8 g81060A8[];
-extern u8 g810610D[];
-extern u8 g8106172[];
-extern u8 g81061D7[];
-extern u8 g810623C[];
-extern u8 g81062A1[];
-extern u8 g8106306[];
-extern u8 g810636B[];
-extern u8 g81063D0[];
-extern u8 g8106435[];
-extern u8 g810649A[];
-extern u8 g81064FF[];
-extern u8 g8106564[];
-extern u8 g81065C9[];
-extern u8 g810662E[];
-extern u8 g8106693[];
-extern u8 g81066F8[];
-extern u8 g810675D[];
-extern u8 g81067C2[];
-extern u8 g8106827[];
-extern u8 g810688C[];
-extern u8 g81068F1[];
-extern u8 g8106956[];
-extern u8 g81069BB[];
-extern u8 g8106A20[];
-extern u8 g8106A85[];
-extern u8 g8106AEA[];
-extern u8 g8106B4F[];
-extern u8 g8106BB4[];
-extern u8 g8106C19[];
-extern u8 g8106C7E[];
-extern u8 g8106CE3[];
-extern u8 g8106D48[];
-extern u8 g8106DAD[];
+extern u8 gLegendarySwordTargets[];
+extern u8 gSwordOfDarkDestructionTargets[];
+extern u8 gDarkEnergyTargets[];
+extern u8 gAxeOfDespairTargets[];
+extern u8 gLaserCannonArmorTargets[];
+extern u8 gInsectArmorWithLaserCannonTargets[];
+extern u8 gElfsLightTargets[];
+extern u8 gBeastFangsTargets[];
+extern u8 gSteelShellTargets[];
+extern u8 gVileGermsTargets[];
+extern u8 gBlackPendantTargets[];
+extern u8 gSilverBowAndArrowTargets[];
+extern u8 gHornOfLightTargets[];
+extern u8 gHornOfTheUnicornTargets[];
+extern u8 gDragonTreasureTargets[];
+extern u8 gElectroWhipTargets[];
+extern u8 gCyberShieldTargets[];
+extern u8 gMysticalMoonTargets[];
+extern u8 gMalevolentNuzzlerTargets[];
+extern u8 gVioletCrystalTargets[];
+extern u8 gBookOfSecretArtsTargets[];
+extern u8 gInvigorationTargets[];
+extern u8 gMachineConversionFactoryTargets[];
+extern u8 gRaiseBodyHeatTargets[];
+extern u8 gFollowWindTargets[];
+extern u8 gPowerOfKaishinTargets[];
+extern u8 gMagicalLabyrinthTargets[];
+extern u8 gSalamandraTargets[];
+extern u8 gKunaiWithChainTargets[];
+extern u8 gBrightCastleTargets[];
+extern u8 gMegamorphTargets[];
+extern u8 gWingedTrumpeterTargets[];
+extern u8 g7CompletedTargets[];
+extern u8 gCyclonLaserTargets[];
 int sub_803F04C();
 /*
 #define SPELL_EFFECT_FLAG (CARD)
@@ -51,177 +50,211 @@ u32 sub_805557C (u8 *arr, u16 cardId) {
   return arr[cardId >> 3] & sub_803F04C(cardId & 7) ? TRUE : FALSE;
 }
 
-static inline u32 util(u8 *arr, u16 cardId)
+static inline u32 IsMonsterValidEquipTarget(u8 *arr, u16 cardId)
 {
     return arr[cardId >> 3] & sub_803F04C(cardId & 7) ? TRUE : FALSE;
 }
 
-bool32 sub_80555A4(u16 cardId)
+// 80555A4
+bool32 ConditionLegendarySword(u16 cardId)
 {
-    return util(g81060A8, cardId);
+    return IsMonsterValidEquipTarget(gLegendarySwordTargets, cardId);
 }
 
-bool32 sub_80555D4(u16 cardId)
+// 80555D4
+bool32 ConditionSwordOfDarkDestruction(u16 cardId)
 {
-    return util(g810610D, cardId);
+    return IsMonsterValidEquipTarget(gSwordOfDarkDestructionTargets, cardId);
 }
 
-bool32 sub_8055604(u16 cardId)
+// 8055604
+bool32 ConditionDarkEnergy(u16 cardId)
 {
-    return util(g8106172, cardId);
+    return IsMonsterValidEquipTarget(gDarkEnergyTargets, cardId);
 }
 
-bool32 sub_8055634(u16 cardId)
+// 8055634
+bool32 ConditionAxeOfDespair(u16 cardId)
 {
-    return util(g81061D7, cardId);
+    return IsMonsterValidEquipTarget(gAxeOfDespairTargets, cardId);
 }
 
-bool32 sub_8055664(u16 cardId)
+// 8055664
+bool32 ConditionLaserCannonArmor(u16 cardId)
 {
-    return util(g810623C, cardId);
+    return IsMonsterValidEquipTarget(gLaserCannonArmorTargets, cardId);
 }
 
-bool32 sub_8055694(u16 cardId)
+// 8055694
+bool32 ConditionInsectArmorWithLaserCannon(u16 cardId)
 {
-    return util(g81062A1, cardId);
+    return IsMonsterValidEquipTarget(gInsectArmorWithLaserCannonTargets, cardId);
 }
 
-bool32 sub_80556C4(u16 cardId)
+// 80556C4
+bool32 ConditionElfsLight(u16 cardId)
 {
-    return util(g8106306, cardId);
+    return IsMonsterValidEquipTarget(gElfsLightTargets, cardId);
 }
 
-bool32 sub_80556F4(u16 cardId)
+// 80556F4
+bool32 ConditionBeastFangs(u16 cardId)
 {
-    return util(g810636B, cardId);
+    return IsMonsterValidEquipTarget(gBeastFangsTargets, cardId);
 }
 
-bool32 sub_8055724(u16 cardId)
+// 8055724
+bool32 ConditionSteelShell(u16 cardId)
 {
-    return util(g81063D0, cardId);
+    return IsMonsterValidEquipTarget(gSteelShellTargets, cardId);
 }
 
-bool32 sub_8055754(u16 cardId)
+// 8055754
+bool32 ConditionVileGerms(u16 cardId)
 {
-    return util(g8106435, cardId);
+    return IsMonsterValidEquipTarget(gVileGermsTargets, cardId);
 }
 
-bool32 sub_8055784(u16 cardId)
+// 8055784
+bool32 ConditionBlackPendant(u16 cardId)
 {
-    return util(g810649A, cardId);
+    return IsMonsterValidEquipTarget(gBlackPendantTargets, cardId);
 }
 
-bool32 sub_80557B4(u16 cardId)
+// 80557B4
+bool32 ConditionSilverBowAndArrow(u16 cardId)
 {
-    return util(g81064FF, cardId);
+    return IsMonsterValidEquipTarget(gSilverBowAndArrowTargets, cardId);
 }
 
-bool32 sub_80557E4(u16 cardId)
+// 80557E4
+bool32 ConditionHornOfLight(u16 cardId)
 {
-    return util(g8106564, cardId);
+    return IsMonsterValidEquipTarget(gHornOfLightTargets, cardId);
 }
 
-bool32 sub_8055814(u16 cardId)
+// 8055814
+bool32 ConditionHornOfTheUnicorn(u16 cardId)
 {
-    return util(g81065C9, cardId);
+    return IsMonsterValidEquipTarget(gHornOfTheUnicornTargets, cardId);
 }
 
-bool32 sub_8055844(u16 cardId)
+// 8055844
+bool32 ConditionDragonTreasure(u16 cardId)
 {
-    return util(g810662E, cardId);
+    return IsMonsterValidEquipTarget(gDragonTreasureTargets, cardId);
 }
 
-bool32 sub_8055874(u16 cardId)
+// 8055874
+bool32 ConditionElectroWhip(u16 cardId)
 {
-    return util(g8106693, cardId);
+    return IsMonsterValidEquipTarget(gElectroWhipTargets, cardId);
 }
 
-bool32 sub_80558A4(u16 cardId)
+// 80558A4
+bool32 ConditionCyberShield(u16 cardId)
 {
-    return util(g81066F8, cardId);
+    return IsMonsterValidEquipTarget(gCyberShieldTargets, cardId);
 }
 
-bool32 sub_80558D4(u16 cardId)
+// 80558D4
+bool32 ConditionMysticalMoon(u16 cardId)
 {
-    return util(g810675D, cardId);
+    return IsMonsterValidEquipTarget(gMysticalMoonTargets, cardId);
 }
 
-bool32 sub_8055904(u16 cardId)
+// 8055904
+bool32 ConditionMalevolentNuzzler(u16 cardId)
 {
-    return util(g81067C2, cardId);
+    return IsMonsterValidEquipTarget(gMalevolentNuzzlerTargets, cardId);
 }
 
-bool32 sub_8055934(u16 cardId)
+// 8055934
+bool32 ConditionVioletCrystal(u16 cardId)
 {
-    return util(g8106827, cardId);
+    return IsMonsterValidEquipTarget(gVioletCrystalTargets, cardId);
 }
 
-bool32 sub_8055964(u16 cardId)
+// 8055964
+bool32 ConditionBookOfSecretArts(u16 cardId)
 {
-    return util(g810688C, cardId);
+    return IsMonsterValidEquipTarget(gBookOfSecretArtsTargets, cardId);
 }
 
-bool32 sub_8055994(u16 cardId)
+// 8055994
+bool32 ConditionInvigoration(u16 cardId)
 {
-    return util(g81068F1, cardId);
+    return IsMonsterValidEquipTarget(gInvigorationTargets, cardId);
 }
 
-bool32 sub_80559C4(u16 cardId)
+// 80559C4
+bool32 ConditionMachineConversionFactory(u16 cardId)
 {
-    return util(g8106956, cardId);
+    return IsMonsterValidEquipTarget(gMachineConversionFactoryTargets, cardId);
 }
 
-bool32 sub_80559F4(u16 cardId)
+// 80559F4
+bool32 ConditionRaiseBodyHeat(u16 cardId)
 {
-    return util(g81069BB, cardId);
+    return IsMonsterValidEquipTarget(gRaiseBodyHeatTargets, cardId);
 }
 
-bool32 sub_8055A24(u16 cardId)
+// 8055A24
+bool32 ConditionFollowWind(u16 cardId)
 {
-    return util(g8106A20, cardId);
+    return IsMonsterValidEquipTarget(gFollowWindTargets, cardId);
 }
 
-bool32 sub_8055A54(u16 cardId)
+// 8055A54
+bool32 ConditionPowerOfKaishin(u16 cardId)
 {
-    return util(g8106A85, cardId);
+    return IsMonsterValidEquipTarget(gPowerOfKaishinTargets, cardId);
 }
 
-bool32 sub_8055A84(u16 cardId)
+// 8055A84
+bool32 ConditionMagicalLabyrinth(u16 cardId)
 {
-    return util(g8106AEA, cardId);
+    return IsMonsterValidEquipTarget(gMagicalLabyrinthTargets, cardId);
 }
 
-bool32 sub_8055AB4(u16 cardId)
+// 8055AB4
+bool32 ConditionSalamandra(u16 cardId)
 {
-    return util(g8106B4F, cardId);
+    return IsMonsterValidEquipTarget(gSalamandraTargets, cardId);
 }
 
-bool32 sub_8055AE4(u16 cardId)
+// 8055AE4
+bool32 ConditionKunaiWithChain(u16 cardId)
 {
-    return util(g8106BB4, cardId);
+    return IsMonsterValidEquipTarget(gKunaiWithChainTargets, cardId);
 }
 
-bool32 sub_8055B14(u16 cardId)
+// 8055B14
+bool32 ConditionBrightCastle(u16 cardId)
 {
-    return util(g8106C19, cardId);
+    return IsMonsterValidEquipTarget(gBrightCastleTargets, cardId);
 }
 
-bool32 sub_8055B44(u16 cardId)
+// 8055B44
+bool32 ConditionMegamorph(u16 cardId)
 {
-    return util(g8106C7E, cardId);
+    return IsMonsterValidEquipTarget(gMegamorphTargets, cardId);
 }
 
-bool32 sub_8055B74(u16 cardId)
+// 8055B74
+bool32 ConditionWingedTrumpeter(u16 cardId)
 {
-    return util(g8106CE3, cardId);
+    return IsMonsterValidEquipTarget(gWingedTrumpeterTargets, cardId);
 }
 
-bool32 sub_8055BA4(u16 cardId)
+// 8055BA4
+bool32 Condition7Completed(u16 cardId)
 {
-    return util(g8106D48, cardId);
+    return IsMonsterValidEquipTarget(g7CompletedTargets, cardId);
 }
 
-bool32 sub_8055BD4(u16 cardId)
+// 8055BD4
+bool32 ConditionCyclonLaser(u16 cardId)
 {
-    return util(g8106DAD, cardId);
+    return IsMonsterValidEquipTarget(gCyclonLaserTargets, cardId);
 }

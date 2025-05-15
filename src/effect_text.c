@@ -22,7 +22,8 @@ gE00AA4 = {
 };
 */
 
-void sub_801CEBC (void) {
+// 801CEBC
+void ActivateCardEffectText (void) {
   struct DuelText duelText;
   if (gDuelType == DUEL_TYPE_LINK) {
     sub_80240BC(&duelText);

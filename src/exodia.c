@@ -61,5 +61,5 @@ static void sub_8020664 (void) {
   ResetCardEffectTextData();
   gCardEffectTextData.textId = 0x11;
   SetCardEffectTextType(5);
-  sub_801CEBC();
+  ActivateCardEffectText();
 }

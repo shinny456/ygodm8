@@ -28,7 +28,7 @@ void sub_802703C (void) {
     gCardEffectTextData.textId = 14;
     gCardEffectTextData.cardId = g8E0C6B0[temp];
     gCardEffectTextData.cardId2 = g8E0C6B8[temp];
-    sub_801CEBC();
+    ActivateCardEffectText();
   }
 }
 
@@ -221,7 +221,7 @@ static void sub_8027444 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = JINZO;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 2) {
@@ -233,7 +233,7 @@ static void sub_8027444 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = JINZO;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -252,7 +252,7 @@ static void sub_8027524 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 2) {
@@ -266,7 +266,7 @@ static void sub_8027524 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -285,7 +285,7 @@ static void sub_8027678 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = DRAGON_CAPTURE_JAR;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 3) {
@@ -300,7 +300,7 @@ static void sub_8027678 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = DRAGON_CAPTURE_JAR;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -319,7 +319,7 @@ static void sub_802779C (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 2) {
@@ -334,7 +334,7 @@ static void sub_802779C (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -349,7 +349,7 @@ static void sub_80278A4 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 2) {
@@ -360,7 +360,7 @@ static void sub_80278A4 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -377,7 +377,7 @@ static void sub_8027990 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 2) {
@@ -390,7 +390,7 @@ static void sub_8027990 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -405,7 +405,7 @@ static void sub_8027A88 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 2) {
@@ -416,7 +416,7 @@ static void sub_8027A88 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -431,7 +431,7 @@ static void sub_8027B54 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 2) {
@@ -442,7 +442,7 @@ static void sub_8027B54 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -457,7 +457,7 @@ static void sub_8027C44 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 2) {
@@ -468,7 +468,7 @@ static void sub_8027C44 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -486,7 +486,7 @@ static void sub_8027D2C (void) {
       IncrementTempStage(gZones[1][g2021DE0.unk3]);
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 2) {
@@ -501,7 +501,7 @@ static void sub_8027D2C (void) {
       IncrementTempStage(gZones[2][g2021DE0.unk3]);
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -519,7 +519,7 @@ static void sub_8027EB0 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 2) {
@@ -533,7 +533,7 @@ static void sub_8027EB0 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -549,7 +549,7 @@ static void sub_8028008 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 2) {
@@ -561,7 +561,7 @@ static void sub_8028008 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -577,7 +577,7 @@ static void sub_802812C (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 2) {
@@ -589,7 +589,7 @@ static void sub_802812C (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -605,7 +605,7 @@ static void sub_8028244 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 2) {
@@ -617,7 +617,7 @@ static void sub_8028244 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -633,7 +633,7 @@ static void sub_8028338 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 2) {
@@ -645,7 +645,7 @@ static void sub_8028338 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -661,7 +661,7 @@ static void sub_802842C (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 2) {
@@ -673,7 +673,7 @@ static void sub_802842C (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -703,7 +703,7 @@ static void sub_8028574 (void) {
   }
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-    sub_801CEBC();
+    ActivateCardEffectText();
   }
 }
 
@@ -732,7 +732,7 @@ static void sub_802865C (void) {
   }
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-    sub_801CEBC();
+    ActivateCardEffectText();
   }
 }
 
@@ -757,7 +757,7 @@ static void sub_8028744 (void) {
   }
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-    sub_801CEBC();
+    ActivateCardEffectText();
   }
 }
 
@@ -777,7 +777,7 @@ static void sub_802884C (void) {
       IncrementTempStage(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 2) {
@@ -794,7 +794,7 @@ static void sub_802884C (void) {
       IncrementTempStage(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -812,7 +812,7 @@ static void sub_80289DC (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 2) {
@@ -826,7 +826,7 @@ static void sub_80289DC (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -836,14 +836,14 @@ static void sub_8028B10 (void) {
     ClearZoneAndSendMonToGraveyard(gZones[g2021DE0.unk2][g2021DE0.unk3], 1);
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 2) {
     ClearZoneAndSendMonToGraveyard(gZones[g2021DE0.unk2][g2021DE0.unk3], 0);
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -875,7 +875,7 @@ static void sub_8028B98 (void) {
   }
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-    sub_801CEBC();
+    ActivateCardEffectText();
   }
 }
 
@@ -897,7 +897,7 @@ static void sub_8028CAC (void) {
   FlipCardFaceUp(gZones[1][zone]);
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = g2021DE0.unk0;
-    sub_801CEBC();
+    ActivateCardEffectText();
   }
 }
 
@@ -907,7 +907,7 @@ static void sub_8028D74 (void) {
     DecrementTempStage(gZones[2][(unsigned char)HighestAtkMonInRow(gZones[2])]);
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 2) {
@@ -915,7 +915,7 @@ static void sub_8028D74 (void) {
     DecrementTempStage(gZones[1][(unsigned char)HighestAtkMonInRow(gZones[1])]);
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -928,7 +928,7 @@ static void sub_8028E18 (void) {
     IncrementTempStage(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 2) {
@@ -938,7 +938,7 @@ static void sub_8028E18 (void) {
     IncrementTempStage(gZones[g2021DE0.unk2][g2021DE0.unk3]);
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -966,7 +966,7 @@ static void sub_8028ED8 (void) {
     IncrementTempStage(gZones[g2021DE0.unk2][g2021DE0.unk3]);
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = g2021DE0.unk0;
-    sub_801CEBC();
+    ActivateCardEffectText();
   }
 }
 
@@ -990,7 +990,7 @@ static void sub_8029004 (void) {
     ResetTempStage(gZones[1][emptyZone]);
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 6) {
@@ -1011,7 +1011,7 @@ static void sub_8029004 (void) {
     ResetTempStage(gZones[2][emptyZone]);
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -1037,7 +1037,7 @@ static void sub_8029158 (void) {
   }
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-    sub_801CEBC();
+    ActivateCardEffectText();
   }
 }
 
@@ -1066,7 +1066,7 @@ static void sub_802923C (void) {
   }
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-    sub_801CEBC();
+    ActivateCardEffectText();
   }
 }
 
@@ -1084,7 +1084,7 @@ static void sub_802934C (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 2) {
@@ -1099,7 +1099,7 @@ static void sub_802934C (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -1121,7 +1121,7 @@ static void sub_8029450 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 2) {
@@ -1139,7 +1139,7 @@ static void sub_8029450 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -1167,7 +1167,7 @@ static void sub_8029578 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = graveyard;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 6) {
@@ -1190,7 +1190,7 @@ static void sub_8029578 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = graveyard;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -1202,7 +1202,7 @@ static void sub_80296B8 (void) {
       ClearZoneAndSendMonToGraveyard(gZones[g2021DE0.unk2][g2021DE0.unk3], 1);
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 2) {
@@ -1210,7 +1210,7 @@ static void sub_80296B8 (void) {
       ClearZoneAndSendMonToGraveyard(gZones[g2021DE0.unk2][g2021DE0.unk3], 0);
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -1228,7 +1228,7 @@ static void sub_8029764 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 3) {
@@ -1239,7 +1239,7 @@ static void sub_8029764 (void) {
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -1294,7 +1294,7 @@ static void sub_80298C0 (void) {
   FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = g2021DE0.unk0;
-    sub_801CEBC();
+    ActivateCardEffectText();
   }
 }
 

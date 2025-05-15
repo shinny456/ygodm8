@@ -174,7 +174,7 @@ extern u8 gLanguage; //move to another header
 extern u8 gDuelistStatus[]; //0 - player status, 1 - opponent status: 2 == loss, 1 == can attack, 0 == can't attack
 
 
-void sub_801CEBC(void);
+void ActivateCardEffectText(void);
 
 void ResetCardEffectTextData(void);
 void SetCardEffectTextType(u8);
@@ -208,40 +208,40 @@ void DecrementPermStage(struct DuelCard*); //dec num powerups?
 void SetPermStage(struct DuelCard*, int);
 
 //change to bool32
-u32 sub_80555A4(u16);
-u32 sub_80555D4(u16);
-u32 sub_8055604(u16);
-u32 sub_8055634(u16);
-u32 sub_8055664(u16);
-u32 sub_8055694(u16);
-u32 sub_80556C4(u16);
-u32 sub_80556F4(u16);
-u32 sub_8055724(u16);
-u32 sub_8055754(u16);
-u32 sub_8055784(u16);
-u32 sub_80557B4(u16);
-u32 sub_80557E4(u16);
-u32 sub_8055814(u16);
-u32 sub_8055844(u16);
-u32 sub_8055874(u16);
-u32 sub_80558A4(u16);
-u32 sub_80558D4(u16);
-u32 sub_8055904(u16);
-u32 sub_8055934(u16);
-u32 sub_8055964(u16);
-u32 sub_8055994(u16);
-u32 sub_80559C4(u16);
-u32 sub_80559F4(u16);
-u32 sub_8055A24(u16);
-u32 sub_8055A54(u16);
-u32 sub_8055A84(u16);
-u32 sub_8055AB4(u16);
-u32 sub_8055AE4(u16);
-u32 sub_8055B14(u16);
-u32 sub_8055B44(u16);
-u32 sub_8055B74(u16);
-u32 sub_8055BA4(u16);
-u32 sub_8055BD4(u16);
+u32 ConditionLegendarySword(u16);
+u32 ConditionSwordOfDarkDestruction(u16);
+u32 ConditionDarkEnergy(u16);
+u32 ConditionAxeOfDespair(u16);
+u32 ConditionLaserCannonArmor(u16);
+u32 ConditionInsectArmorWithLaserCannon(u16);
+u32 ConditionElfsLight(u16);
+u32 ConditionBeastFangs(u16);
+u32 ConditionSteelShell(u16);
+u32 ConditionVileGerms(u16);
+u32 ConditionBlackPendant(u16);
+u32 ConditionSilverBowAndArrow(u16);
+u32 ConditionHornOfLight(u16);
+u32 ConditionHornOfTheUnicorn(u16);
+u32 ConditionDragonTreasure(u16);
+u32 ConditionElectroWhip(u16);
+u32 ConditionCyberShield(u16);
+u32 ConditionMysticalMoon(u16);
+u32 ConditionMalevolentNuzzler(u16);
+u32 ConditionVioletCrystal(u16);
+u32 ConditionBookOfSecretArts(u16);
+u32 ConditionInvigoration(u16);
+u32 ConditionMachineConversionFactory(u16);
+u32 ConditionRaiseBodyHeat(u16);
+u32 ConditionFollowWind(u16);
+u32 ConditionPowerOfKaishin(u16);
+u32 ConditionMagicalLabyrinth(u16);
+u32 ConditionSalamandra(u16);
+u32 ConditionKunaiWithChain(u16);
+u32 ConditionBrightCastle(u16);
+u32 ConditionMegamorph(u16);
+u32 ConditionWingedTrumpeter(u16);
+u32 Condition7Completed(u16);
+u32 ConditionCyclonLaser(u16);
 
 
 void PlayMusic(int);

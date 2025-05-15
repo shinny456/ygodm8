@@ -240,7 +240,7 @@ static void EffectWideSpreadRuin(void)
         {
             gCardEffectTextData.cardId = WIDESPREAD_RUIN;
             gCardEffectTextData.cardId2 = gTrapEffectData.id;
-            sub_801CEBC();
+            ActivateCardEffectText();
         }
     }
     else
@@ -251,7 +251,7 @@ static void EffectWideSpreadRuin(void)
             SetCardEffectTextType(4);
             gCardEffectTextData.cardId = WIDESPREAD_RUIN;
             gCardEffectTextData.cardId2 = gTrapEffectData.id;
-            sub_801CEBC();
+            ActivateCardEffectText();
         }
     }
 }
@@ -267,7 +267,7 @@ static void EffectHouseOfAdhesiveTape(void)
         {
             gCardEffectTextData.cardId = HOUSE_OF_ADHESIVE_TAPE;
             gCardEffectTextData.cardId2 = gTrapEffectData.id;
-            sub_801CEBC();
+            ActivateCardEffectText();
         }
     }
     else
@@ -278,7 +278,7 @@ static void EffectHouseOfAdhesiveTape(void)
             SetCardEffectTextType(4);
             gCardEffectTextData.cardId = HOUSE_OF_ADHESIVE_TAPE;
             gCardEffectTextData.cardId2 = gTrapEffectData.id;
-            sub_801CEBC();
+            ActivateCardEffectText();
         }
     }
 }
@@ -294,7 +294,7 @@ static void EffectEatgaboon(void)
         {
             gCardEffectTextData.cardId = EATGABOON;
             gCardEffectTextData.cardId2 = gTrapEffectData.id;
-            sub_801CEBC();
+            ActivateCardEffectText();
         }
     }
     else
@@ -305,7 +305,7 @@ static void EffectEatgaboon(void)
             SetCardEffectTextType(4);
             gCardEffectTextData.cardId = EATGABOON;
             gCardEffectTextData.cardId2 = gTrapEffectData.id;
-            sub_801CEBC();
+            ActivateCardEffectText();
         }
     }
 }
@@ -321,7 +321,7 @@ static void EffectBearTrap(void)
         {
             gCardEffectTextData.cardId = BEAR_TRAP;
             gCardEffectTextData.cardId2 = gTrapEffectData.id;
-            sub_801CEBC();
+            ActivateCardEffectText();
         }
     }
     else
@@ -332,7 +332,7 @@ static void EffectBearTrap(void)
             SetCardEffectTextType(4);
             gCardEffectTextData.cardId = BEAR_TRAP;
             gCardEffectTextData.cardId2 = gTrapEffectData.id;
-            sub_801CEBC();
+            ActivateCardEffectText();
         }
     }
 }
@@ -348,7 +348,7 @@ static void EffectInvisibleWire(void)
         {
             gCardEffectTextData.cardId = INVISIBLE_WIRE;
             gCardEffectTextData.cardId2 = gTrapEffectData.id;
-            sub_801CEBC();
+            ActivateCardEffectText();
         }
     }
     else
@@ -359,7 +359,7 @@ static void EffectInvisibleWire(void)
             SetCardEffectTextType(4);
             gCardEffectTextData.cardId = INVISIBLE_WIRE;
             gCardEffectTextData.cardId2 = gTrapEffectData.id;
-            sub_801CEBC();
+            ActivateCardEffectText();
         }
     }
 }
@@ -375,7 +375,7 @@ static void EffectAcidTrapHole(void)
         {
             gCardEffectTextData.cardId = ACID_TRAP_HOLE;
             gCardEffectTextData.cardId2 = gTrapEffectData.id;
-            sub_801CEBC();
+            ActivateCardEffectText();
         }
     }
     else
@@ -386,7 +386,7 @@ static void EffectAcidTrapHole(void)
             SetCardEffectTextType(4);
             gCardEffectTextData.cardId = ACID_TRAP_HOLE;
             gCardEffectTextData.cardId2 = gTrapEffectData.id;
-            sub_801CEBC();
+            ActivateCardEffectText();
         }
     }
 }
@@ -405,7 +405,7 @@ static void EffectAntiRaigeki(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = ANTI_RAIGEKI;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -420,7 +420,7 @@ static void EffectInfiniteDismissal(void)
     {
         gCardEffectTextData.cardId = INFINITE_DISMISSAL;
         gCardEffectTextData.cardId2 = gTrapEffectData.id;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -436,7 +436,7 @@ static void EffectAmazonArchers(void)
     {
         gCardEffectTextData.cardId = AMAZON_ARCHERS;
         gCardEffectTextData.cardId2 = gTrapEffectData.id;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -532,7 +532,7 @@ static void EffectGoblinFan(u16 lp)
     {
         gCardEffectTextData.cardId = GOBLIN_FAN;
         gCardEffectTextData.cardId2 = gTrapEffectData.id;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -553,7 +553,7 @@ static void EffectBadReactionToSimochi(u16 lp)
     {
         gCardEffectTextData.cardId = BAD_REACTION_TO_SIMOCHI;
         gCardEffectTextData.cardId2 = gTrapEffectData.id;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -566,7 +566,7 @@ static void EffectReverseTrap(void)
     {
         gCardEffectTextData.cardId = REVERSE_TRAP;
         gCardEffectTextData.cardId2 = gTrapEffectData.id;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -587,7 +587,7 @@ static void EffectTorrentialTribute(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = TORRENTIAL_TRIBUTE;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 

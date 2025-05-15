@@ -23,7 +23,7 @@ static void EffectRelinquished(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = RELINQUISHED;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -50,7 +50,7 @@ static void EffectThousandEyesRestrict(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = THOUSAND_EYES_RESTRICT;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -70,7 +70,7 @@ static void EffectTimeWizard(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = TIME_WIZARD;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -92,7 +92,7 @@ static void EffectCastleOfDarkIllusions(void)
     {
         SetDuelFieldGfx(gDuel.field);
         gCardEffectTextData.cardId = CASTLE_OF_DARK_ILLUSIONS;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -113,7 +113,7 @@ static void EffectPumpkingTheKingOfGhosts(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = PUMPKING_THE_KING_OF_GHOSTS;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -145,7 +145,7 @@ static void EffectCatapultTurtle(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = CATAPULT_TURTLE;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -169,7 +169,7 @@ static void EffectTrapMaster(void)
     {
         gCardEffectTextData.cardId = TRAP_MASTER;
         gCardEffectTextData.cardId2 = ACID_TRAP_HOLE;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -184,7 +184,7 @@ static void EffectDarkMagicianGirl(void)
     {
         gCardEffectTextData.cardId = DARK_MAGICIAN_GIRL;
         gCardEffectTextData.cardId2 = DARK_MAGICIAN;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -208,7 +208,7 @@ static void EffectGyakutennoMegami(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = GYAKUTENNO_MEGAMI;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -225,7 +225,7 @@ static void EffectDoron(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = DORON;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -241,7 +241,7 @@ static void EffectLabyrinthTank(void)
     {
         gCardEffectTextData.cardId = LABYRINTH_TANK;
         gCardEffectTextData.cardId2 = LABYRINTH_WALL;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -266,7 +266,7 @@ static void EffectSpiritOfTheBooks(void)
     {
         gCardEffectTextData.cardId = SPIRIT_OF_THE_BOOKS;
         gCardEffectTextData.cardId2 = BOO_KOO;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -285,7 +285,7 @@ static void EffectBeastKingOfTheSwamps(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = BEASTKING_OF_THE_SWAMPS;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -307,7 +307,7 @@ static void EffectNemuriko(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = NEMURIKO;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -332,7 +332,7 @@ static void EffectToadMaster(void)
     {
         gCardEffectTextData.cardId = TOAD_MASTER;
         gCardEffectTextData.cardId2 = FROG_THE_JAM;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -352,7 +352,7 @@ static void EffectHoshiningen(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = HOSHININGEN;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -372,7 +372,7 @@ static void EffectWitchsApprentice(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = WITCHS_APPRENTICE;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -394,7 +394,7 @@ static void EffectMysticLamp(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = MYSTIC_LAMP;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -416,7 +416,7 @@ static void EffectLeghul(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = LEGHUL;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -442,7 +442,7 @@ static void EffectInsectQueen(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = INSECT_QUEEN;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -465,7 +465,7 @@ static void EffectObeliskTheTormentor(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = gMonEffect.id;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -487,7 +487,7 @@ static void EffectSliferTheSkyDragon(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = gMonEffect.id;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -502,7 +502,7 @@ static void EffectDarkMagicianGirl2(void)
     {
         gCardEffectTextData.cardId = gMonEffect.id;
         gCardEffectTextData.cardId2 = DARK_MAGICIAN;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -529,7 +529,7 @@ static void EffectAlphaTheMagnetWarrior(void)
     {
         gCardEffectTextData.cardId = gMonEffect.id;
         gCardEffectTextData.cardId2 = VALKYRION_THE_MAGNA_WARRIOR;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -556,7 +556,7 @@ static void EffectBetaTheMagnetWarrior(void)
     {
         gCardEffectTextData.cardId = gMonEffect.id;
         gCardEffectTextData.cardId2 = VALKYRION_THE_MAGNA_WARRIOR;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -583,7 +583,7 @@ static void EffectGammaTheMagnetWarrior(void)
     {
         gCardEffectTextData.cardId = gMonEffect.id;
         gCardEffectTextData.cardId2 = VALKYRION_THE_MAGNA_WARRIOR;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -626,7 +626,7 @@ static void EffectValkyrionTheMagnaWarrior(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = gMonEffect.id;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -645,7 +645,7 @@ static void EffectBeastOfGilfer(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = BEAST_OF_GILFER;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -670,7 +670,7 @@ static void EffectDarkNecrofear(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = gMonEffect.id;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -691,7 +691,7 @@ static void sub_8046D38(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = gMonEffect.id;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -720,7 +720,7 @@ static void EffectReflectBounder(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = REFLECT_BOUNDER;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -744,7 +744,7 @@ static void EffectParasiteParacide(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = PARASITE_PARACIDE;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -772,7 +772,7 @@ static void EffectPinchHopper(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = PINCH_HOPPER;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -789,7 +789,7 @@ static void EffectRevivalJam(void)
      if (!gHideEffectText)
      {
         gCardEffectTextData.cardId = gMonEffect.id;
-        sub_801CEBC();
+        ActivateCardEffectText();
      }
 }
 
@@ -814,7 +814,7 @@ static void EffectAncientLamp(void)
     {
         gCardEffectTextData.cardId = gMonEffect.id;
         gCardEffectTextData.cardId2 = LA_JINN_THE_MYSTICAL_GENIE_OF_THE_LAMP;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -838,7 +838,7 @@ static void EffectExarionUniverse (void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = gMonEffect.id;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 /*
@@ -879,7 +879,7 @@ static void EffectDarkPaladin(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = DARK_PALADIN;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 */
@@ -943,7 +943,7 @@ _080472DE:\n\
 	movs r0, #0x9f\n\
 	lsls r0, r0, #2\n\
 	strh r0, [r1]\n\
-	bl sub_801CEBC\n\
+	bl ActivateCardEffectText\n\
 _080472F2:\n\
 	pop {r4, r5, r6}\n\
 	pop {r0}\n\
@@ -1097,7 +1097,7 @@ static void EffectKingsKnight(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = KINGS_KNIGHT;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -1146,7 +1146,7 @@ static void EffectXHeadCannon(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = X_HEAD_CANNON;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 } */
 
@@ -1275,7 +1275,7 @@ _08047558:\n\
 	ldr r1, _08047578\n\
 	movs r0, #0x95\n\
 	strh r0, [r1]\n\
-	bl sub_801CEBC\n\
+	bl ActivateCardEffectText\n\
 _0804756A:\n\
 	pop {r3}\n\
 	mov r8, r3\n\
@@ -1404,7 +1404,7 @@ _08047660:\n\
 	ldr r1, _0804767C\n\
 	ldr r0, _08047680\n\
 	strh r0, [r1]\n\
-	bl sub_801CEBC\n\
+	bl ActivateCardEffectText\n\
 _08047672:\n\
 	pop {r4, r5, r6, r7}\n\
 	pop {r0}\n\
@@ -1531,7 +1531,7 @@ _08047768:\n\
 	ldr r1, _08047784\n\
 	ldr r0, _08047788\n\
 	strh r0, [r1]\n\
-	bl sub_801CEBC\n\
+	bl ActivateCardEffectText\n\
 _0804777A:\n\
 	pop {r4, r5, r6, r7}\n\
 	pop {r0}\n\
@@ -1568,7 +1568,7 @@ static void EffectXYDragonCannon(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = XY_DRAGON_CANNON;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }*/
 
@@ -1631,7 +1631,7 @@ _080477F0:\n\
 	ldr r1, _08047810\n\
 	ldr r0, _08047814\n\
 	strh r0, [r1]\n\
-	bl sub_801CEBC\n\
+	bl ActivateCardEffectText\n\
 _08047802:\n\
 	pop {r4, r5, r6, r7}\n\
 	pop {r0}\n\
@@ -1701,7 +1701,7 @@ _0804787A:\n\
 	movs r0, #0x95\n\
 	lsls r0, r0, #2\n\
 	strh r0, [r1]\n\
-	bl sub_801CEBC\n\
+	bl ActivateCardEffectText\n\
 _0804788E:\n\
 	pop {r4, r5, r6, r7}\n\
 	pop {r0}\n\
@@ -1745,7 +1745,7 @@ static void EffectYZTankDragon(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = YZ_TANK_DRAGON;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 */
@@ -1840,7 +1840,7 @@ _08047946:\n\
 	ldr r1, _08047984\n\
 	ldr r0, _08047988\n\
 	strh r0, [r1]\n\
-	bl sub_801CEBC\n\
+	bl ActivateCardEffectText\n\
 _08047958:\n\
 	pop {r3, r4, r5}\n\
 	mov r8, r3\n\
@@ -1876,7 +1876,7 @@ static void EffectXYZDragonCannon(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = XYZ_DRAGON_CANNON;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -1946,7 +1946,7 @@ static void EffectPuppetMaster(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = gMonEffect.id;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 */
@@ -2102,7 +2102,7 @@ _08047B3E:\n\
 	ldr r1, _08047B70\n\
 	ldrh r1, [r1]\n\
 	strh r1, [r0]\n\
-	bl sub_801CEBC\n\
+	bl ActivateCardEffectText\n\
 _08047B52:\n\
 	pop {r3, r4, r5}\n\
 	mov r8, r3\n\
@@ -2139,7 +2139,7 @@ static void EffectPenguinTorpedo(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = PENGUIN_TORPEDO;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2170,7 +2170,7 @@ static void EffectBerserkDragon(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = BERSERK_DRAGON;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2196,7 +2196,7 @@ static void EffectFGD(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = gMonEffect.id;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2235,7 +2235,7 @@ static void EffectReaperOfTheCards(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = REAPER_OF_THE_CARDS;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2251,7 +2251,7 @@ static void EffectFairysGift(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = FAIRYS_GIFT;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2262,7 +2262,7 @@ static void EffectSkelengel(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = SKELENGEL;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2279,7 +2279,7 @@ static void EffectHarpieLady(void)
     {
         gCardEffectTextData.cardId = HARPIE_LADY;
         gCardEffectTextData.cardId2 = HARPIES_PET_DRAGON;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2295,7 +2295,7 @@ static void EffectHarpieLadySisters(void)
     {
         gCardEffectTextData.cardId = HARPIE_LADY_SISTERS;
         gCardEffectTextData.cardId2 = HARPIES_PET_DRAGON;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2311,7 +2311,7 @@ static void EffectMysticalElf(void)
     {
         gCardEffectTextData.cardId = MYSTICAL_ELF;
         gCardEffectTextData.cardId2 = BLUE_EYES_WHITE_DRAGON;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2323,7 +2323,7 @@ static void EffectCurseOfDragon(void)
     {
         SetDuelFieldGfx(FIELD_WASTELAND);
         gCardEffectTextData.cardId = CURSE_OF_DRAGON;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2341,7 +2341,7 @@ static void EffectFlameSwordsman(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = FLAME_SWORDSMAN;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2353,7 +2353,7 @@ static void EffectGiantSoldierOfStone(void)
     {
         SetDuelFieldGfx(FIELD_ARENA);
         gCardEffectTextData.cardId = GIANT_SOLDIER_OF_STONE;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2371,7 +2371,7 @@ static void EffectBattleOx(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = BATTLE_OX;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2389,7 +2389,7 @@ static void EffectMonsterTamer(void)
     {
         gCardEffectTextData.cardId = MONSTER_TAMER;
         gCardEffectTextData.cardId2 = DUNGEON_WORM;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2404,7 +2404,7 @@ static void EffectMammothGraveyard(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = MAMMOTH_GRAVEYARD;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2416,7 +2416,7 @@ static void EffectGoddessOfWhim(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = GODDESS_OF_WHIM;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2428,7 +2428,7 @@ static void EffectSpiritOfTheMountain(void)
     {
         SetDuelFieldGfx(FIELD_MOUNTAIN);
         gCardEffectTextData.cardId = SPIRIT_OF_THE_MOUNTAIN;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2446,7 +2446,7 @@ static void EffectDragonSeeker(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = DRAGON_SEEKER;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2460,7 +2460,7 @@ static void EffectFiendsHand(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = FIENDS_HAND;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2475,7 +2475,7 @@ static void EffectIllusionistFacelessMage(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = ILLUSIONIST_FACELESS_MAGE;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2488,7 +2488,7 @@ static void EffectElectricLizard(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = ELECTRIC_LIZARD;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2506,7 +2506,7 @@ static void EffectWodanTheResidentOfTheForest(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = WODAN_THE_RESIDENT_OF_THE_FOREST;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2522,7 +2522,7 @@ static void EffectMWarrior1(void)
     {
         gCardEffectTextData.cardId = M_WARRIOR_1;
         gCardEffectTextData.cardId2 = M_WARRIOR_2;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2538,7 +2538,7 @@ static void EffectMWarrior2(void)
     {
         gCardEffectTextData.cardId = M_WARRIOR_2;
         gCardEffectTextData.cardId2 = M_WARRIOR_1;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2554,7 +2554,7 @@ static void EffectRedArcheryGirl(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = RED_ARCHERY_GIRL;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2570,7 +2570,7 @@ static void EffectLadyOfFaith(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = LADY_OF_FAITH;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2587,7 +2587,7 @@ static void EffectFireReaper(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = FIRE_REAPER;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2599,7 +2599,7 @@ static void EffectKairyuShin(void)
     {
         SetDuelFieldGfx(FIELD_UMI);
         gCardEffectTextData.cardId = KAIRYU_SHIN;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2614,7 +2614,7 @@ static void EffectMonsterEye(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = MONSTER_EYE;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2630,7 +2630,7 @@ static void EffectSwampBattleGuard(void)
     {
         gCardEffectTextData.cardId = SWAMP_BATTLEGUARD;
         gCardEffectTextData.cardId2 = LAVA_BATTLEGUARD;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2646,7 +2646,7 @@ static void EffectLavaBattleGuard(void)
     {
         gCardEffectTextData.cardId = LAVA_BATTLEGUARD;
         gCardEffectTextData.cardId2 = SWAMP_BATTLEGUARD;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2658,7 +2658,7 @@ static void EffectTrent(void)
     {
         SetDuelFieldGfx(FIELD_FOREST);
         gCardEffectTextData.cardId = TRENT;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2681,7 +2681,7 @@ static void EffectHourglassOfLife(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = HOURGLASS_OF_LIFE;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2696,7 +2696,7 @@ static void EffectInvitationToADarkSleep(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = INVITATION_TO_A_DARK_SLEEP;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2719,7 +2719,7 @@ static void EffectTheWingedDragonOfRaBattleMode(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = gMonEffect.id;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2747,7 +2747,7 @@ static void sub_80486FC(void)
     {
         gCardEffectTextData.cardId = gMonEffect.id;
         gCardEffectTextData.cardId2 = HARPIES_PET_DRAGON;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2763,7 +2763,7 @@ static void EffectZombyraTheDark (void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = gMonEffect.id;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2781,7 +2781,7 @@ static void EffectGilfordTheLightning(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = gMonEffect.id;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2797,7 +2797,7 @@ static void EffectMysticalBeastSerket(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = gMonEffect.id;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2818,7 +2818,7 @@ static void EffectJinzo(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = JINZO;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2837,7 +2837,7 @@ static void EffectBarrelDragon(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = BARREL_DRAGON;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2855,7 +2855,7 @@ static void EffectSkullMarkLadyBug(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = SKULL_MARK_LADY_BUG;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2867,7 +2867,7 @@ static void EffectRocketWarrior(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = gMonEffect.id;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2885,7 +2885,7 @@ static void sub_80489F0(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = gMonEffect.id;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2896,7 +2896,7 @@ static void EffectLegendaryFiend(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = gMonEffect.id;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2916,7 +2916,7 @@ static void EffectDesVolstgalph(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = gMonEffect.id;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2933,7 +2933,7 @@ static void EffectByserShock(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = BYSER_SHOCK;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2955,7 +2955,7 @@ static void EffectTheWingedDragonOfRaPhoenixMode(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = THE_WINGED_DRAGON_OF_RA_PHOENIX_MODE;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 
@@ -2967,7 +2967,7 @@ static void EffectChironTheMage(void)
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = gMonEffect.id;
-        sub_801CEBC();
+        ActivateCardEffectText();
     }
 }
 

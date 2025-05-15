@@ -206,7 +206,7 @@ static void sub_802B210 (void) {
     if (!gHideEffectText) {
       SetDuelFieldGfx(gDuel.field);
       gCardEffectTextData.cardId = CASTLE_OF_DARK_ILLUSIONS;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
   else if (g2021DE0.unk2 == 2) {
@@ -218,7 +218,7 @@ static void sub_802B210 (void) {
     if (!gHideEffectText) {
       SetDuelFieldGfx(gDuel.field);
       gCardEffectTextData.cardId = CASTLE_OF_DARK_ILLUSIONS;
-      sub_801CEBC();
+      ActivateCardEffectText();
     }
   }
 }
@@ -252,7 +252,7 @@ static void sub_802B2FC (void) {
   }
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = g2021DE0.unk0;
-    sub_801CEBC();
+    ActivateCardEffectText();
   }
 }
 
@@ -268,7 +268,7 @@ static void EffectJamBreedingMachineSummon (void) {
   }
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-    sub_801CEBC();
+    ActivateCardEffectText();
   }
 }
 
@@ -305,7 +305,7 @@ static void EffectMirageKnight (void) {
   }
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = MIRAGE_KNIGHT;
-    sub_801CEBC();
+    ActivateCardEffectText();
   }
 }
 
@@ -331,7 +331,7 @@ static void sub_802B560 (void) {
   ptr->willChangeSides = 0;
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = g2021DE0.unk0;
-    sub_801CEBC();
+    ActivateCardEffectText();
   }
 }
 
@@ -357,7 +357,7 @@ static void sub_802B604 (void) {
   ptr->willChangeSides = 0;
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = g2021DE0.unk0;
-    sub_801CEBC();
+    ActivateCardEffectText();
   }
 }
 
@@ -469,7 +469,7 @@ static void sub_802B770 (void) {
   }
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = g2021DE0.unk0;
-    sub_801CEBC();
+    ActivateCardEffectText();
   }
 }
 
@@ -479,7 +479,7 @@ static void EffectHelpoemer (void) {
   ClearZoneAndSendMonToGraveyard(gHands[0][(unsigned char)FirstNonEmptyZoneInRow(gHands[0])], 0);
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = g2021DE0.unk0;
-    sub_801CEBC();
+    ActivateCardEffectText();
   }
 }
 
@@ -499,7 +499,7 @@ static void EffectLavaGolemLifePoints (void) {
   }
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = g2021DE0.unk0;
-    sub_801CEBC();
+    ActivateCardEffectText();
   }
 }
 
@@ -519,7 +519,7 @@ static void EffectViserDes (void) {
   DecrementPermStage(gZones[1][(unsigned char)HighestAtkMonInRow(gZones[1])]);
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = g2021DE0.unk0;
-    sub_801CEBC();
+    ActivateCardEffectText();
   }
 }
 
@@ -533,7 +533,7 @@ static void EffectNewdoria (void) {
   GetGraveCardAndClearGrave(0);
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = g2021DE0.unk0;
-    sub_801CEBC();
+    ActivateCardEffectText();
   }
 }
 
@@ -556,7 +556,7 @@ static void sub_802B988 (void) {
   DecrementPermStage(gZones[g2021DE0.unk2][g2021DE0.unk3]);
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
-    sub_801CEBC();
+    ActivateCardEffectText();
   }
 }
 
@@ -572,7 +572,7 @@ static void sub_802B9F4 (void) {
   IncrementPermStage(ptr);
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = g2021DE0.unk0;
-    sub_801CEBC();
+    ActivateCardEffectText();
   }
 }
 
@@ -602,7 +602,7 @@ static void sub_802BA50 (void) {
 
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = g2021DE0.unk0;
-    sub_801CEBC();
+    ActivateCardEffectText();
   }
 }
 
