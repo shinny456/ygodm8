@@ -86,7 +86,6 @@ u8 sub_804402C (u8 arg0) {
 }
 
 // TODO/UB?: doesn't return a value; only way to match?
-// 804405C
 int InitDuelCursor (void) {
   gDuelCursor.state = 0;
   gDuelCursor.currentX = 0;
@@ -121,13 +120,11 @@ u32 CanOpponentSeeCard (u8 y, u8 x) {
   }
 }
 
-// 804411C
 void ResetCursorDestToCurrentPos (void) {
   gDuelCursor.destX = gDuelCursor.currentX;
   gDuelCursor.destY = gDuelCursor.currentY;
 }
 
-// 804412C
 void SetCursorToCardDest (void) {
   gDuelCursor.currentX = gDuelCursor.destX;
   gDuelCursor.currentY = gDuelCursor.destY;

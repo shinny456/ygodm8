@@ -161,7 +161,6 @@ void sub_8041E70 (u8 arg0, u8 arg1) {
   }
 }
 
-// 8041EC8
 void DisplayCardInfoBar (void) {
   if (CanPlayerSeeCard(gDuelCursor.currentY, gDuelCursor.currentX) == 1) {
     gStatMod.card = gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id;
@@ -179,7 +178,6 @@ void DisplayCardInfoBar (void) {
   DisplayCardFacedownIndicatorInInfoBar();
 }
 
-// 8041F48
 void DisplayCardNameInInfoBar (void) {
   u8 buffer[32];
   u8 i, r3;
@@ -208,7 +206,6 @@ void DisplayCardNameInInfoBar (void) {
   CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x81E0, buffer, 0x801);
 }
 
-// 8041FE4
 void DisplayCardAtkDefInInfoBar (void) {
   u8 r5 = 0;
   sub_800DDA0(gCardInfo.atk, 0);
@@ -229,7 +226,6 @@ void DisplayCardAtkDefInInfoBar (void) {
     sub_8020968(gBgVram.cbb0 + 0x8460 + r5 * 32, g2021BD0[r5][g8E0D5B0], 0x801);
 }
 
-// 80420C0
 void DisplayCardLevelInInfoBar (void) {
   if (gCardInfo.level) {
     u8 i;
@@ -245,7 +241,6 @@ void DisplayCardLevelInInfoBar (void) {
   }
 }
 
-// 8042144
 void DisplayCardAttrTypeInInfoBar (void) {
   CopyAttributeIconTiles(gCardInfo.attribute, gBgVram.cbb0 + 0x8580);
   CopyAttributeIconPal(gCardInfo.attribute, gPaletteBuffer + 96);
@@ -253,7 +248,6 @@ void DisplayCardAttrTypeInInfoBar (void) {
   CopyTypeIconPal(gCardInfo.type, gPaletteBuffer + 80);
 }
 
-// 8042184
 void DisplayCardFacedownIndicatorInInfoBar (void) {
   if (!CanOpponentSeeCard(gDuelCursor.currentY, gDuelCursor.currentX))
     CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x8600, g8E0D5C7, 0x801);

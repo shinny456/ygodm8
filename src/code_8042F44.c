@@ -52,7 +52,6 @@ int HighestAtkMonInRowExceptGodCards (struct DuelCard** zonePtr) {
   return (signed char)zoneIndex;
 }
 
-// 804304C
 int HighestAtkUnlockedMonInRow (struct DuelCard** zonePtr) {
   unsigned char zoneIndex = 0;
   signed char i;
@@ -79,7 +78,6 @@ int HighestAtkUnlockedMonInRow (struct DuelCard** zonePtr) {
   return (signed char)zoneIndex;
 }
 
-// 80430D8
 int HighestAtkFaceUpMonInRow (struct DuelCard** zonePtr) {
   unsigned char zoneIndex = 0;
   signed char i;
@@ -106,7 +104,6 @@ int HighestAtkFaceUpMonInRow (struct DuelCard** zonePtr) {
   return (signed char)zoneIndex;
 }
 
-// 8043164
 int HighestAtkMonOfTypeInRow (struct DuelCard** zonePtr, unsigned char type) {
   unsigned char zoneIndex = 0;
   signed char i;
@@ -133,7 +130,6 @@ int HighestAtkMonOfTypeInRow (struct DuelCard** zonePtr, unsigned char type) {
   return (signed char)zoneIndex;
 }
 
-// 80431F4
 unsigned char NumLowerAtkMonInRow (unsigned char row, unsigned short atk) {
   unsigned char i, count = 0;
   for (i = 0; i < 5; i++) {
@@ -214,7 +210,6 @@ int sub_8043418 (struct DuelCard** zonePtr, unsigned short cardId) {
   return count;
 }
 
-// 8043468
 int FirstNonEmptyZoneInRow (struct DuelCard** zonePtr) {
   signed char i;
   for (i = 0; i < 5; i++)
@@ -223,7 +218,6 @@ int FirstNonEmptyZoneInRow (struct DuelCard** zonePtr) {
   return 0;
 }
 
-// 8043490
 int LastNonEmptyZoneInRow (struct DuelCard** zonePtr) {
   signed char i;
   for (i = 4; i >= 0; i--)
@@ -258,7 +252,6 @@ int NumEmptyZonesInRow (struct DuelCard** zonePtr) {
   return (signed char)NumCardMatchesInRow(zonePtr, CARD_NONE);
 }
 
-// 8043538
 int NumEmptyZonesAndGodCardsInRow (struct DuelCard** zonePtr) {
   return (signed char)sub_8043418(zonePtr, CARD_NONE);
 }
@@ -284,7 +277,6 @@ int sub_8043584 (struct DuelCard** zonePtr, unsigned char type) {
   return count;
 }
 
-// 80435C8
 signed char FirstEmptyZoneInRow (struct DuelCard** zonePtr) {
   unsigned char i;
   for (i = 0; i < 5; i++)
@@ -293,7 +285,6 @@ signed char FirstEmptyZoneInRow (struct DuelCard** zonePtr) {
   return 0;
 }
 
-// 80435E8
 signed char LastEmptyZoneInRow (struct DuelCard** zonePtr) {
   unsigned char i;
   for (i = 5; i != 0; i--)
@@ -302,7 +293,6 @@ signed char LastEmptyZoneInRow (struct DuelCard** zonePtr) {
   return 0;
 }
 
-// 804360C
 signed char GetFirstNonEmptyMonZoneId (struct DuelCard** zonePtr) {
   signed char i;
   for (i = 0; i < 5; i++)
@@ -311,7 +301,6 @@ signed char GetFirstNonEmptyMonZoneId (struct DuelCard** zonePtr) {
   return 0;
 }
 
-// 804363C
 signed char GetLastNonEmptyMonZoneId (struct DuelCard** zonePtr) {
   signed char i;
   for (i = 4; i >= 0; i--)
@@ -320,7 +309,6 @@ signed char GetLastNonEmptyMonZoneId (struct DuelCard** zonePtr) {
   return 4;
 }
 
-// 804366C
 unsigned RowHasCardMatch (struct DuelCard** zonePtr, unsigned short cardId) {
   signed char i;
   for (i = 0; i < 5; i++)
@@ -329,7 +317,6 @@ unsigned RowHasCardMatch (struct DuelCard** zonePtr, unsigned short cardId) {
   return 0;
 }
 
-// 8043694
 s32 GetFirstCardMatchZoneId (struct DuelCard** zonePtr, unsigned short cardId) {
   signed char i;
   for (i = 0; i < 5; i++)
@@ -338,7 +325,6 @@ s32 GetFirstCardMatchZoneId (struct DuelCard** zonePtr, unsigned short cardId) {
   return 0;
 }
 
-// 80436C0
 s32 GetLastCardMatchZoneId (struct DuelCard** zonePtr, unsigned short cardId) {
   signed char i;
   for (i = 0; i < 5; i++)
@@ -347,7 +333,6 @@ s32 GetLastCardMatchZoneId (struct DuelCard** zonePtr, unsigned short cardId) {
   return 0;
 }
 
-// 80436EC
 unsigned IsUnlockedMonsterCard (struct DuelCard* zone) {
   unsigned ret = 0;
   if (zone->id != CARD_NONE && GetTypeGroup(zone->id) == TYPE_GROUP_MONSTER && !zone->isLocked)
@@ -366,7 +351,6 @@ unsigned sub_8043714 (struct DuelCard* zone) {
   return ret;
 }
 
-// 804374C
 unsigned IsTrapCard (struct DuelCard* zone) {
   unsigned ret = 0;
   if (zone->id != CARD_NONE && GetTypeGroup(zone->id) == TYPE_GROUP_TRAP)
@@ -388,7 +372,6 @@ unsigned sub_8043790 (struct DuelCard* zone) {
   return ret;
 }
 
-// 80437B4
 unsigned IsRitualCard (struct DuelCard* zone) {
   unsigned ret = 0;
   if (zone->id != CARD_NONE && GetTypeGroup(zone->id) == TYPE_GROUP_RITUAL)
@@ -474,7 +457,6 @@ unsigned sub_80439F4 (unsigned char row, unsigned char attribute) {
   return count;
 }
 
-// 8043A5C
 unsigned GetNumCardsUnlockedInRow (unsigned char row) {
   unsigned char i, count = 0;
   for (i = 0; i < 5; i++) {

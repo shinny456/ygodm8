@@ -409,7 +409,6 @@ void CreditsMain (void) {
   }
 }
 
-// 8000724
 static void InitCredits (void) {
   u8 i;
   bzero(gSharedMem, 0x4314);

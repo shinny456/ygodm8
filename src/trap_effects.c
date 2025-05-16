@@ -63,7 +63,6 @@ extern s16 gUnk_8E11738[];
 extern s16 gUnk_8E11744[];
 extern s16 gUnk_8E11788[];
 
-// 8057894
 static signed char CheckTrapActivationConditions (u16 id) {
     unsigned char ret;
 
@@ -139,7 +138,6 @@ static signed char CheckTrapActivationConditions (u16 id) {
     return ret;
 }
 
-// 8057998
 static bool8 ConditionHouseOfAdhesiveTape(void)
 {
     if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_MONSTER)
@@ -157,7 +155,6 @@ static bool8 ConditionHouseOfAdhesiveTape(void)
     return 0;
 }
 
-// 8057A1C
 static bool8 ConditionEatgaboon(void)
 {
     if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_MONSTER)
@@ -175,7 +172,6 @@ static bool8 ConditionEatgaboon(void)
     return 0;
 }
 
-// 8057AA0
 static bool8 ConditionBearTrap(void)
 {
     if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_MONSTER)
@@ -193,7 +189,6 @@ static bool8 ConditionBearTrap(void)
     return 0;
 }
 
-// 8057B28
 static bool8 ConditionInvisibleWire(void)
 {
     if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_MONSTER)
@@ -211,7 +206,6 @@ static bool8 ConditionInvisibleWire(void)
     return 0;
 }
 
-// 8057BAC
 static bool8 ConditionAcidTrapHole(void)
 {
     if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_MONSTER)
@@ -615,7 +609,6 @@ static void EffectSpiritMessageL (void) {
 static void EffectDragonCaptureJar (void) {
 }
 
-// 80584B4
 static u8 ConditionTrapNone (void)
 {
     return 0;
@@ -776,13 +769,11 @@ static bool8 ConditionSpiritMessageL(void)
     return 0;
 }
 
-// 80586D8
 static bool8 ConditionDragonCaptureJar(void)
 {
     return 0;
 }
 
-// 80586DC
 unsigned IsTrapTriggered (void) {
   unsigned char i;
 

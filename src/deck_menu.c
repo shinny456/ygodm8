@@ -380,7 +380,6 @@ void IncreaseDuelistLevel (void) {
     gDuelistLevel++;
 }
 
-// 801D760
 unsigned char ShouldDuellistLevelIncrease (void) {
   if (gDuelistLevel < 999) {
     unsigned short temp = g80B8974[gDuelistLevel + 1];
@@ -467,7 +466,6 @@ unsigned char TryRemoveCardFromDeck (unsigned short cardId) {
 
 extern unsigned char gE00AE0[];
 
-// 801D918
 void ToggleDeckSortMethod (void) {
   unsigned char temp;
   if (++gPlayerDeck.sortingMethod > 9)
@@ -690,7 +688,6 @@ void CalculateCurrentDeckCost (void) {
   }
 }
 
-// 801DD34
 void SubtractCostFromDeckCapacity (unsigned subtractCost) {
   if (subtractCost > gPlayerDeck.cost)
     gPlayerDeck.cost = 0;
@@ -705,7 +702,6 @@ unsigned char GetCardIndexInDeck (unsigned short cardId) {
   return index;
 }
 
-// 801DD88
 // shuffle all later cards "up" by one to fill the gap
 void RemoveCardFromDeckAtIndex (unsigned char i) {
   for (; i < gPlayerDeck.count - 1; i++)
@@ -729,7 +725,6 @@ void DeckMenuSort (void) {
   sub_8034A38();
 }
 
-// 801DE3C
 unsigned char DecreaseDeckCardCount (unsigned char amt) {
   if (gPlayerDeck.count < amt) {
     amt = gPlayerDeck.count;

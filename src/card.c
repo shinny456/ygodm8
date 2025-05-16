@@ -941,7 +941,6 @@ static u8* sub_800BD24(unsigned short cardId)
 void sub_800BD44(void);
 void sub_800BDA0(void);
 
-// 800BD34
 void ScalePriceToQty(void)
 {
     sub_800BD44();

@@ -13,14 +13,12 @@ void sub_802549C (void) {
   DisplayDuelText(&duelText);
 }
 
-// 80254DC
 void InitDuelistStatus (void) {
   u8 i;
   for (i = 0; i < 2; i++)
     gDuelistStatus[i] = CANNOT_ATTACK;
 }
 
-// 80254F8
 void EndFirstTurnAttackBan (void) {
   u8 i;
   for (i = 0; i < 2; i++)

@@ -1188,7 +1188,6 @@ void HandleLoss (void) {
   }
 }
 
-// 801FD14
 void AddMoneyFromDuelVictory (void) {
   u64 temp;
   switch (gUnk8E00B30[gDuelData.opponent]->unk20) {
@@ -1246,7 +1245,6 @@ void AddMoneyFromDuelVictory (void) {
   AddMoney(gDuelData.moneyReward);
 }
 
-// 801FE98
 void DisplayMoneyRewardText (void) {
   struct DuelText duelText;
   ResetDuelTextData(&duelText);
@@ -1280,7 +1278,6 @@ void HandleOutcome (void) {
     HandleLoss();
 }
 
-// 801FF90
 void AddAnteCardToTrunk (void) {
   u8 i;
   if (gAnte == CARD_NONE)
@@ -1304,7 +1301,6 @@ u16 sub_801FFE0 (void) {
   return cardDrops->card;
 }
 
-// 8020030
 void AddCardDropsToShop (void) {
   u32 i;
   for (i = 0; i < 3; i++)

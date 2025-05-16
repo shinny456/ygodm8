@@ -182,7 +182,6 @@ void sub_8041090 (void) {
   SetVBlankCallback(LoadBgOffsets);
 }
 
-// 80410B4
 void UpdateAllDuelGfx (void) {
   WaitForVBlank();
   DisableDisplay();
@@ -200,7 +199,6 @@ void UpdateAllDuelGfx (void) {
   REG_BLDY = 10;
 }
 
-// 8041104
 void UpdateDuelGfxExceptField (void) {
   sub_8040B4C(); // init bg1 for b button menu and card details at the bottom
   DisplayCardInfoBar();
@@ -214,7 +212,6 @@ void UpdateDuelGfxExceptField (void) {
   REG_BLDY = 10;
 }
 
-// 8041140
 void SetDuelFieldGfx (unsigned char field) {
   unsigned char i;
   REG_BG2CNT = 0x9B02;

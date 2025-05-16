@@ -361,7 +361,6 @@ static int ProcessInput (void) {
   return buttons;
 }
 
-// 802C14C
 static void ToggleSortModeInBuyShop (void) {
   unsigned short cardId;
   SetNextSortModeInBuyShop();
@@ -399,7 +398,6 @@ static void FadeToBlack (void) {
   }
 }
 
-// 802C2A0
 static void GoOneRowUpInBuyShop (void) {
   unsigned short cardId;
   MoveCursorUpInBuyShop();
@@ -417,7 +415,6 @@ static void GoOneRowUpInBuyShop (void) {
   sub_80307E4(sub_802DE84(0));
 }
 
-// 802C318
 static void GoOneRowDownInBuyShop (void) {
   unsigned short cardId;
   MoveCursorDownInBuyShop();
@@ -434,7 +431,6 @@ static void GoOneRowDownInBuyShop (void) {
   sub_803083C(sub_802DE84(4));
 }
 
-// 802C390
 static void GoOneColLeftInBuyShop (void) {
   unsigned short cardId;
   MoveCursorLeftInBuyShop();
@@ -451,7 +447,6 @@ static void GoOneColLeftInBuyShop (void) {
   sub_80307E4(sub_802DE84(0));
 }
 
-// 802C408
 static void GoOneColRightInBuyShop (void) {
   unsigned short cardId;
   MoveCursorRightInBuyShop();
@@ -468,7 +463,6 @@ static void GoOneColRightInBuyShop (void) {
   sub_80307E4(sub_802DE84(4));
 }
 
-// 802C480
 static void GoTenRowsUpInBuyShop (void) {
   unsigned short cardId;
   sub_802DE60();
@@ -487,7 +481,6 @@ static void GoTenRowsUpInBuyShop (void) {
   sub_8030898();
 }
 
-// 802C4F8
 static void GoTenRowsDownInBuyShop (void) {
   unsigned short cardId;
   sub_802DE74();
@@ -592,7 +585,6 @@ void CardShopSellMain (void) {
   FadeToBlack();
 }
 
-// 802C6FC
 static void ToggleSortModeInSellShop (void) {
   unsigned short cardId;
   SetNextSortModeInSellShop();
@@ -614,7 +606,6 @@ static void ToggleSortModeInSellShop (void) {
   sub_8030898();
 }
 
-// 802C788
 static void GoOneRowUpInSellShop (void) {
   unsigned short cardId;
   MoveCursorUpInSellShop();
@@ -632,7 +623,6 @@ static void GoOneRowUpInSellShop (void) {
   PlayMusic(SFX_MOVE_CURSOR);
 }
 
-// 802C804
 static void GoOneRowDownInSellShop (void) {
   unsigned short cardId;
   MoveCursorDownInSellShop();
@@ -651,7 +641,6 @@ static void GoOneRowDownInSellShop (void) {
   PlayMusic(SFX_MOVE_CURSOR);
 }
 
-// 802C880
 static void GoOneColLeftInSellShop (void) {
   unsigned short cardId;
   MoveCursorLeftInSellShop();
@@ -669,7 +658,6 @@ static void GoOneColLeftInSellShop (void) {
   PlayMusic(SFX_MOVE_CURSOR);
 }
 
-// 802C8FC
 static void GoOneColRightInSellShop (void) {
   unsigned short cardId;
   MoveCursorRightInSellShop();
@@ -687,7 +675,6 @@ static void GoOneColRightInSellShop (void) {
   PlayMusic(SFX_MOVE_CURSOR);
 }
 
-// 802C978
 static void GoTenRowsUpInSellShop (void) {
   unsigned short cardId;
   sub_802DE60();
@@ -707,7 +694,6 @@ static void GoTenRowsUpInSellShop (void) {
   sub_8030898();
 }
 
-// 802C9F8
 static void GoTenRowsDownInSellShop (void) {
   unsigned short cardId;
   sub_802DE74();
@@ -734,7 +720,6 @@ static unsigned char IsSelectedCardUnsellable (void) {
   return 1;
 }
 
-// 802CABC
 static void OpenConfirmSellMenu (void) {
   unsigned keepProcessing;
   unsigned short cardId;
@@ -782,7 +767,6 @@ static void OpenConfirmSellMenu (void) {
   WaitForVBlank();
 }
 
-// 802CBB8
 static void TrySellCard (void) {
   unsigned short cardId;
   unsigned long long money;
@@ -816,7 +800,6 @@ static void TrySellCard (void) {
   sub_803096C(sub_802DE84(sCardShop.cursorRow));
 }
 
-// 802CCD0
 static void SelectDetailsInConfirmSellMenu (void) {
   unsigned short cardId;
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
@@ -845,7 +828,6 @@ static void SelectDetailsInConfirmSellMenu (void) {
   sub_8030784();
 }
 
-// 802CD7C
 static void TryMoveUpInConfirmSellMenu (void) {
   SetCursorToNextUpOptionInShopConfirmBuySellMenu();
   UpdateConfirmBuyMenuCursorSpritePos();
@@ -855,7 +837,6 @@ static void TryMoveUpInConfirmSellMenu (void) {
   PlayMusic(SFX_MOVE_CURSOR);
 }
 
-// 802CDA4
 static void TryMoveDownInConfirmSellMenu (void) {
   SetCursorToNextDownOptionInShopConfirmBuySellMenu();
   UpdateConfirmBuyMenuCursorSpritePos();
@@ -865,7 +846,6 @@ static void TryMoveDownInConfirmSellMenu (void) {
   PlayMusic(SFX_MOVE_CURSOR);
 }
 
-// 802CDCC
 static void SelectOptionInConfirmSellMenu (void) {
   switch (sCardShop.selectedMenuOption) {
     case SHOP_CONFIRM_MENU_OPTION_SELL:
@@ -881,7 +861,6 @@ static void SelectOptionInConfirmSellMenu (void) {
   }
 }
 
-// 802CE04
 static void MoveCursorLeftInSellShop (void) {
   if (sCardShop.cursorColumn >= 1) {
     sCardShop.cursorColumn--;
@@ -900,7 +879,6 @@ static void MoveCursorLeftInSellShop (void) {
   sCardShop.cursorColumn = 6;
 }
 
-// 802CE74
 static void MoveCursorRightInSellShop (void) {
   if (sCardShop.cursorColumn <= 5) {
     sCardShop.cursorColumn++;
@@ -935,7 +913,6 @@ static void sub_802CEE0 (int row) {
   }
 }
 
-// 802CF58
 static void SetNextSortModeInSellShop (void) {
   u8 temp;
   if (++sCardShop.currentSortMode > 9)
@@ -951,7 +928,6 @@ static void SetNextSortModeInSellShop (void) {
   sCardShop.firstVisibleRow = 114;
 }
 
-// 802CFB4
 static void InitSellShop (void) {
   u16 i;
   u8 ii;
@@ -989,7 +965,6 @@ static void InitSellShop (void) {
 
 // functions below inline?
 
-// 802D0EC
 static void MoveCursorUpInSellShop (void) {
   if (sCardShop.cursorRow >= 2) {
     sCardShop.cursorRow--;
@@ -1003,7 +978,6 @@ static void MoveCursorUpInSellShop (void) {
   sub_8030068();
 }
 
-// 802D130
 static void MoveCursorDownInSellShop (void) {
   if (sCardShop.cursorRow <= 2) {
     sCardShop.cursorRow++;
@@ -1032,7 +1006,6 @@ static void sub_802D190 (u8 sortOption) {
   sCardShop.firstVisibleRow = 114;
 }
 
-// 802D1D0
 static void AddCardQtyToPlayerInShop (u16 cardId, u8 qty) {
   if (!cardId)
     return;
@@ -1042,7 +1015,6 @@ static void AddCardQtyToPlayerInShop (u16 cardId, u8 qty) {
     gPlayerTempCardQty[cardId] += qty;
 }
 
-// 802D210
 static void RemoveCardQtyFromPlayerInShop (u16 cardId, u8 qty) {
   if (cardId == CARD_NONE)
     return;
@@ -1052,21 +1024,18 @@ static void RemoveCardQtyFromPlayerInShop (u16 cardId, u8 qty) {
     gPlayerTempCardQty[cardId] -= qty;
 }
 
-// 802D250
 static unsigned PlayerInShopHasSpaceForCardQty (u16 cardId, u8 qty) {
   if (qty > SHOP_MAX_CARD_QTY - gPlayerTempCardQty[cardId])
     return 0;
   return 1;
 }
 
-// 802D274
 static unsigned PlayerInShopHasAtLeastCardQty (u16 cardId, u8 qty) {
   if (qty > gPlayerTempCardQty[cardId])
     return 0;
   return 1;
 }
 
-// 802D294
 static void UpdatePlayerShopSellResults (void) {
   unsigned short cardId;
   for (cardId = 0; cardId < NUM_CARDS; cardId++) {
@@ -1075,7 +1044,6 @@ static void UpdatePlayerShopSellResults (void) {
   }
 }
 
-// 802D2D4
 static void OpenSortSelectMenuInSellShop (void) {
   unsigned keepProcessing;
   sCardShop.selectedMenuOption = sCardShop.currentSortMode;
@@ -1128,7 +1096,6 @@ static void OpenSortSelectMenuInSellShop (void) {
   }
 }
 
-// 802D3B8
 static void SelectSortModeInSellShop (void) {
   unsigned short cardId;
   sCardShop.currentSortMode = sCardShop.selectedMenuOption;
@@ -1154,7 +1121,6 @@ static void SelectSortModeInSellShop (void) {
   sub_8030A48();
 }
 
-// 802D45C
 static void MoveCursorUpInSortSelectSellMenu (void) {
   SetCursorToNextUpOptionInShopSortModeMenu();
   if (sCardShop.selectedMenuOption == SHOP_SORT_MODE_MENU_OPTION_EXIT)
@@ -1168,7 +1134,6 @@ static void MoveCursorUpInSortSelectSellMenu (void) {
   sub_8030A10();
 }
 
-// 802D4AC
 static void MoveCursorDownInSortSelectSellMenu (void) {
   SetCursorToNextDownOptionInShopSortModeMenu();
   if (sCardShop.selectedMenuOption == SHOP_SORT_MODE_MENU_OPTION_EXIT)
@@ -1182,7 +1147,6 @@ static void MoveCursorDownInSortSelectSellMenu (void) {
   sub_8030A10();
 }
 
-// 802D4FC
 static void MoveCursorLeftInSortSelectSellMenu (void) {
   SetCursorToNextLeftOptionInShopSortModeMenu();
   if (sCardShop.selectedMenuOption == SHOP_SORT_MODE_MENU_OPTION_EXIT)
@@ -1196,7 +1160,6 @@ static void MoveCursorLeftInSortSelectSellMenu (void) {
   sub_8030A10();
 }
 
-// 802D54C
 static void MoveCursorRightInSortSelectSellMenu (void) {
   SetCursorToNextRightOptionInShopSortModeMenu();
   if (sCardShop.selectedMenuOption == SHOP_SORT_MODE_MENU_OPTION_EXIT)
@@ -1210,7 +1173,6 @@ static void MoveCursorRightInSortSelectSellMenu (void) {
   sub_8030A10();
 }
 
-// 802D59C
 static void CancelSellShopSortModeMenu (void) {
   sub_802FCF0(sCardShop.currentSortMode);
   sub_80300F8();
@@ -1221,7 +1183,6 @@ static void CancelSellShopSortModeMenu (void) {
   sub_8030AF8();
 }
 
-// 802D5D4
 static void OpenConfirmBuyMenu (void) {
   unsigned keepProcessing;
   ResetSelectedShopMenuOption();
@@ -1267,7 +1228,6 @@ static void OpenConfirmBuyMenu (void) {
   WaitForVBlank();
 }
 
-// 802D6D0
 static void TryBuyCard (void) {
   unsigned short cardId;
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
@@ -1303,7 +1263,6 @@ static void TryBuyCard (void) {
   sub_803096C(sub_802DE84(sCardShop.cursorRow));
 }
 
-// 802D7D8
 static void SelectDetailsInConfirmBuyMenu (void) {
   unsigned short cardId;
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
@@ -1332,7 +1291,6 @@ static void SelectDetailsInConfirmBuyMenu (void) {
   sub_8030784();
 }
 
-// 802D884
 static void TryMoveUpInConfirmBuyMenu (void) {
   SetCursorToNextUpOptionInShopConfirmBuySellMenu();
   UpdateConfirmBuyMenuCursorSpritePos();
@@ -1342,7 +1300,6 @@ static void TryMoveUpInConfirmBuyMenu (void) {
   PlayMusic(SFX_MOVE_CURSOR);
 }
 
-// 802D8AC
 static void TryMoveDownInConfirmBuyMenu (void) {
   SetCursorToNextDownOptionInShopConfirmBuySellMenu();
   UpdateConfirmBuyMenuCursorSpritePos();
@@ -1352,7 +1309,6 @@ static void TryMoveDownInConfirmBuyMenu (void) {
   PlayMusic(SFX_MOVE_CURSOR);
 }
 
-// 802D8D4
 static void SelectOptionInConfirmBuyMenu (void) {
   switch (sCardShop.selectedMenuOption) {
     case 0: // Buy
@@ -1401,14 +1357,12 @@ static unsigned char sub_802D9D0 (u16 cardId, u8 qty) {
   return 1;
 }
 
-// 802D9F0
 void InitNewGameShopCards (void) {
   unsigned short cardId;
   for (cardId = 0; cardId < NUM_CARDS; cardId++)
     gShopCardQty[cardId] = gStartingShopCards[cardId];
 }
 
-// 802DA1C
 static void MoveCursorLeftInBuyShop (void) {
   if (sCardShop.cursorColumn >= 1) {
     sCardShop.cursorColumn--;
@@ -1427,7 +1381,6 @@ static void MoveCursorLeftInBuyShop (void) {
   sCardShop.cursorColumn = 6;
 }
 
-// 802DA8C
 static void MoveCursorRightInBuyShop (void) {
   if (sCardShop.cursorColumn <= 5) {
     sCardShop.cursorColumn++;
@@ -1566,7 +1519,6 @@ _0802DB96:\n\
 	bx r0");
 }
 
-// 802DBA8
 static void SetNextSortModeInBuyShop (void) {
   u8 temp;
   if (++sCardShop.currentSortMode > 9)
@@ -1593,7 +1545,6 @@ static inline void sub_802DF1C_inline (void) {
   }
 }
 
-// 802DC0C
 static void InitBuyShop (void) {
   u16 i;
   u8 ii;
@@ -1631,7 +1582,6 @@ static void InitBuyShop (void) {
     sub_802DAF8(ii);
 }
 
-// 802DD98
 static void UpdatePlayerShopBuyResults (void) {
   unsigned short cardId;
   for (cardId = 0; cardId < NUM_CARDS; cardId++) {
@@ -1640,7 +1590,6 @@ static void UpdatePlayerShopBuyResults (void) {
   }
 }
 
-// 802DDD8
 static void MoveCursorUpInBuyShop (void) {
   if (sCardShop.cursorRow > 1) {
     sCardShop.cursorRow--;
@@ -1656,7 +1605,6 @@ static void MoveCursorUpInBuyShop (void) {
   }
 }
 
-// 802DE1C
 static void MoveCursorDownInBuyShop (void) {
   if (sCardShop.cursorRow <= 2) {
     sCardShop.cursorRow++;
@@ -1687,12 +1635,10 @@ static int sub_802DE84 (int arg0) {
   return g80CA0B4[sCardShop.unk724][arg0_u8];
 }
 
-// 802DEAC
 static void AddAmountToFirstVisibleRow (s16 amt) {
   sCardShop.firstVisibleRow = SafeRowWrapAround((s16)(sCardShop.firstVisibleRow + amt));
 }
 
-// 802DED4
 static s16 SafeRowWrapAround (int row) {
   s16 row_s16 = row;
   if (row_s16 < 0)
@@ -1740,42 +1686,34 @@ static void sub_802DFF8 (u8 arg0) {
   sCardShop.firstVisibleRow = 114;
 }
 
-// 802E040
 static void SetCursorToNextUpOptionInShopConfirmBuySellMenu (void) {
   sCardShop.selectedMenuOption = gNextUpShopConfirmBuySellMenuOption[sCardShop.selectedMenuOption];
 }
 
-// 802E060
 static void SetCursorToNextDownOptionInShopConfirmBuySellMenu (void) {
   sCardShop.selectedMenuOption = gNextDownShopConfirmBuySellMenuOption[sCardShop.selectedMenuOption];
 }
 
-// 802E080
 static void ResetSelectedShopMenuOption (void) {
   sCardShop.selectedMenuOption = 0;
 }
 
-// 802E094
 static void SetCursorToNextUpOptionInShopSortModeMenu (void) {
   sCardShop.selectedMenuOption = gNextUpShopSortModeOption[sCardShop.selectedMenuOption];
 }
 
-// 802E0B4
 static void SetCursorToNextDownOptionInShopSortModeMenu (void) {
   sCardShop.selectedMenuOption = gNextDownShopSortModeOption[sCardShop.selectedMenuOption];
 }
 
-// 802E0D4
 static void SetCursorToNextLeftOptionInShopSortModeMenu (void) {
   sCardShop.selectedMenuOption = gNextLeftShopSortModeOption[sCardShop.selectedMenuOption];
 }
 
-// 802E0F4
 static void SetCursorToNextRightOptionInShopSortModeMenu (void) {
   sCardShop.selectedMenuOption = gNextRightShopSortModeOption[sCardShop.selectedMenuOption];
 }
 
-// 802E114
 static void AddCardQtyToShop (u16 cardId, u8 qty) {
   if (cardId == CARD_NONE)
     return;
@@ -1785,7 +1723,6 @@ static void AddCardQtyToShop (u16 cardId, u8 qty) {
     gShopTempCardQty[cardId] += qty;
 }
 
-// 802E154
 static void RemoveCardQtyFromShop (u16 cardId, u8 qty) {
   if (cardId == CARD_NONE)
     return;
@@ -1795,14 +1732,12 @@ static void RemoveCardQtyFromShop (u16 cardId, u8 qty) {
     gShopTempCardQty[cardId] -= qty;
 }
 
-// 802E194
 static unsigned char ShopHasSpaceForCardQty (u16 cardId, u8 qty) {
   if (qty > SHOP_MAX_CARD_QTY - gShopTempCardQty[cardId])
     return 0;
   return 1;
 }
 
-// 802E1B8
 static unsigned ShopHasAtLeastQtyOfCard (u16 cardId, u8 qty) {
   if (qty > gShopTempCardQty[cardId])
     return 0;
@@ -3150,7 +3085,6 @@ _0802FBF0: .4byte 0x080CDE5A");
 }
 
 // bg effect of all non-selected cards in shop grid
-// 802FBF4
 static void SetBgDimEffectLow (void) {
   gBLDCNT = 0xCC;
   gBLDALPHA = 0;
@@ -3158,7 +3092,6 @@ static void SetBgDimEffectLow (void) {
 }
 
 // bg effect of comfirm/sort-mode shop menus
-// 802FC14
 static void SetBgDimEffectMed (void) {
   gBLDCNT = 0xDC;
   gBLDALPHA = 0;
@@ -3397,7 +3330,6 @@ static void sub_80300F8 (void) {
   oam[1] = 0x804;
 }
 
-// 803015C
 static void UpdateConfirmBuyMenuCursorSpritePos (void) {
   u32* oam = (u32*)gOamBuffer + 10;
   u32 r1 = g80CDE90[sCardShop.selectedMenuOption] << 16;
@@ -3408,7 +3340,6 @@ static void UpdateConfirmBuyMenuCursorSpritePos (void) {
   oam[1] = 0x9408;
 }
 
-// 80301A8
 static void UpdateConfirmBuyMenuCursorBgSpritePos (void) {
   u32* oam = (u32*)gOamBuffer + 8;
   u32 r1 = g80CDE90[sCardShop.selectedMenuOption] << 16;
@@ -3419,7 +3350,6 @@ static void UpdateConfirmBuyMenuCursorBgSpritePos (void) {
   oam[1] = 0x408;
 }
 
-// 80301F4
 static void UpdateConfirmBuySellMenuCursorSpritePos (void) {
   u32* oam = (u32*)gOamBuffer + 10;
   u32 r1 = g80CDE96[sCardShop.selectedMenuOption] << 16;
@@ -3430,7 +3360,6 @@ static void UpdateConfirmBuySellMenuCursorSpritePos (void) {
   oam[1] = 0x9408;
 }
 
-// 8030240
 static void UpdateConfirmBuySellMenuCursorBgSpritePos (void) {
   u32* oam = (u32*)gOamBuffer + 8;
   u32 r1 = g80CDE96[sCardShop.selectedMenuOption] << 16;
@@ -3454,7 +3383,6 @@ static void sub_80302F0 (void) {
   CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x1000, g80CD830, 0x901);
 }
 
-// 803030C
 static void OpenSortSelectMenuInBuyShop (void) {
   unsigned keepProcessing;
   sCardShop.selectedMenuOption = sCardShop.currentSortMode;
@@ -3507,7 +3435,6 @@ static void OpenSortSelectMenuInBuyShop (void) {
   }
 }
 
-// 80303F0
 static void SelectSortModeInBuyShop (void) {
   unsigned short cardId;
   sCardShop.currentSortMode = sCardShop.selectedMenuOption;
@@ -3533,7 +3460,6 @@ static void SelectSortModeInBuyShop (void) {
   sub_8030A48();
 }
 
-// 8030494
 static void MoveUpInBuyShopSortModeMenu (void) {
   SetCursorToNextUpOptionInShopSortModeMenu();
   if (sCardShop.selectedMenuOption == SHOP_SORT_MODE_MENU_OPTION_EXIT)
@@ -3547,7 +3473,6 @@ static void MoveUpInBuyShopSortModeMenu (void) {
   sub_8030A10();
 }
 
-// 80304E4
 static void MoveDownInBuyShopSortModeMenu (void) {
   SetCursorToNextDownOptionInShopSortModeMenu();
   if (sCardShop.selectedMenuOption == SHOP_SORT_MODE_MENU_OPTION_EXIT)
@@ -3561,7 +3486,6 @@ static void MoveDownInBuyShopSortModeMenu (void) {
   sub_8030A10();
 }
 
-// 8030534
 static void MoveLeftInBuyShopSortModeMenu (void) {
   SetCursorToNextLeftOptionInShopSortModeMenu();
   if (sCardShop.selectedMenuOption == SHOP_SORT_MODE_MENU_OPTION_EXIT)
@@ -3575,7 +3499,6 @@ static void MoveLeftInBuyShopSortModeMenu (void) {
   sub_8030A10();
 }
 
-// 8030584
 static void MoveRightInBuyShopSortModeMenu (void) {
   SetCursorToNextRightOptionInShopSortModeMenu();
   if (sCardShop.selectedMenuOption == SHOP_SORT_MODE_MENU_OPTION_EXIT)
@@ -3589,7 +3512,6 @@ static void MoveRightInBuyShopSortModeMenu (void) {
   sub_8030A10();
 }
 
-// 80305D4
 static void CancelBuyShopSortModeMenu (void) {
   sub_802FCF0(sCardShop.currentSortMode);
   sub_80300F8();

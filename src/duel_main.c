@@ -170,7 +170,6 @@ static void FadeToBlack (void) {
   }
 }
 
-// 80219E4
 // might also involve waiting for player input?
 void DisplayDuelText (struct DuelText* arg0) {
   if (arg0->textId != 0xFF)
@@ -521,7 +520,6 @@ static void sub_8021FF8 (void) {
       sub_802417C();
 }
 
-// 8022040
 static void InitLinkDuel (void) {
   InitDuelistsAndBoard();
   sub_8041090();
@@ -530,7 +528,6 @@ static void InitLinkDuel (void) {
   gHideEffectText = 0;
 }
 
-// 8022068
 static void OnLinkDuelEnd (void) {
   SetLinkDuelOutcomeFlag();
   HandleLinkDuelResult();
@@ -552,7 +549,6 @@ void sub_8022080 (void) {
     sub_8041D54();
 }
 
-// 80220C8
 static void LinkDuelWin (void) {
   struct DuelText duelText;
   IncreaseDeckCapacity(gDuelData.capacityYield);
@@ -580,7 +576,6 @@ static void LinkDuelWin (void) {
   }
 }
 
-// 8022170
 static void LinkDuelLoss (void) {
   struct DuelText duelText;
   IncreaseDeckCapacity(5);
@@ -608,7 +603,6 @@ static void LinkDuelLoss (void) {
   }
 }
 
-// 8022214
 static void HandleLinkDuelResult (void) {
   if (gDuelData.outcomeFlag == 1)
     LinkDuelWin();
@@ -643,7 +637,6 @@ static void sub_8022234 (void) {
   SetWhoseTurnToPlayer();
 }
 
-// 80222EC
 static void InitDuelistsAndBoard (void) {
   InitDuelistStatus();
   SetDuelLifePoints(DUEL_PLAYER, gDuelData.duelist.playerLp);
@@ -651,7 +644,6 @@ static void InitDuelistsAndBoard (void) {
   InitBoard();
 }
 
-// 8022318
 static void SetLinkDuelOutcomeFlag (void) {
   if (gDuelistStatus[DUEL_OPPONENT] == DEFEAT)
     gDuelData.outcomeFlag = 1;
@@ -659,7 +651,6 @@ static void SetLinkDuelOutcomeFlag (void) {
     gDuelData.outcomeFlag = 2;
 }
 
-// 8022340
 static void FadeToBlackAfterLinkDuel (void) {
   u16 i, j;
   struct PlttData* pltt;

@@ -6,7 +6,6 @@ extern u32 g2024594; // main rng state/seed
 extern u32 g2024598; // backup
 u8 LfsrNextBit (void);
 
-// 80561B4
 // consumes 16 bits (0-65536)
 u16 LfsrNextWord (void) {
   u8 r4 = 0, i;
@@ -25,13 +24,11 @@ u16 LfsrNextWord (void) {
   return r6 | r4;
 }
 
-// 80561FC
 // reset bit stream for reproducability
 void ResetLfsrStateBit (void) {
   g2024594 = 1;
 }
 
-// 8056208
 // consumes 8 bits (0–255)
 u8 LfsrNextByte (void) {
   u8 r4 = 0, i;
@@ -42,7 +39,6 @@ u8 LfsrNextByte (void) {
   return r4;
 }
 
-// 8056230
 // core bit generator: returns a single pseudorandom bit
 u8 LfsrNextBit (void) {
   if (g2024594 & 0x80000000) {
@@ -110,21 +106,18 @@ _08056296:\n\
 	bx r1");
 }
 
-// 805629C
 // generates u16 in range
 u16 RandRangeU16 (u16 min, u16 max) {
   min += LfsrNextWord() % (max - min + 1);
   return min;
 }
 
-// 80562CC
 // backup current state and use a new seed
 void SaveLfsrState (u32 seed) {
   g2024598 = g2024594;
   g2024594 = seed;
 }
 
-// 80562E0
 // restore state from backup
 void RestoreLfsrState (void) {
   g2024594 = g2024598;

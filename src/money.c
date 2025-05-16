@@ -32,7 +32,6 @@ unsigned DoesNotExceedMoneyLimit (unsigned long long amount) {
   return 1;
 }
 
-// 8027018
 unsigned CanAfford (unsigned long long amount) {
   if (amount > gMoney)
     return 0;

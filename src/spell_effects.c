@@ -2012,7 +2012,6 @@ static void EffectTheInexperiencedSpy (void) {
   }
 }
 
-// 804C6B4
 static void EffectDarkMagicRitual (void) {
   u8 ritualId;
   u8 zone;
@@ -2185,7 +2184,6 @@ static void EffectBrainControl (void) {
   }
 }
 
-// 804CBBC
 static void EffectMonsterReborn (void) {
   if (NumEmptyZonesInRow(gZones[2]))
   {
@@ -2215,7 +2213,6 @@ static void EffectMonsterReborn (void) {
   }
 }
 
-// 804CC7C
 static void Effect7Completed (void) {
   if (Condition7Completed(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {

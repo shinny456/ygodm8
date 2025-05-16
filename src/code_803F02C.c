@@ -878,7 +878,6 @@ static inline void ResetTempStage_inline (struct DuelCard *zone) {
     zone->tempStage = 0;
 }
 
-// 8040258
 void ResetTempStagesForAllCards (void) {
   unsigned char i, j;
   for (i = 0; i < 4; i++)
@@ -931,13 +930,11 @@ void IncrementPermStage (struct DuelCard *zone) {
     zone->permStage++;
 }
 
-// 804037C
 void DecrementPermStage (struct DuelCard *zone) {
   if (zone->permStage > -128)
     zone->permStage--;
 }
 
-// 8040394
 void IncreasePermStageByAmount (struct DuelCard *zone, unsigned char amt) {
   for (; amt; amt--)
     if (zone->permStage < 127)
@@ -945,7 +942,6 @@ void IncreasePermStageByAmount (struct DuelCard *zone, unsigned char amt) {
 }
 
 //unused?
-// 80403B8
 void DecreasePermStageByAmount (struct DuelCard *zone, unsigned char amt) {
   for (; amt; amt--)
     if (zone->permStage > -128)
@@ -956,20 +952,17 @@ void ResetTempStage (struct DuelCard *zone) {
   zone->tempStage = 0;
 }
 
-// 80403F0
 void IncrementTempStage (struct DuelCard *zone) {
   if (zone->tempStage < 127)
     zone->tempStage++;
 }
 
-// 8040404
 void DecrementTempStage (struct DuelCard *zone) {
   if (zone->tempStage > -128)
     zone->tempStage--;
 }
 
 // unused?
-// 804041C
 void IncreaseTempStageByAmount (struct DuelCard *zone, unsigned char amt) {
   for (; amt; amt--)
     if (zone->tempStage < 127)
@@ -977,7 +970,6 @@ void IncreaseTempStageByAmount (struct DuelCard *zone, unsigned char amt) {
 }
 
 // unused?
-// 8040440
 void DecreaseTempStageByAmount (struct DuelCard *zone, unsigned char amt) {
   for (; amt; amt--)
     if (zone->tempStage > -128)
@@ -1042,7 +1034,6 @@ void FlipAtkPosCardsFaceUp (unsigned char row) {
 }
 
 // unused?
-// 8040650
 void ToggleDefenseModeAtCoords (unsigned char col, unsigned char row) {
   if (!gDuel.zones[row][col].isDefending)
     gDuel.zones[row][col].isDefending = TRUE;
@@ -1068,7 +1059,6 @@ s8 GetTempStage (struct DuelCard *zone) {
   return zone->tempStage;
 }
 
-// 804069C
 int GetFinalStage (struct DuelCard *zone) {
   int stage = zone->permStage + zone->tempStage;
   if (stage > 127)
@@ -1212,12 +1202,10 @@ void CopyCard (struct DuelCard *dst, struct DuelCard *src) {
 
 extern struct DuelCard gSelectedCard;
 
-// 8040998
 void SelectZone (struct DuelCard *zone) {
   CopyCard(&gSelectedCard, zone);
 }
 
-// 80409AC
 void CopySelectedCardToZone (struct DuelCard *zone) {
   CopyCard(zone, &gSelectedCard);
 }

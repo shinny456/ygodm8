@@ -13,7 +13,6 @@ static void sub_804EE6C (void);
 //  9AAE98
 //0x200 per sprite
 //gOverworld = 0x02024270
-// 805247E
 //00 21
 //line 9801
 void TryWalking (u8);
