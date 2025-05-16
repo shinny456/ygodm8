@@ -64,35 +64,34 @@ struct Duel
     struct DuelCard zones[4][MAX_ZONES_IN_ROW];   //0x00  |2023EC0
     struct DuelCard hands[2][MAX_ZONES_IN_ROW];   //0xA0  |2023F60
                                                   //0xC8  |2023F88
-    u8 field;                                                   //0xF0  |2023FB0
-    u8 filler_F1[3];                                            //0xF1  |2023FB1
-    struct NotSureWhatToName notSure[2];                        //0xF4  |2023FB4
-                                                                //0xF8  |2023FB8
+    u8 field;                                     //0xF0  |2023FB0
+    u8 filler_F1[3];                              //0xF1  |2023FB1
+    struct NotSureWhatToName notSure[2];          //0xF4  |2023FB4
+                                                  //0xF8  |2023FB8
 };
 
 extern struct Duel gDuel;
 extern struct NotSureWhatToName* gNotSure[2]; //2023FC0
-extern struct DuelCard* gZones[5][MAX_ZONES_IN_ROW];                //2023FD0
-extern struct DuelCard* gDuelBoard[5][MAX_ZONES_IN_ROW];           //2024040
-extern struct DuelCard* gHands[2][MAX_ZONES_IN_ROW];                  //20240B0
-                                                         //20240C4
 
-                   //gHand[]: 0 - curr player, 1- curr opponent
+// gZones switches POV every turn:
+// [2023FD0] 0 = Current-Turn Opponent Spell/Trap Row
+// [2023FE4] 1 = Current-Turn Opponent Monster Row
+// [2023FF8] 2 = Current-Turn Player   Monster Row
+// [202400C] 3 = Current-Turn Player   Spell/Trap Row
+// [2024020] 4 = Current-Turn Player   Hand
+extern struct DuelCard* gZones[5][MAX_ZONES_IN_ROW];
 
-/*
-gBoard[]:
-0 - Current Opponent Spell/Trap Row
-1 - Current Opponent Monster Row
-2 - Current Player   Monster Row
-3 - Current Player   Spell/Trap Row
-4 - Current Player   Hand
-*/
+// gDuelBoard is a fixed-POV of gZones from the player's side:
+// 0 = Opponent Spell/Trap Row
+// 1 = Opponent Monster Row
+// 2 = Player Monster Row
+// 3 = Player Spell/Trap Row
+// 4 = Player Hand
+extern struct DuelCard* gDuelBoard[5][MAX_ZONES_IN_ROW];
 
-//|2023FD0  currOpBackRow
-//|2023FE4  currOpMonRow
-//|2023FF8  currPlMonRow
-//|202400C  currPlBackRow
-//|2024020  currPlHand
+// 0 = Current-Turn Player Hand
+// 1 = Current-Turn Opponent Hand
+extern struct DuelCard* gHands[2][MAX_ZONES_IN_ROW];
 
 // when gDuelType is
 // 0: Ingame Duel: Life points carry over from previous duels; otherwise: they get set to opponent specific value.
@@ -499,7 +498,7 @@ extern unsigned short gPaletteBuffer[];
 
 extern u16 g2021BF8;
 int sub_8045390(u16);
-bool32 IsUnlockedMonsterCard(struct DuelCard*);
+bool32 ZoneHasUnlockedMonsterCard(struct DuelCard*);
 
 void ClearZoneAndSendMonToGraveyard2 (struct DuelCard *zone, u8 player);
 

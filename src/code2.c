@@ -1049,7 +1049,7 @@ static void sub_800F640(void)
     SetCardInfo(gZones[row2][col2]->id);
     if (gCardInfo.unk1E)
         gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-    else if (IsUnlockedMonsterCard(gZones[row2][col2]) != 1)
+    else if (ZoneHasUnlockedMonsterCard(gZones[row2][col2]) != 1)
         gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     else if (sub_8045390(gZones[row2][col2]->id) != 0)
         gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1117,7 +1117,7 @@ static void sub_800F95C (void) {
   SetCardInfo(gZones[row2][col2]->id);
   if (!gCardInfo.unk1E)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (IsUnlockedMonsterCard(gZones[row2][col2]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gZones[row2][col2]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (sub_8045390(gZones[row2][col2]->id))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1155,11 +1155,11 @@ static void sub_800FB00(void)
   SetCardInfo(gZones[row2][col2]->id);
   if (gCardInfo.unk1E)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (IsUnlockedMonsterCard(gZones[row2][col2]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gZones[row2][col2]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (sub_8045390(gZones[row2][col2]->id) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (IsUnlockedMonsterCard(gZones[row3][col3]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gZones[row3][col3]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else {
     u16 atk;
@@ -1187,11 +1187,11 @@ static void sub_800FC64 (void) {
   SetCardInfo(gZones[row2][col2]->id);
   if (!gCardInfo.unk1E)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (IsUnlockedMonsterCard(gZones[row2][col2]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gZones[row2][col2]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (sub_8045390(gZones[row2][col2]->id) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (IsUnlockedMonsterCard(gZones[row3][col3]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gZones[row3][col3]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else {
     u16 atk;
@@ -1222,13 +1222,13 @@ static void sub_800FDC8 (void) {
   SetCardInfo(gZones[row2][col2]->id);
   if (gCardInfo.unk1E)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (IsUnlockedMonsterCard(gZones[row2][col2]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gZones[row2][col2]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (sub_8045390(gZones[row2][col2]->id) != 2)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (IsUnlockedMonsterCard(gZones[row3][col3]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gZones[row3][col3]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (IsUnlockedMonsterCard(gZones[row4][col4]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gZones[row4][col4]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else {
     u16 atk;
@@ -1267,13 +1267,13 @@ static void sub_800FFB0 (void) {
   SetCardInfo(gZones[row2][col2]->id);
   if (!gCardInfo.unk1E)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (IsUnlockedMonsterCard(gZones[row2][col2]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gZones[row2][col2]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (sub_8045390(gZones[row2][col2]->id) != 2)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (IsUnlockedMonsterCard(gZones[row3][col3]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gZones[row3][col3]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (IsUnlockedMonsterCard(gZones[row4][col4]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gZones[row4][col4]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else {
     u16 atk;
@@ -1314,13 +1314,13 @@ static void sub_8010198 (void) {
   SetCardInfo(gZones[row2][col2]->id);
   if (gCardInfo.unk1E)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (IsUnlockedMonsterCard(gZones[row2][col2]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gZones[row2][col2]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (sub_8045390(gZones[row2][col2]->id) != 3)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (IsUnlockedMonsterCard(gZones[row3][col3]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gZones[row3][col3]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (IsUnlockedMonsterCard(gZones[row4][col4]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gZones[row4][col4]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else {
     u16 atk;
@@ -1369,13 +1369,13 @@ static void sub_80103DC (void) {
   SetCardInfo(gZones[row2][col2]->id);
   if (!gCardInfo.unk1E)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (IsUnlockedMonsterCard(gZones[row2][col2]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gZones[row2][col2]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (sub_8045390(gZones[row2][col2]->id) != 3)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (IsUnlockedMonsterCard(gZones[row3][col3]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gZones[row3][col3]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (IsUnlockedMonsterCard(gZones[row4][col4]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gZones[row4][col4]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else {
     u16 atk;
@@ -7313,7 +7313,7 @@ static u8 sub_801A158 (void) {
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
   SetCardInfo(gZones[row2][col2]->id);
-  if (gCardInfo.unk1E || IsUnlockedMonsterCard(gZones[row2][col2]) != 1
+  if (gCardInfo.unk1E || ZoneHasUnlockedMonsterCard(gZones[row2][col2]) != 1
    || sub_8045390(gZones[row2][col2]->id)
    || (gZones[row3][col3]->id != CARD_NONE && IsCardLocked(gZones[row3][col3])))
       return 0;
@@ -7326,7 +7326,7 @@ static u8 sub_801A1D4 (void) {
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
   SetCardInfo(gZones[row2][col2]->id);
-  if (!gCardInfo.unk1E || IsUnlockedMonsterCard(gZones[row2][col2]) != 1
+  if (!gCardInfo.unk1E || ZoneHasUnlockedMonsterCard(gZones[row2][col2]) != 1
    || sub_8045390(gZones[row2][col2]->id)
    || (gZones[row3][col3]->id != CARD_NONE && IsCardLocked(gZones[row3][col3])))
       return 0;
@@ -7339,8 +7339,8 @@ static u8 sub_801A250 (void) {
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
   SetCardInfo(gZones[row2][col2]->id);
-  if (!gCardInfo.unk1E && IsUnlockedMonsterCard(gZones[row2][col2]) == 1
-   && sub_8045390(gZones[row2][col2]->id) == 1 && IsUnlockedMonsterCard(gZones[row3][col3]) == 1)
+  if (!gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1
+   && sub_8045390(gZones[row2][col2]->id) == 1 && ZoneHasUnlockedMonsterCard(gZones[row3][col3]) == 1)
       return 1;
   return 0;
 }
@@ -7351,8 +7351,8 @@ static u8 sub_801A2C4 (void) {
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
   SetCardInfo(gZones[row2][col2]->id);
-  if (gCardInfo.unk1E && IsUnlockedMonsterCard(gZones[row2][col2]) == 1
-   && sub_8045390(gZones[row2][col2]->id) == 1 && IsUnlockedMonsterCard(gZones[row3][col3]) == 1)
+  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1
+   && sub_8045390(gZones[row2][col2]->id) == 1 && ZoneHasUnlockedMonsterCard(gZones[row3][col3]) == 1)
       return 1;
   return 0;
 }
@@ -7365,9 +7365,9 @@ static u8 sub_801A338 (void) {
   u8 row4 = sAI_Command.unk4 >> 4;
   u8 col4 = sAI_Command.unk4 & 0xF;
   SetCardInfo(gZones[row2][col2]->id);
-  if (!gCardInfo.unk1E && IsUnlockedMonsterCard(gZones[row2][col2]) == 1
-   && sub_8045390(gZones[row2][col2]->id) == 2 && IsUnlockedMonsterCard(gZones[row3][col3]) == 1
-   && IsUnlockedMonsterCard(gZones[row4][col4]) == 1)
+  if (!gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1
+   && sub_8045390(gZones[row2][col2]->id) == 2 && ZoneHasUnlockedMonsterCard(gZones[row3][col3]) == 1
+   && ZoneHasUnlockedMonsterCard(gZones[row4][col4]) == 1)
       return 1;
   return 0;
 }
@@ -7380,9 +7380,9 @@ static u8 sub_801A3E0 (void) {
   u8 row4 = sAI_Command.unk4 >> 4;
   u8 col4 = sAI_Command.unk4 & 0xF;
   SetCardInfo(gZones[row2][col2]->id);
-  if (gCardInfo.unk1E && IsUnlockedMonsterCard(gZones[row2][col2]) == 1
-   && sub_8045390(gZones[row2][col2]->id) == 2 && IsUnlockedMonsterCard(gZones[row3][col3]) == 1
-   && IsUnlockedMonsterCard(gZones[row4][col4]) == 1)
+  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1
+   && sub_8045390(gZones[row2][col2]->id) == 2 && ZoneHasUnlockedMonsterCard(gZones[row3][col3]) == 1
+   && ZoneHasUnlockedMonsterCard(gZones[row4][col4]) == 1)
       return 1;
   return 0;
 }
@@ -7397,9 +7397,9 @@ static u8 sub_801A488 (void) {
   u8 row5 = sAI_Command.unk5 >> 4;
   u8 col5 = sAI_Command.unk5 & 0xF;
   SetCardInfo(gZones[row2][col2]->id);
-  if (!gCardInfo.unk1E && IsUnlockedMonsterCard(gZones[row2][col2]) == 1
-   && sub_8045390(gZones[row2][col2]->id) == 3 && IsUnlockedMonsterCard(gZones[row3][col3]) == 1
-   && IsUnlockedMonsterCard(gZones[row4][col4]) == 1 && IsUnlockedMonsterCard(gZones[row5][col5]) == 1)
+  if (!gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1
+   && sub_8045390(gZones[row2][col2]->id) == 3 && ZoneHasUnlockedMonsterCard(gZones[row3][col3]) == 1
+   && ZoneHasUnlockedMonsterCard(gZones[row4][col4]) == 1 && ZoneHasUnlockedMonsterCard(gZones[row5][col5]) == 1)
       return 1;
   return 0;
 }
@@ -7414,9 +7414,9 @@ static u8 sub_801A55C (void) {
   u8 row5 = sAI_Command.unk5 >> 4;
   u8 col5 = sAI_Command.unk5 & 0xF;
   SetCardInfo(gZones[row2][col2]->id);
-  if (gCardInfo.unk1E && IsUnlockedMonsterCard(gZones[row2][col2]) == 1
-   && sub_8045390(gZones[row2][col2]->id) == 3 && IsUnlockedMonsterCard(gZones[row3][col3]) == 1
-   && IsUnlockedMonsterCard(gZones[row4][col4]) == 1 && IsUnlockedMonsterCard(gZones[row5][col5]) == 1)
+  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1
+   && sub_8045390(gZones[row2][col2]->id) == 3 && ZoneHasUnlockedMonsterCard(gZones[row3][col3]) == 1
+   && ZoneHasUnlockedMonsterCard(gZones[row4][col4]) == 1 && ZoneHasUnlockedMonsterCard(gZones[row5][col5]) == 1)
       return 1;
   return 0;
 }
@@ -7432,7 +7432,7 @@ static u8 sub_801A630 (void) {
   SetCardInfo(gZones[row2][col2]->id);
   if (gCardInfo.unk1E)
     return 0;
-  if (IsUnlockedMonsterCard(gZones[row2][col2]) == 1)
+  if (ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1)
     r5 = 1;
   return r5;
 }
@@ -7445,7 +7445,7 @@ static u8 sub_801A690 (void) {
   row2 = sAI_Command.unk2 >> 4;
   col2 = sAI_Command.unk2 & 0xF;
   SetCardInfo(gZones[row2][col2]->id);
-  if (gCardInfo.unk1E && IsUnlockedMonsterCard(gZones[row2][col2]) == 1)
+  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1)
     return 1;
   return 0;
 }
@@ -7454,7 +7454,7 @@ static u8 sub_801A6EC (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
   SetCardInfo(gZones[row2][col2]->id);
-  if (!gCardInfo.unk1E && IsUnlockedMonsterCard(gZones[row2][col2]) == 1)
+  if (!gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1)
     return 1;
   return 0;
 }
@@ -7463,7 +7463,7 @@ static u8 sub_801A738 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
   SetCardInfo(gZones[row2][col2]->id);
-  if (gCardInfo.unk1E && IsUnlockedMonsterCard(gZones[row2][col2]) == 1)
+  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1)
     return 1;
   return 0;
 }
@@ -7477,7 +7477,7 @@ static u8 sub_801A784 (void) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
       gTrapEffectData.id = gZones[row2][col2]->id;
-      if (IsTrapTriggered() != 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
+      if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
           !GetNumCardsInRow(1))
         return 1;
     }
@@ -7494,7 +7494,7 @@ static u8 sub_801A814 (void) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
       gTrapEffectData.id = gZones[row2][col2]->id;
-      if (IsTrapTriggered() != 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
+      if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
           !GetNumCardsInRow(1))
         return 1;
     }
@@ -7513,7 +7513,7 @@ static u8 sub_801A8A4 (void) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
       gTrapEffectData.id = gZones[row2][col2]->id;
-      if (IsTrapTriggered() != 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
+      if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
           gZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gZones[row3][col3]->id) == 1 &&
           gZones[row3][col3]->isFaceUp)
         return 1;
@@ -7533,7 +7533,7 @@ static u8 sub_801A974 (void) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
       gTrapEffectData.id = gZones[row2][col2]->id;
-      if (IsTrapTriggered() != 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
+      if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
           gZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gZones[row3][col3]->id) == 1 &&
           gZones[row3][col3]->isFaceUp)
         return 1;
@@ -7553,7 +7553,7 @@ static u8 sub_801AA44 (void) {
     gTrapEffectData.unk2 = row2;
     gTrapEffectData.unk3 = col2;
     gTrapEffectData.id = gZones[row2][col2]->id;
-    if (IsTrapTriggered() != 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
+    if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
         gZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gZones[row3][col3]->id) == 1 &&
         !gZones[row3][col3]->isFaceUp)
       return 1;
@@ -7617,7 +7617,7 @@ static u8 sub_801AA44 (void) {
 	cmp r0, #1\n\
 	beq _0801AB04\n\
 	ldr r0, [r4]\n\
-	bl IsUnlockedMonsterCard\n\
+	bl ZoneHasUnlockedMonsterCard\n\
 	cmp r0, #1\n\
 	bne _0801AB04\n\
 	mov r2, r8\n\
@@ -7715,7 +7715,7 @@ static u8 sub_801AB14 (void) {
 	cmp r0, #1\n\
 	beq _0801ABD4\n\
 	ldr r0, [r4]\n\
-	bl IsUnlockedMonsterCard\n\
+	bl ZoneHasUnlockedMonsterCard\n\
 	cmp r0, #1\n\
 	bne _0801ABD4\n\
 	mov r2, r8\n\
@@ -7766,7 +7766,7 @@ static u8 sub_801ABE4 (void) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
       gTrapEffectData.id = gZones[row2][col2]->id;
-      if (IsTrapTriggered() == 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
+      if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
           !GetNumCardsInRow(1))
         return 1;
     }
@@ -7783,7 +7783,7 @@ static u8 sub_801AC74 (void) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
       gTrapEffectData.id = gZones[row2][col2]->id;
-      if (IsTrapTriggered() == 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
+      if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
           !GetNumCardsInRow(1))
         return 1;
     }
@@ -7802,7 +7802,7 @@ static u8 sub_801AD04 (void) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
       gTrapEffectData.id = gZones[row2][col2]->id;
-      if (IsTrapTriggered() == 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
+      if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
           gZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gZones[row3][col3]->id) == 1 &&
           gZones[row3][col3]->isFaceUp)
         return 1;
@@ -7822,7 +7822,7 @@ static u8 sub_801ADD4 (void) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
       gTrapEffectData.id = gZones[row2][col2]->id;
-      if (IsTrapTriggered() == 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
+      if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
           gZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gZones[row3][col3]->id) == 1 &&
           gZones[row3][col3]->isFaceUp)
         return 1;
@@ -7842,7 +7842,7 @@ static u8 sub_801AEA4 (void) {
     gTrapEffectData.unk2 = row2;
     gTrapEffectData.unk3 = col2;
     gTrapEffectData.id = gZones[row2][col2]->id;
-    if (IsTrapTriggered() != 1 && IsUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
+    if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
         gZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gZones[row3][col3]->id) == 1 &&
         !gZones[row3][col3]->isFaceUp)
       return 1;
@@ -7906,7 +7906,7 @@ static u8 sub_801AEA4 (void) {
 	cmp r0, #1\n\
 	bne _0801AF64\n\
 	ldr r0, [r4]\n\
-	bl IsUnlockedMonsterCard\n\
+	bl ZoneHasUnlockedMonsterCard\n\
 	cmp r0, #1\n\
 	bne _0801AF64\n\
 	mov r2, r8\n\
@@ -8004,7 +8004,7 @@ static u8 sub_801AF74 (void) {
 	cmp r0, #1\n\
 	bne _0801B034\n\
 	ldr r0, [r4]\n\
-	bl IsUnlockedMonsterCard\n\
+	bl ZoneHasUnlockedMonsterCard\n\
 	cmp r0, #1\n\
 	bne _0801B034\n\
 	mov r2, r8\n\
@@ -8134,7 +8134,7 @@ static u8 sub_801B1B0 (void) {
 	lsls r0, r0, #2\n\
 	add r0, sb\n\
 	ldr r0, [r0]\n\
-	bl IsUnlockedMonsterCard\n\
+	bl ZoneHasUnlockedMonsterCard\n\
 	cmp r0, #1\n\
 	bne _0801B224\n\
 	ldr r1, _0801B220\n\
@@ -8200,7 +8200,7 @@ static u8 sub_801B234 (void) {
 	lsls r0, r0, #2\n\
 	add r0, sb\n\
 	ldr r0, [r0]\n\
-	bl IsUnlockedMonsterCard\n\
+	bl ZoneHasUnlockedMonsterCard\n\
 	cmp r0, #1\n\
 	bne _0801B2A8\n\
 	ldr r1, _0801B2A4\n\
@@ -8296,8 +8296,8 @@ static u8 sub_801B434 (void) {
   u8 row5 = sAI_Command.unk5 >> 4;
   u8 col5 = sAI_Command.unk5 & 0xF;
   u8 zones[3];
-  if (ZoneHasRitualCard(gZones[row2][col2]) != 1 || IsUnlockedMonsterCard(gZones[row3][col3]) != 1 ||
-      IsUnlockedMonsterCard(gZones[row4][col4]) != 1 || IsUnlockedMonsterCard(gZones[row5][col5]) != 1)
+  if (ZoneHasRitualCard(gZones[row2][col2]) != 1 || ZoneHasUnlockedMonsterCard(gZones[row3][col3]) != 1 ||
+      ZoneHasUnlockedMonsterCard(gZones[row4][col4]) != 1 || ZoneHasUnlockedMonsterCard(gZones[row5][col5]) != 1)
     return 0;
   SetCardInfo(gZones[row2][col2]->id);
   switch (gCardInfo.ritualEffect) {

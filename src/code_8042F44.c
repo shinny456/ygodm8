@@ -333,7 +333,7 @@ s32 GetLastCardMatchZoneId (struct DuelCard** zonePtr, unsigned short cardId) {
   return 0;
 }
 
-unsigned IsUnlockedMonsterCard (struct DuelCard* zone) {
+unsigned ZoneHasUnlockedMonsterCard (struct DuelCard* zone) {
   unsigned ret = 0;
   if (zone->id != CARD_NONE && GetTypeGroup(zone->id) == TYPE_GROUP_MONSTER && !zone->isLocked)
     ret = 1;
