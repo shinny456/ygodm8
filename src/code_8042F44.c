@@ -351,7 +351,7 @@ unsigned sub_8043714 (struct DuelCard* zone) {
   return ret;
 }
 
-unsigned IsTrapCard (struct DuelCard* zone) {
+unsigned ZoneHasTrapCard (struct DuelCard* zone) {
   unsigned ret = 0;
   if (zone->id != CARD_NONE && GetTypeGroup(zone->id) == TYPE_GROUP_TRAP)
     ret = 1;
@@ -372,7 +372,7 @@ unsigned sub_8043790 (struct DuelCard* zone) {
   return ret;
 }
 
-unsigned IsRitualCard (struct DuelCard* zone) {
+unsigned ZoneHasRitualCard (struct DuelCard* zone) {
   unsigned ret = 0;
   if (zone->id != CARD_NONE && GetTypeGroup(zone->id) == TYPE_GROUP_RITUAL)
     ret = 1;

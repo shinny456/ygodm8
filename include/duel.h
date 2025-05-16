@@ -561,10 +561,10 @@ int HighestAtkFaceUpMonInRow (struct DuelCard**); //implicit decl? (^)
 u8 sub_803FBCC (u8, u8);
 bool32 IsCardLocked (struct DuelCard *zone);
 bool32 sub_8043714 (struct DuelCard *zone);
-bool32 IsTrapCard (struct DuelCard *zone);
+bool32 ZoneHasTrapCard (struct DuelCard *zone);
 bool32 sub_804376C (struct DuelCard *zone);
 bool32 sub_8043790 (struct DuelCard *zone);
-bool32 IsRitualCard (struct DuelCard *zone);
+bool32 ZoneHasRitualCard (struct DuelCard *zone);
 
 
 void DisableDisplay (void);

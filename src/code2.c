@@ -8066,7 +8066,7 @@ static u8 sub_801B084 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
   SetCardInfo(gZones[row2][col2]->id);
-  if (!gCardInfo.unk1E && IsTrapCard(gZones[row2][col2]) == 1 &&
+  if (!gCardInfo.unk1E && ZoneHasTrapCard(gZones[row2][col2]) == 1 &&
       GetFINAL_Flag(gZones[row2][col2]->id) < 1)
     return 1;
   return 0;
@@ -8075,7 +8075,7 @@ static u8 sub_801B084 (void) {
 static u8 sub_801B0DC (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  if (IsTrapCard(gZones[row2][col2]) != 1 || GetFINAL_Flag(gZones[row2][col2]->id) < 1)
+  if (ZoneHasTrapCard(gZones[row2][col2]) != 1 || GetFINAL_Flag(gZones[row2][col2]->id) < 1)
     return 0;
   return 1;
 }
@@ -8084,7 +8084,7 @@ static u8 sub_801B120 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
   SetCardInfo(gZones[row2][col2]->id);
-  if (gCardInfo.unk1E && IsTrapCard(gZones[row2][col2]) == 1 &&
+  if (gCardInfo.unk1E && ZoneHasTrapCard(gZones[row2][col2]) == 1 &&
       GetFINAL_Flag(gZones[row2][col2]->id) < 1)
     return 1;
   return 0;
@@ -8281,7 +8281,7 @@ static u8 sub_801B3AC (void) {
 static u8 sub_801B3FC (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  if (IsRitualCard(gZones[row2][col2]) != 1)
+  if (ZoneHasRitualCard(gZones[row2][col2]) != 1)
     return 0;
   return 1;
 }
@@ -8296,7 +8296,7 @@ static u8 sub_801B434 (void) {
   u8 row5 = sAI_Command.unk5 >> 4;
   u8 col5 = sAI_Command.unk5 & 0xF;
   u8 zones[3];
-  if (IsRitualCard(gZones[row2][col2]) != 1 || IsUnlockedMonsterCard(gZones[row3][col3]) != 1 ||
+  if (ZoneHasRitualCard(gZones[row2][col2]) != 1 || IsUnlockedMonsterCard(gZones[row3][col3]) != 1 ||
       IsUnlockedMonsterCard(gZones[row4][col4]) != 1 || IsUnlockedMonsterCard(gZones[row5][col5]) != 1)
     return 0;
   SetCardInfo(gZones[row2][col2]->id);
