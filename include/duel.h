@@ -76,23 +76,24 @@ extern struct Duel gDuel;
 extern struct DuelistBattleState* gTurnDuelistBattleState[2];
 
 // gTurnZones switches POV every turn:
-// [2023FD0] 0 = Active   Duelist Spell/Trap Row
-// [2023FE4] 1 = Active   Duelist Monster Row
-// [2023FF8] 2 = Inactive Duelist Monster Row
-// [202400C] 3 = Inactive Duelist Spell/Trap Row
-// [2024020] 4 = Inactive Duelist Hand
+// [2023FD0] 0 = Inactive Duelist Backrow
+// [2023FE4] 1 = Inactive Duelist Monster Row
+// [2023FF8] 2 = Active   Duelist Monster Row
+// [202400C] 3 = Active   Duelist Backrow
+// [2024020] 4 = Active   Duelist Hand
 extern struct DuelCard* gTurnZones[5][MAX_ZONES_IN_ROW];
 
 // gFixedZones is a fixed-POV of gTurnZones from the player's side:
-// 0 = Opponent Spell/Trap Row
+// 0 = Opponent Backrow
 // 1 = Opponent Monster Row
 // 2 = Player   Monster Row
-// 3 = Player   Spell/Trap Row
+// 3 = Player   Backrow
 // 4 = Player   Hand
 extern struct DuelCard* gFixedZones[5][MAX_ZONES_IN_ROW];
 
-// 0 = Inactive Duelist
-// 1 = Active Duelist
+// gTurnHands switches POV every turn:
+// 0 = Active Duelist
+// 1 = Inactive Duelist
 extern struct DuelCard* gTurnHands[2][MAX_ZONES_IN_ROW];
 
 // when gDuelType is
@@ -108,15 +109,15 @@ enum DuelType {
 
 /*
 // TODO: use these to specify rows for "turn" and "fixed" row args
-// e.g. UnlockCardsInRow(2) becomes UnlockCardsInRow(INACTIVE_DUELIST_MONSTER)
+// e.g. UnlockCardsInRow(2) becomes UnlockCardsInRow(ACTIVE_DUELIST_MONSTER)
 
 enum TurnRows
 {
-    ACTIVE_DUELIST_BACKROW,
-    ACTIVE_DUELIST_MONSTER,
-    INACTIVE_DUELIST_MONSTER,
     INACTIVE_DUELIST_BACKROW,
-    INACTIVE_DUELIST_HAND
+    INACTIVE_DUELIST_MONSTER,
+    ACTIVE_DUELIST_MONSTER,
+    ACTIVE_DUELIST_BACKROW,
+    ACTIVE_DUELIST_HAND
 };
 
 enum FixedRows
