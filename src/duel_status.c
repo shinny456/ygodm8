@@ -4,10 +4,10 @@ extern u8 gSorlTurnsRemainingTextIds[];
 
 void TryDisplaySorlTurnsRemainingText (void) {
   struct DuelText duelText;
-  if (gNotSure[0]->sorlTurns == 0)
+  if (gTurnDuelistBattleState[0]->sorlTurns == 0)
     return;
   ResetDuelTextData(&duelText);
-  duelText.textId = gSorlTurnsRemainingTextIds[gNotSure[0]->sorlTurns];
+  duelText.textId = gSorlTurnsRemainingTextIds[gTurnDuelistBattleState[0]->sorlTurns];
   DisplayDuelText(&duelText);
 }
 

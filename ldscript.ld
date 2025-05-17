@@ -149,7 +149,7 @@ SECTIONS
     g2023E80 = 0x02023E80;
     gUnk2023EA0 = 0x02023EA0;
     gDuel = 0x02023EC0;
-    gNotSure = 0x02023FC0;
+    gTurnDuelistBattleState = 0x02023FC0;
     gTurnZones = 0x02023FD0;
     gFixedZones = 0x2024040;
     gTurnHands = 0x20240B0;

@@ -89,7 +89,7 @@ static void sub_802AEF4 (void) {
     PlayMusic(MUSIC_375);
   g2021DE0.unk2 = 6;
   g2021DE0.unk3 = 0;
-  g2021DE0.unk0 = gNotSure[0]->graveyard;
+  g2021DE0.unk0 = gTurnDuelistBattleState[0]->graveyard;
   if (!gHideEffectText)
     sub_802ADF4();
   if (sub_802BBF0() == 1) {
@@ -104,7 +104,7 @@ static void sub_802AEF4 (void) {
   }
   g2021DE0.unk2 = 7;
   g2021DE0.unk3 = 0;
-  g2021DE0.unk0 = gNotSure[1]->graveyard;
+  g2021DE0.unk0 = gTurnDuelistBattleState[1]->graveyard;
   if (!gHideEffectText)
     sub_802ADF4();
   if (sub_802BBF0() == 1) {
@@ -313,7 +313,7 @@ static void sub_802B560 (void) {
   u16 r5;
   struct DuelCard* ptr;
 
-  if (g2021DE0.unk2 != 6 || gNotSure[0]->graveyard != g2021DE0.unk0)
+  if (g2021DE0.unk2 != 6 || gTurnDuelistBattleState[0]->graveyard != g2021DE0.unk0)
     return;
   if (!NumEmptyZonesInRow(gTurnZones[2]))
     return;
@@ -339,7 +339,7 @@ static void sub_802B604 (void) {
   u16 r5;
   struct DuelCard* ptr;
 
-  if (g2021DE0.unk2 != 6 || gNotSure[0]->graveyard != g2021DE0.unk0)
+  if (g2021DE0.unk2 != 6 || gTurnDuelistBattleState[0]->graveyard != g2021DE0.unk0)
     return;
   if (!NumEmptyZonesInRow(gTurnZones[2]))
     return;
@@ -933,7 +933,7 @@ static unsigned char sub_802BDFC (void) {
 
 static unsigned char sub_802BE00 (void) {
   if (g2021DE0.unk2 == 6 &&
-      gNotSure[0]->graveyard == g2021DE0.unk0 &&
+      gTurnDuelistBattleState[0]->graveyard == g2021DE0.unk0 &&
       NumEmptyZonesInRow(gTurnZones[2]) > 0)
     return 1;
   return 0;
@@ -941,14 +941,14 @@ static unsigned char sub_802BE00 (void) {
 
 static unsigned char sub_802BE38 (void) {
   if (g2021DE0.unk2 == 6 &&
-      gNotSure[0]->graveyard == g2021DE0.unk0 &&
+      gTurnDuelistBattleState[0]->graveyard == g2021DE0.unk0 &&
       NumEmptyZonesInRow(gTurnZones[2]) > 0)
     return 1;
   return 0;
 }
 
 static unsigned char sub_802BE70 (void) {
-  if (g2021DE0.unk2 == 2 && GetExodiaFlag(gNotSure[0]->graveyard))
+  if (g2021DE0.unk2 == 2 && GetExodiaFlag(gTurnDuelistBattleState[0]->graveyard))
     return 1;
   return 0;
 }

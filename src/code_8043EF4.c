@@ -266,7 +266,7 @@ void HandlePlayerMonsterRowAction (void) {
       sub_8044570();
       break;
     case 2:
-      if (!gNotSure[0]->defenseBlocked) {
+      if (!gTurnDuelistBattleState[0]->defenseBlocked) {
         PlayMusic(SFX_SELECT);
         gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 1;
         gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
@@ -286,7 +286,7 @@ void HandlePlayerMonsterRowAction (void) {
       sub_8029820();
       break;
     case 4:
-      if (gNotSure[0]->defenseBlocked)
+      if (gTurnDuelistBattleState[0]->defenseBlocked)
         gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
       if (!gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp) {
         SetCardInfo(gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->id);
@@ -303,7 +303,7 @@ void HandlePlayerMonsterRowAction (void) {
           gMonEffect.row = gDuelCursor.currentY;
           gMonEffect.zone = gDuelCursor.currentX;
           ActivateMonsterEffect();
-          if (gNotSure[0]->unkThree)
+          if (gTurnDuelistBattleState[0]->unkThree)
             LockMonsterCardsInRow(4);
           UpdateDuelGfxExceptField();
           CheckWinConditionExodia();
@@ -316,7 +316,7 @@ void HandlePlayerMonsterRowAction (void) {
       break;
     case 5:
       if (gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending)
-        if (gNotSure[0]->defenseBlocked)
+        if (gTurnDuelistBattleState[0]->defenseBlocked)
           gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
       UpdateDuelGfxExceptField();
       break;
@@ -326,7 +326,7 @@ void HandlePlayerMonsterRowAction (void) {
 
 void sub_8044570 (void) {
   u8 turn = WhoseTurn();
-  if (GetDuelistStatus(turn) == DUELIST_STATUS_CANNOT_ATTACK || gNotSure[0]->sorlTurns) { // attacking forbidden
+  if (GetDuelistStatus(turn) == DUELIST_STATUS_CANNOT_ATTACK || gTurnDuelistBattleState[0]->sorlTurns) { // attacking forbidden
     PlayMusic(SFX_FORBIDDEN);
     gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
     UpdateDuelGfxExceptField();
@@ -380,7 +380,7 @@ void HandlePlayerSpellRowAction (void) {
       gSpellEffectData.unk2 = gDuelCursor.currentY;
       gSpellEffectData.unk3 = gDuelCursor.currentX;
       ActivateSpellEffect();
-      if (gNotSure[0]->unkThree)
+      if (gTurnDuelistBattleState[0]->unkThree)
         LockMonsterCardsInRow(4);
       UpdateDuelGfxExceptField();
       CheckWinConditionExodia();

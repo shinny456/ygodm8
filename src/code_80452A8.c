@@ -40,12 +40,12 @@ void ClearZoneAndSendMonToGraveyard2 (struct DuelCard *zone, u8 turn) {
 }
 
 void ClearZoneAndSendMonToGraveyard (struct DuelCard *zone, u8 turn) {
-  PlaceMonsterCardInZone(&gNotSure[turn]->graveyard, zone->id);
+  PlaceMonsterCardInZone(&gTurnDuelistBattleState[turn]->graveyard, zone->id);
   ClearZone(zone);
 }
 
 u16 GetGraveCardAndClearGrave (u8 turn) {
-  u16 card = gNotSure[turn]->graveyard;
-  gNotSure[turn]->graveyard = CARD_NONE;
+  u16 card = gTurnDuelistBattleState[turn]->graveyard;
+  gTurnDuelistBattleState[turn]->graveyard = CARD_NONE;
   return card;
 }

@@ -175,9 +175,9 @@ static void EffectTrapMaster(void)
 
 static void EffectDarkMagicianGirl(void)
 {
-    if (gNotSure[TURN_PLAYER]->graveyard == DARK_MAGICIAN)
+    if (gTurnDuelistBattleState[TURN_PLAYER]->graveyard == DARK_MAGICIAN)
         IncrementPermStage(gTurnZones[gMonEffect.row][gMonEffect.zone]);
-    if (gNotSure[TURN_OPPONENT]->graveyard == DARK_MAGICIAN)
+    if (gTurnDuelistBattleState[TURN_OPPONENT]->graveyard == DARK_MAGICIAN)
         IncrementPermStage(gTurnZones[gMonEffect.row][gMonEffect.zone]);
 
     if (!gHideEffectText)
@@ -493,9 +493,9 @@ static void EffectSliferTheSkyDragon(void)
 
 static void EffectDarkMagicianGirl2(void)
 {
-    if (gNotSure[TURN_PLAYER]->graveyard == DARK_MAGICIAN)
+    if (gTurnDuelistBattleState[TURN_PLAYER]->graveyard == DARK_MAGICIAN)
         IncrementPermStage(gTurnZones[gMonEffect.row][gMonEffect.zone]);
-    if (gNotSure[TURN_OPPONENT]->graveyard == DARK_MAGICIAN)
+    if (gTurnDuelistBattleState[TURN_OPPONENT]->graveyard == DARK_MAGICIAN)
         IncrementPermStage(gTurnZones[gMonEffect.row][gMonEffect.zone]);
 
     if (!gHideEffectText)
@@ -1883,7 +1883,7 @@ static void EffectXYZDragonCannon(void)
 /*
 static void EffectPuppetMaster(void)
 {
-    if (NumEmptyZonesInRow(gTurnZones[2]) > 0 && gNotSure[0]->graveyard == GERNIA)
+    if (NumEmptyZonesInRow(gTurnZones[2]) > 0 && gTurnDuelistBattleState[0]->graveyard == GERNIA)
     {
         u8 zone;
 

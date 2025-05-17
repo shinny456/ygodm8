@@ -58,7 +58,6 @@ struct DuelistBattleState
     u8 unkThree : 1; // something that causes all monsters to get locked?
 };
 
-//Zones to Cards
 struct Duel
 {
     struct DuelCard board[4][MAX_ZONES_IN_ROW];      //0x00  |2023EC0
@@ -71,7 +70,11 @@ struct Duel
 };
 
 extern struct Duel gDuel;
-extern struct DuelistBattleState* gNotSure[2]; //2023FC0
+
+// gTurnDuelistBattleState switches POV every turn:
+// 0 = Current-Turn Player
+// 1 = Current-Turn Opponent
+extern struct DuelistBattleState* gTurnDuelistBattleState[2];
 
 // gTurnZones switches POV every turn:
 // [2023FD0] 0 = Current-Turn Opponent Spell/Trap Row
@@ -84,12 +87,12 @@ extern struct DuelCard* gTurnZones[5][MAX_ZONES_IN_ROW];
 // gFixedZones is a fixed-POV of gTurnZones from the player's side:
 // 0 = Opponent Spell/Trap Row
 // 1 = Opponent Monster Row
-// 2 = Player Monster Row
-// 3 = Player Spell/Trap Row
-// 4 = Player Hand
+// 2 = Player   Monster Row
+// 3 = Player   Spell/Trap Row
+// 4 = Player   Hand
 extern struct DuelCard* gFixedZones[5][MAX_ZONES_IN_ROW];
 
-// 0 = Current-Turn Player Hand
+// 0 = Current-Turn Player   Hand
 // 1 = Current-Turn Opponent Hand
 extern struct DuelCard* gTurnHands[2][MAX_ZONES_IN_ROW];
 

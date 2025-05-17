@@ -107,7 +107,7 @@ static void sub_8027138 (void) {
 
   g2021DE0.unk2 = 6;
   g2021DE0.unk3 = 0;
-  g2021DE0.unk0 = gNotSure[0]->graveyard;
+  g2021DE0.unk0 = gTurnDuelistBattleState[0]->graveyard;
   if (!gHideEffectText)
     sub_802ADF4();
   if (sub_802A478() == 1) {
@@ -123,7 +123,7 @@ static void sub_8027138 (void) {
 
   g2021DE0.unk2 = 7;
   g2021DE0.unk3 = 0;
-  g2021DE0.unk0 = gNotSure[1]->graveyard;
+  g2021DE0.unk0 = gTurnDuelistBattleState[1]->graveyard;
   if (!gHideEffectText)
     sub_802ADF4();
   if (sub_802A478() == 1) {
@@ -476,13 +476,13 @@ static void sub_8027C44 (void) {
 static void sub_8027D2C (void) {
   if (g2021DE0.unk2 == 1) {
     FlipCardFaceUp(gTurnZones[1][g2021DE0.unk3]);
-    if (gNotSure[1]->graveyard == DARK_MAGICIAN)
+    if (gTurnDuelistBattleState[1]->graveyard == DARK_MAGICIAN)
       IncrementTempStage(gTurnZones[1][g2021DE0.unk3]);
-    else if (gNotSure[1]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
+    else if (gTurnDuelistBattleState[1]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
       IncrementTempStage(gTurnZones[1][g2021DE0.unk3]);
-    if (gNotSure[0]->graveyard == DARK_MAGICIAN)
+    if (gTurnDuelistBattleState[0]->graveyard == DARK_MAGICIAN)
       IncrementTempStage(gTurnZones[1][g2021DE0.unk3]);
-    else if (gNotSure[0]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
+    else if (gTurnDuelistBattleState[0]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
       IncrementTempStage(gTurnZones[1][g2021DE0.unk3]);
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
@@ -491,13 +491,13 @@ static void sub_8027D2C (void) {
   }
   else if (g2021DE0.unk2 == 2) {
     FlipCardFaceUp(gTurnZones[2][g2021DE0.unk3]);
-    if (gNotSure[1]->graveyard == DARK_MAGICIAN)
+    if (gTurnDuelistBattleState[1]->graveyard == DARK_MAGICIAN)
       IncrementTempStage(gTurnZones[2][g2021DE0.unk3]);
-    else if (gNotSure[1]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
+    else if (gTurnDuelistBattleState[1]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
       IncrementTempStage(gTurnZones[2][g2021DE0.unk3]);
-    if (gNotSure[0]->graveyard == DARK_MAGICIAN)
+    if (gTurnDuelistBattleState[0]->graveyard == DARK_MAGICIAN)
       IncrementTempStage(gTurnZones[2][g2021DE0.unk3]);
-    else if (gNotSure[0]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
+    else if (gTurnDuelistBattleState[0]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
       IncrementTempStage(gTurnZones[2][g2021DE0.unk3]);
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
@@ -772,7 +772,7 @@ static void sub_802884C (void) {
       if (gCardInfo.type == TYPE_DRAGON)
         IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
     }
-    SetCardInfo(gNotSure[0]->graveyard);
+    SetCardInfo(gTurnDuelistBattleState[0]->graveyard);
     if (gCardInfo.type == TYPE_DRAGON)
       IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
     if (!gHideEffectText) {
@@ -789,7 +789,7 @@ static void sub_802884C (void) {
       if (gCardInfo.type == TYPE_DRAGON)
         IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
     }
-    SetCardInfo(gNotSure[1]->graveyard);
+    SetCardInfo(gTurnDuelistBattleState[1]->graveyard);
     if (gCardInfo.type == TYPE_DRAGON)
       IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
     if (!gHideEffectText) {
@@ -958,10 +958,10 @@ static void sub_8028ED8 (void) {
     if (gCardInfo.type == TYPE_DRAGON)
       IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
   }
-  SetCardInfo(gNotSure[0]->graveyard);
+  SetCardInfo(gTurnDuelistBattleState[0]->graveyard);
   if (gCardInfo.type == TYPE_DRAGON)
     IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
-  SetCardInfo(gNotSure[1]->graveyard);
+  SetCardInfo(gTurnDuelistBattleState[1]->graveyard);
   if (gCardInfo.type == TYPE_DRAGON)
     IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
   if (!gHideEffectText) {
@@ -973,7 +973,7 @@ static void sub_8028ED8 (void) {
 static void sub_8029004 (void) {
   unsigned char emptyZone;
   if (g2021DE0.unk2 == 7) {
-    if (gNotSure[1]->graveyard != THE_WINGED_DRAGON_OF_RA_PHOENIX_MODE)
+    if (gTurnDuelistBattleState[1]->graveyard != THE_WINGED_DRAGON_OF_RA_PHOENIX_MODE)
       return;
     if (!NumEmptyZonesInRow(gTurnZones[1]))
       return;
@@ -994,7 +994,7 @@ static void sub_8029004 (void) {
     }
   }
   else if (g2021DE0.unk2 == 6) {
-    if (gNotSure[0]->graveyard != THE_WINGED_DRAGON_OF_RA_PHOENIX_MODE)
+    if (gTurnDuelistBattleState[0]->graveyard != THE_WINGED_DRAGON_OF_RA_PHOENIX_MODE)
       return;
     if (!NumEmptyZonesInRow(gTurnZones[2]))
       return;
@@ -1148,7 +1148,7 @@ static void sub_8029578 (void) {
   struct DuelCard* zone;
   u16 graveyard;
   if (g2021DE0.unk2 == 7) {
-    graveyard = gNotSure[1]->graveyard;
+    graveyard = gTurnDuelistBattleState[1]->graveyard;
     if (graveyard != DARK_FLARE_KNIGHT)
       return;
     if (NumEmptyZonesInRow(gTurnZones[1]) > 0) {
@@ -1171,7 +1171,7 @@ static void sub_8029578 (void) {
     }
   }
   else if (g2021DE0.unk2 == 6) {
-    graveyard = gNotSure[0]->graveyard;
+    graveyard = gTurnDuelistBattleState[0]->graveyard;
     if (graveyard != DARK_FLARE_KNIGHT)
       return;
     if (NumEmptyZonesInRow(gTurnZones[2]) > 0) {
@@ -1198,7 +1198,7 @@ static void sub_8029578 (void) {
 // Exodia Necross
 static void sub_80296B8 (void) {
   if (g2021DE0.unk2 == 1) {
-    if (!GetExodiaFlag(gNotSure[1]->graveyard))
+    if (!GetExodiaFlag(gTurnDuelistBattleState[1]->graveyard))
       ClearZoneAndSendMonToGraveyard(gTurnZones[g2021DE0.unk2][g2021DE0.unk3], 1);
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
@@ -1206,7 +1206,7 @@ static void sub_80296B8 (void) {
     }
   }
   else if (g2021DE0.unk2 == 2) {
-    if (!GetExodiaFlag(gNotSure[0]->graveyard))
+    if (!GetExodiaFlag(gTurnDuelistBattleState[0]->graveyard))
       ClearZoneAndSendMonToGraveyard(gTurnZones[g2021DE0.unk2][g2021DE0.unk3], 0);
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = g2021DE0.unk0;
@@ -1727,7 +1727,7 @@ static unsigned char sub_8029F44 (void) {
       }
     }
     if (!ret) {
-      SetCardInfo(gNotSure[0]->graveyard);
+      SetCardInfo(gTurnDuelistBattleState[0]->graveyard);
       if (gCardInfo.type == TYPE_DRAGON)
         ret = 1;
     }
@@ -1743,7 +1743,7 @@ static unsigned char sub_8029F44 (void) {
       }
     }
     if (!ret) {
-      SetCardInfo(gNotSure[1]->graveyard);
+      SetCardInfo(gTurnDuelistBattleState[1]->graveyard);
       if (gCardInfo.type == TYPE_DRAGON)
         ret = 1;
     }
@@ -1861,10 +1861,10 @@ static unsigned char sub_802A268 (void) {
     if (gCardInfo.type == TYPE_DRAGON)
       counter++;
   }
-  SetCardInfo(gNotSure[0]->graveyard);
+  SetCardInfo(gTurnDuelistBattleState[0]->graveyard);
   if (gCardInfo.type == TYPE_DRAGON)
     counter++;
-  SetCardInfo(gNotSure[1]->graveyard);
+  SetCardInfo(gTurnDuelistBattleState[1]->graveyard);
   if (gCardInfo.type == TYPE_DRAGON)
     counter++;
   if (!counter)
@@ -1874,13 +1874,13 @@ static unsigned char sub_802A268 (void) {
 
 static unsigned char sub_802A308 (void) {
   if (g2021DE0.unk2 == 7) {
-    if (gNotSure[1]->graveyard != THE_WINGED_DRAGON_OF_RA_PHOENIX_MODE)
+    if (gTurnDuelistBattleState[1]->graveyard != THE_WINGED_DRAGON_OF_RA_PHOENIX_MODE)
       return 0;
     if (NumEmptyZonesInRow(gTurnZones[1]))
       return 1;
   }
   else if (g2021DE0.unk2 == 6) {
-    if (gNotSure[0]->graveyard != THE_WINGED_DRAGON_OF_RA_PHOENIX_MODE)
+    if (gTurnDuelistBattleState[0]->graveyard != THE_WINGED_DRAGON_OF_RA_PHOENIX_MODE)
       return 0;
     if (NumEmptyZonesInRow(gTurnZones[2]))
       return 1;
@@ -2064,18 +2064,18 @@ static unsigned char sub_802A6A4 (void) {
 
 static unsigned char sub_802A6D8 (void) {
   u32 ret = 0;
-  if (gNotSure[1]->graveyard == DARK_MAGICIAN || gNotSure[1]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
+  if (gTurnDuelistBattleState[1]->graveyard == DARK_MAGICIAN || gTurnDuelistBattleState[1]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
     ret = 1;
-  else if (gNotSure[0]->graveyard == DARK_MAGICIAN || gNotSure[0]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
+  else if (gTurnDuelistBattleState[0]->graveyard == DARK_MAGICIAN || gTurnDuelistBattleState[0]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
     ret = 1;
   return ret;
 }
 
 static unsigned char sub_802A704 (void) {
   u32 ret = 0;
-  if (gNotSure[1]->graveyard == DARK_MAGICIAN || gNotSure[1]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
+  if (gTurnDuelistBattleState[1]->graveyard == DARK_MAGICIAN || gTurnDuelistBattleState[1]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
     ret = 1;
-  else if (gNotSure[0]->graveyard == DARK_MAGICIAN || gNotSure[0]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
+  else if (gTurnDuelistBattleState[0]->graveyard == DARK_MAGICIAN || gTurnDuelistBattleState[0]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
     ret = 1;
   return ret;
 }
@@ -2193,11 +2193,11 @@ static unsigned char sub_802A8E4 (void) {
 static unsigned char sub_802A8E8 (void) {
   u32 ret = 0;
   if (g2021DE0.unk2 == 7) {
-    if (gNotSure[1]->graveyard == DARK_FLARE_KNIGHT && NumEmptyZonesInRow(gTurnZones[1]) > 0)
+    if (gTurnDuelistBattleState[1]->graveyard == DARK_FLARE_KNIGHT && NumEmptyZonesInRow(gTurnZones[1]) > 0)
       return 1;
   }
   else if (g2021DE0.unk2 == 6)
-    if (gNotSure[0]->graveyard == DARK_FLARE_KNIGHT && NumEmptyZonesInRow(gTurnZones[2]) > 0)
+    if (gTurnDuelistBattleState[0]->graveyard == DARK_FLARE_KNIGHT && NumEmptyZonesInRow(gTurnZones[2]) > 0)
       return 1;
   return 0;
 }
@@ -2212,10 +2212,10 @@ static unsigned char sub_802A94C (void) {
 
 static unsigned char sub_802A950 (void) {
   if (g2021DE0.unk2 == 1) {
-    if (!GetExodiaFlag(gNotSure[1]->graveyard))
+    if (!GetExodiaFlag(gTurnDuelistBattleState[1]->graveyard))
       return 1;
   }
-  else if (g2021DE0.unk2 == 2 && !GetExodiaFlag(gNotSure[0]->graveyard))
+  else if (g2021DE0.unk2 == 2 && !GetExodiaFlag(gTurnDuelistBattleState[0]->graveyard))
     return 1;
   return 0;
 }

@@ -1050,7 +1050,7 @@ static void EffectPowerOfKaishin (void) {
 static void EffectStopDefense (void) {
   u8 i;
 
-  gNotSure[1]->defenseBlocked = 1;
+  gTurnDuelistBattleState[1]->defenseBlocked = 1;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
   {

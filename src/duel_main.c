@@ -117,9 +117,9 @@ void DuelMain (void) {
     FlipAtkPosCardsFaceUp(2);
     EndFirstTurnAttackBan();
     SwitchTurn();
-    if (gNotSure[TURN_PLAYER]->defenseBlocked)
-      gNotSure[TURN_PLAYER]->defenseBlocked = 0;
-    if (gNotSure[TURN_PLAYER]->sorlTurns)
+    if (gTurnDuelistBattleState[TURN_PLAYER]->defenseBlocked)
+      gTurnDuelistBattleState[TURN_PLAYER]->defenseBlocked = 0;
+    if (gTurnDuelistBattleState[TURN_PLAYER]->sorlTurns)
       DecrementSorlTurns(TURN_PLAYER);
     UnlockCardsInRow(2);
     UnlockCardsInRow(4);
@@ -368,9 +368,9 @@ void LinkDuelMain (void) {
     FlipAtkPosCardsFaceUp(2);
     EndFirstTurnAttackBan();
     SwitchTurn();
-    if (gNotSure[0]->defenseBlocked)
-      gNotSure[0]->defenseBlocked = 0;
-    if (gNotSure[0]->sorlTurns)
+    if (gTurnDuelistBattleState[0]->defenseBlocked)
+      gTurnDuelistBattleState[0]->defenseBlocked = 0;
+    if (gTurnDuelistBattleState[0]->sorlTurns)
       DecrementSorlTurns(TURN_PLAYER);
     UnlockCardsInRow(2);
     UnlockCardsInRow(4);

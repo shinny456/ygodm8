@@ -825,8 +825,8 @@ void InitDuelZonePtrs (int unused) {
     gTurnZones[3][i] = &gDuel.board[3][i];
   for (i = 0; i < 5; i++)
     gTurnZones[4][i] = &gDuel.hands[0][i];
-  gNotSure[0] = &gDuel.duelistbattleState[0];
-  gNotSure[1] = &gDuel.duelistbattleState[1];
+  gTurnDuelistBattleState[0] = &gDuel.duelistbattleState[0];
+  gTurnDuelistBattleState[1] = &gDuel.duelistbattleState[1];
   for (i = 0; i < 5; i++)
     gTurnHands[0][i] = &gDuel.hands[0][i];
   for (i = 0; i < 5; i++)
@@ -846,8 +846,8 @@ void UpdateDuelZonePtrs (unsigned char turn) {
       gTurnZones[3][i] = &gDuel.board[3][i];
     for (i = 0; i < 5; i++)
       gTurnZones[4][i] = &gDuel.hands[0][i];
-    gNotSure[0] = &gDuel.duelistbattleState[0];
-    gNotSure[1] = &gDuel.duelistbattleState[1];
+    gTurnDuelistBattleState[0] = &gDuel.duelistbattleState[0];
+    gTurnDuelistBattleState[1] = &gDuel.duelistbattleState[1];
     for (i = 0; i < 5; i++)
       gTurnHands[0][i] = &gDuel.hands[0][i];
     for (i = 0; i < 5; i++)
@@ -864,8 +864,8 @@ void UpdateDuelZonePtrs (unsigned char turn) {
       gTurnZones[3][i] = &gDuel.board[0][i];
     for (i = 0; i < 5; i++)
       gTurnZones[4][i] = &gDuel.hands[1][i];
-    gNotSure[0] = &gDuel.duelistbattleState[1];
-    gNotSure[1] = &gDuel.duelistbattleState[0];
+    gTurnDuelistBattleState[0] = &gDuel.duelistbattleState[1];
+    gTurnDuelistBattleState[1] = &gDuel.duelistbattleState[0];
     for (i = 0; i < 5; i++)
       gTurnHands[0][i] = &gDuel.hands[1][i];
     for (i = 0; i < 5; i++)
@@ -992,7 +992,7 @@ void sub_80404D8 (unsigned char arg0) {
 }
 
 void sub_80404F0 (unsigned char currPlayer) {
-  gNotSure[currPlayer]->unkThree = 1;
+  gTurnDuelistBattleState[currPlayer]->unkThree = 1;
 }
 
 void sub_8040508 (unsigned char player) {
@@ -1000,7 +1000,7 @@ void sub_8040508 (unsigned char player) {
 }
 
 void sub_8040524 (unsigned char currPlayer) {
-  gNotSure[currPlayer]->unkThree = 0;
+  gTurnDuelistBattleState[currPlayer]->unkThree = 0;
 }
 
 void LockMonsterCardsInRow (unsigned char row) {
@@ -1098,12 +1098,12 @@ void sub_8040718 (unsigned char arg0) {
 }
 
 void InitSorlTurns (unsigned char currOpponent) {
-  gNotSure[currOpponent]->sorlTurns = 3;
+  gTurnDuelistBattleState[currOpponent]->sorlTurns = 3;
 }
 
 void DecrementSorlTurns (unsigned char currPlayer) {
-  if (gNotSure[currPlayer]->sorlTurns)
-    gNotSure[currPlayer]->sorlTurns--;
+  if (gTurnDuelistBattleState[currPlayer]->sorlTurns)
+    gTurnDuelistBattleState[currPlayer]->sorlTurns--;
 }
 
 struct {
