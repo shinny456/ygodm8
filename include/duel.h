@@ -401,9 +401,9 @@ extern u16 gAnte;
 extern struct {
   unsigned cost;
   s8 unk4; // current position
-  u8 sortingMethod;
+  u8 sortMode;
   u8 unk6; //show: nothing, atk/def, attribute(summon), cost,
-  u8 sortingCursorState;
+  u8 sortCursorState;
   u8 count; //TODO: cardCount?
   u8 filler9;
   unsigned short cards[40]; //TODO: sortedCards?

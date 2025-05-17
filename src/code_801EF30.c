@@ -71,7 +71,7 @@ void sub_801EF30 (u8 arg0) {
       sub_801E27C();
       sub_801E66C();
       sub_801F060();
-      sub_801EED8(gPlayerDeck.sortingMethod);
+      sub_801EED8(gPlayerDeck.sortMode);
       sub_800A5F0(1);
       break;
     case 3:
@@ -85,7 +85,7 @@ void sub_801EF30 (u8 arg0) {
     case 7:
       sub_801E66C();
       sub_801F060();
-      sub_801EED8(gPlayerDeck.sortingMethod);
+      sub_801EED8(gPlayerDeck.sortMode);
       sub_800A5F0(3);
       break;
   }
@@ -158,7 +158,7 @@ u8 sub_801F0F0 (u16 cardId, u16* arg1) {
 
 void sub_801F120 (void) {
   unsigned keepProcessing;
-  gPlayerDeck.sortingCursorState = gPlayerDeck.sortingMethod;
+  gPlayerDeck.sortCursorState = gPlayerDeck.sortMode;
   sub_801DF40();
   sub_801F320();
   LoadCharblock1();
@@ -198,11 +198,11 @@ void sub_801F120 (void) {
 }
 
 void sub_801F1C0 (void) {
-  gPlayerDeck.sortingCursorState = g8E00AEC[gPlayerDeck.sortingCursorState];
-  if (gPlayerDeck.sortingCursorState < 10)
-    sub_801EED8(gPlayerDeck.sortingCursorState);
+  gPlayerDeck.sortCursorState = g8E00AEC[gPlayerDeck.sortCursorState];
+  if (gPlayerDeck.sortCursorState < 10)
+    sub_801EED8(gPlayerDeck.sortCursorState);
   else
-    sub_801EED8(gPlayerDeck.sortingMethod);
+    sub_801EED8(gPlayerDeck.sortMode);
   sub_801F320();
   PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(LoadOam);
@@ -211,11 +211,11 @@ void sub_801F1C0 (void) {
 }
 
 void sub_801F210 (void) {
-  gPlayerDeck.sortingCursorState = g8E00AF7[gPlayerDeck.sortingCursorState];
-  if (gPlayerDeck.sortingCursorState < 10)
-    sub_801EED8(gPlayerDeck.sortingCursorState);
+  gPlayerDeck.sortCursorState = g8E00AF7[gPlayerDeck.sortCursorState];
+  if (gPlayerDeck.sortCursorState < 10)
+    sub_801EED8(gPlayerDeck.sortCursorState);
   else
-    sub_801EED8(gPlayerDeck.sortingMethod);
+    sub_801EED8(gPlayerDeck.sortMode);
   sub_801F320();
   PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(LoadOam);
@@ -224,11 +224,11 @@ void sub_801F210 (void) {
 }
 
 void sub_801F260 (void) {
-  gPlayerDeck.sortingCursorState = g8E00B02[gPlayerDeck.sortingCursorState];
-  if (gPlayerDeck.sortingCursorState < 10)
-    sub_801EED8(gPlayerDeck.sortingCursorState);
+  gPlayerDeck.sortCursorState = g8E00B02[gPlayerDeck.sortCursorState];
+  if (gPlayerDeck.sortCursorState < 10)
+    sub_801EED8(gPlayerDeck.sortCursorState);
   else
-    sub_801EED8(gPlayerDeck.sortingMethod);
+    sub_801EED8(gPlayerDeck.sortMode);
   sub_801F320();
   PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(LoadOam);
@@ -237,11 +237,11 @@ void sub_801F260 (void) {
 }
 
 void sub_801F2B0 (void) {
-  gPlayerDeck.sortingCursorState = g8E00B0D[gPlayerDeck.sortingCursorState];
-  if (gPlayerDeck.sortingCursorState < 10)
-    sub_801EED8(gPlayerDeck.sortingCursorState);
+  gPlayerDeck.sortCursorState = g8E00B0D[gPlayerDeck.sortCursorState];
+  if (gPlayerDeck.sortCursorState < 10)
+    sub_801EED8(gPlayerDeck.sortCursorState);
   else
-    sub_801EED8(gPlayerDeck.sortingMethod);
+    sub_801EED8(gPlayerDeck.sortMode);
   sub_801F320();
   PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(LoadOam);
@@ -251,17 +251,17 @@ void sub_801F2B0 (void) {
 
 void sub_801F300 (void) {
   PlayMusic(SFX_SELECT);
-  if (gPlayerDeck.sortingCursorState < 10) {
-    gPlayerDeck.sortingMethod = gPlayerDeck.sortingCursorState;
-    DeckMenuSortBy(gPlayerDeck.sortingMethod);
+  if (gPlayerDeck.sortCursorState < 10) {
+    gPlayerDeck.sortMode = gPlayerDeck.sortCursorState;
+    DeckMenuSortBy(gPlayerDeck.sortMode);
   }
 }
 
 void sub_801F320 (void) {
   u32* oam = (u32*)&gOamBuffer[6];
-  oam[0] = g8E00B18[gPlayerDeck.sortingCursorState] | g8E00B23[gPlayerDeck.sortingCursorState] << 16 | 0x40000000;
+  oam[0] = g8E00B18[gPlayerDeck.sortCursorState] | g8E00B23[gPlayerDeck.sortCursorState] << 16 | 0x40000000;
   oam[1] = 0xC120;
-  oam[2] = g8E00B18[gPlayerDeck.sortingCursorState] | g8E00B23[gPlayerDeck.sortingCursorState] << 16 | 0x40000800;
+  oam[2] = g8E00B18[gPlayerDeck.sortCursorState] | g8E00B23[gPlayerDeck.sortCursorState] << 16 | 0x40000800;
   oam[3] = 0x120;
 }
 

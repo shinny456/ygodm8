@@ -706,7 +706,7 @@ void InitTrunkData (void) {
   unsigned short cardId;
   gTrunkData.unk0 = 0;
   gTrunkData.unk3 = 1;
-  gTrunkData.sortingMethod = TRUNK_SORT_NUMBER;
+  gTrunkData.sortMode = TRUNK_SORT_NUMBER;
   for (cardId = 0; cardId < NUM_CARDS; cardId++)
     gTotalCardQty[cardId] = gTrunkCardQty[cardId] + GetDeckCardQty(cardId);
   for (cardId = 0; cardId < NUM_TRUE_CARDS; cardId++)
@@ -772,8 +772,8 @@ unsigned char GetTrunkCardQuantity (unsigned short cardId) {
 }
 
 //unused?
-static unsigned char GetCurrentSortingMethod (void) {
-  return gTrunkData.sortingMethod;
+static unsigned char GetCurrentSortMode (void) {
+  return gTrunkData.sortMode;
 }
 
 void sub_800907C (void) {
@@ -792,7 +792,7 @@ void TrunkMenuDefaultSort (void)
 {
   gUnk2022EB0.cards = gTrunkData.unkC;
   gUnk2022EB0.cardCount = NUM_TRUE_CARDS;
-  gUnk2022EB0.sortMode = gUnk_8DFA6A8[gTrunkData.sortingMethod];
+  gUnk2022EB0.sortMode = gUnk_8DFA6A8[gTrunkData.sortMode];
   sub_8034A38(); //one of sorting funcs?
 }
 
@@ -830,9 +830,9 @@ void sub_800919C (void) {
 
 void sub_80091C0(void)
 {
-    if (++gTrunkData.sortingMethod >= TRUNK_SORT_EXIT)
-      gTrunkData.sortingMethod = TRUNK_SORT_NUMBER;
-    sub_80091EC(gTrunkData.sortingMethod);
+    if (++gTrunkData.sortMode >= TRUNK_SORT_EXIT)
+      gTrunkData.sortMode = TRUNK_SORT_NUMBER;
+    sub_80091EC(gTrunkData.sortMode);
     PlayMusic(SFX_MOVE_CURSOR);
 }
 

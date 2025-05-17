@@ -37,7 +37,7 @@ void sub_802612C (void);
 unsigned char GetPlayerDeckSize (void);
 void DeckMenuSort (void);
 void sub_801F5F0 (void);
-void ToggleDeckSortMethod (void);
+void ToggleDeckSortMode (void);
 void sub_801DE5C (void);
 void sub_801DC04 (unsigned char);
 void sub_801DC64 (unsigned char);
@@ -212,7 +212,7 @@ static void sub_801D46C (void) {
 }
 
 static void sub_801D480 (void) {
-  ToggleDeckSortMethod();
+  ToggleDeckSortMode();
   sub_801EF30(6);
 }
 
@@ -466,11 +466,11 @@ unsigned char TryRemoveCardFromDeck (unsigned short cardId) {
 
 extern unsigned char gE00AE0[];
 
-void ToggleDeckSortMethod (void) {
+void ToggleDeckSortMode (void) {
   unsigned char temp;
-  if (++gPlayerDeck.sortingMethod > 9)
-    gPlayerDeck.sortingMethod = 0;
-  temp = gPlayerDeck.sortingMethod;
+  if (++gPlayerDeck.sortMode > 9)
+    gPlayerDeck.sortMode = 0;
+  temp = gPlayerDeck.sortMode;
   gUnk2022EB0.cards = gPlayerDeck.cards;
   gUnk2022EB0.cardCount = gPlayerDeck.count;
   gUnk2022EB0.sortMode = gE00AE0[temp];
@@ -532,7 +532,7 @@ void sub_801D9B8 (unsigned short id) {
 
 void InitDeckData (void) {
   unsigned i;
-  gPlayerDeck.sortingMethod = 0;
+  gPlayerDeck.sortMode = 0;
   gPlayerDeck.unk4 = 0;
   gPlayerDeck.unk6 = 1;
   gPlayerDeck.count = 0;
@@ -721,7 +721,7 @@ void DeckMenuSortBy (unsigned char arg0) {
 void DeckMenuSort (void) {
   gUnk2022EB0.cards = gPlayerDeck.cards;
   gUnk2022EB0.cardCount = gPlayerDeck.count;
-  gUnk2022EB0.sortMode = gE00AE0[gPlayerDeck.sortingMethod];
+  gUnk2022EB0.sortMode = gE00AE0[gPlayerDeck.sortMode];
   sub_8034A38();
 }
 

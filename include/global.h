@@ -95,7 +95,7 @@ enum {
 struct UnkStruct_2020E10
 {
     s16 unk0; //current card position in trunk?
-    u8 sortingMethod; //TODO: sortingMethodId?
+    u8 sortMode;
     u8 unk3;    //show: nothing, atk/def, attribute(summon), cost,
     u8 cursorState;
     u8 filler5[7];
