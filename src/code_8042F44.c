@@ -130,14 +130,14 @@ int HighestAtkMonOfTypeInRow (struct DuelCard** zonePtr, unsigned char type) {
   return (signed char)zoneIndex;
 }
 
-unsigned char NumLowerAtkMonInRow (unsigned char row, unsigned short atk) {
+unsigned char NumLowerAtkMonInRow (unsigned char turnRow, unsigned short atk) {
   unsigned char i, count = 0;
   for (i = 0; i < 5; i++) {
-    if (gTurnZones[row][i]->id == CARD_NONE || !gTurnZones[row][i]->isFaceUp)
+    if (gTurnZones[turnRow][i]->id == CARD_NONE || !gTurnZones[turnRow][i]->isFaceUp)
       continue;
-    gStatMod.card = gTurnZones[row][i]->id;
+    gStatMod.card = gTurnZones[turnRow][i]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gTurnZones[row][i]);
+    gStatMod.stage = GetFinalStage(gTurnZones[turnRow][i]);
     SetFinalStat(&gStatMod);
     if (gCardInfo.atk >= atk)
       count++;
@@ -154,30 +154,30 @@ unsigned char GetNumFaceUpLockedCardsInRow (unsigned char row) {
   return count;
 }
 
-unsigned GetTotalAtkAndDefInRow (unsigned char row) {
+unsigned GetTotalAtkAndDefInRow (unsigned char turnRow) {
   unsigned total = 0;
   unsigned char i;
   for (i = 0; i < 5; i++) {
-    if (GetTypeGroup(gTurnZones[row][i]->id) != 1)
+    if (GetTypeGroup(gTurnZones[turnRow][i]->id) != 1)
       continue;
-    gStatMod.card = gTurnZones[row][i]->id;
+    gStatMod.card = gTurnZones[turnRow][i]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gTurnZones[row][i]);
+    gStatMod.stage = GetFinalStage(gTurnZones[turnRow][i]);
     SetFinalStat(&gStatMod);
     total = total + gCardInfo.atk + gCardInfo.def;
   }
   return total;
 }
 
-unsigned GetTotalFaceUpAtkAndDefInRow (unsigned char row) {
+unsigned GetTotalFaceUpAtkAndDefInRow (unsigned char turnRow) {
   unsigned total = 0;
   unsigned char i;
   for (i = 0; i < 5; i++) {
-    if (GetTypeGroup(gTurnZones[row][i]->id) != 1 || !gTurnZones[row][i]->isFaceUp)
+    if (GetTypeGroup(gTurnZones[turnRow][i]->id) != 1 || !gTurnZones[turnRow][i]->isFaceUp)
       continue;
-    gStatMod.card = gTurnZones[row][i]->id;
+    gStatMod.card = gTurnZones[turnRow][i]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gTurnZones[row][i]);
+    gStatMod.stage = GetFinalStage(gTurnZones[turnRow][i]);
     SetFinalStat(&gStatMod);
     total = total + gCardInfo.atk + gCardInfo.def;
   }
@@ -360,14 +360,14 @@ unsigned ZoneHasTrapCard (struct DuelCard* zone) {
 
 unsigned sub_804376C (struct DuelCard* zone) {
   unsigned ret = 0;
-  if (GetTypeGroup(zone->id) == TYPE_GROUP_SPELL && GetSpellType(zone->id) == 1)
+  if (GetTypeGroup(zone->id) == TYPE_GROUP_SPELL && GetSpellType(zone->id) == SPELL_TYPE_EQUIP)
     ret = 1;
   return ret;
 }
 
 unsigned sub_8043790 (struct DuelCard* zone) {
   unsigned ret = 0;
-  if (GetTypeGroup(zone->id) == TYPE_GROUP_SPELL && !GetSpellType(zone->id))
+  if (GetTypeGroup(zone->id) == TYPE_GROUP_SPELL && GetSpellType(zone->id) == SPELL_TYPE_NORMAL)
     ret = 1;
   return ret;
 }
@@ -379,88 +379,88 @@ unsigned ZoneHasRitualCard (struct DuelCard* zone) {
   return ret;
 }
 
-int GetNumCardsInRow (unsigned char row) {
+int GetNumCardsInRow (unsigned char turnRow) {
   unsigned char i, count = 0;
   for (i = 0; i < 5; i++)
-    if (gTurnZones[row][i]->id != CARD_NONE)
+    if (gTurnZones[turnRow][i]->id != CARD_NONE)
       count++;
   return count;
 }
 
-unsigned GetNumFaceUpCardsInRow (unsigned char row) {
+unsigned GetNumFaceUpCardsInRow (unsigned char turnRow) {
   unsigned char i, count = 0;
   for (i = 0; i < 5; i++)
-    if (gTurnZones[row][i]->id != CARD_NONE && gTurnZones[row][i]->isFaceUp)
+    if (gTurnZones[turnRow][i]->id != CARD_NONE && gTurnZones[turnRow][i]->isFaceUp)
       count++;
   return count;
 }
 
-unsigned GetNumFaceDownCardsInRow (unsigned char row) {
+unsigned GetNumFaceDownCardsInRow (unsigned char turnRow) {
   unsigned char i, count = 0;
   for (i = 0; i < 5; i++)
-    if (gTurnZones[row][i]->id != CARD_NONE && !gTurnZones[row][i]->isFaceUp)
+    if (gTurnZones[turnRow][i]->id != CARD_NONE && !gTurnZones[turnRow][i]->isFaceUp)
       count++;
   return count;
 }
 
-unsigned sub_80438A0 (unsigned char row) {
+unsigned sub_80438A0 (unsigned char turnRow) {
   unsigned char i, count = 0;
   for (i = 0; i < 5; i++) {
-    SetCardInfo(gTurnZones[row][i]->id);
+    SetCardInfo(gTurnZones[turnRow][i]->id);
     if (gCardInfo.spellEffect == 2)
       count++;
   }
   return count;
 }
 
-unsigned GetNumCardsDefendingInRow (unsigned char row) {
+unsigned GetNumCardsDefendingInRow (unsigned char turnRow) {
   unsigned char i, count = 0;
   for (i = 0; i < 5; i++)
-    if (gTurnZones[row][i]->id != CARD_NONE && gTurnZones[row][i]->isDefending)
+    if (gTurnZones[turnRow][i]->id != CARD_NONE && gTurnZones[turnRow][i]->isDefending)
       count++;
   return count;
 }
 
-int sub_8043930 (unsigned char row, unsigned char type) {
+int NumMatchingTypeInRow (unsigned char turnRow, unsigned char type) {
   unsigned char i, count = 0;
   for (i = 0; i < 5; i++) {
-    if (gTurnZones[row][i]->id == CARD_NONE)
+    if (gTurnZones[turnRow][i]->id == CARD_NONE)
       continue;
-    SetCardInfo(gTurnZones[row][i]->id);
+    SetCardInfo(gTurnZones[turnRow][i]->id);
     if (gCardInfo.type == type)
       count++;
   }
   return count;
 }
 
-unsigned sub_804398C (unsigned char row, unsigned char type) {
+unsigned NumFaceUpMatchingTypeInRow (unsigned char turnRow, unsigned char type) {
   unsigned char i, count = 0;
   for (i = 0; i < 5; i++) {
-    if (gTurnZones[row][i]->id == CARD_NONE || !gTurnZones[row][i]->isFaceUp)
+    if (gTurnZones[turnRow][i]->id == CARD_NONE || !gTurnZones[turnRow][i]->isFaceUp)
       continue;
-    SetCardInfo(gTurnZones[row][i]->id);
+    SetCardInfo(gTurnZones[turnRow][i]->id);
     if (gCardInfo.type == type)
       count++;
   }
   return count;
 }
 
-unsigned sub_80439F4 (unsigned char row, unsigned char attribute) {
+unsigned NumFaceUpMatchingAttributeInRow (unsigned char turnRow, unsigned char attribute) {
   unsigned char i, count = 0;
   for (i = 0; i < 5; i++) {
-    if (gTurnZones[row][i]->id == CARD_NONE || !gTurnZones[row][i]->isFaceUp)
+    if (gTurnZones[turnRow][i]->id == CARD_NONE || !gTurnZones[turnRow][i]->isFaceUp)
       continue;
-    SetCardInfo(gTurnZones[row][i]->id);
+    SetCardInfo(gTurnZones[turnRow][i]->id);
     if (gCardInfo.attribute == attribute)
       count++;
   }
   return count;
 }
 
-unsigned GetNumCardsUnlockedInRow (unsigned char row) {
+unsigned GetNumCardsUnlockedInRow (unsigned char turnRow) {
   unsigned char i, count = 0;
   for (i = 0; i < 5; i++) {
-    if (gTurnZones[row][i]->id != CARD_NONE && !gTurnZones[row][i]->isLocked)
+    if (gTurnZones[turnRow][i]->id != CARD_NONE && !gTurnZones[turnRow][i]->isLocked)
       count++;
   }
   return count;

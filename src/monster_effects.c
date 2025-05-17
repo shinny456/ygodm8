@@ -859,7 +859,7 @@ static inline u32 RemoveSpellCard(struct DuelCard* zone)
 
 static void EffectDarkPaladin(void)
 {
-    if (NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) < 5 && sub_8043930(0, TYPE_SPELL) > 0)
+    if (NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) < 5 && NumMatchingTypeInRow(0, TYPE_SPELL) > 0)
     {
         u8 i;
         ClearZoneAndSendMonToGraveyard(gTurnHands[ACTIVE_DUELIST][(u8)FirstNonEmptyZoneInRow(gTurnHands[ACTIVE_DUELIST])], 0);
@@ -896,7 +896,7 @@ static void EffectDarkPaladin(void)
 	bgt _080472DE\n\
 	movs r0, #0\n\
 	movs r1, #0x15\n\
-	bl sub_8043930\n\
+	bl NumMatchingTypeInRow\n\
 	cmp r0, #0\n\
 	ble _080472DE\n\
 	adds r0, r4, #0\n\

@@ -1,7 +1,7 @@
 #include "global.h"
 
 //TODO: NUM_DUELISTS as array size?
-static const unsigned char gUnk_8E1178C[] = {
+static const unsigned char gOtherTurn[] = {
   [DUEL_PLAYER] = DUEL_OPPONENT,
   [DUEL_OPPONENT] = DUEL_PLAYER
 };
@@ -16,7 +16,7 @@ void SetWhoseTurnToPlayer(void)
 
 void SwitchTurn(void)
 {
-    gWhoseTurn = gUnk_8E1178C[gWhoseTurn];
+    gWhoseTurn = gOtherTurn[gWhoseTurn];
 }
 
 s32 WhoseTurn(void)//u8

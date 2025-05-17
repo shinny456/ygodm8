@@ -162,7 +162,7 @@ void sub_8044160 (u8 arg0) {
 
 u8 sub_80453D8(u16);
 void HandlePlayerMonsterRowAction (void);
-void HandlePlayerSpellRowAction (void);
+void HandlePlayerBackrowAction (void);
 void DisplayNumRequiredTributesText (u8);
 void sub_80442AC (void);
 void SelectZone (struct DuelCard *zone);
@@ -206,7 +206,7 @@ void sub_80441D0 (void) {
       else {
         u8 numTributes = sub_80453D8(gFixedZones[3][gDuelCursor.currentX]->id);
         if (!numTributes) {
-          HandlePlayerSpellRowAction();
+          HandlePlayerBackrowAction();
         }
         else {
           PlayMusic(SFX_FORBIDDEN);
@@ -368,13 +368,12 @@ void sub_8044570 (void) {
   }
 }
 
-// HandlePlayerSpellRowAction
-void HandlePlayerSpellRowAction (void) {
+void HandlePlayerBackrowAction (void) {
   u16 id = gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->id;
   SelectZone(gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]);
   ResetCursorDestToCurrentPos();
   switch (GetSpellType(id)) {
-    case 0: //SPELL_TYPE_NORMAL
+    case SPELL_TYPE_NORMAL: // immediate effect
       gDuelCursor.state = 0;
       gSpellEffectData.id = id;
       gSpellEffectData.unk2 = gDuelCursor.currentY;
@@ -384,16 +383,16 @@ void HandlePlayerSpellRowAction (void) {
         LockMonsterCardsInRow(4);
       UpdateDuelGfxExceptField();
       CheckWinConditionExodia();
-      if (IsDuelOver() != 1)
+      if (IsDuelOver() != TRUE)
         sub_8029820();
       break;
-    case 1: //SPELL_TYPE_EQUIP
+    case SPELL_TYPE_EQUIP: // need to select a valid monster target after "activating"
       PlayMusic(SFX_SELECT);
       gDuelCursor.state = 2;
       gDuelCursor.currentX = GetFirstNonEmptyMonZoneId(gFixedZones[2]);
       gDuelCursor.currentY = 2;
       break;
-    case 2: //SPELL_TYPE_INVALID?
+    case SPELL_TYPE_INVALID: // any backrow that can't be activated manually
       PlayMusic(SFX_FORBIDDEN);
       gDuelCursor.state = 0;
       break;

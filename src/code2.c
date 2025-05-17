@@ -2571,6 +2571,7 @@ static void sub_8012240 (void) {
   }
 }
 
+// messenger of peace or crush card?
 static void sub_80123BC (void) {
   u8 i;
   for (i = 0; i < 5; i++) {
@@ -2820,7 +2821,7 @@ static void sub_8012C28 (void) {}
 static void sub_8012C2C (void) {
   if (NumEmptyZonesAndGodCardsInRow(gTurnZones[2]) != 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
+  else if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == MAX_ZONES_IN_ROW)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF9973F;
@@ -2830,7 +2831,7 @@ static void sub_8012C9C (void) {}
 
 //Check whether to use Raigeki
 static void sub_8012CA0 (void) {
-  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
+  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == MAX_ZONES_IN_ROW)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF9973E;
@@ -3056,7 +3057,7 @@ static void sub_8012F78 (void) {
 static void sub_8012FB8 (void) {}
 
 static void sub_8012FBC (void) {
-  if (!sub_804398C(1, 1))
+  if (!NumFaceUpMatchingTypeInRow(1, 1))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF9973C;
@@ -3400,7 +3401,7 @@ static void sub_80136B8 (void) {}
 
 static void sub_80136BC (void) {
   gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  if (!sub_804398C(1, 3))
+  if (!NumFaceUpMatchingTypeInRow(1, 3))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF9973C;
@@ -3428,7 +3429,7 @@ static void sub_8013738 (void) {}
 
 static void sub_801373C (void) {
   gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  if (!sub_804398C(1, 10))
+  if (!NumFaceUpMatchingTypeInRow(1, 10))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF9973C;
@@ -3438,7 +3439,7 @@ static void sub_8013784 (void) {}
 
 static void sub_8013788 (void) {
   gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  if (!sub_804398C(1, 19))
+  if (!NumFaceUpMatchingTypeInRow(1, 19))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF9973C;
@@ -3448,7 +3449,7 @@ static void sub_80137D0 (void) {}
 
 static void sub_80137D4 (void) {
   gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  if (!sub_804398C(1, 13))
+  if (!NumFaceUpMatchingTypeInRow(1, 13))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF9973C;
@@ -3494,7 +3495,7 @@ static void sub_8013958 (void) {}
 
 static void sub_801395C (void) {
   gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  if (!sub_804398C(1, 2))
+  if (!NumFaceUpMatchingTypeInRow(1, 2))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF9973C;
@@ -3504,7 +3505,7 @@ static void sub_80139A4 (void) {}
 
 static void sub_80139A8 (void) {
   gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  if (!sub_804398C(1, 8))
+  if (!NumFaceUpMatchingTypeInRow(1, 8))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF9973C;
@@ -3527,7 +3528,7 @@ static void sub_8013A64 (void) {}
 static void sub_8013A68 (void) {
   if (!NumEmptyZonesInRow(gTurnZones[2]))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
+  else if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == MAX_ZONES_IN_ROW)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF99746;
@@ -3552,7 +3553,7 @@ static void sub_8013B08 (void) {
 static void sub_8013B24 (void) {
   if (!NumEmptyZonesInRow(gTurnZones[2]))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
+  else if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == MAX_ZONES_IN_ROW)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF99746;
@@ -3589,7 +3590,7 @@ static void sub_8013C4C (void) {
 }
 
 static void sub_8013C58 (void) {
-  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
+  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == MAX_ZONES_IN_ROW)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF7745C;
@@ -3617,7 +3618,7 @@ static void sub_8013D1C (void) {}
 static void sub_8013D20 (void) {
   if (NumEmptyZonesAndGodCardsInRow(gTurnZones[2]) != 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5 && NumEmptyZonesInRow(gTurnZones[0]) == 5)
+  else if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == MAX_ZONES_IN_ROW && NumEmptyZonesInRow(gTurnZones[0]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFD;
@@ -3628,7 +3629,7 @@ static void sub_8013D9C (void) {}
 static void sub_8013DA0 (void) {
   if (NumEmptyZonesAndGodCardsInRow(gTurnZones[2]) != 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5 && NumEmptyZonesInRow(gTurnZones[0]) == 5)
+  else if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == MAX_ZONES_IN_ROW && NumEmptyZonesInRow(gTurnZones[0]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFE;
@@ -5186,7 +5187,7 @@ static void sub_8016964 (void) {
 }
 
 static void sub_80169FC (void) {
-  if (NumEmptyZonesInRow(gTurnZones[1]) == 5) {
+  if (NumEmptyZonesInRow(gTurnZones[1]) == MAX_ZONES_IN_ROW) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
@@ -5211,7 +5212,7 @@ static void sub_80169FC (void) {
 static void sub_8016AE0 (void) {
   u16 atk;
   u8 highestAtkZone;
-  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5) {
+  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == MAX_ZONES_IN_ROW) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
@@ -5926,7 +5927,7 @@ static void sub_80179D4 (void) {
 }
 
 static void sub_8017A18 (void) {
-  if (!sub_804398C(1, 11))
+  if (!NumFaceUpMatchingTypeInRow(1, 11))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF77455;
@@ -5951,7 +5952,7 @@ static void sub_8017AA8 (void) {
 }
 
 static void sub_8017AEC (void) {
-  if (!sub_80439F4(1, 5))
+  if (!NumFaceUpMatchingAttributeInRow(1, 5))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF77454;
@@ -6068,7 +6069,7 @@ static void sub_8017E74 (void) {
 static void sub_8017EB8 (void) {}
 
 static void sub_8017EBC (void) {
-  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
+  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == MAX_ZONES_IN_ROW)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF55173;
@@ -6097,10 +6098,10 @@ static void sub_8017F90 (void) {}
 static void sub_8017F94 (void) {
   bool8 darkMagicianInGrave = 0;
   if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == DARK_MAGICIAN)
-    darkMagicianInGrave = 1;
+    darkMagicianInGrave = TRUE;
   if (gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == DARK_MAGICIAN)
-    darkMagicianInGrave = 1;
-  if (darkMagicianInGrave == 1)
+    darkMagicianInGrave = TRUE;
+  if (darkMagicianInGrave == TRUE)
     gUnk_8DFF6A4->unk2298 = 0x7EF2D575;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -6109,7 +6110,7 @@ static void sub_8017F94 (void) {
 static void sub_8017FE8 (void) {}
 
 static void sub_8017FEC (void) {
-  if (!sub_8043930(2, 20))
+  if (!NumMatchingTypeInRow(2, TYPE_PLANT))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EF2D573;
@@ -6270,7 +6271,7 @@ static void sub_801853C (void) {}
 static void sub_8018540 (void) {
   if (NumEmptyZonesAndGodCardsInRow(gTurnZones[2]) < 4)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
+  else if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == MAX_ZONES_IN_ROW)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF55172;
@@ -6350,9 +6351,10 @@ static void sub_80187D0 (void) {}
 
 static void sub_80187D4 (void) {}
 
+// power up for each insect on opp field?
 static void sub_80187D8 (void) {
-  u8 temp = sub_8043930(2, 10);
-  temp += sub_804398C(1, 10);
+  u8 temp = NumMatchingTypeInRow(2, TYPE_INSECT);
+  temp += NumFaceUpMatchingTypeInRow(1, TYPE_INSECT);
   if (!temp)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
@@ -6535,7 +6537,7 @@ static void sub_8018CA8 (void) {}
 static void sub_8018CAC (void) {
   if (!NumEmptyZonesInRow(gTurnZones[2]))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
+  else if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == MAX_ZONES_IN_ROW)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFE6;
@@ -6544,7 +6546,7 @@ static void sub_8018CAC (void) {
 static void sub_8018D1C (void) {}
 
 static void sub_8018D20 (void) {
-  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
+  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == MAX_ZONES_IN_ROW)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF55171;
@@ -6561,7 +6563,7 @@ static void sub_8018D84 (void) {
 }
 
 static void sub_8018DA0 (void) {
-  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
+  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == MAX_ZONES_IN_ROW)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF99740;
@@ -6570,7 +6572,7 @@ static void sub_8018DA0 (void) {
 static void sub_8018DE4 (void) {}
 
 static void sub_8018DE8 (void) {
-  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
+  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == MAX_ZONES_IN_ROW)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF9973D;
@@ -6592,7 +6594,7 @@ static void sub_8018E30 (void) {
 static void sub_8018E94 (void) {}
 
 static void sub_8018E98 (void) {
-  if (!sub_804398C(1, 1))
+  if (!NumFaceUpMatchingTypeInRow(1, 1))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EF2D568;
@@ -6601,7 +6603,7 @@ static void sub_8018E98 (void) {
 static void sub_8018EDC (void) {}
 
 static void sub_8018EE0 (void) {
-  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
+  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == MAX_ZONES_IN_ROW)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF77457;
@@ -6677,7 +6679,7 @@ static void sub_80190E4 (void) {
 static void sub_8019128 (void) {}
 
 static void sub_801912C (void) {
-  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
+  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == MAX_ZONES_IN_ROW)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 500)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
@@ -7339,7 +7341,7 @@ static u8 sub_801A250 (void) {
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
   SetCardInfo(gTurnZones[row2][col2]->id);
-  if (!gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1
+  if (!gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE
    && sub_8045390(gTurnZones[row2][col2]->id) == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) == 1)
       return 1;
   return 0;
@@ -7351,7 +7353,7 @@ static u8 sub_801A2C4 (void) {
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
   SetCardInfo(gTurnZones[row2][col2]->id);
-  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1
+  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE
    && sub_8045390(gTurnZones[row2][col2]->id) == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) == 1)
       return 1;
   return 0;
@@ -7365,7 +7367,7 @@ static u8 sub_801A338 (void) {
   u8 row4 = sAI_Command.unk4 >> 4;
   u8 col4 = sAI_Command.unk4 & 0xF;
   SetCardInfo(gTurnZones[row2][col2]->id);
-  if (!gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1
+  if (!gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE
    && sub_8045390(gTurnZones[row2][col2]->id) == 2 && ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) == 1
    && ZoneHasUnlockedMonsterCard(gTurnZones[row4][col4]) == 1)
       return 1;
@@ -7380,7 +7382,7 @@ static u8 sub_801A3E0 (void) {
   u8 row4 = sAI_Command.unk4 >> 4;
   u8 col4 = sAI_Command.unk4 & 0xF;
   SetCardInfo(gTurnZones[row2][col2]->id);
-  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1
+  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE
    && sub_8045390(gTurnZones[row2][col2]->id) == 2 && ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) == 1
    && ZoneHasUnlockedMonsterCard(gTurnZones[row4][col4]) == 1)
       return 1;
@@ -7397,7 +7399,7 @@ static u8 sub_801A488 (void) {
   u8 row5 = sAI_Command.unk5 >> 4;
   u8 col5 = sAI_Command.unk5 & 0xF;
   SetCardInfo(gTurnZones[row2][col2]->id);
-  if (!gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1
+  if (!gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE
    && sub_8045390(gTurnZones[row2][col2]->id) == 3 && ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) == 1
    && ZoneHasUnlockedMonsterCard(gTurnZones[row4][col4]) == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row5][col5]) == 1)
       return 1;
@@ -7414,7 +7416,7 @@ static u8 sub_801A55C (void) {
   u8 row5 = sAI_Command.unk5 >> 4;
   u8 col5 = sAI_Command.unk5 & 0xF;
   SetCardInfo(gTurnZones[row2][col2]->id);
-  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1
+  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE
    && sub_8045390(gTurnZones[row2][col2]->id) == 3 && ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) == 1
    && ZoneHasUnlockedMonsterCard(gTurnZones[row4][col4]) == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row5][col5]) == 1)
       return 1;
@@ -7432,7 +7434,7 @@ static u8 sub_801A630 (void) {
   SetCardInfo(gTurnZones[row2][col2]->id);
   if (gCardInfo.unk1E)
     return 0;
-  if (ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1)
+  if (ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE)
     r5 = 1;
   return r5;
 }
@@ -7445,7 +7447,7 @@ static u8 sub_801A690 (void) {
   row2 = sAI_Command.unk2 >> 4;
   col2 = sAI_Command.unk2 & 0xF;
   SetCardInfo(gTurnZones[row2][col2]->id);
-  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1)
+  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE)
     return 1;
   return 0;
 }
@@ -7454,7 +7456,7 @@ static u8 sub_801A6EC (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
   SetCardInfo(gTurnZones[row2][col2]->id);
-  if (!gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1)
+  if (!gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE)
     return 1;
   return 0;
 }
@@ -7463,7 +7465,7 @@ static u8 sub_801A738 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
   SetCardInfo(gTurnZones[row2][col2]->id);
-  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1)
+  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE)
     return 1;
   return 0;
 }
@@ -7477,7 +7479,7 @@ static u8 sub_801A784 (void) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
       gTrapEffectData.id = gTurnZones[row2][col2]->id;
-      if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1 &&
+      if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
           !GetNumCardsInRow(1))
         return 1;
     }
@@ -7494,7 +7496,7 @@ static u8 sub_801A814 (void) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
       gTrapEffectData.id = gTurnZones[row2][col2]->id;
-      if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1 &&
+      if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
           !GetNumCardsInRow(1))
         return 1;
     }
@@ -7513,8 +7515,8 @@ static u8 sub_801A8A4 (void) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
       gTrapEffectData.id = gTurnZones[row2][col2]->id;
-      if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1 &&
-          gTurnZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gTurnZones[row3][col3]->id) == 1 &&
+      if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
+          gTurnZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gTurnZones[row3][col3]->id) == TYPE_GROUP_MONSTER &&
           gTurnZones[row3][col3]->isFaceUp)
         return 1;
     }
@@ -7533,8 +7535,8 @@ static u8 sub_801A974 (void) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
       gTrapEffectData.id = gTurnZones[row2][col2]->id;
-      if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1 &&
-          gTurnZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gTurnZones[row3][col3]->id) == 1 &&
+      if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
+          gTurnZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gTurnZones[row3][col3]->id) == TYPE_GROUP_MONSTER &&
           gTurnZones[row3][col3]->isFaceUp)
         return 1;
     }
@@ -7553,7 +7555,7 @@ static u8 sub_801AA44 (void) {
     gTrapEffectData.unk2 = row2;
     gTrapEffectData.unk3 = col2;
     gTrapEffectData.id = gTurnZones[row2][col2]->id;
-    if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1 &&
+    if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
         gTurnZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gTurnZones[row3][col3]->id) == 1 &&
         !gTurnZones[row3][col3]->isFaceUp)
       return 1;
@@ -7766,7 +7768,7 @@ static u8 sub_801ABE4 (void) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
       gTrapEffectData.id = gTurnZones[row2][col2]->id;
-      if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1 &&
+      if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
           !GetNumCardsInRow(1))
         return 1;
     }
@@ -7783,7 +7785,7 @@ static u8 sub_801AC74 (void) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
       gTrapEffectData.id = gTurnZones[row2][col2]->id;
-      if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1 &&
+      if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
           !GetNumCardsInRow(1))
         return 1;
     }
@@ -7802,7 +7804,7 @@ static u8 sub_801AD04 (void) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
       gTrapEffectData.id = gTurnZones[row2][col2]->id;
-      if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1 &&
+      if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
           gTurnZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gTurnZones[row3][col3]->id) == 1 &&
           gTurnZones[row3][col3]->isFaceUp)
         return 1;
@@ -7822,7 +7824,7 @@ static u8 sub_801ADD4 (void) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
       gTrapEffectData.id = gTurnZones[row2][col2]->id;
-      if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1 &&
+      if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
           gTurnZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gTurnZones[row3][col3]->id) == 1 &&
           gTurnZones[row3][col3]->isFaceUp)
         return 1;
@@ -7842,7 +7844,7 @@ static u8 sub_801AEA4 (void) {
     gTrapEffectData.unk2 = row2;
     gTrapEffectData.unk3 = col2;
     gTrapEffectData.id = gTurnZones[row2][col2]->id;
-    if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1 &&
+    if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
         gTurnZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gTurnZones[row3][col3]->id) == 1 &&
         !gTurnZones[row3][col3]->isFaceUp)
       return 1;
@@ -8244,7 +8246,8 @@ static u8 sub_801B2B8 (void) {
 static u8 sub_801B304 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  if (GetTypeGroup(gTurnZones[row2][col2]->id) == 2 && GetSpellType(gTurnZones[row2][col2]->id) == 2) {
+  if (GetTypeGroup(gTurnZones[row2][col2]->id) == TYPE_GROUP_SPELL 
+  && GetSpellType(gTurnZones[row2][col2]->id) == SPELL_TYPE_INVALID) {
     SetCardInfo(gTurnZones[row2][col2]->id);
     if (gCardInfo.unk1E)
       return 1;
@@ -8322,13 +8325,13 @@ static u8 sub_801B56C (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
   SetCardInfo(gTurnZones[row2][col2]->id);
-  if (gCardInfo.unk1E && GetTypeGroup(gTurnZones[row2][col2]->id) == 2) // TYPE_GROUP_SPELL
+  if (gCardInfo.unk1E && GetTypeGroup(gTurnZones[row2][col2]->id) == TYPE_GROUP_SPELL)
     GetSpellType(gTurnZones[row2][col2]->id);
   return 0;
 }
 
-static u8 sub_801B5BC (u8 arg0, u16* arg1) {
-  if (RowHasCardMatch(gTurnZones[2], *arg1) == 1 && GetFirstCardMatchZoneId(gTurnZones[2], *arg1) == arg0)
+static u8 sub_801B5BC (u8 arg0, u16* cardId) {
+  if (RowHasCardMatch(gTurnZones[2], *cardId) == TRUE && GetFirstCardMatchZoneId(gTurnZones[2], *cardId) == arg0)
     return 1;
   return 0;
 }

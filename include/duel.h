@@ -24,7 +24,6 @@ enum {
 
 #define MAX_ZONES_IN_ROW 5
 
-
 extern void (*const gMonEffects[])(void);
 extern void (*const gSpellEffects[])(void);
 extern void (*g8DFF55C[])(void);
@@ -33,7 +32,7 @@ extern void (*g8DFF7F0[])(void);
 extern void (*g8E00330[])(void);
 extern void (*g8E00150[])(void);
 
-extern unsigned char gWhoseTurn;
+extern unsigned char gWhoseTurn; // rename to gActiveTurn/gCurrentTurn?
 
 struct DuelCard
 {
@@ -72,16 +71,16 @@ struct Duel
 extern struct Duel gDuel;
 
 // gTurnDuelistBattleState switches POV every turn:
-// 0 = Current-Turn Player
-// 1 = Current-Turn Opponent
+// 0 = Active Duelist
+// 1 = Inactive Duelist
 extern struct DuelistBattleState* gTurnDuelistBattleState[2];
 
 // gTurnZones switches POV every turn:
-// [2023FD0] 0 = Current-Turn Opponent Spell/Trap Row
-// [2023FE4] 1 = Current-Turn Opponent Monster Row
-// [2023FF8] 2 = Current-Turn Player   Monster Row
-// [202400C] 3 = Current-Turn Player   Spell/Trap Row
-// [2024020] 4 = Current-Turn Player   Hand
+// [2023FD0] 0 = Active   Duelist Spell/Trap Row
+// [2023FE4] 1 = Active   Duelist Monster Row
+// [2023FF8] 2 = Inactive Duelist Monster Row
+// [202400C] 3 = Inactive Duelist Spell/Trap Row
+// [2024020] 4 = Inactive Duelist Hand
 extern struct DuelCard* gTurnZones[5][MAX_ZONES_IN_ROW];
 
 // gFixedZones is a fixed-POV of gTurnZones from the player's side:
@@ -92,8 +91,8 @@ extern struct DuelCard* gTurnZones[5][MAX_ZONES_IN_ROW];
 // 4 = Player   Hand
 extern struct DuelCard* gFixedZones[5][MAX_ZONES_IN_ROW];
 
-// 0 = Current-Turn Player   Hand
-// 1 = Current-Turn Opponent Hand
+// 0 = Inactive Duelist
+// 1 = Active Duelist
 extern struct DuelCard* gTurnHands[2][MAX_ZONES_IN_ROW];
 
 // when gDuelType is
@@ -104,6 +103,37 @@ extern u8 gDuelType;
 enum DuelType {
   DUEL_TYPE_INGAME = 0,
   DUEL_TYPE_LINK = 6
+};
+
+
+/*
+// TODO: use these to specify rows for "turn" and "fixed" row args
+// e.g. UnlockCardsInRow(2) becomes UnlockCardsInRow(INACTIVE_DUELIST_MONSTER)
+
+enum TurnRows
+{
+    ACTIVE_DUELIST_BACKROW,
+    ACTIVE_DUELIST_MONSTER,
+    INACTIVE_DUELIST_MONSTER,
+    INACTIVE_DUELIST_BACKROW,
+    INACTIVE_DUELIST_HAND
+};
+
+enum FixedRows
+{
+    OPPONENT_BACKROW,
+    OPPONENT_MONSTER,
+    PLAYER_MONSTER,
+    PLAYER_BACKROW,
+    PLAYER_HAND
+};
+*/
+
+enum SpellType
+{
+    SPELL_TYPE_NORMAL,
+    SPELL_TYPE_EQUIP,
+    SPELL_TYPE_INVALID,
 };
 
 //*********************
@@ -287,7 +317,7 @@ s32 GetFirstCardMatchZoneId(struct DuelCard**, u16 card); //get zone card is loc
 
 
 
-s32 sub_8043930(u8, u8);
+s32 NumMatchingTypeInRow(u8, u8);
 
 void TryDrawingCard(u32);
 
@@ -557,8 +587,8 @@ u32 sub_80438A0 (u8);
 u32 GetNumCardsDefendingInRow (u8);     //implicit decl? (just create a u8 return variable)
 u32 GetTotalFaceUpAtkAndDefInRow (u8);     //implicit decl? (just create a u8 return variable)
 u32 GetNumFaceUpCardsInRow (u8);
-u32 sub_804398C (u8, u8); //implicit decl? (^)
-u32 sub_80439F4 (u8, u8);  //^
+u32 NumFaceUpMatchingTypeInRow (u8, u8); //implicit decl? (^)
+u32 NumFaceUpMatchingAttributeInRow (u8, u8);  //^
 int HighestAtkFaceUpMonInRow (struct DuelCard**); //implicit decl? (^)
 u8 sub_803FBCC (u8, u8);
 bool32 IsCardLocked (struct DuelCard *zone);
@@ -621,9 +651,9 @@ u32 GetExodiaFlag(u16);
 struct DuelCursor {
   u8 currentX; //sourceRow
   u8 currentY; //sourceColumn
-  u8 destX;   //targetRow?
-  u8 destY;   //targetColumn?
-  u8 state;
+  u8 destX;    //targetRow?
+  u8 destY;    //targetColumn?
+  u8 state;    // 0 = default, 1 = ?, 2 = selecting equip target, 4 = ?
   u8 unk5;
   u8 filler6;
 };

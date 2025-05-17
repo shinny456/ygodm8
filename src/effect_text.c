@@ -109,7 +109,7 @@ static void sub_801D100 (void) {
 static void sub_801D150 (void) {
   PlayMusic(SFX_SPELL_ACTIVATION_START);
   sub_8041C94(gDuelTextStrings[gCardEffectTextData.textId], gCardEffectTextData.cardId, gCardEffectTextData.cardId2, 0, 0);
-  PlayMusic(SFX_DESTROY_MON_WITH_SPELL_TRAP);
+  PlayMusic(SFX_DESTROY_MON_WITH_BACKROW);
 }
 
 void SetCardEffectTextType (unsigned char type) {

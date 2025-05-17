@@ -143,9 +143,9 @@ static void InitIngameDuel (void) {
   for (i = 0; i < 2; i++)
     ShuffleDuelDeck(i);
   if (!sub_8056258(0, 1))
-    gWhoseTurn = ACTIVE_DUELIST;
+    gWhoseTurn = DUEL_PLAYER;
   else
-    gWhoseTurn = INACTIVE_DUELIST;
+    gWhoseTurn = DUEL_OPPONENT;
   InitBoard();
   InitDuelLifePoints();
   InitDuelistStatus();
@@ -369,7 +369,7 @@ void LinkDuelMain (void) {
     EndFirstTurnAttackBan();
     SwitchTurn();
     if (gTurnDuelistBattleState[ACTIVE_DUELIST]->defenseBlocked)
-      gTurnDuelistBattleState[ACTIVE_DUELIST]->defenseBlocked = 0;
+      gTurnDuelistBattleState[ACTIVE_DUELIST]->defenseBlocked = FALSE;
     if (gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns)
       DecrementSorlTurns(ACTIVE_DUELIST);
     UnlockCardsInRow(2);

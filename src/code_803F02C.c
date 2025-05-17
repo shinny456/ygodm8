@@ -901,12 +901,12 @@ void ClearZone (struct DuelCard *zone) {
   zone->willChangeSides = 0;
 }
 
-void sub_8040300 (unsigned char col, unsigned char row, u16 cardId) {
-  gDuel.board[row][col].id = cardId;
+void sub_8040300 (unsigned char col, unsigned char fixedRow, u16 cardId) {
+  gDuel.board[fixedRow][col].id = cardId;
 }
 
-u16 sub_8040324 (unsigned char col, unsigned char row) {
-  return gDuel.board[row][col].id;
+u16 sub_8040324 (unsigned char col, unsigned char fixedRow) {
+  return gDuel.board[fixedRow][col].id;
 }
 
 void FlipCardFaceUp (struct DuelCard *zone) {
@@ -1003,18 +1003,18 @@ void sub_8040524 (unsigned char currPlayer) {
   gTurnDuelistBattleState[currPlayer]->unkThree = 0;
 }
 
-void LockMonsterCardsInRow (unsigned char row) {
+void LockMonsterCardsInRow (unsigned char turnRow) {
   unsigned char i;
   for (i = 0; i < 5; i++)
-    if (gTurnZones[row][i]->id != CARD_NONE && GetTypeGroup(gTurnZones[row][i]->id) == TYPE_GROUP_MONSTER)
-      gTurnZones[row][i]->isLocked = 1;
+    if (gTurnZones[turnRow][i]->id != CARD_NONE && GetTypeGroup(gTurnZones[turnRow][i]->id) == TYPE_GROUP_MONSTER)
+      gTurnZones[turnRow][i]->isLocked = 1;
 }
 
-void UnlockCardsInRow (unsigned char row) {
+void UnlockCardsInRow (unsigned char turnRow) {
   unsigned char i;
   for (i = 0; i < 5; i++)
-    if (gTurnZones[row][i]->id != CARD_NONE)
-      gTurnZones[row][i]->isLocked = 0;
+    if (gTurnZones[turnRow][i]->id != CARD_NONE)
+      gTurnZones[turnRow][i]->isLocked = 0;
 }
 
 // unused?
@@ -1026,19 +1026,19 @@ void sub_80405C4 (void) {
         gTurnZones[i][j]->isLocked = 0;
 }
 
-void FlipAtkPosCardsFaceUp (unsigned char row) {
+void FlipAtkPosCardsFaceUp (unsigned char turnRow) {
   unsigned char i;
   for (i = 0; i < 5; i++)
-    if (gTurnZones[row][i]->id != CARD_NONE && !gTurnZones[row][i]->isDefending)
-      gTurnZones[row][i]->isFaceUp = 1;
+    if (gTurnZones[turnRow][i]->id != CARD_NONE && !gTurnZones[turnRow][i]->isDefending)
+      gTurnZones[turnRow][i]->isFaceUp = 1;
 }
 
 // unused?
-void ToggleDefenseModeAtCoords (unsigned char col, unsigned char row) {
-  if (!gDuel.board[row][col].isDefending)
-    gDuel.board[row][col].isDefending = TRUE;
+void ToggleDefenseModeAtCoords (unsigned char col, unsigned char fixedRow) {
+  if (!gDuel.board[fixedRow][col].isDefending)
+    gDuel.board[fixedRow][col].isDefending = TRUE;
   else
-    gDuel.board[row][col].isDefending = FALSE;
+    gDuel.board[fixedRow][col].isDefending = FALSE;
 }
 
 void SetPermStage (struct DuelCard *zone, int permStage) {
