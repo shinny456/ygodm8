@@ -133,11 +133,11 @@ int HighestAtkMonOfTypeInRow (struct DuelCard** zonePtr, unsigned char type) {
 unsigned char NumLowerAtkMonInRow (unsigned char row, unsigned short atk) {
   unsigned char i, count = 0;
   for (i = 0; i < 5; i++) {
-    if (gZones[row][i]->id == CARD_NONE || !gZones[row][i]->isFaceUp)
+    if (gTurnZones[row][i]->id == CARD_NONE || !gTurnZones[row][i]->isFaceUp)
       continue;
-    gStatMod.card = gZones[row][i]->id;
+    gStatMod.card = gTurnZones[row][i]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row][i]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row][i]);
     SetFinalStat(&gStatMod);
     if (gCardInfo.atk >= atk)
       count++;
@@ -148,8 +148,8 @@ unsigned char NumLowerAtkMonInRow (unsigned char row, unsigned short atk) {
 unsigned char GetNumFaceUpLockedCardsInRow (unsigned char row) {
   unsigned char i, count = 0;
   for (i = 0; i < 5; i++)
-    if (gZones[row][i]->id != CARD_NONE && gZones[row][i]->isFaceUp)
-      if (gZones[row][i]->isLocked)
+    if (gTurnZones[row][i]->id != CARD_NONE && gTurnZones[row][i]->isFaceUp)
+      if (gTurnZones[row][i]->isLocked)
         count++;
   return count;
 }
@@ -158,11 +158,11 @@ unsigned GetTotalAtkAndDefInRow (unsigned char row) {
   unsigned total = 0;
   unsigned char i;
   for (i = 0; i < 5; i++) {
-    if (GetTypeGroup(gZones[row][i]->id) != 1)
+    if (GetTypeGroup(gTurnZones[row][i]->id) != 1)
       continue;
-    gStatMod.card = gZones[row][i]->id;
+    gStatMod.card = gTurnZones[row][i]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row][i]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row][i]);
     SetFinalStat(&gStatMod);
     total = total + gCardInfo.atk + gCardInfo.def;
   }
@@ -173,11 +173,11 @@ unsigned GetTotalFaceUpAtkAndDefInRow (unsigned char row) {
   unsigned total = 0;
   unsigned char i;
   for (i = 0; i < 5; i++) {
-    if (GetTypeGroup(gZones[row][i]->id) != 1 || !gZones[row][i]->isFaceUp)
+    if (GetTypeGroup(gTurnZones[row][i]->id) != 1 || !gTurnZones[row][i]->isFaceUp)
       continue;
-    gStatMod.card = gZones[row][i]->id;
+    gStatMod.card = gTurnZones[row][i]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row][i]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row][i]);
     SetFinalStat(&gStatMod);
     total = total + gCardInfo.atk + gCardInfo.def;
   }
@@ -382,7 +382,7 @@ unsigned ZoneHasRitualCard (struct DuelCard* zone) {
 int GetNumCardsInRow (unsigned char row) {
   unsigned char i, count = 0;
   for (i = 0; i < 5; i++)
-    if (gZones[row][i]->id != CARD_NONE)
+    if (gTurnZones[row][i]->id != CARD_NONE)
       count++;
   return count;
 }
@@ -390,7 +390,7 @@ int GetNumCardsInRow (unsigned char row) {
 unsigned GetNumFaceUpCardsInRow (unsigned char row) {
   unsigned char i, count = 0;
   for (i = 0; i < 5; i++)
-    if (gZones[row][i]->id != CARD_NONE && gZones[row][i]->isFaceUp)
+    if (gTurnZones[row][i]->id != CARD_NONE && gTurnZones[row][i]->isFaceUp)
       count++;
   return count;
 }
@@ -398,7 +398,7 @@ unsigned GetNumFaceUpCardsInRow (unsigned char row) {
 unsigned GetNumFaceDownCardsInRow (unsigned char row) {
   unsigned char i, count = 0;
   for (i = 0; i < 5; i++)
-    if (gZones[row][i]->id != CARD_NONE && !gZones[row][i]->isFaceUp)
+    if (gTurnZones[row][i]->id != CARD_NONE && !gTurnZones[row][i]->isFaceUp)
       count++;
   return count;
 }
@@ -406,7 +406,7 @@ unsigned GetNumFaceDownCardsInRow (unsigned char row) {
 unsigned sub_80438A0 (unsigned char row) {
   unsigned char i, count = 0;
   for (i = 0; i < 5; i++) {
-    SetCardInfo(gZones[row][i]->id);
+    SetCardInfo(gTurnZones[row][i]->id);
     if (gCardInfo.spellEffect == 2)
       count++;
   }
@@ -416,7 +416,7 @@ unsigned sub_80438A0 (unsigned char row) {
 unsigned GetNumCardsDefendingInRow (unsigned char row) {
   unsigned char i, count = 0;
   for (i = 0; i < 5; i++)
-    if (gZones[row][i]->id != CARD_NONE && gZones[row][i]->isDefending)
+    if (gTurnZones[row][i]->id != CARD_NONE && gTurnZones[row][i]->isDefending)
       count++;
   return count;
 }
@@ -424,9 +424,9 @@ unsigned GetNumCardsDefendingInRow (unsigned char row) {
 int sub_8043930 (unsigned char row, unsigned char type) {
   unsigned char i, count = 0;
   for (i = 0; i < 5; i++) {
-    if (gZones[row][i]->id == CARD_NONE)
+    if (gTurnZones[row][i]->id == CARD_NONE)
       continue;
-    SetCardInfo(gZones[row][i]->id);
+    SetCardInfo(gTurnZones[row][i]->id);
     if (gCardInfo.type == type)
       count++;
   }
@@ -436,9 +436,9 @@ int sub_8043930 (unsigned char row, unsigned char type) {
 unsigned sub_804398C (unsigned char row, unsigned char type) {
   unsigned char i, count = 0;
   for (i = 0; i < 5; i++) {
-    if (gZones[row][i]->id == CARD_NONE || !gZones[row][i]->isFaceUp)
+    if (gTurnZones[row][i]->id == CARD_NONE || !gTurnZones[row][i]->isFaceUp)
       continue;
-    SetCardInfo(gZones[row][i]->id);
+    SetCardInfo(gTurnZones[row][i]->id);
     if (gCardInfo.type == type)
       count++;
   }
@@ -448,9 +448,9 @@ unsigned sub_804398C (unsigned char row, unsigned char type) {
 unsigned sub_80439F4 (unsigned char row, unsigned char attribute) {
   unsigned char i, count = 0;
   for (i = 0; i < 5; i++) {
-    if (gZones[row][i]->id == CARD_NONE || !gZones[row][i]->isFaceUp)
+    if (gTurnZones[row][i]->id == CARD_NONE || !gTurnZones[row][i]->isFaceUp)
       continue;
-    SetCardInfo(gZones[row][i]->id);
+    SetCardInfo(gTurnZones[row][i]->id);
     if (gCardInfo.attribute == attribute)
       count++;
   }
@@ -460,7 +460,7 @@ unsigned sub_80439F4 (unsigned char row, unsigned char attribute) {
 unsigned GetNumCardsUnlockedInRow (unsigned char row) {
   unsigned char i, count = 0;
   for (i = 0; i < 5; i++) {
-    if (gZones[row][i]->id != CARD_NONE && !gZones[row][i]->isLocked)
+    if (gTurnZones[row][i]->id != CARD_NONE && !gTurnZones[row][i]->isLocked)
       count++;
   }
   return count;
@@ -626,15 +626,15 @@ _08043BC4: .4byte gNewButtons");
 
 // unused?
 void sub_8043BC8 (struct Temp* arg0) {
-  gZones[gDuelCursor.currentY][gDuelCursor.currentX]->id = arg0->unk2;
-  gZones[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp = 1;
-  gZones[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 0;
-  gZones[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
-  gZones[gDuelCursor.currentY][gDuelCursor.currentX]->unkTwo = 0;
-  gZones[gDuelCursor.currentY][gDuelCursor.currentX]->unk4 = 0;
-  ResetPermStage(gZones[gDuelCursor.currentY][gDuelCursor.currentX]);
-  ResetTempStage(gZones[gDuelCursor.currentY][gDuelCursor.currentX]);
-  gZones[gDuelCursor.currentY][gDuelCursor.currentX]->willChangeSides = 0;
+  gTurnZones[gDuelCursor.currentY][gDuelCursor.currentX]->id = arg0->unk2;
+  gTurnZones[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp = 1;
+  gTurnZones[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 0;
+  gTurnZones[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
+  gTurnZones[gDuelCursor.currentY][gDuelCursor.currentX]->unkTwo = 0;
+  gTurnZones[gDuelCursor.currentY][gDuelCursor.currentX]->unk4 = 0;
+  ResetPermStage(gTurnZones[gDuelCursor.currentY][gDuelCursor.currentX]);
+  ResetTempStage(gTurnZones[gDuelCursor.currentY][gDuelCursor.currentX]);
+  gTurnZones[gDuelCursor.currentY][gDuelCursor.currentX]->willChangeSides = 0;
 }
 
 void sub_8043CAC (void) {

@@ -142,9 +142,9 @@ static bool8 ConditionHouseOfAdhesiveTape(void)
 {
     if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_MONSTER)
     {
-        gStatMod.card = gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
+        gStatMod.card = gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = GetFinalStage(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
+        gStatMod.stage = GetFinalStage(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 500)
         {
@@ -159,9 +159,9 @@ static bool8 ConditionEatgaboon(void)
 {
     if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_MONSTER)
     {
-        gStatMod.card = gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
+        gStatMod.card = gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = GetFinalStage(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
+        gStatMod.stage = GetFinalStage(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 1000)
         {
@@ -176,9 +176,9 @@ static bool8 ConditionBearTrap(void)
 {
     if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_MONSTER)
     {
-        gStatMod.card = gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
+        gStatMod.card = gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = GetFinalStage(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
+        gStatMod.stage = GetFinalStage(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 1500)
         {
@@ -193,9 +193,9 @@ static bool8 ConditionInvisibleWire(void)
 {
     if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_MONSTER)
     {
-        gStatMod.card = gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
+        gStatMod.card = gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = GetFinalStage(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
+        gStatMod.stage = GetFinalStage(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 2000)
         {
@@ -210,9 +210,9 @@ static bool8 ConditionAcidTrapHole(void)
 {
     if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_MONSTER)
     {
-        gStatMod.card = gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
+        gStatMod.card = gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = GetFinalStage(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
+        gStatMod.stage = GetFinalStage(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 3000)
         {
@@ -225,10 +225,10 @@ static bool8 ConditionAcidTrapHole(void)
 
 static void EffectWideSpreadRuin(void)
 {
-    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
-    if (!IsGodCard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id))
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
+    if (!IsGodCard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id))
     {
-        ClearZoneAndSendMonToGraveyard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
 
         if (!gHideEffectText)
         {
@@ -239,7 +239,7 @@ static void EffectWideSpreadRuin(void)
     }
     else
     {
-        gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
+        gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
         if (!gHideEffectText)
         {
             SetCardEffectTextType(4);
@@ -252,10 +252,10 @@ static void EffectWideSpreadRuin(void)
 
 static void EffectHouseOfAdhesiveTape(void)
 {
-    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
-    if (!IsGodCard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id))
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
+    if (!IsGodCard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id))
     {
-        ClearZoneAndSendMonToGraveyard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
 
         if (!gHideEffectText)
         {
@@ -266,7 +266,7 @@ static void EffectHouseOfAdhesiveTape(void)
     }
     else
     {
-        gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
+        gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
         if (!gHideEffectText)
         {
             SetCardEffectTextType(4);
@@ -279,10 +279,10 @@ static void EffectHouseOfAdhesiveTape(void)
 
 static void EffectEatgaboon(void)
 {
-    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
-    if (!IsGodCard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id))
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
+    if (!IsGodCard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id))
     {
-        ClearZoneAndSendMonToGraveyard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
 
         if (!gHideEffectText)
         {
@@ -293,7 +293,7 @@ static void EffectEatgaboon(void)
     }
     else
     {
-        gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
+        gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
         if (!gHideEffectText)
         {
             SetCardEffectTextType(4);
@@ -306,10 +306,10 @@ static void EffectEatgaboon(void)
 
 static void EffectBearTrap(void)
 {
-    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
-    if (!IsGodCard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id))
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
+    if (!IsGodCard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id))
     {
-        ClearZoneAndSendMonToGraveyard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
 
         if (!gHideEffectText)
         {
@@ -320,7 +320,7 @@ static void EffectBearTrap(void)
     }
     else
     {
-        gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
+        gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
         if (!gHideEffectText)
         {
             SetCardEffectTextType(4);
@@ -333,10 +333,10 @@ static void EffectBearTrap(void)
 
 static void EffectInvisibleWire(void)
 {
-    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
-    if (!IsGodCard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id))
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
+    if (!IsGodCard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id))
     {
-        ClearZoneAndSendMonToGraveyard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
 
         if (!gHideEffectText)
         {
@@ -347,7 +347,7 @@ static void EffectInvisibleWire(void)
     }
     else
     {
-        gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
+        gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
         if (!gHideEffectText)
         {
             SetCardEffectTextType(4);
@@ -360,10 +360,10 @@ static void EffectInvisibleWire(void)
 
 static void EffectAcidTrapHole(void)
 {
-    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
-    if (!IsGodCard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id))
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
+    if (!IsGodCard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id))
     {
-        ClearZoneAndSendMonToGraveyard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
 
         if (!gHideEffectText)
         {
@@ -374,7 +374,7 @@ static void EffectAcidTrapHole(void)
     }
     else
     {
-        gZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
+        gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
         if (!gHideEffectText)
         {
             SetCardEffectTextType(4);
@@ -390,11 +390,11 @@ static void EffectAntiRaigeki(void)
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (!IsGodCard(gZones[2][i]->id))
-            ClearZoneAndSendMonToGraveyard(gZones[2][i], 0);
+        if (!IsGodCard(gTurnZones[2][i]->id))
+            ClearZoneAndSendMonToGraveyard(gTurnZones[2][i], 0);
 
-    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
-    ClearZoneAndSendMonToGraveyard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
 
     if (!gHideEffectText)
     {
@@ -405,10 +405,10 @@ static void EffectAntiRaigeki(void)
 
 static void EffectInfiniteDismissal(void)
 {
-    gZones[2][gTrapEffectData.unk3]->isFaceUp = TRUE;
-    gZones[2][gTrapEffectData.unk3]->isLocked = TRUE;
+    gTurnZones[2][gTrapEffectData.unk3]->isFaceUp = TRUE;
+    gTurnZones[2][gTrapEffectData.unk3]->isLocked = TRUE;
 
-    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
 
     if (!gHideEffectText)
     {
@@ -420,11 +420,11 @@ static void EffectInfiniteDismissal(void)
 
 static void EffectAmazonArchers(void)
 {
-    DecrementPermStage(gZones[2][gTrapEffectData.unk3]);
-    gZones[2][gTrapEffectData.unk3]->isFaceUp = TRUE;
-    gZones[2][gTrapEffectData.unk3]->isLocked = TRUE;
+    DecrementPermStage(gTurnZones[2][gTrapEffectData.unk3]);
+    gTurnZones[2][gTrapEffectData.unk3]->isFaceUp = TRUE;
+    gTurnZones[2][gTrapEffectData.unk3]->isLocked = TRUE;
 
-    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
 
     if (!gHideEffectText)
     {
@@ -519,8 +519,8 @@ static void EffectGoblinFan(u16 lp)
     HandleDuelAction();
     CheckLoserFlags();
 
-    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
-    ClearZoneAndSendMonToGraveyard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
 
     if (!gHideEffectText)
     {
@@ -540,8 +540,8 @@ static void EffectBadReactionToSimochi(u16 lp)
     HandleDuelAction();
     CheckLoserFlags();
 
-    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
-    ClearZoneAndSendMonToGraveyard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
 
     if (!gHideEffectText)
     {
@@ -553,8 +553,8 @@ static void EffectBadReactionToSimochi(u16 lp)
 
 static void EffectReverseTrap(void)
 {
-    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
-    ClearZoneAndSendMonToGraveyard(gZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
 
     if (!gHideEffectText)
     {
@@ -573,10 +573,10 @@ static void EffectTorrentialTribute(void)
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (!IsGodCard(gZones[2][i]->id))
-            ClearZoneAndSendMonToGraveyard(gZones[2][i], 0);
+        if (!IsGodCard(gTurnZones[2][i]->id))
+            ClearZoneAndSendMonToGraveyard(gTurnZones[2][i], 0);
 
-    ClearZoneAndSendMonToGraveyard(gZones[0][gTrapEffectData.trapZoneId], 1);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
 
     if (!gHideEffectText)
     {
@@ -781,7 +781,7 @@ unsigned IsTrapTriggered (void) {
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
   {
       gTrapEffectData.trapZoneId = i;
-      if (CheckTrapActivationConditions(gZones[0][i]->id) == 1)
+      if (CheckTrapActivationConditions(gTurnZones[0][i]->id) == 1)
           return TRUE;
   }
   return FALSE;

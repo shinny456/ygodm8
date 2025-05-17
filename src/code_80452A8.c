@@ -24,8 +24,8 @@ void SetDuelType (u8 duelType) {
 }
 
 u16 GetGraveCardAndClearGrave2 (u8 turn) {
-  u16 card = gDuel.notSure[turn].graveyard;
-  gDuel.notSure[turn].graveyard = CARD_NONE;
+  u16 card = gDuel.duelistbattleState[turn].graveyard;
+  gDuel.duelistbattleState[turn].graveyard = CARD_NONE;
   return card;
 }
 
@@ -35,7 +35,7 @@ void PlaceMonsterCardInZone (u16 *zone, u16 card) {
 }
 
 void ClearZoneAndSendMonToGraveyard2 (struct DuelCard *zone, u8 turn) {
-  PlaceMonsterCardInZone(&gDuel.notSure[turn].graveyard, zone->id);
+  PlaceMonsterCardInZone(&gDuel.duelistbattleState[turn].graveyard, zone->id);
   ClearZone(zone);
 }
 

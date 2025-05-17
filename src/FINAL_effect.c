@@ -14,7 +14,7 @@ void WinConditionFINAL (void) {
 int GetFINAL_Flags (void) {
   unsigned char i, flags = 0;
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-    flags |= GetFINAL_Flag(gZones[3][i]->id);
+    flags |= GetFINAL_Flag(gTurnZones[3][i]->id);
   return flags;
 }
 

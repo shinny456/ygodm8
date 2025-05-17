@@ -106,8 +106,8 @@ static void sub_800E11C(void)
     u8 row3 = sAI_Command.unk3 >> 4;
     u8 col3 = sAI_Command.unk3 & 0xF;
 
-    CopyCard(gZones[row3][col3], gZones[row2][col2]);
-    ClearZone(gZones[row2][col2]);
+    CopyCard(gTurnZones[row3][col3], gTurnZones[row2][col2]);
+    ClearZone(gTurnZones[row2][col2]);
     sub_80404F0(0);
     LockMonsterCardsInRow(4);
 }
@@ -119,8 +119,8 @@ static void sub_800E170(void)
     u8 row3 = sAI_Command.unk3 >> 4;
     u8 col3 = sAI_Command.unk3 & 0xF;
 
-    CopyCard(gZones[row3][col3], gZones[row2][col2]);
-    ClearZone(gZones[row2][col2]);
+    CopyCard(gTurnZones[row3][col3], gTurnZones[row2][col2]);
+    ClearZone(gTurnZones[row2][col2]);
     sub_80404F0(0);
     LockMonsterCardsInRow(4);
 }
@@ -132,9 +132,9 @@ static void sub_800E1C4(void)
     u8 row3 = sAI_Command.unk3 >> 4;
     u8 col3 = sAI_Command.unk3 & 0xF;
 
-    ClearZoneAndSendMonToGraveyard(gZones[row3][col3], 0);
-    CopyCard(gZones[row3][col3], gZones[row2][col2]);
-    ClearZone(gZones[row2][col2]);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[row3][col3], 0);
+    CopyCard(gTurnZones[row3][col3], gTurnZones[row2][col2]);
+    ClearZone(gTurnZones[row2][col2]);
     sub_80404F0(0);
     LockMonsterCardsInRow(4);
 }
@@ -146,9 +146,9 @@ static void sub_800E22C(void)
     u8 row3 = sAI_Command.unk3 >> 4;
     u8 col3 = sAI_Command.unk3 & 0xF;
 
-    ClearZoneAndSendMonToGraveyard(gZones[row3][col3], 0);
-    CopyCard(gZones[row3][col3], gZones[row2][col2]);
-    ClearZone(gZones[row2][col2]);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[row3][col3], 0);
+    CopyCard(gTurnZones[row3][col3], gTurnZones[row2][col2]);
+    ClearZone(gTurnZones[row2][col2]);
     sub_80404F0(0);
     LockMonsterCardsInRow(4);
 }
@@ -162,10 +162,10 @@ static void sub_800E294(void)
     u8 row4 = sAI_Command.unk4 >> 4;
     u8 col4 = sAI_Command.unk4 & 0xF;
 
-    ClearZoneAndSendMonToGraveyard(gZones[row4][col4], 0);
-    ClearZoneAndSendMonToGraveyard(gZones[row3][col3], 0);
-    CopyCard(gZones[row3][col3], gZones[row2][col2]);
-    ClearZone(gZones[row2][col2]);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[row4][col4], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[row3][col3], 0);
+    CopyCard(gTurnZones[row3][col3], gTurnZones[row2][col2]);
+    ClearZone(gTurnZones[row2][col2]);
     sub_80404F0(0);
     LockMonsterCardsInRow(4);
 }
@@ -179,10 +179,10 @@ static void sub_800E324(void)
     u8 row4 = sAI_Command.unk4 >> 4;
     u8 col4 = sAI_Command.unk4 & 0xF;
 
-    ClearZoneAndSendMonToGraveyard(gZones[row4][col4], 0);
-    ClearZoneAndSendMonToGraveyard(gZones[row3][col3], 0);
-    CopyCard(gZones[row3][col3], gZones[row2][col2]);
-    ClearZone(gZones[row2][col2]);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[row4][col4], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[row3][col3], 0);
+    CopyCard(gTurnZones[row3][col3], gTurnZones[row2][col2]);
+    ClearZone(gTurnZones[row2][col2]);
     sub_80404F0(0);
     LockMonsterCardsInRow(4);
 }
@@ -198,11 +198,11 @@ static void sub_800E3B4(void)
     u8 row5 = sAI_Command.unk5 >> 4;
     u8 col5 = sAI_Command.unk5 & 0xF;
 
-    ClearZoneAndSendMonToGraveyard(gZones[row5][col5], 0);
-    ClearZoneAndSendMonToGraveyard(gZones[row4][col4], 0);
-    ClearZoneAndSendMonToGraveyard(gZones[row3][col3], 0);
-    CopyCard(gZones[row3][col3], gZones[row2][col2]);
-    ClearZone(gZones[row2][col2]);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[row5][col5], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[row4][col4], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[row3][col3], 0);
+    CopyCard(gTurnZones[row3][col3], gTurnZones[row2][col2]);
+    ClearZone(gTurnZones[row2][col2]);
     sub_80404F0(0);
     LockMonsterCardsInRow(4);
 }
@@ -218,11 +218,11 @@ static void sub_800E460(void)
     u8 row5 = sAI_Command.unk5 >> 4;
     u8 col5 = sAI_Command.unk5 & 0xF;
 
-    ClearZoneAndSendMonToGraveyard(gZones[row5][col5], 0);
-    ClearZoneAndSendMonToGraveyard(gZones[row4][col4], 0);
-    ClearZoneAndSendMonToGraveyard(gZones[row3][col3], 0);
-    CopyCard(gZones[row3][col3], gZones[row2][col2]);
-    ClearZone(gZones[row2][col2]);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[row5][col5], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[row4][col4], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[row3][col3], 0);
+    CopyCard(gTurnZones[row3][col3], gTurnZones[row2][col2]);
+    ClearZone(gTurnZones[row2][col2]);
     sub_80404F0(0);
     LockMonsterCardsInRow(4);
 }
@@ -232,9 +232,9 @@ static void sub_800E50C(void)
     u8 row2 = sAI_Command.unk2 >> 4;
     u8 col2 = sAI_Command.unk2 & 0xF;
 
-    gZones[row2][col2]->isDefending = FALSE;
-    gZones[row2][col2]->isFaceUp = TRUE;
-    gZones[row2][col2]->isLocked = TRUE;
+    gTurnZones[row2][col2]->isDefending = FALSE;
+    gTurnZones[row2][col2]->isFaceUp = TRUE;
+    gTurnZones[row2][col2]->isLocked = TRUE;
 }
 
 static void sub_800E54C(void)
@@ -242,9 +242,9 @@ static void sub_800E54C(void)
     u8 row2 = sAI_Command.unk2 >> 4;
     u8 col2 = sAI_Command.unk2 & 0xF;
 
-    gZones[row2][col2]->isDefending = FALSE;
-    gZones[row2][col2]->isFaceUp = TRUE;
-    gZones[row2][col2]->isLocked = TRUE;
+    gTurnZones[row2][col2]->isDefending = FALSE;
+    gTurnZones[row2][col2]->isFaceUp = TRUE;
+    gTurnZones[row2][col2]->isLocked = TRUE;
 }
 //7
 static void sub_800E58C(void)
@@ -252,9 +252,9 @@ static void sub_800E58C(void)
     u8 row2 = sAI_Command.unk2 >> 4;
     u8 col2 = sAI_Command.unk2 & 0xF;
 
-    gZones[row2][col2]->isDefending = FALSE;
-    gZones[row2][col2]->isFaceUp = TRUE;
-    gZones[row2][col2]->isLocked = TRUE;
+    gTurnZones[row2][col2]->isDefending = FALSE;
+    gTurnZones[row2][col2]->isFaceUp = TRUE;
+    gTurnZones[row2][col2]->isLocked = TRUE;
     sub_803F8E0(4 - col2);
     HandleDuelAction();
     CheckGraveyardAndLoserFlags();
@@ -265,9 +265,9 @@ static void sub_800E5E4(void)
     u8 row2 = sAI_Command.unk2 >> 4;
     u8 col2 = sAI_Command.unk2 & 0xF;
 
-    gZones[row2][col2]->isDefending = FALSE;
-    gZones[row2][col2]->isFaceUp = TRUE;
-    gZones[row2][col2]->isLocked = TRUE;
+    gTurnZones[row2][col2]->isDefending = FALSE;
+    gTurnZones[row2][col2]->isFaceUp = TRUE;
+    gTurnZones[row2][col2]->isLocked = TRUE;
     sub_803F8E0(4 - col2);
     HandleDuelAction();
     CheckGraveyardAndLoserFlags();
@@ -280,10 +280,10 @@ static void sub_800E63C(void)
     u8 row3 = sAI_Command.unk3 >> 4;
     u8 col3 = sAI_Command.unk3 & 0xF;
 
-    gZones[row2][col2]->isDefending = FALSE;
-    gZones[row2][col2]->isFaceUp = TRUE;
-    gZones[row2][col2]->isLocked = TRUE;
-    gZones[row3][col3]->isFaceUp = TRUE;
+    gTurnZones[row2][col2]->isDefending = FALSE;
+    gTurnZones[row2][col2]->isFaceUp = TRUE;
+    gTurnZones[row2][col2]->isLocked = TRUE;
+    gTurnZones[row3][col3]->isFaceUp = TRUE;
     SetDuelActionAttack(col3, 4 - col2);
     HandleDuelAction();
     CheckGraveyardAndLoserFlags();
@@ -296,10 +296,10 @@ static void sub_800E6B8(void)
     u8 row3 = sAI_Command.unk3 >> 4;
     u8 col3 = sAI_Command.unk3 & 0xF;
 
-    gZones[row2][col2]->isDefending = FALSE;
-    gZones[row2][col2]->isFaceUp = TRUE;
-    gZones[row2][col2]->isLocked = TRUE;
-    gZones[row3][col3]->isFaceUp = TRUE;
+    gTurnZones[row2][col2]->isDefending = FALSE;
+    gTurnZones[row2][col2]->isFaceUp = TRUE;
+    gTurnZones[row2][col2]->isLocked = TRUE;
+    gTurnZones[row3][col3]->isFaceUp = TRUE;
     SetDuelActionAttack(col3, 4 - col2);
     HandleDuelAction();
     CheckGraveyardAndLoserFlags();
@@ -310,12 +310,12 @@ static void sub_800E734(void)
     u8 row2 = sAI_Command.unk2 >> 4;
     u8 col2 = sAI_Command.unk2 & 0xF;
 
-    gZones[row2][col2]->isDefending = FALSE;
-    gZones[row2][col2]->isFaceUp = TRUE;
-    gZones[row2][col2]->isLocked = TRUE;
+    gTurnZones[row2][col2]->isDefending = FALSE;
+    gTurnZones[row2][col2]->isFaceUp = TRUE;
+    gTurnZones[row2][col2]->isLocked = TRUE;
     gTrapEffectData.unk2 = row2;
     gTrapEffectData.unk3 = col2;
-    gTrapEffectData.id = gZones[row2][col2]->id;
+    gTrapEffectData.id = gTurnZones[row2][col2]->id;
     IsTrapTriggered();
     ActivateTrapEffect();
 }
@@ -325,12 +325,12 @@ static void sub_800E794(void)
     u8 row2 = sAI_Command.unk2 >> 4;
     u8 col2 = sAI_Command.unk2 & 0xF;
 
-    gZones[row2][col2]->isDefending = FALSE;
-    gZones[row2][col2]->isFaceUp = TRUE;
-    gZones[row2][col2]->isLocked = TRUE;
+    gTurnZones[row2][col2]->isDefending = FALSE;
+    gTurnZones[row2][col2]->isFaceUp = TRUE;
+    gTurnZones[row2][col2]->isLocked = TRUE;
     gTrapEffectData.unk2 = row2;
     gTrapEffectData.unk3 = col2;
-    gTrapEffectData.id = gZones[row2][col2]->id;
+    gTrapEffectData.id = gTurnZones[row2][col2]->id;
     IsTrapTriggered();
     ActivateTrapEffect();
 }
@@ -340,12 +340,12 @@ static void sub_800E7F4(void)
     u8 row2 = sAI_Command.unk2 >> 4;
     u8 col2 = sAI_Command.unk2 & 0xF;
 
-    gZones[row2][col2]->isDefending = FALSE;
-    gZones[row2][col2]->isFaceUp = TRUE;
-    gZones[row2][col2]->isLocked = TRUE;
+    gTurnZones[row2][col2]->isDefending = FALSE;
+    gTurnZones[row2][col2]->isFaceUp = TRUE;
+    gTurnZones[row2][col2]->isLocked = TRUE;
     gTrapEffectData.unk2 = row2;
     gTrapEffectData.unk3 = col2;
-    gTrapEffectData.id = gZones[row2][col2]->id;
+    gTrapEffectData.id = gTurnZones[row2][col2]->id;
     IsTrapTriggered();
     ActivateTrapEffect();
 }
@@ -355,12 +355,12 @@ static void sub_800E854(void)
     u8 row2 = sAI_Command.unk2 >> 4;
     u8 col2 = sAI_Command.unk2 & 0xF;
 
-    gZones[row2][col2]->isDefending = FALSE;
-    gZones[row2][col2]->isFaceUp = TRUE;
-    gZones[row2][col2]->isLocked = TRUE;
+    gTurnZones[row2][col2]->isDefending = FALSE;
+    gTurnZones[row2][col2]->isFaceUp = TRUE;
+    gTurnZones[row2][col2]->isLocked = TRUE;
     gTrapEffectData.unk2 = row2;
     gTrapEffectData.unk3 = col2;
-    gTrapEffectData.id = gZones[row2][col2]->id;
+    gTrapEffectData.id = gTurnZones[row2][col2]->id;
     IsTrapTriggered();
     ActivateTrapEffect();
 }
@@ -370,10 +370,10 @@ static void sub_800E8B4(void)
     u8 row2 = sAI_Command.unk2 >> 4;
     u8 col2 = sAI_Command.unk2 & 0xF;
 
-    gZones[row2][col2]->isDefending = FALSE;
-    gZones[row2][col2]->isFaceUp = TRUE;
-    gZones[row2][col2]->isLocked = TRUE;
-    gMonEffect.id = gZones[row2][col2]->id;
+    gTurnZones[row2][col2]->isDefending = FALSE;
+    gTurnZones[row2][col2]->isFaceUp = TRUE;
+    gTurnZones[row2][col2]->isLocked = TRUE;
+    gMonEffect.id = gTurnZones[row2][col2]->id;
     gMonEffect.row = row2;
     gMonEffect.zone = col2;
     ActivateMonsterEffect();
@@ -390,7 +390,7 @@ static void sub_800E92C(void)
     u8 row2 = sAI_Command.unk2 >> 4;
     u8 col2 = sAI_Command.unk2 & 0xF;
 
-    ClearZoneAndSendMonToGraveyard(gZones[row2][col2], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[row2][col2], 0);
 }
 
 static void sub_800E958(void)
@@ -399,8 +399,8 @@ static void sub_800E958(void)
     u8 row2 = sAI_Command.unk2 >> 4;
     u8 col2 = sAI_Command.unk2 & 0xF;
 
-    gZones[row2][col2]->isDefending = TRUE;
-    gZones[row2][col2]->isLocked = TRUE;
+    gTurnZones[row2][col2]->isDefending = TRUE;
+    gTurnZones[row2][col2]->isLocked = TRUE;
 }
 
 static void sub_800E98C(void)
@@ -418,7 +418,7 @@ static void sub_800E9A4(void)
     u8 row2 = sAI_Command.unk2 >> 4;
     u8 col2 = sAI_Command.unk2 & 0xF;
 
-    ClearZoneAndSendMonToGraveyard(gZones[row2][col2], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[row2][col2], 0);
 }
 
 static void sub_800E9D0(void)
@@ -427,8 +427,8 @@ static void sub_800E9D0(void)
     u8 row2 = sAI_Command.unk2 >> 4;
     u8 col2 = sAI_Command.unk2 & 0xF;
 
-    gZones[row2][col2]->isDefending = TRUE;
-    gZones[row2][col2]->isLocked = TRUE;
+    gTurnZones[row2][col2]->isDefending = TRUE;
+    gTurnZones[row2][col2]->isLocked = TRUE;
 }
 
 static void sub_800EA04(void)
@@ -450,8 +450,8 @@ static void sub_800EA20(void)
     u8 row3 = sAI_Command.unk3 >> 4;
     u8 col3 = sAI_Command.unk3 & 0xF;
 
-    CopyCard(gZones[row3][col3], gZones[row2][col2]);
-    ClearZone(gZones[row2][col2]);
+    CopyCard(gTurnZones[row3][col3], gTurnZones[row2][col2]);
+    ClearZone(gTurnZones[row2][col2]);
 }
 
 static void sub_800EA68(void)
@@ -461,8 +461,8 @@ static void sub_800EA68(void)
     u8 row3 = sAI_Command.unk3 >> 4;
     u8 col3 = sAI_Command.unk3 & 0xF;
 
-    CopyCard(gZones[row3][col3], gZones[row2][col2]);
-    ClearZone(gZones[row2][col2]);
+    CopyCard(gTurnZones[row3][col3], gTurnZones[row2][col2]);
+    ClearZone(gTurnZones[row2][col2]);
 }
 
 static void sub_800EAB0(void)
@@ -472,8 +472,8 @@ static void sub_800EAB0(void)
     u8 row3 = sAI_Command.unk3 >> 4;
     u8 col3 = sAI_Command.unk3 & 0xF;
 
-    CopyCard(gZones[row3][col3], gZones[row2][col2]);
-    ClearZone(gZones[row2][col2]);
+    CopyCard(gTurnZones[row3][col3], gTurnZones[row2][col2]);
+    ClearZone(gTurnZones[row2][col2]);
 }
 
 static void sub_800EAF8(void)
@@ -483,8 +483,8 @@ static void sub_800EAF8(void)
     u8 row3 = sAI_Command.unk3 >> 4;
     u8 col3 = sAI_Command.unk3 & 0xF;
 
-    CopyCard(gZones[row3][col3], gZones[row2][col2]);
-    ClearZone(gZones[row2][col2]);
+    CopyCard(gTurnZones[row3][col3], gTurnZones[row2][col2]);
+    ClearZone(gTurnZones[row2][col2]);
 }
 
 static void sub_800EB40(void)
@@ -494,13 +494,13 @@ static void sub_800EB40(void)
     u8 row3 = sAI_Command.unk3 >> 4;
     u8 col3 = sAI_Command.unk3 & 0xF;
 
-    gSpellEffectData.id = gZones[row2][col2]->id;
+    gSpellEffectData.id = gTurnZones[row2][col2]->id;
     gSpellEffectData.unk4 = row2;
     gSpellEffectData.unk5 = col2;
     gSpellEffectData.unk2 = row3;
     gSpellEffectData.unk3 = col3;
     ActivateSpellEffect();
-    ClearZone(gZones[row2][col2]);
+    ClearZone(gTurnZones[row2][col2]);
 }
 
 static void sub_800EB8C(void)
@@ -510,13 +510,13 @@ static void sub_800EB8C(void)
     u8 row3 = sAI_Command.unk3 >> 4;
     u8 col3 = sAI_Command.unk3 & 0xF;
 
-    gSpellEffectData.id = gZones[row2][col2]->id;
+    gSpellEffectData.id = gTurnZones[row2][col2]->id;
     gSpellEffectData.unk4 = row2;
     gSpellEffectData.unk5 = col2;
     gSpellEffectData.unk2 = row3;
     gSpellEffectData.unk3 = col3;
     ActivateSpellEffect();
-    ClearZone(gZones[row2][col2]);
+    ClearZone(gTurnZones[row2][col2]);
 }
 
 static void sub_800EBD8(void)
@@ -526,8 +526,8 @@ static void sub_800EBD8(void)
     u8 row3 = sAI_Command.unk3 >> 4;
     u8 col3 = sAI_Command.unk3 & 0xF;
 
-    CopyCard(gZones[row3][col3], gZones[row2][col2]);
-    ClearZone(gZones[row2][col2]);
+    CopyCard(gTurnZones[row3][col3], gTurnZones[row2][col2]);
+    ClearZone(gTurnZones[row2][col2]);
 }
 
 static void sub_800EC20(void)
@@ -537,8 +537,8 @@ static void sub_800EC20(void)
     u8 row3 = sAI_Command.unk3 >> 4;
     u8 col3 = sAI_Command.unk3 & 0xF;
 
-    CopyCard(gZones[row3][col3], gZones[row2][col2]);
-    ClearZone(gZones[row2][col2]);
+    CopyCard(gTurnZones[row3][col3], gTurnZones[row2][col2]);
+    ClearZone(gTurnZones[row2][col2]);
 }
 
 static void sub_800EC68(void)
@@ -546,13 +546,13 @@ static void sub_800EC68(void)
     u8 row2 = sAI_Command.unk2 >> 4;
     u8 col2 = sAI_Command.unk2 & 0xF;
 
-    gSpellEffectData.id = gZones[row2][col2]->id;
+    gSpellEffectData.id = gTurnZones[row2][col2]->id;
     gSpellEffectData.unk2 = row2;
     gSpellEffectData.unk3 = col2;
     ActivateSpellEffect();
     if (gNotSure[TURN_PLAYER]->unkThree)
         LockMonsterCardsInRow(4);
-    ClearZone(gZones[row2][col2]);
+    ClearZone(gTurnZones[row2][col2]);
 }
 
 static void sub_800ECC0(void)
@@ -560,11 +560,11 @@ static void sub_800ECC0(void)
     u8 row2 = sAI_Command.unk2 >> 4;
     u8 col2 = sAI_Command.unk2 & 0xF;
 
-    gSpellEffectData.id = gZones[row2][col2]->id;
+    gSpellEffectData.id = gTurnZones[row2][col2]->id;
     gSpellEffectData.unk2 = row2;
     gSpellEffectData.unk3 = col2;
     ActivateSpellEffect();
-    ClearZone(gZones[row2][col2]);
+    ClearZone(gTurnZones[row2][col2]);
 }
 
 static void sub_800ED00(void)
@@ -574,8 +574,8 @@ static void sub_800ED00(void)
     u8 row3 = sAI_Command.unk3 >> 4;
     u8 col3 = sAI_Command.unk3 & 0xF;
 
-    CopyCard(gZones[row3][col3], gZones[row2][col2]);
-    ClearZone(gZones[row2][col2]);
+    CopyCard(gTurnZones[row3][col3], gTurnZones[row2][col2]);
+    ClearZone(gTurnZones[row2][col2]);
 }
 
 static void sub_800ED48(void)
@@ -594,16 +594,16 @@ static void sub_800ED48(void)
     row5 = sAI_Command.unk5 >> 4;
     col5 = sAI_Command.unk5 & 0xF;
 
-    if (GetRitualNumTributes(gZones[row2][col2]->id) == 2)
+    if (GetRitualNumTributes(gTurnZones[row2][col2]->id) == 2)
     {
-        ClearZoneAndSendMonToGraveyard(gZones[row4][col4], 0);
-        ClearZoneAndSendMonToGraveyard(gZones[row5][col5], 0);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[row4][col4], 0);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[row5][col5], 0);
     }
-    gSpellEffectData.id = gZones[row2][col2]->id;
+    gSpellEffectData.id = gTurnZones[row2][col2]->id;
     gSpellEffectData.unk2 = row2;
     gSpellEffectData.unk3 = col2;
     ActivateSpellEffect();
-    ClearZone(gZones[row2][col2]);
+    ClearZone(gTurnZones[row2][col2]);
 }
 
 static void sub_800EDF8(void)
@@ -611,7 +611,7 @@ static void sub_800EDF8(void)
     u8 row2 = sAI_Command.unk2 >> 4;
     u8 col2 = sAI_Command.unk2 & 0xF;
 
-    ClearZoneAndSendMonToGraveyard(gZones[row2][col2], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[row2][col2], 0);
 }
 
 static void sub_800EE24(void)
@@ -954,7 +954,7 @@ static void sub_800F298(void)
 {
     u8 row2 = sAI_Command.unk2 >> 4;
     u8 col2 = foo2();
-    u16 cardId = gZones[row2][col2]->id;
+    u16 cardId = gTurnZones[row2][col2]->id;
 
     SetCardInfo(cardId);
     if (gCardInfo.spellEffect == 2)
@@ -962,7 +962,7 @@ static void sub_800F298(void)
         switch (sub_8045390(cardId))
         {
         case 0:
-            if (GetExodiaFlag(cardId) && NumCardMatchesInRow(&gZones[row2][col2], cardId) < 2)
+            if (GetExodiaFlag(cardId) && NumCardMatchesInRow(&gTurnZones[row2][col2], cardId) < 2)
                 gUnk_8DFF6A4->unk2298 = 0x7EDE89FE;
             else
                 gUnk_8DFF6A4->unk2298 = 0x7EE0ACDF;
@@ -983,9 +983,9 @@ static void sub_800F298(void)
             gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
             return;
         }
-        gStatMod.card = gZones[row2][col2]->id;
+        gStatMod.card = gTurnZones[row2][col2]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+        gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
         SetFinalStat(&gStatMod);
         gUnk_8DFF6A4->unk2298 += 0xFFFE - gCardInfo.atk;
         gUnk_8DFF6A4->unk2298 += 0xFFFE - gCardInfo.def;
@@ -999,7 +999,7 @@ static void sub_800F46C(void)
 {
     u8 row2 = sAI_Command.unk2 >> 4;
     u8 col2 = foo2();
-    u16 cardId = gZones[row2][col2]->id;
+    u16 cardId = gTurnZones[row2][col2]->id;
 
     SetCardInfo(cardId);
     if (gCardInfo.spellEffect == 2)
@@ -1007,7 +1007,7 @@ static void sub_800F46C(void)
         switch (sub_8045390(cardId))
         {
         case 0:
-            if (GetExodiaFlag(cardId) && NumCardMatchesInRow(&gZones[row2][col2], cardId) < 2)
+            if (GetExodiaFlag(cardId) && NumCardMatchesInRow(&gTurnZones[row2][col2], cardId) < 2)
                 gUnk_8DFF6A4->unk2298 = 0x7EDE89FE;
             else
                 gUnk_8DFF6A4->unk2298 = 0x7EE0ACDF;
@@ -1028,9 +1028,9 @@ static void sub_800F46C(void)
             gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
             return;
         }
-        gStatMod.card = gZones[row2][col2]->id;
+        gStatMod.card = gTurnZones[row2][col2]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+        gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
         SetFinalStat(&gStatMod);
         gUnk_8DFF6A4->unk2298 += 0xFFFE - gCardInfo.atk;
         gUnk_8DFF6A4->unk2298 += 0xFFFE - gCardInfo.def;
@@ -1046,32 +1046,32 @@ static void sub_800F640(void)
     u8 row3 = sAI_Command.unk3 >> 4;
     u8 col3 = sAI_Command.unk3 & 0xF;
 
-    SetCardInfo(gZones[row2][col2]->id);
+    SetCardInfo(gTurnZones[row2][col2]->id);
     if (gCardInfo.unk1E)
         gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-    else if (ZoneHasUnlockedMonsterCard(gZones[row2][col2]) != 1)
+    else if (ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) != 1)
         gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-    else if (sub_8045390(gZones[row2][col2]->id) != 0)
+    else if (sub_8045390(gTurnZones[row2][col2]->id) != 0)
         gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-    else if (GetExodiaFlag(gZones[row2][col2]->id) && NumCardMatchesInRow(gZones[row2], gZones[row2][col2]->id) < 2)
+    else if (GetExodiaFlag(gTurnZones[row2][col2]->id) && NumCardMatchesInRow(gTurnZones[row2], gTurnZones[row2][col2]->id) < 2)
         sub_800F830();
-    else if (gZones[row3][col3]->id == CARD_NONE)
+    else if (gTurnZones[row3][col3]->id == CARD_NONE)
         gUnk_8DFF6A4->unk2298 = 0x7F3D9A1C;
-    else if (gZones[row3][col3]->isLocked)
+    else if (gTurnZones[row3][col3]->isLocked)
         gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-    else if (GetTypeGroup(gZones[row3][col3]->id) != 1)
+    else if (GetTypeGroup(gTurnZones[row3][col3]->id) != 1)
         gUnk_8DFF6A4->unk2298 = 0x7F3D9A1C;
     else
     {
         u16 atk;
-        gStatMod.card = gZones[row2][col2]->id;
+        gStatMod.card = gTurnZones[row2][col2]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+        gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
         SetFinalStat(&gStatMod);
         atk = gCardInfo.atk;
-        gStatMod.card = gZones[row3][col3]->id;
+        gStatMod.card = gTurnZones[row3][col3]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = GetFinalStage(gZones[row3][col3]);
+        gStatMod.stage = GetFinalStage(gTurnZones[row3][col3]);
         SetFinalStat(&gStatMod);
         if (atk <= gCardInfo.atk)
             gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1085,22 +1085,22 @@ static void sub_800F830 (void) {
   u8 col2 = sAI_Command.unk2 & 0xF;
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  if (gZones[row3][col3]->id == CARD_NONE)
+  if (gTurnZones[row3][col3]->id == CARD_NONE)
     gUnk_8DFF6A4->unk2298 = 0x7F1D8EFC;
-  else if (gZones[row3][col3]->isLocked)
+  else if (gTurnZones[row3][col3]->isLocked)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (GetTypeGroup(gZones[row3][col3]->id) != 1)
+  else if (GetTypeGroup(gTurnZones[row3][col3]->id) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7F1D8EFC;
   else {
     u16 atk;
-    gStatMod.card = gZones[row2][col2]->id;
+    gStatMod.card = gTurnZones[row2][col2]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
     SetFinalStat(&gStatMod);
     atk = gCardInfo.atk;
-    gStatMod.card = gZones[row3][col3]->id;
+    gStatMod.card = gTurnZones[row3][col3]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row3][col3]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row3][col3]);
     SetFinalStat(&gStatMod);
     if (atk <= gCardInfo.atk)
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1114,29 +1114,29 @@ static void sub_800F95C (void) {
   u8 col2 = sAI_Command.unk2 & 0xF;
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
+  SetCardInfo(gTurnZones[row2][col2]->id);
   if (!gCardInfo.unk1E)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (ZoneHasUnlockedMonsterCard(gZones[row2][col2]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (sub_8045390(gZones[row2][col2]->id))
+  else if (sub_8045390(gTurnZones[row2][col2]->id))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (gZones[row3][col3]->id == CARD_NONE)
+  else if (gTurnZones[row3][col3]->id == CARD_NONE)
     gUnk_8DFF6A4->unk2298 = 0x7F3D9A1C;
-  else if (gZones[row3][col3]->isLocked)
+  else if (gTurnZones[row3][col3]->isLocked)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (GetTypeGroup(gZones[row3][col3]->id) != 1)
+  else if (GetTypeGroup(gTurnZones[row3][col3]->id) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7F3D9A1C;
   else {
     u16 atk;
-    gStatMod.card = gZones[row2][col2]->id;
+    gStatMod.card = gTurnZones[row2][col2]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
     SetFinalStat(&gStatMod);
     atk = gCardInfo.atk;
-    gStatMod.card = gZones[row3][col3]->id;
+    gStatMod.card = gTurnZones[row3][col3]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row3][col3]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row3][col3]);
     SetFinalStat(&gStatMod);
     if (atk <= gCardInfo.atk)
         gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1152,25 +1152,25 @@ static void sub_800FB00(void)
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
 
-  SetCardInfo(gZones[row2][col2]->id);
+  SetCardInfo(gTurnZones[row2][col2]->id);
   if (gCardInfo.unk1E)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (ZoneHasUnlockedMonsterCard(gZones[row2][col2]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (sub_8045390(gZones[row2][col2]->id) != 1)
+  else if (sub_8045390(gTurnZones[row2][col2]->id) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (ZoneHasUnlockedMonsterCard(gZones[row3][col3]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else {
     u16 atk;
-    gStatMod.card = gZones[row2][col2]->id;
+    gStatMod.card = gTurnZones[row2][col2]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
     SetFinalStat(&gStatMod);
     atk = gCardInfo.atk;
-    gStatMod.card = gZones[row3][col3]->id;
+    gStatMod.card = gTurnZones[row3][col3]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row3][col3]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row3][col3]);
     SetFinalStat(&gStatMod);
     if (atk <= gCardInfo.atk)
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1184,25 +1184,25 @@ static void sub_800FC64 (void) {
   u8 col2 = sAI_Command.unk2 & 0xF;
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
+  SetCardInfo(gTurnZones[row2][col2]->id);
   if (!gCardInfo.unk1E)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (ZoneHasUnlockedMonsterCard(gZones[row2][col2]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (sub_8045390(gZones[row2][col2]->id) != 1)
+  else if (sub_8045390(gTurnZones[row2][col2]->id) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (ZoneHasUnlockedMonsterCard(gZones[row3][col3]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else {
     u16 atk;
-    gStatMod.card = gZones[row2][col2]->id;
+    gStatMod.card = gTurnZones[row2][col2]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
     SetFinalStat(&gStatMod);
     atk = gCardInfo.atk;
-    gStatMod.card = gZones[row3][col3]->id;
+    gStatMod.card = gTurnZones[row3][col3]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row3][col3]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row3][col3]);
     SetFinalStat(&gStatMod);
     if (atk <= gCardInfo.atk)
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1219,34 +1219,34 @@ static void sub_800FDC8 (void) {
   u8 row4 = sAI_Command.unk4 >> 4;
   u8 col4 = sAI_Command.unk4 & 0xF;
 
-  SetCardInfo(gZones[row2][col2]->id);
+  SetCardInfo(gTurnZones[row2][col2]->id);
   if (gCardInfo.unk1E)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (ZoneHasUnlockedMonsterCard(gZones[row2][col2]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (sub_8045390(gZones[row2][col2]->id) != 2)
+  else if (sub_8045390(gTurnZones[row2][col2]->id) != 2)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (ZoneHasUnlockedMonsterCard(gZones[row3][col3]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (ZoneHasUnlockedMonsterCard(gZones[row4][col4]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gTurnZones[row4][col4]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else {
     u16 atk;
-    gStatMod.card = gZones[row2][col2]->id;
+    gStatMod.card = gTurnZones[row2][col2]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
     SetFinalStat(&gStatMod);
     atk = gCardInfo.atk;
-    gStatMod.card = gZones[row3][col3]->id;
+    gStatMod.card = gTurnZones[row3][col3]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row3][col3]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row3][col3]);
     SetFinalStat(&gStatMod);
     if (atk <= gCardInfo.atk)
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     else {
-      gStatMod.card = gZones[row4][col4]->id;
+      gStatMod.card = gTurnZones[row4][col4]->id;
       gStatMod.field = gDuel.field;
-      gStatMod.stage = GetFinalStage(gZones[row4][col4]);
+      gStatMod.stage = GetFinalStage(gTurnZones[row4][col4]);
       SetFinalStat(&gStatMod);
       if (atk <= gCardInfo.atk)
         gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1264,34 +1264,34 @@ static void sub_800FFB0 (void) {
   u8 row4 = sAI_Command.unk4 >> 4;
   u8 col4 = sAI_Command.unk4 & 0xF;
 
-  SetCardInfo(gZones[row2][col2]->id);
+  SetCardInfo(gTurnZones[row2][col2]->id);
   if (!gCardInfo.unk1E)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (ZoneHasUnlockedMonsterCard(gZones[row2][col2]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (sub_8045390(gZones[row2][col2]->id) != 2)
+  else if (sub_8045390(gTurnZones[row2][col2]->id) != 2)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (ZoneHasUnlockedMonsterCard(gZones[row3][col3]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (ZoneHasUnlockedMonsterCard(gZones[row4][col4]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gTurnZones[row4][col4]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else {
     u16 atk;
-    gStatMod.card = gZones[row2][col2]->id;
+    gStatMod.card = gTurnZones[row2][col2]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
     SetFinalStat(&gStatMod);
     atk = gCardInfo.atk;
-    gStatMod.card = gZones[row3][col3]->id;
+    gStatMod.card = gTurnZones[row3][col3]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row3][col3]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row3][col3]);
     SetFinalStat(&gStatMod);
     if (atk <= gCardInfo.atk)
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     else {
-      gStatMod.card = gZones[row4][col4]->id;
+      gStatMod.card = gTurnZones[row4][col4]->id;
       gStatMod.field = gDuel.field;
-      gStatMod.stage = GetFinalStage(gZones[row4][col4]);
+      gStatMod.stage = GetFinalStage(gTurnZones[row4][col4]);
       SetFinalStat(&gStatMod);
       if (atk <= gCardInfo.atk)
         gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1311,41 +1311,41 @@ static void sub_8010198 (void) {
   u8 row5 = sAI_Command.unk5 >> 4;
   u8 col5 = sAI_Command.unk5 & 0xF;
 
-  SetCardInfo(gZones[row2][col2]->id);
+  SetCardInfo(gTurnZones[row2][col2]->id);
   if (gCardInfo.unk1E)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (ZoneHasUnlockedMonsterCard(gZones[row2][col2]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (sub_8045390(gZones[row2][col2]->id) != 3)
+  else if (sub_8045390(gTurnZones[row2][col2]->id) != 3)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (ZoneHasUnlockedMonsterCard(gZones[row3][col3]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (ZoneHasUnlockedMonsterCard(gZones[row4][col4]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gTurnZones[row4][col4]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else {
     u16 atk;
-    gStatMod.card = gZones[row2][col2]->id;
+    gStatMod.card = gTurnZones[row2][col2]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
     SetFinalStat(&gStatMod);
     atk = gCardInfo.atk;
-    gStatMod.card = gZones[row3][col3]->id;
+    gStatMod.card = gTurnZones[row3][col3]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row3][col3]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row3][col3]);
     SetFinalStat(&gStatMod);
     if (atk <= gCardInfo.atk)
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     else {
-      gStatMod.card = gZones[row4][col4]->id;
+      gStatMod.card = gTurnZones[row4][col4]->id;
       gStatMod.field = gDuel.field;
-      gStatMod.stage = GetFinalStage(gZones[row4][col4]);
+      gStatMod.stage = GetFinalStage(gTurnZones[row4][col4]);
       SetFinalStat(&gStatMod);
       if (atk <= gCardInfo.atk)
         gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
       else {
-        gStatMod.card = gZones[row5][col5]->id;
+        gStatMod.card = gTurnZones[row5][col5]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = GetFinalStage(gZones[row5][col5]);
+        gStatMod.stage = GetFinalStage(gTurnZones[row5][col5]);
         SetFinalStat(&gStatMod);
         if (atk <= gCardInfo.atk)
           gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1366,41 +1366,41 @@ static void sub_80103DC (void) {
   u8 row5 = sAI_Command.unk5 >> 4;
   u8 col5 = sAI_Command.unk5 & 0xF;
 
-  SetCardInfo(gZones[row2][col2]->id);
+  SetCardInfo(gTurnZones[row2][col2]->id);
   if (!gCardInfo.unk1E)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (ZoneHasUnlockedMonsterCard(gZones[row2][col2]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (sub_8045390(gZones[row2][col2]->id) != 3)
+  else if (sub_8045390(gTurnZones[row2][col2]->id) != 3)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (ZoneHasUnlockedMonsterCard(gZones[row3][col3]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (ZoneHasUnlockedMonsterCard(gZones[row4][col4]) != 1)
+  else if (ZoneHasUnlockedMonsterCard(gTurnZones[row4][col4]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else {
     u16 atk;
-    gStatMod.card = gZones[row2][col2]->id;
+    gStatMod.card = gTurnZones[row2][col2]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
     SetFinalStat(&gStatMod);
     atk = gCardInfo.atk;
-    gStatMod.card = gZones[row3][col3]->id;
+    gStatMod.card = gTurnZones[row3][col3]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row3][col3]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row3][col3]);
     SetFinalStat(&gStatMod);
     if (atk <= gCardInfo.atk)
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     else {
-      gStatMod.card = gZones[row4][col4]->id;
+      gStatMod.card = gTurnZones[row4][col4]->id;
       gStatMod.field = gDuel.field;
-      gStatMod.stage = GetFinalStage(gZones[row4][col4]);
+      gStatMod.stage = GetFinalStage(gTurnZones[row4][col4]);
       SetFinalStat(&gStatMod);
       if (atk <= gCardInfo.atk)
         gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
       else {
-        gStatMod.card = gZones[row5][col5]->id;
+        gStatMod.card = gTurnZones[row5][col5]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = GetFinalStage(gZones[row5][col5]);
+        gStatMod.stage = GetFinalStage(gTurnZones[row5][col5]);
         SetFinalStat(&gStatMod);
         if (atk <= gCardInfo.atk)
           gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1416,9 +1416,9 @@ static void sub_8010620 (void) {
   u8 col2 = sAI_Command.unk2 & 0xF;
   u16 atk;
   u16 def;
-  gStatMod.card = gZones[row2][col2]->id;
+  gStatMod.card = gTurnZones[row2][col2]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+  gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
   SetFinalStat(&gStatMod);
 
   if (gCardInfo.unk1E) {
@@ -1442,11 +1442,11 @@ static void sub_8010620 (void) {
   else {
     u8 i;
     for (i = 0; i < 5; i++) {
-      if (gZones[1][i]->id != CARD_NONE) {
-        if (gZones[1][i]->isFaceUp) {
-          gStatMod.card = gZones[1][i]->id;
+      if (gTurnZones[1][i]->id != CARD_NONE) {
+        if (gTurnZones[1][i]->isFaceUp) {
+          gStatMod.card = gTurnZones[1][i]->id;
           gStatMod.field = gDuel.field;
-          gStatMod.stage = GetFinalStage(gZones[1][i]);
+          gStatMod.stage = GetFinalStage(gTurnZones[1][i]);
           SetFinalStat(&gStatMod);
           if (atk <= gCardInfo.atk) {
             gUnk_8DFF6A4->unk2298 = 0x7EDE89FB;
@@ -1472,9 +1472,9 @@ static void sub_8010798 (void) {
   u8 col2 = sAI_Command.unk2 & 0xF;
   u16 atk;
   u16 def;
-  gStatMod.card = gZones[row2][col2]->id;
+  gStatMod.card = gTurnZones[row2][col2]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+  gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
   SetFinalStat(&gStatMod);
 
   if (!gCardInfo.unk1E) {
@@ -1498,11 +1498,11 @@ static void sub_8010798 (void) {
   else {
     u8 i;
     for (i = 0; i < 5; i++) {
-      if (gZones[1][i]->id != CARD_NONE) {
-        if (gZones[1][i]->isFaceUp) {
-          gStatMod.card = gZones[1][i]->id;
+      if (gTurnZones[1][i]->id != CARD_NONE) {
+        if (gTurnZones[1][i]->isFaceUp) {
+          gStatMod.card = gTurnZones[1][i]->id;
           gStatMod.field = gDuel.field;
-          gStatMod.stage = GetFinalStage(gZones[1][i]);
+          gStatMod.stage = GetFinalStage(gTurnZones[1][i]);
           SetFinalStat(&gStatMod);
           if (atk <= gCardInfo.atk) {
             gUnk_8DFF6A4->unk2298 = 0x7EDE89FB;
@@ -1526,9 +1526,9 @@ static void sub_8010798 (void) {
 static void sub_8010910 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  gStatMod.card = gZones[row2][col2]->id;
+  gStatMod.card = gTurnZones[row2][col2]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+  gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
   SetFinalStat(&gStatMod);
   if (gCardInfo.unk1E || !gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1541,9 +1541,9 @@ static void sub_8010910 (void) {
 static void sub_80109A8 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  gStatMod.card = gZones[row2][col2]->id;
+  gStatMod.card = gTurnZones[row2][col2]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+  gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
   SetFinalStat(&gStatMod);
   if (!gCardInfo.unk1E || !gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1558,16 +1558,16 @@ static void sub_8010A40 (void) {
   u8 col2 = sAI_Command.unk2 & 0xF;
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
+  SetCardInfo(gTurnZones[row2][col2]->id);
   if (gCardInfo.unk1E)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else {
-    gStatMod.card = gZones[row3][col3]->id;
+    gStatMod.card = gTurnZones[row3][col3]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row3][col3]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row3][col3]);
     SetFinalStat(&gStatMod);
     gUnk_8DFF6A4->unk2298 = gCardInfo.atk + gCardInfo.def;
-    gUnk_8DFF6A4->unk229C = gZones[row3][col3]->id;
+    gUnk_8DFF6A4->unk229C = gTurnZones[row3][col3]->id;
   }
 }
 
@@ -1588,14 +1588,14 @@ static void sub_8010B08 (void) {
     else
       gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   }
-  else if (gZones[row3][col3]->id != CARD_NONE) { //_08010B94
-    if (gUnk_8DFF6A4->unk229C == gZones[row3][col3]->id)
+  else if (gTurnZones[row3][col3]->id != CARD_NONE) { //_08010B94
+    if (gUnk_8DFF6A4->unk229C == gTurnZones[row3][col3]->id)
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     else {
       u32 temp;
-      gStatMod.card = gZones[row2][col2]->id;
+      gStatMod.card = gTurnZones[row2][col2]->id;
       gStatMod.field = gDuel.field;
-      gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+      gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
       SetFinalStat(&gStatMod);
       temp = gUnk_8DFF6A4->unk2298;
       temp -= gCardInfo.atk;
@@ -1603,11 +1603,11 @@ static void sub_8010B08 (void) {
       gUnk_8DFF6A4->unk2298 = temp;
     }
   }
-  else if (gZones[row2][col2]->id != CARD_NONE) { //_08010BE0
+  else if (gTurnZones[row2][col2]->id != CARD_NONE) { //_08010BE0
     u32 temp;
-    gStatMod.card = gZones[row2][col2]->id;
+    gStatMod.card = gTurnZones[row2][col2]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
     SetFinalStat(&gStatMod);
     temp = gUnk_8DFF6A4->unk2298;
     temp -= gCardInfo.atk;
@@ -1628,16 +1628,16 @@ static void sub_8010C78 (void) {
   u8 col2 = sAI_Command.unk2 & 0xF;
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
+  SetCardInfo(gTurnZones[row2][col2]->id);
   if (!gCardInfo.unk1E)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else {
-    gStatMod.card = gZones[row3][col3]->id;
+    gStatMod.card = gTurnZones[row3][col3]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row3][col3]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row3][col3]);
     SetFinalStat(&gStatMod);
     gUnk_8DFF6A4->unk2298 = gCardInfo.atk + gCardInfo.def;
-    gUnk_8DFF6A4->unk229C = gZones[row3][col3]->id;
+    gUnk_8DFF6A4->unk229C = gTurnZones[row3][col3]->id;
   }
 }
 
@@ -1658,14 +1658,14 @@ static void sub_8010D40 (void) {
     else
       gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   }
-  else if (gZones[row3][col3]->id != CARD_NONE) { //_08010B94
-    if (gUnk_8DFF6A4->unk229C == gZones[row3][col3]->id)
+  else if (gTurnZones[row3][col3]->id != CARD_NONE) { //_08010B94
+    if (gUnk_8DFF6A4->unk229C == gTurnZones[row3][col3]->id)
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     else {
       u32 temp;
-      gStatMod.card = gZones[row2][col2]->id;
+      gStatMod.card = gTurnZones[row2][col2]->id;
       gStatMod.field = gDuel.field;
-      gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+      gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
       SetFinalStat(&gStatMod);
       temp = gUnk_8DFF6A4->unk2298;
       temp -= gCardInfo.atk;
@@ -1673,11 +1673,11 @@ static void sub_8010D40 (void) {
       gUnk_8DFF6A4->unk2298 = temp;
     }
   }
-  else if (gZones[row2][col2]->id != CARD_NONE) { //_08010BE0
+  else if (gTurnZones[row2][col2]->id != CARD_NONE) { //_08010BE0
     u32 temp;
-    gStatMod.card = gZones[row2][col2]->id;
+    gStatMod.card = gTurnZones[row2][col2]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
     SetFinalStat(&gStatMod);
     temp = gUnk_8DFF6A4->unk2298;
     temp -= gCardInfo.atk;
@@ -1696,9 +1696,9 @@ static void sub_8010D40 (void) {
 static void sub_8010EB0 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  gStatMod.card = gZones[row2][col2]->id;
+  gStatMod.card = gTurnZones[row2][col2]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+  gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
   SetFinalStat(&gStatMod);
   if (gCardInfo.unk1E)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1711,9 +1711,9 @@ static void sub_8010EB0 (void) {
 static void sub_8010F58 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  gStatMod.card = gZones[row2][col2]->id;
+  gStatMod.card = gTurnZones[row2][col2]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+  gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
   SetFinalStat(&gStatMod);
   if (!gCardInfo.unk1E)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1757,7 +1757,7 @@ static void sub_80110E8 (void) {
 static void sub_8011120 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
+  SetCardInfo(gTurnZones[row2][col2]->id);
   if (gCardInfo.unk1E)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
@@ -1834,7 +1834,7 @@ static void sub_8011330 (void) {
 static void sub_8011368 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
+  SetCardInfo(gTurnZones[row2][col2]->id);
   if (!gCardInfo.unk1E)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
@@ -1883,7 +1883,7 @@ static void sub_80114CC (void) {
   // ^these 2 aren't used, but they cause an instruction swap
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  if (gZones[row3][col3]->id == CARD_NONE)
+  if (gTurnZones[row3][col3]->id == CARD_NONE)
     gUnk_8DFF6A4->unk2298 = 0x7EEB5B3F;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1894,13 +1894,13 @@ static void sub_8011528 (void) {
   u8 col2 = sAI_Command.unk2 & 0xF;
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  if (gZones[row2][col2]->id != DESTINY_BOARD && !NumCardMatchesInRow(gZones[3], DESTINY_BOARD))
+  if (gTurnZones[row2][col2]->id != DESTINY_BOARD && !NumCardMatchesInRow(gTurnZones[3], DESTINY_BOARD))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (NumCardMatchesInRow(gZones[3], gZones[row2][col2]->id) > 0)
+  else if (NumCardMatchesInRow(gTurnZones[3], gTurnZones[row2][col2]->id) > 0)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (gZones[row3][col3]->id == CARD_NONE)
+  else if (gTurnZones[row3][col3]->id == CARD_NONE)
     gUnk_8DFF6A4->unk2298 = 0x7EEB5B43;
-  else if (GetFINAL_Flag(gZones[row3][col3]->id) > 0)
+  else if (GetFINAL_Flag(gTurnZones[row3][col3]->id) > 0)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EEB5B42;
@@ -1912,7 +1912,7 @@ static void sub_8011638 (void) {
   // ^these 2 aren't used, but they cause an instruction swap
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  if (gZones[row3][col3]->id == CARD_NONE)
+  if (gTurnZones[row3][col3]->id == CARD_NONE)
     gUnk_8DFF6A4->unk2298 = 0x7EEB5B3F;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1924,7 +1924,7 @@ static void sub_8011694 (void) {
   // ^these 2 aren't used, but they cause an instruction swap
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  if (gZones[row3][col3]->id == CARD_NONE)
+  if (gTurnZones[row3][col3]->id == CARD_NONE)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFF8;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1935,8 +1935,8 @@ static void sub_80116F0 (void) {
   u8 col2 = sAI_Command.unk2 & 0xF;
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
-  if (!gCardInfo.unk1E && gZones[row3][col3]->id == CARD_NONE)
+  SetCardInfo(gTurnZones[row2][col2]->id);
+  if (!gCardInfo.unk1E && gTurnZones[row3][col3]->id == CARD_NONE)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFF7;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1947,10 +1947,10 @@ static void sub_8011778 (void) {
   u8 col2 = sAI_Command.unk2 & 0xF;
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
+  SetCardInfo(gTurnZones[row2][col2]->id);
   if (!gCardInfo.unk1E)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (gZones[row3][col3]->id != CARD_NONE)
+  else if (gTurnZones[row3][col3]->id != CARD_NONE)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFF7;
@@ -1962,7 +1962,7 @@ static void sub_801181C (void) {
   // ^these 2 aren't used, but they cause an instruction swap
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  if (gZones[row3][col3]->id == CARD_NONE)
+  if (gTurnZones[row3][col3]->id == CARD_NONE)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFF6;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1971,14 +1971,14 @@ static void sub_801181C (void) {
 static void sub_8011878 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
+  SetCardInfo(gTurnZones[row2][col2]->id);
   if (gCardInfo.unk1E)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  if (gZones[row2][col2]->id == JAM_BREEDING_MACHINE) {
+  if (gTurnZones[row2][col2]->id == JAM_BREEDING_MACHINE) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
-  if (gZones[row2][col2]->id == MESSENGER_OF_PEACE) {
+  if (gTurnZones[row2][col2]->id == MESSENGER_OF_PEACE) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
@@ -2007,9 +2007,9 @@ static void sub_8011940 (void) {
   u8 col2 = sAI_Command.unk2 & 0xF;
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  gStatMod.card = gZones[row3][col3]->id;
+  gStatMod.card = gTurnZones[row3][col3]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gZones[row3][col3]);
+  gStatMod.stage = GetFinalStage(gTurnZones[row3][col3]);
   SetFinalStat(&gStatMod);
   gUnk_8DFF6A4->unk2298 = gCardInfo.atk + gCardInfo.def;
 }
@@ -2019,9 +2019,9 @@ static void sub_80119AC (void) {
   u8 col2 = sAI_Command.unk2 & 0xF;
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  gStatMod.card = gZones[row3][col3]->id;
+  gStatMod.card = gTurnZones[row3][col3]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gZones[row3][col3]);
+  gStatMod.stage = GetFinalStage(gTurnZones[row3][col3]);
   SetFinalStat(&gStatMod);
   if (gUnk_8DFF6A4->unk2298 < gCardInfo.atk + gCardInfo.def)
     gUnk_8DFF6A4->unk2298 += 0x7F08323B;
@@ -2032,9 +2032,9 @@ static void sub_80119AC (void) {
 static void sub_8011A30 (void) {
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  if (gZones[row3][col3]->id == HARPIE_LADY)
+  if (gTurnZones[row3][col3]->id == HARPIE_LADY)
     gUnk_8DFF6A4->unk2298 = 0x7FF55169;
-  else if (gZones[row3][col3]->id == CYBER_HARPIE)
+  else if (gTurnZones[row3][col3]->id == CYBER_HARPIE)
     gUnk_8DFF6A4->unk2298 = 0x7FF55169;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -2050,7 +2050,7 @@ static void sub_8011AB0 (void) {
   u8 col5 = sAI_Command.unk5 & 0xF;
   u16 ritualAtk;
   u8 ritualEffect;
-  SetCardInfo(gZones[row2][col2]->id);
+  SetCardInfo(gTurnZones[row2][col2]->id);
   ritualEffect = gCardInfo.ritualEffect;
   gStatMod.card = gRitualComponents[ritualEffect][1];
   gStatMod.field = gDuel.field;
@@ -2058,18 +2058,18 @@ static void sub_8011AB0 (void) {
   SetFinalStat(&gStatMod);
   ritualAtk = gCardInfo.atk;
 
-  gStatMod.card = gZones[row4][col4]->id;
+  gStatMod.card = gTurnZones[row4][col4]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gZones[row4][col4]);
+  gStatMod.stage = GetFinalStage(gTurnZones[row4][col4]);
   SetFinalStat(&gStatMod);
   if (ritualAtk <= gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else {
     u32 temp;
     gUnk_8DFF6A4->unk2298 = 0xFFFE - gCardInfo.atk;
-    gStatMod.card = gZones[row5][col5]->id;
+    gStatMod.card = gTurnZones[row5][col5]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row5][col5]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row5][col5]);
     SetFinalStat(&gStatMod);
     if (ritualAtk <= gCardInfo.atk)
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -2104,18 +2104,18 @@ static void sub_8011C04 (void) {
   SetFinalStat(&gStatMod);
   ritualAtk = gCardInfo.atk;
 
-  gStatMod.card = gZones[2][zones[1]]->id;
+  gStatMod.card = gTurnZones[2][zones[1]]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gZones[2][zones[1]]);
+  gStatMod.stage = GetFinalStage(gTurnZones[2][zones[1]]);
   SetFinalStat(&gStatMod);
   if (ritualAtk <= gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else {
     u32 temp;
     gUnk_8DFF6A4->unk2298 = 0xFFFE - gCardInfo.atk;
-    gStatMod.card = gZones[2][zones[2]]->id;
+    gStatMod.card = gTurnZones[2][zones[2]]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[2][zones[2]]);
+    gStatMod.stage = GetFinalStage(gTurnZones[2][zones[2]]);
     SetFinalStat(&gStatMod);
     if (ritualAtk < gCardInfo.atk)
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -2133,7 +2133,7 @@ static void sub_8011D80 (void) {
   u32 numCards = 0;
   u8 i;
   for (i = 0; i < 5; i++) {
-    struct DuelCard* zone = gZones[1][i];
+    struct DuelCard* zone = gTurnZones[1][i];
     if (zone->id == CARD_NONE)
       continue;
     if (IsGodCard(zone->id) == TRUE)
@@ -2163,19 +2163,19 @@ static void sub_8011E44 (void) {
   u8 col5 = sAI_Command.unk5 & 0xF;
   u16 ritualAtk;
   u8 ritualEffect;
-  SetCardInfo(gZones[row2][col2]->id);
+  SetCardInfo(gTurnZones[row2][col2]->id);
   ritualEffect = gCardInfo.ritualEffect;
-  if (gZones[row4][col4]->id != gRitualComponents[ritualEffect][2]) {
-    if (gZones[row4][col4]->id != gRitualComponents[ritualEffect][3]) {
+  if (gTurnZones[row4][col4]->id != gRitualComponents[ritualEffect][2]) {
+    if (gTurnZones[row4][col4]->id != gRitualComponents[ritualEffect][3]) {
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
       return;
     }
-    else if (gZones[row5][col5]->id != gRitualComponents[ritualEffect][2]) {
+    else if (gTurnZones[row5][col5]->id != gRitualComponents[ritualEffect][2]) {
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
       return;
     }
   }
-  else if (gZones[row5][col5]->id != gRitualComponents[ritualEffect][3]) {
+  else if (gTurnZones[row5][col5]->id != gRitualComponents[ritualEffect][3]) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
@@ -2186,18 +2186,18 @@ static void sub_8011E44 (void) {
   SetFinalStat(&gStatMod);
   ritualAtk = gCardInfo.atk;
 
-  gStatMod.card = gZones[row4][col4]->id;
+  gStatMod.card = gTurnZones[row4][col4]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gZones[row4][col4]);
+  gStatMod.stage = GetFinalStage(gTurnZones[row4][col4]);
   SetFinalStat(&gStatMod);
   if (ritualAtk < gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else {
     u32 temp;
     gUnk_8DFF6A4->unk2298 = 0xFFFE - gCardInfo.atk;
-    gStatMod.card = gZones[row5][col5]->id;
+    gStatMod.card = gTurnZones[row5][col5]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row5][col5]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row5][col5]);
     SetFinalStat(&gStatMod);
     if (ritualAtk < gCardInfo.atk)
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -2276,7 +2276,7 @@ static void sub_8011E44 (void) {
 	b _08012044\n\
 	.align 2, 0\n\
 _08011EC4: .4byte 0x02021C00\n\
-_08011EC8: .4byte gZones\n\
+_08011EC8: .4byte gTurnZones\n\
 _08011ECC: .4byte gCardInfo\n\
 _08011ED0: .4byte gRitualComponents\n\
 _08011ED4: .4byte gUnk_8DFF6A4\n\
@@ -2387,7 +2387,7 @@ _08011FB4: .4byte gStatMod\n\
 _08011FB8: .4byte gRitualComponents\n\
 _08011FBC: .4byte gDuel\n\
 _08011FC0: .4byte gCardInfo\n\
-_08011FC4: .4byte gZones\n\
+_08011FC4: .4byte gTurnZones\n\
 _08011FC8: .4byte gUnk_8DFF6A4\n\
 _08011FCC: .4byte 0x00002298\n\
 _08011FD0: .4byte 0x7EDE89F9\n\
@@ -2431,7 +2431,7 @@ _08011FD4:\n\
 _08012020: .4byte gUnk_8DFF6A4\n\
 _08012024: .4byte 0x00002298\n\
 _08012028: .4byte 0x0000FFFE\n\
-_0801202C: .4byte gZones\n\
+_0801202C: .4byte gTurnZones\n\
 _08012030: .4byte 0x7EDE89F9\n\
 _08012034:\n\
 	ldr r0, [r5]\n\
@@ -2461,7 +2461,7 @@ static void sub_8012060 (void) {
   u32 numCards = 0;
   u8 i;
   for (i = 0; i < 5; i++) {
-    struct DuelCard* zone = gZones[1][i];
+    struct DuelCard* zone = gTurnZones[1][i];
     if (zone->id == CARD_NONE)
       continue;
     if (IsGodCard(zone->id) == TRUE)
@@ -2481,7 +2481,7 @@ static void sub_8012060 (void) {
 static void sub_80120E8 (void) {
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  if (gZones[row3][col3]->id == ZOA)
+  if (gTurnZones[row3][col3]->id == ZOA)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -2492,9 +2492,9 @@ static void sub_801212C (void) {
   u8 col3 = sAI_Command.unk3 & 0xF;
   if (gUnk_8DFF6A4->unk2298 == 0x7EDE89F9)
     return;
-  gStatMod.card = gZones[row3][col3]->id;
+  gStatMod.card = gTurnZones[row3][col3]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gZones[row3][col3]);
+  gStatMod.stage = GetFinalStage(gTurnZones[row3][col3]);
   SetFinalStat(&gStatMod);
   if (gUnk_8DFF6A4->unk2298 < gCardInfo.atk + gCardInfo.def)
     gUnk_8DFF6A4->unk2298 = 0x7FF55169;
@@ -2506,7 +2506,7 @@ static void sub_80121B8 (void) {
   u32 numCards = 0;
   u8 i;
   for (i = 0; i < 5; i++) {
-    struct DuelCard* zone = gZones[1][i];
+    struct DuelCard* zone = gTurnZones[1][i];
     if (zone->id == CARD_NONE)
       continue;
     if (IsGodCard(zone->id) == TRUE)
@@ -2534,9 +2534,9 @@ static void sub_8012240 (void) {
   u8 col5 = sAI_Command.unk5 & 0xF;
   u16 ritualAtk;
   u8 ritualEffect;
-  SetCardInfo(gZones[row2][col2]->id);
+  SetCardInfo(gTurnZones[row2][col2]->id);
   ritualEffect = gCardInfo.ritualEffect;
-  if (gZones[row3][col3]->id == gRitualComponents[ritualEffect][0])
+  if (gTurnZones[row3][col3]->id == gRitualComponents[ritualEffect][0])
     ritualEffect = 24;
   else
     ritualEffect = 26;
@@ -2547,18 +2547,18 @@ static void sub_8012240 (void) {
   SetFinalStat(&gStatMod);
   ritualAtk = gCardInfo.atk;
 
-  gStatMod.card = gZones[row4][col4]->id;
+  gStatMod.card = gTurnZones[row4][col4]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gZones[row4][col4]);
+  gStatMod.stage = GetFinalStage(gTurnZones[row4][col4]);
   SetFinalStat(&gStatMod);
   if (ritualAtk <= gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else {
     u32 temp;
     gUnk_8DFF6A4->unk2298 = 0xFFFE - gCardInfo.atk;
-    gStatMod.card = gZones[row5][col5]->id;
+    gStatMod.card = gTurnZones[row5][col5]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row5][col5]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row5][col5]);
     SetFinalStat(&gStatMod);
     if (ritualAtk <= gCardInfo.atk)
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -2574,13 +2574,13 @@ static void sub_8012240 (void) {
 static void sub_80123BC (void) {
   u8 i;
   for (i = 0; i < 5; i++) {
-    if (gZones[1][i]->id == CARD_NONE)
+    if (gTurnZones[1][i]->id == CARD_NONE)
       continue;
-    if (gZones[1][i]->isLocked)
+    if (gTurnZones[1][i]->isLocked)
       continue;
-    gStatMod.card = gZones[1][i]->id;
+    gStatMod.card = gTurnZones[1][i]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[1][i]);
+    gStatMod.stage = GetFinalStage(gTurnZones[1][i]);
     SetFinalStat(&gStatMod);
     if (gCardInfo.atk >= 1500) {
       gUnk_8DFF6A4->unk2298 = 0x7EEB5B47;
@@ -2593,13 +2593,13 @@ static void sub_80123BC (void) {
 static void sub_801245C (void) {
   u8 i;
   for (i = 0; i < 5; i++) {
-    if (gZones[2][i]->id == CARD_NONE)
+    if (gTurnZones[2][i]->id == CARD_NONE)
       continue;
-    if (!gZones[2][i]->isFaceUp)
+    if (!gTurnZones[2][i]->isFaceUp)
       continue;
-    if (gZones[2][i]->isLocked)
+    if (gTurnZones[2][i]->isLocked)
       continue;
-    SetCardInfo(gZones[2][i]->id);
+    SetCardInfo(gTurnZones[2][i]->id);
     if (gCardInfo.monsterEffect) {
       gUnk_8DFF6A4->unk2298 = 0x7FFFFFF5;
       return;
@@ -2615,7 +2615,7 @@ static void sub_80124D8 (void) {
 static void sub_80124F8 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
+  SetCardInfo(gTurnZones[row2][col2]->id);
   g201CB3C = gCardInfo.spellEffect;
   g8DFF7F0[gCardInfo.spellEffect]();
 }
@@ -2818,9 +2818,9 @@ static void sub_8012C28 (void) {}
 
 //Check whether to use Dark Hole
 static void sub_8012C2C (void) {
-  if (NumEmptyZonesAndGodCardsInRow(gZones[2]) != 5)
+  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[2]) != 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5)
+  else if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF9973F;
@@ -2830,7 +2830,7 @@ static void sub_8012C9C (void) {}
 
 //Check whether to use Raigeki
 static void sub_8012CA0 (void) {
-  if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5)
+  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF9973E;
@@ -3077,7 +3077,7 @@ static void sub_801304C (void) {}
 static void sub_8013050 (void) {
   u8 i;
   for (i = 0; i < 5; i++)
-    if (gZones[1][i]->id != CARD_NONE && !gZones[1][i]->isFaceUp) {
+    if (gTurnZones[1][i]->id != CARD_NONE && !gTurnZones[1][i]->isFaceUp) {
       gUnk_8DFF6A4->unk2298 = 0x7FFFFFF1;
       return;
     }
@@ -3087,7 +3087,7 @@ static void sub_8013050 (void) {
 static void sub_80130AC (void) {}
 
 static void sub_80130B0 (void) {
-  if (NumEmptyZonesInRow(gZones[1]) == 5)
+  if (NumEmptyZonesInRow(gTurnZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = GetTotalFaceUpAtkAndDefInRow(1);
@@ -3254,7 +3254,7 @@ static void sub_8013444 (void) {
   u8 i;
   gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   for (i = 0; i < 5; i++) {
-    if (gZones[0][i]->id != CARD_NONE) {
+    if (gTurnZones[0][i]->id != CARD_NONE) {
       gUnk_8DFF6A4->unk2298 = 0x7FF99744;
       break;
     }
@@ -3298,7 +3298,7 @@ static void sub_8013500 (void) {
 static void sub_801350C (void) {}
 
 static void sub_8013510 (void) {
-  if (NumEmptyZonesInRow(gZones[1]) == 5)
+  if (NumEmptyZonesInRow(gTurnZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = GetTotalFaceUpAtkAndDefInRow(1);
@@ -3389,7 +3389,7 @@ static void sub_801365C (void) {
   u8 i;
   gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   for (i = 0; i < 5; i++) {
-    if (gZones[2][i]->id != CARD_NONE && PermStage(gZones[2][i]) < 0) {
+    if (gTurnZones[2][i]->id != CARD_NONE && PermStage(gTurnZones[2][i]) < 0) {
       gUnk_8DFF6A4->unk2298 = 0x7FF5516A;
       break;
     }
@@ -3460,7 +3460,7 @@ static void sub_801381C (void) {}
 static void sub_8013820 (void) {
   u8 i;
   for (i = 0; i < 5; i++)
-    if (gHands[1][i]->id != CARD_NONE && !gHands[1][i]->isFaceUp) {
+    if (gTurnHands[1][i]->id != CARD_NONE && !gTurnHands[1][i]->isFaceUp) {
       gUnk_8DFF6A4->unk2298 = 0x7FFFFFF0;
       return;
     }
@@ -3472,7 +3472,7 @@ static void sub_8013880 (void) {}
 
 // pot of greed?
 static void sub_8013884 (void) {
-  if (NumEmptyZonesInRow(gZones[4]) < 2)
+  if (NumEmptyZonesInRow(gTurnZones[4]) < 2)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EEB5B44;
@@ -3481,7 +3481,7 @@ static void sub_8013884 (void) {
 static void sub_80138C8 (void) {}
 
 static void sub_80138CC (void) {
-  u8 numNonEmptyZones = 5 - NumEmptyZonesInRow(gHands[1]);
+  u8 numNonEmptyZones = 5 - NumEmptyZonesInRow(gTurnHands[1]);
   if (!numNonEmptyZones)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= numNonEmptyZones * 200)
@@ -3514,9 +3514,9 @@ static void sub_80139F0 (void) {}
 
 // Multiply
 static void sub_80139F4 (void) {
-  if (!NumCardMatchesInRow(gZones[2], KURIBOH))
+  if (!NumCardMatchesInRow(gTurnZones[2], KURIBOH))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (!NumEmptyZonesInRow(gZones[2]))
+  else if (!NumEmptyZonesInRow(gTurnZones[2]))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF32E7F;
@@ -3525,9 +3525,9 @@ static void sub_80139F4 (void) {
 static void sub_8013A64 (void) {}
 
 static void sub_8013A68 (void) {
-  if (!NumEmptyZonesInRow(gZones[2]))
+  if (!NumEmptyZonesInRow(gTurnZones[2]))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5)
+  else if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF99746;
@@ -3550,9 +3550,9 @@ static void sub_8013B08 (void) {
 }
 
 static void sub_8013B24 (void) {
-  if (!NumEmptyZonesInRow(gZones[2]))
+  if (!NumEmptyZonesInRow(gTurnZones[2]))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5)
+  else if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF99746;
@@ -3564,7 +3564,7 @@ static void sub_8013B94 (void) {}
 static void sub_8013B98 (void) {
   if (gNotSure[1]->graveyard == CARD_NONE)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (!NumEmptyZonesInRow(gZones[2]))
+  else if (!NumEmptyZonesInRow(gTurnZones[2]))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FB3183D;
@@ -3589,7 +3589,7 @@ static void sub_8013C4C (void) {
 }
 
 static void sub_8013C58 (void) {
-  if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5)
+  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF7745C;
@@ -3615,9 +3615,9 @@ static void sub_8013CD8 (void) {
 static void sub_8013D1C (void) {}
 
 static void sub_8013D20 (void) {
-  if (NumEmptyZonesAndGodCardsInRow(gZones[2]) != 5)
+  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[2]) != 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5 && NumEmptyZonesInRow(gZones[0]) == 5)
+  else if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5 && NumEmptyZonesInRow(gTurnZones[0]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFD;
@@ -3626,9 +3626,9 @@ static void sub_8013D20 (void) {
 static void sub_8013D9C (void) {}
 
 static void sub_8013DA0 (void) {
-  if (NumEmptyZonesAndGodCardsInRow(gZones[2]) != 5)
+  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[2]) != 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5 && NumEmptyZonesInRow(gZones[0]) == 5)
+  else if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5 && NumEmptyZonesInRow(gTurnZones[0]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFE;
@@ -3837,7 +3837,7 @@ static void sub_8014348 (void) {
 static void sub_8014354 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
+  SetCardInfo(gTurnZones[row2][col2]->id);
   g201CB40 = gCardInfo.spellEffect;
   sub_80124F8();
 }
@@ -5043,7 +5043,7 @@ static void sub_8016448 (void) {
 }
 
 static void sub_8016464 (void) {
-  u32 numNonEmptyZones = 5 - NumEmptyZonesInRow(gZones[1]);
+  u32 numNonEmptyZones = 5 - NumEmptyZonesInRow(gTurnZones[1]);
   u32 numCards;
   u8 i;
   if (!numNonEmptyZones) {
@@ -5052,7 +5052,7 @@ static void sub_8016464 (void) {
   }
   numCards = 0;
   for (i = 0; i < 5; i++)
-    if (gZones[1][i]->id != CARD_NONE && IsGodCard(gZones[1][i]->id) == 1)
+    if (gTurnZones[1][i]->id != CARD_NONE && IsGodCard(gTurnZones[1][i]->id) == 1)
       numCards++;
   if (numNonEmptyZones == numCards)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -5061,7 +5061,7 @@ static void sub_8016464 (void) {
 }
 
 static void sub_80164F4 (void) {
-  u32 numNonEmptyZones = 5 - NumEmptyZonesInRow(gZones[1]);
+  u32 numNonEmptyZones = 5 - NumEmptyZonesInRow(gTurnZones[1]);
   u32 numCards;
   u8 i;
   if (!numNonEmptyZones) {
@@ -5070,7 +5070,7 @@ static void sub_80164F4 (void) {
   }
   numCards = 0;
   for (i = 0; i < 5; i++)
-    if (gZones[1][i]->id != CARD_NONE && IsGodCard(gZones[1][i]->id) == 1)
+    if (gTurnZones[1][i]->id != CARD_NONE && IsGodCard(gTurnZones[1][i]->id) == 1)
       numCards++;
   if (numNonEmptyZones == numCards)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -5083,7 +5083,7 @@ static void sub_8016584 (void) {
   u8 numCards = 0;
   if (gDuel.field == FIELD_YAMI) {
     for (i = 0; i < 5; i++)
-      if (gZones[2][i]->id == CARD_NONE && gZones[2][i]->isFaceUp)
+      if (gTurnZones[2][i]->id == CARD_NONE && gTurnZones[2][i]->isFaceUp)
         numCards++;
     if (!numCards) {
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -5099,8 +5099,8 @@ static void sub_8016604 (void) {
   u8 numCards = 0;
   u32 totalAtk;
   for (i = 0; i < 5; i++)
-    if (gMonEffect.zone != i && gZones[2][i]->id != CARD_NONE &&
-      gZones[2][i]->id != CATAPULT_TURTLE && !gZones[2][i]->isLocked)
+    if (gMonEffect.zone != i && gTurnZones[2][i]->id != CARD_NONE &&
+      gTurnZones[2][i]->id != CATAPULT_TURTLE && !gTurnZones[2][i]->isLocked)
         numCards++;
   if (!numCards) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -5108,11 +5108,11 @@ static void sub_8016604 (void) {
   }
   totalAtk = 0;
   for (i = 0; i < 5; i++) {
-    if (gZones[2][i]->id == CARD_NONE || gZones[2][i]->id == CATAPULT_TURTLE)
+    if (gTurnZones[2][i]->id == CARD_NONE || gTurnZones[2][i]->id == CATAPULT_TURTLE)
       continue;
-    gStatMod.card = gZones[2][i]->id;
+    gStatMod.card = gTurnZones[2][i]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[2][i]);
+    gStatMod.stage = GetFinalStage(gTurnZones[2][i]);
     SetFinalStat(&gStatMod);
     totalAtk += gCardInfo.atk;
   }
@@ -5130,11 +5130,11 @@ static void sub_8016734 (void) {
   u8 numCards = 0;
   u8 i;
   for (i = 0; i < 5; i++) {
-    if (gZones[2][i]->id == CARD_NONE)
+    if (gTurnZones[2][i]->id == CARD_NONE)
       continue;
-    gStatMod.card = gZones[2][i]->id;
+    gStatMod.card = gTurnZones[2][i]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[2][i]);
+    gStatMod.stage = GetFinalStage(gTurnZones[2][i]);
     SetFinalStat(&gStatMod);
     if (gCardInfo.atk <= 500)
       numCards++;
@@ -5148,9 +5148,9 @@ static void sub_8016734 (void) {
 static void sub_80167DC (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  gStatMod.card = gZones[row2][col2]->id;
+  gStatMod.card = gTurnZones[row2][col2]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+  gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
   SetFinalStat(&gStatMod);
   if (!gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -5163,9 +5163,9 @@ static void sub_80167DC (void) {
 static void sub_80168A0 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  gStatMod.card = gZones[row2][col2]->id;
+  gStatMod.card = gTurnZones[row2][col2]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+  gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
   SetFinalStat(&gStatMod);
   if (!gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -5186,15 +5186,15 @@ static void sub_8016964 (void) {
 }
 
 static void sub_80169FC (void) {
-  if (NumEmptyZonesInRow(gZones[1]) == 5) {
+  if (NumEmptyZonesInRow(gTurnZones[1]) == 5) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
   if (GetNumFaceUpCardsInRow(1)) {
-    u8 zone = HighestAtkFaceUpMonInRow(gZones[1]);
-    gStatMod.card = gZones[1][zone]->id;
+    u8 zone = HighestAtkFaceUpMonInRow(gTurnZones[1]);
+    gStatMod.card = gTurnZones[1][zone]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[1][zone]);
+    gStatMod.stage = GetFinalStage(gTurnZones[1][zone]);
     SetFinalStat(&gStatMod);
     if (!gCardInfo.atk) {
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -5211,23 +5211,23 @@ static void sub_80169FC (void) {
 static void sub_8016AE0 (void) {
   u16 atk;
   u8 highestAtkZone;
-  if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5) {
+  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
-  highestAtkZone = HighestAtkMonInRowExceptGodCards(gZones[1]);
-  if (gZones[1][highestAtkZone]->isFaceUp) {
+  highestAtkZone = HighestAtkMonInRowExceptGodCards(gTurnZones[1]);
+  if (gTurnZones[1][highestAtkZone]->isFaceUp) {
     u8 row2, col2;
-    gStatMod.card = gZones[1][highestAtkZone]->id;
+    gStatMod.card = gTurnZones[1][highestAtkZone]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[1][highestAtkZone]);
+    gStatMod.stage = GetFinalStage(gTurnZones[1][highestAtkZone]);
     SetFinalStat(&gStatMod);
     atk = gCardInfo.atk;
     row2 = sAI_Command.unk2 >> 4;
     col2 = sAI_Command.unk2 & 0xF;
-    gStatMod.card = gZones[row2][col2]->id;
+    gStatMod.card = gTurnZones[row2][col2]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+    gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
     SetFinalStat(&gStatMod);
     if (atk <= gCardInfo.atk) {
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -5242,21 +5242,21 @@ static void sub_8016BCC (void) {
   u8 insectMonZone;
   u8 row2, col2;
   u16 atk;
-  if (!sub_8043584(gZones[4], TYPE_INSECT)) {
+  if (!sub_8043584(gTurnZones[4], TYPE_INSECT)) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
-  insectMonZone = HighestAtkMonOfTypeInRow(gZones[4], TYPE_INSECT);
-  gStatMod.card = gZones[4][insectMonZone]->id;
+  insectMonZone = HighestAtkMonOfTypeInRow(gTurnZones[4], TYPE_INSECT);
+  gStatMod.card = gTurnZones[4][insectMonZone]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gZones[4][insectMonZone]);
+  gStatMod.stage = GetFinalStage(gTurnZones[4][insectMonZone]);
   SetFinalStat(&gStatMod);
   atk = gCardInfo.atk;
   row2 = sAI_Command.unk2 >> 4;
   col2 = sAI_Command.unk2 & 0xF;
-  gStatMod.card = gZones[row2][col2]->id;
+  gStatMod.card = gTurnZones[row2][col2]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+  gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
   SetFinalStat(&gStatMod);
   if (atk <= gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -5267,9 +5267,9 @@ static void sub_8016BCC (void) {
 static void sub_8016CB8 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  gStatMod.card = gZones[row2][col2]->id;
+  gStatMod.card = gTurnZones[row2][col2]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+  gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
   SetFinalStat(&gStatMod);
   if (!gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -5283,16 +5283,16 @@ static void sub_8016CB8 (void) {
 static void sub_8016D7C (void) {
   u8 i, col2;
   u32 numCards;
-  if (!NumEmptyZonesInRow(gHands[1])) {
+  if (!NumEmptyZonesInRow(gTurnHands[1])) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
   numCards = 0;
   for (i = 0; i < 5; i++)
-    if (gZones[1][i]->id != CARD_NONE && !IsCardFaceUp(gZones[1][i]))
+    if (gTurnZones[1][i]->id != CARD_NONE && !IsCardFaceUp(gTurnZones[1][i]))
       numCards++;
   for (i = 0; i < 5; i++)
-    if (gZones[0][i]->id != CARD_NONE && !IsCardFaceUp(gZones[0][i]))
+    if (gTurnZones[0][i]->id != CARD_NONE && !IsCardFaceUp(gTurnZones[0][i]))
       numCards++;
   if (!numCards) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -5301,7 +5301,7 @@ static void sub_8016D7C (void) {
   col2 = sAI_Command.unk2 & 0xF;
   numCards = 0;
   for (i = 0; i < 5; i++)
-    if (i != col2 && gZones[2][i]->id != CARD_NONE && !IsCardFaceUp(gZones[2][i]))
+    if (i != col2 && gTurnZones[2][i]->id != CARD_NONE && !IsCardFaceUp(gTurnZones[2][i]))
       numCards++;
   if (numCards) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -5312,13 +5312,13 @@ static void sub_8016D7C (void) {
 
 static void sub_8016E98 (void) {
   u8 i, numCards;
-  if (NumEmptyZonesInRow(gHands[0]) == 5) {
+  if (NumEmptyZonesInRow(gTurnHands[0]) == 5) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
   numCards = 0;
   for (i = 0; i < 5; i++)
-    if (gZones[0][i]->id != CARD_NONE && IsCardFaceUp(gZones[0][i]) == TRUE)
+    if (gTurnZones[0][i]->id != CARD_NONE && IsCardFaceUp(gTurnZones[0][i]) == TRUE)
       numCards++;
   if (!numCards)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -5328,13 +5328,13 @@ static void sub_8016E98 (void) {
 
 static void sub_8016F30 (void) {
   u8 i, numCards;
-  if (NumEmptyZonesInRow(gHands[0]) == 5) {
+  if (NumEmptyZonesInRow(gTurnHands[0]) == 5) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
   numCards = 0;
   for (i = 0; i < 5; i++)
-    if (gZones[0][i]->id != CARD_NONE && !IsCardFaceUp(gZones[0][i]))
+    if (gTurnZones[0][i]->id != CARD_NONE && !IsCardFaceUp(gTurnZones[0][i]))
       numCards++;
   if (!numCards)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -5344,13 +5344,13 @@ static void sub_8016F30 (void) {
 
 static void sub_8016FC8 (void) {
   u8 i, numCards;
-  if (NumEmptyZonesInRow(gHands[0]) == 5) {
+  if (NumEmptyZonesInRow(gTurnHands[0]) == 5) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
   numCards = 0;
   for (i = 0; i < 5; i++)
-    if (gZones[1][i]->id != CARD_NONE && !IsCardFaceUp(gZones[1][i]))
+    if (gTurnZones[1][i]->id != CARD_NONE && !IsCardFaceUp(gTurnZones[1][i]))
       numCards++;
   if (!numCards)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -5360,13 +5360,13 @@ static void sub_8016FC8 (void) {
 
 static void sub_8017060 (void) {
   u8 i, numCards;
-  if (NumEmptyZonesInRow(gHands[0]) == 5) {
+  if (NumEmptyZonesInRow(gTurnHands[0]) == 5) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
   numCards = 0;
   for (i = 0; i < 5; i++) {
-    struct DuelCard* zone = gZones[1][i];
+    struct DuelCard* zone = gTurnZones[1][i];
     if (zone->id == CARD_NONE)
       continue;
     if (IsCardFaceUp(zone) != TRUE || IsGodCard(zone->id) != TRUE)
@@ -5394,7 +5394,7 @@ static void sub_8017104 (void) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
-  if (NumEmptyZonesInRow(gZones[2]) < 1)
+  if (NumEmptyZonesInRow(gTurnZones[2]) < 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF32E86;
@@ -5403,9 +5403,9 @@ static void sub_8017104 (void) {
 static void sub_80171D8 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  gStatMod.card = gZones[row2][col2]->id;
+  gStatMod.card = gTurnZones[row2][col2]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+  gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
   SetFinalStat(&gStatMod);
   if (!gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -5426,7 +5426,7 @@ static void sub_801729C (void) {
 
 
   u8 numCards, sp10;
-  if (NumEmptyZonesInRow(gZones[1]) == 5) {
+  if (NumEmptyZonesInRow(gTurnZones[1]) == 5) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
@@ -5440,9 +5440,9 @@ static void sub_801729C (void) {
   }
   row2 = sAI_Command.unk2 >> 4;
   col2 = sAI_Command.unk2 & 0xF;
-  gStatMod.card = gZones[row2][col2]->id;
+  gStatMod.card = gTurnZones[row2][col2]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gZones[row2][col2]);
+  gStatMod.stage = GetFinalStage(gTurnZones[row2][col2]);
   SetFinalStat(&gStatMod);
   bDragonAtk = gCardInfo.atk; // sb
   bDragonAttr = gCardInfo.attribute; //sp
@@ -5451,7 +5451,7 @@ static void sub_801729C (void) {
   for (i = 0; i < 5 && sp10 && curPlayerLP > 0 && curEnemyLP > 0; i++) {
     u8 temp;
     u16 enemyAtk, enemyDef;
-    struct DuelCard* zone = gZones[1][i];
+    struct DuelCard* zone = gTurnZones[1][i];
     if (zone->id == CARD_NONE || !IsCardFaceUp(zone))
       continue;
     gStatMod.card = zone->id;
@@ -5511,7 +5511,7 @@ static void sub_801729C (void) {
 	ldr r1, _080172CC\n\
 	b _080174BA\n\
 	.align 2, 0\n\
-_080172C0: .4byte gZones+0x14\n\
+_080172C0: .4byte gTurnZones+0x14\n\
 _080172C4: .4byte gUnk_8DFF6A4\n\
 _080172C8: .4byte 0x00002298\n\
 _080172CC: .4byte 0x7EDE89F9\n\
@@ -5633,7 +5633,7 @@ _08017348:\n\
 _080173BC: .4byte gDuelLifePoints\n\
 _080173C0: .4byte 0x02021C00\n\
 _080173C4: .4byte gStatMod\n\
-_080173C8: .4byte gZones\n\
+_080173C8: .4byte gTurnZones\n\
 _080173CC: .4byte gDuel\n\
 _080173D0: .4byte gCardInfo\n\
 _080173D4:\n\
@@ -5771,13 +5771,13 @@ static void sub_80174D8 (void) {
   u8 temp = 0;
   u8 i;
   for (i = 0; i < 5; i++) {
-    struct DuelCard* zone = gZones[1][i];
+    struct DuelCard* zone = gTurnZones[1][i];
     if (zone->id == CARD_NONE)
       continue;
     if (IsCardFaceUp(zone) != TRUE || IsGodCard(zone->id) != TRUE)
       temp++;
   }
-  temp -= NumEmptyZonesInRow(gZones[0]) - 5;
+  temp -= NumEmptyZonesInRow(gTurnZones[0]) - 5;
   if (!temp)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
@@ -5791,7 +5791,7 @@ static void sub_8017568 (void) {
 static void sub_8017588 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
+  SetCardInfo(gTurnZones[row2][col2]->id);
   g201CB44 = gCardInfo.monsterEffect;
   g8E00150[gCardInfo.monsterEffect]();
 }
@@ -5808,7 +5808,7 @@ static void sub_8017610 (void) {
   u8 i;
   gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   for (i = 0; i < 5; i++) {
-    if (gZones[0][i]->id != CARD_NONE) {
+    if (gTurnZones[0][i]->id != CARD_NONE) {
       gUnk_8DFF6A4->unk2298 = 0x7FFFFFF4;
       break;
     }
@@ -5832,7 +5832,7 @@ static void sub_80176D8 (void) {}
 static void sub_80176DC (void) {}
 
 static void sub_80176E0 (void) {
-  if (!NumEmptyZonesInRow(gZones[4]))
+  if (!NumEmptyZonesInRow(gTurnZones[4]))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EEE8FA1;
@@ -5841,7 +5841,7 @@ static void sub_80176E0 (void) {
 static void sub_8017724 (void) {}
 
 static void sub_8017728 (void) {
-  if (!NumCardMatchesInRow(gZones[2], HARPIES_PET_DRAGON))
+  if (!NumCardMatchesInRow(gTurnZones[2], HARPIES_PET_DRAGON))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = GetTotalAtkAndDefInRow(2);
@@ -5857,7 +5857,7 @@ static void sub_8017774 (void) {
 }
 
 static void sub_80177B8 (void) {
-  if (!NumCardMatchesInRow(gZones[2], HARPIES_PET_DRAGON))
+  if (!NumCardMatchesInRow(gTurnZones[2], HARPIES_PET_DRAGON))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = GetTotalAtkAndDefInRow(2);
@@ -5874,9 +5874,9 @@ static void sub_8017804 (void) {
 
 // Time Wizard
 static void sub_8017848 (void) {
-  if (NumCardMatchesInRow(gZones[2], BABY_DRAGON) > 0)
+  if (NumCardMatchesInRow(gTurnZones[2], BABY_DRAGON) > 0)
     gUnk_8DFF6A4->unk2298 = 0x7EF2D567;
-  else if (NumCardMatchesInRow(gZones[2], DARK_MAGICIAN) > 0)
+  else if (NumCardMatchesInRow(gTurnZones[2], DARK_MAGICIAN) > 0)
     gUnk_8DFF6A4->unk2298 = 0x7EF2D567;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -5894,7 +5894,7 @@ static void sub_80178BC (void) {
 }
 
 static void sub_8017900 (void) {
-  if (NumCardMatchesInRow(gZones[2], BLUE_EYES_WHITE_DRAGON) > 0)
+  if (NumCardMatchesInRow(gTurnZones[2], BLUE_EYES_WHITE_DRAGON) > 0)
     gUnk_8DFF6A4->unk2298 = GetTotalAtkAndDefInRow(2);
   else
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -5960,7 +5960,7 @@ static void sub_8017AEC (void) {
 static void sub_8017B30 (void) {}
 
 static void sub_8017B34 (void) {
-  if (!NumCardMatchesInRow(gZones[2], DUNGEON_WORM))
+  if (!NumCardMatchesInRow(gTurnZones[2], DUNGEON_WORM))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = GetTotalAtkAndDefInRow(2);
@@ -5976,9 +5976,9 @@ static void sub_8017B80 (void) {
 }
 
 static void sub_8017BC4 (void) {
-  u8 numArmoredZombie = NumCardMatchesInRow(gZones[2], ARMORED_ZOMBIE);
-  u8 numDragonZombie = NumCardMatchesInRow(gZones[2], DRAGON_ZOMBIE);
-  u8 numClownZombie = NumCardMatchesInRow(gZones[2], CLOWN_ZOMBIE);
+  u8 numArmoredZombie = NumCardMatchesInRow(gTurnZones[2], ARMORED_ZOMBIE);
+  u8 numDragonZombie = NumCardMatchesInRow(gTurnZones[2], DRAGON_ZOMBIE);
+  u8 numClownZombie = NumCardMatchesInRow(gTurnZones[2], CLOWN_ZOMBIE);
   if (!numArmoredZombie && !numDragonZombie && !numClownZombie)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
@@ -5995,7 +5995,7 @@ static void sub_8017C38 (void) {
 }
 
 static void sub_8017C7C (void) {
-  if (NumEmptyZonesInRow(gZones[1]) == 5)
+  if (NumEmptyZonesInRow(gTurnZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF5516B;
@@ -6007,12 +6007,12 @@ static void sub_8017CC4 (void) {}
 static void sub_8017CC8 (void) {
   u32 numNonEmptyZones; //TODO: rename
   u32 numNonEmptyZones2; // ^
-  if (!NumEmptyZonesInRow(gZones[4])) {
+  if (!NumEmptyZonesInRow(gTurnZones[4])) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
-  numNonEmptyZones = 5 - NumEmptyZonesInRow(gZones[1]);
-  numNonEmptyZones2 = 5 - NumEmptyZonesInRow(gZones[2]);
+  numNonEmptyZones = 5 - NumEmptyZonesInRow(gTurnZones[1]);
+  numNonEmptyZones2 = 5 - NumEmptyZonesInRow(gTurnZones[2]);
   if (numNonEmptyZones2 < 2)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (numNonEmptyZones >= numNonEmptyZones2)
@@ -6043,7 +6043,7 @@ static void sub_8017DF4 (void) {
   u8 i;
   u32 numCards = 0;
   for (i = 0; i < 5; i++) {
-    struct DuelCard* zone = gZones[1][i];
+    struct DuelCard* zone = gTurnZones[1][i];
     if (zone->id == CARD_NONE || IsGodCard(zone->id) == TRUE)
       continue;
     SetCardInfo(zone->id);
@@ -6059,7 +6059,7 @@ static void sub_8017DF4 (void) {
 static void sub_8017E70 (void) {}
 
 static void sub_8017E74 (void) {
-  if (!NumEmptyZonesInRow(gZones[0]))
+  if (!NumEmptyZonesInRow(gTurnZones[0]))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EF2D566;
@@ -6068,7 +6068,7 @@ static void sub_8017E74 (void) {
 static void sub_8017EB8 (void) {}
 
 static void sub_8017EBC (void) {
-  if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5)
+  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF55173;
@@ -6077,7 +6077,7 @@ static void sub_8017EBC (void) {
 static void sub_8017F00 (void) {}
 
 static void sub_8017F04 (void) {
-  if (NumEmptyZonesInRow(gZones[1]) == 5)
+  if (NumEmptyZonesInRow(gTurnZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EEE8F9B;
@@ -6086,7 +6086,7 @@ static void sub_8017F04 (void) {
 static void sub_8017F48 (void) {}
 
 static void sub_8017F4C (void) {
-  if (NumEmptyZonesInRow(gZones[1]) == 5)
+  if (NumEmptyZonesInRow(gTurnZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EEC6CBB;
@@ -6118,7 +6118,7 @@ static void sub_8017FEC (void) {
 static void sub_8018030 (void) {}
 
 static void sub_8018034 (void) {
-  if (!NumCardMatchesInRow(gZones[2], M_WARRIOR_2))
+  if (!NumCardMatchesInRow(gTurnZones[2], M_WARRIOR_2))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EF2D571;
@@ -6127,7 +6127,7 @@ static void sub_8018034 (void) {
 static void sub_801807C (void) {}
 
 static void sub_8018080 (void) {
-  if (!NumCardMatchesInRow(gZones[2], M_WARRIOR_1))
+  if (!NumCardMatchesInRow(gTurnZones[2], M_WARRIOR_1))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EF2D570;
@@ -6136,7 +6136,7 @@ static void sub_8018080 (void) {
 static void sub_80180C8 (void) {}
 
 static void sub_80180CC (void) {
-  if (NumEmptyZonesInRow(gZones[1]) == 5)
+  if (NumEmptyZonesInRow(gTurnZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EEE8F9D;
@@ -6184,7 +6184,7 @@ static void sub_801825C (void) {}
 static void sub_8018260 (void) {
   u8 i, numCards = 0;
   for (i = 0; i < 5; i++)
-    if (gHands[1][i]->id != CARD_NONE)
+    if (gTurnHands[1][i]->id != CARD_NONE)
       numCards++;
   if (!numCards)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -6195,7 +6195,7 @@ static void sub_8018260 (void) {
 static void sub_80182BC (void) {}
 
 static void sub_80182C0 (void) {
-  if (!NumEmptyZonesInRow(gZones[2]))
+  if (!NumEmptyZonesInRow(gTurnZones[2]))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF32E81;
@@ -6204,7 +6204,7 @@ static void sub_80182C0 (void) {
 static void sub_8018304 (void) {}
 
 static void sub_8018308 (void) {
-  if (!NumCardMatchesInRow(gZones[2], LAVA_BATTLEGUARD))
+  if (!NumCardMatchesInRow(gTurnZones[2], LAVA_BATTLEGUARD))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EF2D56E;
@@ -6213,7 +6213,7 @@ static void sub_8018308 (void) {
 static void sub_8018354 (void) {}
 
 static void sub_8018358 (void) {
-  if (!NumCardMatchesInRow(gZones[2], SWAMP_BATTLEGUARD))
+  if (!NumCardMatchesInRow(gTurnZones[2], SWAMP_BATTLEGUARD))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EF2D56D;
@@ -6238,7 +6238,7 @@ static void sub_80183EC (void) {
 }
 
 static void sub_8018430 (void) {
-  if (!NumCardMatchesInRow(gZones[2], LABYRINTH_WALL))
+  if (!NumCardMatchesInRow(gTurnZones[2], LABYRINTH_WALL))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EF2D56D;
@@ -6247,7 +6247,7 @@ static void sub_8018430 (void) {
 static void sub_8018478 (void) {}
 
 static void sub_801847C (void) {
-  if (!NumEmptyZonesInRow(gZones[2]))
+  if (!NumEmptyZonesInRow(gTurnZones[2]))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF32E85;
@@ -6257,7 +6257,7 @@ static void sub_80184C0 (void) {}
 
 // hourglass?
 static void sub_80184C4 (void) {
-  if (NumEmptyZonesInRow(gZones[2]) == 5)
+  if (NumEmptyZonesInRow(gTurnZones[2]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (gDuelLifePoints[WhoseTurn()] <= 1000)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -6268,9 +6268,9 @@ static void sub_80184C4 (void) {
 static void sub_801853C (void) {}
 
 static void sub_8018540 (void) {
-  if (NumEmptyZonesAndGodCardsInRow(gZones[2]) < 4)
+  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[2]) < 4)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5)
+  else if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF55172;
@@ -6279,7 +6279,7 @@ static void sub_8018540 (void) {
 static void sub_80185B0 (void) {}
 
 static void sub_80185B4 (void) {
-  if (NumEmptyZonesInRow(gZones[1]) == 5)
+  if (NumEmptyZonesInRow(gTurnZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (GetNumCardsUnlockedInRow(2) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -6290,7 +6290,7 @@ static void sub_80185B4 (void) {
 static void sub_801861C (void) {}
 
 static void sub_8018620 (void) {
-  if (!NumEmptyZonesInRow(gZones[2]))
+  if (!NumEmptyZonesInRow(gTurnZones[2]))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF32E84;
@@ -6302,7 +6302,7 @@ static void sub_8018664 (void) {}
 static void sub_8018668 (void) {
   u8 i, numCards = 0;
   for (i = 0; i < 5; i++) {
-    SetCardInfo(gZones[2][i]->id);
+    SetCardInfo(gTurnZones[2][i]->id);
     if (gCardInfo.attribute == ATTRIBUTE_LIGHT) {
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
       return;
@@ -6319,7 +6319,7 @@ static void sub_8018668 (void) {
 static void sub_80186F4 (void) {}
 
 static void sub_80186F8 (void) {
-  if (NumEmptyZonesInRow(gZones[1]) == 5)
+  if (NumEmptyZonesInRow(gTurnZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EEE8F9B;
@@ -6330,7 +6330,7 @@ static void sub_801873C (void) {}
 static void sub_8018740 (void) {
   u8 i, numCards = 0;
   for (i = 0; i < 5; i++) {
-    SetCardInfo(gZones[2][i]->id);
+    SetCardInfo(gTurnZones[2][i]->id);
     if (gCardInfo.attribute == ATTRIBUTE_SHADOW) {
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
       return;
@@ -6415,7 +6415,7 @@ static void sub_80189A0 (void) {
 }
 
 static void sub_80189BC (void) {
-  if (!NumCardMatchesInRow(gZones[2], HARPIES_PET_DRAGON))
+  if (!NumCardMatchesInRow(gTurnZones[2], HARPIES_PET_DRAGON))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = GetTotalAtkAndDefInRow(2);
@@ -6445,9 +6445,9 @@ static void sub_8018A4C (void) {
 static void sub_8018AA0 (void) {}
 
 static void sub_8018AA4 (void) {
-  if (!NumCardMatchesInRow(gZones[2], BETA_THE_MAGNET_WARRIOR))
+  if (!NumCardMatchesInRow(gTurnZones[2], BETA_THE_MAGNET_WARRIOR))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (!NumCardMatchesInRow(gZones[2], GAMMA_THE_MAGNET_WARRIOR))
+  else if (!NumCardMatchesInRow(gTurnZones[2], GAMMA_THE_MAGNET_WARRIOR))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7F12E09B;
@@ -6456,9 +6456,9 @@ static void sub_8018AA4 (void) {
 static void sub_8018B1C (void) {}
 
 static void sub_8018B20 (void) {
-  if (!NumCardMatchesInRow(gZones[2], ALPHA_THE_MAGNET_WARRIOR))
+  if (!NumCardMatchesInRow(gTurnZones[2], ALPHA_THE_MAGNET_WARRIOR))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (!NumCardMatchesInRow(gZones[2], GAMMA_THE_MAGNET_WARRIOR))
+  else if (!NumCardMatchesInRow(gTurnZones[2], GAMMA_THE_MAGNET_WARRIOR))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7F12E09B;
@@ -6467,9 +6467,9 @@ static void sub_8018B20 (void) {
 static void sub_8018B98 (void) {}
 
 static void sub_8018B9C (void) {
-  if (!NumCardMatchesInRow(gZones[2], ALPHA_THE_MAGNET_WARRIOR))
+  if (!NumCardMatchesInRow(gTurnZones[2], ALPHA_THE_MAGNET_WARRIOR))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (!NumCardMatchesInRow(gZones[2], BETA_THE_MAGNET_WARRIOR))
+  else if (!NumCardMatchesInRow(gTurnZones[2], BETA_THE_MAGNET_WARRIOR))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7F12E09B;
@@ -6480,7 +6480,7 @@ static void sub_8018C14 (void) {}
 /*
 static void sub_8018C18 (void) {
   // NumEmptyZonesInRow should only take one arg
-  if (NumEmptyZonesInRow(gZones[2], 1) < 2)
+  if (NumEmptyZonesInRow(gTurnZones[2], 1) < 2)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EEB5B49;
@@ -6489,7 +6489,7 @@ static void sub_8018C18 (void) {
 NAKED
 static void sub_8018C18 (void) {
   asm_unified("push {lr}\n\
-	ldr r0, _08018C34 @ =gZones+0x28\n\
+	ldr r0, _08018C34 @ =gTurnZones+0x28\n\
 	movs r1, #0\n\
 	bl NumEmptyZonesInRow\n\
 	cmp r0, #1\n\
@@ -6501,7 +6501,7 @@ static void sub_8018C18 (void) {
 	ldr r1, _08018C40 @ =0x7EDE89F9\n\
 	b _08018C4E\n\
 	.align 2, 0\n\
-_08018C34: .4byte gZones+0x28\n\
+_08018C34: .4byte gTurnZones+0x28\n\
 _08018C38: .4byte 0x08DFF6A4\n\
 _08018C3C: .4byte 0x00002298\n\
 _08018C40: .4byte 0x7EDE89F9\n\
@@ -6524,7 +6524,7 @@ _08018C5C: .4byte 0x7EEB5B49");
 static void sub_8018C60 (void) {}
 
 static void sub_8018C64 (void) {
-  if (NumEmptyZonesInRow(gZones[1]) == 5)
+  if (NumEmptyZonesInRow(gTurnZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EEE8F9F;
@@ -6533,9 +6533,9 @@ static void sub_8018C64 (void) {
 static void sub_8018CA8 (void) {}
 
 static void sub_8018CAC (void) {
-  if (!NumEmptyZonesInRow(gZones[2]))
+  if (!NumEmptyZonesInRow(gTurnZones[2]))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5)
+  else if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFE6;
@@ -6544,7 +6544,7 @@ static void sub_8018CAC (void) {
 static void sub_8018D1C (void) {}
 
 static void sub_8018D20 (void) {
-  if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5)
+  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF55171;
@@ -6561,7 +6561,7 @@ static void sub_8018D84 (void) {
 }
 
 static void sub_8018DA0 (void) {
-  if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5)
+  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF99740;
@@ -6570,7 +6570,7 @@ static void sub_8018DA0 (void) {
 static void sub_8018DE4 (void) {}
 
 static void sub_8018DE8 (void) {
-  if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5)
+  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF9973D;
@@ -6582,7 +6582,7 @@ static void sub_8018E30 (void) {
   u8 i;
   gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   for (i = 0; i < 5; i++) {
-    if (gZones[0][i]->id != CARD_NONE) {
+    if (gTurnZones[0][i]->id != CARD_NONE) {
       gUnk_8DFF6A4->unk2298 = 0x7FFFFFF4;
       break;
     }
@@ -6601,7 +6601,7 @@ static void sub_8018E98 (void) {
 static void sub_8018EDC (void) {}
 
 static void sub_8018EE0 (void) {
-  if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5)
+  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF77457;
@@ -6620,8 +6620,8 @@ static void sub_8018F30 (void) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
-  numNonEmptyZones = 5 - NumEmptyZonesInRow(gZones[1]);
-  numNonEmptyZones2 = 5 - NumEmptyZonesInRow(gZones[2]);
+  numNonEmptyZones = 5 - NumEmptyZonesInRow(gTurnZones[1]);
+  numNonEmptyZones2 = 5 - NumEmptyZonesInRow(gTurnZones[2]);
   if (numNonEmptyZones2 < 2)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (numNonEmptyZones >= numNonEmptyZones2)
@@ -6635,7 +6635,7 @@ static void sub_8018FE0 (void) {}
 static void sub_8018FE4 (void) {}
 
 static void sub_8018FE8 (void) {
-  if (NumEmptyZonesInRow(gZones[1]) == 5)
+  if (NumEmptyZonesInRow(gTurnZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EEE8F9E;
@@ -6644,7 +6644,7 @@ static void sub_8018FE8 (void) {
 static void sub_801902C (void) {}
 
 static void sub_8019030 (void) {
-  if (!NumEmptyZonesInRow(gZones[2]))
+  if (!NumEmptyZonesInRow(gTurnZones[2]))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF32E80;
@@ -6653,7 +6653,7 @@ static void sub_8019030 (void) {
 static void sub_8019074 (void) {}
 
 static void sub_8019078 (void) {
-  if (!sub_8043584(gZones[2], TYPE_DRAGON))
+  if (!sub_8043584(gTurnZones[2], TYPE_DRAGON))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EF2D572;
@@ -6668,7 +6668,7 @@ static void sub_80190C4 (void) {
 static void sub_80190E0 (void) {}
 
 static void sub_80190E4 (void) {
-  if (!NumEmptyZonesInRow(gZones[2]))
+  if (!NumEmptyZonesInRow(gTurnZones[2]))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF32E83;
@@ -6677,7 +6677,7 @@ static void sub_80190E4 (void) {
 static void sub_8019128 (void) {}
 
 static void sub_801912C (void) {
-  if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5)
+  if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 500)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
@@ -6690,9 +6690,9 @@ static void sub_80191B0 (void) {}
 static void sub_80191B4 (void) {}
 
 static void sub_80191B8 (void) {
-  if (NumEmptyZonesInRow(gZones[4]) == 5)
+  if (NumEmptyZonesInRow(gTurnZones[4]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (!sub_8043584(gZones[0], 0x15))
+  else if (!sub_8043584(gTurnZones[0], 0x15))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF7745A;
@@ -6711,9 +6711,9 @@ static void sub_801924C (void) {
 static void sub_8019268 (void) {}
 
 static void sub_801926C (void) {
-  if (!NumEmptyZonesInRow(gZones[2]))
+  if (!NumEmptyZonesInRow(gTurnZones[2]))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (!NumCardMatchesInRow(gZones[2], QUEENS_KNIGHT))
+  else if (!NumCardMatchesInRow(gTurnZones[2], QUEENS_KNIGHT))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF32E82;
@@ -6722,8 +6722,8 @@ static void sub_801926C (void) {
 static void sub_80192E0 (void) {}
 
 static void sub_80192E4 (void) {
-  u8 numYDragonHeads = NumCardMatchesInRow(gZones[2], Y_DRAGON_HEAD);
-  u8 numZMetalTanks = NumCardMatchesInRow(gZones[2], Z_METAL_TANK);
+  u8 numYDragonHeads = NumCardMatchesInRow(gTurnZones[2], Y_DRAGON_HEAD);
+  u8 numZMetalTanks = NumCardMatchesInRow(gTurnZones[2], Z_METAL_TANK);
   if (!numYDragonHeads) {
     if (!numZMetalTanks)
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -6739,8 +6739,8 @@ static void sub_80192E4 (void) {
 static void sub_801936C (void) {}
 
 static void sub_8019370 (void) {
-  u8 numXHeadCannons = NumCardMatchesInRow(gZones[2], X_HEAD_CANNON);
-  u8 numZMetalTanks = NumCardMatchesInRow(gZones[2], Z_METAL_TANK);
+  u8 numXHeadCannons = NumCardMatchesInRow(gTurnZones[2], X_HEAD_CANNON);
+  u8 numZMetalTanks = NumCardMatchesInRow(gTurnZones[2], Z_METAL_TANK);
   if (!numXHeadCannons) {
     if (!numZMetalTanks)
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -6756,8 +6756,8 @@ static void sub_8019370 (void) {
 static void sub_80193F4 (void) {}
 
 static void sub_80193F8 (void) {
-  u8 numXHeadCannons = NumCardMatchesInRow(gZones[2], X_HEAD_CANNON);
-  u8 numYDragonHeads = NumCardMatchesInRow(gZones[2], Y_DRAGON_HEAD);
+  u8 numXHeadCannons = NumCardMatchesInRow(gTurnZones[2], X_HEAD_CANNON);
+  u8 numYDragonHeads = NumCardMatchesInRow(gTurnZones[2], Y_DRAGON_HEAD);
   if (!numXHeadCannons) {
     if (!numYDragonHeads)
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -6793,7 +6793,7 @@ static void sub_8019494 (void) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
-  if (NumEmptyZonesInRow(gZones[1]) == 5)
+  if (NumEmptyZonesInRow(gTurnZones[1]) == 5)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF77459;
@@ -6810,7 +6810,7 @@ static void sub_8019544 (void) {}
 static void sub_8019548 (void) {
   u8 numCards = 0, i;
   for (i = 0; i < 5; i++) {
-    struct DuelCard* zone = gZones[1][i];
+    struct DuelCard* zone = gTurnZones[1][i];
     if (zone->id == CARD_NONE)
       continue;
     if (IsCardFaceUp(zone) != TRUE || IsGodCard(zone->id) != TRUE)
@@ -6978,7 +6978,7 @@ u32 sub_80199B8 (void) {
     u8 playerMonAttribute;
     u16 opponentMonAtk;
     u8 j;
-    struct DuelCard* playerMonZone = gZones[2][i];
+    struct DuelCard* playerMonZone = gTurnZones[2][i];
     if (playerMonZone->id == CARD_NONE)
       continue;
     gStatMod.card = playerMonZone->id;
@@ -6989,7 +6989,7 @@ u32 sub_80199B8 (void) {
     playerMonDef = gCardInfo.def;
     playerMonAttribute = gCardInfo.attribute;
     for (j = 0; j < 5; j++) {
-      struct DuelCard* opponentMonZone = gZones[1][j];
+      struct DuelCard* opponentMonZone = gTurnZones[1][j];
       if (opponentMonZone->id == CARD_NONE)
         continue;
       if (!IsCardFaceUp(opponentMonZone))
@@ -7105,8 +7105,8 @@ u32 sub_8019CC8 (void) {
 }
 
 u32 sub_8019CE4 (void) {
-  u8 r5 = 5 - NumEmptyZonesInRow(gZones[2]);
-  u8 r4 = 5 - NumEmptyZonesInRow(gZones[1]);
+  u8 r5 = 5 - NumEmptyZonesInRow(gTurnZones[2]);
+  u8 r4 = 5 - NumEmptyZonesInRow(gTurnZones[1]);
   return gE00510[r5][r4];
 }
 
@@ -7216,12 +7216,12 @@ void TryAttackVoicing (void) {
     case 12:
     case 13:
       attackVoicing.duelistId = gDuelData.duelist.id;
-      attackVoicing.cardId = gZones[row2][col2]->id;
+      attackVoicing.cardId = gTurnZones[row2][col2]->id;
       sub_801A008(&attackVoicing);
       break;
     case 23:
       attackVoicing.duelistId = gDuelData.duelist.id;
-      attackVoicing.cardId = gZones[row2][col2]->id;
+      attackVoicing.cardId = gTurnZones[row2][col2]->id;
       sub_801A028(&attackVoicing);
       break;
   }
@@ -7288,8 +7288,8 @@ static u8 sub_801A08C (void) {
 static u8 sub_801A0B0 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  if (gZones[row2][col2]->id != CARD_NONE && !NumEmptyZonesInRow(gZones[4])) {
-    SetCardInfo(gZones[row2][col2]->id);
+  if (gTurnZones[row2][col2]->id != CARD_NONE && !NumEmptyZonesInRow(gTurnZones[4])) {
+    SetCardInfo(gTurnZones[row2][col2]->id);
     if (!gCardInfo.unk1E)
       return 1;
   }
@@ -7299,8 +7299,8 @@ static u8 sub_801A0B0 (void) {
 static u8 sub_801A104 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  if (gZones[row2][col2]->id != CARD_NONE && !NumEmptyZonesInRow(gZones[4])) {
-    SetCardInfo(gZones[row2][col2]->id);
+  if (gTurnZones[row2][col2]->id != CARD_NONE && !NumEmptyZonesInRow(gTurnZones[4])) {
+    SetCardInfo(gTurnZones[row2][col2]->id);
     if (gCardInfo.unk1E)
       return 1;
   }
@@ -7312,10 +7312,10 @@ static u8 sub_801A158 (void) {
   u8 col2 = sAI_Command.unk2 & 0xF;
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
-  if (gCardInfo.unk1E || ZoneHasUnlockedMonsterCard(gZones[row2][col2]) != 1
-   || sub_8045390(gZones[row2][col2]->id)
-   || (gZones[row3][col3]->id != CARD_NONE && IsCardLocked(gZones[row3][col3])))
+  SetCardInfo(gTurnZones[row2][col2]->id);
+  if (gCardInfo.unk1E || ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) != 1
+   || sub_8045390(gTurnZones[row2][col2]->id)
+   || (gTurnZones[row3][col3]->id != CARD_NONE && IsCardLocked(gTurnZones[row3][col3])))
       return 0;
   return 1;
 }
@@ -7325,10 +7325,10 @@ static u8 sub_801A1D4 (void) {
   u8 col2 = sAI_Command.unk2 & 0xF;
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
-  if (!gCardInfo.unk1E || ZoneHasUnlockedMonsterCard(gZones[row2][col2]) != 1
-   || sub_8045390(gZones[row2][col2]->id)
-   || (gZones[row3][col3]->id != CARD_NONE && IsCardLocked(gZones[row3][col3])))
+  SetCardInfo(gTurnZones[row2][col2]->id);
+  if (!gCardInfo.unk1E || ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) != 1
+   || sub_8045390(gTurnZones[row2][col2]->id)
+   || (gTurnZones[row3][col3]->id != CARD_NONE && IsCardLocked(gTurnZones[row3][col3])))
       return 0;
   return 1;
 }
@@ -7338,9 +7338,9 @@ static u8 sub_801A250 (void) {
   u8 col2 = sAI_Command.unk2 & 0xF;
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
-  if (!gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1
-   && sub_8045390(gZones[row2][col2]->id) == 1 && ZoneHasUnlockedMonsterCard(gZones[row3][col3]) == 1)
+  SetCardInfo(gTurnZones[row2][col2]->id);
+  if (!gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1
+   && sub_8045390(gTurnZones[row2][col2]->id) == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) == 1)
       return 1;
   return 0;
 }
@@ -7350,9 +7350,9 @@ static u8 sub_801A2C4 (void) {
   u8 col2 = sAI_Command.unk2 & 0xF;
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
-  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1
-   && sub_8045390(gZones[row2][col2]->id) == 1 && ZoneHasUnlockedMonsterCard(gZones[row3][col3]) == 1)
+  SetCardInfo(gTurnZones[row2][col2]->id);
+  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1
+   && sub_8045390(gTurnZones[row2][col2]->id) == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) == 1)
       return 1;
   return 0;
 }
@@ -7364,10 +7364,10 @@ static u8 sub_801A338 (void) {
   u8 col3 = sAI_Command.unk3 & 0xF;
   u8 row4 = sAI_Command.unk4 >> 4;
   u8 col4 = sAI_Command.unk4 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
-  if (!gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1
-   && sub_8045390(gZones[row2][col2]->id) == 2 && ZoneHasUnlockedMonsterCard(gZones[row3][col3]) == 1
-   && ZoneHasUnlockedMonsterCard(gZones[row4][col4]) == 1)
+  SetCardInfo(gTurnZones[row2][col2]->id);
+  if (!gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1
+   && sub_8045390(gTurnZones[row2][col2]->id) == 2 && ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) == 1
+   && ZoneHasUnlockedMonsterCard(gTurnZones[row4][col4]) == 1)
       return 1;
   return 0;
 }
@@ -7379,10 +7379,10 @@ static u8 sub_801A3E0 (void) {
   u8 col3 = sAI_Command.unk3 & 0xF;
   u8 row4 = sAI_Command.unk4 >> 4;
   u8 col4 = sAI_Command.unk4 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
-  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1
-   && sub_8045390(gZones[row2][col2]->id) == 2 && ZoneHasUnlockedMonsterCard(gZones[row3][col3]) == 1
-   && ZoneHasUnlockedMonsterCard(gZones[row4][col4]) == 1)
+  SetCardInfo(gTurnZones[row2][col2]->id);
+  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1
+   && sub_8045390(gTurnZones[row2][col2]->id) == 2 && ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) == 1
+   && ZoneHasUnlockedMonsterCard(gTurnZones[row4][col4]) == 1)
       return 1;
   return 0;
 }
@@ -7396,10 +7396,10 @@ static u8 sub_801A488 (void) {
   u8 col4 = sAI_Command.unk4 & 0xF;
   u8 row5 = sAI_Command.unk5 >> 4;
   u8 col5 = sAI_Command.unk5 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
-  if (!gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1
-   && sub_8045390(gZones[row2][col2]->id) == 3 && ZoneHasUnlockedMonsterCard(gZones[row3][col3]) == 1
-   && ZoneHasUnlockedMonsterCard(gZones[row4][col4]) == 1 && ZoneHasUnlockedMonsterCard(gZones[row5][col5]) == 1)
+  SetCardInfo(gTurnZones[row2][col2]->id);
+  if (!gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1
+   && sub_8045390(gTurnZones[row2][col2]->id) == 3 && ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) == 1
+   && ZoneHasUnlockedMonsterCard(gTurnZones[row4][col4]) == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row5][col5]) == 1)
       return 1;
   return 0;
 }
@@ -7413,10 +7413,10 @@ static u8 sub_801A55C (void) {
   u8 col4 = sAI_Command.unk4 & 0xF;
   u8 row5 = sAI_Command.unk5 >> 4;
   u8 col5 = sAI_Command.unk5 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
-  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1
-   && sub_8045390(gZones[row2][col2]->id) == 3 && ZoneHasUnlockedMonsterCard(gZones[row3][col3]) == 1
-   && ZoneHasUnlockedMonsterCard(gZones[row4][col4]) == 1 && ZoneHasUnlockedMonsterCard(gZones[row5][col5]) == 1)
+  SetCardInfo(gTurnZones[row2][col2]->id);
+  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1
+   && sub_8045390(gTurnZones[row2][col2]->id) == 3 && ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) == 1
+   && ZoneHasUnlockedMonsterCard(gTurnZones[row4][col4]) == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row5][col5]) == 1)
       return 1;
   return 0;
 }
@@ -7429,10 +7429,10 @@ static u8 sub_801A630 (void) {
     return 0;
   row2 = sAI_Command.unk2 >> 4;
   col2 = sAI_Command.unk2 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
+  SetCardInfo(gTurnZones[row2][col2]->id);
   if (gCardInfo.unk1E)
     return 0;
-  if (ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1)
+  if (ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1)
     r5 = 1;
   return r5;
 }
@@ -7444,8 +7444,8 @@ static u8 sub_801A690 (void) {
     return 0;
   row2 = sAI_Command.unk2 >> 4;
   col2 = sAI_Command.unk2 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
-  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1)
+  SetCardInfo(gTurnZones[row2][col2]->id);
+  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1)
     return 1;
   return 0;
 }
@@ -7453,8 +7453,8 @@ static u8 sub_801A690 (void) {
 static u8 sub_801A6EC (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
-  if (!gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1)
+  SetCardInfo(gTurnZones[row2][col2]->id);
+  if (!gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1)
     return 1;
   return 0;
 }
@@ -7462,8 +7462,8 @@ static u8 sub_801A6EC (void) {
 static u8 sub_801A738 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
-  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1)
+  SetCardInfo(gTurnZones[row2][col2]->id);
+  if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1)
     return 1;
   return 0;
 }
@@ -7472,12 +7472,12 @@ static u8 sub_801A784 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
   if (GetDuelistStatus(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
-    SetCardInfo(gZones[row2][col2]->id);
+    SetCardInfo(gTurnZones[row2][col2]->id);
     if (!gCardInfo.unk1E) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
-      gTrapEffectData.id = gZones[row2][col2]->id;
-      if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
+      gTrapEffectData.id = gTurnZones[row2][col2]->id;
+      if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1 &&
           !GetNumCardsInRow(1))
         return 1;
     }
@@ -7489,12 +7489,12 @@ static u8 sub_801A814 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
   if (GetDuelistStatus(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
-    SetCardInfo(gZones[row2][col2]->id);
+    SetCardInfo(gTurnZones[row2][col2]->id);
     if (gCardInfo.unk1E) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
-      gTrapEffectData.id = gZones[row2][col2]->id;
-      if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
+      gTrapEffectData.id = gTurnZones[row2][col2]->id;
+      if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1 &&
           !GetNumCardsInRow(1))
         return 1;
     }
@@ -7508,14 +7508,14 @@ static u8 sub_801A8A4 (void) {
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
   if (GetDuelistStatus(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
-    SetCardInfo(gZones[row2][col2]->id);
+    SetCardInfo(gTurnZones[row2][col2]->id);
     if (!gCardInfo.unk1E) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
-      gTrapEffectData.id = gZones[row2][col2]->id;
-      if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
-          gZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gZones[row3][col3]->id) == 1 &&
-          gZones[row3][col3]->isFaceUp)
+      gTrapEffectData.id = gTurnZones[row2][col2]->id;
+      if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1 &&
+          gTurnZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gTurnZones[row3][col3]->id) == 1 &&
+          gTurnZones[row3][col3]->isFaceUp)
         return 1;
     }
   }
@@ -7528,14 +7528,14 @@ static u8 sub_801A974 (void) {
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
   if (GetDuelistStatus(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
-    SetCardInfo(gZones[row2][col2]->id);
+    SetCardInfo(gTurnZones[row2][col2]->id);
     if (gCardInfo.unk1E) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
-      gTrapEffectData.id = gZones[row2][col2]->id;
-      if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
-          gZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gZones[row3][col3]->id) == 1 &&
-          gZones[row3][col3]->isFaceUp)
+      gTrapEffectData.id = gTurnZones[row2][col2]->id;
+      if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1 &&
+          gTurnZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gTurnZones[row3][col3]->id) == 1 &&
+          gTurnZones[row3][col3]->isFaceUp)
         return 1;
     }
   }
@@ -7548,14 +7548,14 @@ static u8 sub_801AA44 (void) {
   u8 col2 = sAI_Command.unk2 & 0xF;
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
+  SetCardInfo(gTurnZones[row2][col2]->id);
   if (!gCardInfo.unk1E && GetDuelistStatus(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
     gTrapEffectData.unk2 = row2;
     gTrapEffectData.unk3 = col2;
-    gTrapEffectData.id = gZones[row2][col2]->id;
-    if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
-        gZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gZones[row3][col3]->id) == 1 &&
-        !gZones[row3][col3]->isFaceUp)
+    gTrapEffectData.id = gTurnZones[row2][col2]->id;
+    if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1 &&
+        gTurnZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gTurnZones[row3][col3]->id) == 1 &&
+        !gTurnZones[row3][col3]->isFaceUp)
       return 1;
   }
   return 0;
@@ -7644,7 +7644,7 @@ static u8 sub_801AA44 (void) {
 	b _0801AB06\n\
 	.align 2, 0\n\
 _0801AAF0: .4byte 0x02021C00\n\
-_0801AAF4: .4byte gZones\n\
+_0801AAF4: .4byte gTurnZones\n\
 _0801AAF8: .4byte gCardInfo\n\
 _0801AAFC: .4byte gNotSure\n\
 _0801AB00: .4byte gTrapEffectData\n\
@@ -7761,12 +7761,12 @@ static u8 sub_801ABE4 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
   if (GetDuelistStatus(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
-    SetCardInfo(gZones[row2][col2]->id);
+    SetCardInfo(gTurnZones[row2][col2]->id);
     if (!gCardInfo.unk1E) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
-      gTrapEffectData.id = gZones[row2][col2]->id;
-      if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
+      gTrapEffectData.id = gTurnZones[row2][col2]->id;
+      if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1 &&
           !GetNumCardsInRow(1))
         return 1;
     }
@@ -7778,12 +7778,12 @@ static u8 sub_801AC74 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
   if (GetDuelistStatus(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
-    SetCardInfo(gZones[row2][col2]->id);
+    SetCardInfo(gTurnZones[row2][col2]->id);
     if (gCardInfo.unk1E) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
-      gTrapEffectData.id = gZones[row2][col2]->id;
-      if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
+      gTrapEffectData.id = gTurnZones[row2][col2]->id;
+      if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1 &&
           !GetNumCardsInRow(1))
         return 1;
     }
@@ -7797,14 +7797,14 @@ static u8 sub_801AD04 (void) {
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
   if (GetDuelistStatus(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
-    SetCardInfo(gZones[row2][col2]->id);
+    SetCardInfo(gTurnZones[row2][col2]->id);
     if (!gCardInfo.unk1E) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
-      gTrapEffectData.id = gZones[row2][col2]->id;
-      if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
-          gZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gZones[row3][col3]->id) == 1 &&
-          gZones[row3][col3]->isFaceUp)
+      gTrapEffectData.id = gTurnZones[row2][col2]->id;
+      if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1 &&
+          gTurnZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gTurnZones[row3][col3]->id) == 1 &&
+          gTurnZones[row3][col3]->isFaceUp)
         return 1;
     }
   }
@@ -7817,14 +7817,14 @@ static u8 sub_801ADD4 (void) {
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
   if (GetDuelistStatus(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
-    SetCardInfo(gZones[row2][col2]->id);
+    SetCardInfo(gTurnZones[row2][col2]->id);
     if (gCardInfo.unk1E) {
       gTrapEffectData.unk2 = row2;
       gTrapEffectData.unk3 = col2;
-      gTrapEffectData.id = gZones[row2][col2]->id;
-      if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
-          gZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gZones[row3][col3]->id) == 1 &&
-          gZones[row3][col3]->isFaceUp)
+      gTrapEffectData.id = gTurnZones[row2][col2]->id;
+      if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1 &&
+          gTurnZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gTurnZones[row3][col3]->id) == 1 &&
+          gTurnZones[row3][col3]->isFaceUp)
         return 1;
     }
   }
@@ -7837,14 +7837,14 @@ static u8 sub_801AEA4 (void) {
   u8 col2 = sAI_Command.unk2 & 0xF;
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
+  SetCardInfo(gTurnZones[row2][col2]->id);
   if (!gCardInfo.unk1E && GetDuelistStatus(WhoseTurn()) && !gNotSure[0]->sorlTurns) {
     gTrapEffectData.unk2 = row2;
     gTrapEffectData.unk3 = col2;
-    gTrapEffectData.id = gZones[row2][col2]->id;
-    if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gZones[row2][col2]) == 1 &&
-        gZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gZones[row3][col3]->id) == 1 &&
-        !gZones[row3][col3]->isFaceUp)
+    gTrapEffectData.id = gTurnZones[row2][col2]->id;
+    if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == 1 &&
+        gTurnZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gTurnZones[row3][col3]->id) == 1 &&
+        !gTurnZones[row3][col3]->isFaceUp)
       return 1;
   }
   return 0;
@@ -7933,7 +7933,7 @@ static u8 sub_801AEA4 (void) {
 	b _0801AF66\n\
 	.align 2, 0\n\
 _0801AF50: .4byte 0x02021C00\n\
-_0801AF54: .4byte gZones\n\
+_0801AF54: .4byte gTurnZones\n\
 _0801AF58: .4byte gCardInfo\n\
 _0801AF5C: .4byte gNotSure\n\
 _0801AF60: .4byte gTrapEffectData\n\
@@ -8057,7 +8057,7 @@ static u8 sub_801B048 (void) {
 static u8 sub_801B04C (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  if (sub_8043714(gZones[row2][col2]) != 1)
+  if (sub_8043714(gTurnZones[row2][col2]) != 1)
     return 0;
   return 1;
 }
@@ -8065,9 +8065,9 @@ static u8 sub_801B04C (void) {
 static u8 sub_801B084 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
-  if (!gCardInfo.unk1E && ZoneHasTrapCard(gZones[row2][col2]) == 1 &&
-      GetFINAL_Flag(gZones[row2][col2]->id) < 1)
+  SetCardInfo(gTurnZones[row2][col2]->id);
+  if (!gCardInfo.unk1E && ZoneHasTrapCard(gTurnZones[row2][col2]) == 1 &&
+      GetFINAL_Flag(gTurnZones[row2][col2]->id) < 1)
     return 1;
   return 0;
 }
@@ -8075,7 +8075,7 @@ static u8 sub_801B084 (void) {
 static u8 sub_801B0DC (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  if (ZoneHasTrapCard(gZones[row2][col2]) != 1 || GetFINAL_Flag(gZones[row2][col2]->id) < 1)
+  if (ZoneHasTrapCard(gTurnZones[row2][col2]) != 1 || GetFINAL_Flag(gTurnZones[row2][col2]->id) < 1)
     return 0;
   return 1;
 }
@@ -8083,9 +8083,9 @@ static u8 sub_801B0DC (void) {
 static u8 sub_801B120 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
-  if (gCardInfo.unk1E && ZoneHasTrapCard(gZones[row2][col2]) == 1 &&
-      GetFINAL_Flag(gZones[row2][col2]->id) < 1)
+  SetCardInfo(gTurnZones[row2][col2]->id);
+  if (gCardInfo.unk1E && ZoneHasTrapCard(gTurnZones[row2][col2]) == 1 &&
+      GetFINAL_Flag(gTurnZones[row2][col2]->id) < 1)
     return 1;
   return 0;
 }
@@ -8093,7 +8093,7 @@ static u8 sub_801B120 (void) {
 static u8 sub_801B178 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  if (sub_804376C(gZones[row2][col2]) != 1)
+  if (sub_804376C(gTurnZones[row2][col2]) != 1)
     return 0;
   return 1;
 }
@@ -8151,7 +8151,7 @@ static u8 sub_801B1B0 (void) {
 	b _0801B226\n\
 	.align 2, 0\n\
 _0801B218: .4byte 0x02021C00\n\
-_0801B21C: .4byte gZones\n\
+_0801B21C: .4byte gTurnZones\n\
 _0801B220: .4byte gTrapEffectData\n\
 _0801B224:\n\
 	movs r0, #0\n\
@@ -8217,7 +8217,7 @@ static u8 sub_801B234 (void) {
 	b _0801B2AA\n\
 	.align 2, 0\n\
 _0801B29C: .4byte 0x02021C00\n\
-_0801B2A0: .4byte gZones\n\
+_0801B2A0: .4byte gTurnZones\n\
 _0801B2A4: .4byte gTrapEffectData\n\
 _0801B2A8:\n\
 	movs r0, #0\n\
@@ -8233,8 +8233,8 @@ _0801B2AA:\n\
 static u8 sub_801B2B8 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  if (sub_8043790(gZones[row2][col2]) == 1) {
-    SetCardInfo(gZones[row2][col2]->id);
+  if (sub_8043790(gTurnZones[row2][col2]) == 1) {
+    SetCardInfo(gTurnZones[row2][col2]->id);
     if (!gCardInfo.unk1E)
       return 1;
   }
@@ -8244,8 +8244,8 @@ static u8 sub_801B2B8 (void) {
 static u8 sub_801B304 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  if (GetTypeGroup(gZones[row2][col2]->id) == 2 && GetSpellType(gZones[row2][col2]->id) == 2) {
-    SetCardInfo(gZones[row2][col2]->id);
+  if (GetTypeGroup(gTurnZones[row2][col2]->id) == 2 && GetSpellType(gTurnZones[row2][col2]->id) == 2) {
+    SetCardInfo(gTurnZones[row2][col2]->id);
     if (gCardInfo.unk1E)
       return 1;
   }
@@ -8255,10 +8255,10 @@ static u8 sub_801B304 (void) {
 static u8 sub_801B35C (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  if (sub_8043790(gZones[row2][col2]) == 1) {
+  if (sub_8043790(gTurnZones[row2][col2]) == 1) {
     gTrapEffectData.unk2 = row2;
     gTrapEffectData.unk3 = col2;
-    gTrapEffectData.id = gZones[row2][col2]->id;
+    gTrapEffectData.id = gTurnZones[row2][col2]->id;
     if (IsTrapTriggered() != 1)
       return 1;
   }
@@ -8268,10 +8268,10 @@ static u8 sub_801B35C (void) {
 static u8 sub_801B3AC (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  if (sub_8043790(gZones[row2][col2]) == 1) {
+  if (sub_8043790(gTurnZones[row2][col2]) == 1) {
     gTrapEffectData.unk2 = row2;
     gTrapEffectData.unk3 = col2;
-    gTrapEffectData.id = gZones[row2][col2]->id;
+    gTrapEffectData.id = gTurnZones[row2][col2]->id;
     if (IsTrapTriggered() == 1)
       return 1;
   }
@@ -8281,7 +8281,7 @@ static u8 sub_801B3AC (void) {
 static u8 sub_801B3FC (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  if (ZoneHasRitualCard(gZones[row2][col2]) != 1)
+  if (ZoneHasRitualCard(gTurnZones[row2][col2]) != 1)
     return 0;
   return 1;
 }
@@ -8296,10 +8296,10 @@ static u8 sub_801B434 (void) {
   u8 row5 = sAI_Command.unk5 >> 4;
   u8 col5 = sAI_Command.unk5 & 0xF;
   u8 zones[3];
-  if (ZoneHasRitualCard(gZones[row2][col2]) != 1 || ZoneHasUnlockedMonsterCard(gZones[row3][col3]) != 1 ||
-      ZoneHasUnlockedMonsterCard(gZones[row4][col4]) != 1 || ZoneHasUnlockedMonsterCard(gZones[row5][col5]) != 1)
+  if (ZoneHasRitualCard(gTurnZones[row2][col2]) != 1 || ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) != 1 ||
+      ZoneHasUnlockedMonsterCard(gTurnZones[row4][col4]) != 1 || ZoneHasUnlockedMonsterCard(gTurnZones[row5][col5]) != 1)
     return 0;
-  SetCardInfo(gZones[row2][col2]->id);
+  SetCardInfo(gTurnZones[row2][col2]->id);
   switch (gCardInfo.ritualEffect) {
     case 5:
       if (sub_804B144(zones, gRitualComponents[29]) != TRUE && sub_804B144(zones, gRitualComponents[28]) != TRUE &&
@@ -8321,14 +8321,14 @@ static u8 sub_801B434 (void) {
 static u8 sub_801B56C (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  SetCardInfo(gZones[row2][col2]->id);
-  if (gCardInfo.unk1E && GetTypeGroup(gZones[row2][col2]->id) == 2) // TYPE_GROUP_SPELL
-    GetSpellType(gZones[row2][col2]->id);
+  SetCardInfo(gTurnZones[row2][col2]->id);
+  if (gCardInfo.unk1E && GetTypeGroup(gTurnZones[row2][col2]->id) == 2) // TYPE_GROUP_SPELL
+    GetSpellType(gTurnZones[row2][col2]->id);
   return 0;
 }
 
 static u8 sub_801B5BC (u8 arg0, u16* arg1) {
-  if (RowHasCardMatch(gZones[2], *arg1) == 1 && GetFirstCardMatchZoneId(gZones[2], *arg1) == arg0)
+  if (RowHasCardMatch(gTurnZones[2], *arg1) == 1 && GetFirstCardMatchZoneId(gTurnZones[2], *arg1) == arg0)
     return 1;
   return 0;
 }

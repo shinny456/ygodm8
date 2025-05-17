@@ -88,11 +88,11 @@ void BMenuMain (void) {
       switch (r4) {
         case B_MENU_DETAILS:
           if (CanPlayerSeeCard(gDuelCursor.currentY, gDuelCursor.currentX) == 1
-          && GetTypeGroup(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id)) {
+          && GetTypeGroup(gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->id)) {
             PlayMusic(SFX_SELECT);
-            gStatMod.card = gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id;
+            gStatMod.card = gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->id;
             gStatMod.field = gDuel.field;
-            gStatMod.stage = GetFinalStage(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]);
+            gStatMod.stage = GetFinalStage(gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]);
             SetFinalStat(&gStatMod);
             sub_801F6B0();
             UpdateAllDuelGfx();
@@ -109,11 +109,11 @@ void BMenuMain (void) {
           return;
         case B_MENU_DISCARD:
           if (gDuelCursor.currentY > 1 &&
-              gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id != CARD_NONE &&
-              !gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->willChangeSides)
+              gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->id != CARD_NONE &&
+              !gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->willChangeSides)
             {
               PlayMusic(SFX_DISCARD);
-              ClearZoneAndSendMonToGraveyard2(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX], 0);
+              ClearZoneAndSendMonToGraveyard2(gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX], 0);
               UpdateDuelGfxExceptField();
               sub_8029820();
             }
@@ -834,7 +834,7 @@ void InitBMenu (unsigned char arg0) {
     sub_800800C(i + 5, 16, 0xE800, g8DF811C[i] + 190 | r8);
   }
 
-  SetCardInfo(gDuel.notSure[0].graveyard);
+  SetCardInfo(gDuel.duelistbattleState[0].graveyard);
   i = 0;
   r4 = 0;
   name = GetCurrentLanguageString(gCardInfo.name);
@@ -857,7 +857,7 @@ void InitBMenu (unsigned char arg0) {
   buffer[i] = 0;
   CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x9780, buffer, 0x901);
 
-  SetCardInfo(gDuel.notSure[1].graveyard);
+  SetCardInfo(gDuel.duelistbattleState[1].graveyard);
   i = 0, r4 = 0, name = GetCurrentLanguageString(gCardInfo.name);
   while (r4 < 20 && *name && *name != '$') {
     if (*name > 127) {
@@ -989,9 +989,9 @@ unsigned sub_80429A4 (void) {
     }
     if (r4 < 2) {
       if (r4 == 0)
-        gZones[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
+        gTurnZones[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
       else
-        gZones[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 1;
+        gTurnZones[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 1;
       sub_80574A8(gDuelCursor.currentX, gDuelCursor.currentY);
       SetVBlankCallback(LoadOam);
     }
@@ -1056,9 +1056,9 @@ void sub_8042D14 (void) {
     for (j = 0; j < 5; j++) {
       u16* r4 = gVr.b + ((((((sub_8057790(j, i) + 24) * 8) & 0xFC0) + sub_80575E0(j, i) / 4)) + 0xF000) / 2;
       if (CanPlayerSeeCard(i, j) == 1) {
-        gStatMod.card = gDuelBoard[i][j]->id;
+        gStatMod.card = gFixedZones[i][j]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = GetFinalStage(gDuelBoard[i][j]);
+        gStatMod.stage = GetFinalStage(gFixedZones[i][j]);
         SetFinalStat(&gStatMod);
       }
       else

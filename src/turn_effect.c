@@ -54,7 +54,7 @@ static void sub_802AEF4 (void) {
   g2021DE0.unk2 = 4;
   for (i = 0; i < 5; i++) {
     g2021DE0.unk3 = i;
-    g2021DE0.unk0 = gHands[0][g2021DE0.unk3]->id;
+    g2021DE0.unk0 = gTurnHands[0][g2021DE0.unk3]->id;
     if (!gHideEffectText)
       sub_802ACC0();
     if (sub_802BBF0() == 1) {
@@ -71,7 +71,7 @@ static void sub_802AEF4 (void) {
   g2021DE0.unk2 = 5;
   for (i = 0; i < 5; i++) {
     g2021DE0.unk3 = i;
-    g2021DE0.unk0 = gHands[1][g2021DE0.unk3]->id;
+    g2021DE0.unk0 = gTurnHands[1][g2021DE0.unk3]->id;
     if (!gHideEffectText)
       sub_802ADF4();
     if (sub_802BBF0() == 1) {
@@ -121,7 +121,7 @@ static void sub_802AEF4 (void) {
   g2021DE0.unk2 = 2;
   for (i = 0; i < 5; i++) {
     g2021DE0.unk3 = i;
-    g2021DE0.unk0 = gZones[g2021DE0.unk2][i]->id;
+    g2021DE0.unk0 = gTurnZones[g2021DE0.unk2][i]->id;
     if (!gHideEffectText)
       sub_802ACC0();
     if (sub_802BBF0() == 1) {
@@ -139,7 +139,7 @@ static void sub_802AEF4 (void) {
   g2021DE0.unk2 = 1;
   for (i = 0; i < 5; i++) {
     g2021DE0.unk3 = i;
-    g2021DE0.unk0 = gZones[g2021DE0.unk2][i]->id;
+    g2021DE0.unk0 = gTurnZones[g2021DE0.unk2][i]->id;
     if (!gHideEffectText)
       sub_802ACC0();
     if (sub_802BBF0() == 1) {
@@ -157,7 +157,7 @@ static void sub_802AEF4 (void) {
   g2021DE0.unk2 = 3;
   for (i = 0; i < 5; i++) {
     g2021DE0.unk3 = i;
-    g2021DE0.unk0 = gZones[g2021DE0.unk2][i]->id;
+    g2021DE0.unk0 = gTurnZones[g2021DE0.unk2][i]->id;
     if (!gHideEffectText)
       sub_802ACC0();
     if (sub_802BBF0() == 1) {
@@ -176,7 +176,7 @@ static void sub_802AEF4 (void) {
   g2021DE0.unk2 = 0;
   for (i = 0; i < 5; i++) {
     g2021DE0.unk3 = i;
-    g2021DE0.unk0 = gZones[g2021DE0.unk2][i]->id;
+    g2021DE0.unk0 = gTurnZones[g2021DE0.unk2][i]->id;
     if (!gHideEffectText)
       sub_802ACC0();
     if (sub_802BBF0() == 1) {
@@ -199,10 +199,10 @@ static void sub_802B210 (void) {
   gDuel.field = 6;
   if (g2021DE0.unk2 == 1) {
     for (i = 0; i < 5; i++)
-      if (gZones[1][i]->id != CARD_NONE)
-        FlipCardFaceDown(gZones[1][i]);
+      if (gTurnZones[1][i]->id != CARD_NONE)
+        FlipCardFaceDown(gTurnZones[1][i]);
 
-    FlipCardFaceUp(gZones[1][g2021DE0.unk3]);
+    FlipCardFaceUp(gTurnZones[1][g2021DE0.unk3]);
     if (!gHideEffectText) {
       SetDuelFieldGfx(gDuel.field);
       gCardEffectTextData.cardId = CASTLE_OF_DARK_ILLUSIONS;
@@ -211,10 +211,10 @@ static void sub_802B210 (void) {
   }
   else if (g2021DE0.unk2 == 2) {
     for (i = 0; i < 5; i++)
-      if (gZones[2][i]->id != CARD_NONE)
-        FlipCardFaceDown(gZones[2][i]);
+      if (gTurnZones[2][i]->id != CARD_NONE)
+        FlipCardFaceDown(gTurnZones[2][i]);
 
-    FlipCardFaceUp(gZones[2][g2021DE0.unk3]);
+    FlipCardFaceUp(gTurnZones[2][g2021DE0.unk3]);
     if (!gHideEffectText) {
       SetDuelFieldGfx(gDuel.field);
       gCardEffectTextData.cardId = CASTLE_OF_DARK_ILLUSIONS;
@@ -227,26 +227,26 @@ static void sub_802B2FC (void) {
   unsigned char zone;
   unsigned short flags;
 
-  if (g2021DE0.unk2 != 3 || NumEmptyZonesInRow(gZones[3]) >= 5)
+  if (g2021DE0.unk2 != 3 || NumEmptyZonesInRow(gTurnZones[3]) >= 5)
     return;
-  zone = FirstEmptyZoneInRow(gZones[3]);
+  zone = FirstEmptyZoneInRow(gTurnZones[3]);
   flags = GetFINAL_Flags();
   if (!(flags & FLAG_F))
     return;
 
   if (!(flags & FLAG_I))
-    gZones[3][zone]->id = SPIRIT_MESSAGE_I;
+    gTurnZones[3][zone]->id = SPIRIT_MESSAGE_I;
   else if (!(flags & FLAG_N))
-    gZones[3][zone]->id = SPIRIT_MESSAGE_N;
+    gTurnZones[3][zone]->id = SPIRIT_MESSAGE_N;
   else if (!(flags & FLAG_A))
-    gZones[3][zone]->id = SPIRIT_MESSAGE_A;
+    gTurnZones[3][zone]->id = SPIRIT_MESSAGE_A;
   else if (!(flags & FLAG_L))
-    gZones[3][zone]->id = SPIRIT_MESSAGE_L;
+    gTurnZones[3][zone]->id = SPIRIT_MESSAGE_L;
   else
     return;
 
   for (zone = 0; zone < 5; zone++) {
-    struct DuelCard* ptr = gZones[3][zone];
+    struct DuelCard* ptr = gTurnZones[3][zone];
     if (GetFINAL_Flag(ptr->id))
       FlipCardFaceUp(ptr);
   }
@@ -259,15 +259,15 @@ static void sub_802B2FC (void) {
 static void EffectJamBreedingMachineSummon (void) {
   if (g2021DE0.unk2 != 3)
     return;
-  FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
-  if (NumEmptyZonesInRow(gZones[2]) > 0) {
-    unsigned char zone = FirstEmptyZoneInRow(gZones[2]);
-    gZones[2][zone]->id = CHANGE_SLIME;
-    gZones[2][zone]->isDefending = FALSE;
-    FlipCardFaceUp(gZones[2][zone]);
+  FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  if (NumEmptyZonesInRow(gTurnZones[2]) > 0) {
+    unsigned char zone = FirstEmptyZoneInRow(gTurnZones[2]);
+    gTurnZones[2][zone]->id = CHANGE_SLIME;
+    gTurnZones[2][zone]->isDefending = FALSE;
+    FlipCardFaceUp(gTurnZones[2][zone]);
   }
   if (!gHideEffectText) {
-    gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
     ActivateCardEffectText();
   }
 }
@@ -278,7 +278,7 @@ static void EffectMirageKnight (void) {
   if (g2021DE0.unk2 != 1)
     return;
 
-  ptr = gZones[g2021DE0.unk2][g2021DE0.unk3];
+  ptr = gTurnZones[g2021DE0.unk2][g2021DE0.unk3];
   ptr->id = DARK_MAGICIAN;
   ResetPermStage(ptr);
   ResetTempStage(ptr);
@@ -290,8 +290,8 @@ static void EffectMirageKnight (void) {
   FlipCardFaceUp(ptr);
   ptr->willChangeSides = 0;
 
-  if (NumEmptyZonesInRow(gZones[1]) > 0) {
-    ptr = gZones[1][(unsigned char)FirstEmptyZoneInRow(gZones[1])];
+  if (NumEmptyZonesInRow(gTurnZones[1]) > 0) {
+    ptr = gTurnZones[1][(unsigned char)FirstEmptyZoneInRow(gTurnZones[1])];
     ptr->id = FLAME_SWORDSMAN;
     ResetPermStage(ptr);
     ResetTempStage(ptr);
@@ -315,10 +315,10 @@ static void sub_802B560 (void) {
 
   if (g2021DE0.unk2 != 6 || gNotSure[0]->graveyard != g2021DE0.unk0)
     return;
-  if (!NumEmptyZonesInRow(gZones[2]))
+  if (!NumEmptyZonesInRow(gTurnZones[2]))
     return;
   r5 = GetGraveCardAndClearGrave(0);
-  ptr = gZones[2][(unsigned char)FirstEmptyZoneInRow(gZones[2])];
+  ptr = gTurnZones[2][(unsigned char)FirstEmptyZoneInRow(gTurnZones[2])];
   ptr->id = r5;
   ResetPermStage(ptr);
   ResetTempStage(ptr);
@@ -341,10 +341,10 @@ static void sub_802B604 (void) {
 
   if (g2021DE0.unk2 != 6 || gNotSure[0]->graveyard != g2021DE0.unk0)
     return;
-  if (!NumEmptyZonesInRow(gZones[2]))
+  if (!NumEmptyZonesInRow(gTurnZones[2]))
     return;
   r5 = GetGraveCardAndClearGrave(0);
-  ptr = gZones[2][(unsigned char)FirstEmptyZoneInRow(gZones[2])];
+  ptr = gTurnZones[2][(unsigned char)FirstEmptyZoneInRow(gTurnZones[2])];
   ptr->id = r5;
   ResetPermStage(ptr);
   ResetTempStage(ptr);
@@ -456,7 +456,7 @@ static void sub_802B76C (void) {
 static void sub_802B770 (void) {
   if (g2021DE0.unk2 != 3)
     return;
-  FlipCardFaceUp(gZones[g2021DE0.unk2][g2021DE0.unk3]);
+  FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
   if (g2021DE0.turn == TURN_PLAYER) {
     SetPlayerLifePointsToSubtract(1000);
     HandleDuelAction();
@@ -474,9 +474,9 @@ static void sub_802B770 (void) {
 }
 
 static void EffectHelpoemer (void) {
-  if (g2021DE0.unk2 != 7 || NumEmptyZonesInRow(gHands[0]) == 5)
+  if (g2021DE0.unk2 != 7 || NumEmptyZonesInRow(gTurnHands[0]) == 5)
     return;
-  ClearZoneAndSendMonToGraveyard(gHands[0][(unsigned char)FirstNonEmptyZoneInRow(gHands[0])], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnHands[0][(unsigned char)FirstNonEmptyZoneInRow(gTurnHands[0])], 0);
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = g2021DE0.unk0;
     ActivateCardEffectText();
@@ -486,7 +486,7 @@ static void EffectHelpoemer (void) {
 static void EffectLavaGolemLifePoints (void) {
   if (g2021DE0.unk2 != 2)
     return;
-  FlipCardFaceUp(gZones[2][g2021DE0.unk3]);
+  FlipCardFaceUp(gTurnZones[2][g2021DE0.unk3]);
   if (g2021DE0.turn == TURN_PLAYER) {
     SetPlayerLifePointsToSubtract(700);
     HandleDuelAction();
@@ -513,10 +513,10 @@ static void sub_802B8B8 (void) {
 }
 
 static void EffectViserDes (void) {
-  if (g2021DE0.unk2 != 2 || NumEmptyZonesInRow(gZones[1]) == 5)
+  if (g2021DE0.unk2 != 2 || NumEmptyZonesInRow(gTurnZones[1]) == 5)
     return;
-  FlipCardFaceUp(gZones[2][g2021DE0.unk3]);
-  DecrementPermStage(gZones[1][(unsigned char)HighestAtkMonInRow(gZones[1])]);
+  FlipCardFaceUp(gTurnZones[2][g2021DE0.unk3]);
+  DecrementPermStage(gTurnZones[1][(unsigned char)HighestAtkMonInRow(gTurnZones[1])]);
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = g2021DE0.unk0;
     ActivateCardEffectText();
@@ -527,9 +527,9 @@ static void sub_802B91C (void) {
 }
 
 static void EffectNewdoria (void) {
-  if (g2021DE0.unk2 != 6 || NumEmptyZonesAndGodCardsInRow(gZones[1]) == 5)
+  if (g2021DE0.unk2 != 6 || NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
     return;
-  ClearZoneAndSendMonToGraveyard(gZones[1][(unsigned char)HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
+  ClearZoneAndSendMonToGraveyard(gTurnZones[1][(unsigned char)HighestAtkMonInRowExceptGodCards(gTurnZones[1])], 1);
   GetGraveCardAndClearGrave(0);
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = g2021DE0.unk0;
@@ -552,10 +552,10 @@ static void sub_802B984 (void) {
 static void sub_802B988 (void) {
   if (g2021DE0.unk2 != 1)
     return;
-  FlipCardFaceUp(gZones[1][g2021DE0.unk3]);
-  DecrementPermStage(gZones[g2021DE0.unk2][g2021DE0.unk3]);
+  FlipCardFaceUp(gTurnZones[1][g2021DE0.unk3]);
+  DecrementPermStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
   if (!gHideEffectText) {
-    gCardEffectTextData.cardId = gZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
     ActivateCardEffectText();
   }
 }
@@ -567,7 +567,7 @@ static void sub_802B9F4 (void) {
   struct DuelCard* ptr;
   if (g2021DE0.unk2 != 2)
     return;
-  ptr = gZones[2][g2021DE0.unk3];
+  ptr = gTurnZones[2][g2021DE0.unk3];
   FlipCardFaceUp(ptr);
   IncrementPermStage(ptr);
   if (!gHideEffectText) {
@@ -594,7 +594,7 @@ static void sub_802BA50 (void) {
 
   if (g2021DE0.unk2 != 2)
     return;
-  ptr = gZones[2][g2021DE0.unk3];
+  ptr = gTurnZones[2][g2021DE0.unk3];
   FlipCardFaceUp(ptr);
 
   for (i = 2; i && GetFinalStage(ptr) <= 5; i--)
@@ -697,13 +697,13 @@ static unsigned char sub_802BB24 (void) {
   if (g2021DE0.unk2 == 1) {
     if (gDuel.field != FIELD_YAMI)
       ret = 1;
-    else if (g2021DE0.unk3 == GetFirstCardMatchZoneId(gZones[1], CASTLE_OF_DARK_ILLUSIONS))
+    else if (g2021DE0.unk3 == GetFirstCardMatchZoneId(gTurnZones[1], CASTLE_OF_DARK_ILLUSIONS))
       for (i = 0; i < 5; i++) {
-        if (gZones[1][i]->id == CARD_NONE)
+        if (gTurnZones[1][i]->id == CARD_NONE)
           continue;
         if (i == g2021DE0.unk3)
           continue;
-        if (IsCardFaceUp(gZones[1][i]) != 1)
+        if (IsCardFaceUp(gTurnZones[1][i]) != 1)
           continue;
         ret = 1;
         break;
@@ -712,13 +712,13 @@ static unsigned char sub_802BB24 (void) {
   else if (g2021DE0.unk2 == 2) {
     if (gDuel.field != FIELD_YAMI)
       ret = 1;
-    else if (g2021DE0.unk3 == GetFirstCardMatchZoneId(gZones[2], CASTLE_OF_DARK_ILLUSIONS))
+    else if (g2021DE0.unk3 == GetFirstCardMatchZoneId(gTurnZones[2], CASTLE_OF_DARK_ILLUSIONS))
       for (i = 0; i < 5; i++) {
-        if (gZones[2][i]->id == CARD_NONE)
+        if (gTurnZones[2][i]->id == CARD_NONE)
           continue;
         if (i == g2021DE0.unk3)
           continue;
-        if (IsCardFaceUp(gZones[2][i]) != 1)
+        if (IsCardFaceUp(gTurnZones[2][i]) != 1)
           continue;
         ret = 1;
         break;
@@ -835,7 +835,7 @@ static unsigned char sub_802BC80 (void) {
 static unsigned char sub_802BC84 (void) {
   unsigned char ret = 0;
   if (g2021DE0.unk2 == 3 &&
-      g2021DE0.unk3 == GetFirstCardMatchZoneId(gZones[3], g2021DE0.unk0))
+      g2021DE0.unk3 == GetFirstCardMatchZoneId(gTurnZones[3], g2021DE0.unk0))
     ret = 1;
   return ret;
 }
@@ -843,15 +843,15 @@ static unsigned char sub_802BC84 (void) {
 static unsigned char sub_802BCB0 (void) {
   unsigned char ret = 0;
   if (g2021DE0.unk2 == 3 &&
-      g2021DE0.unk3 == GetFirstCardMatchZoneId(gZones[3], DESTINY_BOARD) &&
-      NumEmptyZonesInRow(gZones[3]) > 0)
+      g2021DE0.unk3 == GetFirstCardMatchZoneId(gTurnZones[3], DESTINY_BOARD) &&
+      NumEmptyZonesInRow(gTurnZones[3]) > 0)
     ret = 1;
   return ret;
 }
 
 static unsigned char sub_802BCEC (void) {
   unsigned char ret = 0;
-  if (g2021DE0.unk2 == 7 && NumEmptyZonesInRow(gHands[0]) <= 2)
+  if (g2021DE0.unk2 == 7 && NumEmptyZonesInRow(gTurnHands[0]) <= 2)
     ret = 1;
   return ret;
 }
@@ -877,14 +877,14 @@ static unsigned char sub_802BD30 (void) {
 
 static unsigned char sub_802BD34 (void) {
   if (g2021DE0.unk2 == 3 &&
-      NumEmptyZonesInRow(gZones[2]) != 0 &&
-      g2021DE0.unk3 == GetFirstCardMatchZoneId(gZones[3], JAM_BREEDING_MACHINE))
+      NumEmptyZonesInRow(gTurnZones[2]) != 0 &&
+      g2021DE0.unk3 == GetFirstCardMatchZoneId(gTurnZones[3], JAM_BREEDING_MACHINE))
     return 1;
   return 0;
 }
 
 static unsigned char sub_802BD70 (void) {
-  if (g2021DE0.unk2 == 2 && NumEmptyZonesInRow(gZones[1]) < 5)
+  if (g2021DE0.unk2 == 2 && NumEmptyZonesInRow(gTurnZones[1]) < 5)
     return 1;
   return 0;
 }
@@ -894,7 +894,7 @@ static unsigned char sub_802BD98 (void) {
 }
 
 static unsigned char sub_802BD9C (void) {
-  if (g2021DE0.unk2 == 6 && NumEmptyZonesAndGodCardsInRow(gZones[1]) != 5)
+  if (g2021DE0.unk2 == 6 && NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) != 5)
     return 1;
   return 0;
 }
@@ -934,7 +934,7 @@ static unsigned char sub_802BDFC (void) {
 static unsigned char sub_802BE00 (void) {
   if (g2021DE0.unk2 == 6 &&
       gNotSure[0]->graveyard == g2021DE0.unk0 &&
-      NumEmptyZonesInRow(gZones[2]) > 0)
+      NumEmptyZonesInRow(gTurnZones[2]) > 0)
     return 1;
   return 0;
 }
@@ -942,7 +942,7 @@ static unsigned char sub_802BE00 (void) {
 static unsigned char sub_802BE38 (void) {
   if (g2021DE0.unk2 == 6 &&
       gNotSure[0]->graveyard == g2021DE0.unk0 &&
-      NumEmptyZonesInRow(gZones[2]) > 0)
+      NumEmptyZonesInRow(gTurnZones[2]) > 0)
     return 1;
   return 0;
 }
@@ -970,7 +970,7 @@ static unsigned char sub_802BEA8 (void) {
 }
 
 static unsigned char sub_802BEAC (void) {
-  if (g2021DE0.unk2 == 2 && GetFinalStage(gZones[2][g2021DE0.unk3]) <= 5)
+  if (g2021DE0.unk2 == 2 && GetFinalStage(gTurnZones[2][g2021DE0.unk3]) <= 5)
     return 1;
   return 0;
 }

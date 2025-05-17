@@ -187,9 +187,9 @@ static void sub_803F1F4 (void) {
 
 void CheckGraveyardAndLoserFlags (void) {
   if (g2023E80.flags & FLAG_GRAVEYARD_PLAYER)
-    ClearZoneAndSendMonToGraveyard2(gDuelBoard[g2023E80.playerMonsterRow][g2023E80.unkA], 0);
+    ClearZoneAndSendMonToGraveyard2(gFixedZones[g2023E80.playerMonsterRow][g2023E80.unkA], 0);
   if (g2023E80.flags & FLAG_GRAVEYARD_OPPONENT)
-    ClearZoneAndSendMonToGraveyard2(gDuelBoard[g2023E80.opponentMonsterRow][g2023E80.unk16], 1);
+    ClearZoneAndSendMonToGraveyard2(gFixedZones[g2023E80.opponentMonsterRow][g2023E80.unk16], 1);
   if (g2023E80.flags & FLAG_LOSER_PLAYER)
     DeclareLoser(0);
   if (g2023E80.flags & FLAG_LOSER_OPPONENT)
@@ -324,10 +324,10 @@ static void sub_803F4F0 (unsigned char arg0) {
   g2023E80.action = 4;
   g2023E80.unk1A = 0;
   g2023E80.unk1B = 1;
-  g2023E80.playerCardId = gDuelBoard[2][arg0]->id;
-  gStatMod.card = gDuelBoard[2][arg0]->id;
+  g2023E80.playerCardId = gFixedZones[2][arg0]->id;
+  gStatMod.card = gFixedZones[2][arg0]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gDuelBoard[2][arg0]);
+  gStatMod.stage = GetFinalStage(gFixedZones[2][arg0]);
   SetFinalStat(&gStatMod);
   g2023E80.playerCardAttack = gCardInfo.atk;
   g2023E80.playerCardDefense = gCardInfo.def;
@@ -344,10 +344,10 @@ static void sub_803F574 (unsigned char arg0) {
   g2023E80.action = 6;
   g2023E80.unk1A = 0;
   g2023E80.unk1B = 1;
-  g2023E80.opponentCardId = gDuelBoard[1][arg0]->id;
-  gStatMod.card = gDuelBoard[1][arg0]->id;
+  g2023E80.opponentCardId = gFixedZones[1][arg0]->id;
+  gStatMod.card = gFixedZones[1][arg0]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gDuelBoard[1][arg0]);
+  gStatMod.stage = GetFinalStage(gFixedZones[1][arg0]);
   SetFinalStat(&gStatMod);
   g2023E80.opponentCardAttack = gCardInfo.atk;
   g2023E80.opponentCardDefense = gCardInfo.def;
@@ -364,10 +364,10 @@ static void sub_803F604 (unsigned char arg0, unsigned char arg1) {
   g2023E80.action = 1;
   g2023E80.unk1A = 0;
   g2023E80.unk1B = 1;
-  g2023E80.playerCardId = gDuelBoard[2][arg0]->id;
-  gStatMod.card = gDuelBoard[2][arg0]->id;
+  g2023E80.playerCardId = gFixedZones[2][arg0]->id;
+  gStatMod.card = gFixedZones[2][arg0]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gDuelBoard[2][arg0]);
+  gStatMod.stage = GetFinalStage(gFixedZones[2][arg0]);
   SetFinalStat(&gStatMod);
   g2023E80.playerCardAttack = gCardInfo.atk;
   g2023E80.playerCardDefense = gCardInfo.def;
@@ -376,10 +376,10 @@ static void sub_803F604 (unsigned char arg0, unsigned char arg1) {
   gUnk2023EA0.unk0[0].initialLifePoints = gDuelLifePoints[0];
   g2023E80.unkA = arg0;
   g2023E80.playerMonsterRow = 2;
-  g2023E80.opponentCardId = gDuelBoard[1][arg1]->id;
-  gStatMod.card = gDuelBoard[1][arg1]->id;
+  g2023E80.opponentCardId = gFixedZones[1][arg1]->id;
+  gStatMod.card = gFixedZones[1][arg1]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gDuelBoard[1][arg1]);
+  gStatMod.stage = GetFinalStage(gFixedZones[1][arg1]);
   SetFinalStat(&gStatMod);
   g2023E80.opponentCardAttack = gCardInfo.atk;
   g2023E80.opponentCardDefense = gCardInfo.def;
@@ -395,10 +395,10 @@ static void sub_803F6F8 (unsigned char arg0, unsigned char arg1) {
   g2023E80.action = 2;
   g2023E80.unk1A = 0;
   g2023E80.unk1B = 1;
-  g2023E80.playerCardId = gDuelBoard[2][arg0]->id;
-  gStatMod.card = gDuelBoard[2][arg0]->id;
+  g2023E80.playerCardId = gFixedZones[2][arg0]->id;
+  gStatMod.card = gFixedZones[2][arg0]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gDuelBoard[2][arg0]);
+  gStatMod.stage = GetFinalStage(gFixedZones[2][arg0]);
   SetFinalStat(&gStatMod);
   g2023E80.playerCardAttack = gCardInfo.atk;
   g2023E80.playerCardDefense = gCardInfo.def;
@@ -407,10 +407,10 @@ static void sub_803F6F8 (unsigned char arg0, unsigned char arg1) {
   gUnk2023EA0.unk0[0].initialLifePoints = gDuelLifePoints[0];
   g2023E80.unkA = arg0;
   g2023E80.playerMonsterRow = 2;
-  g2023E80.opponentCardId = gDuelBoard[1][arg1]->id;
-  gStatMod.card = gDuelBoard[1][arg1]->id;
+  g2023E80.opponentCardId = gFixedZones[1][arg1]->id;
+  gStatMod.card = gFixedZones[1][arg1]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gDuelBoard[1][arg1]);
+  gStatMod.stage = GetFinalStage(gFixedZones[1][arg1]);
   SetFinalStat(&gStatMod);
   g2023E80.opponentCardAttack = gCardInfo.atk;
   g2023E80.opponentCardDefense = gCardInfo.def;
@@ -426,10 +426,10 @@ static void sub_803F7EC (unsigned char arg0, unsigned char arg1) {
   g2023E80.action = 5;
   g2023E80.unk1A = 0;
   g2023E80.unk1B = 1;
-  g2023E80.playerCardId = gDuelBoard[2][arg0]->id;
-  gStatMod.card = gDuelBoard[2][arg0]->id;
+  g2023E80.playerCardId = gFixedZones[2][arg0]->id;
+  gStatMod.card = gFixedZones[2][arg0]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gDuelBoard[2][arg0]);
+  gStatMod.stage = GetFinalStage(gFixedZones[2][arg0]);
   SetFinalStat(&gStatMod);
   g2023E80.playerCardAttack = gCardInfo.atk;
   g2023E80.playerCardDefense = gCardInfo.def;
@@ -438,10 +438,10 @@ static void sub_803F7EC (unsigned char arg0, unsigned char arg1) {
   gUnk2023EA0.unk0[0].initialLifePoints = gDuelLifePoints[0];
   g2023E80.unkA = arg0;
   g2023E80.playerMonsterRow = 2;
-  g2023E80.opponentCardId = gDuelBoard[1][arg1]->id;
-  gStatMod.card = gDuelBoard[1][arg1]->id;
+  g2023E80.opponentCardId = gFixedZones[1][arg1]->id;
+  gStatMod.card = gFixedZones[1][arg1]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gDuelBoard[1][arg1]);
+  gStatMod.stage = GetFinalStage(gFixedZones[1][arg1]);
   SetFinalStat(&gStatMod);
   g2023E80.opponentCardAttack = gCardInfo.atk;
   g2023E80.opponentCardDefense = gCardInfo.def;
@@ -470,13 +470,13 @@ void SetDuelActionAttack (int arg0, int arg1) {
   unsigned char arg1_u8 = arg1;
   switch (WhoseTurn()) {
     case DUEL_PLAYER:
-      if (gDuelBoard[1][arg1_u8]->isDefending)
+      if (gFixedZones[1][arg1_u8]->isDefending)
         sub_803F6F8(arg0_u8, arg1_u8);
       else
         sub_803F604(arg0_u8, arg1_u8);
       break;
     case DUEL_OPPONENT:
-      if (!gDuelBoard[2][arg0_u8]->isDefending)
+      if (!gFixedZones[2][arg0_u8]->isDefending)
         sub_803F604(arg0_u8, arg1_u8);
       else
         sub_803F7EC(arg0_u8, arg1_u8);
@@ -779,15 +779,15 @@ extern unsigned char g8E0D0D7[][5];
 
 void InitBoard (void) {
   unsigned char i, j;
-  sub_803FEA4(2);
+  InitDuelZonePtrs(2);
   for (i = 0; i < 4; i++)
     for (j = 0; j < 5; j++)
-      ClearZone(&gDuel.zones[i][j]);
+      ClearZone(&gDuel.board[i][j]);
   for (i = 0; i < 4; i++)
     for (j = 0; j < 5; j++) {
-      gDuel.zones[i][j].id = g8E0D08C[i][j];
-      gDuel.zones[i][j].isFaceUp = g8E0D0BE[i][j];
-      gDuel.zones[i][j].isDefending = g8E0D0D7[i][j];
+      gDuel.board[i][j].id = g8E0D08C[i][j];
+      gDuel.board[i][j].isFaceUp = g8E0D0BE[i][j];
+      gDuel.board[i][j].isDefending = g8E0D0D7[i][j];
     }
   for (i = 0; i < 2; i++)
     for (j = 0; j < 5; j++) {
@@ -796,80 +796,80 @@ void InitBoard (void) {
     }
   gDuel.field = gDuelData.duelist.field;
   for (i = 0; i < 2; i++) {
-    gDuel.notSure[i].sorlTurns = 0;
-    gDuel.notSure[i].defenseBlocked = 0;
-    gDuel.notSure[i].graveyard = CARD_NONE;
+    gDuel.duelistbattleState[i].sorlTurns = 0;
+    gDuel.duelistbattleState[i].defenseBlocked = 0;
+    gDuel.duelistbattleState[i].graveyard = CARD_NONE;
     sub_8040508(i);
   }
 }
 
-void sub_803FEA4 (int unused) {
+void InitDuelZonePtrs (int unused) {
   unsigned char i;
   for (i = 0; i < 5; i++)
-    gDuelBoard[0][i] = &gDuel.zones[0][4-i];
+    gFixedZones[0][i] = &gDuel.board[0][4-i];
   for (i = 0; i < 5; i++)
-    gDuelBoard[1][i] = &gDuel.zones[1][4-i];
+    gFixedZones[1][i] = &gDuel.board[1][4-i];
   for (i = 0; i < 5; i++)
-    gDuelBoard[2][i] = &gDuel.zones[2][i];
+    gFixedZones[2][i] = &gDuel.board[2][i];
   for (i = 0; i < 5; i++)
-    gDuelBoard[3][i] = &gDuel.zones[3][i];
+    gFixedZones[3][i] = &gDuel.board[3][i];
   for (i = 0; i < 5; i++)
-    gDuelBoard[4][i] = &gDuel.hands[0][i];
+    gFixedZones[4][i] = &gDuel.hands[0][i];
   for (i = 0; i < 5; i++)
-    gZones[0][i] = &gDuel.zones[0][i];
+    gTurnZones[0][i] = &gDuel.board[0][i];
   for (i = 0; i < 5; i++)
-    gZones[1][i] = &gDuel.zones[1][i];
+    gTurnZones[1][i] = &gDuel.board[1][i];
   for (i = 0; i < 5; i++)
-    gZones[2][i] = &gDuel.zones[2][i];
+    gTurnZones[2][i] = &gDuel.board[2][i];
   for (i = 0; i < 5; i++)
-    gZones[3][i] = &gDuel.zones[3][i];
+    gTurnZones[3][i] = &gDuel.board[3][i];
   for (i = 0; i < 5; i++)
-    gZones[4][i] = &gDuel.hands[0][i];
-  gNotSure[0] = &gDuel.notSure[0];
-  gNotSure[1] = &gDuel.notSure[1];
+    gTurnZones[4][i] = &gDuel.hands[0][i];
+  gNotSure[0] = &gDuel.duelistbattleState[0];
+  gNotSure[1] = &gDuel.duelistbattleState[1];
   for (i = 0; i < 5; i++)
-    gHands[0][i] = &gDuel.hands[0][i];
+    gTurnHands[0][i] = &gDuel.hands[0][i];
   for (i = 0; i < 5; i++)
-    gHands[1][i] = &gDuel.hands[1][i];
+    gTurnHands[1][i] = &gDuel.hands[1][i];
 }
 
-void sub_804004C (unsigned char turn) {
+void UpdateDuelZonePtrs (unsigned char turn) {
   unsigned char i;
   if (turn == TURN_PLAYER) {
     for (i = 0; i < 5; i++)
-      gZones[0][i] = &gDuel.zones[0][i];
+      gTurnZones[0][i] = &gDuel.board[0][i];
     for (i = 0; i < 5; i++)
-      gZones[1][i] = &gDuel.zones[1][i];
+      gTurnZones[1][i] = &gDuel.board[1][i];
     for (i = 0; i < 5; i++)
-      gZones[2][i] = &gDuel.zones[2][i];
+      gTurnZones[2][i] = &gDuel.board[2][i];
     for (i = 0; i < 5; i++)
-      gZones[3][i] = &gDuel.zones[3][i];
+      gTurnZones[3][i] = &gDuel.board[3][i];
     for (i = 0; i < 5; i++)
-      gZones[4][i] = &gDuel.hands[0][i];
-    gNotSure[0] = &gDuel.notSure[0];
-    gNotSure[1] = &gDuel.notSure[1];
+      gTurnZones[4][i] = &gDuel.hands[0][i];
+    gNotSure[0] = &gDuel.duelistbattleState[0];
+    gNotSure[1] = &gDuel.duelistbattleState[1];
     for (i = 0; i < 5; i++)
-      gHands[0][i] = &gDuel.hands[0][i];
+      gTurnHands[0][i] = &gDuel.hands[0][i];
     for (i = 0; i < 5; i++)
-      gHands[1][i] = &gDuel.hands[1][i];
+      gTurnHands[1][i] = &gDuel.hands[1][i];
   }
   else {
     for (i = 0; i < 5; i++)
-      gZones[0][i] = &gDuel.zones[3][i];
+      gTurnZones[0][i] = &gDuel.board[3][i];
     for (i = 0; i < 5; i++)
-      gZones[1][i] = &gDuel.zones[2][i];
+      gTurnZones[1][i] = &gDuel.board[2][i];
     for (i = 0; i < 5; i++)
-      gZones[2][i] = &gDuel.zones[1][i];
+      gTurnZones[2][i] = &gDuel.board[1][i];
     for (i = 0; i < 5; i++)
-      gZones[3][i] = &gDuel.zones[0][i];
+      gTurnZones[3][i] = &gDuel.board[0][i];
     for (i = 0; i < 5; i++)
-      gZones[4][i] = &gDuel.hands[1][i];
-    gNotSure[0] = &gDuel.notSure[1];
-    gNotSure[1] = &gDuel.notSure[0];
+      gTurnZones[4][i] = &gDuel.hands[1][i];
+    gNotSure[0] = &gDuel.duelistbattleState[1];
+    gNotSure[1] = &gDuel.duelistbattleState[0];
     for (i = 0; i < 5; i++)
-      gHands[0][i] = &gDuel.hands[1][i];
+      gTurnHands[0][i] = &gDuel.hands[1][i];
     for (i = 0; i < 5; i++)
-      gHands[1][i] = &gDuel.hands[0][i];
+      gTurnHands[1][i] = &gDuel.hands[0][i];
   }
 }
 
@@ -882,7 +882,7 @@ void ResetTempStagesForAllCards (void) {
   unsigned char i, j;
   for (i = 0; i < 4; i++)
     for (j = 0; j < 5; j++)
-      ResetTempStage_inline(&gDuel.zones[i][j]);
+      ResetTempStage_inline(&gDuel.board[i][j]);
   for (i = 0; i < 2; i++)
     for (j = 0; j < 5; j++)
       ResetTempStage_inline(&gDuel.hands[i][j]);
@@ -902,11 +902,11 @@ void ClearZone (struct DuelCard *zone) {
 }
 
 void sub_8040300 (unsigned char col, unsigned char row, u16 cardId) {
-  gDuel.zones[row][col].id = cardId;
+  gDuel.board[row][col].id = cardId;
 }
 
 u16 sub_8040324 (unsigned char col, unsigned char row) {
-  return gDuel.zones[row][col].id;
+  return gDuel.board[row][col].id;
 }
 
 void FlipCardFaceUp (struct DuelCard *zone) {
@@ -978,17 +978,17 @@ void DecreaseTempStageByAmount (struct DuelCard *zone, unsigned char amt) {
 
 // unused?
 void sub_8040470 (unsigned char col, unsigned char row, unsigned char arg2) {
-  gDuel.zones[row][col].unk4 |= sub_803F04C(arg2);
+  gDuel.board[row][col].unk4 |= sub_803F04C(arg2);
 }
 
 // unused?
 void sub_80404A4 (unsigned char col, unsigned char row, unsigned char arg2) {
-  gDuel.zones[row][col].unk4 &= ~sub_803F04C(arg2);
+  gDuel.board[row][col].unk4 &= ~sub_803F04C(arg2);
 }
 
 // unused?
 void sub_80404D8 (unsigned char arg0) {
-  gDuel.notSure[arg0].unkThree = 1;
+  gDuel.duelistbattleState[arg0].unkThree = 1;
 }
 
 void sub_80404F0 (unsigned char currPlayer) {
@@ -996,7 +996,7 @@ void sub_80404F0 (unsigned char currPlayer) {
 }
 
 void sub_8040508 (unsigned char player) {
-  gDuel.notSure[player].unkThree = 0;
+  gDuel.duelistbattleState[player].unkThree = 0;
 }
 
 void sub_8040524 (unsigned char currPlayer) {
@@ -1006,15 +1006,15 @@ void sub_8040524 (unsigned char currPlayer) {
 void LockMonsterCardsInRow (unsigned char row) {
   unsigned char i;
   for (i = 0; i < 5; i++)
-    if (gZones[row][i]->id != CARD_NONE && GetTypeGroup(gZones[row][i]->id) == TYPE_GROUP_MONSTER)
-      gZones[row][i]->isLocked = 1;
+    if (gTurnZones[row][i]->id != CARD_NONE && GetTypeGroup(gTurnZones[row][i]->id) == TYPE_GROUP_MONSTER)
+      gTurnZones[row][i]->isLocked = 1;
 }
 
 void UnlockCardsInRow (unsigned char row) {
   unsigned char i;
   for (i = 0; i < 5; i++)
-    if (gZones[row][i]->id != CARD_NONE)
-      gZones[row][i]->isLocked = 0;
+    if (gTurnZones[row][i]->id != CARD_NONE)
+      gTurnZones[row][i]->isLocked = 0;
 }
 
 // unused?
@@ -1022,23 +1022,23 @@ void sub_80405C4 (void) {
   unsigned char i, j;
   for (i = 0; i < 5; i++)
     for (j = 0; j < 5; j++)
-      if (gZones[i][j]->id != CARD_NONE)
-        gZones[i][j]->isLocked = 0;
+      if (gTurnZones[i][j]->id != CARD_NONE)
+        gTurnZones[i][j]->isLocked = 0;
 }
 
 void FlipAtkPosCardsFaceUp (unsigned char row) {
   unsigned char i;
   for (i = 0; i < 5; i++)
-    if (gZones[row][i]->id != CARD_NONE && !gZones[row][i]->isDefending)
-      gZones[row][i]->isFaceUp = 1;
+    if (gTurnZones[row][i]->id != CARD_NONE && !gTurnZones[row][i]->isDefending)
+      gTurnZones[row][i]->isFaceUp = 1;
 }
 
 // unused?
 void ToggleDefenseModeAtCoords (unsigned char col, unsigned char row) {
-  if (!gDuel.zones[row][col].isDefending)
-    gDuel.zones[row][col].isDefending = TRUE;
+  if (!gDuel.board[row][col].isDefending)
+    gDuel.board[row][col].isDefending = TRUE;
   else
-    gDuel.zones[row][col].isDefending = FALSE;
+    gDuel.board[row][col].isDefending = FALSE;
 }
 
 void SetPermStage (struct DuelCard *zone, int permStage) {
@@ -1083,18 +1083,18 @@ bool32 IsCardLocked (struct DuelCard *zone) {
 
 // unused?
 void sub_80406E0 (unsigned char col, unsigned char row) {
-  gDuel.zones[row][col].unk4 = 0;
+  gDuel.board[row][col].unk4 = 0;
 }
 
 // unused?
 void sub_8040700 (unsigned char arg0) {
-  gDuel.notSure[arg0].sorlTurns = 3;
+  gDuel.duelistbattleState[arg0].sorlTurns = 3;
 }
 
 // unused?
 void sub_8040718 (unsigned char arg0) {
-  if (gDuel.notSure[arg0].sorlTurns)
-    gDuel.notSure[arg0].sorlTurns--;
+  if (gDuel.duelistbattleState[arg0].sorlTurns)
+    gDuel.duelistbattleState[arg0].sorlTurns--;
 }
 
 void InitSorlTurns (unsigned char currOpponent) {
