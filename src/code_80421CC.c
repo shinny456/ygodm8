@@ -834,7 +834,7 @@ void InitBMenu (unsigned char arg0) {
     sub_800800C(i + 5, 16, 0xE800, g8DF811C[i] + 190 | r8);
   }
 
-  SetCardInfo(gDuel.duelistbattleState[0].graveyard);
+  SetCardInfo(gDuel.duelistbattleState[ACTIVE_DUELIST].graveyard);
   i = 0;
   r4 = 0;
   name = GetCurrentLanguageString(gCardInfo.name);
@@ -878,11 +878,11 @@ void InitBMenu (unsigned char arg0) {
   buffer[i] = 0;
   CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x9280, buffer, 0x901);
 
-  sub_800DDA0(gDuelLifePoints[0], 0);
+  sub_800DDA0(gDuelLifePoints[DUEL_PLAYER], 0);
   for (i = 0; i < 5; i++) {
     *(u16*)(gBgVram.cbb0 + (0x75AC - i) * 2) = g2021BD0[4 - i] + 65 | 0x3000;
   }
-  sub_800DDA0(gDuelLifePoints[1], 0);
+  sub_800DDA0(gDuelLifePoints[DUEL_OPPONENT], 0);
   for (i = 0; i < 5; i++) {
     *(u16*)(gBgVram.cbb0 + (0x74EC - i) * 2) = g2021BD0[4 - i] + 65 | 0x3000;
   }

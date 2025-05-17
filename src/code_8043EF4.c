@@ -266,7 +266,7 @@ void HandlePlayerMonsterRowAction (void) {
       sub_8044570();
       break;
     case 2:
-      if (!gTurnDuelistBattleState[0]->defenseBlocked) {
+      if (!gTurnDuelistBattleState[ACTIVE_DUELIST]->defenseBlocked) {
         PlayMusic(SFX_SELECT);
         gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 1;
         gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
@@ -286,7 +286,7 @@ void HandlePlayerMonsterRowAction (void) {
       sub_8029820();
       break;
     case 4:
-      if (gTurnDuelistBattleState[0]->defenseBlocked)
+      if (gTurnDuelistBattleState[ACTIVE_DUELIST]->defenseBlocked)
         gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
       if (!gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp) {
         SetCardInfo(gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->id);
@@ -303,7 +303,7 @@ void HandlePlayerMonsterRowAction (void) {
           gMonEffect.row = gDuelCursor.currentY;
           gMonEffect.zone = gDuelCursor.currentX;
           ActivateMonsterEffect();
-          if (gTurnDuelistBattleState[0]->unkThree)
+          if (gTurnDuelistBattleState[ACTIVE_DUELIST]->unkThree)
             LockMonsterCardsInRow(4);
           UpdateDuelGfxExceptField();
           CheckWinConditionExodia();
@@ -316,7 +316,7 @@ void HandlePlayerMonsterRowAction (void) {
       break;
     case 5:
       if (gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending)
-        if (gTurnDuelistBattleState[0]->defenseBlocked)
+        if (gTurnDuelistBattleState[ACTIVE_DUELIST]->defenseBlocked)
           gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
       UpdateDuelGfxExceptField();
       break;
@@ -326,7 +326,7 @@ void HandlePlayerMonsterRowAction (void) {
 
 void sub_8044570 (void) {
   u8 turn = WhoseTurn();
-  if (GetDuelistStatus(turn) == DUELIST_STATUS_CANNOT_ATTACK || gTurnDuelistBattleState[0]->sorlTurns) { // attacking forbidden
+  if (GetDuelistStatus(turn) == DUELIST_STATUS_CANNOT_ATTACK || gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns) { // attacking forbidden
     PlayMusic(SFX_FORBIDDEN);
     gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
     UpdateDuelGfxExceptField();
@@ -380,7 +380,7 @@ void HandlePlayerSpellRowAction (void) {
       gSpellEffectData.unk2 = gDuelCursor.currentY;
       gSpellEffectData.unk3 = gDuelCursor.currentX;
       ActivateSpellEffect();
-      if (gTurnDuelistBattleState[0]->unkThree)
+      if (gTurnDuelistBattleState[ACTIVE_DUELIST]->unkThree)
         LockMonsterCardsInRow(4);
       UpdateDuelGfxExceptField();
       CheckWinConditionExodia();
@@ -795,7 +795,7 @@ void sub_8044B90 (void) {
   const unsigned char arr[] = {0x10, 0x3C, 0x68, 0x94, 0xC0}; //opponent hand coords
   u8* ptr;
   for (i = 0; i < 5; i++) {
-    u16 cardId = gTurnHands[1][4 - i]->id;
+    u16 cardId = gTurnHands[INACTIVE_DUELIST][4 - i]->id;
     if (cardId == CARD_NONE)
       continue;
     ptr = &gBgVram.cbb0[(i % 4 * 256) | ((i / 4 << 12) + (0x10 << 12))];

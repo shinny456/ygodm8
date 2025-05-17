@@ -1126,7 +1126,7 @@ void HandleWin (void) {
   AddAnteCardToTrunk();
   AddCardDropsToShop();
   AddMoneyFromDuelVictory();
-  if (!gDuelLifePoints[1]) {
+  if (!gDuelLifePoints[DUEL_OPPONENT]) {
     FadeOutMusic(4);
     ResetDuelTextData(&duelText);
     duelText.textId = 19;
@@ -1168,7 +1168,7 @@ void HandleLoss (void) {
   struct DuelText duelText;
   if (gAnte != CARD_NONE)
     RemoveCardQtyFromTrunk(gAnte, 1);
-  if (!gDuelLifePoints[0]) {
+  if (!gDuelLifePoints[DUEL_PLAYER]) {
     FadeOutMusic(4);
     ResetDuelTextData(&duelText);
     duelText.textId = 20;

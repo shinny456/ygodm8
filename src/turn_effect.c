@@ -54,7 +54,7 @@ static void sub_802AEF4 (void) {
   g2021DE0.unk2 = 4;
   for (i = 0; i < 5; i++) {
     g2021DE0.unk3 = i;
-    g2021DE0.unk0 = gTurnHands[0][g2021DE0.unk3]->id;
+    g2021DE0.unk0 = gTurnHands[ACTIVE_DUELIST][g2021DE0.unk3]->id;
     if (!gHideEffectText)
       sub_802ACC0();
     if (sub_802BBF0() == 1) {
@@ -71,7 +71,7 @@ static void sub_802AEF4 (void) {
   g2021DE0.unk2 = 5;
   for (i = 0; i < 5; i++) {
     g2021DE0.unk3 = i;
-    g2021DE0.unk0 = gTurnHands[1][g2021DE0.unk3]->id;
+    g2021DE0.unk0 = gTurnHands[INACTIVE_DUELIST][g2021DE0.unk3]->id;
     if (!gHideEffectText)
       sub_802ADF4();
     if (sub_802BBF0() == 1) {
@@ -89,7 +89,7 @@ static void sub_802AEF4 (void) {
     PlayMusic(MUSIC_375);
   g2021DE0.unk2 = 6;
   g2021DE0.unk3 = 0;
-  g2021DE0.unk0 = gTurnDuelistBattleState[0]->graveyard;
+  g2021DE0.unk0 = gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard;
   if (!gHideEffectText)
     sub_802ADF4();
   if (sub_802BBF0() == 1) {
@@ -104,7 +104,7 @@ static void sub_802AEF4 (void) {
   }
   g2021DE0.unk2 = 7;
   g2021DE0.unk3 = 0;
-  g2021DE0.unk0 = gTurnDuelistBattleState[1]->graveyard;
+  g2021DE0.unk0 = gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard;
   if (!gHideEffectText)
     sub_802ADF4();
   if (sub_802BBF0() == 1) {
@@ -196,7 +196,7 @@ static void sub_802AEF4 (void) {
 static void sub_802B210 (void) {
   unsigned char i;
 
-  gDuel.field = 6;
+  gDuel.field = FIELD_YAMI;
   if (g2021DE0.unk2 == 1) {
     for (i = 0; i < 5; i++)
       if (gTurnZones[1][i]->id != CARD_NONE)
@@ -313,7 +313,7 @@ static void sub_802B560 (void) {
   u16 r5;
   struct DuelCard* ptr;
 
-  if (g2021DE0.unk2 != 6 || gTurnDuelistBattleState[0]->graveyard != g2021DE0.unk0)
+  if (g2021DE0.unk2 != 6 || gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard != g2021DE0.unk0)
     return;
   if (!NumEmptyZonesInRow(gTurnZones[2]))
     return;
@@ -339,7 +339,7 @@ static void sub_802B604 (void) {
   u16 r5;
   struct DuelCard* ptr;
 
-  if (g2021DE0.unk2 != 6 || gTurnDuelistBattleState[0]->graveyard != g2021DE0.unk0)
+  if (g2021DE0.unk2 != 6 || gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard != g2021DE0.unk0)
     return;
   if (!NumEmptyZonesInRow(gTurnZones[2]))
     return;
@@ -457,7 +457,7 @@ static void sub_802B770 (void) {
   if (g2021DE0.unk2 != 3)
     return;
   FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
-  if (g2021DE0.turn == TURN_PLAYER) {
+  if (g2021DE0.turn == ACTIVE_DUELIST) {
     SetPlayerLifePointsToSubtract(1000);
     HandleDuelAction();
     CheckLoserFlags();
@@ -474,9 +474,9 @@ static void sub_802B770 (void) {
 }
 
 static void EffectHelpoemer (void) {
-  if (g2021DE0.unk2 != 7 || NumEmptyZonesInRow(gTurnHands[0]) == 5)
+  if (g2021DE0.unk2 != 7 || NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) == 5)
     return;
-  ClearZoneAndSendMonToGraveyard(gTurnHands[0][(unsigned char)FirstNonEmptyZoneInRow(gTurnHands[0])], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnHands[ACTIVE_DUELIST][(unsigned char)FirstNonEmptyZoneInRow(gTurnHands[ACTIVE_DUELIST])], 0);
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = g2021DE0.unk0;
     ActivateCardEffectText();
@@ -487,7 +487,7 @@ static void EffectLavaGolemLifePoints (void) {
   if (g2021DE0.unk2 != 2)
     return;
   FlipCardFaceUp(gTurnZones[2][g2021DE0.unk3]);
-  if (g2021DE0.turn == TURN_PLAYER) {
+  if (g2021DE0.turn == ACTIVE_DUELIST) {
     SetPlayerLifePointsToSubtract(700);
     HandleDuelAction();
     CheckLoserFlags();
@@ -851,7 +851,7 @@ static unsigned char sub_802BCB0 (void) {
 
 static unsigned char sub_802BCEC (void) {
   unsigned char ret = 0;
-  if (g2021DE0.unk2 == 7 && NumEmptyZonesInRow(gTurnHands[0]) <= 2)
+  if (g2021DE0.unk2 == 7 && NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) <= 2)
     ret = 1;
   return ret;
 }
@@ -933,7 +933,7 @@ static unsigned char sub_802BDFC (void) {
 
 static unsigned char sub_802BE00 (void) {
   if (g2021DE0.unk2 == 6 &&
-      gTurnDuelistBattleState[0]->graveyard == g2021DE0.unk0 &&
+      gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == g2021DE0.unk0 &&
       NumEmptyZonesInRow(gTurnZones[2]) > 0)
     return 1;
   return 0;
@@ -941,14 +941,14 @@ static unsigned char sub_802BE00 (void) {
 
 static unsigned char sub_802BE38 (void) {
   if (g2021DE0.unk2 == 6 &&
-      gTurnDuelistBattleState[0]->graveyard == g2021DE0.unk0 &&
+      gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == g2021DE0.unk0 &&
       NumEmptyZonesInRow(gTurnZones[2]) > 0)
     return 1;
   return 0;
 }
 
 static unsigned char sub_802BE70 (void) {
-  if (g2021DE0.unk2 == 2 && GetExodiaFlag(gTurnDuelistBattleState[0]->graveyard))
+  if (g2021DE0.unk2 == 2 && GetExodiaFlag(gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard))
     return 1;
   return 0;
 }

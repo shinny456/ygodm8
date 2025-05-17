@@ -175,9 +175,9 @@ static void EffectTrapMaster(void)
 
 static void EffectDarkMagicianGirl(void)
 {
-    if (gTurnDuelistBattleState[TURN_PLAYER]->graveyard == DARK_MAGICIAN)
+    if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == DARK_MAGICIAN)
         IncrementPermStage(gTurnZones[gMonEffect.row][gMonEffect.zone]);
-    if (gTurnDuelistBattleState[TURN_OPPONENT]->graveyard == DARK_MAGICIAN)
+    if (gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == DARK_MAGICIAN)
         IncrementPermStage(gTurnZones[gMonEffect.row][gMonEffect.zone]);
 
     if (!gHideEffectText)
@@ -493,9 +493,9 @@ static void EffectSliferTheSkyDragon(void)
 
 static void EffectDarkMagicianGirl2(void)
 {
-    if (gTurnDuelistBattleState[TURN_PLAYER]->graveyard == DARK_MAGICIAN)
+    if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == DARK_MAGICIAN)
         IncrementPermStage(gTurnZones[gMonEffect.row][gMonEffect.zone]);
-    if (gTurnDuelistBattleState[TURN_OPPONENT]->graveyard == DARK_MAGICIAN)
+    if (gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == DARK_MAGICIAN)
         IncrementPermStage(gTurnZones[gMonEffect.row][gMonEffect.zone]);
 
     if (!gHideEffectText)
@@ -859,10 +859,10 @@ static inline u32 RemoveSpellCard(struct DuelCard* zone)
 
 static void EffectDarkPaladin(void)
 {
-    if (NumEmptyZonesInRow(gTurnHands[0]) < 5 && sub_8043930(0, TYPE_SPELL) > 0)
+    if (NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) < 5 && sub_8043930(0, TYPE_SPELL) > 0)
     {
         u8 i;
-        ClearZoneAndSendMonToGraveyard(gTurnHands[0][(u8)FirstNonEmptyZoneInRow(gTurnHands[0])], 0);
+        ClearZoneAndSendMonToGraveyard(gTurnHands[ACTIVE_DUELIST][(u8)FirstNonEmptyZoneInRow(gTurnHands[ACTIVE_DUELIST])], 0);
         for (i = 0; i < MAX_ZONES_IN_ROW &&?; i++)
         {
             if (gTurnZones[0][i]->id != CARD_NONE)
@@ -1544,7 +1544,7 @@ _08047788: .4byte 0x0000024E");
 /*
 static void EffectXYDragonCannon(void)
 {
-    if (NumEmptyZonesInRow(gTurnHands[0]) < MAX_ZONES_IN_ROW)
+    if (NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) < MAX_ZONES_IN_ROW)
     {
         u8 i;
         bool32 found = FALSE;
@@ -1561,7 +1561,7 @@ static void EffectXYDragonCannon(void)
         if (found)
         {
             ClearZoneAndSendMonToGraveyard(gTurnZones[0][i], 1);
-            ClearZoneAndSendMonToGraveyard(gTurnHands[0][(u8)FirstNonEmptyZoneInRow(gTurnHands[0])], 0);
+            ClearZoneAndSendMonToGraveyard(gTurnHands[ACTIVE_DUELIST][(u8)FirstNonEmptyZoneInRow(gTurnHands[ACTIVE_DUELIST])], 0);
         }
     }
 
@@ -1714,7 +1714,7 @@ _0804789C: .4byte gCardEffectTextData");
 /*
 static void EffectYZTankDragon(void)
 {
-    if (NumEmptyZonesInRow(gTurnHands[0]) < 5)
+    if (NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) < 5)
     {
         u8 i, i2, r8;
         u16 r7 = 0;
@@ -1738,7 +1738,7 @@ static void EffectYZTankDragon(void)
         if (r8)
         {
             ClearZoneAndSendMonToGraveyard(gTurnZones[1][i2], 1);
-            ClearZoneAndSendMonToGraveyard(gTurnHands[0][(u8)FirstNonEmptyZoneInRow(gTurnHands[0])], 0);
+            ClearZoneAndSendMonToGraveyard(gTurnHands[ACTIVE_DUELIST][(u8)FirstNonEmptyZoneInRow(gTurnHands[ACTIVE_DUELIST])], 0);
         }
     }
 
@@ -1864,12 +1864,12 @@ _08047988: .4byte 0x00000255");
 
 static void EffectXYZDragonCannon(void)
 {
-    if (NumEmptyZonesInRow(gTurnHands[0]) < MAX_ZONES_IN_ROW)
+    if (NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) < MAX_ZONES_IN_ROW)
     {
         if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) < MAX_ZONES_IN_ROW)
         {
             ClearZoneAndSendMonToGraveyard(gTurnZones[1][(u8)HighestAtkMonInRowExceptGodCards(gTurnZones[1])], 1);
-            ClearZoneAndSendMonToGraveyard(gTurnHands[0][(u8)FirstNonEmptyZoneInRow(gTurnHands[0])], 0);
+            ClearZoneAndSendMonToGraveyard(gTurnHands[ACTIVE_DUELIST][(u8)FirstNonEmptyZoneInRow(gTurnHands[ACTIVE_DUELIST])], 0);
         }
     }
 
@@ -1883,7 +1883,7 @@ static void EffectXYZDragonCannon(void)
 /*
 static void EffectPuppetMaster(void)
 {
-    if (NumEmptyZonesInRow(gTurnZones[2]) > 0 && gTurnDuelistBattleState[0]->graveyard == GERNIA)
+    if (NumEmptyZonesInRow(gTurnZones[2]) > 0 && gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == GERNIA)
     {
         u8 zone;
 
@@ -2608,8 +2608,8 @@ static void EffectMonsterEye(void)
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (gTurnHands[1][i]->id != CARD_NONE)
-            gTurnHands[1][i]->isFaceUp = TRUE;
+        if (gTurnHands[INACTIVE_DUELIST][i]->id != CARD_NONE)
+            gTurnHands[INACTIVE_DUELIST][i]->isFaceUp = TRUE;
 
     if (!gHideEffectText)
     {
@@ -2704,15 +2704,15 @@ static void EffectTheWingedDragonOfRaBattleMode(void)
 {
     if (WhoseTurn() == DUEL_PLAYER)
     {
-        SetOpponentLifePointsToSubtract(gDuelLifePoints[0] - 1);
+        SetOpponentLifePointsToSubtract(gDuelLifePoints[DUEL_PLAYER] - 1);
         HandleDuelAction();
-        gDuelLifePoints[0] = 1;
+        gDuelLifePoints[DUEL_PLAYER] = 1;
     }
     else
     {
-        SetPlayerLifePointsToSubtract(gDuelLifePoints[1] - 1);
+        SetPlayerLifePointsToSubtract(gDuelLifePoints[DUEL_OPPONENT] - 1);
         HandleDuelAction();
-        gDuelLifePoints[1] = 1;
+        gDuelLifePoints[DUEL_OPPONENT] = 1;
     }
     CheckLoserFlags();
 
@@ -2925,10 +2925,10 @@ static void sub_8048B10 (void) {
 
 static void EffectByserShock(void)
 {
-    ReturnFaceDownCardsToHand(gTurnZones[1][0], gTurnHands[1][0]);
-    ReturnFaceDownCardsToHand(gTurnZones[0][0], gTurnHands[1][0]);
-    ReturnFaceDownCardsToHand(gTurnZones[2][0], gTurnHands[0][0]);
-    ReturnFaceDownCardsToHand(gTurnZones[3][0], gTurnHands[0][0]);
+    ReturnFaceDownCardsToHand(gTurnZones[1][0], gTurnHands[INACTIVE_DUELIST][0]);
+    ReturnFaceDownCardsToHand(gTurnZones[0][0], gTurnHands[INACTIVE_DUELIST][0]);
+    ReturnFaceDownCardsToHand(gTurnZones[2][0], gTurnHands[ACTIVE_DUELIST][0]);
+    ReturnFaceDownCardsToHand(gTurnZones[3][0], gTurnHands[ACTIVE_DUELIST][0]);
 
     if (!gHideEffectText)
     {

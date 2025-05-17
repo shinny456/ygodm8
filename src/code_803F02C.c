@@ -331,10 +331,10 @@ static void sub_803F4F0 (unsigned char arg0) {
   SetFinalStat(&gStatMod);
   g2023E80.playerCardAttack = gCardInfo.atk;
   g2023E80.playerCardDefense = gCardInfo.def;
-  g2023E80.playerLifePoints = gDuelLifePoints[0];
-  gUnk2023EA0.unk0[0].initialLifePoints = gDuelLifePoints[0];
-  g2023E80.opponentLifePoints = gDuelLifePoints[1];
-  gUnk2023EA0.unk0[1].initialLifePoints = gDuelLifePoints[1];
+  g2023E80.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
+  gUnk2023EA0.unk0[0].initialLifePoints = gDuelLifePoints[DUEL_PLAYER];
+  g2023E80.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
+  gUnk2023EA0.unk0[1].initialLifePoints = gDuelLifePoints[DUEL_OPPONENT];
   g2023E80.unkA = arg0;
   g2023E80.playerMonsterRow = 2;
 }
@@ -351,10 +351,10 @@ static void sub_803F574 (unsigned char arg0) {
   SetFinalStat(&gStatMod);
   g2023E80.opponentCardAttack = gCardInfo.atk;
   g2023E80.opponentCardDefense = gCardInfo.def;
-  g2023E80.playerLifePoints = gDuelLifePoints[0];
-  gUnk2023EA0.unk0[0].initialLifePoints = gDuelLifePoints[0];
-  g2023E80.opponentLifePoints = gDuelLifePoints[1];
-  gUnk2023EA0.unk0[1].initialLifePoints = gDuelLifePoints[1];
+  g2023E80.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
+  gUnk2023EA0.unk0[0].initialLifePoints = gDuelLifePoints[DUEL_PLAYER];
+  g2023E80.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
+  gUnk2023EA0.unk0[1].initialLifePoints = gDuelLifePoints[DUEL_OPPONENT];
   g2023E80.unk16 = arg0;
   g2023E80.opponentMonsterRow = 1;
 }
@@ -372,8 +372,8 @@ static void sub_803F604 (unsigned char arg0, unsigned char arg1) {
   g2023E80.playerCardAttack = gCardInfo.atk;
   g2023E80.playerCardDefense = gCardInfo.def;
   g2023E80.playerCardAttribute = gCardInfo.attribute;
-  g2023E80.playerLifePoints = gDuelLifePoints[0];
-  gUnk2023EA0.unk0[0].initialLifePoints = gDuelLifePoints[0];
+  g2023E80.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
+  gUnk2023EA0.unk0[0].initialLifePoints = gDuelLifePoints[DUEL_PLAYER];
   g2023E80.unkA = arg0;
   g2023E80.playerMonsterRow = 2;
   g2023E80.opponentCardId = gFixedZones[1][arg1]->id;
@@ -384,8 +384,8 @@ static void sub_803F604 (unsigned char arg0, unsigned char arg1) {
   g2023E80.opponentCardAttack = gCardInfo.atk;
   g2023E80.opponentCardDefense = gCardInfo.def;
   g2023E80.opponentCardAttribute = gCardInfo.attribute;
-  g2023E80.opponentLifePoints = gDuelLifePoints[1];
-  gUnk2023EA0.unk0[1].initialLifePoints = gDuelLifePoints[1];
+  g2023E80.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
+  gUnk2023EA0.unk0[1].initialLifePoints = gDuelLifePoints[DUEL_OPPONENT];
   g2023E80.unk16 = arg1;
   g2023E80.opponentMonsterRow = 1;
 }
@@ -403,8 +403,8 @@ static void sub_803F6F8 (unsigned char arg0, unsigned char arg1) {
   g2023E80.playerCardAttack = gCardInfo.atk;
   g2023E80.playerCardDefense = gCardInfo.def;
   g2023E80.playerCardAttribute = gCardInfo.attribute;
-  g2023E80.playerLifePoints = gDuelLifePoints[0];
-  gUnk2023EA0.unk0[0].initialLifePoints = gDuelLifePoints[0];
+  g2023E80.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
+  gUnk2023EA0.unk0[0].initialLifePoints = gDuelLifePoints[DUEL_PLAYER];
   g2023E80.unkA = arg0;
   g2023E80.playerMonsterRow = 2;
   g2023E80.opponentCardId = gFixedZones[1][arg1]->id;
@@ -415,8 +415,8 @@ static void sub_803F6F8 (unsigned char arg0, unsigned char arg1) {
   g2023E80.opponentCardAttack = gCardInfo.atk;
   g2023E80.opponentCardDefense = gCardInfo.def;
   g2023E80.opponentCardAttribute = gCardInfo.attribute;
-  g2023E80.opponentLifePoints = gDuelLifePoints[1];
-  gUnk2023EA0.unk0[1].initialLifePoints = gDuelLifePoints[1];
+  g2023E80.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
+  gUnk2023EA0.unk0[1].initialLifePoints = gDuelLifePoints[DUEL_OPPONENT];
   g2023E80.unk16 = arg1;
   g2023E80.opponentMonsterRow = 1;
 }
@@ -434,8 +434,8 @@ static void sub_803F7EC (unsigned char arg0, unsigned char arg1) {
   g2023E80.playerCardAttack = gCardInfo.atk;
   g2023E80.playerCardDefense = gCardInfo.def;
   g2023E80.playerCardAttribute = gCardInfo.attribute;
-  g2023E80.playerLifePoints = gDuelLifePoints[0];
-  gUnk2023EA0.unk0[0].initialLifePoints = gDuelLifePoints[0];
+  g2023E80.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
+  gUnk2023EA0.unk0[0].initialLifePoints = gDuelLifePoints[DUEL_PLAYER];
   g2023E80.unkA = arg0;
   g2023E80.playerMonsterRow = 2;
   g2023E80.opponentCardId = gFixedZones[1][arg1]->id;
@@ -446,8 +446,8 @@ static void sub_803F7EC (unsigned char arg0, unsigned char arg1) {
   g2023E80.opponentCardAttack = gCardInfo.atk;
   g2023E80.opponentCardDefense = gCardInfo.def;
   g2023E80.opponentCardAttribute = gCardInfo.attribute;
-  g2023E80.opponentLifePoints = gDuelLifePoints[1];
-  gUnk2023EA0.unk0[1].initialLifePoints = gDuelLifePoints[1];
+  g2023E80.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
+  gUnk2023EA0.unk0[1].initialLifePoints = gDuelLifePoints[DUEL_OPPONENT];
   g2023E80.unk16 = arg1;
   g2023E80.opponentMonsterRow = 1;
 }
@@ -489,8 +489,8 @@ void SetPlayerLifePointsToAdd (u32 lifePoints) {
   g2023E80.unk1A = 0;
   g2023E80.unk1B = 1;
   g2023E80.playerCardAttack = lifePoints;
-  g2023E80.playerLifePoints = gDuelLifePoints[0];
-  g2023E80.opponentLifePoints = gDuelLifePoints[1];
+  g2023E80.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
+  g2023E80.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
 }
 
 void SetPlayerLifePointsToSubtract (u32 lifePoints) {
@@ -498,8 +498,8 @@ void SetPlayerLifePointsToSubtract (u32 lifePoints) {
   g2023E80.unk1A = 0;
   g2023E80.unk1B = 1;
   g2023E80.playerCardAttack = lifePoints;
-  g2023E80.playerLifePoints = gDuelLifePoints[0];
-  g2023E80.opponentLifePoints = gDuelLifePoints[1];
+  g2023E80.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
+  g2023E80.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
 }
 
 void SetOpponentLifePointsToAdd (u32 lifePoints) {
@@ -507,8 +507,8 @@ void SetOpponentLifePointsToAdd (u32 lifePoints) {
   g2023E80.unk1A = 0;
   g2023E80.unk1B = 1;
   g2023E80.opponentCardAttack = lifePoints;
-  g2023E80.playerLifePoints = gDuelLifePoints[0];
-  g2023E80.opponentLifePoints = gDuelLifePoints[1];
+  g2023E80.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
+  g2023E80.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
 }
 
 void SetOpponentLifePointsToSubtract (u32 lifePoints) {
@@ -516,8 +516,8 @@ void SetOpponentLifePointsToSubtract (u32 lifePoints) {
   g2023E80.unk1A = 0;
   g2023E80.unk1B = 1;
   g2023E80.opponentCardAttack = lifePoints;
-  g2023E80.playerLifePoints = gDuelLifePoints[0];
-  g2023E80.opponentLifePoints = gDuelLifePoints[1];
+  g2023E80.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
+  g2023E80.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
 }
 
 // TODO: function doesn't return anything
@@ -814,7 +814,7 @@ void InitDuelZonePtrs (int unused) {
   for (i = 0; i < 5; i++)
     gFixedZones[3][i] = &gDuel.board[3][i];
   for (i = 0; i < 5; i++)
-    gFixedZones[4][i] = &gDuel.hands[0][i];
+    gFixedZones[4][i] = &gDuel.hands[DUEL_PLAYER][i];
   for (i = 0; i < 5; i++)
     gTurnZones[0][i] = &gDuel.board[0][i];
   for (i = 0; i < 5; i++)
@@ -824,18 +824,18 @@ void InitDuelZonePtrs (int unused) {
   for (i = 0; i < 5; i++)
     gTurnZones[3][i] = &gDuel.board[3][i];
   for (i = 0; i < 5; i++)
-    gTurnZones[4][i] = &gDuel.hands[0][i];
-  gTurnDuelistBattleState[0] = &gDuel.duelistbattleState[0];
-  gTurnDuelistBattleState[1] = &gDuel.duelistbattleState[1];
+    gTurnZones[4][i] = &gDuel.hands[DUEL_PLAYER][i];
+  gTurnDuelistBattleState[ACTIVE_DUELIST] = &gDuel.duelistbattleState[DUEL_PLAYER];
+  gTurnDuelistBattleState[INACTIVE_DUELIST] = &gDuel.duelistbattleState[DUEL_OPPONENT];
   for (i = 0; i < 5; i++)
-    gTurnHands[0][i] = &gDuel.hands[0][i];
+    gTurnHands[ACTIVE_DUELIST][i] = &gDuel.hands[DUEL_PLAYER][i];
   for (i = 0; i < 5; i++)
-    gTurnHands[1][i] = &gDuel.hands[1][i];
+    gTurnHands[INACTIVE_DUELIST][i] = &gDuel.hands[DUEL_OPPONENT][i];
 }
 
 void UpdateDuelZonePtrs (unsigned char turn) {
   unsigned char i;
-  if (turn == TURN_PLAYER) {
+  if (turn == ACTIVE_DUELIST) {
     for (i = 0; i < 5; i++)
       gTurnZones[0][i] = &gDuel.board[0][i];
     for (i = 0; i < 5; i++)
@@ -845,13 +845,13 @@ void UpdateDuelZonePtrs (unsigned char turn) {
     for (i = 0; i < 5; i++)
       gTurnZones[3][i] = &gDuel.board[3][i];
     for (i = 0; i < 5; i++)
-      gTurnZones[4][i] = &gDuel.hands[0][i];
-    gTurnDuelistBattleState[0] = &gDuel.duelistbattleState[0];
-    gTurnDuelistBattleState[1] = &gDuel.duelistbattleState[1];
+      gTurnZones[4][i] = &gDuel.hands[DUEL_PLAYER][i];
+    gTurnDuelistBattleState[ACTIVE_DUELIST] = &gDuel.duelistbattleState[DUEL_PLAYER];
+    gTurnDuelistBattleState[INACTIVE_DUELIST] = &gDuel.duelistbattleState[DUEL_OPPONENT];
     for (i = 0; i < 5; i++)
-      gTurnHands[0][i] = &gDuel.hands[0][i];
+      gTurnHands[ACTIVE_DUELIST][i] = &gDuel.hands[DUEL_PLAYER][i];
     for (i = 0; i < 5; i++)
-      gTurnHands[1][i] = &gDuel.hands[1][i];
+      gTurnHands[INACTIVE_DUELIST][i] = &gDuel.hands[DUEL_OPPONENT][i];
   }
   else {
     for (i = 0; i < 5; i++)
@@ -863,13 +863,13 @@ void UpdateDuelZonePtrs (unsigned char turn) {
     for (i = 0; i < 5; i++)
       gTurnZones[3][i] = &gDuel.board[0][i];
     for (i = 0; i < 5; i++)
-      gTurnZones[4][i] = &gDuel.hands[1][i];
-    gTurnDuelistBattleState[0] = &gDuel.duelistbattleState[1];
-    gTurnDuelistBattleState[1] = &gDuel.duelistbattleState[0];
+      gTurnZones[4][i] = &gDuel.hands[DUEL_OPPONENT][i];
+    gTurnDuelistBattleState[ACTIVE_DUELIST] = &gDuel.duelistbattleState[DUEL_OPPONENT];
+    gTurnDuelistBattleState[INACTIVE_DUELIST] = &gDuel.duelistbattleState[DUEL_PLAYER];
     for (i = 0; i < 5; i++)
-      gTurnHands[0][i] = &gDuel.hands[1][i];
+      gTurnHands[ACTIVE_DUELIST][i] = &gDuel.hands[DUEL_OPPONENT][i];
     for (i = 0; i < 5; i++)
-      gTurnHands[1][i] = &gDuel.hands[0][i];
+      gTurnHands[INACTIVE_DUELIST][i] = &gDuel.hands[DUEL_PLAYER][i];
   }
 }
 

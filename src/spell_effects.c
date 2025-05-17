@@ -1050,7 +1050,7 @@ static void EffectPowerOfKaishin (void) {
 static void EffectStopDefense (void) {
   u8 i;
 
-  gTurnDuelistBattleState[1]->defenseBlocked = 1;
+  gTurnDuelistBattleState[INACTIVE_DUELIST]->defenseBlocked = 1;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
   {
@@ -2000,8 +2000,8 @@ static void EffectTheInexperiencedSpy (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-    if (gTurnHands[1][i]->id != CARD_NONE)
-      gTurnHands[1][i]->isFaceUp = 1;
+    if (gTurnHands[INACTIVE_DUELIST][i]->id != CARD_NONE)
+      gTurnHands[INACTIVE_DUELIST][i]->isFaceUp = 1;
 
   ClearZoneAndSendMonToGraveyard(gTurnZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
@@ -2292,10 +2292,10 @@ static void EffectFinalDestiny (void) {
 
   for (j = 0; j < MAX_ZONES_IN_ROW; j++)
   {
-    if (!IsGodCard(gTurnHands[0][j]->id))
-      ClearZoneAndSendMonToGraveyard(gTurnHands[0][j], 0);
-    if (!IsGodCard(gTurnHands[1][j]->id))
-      ClearZoneAndSendMonToGraveyard(gTurnHands[1][j], 1);
+    if (!IsGodCard(gTurnHands[ACTIVE_DUELIST][j]->id))
+      ClearZoneAndSendMonToGraveyard(gTurnHands[ACTIVE_DUELIST][j], 0);
+    if (!IsGodCard(gTurnHands[INACTIVE_DUELIST][j]->id))
+      ClearZoneAndSendMonToGraveyard(gTurnHands[INACTIVE_DUELIST][j], 1);
   }
 
   if (!gHideEffectText)
@@ -2544,7 +2544,7 @@ static void EffectPotOfGreed (void) {
 }
 
 static void EffectRestructerRevolution (void) {
-  u16 lifePoints = (MAX_ZONES_IN_ROW - NumEmptyZonesInRow(gTurnHands[1])) * 200;
+  u16 lifePoints = (MAX_ZONES_IN_ROW - NumEmptyZonesInRow(gTurnHands[INACTIVE_DUELIST])) * 200;
 
   if (WhoseTurn() == DUEL_PLAYER)
     SetOpponentLifePointsToSubtract(lifePoints);

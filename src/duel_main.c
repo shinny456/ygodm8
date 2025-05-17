@@ -92,7 +92,7 @@ void DuelMain (void) {
     }
     else
       OpponentTurnTextAndVoice();
-    sub_8040524(TURN_PLAYER);
+    sub_8040524(ACTIVE_DUELIST);
     ResetNumTributes();
     UpdateDuelZonePtrs(turn);
     if (NumEmptyZonesInRow(gTurnZones[4]) > 0) {
@@ -117,10 +117,10 @@ void DuelMain (void) {
     FlipAtkPosCardsFaceUp(2);
     EndFirstTurnAttackBan();
     SwitchTurn();
-    if (gTurnDuelistBattleState[TURN_PLAYER]->defenseBlocked)
-      gTurnDuelistBattleState[TURN_PLAYER]->defenseBlocked = 0;
-    if (gTurnDuelistBattleState[TURN_PLAYER]->sorlTurns)
-      DecrementSorlTurns(TURN_PLAYER);
+    if (gTurnDuelistBattleState[ACTIVE_DUELIST]->defenseBlocked)
+      gTurnDuelistBattleState[ACTIVE_DUELIST]->defenseBlocked = 0;
+    if (gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns)
+      DecrementSorlTurns(ACTIVE_DUELIST);
     UnlockCardsInRow(2);
     UnlockCardsInRow(4);
   }
@@ -143,9 +143,9 @@ static void InitIngameDuel (void) {
   for (i = 0; i < 2; i++)
     ShuffleDuelDeck(i);
   if (!sub_8056258(0, 1))
-    gWhoseTurn = TURN_PLAYER;
+    gWhoseTurn = ACTIVE_DUELIST;
   else
-    gWhoseTurn = TURN_OPPONENT;
+    gWhoseTurn = INACTIVE_DUELIST;
   InitBoard();
   InitDuelLifePoints();
   InitDuelistStatus();
@@ -356,7 +356,7 @@ void LinkDuelMain (void) {
       sub_802405C(&duelText);
     }
     sub_8022080();
-    sub_8040524(TURN_PLAYER);
+    sub_8040524(ACTIVE_DUELIST);
     ResetNumTributes();
     UpdateDuelZonePtrs(turn);
     if (turn == DUEL_PLAYER)
@@ -368,10 +368,10 @@ void LinkDuelMain (void) {
     FlipAtkPosCardsFaceUp(2);
     EndFirstTurnAttackBan();
     SwitchTurn();
-    if (gTurnDuelistBattleState[0]->defenseBlocked)
-      gTurnDuelistBattleState[0]->defenseBlocked = 0;
-    if (gTurnDuelistBattleState[0]->sorlTurns)
-      DecrementSorlTurns(TURN_PLAYER);
+    if (gTurnDuelistBattleState[ACTIVE_DUELIST]->defenseBlocked)
+      gTurnDuelistBattleState[ACTIVE_DUELIST]->defenseBlocked = 0;
+    if (gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns)
+      DecrementSorlTurns(ACTIVE_DUELIST);
     UnlockCardsInRow(2);
     UnlockCardsInRow(4);
     if (g3000C38.unk34) break;
@@ -537,7 +537,7 @@ static void OnLinkDuelEnd (void) {
 
 void sub_8022080 (void) {
   struct DuelText duelText;
-  if (gDuelType != 6)
+  if (gDuelType != DUEL_TYPE_LINK)
     return;
   sub_80240BC(&duelText);
   duelText.textId = 24;

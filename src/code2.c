@@ -377,7 +377,7 @@ static void sub_800E8B4(void)
     gMonEffect.row = row2;
     gMonEffect.zone = col2;
     ActivateMonsterEffect();
-    if (gTurnDuelistBattleState[TURN_PLAYER]->unkThree)
+    if (gTurnDuelistBattleState[ACTIVE_DUELIST]->unkThree)
         LockMonsterCardsInRow(4);
 }
 
@@ -550,7 +550,7 @@ static void sub_800EC68(void)
     gSpellEffectData.unk2 = row2;
     gSpellEffectData.unk3 = col2;
     ActivateSpellEffect();
-    if (gTurnDuelistBattleState[TURN_PLAYER]->unkThree)
+    if (gTurnDuelistBattleState[ACTIVE_DUELIST]->unkThree)
         LockMonsterCardsInRow(4);
     ClearZone(gTurnZones[row2][col2]);
 }
@@ -3065,7 +3065,7 @@ static void sub_8012FBC (void) {
 static void sub_8013000 (void) {}
 
 static void sub_8013004 (void) {
-  if (gTurnDuelistBattleState[1]->sorlTurns)
+  if (gTurnDuelistBattleState[INACTIVE_DUELIST]->sorlTurns)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EEB5B46;
@@ -3460,7 +3460,7 @@ static void sub_801381C (void) {}
 static void sub_8013820 (void) {
   u8 i;
   for (i = 0; i < 5; i++)
-    if (gTurnHands[1][i]->id != CARD_NONE && !gTurnHands[1][i]->isFaceUp) {
+    if (gTurnHands[INACTIVE_DUELIST][i]->id != CARD_NONE && !gTurnHands[INACTIVE_DUELIST][i]->isFaceUp) {
       gUnk_8DFF6A4->unk2298 = 0x7FFFFFF0;
       return;
     }
@@ -3481,7 +3481,7 @@ static void sub_8013884 (void) {
 static void sub_80138C8 (void) {}
 
 static void sub_80138CC (void) {
-  u8 numNonEmptyZones = 5 - NumEmptyZonesInRow(gTurnHands[1]);
+  u8 numNonEmptyZones = 5 - NumEmptyZonesInRow(gTurnHands[INACTIVE_DUELIST]);
   if (!numNonEmptyZones)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= numNonEmptyZones * 200)
@@ -3562,7 +3562,7 @@ static void sub_8013B94 (void) {}
 
 // monster reborn?
 static void sub_8013B98 (void) {
-  if (gTurnDuelistBattleState[1]->graveyard == CARD_NONE)
+  if (gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == CARD_NONE)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (!NumEmptyZonesInRow(gTurnZones[2]))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -3606,7 +3606,7 @@ static void sub_8013CBC (void) {
 }
 
 static void sub_8013CD8 (void) {
-  if (gTurnDuelistBattleState[0]->graveyard == CARD_NONE)
+  if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == CARD_NONE)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EEB5B45;
@@ -5283,7 +5283,7 @@ static void sub_8016CB8 (void) {
 static void sub_8016D7C (void) {
   u8 i, col2;
   u32 numCards;
-  if (!NumEmptyZonesInRow(gTurnHands[1])) {
+  if (!NumEmptyZonesInRow(gTurnHands[INACTIVE_DUELIST])) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
@@ -5312,7 +5312,7 @@ static void sub_8016D7C (void) {
 
 static void sub_8016E98 (void) {
   u8 i, numCards;
-  if (NumEmptyZonesInRow(gTurnHands[0]) == 5) {
+  if (NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) == 5) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
@@ -5328,7 +5328,7 @@ static void sub_8016E98 (void) {
 
 static void sub_8016F30 (void) {
   u8 i, numCards;
-  if (NumEmptyZonesInRow(gTurnHands[0]) == 5) {
+  if (NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) == 5) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
@@ -5344,7 +5344,7 @@ static void sub_8016F30 (void) {
 
 static void sub_8016FC8 (void) {
   u8 i, numCards;
-  if (NumEmptyZonesInRow(gTurnHands[0]) == 5) {
+  if (NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) == 5) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
@@ -5360,7 +5360,7 @@ static void sub_8016FC8 (void) {
 
 static void sub_8017060 (void) {
   u8 i, numCards;
-  if (NumEmptyZonesInRow(gTurnHands[0]) == 5) {
+  if (NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) == 5) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
@@ -5380,17 +5380,17 @@ static void sub_8017060 (void) {
 
 // Puppet master
 static void sub_8017104 (void) {
-  if (gTurnDuelistBattleState[0]->graveyard != GERNIA) {
+  if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard != GERNIA) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
   if (WhoseTurn() == 0) {
-    if (gDuelLifePoints[0] < 1000) {
+    if (gDuelLifePoints[DUEL_PLAYER] < 1000) {
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
       return;
     }
   }
-  else if (gDuelLifePoints[1] < 1000) {
+  else if (gDuelLifePoints[DUEL_OPPONENT] < 1000) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
@@ -5431,12 +5431,12 @@ static void sub_801729C (void) {
     return;
   }
   if (WhoseTurn() == 0) {
-    curEnemyLP = gDuelLifePoints[1];
-    curPlayerLP = gDuelLifePoints[0];
+    curEnemyLP = gDuelLifePoints[DUEL_OPPONENT];
+    curPlayerLP = gDuelLifePoints[DUEL_PLAYER];
   }
   else {
-    curEnemyLP = gDuelLifePoints[0]; //sl
-    curPlayerLP = gDuelLifePoints[1]; //sp4
+    curEnemyLP = gDuelLifePoints[DUEL_PLAYER]; //sl
+    curPlayerLP = gDuelLifePoints[DUEL_OPPONENT]; //sp4
   }
   row2 = sAI_Command.unk2 >> 4;
   col2 = sAI_Command.unk2 & 0xF;
@@ -6096,9 +6096,9 @@ static void sub_8017F90 (void) {}
 
 static void sub_8017F94 (void) {
   bool8 darkMagicianInGrave = 0;
-  if (gTurnDuelistBattleState[0]->graveyard == DARK_MAGICIAN)
+  if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == DARK_MAGICIAN)
     darkMagicianInGrave = 1;
-  if (gTurnDuelistBattleState[1]->graveyard == DARK_MAGICIAN)
+  if (gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == DARK_MAGICIAN)
     darkMagicianInGrave = 1;
   if (darkMagicianInGrave == 1)
     gUnk_8DFF6A4->unk2298 = 0x7EF2D575;
@@ -6184,7 +6184,7 @@ static void sub_801825C (void) {}
 static void sub_8018260 (void) {
   u8 i, numCards = 0;
   for (i = 0; i < 5; i++)
-    if (gTurnHands[1][i]->id != CARD_NONE)
+    if (gTurnHands[INACTIVE_DUELIST][i]->id != CARD_NONE)
       numCards++;
   if (!numCards)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -6432,9 +6432,9 @@ static void sub_8018A08 (void) {
 
 static void sub_8018A4C (void) {
   bool8 darkMagicianInGrave = 0;
-  if (gTurnDuelistBattleState[0]->graveyard == DARK_MAGICIAN)
+  if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == DARK_MAGICIAN)
     darkMagicianInGrave = 1;
-  if (gTurnDuelistBattleState[1]->graveyard == DARK_MAGICIAN)
+  if (gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == DARK_MAGICIAN)
     darkMagicianInGrave = 1;
   if (darkMagicianInGrave == 1)
     gUnk_8DFF6A4->unk2298 = 0x7EF2D574;
@@ -6784,12 +6784,12 @@ static void sub_8019490 (void) {}
 
 static void sub_8019494 (void) {
   if (WhoseTurn() == 0) {
-    if (gDuelLifePoints[0] < 1000) {
+    if (gDuelLifePoints[DUEL_PLAYER] < 1000) {
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
       return;
     }
   }
-  else if (gDuelLifePoints[1] < 1000) {
+  else if (gDuelLifePoints[DUEL_OPPONENT] < 1000) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
@@ -7425,7 +7425,7 @@ static u8 sub_801A630 (void) {
   u8 r5 = 0;
   u8 row2;
   u8 col2;
-  if (gTurnDuelistBattleState[0]->defenseBlocked)
+  if (gTurnDuelistBattleState[ACTIVE_DUELIST]->defenseBlocked)
     return 0;
   row2 = sAI_Command.unk2 >> 4;
   col2 = sAI_Command.unk2 & 0xF;
@@ -7440,7 +7440,7 @@ static u8 sub_801A630 (void) {
 static u8 sub_801A690 (void) {
   u8 row2;
   u8 col2;
-  if (gTurnDuelistBattleState[0]->defenseBlocked)
+  if (gTurnDuelistBattleState[ACTIVE_DUELIST]->defenseBlocked)
     return 0;
   row2 = sAI_Command.unk2 >> 4;
   col2 = sAI_Command.unk2 & 0xF;
@@ -7471,7 +7471,7 @@ static u8 sub_801A738 (void) {
 static u8 sub_801A784 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[0]->sorlTurns) {
+  if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns) {
     SetCardInfo(gTurnZones[row2][col2]->id);
     if (!gCardInfo.unk1E) {
       gTrapEffectData.unk2 = row2;
@@ -7488,7 +7488,7 @@ static u8 sub_801A784 (void) {
 static u8 sub_801A814 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[0]->sorlTurns) {
+  if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns) {
     SetCardInfo(gTurnZones[row2][col2]->id);
     if (gCardInfo.unk1E) {
       gTrapEffectData.unk2 = row2;
@@ -7507,7 +7507,7 @@ static u8 sub_801A8A4 (void) {
   u8 col2 = sAI_Command.unk2 & 0xF;
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[0]->sorlTurns) {
+  if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns) {
     SetCardInfo(gTurnZones[row2][col2]->id);
     if (!gCardInfo.unk1E) {
       gTrapEffectData.unk2 = row2;
@@ -7527,7 +7527,7 @@ static u8 sub_801A974 (void) {
   u8 col2 = sAI_Command.unk2 & 0xF;
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[0]->sorlTurns) {
+  if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns) {
     SetCardInfo(gTurnZones[row2][col2]->id);
     if (gCardInfo.unk1E) {
       gTrapEffectData.unk2 = row2;
@@ -7549,7 +7549,7 @@ static u8 sub_801AA44 (void) {
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
   SetCardInfo(gTurnZones[row2][col2]->id);
-  if (!gCardInfo.unk1E && GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[0]->sorlTurns) {
+  if (!gCardInfo.unk1E && GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns) {
     gTrapEffectData.unk2 = row2;
     gTrapEffectData.unk3 = col2;
     gTrapEffectData.id = gTurnZones[row2][col2]->id;
@@ -7760,7 +7760,7 @@ _0801ABD6:\n\
 static u8 sub_801ABE4 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[0]->sorlTurns) {
+  if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns) {
     SetCardInfo(gTurnZones[row2][col2]->id);
     if (!gCardInfo.unk1E) {
       gTrapEffectData.unk2 = row2;
@@ -7777,7 +7777,7 @@ static u8 sub_801ABE4 (void) {
 static u8 sub_801AC74 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[0]->sorlTurns) {
+  if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns) {
     SetCardInfo(gTurnZones[row2][col2]->id);
     if (gCardInfo.unk1E) {
       gTrapEffectData.unk2 = row2;
@@ -7796,7 +7796,7 @@ static u8 sub_801AD04 (void) {
   u8 col2 = sAI_Command.unk2 & 0xF;
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[0]->sorlTurns) {
+  if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns) {
     SetCardInfo(gTurnZones[row2][col2]->id);
     if (!gCardInfo.unk1E) {
       gTrapEffectData.unk2 = row2;
@@ -7816,7 +7816,7 @@ static u8 sub_801ADD4 (void) {
   u8 col2 = sAI_Command.unk2 & 0xF;
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
-  if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[0]->sorlTurns) {
+  if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns) {
     SetCardInfo(gTurnZones[row2][col2]->id);
     if (gCardInfo.unk1E) {
       gTrapEffectData.unk2 = row2;
@@ -7838,7 +7838,7 @@ static u8 sub_801AEA4 (void) {
   u8 row3 = sAI_Command.unk3 >> 4;
   u8 col3 = sAI_Command.unk3 & 0xF;
   SetCardInfo(gTurnZones[row2][col2]->id);
-  if (!gCardInfo.unk1E && GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[0]->sorlTurns) {
+  if (!gCardInfo.unk1E && GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[TURN_PLAYER]->sorlTurns) {
     gTrapEffectData.unk2 = row2;
     gTrapEffectData.unk3 = col2;
     gTrapEffectData.id = gTurnZones[row2][col2]->id;

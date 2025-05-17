@@ -7,8 +7,8 @@ enum {
 };
 
 enum {
-  TURN_PLAYER,
-  TURN_OPPONENT
+  ACTIVE_DUELIST,
+  INACTIVE_DUELIST
 };
 
 enum {
@@ -356,23 +356,23 @@ struct CardDrop {
 
 struct Duelist
 {
-    u16 id;                //0x0
-    u8 field;              //0x2
-    u16* deck;             //0x4
-    struct CardDrop* goodDrops;        //0x8
-    struct CardDrop* shopCards;        //0xC
-    struct CardDrop* badDrops;          //0x10
-    u16 playerLp;          //0x14
-    u16 lifePoints;        //0x16
-    u32 capacityYield;     //0x18
-    u16 minDomino;         //0x1C
-    u16 maxDomino;         //0x1E
-    u8 unk20;              //0x20
-    u8 filler21[3];
-    u16 duelMusic;             //0x24  music
-    u16 winMusic;             //0x26
-    u16 lossMusic;             //0x28
-    u16 unk2A;             //0x2A
+    u16 id;                     //0x0
+    u8 field;                   //0x2
+    u16* deck;                  //0x4
+    struct CardDrop* goodDrops; //0x8
+    struct CardDrop* shopCards; //0xC
+    struct CardDrop* badDrops;  //0x10
+    u16 playerLp;               //0x14
+    u16 lifePoints;             //0x16
+    u32 capacityYield;          //0x18
+    u16 minDomino;              //0x1C
+    u16 maxDomino;              //0x1E
+    u8 unk20;                   //0x20
+    u8 filler21[3];             //
+    u16 duelMusic;              //0x24
+    u16 winMusic;               //0x26
+    u16 lossMusic;              //0x28
+    u16 unk2A;                  //0x2A
 };
 
 // duel metadata, external?

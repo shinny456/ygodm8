@@ -16,7 +16,7 @@ void sub_80452B4 (void) {
 }
 
 void SetDuelTypeToIngameNormal (void) {
-  gDuelType = 0;
+  gDuelType = DUEL_TYPE_INGAME;
 }
 
 void SetDuelType (u8 duelType) {

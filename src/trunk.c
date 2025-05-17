@@ -357,7 +357,7 @@ static void sub_8008924 (void) { //pressing down
 
 static void sub_8008958 (void) { //trunk menu card details
   gStatMod.card = sub_800901C(2);
-  gStatMod.field = 0;
+  gStatMod.field = FIELD_ARENA;
   gStatMod.stage = 0;
   sub_800B538(&gStatMod.card);
   PlayMusic(SFX_SELECT);
