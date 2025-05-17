@@ -15,7 +15,7 @@ void sub_802AE44 (void);
 void UpdateDuelGfxExceptField (void);
 
 
-void sub_802703C (void) {
+void ActivateMonsterAutoEffects (void) {
   unsigned char unused[12];
   unsigned char i;
   for (i = 0; i < 5; i++) {

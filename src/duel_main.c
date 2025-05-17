@@ -15,8 +15,8 @@ static void sub_8021C98 (void);
 static void sub_8021CD0 (void);
 static void nullsub_8021CDC (void);
 static unsigned char sub_8021CFC (void);
-static void sub_8021E0C (void);
-static void sub_8021ED8 (void);
+static void StartPlayerTurn (void);
+static void StartOpponentTurn (void);
 static void sub_8021FF8 (void);
 static void InitLinkDuel (void);
 static void OnLinkDuelEnd (void);
@@ -41,7 +41,7 @@ void sub_8040FDC(void);
 void sub_8040524(unsigned char);
 void sub_804004C(unsigned char);
 void CheckWinConditionExodia();    //implicit declaration shenanigans
-void sub_802703C(void);
+void ActivateMonsterAutoEffects(void);
 void PlayerTurnMain(void);
 void AI_Main(void);
 void FlipAtkPosCardsFaceUp(unsigned char);
@@ -76,7 +76,7 @@ void DuelMain (void) {
   InitIngameDuel();
   while (1) {
     unsigned char turn = WhoseTurn();
-    UpdateDuelGfxExceptField(); //UpdateDuelGraphics/UpdateGraphics?
+    UpdateDuelGfxExceptField();
     if (turn == DUEL_PLAYER)
       AdjustBackgroundBeforeTurnStart(gDuelCursor.currentY);
     else
@@ -105,8 +105,8 @@ void DuelMain (void) {
     CheckWinConditionExodia(turn);
     if (IsDuelOver() == TRUE)
       break;
-    sub_802549C();
-    sub_802703C();
+    TryDisplaySorlTurnsRemainingText();
+    ActivateMonsterAutoEffects();
     if (turn == DUEL_PLAYER)
       PlayerTurnMain();
     else
@@ -208,7 +208,7 @@ static bool8 DoesDuelistHaveTurnVoice (struct TurnVoice* turnVoice) {
 }
 
 static void DuelEnd (void) {
-  if (gDuelistStatus[DUEL_OPPONENT] == DEFEAT)
+  if (gDuelistStatus[DUEL_OPPONENT] == DUELIST_STATUS_DEFEAT)
     gDuelData.outcomeFlag = 1;
   else
     gDuelData.outcomeFlag = 2;
@@ -360,9 +360,9 @@ void LinkDuelMain (void) {
     ResetNumTributes();
     sub_804004C(turn);
     if (turn == DUEL_PLAYER)
-      sub_8021E0C();
+      StartPlayerTurn();
     else
-      sub_8021ED8();
+      StartOpponentTurn();
     if (IsDuelOver() == TRUE) break;
     ReturnMonstersToOwner();
     FlipAtkPosCardsFaceUp(2);
@@ -379,7 +379,7 @@ void LinkDuelMain (void) {
   OnLinkDuelEnd();
 }
 
-static void sub_8021E0C (void) {
+static void StartPlayerTurn (void) {
   struct DuelText duelText;
   g3000C38.unk32 = 0;
   if (NumEmptyZonesInRow(gZones[4]) > 0) {
@@ -402,8 +402,8 @@ static void sub_8021E0C (void) {
   CheckWinConditionExodia();
   if (IsDuelOver() == TRUE)
     return;
-  sub_802549C();
-  sub_802703C();
+  TryDisplaySorlTurnsRemainingText();
+  ActivateMonsterAutoEffects();
   PlayerTurnMain();
   if (IsDuelOver() == TRUE)
     return;
@@ -417,7 +417,7 @@ static void sub_8021E0C (void) {
   } while (g3000C6C);
 }
 
-static void sub_8021ED8 (void) {
+static void StartOpponentTurn (void) {
   struct DuelText duelText; //unused
   struct DuelCursor curPos = gDuelCursor;
   bool32 r4 = 0;
@@ -645,7 +645,7 @@ static void InitDuelistsAndBoard (void) {
 }
 
 static void SetLinkDuelOutcomeFlag (void) {
-  if (gDuelistStatus[DUEL_OPPONENT] == DEFEAT)
+  if (gDuelistStatus[DUEL_OPPONENT] == DUELIST_STATUS_DEFEAT)
     gDuelData.outcomeFlag = 1;
   else
     gDuelData.outcomeFlag = 2;

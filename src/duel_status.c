@@ -1,33 +1,31 @@
 #include "global.h"
 
-extern u8 g80C1D80[];
+extern u8 gSorlTurnsRemainingTextIds[];
 
-// SORL text
-// TryDisplayingSORLText, TrySet?
-void sub_802549C (void) {
+void TryDisplaySorlTurnsRemainingText (void) {
   struct DuelText duelText;
   if (gNotSure[0]->sorlTurns == 0)
     return;
   ResetDuelTextData(&duelText);
-  duelText.textId = g80C1D80[gNotSure[0]->sorlTurns];
+  duelText.textId = gSorlTurnsRemainingTextIds[gNotSure[0]->sorlTurns];
   DisplayDuelText(&duelText);
 }
 
 void InitDuelistStatus (void) {
   u8 i;
   for (i = 0; i < 2; i++)
-    gDuelistStatus[i] = CANNOT_ATTACK;
+    gDuelistStatus[i] = DUELIST_STATUS_CANNOT_ATTACK;
 }
 
 void EndFirstTurnAttackBan (void) {
   u8 i;
   for (i = 0; i < 2; i++)
-    if (gDuelistStatus[i] == CANNOT_ATTACK)
-      gDuelistStatus[i] = CAN_ATTACK;
+    if (gDuelistStatus[i] == DUELIST_STATUS_CANNOT_ATTACK)
+      gDuelistStatus[i] = DUELIST_STATUS_CAN_ATTACK;
 }
 
 void DeclareLoser (unsigned char duelist) {
-  gDuelistStatus[duelist] = DEFEAT;
+  gDuelistStatus[duelist] = DUELIST_STATUS_DEFEAT;
 }
 
 unsigned char GetDuelistStatus (unsigned char duelist) {
@@ -38,7 +36,7 @@ unsigned char IsDuelOver (void) {
   u8 i;
   bool8 isDuelOver = FALSE;
   for (i = 0; i < 2; i++)
-    if (gDuelistStatus[i] == DEFEAT)
+    if (gDuelistStatus[i] == DUELIST_STATUS_DEFEAT)
       isDuelOver = TRUE;
   return isDuelOver;
 }

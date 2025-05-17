@@ -1259,13 +1259,13 @@ void PlayerTurnMain (void) {
   gIsPlayerTurnOver = 0;
   UpdateDuelGfxExceptField();
   TryActivatingTurnEffects();
-  if (IsDuelOver() == 1)
+  if (IsDuelOver() == TRUE)
     return;
   sub_8029820();
-  if (IsDuelOver() == 1)
+  if (IsDuelOver() == TRUE)
     return;
   sub_80082C0();
-  while (IsDuelOver() != 1 && gIsPlayerTurnOver != 1) {
+  while (IsDuelOver() != TRUE && gIsPlayerTurnOver != TRUE) {
     unsigned char y = gDuelCursor.currentY;
     switch (ProcessInput()) {
       case 1:

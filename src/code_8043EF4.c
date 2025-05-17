@@ -326,7 +326,7 @@ void HandlePlayerMonsterRowAction (void) {
 
 void sub_8044570 (void) {
   u8 turn = WhoseTurn();
-  if (GetDuelistStatus(turn) == CANNOT_ATTACK || gNotSure[0]->sorlTurns) { // attacking forbidden
+  if (GetDuelistStatus(turn) == DUELIST_STATUS_CANNOT_ATTACK || gNotSure[0]->sorlTurns) { // attacking forbidden
     PlayMusic(SFX_FORBIDDEN);
     gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
     UpdateDuelGfxExceptField();

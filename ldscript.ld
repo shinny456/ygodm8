@@ -488,7 +488,7 @@ SECTIONS
     g80C1D6B = 0x80C1D6B;
     g80C1D6E = 0x80C1D6E;
     g80C1D71 = 0x80C1D71;
-    g80C1D80 = 0x80C1D80;
+    gSorlTurnsRemainingTextIds = 0x80C1D80;
     gE01248 = 0x8E01248;
     gE01328 = 0x8E01328;
     gLowLevelAnte = 0x80C1D84;
@@ -569,7 +569,7 @@ SECTIONS
     gE00AD6 = 0x8E00AD6;
     gE00AD8 = 0x8E00AD8;
     gE00ADB = 0x8E00ADB;
-    g80B8974 = 0x80B8974;
+    gDeckCapacityUpperLimitForDuelistLevel = 0x80B8974;
     g80B9144 = 0x80B9144;
     gE00AE0 = 0x8E00AE0;
     gStarterDeck = 0x80F3180;

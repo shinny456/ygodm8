@@ -339,10 +339,10 @@ static void sub_801D68C (void) {
 // split?*****************************
 extern unsigned gDeckCapacity;
 extern unsigned gDuelistLevel;
-extern unsigned short g80B8974[];
+extern unsigned short gDeckCapacityUpperLimitForDuelistLevel[];
 
 void IncreaseDuelistLevel (void);
-unsigned char ShouldDuellistLevelIncrease (void);
+unsigned char ShouldDuelistLevelIncrease (void);
 
 void InitDeckCapacity (void) {
   gDeckCapacity = 1600;
@@ -376,13 +376,13 @@ unsigned GetDuelistLevel (void) {
 }
 
 void IncreaseDuelistLevel (void) {
-  while (ShouldDuellistLevelIncrease())
+  while (ShouldDuelistLevelIncrease())
     gDuelistLevel++;
 }
 
-unsigned char ShouldDuellistLevelIncrease (void) {
+unsigned char ShouldDuelistLevelIncrease (void) {
   if (gDuelistLevel < 999) {
-    unsigned short temp = g80B8974[gDuelistLevel + 1];
+    unsigned short temp = gDeckCapacityUpperLimitForDuelistLevel[gDuelistLevel + 1];
     if (gDeckCapacity >= temp) {
       gDuelData.unk2c = 1;
       return 1;

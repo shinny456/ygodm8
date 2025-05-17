@@ -2,12 +2,12 @@
 #define GUARD_DUEL_STATUS_H
 
 enum DuelistStatus {
-  CANNOT_ATTACK, // first turn only
-  CAN_ATTACK, // game ongoing
-  DEFEAT, // game has ended
+  DUELIST_STATUS_CANNOT_ATTACK, // first turn only
+  DUELIST_STATUS_CAN_ATTACK, // duel ongoing
+  DUELIST_STATUS_DEFEAT, // duel has ended
 };
 
-void sub_802549C (void);
+void TryDisplaySorlTurnsRemainingText (void);
 void InitDuelistStatus (void);
 void EndFirstTurnAttackBan (void);
 void DeclareLoser (unsigned char);

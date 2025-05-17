@@ -233,7 +233,7 @@ enum MusicIds
   MUSIC_219 = 0xDB,                        //
   MUSIC_220 = 0xDC,                        //
   MUSIC_221 = 0xDD,                        // no effect
-  SFX_TRANSITION_ANTE_TO_DUEL = 0xDE,      // warp/fade from ante into duel
+  SFX_TRANSITION_TRUNK_TO_DUEL = 0xDE,     // warp/fade from ante into duel
   MUSIC_223 = 0xDF,                        //
   MUSIC_224 = 0xE0,                        //
   MUSIC_225 = 0xE1,                        //

@@ -386,8 +386,8 @@ struct DuelData
     u8 unk2A; //max num reward cards?
     u8 outcomeFlag; // 1=player win, 2=opponent win
     /*2C-2F bitfields?*/
-    u8 unk2c : 1;
-    u8 unk2d : 1;
+    u8 unk2c : 1; // duelist level should increase?
+    u8 unk2d : 1; // duel over flag?
     u8 filler2D[3];
     struct Duelist duelist; //duelistData?
 };

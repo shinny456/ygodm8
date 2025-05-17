@@ -1245,7 +1245,7 @@ static unsigned char LowLevelAntePrompt (void)
                 keepProcessing = 0;
                 break;
             case 1:
-                PlayMusic(SFX_TRANSITION_ANTE_TO_DUEL);
+                PlayMusic(SFX_TRANSITION_TRUNK_TO_DUEL);
                 selectNo = 0;
                 keepProcessing = 0;
                 break;
@@ -1412,7 +1412,7 @@ static unsigned char TrySelectingAnte (void) {
   else {
     selectionFailed = 0;
     gAnte = cardId;
-    PlayMusic(SFX_TRANSITION_ANTE_TO_DUEL);
+    PlayMusic(SFX_TRANSITION_TRUNK_TO_DUEL);
   }
   WaitForVBlank();
   return selectionFailed;
@@ -1557,7 +1557,7 @@ static unsigned NoAntePrompt (void) {
           {
           case DUEL_TRUNK_ANTE_YES:
               noAnte = 0;
-              PlayMusic(SFX_TRANSITION_ANTE_TO_DUEL);
+              PlayMusic(SFX_TRANSITION_TRUNK_TO_DUEL);
               break;
           default:
               PlayMusic(SFX_SELECT);
