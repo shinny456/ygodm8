@@ -39,7 +39,7 @@ void WaitForVBlank(void);
 void sub_8040FDC(void);
 
 void sub_8040524(unsigned char);
-void sub_804004C(unsigned char);
+void UpdateDuelZonePtrs(unsigned char);
 void CheckWinConditionExodia();    //implicit declaration shenanigans
 void ActivateMonsterAutoEffects(void);
 void PlayerTurnMain(void);
@@ -94,8 +94,8 @@ void DuelMain (void) {
       OpponentTurnTextAndVoice();
     sub_8040524(TURN_PLAYER);
     ResetNumTributes();
-    sub_804004C(turn);
-    if (NumEmptyZonesInRow(gZones[4]) > 0) {
+    UpdateDuelZonePtrs(turn);
+    if (NumEmptyZonesInRow(gTurnZonePtrs[4]) > 0) {
       TryDrawingCard(turn);
       if (IsDuelOver() == TRUE)
         break;
@@ -358,7 +358,7 @@ void LinkDuelMain (void) {
     sub_8022080();
     sub_8040524(TURN_PLAYER);
     ResetNumTributes();
-    sub_804004C(turn);
+    UpdateDuelZonePtrs(turn);
     if (turn == DUEL_PLAYER)
       StartPlayerTurn();
     else
@@ -382,7 +382,7 @@ void LinkDuelMain (void) {
 static void StartPlayerTurn (void) {
   struct DuelText duelText;
   g3000C38.unk32 = 0;
-  if (NumEmptyZonesInRow(gZones[4]) > 0) {
+  if (NumEmptyZonesInRow(gTurnZonePtrs[4]) > 0) {
     TryDrawingCard(DUEL_PLAYER);
     if (IsDuelOver() == TRUE) {
       g2021D98 = 3;

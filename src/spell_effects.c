@@ -7,7 +7,7 @@ static void SetRitualMonsterInZone (struct DuelCard*, u16 id);
 static void EffectMooyanCurry (void) {
   gTrapEffectData.unk2 = gSpellEffectData.unk2;
   gTrapEffectData.unk3 = gSpellEffectData.unk3;
-  gTrapEffectData.id = gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
+  gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
 
   if (IsTrapTriggered() != TRUE || gHideEffectText)
   {
@@ -19,7 +19,7 @@ static void EffectMooyanCurry (void) {
     HandleDuelAction();
     CheckLoserFlags();
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
     if (!gHideEffectText)
     {
@@ -34,7 +34,7 @@ static void EffectMooyanCurry (void) {
 static void EffectRedMedicine (void) {
   gTrapEffectData.unk2 = gSpellEffectData.unk2;
   gTrapEffectData.unk3 = gSpellEffectData.unk3;
-  gTrapEffectData.id = gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
+  gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
 
   if (IsTrapTriggered() != TRUE || gHideEffectText)
   {
@@ -46,7 +46,7 @@ static void EffectRedMedicine (void) {
     HandleDuelAction();
     CheckLoserFlags();
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
     if (!gHideEffectText)
     {
@@ -61,7 +61,7 @@ static void EffectRedMedicine (void) {
 static void EffectGoblinsSecretRemedy (void) {
   gTrapEffectData.unk2 = gSpellEffectData.unk2;
   gTrapEffectData.unk3 = gSpellEffectData.unk3;
-  gTrapEffectData.id = gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
+  gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
 
   if (IsTrapTriggered() != TRUE || gHideEffectText)
   {
@@ -73,7 +73,7 @@ static void EffectGoblinsSecretRemedy (void) {
     HandleDuelAction();
     CheckLoserFlags();
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
     if (!gHideEffectText)
     {
@@ -88,7 +88,7 @@ static void EffectGoblinsSecretRemedy (void) {
 static void EffectSoulOfThePure (void) {
   gTrapEffectData.unk2 = gSpellEffectData.unk2;
   gTrapEffectData.unk3 = gSpellEffectData.unk3;
-  gTrapEffectData.id = gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
+  gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
 
   if (IsTrapTriggered() != TRUE || gHideEffectText)
   {
@@ -100,7 +100,7 @@ static void EffectSoulOfThePure (void) {
     HandleDuelAction();
     CheckLoserFlags();
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
     if (!gHideEffectText)
     {
@@ -115,7 +115,7 @@ static void EffectSoulOfThePure (void) {
 static void EffectDianKetoTheCureMaster (void) {
   gTrapEffectData.unk2 = gSpellEffectData.unk2;
   gTrapEffectData.unk3 = gSpellEffectData.unk3;
-  gTrapEffectData.id = gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
+  gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
 
   if (IsTrapTriggered() != TRUE || gHideEffectText)
   {
@@ -127,7 +127,7 @@ static void EffectDianKetoTheCureMaster (void) {
     HandleDuelAction();
     CheckLoserFlags();
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
     if (!gHideEffectText)
     {
@@ -142,7 +142,7 @@ static void EffectDianKetoTheCureMaster (void) {
 static void EffectSparks (void) {
   gTrapEffectData.unk2 = gSpellEffectData.unk2;
   gTrapEffectData.unk3 = gSpellEffectData.unk3;
-  gTrapEffectData.id = gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
+  gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
 
   if (IsTrapTriggered() != TRUE || gHideEffectText)
   {
@@ -154,7 +154,7 @@ static void EffectSparks (void) {
     HandleDuelAction();
     CheckLoserFlags();
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
     if (!gHideEffectText)
     {
@@ -169,7 +169,7 @@ static void EffectSparks (void) {
 static void EffectHinotama (void) {
   gTrapEffectData.unk2 = gSpellEffectData.unk2;
   gTrapEffectData.unk3 = gSpellEffectData.unk3;
-  gTrapEffectData.id = gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
+  gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
 
   if (IsTrapTriggered() != TRUE || gHideEffectText)
   {
@@ -181,7 +181,7 @@ static void EffectHinotama (void) {
     HandleDuelAction();
     CheckLoserFlags();
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
     if (!gHideEffectText)
     {
@@ -196,7 +196,7 @@ static void EffectHinotama (void) {
 static void EffectFinalFlame (void) {
   gTrapEffectData.unk2 = gSpellEffectData.unk2;
   gTrapEffectData.unk3 = gSpellEffectData.unk3;
-  gTrapEffectData.id = gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
+  gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
 
   if (IsTrapTriggered() != TRUE || gHideEffectText)
   {
@@ -208,7 +208,7 @@ static void EffectFinalFlame (void) {
     HandleDuelAction();
     CheckLoserFlags();
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
     if (!gHideEffectText)
     {
@@ -223,7 +223,7 @@ static void EffectFinalFlame (void) {
 static void EffectOokazi (void) {
   gTrapEffectData.unk2 = gSpellEffectData.unk2;
   gTrapEffectData.unk3 = gSpellEffectData.unk3;
-  gTrapEffectData.id = gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
+  gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
 
   if (IsTrapTriggered() != TRUE || gHideEffectText)
   {
@@ -235,7 +235,7 @@ static void EffectOokazi (void) {
     HandleDuelAction();
     CheckLoserFlags();
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
     if (!gHideEffectText)
     {
@@ -250,7 +250,7 @@ static void EffectOokazi (void) {
 static void EffectTremendousFire (void) {
   gTrapEffectData.unk2 = gSpellEffectData.unk2;
   gTrapEffectData.unk3 = gSpellEffectData.unk3;
-  gTrapEffectData.id = gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
+  gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
 
   if (IsTrapTriggered() != TRUE || gHideEffectText)
   {
@@ -262,7 +262,7 @@ static void EffectTremendousFire (void) {
     HandleDuelAction();
     CheckLoserFlags();
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
     if (!gHideEffectText)
     {
@@ -278,14 +278,14 @@ static void EffectDarkHole (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-    if (!IsGodCard(gZones[1][i]->id))
-      ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
+    if (!IsGodCard(gTurnZonePtrs[1][i]->id))
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][i], 1);
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-    if (!IsGodCard(gZones[2][i]->id))
-      ClearZoneAndSendMonToGraveyard(gZones[2][i], 0);
+    if (!IsGodCard(gTurnZonePtrs[2][i]->id))
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[2][i], 0);
 
-   ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+   ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -297,17 +297,17 @@ static void EffectDarkHole (void) {
 static void EffectRaigeki (void) {
   gTrapEffectData.unk2 = gSpellEffectData.unk2;
   gTrapEffectData.unk3 = gSpellEffectData.unk3;
-  gTrapEffectData.id = gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
+  gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id;
 
   if (IsTrapTriggered() != TRUE || gHideEffectText)
   {
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-      if (!IsGodCard(gZones[1][i]->id))
-        ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
+      if (!IsGodCard(gTurnZonePtrs[1][i]->id))
+        ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][i], 1);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
     if (!gHideEffectText)
     {
@@ -320,16 +320,16 @@ static void EffectRaigeki (void) {
 }
 
 static void EffectLegendarySword (void) {
-  if (ConditionLegendarySword(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionLegendarySword(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -339,7 +339,7 @@ static void EffectLegendarySword (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -348,16 +348,16 @@ static void EffectLegendarySword (void) {
 }
 
 static void EffectSwordOfDarkDestruction (void) {
-  if (ConditionSwordOfDarkDestruction(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionSwordOfDarkDestruction(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -367,7 +367,7 @@ static void EffectSwordOfDarkDestruction (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -376,16 +376,16 @@ static void EffectSwordOfDarkDestruction (void) {
 }
 
 static void EffectDarkEnergy (void) {
-  if (ConditionDarkEnergy(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionDarkEnergy(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -395,7 +395,7 @@ static void EffectDarkEnergy (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -404,16 +404,16 @@ static void EffectDarkEnergy (void) {
 }
 
 static void EffectAxeOfDespair (void) {
-  if (ConditionAxeOfDespair(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionAxeOfDespair(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -423,7 +423,7 @@ static void EffectAxeOfDespair (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -432,16 +432,16 @@ static void EffectAxeOfDespair (void) {
 }
 
 static void EffectLaserCannonArmor (void) {
-  if (ConditionLaserCannonArmor(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionLaserCannonArmor(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -451,7 +451,7 @@ static void EffectLaserCannonArmor (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -460,16 +460,16 @@ static void EffectLaserCannonArmor (void) {
 }
 
 static void EffectInsectArmorWithLaserCannon (void) {
-  if (ConditionInsectArmorWithLaserCannon(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionInsectArmorWithLaserCannon(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -479,7 +479,7 @@ static void EffectInsectArmorWithLaserCannon (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -488,16 +488,16 @@ static void EffectInsectArmorWithLaserCannon (void) {
 }
 
 static void EffectElfsLight (void) {
-  if (ConditionElfsLight(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionElfsLight(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -507,7 +507,7 @@ static void EffectElfsLight (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -516,16 +516,16 @@ static void EffectElfsLight (void) {
 }
 
 static void EffectBeastFangs (void) {
-  if (ConditionBeastFangs(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionBeastFangs(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -535,7 +535,7 @@ static void EffectBeastFangs (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -544,16 +544,16 @@ static void EffectBeastFangs (void) {
 }
 
 static void EffectSteelShell (void) {
-  if (ConditionSteelShell(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionSteelShell(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -563,7 +563,7 @@ static void EffectSteelShell (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -572,16 +572,16 @@ static void EffectSteelShell (void) {
 }
 
 static void EffectVileGerms (void) {
-  if (ConditionVileGerms(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionVileGerms(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -591,7 +591,7 @@ static void EffectVileGerms (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -600,16 +600,16 @@ static void EffectVileGerms (void) {
 }
 
 static void EffectBlackPendant (void) {
-  if (ConditionBlackPendant(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionBlackPendant(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -619,7 +619,7 @@ static void EffectBlackPendant (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -628,16 +628,16 @@ static void EffectBlackPendant (void) {
 }
 
 static void EffectSilverBowAndArrow (void) {
-  if (ConditionSilverBowAndArrow(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionSilverBowAndArrow(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -647,7 +647,7 @@ static void EffectSilverBowAndArrow (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -656,16 +656,16 @@ static void EffectSilverBowAndArrow (void) {
 }
 
 static void EffectHornOfLight (void) {
-  if (ConditionHornOfLight(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionHornOfLight(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -675,7 +675,7 @@ static void EffectHornOfLight (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -684,16 +684,16 @@ static void EffectHornOfLight (void) {
 }
 
 static void EffectHornOfTheUnicorn (void) {
-  if (ConditionHornOfTheUnicorn(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionHornOfTheUnicorn(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -703,7 +703,7 @@ static void EffectHornOfTheUnicorn (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -712,16 +712,16 @@ static void EffectHornOfTheUnicorn (void) {
 }
 
 static void EffectDragonTreasure (void) {
-  if (ConditionDragonTreasure(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionDragonTreasure(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -731,7 +731,7 @@ static void EffectDragonTreasure (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -740,16 +740,16 @@ static void EffectDragonTreasure (void) {
 }
 
 static void EffectElectroWhip (void) {
-  if (ConditionElectroWhip(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionElectroWhip(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -759,7 +759,7 @@ static void EffectElectroWhip (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -768,16 +768,16 @@ static void EffectElectroWhip (void) {
 }
 
 static void EffectCyberShield (void) {
-  if (ConditionCyberShield(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionCyberShield(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -787,7 +787,7 @@ static void EffectCyberShield (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -796,16 +796,16 @@ static void EffectCyberShield (void) {
 }
 
 static void EffectMysticalMoon (void) {
-  if (ConditionMysticalMoon(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionMysticalMoon(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -815,7 +815,7 @@ static void EffectMysticalMoon (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -824,16 +824,16 @@ static void EffectMysticalMoon (void) {
 }
 
 static void EffectMalevolentNuzzler (void) {
-  if (ConditionMalevolentNuzzler(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionMalevolentNuzzler(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -843,7 +843,7 @@ static void EffectMalevolentNuzzler (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -852,16 +852,16 @@ static void EffectMalevolentNuzzler (void) {
 }
 
 static void EffectVioletCrystal (void) {
-  if (ConditionVioletCrystal(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionVioletCrystal(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -871,7 +871,7 @@ static void EffectVioletCrystal (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -880,16 +880,16 @@ static void EffectVioletCrystal (void) {
 }
 
 static void EffectBookOfSecretArts (void) {
-  if (ConditionBookOfSecretArts(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionBookOfSecretArts(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -899,7 +899,7 @@ static void EffectBookOfSecretArts (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -908,16 +908,16 @@ static void EffectBookOfSecretArts (void) {
 }
 
 static void EffectInvigoration (void) {
-  if (ConditionInvigoration(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionInvigoration(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -927,7 +927,7 @@ static void EffectInvigoration (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -936,16 +936,16 @@ static void EffectInvigoration (void) {
 }
 
 static void EffectMachineConversionFactory (void) {
-  if (ConditionMachineConversionFactory(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionMachineConversionFactory(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -955,7 +955,7 @@ static void EffectMachineConversionFactory (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -964,16 +964,16 @@ static void EffectMachineConversionFactory (void) {
 }
 
 static void EffectRaiseBodyHeat (void) {
-  if (ConditionRaiseBodyHeat(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionRaiseBodyHeat(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -983,7 +983,7 @@ static void EffectRaiseBodyHeat (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -992,16 +992,16 @@ static void EffectRaiseBodyHeat (void) {
 }
 
 static void EffectFollowWind (void) {
-  if (ConditionFollowWind(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionFollowWind(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -1011,7 +1011,7 @@ static void EffectFollowWind (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -1020,16 +1020,16 @@ static void EffectFollowWind (void) {
 }
 
 static void EffectPowerOfKaishin (void) {
-  if (ConditionPowerOfKaishin(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionPowerOfKaishin(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -1039,7 +1039,7 @@ static void EffectPowerOfKaishin (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -1054,14 +1054,14 @@ static void EffectStopDefense (void) {
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
   {
-    if (gZones[1][i]->id != CARD_NONE)
+    if (gTurnZonePtrs[1][i]->id != CARD_NONE)
     {
-      gZones[1][i]->isDefending = 0;
-      gZones[1][i]->isFaceUp = 1;
+      gTurnZonePtrs[1][i]->isDefending = 0;
+      gTurnZonePtrs[1][i]->isFaceUp = 1;
     }
   }
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -1076,10 +1076,10 @@ static void EffectSwordsOfRevealingLight (void) {
   InitSorlTurns(1);
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-    if (gZones[1][i]->id != CARD_NONE)
-      gZones[1][i]->isFaceUp = 1;
+    if (gTurnZonePtrs[1][i]->id != CARD_NONE)
+      gTurnZonePtrs[1][i]->isFaceUp = 1;
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -1092,10 +1092,10 @@ static void EffectDarkPiercingLight (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-    if (gZones[1][i]->id != CARD_NONE)
-      gZones[1][i]->isFaceUp = 1;
+    if (gTurnZonePtrs[1][i]->id != CARD_NONE)
+      gTurnZonePtrs[1][i]->isFaceUp = 1;
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -1108,10 +1108,10 @@ static void EffectSpellBindingCircle (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-    if (gZones[1][i]->id != CARD_NONE)
-      DecrementPermStage(gZones[1][i]);
+    if (gTurnZonePtrs[1][i]->id != CARD_NONE)
+      DecrementPermStage(gTurnZonePtrs[1][i]);
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -1121,11 +1121,11 @@ static void EffectSpellBindingCircle (void) {
 }
 
 static void EffectElegantEgotist (void) {
-  if (gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id == HARPIE_LADY)
+  if (gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id == HARPIE_LADY)
   {
 
-    gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id = HARPIE_LADY_SISTERS;
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+    gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id = HARPIE_LADY_SISTERS;
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
     if (!gHideEffectText)
     {
@@ -1135,10 +1135,10 @@ static void EffectElegantEgotist (void) {
     }
   }
 
-  if (gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id == CYBER_HARPIE)
+  if (gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id == CYBER_HARPIE)
   {
-    gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id = HARPIE_LADY_SISTERS;
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+    gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id = HARPIE_LADY_SISTERS;
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
     if (!gHideEffectText)
     {
@@ -1150,12 +1150,12 @@ static void EffectElegantEgotist (void) {
 }
 
 static void EffectBlackLusterRitual (void) {
-  if (RowHasCardMatch(gZones[2], gRitualComponents[1][0]) == 1)
+  if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[1][0]) == 1)
   {
-    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[1][0]);
+    u8 zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[1][0]);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-    SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[1][1]);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    SetRitualMonsterInZone(gTurnZonePtrs[2][zone], gRitualComponents[1][1]);
     ResetNumTributes();
 
     if (!gHideEffectText)
@@ -1171,12 +1171,12 @@ static void EffectBlackLusterRitual (void) {
 //(the card IDs do not match ROD's)
 
 static void LeftoverRitualFromSacredCards_804AED8 (void) {
-  if (RowHasCardMatch(gZones[2], gRitualComponents[2][0]) == 1)
+  if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[2][0]) == 1)
   {
-    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[2][0]);
+    u8 zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[2][0]);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-    SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[2][1]);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    SetRitualMonsterInZone(gTurnZonePtrs[2][zone], gRitualComponents[2][1]);
     ResetNumTributes();
 
     if (!gHideEffectText)
@@ -1189,12 +1189,12 @@ static void LeftoverRitualFromSacredCards_804AED8 (void) {
 }
 
 static void LeftoverRitualFromSacredCards_804AF58 (void) {
-  if (RowHasCardMatch(gZones[2], gRitualComponents[3][0]) == 1)
+  if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[3][0]) == 1)
   {
-    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[3][0]);
+    u8 zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[3][0]);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-    SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[3][1]);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    SetRitualMonsterInZone(gTurnZonePtrs[2][zone], gRitualComponents[3][1]);
     ResetNumTributes();
 
     if (!gHideEffectText)
@@ -1207,12 +1207,12 @@ static void LeftoverRitualFromSacredCards_804AF58 (void) {
 }
 
 static void LeftoverRitualFromSacredCards_804AFD8 (void) {
-  if (RowHasCardMatch(gZones[2], gRitualComponents[4][0]) == 1)
+  if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[4][0]) == 1)
   {
-    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[4][0]);
+    u8 zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[4][0]);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-    SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[4][1]);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    SetRitualMonsterInZone(gTurnZonePtrs[2][zone], gRitualComponents[4][1]);
     ResetNumTributes();
 
     if (!gHideEffectText)
@@ -1239,11 +1239,11 @@ static void LeftoverRitualFromSacredCards_804B058 (void) {
   else
     return;
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-  SetRitualMonsterInZone(gZones[2][zones[0]], gRitualComponents[ritualId][1]);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  SetRitualMonsterInZone(gTurnZonePtrs[2][zones[0]], gRitualComponents[ritualId][1]);
 
-  ClearZone(gZones[2][zones[1]]);
-  ClearZone(gZones[2][zones[2]]);
+  ClearZone(gTurnZonePtrs[2][zones[1]]);
+  ClearZone(gTurnZonePtrs[2][zones[2]]);
   ResetNumTributes();
 
   if (!gHideEffectText)
@@ -1259,7 +1259,7 @@ unsigned sub_804B144 (u8* zones, u16* ritualArr)
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-    if (gZones[2][i]->id == ritualArr[0])
+    if (gTurnZonePtrs[2][i]->id == ritualArr[0])
       break;
 
   if (i == MAX_ZONES_IN_ROW)
@@ -1268,7 +1268,7 @@ unsigned sub_804B144 (u8* zones, u16* ritualArr)
   zones[0] = i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-    if (i != zones[0] && gZones[2][i]->id == ritualArr[2])
+    if (i != zones[0] && gTurnZonePtrs[2][i]->id == ritualArr[2])
       break;
 
   if (i == MAX_ZONES_IN_ROW)
@@ -1277,7 +1277,7 @@ unsigned sub_804B144 (u8* zones, u16* ritualArr)
   zones[1] = i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-    if (i != zones[0] && i != zones[1] && gZones[2][i]->id == ritualArr[3])
+    if (i != zones[0] && i != zones[1] && gTurnZonePtrs[2][i]->id == ritualArr[3])
       break;
 
   if (i == MAX_ZONES_IN_ROW)
@@ -1288,12 +1288,12 @@ unsigned sub_804B144 (u8* zones, u16* ritualArr)
 }
 
 static void LeftoverRitualFromSacredCards_804B20C (void) {
-  if (RowHasCardMatch(gZones[2], gRitualComponents[9][0]) == 1)
+  if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[9][0]) == 1)
   {
-    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[9][0]);
+    u8 zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[9][0]);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-    SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[9][1]);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    SetRitualMonsterInZone(gTurnZonePtrs[2][zone], gRitualComponents[9][1]);
     ResetNumTributes();
 
     if (!gHideEffectText)
@@ -1306,12 +1306,12 @@ static void LeftoverRitualFromSacredCards_804B20C (void) {
 }
 
 static void LeftoverRitualFromSacredCards_804B294 (void) {
-  if (RowHasCardMatch(gZones[2], gRitualComponents[10][0]) == 1)
+  if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[10][0]) == 1)
   {
-    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[10][0]);
+    u8 zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[10][0]);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-    SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[10][1]);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    SetRitualMonsterInZone(gTurnZonePtrs[2][zone], gRitualComponents[10][1]);
     ResetNumTributes();
 
     if (!gHideEffectText)
@@ -1324,12 +1324,12 @@ static void LeftoverRitualFromSacredCards_804B294 (void) {
 }
 
 static void LeftoverRitualFromSacredCards_804B31C (void) {
-  if (RowHasCardMatch(gZones[2], gRitualComponents[11][0]) == 1)
+  if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[11][0]) == 1)
   {
-    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[11][0]);
+    u8 zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[11][0]);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-    SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[11][1]);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    SetRitualMonsterInZone(gTurnZonePtrs[2][zone], gRitualComponents[11][1]);
     ResetNumTributes();
 
     if (!gHideEffectText)
@@ -1342,12 +1342,12 @@ static void LeftoverRitualFromSacredCards_804B31C (void) {
 }
 
 static void LeftoverRitualFromSacredCards_804B3A4 (void) {
-  if (RowHasCardMatch(gZones[2], gRitualComponents[12][0]) == 1)
+  if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[12][0]) == 1)
   {
-    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[12][0]);
+    u8 zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[12][0]);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-    SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[12][1]);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    SetRitualMonsterInZone(gTurnZonePtrs[2][zone], gRitualComponents[12][1]);
     ResetNumTributes();
 
     if (!gHideEffectText)
@@ -1360,12 +1360,12 @@ static void LeftoverRitualFromSacredCards_804B3A4 (void) {
 }
 
 static void LeftoverRitualFromSacredCards_804B42C (void) {
-  if (RowHasCardMatch(gZones[2], gRitualComponents[13][0]) == 1)
+  if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[13][0]) == 1)
   {
-    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[13][0]);
+    u8 zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[13][0]);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-    SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[13][1]);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    SetRitualMonsterInZone(gTurnZonePtrs[2][zone], gRitualComponents[13][1]);
     ResetNumTributes();
 
     if (!gHideEffectText)
@@ -1378,12 +1378,12 @@ static void LeftoverRitualFromSacredCards_804B42C (void) {
 }
 
 static void LeftoverRitualFromSacredCards_804B4B4 (void) {
-  if (RowHasCardMatch(gZones[2], gRitualComponents[14][0]) == 1)
+  if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[14][0]) == 1)
   {
-    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[14][0]);
+    u8 zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[14][0]);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-    SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[14][1]);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    SetRitualMonsterInZone(gTurnZonePtrs[2][zone], gRitualComponents[14][1]);
     ResetNumTributes();
 
     if (!gHideEffectText)
@@ -1396,16 +1396,16 @@ static void LeftoverRitualFromSacredCards_804B4B4 (void) {
 }
 
 static void EffectMagicalLabyrinth (void) {
-  if (ConditionMagicalLabyrinth(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionMagicalLabyrinth(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -1415,7 +1415,7 @@ static void EffectMagicalLabyrinth (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -1424,16 +1424,16 @@ static void EffectMagicalLabyrinth (void) {
 }
 
 static void EffectSalamandra (void) {
-  if (ConditionSalamandra(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionSalamandra(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -1443,7 +1443,7 @@ static void EffectSalamandra (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -1452,16 +1452,16 @@ static void EffectSalamandra (void) {
 }
 
 static void EffectKunaiWithChain (void) {
-  if (ConditionKunaiWithChain(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionKunaiWithChain(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -1471,7 +1471,7 @@ static void EffectKunaiWithChain (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -1480,16 +1480,16 @@ static void EffectKunaiWithChain (void) {
 }
 
 static void EffectBrightCastle (void) {
-  if (ConditionBrightCastle(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionBrightCastle(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -1499,7 +1499,7 @@ static void EffectBrightCastle (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -1512,18 +1512,18 @@ static void EffectCrushCard (void) {
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
   {
-    if (gZones[1][i]->id != CARD_NONE && IsGodCard(gZones[1][i]->id) != 1)
+    if (gTurnZonePtrs[1][i]->id != CARD_NONE && IsGodCard(gTurnZonePtrs[1][i]->id) != 1)
     {
-      gStatMod.card = gZones[1][i]->id;
+      gStatMod.card = gTurnZonePtrs[1][i]->id;
       gStatMod.field = gDuel.field;
-      gStatMod.stage = GetFinalStage(gZones[1][i]);
+      gStatMod.stage = GetFinalStage(gTurnZonePtrs[1][i]);
       SetFinalStat(&gStatMod);
       if (gCardInfo.atk >= 1500)
-        ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
+        ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][i], 1);
     }
   }
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -1537,14 +1537,14 @@ static void EffectShadowSpell (void) {
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
   {
-    if (gZones[1][i]->id != CARD_NONE)
+    if (gTurnZonePtrs[1][i]->id != CARD_NONE)
     {
-      DecrementPermStage(gZones[1][i]);
-      DecrementPermStage(gZones[1][i]);
+      DecrementPermStage(gTurnZonePtrs[1][i]);
+      DecrementPermStage(gTurnZonePtrs[1][i]);
     }
   }
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -1554,12 +1554,12 @@ static void EffectShadowSpell (void) {
 }
 
 static void LeftoverRitualFromSacredCards_804B9D0 (void) {
-  if (RowHasCardMatch(gZones[2], gRitualComponents[15][0]) == 1)
+  if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[15][0]) == 1)
   {
-    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[15][0]);
+    u8 zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[15][0]);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-    SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[15][1]);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    SetRitualMonsterInZone(gTurnZonePtrs[2][zone], gRitualComponents[15][1]);
     ResetNumTributes();
 
     if (!gHideEffectText)
@@ -1572,12 +1572,12 @@ static void LeftoverRitualFromSacredCards_804B9D0 (void) {
 }
 
 static void LeftoverRitualFromSacredCards_804BA58 (void) {
-  if (RowHasCardMatch(gZones[2], gRitualComponents[16][0]) == 1)
+  if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[16][0]) == 1)
   {
-    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[16][0]);
+    u8 zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[16][0]);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-    SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[16][1]);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    SetRitualMonsterInZone(gTurnZonePtrs[2][zone], gRitualComponents[16][1]);
     ResetNumTributes();
 
     if (!gHideEffectText)
@@ -1590,12 +1590,12 @@ static void LeftoverRitualFromSacredCards_804BA58 (void) {
 }
 
 static void LeftoverRitualFromSacredCards_804BAE0 (void) {
-  if (RowHasCardMatch(gZones[2], gRitualComponents[17][0]) == 1)
+  if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[17][0]) == 1)
   {
-    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[17][0]);
+    u8 zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[17][0]);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-    SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[17][1]);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    SetRitualMonsterInZone(gTurnZonePtrs[2][zone], gRitualComponents[17][1]);
     ResetNumTributes();
 
     if (!gHideEffectText)
@@ -1608,12 +1608,12 @@ static void LeftoverRitualFromSacredCards_804BAE0 (void) {
 }
 
 static void LeftoverRitualFromSacredCards_804BB68 (void) {
-  if (RowHasCardMatch(gZones[2], gRitualComponents[18][0]) == 1)
+  if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[18][0]) == 1)
   {
-    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[18][0]);
+    u8 zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[18][0]);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-    SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[18][1]);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    SetRitualMonsterInZone(gTurnZonePtrs[2][zone], gRitualComponents[18][1]);
     ResetNumTributes();
 
     if (!gHideEffectText)
@@ -1626,12 +1626,12 @@ static void LeftoverRitualFromSacredCards_804BB68 (void) {
 }
 
 static void LeftoverRitualFromSacredCards_804BBF0 (void) {
-  if (RowHasCardMatch(gZones[2], gRitualComponents[19][0]) == 1)
+  if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[19][0]) == 1)
   {
-    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[19][0]);
+    u8 zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[19][0]);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-    SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[19][1]);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    SetRitualMonsterInZone(gTurnZonePtrs[2][zone], gRitualComponents[19][1]);
     ResetNumTributes();
 
     if (!gHideEffectText)
@@ -1644,12 +1644,12 @@ static void LeftoverRitualFromSacredCards_804BBF0 (void) {
 }
 
 static void LeftoverRitualFromSacredCards_804BC78 (void) {
-  if (RowHasCardMatch(gZones[2], gRitualComponents[20][0]) == 1)
+  if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[20][0]) == 1)
   {
-    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[20][0]);
+    u8 zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[20][0]);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-    SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[20][1]);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    SetRitualMonsterInZone(gTurnZonePtrs[2][zone], gRitualComponents[20][1]);
     ResetNumTributes();
 
     if (!gHideEffectText)
@@ -1662,12 +1662,12 @@ static void LeftoverRitualFromSacredCards_804BC78 (void) {
 }
 
 static void LeftoverRitualFromSacredCards_804BD00 (void) {
-  if (RowHasCardMatch(gZones[2], gRitualComponents[21][0]) == 1)
+  if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[21][0]) == 1)
   {
-    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[21][0]);
+    u8 zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[21][0]);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-    SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[21][1]);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    SetRitualMonsterInZone(gTurnZonePtrs[2][zone], gRitualComponents[21][1]);
     ResetNumTributes();
 
     if (!gHideEffectText)
@@ -1680,12 +1680,12 @@ static void LeftoverRitualFromSacredCards_804BD00 (void) {
 }
 
 static void LeftoverRitualFromSacredCards_804BD88 (void) {
-  if (RowHasCardMatch(gZones[2], gRitualComponents[22][0]) == 1)
+  if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[22][0]) == 1)
   {
-    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[22][0]);
+    u8 zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[22][0]);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-    SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[22][1]);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    SetRitualMonsterInZone(gTurnZonePtrs[2][zone], gRitualComponents[22][1]);
     ResetNumTributes();
 
     if (!gHideEffectText)
@@ -1698,12 +1698,12 @@ static void LeftoverRitualFromSacredCards_804BD88 (void) {
 }
 
 static void LeftoverRitualFromSacredCards_804BE10 (void) {
-  if (RowHasCardMatch(gZones[2], gRitualComponents[23][0]) == 1)
+  if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[23][0]) == 1)
   {
-    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[23][0]);
+    u8 zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[23][0]);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-    SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[23][1]);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    SetRitualMonsterInZone(gTurnZonePtrs[2][zone], gRitualComponents[23][1]);
     ResetNumTributes();
 
     if (!gHideEffectText)
@@ -1716,12 +1716,12 @@ static void LeftoverRitualFromSacredCards_804BE10 (void) {
 }
 
 static void LeftoverRitualFromSacredCards_804BE98 (void) {
-  if (RowHasCardMatch(gZones[2], gRitualComponents[6][0]) == 1)
+  if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[6][0]) == 1)
   {
-    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[6][0]);
+    u8 zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[6][0]);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-    SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[6][1]);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    SetRitualMonsterInZone(gTurnZonePtrs[2][zone], gRitualComponents[6][1]);
     ResetNumTributes();
 
     if (!gHideEffectText)
@@ -1734,12 +1734,12 @@ static void LeftoverRitualFromSacredCards_804BE98 (void) {
 }
 
 static void LeftoverRitualFromSacredCards_804BF18 (void) {
-  if (RowHasCardMatch(gZones[2], gRitualComponents[7][0]) == 1)
+  if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[7][0]) == 1)
   {
-    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[7][0]);
+    u8 zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[7][0]);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-    SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[7][1]);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    SetRitualMonsterInZone(gTurnZonePtrs[2][zone], gRitualComponents[7][1]);
     ResetNumTributes();
 
     if (!gHideEffectText)
@@ -1752,20 +1752,20 @@ static void LeftoverRitualFromSacredCards_804BF18 (void) {
 }
 
 static void LeftoverRitualFromSacredCards_804BF98 (void) {
-  if (RowHasCardMatch(gZones[2], gRitualComponents[8][0]) == 1
-   && RowHasCardMatch(gZones[2], gRitualComponents[8][2]) == 1
-   && RowHasCardMatch(gZones[2], gRitualComponents[8][3]) == 1)
+  if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[8][0]) == 1
+   && RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[8][2]) == 1
+   && RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[8][3]) == 1)
   {
-    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[8][0]);
+    u8 zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[8][0]);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-    SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[8][1]);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    SetRitualMonsterInZone(gTurnZonePtrs[2][zone], gRitualComponents[8][1]);
 
-    zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[8][2]);
-    ClearZone(gZones[2][zone]);
+    zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[8][2]);
+    ClearZone(gTurnZonePtrs[2][zone]);
 
-    zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[8][3]);
-    ClearZone(gZones[2][zone]);
+    zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[8][3]);
+    ClearZone(gTurnZonePtrs[2][zone]);
 
     ResetNumTributes();
 
@@ -1783,15 +1783,15 @@ static void EffectWarriorElimination (void) {
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
   {
-    if (IsGodCard(gZones[1][i]->id) != 1)
+    if (IsGodCard(gTurnZonePtrs[1][i]->id) != 1)
     {
-      SetCardInfo(gZones[1][i]->id);
+      SetCardInfo(gTurnZonePtrs[1][i]->id);
       if (gCardInfo.type == TYPE_WARRIOR)
-        ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
+        ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][i], 1);
     }
   }
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -1804,10 +1804,10 @@ static void EffectCurseBreaker (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-    if (gZones[2][i]->id != CARD_NONE && PermStage(gZones[2][i]) < 0)
-      ResetPermStage(gZones[2][i]);
+    if (gTurnZonePtrs[2][i]->id != CARD_NONE && PermStage(gTurnZonePtrs[2][i]) < 0)
+      ResetPermStage(gTurnZonePtrs[2][i]);
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -1821,12 +1821,12 @@ static void EffectEternalRest (void) {
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
   {
-    SetCardInfo(gZones[1][i]->id);
+    SetCardInfo(gTurnZonePtrs[1][i]->id);
     if (gCardInfo.type == TYPE_ZOMBIE)
-      ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][i], 1);
   }
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -1836,16 +1836,16 @@ static void EffectEternalRest (void) {
 }
 
 static void EffectMegamorph (void) {
-  if (ConditionMegamorph(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionMegamorph(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -1855,7 +1855,7 @@ static void EffectMegamorph (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -1864,10 +1864,10 @@ static void EffectMegamorph (void) {
 }
 
 static void EffectMetalmorph (void) {
-  if (gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id == ZOA)
+  if (gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id == ZOA)
   {
-    gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id = METALZOA;
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+    gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id = METALZOA;
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
     if (!gHideEffectText)
     {
@@ -1876,10 +1876,10 @@ static void EffectMetalmorph (void) {
     }
   }
 
-  if (gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id == RED_EYES_B_DRAGON)
+  if (gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id == RED_EYES_B_DRAGON)
   {
-    gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id = RED_EYES_BLACK_METAL_DRAGON;
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+    gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id = RED_EYES_BLACK_METAL_DRAGON;
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
     if (!gHideEffectText)
     {
@@ -1890,16 +1890,16 @@ static void EffectMetalmorph (void) {
 }
 
 static void EffectWingedTrumpeter (void) {
-  if (ConditionWingedTrumpeter(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionWingedTrumpeter(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -1909,7 +1909,7 @@ static void EffectWingedTrumpeter (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -1922,15 +1922,15 @@ static void EffectStainStorm (void) {
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
   {
-    if (IsGodCard(gZones[1][i]->id) != 1)
+    if (IsGodCard(gTurnZonePtrs[1][i]->id) != 1)
     {
-      SetCardInfo(gZones[1][i]->id);
+      SetCardInfo(gTurnZonePtrs[1][i]->id);
       if (gCardInfo.type == TYPE_MACHINE)
-        ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
+        ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][i], 1);
     }
   }
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -1944,12 +1944,12 @@ static void EffectEradicatingAerosol (void) {
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
   {
-    SetCardInfo(gZones[1][i]->id);
+    SetCardInfo(gTurnZonePtrs[1][i]->id);
     if (gCardInfo.type == TYPE_INSECT)
-      ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][i], 1);
   }
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -1963,12 +1963,12 @@ static void EffectBreathOfLight (void) {
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
   {
-    SetCardInfo(gZones[1][i]->id);
+    SetCardInfo(gTurnZonePtrs[1][i]->id);
     if (gCardInfo.type == TYPE_ROCK)
-      ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][i], 1);
   }
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -1982,12 +1982,12 @@ static void EffectEternalDrought (void) {
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
   {
-    SetCardInfo(gZones[1][i]->id);
+    SetCardInfo(gTurnZonePtrs[1][i]->id);
     if (gCardInfo.type == TYPE_FISH)
-      ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][i], 1);
   }
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -2000,10 +2000,10 @@ static void EffectTheInexperiencedSpy (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-    if (gHands[1][i]->id != CARD_NONE)
-      gHands[1][i]->isFaceUp = 1;
+    if (gTurnHandPtrs[1][i]->id != CARD_NONE)
+      gTurnHandPtrs[1][i]->isFaceUp = 1;
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -2016,17 +2016,17 @@ static void EffectDarkMagicRitual (void) {
   u8 ritualId;
   u8 zone;
 
-  if (RowHasCardMatch(gZones[2], gRitualComponents[26][0]) == 1)
+  if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[26][0]) == 1)
     ritualId = 26;
-  else if (RowHasCardMatch(gZones[2], gRitualComponents[24][0]) == 1)
+  else if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[24][0]) == 1)
     ritualId = 24;
   else
     return;
 
-  zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[ritualId][0]);
+  zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[ritualId][0]);
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-  SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[ritualId][1]);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  SetRitualMonsterInZone(gTurnZonePtrs[2][zone], gRitualComponents[ritualId][1]);
   ResetNumTributes();
 
   if (!gHideEffectText)
@@ -2042,12 +2042,12 @@ static void EffectLastDayOfWitch (void) {
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
   {
-    SetCardInfo(gZones[1][i]->id);
+    SetCardInfo(gTurnZonePtrs[1][i]->id);
     if (gCardInfo.type == TYPE_MAGICIAN)
-      ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][i], 1);
   }
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -2061,12 +2061,12 @@ static void EffectExileOfTheWicked (void) {
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
   {
-    SetCardInfo(gZones[1][i]->id);
+    SetCardInfo(gTurnZonePtrs[1][i]->id);
     if (gCardInfo.type == TYPE_FIEND)
-      ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][i], 1);
   }
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -2076,34 +2076,34 @@ static void EffectExileOfTheWicked (void) {
 }
 
 static void EffectMultiply (void) {
-  if (NumCardMatchesInRow(gZones[2], KURIBOH))
+  if (NumCardMatchesInRow(gTurnZonePtrs[2], KURIBOH))
   {
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
-      if (gZones[2][i]->id == CARD_NONE)
+      if (gTurnZonePtrs[2][i]->id == CARD_NONE)
       {
-        gZones[2][i]->id = KURIBOH;
-        gZones[2][i]->isFaceUp = 1;
-        gZones[2][i]->isLocked = 1;
-        gZones[2][i]->isDefending = 0;
-        gZones[2][i]->unkTwo = 0;
-        gZones[2][i]->unk4 = 0;
-        ResetPermStage(gZones[2][i]);
-        ResetTempStage(gZones[2][i]);
-        gZones[2][i]->willChangeSides = 0;
+        gTurnZonePtrs[2][i]->id = KURIBOH;
+        gTurnZonePtrs[2][i]->isFaceUp = 1;
+        gTurnZonePtrs[2][i]->isLocked = 1;
+        gTurnZonePtrs[2][i]->isDefending = 0;
+        gTurnZonePtrs[2][i]->unkTwo = 0;
+        gTurnZonePtrs[2][i]->unk4 = 0;
+        ResetPermStage(gTurnZonePtrs[2][i]);
+        ResetTempStage(gTurnZonePtrs[2][i]);
+        gTurnZonePtrs[2][i]->willChangeSides = 0;
       }
-      else if (gZones[2][i]->id == KURIBOH)
+      else if (gTurnZonePtrs[2][i]->id == KURIBOH)
       {
-        gZones[2][i]->isFaceUp = 1;
-        gZones[2][i]->isLocked = 1;
-        gZones[2][i]->isDefending = 0;
+        gTurnZonePtrs[2][i]->isFaceUp = 1;
+        gTurnZonePtrs[2][i]->isLocked = 1;
+        gTurnZonePtrs[2][i]->isDefending = 0;
       }
     }
   }
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -2113,24 +2113,24 @@ static void EffectMultiply (void) {
 }
 
 static void EffectChangeOfHeart (void) {
-  if (NumEmptyZonesInRow(gZones[2]) && NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
+  if (NumEmptyZonesInRow(gTurnZonePtrs[2]) && NumEmptyZonesAndGodCardsInRow(gTurnZonePtrs[1]) != MAX_ZONES_IN_ROW)
   {
-    u8 emptyZone = FirstEmptyZoneInRow(gZones[2]);
-    u8 highestAtkZone = HighestAtkMonInRowExceptGodCards(gZones[1]);
+    u8 emptyZone = FirstEmptyZoneInRow(gTurnZonePtrs[2]);
+    u8 highestAtkZone = HighestAtkMonInRowExceptGodCards(gTurnZonePtrs[1]);
 
-    gZones[2][emptyZone]->id = gZones[1][highestAtkZone]->id;
-    gZones[2][emptyZone]->isFaceUp = 1;
-    gZones[2][emptyZone]->isLocked = 0;
-    gZones[2][emptyZone]->isDefending = 0;
-    gZones[2][emptyZone]->unkTwo = gZones[1][highestAtkZone]->unkTwo;
-    gZones[2][emptyZone]->unk4 = 2;
+    gTurnZonePtrs[2][emptyZone]->id = gTurnZonePtrs[1][highestAtkZone]->id;
+    gTurnZonePtrs[2][emptyZone]->isFaceUp = 1;
+    gTurnZonePtrs[2][emptyZone]->isLocked = 0;
+    gTurnZonePtrs[2][emptyZone]->isDefending = 0;
+    gTurnZonePtrs[2][emptyZone]->unkTwo = gTurnZonePtrs[1][highestAtkZone]->unkTwo;
+    gTurnZonePtrs[2][emptyZone]->unk4 = 2;
 
-    SetPermStage(gZones[2][emptyZone], PermStage(gZones[1][highestAtkZone]));
-    gZones[2][emptyZone]->willChangeSides = 0;
-    ClearZone(gZones[1][highestAtkZone]);
+    SetPermStage(gTurnZonePtrs[2][emptyZone], PermStage(gTurnZonePtrs[1][highestAtkZone]));
+    gTurnZonePtrs[2][emptyZone]->willChangeSides = 0;
+    ClearZone(gTurnZonePtrs[1][highestAtkZone]);
   }
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -2140,12 +2140,12 @@ static void EffectChangeOfHeart (void) {
 }
 
 static void EffectBlackIllusionRitual (void) {
-  if (RowHasCardMatch(gZones[2], gRitualComponents[25][0]) == 1)
+  if (RowHasCardMatch(gTurnZonePtrs[2], gRitualComponents[25][0]) == 1)
   {
-    u8 zone = GetFirstCardMatchZoneId(gZones[2], gRitualComponents[25][0]);
+    u8 zone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], gRitualComponents[25][0]);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
-    SetRitualMonsterInZone(gZones[2][zone], gRitualComponents[25][1]);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+    SetRitualMonsterInZone(gTurnZonePtrs[2][zone], gRitualComponents[25][1]);
     ResetNumTributes();
 
     if (!gHideEffectText)
@@ -2158,24 +2158,24 @@ static void EffectBlackIllusionRitual (void) {
 }
 
 static void EffectBrainControl (void) {
-  if (NumEmptyZonesInRow(gZones[2]) && NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
+  if (NumEmptyZonesInRow(gTurnZonePtrs[2]) && NumEmptyZonesAndGodCardsInRow(gTurnZonePtrs[1]) != MAX_ZONES_IN_ROW)
   {
-    u8 emptyZone = FirstEmptyZoneInRow(gZones[2]);
-    u8 highestAtkZone = HighestAtkMonInRowExceptGodCards(gZones[1]);
+    u8 emptyZone = FirstEmptyZoneInRow(gTurnZonePtrs[2]);
+    u8 highestAtkZone = HighestAtkMonInRowExceptGodCards(gTurnZonePtrs[1]);
 
-    gZones[2][emptyZone]->id = gZones[1][highestAtkZone]->id;
-    gZones[2][emptyZone]->isFaceUp = 1;
-    gZones[2][emptyZone]->isLocked = 0;
-    gZones[2][emptyZone]->isDefending = 0;
-    gZones[2][emptyZone]->unkTwo = gZones[1][highestAtkZone]->unkTwo;
-    gZones[2][emptyZone]->unk4 = 2;
+    gTurnZonePtrs[2][emptyZone]->id = gTurnZonePtrs[1][highestAtkZone]->id;
+    gTurnZonePtrs[2][emptyZone]->isFaceUp = 1;
+    gTurnZonePtrs[2][emptyZone]->isLocked = 0;
+    gTurnZonePtrs[2][emptyZone]->isDefending = 0;
+    gTurnZonePtrs[2][emptyZone]->unkTwo = gTurnZonePtrs[1][highestAtkZone]->unkTwo;
+    gTurnZonePtrs[2][emptyZone]->unk4 = 2;
 
-    SetPermStage(gZones[2][emptyZone], PermStage(gZones[1][highestAtkZone]));
-    gZones[2][emptyZone]->willChangeSides = 1;
-    ClearZone(gZones[1][highestAtkZone]);
+    SetPermStage(gTurnZonePtrs[2][emptyZone], PermStage(gTurnZonePtrs[1][highestAtkZone]));
+    gTurnZonePtrs[2][emptyZone]->willChangeSides = 1;
+    ClearZone(gTurnZonePtrs[1][highestAtkZone]);
   }
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -2185,26 +2185,26 @@ static void EffectBrainControl (void) {
 }
 
 static void EffectMonsterReborn (void) {
-  if (NumEmptyZonesInRow(gZones[2]))
+  if (NumEmptyZonesInRow(gTurnZonePtrs[2]))
   {
-    u8 emptyZone = FirstEmptyZoneInRow(gZones[2]);
+    u8 emptyZone = FirstEmptyZoneInRow(gTurnZonePtrs[2]);
     u16 id = GetGraveCardAndClearGrave(DUEL_OPPONENT);
 
     if (id != CARD_NONE)
     {
-      gZones[2][emptyZone]->id = id;
-      gZones[2][emptyZone]->isFaceUp = 1;
-      gZones[2][emptyZone]->isLocked = 0;
-      gZones[2][emptyZone]->isDefending = 0;
-      gZones[2][emptyZone]->unkTwo = 0;
-      gZones[2][emptyZone]->unk4 = 2;
-      ResetPermStage(gZones[2][emptyZone]);
-      ResetTempStage(gZones[2][emptyZone]);
-      gZones[2][emptyZone]->willChangeSides = 0;
+      gTurnZonePtrs[2][emptyZone]->id = id;
+      gTurnZonePtrs[2][emptyZone]->isFaceUp = 1;
+      gTurnZonePtrs[2][emptyZone]->isLocked = 0;
+      gTurnZonePtrs[2][emptyZone]->isDefending = 0;
+      gTurnZonePtrs[2][emptyZone]->unkTwo = 0;
+      gTurnZonePtrs[2][emptyZone]->unk4 = 2;
+      ResetPermStage(gTurnZonePtrs[2][emptyZone]);
+      ResetTempStage(gTurnZonePtrs[2][emptyZone]);
+      gTurnZonePtrs[2][emptyZone]->willChangeSides = 0;
     }
   }
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -2214,16 +2214,16 @@ static void EffectMonsterReborn (void) {
 }
 
 static void Effect7Completed (void) {
-  if (Condition7Completed(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (Condition7Completed(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -2233,7 +2233,7 @@ static void Effect7Completed (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -2248,8 +2248,8 @@ static void EffectHeavyStorm (void) {
   {
     for (j = 0; j < MAX_ZONES_IN_ROW; j++)
     {
-      if (!IsGodCard(gZones[i][j]->id))
-        ClearZoneAndSendMonToGraveyard(gZones[i][j], 1);
+      if (!IsGodCard(gTurnZonePtrs[i][j]->id))
+        ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[i][j], 1);
     }
   }
 
@@ -2257,8 +2257,8 @@ static void EffectHeavyStorm (void) {
   {
     for (j = 0; j < MAX_ZONES_IN_ROW; j++)
     {
-      if (!IsGodCard(gZones[i][j]->id))
-        ClearZoneAndSendMonToGraveyard(gZones[i][j], 0);
+      if (!IsGodCard(gTurnZonePtrs[i][j]->id))
+        ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[i][j], 0);
     }
   }
 
@@ -2276,8 +2276,8 @@ static void EffectFinalDestiny (void) {
   {
     for (j = 0; j < MAX_ZONES_IN_ROW; j++)
     {
-      if (!IsGodCard(gZones[i][j]->id))
-        ClearZoneAndSendMonToGraveyard(gZones[i][j], 1);
+      if (!IsGodCard(gTurnZonePtrs[i][j]->id))
+        ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[i][j], 1);
     }
   }
 
@@ -2285,17 +2285,17 @@ static void EffectFinalDestiny (void) {
   {
     for (j = 0; j < MAX_ZONES_IN_ROW; j++)
     {
-      if (!IsGodCard(gZones[i][j]->id))
-        ClearZoneAndSendMonToGraveyard(gZones[i][j], 0);
+      if (!IsGodCard(gTurnZonePtrs[i][j]->id))
+        ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[i][j], 0);
     }
   }
 
   for (j = 0; j < MAX_ZONES_IN_ROW; j++)
   {
-    if (!IsGodCard(gHands[0][j]->id))
-      ClearZoneAndSendMonToGraveyard(gHands[0][j], 0);
-    if (!IsGodCard(gHands[1][j]->id))
-      ClearZoneAndSendMonToGraveyard(gHands[1][j], 1);
+    if (!IsGodCard(gTurnHandPtrs[0][j]->id))
+      ClearZoneAndSendMonToGraveyard(gTurnHandPtrs[0][j], 0);
+    if (!IsGodCard(gTurnHandPtrs[1][j]->id))
+      ClearZoneAndSendMonToGraveyard(gTurnHandPtrs[1][j], 1);
   }
 
   if (!gHideEffectText)
@@ -2310,18 +2310,18 @@ static void EffectMessengerOfPeaceTSC (void) {
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
   {
-    if (gZones[1][i]->id != CARD_NONE)
+    if (gTurnZonePtrs[1][i]->id != CARD_NONE)
     {
-      gStatMod.card = gZones[1][i]->id;
+      gStatMod.card = gTurnZonePtrs[1][i]->id;
       gStatMod.field = gDuel.field;
-      gStatMod.stage = GetFinalStage(gZones[1][i]);
+      gStatMod.stage = GetFinalStage(gTurnZonePtrs[1][i]);
       SetFinalStat(&gStatMod);
       if (gCardInfo.atk >= 1500)
-        gZones[1][i]->isLocked = 1;
+        gTurnZonePtrs[1][i]->isLocked = 1;
     }
   }
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -2334,14 +2334,14 @@ static void EffectDarknessApproaches (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-    if (gZones[2][i]->id != CARD_NONE)
-      FlipCardFaceDown(gZones[2][i]);
+    if (gTurnZonePtrs[2][i]->id != CARD_NONE)
+      FlipCardFaceDown(gTurnZonePtrs[2][i]);
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-    if (gZones[3][i]->id != CARD_NONE)
-      FlipCardFaceDown(gZones[3][i]);
+    if (gTurnZonePtrs[3][i]->id != CARD_NONE)
+      FlipCardFaceDown(gTurnZonePtrs[3][i]);
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -2351,16 +2351,16 @@ static void EffectDarknessApproaches (void) {
 }
 
 static void EffectCyclonLaser (void) {
-  if (ConditionCyclonLaser(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
+  if (ConditionCyclonLaser(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]->id) == TRUE)
   {
     gTrapEffectData.unk2 = gSpellEffectData.unk4;
     gTrapEffectData.unk3 = gSpellEffectData.unk5;
-    gTrapEffectData.id = gZones[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
+    gTrapEffectData.id = gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5]->id;
 
     if (IsTrapTriggered() != TRUE || gHideEffectText)
     {
-      IncrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
-      ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
+      IncrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk4][gSpellEffectData.unk5], 0);
 
       if (!gHideEffectText)
       {
@@ -2370,7 +2370,7 @@ static void EffectCyclonLaser (void) {
     }
     else
     {
-      DecrementPermStage(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3]);
+      DecrementPermStage(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3]);
       ActivateTrapEffect();
     }
   }
@@ -2400,7 +2400,7 @@ static void EmptyFunc_804D14C(void) {
 static void EffectForest (void) {
   gDuel.field = FIELD_FOREST;
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -2413,7 +2413,7 @@ static void EffectForest (void) {
 static void EffectWasteland (void) {
   gDuel.field = FIELD_WASTELAND;
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -2426,7 +2426,7 @@ static void EffectWasteland (void) {
 static void EffectMountain (void) {
   gDuel.field = FIELD_MOUNTAIN;
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -2439,7 +2439,7 @@ static void EffectMountain (void) {
 static void EffectSogen (void) {
   gDuel.field = FIELD_SOGEN;
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -2452,7 +2452,7 @@ static void EffectSogen (void) {
 static void EffectUmi (void) {
   gDuel.field = FIELD_UMI;
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -2465,7 +2465,7 @@ static void EffectUmi (void) {
 static void EffectYami (void) {
   gDuel.field = FIELD_YAMI;
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -2518,9 +2518,9 @@ static void EffectHarpiesFeatherDuster (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-    ClearZoneAndSendMonToGraveyard(gZones[0][i], 1);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[0][i], 1);
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -2534,7 +2534,7 @@ static void EffectPotOfGreed (void) {
   TryDrawingCard(WhoseTurn());
   TryDrawingCard(WhoseTurn());
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -2544,7 +2544,7 @@ static void EffectPotOfGreed (void) {
 }
 
 static void EffectRestructerRevolution (void) {
-  u16 lifePoints = (MAX_ZONES_IN_ROW - NumEmptyZonesInRow(gHands[1])) * 200;
+  u16 lifePoints = (MAX_ZONES_IN_ROW - NumEmptyZonesInRow(gTurnHandPtrs[1])) * 200;
 
   if (WhoseTurn() == DUEL_PLAYER)
     SetOpponentLifePointsToSubtract(lifePoints);
@@ -2554,7 +2554,7 @@ static void EffectRestructerRevolution (void) {
   HandleDuelAction();
   CheckLoserFlags();
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -2570,10 +2570,10 @@ static void EmptyFunc_804D4E4(void) {
 }
 
 static void EffectBeckonToDarkness (void) {
-  if (NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
-    ClearZoneAndSendMonToGraveyard(gZones[1][(u8)HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
+  if (NumEmptyZonesAndGodCardsInRow(gTurnZonePtrs[1]) != MAX_ZONES_IN_ROW)
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][(u8)HighestAtkMonInRowExceptGodCards(gTurnZonePtrs[1])], 1);
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {
@@ -2589,7 +2589,7 @@ static void EffectGravediggerGhoul (void) {
   GetGraveCardAndClearGrave2(0);
   GetGraveCardAndClearGrave2(1);
 
-  ClearZoneAndSendMonToGraveyard(gZones[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gSpellEffectData.unk2][gSpellEffectData.unk3], 0);
 
   if (!gHideEffectText)
   {

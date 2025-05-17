@@ -150,9 +150,9 @@ SECTIONS
     gUnk2023EA0 = 0x02023EA0;
     gDuel = 0x02023EC0;
     gNotSure = 0x02023FC0;
-    gZones = 0x02023FD0;
-    gDuelBoard = 0x2024040;
-    gHands = 0x20240B0;
+    gTurnZonePtrs = 0x02023FD0;
+    gFixedZonePtrs = 0x2024040;
+    gTurnHandPtrs = 0x20240B0;
     gSelectedCard = 0x20240D8;
     gIsPlayerTurnOver = 0x20240E0;
     g20240E4 = 0x20240E4;

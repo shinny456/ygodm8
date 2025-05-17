@@ -36,52 +36,52 @@ extern unsigned char gSharedMem[];
 static void sub_80562F4 (void) {
   unsigned char i;
   for (i = 0; i < 5; i++) {
-    if (gDuelBoard[0][i]->isFaceUp)
-      sub_80573D0(gBgVram.cbb0 + 0x10000 + g8E116BC[i] * 32, gDuelBoard[0][i]->id);
+    if (gFixedZonePtrs[0][i]->isFaceUp)
+      sub_80573D0(gBgVram.cbb0 + 0x10000 + g8E116BC[i] * 32, gFixedZonePtrs[0][i]->id);
     else
       CopyFaceDownCardTiles(gBgVram.cbb0 + 0x10000 + g8E116BC[i] * 32);
   }
   for (i = 0; i < 5; i++) {
-    if (gDuelBoard[1][i]->isFaceUp) {
-      sub_80573D0(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32, gDuelBoard[1][i]->id);
-      sub_80576EC(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32, gDuelBoard[1][i]->id);
-      sub_80576B4(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32, gDuelBoard[1][i]->id);
-      sub_805763C(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32, GetFinalStage(gDuelBoard[1][i]));
-      sub_80572A8(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32, gDuelBoard[1][i]);
-      sub_805733C(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32, gDuelBoard[1][i]);
+    if (gFixedZonePtrs[1][i]->isFaceUp) {
+      sub_80573D0(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32, gFixedZonePtrs[1][i]->id);
+      sub_80576EC(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32, gFixedZonePtrs[1][i]->id);
+      sub_80576B4(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32, gFixedZonePtrs[1][i]->id);
+      sub_805763C(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32, GetFinalStage(gFixedZonePtrs[1][i]));
+      sub_80572A8(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32, gFixedZonePtrs[1][i]);
+      sub_805733C(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32, gFixedZonePtrs[1][i]);
     }
     else
       CopyFaceDownCardTiles(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32);
-    if (gDuelBoard[1][i]->isLocked)
+    if (gFixedZonePtrs[1][i]->isLocked)
       sub_8057620(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32);
   }
   for (i = 0; i < 5; i++) {
-    sub_80573D0(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 10] * 32, gDuelBoard[2][i]->id);
-    if (gDuelBoard[2][i]->isLocked)
+    sub_80573D0(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 10] * 32, gFixedZonePtrs[2][i]->id);
+    if (gFixedZonePtrs[2][i]->isLocked)
       sub_8057620(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 10] * 32);
-    sub_80576B4(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 10] * 32, gDuelBoard[2][i]->id);
-    sub_80576EC(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 10] * 32, gDuelBoard[2][i]->id);
-    sub_805763C(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 10] * 32, GetFinalStage(gDuelBoard[2][i]));
-    sub_80572A8(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 10] * 32, gDuelBoard[2][i]);
-    sub_805733C(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 10] * 32, gDuelBoard[2][i]);
-    if (!gDuelBoard[2][i]->isFaceUp)
+    sub_80576B4(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 10] * 32, gFixedZonePtrs[2][i]->id);
+    sub_80576EC(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 10] * 32, gFixedZonePtrs[2][i]->id);
+    sub_805763C(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 10] * 32, GetFinalStage(gFixedZonePtrs[2][i]));
+    sub_80572A8(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 10] * 32, gFixedZonePtrs[2][i]);
+    sub_805733C(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 10] * 32, gFixedZonePtrs[2][i]);
+    if (!gFixedZonePtrs[2][i]->isFaceUp)
       sub_8057698(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 10] * 32);
   }
   for (i = 0; i < 5; i++) {
-    sub_80573D0(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 15] * 32, gDuelBoard[3][i]->id);
-    sub_8057718(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 15] * 32, gDuelBoard[3][i]->id);
-    if (!gDuelBoard[3][i]->isFaceUp)
+    sub_80573D0(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 15] * 32, gFixedZonePtrs[3][i]->id);
+    sub_8057718(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 15] * 32, gFixedZonePtrs[3][i]->id);
+    if (!gFixedZonePtrs[3][i]->isFaceUp)
       sub_8057698(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 15] * 32);
   }
   for (i = 0; i < 5; i++) {
-    sub_80573D0(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 20] * 32, gDuelBoard[4][i]->id);
-    sub_80576B4(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 20] * 32, gDuelBoard[4][i]->id);
-    sub_80576EC(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 20] * 32, gDuelBoard[4][i]->id);
-    sub_80572A8(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 20] * 32, gDuelBoard[4][i]);
-    sub_805733C(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 20] * 32, gDuelBoard[4][i]);
-    if (gDuelBoard[4][i]->isLocked)
+    sub_80573D0(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 20] * 32, gFixedZonePtrs[4][i]->id);
+    sub_80576B4(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 20] * 32, gFixedZonePtrs[4][i]->id);
+    sub_80576EC(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 20] * 32, gFixedZonePtrs[4][i]->id);
+    sub_80572A8(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 20] * 32, gFixedZonePtrs[4][i]);
+    sub_805733C(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 20] * 32, gFixedZonePtrs[4][i]);
+    if (gFixedZonePtrs[4][i]->isLocked)
       sub_8057620(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 20] * 32);
-    if (!gDuelBoard[4][i]->isFaceUp)
+    if (!gFixedZonePtrs[4][i]->isFaceUp)
       sub_8057698(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 20] * 32);
   }
 }
@@ -2097,13 +2097,13 @@ static void sub_805754C (struct O* arg0, unsigned char arg1, unsigned char arg2)
       arg0->a |= 0x6000000;
       break;
     case 1:
-      if (!gDuelBoard[1][arg1]->isDefending)
+      if (!gFixedZonePtrs[1][arg1]->isDefending)
         arg0->a |= 0x6000000;
       else
         arg0->a |= 0x8000000;
       break;
     case 2:
-      if (gDuelBoard[2][arg1]->isDefending)
+      if (gFixedZonePtrs[2][arg1]->isDefending)
         arg0->a |= 0x4000000;
       else
         arg0->a |= 0x2000000;
@@ -2178,7 +2178,7 @@ static void sub_8057744 (void) {
   unsigned char i, j;
   for (i = 0; i < 5; i++)
     for (j = 0; j < 5; j++)
-      if (gDuelBoard[i][j]->id != CARD_NONE)
+      if (gFixedZonePtrs[i][j]->id != CARD_NONE)
         sub_80574A8(j, i);
 }
 
@@ -2192,7 +2192,7 @@ void sub_80577A4 (void) {
   CpuCopy16(g89A781C, gPaletteBuffer + 256, 320);
   for (i = 0; i < 5; i++)
     for (j = 0; j < 5; j++)
-      if (gDuelBoard[i][j]->id != CARD_NONE)
+      if (gFixedZonePtrs[i][j]->id != CARD_NONE)
         sub_80574A8(j, i);
 }
 
@@ -2200,7 +2200,7 @@ void sub_8057808 (void) {
   unsigned char i, j;
   for (i = 0; i < 5; i++)
     for (j = 0; j < 5; j++)
-      if (gDuelBoard[i][j]->id != CARD_NONE)
+      if (gFixedZonePtrs[i][j]->id != CARD_NONE)
         sub_80574A8(j, i);
 }
 

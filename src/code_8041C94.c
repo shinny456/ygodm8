@@ -163,9 +163,9 @@ void sub_8041E70 (u8 arg0, u8 arg1) {
 
 void DisplayCardInfoBar (void) {
   if (CanPlayerSeeCard(gDuelCursor.currentY, gDuelCursor.currentX) == 1) {
-    gStatMod.card = gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id;
+    gStatMod.card = gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]);
+    gStatMod.stage = GetFinalStage(gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]);
     SetFinalStat(&gStatMod);
   }
   else {

@@ -4,20 +4,20 @@
 
 static void EffectRelinquished(void)
 {
-    if (NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
+    if (NumEmptyZonesAndGodCardsInRow(gTurnZonePtrs[1]) != MAX_ZONES_IN_ROW)
     {
-        u8 zone = HighestAtkMonInRowExceptGodCards(gZones[1]);
+        u8 zone = HighestAtkMonInRowExceptGodCards(gTurnZonePtrs[1]);
 
-        CopyCard(gZones[gMonEffect.row][gMonEffect.zone], gZones[1][zone]);
+        CopyCard(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone], gTurnZonePtrs[1][zone]);
 
-        gZones[gMonEffect.row][gMonEffect.zone]->isFaceUp = TRUE;
-        gZones[gMonEffect.row][gMonEffect.zone]->isLocked = FALSE;
-        gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
-        gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
-        gZones[gMonEffect.row][gMonEffect.zone]->unk4 = 0;
-        gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
+        gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->isFaceUp = TRUE;
+        gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->isLocked = FALSE;
+        gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
+        gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
+        gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->unk4 = 0;
+        gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
 
-        ClearZone(gZones[1][zone]);
+        ClearZone(gTurnZonePtrs[1][zone]);
     }
 
     if (!gHideEffectText)
@@ -29,22 +29,22 @@ static void EffectRelinquished(void)
 
 static void EffectThousandEyesRestrict(void)
 {
-    if (NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
+    if (NumEmptyZonesAndGodCardsInRow(gTurnZonePtrs[1]) != MAX_ZONES_IN_ROW)
     {
-        u8 zone = HighestAtkMonInRowExceptGodCards(gZones[1]);
+        u8 zone = HighestAtkMonInRowExceptGodCards(gTurnZonePtrs[1]);
 
-        CopyCard(gZones[gMonEffect.row][gMonEffect.zone], gZones[1][zone]);
+        CopyCard(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone], gTurnZonePtrs[1][zone]);
 
-        gZones[gMonEffect.row][gMonEffect.zone]->isFaceUp = TRUE;
-        gZones[gMonEffect.row][gMonEffect.zone]->isLocked = FALSE;
-        gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
-        gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
-        gZones[gMonEffect.row][gMonEffect.zone]->unk4 = 0;
-        gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
-        IncrementPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
-        IncrementPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
+        gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->isFaceUp = TRUE;
+        gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->isLocked = FALSE;
+        gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
+        gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
+        gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->unk4 = 0;
+        gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
+        IncrementPermStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
+        IncrementPermStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
 
-        ClearZone(gZones[1][zone]);
+        ClearZone(gTurnZonePtrs[1][zone]);
     }
 
     if (!gHideEffectText)
@@ -60,11 +60,11 @@ static void EffectTimeWizard(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
-        if (gZones[2][i]->id == BABY_DRAGON)
-            gZones[2][i]->id = THOUSAND_DRAGON;
+        if (gTurnZonePtrs[2][i]->id == BABY_DRAGON)
+            gTurnZonePtrs[2][i]->id = THOUSAND_DRAGON;
 
-        if (gZones[2][i]->id == DARK_MAGICIAN)
-            gZones[2][i]->id = DARK_SAGE;
+        if (gTurnZonePtrs[2][i]->id == DARK_MAGICIAN)
+            gTurnZonePtrs[2][i]->id = DARK_SAGE;
     }
 
     if (!gHideEffectText)
@@ -81,12 +81,12 @@ static void EffectCastleOfDarkIllusions(void)
     gDuel.field = FIELD_YAMI;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (gZones[2][i]->id != CARD_NONE)
-            gZones[2][i]->isFaceUp = FALSE;
+        if (gTurnZonePtrs[2][i]->id != CARD_NONE)
+            gTurnZonePtrs[2][i]->isFaceUp = FALSE;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (gZones[2][i]->id == CASTLE_OF_DARK_ILLUSIONS)
-            gZones[2][i]->isFaceUp = TRUE;
+        if (gTurnZonePtrs[2][i]->id == CASTLE_OF_DARK_ILLUSIONS)
+            gTurnZonePtrs[2][i]->isFaceUp = TRUE;
 
     if (!gHideEffectText)
     {
@@ -102,12 +102,12 @@ static void EffectPumpkingTheKingOfGhosts(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
-        if (gZones[2][i]->id == ARMORED_ZOMBIE)
-            IncrementPermStage(gZones[2][i]);
-        if (gZones[2][i]->id == DRAGON_ZOMBIE)
-            IncrementPermStage(gZones[2][i]);
-        if (gZones[2][i]->id == CLOWN_ZOMBIE)
-            IncrementPermStage(gZones[2][i]);
+        if (gTurnZonePtrs[2][i]->id == ARMORED_ZOMBIE)
+            IncrementPermStage(gTurnZonePtrs[2][i]);
+        if (gTurnZonePtrs[2][i]->id == DRAGON_ZOMBIE)
+            IncrementPermStage(gTurnZonePtrs[2][i]);
+        if (gTurnZonePtrs[2][i]->id == CLOWN_ZOMBIE)
+            IncrementPermStage(gTurnZonePtrs[2][i]);
     }
 
     if (!gHideEffectText)
@@ -124,14 +124,14 @@ static void EffectCatapultTurtle(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
-        if (gMonEffect.zone != i && gZones[2][i]->id != CARD_NONE && !gZones[2][i]->isLocked)
+        if (gMonEffect.zone != i && gTurnZonePtrs[2][i]->id != CARD_NONE && !gTurnZonePtrs[2][i]->isLocked)
         {
-            gStatMod.card = gZones[2][i]->id;
+            gStatMod.card = gTurnZonePtrs[2][i]->id;
             gStatMod.field = gDuel.field;
-            gStatMod.stage = GetFinalStage(gZones[2][i]);
+            gStatMod.stage = GetFinalStage(gTurnZonePtrs[2][i]);
             SetFinalStat(&gStatMod);
             totalAtk += gCardInfo.atk;
-            ClearZoneAndSendMonToGraveyard(gZones[2][i], 0);
+            ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[2][i], 0);
         }
     }
     if (WhoseTurn() == DUEL_PLAYER)
@@ -151,18 +151,18 @@ static void EffectCatapultTurtle(void)
 
 static void EffectTrapMaster(void)
 {
-    if (NumEmptyZonesInRow(gZones[3])) //num of empty zones
+    if (NumEmptyZonesInRow(gTurnZonePtrs[3])) //num of empty zones
     {
-        u8 zone = FirstEmptyZoneInRow(gZones[3]); //return empty zone
-        gZones[3][zone]->id = ACID_TRAP_HOLE;
-        gZones[3][zone]->isFaceUp = FALSE;
-        gZones[3][zone]->isLocked = FALSE;
-        gZones[3][zone]->isDefending = FALSE;
-        gZones[3][zone]->unkTwo = 0;
-        gZones[3][zone]->unk4 = 0;
-        ResetPermStage(gZones[3][zone]);
-        ResetTempStage(gZones[3][zone]);
-        gZones[3][zone]->willChangeSides = FALSE;
+        u8 zone = FirstEmptyZoneInRow(gTurnZonePtrs[3]); //return empty zone
+        gTurnZonePtrs[3][zone]->id = ACID_TRAP_HOLE;
+        gTurnZonePtrs[3][zone]->isFaceUp = FALSE;
+        gTurnZonePtrs[3][zone]->isLocked = FALSE;
+        gTurnZonePtrs[3][zone]->isDefending = FALSE;
+        gTurnZonePtrs[3][zone]->unkTwo = 0;
+        gTurnZonePtrs[3][zone]->unk4 = 0;
+        ResetPermStage(gTurnZonePtrs[3][zone]);
+        ResetTempStage(gTurnZonePtrs[3][zone]);
+        gTurnZonePtrs[3][zone]->willChangeSides = FALSE;
     }
 
     if (!gHideEffectText)
@@ -176,9 +176,9 @@ static void EffectTrapMaster(void)
 static void EffectDarkMagicianGirl(void)
 {
     if (gNotSure[TURN_PLAYER]->graveyard == DARK_MAGICIAN)
-        IncrementPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
+        IncrementPermStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
     if (gNotSure[TURN_OPPONENT]->graveyard == DARK_MAGICIAN)
-        IncrementPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
+        IncrementPermStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
 
     if (!gHideEffectText)
     {
@@ -194,14 +194,14 @@ static void EffectGyakutennoMegami(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
-        if (gZones[2][i]->id != CARD_NONE)
+        if (gTurnZonePtrs[2][i]->id != CARD_NONE)
         {
-            gStatMod.card = gZones[2][i]->id;
+            gStatMod.card = gTurnZonePtrs[2][i]->id;
             gStatMod.field = gDuel.field;
-            gStatMod.stage = GetFinalStage(gZones[2][i]);
+            gStatMod.stage = GetFinalStage(gTurnZonePtrs[2][i]);
             SetFinalStat(&gStatMod);
             if (gCardInfo.atk <= 500)
-                IncrementPermStage(gZones[2][i]);
+                IncrementPermStage(gTurnZonePtrs[2][i]);
         }
     }
 
@@ -214,12 +214,12 @@ static void EffectGyakutennoMegami(void)
 
 static void EffectDoron(void)
 {
-    if (NumEmptyZonesInRow(gZones[2]))
+    if (NumEmptyZonesInRow(gTurnZonePtrs[2]))
     {
-        u8 zone = FirstEmptyZoneInRow(gZones[2]);
+        u8 zone = FirstEmptyZoneInRow(gTurnZonePtrs[2]);
 
-        CopyCard(gZones[2][zone], gZones[gMonEffect.row][gMonEffect.zone]);
-        gZones[2][zone]->willChangeSides = FALSE;
+        CopyCard(gTurnZonePtrs[2][zone], gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
+        gTurnZonePtrs[2][zone]->willChangeSides = FALSE;
     }
 
     if (!gHideEffectText)
@@ -234,8 +234,8 @@ static void EffectLabyrinthTank(void)
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (gZones[2][i]->id == LABYRINTH_WALL)
-           IncrementPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
+        if (gTurnZonePtrs[2][i]->id == LABYRINTH_WALL)
+           IncrementPermStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
 
     if (!gHideEffectText)
     {
@@ -247,19 +247,19 @@ static void EffectLabyrinthTank(void)
 
 static void EffectSpiritOfTheBooks(void)
 {
-    if (NumEmptyZonesInRow(gZones[2]))
+    if (NumEmptyZonesInRow(gTurnZonePtrs[2]))
     {
-        u8 zone = FirstEmptyZoneInRow(gZones[2]);
+        u8 zone = FirstEmptyZoneInRow(gTurnZonePtrs[2]);
 
-        gZones[gMonEffect.row][zone]->id = BOO_KOO;
-        gZones[gMonEffect.row][zone]->isFaceUp = TRUE;
-        gZones[gMonEffect.row][zone]->isLocked = FALSE;
-        gZones[gMonEffect.row][zone]->isDefending = FALSE;
-        gZones[gMonEffect.row][zone]->unkTwo = 0;
-        gZones[gMonEffect.row][zone]->unk4 = 0;
-        ResetPermStage(gZones[gMonEffect.row][zone]);
-        ResetTempStage(gZones[gMonEffect.row][zone]);
-        gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
+        gTurnZonePtrs[gMonEffect.row][zone]->id = BOO_KOO;
+        gTurnZonePtrs[gMonEffect.row][zone]->isFaceUp = TRUE;
+        gTurnZonePtrs[gMonEffect.row][zone]->isLocked = FALSE;
+        gTurnZonePtrs[gMonEffect.row][zone]->isDefending = FALSE;
+        gTurnZonePtrs[gMonEffect.row][zone]->unkTwo = 0;
+        gTurnZonePtrs[gMonEffect.row][zone]->unk4 = 0;
+        ResetPermStage(gTurnZonePtrs[gMonEffect.row][zone]);
+        ResetTempStage(gTurnZonePtrs[gMonEffect.row][zone]);
+        gTurnZonePtrs[gMonEffect.row][zone]->willChangeSides = FALSE;
     }
 
     if (!gHideEffectText)
@@ -275,12 +275,12 @@ static void EffectBeastKingOfTheSwamps(void)
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (IsGodCard(gZones[1][i]->id) != TRUE)
-            ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
+        if (IsGodCard(gTurnZonePtrs[1][i]->id) != TRUE)
+            ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][i], 1);
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (IsGodCard(gZones[2][i]->id) != TRUE)
-            ClearZoneAndSendMonToGraveyard(gZones[2][i], 0);
+        if (IsGodCard(gTurnZonePtrs[2][i]->id) != TRUE)
+            ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[2][i], 0);
 
     if (!gHideEffectText)
     {
@@ -294,15 +294,15 @@ static void EffectNemuriko(void)
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (gZones[1][i]->id != CARD_NONE)
-            gZones[1][i]->isLocked = TRUE;
+        if (gTurnZonePtrs[1][i]->id != CARD_NONE)
+            gTurnZonePtrs[1][i]->isLocked = TRUE;
 
     //unintended behavior?
     //description says it locks enemy monsters
     //while this locks all monsters on the field
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (gZones[2][i]->id != CARD_NONE)
-            gZones[2][i]->isLocked = TRUE;
+        if (gTurnZonePtrs[2][i]->id != CARD_NONE)
+            gTurnZonePtrs[2][i]->isLocked = TRUE;
 
     if (!gHideEffectText)
     {
@@ -313,19 +313,19 @@ static void EffectNemuriko(void)
 
 static void EffectToadMaster(void)
 {
-    if (NumEmptyZonesInRow(gZones[2]))
+    if (NumEmptyZonesInRow(gTurnZonePtrs[2]))
     {
-        u8 zone = FirstEmptyZoneInRow(gZones[2]);
+        u8 zone = FirstEmptyZoneInRow(gTurnZonePtrs[2]);
 
-        gZones[gMonEffect.row][zone]->id = FROG_THE_JAM;
-        gZones[gMonEffect.row][zone]->isFaceUp = TRUE;
-        gZones[gMonEffect.row][zone]->isLocked = FALSE;
-        gZones[gMonEffect.row][zone]->isDefending = FALSE;
-        gZones[gMonEffect.row][zone]->unkTwo = 0;
-        gZones[gMonEffect.row][zone]->unk4 = 0;
-        ResetPermStage(gZones[gMonEffect.row][zone]);
-        ResetTempStage(gZones[gMonEffect.row][zone]);
-        gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
+        gTurnZonePtrs[gMonEffect.row][zone]->id = FROG_THE_JAM;
+        gTurnZonePtrs[gMonEffect.row][zone]->isFaceUp = TRUE;
+        gTurnZonePtrs[gMonEffect.row][zone]->isLocked = FALSE;
+        gTurnZonePtrs[gMonEffect.row][zone]->isDefending = FALSE;
+        gTurnZonePtrs[gMonEffect.row][zone]->unkTwo = 0;
+        gTurnZonePtrs[gMonEffect.row][zone]->unk4 = 0;
+        ResetPermStage(gTurnZonePtrs[gMonEffect.row][zone]);
+        ResetTempStage(gTurnZonePtrs[gMonEffect.row][zone]);
+        gTurnZonePtrs[gMonEffect.row][zone]->willChangeSides = FALSE;
     }
 
     if (!gHideEffectText)
@@ -342,11 +342,11 @@ static void EffectHoshiningen(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
-        SetCardInfo(gZones[2][i]->id);
+        SetCardInfo(gTurnZonePtrs[2][i]->id);
         if (gCardInfo.attribute == ATTRIBUTE_SHADOW)
-            DecrementPermStage(gZones[2][i]);
+            DecrementPermStage(gTurnZonePtrs[2][i]);
         if (gCardInfo.attribute == ATTRIBUTE_LIGHT)
-            IncrementPermStage(gZones[2][i]);
+            IncrementPermStage(gTurnZonePtrs[2][i]);
     }
 
     if (!gHideEffectText)
@@ -362,11 +362,11 @@ static void EffectWitchsApprentice(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
-        SetCardInfo(gZones[2][i]->id);
+        SetCardInfo(gTurnZonePtrs[2][i]->id);
         if (gCardInfo.attribute == ATTRIBUTE_LIGHT)
-            DecrementPermStage(gZones[2][i]);
+            DecrementPermStage(gTurnZonePtrs[2][i]);
         if (gCardInfo.attribute == ATTRIBUTE_SHADOW)
-            IncrementPermStage(gZones[2][i]);
+            IncrementPermStage(gTurnZonePtrs[2][i]);
     }
 
     if (!gHideEffectText)
@@ -378,9 +378,9 @@ static void EffectWitchsApprentice(void)
 
 static void EffectMysticLamp(void)
 {
-    gStatMod.card = gZones[gMonEffect.row][gMonEffect.zone]->id;
+    gStatMod.card = gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[gMonEffect.row][gMonEffect.zone]);
+    gStatMod.stage = GetFinalStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
     SetFinalStat(&gStatMod);
 
     if (WhoseTurn() == DUEL_PLAYER)
@@ -400,9 +400,9 @@ static void EffectMysticLamp(void)
 
 static void EffectLeghul(void)
 {
-    gStatMod.card = gZones[gMonEffect.row][gMonEffect.zone]->id;
+    gStatMod.card = gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[gMonEffect.row][gMonEffect.zone]);
+    gStatMod.stage = GetFinalStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
     SetFinalStat(&gStatMod);
 
     if (WhoseTurn() == DUEL_PLAYER)
@@ -427,16 +427,16 @@ static void EffectInsectQueen(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
-        SetCardInfo(gZones[2][i]->id);
+        SetCardInfo(gTurnZonePtrs[2][i]->id);
         if (gCardInfo.type == TYPE_INSECT)
-            IncrementPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
+            IncrementPermStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
     }
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
-        SetCardInfo(gZones[1][i]->id);
+        SetCardInfo(gTurnZonePtrs[1][i]->id);
         if (gCardInfo.type == TYPE_INSECT)
-            IncrementPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
+            IncrementPermStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
     }
 
     if (!gHideEffectText)
@@ -451,8 +451,8 @@ static void EffectObeliskTheTormentor(void)
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (IsWingedDragonOfRa(gZones[1][i]->id) != TRUE)
-            ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
+        if (IsWingedDragonOfRa(gTurnZonePtrs[1][i]->id) != TRUE)
+            ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][i], 1);
 
     if (WhoseTurn() == DUEL_PLAYER)
         SetOpponentLifePointsToSubtract(4000);
@@ -476,11 +476,11 @@ static void EffectSliferTheSkyDragon(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
-        if (gZones[4][i]->id != CARD_NONE)
+        if (gTurnZonePtrs[4][i]->id != CARD_NONE)
         {
-            IncrementPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
-            IncrementPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
-            IncrementPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
+            IncrementPermStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
+            IncrementPermStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
+            IncrementPermStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
         }
     }
 
@@ -494,9 +494,9 @@ static void EffectSliferTheSkyDragon(void)
 static void EffectDarkMagicianGirl2(void)
 {
     if (gNotSure[TURN_PLAYER]->graveyard == DARK_MAGICIAN)
-        IncrementPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
+        IncrementPermStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
     if (gNotSure[TURN_OPPONENT]->graveyard == DARK_MAGICIAN)
-        IncrementPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
+        IncrementPermStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
 
     if (!gHideEffectText)
     {
@@ -508,20 +508,20 @@ static void EffectDarkMagicianGirl2(void)
 
 static void EffectAlphaTheMagnetWarrior(void)
 {
-    if (NumCardMatchesInRow(gZones[2], BETA_THE_MAGNET_WARRIOR) > 0)
+    if (NumCardMatchesInRow(gTurnZonePtrs[2], BETA_THE_MAGNET_WARRIOR) > 0)
     {
-        if (NumCardMatchesInRow(gZones[2], GAMMA_THE_MAGNET_WARRIOR) > 0)
+        if (NumCardMatchesInRow(gTurnZonePtrs[2], GAMMA_THE_MAGNET_WARRIOR) > 0)
         {
-           gZones[gMonEffect.row][gMonEffect.zone]->id = VALKYRION_THE_MAGNA_WARRIOR;
-           gZones[gMonEffect.row][gMonEffect.zone]->isFaceUp = TRUE;
-           gZones[gMonEffect.row][gMonEffect.zone]->isLocked = TRUE;
-           gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
-           gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
-           ResetPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
-           ResetTempStage(gZones[gMonEffect.row][gMonEffect.zone]);
-           gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
-           ClearZone(gZones[gMonEffect.row][GetFirstCardMatchZoneId(gZones[gMonEffect.row], BETA_THE_MAGNET_WARRIOR)]);
-           ClearZone(gZones[gMonEffect.row][GetFirstCardMatchZoneId(gZones[gMonEffect.row], GAMMA_THE_MAGNET_WARRIOR)]);
+           gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->id = VALKYRION_THE_MAGNA_WARRIOR;
+           gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->isFaceUp = TRUE;
+           gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->isLocked = TRUE;
+           gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
+           gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
+           ResetPermStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
+           ResetTempStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
+           gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
+           ClearZone(gTurnZonePtrs[gMonEffect.row][GetFirstCardMatchZoneId(gTurnZonePtrs[gMonEffect.row], BETA_THE_MAGNET_WARRIOR)]);
+           ClearZone(gTurnZonePtrs[gMonEffect.row][GetFirstCardMatchZoneId(gTurnZonePtrs[gMonEffect.row], GAMMA_THE_MAGNET_WARRIOR)]);
         }
     }
 
@@ -535,20 +535,20 @@ static void EffectAlphaTheMagnetWarrior(void)
 
 static void EffectBetaTheMagnetWarrior(void)
 {
-    if (NumCardMatchesInRow(gZones[2], ALPHA_THE_MAGNET_WARRIOR) > 0)
+    if (NumCardMatchesInRow(gTurnZonePtrs[2], ALPHA_THE_MAGNET_WARRIOR) > 0)
     {
-        if (NumCardMatchesInRow(gZones[2], GAMMA_THE_MAGNET_WARRIOR) > 0)
+        if (NumCardMatchesInRow(gTurnZonePtrs[2], GAMMA_THE_MAGNET_WARRIOR) > 0)
         {
-           gZones[gMonEffect.row][gMonEffect.zone]->id = VALKYRION_THE_MAGNA_WARRIOR;
-           gZones[gMonEffect.row][gMonEffect.zone]->isFaceUp = TRUE;
-           gZones[gMonEffect.row][gMonEffect.zone]->isLocked = TRUE;
-           gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
-           gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
-           ResetPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
-           ResetTempStage(gZones[gMonEffect.row][gMonEffect.zone]);
-           gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
-           ClearZone(gZones[gMonEffect.row][GetFirstCardMatchZoneId(gZones[gMonEffect.row], ALPHA_THE_MAGNET_WARRIOR)]);
-           ClearZone(gZones[gMonEffect.row][GetFirstCardMatchZoneId(gZones[gMonEffect.row], GAMMA_THE_MAGNET_WARRIOR)]);
+           gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->id = VALKYRION_THE_MAGNA_WARRIOR;
+           gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->isFaceUp = TRUE;
+           gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->isLocked = TRUE;
+           gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
+           gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
+           ResetPermStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
+           ResetTempStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
+           gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
+           ClearZone(gTurnZonePtrs[gMonEffect.row][GetFirstCardMatchZoneId(gTurnZonePtrs[gMonEffect.row], ALPHA_THE_MAGNET_WARRIOR)]);
+           ClearZone(gTurnZonePtrs[gMonEffect.row][GetFirstCardMatchZoneId(gTurnZonePtrs[gMonEffect.row], GAMMA_THE_MAGNET_WARRIOR)]);
         }
     }
 
@@ -562,20 +562,20 @@ static void EffectBetaTheMagnetWarrior(void)
 
 static void EffectGammaTheMagnetWarrior(void)
 {
-    if (NumCardMatchesInRow(gZones[2], ALPHA_THE_MAGNET_WARRIOR) > 0)
+    if (NumCardMatchesInRow(gTurnZonePtrs[2], ALPHA_THE_MAGNET_WARRIOR) > 0)
     {
-        if (NumCardMatchesInRow(gZones[2], BETA_THE_MAGNET_WARRIOR) > 0)
+        if (NumCardMatchesInRow(gTurnZonePtrs[2], BETA_THE_MAGNET_WARRIOR) > 0)
         {
-           gZones[gMonEffect.row][gMonEffect.zone]->id = VALKYRION_THE_MAGNA_WARRIOR;
-           gZones[gMonEffect.row][gMonEffect.zone]->isFaceUp = TRUE;
-           gZones[gMonEffect.row][gMonEffect.zone]->isLocked = TRUE;
-           gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
-           gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
-           ResetPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
-           ResetTempStage(gZones[gMonEffect.row][gMonEffect.zone]);
-           gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
-           ClearZone(gZones[gMonEffect.row][GetFirstCardMatchZoneId(gZones[gMonEffect.row], ALPHA_THE_MAGNET_WARRIOR)]);
-           ClearZone(gZones[gMonEffect.row][GetFirstCardMatchZoneId(gZones[gMonEffect.row], BETA_THE_MAGNET_WARRIOR)]);
+           gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->id = VALKYRION_THE_MAGNA_WARRIOR;
+           gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->isFaceUp = TRUE;
+           gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->isLocked = TRUE;
+           gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
+           gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
+           ResetPermStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
+           ResetTempStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
+           gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
+           ClearZone(gTurnZonePtrs[gMonEffect.row][GetFirstCardMatchZoneId(gTurnZonePtrs[gMonEffect.row], ALPHA_THE_MAGNET_WARRIOR)]);
+           ClearZone(gTurnZonePtrs[gMonEffect.row][GetFirstCardMatchZoneId(gTurnZonePtrs[gMonEffect.row], BETA_THE_MAGNET_WARRIOR)]);
         }
     }
 
@@ -589,38 +589,38 @@ static void EffectGammaTheMagnetWarrior(void)
 
 static void EffectValkyrionTheMagnaWarrior(void)
 {
-    if (NumEmptyZonesInRow(gZones[2]) > 1)
+    if (NumEmptyZonesInRow(gTurnZonePtrs[2]) > 1)
     {
         u8 zone;
 
-        gZones[gMonEffect.row][gMonEffect.zone]->id = ALPHA_THE_MAGNET_WARRIOR;
-        gZones[gMonEffect.row][gMonEffect.zone]->isFaceUp = TRUE;
-        gZones[gMonEffect.row][gMonEffect.zone]->isLocked = TRUE;
-        gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
-        gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
-        ResetPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
-        ResetTempStage(gZones[gMonEffect.row][gMonEffect.zone]);
-        gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
+        gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->id = ALPHA_THE_MAGNET_WARRIOR;
+        gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->isFaceUp = TRUE;
+        gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->isLocked = TRUE;
+        gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
+        gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
+        ResetPermStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
+        ResetTempStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
+        gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
 
-        zone = GetFirstCardMatchZoneId(gZones[gMonEffect.row], CARD_NONE);
-        gZones[gMonEffect.row][zone]->id = BETA_THE_MAGNET_WARRIOR;
-        gZones[gMonEffect.row][zone]->isFaceUp = TRUE;
-        gZones[gMonEffect.row][zone]->isLocked = TRUE;
-        gZones[gMonEffect.row][zone]->isDefending = FALSE;
-        gZones[gMonEffect.row][zone]->unkTwo = 0;
-        ResetPermStage(gZones[gMonEffect.row][zone]);
-        ResetTempStage(gZones[gMonEffect.row][zone]);
-        gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
+        zone = GetFirstCardMatchZoneId(gTurnZonePtrs[gMonEffect.row], CARD_NONE);
+        gTurnZonePtrs[gMonEffect.row][zone]->id = BETA_THE_MAGNET_WARRIOR;
+        gTurnZonePtrs[gMonEffect.row][zone]->isFaceUp = TRUE;
+        gTurnZonePtrs[gMonEffect.row][zone]->isLocked = TRUE;
+        gTurnZonePtrs[gMonEffect.row][zone]->isDefending = FALSE;
+        gTurnZonePtrs[gMonEffect.row][zone]->unkTwo = 0;
+        ResetPermStage(gTurnZonePtrs[gMonEffect.row][zone]);
+        ResetTempStage(gTurnZonePtrs[gMonEffect.row][zone]);
+        gTurnZonePtrs[gMonEffect.row][zone]->willChangeSides = FALSE;
 
-        zone = GetFirstCardMatchZoneId(gZones[gMonEffect.row], CARD_NONE);
-        gZones[gMonEffect.row][zone]->id = GAMMA_THE_MAGNET_WARRIOR;
-        gZones[gMonEffect.row][zone]->isFaceUp = TRUE;
-        gZones[gMonEffect.row][zone]->isLocked = TRUE;
-        gZones[gMonEffect.row][zone]->isDefending = FALSE;
-        gZones[gMonEffect.row][zone]->unkTwo = 0;
-        ResetPermStage(gZones[gMonEffect.row][zone]);
-        ResetTempStage(gZones[gMonEffect.row][zone]);
-        gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
+        zone = GetFirstCardMatchZoneId(gTurnZonePtrs[gMonEffect.row], CARD_NONE);
+        gTurnZonePtrs[gMonEffect.row][zone]->id = GAMMA_THE_MAGNET_WARRIOR;
+        gTurnZonePtrs[gMonEffect.row][zone]->isFaceUp = TRUE;
+        gTurnZonePtrs[gMonEffect.row][zone]->isLocked = TRUE;
+        gTurnZonePtrs[gMonEffect.row][zone]->isDefending = FALSE;
+        gTurnZonePtrs[gMonEffect.row][zone]->unkTwo = 0;
+        ResetPermStage(gTurnZonePtrs[gMonEffect.row][zone]);
+        ResetTempStage(gTurnZonePtrs[gMonEffect.row][zone]);
+        gTurnZonePtrs[gMonEffect.row][zone]->willChangeSides = FALSE;
     }
 
     if (!gHideEffectText)
@@ -632,15 +632,15 @@ static void EffectValkyrionTheMagnaWarrior(void)
 
 static void EffectBeastOfGilfer(void)
 {
-    if (NumEmptyZonesInRow(gZones[1]) < 5)
+    if (NumEmptyZonesInRow(gTurnZonePtrs[1]) < 5)
     {
         u8 i;
 
         for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-            if (gZones[1][i]->id != CARD_NONE)
-                DecrementPermStage(gZones[1][i]);
+            if (gTurnZonePtrs[1][i]->id != CARD_NONE)
+                DecrementPermStage(gTurnZonePtrs[1][i]);
     }
-    ClearZoneAndSendMonToGraveyard(gZones[gMonEffect.row][gMonEffect.zone], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone], 0);
 
     if (!gHideEffectText)
     {
@@ -651,20 +651,20 @@ static void EffectBeastOfGilfer(void)
 
 static void EffectDarkNecrofear(void)
 {
-    if (NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW && NumEmptyZonesInRow(gZones[1]) != MAX_ZONES_IN_ROW)
+    if (NumEmptyZonesAndGodCardsInRow(gTurnZonePtrs[1]) != MAX_ZONES_IN_ROW && NumEmptyZonesInRow(gTurnZonePtrs[1]) != MAX_ZONES_IN_ROW)
     {
-        u8 highestAtkZone = HighestAtkMonInRowExceptGodCards(gZones[1]);
-        u8 emptyZone = GetFirstCardMatchZoneId(gZones[2], CARD_NONE);
+        u8 highestAtkZone = HighestAtkMonInRowExceptGodCards(gTurnZonePtrs[1]);
+        u8 emptyZone = GetFirstCardMatchZoneId(gTurnZonePtrs[2], CARD_NONE);
 
-        CopyCard(gZones[gMonEffect.row][emptyZone], gZones[1][highestAtkZone]);
-        gZones[gMonEffect.row][emptyZone]->isFaceUp = TRUE;
-        gZones[gMonEffect.row][emptyZone]->isLocked = FALSE;
-        gZones[gMonEffect.row][emptyZone]->isDefending = FALSE;
-        gZones[gMonEffect.row][emptyZone]->unkTwo = 0;
-        gZones[gMonEffect.row][emptyZone]->unk4 = 0;
-        gZones[gMonEffect.row][emptyZone]->willChangeSides = FALSE;
+        CopyCard(gTurnZonePtrs[gMonEffect.row][emptyZone], gTurnZonePtrs[1][highestAtkZone]);
+        gTurnZonePtrs[gMonEffect.row][emptyZone]->isFaceUp = TRUE;
+        gTurnZonePtrs[gMonEffect.row][emptyZone]->isLocked = FALSE;
+        gTurnZonePtrs[gMonEffect.row][emptyZone]->isDefending = FALSE;
+        gTurnZonePtrs[gMonEffect.row][emptyZone]->unkTwo = 0;
+        gTurnZonePtrs[gMonEffect.row][emptyZone]->unk4 = 0;
+        gTurnZonePtrs[gMonEffect.row][emptyZone]->willChangeSides = FALSE;
 
-        ClearZone(gZones[1][highestAtkZone]);
+        ClearZone(gTurnZonePtrs[1][highestAtkZone]);
     }
 
     if (!gHideEffectText)
@@ -676,15 +676,15 @@ static void EffectDarkNecrofear(void)
 
 static void sub_8046D38(void)
 {
-    if (NumEmptyZonesInRow(gZones[1]) != MAX_ZONES_IN_ROW)
+    if (NumEmptyZonesInRow(gTurnZonePtrs[1]) != MAX_ZONES_IN_ROW)
     {
         u8 i;
 
         for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         {
-            SetCardInfo(gZones[1][i]->id);
+            SetCardInfo(gTurnZonePtrs[1][i]->id);
             if (gCardInfo.type == TYPE_DRAGON)
-                IncrementPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
+                IncrementPermStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
         }
     }
 
@@ -697,13 +697,13 @@ static void sub_8046D38(void)
 
 static void EffectReflectBounder(void)
 {
-    if (NumEmptyZonesInRow(gZones[1]) != MAX_ZONES_IN_ROW)
+    if (NumEmptyZonesInRow(gTurnZonePtrs[1]) != MAX_ZONES_IN_ROW)
     {
-        u8 zone = HighestAtkMonInRow(gZones[1]);
+        u8 zone = HighestAtkMonInRow(gTurnZonePtrs[1]);
 
-        gStatMod.card = gZones[1][zone]->id;
+        gStatMod.card = gTurnZonePtrs[1][zone]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = GetFinalStage(gZones[1][zone]);
+        gStatMod.stage = GetFinalStage(gTurnZonePtrs[1][zone]);
         SetFinalStat(&gStatMod);
 
         if (WhoseTurn() == DUEL_PLAYER)
@@ -715,7 +715,7 @@ static void EffectReflectBounder(void)
         CheckLoserFlags();
     }
 
-    ClearZoneAndSendMonToGraveyard(gZones[gMonEffect.row][gMonEffect.zone], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone], 0);
 
     if (!gHideEffectText)
     {
@@ -726,19 +726,19 @@ static void EffectReflectBounder(void)
 
 static void EffectParasiteParacide(void)
 {
-    if (NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
+    if (NumEmptyZonesAndGodCardsInRow(gTurnZonePtrs[1]) != MAX_ZONES_IN_ROW)
     {
-        u8 zone = HighestAtkMonInRowExceptGodCards(gZones[1]);
+        u8 zone = HighestAtkMonInRowExceptGodCards(gTurnZonePtrs[1]);
 
-        CopyCard(gZones[1][zone], gZones[gMonEffect.row][gMonEffect.zone]);
-        gZones[1][zone]->isFaceUp = TRUE;
-        gZones[1][zone]->isLocked = FALSE;
-        gZones[1][zone]->isDefending = FALSE;
-        gZones[1][zone]->unkTwo = 0;
-        gZones[1][zone]->unk4 = 0;
-        gZones[1][zone]->willChangeSides = FALSE;
+        CopyCard(gTurnZonePtrs[1][zone], gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
+        gTurnZonePtrs[1][zone]->isFaceUp = TRUE;
+        gTurnZonePtrs[1][zone]->isLocked = FALSE;
+        gTurnZonePtrs[1][zone]->isDefending = FALSE;
+        gTurnZonePtrs[1][zone]->unkTwo = 0;
+        gTurnZonePtrs[1][zone]->unk4 = 0;
+        gTurnZonePtrs[1][zone]->willChangeSides = FALSE;
 
-        ClearZone(gZones[gMonEffect.row][gMonEffect.zone]);
+        ClearZone(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
     }
 
     if (!gHideEffectText)
@@ -750,22 +750,22 @@ static void EffectParasiteParacide(void)
 
 static void EffectPinchHopper(void)
 {
-    ClearZoneAndSendMonToGraveyard(gZones[gMonEffect.row][gMonEffect.zone], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone], 0);
 
-    if (sub_8043584(gZones[4], 10) > 0)
+    if (sub_8043584(gTurnZonePtrs[4], 10) > 0)
     {
-        u8 zone = HighestAtkMonOfTypeInRow(gZones[4], TYPE_INSECT);
+        u8 zone = HighestAtkMonOfTypeInRow(gTurnZonePtrs[4], TYPE_INSECT);
 
         if (zone != 5)
         {
-            CopyCard(gZones[gMonEffect.row][gMonEffect.zone], gZones[4][zone]);
-            gZones[gMonEffect.row][gMonEffect.zone]->isFaceUp = TRUE;
-            gZones[gMonEffect.row][gMonEffect.zone]->isLocked = FALSE;
-            gZones[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
-            gZones[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
-            gZones[gMonEffect.row][gMonEffect.zone]->unk4 = 0;
-            gZones[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
-            ClearZone(gZones[4][zone]);
+            CopyCard(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone], gTurnZonePtrs[4][zone]);
+            gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->isFaceUp = TRUE;
+            gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->isLocked = FALSE;
+            gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->isDefending = FALSE;
+            gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->unkTwo = 0;
+            gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->unk4 = 0;
+            gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->willChangeSides = FALSE;
+            ClearZone(gTurnZonePtrs[4][zone]);
         }
     }
 
@@ -778,12 +778,12 @@ static void EffectPinchHopper(void)
 
 static void EffectRevivalJam(void)
 {
-     if (NumEmptyZonesInRow(gZones[2]) > 0)
+     if (NumEmptyZonesInRow(gTurnZonePtrs[2]) > 0)
      {
-        u8 zone = FirstEmptyZoneInRow(gZones[2]);
+        u8 zone = FirstEmptyZoneInRow(gTurnZonePtrs[2]);
 
-        CopyCard(gZones[2][zone], gZones[gMonEffect.row][gMonEffect.zone]);
-        gZones[2][zone]->willChangeSides = FALSE;
+        CopyCard(gTurnZonePtrs[2][zone], gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
+        gTurnZonePtrs[2][zone]->willChangeSides = FALSE;
      }
 
      if (!gHideEffectText)
@@ -795,19 +795,19 @@ static void EffectRevivalJam(void)
 
 static void EffectAncientLamp(void)
 {
-    if (NumEmptyZonesInRow(gZones[2]) != 0)
+    if (NumEmptyZonesInRow(gTurnZonePtrs[2]) != 0)
     {
-        u8 zone = FirstEmptyZoneInRow(gZones[2]);
+        u8 zone = FirstEmptyZoneInRow(gTurnZonePtrs[2]);
 
-        gZones[gMonEffect.row][zone]->id = LA_JINN_THE_MYSTICAL_GENIE_OF_THE_LAMP;
-        gZones[gMonEffect.row][zone]->isFaceUp = TRUE;
-        gZones[gMonEffect.row][zone]->isLocked = FALSE;
-        gZones[gMonEffect.row][zone]->isDefending = FALSE;
-        gZones[gMonEffect.row][zone]->unkTwo = 0;
-        gZones[gMonEffect.row][zone]->unk4 = 0;
-        ResetPermStage(gZones[gMonEffect.row][zone]);
-        ResetTempStage(gZones[gMonEffect.row][zone]);
-        gZones[gMonEffect.row][zone]->willChangeSides = FALSE;
+        gTurnZonePtrs[gMonEffect.row][zone]->id = LA_JINN_THE_MYSTICAL_GENIE_OF_THE_LAMP;
+        gTurnZonePtrs[gMonEffect.row][zone]->isFaceUp = TRUE;
+        gTurnZonePtrs[gMonEffect.row][zone]->isLocked = FALSE;
+        gTurnZonePtrs[gMonEffect.row][zone]->isDefending = FALSE;
+        gTurnZonePtrs[gMonEffect.row][zone]->unkTwo = 0;
+        gTurnZonePtrs[gMonEffect.row][zone]->unk4 = 0;
+        ResetPermStage(gTurnZonePtrs[gMonEffect.row][zone]);
+        ResetTempStage(gTurnZonePtrs[gMonEffect.row][zone]);
+        gTurnZonePtrs[gMonEffect.row][zone]->willChangeSides = FALSE;
     }
 
     if (!gHideEffectText)
@@ -820,9 +820,9 @@ static void EffectAncientLamp(void)
 
 static void EffectExarionUniverse (void)
 {
-    gStatMod.card = gZones[gMonEffect.row][gMonEffect.zone]->id;
+    gStatMod.card = gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]->id;
     gStatMod.field = gDuel.field;
-    gStatMod.stage = GetFinalStage(gZones[gMonEffect.row][gMonEffect.zone]);
+    gStatMod.stage = GetFinalStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
     SetFinalStat(&gStatMod);
 
     if (WhoseTurn() == DUEL_PLAYER)
@@ -833,7 +833,7 @@ static void EffectExarionUniverse (void)
     HandleDuelAction();
     CheckLoserFlags();
 
-    DecrementPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
+    DecrementPermStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
 
     if (!gHideEffectText)
     {
@@ -859,18 +859,18 @@ static inline u32 RemoveSpellCard(struct DuelCard* zone)
 
 static void EffectDarkPaladin(void)
 {
-    if (NumEmptyZonesInRow(gHands[0]) < 5 && sub_8043930(0, TYPE_SPELL) > 0)
+    if (NumEmptyZonesInRow(gTurnHandPtrs[0]) < 5 && sub_8043930(0, TYPE_SPELL) > 0)
     {
         u8 i;
-        ClearZoneAndSendMonToGraveyard(gHands[0][(u8)FirstNonEmptyZoneInRow(gHands[0])], 0);
+        ClearZoneAndSendMonToGraveyard(gTurnHandPtrs[0][(u8)FirstNonEmptyZoneInRow(gTurnHandPtrs[0])], 0);
         for (i = 0; i < MAX_ZONES_IN_ROW &&?; i++)
         {
-            if (gZones[0][i]->id != CARD_NONE)
+            if (gTurnZonePtrs[0][i]->id != CARD_NONE)
             {
-                SetCardInfo(gZones[0][i]->id);
+                SetCardInfo(gTurnZonePtrs[0][i]->id);
                 if (gCardInfo.type == TYPE_SPELL)
                 {
-                    ClearZoneAndSendMonToGraveyard(gZones[0][i], 1);
+                    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[0][i], 1);
                     break;
                 }
             }
@@ -911,8 +911,8 @@ static void EffectDarkPaladin(void)
 	ldr r6, _080472B0\n\
 	b _080472BA\n\
 	.align 2, 0\n\
-_080472AC: .4byte gHands\n\
-_080472B0: .4byte gZones\n\
+_080472AC: .4byte gTurnHandPtrs\n\
+_080472B0: .4byte gTurnZonePtrs\n\
 _080472B4:\n\
 	adds r0, r5, #1\n\
 	lsls r0, r0, #0x18\n\
@@ -1078,20 +1078,20 @@ _080473A4:\n\
 
 static void EffectKingsKnight(void)
 {
-    if (NumCardMatchesInRow(gZones[2], QUEENS_KNIGHT) != 0 && NumEmptyZonesInRow(gZones[2]) != 0)
+    if (NumCardMatchesInRow(gTurnZonePtrs[2], QUEENS_KNIGHT) != 0 && NumEmptyZonesInRow(gTurnZonePtrs[2]) != 0)
     {
-        u8 zone = FirstEmptyZoneInRow(gZones[2]);
+        u8 zone = FirstEmptyZoneInRow(gTurnZonePtrs[2]);
 
-        gZones[2][zone]->id = JACKS_KNIGHT;
-        FlipCardFaceUp(gZones[2][zone]);
-        UnlockCard(gZones[2][zone]);
-        gZones[2][zone]->isDefending = FALSE;
-        gZones[2][zone]->unkTwo = 0;
-        gZones[2][zone]->unkThree = 0;
-        ResetPermStage(gZones[2][zone]);
-        ResetTempStage(gZones[2][zone]);
-        gZones[2][zone]->unk4 = 0;
-        gZones[2][zone]->willChangeSides = FALSE;
+        gTurnZonePtrs[2][zone]->id = JACKS_KNIGHT;
+        FlipCardFaceUp(gTurnZonePtrs[2][zone]);
+        UnlockCard(gTurnZonePtrs[2][zone]);
+        gTurnZonePtrs[2][zone]->isDefending = FALSE;
+        gTurnZonePtrs[2][zone]->unkTwo = 0;
+        gTurnZonePtrs[2][zone]->unkThree = 0;
+        ResetPermStage(gTurnZonePtrs[2][zone]);
+        ResetTempStage(gTurnZonePtrs[2][zone]);
+        gTurnZonePtrs[2][zone]->unk4 = 0;
+        gTurnZonePtrs[2][zone]->willChangeSides = FALSE;
     }
 
     if (!gHideEffectText)
@@ -1104,8 +1104,8 @@ static void EffectKingsKnight(void)
 /*
 static void EffectXHeadCannon(void)
 {
-    u8 yQty = NumCardMatchesInRow(gZones[2], Y_DRAGON_HEAD);
-    u8 zQty = NumCardMatchesInRow(gZones[2], Z_METAL_TANK);
+    u8 yQty = NumCardMatchesInRow(gTurnZonePtrs[2], Y_DRAGON_HEAD);
+    u8 zQty = NumCardMatchesInRow(gTurnZonePtrs[2], Z_METAL_TANK);
     u16 clearZone;
     u16 newMon;
 
@@ -1116,17 +1116,17 @@ static void EffectXHeadCannon(void)
             newMon = XZ_TANK_CANNON;
             clearZone = Z_METAL_TANK;
             a:
-            ClearZone(gZones[2][GetFirstCardMatchZoneId(gZones[2], clearZone)]);
-            gZones[2][gMonEffect.zone]->id = newMon;
-            FlipCardFaceUp(gZones[2][gMonEffect.zone]);
-            LockCard(gZones[2][gMonEffect.zone]);
-            gZones[2][gMonEffect.zone]->isDefending = FALSE;
-            gZones[2][gMonEffect.zone]->unkTwo = 0;
-            gZones[2][gMonEffect.zone]->unkThree = 0;
-            ResetPermStage(gZones[2][gMonEffect.zone]);
-            ResetTempStage(gZones[2][gMonEffect.zone]);
-            gZones[2][gMonEffect.zone]->unk4 = 0;
-            gZones[2][gMonEffect.zone]->willChangeSides = FALSE;
+            ClearZone(gTurnZonePtrs[2][GetFirstCardMatchZoneId(gTurnZonePtrs[2], clearZone)]);
+            gTurnZonePtrs[2][gMonEffect.zone]->id = newMon;
+            FlipCardFaceUp(gTurnZonePtrs[2][gMonEffect.zone]);
+            LockCard(gTurnZonePtrs[2][gMonEffect.zone]);
+            gTurnZonePtrs[2][gMonEffect.zone]->isDefending = FALSE;
+            gTurnZonePtrs[2][gMonEffect.zone]->unkTwo = 0;
+            gTurnZonePtrs[2][gMonEffect.zone]->unkThree = 0;
+            ResetPermStage(gTurnZonePtrs[2][gMonEffect.zone]);
+            ResetTempStage(gTurnZonePtrs[2][gMonEffect.zone]);
+            gTurnZonePtrs[2][gMonEffect.zone]->unk4 = 0;
+            gTurnZonePtrs[2][gMonEffect.zone]->willChangeSides = FALSE;
         }
     }
     else if (zQty == 0) //_08047528
@@ -1138,7 +1138,7 @@ static void EffectXHeadCannon(void)
     else //_080474F0
     {
         newMon = XYZ_DRAGON_CANNON;
-        ClearZone(gZones[2][GetFirstCardMatchZoneId(gZones[2], Y_DRAGON_HEAD)]);
+        ClearZone(gTurnZonePtrs[2][GetFirstCardMatchZoneId(gTurnZonePtrs[2], Y_DRAGON_HEAD)]);
         clearZone = Z_METAL_TANK;
         goto a;
     }
@@ -1177,7 +1177,7 @@ static void EffectXHeadCannon(void)
 	beq _08047528\n\
 	b _080474F0\n\
 	.align 2, 0\n\
-_0804748C: .4byte gZones+0x28\n\
+_0804748C: .4byte gTurnZonePtrs+0x28\n\
 _08047490: .4byte 0x0000023F\n\
 _08047494: .4byte 0x0000024E\n\
 _08047498:\n\
@@ -1217,7 +1217,7 @@ _08047498:\n\
 	strb r0, [r4, #5]\n\
 	b _08047558\n\
 	.align 2, 0\n\
-_080474E8: .4byte gZones\n\
+_080474E8: .4byte gTurnZonePtrs\n\
 _080474EC: .4byte 0x02024250\n\
 _080474F0:\n\
 	movs r0, #0x76\n\
@@ -1239,7 +1239,7 @@ _080474F0:\n\
 	adds r0, r0, r4\n\
 	b _08047550\n\
 	.align 2, 0\n\
-_0804751C: .4byte gZones+0x28\n\
+_0804751C: .4byte gTurnZonePtrs+0x28\n\
 _08047520: .4byte 0x0000023F\n\
 _08047524: .4byte 0x0000024E\n\
 _08047528:\n\
@@ -1311,7 +1311,7 @@ static void EffectYDragonHead(void)
 	beq _08047634\n\
 	b _08047604\n\
 	.align 2, 0\n\
-_080475A8: .4byte gZones+0x28\n\
+_080475A8: .4byte gTurnZonePtrs+0x28\n\
 _080475AC: .4byte 0x0000024E\n\
 _080475B0:\n\
 	ldr r1, _080475FC\n\
@@ -1349,7 +1349,7 @@ _080475B0:\n\
 	strb r0, [r4, #5]\n\
 	b _08047660\n\
 	.align 2, 0\n\
-_080475FC: .4byte gZones\n\
+_080475FC: .4byte gTurnZonePtrs\n\
 _08047600: .4byte 0x02024250\n\
 _08047604:\n\
 	movs r7, #0x76\n\
@@ -1370,7 +1370,7 @@ _08047604:\n\
 	adds r0, r0, r4\n\
 	b _08047654\n\
 	.align 2, 0\n\
-_0804762C: .4byte gZones+0x28\n\
+_0804762C: .4byte gTurnZonePtrs+0x28\n\
 _08047630: .4byte 0x0000024E\n\
 _08047634:\n\
 	ldr r7, _0804763C\n\
@@ -1439,7 +1439,7 @@ static void EffectZMetalTank(void)
 	beq _0804773C\n\
 	b _0804770C\n\
 	.align 2, 0\n\
-_080476B0: .4byte gZones+0x28\n\
+_080476B0: .4byte gTurnZonePtrs+0x28\n\
 _080476B4: .4byte 0x0000023F\n\
 _080476B8:\n\
 	ldr r1, _08047704\n\
@@ -1477,7 +1477,7 @@ _080476B8:\n\
 	strb r0, [r4, #5]\n\
 	b _08047768\n\
 	.align 2, 0\n\
-_08047704: .4byte gZones\n\
+_08047704: .4byte gTurnZonePtrs\n\
 _08047708: .4byte 0x02024250\n\
 _0804770C:\n\
 	movs r7, #0x76\n\
@@ -1498,7 +1498,7 @@ _0804770C:\n\
 	adds r0, r0, r4\n\
 	b _0804775A\n\
 	.align 2, 0\n\
-_08047734: .4byte gZones+0x28\n\
+_08047734: .4byte gTurnZonePtrs+0x28\n\
 _08047738: .4byte 0x0000023F\n\
 _0804773C:\n\
 	movs r7, #0x95\n\
@@ -1544,14 +1544,14 @@ _08047788: .4byte 0x0000024E");
 /*
 static void EffectXYDragonCannon(void)
 {
-    if (NumEmptyZonesInRow(gHands[0]) < MAX_ZONES_IN_ROW)
+    if (NumEmptyZonesInRow(gTurnHandPtrs[0]) < MAX_ZONES_IN_ROW)
     {
         u8 i;
         bool32 found = FALSE;
 
         for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         {
-            if (gZones[0][i]->id != CARD_NONE && IsCardFaceUp(gZones[0][i]) == TRUE)
+            if (gTurnZonePtrs[0][i]->id != CARD_NONE && IsCardFaceUp(gTurnZonePtrs[0][i]) == TRUE)
             {
                 found = TRUE;
                 break;
@@ -1560,8 +1560,8 @@ static void EffectXYDragonCannon(void)
 
         if (found)
         {
-            ClearZoneAndSendMonToGraveyard(gZones[0][i], 1);
-            ClearZoneAndSendMonToGraveyard(gHands[0][(u8)FirstNonEmptyZoneInRow(gHands[0])], 0);
+            ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[0][i], 1);
+            ClearZoneAndSendMonToGraveyard(gTurnHandPtrs[0][(u8)FirstNonEmptyZoneInRow(gTurnHandPtrs[0])], 0);
         }
     }
 
@@ -1586,8 +1586,8 @@ static void EffectXYDragonCannon(void)
 	ldr r7, _080477A4\n\
 	b _080477AE\n\
 	.align 2, 0\n\
-_080477A0: .4byte gHands\n\
-_080477A4: .4byte gZones\n\
+_080477A0: .4byte gTurnHandPtrs\n\
+_080477A4: .4byte gTurnZonePtrs\n\
 _080477A8:\n\
 	adds r0, r5, #1\n\
 	lsls r0, r0, #0x18\n\
@@ -1637,7 +1637,7 @@ _08047802:\n\
 	pop {r0}\n\
 	bx r0\n\
 	.align 2, 0\n\
-_08047808: .4byte gHands\n\
+_08047808: .4byte gTurnHandPtrs\n\
 _0804780C: .4byte gHideEffectText\n\
 _08047810: .4byte gCardEffectTextData\n\
 _08047814: .4byte 0x00000251");
@@ -1656,8 +1656,8 @@ static void EffectXZTankCannon(void)
 	ldr r7, _08047830\n\
 	b _0804783A\n\
 	.align 2, 0\n\
-_0804782C: .4byte gHands\n\
-_08047830: .4byte gZones\n\
+_0804782C: .4byte gTurnHandPtrs\n\
+_08047830: .4byte gTurnZonePtrs\n\
 _08047834:\n\
 	adds r0, r5, #1\n\
 	lsls r0, r0, #0x18\n\
@@ -1707,24 +1707,24 @@ _0804788E:\n\
 	pop {r0}\n\
 	bx r0\n\
 	.align 2, 0\n\
-_08047894: .4byte gHands\n\
+_08047894: .4byte gTurnHandPtrs\n\
 _08047898: .4byte gHideEffectText\n\
 _0804789C: .4byte gCardEffectTextData");
 }
 /*
 static void EffectYZTankDragon(void)
 {
-    if (NumEmptyZonesInRow(gHands[0]) < 5)
+    if (NumEmptyZonesInRow(gTurnHandPtrs[0]) < 5)
     {
         u8 i, i2, r8;
         u16 r7 = 0;
         for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         {
-            if (gZones[1][i]->id != CARD_NONE && IsGodCard(gZones[1][i]->id) != TRUE && IsCardFaceUp(gZones[1][i]) == FACE_DOWN)
+            if (gTurnZonePtrs[1][i]->id != CARD_NONE && IsGodCard(gTurnZonePtrs[1][i]->id) != TRUE && IsCardFaceUp(gTurnZonePtrs[1][i]) == FACE_DOWN)
             {
-                gStatMod.card = gZones[1][i]->id;
+                gStatMod.card = gTurnZonePtrs[1][i]->id;
                 gStatMod.field = gDuel.field;
-                gStatMod.stage = GetFinalStage(gZones[1][i]);
+                gStatMod.stage = GetFinalStage(gTurnZonePtrs[1][i]);
                 SetFinalStat(&gStatMod);
                 if (gCardInfo.atk >= r7)
                 {
@@ -1737,8 +1737,8 @@ static void EffectYZTankDragon(void)
 
         if (r8)
         {
-            ClearZoneAndSendMonToGraveyard(gZones[1][i2], 1);
-            ClearZoneAndSendMonToGraveyard(gHands[0][(u8)FirstNonEmptyZoneInRow(gHands[0])], 0);
+            ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][i2], 1);
+            ClearZoneAndSendMonToGraveyard(gTurnHandPtrs[0][(u8)FirstNonEmptyZoneInRow(gTurnHandPtrs[0])], 0);
         }
     }
 
@@ -1850,12 +1850,12 @@ _08047958:\n\
 	pop {r0}\n\
 	bx r0\n\
 	.align 2, 0\n\
-_08047968: .4byte gHands\n\
+_08047968: .4byte gTurnHandPtrs\n\
 _0804796C: .4byte gStatMod\n\
 _08047970: .4byte gDuel+0xF0\n\
-_08047974: .4byte gZones+0x14\n\
+_08047974: .4byte gTurnZonePtrs+0x14\n\
 _08047978: .4byte gCardInfo\n\
-_0804797C: .4byte gZones\n\
+_0804797C: .4byte gTurnZonePtrs\n\
 _08047980: .4byte gHideEffectText\n\
 _08047984: .4byte gCardEffectTextData\n\
 _08047988: .4byte 0x00000255");
@@ -1864,12 +1864,12 @@ _08047988: .4byte 0x00000255");
 
 static void EffectXYZDragonCannon(void)
 {
-    if (NumEmptyZonesInRow(gHands[0]) < MAX_ZONES_IN_ROW)
+    if (NumEmptyZonesInRow(gTurnHandPtrs[0]) < MAX_ZONES_IN_ROW)
     {
-        if (NumEmptyZonesAndGodCardsInRow(gZones[1]) < MAX_ZONES_IN_ROW)
+        if (NumEmptyZonesAndGodCardsInRow(gTurnZonePtrs[1]) < MAX_ZONES_IN_ROW)
         {
-            ClearZoneAndSendMonToGraveyard(gZones[1][(u8)HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
-            ClearZoneAndSendMonToGraveyard(gHands[0][(u8)FirstNonEmptyZoneInRow(gHands[0])], 0);
+            ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][(u8)HighestAtkMonInRowExceptGodCards(gTurnZonePtrs[1])], 1);
+            ClearZoneAndSendMonToGraveyard(gTurnHandPtrs[0][(u8)FirstNonEmptyZoneInRow(gTurnHandPtrs[0])], 0);
         }
     }
 
@@ -1883,7 +1883,7 @@ static void EffectXYZDragonCannon(void)
 /*
 static void EffectPuppetMaster(void)
 {
-    if (NumEmptyZonesInRow(gZones[2]) > 0 && gNotSure[0]->graveyard == GERNIA)
+    if (NumEmptyZonesInRow(gTurnZonePtrs[2]) > 0 && gNotSure[0]->graveyard == GERNIA)
     {
         u8 zone;
 
@@ -1900,45 +1900,45 @@ static void EffectPuppetMaster(void)
         CheckLoserFlags();
         GetGraveCardAndClearGrave(0);  //this returns something
 
-        zone = FirstEmptyZoneInRow(gZones[2]);
+        zone = FirstEmptyZoneInRow(gTurnZonePtrs[2]);
 
-        gZones[2][zone]->id = DARK_NECROFEAR;
-        FlipCardFaceUp(gZones[2][zone]);
-        UnlockCard(gZones[2][zone]);
-        gZones[2][zone]->isDefending = FALSE;
-        gZones[2][zone]->unkTwo = 0;
-        gZones[2][zone]->unk4 = 2;
-        ResetPermStage(gZones[2][zone]);
-        ResetTempStage(gZones[2][zone]);
-        gZones[2][zone]->willChangeSides = FALSE;
+        gTurnZonePtrs[2][zone]->id = DARK_NECROFEAR;
+        FlipCardFaceUp(gTurnZonePtrs[2][zone]);
+        UnlockCard(gTurnZonePtrs[2][zone]);
+        gTurnZonePtrs[2][zone]->isDefending = FALSE;
+        gTurnZonePtrs[2][zone]->unkTwo = 0;
+        gTurnZonePtrs[2][zone]->unk4 = 2;
+        ResetPermStage(gTurnZonePtrs[2][zone]);
+        ResetTempStage(gTurnZonePtrs[2][zone]);
+        gTurnZonePtrs[2][zone]->willChangeSides = FALSE;
 
-        if (NumEmptyZonesInRow(gZones[2]) != 0)
+        if (NumEmptyZonesInRow(gTurnZonePtrs[2]) != 0)
         {
-            zone = FirstEmptyZoneInRow(gZones[2]);
+            zone = FirstEmptyZoneInRow(gTurnZonePtrs[2]);
 
-            gZones[2][zone]->id = HEADLESS_KNIGHT;
-            FlipCardFaceUp(gZones[2][zone]);
-            UnlockCard(gZones[2][zone]);
-            gZones[2][zone]->isDefending = FALSE;
-            gZones[2][zone]->unkTwo = 0;
-            gZones[2][zone]->unk4 = 2;
-            ResetPermStage(gZones[2][zone]);
-            ResetTempStage(gZones[2][zone]);
-            gZones[2][zone]->willChangeSides = FALSE;
+            gTurnZonePtrs[2][zone]->id = HEADLESS_KNIGHT;
+            FlipCardFaceUp(gTurnZonePtrs[2][zone]);
+            UnlockCard(gTurnZonePtrs[2][zone]);
+            gTurnZonePtrs[2][zone]->isDefending = FALSE;
+            gTurnZonePtrs[2][zone]->unkTwo = 0;
+            gTurnZonePtrs[2][zone]->unk4 = 2;
+            ResetPermStage(gTurnZonePtrs[2][zone]);
+            ResetTempStage(gTurnZonePtrs[2][zone]);
+            gTurnZonePtrs[2][zone]->willChangeSides = FALSE;
 
-            if (NumEmptyZonesInRow(gZones[2]) != 0)
+            if (NumEmptyZonesInRow(gTurnZonePtrs[2]) != 0)
             {
-                zone = FirstEmptyZoneInRow(gZones[2]);
+                zone = FirstEmptyZoneInRow(gTurnZonePtrs[2]);
 
-                gZones[2][zone]->id = GERNIA;
-                FlipCardFaceUp(gZones[2][zone]);
-                UnlockCard(gZones[2][zone]);
-                gZones[2][zone]->isDefending = FALSE;
-                gZones[2][zone]->unkTwo = 0;
-                gZones[2][zone]->unk4 = 2;
-                ResetPermStage(gZones[2][zone]);
-                ResetTempStage(gZones[2][zone]);
-                gZones[2][zone]->willChangeSides = FALSE;
+                gTurnZonePtrs[2][zone]->id = GERNIA;
+                FlipCardFaceUp(gTurnZonePtrs[2][zone]);
+                UnlockCard(gTurnZonePtrs[2][zone]);
+                gTurnZonePtrs[2][zone]->isDefending = FALSE;
+                gTurnZonePtrs[2][zone]->unkTwo = 0;
+                gTurnZonePtrs[2][zone]->unk4 = 2;
+                ResetPermStage(gTurnZonePtrs[2][zone]);
+                ResetTempStage(gTurnZonePtrs[2][zone]);
+                gTurnZonePtrs[2][zone]->willChangeSides = FALSE;
             }
         }
     }
@@ -1982,7 +1982,7 @@ _08047A1C:\n\
 	bl HandleDuelAction\n\
 	b _08047A4C\n\
 	.align 2, 0\n\
-_08047A34: .4byte gZones+0x28\n\
+_08047A34: .4byte gTurnZonePtrs+0x28\n\
 _08047A38: .4byte gDuel+0x100\n\
 _08047A3C: .4byte 0x00000239\n\
 _08047A40:\n\
@@ -2112,7 +2112,7 @@ _08047B52:\n\
 	pop {r0}\n\
 	bx r0\n\
 	.align 2, 0\n\
-_08047B60: .4byte gZones+0x28\n\
+_08047B60: .4byte gTurnZonePtrs+0x28\n\
 _08047B64: .4byte 0x00000239\n\
 _08047B68: .4byte gHideEffectText\n\
 _08047B6C: .4byte gCardEffectTextData\n\
@@ -2121,7 +2121,7 @@ _08047B70: .4byte 0x02024250");
 
 static void EffectPenguinTorpedo(void)
 {
-    struct DuelCard* zone = gZones[2][gMonEffect.zone];
+    struct DuelCard* zone = gTurnZonePtrs[2][gMonEffect.zone];
 
     gStatMod.card = zone->id;
     gStatMod.field = gDuel.field;
@@ -2149,12 +2149,12 @@ static void EffectBerserkDragon(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
-        if (IsDuelOver() == 1 || gZones[2][gMonEffect.zone]->id == CARD_NONE)
+        if (IsDuelOver() == 1 || gTurnZonePtrs[2][gMonEffect.zone]->id == CARD_NONE)
             break;
 
-        if (gZones[1][i]->id != CARD_NONE)
+        if (gTurnZonePtrs[1][i]->id != CARD_NONE)
         {
-            FlipCardFaceUp(gZones[1][i]);
+            FlipCardFaceUp(gTurnZonePtrs[1][i]);
             if (turn == DUEL_PLAYER)
                 SetDuelActionAttack(gMonEffect.zone, 4 - i);
             else
@@ -2181,14 +2181,14 @@ static void EffectFGD(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
-        zone = gZones[0][i];
+        zone = gTurnZonePtrs[0][i];
         if (zone->id != CARD_NONE)
             ClearZoneAndSendMonToGraveyard(zone, 1);
     }
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
-        zone = gZones[1][i];
+        zone = gTurnZonePtrs[1][i];
         if (zone->id != CARD_NONE && IsGodCard(zone->id) != TRUE)
             ClearZoneAndSendMonToGraveyard(zone, 1);
     }
@@ -2217,16 +2217,16 @@ static void sub_8047D60 (void) {
 
 static void EffectReaperOfTheCards(void)
 {
-    if (NumEmptyZonesInRow(gZones[0]) < MAX_ZONES_IN_ROW)
+    if (NumEmptyZonesInRow(gTurnZonePtrs[0]) < MAX_ZONES_IN_ROW)
     {
         u8 i;
 
         for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         {
-            SetCardInfo(gZones[0][i]->id);
+            SetCardInfo(gTurnZonePtrs[0][i]->id);
             if (gCardInfo.trapEffect)
             {
-                ClearZoneAndSendMonToGraveyard(gZones[0][i], 1);
+                ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[0][i], 1);
                 break;
             }
         }
@@ -2271,8 +2271,8 @@ static void EffectHarpieLady(void)
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (gZones[2][i]->id == HARPIES_PET_DRAGON)
-            IncrementPermStage(gZones[2][i]);
+        if (gTurnZonePtrs[2][i]->id == HARPIES_PET_DRAGON)
+            IncrementPermStage(gTurnZonePtrs[2][i]);
 
 
     if (!gHideEffectText)
@@ -2288,8 +2288,8 @@ static void EffectHarpieLadySisters(void)
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (gZones[2][i]->id == HARPIES_PET_DRAGON)
-            IncreasePermStageByAmount(gZones[2][i], 2);
+        if (gTurnZonePtrs[2][i]->id == HARPIES_PET_DRAGON)
+            IncreasePermStageByAmount(gTurnZonePtrs[2][i], 2);
 
     if (!gHideEffectText)
     {
@@ -2304,8 +2304,8 @@ static void EffectMysticalElf(void)
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (gZones[2][i]->id == BLUE_EYES_WHITE_DRAGON)
-            IncrementPermStage(gZones[2][i]);
+        if (gTurnZonePtrs[2][i]->id == BLUE_EYES_WHITE_DRAGON)
+            IncrementPermStage(gTurnZonePtrs[2][i]);
 
     if (!gHideEffectText)
     {
@@ -2333,9 +2333,9 @@ static void EffectFlameSwordsman(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
-        SetCardInfo(gZones[1][i]->id);
+        SetCardInfo(gTurnZonePtrs[1][i]->id);
         if (gCardInfo.type == TYPE_DINOSAUR)
-            ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
+            ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][i], 1);
     }
 
     if (!gHideEffectText)
@@ -2363,9 +2363,9 @@ static void EffectBattleOx(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
-        SetCardInfo(gZones[1][i]->id);
+        SetCardInfo(gTurnZonePtrs[1][i]->id);
         if (gCardInfo.attribute == ATTRIBUTE_PYRO)
-            ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
+            ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][i], 1);
     }
 
     if (!gHideEffectText)
@@ -2381,8 +2381,8 @@ static void EffectMonsterTamer(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
-        if (gZones[2][i]->id == DUNGEON_WORM)
-            IncrementPermStage(gZones[2][i]);
+        if (gTurnZonePtrs[2][i]->id == DUNGEON_WORM)
+            IncrementPermStage(gTurnZonePtrs[2][i]);
     }
 
     if (!gHideEffectText)
@@ -2398,8 +2398,8 @@ static void EffectMammothGraveyard(void)
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (gZones[1][i]->id != CARD_NONE)
-            DecrementPermStage(gZones[1][i]);
+        if (gTurnZonePtrs[1][i]->id != CARD_NONE)
+            DecrementPermStage(gTurnZonePtrs[1][i]);
 
     if (!gHideEffectText)
     {
@@ -2411,7 +2411,7 @@ static void EffectMammothGraveyard(void)
 static void EffectGoddessOfWhim(void)
 {
     TryDrawingCard(WhoseTurn());
-    ClearZoneAndSendMonToGraveyard(gZones[2][gMonEffect.zone], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[2][gMonEffect.zone], 0);
 
     if (!gHideEffectText)
     {
@@ -2438,9 +2438,9 @@ static void EffectDragonSeeker(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
-        SetCardInfo(gZones[1][i]->id);
+        SetCardInfo(gTurnZonePtrs[1][i]->id);
         if (!IsGodCard(gCardInfo.id) && gCardInfo.type == TYPE_DRAGON)
-            ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
+            ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][i], 1);
     }
 
     if (!gHideEffectText)
@@ -2452,10 +2452,10 @@ static void EffectDragonSeeker(void)
 
 static void EffectFiendsHand(void)
 {
-    if (NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
-        ClearZoneAndSendMonToGraveyard(gZones[1][(u8)HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
+    if (NumEmptyZonesAndGodCardsInRow(gTurnZonePtrs[1]) != MAX_ZONES_IN_ROW)
+        ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][(u8)HighestAtkMonInRowExceptGodCards(gTurnZonePtrs[1])], 1);
 
-    ClearZoneAndSendMonToGraveyard(gZones[gMonEffect.row][gMonEffect.zone], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone], 0);
 
     if (!gHideEffectText)
     {
@@ -2469,8 +2469,8 @@ static void EffectIllusionistFacelessMage(void)
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (gZones[1][i]->id != CARD_NONE)
-            gZones[1][i]->isLocked = TRUE;
+        if (gTurnZonePtrs[1][i]->id != CARD_NONE)
+            gTurnZonePtrs[1][i]->isLocked = TRUE;
 
     if (!gHideEffectText)
     {
@@ -2481,8 +2481,8 @@ static void EffectIllusionistFacelessMage(void)
 
 static void EffectElectricLizard(void)
 {
-    if (sub_8043548(gZones[1]))
-        gZones[1][(u8)HighestAtkUnlockedMonInRow(gZones[1])]->isLocked = TRUE;
+    if (sub_8043548(gTurnZonePtrs[1]))
+        gTurnZonePtrs[1][(u8)HighestAtkUnlockedMonInRow(gTurnZonePtrs[1])]->isLocked = TRUE;
 
 
     if (!gHideEffectText)
@@ -2498,9 +2498,9 @@ static void EffectWodanTheResidentOfTheForest(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
-        SetCardInfo(gZones[2][i]->id);
+        SetCardInfo(gTurnZonePtrs[2][i]->id);
         if (gCardInfo.type == TYPE_PLANT)
-            IncrementPermStage(gZones[2][gMonEffect.zone]);
+            IncrementPermStage(gTurnZonePtrs[2][gMonEffect.zone]);
     }
 
     if (!gHideEffectText)
@@ -2515,8 +2515,8 @@ static void EffectMWarrior1(void)
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (gZones[2][i]->id == M_WARRIOR_2)
-            IncrementPermStage(gZones[2][i]);
+        if (gTurnZonePtrs[2][i]->id == M_WARRIOR_2)
+            IncrementPermStage(gTurnZonePtrs[2][i]);
 
     if (!gHideEffectText)
     {
@@ -2531,8 +2531,8 @@ static void EffectMWarrior2(void)
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (gZones[2][i]->id == M_WARRIOR_1)
-            IncrementPermStage(gZones[2][i]);
+        if (gTurnZonePtrs[2][i]->id == M_WARRIOR_1)
+            IncrementPermStage(gTurnZonePtrs[2][i]);
 
     if (!gHideEffectText)
     {
@@ -2544,11 +2544,11 @@ static void EffectMWarrior2(void)
 
 static void EffectRedArcheryGirl(void)
 {
-    if (sub_8043548(gZones[1]))
+    if (sub_8043548(gTurnZonePtrs[1]))
     {
-        u8 zone = HighestAtkUnlockedMonInRow(gZones[1]);
-        gZones[1][zone]->isLocked = TRUE;
-        DecrementPermStage(gZones[1][zone]);
+        u8 zone = HighestAtkUnlockedMonInRow(gTurnZonePtrs[1]);
+        gTurnZonePtrs[1][zone]->isLocked = TRUE;
+        DecrementPermStage(gTurnZonePtrs[1][zone]);
     }
 
     if (!gHideEffectText)
@@ -2608,8 +2608,8 @@ static void EffectMonsterEye(void)
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (gHands[1][i]->id != CARD_NONE)
-            gHands[1][i]->isFaceUp = TRUE;
+        if (gTurnHandPtrs[1][i]->id != CARD_NONE)
+            gTurnHandPtrs[1][i]->isFaceUp = TRUE;
 
     if (!gHideEffectText)
     {
@@ -2623,8 +2623,8 @@ static void EffectSwampBattleGuard(void)
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (gZones[2][i]->id == LAVA_BATTLEGUARD)
-            IncrementPermStage(gZones[2][i]);
+        if (gTurnZonePtrs[2][i]->id == LAVA_BATTLEGUARD)
+            IncrementPermStage(gTurnZonePtrs[2][i]);
 
     if (!gHideEffectText)
     {
@@ -2639,8 +2639,8 @@ static void EffectLavaBattleGuard(void)
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (gZones[2][i]->id == SWAMP_BATTLEGUARD)
-            IncrementPermStage(gZones[2][i]);
+        if (gTurnZonePtrs[2][i]->id == SWAMP_BATTLEGUARD)
+            IncrementPermStage(gTurnZonePtrs[2][i]);
 
     if (!gHideEffectText)
     {
@@ -2667,8 +2667,8 @@ static void EffectHourglassOfLife(void)
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (gZones[2][i]->id != CARD_NONE)
-            IncrementPermStage(gZones[2][i]);
+        if (gTurnZonePtrs[2][i]->id != CARD_NONE)
+            IncrementPermStage(gTurnZonePtrs[2][i]);
 
     if (WhoseTurn() == DUEL_PLAYER)
         SetPlayerLifePointsToSubtract(1000);
@@ -2690,8 +2690,8 @@ static void EffectInvitationToADarkSleep(void)
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (gZones[1][i]->id != CARD_NONE)
-            gZones[1][i]->isLocked = TRUE;
+        if (gTurnZonePtrs[1][i]->id != CARD_NONE)
+            gTurnZonePtrs[1][i]->isLocked = TRUE;
 
     if (!gHideEffectText)
     {
@@ -2740,8 +2740,8 @@ static void sub_80486FC(void)
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (gZones[2][i]->id == HARPIES_PET_DRAGON)
-            IncrementPermStage(gZones[2][i]);
+        if (gTurnZonePtrs[2][i]->id == HARPIES_PET_DRAGON)
+            IncrementPermStage(gTurnZonePtrs[2][i]);
 
     if (!gHideEffectText)
     {
@@ -2753,11 +2753,11 @@ static void sub_80486FC(void)
 
 static void EffectZombyraTheDark (void)
 {
-    if (NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
+    if (NumEmptyZonesAndGodCardsInRow(gTurnZonePtrs[1]) != MAX_ZONES_IN_ROW)
     {
-        u8 zone = HighestAtkMonInRowExceptGodCards(gZones[1]);
-        ClearZoneAndSendMonToGraveyard(gZones[1][zone], 1);
-        DecrementPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
+        u8 zone = HighestAtkMonInRowExceptGodCards(gTurnZonePtrs[1]);
+        ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][zone], 1);
+        DecrementPermStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
     }
 
     if (!gHideEffectText)
@@ -2775,8 +2775,8 @@ static void EffectGilfordTheLightning(void)
     u8 i;
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        if (!IsGodCard(gZones[1][i]->id))
-            ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
+        if (!IsGodCard(gTurnZonePtrs[1][i]->id))
+            ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][i], 1);
 
     if (!gHideEffectText)
     {
@@ -2787,11 +2787,11 @@ static void EffectGilfordTheLightning(void)
 
 static void EffectMysticalBeastSerket(void)
 {
-    if (NumEmptyZonesAndGodCardsInRow(gZones[1]) != MAX_ZONES_IN_ROW)
+    if (NumEmptyZonesAndGodCardsInRow(gTurnZonePtrs[1]) != MAX_ZONES_IN_ROW)
     {
-        u8 zone = HighestAtkMonInRowExceptGodCards(gZones[1]);
-        ClearZone(gZones[1][zone]);
-        IncrementPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
+        u8 zone = HighestAtkMonInRowExceptGodCards(gTurnZonePtrs[1]);
+        ClearZone(gTurnZonePtrs[1][zone]);
+        IncrementPermStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
     }
 
     if (!gHideEffectText)
@@ -2803,15 +2803,15 @@ static void EffectMysticalBeastSerket(void)
 
 static void EffectJinzo(void)
 {
-    if (NumEmptyZonesInRow(gZones[0]) != MAX_ZONES_IN_ROW)
+    if (NumEmptyZonesInRow(gTurnZonePtrs[0]) != MAX_ZONES_IN_ROW)
     {
         u8 i;
 
         for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         {
-            SetCardInfo(gZones[0][i]->id);
+            SetCardInfo(gTurnZonePtrs[0][i]->id);
             if (gCardInfo.trapEffect)
-                ClearZoneAndSendMonToGraveyard(gZones[0][i], 1);
+                ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[0][i], 1);
         }
     }
 
@@ -2828,10 +2828,10 @@ static void EffectBarrelDragon(void)
 
     for (i = 0; i < 3; i++)
     {
-        if (NumEmptyZonesAndGodCardsInRow(gZones[1]) == MAX_ZONES_IN_ROW)
+        if (NumEmptyZonesAndGodCardsInRow(gTurnZonePtrs[1]) == MAX_ZONES_IN_ROW)
             break;
         if (sub_8056258(0, 1) == 1)
-            ClearZoneAndSendMonToGraveyard(gZones[1][(u8)HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
+            ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][(u8)HighestAtkMonInRowExceptGodCards(gTurnZonePtrs[1])], 1);
     }
 
     if (!gHideEffectText)
@@ -2850,7 +2850,7 @@ static void EffectSkullMarkLadyBug(void)
 
     HandleDuelAction();
 
-    ClearZoneAndSendMonToGraveyard(gZones[gMonEffect.row][gMonEffect.zone], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone], 0);
 
     if (!gHideEffectText)
     {
@@ -2861,8 +2861,8 @@ static void EffectSkullMarkLadyBug(void)
 
 static void EffectRocketWarrior(void)
 {
-    if (NumEmptyZonesInRow(gZones[1]) < MAX_ZONES_IN_ROW)
-        DecrementPermStage(gZones[1][(u8)HighestAtkMonInRow(gZones[1])]);
+    if (NumEmptyZonesInRow(gTurnZonePtrs[1]) < MAX_ZONES_IN_ROW)
+        DecrementPermStage(gTurnZonePtrs[1][(u8)HighestAtkMonInRow(gTurnZonePtrs[1])]);
 
     if (!gHideEffectText)
     {
@@ -2877,9 +2877,9 @@ static void sub_80489F0(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
-        SetCardInfo(gZones[2][i]->id);
+        SetCardInfo(gTurnZonePtrs[2][i]->id);
         if (gCardInfo.type == TYPE_DRAGON)
-            IncrementPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
+            IncrementPermStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
     }
 
     if (!gHideEffectText)
@@ -2891,7 +2891,7 @@ static void sub_80489F0(void)
 
 static void EffectLegendaryFiend(void)
 {
-    IncrementPermStage(gZones[gMonEffect.row][gMonEffect.zone]);
+    IncrementPermStage(gTurnZonePtrs[gMonEffect.row][gMonEffect.zone]);
 
     if (!gHideEffectText)
     {
@@ -2902,8 +2902,8 @@ static void EffectLegendaryFiend(void)
 
 static void EffectDesVolstgalph(void)
 {
-    if (NumEmptyZonesAndGodCardsInRow(gZones[1]) < MAX_ZONES_IN_ROW)
-        ClearZoneAndSendMonToGraveyard(gZones[1][(u8)HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
+    if (NumEmptyZonesAndGodCardsInRow(gTurnZonePtrs[1]) < MAX_ZONES_IN_ROW)
+        ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][(u8)HighestAtkMonInRowExceptGodCards(gTurnZonePtrs[1])], 1);
 
     if (WhoseTurn() == DUEL_PLAYER)
         SetOpponentLifePointsToSubtract(500);
@@ -2925,10 +2925,10 @@ static void sub_8048B10 (void) {
 
 static void EffectByserShock(void)
 {
-    ReturnFaceDownCardsToHand(gZones[1][0], gHands[1][0]);
-    ReturnFaceDownCardsToHand(gZones[0][0], gHands[1][0]);
-    ReturnFaceDownCardsToHand(gZones[2][0], gHands[0][0]);
-    ReturnFaceDownCardsToHand(gZones[3][0], gHands[0][0]);
+    ReturnFaceDownCardsToHand(gTurnZonePtrs[1][0], gTurnHandPtrs[1][0]);
+    ReturnFaceDownCardsToHand(gTurnZonePtrs[0][0], gTurnHandPtrs[1][0]);
+    ReturnFaceDownCardsToHand(gTurnZonePtrs[2][0], gTurnHandPtrs[0][0]);
+    ReturnFaceDownCardsToHand(gTurnZonePtrs[3][0], gTurnHandPtrs[0][0]);
 
     if (!gHideEffectText)
     {
@@ -2950,7 +2950,7 @@ static void EffectTheWingedDragonOfRaPhoenixMode(void)
     CheckLoserFlags();
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        ClearZoneAndSendMonToGraveyard(gZones[1][i], 1);
+        ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][i], 1);
 
     if (!gHideEffectText)
     {
@@ -2961,8 +2961,8 @@ static void EffectTheWingedDragonOfRaPhoenixMode(void)
 
 static void EffectChironTheMage(void)
 {
-    if (NumEmptyZonesAndGodCardsInRow(gZones[1]) < MAX_ZONES_IN_ROW)
-        ClearZoneAndSendMonToGraveyard(gZones[1][(u8)HighestAtkMonInRowExceptGodCards(gZones[1])], 1);
+    if (NumEmptyZonesAndGodCardsInRow(gTurnZonePtrs[1]) < MAX_ZONES_IN_ROW)
+        ClearZoneAndSendMonToGraveyard(gTurnZonePtrs[1][(u8)HighestAtkMonInRowExceptGodCards(gTurnZonePtrs[1])], 1);
 
     if (!gHideEffectText)
     {

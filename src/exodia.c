@@ -24,7 +24,7 @@ void CheckWinConditionExodia (void) {
 static unsigned char GetExodiaFlags (void) {
   unsigned char i, flags = 0;
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-    flags |= GetExodiaFlag(gZones[4][i]->id);
+    flags |= GetExodiaFlag(gTurnZonePtrs[4][i]->id);
   return flags;
 }
 

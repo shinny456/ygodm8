@@ -88,11 +88,11 @@ void BMenuMain (void) {
       switch (r4) {
         case B_MENU_DETAILS:
           if (CanPlayerSeeCard(gDuelCursor.currentY, gDuelCursor.currentX) == 1
-          && GetTypeGroup(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id)) {
+          && GetTypeGroup(gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->id)) {
             PlayMusic(SFX_SELECT);
-            gStatMod.card = gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id;
+            gStatMod.card = gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->id;
             gStatMod.field = gDuel.field;
-            gStatMod.stage = GetFinalStage(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]);
+            gStatMod.stage = GetFinalStage(gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]);
             SetFinalStat(&gStatMod);
             sub_801F6B0();
             UpdateAllDuelGfx();
@@ -109,11 +109,11 @@ void BMenuMain (void) {
           return;
         case B_MENU_DISCARD:
           if (gDuelCursor.currentY > 1 &&
-              gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id != CARD_NONE &&
-              !gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->willChangeSides)
+              gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->id != CARD_NONE &&
+              !gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->willChangeSides)
             {
               PlayMusic(SFX_DISCARD);
-              ClearZoneAndSendMonToGraveyard2(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX], 0);
+              ClearZoneAndSendMonToGraveyard2(gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX], 0);
               UpdateDuelGfxExceptField();
               sub_8029820();
             }
@@ -989,9 +989,9 @@ unsigned sub_80429A4 (void) {
     }
     if (r4 < 2) {
       if (r4 == 0)
-        gZones[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
+        gTurnZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
       else
-        gZones[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 1;
+        gTurnZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 1;
       sub_80574A8(gDuelCursor.currentX, gDuelCursor.currentY);
       SetVBlankCallback(LoadOam);
     }
@@ -1056,9 +1056,9 @@ void sub_8042D14 (void) {
     for (j = 0; j < 5; j++) {
       u16* r4 = gVr.b + ((((((sub_8057790(j, i) + 24) * 8) & 0xFC0) + sub_80575E0(j, i) / 4)) + 0xF000) / 2;
       if (CanPlayerSeeCard(i, j) == 1) {
-        gStatMod.card = gDuelBoard[i][j]->id;
+        gStatMod.card = gFixedZonePtrs[i][j]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = GetFinalStage(gDuelBoard[i][j]);
+        gStatMod.stage = GetFinalStage(gFixedZonePtrs[i][j]);
         SetFinalStat(&gStatMod);
       }
       else

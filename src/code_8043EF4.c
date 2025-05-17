@@ -98,7 +98,7 @@ u32 CanPlayerSeeCard (u8 y, u8 x) {
   switch (y) {
     case 0:
     case 1:
-      return !!gDuelBoard[y][x]->isFaceUp;
+      return !!gFixedZonePtrs[y][x]->isFaceUp;
     case 2:
     case 3:
     case 4:
@@ -107,7 +107,7 @@ u32 CanPlayerSeeCard (u8 y, u8 x) {
 }
 
 u32 CanOpponentSeeCard (u8 y, u8 x) {
-  if (gDuelBoard[y][x]->id == CARD_NONE)
+  if (gFixedZonePtrs[y][x]->id == CARD_NONE)
     return 1;
   switch (y) {
     case 0:
@@ -116,7 +116,7 @@ u32 CanOpponentSeeCard (u8 y, u8 x) {
       return 1;
     case 2:
     case 3:
-      return !!gDuelBoard[y][x]->isFaceUp;
+      return !!gFixedZonePtrs[y][x]->isFaceUp;
   }
 }
 
@@ -189,7 +189,7 @@ extern u16 gNewButtons;
 void sub_80441D0 (void) {
   switch (gDuelCursor.currentY) {
     case 2:
-      if (gDuelBoard[2][gDuelCursor.currentX]->id != CARD_NONE && !gDuelBoard[2][gDuelCursor.currentX]->isLocked) {
+      if (gFixedZonePtrs[2][gDuelCursor.currentX]->id != CARD_NONE && !gFixedZonePtrs[2][gDuelCursor.currentX]->isLocked) {
         PlayMusic(SFX_SELECT);
         HandlePlayerMonsterRowAction();
       }
@@ -199,12 +199,12 @@ void sub_80441D0 (void) {
       }
       break;
     case 3:
-      if (gDuelBoard[3][gDuelCursor.currentX]->id == CARD_NONE) {
+      if (gFixedZonePtrs[3][gDuelCursor.currentX]->id == CARD_NONE) {
         PlayMusic(SFX_FORBIDDEN);
         WaitForVBlank();
       }
       else {
-        u8 numTributes = sub_80453D8(gDuelBoard[3][gDuelCursor.currentX]->id);
+        u8 numTributes = sub_80453D8(gFixedZonePtrs[3][gDuelCursor.currentX]->id);
         if (!numTributes) {
           HandlePlayerSpellRowAction();
         }
@@ -215,12 +215,12 @@ void sub_80441D0 (void) {
       }
       break;
     case 4:
-      if (gDuelBoard[4][gDuelCursor.currentX]->id == CARD_NONE || gDuelBoard[4][gDuelCursor.currentX]->isLocked) {
+      if (gFixedZonePtrs[4][gDuelCursor.currentX]->id == CARD_NONE || gFixedZonePtrs[4][gDuelCursor.currentX]->isLocked) {
         PlayMusic(SFX_FORBIDDEN);
         WaitForVBlank();
       }
       else {
-        u8 numTributes = sub_8045390(gDuelBoard[4][gDuelCursor.currentX]->id);
+        u8 numTributes = sub_8045390(gFixedZonePtrs[4][gDuelCursor.currentX]->id);
         if (numTributes) {
           PlayMusic(SFX_FORBIDDEN);
           DisplayNumRequiredTributesText(numTributes);
@@ -238,19 +238,19 @@ void sub_80441D0 (void) {
 }
 
 void sub_80442AC (void) {
-  u16 id = gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id;
-  SelectZone(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]);
+  u16 id = gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->id;
+  SelectZone(gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]);
   gDuelCursor.state = 1;
   ResetCursorDestToCurrentPos();
   switch (GetTypeGroup(id)) {
     case TYPE_GROUP_MONSTER:
-      gDuelCursor.currentX = FirstEmptyZoneInRow(gDuelBoard[2]);
+      gDuelCursor.currentX = FirstEmptyZoneInRow(gFixedZonePtrs[2]);
       gDuelCursor.currentY = 2;
       break;
     case TYPE_GROUP_SPELL:
     case TYPE_GROUP_TRAP:
     case TYPE_GROUP_RITUAL:
-      gDuelCursor.currentX = FirstEmptyZoneInRow(gDuelBoard[3]);
+      gDuelCursor.currentX = FirstEmptyZoneInRow(gFixedZonePtrs[3]);
       gDuelCursor.currentY = 3;
       break;
     default:
@@ -268,12 +268,12 @@ void HandlePlayerMonsterRowAction (void) {
     case 2:
       if (!gNotSure[0]->defenseBlocked) {
         PlayMusic(SFX_SELECT);
-        gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 1;
-        gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
+        gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 1;
+        gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
       }
       else {
         PlayMusic(SFX_FORBIDDEN);
-        gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
+        gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
       }
       UpdateDuelGfxExceptField();
       sub_8029820();
@@ -281,25 +281,25 @@ void HandlePlayerMonsterRowAction (void) {
     case 3:
       PlayMusic(SFX_TRIBUTE);
       IncNumTributes();
-      ClearZoneAndSendMonToGraveyard2(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX], 0);
+      ClearZoneAndSendMonToGraveyard2(gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX], 0);
       UpdateDuelGfxExceptField();
       sub_8029820();
       break;
     case 4:
       if (gNotSure[0]->defenseBlocked)
-        gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
-      if (!gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp) {
-        SetCardInfo(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id);
+        gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
+      if (!gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp) {
+        SetCardInfo(gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->id);
         if (gCardInfo.monsterEffect == /*MONSTER_EFFECT_NONE*/ 0) {
           FAILED:
           PlayMusic(SFX_FORBIDDEN);
           UpdateDuelGfxExceptField();
         }
         else {
-          gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
-          gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp = 1;
-          gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
-          gMonEffect.id = gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id;
+          gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
+          gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp = 1;
+          gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
+          gMonEffect.id = gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->id;
           gMonEffect.row = gDuelCursor.currentY;
           gMonEffect.zone = gDuelCursor.currentX;
           ActivateMonsterEffect();
@@ -315,9 +315,9 @@ void HandlePlayerMonsterRowAction (void) {
         goto FAILED;
       break;
     case 5:
-      if (gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending)
+      if (gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending)
         if (gNotSure[0]->defenseBlocked)
-          gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
+          gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
       UpdateDuelGfxExceptField();
       break;
   }
@@ -328,18 +328,18 @@ void sub_8044570 (void) {
   u8 turn = WhoseTurn();
   if (GetDuelistStatus(turn) == DUELIST_STATUS_CANNOT_ATTACK || gNotSure[0]->sorlTurns) { // attacking forbidden
     PlayMusic(SFX_FORBIDDEN);
-    gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
+    gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
     UpdateDuelGfxExceptField();
   }
-  else if (NumEmptyZonesInRow(gZones[1]) == 5) { // Direct Attack
+  else if (NumEmptyZonesInRow(gTurnZonePtrs[1]) == 5) { // Direct Attack
     gTrapEffectData.unk2 = gDuelCursor.currentY;
     gTrapEffectData.unk3 = gDuelCursor.currentX;
-    gTrapEffectData.id = gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id;
+    gTrapEffectData.id = gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->id;
     if (IsTrapTriggered() != 1) {
       PlayMusic(SFX_SELECT);
-      gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
-      gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp = 1;
-      gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
+      gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
+      gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp = 1;
+      gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
       sub_803F8E0(gDuelCursor.currentX);
       HandleDuelAction();
       CheckGraveyardAndLoserFlags();
@@ -357,10 +357,10 @@ void sub_8044570 (void) {
   }
   else {
     PlayMusic(SFX_SELECT);
-    SelectZone(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]);
+    SelectZone(gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]);
     gDuelCursor.state = 4;
     ResetCursorDestToCurrentPos();
-    gDuelCursor.currentX = GetLastNonEmptyMonZoneId(&gDuelBoard[1][4]);
+    gDuelCursor.currentX = GetLastNonEmptyMonZoneId(&gFixedZonePtrs[1][4]);
     gDuelCursor.currentY = 1;
     DisplayCardInfoBar();
     sub_8041E70(gDuelCursor.destY, gDuelCursor.currentY);
@@ -370,8 +370,8 @@ void sub_8044570 (void) {
 
 // HandlePlayerSpellRowAction
 void HandlePlayerSpellRowAction (void) {
-  u16 id = gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id;
-  SelectZone(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]);
+  u16 id = gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->id;
+  SelectZone(gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]);
   ResetCursorDestToCurrentPos();
   switch (GetSpellType(id)) {
     case 0: //SPELL_TYPE_NORMAL
@@ -390,7 +390,7 @@ void HandlePlayerSpellRowAction (void) {
     case 1: //SPELL_TYPE_EQUIP
       PlayMusic(SFX_SELECT);
       gDuelCursor.state = 2;
-      gDuelCursor.currentX = GetFirstNonEmptyMonZoneId(gDuelBoard[2]);
+      gDuelCursor.currentX = GetFirstNonEmptyMonZoneId(gFixedZonePtrs[2]);
       gDuelCursor.currentY = 2;
       break;
     case 2: //SPELL_TYPE_INVALID?
@@ -407,18 +407,18 @@ void sub_80447A8 (void) {
     PlayMusic(SFX_FORBIDDEN);
     WaitForVBlank();
   }
-  else if (gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id == CARD_NONE) {
+  else if (gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->id == CARD_NONE) {
     PlayMusic(SFX_FORBIDDEN);
     WaitForVBlank();
   }
-  else if (gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked) {
+  else if (gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked) {
     PlayMusic(SFX_FORBIDDEN);
     WaitForVBlank();
   }
   else {
-    SetCardInfo(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id);
+    SetCardInfo(gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->id);
     if (GetTypeGroup(gCardInfo.id) == 1) {
-      gSpellEffectData.id = gDuelBoard[gDuelCursor.destY][gDuelCursor.destX]->id;
+      gSpellEffectData.id = gFixedZonePtrs[gDuelCursor.destY][gDuelCursor.destX]->id;
       gSpellEffectData.unk4 = gDuelCursor.destY;
       gSpellEffectData.unk5 = gDuelCursor.destX;
       gSpellEffectData.unk2 = gDuelCursor.currentY;
@@ -437,20 +437,20 @@ void sub_8044840 (void) {
     PlayMusic(SFX_FORBIDDEN);
     WaitForVBlank();
   }
-  else if (gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->id == CARD_NONE) {
+  else if (gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->id == CARD_NONE) {
     PlayMusic(SFX_FORBIDDEN);
     WaitForVBlank();
   }
   else {
     gTrapEffectData.unk2 = gDuelCursor.destY;
     gTrapEffectData.unk3 = gDuelCursor.destX;
-    gTrapEffectData.id = gDuelBoard[gDuelCursor.destY][gDuelCursor.destX]->id;
+    gTrapEffectData.id = gFixedZonePtrs[gDuelCursor.destY][gDuelCursor.destX]->id;
     if (IsTrapTriggered() != 1) {
       PlayMusic(SFX_SELECT);
-      gDuelBoard[gDuelCursor.destY][gDuelCursor.destX]->isDefending = 0;
-      gDuelBoard[gDuelCursor.destY][gDuelCursor.destX]->isFaceUp = 1;
-      gDuelBoard[gDuelCursor.destY][gDuelCursor.destX]->isLocked = 1;
-      gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp = 1;
+      gFixedZonePtrs[gDuelCursor.destY][gDuelCursor.destX]->isDefending = 0;
+      gFixedZonePtrs[gDuelCursor.destY][gDuelCursor.destX]->isFaceUp = 1;
+      gFixedZonePtrs[gDuelCursor.destY][gDuelCursor.destX]->isLocked = 1;
+      gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp = 1;
       SetDuelActionAttack(gDuelCursor.destX, gDuelCursor.currentX);
       HandleDuelAction();
       CheckGraveyardAndLoserFlags();
@@ -471,7 +471,7 @@ void sub_8044840 (void) {
 }
 
 static void TryPlaceSelectedCardOnField (void) {
-  SetCardInfo(gDuelBoard[gDuelCursor.destY][gDuelCursor.destX]->id);
+  SetCardInfo(gFixedZonePtrs[gDuelCursor.destY][gDuelCursor.destX]->id);
   switch (GetTypeGroup(gCardInfo.id)) {
     case TYPE_GROUP_SPELL:
     case TYPE_GROUP_TRAP:
@@ -504,8 +504,8 @@ static void TryPlaceSelectedCardOnField (void) {
 }
 
 void sub_80449D8 (void) {
-  ClearZone(gDuelBoard[gDuelCursor.destY][gDuelCursor.destX]);
-  CopySelectedCardToZone(gDuelBoard[gDuelCursor.currentY][gDuelCursor.currentX]);
+  ClearZone(gFixedZonePtrs[gDuelCursor.destY][gDuelCursor.destX]);
+  CopySelectedCardToZone(gFixedZonePtrs[gDuelCursor.currentY][gDuelCursor.currentX]);
   gDuelCursor.state = 0;
   ResetCursorDestToCurrentPos();
   UpdateDuelGfxExceptField();
@@ -667,7 +667,7 @@ _08044BA8:\n\
 	b _08044C16\n\
 	.align 2, 0\n\
 _08044C04: .4byte 0x08102E24\n\
-_08044C08: .4byte gHands+0x14\n\
+_08044C08: .4byte gTurnHandPtrs+0x14\n\
 _08044C0C: .4byte 0x02000400\n\
 _08044C10:\n\
 	adds r0, r4, #0\n\
@@ -795,7 +795,7 @@ void sub_8044B90 (void) {
   const unsigned char arr[] = {0x10, 0x3C, 0x68, 0x94, 0xC0}; //opponent hand coords
   u8* ptr;
   for (i = 0; i < 5; i++) {
-    u16 cardId = gHands[1][4 - i]->id;
+    u16 cardId = gTurnHandPtrs[1][4 - i]->id;
     if (cardId == CARD_NONE)
       continue;
     ptr = &gBgVram.cbb0[(i % 4 * 256) | ((i / 4 << 12) + (0x10 << 12))];

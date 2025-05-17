@@ -73,25 +73,25 @@ struct Duel
 extern struct Duel gDuel;
 extern struct NotSureWhatToName* gNotSure[2]; //2023FC0
 
-// gZones switches POV every turn:
+// gTurnZonePtrs switches POV every turn:
 // [2023FD0] 0 = Current-Turn Opponent Spell/Trap Row
 // [2023FE4] 1 = Current-Turn Opponent Monster Row
 // [2023FF8] 2 = Current-Turn Player   Monster Row
 // [202400C] 3 = Current-Turn Player   Spell/Trap Row
 // [2024020] 4 = Current-Turn Player   Hand
-extern struct DuelCard* gZones[5][MAX_ZONES_IN_ROW];
+extern struct DuelCard* gTurnZonePtrs[5][MAX_ZONES_IN_ROW];
 
-// gDuelBoard is a fixed-POV of gZones from the player's side:
+// gFixedZonePtrs is a fixed-POV of gTurnZonePtrs from the player's side:
 // 0 = Opponent Spell/Trap Row
 // 1 = Opponent Monster Row
 // 2 = Player Monster Row
 // 3 = Player Spell/Trap Row
 // 4 = Player Hand
-extern struct DuelCard* gDuelBoard[5][MAX_ZONES_IN_ROW];
+extern struct DuelCard* gFixedZonePtrs[5][MAX_ZONES_IN_ROW];
 
 // 0 = Current-Turn Player Hand
 // 1 = Current-Turn Opponent Hand
-extern struct DuelCard* gHands[2][MAX_ZONES_IN_ROW];
+extern struct DuelCard* gTurnHandPtrs[2][MAX_ZONES_IN_ROW];
 
 // when gDuelType is
 // 0: Ingame Duel: Life points carry over from previous duels; otherwise: they get set to opponent specific value.
@@ -104,7 +104,7 @@ enum DuelType {
 };
 
 //*********************
-void sub_803FEA4(int unused);
+void InitDuelZonePtrs(int unused);
 //*********************
 
 void sub_8040508(u8);
