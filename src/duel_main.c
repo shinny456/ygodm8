@@ -15,8 +15,8 @@ static void sub_8021C98 (void);
 static void sub_8021CD0 (void);
 static void nullsub_8021CDC (void);
 static unsigned char sub_8021CFC (void);
-static void StartPlayerTurn (void);
-static void StartOpponentTurn (void);
+static void StartPlayerLinkTurn (void);
+static void StartOpponentLinkTurn (void);
 static void sub_8021FF8 (void);
 static void InitLinkDuel (void);
 static void OnLinkDuelEnd (void);
@@ -87,7 +87,7 @@ void DuelMain (void) {
     sub_8040FDC();
     ResetDuelTextData(&duelText);
     if (turn == DUEL_PLAYER) {
-      duelText.textId = 0;
+      duelText.textId = TEXT_PLAYER_TURN;
       DisplayDuelText(&duelText);
     }
     else
@@ -348,11 +348,11 @@ void LinkDuelMain (void) {
     UpdateDuelGfxExceptField();
     sub_80240BC(&duelText);
     if (turn == DUEL_PLAYER) {
-      duelText.textId = 0;
+      duelText.textId = TEXT_PLAYER_TURN;
       sub_802405C(&duelText);
     }
     else {
-      duelText.textId = 23;
+      duelText.textId = TEXT_OPPONENT_LINK_TURN;
       sub_802405C(&duelText);
     }
     sub_8022080();
@@ -360,9 +360,9 @@ void LinkDuelMain (void) {
     ResetNumTributes();
     UpdateDuelZonePtrs(turn);
     if (turn == DUEL_PLAYER)
-      StartPlayerTurn();
+      StartPlayerLinkTurn();
     else
-      StartOpponentTurn();
+      StartOpponentLinkTurn();
     if (IsDuelOver() == TRUE) break;
     ReturnMonstersToOwner();
     FlipAtkPosCardsFaceUp(2);
@@ -379,7 +379,7 @@ void LinkDuelMain (void) {
   OnLinkDuelEnd();
 }
 
-static void StartPlayerTurn (void) {
+static void StartPlayerLinkTurn (void) {
   struct DuelText duelText;
   g3000C38.unk32 = 0;
   if (NumEmptyZonesInRow(gTurnZones[4]) > 0) {
@@ -388,7 +388,7 @@ static void StartPlayerTurn (void) {
       g2021D98 = 3;
       sub_8024548();
       sub_80240BC(&duelText);
-      duelText.textId = 24;
+      duelText.textId = TEXT_LINKING;
       sub_802408C(&duelText);
       do {
         sub_8024354();
@@ -410,14 +410,14 @@ static void StartPlayerTurn (void) {
   g2021D98 = 3;
   sub_8024548();
   sub_80240BC(&duelText);
-  duelText.textId = 24;
+  duelText.textId = TEXT_LINKING;
   sub_802408C(&duelText);
   do {
     sub_8024354();
   } while (g3000C6C);
 }
 
-static void StartOpponentTurn (void) {
+static void StartOpponentLinkTurn (void) {
   struct DuelText duelText; //unused
   struct DuelCursor curPos = gDuelCursor;
   bool32 r4 = 0;
@@ -540,7 +540,7 @@ void sub_8022080 (void) {
   if (gDuelType != DUEL_TYPE_LINK)
     return;
   sub_80240BC(&duelText);
-  duelText.textId = 24;
+  duelText.textId = TEXT_LINKING;
   sub_802408C(&duelText);
   do {
     sub_802432C();
@@ -556,21 +556,21 @@ static void LinkDuelWin (void) {
   FadeOutMusic(4);
   if (gDuelLifePoints[DUEL_OPPONENT] == 0) {
     ResetDuelTextData(&duelText);
-    duelText.textId = 19;
+    duelText.textId = TEXT_OPPONENT_OUT_OF_LP;
     DisplayDuelText(&duelText);
   }
   else if (NumCardsInDeck(1) < GetCardsDrawn(1)) {
     ResetDuelTextData(&duelText);
-    duelText.textId = 21;
+    duelText.textId = TEXT_OPPONENT_DECK_OUT;
     DisplayDuelText(&duelText);
   }
   if (gDuelData.unk2d) {
     PlayMusic(gDuelData.winMusic);
     ResetDuelTextData(&duelText);
-    duelText.textId = 2;
+    duelText.textId = TEXT_DUEL_VICTORY;
     DisplayDuelText(&duelText);
     ResetDuelTextData(&duelText);
-    duelText.textId = 6;
+    duelText.textId = TEXT_CAPACITY_INCREASED;
     duelText.rewardAmount = gDuelData.capacityYield;
     DisplayDuelText(&duelText);
   }
@@ -583,21 +583,21 @@ static void LinkDuelLoss (void) {
   FadeOutMusic(4);
   if (gDuelLifePoints[DUEL_PLAYER] == 0) {
     ResetDuelTextData(&duelText);
-    duelText.textId = 20;
+    duelText.textId = TEXT_PLAYER_OUT_OF_LP;
     DisplayDuelText(&duelText);
   }
   else if (NumCardsInDeck(0) < GetCardsDrawn(0)) {
     ResetDuelTextData(&duelText);
-    duelText.textId = 22;
+    duelText.textId = TEXT_PLAYER_DECK_OUT;
     DisplayDuelText(&duelText);
   }
   if (gDuelData.unk2d) {
     PlayMusic(gDuelData.lossMusic);
     ResetDuelTextData(&duelText);
-    duelText.textId = 3;
+    duelText.textId = TEXT_DUEL_LOSS;
     DisplayDuelText(&duelText);
     ResetDuelTextData(&duelText);
-    duelText.textId = 6;
+    duelText.textId = TEXT_CAPACITY_INCREASED;
     duelText.rewardAmount = 5;
     DisplayDuelText(&duelText);
   }

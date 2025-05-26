@@ -1129,23 +1129,23 @@ void HandleWin (void) {
   if (!gDuelLifePoints[DUEL_OPPONENT]) {
     FadeOutMusic(4);
     ResetDuelTextData(&duelText);
-    duelText.textId = 19;
+    duelText.textId = TEXT_OPPONENT_OUT_OF_LP;
     DisplayDuelText(&duelText);
   }
   else if (NumCardsInDeck(1) < GetCardsDrawn(1)) {
     FadeOutMusic(4);
     ResetDuelTextData(&duelText);
-    duelText.textId = 21;
+    duelText.textId = TEXT_OPPONENT_DECK_OUT;
     DisplayDuelText(&duelText);
   }
   if (gDuelData.unk2d) {
     u8 i;
     PlayMusic(gDuelData.winMusic);
     ResetDuelTextData(&duelText);
-    duelText.textId = 2;
+    duelText.textId = TEXT_DUEL_VICTORY;
     DisplayDuelText(&duelText);
     ResetDuelTextData(&duelText);
-    duelText.textId = 6;
+    duelText.textId = TEXT_CAPACITY_INCREASED;
     duelText.rewardAmount = gDuelData.capacityYield;
     DisplayDuelText(&duelText);
     DisplayMoneyRewardText();
@@ -1153,7 +1153,7 @@ void HandleWin (void) {
       if (!gDuelData.unk14[i])
         break;
       ResetDuelTextData(&duelText);
-      duelText.textId = 5;
+      duelText.textId = TEXT_CARD_OBTAINED;
       duelText.unk0 = gDuelData.unk14[i];
       DisplayDuelText(&duelText);
       SetCardInfo(gDuelData.unk14[i]);
@@ -1171,19 +1171,19 @@ void HandleLoss (void) {
   if (!gDuelLifePoints[DUEL_PLAYER]) {
     FadeOutMusic(4);
     ResetDuelTextData(&duelText);
-    duelText.textId = 20;
+    duelText.textId = TEXT_PLAYER_OUT_OF_LP;
     DisplayDuelText(&duelText);
   }
   else if (NumCardsInDeck(0) < GetCardsDrawn(0)) {
     FadeOutMusic(4);
     ResetDuelTextData(&duelText);
-    duelText.textId = 22;
+    duelText.textId = TEXT_PLAYER_DECK_OUT;
     DisplayDuelText(&duelText);
   }
   if (gDuelData.unk2d) {
     PlayMusic(gDuelData.lossMusic);
     ResetDuelTextData(&duelText);
-    duelText.textId = 3;
+    duelText.textId = TEXT_DUEL_LOSS;
     DisplayDuelText(&duelText);
   }
 }
@@ -1249,23 +1249,23 @@ void DisplayMoneyRewardText (void) {
   struct DuelText duelText;
   ResetDuelTextData(&duelText);
   if (!gDuelData.moneyReward) {
-    duelText.textId = 12;
+    duelText.textId = TEXT_NO_MONEY_OBTAINED;
     duelText.rewardAmount = gDuelData.moneyReward;
   }
   else if (gDuelData.moneyReward <= 9999) {
-    duelText.textId = 8;
+    duelText.textId = TEXT_MONEY_OBTAINED;
     duelText.rewardAmount = gDuelData.moneyReward;
   }
   else if (gDuelData.moneyReward <= 99999999) {
-    duelText.textId = 9;
+    duelText.textId = TEXT_ABOUT_DOMINO_OBTAINED;
     duelText.rewardAmount = gDuelData.moneyReward / 10000;
   }
   else if (gDuelData.moneyReward <= 999999999999) {
-    duelText.textId = 10;
+    duelText.textId = TEXT_ABOUT_MILLION_OBTAINED;
     duelText.rewardAmount = gDuelData.moneyReward / 100000000;
   }
   else {
-    duelText.textId = 11;
+    duelText.textId = TEXT_ABOUT_BILLION_OBTAINED;
     duelText.rewardAmount = gDuelData.moneyReward / 1000000000000;
   }
   DisplayDuelText(&duelText);

@@ -7181,7 +7181,7 @@ void AI_Main (void) {
     else
       UpdateDuelGfxExceptField();
     PlayActionSoundEffect();
-    WinConditionFINAL();
+    CheckWinConditionFINAL();
     CheckWinConditionExodia();
     TryActivatingPermanentEffects();
   }

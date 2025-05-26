@@ -163,7 +163,7 @@ static void CheckAllCardsForTurnEffects (void) {
     if (sub_802BBF0() == 1) {
       sub_8034FEC(375);
       TryActivatingTurnEffect();
-      WinConditionFINAL();
+      CheckWinConditionFINAL();
       if (!gHideEffectText)
         PlayMusic(MUSIC_375);
     }

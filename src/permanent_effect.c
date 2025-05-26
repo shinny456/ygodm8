@@ -25,7 +25,7 @@ void TryEvolveMothCards (void) {
     gTurnZones[2][i]->id = gNextMothEvolution[temp];
     ResetCardEffectTextData();
     SetCardEffectTextType(10);
-    gCardEffectTextData.textId = 14;
+    gCardEffectTextData.textId = TEXT_TRANSFORMED_INTO;
     gCardEffectTextData.cardId = gMothsAbleToEvolve[temp];
     gCardEffectTextData.cardId2 = gNextMothEvolution[temp];
     ActivateCardEffectText();

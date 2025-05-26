@@ -478,7 +478,7 @@ static void TryPlaceSelectedCardOnField (void) {
       if (gDuelCursor.currentY == 3) {
         PlayMusic(SFX_PLACE_CARD);
         sub_80449D8();
-        WinConditionFINAL();
+        CheckWinConditionFINAL();
         TryActivatingPermanentEffects();
       }
       else {

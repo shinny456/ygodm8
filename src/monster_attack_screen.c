@@ -387,7 +387,7 @@ void sub_801BC00 (void) {
   struct DuelText duelText;
   if (gDuelType == DUEL_TYPE_LINK) {
     sub_80240BC(&duelText);
-    duelText.textId = 24;
+    duelText.textId = TEXT_LINKING;
     sub_802408C(&duelText);
     g2021D98 = 4;
     sub_8024548();
