@@ -21,7 +21,7 @@ extern u16 g8E0D91A[];
 extern u16 g80F1880[][30];
 extern u16 g80F1D30[][30];
 extern u16 g80F30E0[];
-extern unsigned char g8E0D828[];
+extern unsigned char g8E0D828[]; // "Attack | Defend | Tribute | Effect"
 
 void InitBMenu (unsigned char);
 void sub_80428EC (unsigned char);
@@ -35,9 +35,8 @@ void UpdateDuelGfxExceptField (void);
 
 extern u16 g80F13D0[][30];
 extern unsigned char g8DF811C[];
-extern unsigned char g8E0D668[];
-extern unsigned char g8E0D753[];
-
+extern unsigned char g8E0D668[]; // "Deckcards"
+extern unsigned char g8E0D753[]; // "Details | Turn end | Discard"
 
 u16 sub_08007FEC(unsigned char, unsigned char, u16);
 void sub_800800C(unsigned char, unsigned char, u16, u16);
@@ -115,7 +114,7 @@ void BMenuMain (void) {
               PlayMusic(SFX_DISCARD);
               ClearZoneAndSendMonToGraveyard2(gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX], 0);
               UpdateDuelGfxExceptField();
-              sub_8029820();
+              TryActivatingPermanentEffects();
             }
           else {
             PlayMusic(SFX_FORBIDDEN);

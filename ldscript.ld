@@ -125,7 +125,7 @@ SECTIONS
     g2021DD8 = 0x2021DD8;
 
     /*permanent_effect but also used in turn_effect (might be one file)*/
-    g2021DE0 = 0x2021DE0;
+    gActiveEffect = 0x2021DE0;
 
     /*card_shop*/
     gShopCardQty = 0x2021DF0;
@@ -622,8 +622,8 @@ SECTIONS
     g80DD674 = 0x80DD674;
     g80DD678 = 0x80DD678;
     g8E0CE90 = 0x8E0CE90;
-    g8E0C6B0 = 0x8E0C6B0;
-    g8E0C6B8 = 0x8E0C6B8;
+    gMothsAbleToEvolve = 0x8E0C6B0;
+    gNextMothEvolution = 0x8E0C6B8;
     g8E0C6C0 = 0x8E0C6C0;
     g8E0C800 = 0x8E0C800;
     g8E0D954 = 0x8E0D954;
@@ -733,7 +733,7 @@ SECTIONS
     g8E0FD44 = 0x8E0FD44;
     g8E0C940 = 0x8E0C940;
     g8E0CA80 = 0x8E0CA80;
-    g8E0CBC0 = 0x8E0CBC0;
+    gCardAttributeStrings = 0x8E0CBC0;
     g8E0CBF0 = 0x8E0CBF0;
     g80C7DDC = 0x80C7DDC;
     g80C9D84 = 0x80C9D84;

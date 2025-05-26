@@ -10,7 +10,7 @@ void sub_80408BC (void);
 extern void (*g8E0C940[]) (void);
 extern unsigned char (*g8E0CA80[]) (void);
 
-extern unsigned char* g8E0CBC0[];
+extern unsigned char* gCardAttributeStrings[];
 extern u32* g8E0CBF0[];
 extern unsigned char g80C7DDC[];/*sweeping cursor tiles*/
 extern struct OamData gOamBuffer[];
@@ -49,12 +49,12 @@ void sub_802AEB4 (void) {
 static void TryActivatingTurnEffect (void);
 static unsigned sub_802BBF0 (void);
 
-static void sub_802AEF4 (void) {
+static void CheckAllCardsForTurnEffects (void) {
   unsigned char i;
-  g2021DE0.unk2 = 4;
+  gActiveEffect.turnRow = 4;
   for (i = 0; i < 5; i++) {
-    g2021DE0.unk3 = i;
-    g2021DE0.unk0 = gTurnHands[ACTIVE_DUELIST][g2021DE0.unk3]->id;
+    gActiveEffect.col = i;
+    gActiveEffect.cardId = gTurnHands[ACTIVE_DUELIST][gActiveEffect.col]->id;
     if (!gHideEffectText)
       sub_802ACC0();
     if (sub_802BBF0() == 1) {
@@ -68,10 +68,10 @@ static void sub_802AEF4 (void) {
       return;
     }
   }
-  g2021DE0.unk2 = 5;
+  gActiveEffect.turnRow = 5;
   for (i = 0; i < 5; i++) {
-    g2021DE0.unk3 = i;
-    g2021DE0.unk0 = gTurnHands[INACTIVE_DUELIST][g2021DE0.unk3]->id;
+    gActiveEffect.col = i;
+    gActiveEffect.cardId = gTurnHands[INACTIVE_DUELIST][gActiveEffect.col]->id;
     if (!gHideEffectText)
       sub_802ADF4();
     if (sub_802BBF0() == 1) {
@@ -87,9 +87,9 @@ static void sub_802AEF4 (void) {
   }
   if (!gHideEffectText)
     PlayMusic(MUSIC_375);
-  g2021DE0.unk2 = 6;
-  g2021DE0.unk3 = 0;
-  g2021DE0.unk0 = gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard;
+  gActiveEffect.turnRow = 6;
+  gActiveEffect.col = 0;
+  gActiveEffect.cardId = gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard;
   if (!gHideEffectText)
     sub_802ADF4();
   if (sub_802BBF0() == 1) {
@@ -102,9 +102,9 @@ static void sub_802AEF4 (void) {
     sub_8034FEC(375);
     return;
   }
-  g2021DE0.unk2 = 7;
-  g2021DE0.unk3 = 0;
-  g2021DE0.unk0 = gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard;
+  gActiveEffect.turnRow = 7;
+  gActiveEffect.col = 0;
+  gActiveEffect.cardId = gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard;
   if (!gHideEffectText)
     sub_802ADF4();
   if (sub_802BBF0() == 1) {
@@ -118,10 +118,10 @@ static void sub_802AEF4 (void) {
     return;
   }
 
-  g2021DE0.unk2 = 2;
+  gActiveEffect.turnRow = 2;
   for (i = 0; i < 5; i++) {
-    g2021DE0.unk3 = i;
-    g2021DE0.unk0 = gTurnZones[g2021DE0.unk2][i]->id;
+    gActiveEffect.col = i;
+    gActiveEffect.cardId = gTurnZones[gActiveEffect.turnRow][i]->id;
     if (!gHideEffectText)
       sub_802ACC0();
     if (sub_802BBF0() == 1) {
@@ -136,10 +136,10 @@ static void sub_802AEF4 (void) {
     }
   }
 
-  g2021DE0.unk2 = 1;
+  gActiveEffect.turnRow = 1;
   for (i = 0; i < 5; i++) {
-    g2021DE0.unk3 = i;
-    g2021DE0.unk0 = gTurnZones[g2021DE0.unk2][i]->id;
+    gActiveEffect.col = i;
+    gActiveEffect.cardId = gTurnZones[gActiveEffect.turnRow][i]->id;
     if (!gHideEffectText)
       sub_802ACC0();
     if (sub_802BBF0() == 1) {
@@ -154,10 +154,10 @@ static void sub_802AEF4 (void) {
     }
   }
 
-  g2021DE0.unk2 = 3;
+  gActiveEffect.turnRow = 3;
   for (i = 0; i < 5; i++) {
-    g2021DE0.unk3 = i;
-    g2021DE0.unk0 = gTurnZones[g2021DE0.unk2][i]->id;
+    gActiveEffect.col = i;
+    gActiveEffect.cardId = gTurnZones[gActiveEffect.turnRow][i]->id;
     if (!gHideEffectText)
       sub_802ACC0();
     if (sub_802BBF0() == 1) {
@@ -173,10 +173,10 @@ static void sub_802AEF4 (void) {
     }
   }
 
-  g2021DE0.unk2 = 0;
+  gActiveEffect.turnRow = 0;
   for (i = 0; i < 5; i++) {
-    g2021DE0.unk3 = i;
-    g2021DE0.unk0 = gTurnZones[g2021DE0.unk2][i]->id;
+    gActiveEffect.col = i;
+    gActiveEffect.cardId = gTurnZones[gActiveEffect.turnRow][i]->id;
     if (!gHideEffectText)
       sub_802ACC0();
     if (sub_802BBF0() == 1) {
@@ -193,28 +193,28 @@ static void sub_802AEF4 (void) {
   sub_8034FEC(375);
 }
 
-static void sub_802B210 (void) {
+static void EffectCastleOfDarkIllusions (void) {
   unsigned char i;
 
   gDuel.field = FIELD_YAMI;
-  if (g2021DE0.unk2 == 1) {
+  if (gActiveEffect.turnRow == 1) {
     for (i = 0; i < 5; i++)
       if (gTurnZones[1][i]->id != CARD_NONE)
         FlipCardFaceDown(gTurnZones[1][i]);
 
-    FlipCardFaceUp(gTurnZones[1][g2021DE0.unk3]);
+    FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
     if (!gHideEffectText) {
       SetDuelFieldGfx(gDuel.field);
       gCardEffectTextData.cardId = CASTLE_OF_DARK_ILLUSIONS;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 2) {
+  else if (gActiveEffect.turnRow == 2) {
     for (i = 0; i < 5; i++)
       if (gTurnZones[2][i]->id != CARD_NONE)
         FlipCardFaceDown(gTurnZones[2][i]);
 
-    FlipCardFaceUp(gTurnZones[2][g2021DE0.unk3]);
+    FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
     if (!gHideEffectText) {
       SetDuelFieldGfx(gDuel.field);
       gCardEffectTextData.cardId = CASTLE_OF_DARK_ILLUSIONS;
@@ -223,11 +223,11 @@ static void sub_802B210 (void) {
   }
 }
 
-static void sub_802B2FC (void) {
+static void EffectDestinyBoard (void) {
   unsigned char zone;
   unsigned short flags;
 
-  if (g2021DE0.unk2 != 3 || NumEmptyZonesInRow(gTurnZones[3]) >= 5)
+  if (gActiveEffect.turnRow != 3 || NumEmptyZonesInRow(gTurnZones[3]) >= 5)
     return;
   zone = FirstEmptyZoneInRow(gTurnZones[3]);
   flags = GetFINAL_Flags();
@@ -251,15 +251,15 @@ static void sub_802B2FC (void) {
       FlipCardFaceUp(ptr);
   }
   if (!gHideEffectText) {
-    gCardEffectTextData.cardId = g2021DE0.unk0;
+    gCardEffectTextData.cardId = gActiveEffect.cardId;
     ActivateCardEffectText();
   }
 }
 
 static void EffectJamBreedingMachineSummon (void) {
-  if (g2021DE0.unk2 != 3)
+  if (gActiveEffect.turnRow != 3)
     return;
-  FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
   if (NumEmptyZonesInRow(gTurnZones[2]) > 0) {
     unsigned char zone = FirstEmptyZoneInRow(gTurnZones[2]);
     gTurnZones[2][zone]->id = CHANGE_SLIME;
@@ -267,7 +267,7 @@ static void EffectJamBreedingMachineSummon (void) {
     FlipCardFaceUp(gTurnZones[2][zone]);
   }
   if (!gHideEffectText) {
-    gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
     ActivateCardEffectText();
   }
 }
@@ -275,10 +275,10 @@ static void EffectJamBreedingMachineSummon (void) {
 static void EffectMirageKnight (void) {
   struct DuelCard* ptr;
 
-  if (g2021DE0.unk2 != 1)
+  if (gActiveEffect.turnRow != 1)
     return;
 
-  ptr = gTurnZones[g2021DE0.unk2][g2021DE0.unk3];
+  ptr = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col];
   ptr->id = DARK_MAGICIAN;
   ResetPermStage(ptr);
   ResetTempStage(ptr);
@@ -309,17 +309,18 @@ static void EffectMirageKnight (void) {
   }
 }
 
+// resurrect from own gy to own field -- Vampire Lord or Different Dimension Dragon?
 static void sub_802B560 (void) {
-  u16 r5;
+  u16 temp;
   struct DuelCard* ptr;
 
-  if (g2021DE0.unk2 != 6 || gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard != g2021DE0.unk0)
+  if (gActiveEffect.turnRow != 6 || gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard != gActiveEffect.cardId)
     return;
   if (!NumEmptyZonesInRow(gTurnZones[2]))
     return;
-  r5 = GetGraveCardAndClearGrave(0);
+  temp = GetGraveCardAndClearGrave(ACTIVE_DUELIST);
   ptr = gTurnZones[2][(unsigned char)FirstEmptyZoneInRow(gTurnZones[2])];
-  ptr->id = r5;
+  ptr->id = temp;
   ResetPermStage(ptr);
   ResetTempStage(ptr);
   ptr->unk4 = 0;
@@ -330,22 +331,23 @@ static void sub_802B560 (void) {
   FlipCardFaceUp(ptr);
   ptr->willChangeSides = 0;
   if (!gHideEffectText) {
-    gCardEffectTextData.cardId = g2021DE0.unk0;
+    gCardEffectTextData.cardId = gActiveEffect.cardId;
     ActivateCardEffectText();
   }
 }
 
+// resurrect from own gy to own field -- Vampire Lord or Different Dimension Dragon?
 static void sub_802B604 (void) {
-  u16 r5;
+  u16 temp;
   struct DuelCard* ptr;
 
-  if (g2021DE0.unk2 != 6 || gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard != g2021DE0.unk0)
+  if (gActiveEffect.turnRow != 6 || gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard != gActiveEffect.cardId)
     return;
   if (!NumEmptyZonesInRow(gTurnZones[2]))
     return;
-  r5 = GetGraveCardAndClearGrave(0);
+  temp = GetGraveCardAndClearGrave(ACTIVE_DUELIST);
   ptr = gTurnZones[2][(unsigned char)FirstEmptyZoneInRow(gTurnZones[2])];
-  ptr->id = r5;
+  ptr->id = temp;
   ResetPermStage(ptr);
   ResetTempStage(ptr);
   ptr->unk4 = 0;
@@ -356,25 +358,25 @@ static void sub_802B604 (void) {
   FlipCardFaceUp(ptr);
   ptr->willChangeSides = 0;
   if (!gHideEffectText) {
-    gCardEffectTextData.cardId = g2021DE0.unk0;
+    gCardEffectTextData.cardId = gActiveEffect.cardId;
     ActivateCardEffectText();
   }
 }
 
 void TryActivatingTurnEffects (void) {
-  g2021DE0.turn = WhoseTurn();
+  gActiveEffect.turn = WhoseTurn();
   if (!gHideEffectText) {
     sub_80408BC(); //clear oam stuff?
     sub_802ADA4(); //Init sweeping cursor gfx
   }
   ResetTempStagesForAllCards();
-  sub_802AEF4();
+  CheckAllCardsForTurnEffects();
 }
 
 static void TryActivatingTurnEffect (void) {
   ResetCardEffectTextData();
   SetCardEffectTextType(9);
-  SetCardInfo(g2021DE0.unk0);
+  SetCardInfo(gActiveEffect.cardId);
   g8E0C940[gCardInfo.unk1E]();
 }
 
@@ -453,11 +455,11 @@ static void sub_802B768 (void) {
 static void sub_802B76C (void) {
 }
 
-static void sub_802B770 (void) {
-  if (g2021DE0.unk2 != 3)
+static void EffectMessengerOfPeaceLifePoints (void) {
+  if (gActiveEffect.turnRow != 3)
     return;
-  FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
-  if (g2021DE0.turn == ACTIVE_DUELIST) {
+  FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
+  if (gActiveEffect.turn == ACTIVE_DUELIST) {
     SetPlayerLifePointsToSubtract(1000);
     HandleDuelAction();
     CheckLoserFlags();
@@ -468,26 +470,26 @@ static void sub_802B770 (void) {
     CheckLoserFlags();
   }
   if (!gHideEffectText) {
-    gCardEffectTextData.cardId = g2021DE0.unk0;
+    gCardEffectTextData.cardId = gActiveEffect.cardId;
     ActivateCardEffectText();
   }
 }
 
 static void EffectHelpoemer (void) {
-  if (g2021DE0.unk2 != 7 || NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) == 5)
+  if (gActiveEffect.turnRow != 7 || NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) == 5)
     return;
   ClearZoneAndSendMonToGraveyard(gTurnHands[ACTIVE_DUELIST][(unsigned char)FirstNonEmptyZoneInRow(gTurnHands[ACTIVE_DUELIST])], 0);
   if (!gHideEffectText) {
-    gCardEffectTextData.cardId = g2021DE0.unk0;
+    gCardEffectTextData.cardId = gActiveEffect.cardId;
     ActivateCardEffectText();
   }
 }
 
 static void EffectLavaGolemLifePoints (void) {
-  if (g2021DE0.unk2 != 2)
+  if (gActiveEffect.turnRow != 2)
     return;
-  FlipCardFaceUp(gTurnZones[2][g2021DE0.unk3]);
-  if (g2021DE0.turn == ACTIVE_DUELIST) {
+  FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
+  if (gActiveEffect.turn == ACTIVE_DUELIST) {
     SetPlayerLifePointsToSubtract(700);
     HandleDuelAction();
     CheckLoserFlags();
@@ -498,7 +500,7 @@ static void EffectLavaGolemLifePoints (void) {
     CheckLoserFlags();
   }
   if (!gHideEffectText) {
-    gCardEffectTextData.cardId = g2021DE0.unk0;
+    gCardEffectTextData.cardId = gActiveEffect.cardId;
     ActivateCardEffectText();
   }
 }
@@ -513,12 +515,12 @@ static void sub_802B8B8 (void) {
 }
 
 static void EffectViserDes (void) {
-  if (g2021DE0.unk2 != 2 || NumEmptyZonesInRow(gTurnZones[1]) == 5)
+  if (gActiveEffect.turnRow != 2 || NumEmptyZonesInRow(gTurnZones[1]) == 5)
     return;
-  FlipCardFaceUp(gTurnZones[2][g2021DE0.unk3]);
+  FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
   DecrementPermStage(gTurnZones[1][(unsigned char)HighestAtkMonInRow(gTurnZones[1])]);
   if (!gHideEffectText) {
-    gCardEffectTextData.cardId = g2021DE0.unk0;
+    gCardEffectTextData.cardId = gActiveEffect.cardId;
     ActivateCardEffectText();
   }
 }
@@ -527,12 +529,12 @@ static void sub_802B91C (void) {
 }
 
 static void EffectNewdoria (void) {
-  if (g2021DE0.unk2 != 6 || NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
+  if (gActiveEffect.turnRow != 6 || NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
     return;
   ClearZoneAndSendMonToGraveyard(gTurnZones[1][(unsigned char)HighestAtkMonInRowExceptGodCards(gTurnZones[1])], 1);
-  GetGraveCardAndClearGrave(0);
+  GetGraveCardAndClearGrave(ACTIVE_DUELIST);
   if (!gHideEffectText) {
-    gCardEffectTextData.cardId = g2021DE0.unk0;
+    gCardEffectTextData.cardId = gActiveEffect.cardId;
     ActivateCardEffectText();
   }
 }
@@ -549,13 +551,13 @@ static void sub_802B980 (void) {
 static void sub_802B984 (void) {
 }
 
-static void sub_802B988 (void) {
-  if (g2021DE0.unk2 != 1)
+static void EffectBerserkDragonPowerDown (void) {
+  if (gActiveEffect.turnRow != 1)
     return;
-  FlipCardFaceUp(gTurnZones[1][g2021DE0.unk3]);
-  DecrementPermStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
+  DecrementPermStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
   if (!gHideEffectText) {
-    gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
     ActivateCardEffectText();
   }
 }
@@ -563,15 +565,15 @@ static void sub_802B988 (void) {
 static void sub_802B9F0 (void) {
 }
 
-static void sub_802B9F4 (void) {
+static void EffectExodiaNecross (void) {
   struct DuelCard* ptr;
-  if (g2021DE0.unk2 != 2)
+  if (gActiveEffect.turnRow != 2)
     return;
-  ptr = gTurnZones[2][g2021DE0.unk3];
+  ptr = gTurnZones[2][gActiveEffect.col];
   FlipCardFaceUp(ptr);
   IncrementPermStage(ptr);
   if (!gHideEffectText) {
-    gCardEffectTextData.cardId = g2021DE0.unk0;
+    gCardEffectTextData.cardId = gActiveEffect.cardId;
     ActivateCardEffectText();
   }
 }
@@ -588,20 +590,20 @@ static void sub_802BA48 (void) {
 static void sub_802BA4C (void) {
 }
 
-static void sub_802BA50 (void) {
+static void EffectSatelliteCannon (void) {
   struct DuelCard* ptr;
   int i;
 
-  if (g2021DE0.unk2 != 2)
+  if (gActiveEffect.turnRow != 2)
     return;
-  ptr = gTurnZones[2][g2021DE0.unk3];
+  ptr = gTurnZones[2][gActiveEffect.col];
   FlipCardFaceUp(ptr);
 
   for (i = 2; i && GetFinalStage(ptr) <= 5; i--)
     IncrementPermStage(ptr);
 
   if (!gHideEffectText) {
-    gCardEffectTextData.cardId = g2021DE0.unk0;
+    gCardEffectTextData.cardId = gActiveEffect.cardId;
     ActivateCardEffectText();
   }
 }
@@ -690,18 +692,18 @@ static void sub_802BB1C (void) {
 static void sub_802BB20 (void) {
 }
 
-static unsigned char sub_802BB24 (void) {
+static unsigned char ConditionCastleOfDarkIllusions (void) {
   u32 ret = 0;
   unsigned char i;
 
-  if (g2021DE0.unk2 == 1) {
+  if (gActiveEffect.turnRow == 1) {
     if (gDuel.field != FIELD_YAMI)
       ret = 1;
-    else if (g2021DE0.unk3 == GetFirstCardMatchZoneId(gTurnZones[1], CASTLE_OF_DARK_ILLUSIONS))
+    else if (gActiveEffect.col == GetFirstCardMatchZoneId(gTurnZones[1], CASTLE_OF_DARK_ILLUSIONS))
       for (i = 0; i < 5; i++) {
         if (gTurnZones[1][i]->id == CARD_NONE)
           continue;
-        if (i == g2021DE0.unk3)
+        if (i == gActiveEffect.col)
           continue;
         if (IsCardFaceUp(gTurnZones[1][i]) != 1)
           continue;
@@ -709,14 +711,14 @@ static unsigned char sub_802BB24 (void) {
         break;
       }
   }
-  else if (g2021DE0.unk2 == 2) {
+  else if (gActiveEffect.turnRow == 2) {
     if (gDuel.field != FIELD_YAMI)
       ret = 1;
-    else if (g2021DE0.unk3 == GetFirstCardMatchZoneId(gTurnZones[2], CASTLE_OF_DARK_ILLUSIONS))
+    else if (gActiveEffect.col == GetFirstCardMatchZoneId(gTurnZones[2], CASTLE_OF_DARK_ILLUSIONS))
       for (i = 0; i < 5; i++) {
         if (gTurnZones[2][i]->id == CARD_NONE)
           continue;
-        if (i == g2021DE0.unk3)
+        if (i == gActiveEffect.col)
           continue;
         if (IsCardFaceUp(gTurnZones[2][i]) != 1)
           continue;
@@ -728,7 +730,7 @@ static unsigned char sub_802BB24 (void) {
 }
 
 static unsigned sub_802BBF0 (void) {
-  SetCardInfo(g2021DE0.unk0);
+  SetCardInfo(gActiveEffect.cardId);
   return g8E0CA80[gCardInfo.unk1E]();
 }
 
@@ -832,33 +834,35 @@ static unsigned char sub_802BC80 (void) {
   return 0;
 }
 
+// condition: messenger of peace?
 static unsigned char sub_802BC84 (void) {
   unsigned char ret = 0;
-  if (g2021DE0.unk2 == 3 &&
-      g2021DE0.unk3 == GetFirstCardMatchZoneId(gTurnZones[3], g2021DE0.unk0))
+  if (gActiveEffect.turnRow == 3 &&
+      gActiveEffect.col == GetFirstCardMatchZoneId(gTurnZones[3], gActiveEffect.cardId))
     ret = 1;
   return ret;
 }
 
-static unsigned char sub_802BCB0 (void) {
+static unsigned char ConditionDestinyBoardNewLetter (void) {
   unsigned char ret = 0;
-  if (g2021DE0.unk2 == 3 &&
-      g2021DE0.unk3 == GetFirstCardMatchZoneId(gTurnZones[3], DESTINY_BOARD) &&
+  if (gActiveEffect.turnRow == 3 &&
+      gActiveEffect.col == GetFirstCardMatchZoneId(gTurnZones[3], DESTINY_BOARD) &&
       NumEmptyZonesInRow(gTurnZones[3]) > 0)
     ret = 1;
   return ret;
 }
 
-static unsigned char sub_802BCEC (void) {
+static unsigned char ConditionHelpoemer (void) {
   unsigned char ret = 0;
-  if (g2021DE0.unk2 == 7 && NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) <= 2)
+  if (gActiveEffect.turnRow == 7 && NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) <= 2)
     ret = 1;
   return ret;
 }
 
+// condition: lava golem lp burn?
 static unsigned char sub_802BD14 (void) {
   unsigned char ret = 0;
-  if (g2021DE0.unk2 == 2)
+  if (gActiveEffect.turnRow == 2)
     ret = 1;
   return ret;
 }
@@ -875,16 +879,16 @@ static unsigned char sub_802BD30 (void) {
   return 0;
 }
 
-static unsigned char sub_802BD34 (void) {
-  if (g2021DE0.unk2 == 3 &&
+static unsigned char ConditionJamBreedingMachineSummon (void) {
+  if (gActiveEffect.turnRow == 3 &&
       NumEmptyZonesInRow(gTurnZones[2]) != 0 &&
-      g2021DE0.unk3 == GetFirstCardMatchZoneId(gTurnZones[3], JAM_BREEDING_MACHINE))
+      gActiveEffect.col == GetFirstCardMatchZoneId(gTurnZones[3], JAM_BREEDING_MACHINE))
     return 1;
   return 0;
 }
 
-static unsigned char sub_802BD70 (void) {
-  if (g2021DE0.unk2 == 2 && NumEmptyZonesInRow(gTurnZones[1]) < 5)
+static unsigned char ConditionViserDes (void) {
+  if (gActiveEffect.turnRow == 2 && NumEmptyZonesInRow(gTurnZones[1]) < 5)
     return 1;
   return 0;
 }
@@ -893,8 +897,8 @@ static unsigned char sub_802BD98 (void) {
   return 0;
 }
 
-static unsigned char sub_802BD9C (void) {
-  if (g2021DE0.unk2 == 6 && NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) != 5)
+static unsigned char ConditionNewdoria (void) {
+  if (gActiveEffect.turnRow == 6 && NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) != 5)
     return 1;
   return 0;
 }
@@ -915,14 +919,16 @@ static unsigned char sub_802BDD0 (void) {
   return 0;
 }
 
+// condition is opponent turn only: probably one of Helpoemer or Berserk Dragon
 static unsigned char sub_802BDD4 (void) {
-  if (g2021DE0.unk2 == 1)
+  if (gActiveEffect.turnRow == 1)
     return 1;
   return 0;
 }
 
+// condition is opponent turn only: probably one of Helpoemer or Berserk Dragon
 static unsigned char sub_802BDE8 (void) {
-  if (g2021DE0.unk2 == 1)
+  if (gActiveEffect.turnRow == 1)
     return 1;
   return 0;
 }
@@ -931,24 +937,26 @@ static unsigned char sub_802BDFC (void) {
   return 0;
 }
 
+// condition for Vampire Lord or Different Dimension Dragon?
 static unsigned char sub_802BE00 (void) {
-  if (g2021DE0.unk2 == 6 &&
-      gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == g2021DE0.unk0 &&
+  if (gActiveEffect.turnRow == 6 &&
+      gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == gActiveEffect.cardId &&
       NumEmptyZonesInRow(gTurnZones[2]) > 0)
     return 1;
   return 0;
 }
 
+// condition for Vampire Lord or Different Dimension Dragon?
 static unsigned char sub_802BE38 (void) {
-  if (g2021DE0.unk2 == 6 &&
-      gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == g2021DE0.unk0 &&
+  if (gActiveEffect.turnRow == 6 &&
+      gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == gActiveEffect.cardId &&
       NumEmptyZonesInRow(gTurnZones[2]) > 0)
     return 1;
   return 0;
 }
 
-static unsigned char sub_802BE70 (void) {
-  if (g2021DE0.unk2 == 2 && GetExodiaFlag(gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard))
+static unsigned char ConditionExodiaNecrossPowerUp (void) {
+  if (gActiveEffect.turnRow == 2 && GetExodiaFlag(gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard))
     return 1;
   return 0;
 }
@@ -969,8 +977,8 @@ static unsigned char sub_802BEA8 (void) {
   return 0;
 }
 
-static unsigned char sub_802BEAC (void) {
-  if (g2021DE0.unk2 == 2 && GetFinalStage(gTurnZones[2][g2021DE0.unk3]) <= 5)
+static unsigned char ConditionSatelliteCannon (void) {
+  if (gActiveEffect.turnRow == 2 && GetFinalStage(gTurnZones[2][gActiveEffect.col]) <= 5)
     return 1;
   return 0;
 }
@@ -1093,7 +1101,7 @@ static unsigned char sub_802BF4C (void) {
 
 // split? 
 unsigned char* GetCardAttributeString (unsigned char attribute) {
-  return g8E0CBC0[attribute];
+  return gCardAttributeStrings[attribute];
 }
 
 u32* sub_802BF60 (unsigned char arg0) {

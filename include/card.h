@@ -89,7 +89,7 @@ struct CardInfo {
   u8 monsterEffect;           /*0x1B*/
   u8 trapEffect;              /*0x1C*/
   u8 ritualEffect;            /*0x1D*/
-  u8 unk1E;                   /*0x1E*/
+  u8 unk1E;                   /*0x1E*/ // something to do with effects
 };
 
 extern struct StatMod gStatMod;

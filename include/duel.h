@@ -53,8 +53,8 @@ struct DuelistBattleState
 {
     u16 graveyard;
     u8 sorlTurns : 2;
-    u8 defenseBlocked : 1; // stop defence active this turn
-    u8 unkThree : 1; // something that causes all monsters to get locked?
+    u8 defenseBlocked : 1; // Stop Defence active this turn
+    u8 summoningBlocked : 1; // Jam Breeding Machine active this turn?
 };
 
 struct Duel
@@ -141,7 +141,7 @@ enum SpellType
 void InitDuelZonePtrs(int unused);
 //*********************
 
-void sub_8040508(u8);
+void UnblockSummoning(u8);
 
 //this seems to disable traps too. see how it's used in spell_effects.c
 extern u8 gHideEffectText; // TODO: rename to gHideDuelText? gDisableDuelTextAndTraps
@@ -451,7 +451,7 @@ extern u16 gRitualComponents[][4]; //ritual
 //[][2] == sacrifice 2
 //[][3] == sacrifice 3
 
-void sub_80404F0(u8);
+void BlockTurnSummoning(u8);
 void LockMonsterCardsInRow(u8);
 void sub_803F8E0(int);
 
@@ -671,12 +671,13 @@ void sub_8044EC8 (u16*, u16, u16, int);
 void sub_8044F80 (u16*, u16, u16, int);
 void sub_80411EC (struct OamData*);
 
+// card with active effect? or cursor?
 extern struct Unk2021DE0 {
-  u16 unk0;
-  u8 unk2;
-  u8 unk3;
+  u16 cardId;
+  u8 turnRow; // uses 6/7 as graveyard indexes
+  u8 col;
   u8 turn;
-} g2021DE0;
+} gActiveEffect;
 
 void sub_802ACC0(void);
 

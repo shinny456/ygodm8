@@ -38,10 +38,10 @@ void sub_804078C(void);
 void WaitForVBlank(void);
 void sub_8040FDC(void);
 
-void sub_8040524(unsigned char);
+void UnblockTurnSummoning(unsigned char);
 void UpdateDuelZonePtrs(unsigned char);
 void CheckWinConditionExodia();    //implicit declaration shenanigans
-void ActivateMonsterAutoEffects(void);
+void TryEvolveMothCards(void);
 void PlayerTurnMain(void);
 void AI_Main(void);
 void FlipAtkPosCardsFaceUp(unsigned char);
@@ -92,7 +92,7 @@ void DuelMain (void) {
     }
     else
       OpponentTurnTextAndVoice();
-    sub_8040524(ACTIVE_DUELIST);
+    UnblockTurnSummoning(ACTIVE_DUELIST);
     ResetNumTributes();
     UpdateDuelZonePtrs(turn);
     if (NumEmptyZonesInRow(gTurnZones[4]) > 0) {
@@ -106,7 +106,7 @@ void DuelMain (void) {
     if (IsDuelOver() == TRUE)
       break;
     TryDisplaySorlTurnsRemainingText();
-    ActivateMonsterAutoEffects();
+    TryEvolveMothCards();
     if (turn == DUEL_PLAYER)
       PlayerTurnMain();
     else
@@ -356,7 +356,7 @@ void LinkDuelMain (void) {
       sub_802405C(&duelText);
     }
     sub_8022080();
-    sub_8040524(ACTIVE_DUELIST);
+    UnblockTurnSummoning(ACTIVE_DUELIST);
     ResetNumTributes();
     UpdateDuelZonePtrs(turn);
     if (turn == DUEL_PLAYER)
@@ -403,7 +403,7 @@ static void StartPlayerTurn (void) {
   if (IsDuelOver() == TRUE)
     return;
   TryDisplaySorlTurnsRemainingText();
-  ActivateMonsterAutoEffects();
+  TryEvolveMothCards();
   PlayerTurnMain();
   if (IsDuelOver() == TRUE)
     return;

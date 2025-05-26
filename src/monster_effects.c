@@ -1898,7 +1898,7 @@ static void EffectPuppetMaster(void)
             HandleDuelAction();
         }
         CheckLoserFlags();
-        GetGraveCardAndClearGrave(0);  //this returns something
+        GetGraveCardAndClearGrave(ACTIVE_DUELIST);  //this returns something
 
         zone = FirstEmptyZoneInRow(gTurnZones[2]);
 
@@ -2143,7 +2143,7 @@ static void EffectPenguinTorpedo(void)
     }
 }
 
-static void EffectBerserkDragon(void)
+static void EffectBerserkDragonPowerDown(void)
 {
     u8 i, turn = WhoseTurn();
 
@@ -3126,7 +3126,7 @@ void (*const gMonEffects[])(void) = {
   EffectPuppetMaster,
   EffectTheWingedDragonOfRaPhoenixMode,
   EffectPenguinTorpedo,
-  EffectBerserkDragon,
+  EffectBerserkDragonPowerDown,
   EffectFGD,
   EffectChironTheMage,
   sub_8048C18,

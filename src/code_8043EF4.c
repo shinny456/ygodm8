@@ -276,14 +276,14 @@ void HandlePlayerMonsterRowAction (void) {
         gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
       }
       UpdateDuelGfxExceptField();
-      sub_8029820();
+      TryActivatingPermanentEffects();
       break;
     case 3:
       PlayMusic(SFX_TRIBUTE);
       IncNumTributes();
       ClearZoneAndSendMonToGraveyard2(gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX], 0);
       UpdateDuelGfxExceptField();
-      sub_8029820();
+      TryActivatingPermanentEffects();
       break;
     case 4:
       if (gTurnDuelistBattleState[ACTIVE_DUELIST]->defenseBlocked)
@@ -303,12 +303,12 @@ void HandlePlayerMonsterRowAction (void) {
           gMonEffect.row = gDuelCursor.currentY;
           gMonEffect.zone = gDuelCursor.currentX;
           ActivateMonsterEffect();
-          if (gTurnDuelistBattleState[ACTIVE_DUELIST]->unkThree)
+          if (gTurnDuelistBattleState[ACTIVE_DUELIST]->summoningBlocked)
             LockMonsterCardsInRow(4);
           UpdateDuelGfxExceptField();
           CheckWinConditionExodia();
           if (IsDuelOver() != 1)
-            sub_8029820();
+            TryActivatingPermanentEffects();
         }
       }
       else
@@ -353,7 +353,7 @@ void sub_8044570 (void) {
       ActivateTrapEffect();
       gDuelCursor.state = 0;
     }
-    sub_8029820();
+    TryActivatingPermanentEffects();
   }
   else {
     PlayMusic(SFX_SELECT);
@@ -379,12 +379,12 @@ void HandlePlayerBackrowAction (void) {
       gSpellEffectData.unk2 = gDuelCursor.currentY;
       gSpellEffectData.unk3 = gDuelCursor.currentX;
       ActivateSpellEffect();
-      if (gTurnDuelistBattleState[ACTIVE_DUELIST]->unkThree)
+      if (gTurnDuelistBattleState[ACTIVE_DUELIST]->summoningBlocked)
         LockMonsterCardsInRow(4);
       UpdateDuelGfxExceptField();
       CheckWinConditionExodia();
       if (IsDuelOver() != TRUE)
-        sub_8029820();
+        TryActivatingPermanentEffects();
       break;
     case SPELL_TYPE_EQUIP: // need to select a valid monster target after "activating"
       PlayMusic(SFX_SELECT);
@@ -427,7 +427,7 @@ void sub_80447A8 (void) {
     gDuelCursor.state = 0;
     ResetCursorDestToCurrentPos();
     UpdateDuelGfxExceptField();
-    sub_8029820();
+    TryActivatingPermanentEffects();
   }
 }
 
@@ -465,7 +465,7 @@ void sub_8044840 (void) {
       SetCursorToCardDest();
       UpdateDuelGfxExceptField();
     }
-    sub_8029820();
+    TryActivatingPermanentEffects();
   }
 }
 
@@ -479,7 +479,7 @@ static void TryPlaceSelectedCardOnField (void) {
         PlayMusic(SFX_PLACE_CARD);
         sub_80449D8();
         WinConditionFINAL();
-        sub_8029820();
+        TryActivatingPermanentEffects();
       }
       else {
         PlayMusic(SFX_FORBIDDEN);
@@ -493,11 +493,11 @@ static void TryPlaceSelectedCardOnField (void) {
       }
       else {
         PlayMusic(SFX_PLACE_CARD);
-        sub_80404F0(0);
+        BlockTurnSummoning(ACTIVE_DUELIST);
         LockMonsterCardsInRow(4);
         ResetNumTributes();
         sub_80449D8();
-        sub_8029820();
+        TryActivatingPermanentEffects();
       }
   }
 }

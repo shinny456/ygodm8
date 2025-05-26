@@ -24,7 +24,7 @@ extern u8 g8E0D5A1[];
 extern u8* g8F1B80C[];
 extern u8* g8E0D584;
 extern u16 g8E0D5B0[];
-extern u8 g8E0D5C7[];
+extern u8 g8E0D5C7[]; // "facedown"
 extern u8 g8E0D617[];
 
 

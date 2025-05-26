@@ -108,7 +108,7 @@ static void sub_800E11C(void)
 
     CopyCard(gTurnZones[row3][col3], gTurnZones[row2][col2]);
     ClearZone(gTurnZones[row2][col2]);
-    sub_80404F0(0);
+    BlockTurnSummoning(ACTIVE_DUELIST);
     LockMonsterCardsInRow(4);
 }
 
@@ -121,7 +121,7 @@ static void sub_800E170(void)
 
     CopyCard(gTurnZones[row3][col3], gTurnZones[row2][col2]);
     ClearZone(gTurnZones[row2][col2]);
-    sub_80404F0(0);
+    BlockTurnSummoning(ACTIVE_DUELIST);
     LockMonsterCardsInRow(4);
 }
 
@@ -135,7 +135,7 @@ static void sub_800E1C4(void)
     ClearZoneAndSendMonToGraveyard(gTurnZones[row3][col3], 0);
     CopyCard(gTurnZones[row3][col3], gTurnZones[row2][col2]);
     ClearZone(gTurnZones[row2][col2]);
-    sub_80404F0(0);
+    BlockTurnSummoning(ACTIVE_DUELIST);
     LockMonsterCardsInRow(4);
 }
 
@@ -149,7 +149,7 @@ static void sub_800E22C(void)
     ClearZoneAndSendMonToGraveyard(gTurnZones[row3][col3], 0);
     CopyCard(gTurnZones[row3][col3], gTurnZones[row2][col2]);
     ClearZone(gTurnZones[row2][col2]);
-    sub_80404F0(0);
+    BlockTurnSummoning(ACTIVE_DUELIST);
     LockMonsterCardsInRow(4);
 }
 
@@ -166,7 +166,7 @@ static void sub_800E294(void)
     ClearZoneAndSendMonToGraveyard(gTurnZones[row3][col3], 0);
     CopyCard(gTurnZones[row3][col3], gTurnZones[row2][col2]);
     ClearZone(gTurnZones[row2][col2]);
-    sub_80404F0(0);
+    BlockTurnSummoning(ACTIVE_DUELIST);
     LockMonsterCardsInRow(4);
 }
 
@@ -183,7 +183,7 @@ static void sub_800E324(void)
     ClearZoneAndSendMonToGraveyard(gTurnZones[row3][col3], 0);
     CopyCard(gTurnZones[row3][col3], gTurnZones[row2][col2]);
     ClearZone(gTurnZones[row2][col2]);
-    sub_80404F0(0);
+    BlockTurnSummoning(ACTIVE_DUELIST);
     LockMonsterCardsInRow(4);
 }
 
@@ -203,7 +203,7 @@ static void sub_800E3B4(void)
     ClearZoneAndSendMonToGraveyard(gTurnZones[row3][col3], 0);
     CopyCard(gTurnZones[row3][col3], gTurnZones[row2][col2]);
     ClearZone(gTurnZones[row2][col2]);
-    sub_80404F0(0);
+    BlockTurnSummoning(ACTIVE_DUELIST);
     LockMonsterCardsInRow(4);
 }
 
@@ -223,7 +223,7 @@ static void sub_800E460(void)
     ClearZoneAndSendMonToGraveyard(gTurnZones[row3][col3], 0);
     CopyCard(gTurnZones[row3][col3], gTurnZones[row2][col2]);
     ClearZone(gTurnZones[row2][col2]);
-    sub_80404F0(0);
+    BlockTurnSummoning(ACTIVE_DUELIST);
     LockMonsterCardsInRow(4);
 }
 
@@ -377,7 +377,7 @@ static void sub_800E8B4(void)
     gMonEffect.row = row2;
     gMonEffect.zone = col2;
     ActivateMonsterEffect();
-    if (gTurnDuelistBattleState[ACTIVE_DUELIST]->unkThree)
+    if (gTurnDuelistBattleState[ACTIVE_DUELIST]->summoningBlocked)
         LockMonsterCardsInRow(4);
 }
 
@@ -550,7 +550,7 @@ static void sub_800EC68(void)
     gSpellEffectData.unk2 = row2;
     gSpellEffectData.unk3 = col2;
     ActivateSpellEffect();
-    if (gTurnDuelistBattleState[ACTIVE_DUELIST]->unkThree)
+    if (gTurnDuelistBattleState[ACTIVE_DUELIST]->summoningBlocked)
         LockMonsterCardsInRow(4);
     ClearZone(gTurnZones[row2][col2]);
 }
@@ -7148,7 +7148,7 @@ void AI_Main (void) {
   TryActivatingTurnEffects();
   if (IsDuelOver() == TRUE)
     return;
-  sub_8029820();
+  TryActivatingPermanentEffects();
   if (IsDuelOver() == TRUE)
     return;
   while (IsDuelOver() != TRUE) {
@@ -7162,7 +7162,7 @@ void AI_Main (void) {
         sub_800EE24(); // save duel data
         sub_800F1EC(); // prioritize action params
         sub_800E0F8(); // perform action
-        sub_8029820(); // activate permanent effects
+        TryActivatingPermanentEffects(); // activate permanent effects
         sub_800F248();
         sub_800EE94(); // restore duel data
       }
@@ -7183,7 +7183,7 @@ void AI_Main (void) {
     PlayActionSoundEffect();
     WinConditionFINAL();
     CheckWinConditionExodia();
-    sub_8029820();
+    TryActivatingPermanentEffects();
   }
   for (i = 0; i < 30; i++)
     WaitForVBlank();

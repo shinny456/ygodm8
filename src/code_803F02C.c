@@ -799,7 +799,7 @@ void InitBoard (void) {
     gDuel.duelistbattleState[i].sorlTurns = 0;
     gDuel.duelistbattleState[i].defenseBlocked = 0;
     gDuel.duelistbattleState[i].graveyard = CARD_NONE;
-    sub_8040508(i);
+    UnblockSummoning(i);
   }
 }
 
@@ -987,20 +987,20 @@ void sub_80404A4 (unsigned char col, unsigned char row, unsigned char arg2) {
 }
 
 // unused?
-void sub_80404D8 (unsigned char arg0) {
-  gDuel.duelistbattleState[arg0].unkThree = 1;
+void BlockSummoning (unsigned char player) {
+  gDuel.duelistbattleState[player].summoningBlocked = 1;
 }
 
-void sub_80404F0 (unsigned char currPlayer) {
-  gTurnDuelistBattleState[currPlayer]->unkThree = 1;
+void BlockTurnSummoning (unsigned char currPlayer) {
+  gTurnDuelistBattleState[currPlayer]->summoningBlocked = 1;
 }
 
-void sub_8040508 (unsigned char player) {
-  gDuel.duelistbattleState[player].unkThree = 0;
+void UnblockSummoning (unsigned char player) {
+  gDuel.duelistbattleState[player].summoningBlocked = 0;
 }
 
-void sub_8040524 (unsigned char currPlayer) {
-  gTurnDuelistBattleState[currPlayer]->unkThree = 0;
+void UnblockTurnSummoning (unsigned char currPlayer) {
+  gTurnDuelistBattleState[currPlayer]->summoningBlocked = 0;
 }
 
 void LockMonsterCardsInRow (unsigned char turnRow) {
@@ -1261,7 +1261,7 @@ void PlayerTurnMain (void) {
   TryActivatingTurnEffects();
   if (IsDuelOver() == TRUE)
     return;
-  sub_8029820();
+  TryActivatingPermanentEffects();
   if (IsDuelOver() == TRUE)
     return;
   sub_80082C0();

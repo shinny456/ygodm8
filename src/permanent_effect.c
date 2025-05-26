@@ -1,8 +1,8 @@
 #include "global.h"
 
-static unsigned char sub_80270B4 (u16);
-extern u16 g8E0C6B8[];
-extern u16 g8E0C6B0[];
+static unsigned char CheckForMothEvolution (u16);
+extern u16 gNextMothEvolution[];
+extern u16 gMothsAbleToEvolve[];
 extern void (*g8E0C6C0[]) (void);
 extern unsigned char (*g8E0C800[]) (void);
 extern unsigned char g2021DD8;
@@ -15,26 +15,27 @@ void sub_802AE44 (void);
 void UpdateDuelGfxExceptField (void);
 
 
-void ActivateMonsterAutoEffects (void) {
+void TryEvolveMothCards (void) {
   unsigned char unused[12];
   unsigned char i;
   for (i = 0; i < 5; i++) {
-    unsigned char temp = sub_80270B4(gTurnZones[2][i]->id);
+    unsigned char temp = CheckForMothEvolution(gTurnZones[2][i]->id);
     if (temp > 3)
       continue;
-    gTurnZones[2][i]->id = g8E0C6B8[temp];
+    gTurnZones[2][i]->id = gNextMothEvolution[temp];
     ResetCardEffectTextData();
     SetCardEffectTextType(10);
     gCardEffectTextData.textId = 14;
-    gCardEffectTextData.cardId = g8E0C6B0[temp];
-    gCardEffectTextData.cardId2 = g8E0C6B8[temp];
+    gCardEffectTextData.cardId = gMothsAbleToEvolve[temp];
+    gCardEffectTextData.cardId2 = gNextMothEvolution[temp];
     ActivateCardEffectText();
   }
 }
 
-static unsigned char sub_80270B4 (u16 cardId) {
+// returns 0-3 if able to evolve, 4 if unable
+static unsigned char CheckForMothEvolution (u16 cardId) {
   unsigned char i;
-  for (i = 0; i < 4 && cardId != g8E0C6B0[i]; i++)
+  for (i = 0; i < 4 && cardId != gMothsAbleToEvolve[i]; i++)
     ;
   return i;
 }
@@ -62,20 +63,20 @@ void sub_802712C (void) {
 
 //split
 
-static void sub_8029864 (void);
+static void TryActivatingPermanentEffect (void);
 static unsigned sub_802A478 (void);
 
-static void sub_8027138 (void) {
+static void CheckAllCardsForPermanentEffects (void) {
   unsigned char i;
-  g2021DE0.unk2 = 4;
+  gActiveEffect.turnRow = 4;
   for (i = 0; i < 5; i++) {
-    g2021DE0.unk3 = i;
-    g2021DE0.unk0 = gTurnHands[ACTIVE_DUELIST][g2021DE0.unk3]->id;
+    gActiveEffect.col = i;
+    gActiveEffect.cardId = gTurnHands[ACTIVE_DUELIST][gActiveEffect.col]->id;
     if (!gHideEffectText)
       sub_802ACC0();
     if (sub_802A478() == 1) {
       sub_8034FEC(0x177);
-      sub_8029864();
+      TryActivatingPermanentEffect();
       if (!gHideEffectText)
         PlayMusic(MUSIC_375);
     }
@@ -85,15 +86,15 @@ static void sub_8027138 (void) {
     }
   }
 
-  g2021DE0.unk2 = 5;
+  gActiveEffect.turnRow = 5;
   for (i = 0; i < 5; i++) {
-    g2021DE0.unk3 = i;
-    g2021DE0.unk0 = gTurnHands[INACTIVE_DUELIST][g2021DE0.unk3]->id;
+    gActiveEffect.col = i;
+    gActiveEffect.cardId = gTurnHands[INACTIVE_DUELIST][gActiveEffect.col]->id;
     if (!gHideEffectText)
       sub_802ADF4();
     if (sub_802A478() == 1) {
       sub_8034FEC(0x177);
-      sub_8029864();
+      TryActivatingPermanentEffect();
       if (!gHideEffectText)
         PlayMusic(MUSIC_375);
     }
@@ -105,14 +106,14 @@ static void sub_8027138 (void) {
   if (!gHideEffectText)
     PlayMusic(MUSIC_375);
 
-  g2021DE0.unk2 = 6;
-  g2021DE0.unk3 = 0;
-  g2021DE0.unk0 = gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard;
+  gActiveEffect.turnRow = 6;
+  gActiveEffect.col = 0;
+  gActiveEffect.cardId = gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard;
   if (!gHideEffectText)
     sub_802ADF4();
   if (sub_802A478() == 1) {
     sub_8034FEC(0x177);
-    sub_8029864();
+    TryActivatingPermanentEffect();
     if (!gHideEffectText)
       PlayMusic(MUSIC_375);
   }
@@ -121,14 +122,14 @@ static void sub_8027138 (void) {
     return;
   }
 
-  g2021DE0.unk2 = 7;
-  g2021DE0.unk3 = 0;
-  g2021DE0.unk0 = gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard;
+  gActiveEffect.turnRow = 7;
+  gActiveEffect.col = 0;
+  gActiveEffect.cardId = gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard;
   if (!gHideEffectText)
     sub_802ADF4();
   if (sub_802A478() == 1) {
     sub_8034FEC(0x177);
-    sub_8029864();
+    TryActivatingPermanentEffect();
     PlayMusic(MUSIC_375);
   }
   if (IsDuelOver() == 1) {
@@ -136,15 +137,15 @@ static void sub_8027138 (void) {
     return;
   }
 
-  g2021DE0.unk2 = 2;
+  gActiveEffect.turnRow = 2;
   for (i = 0; i < 5; i++) {
-    g2021DE0.unk3 = i;
-    g2021DE0.unk0 = gTurnZones[g2021DE0.unk2][i]->id;
+    gActiveEffect.col = i;
+    gActiveEffect.cardId = gTurnZones[gActiveEffect.turnRow][i]->id;
     if (!gHideEffectText)
       sub_802ACC0();
     if (sub_802A478() == 1) {
       sub_8034FEC(0x177);
-      sub_8029864();
+      TryActivatingPermanentEffect();
       if (!gHideEffectText)
         PlayMusic(MUSIC_375);
     }
@@ -154,15 +155,15 @@ static void sub_8027138 (void) {
     }
   }
 
-  g2021DE0.unk2 = 1;
+  gActiveEffect.turnRow = 1;
   for (i = 0; i < 5; i++) {
-    g2021DE0.unk3 = i;
-    g2021DE0.unk0 = gTurnZones[g2021DE0.unk2][i]->id;
+    gActiveEffect.col = i;
+    gActiveEffect.cardId = gTurnZones[gActiveEffect.turnRow][i]->id;
     if (!gHideEffectText)
       sub_802ACC0();
     if (sub_802A478() == 1) {
       sub_8034FEC(0x177);
-      sub_8029864();
+      TryActivatingPermanentEffect();
       if (!gHideEffectText)
         PlayMusic(MUSIC_375);
     }
@@ -172,15 +173,15 @@ static void sub_8027138 (void) {
     }
   }
 
-  g2021DE0.unk2 = 3;
+  gActiveEffect.turnRow = 3;
   for (i = 0; i < 5; i++) {
-    g2021DE0.unk3 = i;
-    g2021DE0.unk0 = gTurnZones[g2021DE0.unk2][i]->id;
+    gActiveEffect.col = i;
+    gActiveEffect.cardId = gTurnZones[gActiveEffect.turnRow][i]->id;
     if (!gHideEffectText)
       sub_802ACC0();
     if (sub_802A478() == 1) {
       sub_8034FEC(0x177);
-      sub_8029864();
+      TryActivatingPermanentEffect();
       if (!gHideEffectText)
         PlayMusic(MUSIC_375);
     }
@@ -190,15 +191,15 @@ static void sub_8027138 (void) {
     }
   }
 
-  g2021DE0.unk2 = 0;
+  gActiveEffect.turnRow = 0;
   for (i = 0; i < 5; i++) {
-    g2021DE0.unk3 = i;
-    g2021DE0.unk0 = gTurnZones[g2021DE0.unk2][i]->id;
+    gActiveEffect.col = i;
+    gActiveEffect.cardId = gTurnZones[gActiveEffect.turnRow][i]->id;
     if (!gHideEffectText)
       sub_802ACC0();
     if (sub_802A478() == 1) {
       sub_8034FEC(0x177);
-      sub_8029864();
+      TryActivatingPermanentEffect();
       if (!gHideEffectText)
         PlayMusic(MUSIC_375);
     }
@@ -210,10 +211,10 @@ static void sub_8027138 (void) {
   sub_8034FEC(0x177);
 }
 
-static void sub_8027444 (void) {
+static void EffectJinzo (void) {
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
-    FlipCardFaceUp(gTurnZones[1][g2021DE0.unk3]);
+  if (gActiveEffect.turnRow == 1) {
+    FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       SetCardInfo(gTurnZones[3][i]->id);
       if (gCardInfo.trapEffect)
@@ -224,8 +225,8 @@ static void sub_8027444 (void) {
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 2) {
-    FlipCardFaceUp(gTurnZones[2][g2021DE0.unk3]);
+  else if (gActiveEffect.turnRow == 2) {
+    FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       SetCardInfo(gTurnZones[0][i]->id);
       if (gCardInfo.trapEffect)
@@ -238,43 +239,42 @@ static void sub_8027444 (void) {
   }
 }
 
-// Slifer effect
-static void sub_8027524 (void) {
+static void EffectSliferTheSkyDragon (void) {
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
-    FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  if (gActiveEffect.turnRow == 1) {
+    FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnHands[INACTIVE_DUELIST][i]->id == CARD_NONE)
         continue;
-      IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
-      IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
-      IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+      IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
+      IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
+      IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = g2021DE0.unk0;
+      gCardEffectTextData.cardId = gActiveEffect.cardId;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 2) {
-    FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  else if (gActiveEffect.turnRow == 2) {
+    FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnHands[ACTIVE_DUELIST][i]->id == CARD_NONE)
         continue;
-      IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
-      IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
-      IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+      IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
+      IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
+      IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = g2021DE0.unk0;
+      gCardEffectTextData.cardId = gActiveEffect.cardId;
       ActivateCardEffectText();
     }
   }
 }
 
-static void sub_8027678 (void) {
+static void EffectDragonCaptureJar (void) {
   unsigned char i;
-  if (g2021DE0.unk2 == 0) {
-    FlipCardFaceUp(gTurnZones[0][g2021DE0.unk3]);
+  if (gActiveEffect.turnRow == 0) {
+    FlipCardFaceUp(gTurnZones[0][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       // Inferred bug: IsGodCard checks the spell/trap row, therefore slifer is locked too
       if (IsCardLocked(gTurnZones[0][i]) == 1 || IsGodCard(gTurnZones[0][i]->id) == 1)
@@ -288,8 +288,8 @@ static void sub_8027678 (void) {
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 3) {
-    FlipCardFaceUp(gTurnZones[3][g2021DE0.unk3]);
+  else if (gActiveEffect.turnRow == 3) {
+    FlipCardFaceUp(gTurnZones[3][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       // Inferred bug: IsGodCard checks the spell/trap row, therefore slifer is locked too
       if (IsCardLocked(gTurnZones[2][i]) == 1 || IsGodCard(gTurnZones[3][i]->id) == 1)
@@ -305,10 +305,10 @@ static void sub_8027678 (void) {
   }
 }
 
-static void sub_802779C (void) {
+static void EffectPumpkingTheKingOfGhosts (void) {
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
-    FlipCardFaceUp(gTurnZones[1][g2021DE0.unk3]);
+  if (gActiveEffect.turnRow == 1) {
+    FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id == ARMORED_ZOMBIE)
         IncrementTempStage(gTurnZones[1][i]);
@@ -318,12 +318,12 @@ static void sub_802779C (void) {
         IncrementTempStage(gTurnZones[1][i]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 2) {
-    FlipCardFaceUp(gTurnZones[2][g2021DE0.unk3]);
+  else if (gActiveEffect.turnRow == 2) {
+    FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id == ARMORED_ZOMBIE)
         IncrementTempStage(gTurnZones[2][i]);
@@ -333,42 +333,43 @@ static void sub_802779C (void) {
         IncrementTempStage(gTurnZones[2][i]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
 }
 
+// effect HarpieLady or CyberHarpie
 static void sub_80278A4 (void) {
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
-    FlipCardFaceUp(gTurnZones[1][g2021DE0.unk3]);
+  if (gActiveEffect.turnRow == 1) {
+    FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id == HARPIES_PET_DRAGON)
         IncrementTempStage(gTurnZones[1][i]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 2) {
-    FlipCardFaceUp(gTurnZones[2][g2021DE0.unk3]);
+  else if (gActiveEffect.turnRow == 2) {
+    FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id == HARPIES_PET_DRAGON)
         IncrementTempStage(gTurnZones[2][i]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
 }
 
-static void sub_8027990 (void) {
+static void EffectHarpieLadySisters (void) {
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
-    FlipCardFaceUp(gTurnZones[1][g2021DE0.unk3]);
+  if (gActiveEffect.turnRow == 1) {
+    FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id == HARPIES_PET_DRAGON) {
         IncrementTempStage(gTurnZones[1][i]);
@@ -376,12 +377,12 @@ static void sub_8027990 (void) {
       }
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 2) {
-    FlipCardFaceUp(gTurnZones[2][g2021DE0.unk3]);
+  else if (gActiveEffect.turnRow == 2) {
+    FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id == HARPIES_PET_DRAGON) {
         IncrementTempStage(gTurnZones[2][i]);
@@ -389,300 +390,301 @@ static void sub_8027990 (void) {
       }
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
 }
 
-static void sub_8027A88 (void) {
+static void EffectMysticalElf (void) {
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
-    FlipCardFaceUp(gTurnZones[1][g2021DE0.unk3]);
+  if (gActiveEffect.turnRow == 1) {
+    FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id == BLUE_EYES_WHITE_DRAGON)
         IncrementTempStage(gTurnZones[1][i]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 2) {
-    FlipCardFaceUp(gTurnZones[2][g2021DE0.unk3]);
+  else if (gActiveEffect.turnRow == 2) {
+    FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id == BLUE_EYES_WHITE_DRAGON)
         IncrementTempStage(gTurnZones[2][i]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = g2021DE0.unk0;
+      gCardEffectTextData.cardId = gActiveEffect.cardId;
       ActivateCardEffectText();
     }
   }
 }
 
-static void sub_8027B54 (void) {
+static void EffectDungeonTamer (void) {
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
-    FlipCardFaceUp(gTurnZones[1][g2021DE0.unk3]);
+  if (gActiveEffect.turnRow == 1) {
+    FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id == DUNGEON_WORM)
         IncrementTempStage(gTurnZones[1][i]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 2) {
-    FlipCardFaceUp(gTurnZones[2][g2021DE0.unk3]);
+  else if (gActiveEffect.turnRow == 2) {
+    FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id == DUNGEON_WORM)
         IncrementTempStage(gTurnZones[2][i]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
 }
 
-static void sub_8027C44 (void) {
+static void EffectMammothGraveyard (void) {
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
-    FlipCardFaceUp(gTurnZones[1][g2021DE0.unk3]);
+  if (gActiveEffect.turnRow == 1) {
+    FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id != CARD_NONE)
         DecrementTempStage(gTurnZones[2][i]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 2) {
-    FlipCardFaceUp(gTurnZones[2][g2021DE0.unk3]);
+  else if (gActiveEffect.turnRow == 2) {
+    FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id != CARD_NONE)
         DecrementTempStage(gTurnZones[1][i]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
 }
 
+// effect: DarkMagicianGirl or ToonDarkMagicianGirl
 static void sub_8027D2C (void) {
-  if (g2021DE0.unk2 == 1) {
-    FlipCardFaceUp(gTurnZones[1][g2021DE0.unk3]);
+  if (gActiveEffect.turnRow == 1) {
+    FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
     if (gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == DARK_MAGICIAN)
-      IncrementTempStage(gTurnZones[1][g2021DE0.unk3]);
+      IncrementTempStage(gTurnZones[1][gActiveEffect.col]);
     else if (gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
-      IncrementTempStage(gTurnZones[1][g2021DE0.unk3]);
+      IncrementTempStage(gTurnZones[1][gActiveEffect.col]);
     if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == DARK_MAGICIAN)
-      IncrementTempStage(gTurnZones[1][g2021DE0.unk3]);
+      IncrementTempStage(gTurnZones[1][gActiveEffect.col]);
     else if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
-      IncrementTempStage(gTurnZones[1][g2021DE0.unk3]);
+      IncrementTempStage(gTurnZones[1][gActiveEffect.col]);
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = g2021DE0.unk0;
+      gCardEffectTextData.cardId = gActiveEffect.cardId;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 2) {
-    FlipCardFaceUp(gTurnZones[2][g2021DE0.unk3]);
+  else if (gActiveEffect.turnRow == 2) {
+    FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
     if (gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == DARK_MAGICIAN)
-      IncrementTempStage(gTurnZones[2][g2021DE0.unk3]);
+      IncrementTempStage(gTurnZones[2][gActiveEffect.col]);
     else if (gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
-      IncrementTempStage(gTurnZones[2][g2021DE0.unk3]);
+      IncrementTempStage(gTurnZones[2][gActiveEffect.col]);
     if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == DARK_MAGICIAN)
-      IncrementTempStage(gTurnZones[2][g2021DE0.unk3]);
+      IncrementTempStage(gTurnZones[2][gActiveEffect.col]);
     else if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
-      IncrementTempStage(gTurnZones[2][g2021DE0.unk3]);
+      IncrementTempStage(gTurnZones[2][gActiveEffect.col]);
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = g2021DE0.unk0;
+      gCardEffectTextData.cardId = gActiveEffect.cardId;
       ActivateCardEffectText();
     }
   }
 }
 
-static void sub_8027EB0 (void) {
+static void EffectWodanTheResidentOfTheForest (void) {
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
-    FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  if (gActiveEffect.turnRow == 1) {
+    FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[1][i]))
         continue;
       SetCardInfo(gTurnZones[1][i]->id);
       if (gCardInfo.type == TYPE_PLANT)
-        IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+        IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 2) {
-    FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  else if (gActiveEffect.turnRow == 2) {
+    FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[2][i]))
         continue;
       SetCardInfo(gTurnZones[2][i]->id);
       if (gCardInfo.type == TYPE_PLANT)
-        IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+        IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
 }
 
-static void sub_8028008 (void) {
+static void EffectSwampBattleguard (void) {
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
-    FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  if (gActiveEffect.turnRow == 1) {
+    FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id != CARD_NONE)
         if (gTurnZones[1][i]->id == LAVA_BATTLEGUARD)
-          IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+          IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 2) {
-    FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  else if (gActiveEffect.turnRow == 2) {
+    FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id != CARD_NONE)
         if (gTurnZones[2][i]->id == LAVA_BATTLEGUARD)
-          IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+          IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
 }
 
-static void sub_802812C (void) {
+static void EffectLavaBattleguard (void) {
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
-    FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  if (gActiveEffect.turnRow == 1) {
+    FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id != CARD_NONE)
         if (gTurnZones[1][i]->id == SWAMP_BATTLEGUARD)
-          IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+          IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 2) {
-    FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  else if (gActiveEffect.turnRow == 2) {
+    FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id != CARD_NONE)
         if (gTurnZones[2][i]->id == SWAMP_BATTLEGUARD)
-          IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+          IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
 }
 
-static void sub_8028244 (void) {
+static void EffectMWarrior1 (void) {
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
-    FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  if (gActiveEffect.turnRow == 1) {
+    FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id != CARD_NONE)
         if (gTurnZones[1][i]->id == M_WARRIOR_2)
           IncrementTempStage(gTurnZones[1][i]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 2) {
-    FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  else if (gActiveEffect.turnRow == 2) {
+    FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id != CARD_NONE)
         if (gTurnZones[2][i]->id == M_WARRIOR_2)
           IncrementTempStage(gTurnZones[2][i]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
 }
 
-static void sub_8028338 (void) {
+static void EffectMWarrior2 (void) {
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
-    FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  if (gActiveEffect.turnRow == 1) {
+    FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id != CARD_NONE)
         if (gTurnZones[1][i]->id == M_WARRIOR_1)
           IncrementTempStage(gTurnZones[1][i]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 2) {
-    FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  else if (gActiveEffect.turnRow == 2) {
+    FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id != CARD_NONE)
         if (gTurnZones[2][i]->id == M_WARRIOR_1)
           IncrementTempStage(gTurnZones[2][i]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
 }
 
-static void sub_802842C (void) {
+static void EffectLabyrinthTank (void) {
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
-    FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  if (gActiveEffect.turnRow == 1) {
+    FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id != CARD_NONE && IsCardFaceUp(gTurnZones[1][i]))
         if (gTurnZones[1][i]->id == LABYRINTH_WALL)
-          IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+          IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 2) {
-    FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  else if (gActiveEffect.turnRow == 2) {
+    FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id != CARD_NONE && IsCardFaceUp(gTurnZones[2][i]))
         if (gTurnZones[2][i]->id == LABYRINTH_WALL)
-          IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+          IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
 }
 
-static void sub_8028574 (void) {
+static void EffectHoshiningen (void) {
   unsigned char i;
-  if (g2021DE0.unk2 != 1 && g2021DE0.unk2 != 2)
+  if (gActiveEffect.turnRow != 1 && gActiveEffect.turnRow != 2)
     return;
-  FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
   for (i = 0; i < 5; i++) {
     if (gTurnZones[1][i]->id == CARD_NONE)
       continue;
@@ -702,16 +704,16 @@ static void sub_8028574 (void) {
       IncrementTempStage(gTurnZones[2][i]);
   }
   if (!gHideEffectText) {
-    gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
     ActivateCardEffectText();
   }
 }
 
-static void sub_802865C (void) {
+static void EffectWitchsApprentice (void) {
   unsigned char i;
-  if (g2021DE0.unk2 != 1 && g2021DE0.unk2 != 2)
+  if (gActiveEffect.turnRow != 1 && gActiveEffect.turnRow != 2)
     return;
-  FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
   for (i = 0; i < 5; i++) {
     if (gTurnZones[1][i]->id == CARD_NONE)
       continue;
@@ -731,128 +733,131 @@ static void sub_802865C (void) {
       DecrementTempStage(gTurnZones[2][i]);
   }
   if (!gHideEffectText) {
-    gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
     ActivateCardEffectText();
   }
 }
 
-static void sub_8028744 (void) {
+static void EffectInsectQueen (void) {
   unsigned char i;
-  if (g2021DE0.unk2 != 1 && g2021DE0.unk2 != 2)
+  if (gActiveEffect.turnRow != 1 && gActiveEffect.turnRow != 2)
     return;
-  FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
   for (i = 0; i < 5; i++) {
     if (gTurnZones[1][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[1][i]))
       continue;
     SetCardInfo(gTurnZones[1][i]->id);
     if (gCardInfo.type == TYPE_INSECT)
-      IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+      IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
   }
   for (i = 0; i < 5; i++) {
     if (gTurnZones[2][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[2][i]))
       continue;
     SetCardInfo(gTurnZones[2][i]->id);
     if (gCardInfo.type == TYPE_INSECT)
-      IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+      IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
   }
   if (!gHideEffectText) {
-    gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
     ActivateCardEffectText();
   }
 }
 
-static void sub_802884C (void) {
+// power up for each face-up dragon on opponent field/gy
+static void EffectBusterBlader (void) {
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
-    FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  if (gActiveEffect.turnRow == 1) {
+    FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[2][i]))
         continue;
       SetCardInfo(gTurnZones[2][i]->id);
       if (gCardInfo.type == TYPE_DRAGON)
-        IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+        IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     }
     SetCardInfo(gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard);
     if (gCardInfo.type == TYPE_DRAGON)
-      IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+      IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = g2021DE0.unk0;
+      gCardEffectTextData.cardId = gActiveEffect.cardId;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 2) {
-    FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  else if (gActiveEffect.turnRow == 2) {
+    FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[1][i]))
         continue;
       SetCardInfo(gTurnZones[1][i]->id);
       if (gCardInfo.type == TYPE_DRAGON)
-        IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+        IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     }
     SetCardInfo(gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard);
     if (gCardInfo.type == TYPE_DRAGON)
-      IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+      IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = g2021DE0.unk0;
+      gCardEffectTextData.cardId = gActiveEffect.cardId;
       ActivateCardEffectText();
     }
   }
 }
 
-static void sub_80289DC (void) {
+// power up for each face-up dragon on own field
+static void EffectMasterOfDragonSoldier (void) {
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
-    FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  if (gActiveEffect.turnRow == 1) {
+    FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[1][i]))
         continue;
       SetCardInfo(gTurnZones[1][i]->id);
       if (gCardInfo.type == TYPE_DRAGON)
-        IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+        IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = g2021DE0.unk0;
+      gCardEffectTextData.cardId = gActiveEffect.cardId;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 2) {
+  else if (gActiveEffect.turnRow == 2) {
     for (i = 0; i < 5; i++) {
-      FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+      FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
       if (gTurnZones[2][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[2][i]))
         continue;
       SetCardInfo(gTurnZones[2][i]->id);
       if (gCardInfo.type == TYPE_DRAGON)
-        IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+        IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = g2021DE0.unk0;
+      gCardEffectTextData.cardId = gActiveEffect.cardId;
       ActivateCardEffectText();
     }
   }
 }
 
+// effect: necross? nyan nyan?
 static void sub_8028B10 (void) {
-  if (g2021DE0.unk2 == 1) {
-    ClearZoneAndSendMonToGraveyard(gTurnZones[g2021DE0.unk2][g2021DE0.unk3], 1);
+  if (gActiveEffect.turnRow == 1) {
+    ClearZoneAndSendMonToGraveyard(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col], INACTIVE_DUELIST);
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = g2021DE0.unk0;
+      gCardEffectTextData.cardId = gActiveEffect.cardId;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 2) {
-    ClearZoneAndSendMonToGraveyard(gTurnZones[g2021DE0.unk2][g2021DE0.unk3], 0);
+  else if (gActiveEffect.turnRow == 2) {
+    ClearZoneAndSendMonToGraveyard(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col], ACTIVE_DUELIST);
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = g2021DE0.unk0;
+      gCardEffectTextData.cardId = gActiveEffect.cardId;
       ActivateCardEffectText();
     }
   }
 }
 
-static void sub_8028B98 (void) {
+static void EffectMessengerOfPeace (void) {
   unsigned char i;
-  if (g2021DE0.unk2 && g2021DE0.unk2 != 3)
+  if (gActiveEffect.turnRow && gActiveEffect.turnRow != 3)
     return;
-  FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
   for (i = 0; i < 5; i++) {
     if (gTurnZones[1][i]->id == CARD_NONE)
       continue;
@@ -874,15 +879,15 @@ static void sub_8028B98 (void) {
       LockCard(gTurnZones[2][i]);
   }
   if (!gHideEffectText) {
-    gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
     ActivateCardEffectText();
   }
 }
 
-static void sub_8028CAC (void) {
+static void EffectLavaGolemSummon (void) {
   u32 i;
   unsigned char j, zone;
-  if (g2021DE0.unk2 != 4)
+  if (gActiveEffect.turnRow != 4)
     return;
   for (i = 0, j = 0; j < 5 && i < 2; j++) {
     u16 cardId = gTurnZones[1][j]->id;
@@ -892,92 +897,93 @@ static void sub_8028CAC (void) {
     }
   }
   zone = FirstEmptyZoneInRow(gTurnZones[1]);
-  CopyCard(gTurnZones[1][zone], gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
-  ClearZone(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  CopyCard(gTurnZones[1][zone], gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
+  ClearZone(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
   FlipCardFaceUp(gTurnZones[1][zone]);
   if (!gHideEffectText) {
-    gCardEffectTextData.cardId = g2021DE0.unk0;
+    gCardEffectTextData.cardId = gActiveEffect.cardId;
     ActivateCardEffectText();
   }
 }
 
-static void sub_8028D74 (void) {
-  if (g2021DE0.unk2 == 1) {
-    FlipCardFaceUp(gTurnZones[1][g2021DE0.unk3]);
+static void EffectDarkJeroid (void) {
+  if (gActiveEffect.turnRow == 1) {
+    FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
     DecrementTempStage(gTurnZones[2][(unsigned char)HighestAtkMonInRow(gTurnZones[2])]);
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = g2021DE0.unk0;
+      gCardEffectTextData.cardId = gActiveEffect.cardId;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 2) {
-    FlipCardFaceUp(gTurnZones[2][g2021DE0.unk3]);
+  else if (gActiveEffect.turnRow == 2) {
+    FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
     DecrementTempStage(gTurnZones[1][(unsigned char)HighestAtkMonInRow(gTurnZones[1])]);
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = g2021DE0.unk0;
+      gCardEffectTextData.cardId = gActiveEffect.cardId;
       ActivateCardEffectText();
     }
   }
 }
 
-static void sub_8028E18 (void) {
-  if (g2021DE0.unk2 == 1) {
+static void EffectBladeKnight (void) {
+  if (gActiveEffect.turnRow == 1) {
     if (NumEmptyZonesInRow(gTurnHands[INACTIVE_DUELIST]) < 4)
       return;
-    FlipCardFaceUp(gTurnZones[1][g2021DE0.unk3]);
-    IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+    FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
+    IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = g2021DE0.unk0;
+      gCardEffectTextData.cardId = gActiveEffect.cardId;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 2) {
+  else if (gActiveEffect.turnRow == 2) {
     if (NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) < 4)
       return;
-    FlipCardFaceUp(gTurnZones[2][g2021DE0.unk3]);
-    IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+    FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
+    IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = g2021DE0.unk0;
+      gCardEffectTextData.cardId = gActiveEffect.cardId;
       ActivateCardEffectText();
     }
   }
 }
 
+// power up for each dragon on the field/gy on either side -- doesn't belong to any cards?
 static void sub_8028ED8 (void) {
   unsigned char i;
-  if (g2021DE0.unk2 != 1 && g2021DE0.unk2 != 2)
+  if (gActiveEffect.turnRow != 1 && gActiveEffect.turnRow != 2)
     return;
-  FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
   for (i = 0; i < 5; i++) {
     SetCardInfo(gTurnZones[1][i]->id);
     if (gCardInfo.type == TYPE_DRAGON)
-      IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+      IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
   }
   for (i = 0; i < 5; i++) {
     SetCardInfo(gTurnZones[2][i]->id);
     if (gCardInfo.type == TYPE_DRAGON)
-      IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+      IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
   }
   SetCardInfo(gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard);
   if (gCardInfo.type == TYPE_DRAGON)
-    IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+    IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
   SetCardInfo(gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard);
   if (gCardInfo.type == TYPE_DRAGON)
-    IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+    IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
   if (!gHideEffectText) {
-    gCardEffectTextData.cardId = g2021DE0.unk0;
+    gCardEffectTextData.cardId = gActiveEffect.cardId;
     ActivateCardEffectText();
   }
 }
 
-static void sub_8029004 (void) {
+static void EffectTheWingedDragonOfRaPhoenixMode (void) {
   unsigned char emptyZone;
-  if (g2021DE0.unk2 == 7) {
+  if (gActiveEffect.turnRow == 7) {
     if (gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard != THE_WINGED_DRAGON_OF_RA_PHOENIX_MODE)
       return;
     if (!NumEmptyZonesInRow(gTurnZones[1]))
       return;
-    GetGraveCardAndClearGrave(1);
+    GetGraveCardAndClearGrave(INACTIVE_DUELIST);
     emptyZone = FirstEmptyZoneInRow(gTurnZones[1]);
     gTurnZones[1][emptyZone]->id = THE_WINGED_DRAGON_OF_RA_BATTLE_MODE;
     gTurnZones[1][emptyZone]->isLocked = FALSE;
@@ -989,16 +995,16 @@ static void sub_8029004 (void) {
     ResetPermStage(gTurnZones[1][emptyZone]);
     ResetTempStage(gTurnZones[1][emptyZone]);
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = g2021DE0.unk0;
+      gCardEffectTextData.cardId = gActiveEffect.cardId;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 6) {
+  else if (gActiveEffect.turnRow == 6) {
     if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard != THE_WINGED_DRAGON_OF_RA_PHOENIX_MODE)
       return;
     if (!NumEmptyZonesInRow(gTurnZones[2]))
       return;
-    GetGraveCardAndClearGrave(0);
+    GetGraveCardAndClearGrave(ACTIVE_DUELIST);
     emptyZone = FirstEmptyZoneInRow(gTurnZones[2]);
     gTurnZones[2][emptyZone]->id = THE_WINGED_DRAGON_OF_RA_BATTLE_MODE;
     gTurnZones[2][emptyZone]->isLocked = FALSE;
@@ -1010,49 +1016,49 @@ static void sub_8029004 (void) {
     ResetPermStage(gTurnZones[2][emptyZone]);
     ResetTempStage(gTurnZones[2][emptyZone]);
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = g2021DE0.unk0;
+      gCardEffectTextData.cardId = gActiveEffect.cardId;
       ActivateCardEffectText();
     }
   }
 }
 
-static void sub_8029158 (void) {
+static void EffectMachineKing (void) {
   unsigned char i;
-  if (g2021DE0.unk2 != 1 && g2021DE0.unk2 != 2)
+  if (gActiveEffect.turnRow != 1 && gActiveEffect.turnRow != 2)
     return;
-  FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
   for (i = 0; i < 5; i++) {
     if (gTurnZones[1][i]->id == CARD_NONE)
       continue;
     SetCardInfo(gTurnZones[1][i]->id);
     if (gCardInfo.type == TYPE_MACHINE)
-      IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+      IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
   }
   for (i = 0; i < 5; i++) {
     if (gTurnZones[2][i]->id == CARD_NONE)
       continue;
     SetCardInfo(gTurnZones[2][i]->id);
     if (gCardInfo.type == TYPE_MACHINE)
-      IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+      IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
   }
   if (!gHideEffectText) {
-    gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
     ActivateCardEffectText();
   }
 }
 
-static void sub_802923C (void) {
+static void EffectPerfectMachineKing (void) {
   unsigned char i;
-  if (g2021DE0.unk2 != 1 && g2021DE0.unk2 != 2)
+  if (gActiveEffect.turnRow != 1 && gActiveEffect.turnRow != 2)
     return;
-  FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
   for (i = 0; i < 5; i++) {
     if (gTurnZones[1][i]->id == CARD_NONE)
       continue;
     SetCardInfo(gTurnZones[1][i]->id);
     if (gCardInfo.type == TYPE_MACHINE) {
-      IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
-      IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+      IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
+      IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     }
   }
   for (i = 0; i < 5; i++) {
@@ -1060,20 +1066,20 @@ static void sub_802923C (void) {
       continue;
     SetCardInfo(gTurnZones[2][i]->id);
     if (gCardInfo.type == TYPE_MACHINE) {
-      IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
-      IncrementTempStage(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+      IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
+      IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     }
   }
   if (!gHideEffectText) {
-    gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+    gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
     ActivateCardEffectText();
   }
 }
 
-static void sub_802934C (void) {
+static void EffectCommandAngel (void) {
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
-    FlipCardFaceUp(gTurnZones[1][g2021DE0.unk3]);
+  if (gActiveEffect.turnRow == 1) {
+    FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE)
         continue;
@@ -1083,12 +1089,12 @@ static void sub_802934C (void) {
       }
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 2) {
-    FlipCardFaceUp(gTurnZones[2][g2021DE0.unk3]);
+  else if (gActiveEffect.turnRow == 2) {
+    FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE)
         continue;
@@ -1098,16 +1104,16 @@ static void sub_802934C (void) {
       }
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
 }
 
-static void sub_8029450 (void) {
+static void EffectNightmarePenguin (void) {
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
-    FlipCardFaceUp(gTurnZones[1][g2021DE0.unk3]);
+  if (gActiveEffect.turnRow == 1) {
+    FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE)
         continue;
@@ -1120,12 +1126,12 @@ static void sub_8029450 (void) {
 
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 2) {
-    FlipCardFaceUp(gTurnZones[2][g2021DE0.unk3]);
+  else if (gActiveEffect.turnRow == 2) {
+    FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE)
         continue;
@@ -1138,21 +1144,21 @@ static void sub_8029450 (void) {
 
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = gTurnZones[g2021DE0.unk2][g2021DE0.unk3]->id;
+      gCardEffectTextData.cardId = gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]->id;
       ActivateCardEffectText();
     }
   }
 }
 
-static void sub_8029578 (void) {
+static void EffectDarkFlareKnight (void) {
   struct DuelCard* zone;
   u16 graveyard;
-  if (g2021DE0.unk2 == 7) {
+  if (gActiveEffect.turnRow == 7) {
     graveyard = gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard;
     if (graveyard != DARK_FLARE_KNIGHT)
       return;
     if (NumEmptyZonesInRow(gTurnZones[1]) > 0) {
-      GetGraveCardAndClearGrave(1);
+      GetGraveCardAndClearGrave(INACTIVE_DUELIST);
       zone = gTurnZones[1][(unsigned char)FirstEmptyZoneInRow(gTurnZones[1])];
       zone->id = MIRAGE_KNIGHT;
       ResetPermStage(zone);
@@ -1170,12 +1176,12 @@ static void sub_8029578 (void) {
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 6) {
+  else if (gActiveEffect.turnRow == 6) {
     graveyard = gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard;
     if (graveyard != DARK_FLARE_KNIGHT)
       return;
     if (NumEmptyZonesInRow(gTurnZones[2]) > 0) {
-      GetGraveCardAndClearGrave(0);
+      GetGraveCardAndClearGrave(ACTIVE_DUELIST);
       zone = gTurnZones[2][(unsigned char)FirstEmptyZoneInRow(gTurnZones[2])];
       zone->id = MIRAGE_KNIGHT;
       ResetPermStage(zone);
@@ -1195,57 +1201,56 @@ static void sub_8029578 (void) {
   }
 }
 
-// Exodia Necross
-static void sub_80296B8 (void) {
-  if (g2021DE0.unk2 == 1) {
+static void EffectExodiaNecrossDestroy (void) {
+  if (gActiveEffect.turnRow == 1) {
     if (!GetExodiaFlag(gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard))
-      ClearZoneAndSendMonToGraveyard(gTurnZones[g2021DE0.unk2][g2021DE0.unk3], 1);
+      ClearZoneAndSendMonToGraveyard(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col], INACTIVE_DUELIST);
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = g2021DE0.unk0;
+      gCardEffectTextData.cardId = gActiveEffect.cardId;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 2) {
+  else if (gActiveEffect.turnRow == 2) {
     if (!GetExodiaFlag(gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard))
-      ClearZoneAndSendMonToGraveyard(gTurnZones[g2021DE0.unk2][g2021DE0.unk3], 0);
+      ClearZoneAndSendMonToGraveyard(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col], ACTIVE_DUELIST);
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = g2021DE0.unk0;
+      gCardEffectTextData.cardId = gActiveEffect.cardId;
       ActivateCardEffectText();
     }
   }
 }
 
-static void sub_8029764 (void) {
+static void EffectSpiritMessageDestroy (void) {
   unsigned char i;
   struct DuelCard* zone;
-  if (g2021DE0.unk2 == 0) {
+  if (gActiveEffect.turnRow == 0) {
     for (i = 0; i < 5; i++) {
       u16 id;
       zone = gTurnZones[0][i];
       id = zone->id;
-      if (id != CARD_NONE && GetFINAL_Flag(id) & 0x1E)
+      if (id != CARD_NONE && GetFINAL_Flag(id) & (FLAG_I | FLAG_N | FLAG_A | FLAG_L))
         ClearZoneAndSendMonToGraveyard(zone, 1);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = g2021DE0.unk0;
+      gCardEffectTextData.cardId = gActiveEffect.cardId;
       ActivateCardEffectText();
     }
   }
-  else if (g2021DE0.unk2 == 3) {
+  else if (gActiveEffect.turnRow == 3) {
     for (i = 0; i < 5; i++) {
       zone = gTurnZones[3][i];
-      if (zone->id != CARD_NONE && GetFINAL_Flag(zone->id) & 0x1E)
+      if (zone->id != CARD_NONE && GetFINAL_Flag(zone->id) & (FLAG_I | FLAG_N | FLAG_A | FLAG_L))
         ClearZoneAndSendMonToGraveyard(zone, 0);
     }
     if (!gHideEffectText) {
-      gCardEffectTextData.cardId = g2021DE0.unk0;
+      gCardEffectTextData.cardId = gActiveEffect.cardId;
       ActivateCardEffectText();
     }
   }
 }
 
-void sub_8029820 (void) {
-  g2021DE0.turn = WhoseTurn();
+void TryActivatingPermanentEffects (void) {
+  gActiveEffect.turn = WhoseTurn();
   if (!gHideEffectText) {
     sub_80408BC();
     sub_802ADA4();
@@ -1253,15 +1258,15 @@ void sub_8029820 (void) {
   ResetTempStagesForAllCards();
   if (!gHideEffectText)
     UpdateDuelGfxExceptField();
-  sub_8027138();
+  CheckAllCardsForPermanentEffects();
   if (!gHideEffectText)
     sub_802AE44();
 }
 
-static void sub_8029864 (void) {
+static void TryActivatingPermanentEffect (void) {
   ResetCardEffectTextData();
   SetCardEffectTextType(8);
-  SetCardInfo(g2021DE0.unk0);
+  SetCardInfo(gActiveEffect.cardId);
   g8E0C6C0[gCardInfo.unk1E]();
 }
 
@@ -1285,15 +1290,15 @@ static void sub_80298B8 (void) {
 static void sub_80298BC (void) {
 }
 
-static void sub_80298C0 (void) {
-  if (g2021DE0.unk2 != 3)
+static void EffectJamBreedingMachineBlockSummoning (void) {
+  if (gActiveEffect.turnRow != 3)
     return;
-  FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
-  sub_80404F0(0);
+  FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
+  BlockTurnSummoning(ACTIVE_DUELIST);
   LockMonsterCardsInRow(4);
-  FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
+  FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
   if (!gHideEffectText) {
-    gCardEffectTextData.cardId = g2021DE0.unk0;
+    gCardEffectTextData.cardId = gActiveEffect.cardId;
     ActivateCardEffectText();
   }
 }
@@ -1317,15 +1322,15 @@ static void sub_802993C (void) {
 }
 
 static void sub_8029940 (void) {
-  sub_8029764();
+  EffectSpiritMessageDestroy();
 }
 
 static void sub_802994C (void) {
-  sub_8029764();
+  EffectSpiritMessageDestroy();
 }
 
 static void sub_8029958 (void) {
-  sub_8029764();
+  EffectSpiritMessageDestroy();
 }
 
 static void sub_8029964 (void) {
@@ -1415,11 +1420,11 @@ static void sub_80299D0 (void) {
 static void sub_80299D4 (void) {
 }
 
-static unsigned char sub_80299D8 (void) {
+static unsigned char ConditionJinzo (void) {
   u32 ret = 0;
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
-    if (g2021DE0.unk3 == GetFirstCardMatchZoneId(gTurnZones[1], JINZO))
+  if (gActiveEffect.turnRow == 1) {
+    if (gActiveEffect.col == GetFirstCardMatchZoneId(gTurnZones[1], JINZO))
       for (i = 0; i < 5; i++) {
         if (gTurnZones[3][i]->id == CARD_NONE)
           continue;
@@ -1430,8 +1435,8 @@ static unsigned char sub_80299D8 (void) {
         }
       }
   }
-  else if (g2021DE0.unk2 == 2) {
-    if (g2021DE0.unk3 == GetFirstCardMatchZoneId(gTurnZones[2], JINZO))
+  else if (gActiveEffect.turnRow == 2) {
+    if (gActiveEffect.col == GetFirstCardMatchZoneId(gTurnZones[2], JINZO))
       for (i = 0; i < 5; i++) {
         if (gTurnZones[0][i]->id == CARD_NONE)
           continue;
@@ -1445,10 +1450,10 @@ static unsigned char sub_80299D8 (void) {
   return ret;
 }
 
-static unsigned char sub_8029A7C (void) {
+static unsigned char ConditionPumpkingTheKingOfGhosts (void) {
   u32 ret = 0;
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
+  if (gActiveEffect.turnRow == 1) {
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id == ARMORED_ZOMBIE) {
         ret = 1;
@@ -1464,7 +1469,7 @@ static unsigned char sub_8029A7C (void) {
       }
     }
   }
-  else if (g2021DE0.unk2 == 2) {
+  else if (gActiveEffect.turnRow == 2) {
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id == ARMORED_ZOMBIE) {
         ret = 1;
@@ -1483,10 +1488,10 @@ static unsigned char sub_8029A7C (void) {
   return ret;
 }
 
-static unsigned char sub_8029AF4 (void) {
+static unsigned char ConditionWodanTheResidentOfTheForest (void) {
   u32 ret = 0;
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
+  if (gActiveEffect.turnRow == 1) {
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[1][i]))
         continue;
@@ -1497,7 +1502,7 @@ static unsigned char sub_8029AF4 (void) {
       }
     }
   }
-  else if (g2021DE0.unk2 == 2) {
+  else if (gActiveEffect.turnRow == 2) {
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[2][i]))
         continue;
@@ -1511,10 +1516,10 @@ static unsigned char sub_8029AF4 (void) {
   return ret;
 }
 
-static unsigned char sub_8029B94 (void) {
+static unsigned char ConditionSwampBattleguard (void) {
   u32 ret = 0;
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
+  if (gActiveEffect.turnRow == 1) {
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE)
         continue;
@@ -1524,7 +1529,7 @@ static unsigned char sub_8029B94 (void) {
       }
     }
   }
-  else if (g2021DE0.unk2 == 2) {
+  else if (gActiveEffect.turnRow == 2) {
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE)
         continue;
@@ -1537,10 +1542,10 @@ static unsigned char sub_8029B94 (void) {
   return ret;
 }
 
-static unsigned char sub_8029C08 (void) {
+static unsigned char ConditionLavaBattleguard (void) {
   u32 ret = 0;
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
+  if (gActiveEffect.turnRow == 1) {
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE)
         continue;
@@ -1550,7 +1555,7 @@ static unsigned char sub_8029C08 (void) {
       }
     }
   }
-  else if (g2021DE0.unk2 == 2) {
+  else if (gActiveEffect.turnRow == 2) {
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE)
         continue;
@@ -1563,10 +1568,10 @@ static unsigned char sub_8029C08 (void) {
   return ret;
 }
 
-static unsigned char sub_8029C8C (void) {
+static unsigned char ConditionMWarrior1 (void) {
   u32 ret = 0;
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
+  if (gActiveEffect.turnRow == 1) {
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE)
         continue;
@@ -1576,7 +1581,7 @@ static unsigned char sub_8029C8C (void) {
       }
     }
   }
-  else if (g2021DE0.unk2 == 2) {
+  else if (gActiveEffect.turnRow == 2) {
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE)
         continue;
@@ -1589,10 +1594,10 @@ static unsigned char sub_8029C8C (void) {
   return ret;
 }
 
-static unsigned char sub_8029D10 (void) {
+static unsigned char ConditionMWarrior2 (void) {
   u32 ret = 0;
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
+  if (gActiveEffect.turnRow == 1) {
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE)
         continue;
@@ -1602,7 +1607,7 @@ static unsigned char sub_8029D10 (void) {
       }
     }
   }
-  else if (g2021DE0.unk2 == 2) {
+  else if (gActiveEffect.turnRow == 2) {
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE)
         continue;
@@ -1615,10 +1620,10 @@ static unsigned char sub_8029D10 (void) {
   return ret;
 }
 
-static unsigned char sub_8029D94 (void) {
+static unsigned char ConditionLabyrinthTank (void) {
   u32 ret = 0;
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
+  if (gActiveEffect.turnRow == 1) {
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[1][i]))
         continue;
@@ -1628,7 +1633,7 @@ static unsigned char sub_8029D94 (void) {
       }
     }
   }
-  else if (g2021DE0.unk2 == 2) {
+  else if (gActiveEffect.turnRow == 2) {
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[2][i]))
         continue;
@@ -1641,10 +1646,11 @@ static unsigned char sub_8029D94 (void) {
   return ret;
 }
 
+// condition: WitchsApprentice or Hoshiningen
 static unsigned char sub_8029E34 (void) {
   u32 ret = 0;
   unsigned char i;
-  if (g2021DE0.unk2 == 1 || g2021DE0.unk2 == 2) {
+  if (gActiveEffect.turnRow == 1 || gActiveEffect.turnRow == 2) {
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE)
         continue;
@@ -1677,10 +1683,11 @@ static unsigned char sub_8029E34 (void) {
   return ret;
 }
 
+// condition: WitchsApprentice or Hoshiningen
 static unsigned char sub_8029EBC (void) {
   u32 ret = 0;
   unsigned char i;
-  if (g2021DE0.unk2 == 1 || g2021DE0.unk2 == 2) {
+  if (gActiveEffect.turnRow == 1 || gActiveEffect.turnRow == 2) {
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE)
         continue;
@@ -1713,10 +1720,10 @@ static unsigned char sub_8029EBC (void) {
   return ret;
 }
 
-static unsigned char sub_8029F44 (void) {
+static unsigned char ConditionBusterBlader (void) {
   u32 ret = 0;
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
+  if (gActiveEffect.turnRow == 1) {
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[2][i]))
         continue;
@@ -1732,7 +1739,7 @@ static unsigned char sub_8029F44 (void) {
         ret = 1;
     }
   }
-  else if (g2021DE0.unk2 == 2) {
+  else if (gActiveEffect.turnRow == 2) {
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[1][i]))
         continue;
@@ -1751,10 +1758,10 @@ static unsigned char sub_8029F44 (void) {
   return ret;
 }
 
-static unsigned char sub_802A008 (void) {
+static unsigned char ConditionThunderNyanNyan (void) {
   u32 ret = 0;
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
+  if (gActiveEffect.turnRow == 1) {
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE)
         continue;
@@ -1765,7 +1772,7 @@ static unsigned char sub_802A008 (void) {
       }
     }
   }
-  else if (g2021DE0.unk2 == 2) {
+  else if (gActiveEffect.turnRow == 2) {
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE)
         continue;
@@ -1779,11 +1786,11 @@ static unsigned char sub_802A008 (void) {
   return ret;
 }
 
-static unsigned char sub_802A088 (void) {
+static unsigned char ConditionMessengerOfPeace (void) {
   u32 ret = 0;
   unsigned char i;
-  if (g2021DE0.unk2 == 0) {
-    if (g2021DE0.unk3 == GetFirstCardMatchZoneId(gTurnZones[0], g2021DE0.unk0)) {
+  if (gActiveEffect.turnRow == 0) {
+    if (gActiveEffect.col == GetFirstCardMatchZoneId(gTurnZones[0], gActiveEffect.cardId)) {
       for (i = 0; i < 5; i++) {
         if (gTurnZones[1][i]->id == CARD_NONE || IsCardLocked(gTurnZones[1][i]) == 1)
           continue;
@@ -1812,8 +1819,8 @@ static unsigned char sub_802A088 (void) {
       }
     }
   }
-  else if (g2021DE0.unk2 == 3) {
-    if (g2021DE0.unk3 == GetFirstCardMatchZoneId(gTurnZones[3], g2021DE0.unk0)) {
+  else if (gActiveEffect.turnRow == 3) {
+    if (gActiveEffect.col == GetFirstCardMatchZoneId(gTurnZones[3], gActiveEffect.cardId)) {
       for (i = 0; i < 5; i++) {
         if (gTurnZones[1][i]->id == CARD_NONE || IsCardLocked(gTurnZones[1][i]) == 1)
           continue;
@@ -1845,41 +1852,44 @@ static unsigned char sub_802A088 (void) {
   return ret;
 }
 
-static unsigned char sub_802A268 (void) {
-  u32 counter;
+// MasterOfDragonSoldier should only power up for each dragon on the own field, not graveyards or opponent field.
+// But then again, MasterOfDragonSoldier effect always triggers since it itself is a dragon, so the rest of the condition is irrelevant.
+// With that said, not sure if this is actually the Condition fn, or if its unused.
+static unsigned char ConditionMasterOfDragonSoldier (void) {
+  u32 count;
   unsigned char i;
-  if (g2021DE0.unk2 != 1 && g2021DE0.unk2 != 2)
+  if (gActiveEffect.turnRow != 1 && gActiveEffect.turnRow != 2)
     return 0;
-  counter = 0;
+  count = 0;
   for (i = 0; i < 5; i++) {
     SetCardInfo(gTurnZones[1][i]->id);
     if (gCardInfo.type == TYPE_DRAGON)
-      counter++;
+      count++;
   }
   for (i = 0; i < 5; i++) {
     SetCardInfo(gTurnZones[2][i]->id);
     if (gCardInfo.type == TYPE_DRAGON)
-      counter++;
+      count++;
   }
   SetCardInfo(gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard);
   if (gCardInfo.type == TYPE_DRAGON)
-    counter++;
+    count++;
   SetCardInfo(gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard);
   if (gCardInfo.type == TYPE_DRAGON)
-    counter++;
-  if (!counter)
+    count++;
+  if (!count)
     return 0;
   return 1;
 }
 
-static unsigned char sub_802A308 (void) {
-  if (g2021DE0.unk2 == 7) {
+static unsigned char ConditionTheWingedDragonOfRaPhoenixMode (void) {
+  if (gActiveEffect.turnRow == 7) {
     if (gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard != THE_WINGED_DRAGON_OF_RA_PHOENIX_MODE)
       return 0;
     if (NumEmptyZonesInRow(gTurnZones[1]))
       return 1;
   }
-  else if (g2021DE0.unk2 == 6) {
+  else if (gActiveEffect.turnRow == 6) {
     if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard != THE_WINGED_DRAGON_OF_RA_PHOENIX_MODE)
       return 0;
     if (NumEmptyZonesInRow(gTurnZones[2]))
@@ -1888,9 +1898,9 @@ static unsigned char sub_802A308 (void) {
   return 0;
 }
 
-static unsigned char sub_802A360 (void) {
+static unsigned char ConditionCommandAngel (void) {
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
+  if (gActiveEffect.turnRow == 1) {
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE)
         continue;
@@ -1900,7 +1910,7 @@ static unsigned char sub_802A360 (void) {
       }
     }
   }
-  else if (g2021DE0.unk2 == 2) {
+  else if (gActiveEffect.turnRow == 2) {
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE)
         continue;
@@ -1913,9 +1923,9 @@ static unsigned char sub_802A360 (void) {
   return 0;
 }
 
-static unsigned char sub_802A3E0 (void) {
+static unsigned char ConditionNightmarePenguin (void) {
   unsigned char i;
-  if (g2021DE0.unk2 == 1) {
+  if (gActiveEffect.turnRow == 1) {
     for (i = 0; i < 5; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE)
         continue;
@@ -1926,7 +1936,7 @@ static unsigned char sub_802A3E0 (void) {
       }
     }
   }
-  else if (g2021DE0.unk2 == 2) {
+  else if (gActiveEffect.turnRow == 2) {
     for (i = 0; i < 5; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE)
         continue;
@@ -1942,7 +1952,7 @@ static unsigned char sub_802A3E0 (void) {
 
 // Check whether to activate a permanent effect
 unsigned sub_802A478 (void) {
-  SetCardInfo(g2021DE0.unk0);
+  SetCardInfo(gActiveEffect.cardId);
   return g8E0C800[gCardInfo.unk1E]();
 }
 
@@ -1960,26 +1970,26 @@ static unsigned char sub_802A48 (void) {
    face down if it was already face down.
    The fix would be to pass in CARD_NONE (i.e 0) to NumCardMatchesInRow.
 */
-static unsigned char sub_802A4AC (void) {
+static unsigned char ConditionSliferTheSkyDragon (void) {
   u32 ret = 0;
   u16 cardId; // UB, uninitialzed variable is used
   // NOTE: it could also be the case that NumCardMatchesInRow
   // was implicitly declared and called with only 1 argument
   // but best to keep the UB local to this function
-  if (g2021DE0.unk2 == 1) {
+  if (gActiveEffect.turnRow == 1) {
     if (NumCardMatchesInRow(gTurnHands[INACTIVE_DUELIST], cardId) < 5)
       ret = 1;
   }
-  else if (g2021DE0.unk2 == 2)
+  else if (gActiveEffect.turnRow == 2)
     if (NumCardMatchesInRow(gTurnHands[ACTIVE_DUELIST], cardId) < 5)
       ret = 1;
   return ret;
 }
 
-static unsigned char sub_802A4E0 (void) {
+static unsigned char ConditionDragonCaptureJar (void) {
   u32 ret = 0;
-  if (g2021DE0.unk2 == 0) {
-    if (g2021DE0.unk3 == GetFirstCardMatchZoneId(gTurnZones[0], DRAGON_CAPTURE_JAR)) {
+  if (gActiveEffect.turnRow == 0) {
+    if (gActiveEffect.col == GetFirstCardMatchZoneId(gTurnZones[0], DRAGON_CAPTURE_JAR)) {
       unsigned char i;
       for (i = 0; i < 5; i++) {
         if (IsCardLocked(gTurnZones[2][i]) == 1)
@@ -1999,52 +2009,55 @@ static unsigned char sub_802A548 (void) {
   return 0;
 }
 
+// condition: HarpieLady, CyberHarpie, or HarpieLadySisters
 static unsigned char sub_802A54C (void) {
   u32 ret = 0;
-  if (g2021DE0.unk2 == 1 && NumCardMatchesInRow(gTurnZones[1], HARPIES_PET_DRAGON) > 0)
+  if (gActiveEffect.turnRow == 1 && NumCardMatchesInRow(gTurnZones[1], HARPIES_PET_DRAGON) > 0)
     ret = 1;
-  if (g2021DE0.unk2 == 2 && NumCardMatchesInRow(gTurnZones[2], HARPIES_PET_DRAGON) > 0)
+  if (gActiveEffect.turnRow == 2 && NumCardMatchesInRow(gTurnZones[2], HARPIES_PET_DRAGON) > 0)
     ret = 1;
   return ret;
 }
 
+// condition: HarpieLady, CyberHarpie, or HarpieLadySisters
 static unsigned char sub_802A594 (void) {
   u32 ret = 0;
-  if (g2021DE0.unk2 == 1 && NumCardMatchesInRow(gTurnZones[1], HARPIES_PET_DRAGON) > 0)
+  if (gActiveEffect.turnRow == 1 && NumCardMatchesInRow(gTurnZones[1], HARPIES_PET_DRAGON) > 0)
     ret = 1;
-  if (g2021DE0.unk2 == 2 && NumCardMatchesInRow(gTurnZones[2], HARPIES_PET_DRAGON) > 0)
+  if (gActiveEffect.turnRow == 2 && NumCardMatchesInRow(gTurnZones[2], HARPIES_PET_DRAGON) > 0)
     ret = 1;
   return ret;
 }
 
+// condition: HarpieLady, CyberHarpie, or HarpieLadySisters
 static unsigned char sub_802A5DC (void) {
   u32 ret = 0;
-  if (g2021DE0.unk2 == 1 && NumCardMatchesInRow(gTurnZones[1], HARPIES_PET_DRAGON) > 0)
+  if (gActiveEffect.turnRow == 1 && NumCardMatchesInRow(gTurnZones[1], HARPIES_PET_DRAGON) > 0)
     ret = 1;
-  if (g2021DE0.unk2 == 2 && NumCardMatchesInRow(gTurnZones[2], HARPIES_PET_DRAGON) > 0)
+  if (gActiveEffect.turnRow == 2 && NumCardMatchesInRow(gTurnZones[2], HARPIES_PET_DRAGON) > 0)
     ret = 1;
   return ret;
 }
 
-static unsigned char sub_802A624 (void) {
+static unsigned char ConditionMysticalElf (void) {
   u32 ret = 0;
-  if (g2021DE0.unk2 == 1) {
+  if (gActiveEffect.turnRow == 1) {
     if (NumCardMatchesInRow(gTurnZones[1], BLUE_EYES_WHITE_DRAGON) > 0)
       ret = 1;
   }
-  else if (g2021DE0.unk2 == 2)
+  else if (gActiveEffect.turnRow == 2)
     if (NumCardMatchesInRow(gTurnZones[2], BLUE_EYES_WHITE_DRAGON) > 0)
       ret = 1;
   return ret;
 }
 
-static unsigned char sub_802A65C (void) {
+static unsigned char ConditionMonsterTamer (void) {
   u32 ret = 0;
-  if (g2021DE0.unk2 == 1) {
+  if (gActiveEffect.turnRow == 1) {
     if (NumCardMatchesInRow(gTurnZones[1], DUNGEON_WORM) > 0)
       ret = 1;
   }
-  if (g2021DE0.unk2 == 2)
+  if (gActiveEffect.turnRow == 2)
     if (NumCardMatchesInRow(gTurnZones[2], DUNGEON_WORM) > 0)
       ret = 1;
   return ret;
@@ -2052,46 +2065,52 @@ static unsigned char sub_802A65C (void) {
 
 static unsigned char sub_802A6A4 (void) {
   u32 ret = 0;
-  if (g2021DE0.unk2 == 1) {
+  if (gActiveEffect.turnRow == 1) {
     if (NumEmptyZonesInRow(gTurnZones[2]) < 5)
       ret = 1;
   }
-  else if (g2021DE0.unk2 == 2)
+  else if (gActiveEffect.turnRow == 2)
     if (NumEmptyZonesInRow(gTurnZones[1]) < 5)
       ret = 1;
   return ret;
 }
 
+// condition: DarkMagicianGirl or ToonDarkMagicianGirl
 static unsigned char sub_802A6D8 (void) {
   u32 ret = 0;
-  if (gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == DARK_MAGICIAN || gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
+  if (gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == DARK_MAGICIAN || 
+    gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
     ret = 1;
-  else if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == DARK_MAGICIAN || gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
+  else if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == DARK_MAGICIAN || 
+    gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
     ret = 1;
   return ret;
 }
 
+// condition: DarkMagicianGirl or ToonDarkMagicianGirl
 static unsigned char sub_802A704 (void) {
   u32 ret = 0;
-  if (gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == DARK_MAGICIAN || gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
+  if (gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == DARK_MAGICIAN || 
+    gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
     ret = 1;
-  else if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == DARK_MAGICIAN || gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
+  else if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == DARK_MAGICIAN || 
+    gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
     ret = 1;
   return ret;
 }
 
 static unsigned char sub_802A730 (void) {
   u32 ret = 0;
-  if (g2021DE0.unk2 == 1 || g2021DE0.unk2 == 2)
+  if (gActiveEffect.turnRow == 1 || gActiveEffect.turnRow == 2)
     ret = 1;
   return ret;
 }
 
 static unsigned char sub_802A74C (void) {
   u32 ret = 0;
-  if (g2021DE0.unk2 == 1)
+  if (gActiveEffect.turnRow == 1)
     ret = 1;
-  else if (g2021DE0.unk2 == 2)
+  else if (gActiveEffect.turnRow == 2)
     ret = 1;
   return ret;
 }
@@ -2104,17 +2123,17 @@ static unsigned char sub_802A768 (void) {
   return 0;
 }
 
-static unsigned char sub_802A76C (void) {
+static unsigned char ConditionLavaGolem (void) {
   u32 ret = 0;
-  if (g2021DE0.unk2 == 4) {
+  if (gActiveEffect.turnRow == 4) {
     unsigned char i;
-    u32 counter = 0;
+    u32 count = 0;
     for (i = 0; i < 5; i++) {
       u16 cardId = gTurnZones[1][i]->id;
       if (cardId != CARD_NONE && IsGodCard(cardId) != 1 && cardId != LAVA_GOLEM)
-        counter++;
+        count++;
     }
-    if (counter > 1)
+    if (count > 1)
       ret = 1;
   }
   return ret;
@@ -2122,35 +2141,35 @@ static unsigned char sub_802A76C (void) {
 
 static unsigned char sub_802A7D4 (void) {
   u32 ret = 0;
-  if (g2021DE0.unk2 == 1) {
+  if (gActiveEffect.turnRow == 1) {
     if (NumEmptyZonesInRow(gTurnZones[2]) < 5)
       ret = 1;
   }
-  else if (g2021DE0.unk2 == 2)
+  else if (gActiveEffect.turnRow == 2)
     if (NumEmptyZonesInRow(gTurnZones[1]) < 5)
       ret = 1;
   return ret;
 }
 
 static unsigned char sub_802A808 (void) {
-  if (g2021DE0.unk2 == 2) {
+  if (gActiveEffect.turnRow == 2) {
     if (NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) > 3)
       return 1;
   }
-  else if (g2021DE0.unk2 == 1)
+  else if (gActiveEffect.turnRow == 1)
     if (NumEmptyZonesInRow(gTurnHands[INACTIVE_DUELIST]) > 3)
       return 1;
   return 0;
 }
 
-static unsigned char sub_802A840 (void) {
+static unsigned char ConditionJamBreedingMachineBlockSummoning (void) {
   u32 ret = 0;
-  if (g2021DE0.unk2 == 3) {
-    if (g2021DE0.unk3 == GetFirstCardMatchZoneId(gTurnZones[3], JAM_BREEDING_MACHINE)) {
+  if (gActiveEffect.turnRow == 3) {
+    if (gActiveEffect.col == GetFirstCardMatchZoneId(gTurnZones[3], JAM_BREEDING_MACHINE)) {
       unsigned char i;
       for (i = 0; i < 5; i++) {
         struct DuelCard* zone = gTurnZones[4][i];
-        if (zone->id != CARD_NONE && GetTypeGroup(zone->id) == 1 /*TYPE_GROUP_MONSTER*/ && IsCardLocked(zone) != 1) {
+        if (zone->id != CARD_NONE && GetTypeGroup(zone->id) == TYPE_GROUP_MONSTER && IsCardLocked(zone) != 1) {
           ret = 1;
           break;
         }
@@ -2170,14 +2189,14 @@ static unsigned char sub_802A8A4 (void) {
 
 static unsigned char sub_802A8A8 (void) {
   u32 ret = 0;
-  if (g2021DE0.unk2 == 1 || g2021DE0.unk2 == 2)
+  if (gActiveEffect.turnRow == 1 || gActiveEffect.turnRow == 2)
     ret = 1;
   return ret;
 }
 
 static unsigned char sub_802A8C4 (void) {
   u32 ret = 0;
-  if (g2021DE0.unk2 == 1 || g2021DE0.unk2 == 2)
+  if (gActiveEffect.turnRow == 1 || gActiveEffect.turnRow == 2)
     ret = 1;
   return ret;
 }
@@ -2190,13 +2209,13 @@ static unsigned char sub_802A8E4 (void) {
   return 0;
 }
 
-static unsigned char sub_802A8E8 (void) {
+static unsigned char ConditionDarkFlareKnight (void) {
   u32 ret = 0;
-  if (g2021DE0.unk2 == 7) {
+  if (gActiveEffect.turnRow == 7) {
     if (gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == DARK_FLARE_KNIGHT && NumEmptyZonesInRow(gTurnZones[1]) > 0)
       return 1;
   }
-  else if (g2021DE0.unk2 == 6)
+  else if (gActiveEffect.turnRow == 6)
     if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == DARK_FLARE_KNIGHT && NumEmptyZonesInRow(gTurnZones[2]) > 0)
       return 1;
   return 0;
@@ -2210,52 +2229,52 @@ static unsigned char sub_802A94C (void) {
   return 0;
 }
 
-static unsigned char sub_802A950 (void) {
-  if (g2021DE0.unk2 == 1) {
+static unsigned char ConditionExodiaNecrossDestroy (void) {
+  if (gActiveEffect.turnRow == 1) {
     if (!GetExodiaFlag(gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard))
       return 1;
   }
-  else if (g2021DE0.unk2 == 2 && !GetExodiaFlag(gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard))
+  else if (gActiveEffect.turnRow == 2 && !GetExodiaFlag(gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard))
     return 1;
   return 0;
 }
 
-static unsigned char sub_802A98C (void) {
-  if (g2021DE0.unk2 == 0) {
+static unsigned char ConditionSpiritMessageDestroy1 (void) {
+  if (gActiveEffect.turnRow == 0) {
     if (!NumCardMatchesInRow(gTurnZones[0], DESTINY_BOARD))
       return 1;
   }
-  else if (g2021DE0.unk2 == 3 && !NumCardMatchesInRow(gTurnZones[3], DESTINY_BOARD))
+  else if (gActiveEffect.turnRow == 3 && !NumCardMatchesInRow(gTurnZones[3], DESTINY_BOARD))
     return 1;
   return 0;
 }
 
-static unsigned char sub_802A9C8 (void) {
-  if (g2021DE0.unk2 == 0) {
+static unsigned char ConditionSpiritMessageDestroy2 (void) {
+  if (gActiveEffect.turnRow == 0) {
     if (!NumCardMatchesInRow(gTurnZones[0], DESTINY_BOARD))
       return 1;
   }
-  else if (g2021DE0.unk2 == 3 && !NumCardMatchesInRow(gTurnZones[3], DESTINY_BOARD))
+  else if (gActiveEffect.turnRow == 3 && !NumCardMatchesInRow(gTurnZones[3], DESTINY_BOARD))
     return 1;
   return 0;
 }
 
-static unsigned char sub_802AA04 (void) {
-  if (g2021DE0.unk2 == 0) {
+static unsigned char ConditionSpiritMessageDestroy3 (void) {
+  if (gActiveEffect.turnRow == 0) {
     if (!NumCardMatchesInRow(gTurnZones[0], DESTINY_BOARD))
       return 1;
   }
-  else if (g2021DE0.unk2 == 3 && !NumCardMatchesInRow(gTurnZones[3], DESTINY_BOARD))
+  else if (gActiveEffect.turnRow == 3 && !NumCardMatchesInRow(gTurnZones[3], DESTINY_BOARD))
     return 1;
   return 0;
 }
 
-static unsigned char sub_802AA40 (void) {
-  if (g2021DE0.unk2 == 0) {
+static unsigned char ConditionSpiritMessageDestroy4 (void) {
+  if (gActiveEffect.turnRow == 0) {
     if (!NumCardMatchesInRow(gTurnZones[0], DESTINY_BOARD))
       return 1;
   }
-  else if (g2021DE0.unk2 == 3 && !NumCardMatchesInRow(gTurnZones[3], DESTINY_BOARD))
+  else if (gActiveEffect.turnRow == 3 && !NumCardMatchesInRow(gTurnZones[3], DESTINY_BOARD))
     return 1;
   return 0;
 }
