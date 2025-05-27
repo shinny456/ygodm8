@@ -863,7 +863,7 @@ static void TryInitiatingWorldMap (void) {
 void OverworldMain (void) {
   if (!CheckFlag(0x2b)) {
     NamingScreenMain();
-    StartCutscene(8);
+    StartCutscene(8); // INTRO_CUTSCENE
     SetFlag(0x2b);
     SaveGame();
   }

@@ -241,15 +241,17 @@ struct Unk8DF7594 {
 } extern * g8DF7594;
 
 
-enum {
-  RESHEF_VISION,
-
-  CREDITS_CUTSCENE = 2,
-  GOD_CARDS_TURN_TO_STONE=4,
-  PEGASUS_BEFORE_CREDITS=7,
-  INTRO_CUTSCENE,
+enum CutsceneIds {
+  RESHEF_VISION,                      //
+  BURNING_RESHEF_2_AND_SOL_CHEVALSKY, // intro segment 4
+  CREDITS_CUTSCENE,                   //
+  BURNING_RESHEF_1,                   // intro segment 1
+  GOD_CARDS_TURN_TO_STONE,            // intro segment 2
+  MILLENNIUM_ITEMS_SCATTER,           // intro segment 3
+  INTRO_SEGMENTS_3_4_5,               // 3, 4, 5 consecutively?
+  PEGASUS_BEFORE_CREDITS,             // no flames, just his face
+  INTRO_CUTSCENE,                     // full intro: 3, 4, 5, 1 consecutively
 };
-
 
 void CreditsMain (void) {
   InitCredits();
@@ -477,22 +479,22 @@ void StartCutscene (u8 cutscene) {
     case RESHEF_VISION:
       ReshefVisionMain();
       break;
-    case 1:
+    case BURNING_RESHEF_2_AND_SOL_CHEVALSKY:
       sub_8001C70();
       break;
     case CREDITS_CUTSCENE:
       CreditsMain();
       break;
-    case 3:
+    case BURNING_RESHEF_1:
       sub_8001B88();
       break;
     case GOD_CARDS_TURN_TO_STONE:
       sub_8001BFC();
       break;
-    case 5:
+    case MILLENNIUM_ITEMS_SCATTER:
       sub_8001CE4();
       break;
-    case 6:
+    case INTRO_SEGMENTS_3_4_5:
       sub_8001DD4();
       break;
     case PEGASUS_BEFORE_CREDITS:

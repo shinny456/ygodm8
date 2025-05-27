@@ -1027,10 +1027,10 @@ void sub_8054AB0 (u8 arg0, struct ScriptCtx* script) {
       sub_8054878(script);
       break;
     case 15:
-      StartCutscene(0);
+      StartCutscene(0); // RESHEF_VISION
       break;
     case 16:
-      StartCutscene(1);
+      StartCutscene(1); // BURNING_RESHEF_2_AND_SOL_CHEVALSKY
       break;
     case 17:
       CardShopBuyMain();
@@ -1068,13 +1068,13 @@ void sub_8054AB0 (u8 arg0, struct ScriptCtx* script) {
       sub_8055124(script);
       break;
     case 33:
-      StartCutscene(8);
+      StartCutscene(8); // INTRO_CUTSCENE
       break;
     case 34:
-      StartCutscene(7);
+      StartCutscene(7); // PEGASUS_BEFORE_CREDITS
       break;
     case 35:
-      RemoveMoney(1000);
+      RemoveMoney(1000); // password terminal activation?
       break;
   }
 }
