@@ -426,7 +426,7 @@ struct DuelData
     struct Duelist duelist; //duelistData?
 };
 
-extern u32 gUnk02024254;
+extern u32 gLifePointsOutsideDuel;
 extern struct DuelData gDuelData;
 
 
@@ -574,7 +574,7 @@ void sub_802712C(void);
 
 
 void ResetLfsrStateBit(void);
-void sub_80554EC(void);
+void InitFlags(void);
 void sub_8055FD0(void);
 void sub_801FB44(u8*);
 

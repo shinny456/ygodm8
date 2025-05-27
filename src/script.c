@@ -204,7 +204,7 @@ static void sub_80527E8(struct ScriptCtx *script)
             script->pointer += 2;
             break;
         case '9': //restore lifepoints
-            sub_8048D08();
+            FullyRestoreLifePoints();
             script->pointer++;
             break;
         }

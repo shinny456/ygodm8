@@ -4,69 +4,66 @@
 //macroize these functions? they pretty much have the same structure
 
 
-struct Fooo {
-  unsigned short unk0;
-  unsigned short unk2;
+struct SortRange {
+  u16 startIndex;
+  u16 endIndex;
 };
 
-struct Unk8E0CC24 {
-  unsigned char unk0[0x80];
-  unsigned unk80;
-} extern * g8E0CC24;
+struct SortRangeStack {
+  u8 raw[0x80]; // raw buffer for SortRange stack
+  u32 size; // number of entries (used like a stack pointer)
+} extern * gSortRangeStack;
 
 
-struct Unk8E0CC20 {
-  unsigned short unk0;
-  unsigned long long unk4;
-} extern * g8E0CC20;
+struct SortableEntry {
+  u16 cardId;
+  u64 sortKey;
+} extern * gSortableEntries; // temporary working array/buffer that gets sorted
 
-void sub_8034DE8 (void);
-void sub_8034D90 (struct Fooo*);
-void sub_8034DC4 (struct Fooo*);
+void ClearSortRangeStack (void);
+void PushSortRange (struct SortRange*);
+void PopSortRange (struct SortRange*);
 
-//sb = spC =&fooo
-//sp18 = fooo.unk0
-//r8 = g8E0CC20
-//ip =
-void sub_8032848 (void) {
-  struct Unk8E0CC20 sp;
-  struct Fooo fooo;
-  struct Fooo fooo2;
+// in-place, iterative quicksort
+void SortCardsDescending (void) {
+  struct SortableEntry tempEntry;
+  struct SortRange currentRange;
+  struct SortRange newRange;
   if (gCardSortContext.cardCount < 2)
     return;
-  sub_8034DE8();
-  fooo.unk0 = 0;
-  fooo.unk2 = gCardSortContext.cardCount - 1;
-  sub_8034D90(&fooo);
-  while (g8E0CC24->unk80) {
-    unsigned long long r45;
-    unsigned short r6, sp18;
-    sub_8034DC4(&fooo);
-    sp18 = fooo.unk0;
-    r6 = fooo.unk2;
-    r45 = g8E0CC20[(sp18 + r6) / 2].unk4;
+  ClearSortRangeStack();
+  currentRange.startIndex = 0;
+  currentRange.endIndex = gCardSortContext.cardCount - 1;
+  PushSortRange(&currentRange);
+  while (gSortRangeStack->size) {
+    u64 pivot;
+    u16 left, right;
+    PopSortRange(&currentRange);
+    right = currentRange.startIndex;
+    left = currentRange.endIndex;
+    pivot = gSortableEntries[(right + left) / 2].sortKey;
     while (1) {
-      while (g8E0CC20[sp18].unk4 > r45)
-        sp18++;
-      while (r45 > g8E0CC20[r6].unk4)
-        r6--;
-      if (sp18 >= r6)
+      while (gSortableEntries[right].sortKey > pivot)
+        right++;
+      while (pivot > gSortableEntries[left].sortKey)
+        left--;
+      if (right >= left)
         break;
-      sp = g8E0CC20[sp18];
-      g8E0CC20[sp18] = g8E0CC20[r6];
-      g8E0CC20[r6] = sp;
-      sp18++;
-      r6--;
+      tempEntry = gSortableEntries[right];
+      gSortableEntries[right] = gSortableEntries[left];
+      gSortableEntries[left] = tempEntry;
+      right++;
+      left--;
     }
-    if (r6 + 1 < fooo.unk2) {
-      fooo2.unk0 = r6 + 1;
-      fooo2.unk2 = fooo.unk2;
-      sub_8034D90(&fooo2);
+    if (left + 1 < currentRange.endIndex) {
+      newRange.startIndex = left + 1;
+      newRange.endIndex = currentRange.endIndex;
+      PushSortRange(&newRange);
     }
-    if (fooo.unk0 < sp18 - 1) {
-      fooo2.unk0 = fooo.unk0;
-      fooo2.unk2 = sp18 - 1;
-      sub_8034D90(&fooo2);
+    if (currentRange.startIndex < right - 1) {
+      newRange.startIndex = currentRange.startIndex;
+      newRange.endIndex = right - 1;
+      PushSortRange(&newRange);
     }
   }
 }
@@ -74,10 +71,10 @@ void sub_8032848 (void) {
 void sub_80329C8 (void) {
   unsigned i;
   for (i = 0; i < gCardSortContext.cardCount; i++) {
-    g8E0CC20[i].unk0 = gCardSortContext.cards[i];
-    g8E0CC20[i].unk4 = 800 - gCardSortContext.cards[i];
+    gSortableEntries[i].cardId = gCardSortContext.cards[i];
+    gSortableEntries[i].sortKey = 800 - gCardSortContext.cards[i];
     if (gTrunkCardQty[gCardSortContext.cards[i]])
-      g8E0CC20[i].unk4 += 800;
+      gSortableEntries[i].sortKey += 800;
   }
 }
 
@@ -85,10 +82,10 @@ void sub_80329C8 (void) {
 void sub_8032A50 (void) {
   unsigned i;
   for (i = 0; i < gCardSortContext.cardCount; i++) {
-    g8E0CC20[i].unk0 = gCardSortContext.cards[i];
-    g8E0CC20[i].unk4 = 800 - gCardSortContext.cards[i];
+    gSortableEntries[i].cardId = gCardSortContext.cards[i];
+    gSortableEntries[i].sortKey = 800 - gCardSortContext.cards[i];
     if (gShopTempCardQty[gCardSortContext.cards[i]])
-      g8E0CC20[i].unk4 |= 0x1000000000000000;
+      gSortableEntries[i].sortKey |= 0x1000000000000000;
   }
 }
 
@@ -96,60 +93,60 @@ void sub_8032A50 (void) {
 void sub_8032AD0 (void) {
   unsigned i;
   for (i = 0; i < gCardSortContext.cardCount; i++) {
-    g8E0CC20[i].unk0 = gCardSortContext.cards[i];
-    g8E0CC20[i].unk4 = 800 - gCardSortContext.cards[i];
+    gSortableEntries[i].cardId = gCardSortContext.cards[i];
+    gSortableEntries[i].sortKey = 800 - gCardSortContext.cards[i];
     if (gPlayerTempCardQty[gCardSortContext.cards[i]])
-      g8E0CC20[i].unk4 |= 0x1000000000000000;
+      gSortableEntries[i].sortKey |= 0x1000000000000000;
   }
 }
 
 void sub_8032B50 (void) {
   unsigned i;
   for (i = 0; i < gCardSortContext.cardCount; i++) {
-    g8E0CC20[i].unk0 = gCardSortContext.cards[i];
-    g8E0CC20[i].unk4 = 800 - gCardSortContext.cards[i];
+    gSortableEntries[i].cardId = gCardSortContext.cards[i];
+    gSortableEntries[i].sortKey = 800 - gCardSortContext.cards[i];
     if (gTotalCardQty[gCardSortContext.cards[i]])
-      g8E0CC20[i].unk4 += 800;
+      gSortableEntries[i].sortKey += 800;
   }
 }
 
 void sub_8032BD8 (void) {
   unsigned i;
   for (i = 0; i < gCardSortContext.cardCount; i++) {
-    g8E0CC20[i].unk0 = gCardSortContext.cards[i];
-    g8E0CC20[i].unk4 = 800 - g80D0444[gLanguage][gCardSortContext.cards[i]];
+    gSortableEntries[i].cardId = gCardSortContext.cards[i];
+    gSortableEntries[i].sortKey = 800 - g80D0444[gLanguage][gCardSortContext.cards[i]];
     if (gTrunkCardQty[gCardSortContext.cards[i]])
-      g8E0CC20[i].unk4 += 800;
+      gSortableEntries[i].sortKey += 800;
   }
 }
 
 void sub_8032C88 (void) {
   unsigned i;
   for (i = 0; i < gCardSortContext.cardCount; i++) {
-    g8E0CC20[i].unk0 = gCardSortContext.cards[i];
-    g8E0CC20[i].unk4 = 800 - g80D0444[gLanguage][gCardSortContext.cards[i]];
+    gSortableEntries[i].cardId = gCardSortContext.cards[i];
+    gSortableEntries[i].sortKey = 800 - g80D0444[gLanguage][gCardSortContext.cards[i]];
     if (gShopTempCardQty[gCardSortContext.cards[i]])
-      g8E0CC20[i].unk4 += 800;
+      gSortableEntries[i].sortKey += 800;
   }
 }
 
 void sub_8032D38 (void) {
   unsigned i;
   for (i = 0; i < gCardSortContext.cardCount; i++) {
-    g8E0CC20[i].unk0 = gCardSortContext.cards[i];
-    g8E0CC20[i].unk4 = 800 - g80D0444[gLanguage][gCardSortContext.cards[i]];
+    gSortableEntries[i].cardId = gCardSortContext.cards[i];
+    gSortableEntries[i].sortKey = 800 - g80D0444[gLanguage][gCardSortContext.cards[i]];
     if (gPlayerTempCardQty[gCardSortContext.cards[i]])
-      g8E0CC20[i].unk4 += 800;
+      gSortableEntries[i].sortKey += 800;
   }
 }
 
 void sub_8032DE8 (void) {
   unsigned i;
   for (i = 0; i < gCardSortContext.cardCount; i++) {
-    g8E0CC20[i].unk0 = gCardSortContext.cards[i];
-    g8E0CC20[i].unk4 = 800 - g80D0444[gLanguage][gCardSortContext.cards[i]];
+    gSortableEntries[i].cardId = gCardSortContext.cards[i];
+    gSortableEntries[i].sortKey = 800 - g80D0444[gLanguage][gCardSortContext.cards[i]];
     if (gTotalCardQty[gCardSortContext.cards[i]])
-      g8E0CC20[i].unk4 += 800;
+      gSortableEntries[i].sortKey += 800;
   }
 }
 /*
@@ -157,11 +154,11 @@ void sub_8032E98 (void) {
   unsigned i;
   for (i = 0; i < gCardSortContext.unk8; i++) {
     int temp;
-    g8E0CC20[i].unk0 = gCardSortContext.unk0[i];
-    temp = (gCardAtks[g8E0CC20[i].unk0] + 1 & 0xFFFF) * 800 + 800;
-    g8E0CC20[i].unk4 = temp - g8E0CC20[i].unk0;
-    if (gTrunkCardQty[g8E0CC20[i].unk0])
-      g8E0CC20[i].unk4 |= 0x1000000000000000;
+    gSortableEntries[i].unk0 = gCardSortContext.unk0[i];
+    temp = (gCardAtks[gSortableEntries[i].unk0] + 1 & 0xFFFF) * 800 + 800;
+    gSortableEntries[i].unk4 = temp - gSortableEntries[i].unk0;
+    if (gTrunkCardQty[gSortableEntries[i].unk0])
+      gSortableEntries[i].unk4 |= 0x1000000000000000;
   }
 }
 */

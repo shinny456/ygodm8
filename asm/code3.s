@@ -9410,7 +9410,7 @@ SortCardsAccordingToContext: @ 0x08034A38
 	adds r1, r1, r0
 	ldr r0, [r1]
 	bl _call_via_r0
-	bl sub_8032848
+	bl SortCardsDescending
 	movs r2, #0
 	ldrh r0, [r4, #8]
 	cmp r2, r0
@@ -9454,7 +9454,7 @@ sub_8034A8C: @ 0x08034A8C
 	adds r0, #0x80
 	movs r1, #0
 	str r1, [r0]
-	bl sub_8032848
+	bl SortCardsDescending
 _08034AAC:
 	pop {r0}
 	bx r0
@@ -9847,8 +9847,8 @@ _08034D84: .4byte 0x08E0CC20
 _08034D88: .4byte gLanguage
 _08034D8C: .4byte 0x00000642
 
-	THUMB_FUNC_START sub_8034D90
-sub_8034D90: @ 0x08034D90
+	THUMB_FUNC_START PushSortRange
+PushSortRange: @ 0x08034D90
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _08034DA4
@@ -9877,8 +9877,8 @@ _08034DA8:
 	bx r0
 	.byte 0x00, 0x00
 
-	THUMB_FUNC_START sub_8034DC4
-sub_8034DC4: @ 0x08034DC4
+	THUMB_FUNC_START PopSortRange
+PopSortRange: @ 0x08034DC4
 	adds r3, r0, #0
 	ldr r0, _08034DE4
 	ldr r2, [r0]
@@ -9898,8 +9898,8 @@ _08034DE0:
 	.align 2, 0
 _08034DE4: .4byte 0x08E0CC24
 
-	THUMB_FUNC_START sub_8034DE8
-sub_8034DE8: @ 0x08034DE8
+	THUMB_FUNC_START ClearSortRangeStack
+ClearSortRangeStack: @ 0x08034DE8
 	ldr r0, _08034DF4
 	ldr r0, [r0]
 	adds r0, #0x80

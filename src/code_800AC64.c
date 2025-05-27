@@ -173,7 +173,7 @@ void sub_800AEC4 (void) {
   sub_805882C();
 }
 
-void sub_800AFF0 (void);
+void InitNewGame (void);
 void sub_800B1E4 (void);
 void sub_800B17C (void);
 
@@ -186,7 +186,7 @@ void sub_800AED0 (void) {
   sub_80588C4(ptr, temp2 += 0x2000, 0x2000);
   sub_80588C4(ptr, temp2 += 0x2000, 0x2000);
   sub_80588C4(ptr, temp2 += 0x2000, 0x2000);
-  sub_800AFF0();
+  InitNewGame();
   sub_80351F8();
   temp = sub_8035170();
   sub_800B050();
@@ -208,7 +208,7 @@ void sub_800AF68 (void) {
   sub_80588C4(ptr, temp2 += 0x2000, 0x2000);
   sub_80588C4(ptr, temp2 += 0x2000, 0x2000);
   sub_80588C4(ptr, temp2 += 0x2000, 0x2000);
-  sub_800AFF0();
+  InitNewGame();
   sub_800B050();
   sub_800B0AC(0xFFFF);
   sub_800B06C();
@@ -220,7 +220,7 @@ void sub_800AF68 (void) {
 
 extern u8 g2021C8C;
 
-void sub_800AFF0 (void) {
+void InitNewGame (void) {
   ClearPlayerName();
   InitTrunkCards();
   InitNewGameDeck();
@@ -231,10 +231,10 @@ void sub_800AFF0 (void) {
   InitNewGameShopCards();
   InitMoney();
   ResetLfsrStateBit();
-  sub_80554EC();
+  InitFlags();
   sub_8055FD0();
   sub_801FB44(&g2021C8C);
-  sub_8048CB8();
+  InitLifePoints();
 }
 
 int sub_800B034 (void) {

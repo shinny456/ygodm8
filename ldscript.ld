@@ -184,7 +184,7 @@ SECTIONS
     gBG2Y_H = 0x202421C;
 
     gMonEffect = 0x02024250;
-    gUnk02024254 = 0x02024254;
+    gLifePointsOutsideDuel = 0x02024254;
 
     gDuelLifePoints = 0x02024258;
 
@@ -577,7 +577,7 @@ SECTIONS
     g80B92D8 = 0x80B92D8;
     g8E0CDF0 = 0x8E0CDF0;
     g8E0CE00 = 0x8E0CE00;
-    g8E0CC20 = 0x8E0CC20;
+    gSortableEntries = 0x8E0CC20;
     g80D0444 = 0x80D0444;
     g8E0CE18 = 0x8E0CE18;
     g80DD6FE = 0x80DD6FE;
@@ -857,7 +857,7 @@ SECTIONS
     g8E0CD80 = 0x8E0CD80;
     g8E0CDA8 = 0x8E0CDA8;
     g8E0CDAC = 0x8E0CDAC;
-    g8E0CC24 = 0x8E0CC24;
+    gSortRangeStack = 0x8E0CC24;
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :

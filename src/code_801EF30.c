@@ -1160,8 +1160,8 @@ void HandleWin (void) {
       sub_801F6B0();
     }
   }
-  if (!gDuelType /*== DUEL_TYPE_INGAME*/)
-    sub_8048CEC();
+  if (gDuelType == DUEL_TYPE_INGAME)
+    CapLifePointsAfterDuel();
 }
 
 void HandleLoss (void) {
