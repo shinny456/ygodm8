@@ -21,7 +21,7 @@ extern u16 g8E0D91A[];
 extern u16 g80F1880[][30];
 extern u16 g80F1D30[][30];
 extern u16 g80F30E0[];
-extern unsigned char g8E0D828[]; // "Attack | Defend | Tribute | Effect"
+extern unsigned char gText_AttackDefendTributeEffect[];
 
 void InitBMenu (unsigned char);
 void sub_80428EC (unsigned char);
@@ -35,8 +35,8 @@ void UpdateDuelGfxExceptField (void);
 
 extern u16 g80F13D0[][30];
 extern unsigned char g8DF811C[];
-extern unsigned char g8E0D668[]; // "Deckcards"
-extern unsigned char g8E0D753[]; // "Details | Turn end | Discard"
+extern unsigned char gText_Deckcards[];
+extern unsigned char gText_DetailsTurnEndDiscard[];
 
 u16 sub_08007FEC(unsigned char, unsigned char, u16);
 void sub_800800C(unsigned char, unsigned char, u16, u16);
@@ -796,8 +796,8 @@ void InitBMenu (unsigned char arg0) {
   for (i = 0; i < 18; i++)
     CpuCopy32(g80F13D0[i], gBgVram.cbb0 + 0xE800 + i * 64, 64);
   CpuCopy16(g80F30E0, gBgVram.cbb0 + 0x87A0, 128);
-  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x8820, g8E0D668, 0x801);
-  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x8B00, g8E0D753, 0x901);
+  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x8820, gText_Deckcards, 0x801);
+  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x8B00, gText_DetailsTurnEndDiscard, 0x901);
 
   sb = sub_08007FEC(0, 0, 0xE800);
   r8 = sub_08007FEC(20, 1, 0xE800) & 0xFF00;
@@ -1017,7 +1017,7 @@ void sub_8042ADC (unsigned char arg0) {
     sub_800800C(i + 14, 5, 0xE800, (g8DF811C[i] + 121) | r7);
     sub_800800C(i + 14, 6, 0xE800, (g8DF811C[i] + 123) | r7);
   }
-  CopyStringTilesToVRAMBuffer(gVr.a + 0x8820, g8E0D828, 0x901);
+  CopyStringTilesToVRAMBuffer(gVr.a + 0x8820, gText_AttackDefendTributeEffect, 0x901);
   sub_8042C64(arg0);
   WaitForVBlank();
   REG_WIN1H = 0xCD4;

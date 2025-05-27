@@ -156,19 +156,19 @@ struct MonEffect
 struct SpellEffect
 {
     u16 id;
-    u8 unk2;
-    u8 unk3;
-    u8 unk4;
-    u8 unk5;
+    u8 originRow; // activated card row
+    u8 originCol; // activated card col
+    u8 targetRow; // target monster row (equip)
+    u8 targetCol; // target monster col (equip)
 };
 
 struct TrapEffect
 {
-    u16 id;
-    u8 unk2;
-    u8 unk3;
-    u8 trapZoneId;
-    u8 unk5;
+    u16 originCardId; // id of card that triggered the trap, NOT the trap itself
+    u8 originRow; // row of card that triggered the trap, NOT the trap itself
+    u8 originCol; // col of card that triggered the trap, NOT the trap itself
+    u8 trapZoneCol; // zone with trap that's being checked or has been triggered
+    u8 trapCardId; // id of triggered trap card
 };
 
 extern struct MonEffect gMonEffect;
@@ -186,7 +186,7 @@ struct CardEffectTextData
     u16 unk4;
     u16 unk6;
     u16 textId;
-    u8 unkA;
+    u8 unkA; // card effect text type?
 };
 extern struct CardEffectTextData gCardEffectTextData;
 

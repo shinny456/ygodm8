@@ -128,7 +128,7 @@ extern unsigned char gPlayerTempCardQty[]; // local player card qty list while s
 extern unsigned short g80D0444[][801];
 extern const unsigned short gCardAtks[];
 extern const unsigned short gCardDefs[];
-int sub_8045410 (unsigned short);
+int GetNumRequiredTributes (unsigned short);
 
 void ClearCbb0Buffer (void);
 void ClearCbb1Buffer (void);

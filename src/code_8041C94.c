@@ -22,9 +22,9 @@ extern s16 g8E0D5A6[];
 extern u16 gBG2VOFS;
 extern u8 g8E0D5A1[];
 extern u8* g8F1B80C[];
-extern u8* g8E0D584;
+extern u8* gText_TrapWasTriggered;
 extern u16 g8E0D5B0[];
-extern u8 g8E0D5C7[]; // "facedown"
+extern u8 gText_Facedown[];
 extern u8 g8E0D617[];
 
 
@@ -88,7 +88,7 @@ void sub_8041CCC (u16 arg0, u16 arg1) {
 
 void sub_8041D14 (u16 arg0, u16 arg1) {
   struct Test8041240 test;
-  u8* temp = g8E0D584;
+  u8* temp = gText_TrapWasTriggered;
   test.unk0 = 0;
   test.unk4 = 0;
   test.unk8 = 0;
@@ -250,7 +250,7 @@ void DisplayCardAttrTypeInInfoBar (void) {
 
 void DisplayCardFacedownIndicatorInInfoBar (void) {
   if (!CanOpponentSeeCard(gDuelCursor.currentY, gDuelCursor.currentX))
-    CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x8600, g8E0D5C7, 0x801);
+    CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x8600, gText_Facedown, 0x801);
   else
     CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x8600, g8E0D617, 0x801);
 }

@@ -238,7 +238,7 @@ void CopyStarTile (void*);
 void CopySwordTile (void*);
 void CopyShieldTile (void*);
 
-int sub_8045410 (u16);
+int GetNumRequiredTributes (u16);
 void sub_800800C(u8, u8, u16, u16);
 u16 sub_08007FEC(u8, u8, u16);
 extern u8 g8DF811C[];
@@ -3271,7 +3271,7 @@ static void CopyAttributeIconTile (u8* arg0, u16 cardId) {
 
 //almost same as sub_80576EC
 static void CopyNumTributesTile (u8* arg0, u16 cardId) {
-  u8 numTributes = sub_8045410(cardId);
+  u8 numTributes = GetNumRequiredTributes(cardId);
   if (numTributes)
     CpuCopy16(g89A7ADE[numTributes], arg0, 64);
 }

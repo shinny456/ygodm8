@@ -2162,7 +2162,7 @@ void sub_80576B4 (unsigned char* arg0, unsigned short cardId) {
 
 //almost same as sub_802FF4C
 void sub_80576EC (unsigned char* arg0, unsigned short cardId) {
-  signed char numTributes = sub_8045410(cardId);
+  signed char numTributes = GetNumRequiredTributes(cardId);
   if (numTributes > 0)
     CpuCopy16(g89A7ADE[numTributes], arg0, 64);
 }

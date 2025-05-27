@@ -140,15 +140,15 @@ static signed char CheckTrapActivationConditions (u16 id) {
 
 static bool8 ConditionHouseOfAdhesiveTape(void)
 {
-    if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_MONSTER)
+    if (IsGodCard(gTrapEffectData.originCardId) != TRUE && GetTypeGroup(gTrapEffectData.originCardId) == TYPE_GROUP_MONSTER)
     {
-        gStatMod.card = gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
+        gStatMod.card = gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = GetFinalStage(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
+        gStatMod.stage = GetFinalStage(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]);
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 500)
         {
-            gTrapEffectData.unk5 = TRAP_HOUSE_OF_ADHESIVE_TAPE;
+            gTrapEffectData.trapCardId = TRAP_HOUSE_OF_ADHESIVE_TAPE;
             return TRUE;
         }
     }
@@ -157,15 +157,15 @@ static bool8 ConditionHouseOfAdhesiveTape(void)
 
 static bool8 ConditionEatgaboon(void)
 {
-    if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_MONSTER)
+    if (IsGodCard(gTrapEffectData.originCardId) != TRUE && GetTypeGroup(gTrapEffectData.originCardId) == TYPE_GROUP_MONSTER)
     {
-        gStatMod.card = gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
+        gStatMod.card = gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = GetFinalStage(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
+        gStatMod.stage = GetFinalStage(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]);
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 1000)
         {
-            gTrapEffectData.unk5 = TRAP_EATGABOON;
+            gTrapEffectData.trapCardId = TRAP_EATGABOON;
             return TRUE;
         }
     }
@@ -174,15 +174,15 @@ static bool8 ConditionEatgaboon(void)
 
 static bool8 ConditionBearTrap(void)
 {
-    if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_MONSTER)
+    if (IsGodCard(gTrapEffectData.originCardId) != TRUE && GetTypeGroup(gTrapEffectData.originCardId) == TYPE_GROUP_MONSTER)
     {
-        gStatMod.card = gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
+        gStatMod.card = gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = GetFinalStage(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
+        gStatMod.stage = GetFinalStage(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]);
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 1500)
         {
-            gTrapEffectData.unk5 = TRAP_BEAR_TRAP;
+            gTrapEffectData.trapCardId = TRAP_BEAR_TRAP;
             return TRUE;
         }
     }
@@ -191,15 +191,15 @@ static bool8 ConditionBearTrap(void)
 
 static bool8 ConditionInvisibleWire(void)
 {
-    if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_MONSTER)
+    if (IsGodCard(gTrapEffectData.originCardId) != TRUE && GetTypeGroup(gTrapEffectData.originCardId) == TYPE_GROUP_MONSTER)
     {
-        gStatMod.card = gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
+        gStatMod.card = gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = GetFinalStage(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
+        gStatMod.stage = GetFinalStage(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]);
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 2000)
         {
-            gTrapEffectData.unk5 = TRAP_INVISIBLE_WIRE;
+            gTrapEffectData.trapCardId = TRAP_INVISIBLE_WIRE;
             return TRUE;
         }
     }
@@ -208,15 +208,15 @@ static bool8 ConditionInvisibleWire(void)
 
 static bool8 ConditionAcidTrapHole(void)
 {
-    if (IsGodCard(gTrapEffectData.id) != TRUE && GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_MONSTER)
+    if (IsGodCard(gTrapEffectData.originCardId) != TRUE && GetTypeGroup(gTrapEffectData.originCardId) == TYPE_GROUP_MONSTER)
     {
-        gStatMod.card = gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id;
+        gStatMod.card = gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]->id;
         gStatMod.field = gDuel.field;
-        gStatMod.stage = GetFinalStage(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]);
+        gStatMod.stage = GetFinalStage(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]);
         SetFinalStat(&gStatMod);
         if (gCardInfo.atk <= 3000)
         {
-            gTrapEffectData.unk5 = TRAP_ACID_TRAP_HOLE;
+            gTrapEffectData.trapCardId = TRAP_ACID_TRAP_HOLE;
             return TRUE;
         }
     }
@@ -225,26 +225,26 @@ static bool8 ConditionAcidTrapHole(void)
 
 static void EffectWideSpreadRuin(void)
 {
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
-    if (!IsGodCard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id))
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
+    if (!IsGodCard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]->id))
     {
-        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], 0);
 
         if (!gHideEffectText)
         {
             gCardEffectTextData.cardId = WIDESPREAD_RUIN;
-            gCardEffectTextData.cardId2 = gTrapEffectData.id;
+            gCardEffectTextData.cardId2 = gTrapEffectData.originCardId;
             ActivateCardEffectText();
         }
     }
     else
     {
-        gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
+        gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]->isFaceUp = TRUE;
         if (!gHideEffectText)
         {
             SetCardEffectTextType(4);
             gCardEffectTextData.cardId = WIDESPREAD_RUIN;
-            gCardEffectTextData.cardId2 = gTrapEffectData.id;
+            gCardEffectTextData.cardId2 = gTrapEffectData.originCardId;
             ActivateCardEffectText();
         }
     }
@@ -252,26 +252,26 @@ static void EffectWideSpreadRuin(void)
 
 static void EffectHouseOfAdhesiveTape(void)
 {
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
-    if (!IsGodCard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id))
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
+    if (!IsGodCard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]->id))
     {
-        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], 0);
 
         if (!gHideEffectText)
         {
             gCardEffectTextData.cardId = HOUSE_OF_ADHESIVE_TAPE;
-            gCardEffectTextData.cardId2 = gTrapEffectData.id;
+            gCardEffectTextData.cardId2 = gTrapEffectData.originCardId;
             ActivateCardEffectText();
         }
     }
     else
     {
-        gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
+        gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]->isFaceUp = TRUE;
         if (!gHideEffectText)
         {
             SetCardEffectTextType(4);
             gCardEffectTextData.cardId = HOUSE_OF_ADHESIVE_TAPE;
-            gCardEffectTextData.cardId2 = gTrapEffectData.id;
+            gCardEffectTextData.cardId2 = gTrapEffectData.originCardId;
             ActivateCardEffectText();
         }
     }
@@ -279,26 +279,26 @@ static void EffectHouseOfAdhesiveTape(void)
 
 static void EffectEatgaboon(void)
 {
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
-    if (!IsGodCard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id))
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
+    if (!IsGodCard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]->id))
     {
-        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], 0);
 
         if (!gHideEffectText)
         {
             gCardEffectTextData.cardId = EATGABOON;
-            gCardEffectTextData.cardId2 = gTrapEffectData.id;
+            gCardEffectTextData.cardId2 = gTrapEffectData.originCardId;
             ActivateCardEffectText();
         }
     }
     else
     {
-        gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
+        gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]->isFaceUp = TRUE;
         if (!gHideEffectText)
         {
             SetCardEffectTextType(4);
             gCardEffectTextData.cardId = EATGABOON;
-            gCardEffectTextData.cardId2 = gTrapEffectData.id;
+            gCardEffectTextData.cardId2 = gTrapEffectData.originCardId;
             ActivateCardEffectText();
         }
     }
@@ -306,26 +306,26 @@ static void EffectEatgaboon(void)
 
 static void EffectBearTrap(void)
 {
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
-    if (!IsGodCard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id))
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
+    if (!IsGodCard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]->id))
     {
-        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], 0);
 
         if (!gHideEffectText)
         {
             gCardEffectTextData.cardId = BEAR_TRAP;
-            gCardEffectTextData.cardId2 = gTrapEffectData.id;
+            gCardEffectTextData.cardId2 = gTrapEffectData.originCardId;
             ActivateCardEffectText();
         }
     }
     else
     {
-        gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
+        gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]->isFaceUp = TRUE;
         if (!gHideEffectText)
         {
             SetCardEffectTextType(4);
             gCardEffectTextData.cardId = BEAR_TRAP;
-            gCardEffectTextData.cardId2 = gTrapEffectData.id;
+            gCardEffectTextData.cardId2 = gTrapEffectData.originCardId;
             ActivateCardEffectText();
         }
     }
@@ -333,26 +333,26 @@ static void EffectBearTrap(void)
 
 static void EffectInvisibleWire(void)
 {
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
-    if (!IsGodCard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id))
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
+    if (!IsGodCard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]->id))
     {
-        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], 0);
 
         if (!gHideEffectText)
         {
             gCardEffectTextData.cardId = INVISIBLE_WIRE;
-            gCardEffectTextData.cardId2 = gTrapEffectData.id;
+            gCardEffectTextData.cardId2 = gTrapEffectData.originCardId;
             ActivateCardEffectText();
         }
     }
     else
     {
-        gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
+        gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]->isFaceUp = TRUE;
         if (!gHideEffectText)
         {
             SetCardEffectTextType(4);
             gCardEffectTextData.cardId = INVISIBLE_WIRE;
-            gCardEffectTextData.cardId2 = gTrapEffectData.id;
+            gCardEffectTextData.cardId2 = gTrapEffectData.originCardId;
             ActivateCardEffectText();
         }
     }
@@ -360,26 +360,26 @@ static void EffectInvisibleWire(void)
 
 static void EffectAcidTrapHole(void)
 {
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
-    if (!IsGodCard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->id))
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
+    if (!IsGodCard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]->id))
     {
-        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], 0);
 
         if (!gHideEffectText)
         {
             gCardEffectTextData.cardId = ACID_TRAP_HOLE;
-            gCardEffectTextData.cardId2 = gTrapEffectData.id;
+            gCardEffectTextData.cardId2 = gTrapEffectData.originCardId;
             ActivateCardEffectText();
         }
     }
     else
     {
-        gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3]->isFaceUp = TRUE;
+        gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]->isFaceUp = TRUE;
         if (!gHideEffectText)
         {
             SetCardEffectTextType(4);
             gCardEffectTextData.cardId = ACID_TRAP_HOLE;
-            gCardEffectTextData.cardId2 = gTrapEffectData.id;
+            gCardEffectTextData.cardId2 = gTrapEffectData.originCardId;
             ActivateCardEffectText();
         }
     }
@@ -393,8 +393,8 @@ static void EffectAntiRaigeki(void)
         if (!IsGodCard(gTurnZones[2][i]->id))
             ClearZoneAndSendMonToGraveyard(gTurnZones[2][i], 0);
 
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
-    ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], 0);
 
     if (!gHideEffectText)
     {
@@ -405,31 +405,31 @@ static void EffectAntiRaigeki(void)
 
 static void EffectInfiniteDismissal(void)
 {
-    gTurnZones[2][gTrapEffectData.unk3]->isFaceUp = TRUE;
-    gTurnZones[2][gTrapEffectData.unk3]->isLocked = TRUE;
+    gTurnZones[2][gTrapEffectData.originCol]->isFaceUp = TRUE;
+    gTurnZones[2][gTrapEffectData.originCol]->isLocked = TRUE;
 
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
 
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = INFINITE_DISMISSAL;
-        gCardEffectTextData.cardId2 = gTrapEffectData.id;
+        gCardEffectTextData.cardId2 = gTrapEffectData.originCardId;
         ActivateCardEffectText();
     }
 }
 
 static void EffectAmazonArchers(void)
 {
-    DecrementPermStage(gTurnZones[2][gTrapEffectData.unk3]);
-    gTurnZones[2][gTrapEffectData.unk3]->isFaceUp = TRUE;
-    gTurnZones[2][gTrapEffectData.unk3]->isLocked = TRUE;
+    DecrementPermStage(gTurnZones[2][gTrapEffectData.originCol]);
+    gTurnZones[2][gTrapEffectData.originCol]->isFaceUp = TRUE;
+    gTurnZones[2][gTrapEffectData.originCol]->isLocked = TRUE;
 
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
 
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = AMAZON_ARCHERS;
-        gCardEffectTextData.cardId2 = gTrapEffectData.id;
+        gCardEffectTextData.cardId2 = gTrapEffectData.originCardId;
         ActivateCardEffectText();
     }
 }
@@ -440,7 +440,7 @@ void ActivateTrapEffect (u16 lp)
     ResetCardEffectTextData();
     SetCardEffectTextType(3);
 
-    switch (gTrapEffectData.unk5)
+    switch (gTrapEffectData.trapCardId)
     {
     case TRAP_NONE:
         EffectTrapNone();
@@ -519,13 +519,13 @@ static void EffectGoblinFan(u16 lp)
     HandleDuelAction();
     CheckLoserFlags();
 
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
-    ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], 0);
 
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = GOBLIN_FAN;
-        gCardEffectTextData.cardId2 = gTrapEffectData.id;
+        gCardEffectTextData.cardId2 = gTrapEffectData.originCardId;
         ActivateCardEffectText();
     }
 }
@@ -540,26 +540,26 @@ static void EffectBadReactionToSimochi(u16 lp)
     HandleDuelAction();
     CheckLoserFlags();
 
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
-    ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], 0);
 
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = BAD_REACTION_TO_SIMOCHI;
-        gCardEffectTextData.cardId2 = gTrapEffectData.id;
+        gCardEffectTextData.cardId2 = gTrapEffectData.originCardId;
         ActivateCardEffectText();
     }
 }
 
 static void EffectReverseTrap(void)
 {
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
-    ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.unk2][gTrapEffectData.unk3], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], 0);
 
     if (!gHideEffectText)
     {
         gCardEffectTextData.cardId = REVERSE_TRAP;
-        gCardEffectTextData.cardId2 = gTrapEffectData.id;
+        gCardEffectTextData.cardId2 = gTrapEffectData.originCardId;
         ActivateCardEffectText();
     }
 }
@@ -576,7 +576,7 @@ static void EffectTorrentialTribute(void)
         if (!IsGodCard(gTurnZones[2][i]->id))
             ClearZoneAndSendMonToGraveyard(gTurnZones[2][i], 0);
 
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneId], 1);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
 
     if (!gHideEffectText)
     {
@@ -617,26 +617,26 @@ static u8 ConditionTrapNone (void)
 //80584B8
 static bool8 ConditionWidespreadRuin(void)
 {
-    if (IsGodCard(gTrapEffectData.id) == TRUE || GetTypeGroup(gTrapEffectData.id) != TYPE_GROUP_MONSTER)
+    if (IsGodCard(gTrapEffectData.originCardId) == TRUE || GetTypeGroup(gTrapEffectData.originCardId) != TYPE_GROUP_MONSTER)
         return 0;
 
-    gTrapEffectData.unk5 = TRAP_WIDESPREAD_RUIN;
+    gTrapEffectData.trapCardId = TRAP_WIDESPREAD_RUIN;
     return TRUE;
 }
 
 //80584E4
 static bool8 ConditionGoblinFan(void)
 {
-    if (GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_SPELL)
+    if (GetTypeGroup(gTrapEffectData.originCardId) == TYPE_GROUP_SPELL)
     {
         u32 i;
 
-        SetCardInfo(gTrapEffectData.id);
+        SetCardInfo(gTrapEffectData.originCardId);
         for (i = 0; gUnk_8E1172C[i] != -1; i++)
         {
             if (gUnk_8E1172C[i] == gCardInfo.spellEffect)
             {
-                gTrapEffectData.unk5 = TRAP_GOBLIN_FAN;
+                gTrapEffectData.trapCardId = TRAP_GOBLIN_FAN;
                 return TRUE;
             }
         }
@@ -647,16 +647,16 @@ static bool8 ConditionGoblinFan(void)
 //8058540
 static bool8 ConditionBadReactionToSimochi(void)
 {
-    if (GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_SPELL)
+    if (GetTypeGroup(gTrapEffectData.originCardId) == TYPE_GROUP_SPELL)
     {
         u32 i;
 
-        SetCardInfo(gTrapEffectData.id);
+        SetCardInfo(gTrapEffectData.originCardId);
         for (i = 0; gUnk_8E11738[i] != -1; i++)
         {
             if (gUnk_8E11738[i] == gCardInfo.spellEffect)
             {
-                gTrapEffectData.unk5 = TRAP_BAD_REACTION_TO_SIMOCHI;
+                gTrapEffectData.trapCardId = TRAP_BAD_REACTION_TO_SIMOCHI;
                 return TRUE;
             }
         }
@@ -669,12 +669,12 @@ static bool8 ConditionReverseTrap(void)
 {
     u32 i;
 
-    SetCardInfo(gTrapEffectData.id);
+    SetCardInfo(gTrapEffectData.originCardId);
     for (i = 0; gUnk_8E11744[i] != -1; i++)
     {
         if (gUnk_8E11744[i] == gCardInfo.spellEffect)
         {
-            gTrapEffectData.unk5 = TRAP_REVERSE_TRAP;
+            gTrapEffectData.trapCardId = TRAP_REVERSE_TRAP;
             return TRUE;
         }
     }
@@ -690,16 +690,16 @@ static u8 ConditionFakeTrap(void)
 //80585F4
 static bool8 ConditionAntiRaigeki(void)
 {
-    if (GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_SPELL)
+    if (GetTypeGroup(gTrapEffectData.originCardId) == TYPE_GROUP_SPELL)
     {
         u32 i;
 
-        SetCardInfo(gTrapEffectData.id);
+        SetCardInfo(gTrapEffectData.originCardId);
         for (i = 0; gUnk_8E11788[i] != -1; i++)
         {
             if (gUnk_8E11788[i] == gCardInfo.spellEffect)
             {
-                gTrapEffectData.unk5 = TRAP_ANTI_RAIGEKI;
+                gTrapEffectData.trapCardId = TRAP_ANTI_RAIGEKI;
                 return TRUE;
             }
         }
@@ -710,9 +710,9 @@ static bool8 ConditionAntiRaigeki(void)
 //8058650
 static bool8 ConditionInfiniteDismissal(void)
 {
-    if (GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_MONSTER)
+    if (GetTypeGroup(gTrapEffectData.originCardId) == TYPE_GROUP_MONSTER)
     {
-        gTrapEffectData.unk5 = TRAP_INFINITE_DISMISSAL;
+        gTrapEffectData.trapCardId = TRAP_INFINITE_DISMISSAL;
         return TRUE;
     }
     return 0;
@@ -721,19 +721,19 @@ static bool8 ConditionInfiniteDismissal(void)
 //8058674
 static bool8 ConditionTorrentialTribute(void)
 {
-    if (IsGodCard(gTrapEffectData.id) == TRUE || GetTypeGroup(gTrapEffectData.id) != TYPE_GROUP_MONSTER)
+    if (IsGodCard(gTrapEffectData.originCardId) == TRUE || GetTypeGroup(gTrapEffectData.originCardId) != TYPE_GROUP_MONSTER)
         return 0;
 
-    gTrapEffectData.unk5 = TRAP_TORRENTIAL_TRIBUTE;
+    gTrapEffectData.trapCardId = TRAP_TORRENTIAL_TRIBUTE;
     return TRUE;
 }
 
 //80586A0
 static bool8 ConditionAmazonArchers(void)
 {
-    if (GetTypeGroup(gTrapEffectData.id) == TYPE_GROUP_MONSTER)
+    if (GetTypeGroup(gTrapEffectData.originCardId) == TYPE_GROUP_MONSTER)
     {
-        gTrapEffectData.unk5 = TRAP_AMAZON_ARCHERS;
+        gTrapEffectData.trapCardId = TRAP_AMAZON_ARCHERS;
         return TRUE;
     }
     return 0;
@@ -777,10 +777,10 @@ static bool8 ConditionDragonCaptureJar(void)
 unsigned IsTrapTriggered (void) {
   unsigned char i;
 
-  gTrapEffectData.unk5 = 0;
+  gTrapEffectData.trapCardId = 0;
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
   {
-      gTrapEffectData.trapZoneId = i;
+      gTrapEffectData.trapZoneCol = i;
       if (CheckTrapActivationConditions(gTurnZones[0][i]->id) == 1)
           return TRUE;
   }

@@ -160,7 +160,7 @@ void sub_8044160 (u8 arg0) {
 }
 
 
-u8 sub_80453D8(u16);
+u8 GetNumRequiredRitualTributes(u16);
 void HandlePlayerMonsterRowAction (void);
 void HandlePlayerBackrowAction (void);
 void DisplayNumRequiredTributesText (u8);
@@ -204,7 +204,7 @@ void sub_80441D0 (void) {
         WaitForVBlank();
       }
       else {
-        u8 numTributes = sub_80453D8(gFixedZones[3][gDuelCursor.currentX]->id);
+        u8 numTributes = GetNumRequiredRitualTributes(gFixedZones[3][gDuelCursor.currentX]->id);
         if (!numTributes) {
           HandlePlayerBackrowAction();
         }
@@ -332,9 +332,9 @@ void sub_8044570 (void) {
     UpdateDuelGfxExceptField();
   }
   else if (NumEmptyZonesInRow(gTurnZones[1]) == 5) { // Direct Attack
-    gTrapEffectData.unk2 = gDuelCursor.currentY;
-    gTrapEffectData.unk3 = gDuelCursor.currentX;
-    gTrapEffectData.id = gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->id;
+    gTrapEffectData.originRow = gDuelCursor.currentY;
+    gTrapEffectData.originCol = gDuelCursor.currentX;
+    gTrapEffectData.originCardId = gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->id;
     if (IsTrapTriggered() != 1) {
       PlayMusic(SFX_SELECT);
       gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
@@ -376,8 +376,8 @@ void HandlePlayerBackrowAction (void) {
     case SPELL_TYPE_NORMAL: // immediate effect
       gDuelCursor.state = 0;
       gSpellEffectData.id = id;
-      gSpellEffectData.unk2 = gDuelCursor.currentY;
-      gSpellEffectData.unk3 = gDuelCursor.currentX;
+      gSpellEffectData.originRow = gDuelCursor.currentY;
+      gSpellEffectData.originCol = gDuelCursor.currentX;
       ActivateSpellEffect();
       if (gTurnDuelistBattleState[ACTIVE_DUELIST]->summoningBlocked)
         LockMonsterCardsInRow(4);
@@ -416,12 +416,12 @@ void sub_80447A8 (void) {
   }
   else {
     SetCardInfo(gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->id);
-    if (GetTypeGroup(gCardInfo.id) == 1) {
+    if (GetTypeGroup(gCardInfo.id) == TYPE_GROUP_MONSTER) {
       gSpellEffectData.id = gFixedZones[gDuelCursor.destY][gDuelCursor.destX]->id;
-      gSpellEffectData.unk4 = gDuelCursor.destY;
-      gSpellEffectData.unk5 = gDuelCursor.destX;
-      gSpellEffectData.unk2 = gDuelCursor.currentY;
-      gSpellEffectData.unk3 = gDuelCursor.currentX;
+      gSpellEffectData.targetRow = gDuelCursor.destY;
+      gSpellEffectData.targetCol = gDuelCursor.destX;
+      gSpellEffectData.originRow = gDuelCursor.currentY;
+      gSpellEffectData.originCol = gDuelCursor.currentX;
       ActivateSpellEffect();
     }
     gDuelCursor.state = 0;
@@ -441,9 +441,9 @@ void sub_8044840 (void) {
     WaitForVBlank();
   }
   else {
-    gTrapEffectData.unk2 = gDuelCursor.destY;
-    gTrapEffectData.unk3 = gDuelCursor.destX;
-    gTrapEffectData.id = gFixedZones[gDuelCursor.destY][gDuelCursor.destX]->id;
+    gTrapEffectData.originRow = gDuelCursor.destY;
+    gTrapEffectData.originCol = gDuelCursor.destX;
+    gTrapEffectData.originCardId = gFixedZones[gDuelCursor.destY][gDuelCursor.destX]->id;
     if (IsTrapTriggered() != 1) {
       PlayMusic(SFX_SELECT);
       gFixedZones[gDuelCursor.destY][gDuelCursor.destX]->isDefending = 0;

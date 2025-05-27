@@ -313,9 +313,9 @@ static void sub_800E734(void)
     gTurnZones[row2][col2]->isDefending = FALSE;
     gTurnZones[row2][col2]->isFaceUp = TRUE;
     gTurnZones[row2][col2]->isLocked = TRUE;
-    gTrapEffectData.unk2 = row2;
-    gTrapEffectData.unk3 = col2;
-    gTrapEffectData.id = gTurnZones[row2][col2]->id;
+    gTrapEffectData.originRow = row2;
+    gTrapEffectData.originCol = col2;
+    gTrapEffectData.originCardId = gTurnZones[row2][col2]->id;
     IsTrapTriggered();
     ActivateTrapEffect();
 }
@@ -328,9 +328,9 @@ static void sub_800E794(void)
     gTurnZones[row2][col2]->isDefending = FALSE;
     gTurnZones[row2][col2]->isFaceUp = TRUE;
     gTurnZones[row2][col2]->isLocked = TRUE;
-    gTrapEffectData.unk2 = row2;
-    gTrapEffectData.unk3 = col2;
-    gTrapEffectData.id = gTurnZones[row2][col2]->id;
+    gTrapEffectData.originRow = row2;
+    gTrapEffectData.originCol = col2;
+    gTrapEffectData.originCardId = gTurnZones[row2][col2]->id;
     IsTrapTriggered();
     ActivateTrapEffect();
 }
@@ -343,9 +343,9 @@ static void sub_800E7F4(void)
     gTurnZones[row2][col2]->isDefending = FALSE;
     gTurnZones[row2][col2]->isFaceUp = TRUE;
     gTurnZones[row2][col2]->isLocked = TRUE;
-    gTrapEffectData.unk2 = row2;
-    gTrapEffectData.unk3 = col2;
-    gTrapEffectData.id = gTurnZones[row2][col2]->id;
+    gTrapEffectData.originRow = row2;
+    gTrapEffectData.originCol = col2;
+    gTrapEffectData.originCardId = gTurnZones[row2][col2]->id;
     IsTrapTriggered();
     ActivateTrapEffect();
 }
@@ -358,9 +358,9 @@ static void sub_800E854(void)
     gTurnZones[row2][col2]->isDefending = FALSE;
     gTurnZones[row2][col2]->isFaceUp = TRUE;
     gTurnZones[row2][col2]->isLocked = TRUE;
-    gTrapEffectData.unk2 = row2;
-    gTrapEffectData.unk3 = col2;
-    gTrapEffectData.id = gTurnZones[row2][col2]->id;
+    gTrapEffectData.originRow = row2;
+    gTrapEffectData.originCol = col2;
+    gTrapEffectData.originCardId = gTurnZones[row2][col2]->id;
     IsTrapTriggered();
     ActivateTrapEffect();
 }
@@ -495,10 +495,10 @@ static void sub_800EB40(void)
     u8 col3 = sAI_Command.unk3 & 0xF;
 
     gSpellEffectData.id = gTurnZones[row2][col2]->id;
-    gSpellEffectData.unk4 = row2;
-    gSpellEffectData.unk5 = col2;
-    gSpellEffectData.unk2 = row3;
-    gSpellEffectData.unk3 = col3;
+    gSpellEffectData.targetRow = row2;
+    gSpellEffectData.targetCol = col2;
+    gSpellEffectData.originRow = row3;
+    gSpellEffectData.originCol = col3;
     ActivateSpellEffect();
     ClearZone(gTurnZones[row2][col2]);
 }
@@ -511,10 +511,10 @@ static void sub_800EB8C(void)
     u8 col3 = sAI_Command.unk3 & 0xF;
 
     gSpellEffectData.id = gTurnZones[row2][col2]->id;
-    gSpellEffectData.unk4 = row2;
-    gSpellEffectData.unk5 = col2;
-    gSpellEffectData.unk2 = row3;
-    gSpellEffectData.unk3 = col3;
+    gSpellEffectData.targetRow = row2;
+    gSpellEffectData.targetCol = col2;
+    gSpellEffectData.originRow = row3;
+    gSpellEffectData.originCol = col3;
     ActivateSpellEffect();
     ClearZone(gTurnZones[row2][col2]);
 }
@@ -547,8 +547,8 @@ static void sub_800EC68(void)
     u8 col2 = sAI_Command.unk2 & 0xF;
 
     gSpellEffectData.id = gTurnZones[row2][col2]->id;
-    gSpellEffectData.unk2 = row2;
-    gSpellEffectData.unk3 = col2;
+    gSpellEffectData.originRow = row2;
+    gSpellEffectData.originCol = col2;
     ActivateSpellEffect();
     if (gTurnDuelistBattleState[ACTIVE_DUELIST]->summoningBlocked)
         LockMonsterCardsInRow(4);
@@ -561,8 +561,8 @@ static void sub_800ECC0(void)
     u8 col2 = sAI_Command.unk2 & 0xF;
 
     gSpellEffectData.id = gTurnZones[row2][col2]->id;
-    gSpellEffectData.unk2 = row2;
-    gSpellEffectData.unk3 = col2;
+    gSpellEffectData.originRow = row2;
+    gSpellEffectData.originCol = col2;
     ActivateSpellEffect();
     ClearZone(gTurnZones[row2][col2]);
 }
@@ -600,8 +600,8 @@ static void sub_800ED48(void)
         ClearZoneAndSendMonToGraveyard(gTurnZones[row5][col5], 0);
     }
     gSpellEffectData.id = gTurnZones[row2][col2]->id;
-    gSpellEffectData.unk2 = row2;
-    gSpellEffectData.unk3 = col2;
+    gSpellEffectData.originRow = row2;
+    gSpellEffectData.originCol = col2;
     ActivateSpellEffect();
     ClearZone(gTurnZones[row2][col2]);
 }
@@ -1059,7 +1059,7 @@ static void sub_800F640(void)
         gUnk_8DFF6A4->unk2298 = 0x7F3D9A1C;
     else if (gTurnZones[row3][col3]->isLocked)
         gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-    else if (GetTypeGroup(gTurnZones[row3][col3]->id) != 1)
+    else if (GetTypeGroup(gTurnZones[row3][col3]->id) != TYPE_GROUP_MONSTER)
         gUnk_8DFF6A4->unk2298 = 0x7F3D9A1C;
     else
     {
@@ -1089,7 +1089,7 @@ static void sub_800F830 (void) {
     gUnk_8DFF6A4->unk2298 = 0x7F1D8EFC;
   else if (gTurnZones[row3][col3]->isLocked)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (GetTypeGroup(gTurnZones[row3][col3]->id) != 1)
+  else if (GetTypeGroup(gTurnZones[row3][col3]->id) != TYPE_GROUP_MONSTER)
     gUnk_8DFF6A4->unk2298 = 0x7F1D8EFC;
   else {
     u16 atk;
@@ -1125,7 +1125,7 @@ static void sub_800F95C (void) {
     gUnk_8DFF6A4->unk2298 = 0x7F3D9A1C;
   else if (gTurnZones[row3][col3]->isLocked)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (GetTypeGroup(gTurnZones[row3][col3]->id) != 1)
+  else if (GetTypeGroup(gTurnZones[row3][col3]->id) != TYPE_GROUP_MONSTER)
     gUnk_8DFF6A4->unk2298 = 0x7F3D9A1C;
   else {
     u16 atk;
@@ -7476,9 +7476,9 @@ static u8 sub_801A784 (void) {
   if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns) {
     SetCardInfo(gTurnZones[row2][col2]->id);
     if (!gCardInfo.unk1E) {
-      gTrapEffectData.unk2 = row2;
-      gTrapEffectData.unk3 = col2;
-      gTrapEffectData.id = gTurnZones[row2][col2]->id;
+      gTrapEffectData.originRow = row2;
+      gTrapEffectData.originCol = col2;
+      gTrapEffectData.originCardId = gTurnZones[row2][col2]->id;
       if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
           !GetNumCardsInRow(1))
         return 1;
@@ -7493,9 +7493,9 @@ static u8 sub_801A814 (void) {
   if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns) {
     SetCardInfo(gTurnZones[row2][col2]->id);
     if (gCardInfo.unk1E) {
-      gTrapEffectData.unk2 = row2;
-      gTrapEffectData.unk3 = col2;
-      gTrapEffectData.id = gTurnZones[row2][col2]->id;
+      gTrapEffectData.originRow = row2;
+      gTrapEffectData.originCol = col2;
+      gTrapEffectData.originCardId = gTurnZones[row2][col2]->id;
       if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
           !GetNumCardsInRow(1))
         return 1;
@@ -7512,9 +7512,9 @@ static u8 sub_801A8A4 (void) {
   if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns) {
     SetCardInfo(gTurnZones[row2][col2]->id);
     if (!gCardInfo.unk1E) {
-      gTrapEffectData.unk2 = row2;
-      gTrapEffectData.unk3 = col2;
-      gTrapEffectData.id = gTurnZones[row2][col2]->id;
+      gTrapEffectData.originRow = row2;
+      gTrapEffectData.originCol = col2;
+      gTrapEffectData.originCardId = gTurnZones[row2][col2]->id;
       if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
           gTurnZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gTurnZones[row3][col3]->id) == TYPE_GROUP_MONSTER &&
           gTurnZones[row3][col3]->isFaceUp)
@@ -7532,9 +7532,9 @@ static u8 sub_801A974 (void) {
   if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns) {
     SetCardInfo(gTurnZones[row2][col2]->id);
     if (gCardInfo.unk1E) {
-      gTrapEffectData.unk2 = row2;
-      gTrapEffectData.unk3 = col2;
-      gTrapEffectData.id = gTurnZones[row2][col2]->id;
+      gTrapEffectData.originRow = row2;
+      gTrapEffectData.originCol = col2;
+      gTrapEffectData.originCardId = gTurnZones[row2][col2]->id;
       if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
           gTurnZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gTurnZones[row3][col3]->id) == TYPE_GROUP_MONSTER &&
           gTurnZones[row3][col3]->isFaceUp)
@@ -7765,9 +7765,9 @@ static u8 sub_801ABE4 (void) {
   if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns) {
     SetCardInfo(gTurnZones[row2][col2]->id);
     if (!gCardInfo.unk1E) {
-      gTrapEffectData.unk2 = row2;
-      gTrapEffectData.unk3 = col2;
-      gTrapEffectData.id = gTurnZones[row2][col2]->id;
+      gTrapEffectData.originRow = row2;
+      gTrapEffectData.originCol = col2;
+      gTrapEffectData.originCardId = gTurnZones[row2][col2]->id;
       if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
           !GetNumCardsInRow(1))
         return 1;
@@ -7782,9 +7782,9 @@ static u8 sub_801AC74 (void) {
   if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns) {
     SetCardInfo(gTurnZones[row2][col2]->id);
     if (gCardInfo.unk1E) {
-      gTrapEffectData.unk2 = row2;
-      gTrapEffectData.unk3 = col2;
-      gTrapEffectData.id = gTurnZones[row2][col2]->id;
+      gTrapEffectData.originRow = row2;
+      gTrapEffectData.originCol = col2;
+      gTrapEffectData.originCardId = gTurnZones[row2][col2]->id;
       if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
           !GetNumCardsInRow(1))
         return 1;
@@ -7801,9 +7801,9 @@ static u8 sub_801AD04 (void) {
   if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns) {
     SetCardInfo(gTurnZones[row2][col2]->id);
     if (!gCardInfo.unk1E) {
-      gTrapEffectData.unk2 = row2;
-      gTrapEffectData.unk3 = col2;
-      gTrapEffectData.id = gTurnZones[row2][col2]->id;
+      gTrapEffectData.originRow = row2;
+      gTrapEffectData.originCol = col2;
+      gTrapEffectData.originCardId = gTurnZones[row2][col2]->id;
       if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
           gTurnZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gTurnZones[row3][col3]->id) == 1 &&
           gTurnZones[row3][col3]->isFaceUp)
@@ -7821,9 +7821,9 @@ static u8 sub_801ADD4 (void) {
   if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns) {
     SetCardInfo(gTurnZones[row2][col2]->id);
     if (gCardInfo.unk1E) {
-      gTrapEffectData.unk2 = row2;
-      gTrapEffectData.unk3 = col2;
-      gTrapEffectData.id = gTurnZones[row2][col2]->id;
+      gTrapEffectData.originRow = row2;
+      gTrapEffectData.originCol = col2;
+      gTrapEffectData.originCardId = gTurnZones[row2][col2]->id;
       if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
           gTurnZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gTurnZones[row3][col3]->id) == 1 &&
           gTurnZones[row3][col3]->isFaceUp)
@@ -8259,9 +8259,9 @@ static u8 sub_801B35C (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
   if (sub_8043790(gTurnZones[row2][col2]) == 1) {
-    gTrapEffectData.unk2 = row2;
-    gTrapEffectData.unk3 = col2;
-    gTrapEffectData.id = gTurnZones[row2][col2]->id;
+    gTrapEffectData.originRow = row2;
+    gTrapEffectData.originCol = col2;
+    gTrapEffectData.originCardId = gTurnZones[row2][col2]->id;
     if (IsTrapTriggered() != 1)
       return 1;
   }
@@ -8272,9 +8272,9 @@ static u8 sub_801B3AC (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
   if (sub_8043790(gTurnZones[row2][col2]) == 1) {
-    gTrapEffectData.unk2 = row2;
-    gTrapEffectData.unk3 = col2;
-    gTrapEffectData.id = gTurnZones[row2][col2]->id;
+    gTrapEffectData.originRow = row2;
+    gTrapEffectData.originCol = col2;
+    gTrapEffectData.originCardId = gTurnZones[row2][col2]->id;
     if (IsTrapTriggered() == 1)
       return 1;
   }
