@@ -32,11 +32,11 @@ void sub_8032848 (void) {
   struct Unk8E0CC20 sp;
   struct Fooo fooo;
   struct Fooo fooo2;
-  if (gUnk2022EB0.cardCount < 2)
+  if (gCardSortContext.cardCount < 2)
     return;
   sub_8034DE8();
   fooo.unk0 = 0;
-  fooo.unk2 = gUnk2022EB0.cardCount - 1;
+  fooo.unk2 = gCardSortContext.cardCount - 1;
   sub_8034D90(&fooo);
   while (g8E0CC24->unk80) {
     unsigned long long r45;
@@ -73,10 +73,10 @@ void sub_8032848 (void) {
 
 void sub_80329C8 (void) {
   unsigned i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
-    g8E0CC20[i].unk0 = gUnk2022EB0.cards[i];
-    g8E0CC20[i].unk4 = 800 - gUnk2022EB0.cards[i];
-    if (gTrunkCardQty[gUnk2022EB0.cards[i]])
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
+    g8E0CC20[i].unk0 = gCardSortContext.cards[i];
+    g8E0CC20[i].unk4 = 800 - gCardSortContext.cards[i];
+    if (gTrunkCardQty[gCardSortContext.cards[i]])
       g8E0CC20[i].unk4 += 800;
   }
 }
@@ -84,10 +84,10 @@ void sub_80329C8 (void) {
 //card shop buy sort by number
 void sub_8032A50 (void) {
   unsigned i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
-    g8E0CC20[i].unk0 = gUnk2022EB0.cards[i];
-    g8E0CC20[i].unk4 = 800 - gUnk2022EB0.cards[i];
-    if (gShopTempCardQty[gUnk2022EB0.cards[i]])
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
+    g8E0CC20[i].unk0 = gCardSortContext.cards[i];
+    g8E0CC20[i].unk4 = 800 - gCardSortContext.cards[i];
+    if (gShopTempCardQty[gCardSortContext.cards[i]])
       g8E0CC20[i].unk4 |= 0x1000000000000000;
   }
 }
@@ -95,69 +95,69 @@ void sub_8032A50 (void) {
 //card shop sell sort by number
 void sub_8032AD0 (void) {
   unsigned i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
-    g8E0CC20[i].unk0 = gUnk2022EB0.cards[i];
-    g8E0CC20[i].unk4 = 800 - gUnk2022EB0.cards[i];
-    if (gPlayerTempCardQty[gUnk2022EB0.cards[i]])
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
+    g8E0CC20[i].unk0 = gCardSortContext.cards[i];
+    g8E0CC20[i].unk4 = 800 - gCardSortContext.cards[i];
+    if (gPlayerTempCardQty[gCardSortContext.cards[i]])
       g8E0CC20[i].unk4 |= 0x1000000000000000;
   }
 }
 
 void sub_8032B50 (void) {
   unsigned i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
-    g8E0CC20[i].unk0 = gUnk2022EB0.cards[i];
-    g8E0CC20[i].unk4 = 800 - gUnk2022EB0.cards[i];
-    if (gTotalCardQty[gUnk2022EB0.cards[i]])
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
+    g8E0CC20[i].unk0 = gCardSortContext.cards[i];
+    g8E0CC20[i].unk4 = 800 - gCardSortContext.cards[i];
+    if (gTotalCardQty[gCardSortContext.cards[i]])
       g8E0CC20[i].unk4 += 800;
   }
 }
 
 void sub_8032BD8 (void) {
   unsigned i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
-    g8E0CC20[i].unk0 = gUnk2022EB0.cards[i];
-    g8E0CC20[i].unk4 = 800 - g80D0444[gLanguage][gUnk2022EB0.cards[i]];
-    if (gTrunkCardQty[gUnk2022EB0.cards[i]])
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
+    g8E0CC20[i].unk0 = gCardSortContext.cards[i];
+    g8E0CC20[i].unk4 = 800 - g80D0444[gLanguage][gCardSortContext.cards[i]];
+    if (gTrunkCardQty[gCardSortContext.cards[i]])
       g8E0CC20[i].unk4 += 800;
   }
 }
 
 void sub_8032C88 (void) {
   unsigned i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
-    g8E0CC20[i].unk0 = gUnk2022EB0.cards[i];
-    g8E0CC20[i].unk4 = 800 - g80D0444[gLanguage][gUnk2022EB0.cards[i]];
-    if (gShopTempCardQty[gUnk2022EB0.cards[i]])
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
+    g8E0CC20[i].unk0 = gCardSortContext.cards[i];
+    g8E0CC20[i].unk4 = 800 - g80D0444[gLanguage][gCardSortContext.cards[i]];
+    if (gShopTempCardQty[gCardSortContext.cards[i]])
       g8E0CC20[i].unk4 += 800;
   }
 }
 
 void sub_8032D38 (void) {
   unsigned i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
-    g8E0CC20[i].unk0 = gUnk2022EB0.cards[i];
-    g8E0CC20[i].unk4 = 800 - g80D0444[gLanguage][gUnk2022EB0.cards[i]];
-    if (gPlayerTempCardQty[gUnk2022EB0.cards[i]])
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
+    g8E0CC20[i].unk0 = gCardSortContext.cards[i];
+    g8E0CC20[i].unk4 = 800 - g80D0444[gLanguage][gCardSortContext.cards[i]];
+    if (gPlayerTempCardQty[gCardSortContext.cards[i]])
       g8E0CC20[i].unk4 += 800;
   }
 }
 
 void sub_8032DE8 (void) {
   unsigned i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
-    g8E0CC20[i].unk0 = gUnk2022EB0.cards[i];
-    g8E0CC20[i].unk4 = 800 - g80D0444[gLanguage][gUnk2022EB0.cards[i]];
-    if (gTotalCardQty[gUnk2022EB0.cards[i]])
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
+    g8E0CC20[i].unk0 = gCardSortContext.cards[i];
+    g8E0CC20[i].unk4 = 800 - g80D0444[gLanguage][gCardSortContext.cards[i]];
+    if (gTotalCardQty[gCardSortContext.cards[i]])
       g8E0CC20[i].unk4 += 800;
   }
 }
 /*
 void sub_8032E98 (void) {
   unsigned i;
-  for (i = 0; i < gUnk2022EB0.unk8; i++) {
+  for (i = 0; i < gCardSortContext.unk8; i++) {
     int temp;
-    g8E0CC20[i].unk0 = gUnk2022EB0.unk0[i];
+    g8E0CC20[i].unk0 = gCardSortContext.unk0[i];
     temp = (gCardAtks[g8E0CC20[i].unk0] + 1 & 0xFFFF) * 800 + 800;
     g8E0CC20[i].unk4 = temp - g8E0CC20[i].unk0;
     if (gTrunkCardQty[g8E0CC20[i].unk0])

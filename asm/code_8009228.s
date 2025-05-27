@@ -1437,7 +1437,7 @@ _0800A418:
 	bl sub_800A5F0
 	b _0800A472
 	.align 2, 0
-_0800A43C: .4byte gTrunkData
+_0800A43C: .4byte gTrunkMenu
 _0800A440:
 	bl sub_8009A94
 	b _0800A45C
@@ -1455,7 +1455,7 @@ _0800A45C:
 	bl sub_800A5F0
 	b _0800A472
 	.align 2, 0
-_0800A468: .4byte gTrunkData
+_0800A468: .4byte gTrunkMenu
 _0800A46C:
 	movs r0, #3
 	bl sub_800A5F0
@@ -1467,7 +1467,7 @@ _0800A472:
 	THUMB_FUNC_START sub_800A478 @decomped
 sub_800A478: @ 0x0800A478
 	push {lr}
-	bl sub_8009010
+	bl GetTrunkMenuDisplayMode
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #1
@@ -1799,7 +1799,7 @@ _0800A6F6:
 	beq _0800A74A
 	b _0800A75C
 	.align 2, 0
-_0800A710: .4byte gTrunkData
+_0800A710: .4byte gTrunkMenu
 _0800A714: .4byte sub_800A948
 _0800A718:
 	cmp r0, #8
@@ -1868,7 +1868,7 @@ sub_800A778: @ 0x0800A778
 	bl sub_800A380
 	b _0800A7A6
 	.align 2, 0
-_0800A798: .4byte gTrunkData
+_0800A798: .4byte gTrunkMenu
 _0800A79C: .4byte 0x08DFB610
 _0800A7A0:
 	ldrb r0, [r2, #2]
@@ -1903,7 +1903,7 @@ sub_800A7C8: @ 0x0800A7C8
 	bl sub_800A380
 	b _0800A7F6
 	.align 2, 0
-_0800A7E8: .4byte gTrunkData
+_0800A7E8: .4byte gTrunkMenu
 _0800A7EC: .4byte 0x08DFB61B
 _0800A7F0:
 	ldrb r0, [r2, #2]
@@ -1938,7 +1938,7 @@ sub_800A818: @ 0x0800A818
 	bl sub_800A380
 	b _0800A846
 	.align 2, 0
-_0800A838: .4byte gTrunkData
+_0800A838: .4byte gTrunkMenu
 _0800A83C: .4byte 0x08DFB626
 _0800A840:
 	ldrb r0, [r2, #2]
@@ -1973,7 +1973,7 @@ sub_800A868: @ 0x0800A868
 	bl sub_800A380
 	b _0800A896
 	.align 2, 0
-_0800A888: .4byte gTrunkData
+_0800A888: .4byte gTrunkMenu
 _0800A88C: .4byte 0x08DFB631
 _0800A890:
 	ldrb r0, [r2, #2]
@@ -2002,12 +2002,12 @@ sub_800A8B8: @ 0x0800A8B8
 	bhi _0800A8D0
 	strb r1, [r0, #2]
 	ldrb r0, [r0, #2]
-	bl sub_80091EC
+	bl ApplyNewSortMode
 _0800A8D0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800A8D4: .4byte gTrunkData
+_0800A8D4: .4byte gTrunkMenu
 
 	THUMB_FUNC_START sub_800A8D8
 sub_800A8D8: @ 0x0800A8D8
@@ -2048,7 +2048,7 @@ sub_800A8D8: @ 0x0800A8D8
 	.align 2, 0
 _0800A91C: .4byte gOamBuffer+0x30
 _0800A920: .4byte 0x08DFB63C
-_0800A924: .4byte gTrunkData
+_0800A924: .4byte gTrunkMenu
 _0800A928: .4byte 0x08DFB647
 _0800A92C: .4byte 0x0000C120
 _0800A930: .4byte 0x40000800

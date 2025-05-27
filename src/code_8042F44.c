@@ -702,7 +702,7 @@ void ClearDuelDecks (void) {
 
 void sub_8043E14 (unsigned char arg0, unsigned char arg1) {
   if (!arg1)
-    InitDuelDeck(arg0, gPlayerDeck.cards);
+    InitDuelDeck(arg0, gDeckMenu.cards);
   else
     InitDuelDeck(arg0, gDuelData.duelist.deck);
 }

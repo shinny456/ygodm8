@@ -67,7 +67,7 @@ SECTIONS
     g2020E00 = 0x2020E00;
     gRepeatedButtonsCounter = 0x2020E04;
 
-    gTrunkData = 0x02020E10;
+    gTrunkMenu = 0x02020E10;
     gTotalCardQty = 0x02021460;
     gTrunkCardQty = 0x02021790;
     gUnk2021AB4 = 0x02021AB4;
@@ -88,7 +88,7 @@ SECTIONS
     gCardEffectTextData = 0x02021C10;
     gDeckCapacity = 0x02021C1C;
     gDuelistLevel = 0x02021C20;
-    gPlayerDeck = 0x02021C30;
+    gDeckMenu = 0x02021C30;
     g2021C8C = 0x02021C8C;
     g2021C90 = 0x2021C90;
     gLanguage = 0x02021CF8;
@@ -135,7 +135,7 @@ SECTIONS
 
 
     /*card_sort*/
-    gUnk2022EB0 = 0x02022EB0;
+    gCardSortContext = 0x02022EB0;
 
 
     /*trade_menu*/
@@ -381,7 +381,7 @@ SECTIONS
     gUnk8094CC3 = 0x8094CC3;
     gUnk8094FE4 = 0x8094FE4;
     gUnk8F985E0 = 0x8F985E0;
-    gUnk8DFB654 = 0x8DFB654; /*duelist level too low text*/
+    gDuelistLevelTooLowText = 0x8DFB654;
     gUnk8E00B30 = 0x8E00B30;
     gDuelTextStrings = 0x8FA2BAC;
     gMyTurnStrings = 0x8FA2C14;

@@ -719,7 +719,7 @@ static void sub_8036448 (void) {
 
 static void sub_8036458 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u16 r1 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r1;
     g8E0CC20[i].unk4 = 800 - r1;
@@ -730,7 +730,7 @@ static void sub_8036458 (void) {
 
 static void sub_8036500 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r3 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r3;
@@ -741,7 +741,7 @@ static void sub_8036500 (void) {
 
 static void sub_803658C (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r4;
@@ -754,7 +754,7 @@ static void sub_803658C (void) {
 
 static void sub_8036644 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r4;
@@ -767,7 +767,7 @@ static void sub_8036644 (void) {
 
 static void sub_80366FC (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r4;
@@ -780,7 +780,7 @@ static void sub_80366FC (void) {
 
 static void sub_80367B0 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r4;
@@ -793,7 +793,7 @@ static void sub_80367B0 (void) {
 
 static void sub_8036868 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u16 r4 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r4;
     g8E0CC20[i].unk4 = 800 - g80D0444[gLanguage][r4];
@@ -804,7 +804,7 @@ static void sub_8036868 (void) {
 
 static void sub_8036920 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r4;
@@ -817,7 +817,7 @@ static void sub_8036920 (void) {
 
 static void sub_80369D0 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u32 temp;
     u16 r4 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r4;
@@ -830,7 +830,7 @@ static void sub_80369D0 (void) {
 
 static void sub_8036A80 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u16 r4 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r4;
     g8E0CC20[i].unk4 = 800 - r4;
@@ -849,10 +849,10 @@ static void sub_8036B54 (void) {
     g2022EC0.unkFA4++;
   }
   sub_8034E1C();
-  gUnk2022EB0.cardCount = 800;
+  gCardSortContext.cardCount = 800;
   g8E0CE18[g2022EC0.unkFAA]();
   sub_8034A8C();
-  for (ii = 0; ii < gUnk2022EB0.cardCount; ii++)
+  for (ii = 0; ii < gCardSortContext.cardCount; ii++)
     g2022EC0.unk964[ii] = g8E0CC20[ii].unk0;
 }
 
@@ -985,10 +985,10 @@ static void sub_8036E44 (void) {
 static void sub_8036E64 (void) {
   u32 i;
   sub_8034E1C();
-  gUnk2022EB0.cardCount = 800;
+  gCardSortContext.cardCount = 800;
   g8E0CE18[g2022EC0.unkFAA]();
   sub_8034A8C();
-  for (i = 0; i < gUnk2022EB0.cardCount; i++)
+  for (i = 0; i < gCardSortContext.cardCount; i++)
     g2022EC0.unk964[i] = g8E0CC20[i].unk0;
 }
 
@@ -1064,7 +1064,7 @@ static void sub_803702C (void) {
 
 static void sub_8037088 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u16 r1 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r1;
     g8E0CC20[i].unk4 = 800 - r1;
@@ -1075,7 +1075,7 @@ static void sub_8037088 (void) {
 
 static void sub_8037110 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r2 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r2;
@@ -1088,7 +1088,7 @@ static void sub_8037110 (void) {
 
 static void sub_80371C0 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r2 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r2;
@@ -1101,7 +1101,7 @@ static void sub_80371C0 (void) {
 
 static void sub_8037270 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r4;
@@ -1114,7 +1114,7 @@ static void sub_8037270 (void) {
 
 static void sub_803731C (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r4;
@@ -1127,7 +1127,7 @@ static void sub_803731C (void) {
 
 static void sub_80373CC (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u16 r4 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r4;
     g8E0CC20[i].unk4 = 800 - g80D0444[gLanguage][r4];
@@ -1138,7 +1138,7 @@ static void sub_80373CC (void) {
 
 static void sub_803747C (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r4;
@@ -1151,7 +1151,7 @@ static void sub_803747C (void) {
 
 static void sub_8037524 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u32 temp;
     u16 r4 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r4;
@@ -1164,7 +1164,7 @@ static void sub_8037524 (void) {
 
 static void sub_80375CC (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u16 r4 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r4;
     g8E0CC20[i].unk4 = 800 - r4;
@@ -1184,10 +1184,10 @@ static void sub_803769C (void) {
       g2022EC0.unkFB4++;
   }
   sub_8034E1C();
-  gUnk2022EB0.cardCount = 800;
+  gCardSortContext.cardCount = 800;
   g8E0CE40[g2022EC0.unkFBA]();
   sub_8034A8C();
-  for (ii = 0; ii < gUnk2022EB0.cardCount; ii++)
+  for (ii = 0; ii < gCardSortContext.cardCount; ii++)
     g2022EC0.unk964[ii] = g8E0CC20[ii].unk0;
 }
 
@@ -1312,16 +1312,16 @@ void sub_80379B8 (void) {
 void sub_80379D8 (void) {
   u32 i;
   sub_8034E1C();
-  gUnk2022EB0.cardCount = 800;
+  gCardSortContext.cardCount = 800;
   g8E0CE40[g2022EC0.unkFBA]();
   sub_8034A8C();
-  for (i = 0; i < gUnk2022EB0.cardCount; i++)
+  for (i = 0; i < gCardSortContext.cardCount; i++)
     g2022EC0.unk964[i] = g8E0CC20[i].unk0;
 }
 
 void sub_8037A40 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r3 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r3;
@@ -1402,7 +1402,7 @@ void sub_8037C1C (void) {
 
 void sub_8037C78 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u16 r1 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r1;
     g8E0CC20[i].unk4 = 800 - r1;
@@ -1413,7 +1413,7 @@ void sub_8037C78 (void) {
 
 void sub_8037D00 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r2 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r2;
@@ -1426,7 +1426,7 @@ void sub_8037D00 (void) {
 
 void sub_8037DB0 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r2 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r2;
@@ -1439,7 +1439,7 @@ void sub_8037DB0 (void) {
 
 void sub_8037E60 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r4;
@@ -1452,7 +1452,7 @@ void sub_8037E60 (void) {
 
 void sub_8037F0C (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r4;
@@ -1465,7 +1465,7 @@ void sub_8037F0C (void) {
 
 void sub_8037FBC (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u16 r4 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r4;
     g8E0CC20[i].unk4 = 800 - g80D0444[gLanguage][r4];
@@ -1476,7 +1476,7 @@ void sub_8037FBC (void) {
 
 void sub_8038070 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r4;
@@ -1489,7 +1489,7 @@ void sub_8038070 (void) {
 
 void sub_8038118 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u32 temp;
     u16 r4 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r4;
@@ -1502,7 +1502,7 @@ void sub_8038118 (void) {
 
 void sub_80381C0 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u16 r4 = g2022EC0.unk964[i];
     g8E0CC20[i].unk0 = r4;
     g8E0CC20[i].unk4 = 800 - r4;
@@ -1522,10 +1522,10 @@ void sub_8038290 (void) {
       g2022EC0.unkFAC++;
   }
   sub_8034E1C();
-  gUnk2022EB0.cardCount = 800;
+  gCardSortContext.cardCount = 800;
   g8E0CE68[g2022EC0.unkFB2]();
   sub_8034A8C();
-  for (ii = 0; ii < gUnk2022EB0.cardCount; ii++)
+  for (ii = 0; ii < gCardSortContext.cardCount; ii++)
     g2022EC0.unk964[ii] = g8E0CC20[ii].unk0;
 }
 
@@ -1669,16 +1669,16 @@ void sub_803865C (void) {
 void sub_803867C (void) {
   u32 i;
   sub_8034E1C();
-  gUnk2022EB0.cardCount = 800;
+  gCardSortContext.cardCount = 800;
   g8E0CE68[g2022EC0.unkFB2]();
   sub_8034A8C();
-  for (i = 0; i < gUnk2022EB0.cardCount; i++)
+  for (i = 0; i < gCardSortContext.cardCount; i++)
     g2022EC0.unk964[i] = g8E0CC20[i].unk0;
 }
 
 void sub_80386E4 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u16 r3 = g2022EC0.unk964[i];
     int temp;
     g8E0CC20[i].unk0 = r3;

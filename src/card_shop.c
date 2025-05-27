@@ -246,7 +246,7 @@ void sub_8008BF8 (void * dest);
 int GetDeckCardQty (u16);
 void ScalePriceToQty (void);
 extern void* g8E1168C[];
-void sub_8034A38 (void);
+void SortCardsAccordingToContext (void);
 void CopyAttributeIconTiles (u8 attribute, void * dest);
 void CopyAttributeIconPal (u8 attribute, void * dest);
 void CopyTypeIconTiles (u8 type, void * dest);
@@ -920,10 +920,10 @@ static void SetNextSortModeInSellShop (void) {
   // this part could be a macro or (static) inline func
   // sub_802D190
   temp = sCardShop.currentSortMode;
-  gUnk2022EB0.cards = sCardShop.unkD2 + 1;
-  gUnk2022EB0.cardCount = NUM_TRUE_CARDS;
-  gUnk2022EB0.sortMode = g80C9D84[temp];
-  sub_8034A38();
+  gCardSortContext.cards = sCardShop.unkD2 + 1;
+  gCardSortContext.cardCount = NUM_TRUE_CARDS;
+  gCardSortContext.sortMode = g80C9D84[temp];
+  SortCardsAccordingToContext();
   sub_802DFE4();
   sCardShop.firstVisibleRow = 114;
 }
@@ -949,10 +949,10 @@ static void InitSellShop (void) {
     sCardShop.unkD2[i] = i;
 
   // sub_802D190
-  gUnk2022EB0.cards = sCardShop.unkD2 + 1;
-  gUnk2022EB0.cardCount = NUM_TRUE_CARDS;
-  gUnk2022EB0.sortMode = g80C9D84[0];
-  sub_8034A38();
+  gCardSortContext.cards = sCardShop.unkD2 + 1;
+  gCardSortContext.cardCount = NUM_TRUE_CARDS;
+  gCardSortContext.sortMode = g80C9D84[0];
+  SortCardsAccordingToContext();
   sub_802DFE4();
   sCardShop.firstVisibleRow = 114;
   // sub_802D190 end
@@ -998,10 +998,10 @@ static void sub_802D174 (void) {
 }
 
 static void sub_802D190 (u8 sortOption) {
-  gUnk2022EB0.cards = sCardShop.unkD2 + 1;
-  gUnk2022EB0.cardCount = NUM_TRUE_CARDS;
-  gUnk2022EB0.sortMode = g80C9D84[sortOption];
-  sub_8034A38();
+  gCardSortContext.cards = sCardShop.unkD2 + 1;
+  gCardSortContext.cardCount = NUM_TRUE_CARDS;
+  gCardSortContext.sortMode = g80C9D84[sortOption];
+  SortCardsAccordingToContext();
   sub_802DFE4();
   sCardShop.firstVisibleRow = 114;
 }
@@ -1526,10 +1526,10 @@ static void SetNextSortModeInBuyShop (void) {
   // this part could be a macro or (static) inline func
   // sub_802DFF8
   temp = sCardShop.currentSortMode;
-  gUnk2022EB0.cards = sCardShop.unkD2 + 1;
-  gUnk2022EB0.cardCount = NUM_TRUE_CARDS;
-  gUnk2022EB0.sortMode = g80CA0D7[temp];
-  sub_8034A38();
+  gCardSortContext.cards = sCardShop.unkD2 + 1;
+  gCardSortContext.cardCount = NUM_TRUE_CARDS;
+  gCardSortContext.sortMode = g80CA0D7[temp];
+  SortCardsAccordingToContext();
   //sub_802DFE4();
   sCardShop.unk724 = 4;
   sCardShop.firstVisibleRow = 114;
@@ -1566,10 +1566,10 @@ static void InitBuyShop (void) {
     sCardShop.unkD2[i] = i;
 
   // sub_802DFF8
-  gUnk2022EB0.cards = sCardShop.unkD2 + 1;
-  gUnk2022EB0.cardCount = NUM_TRUE_CARDS;
-  gUnk2022EB0.sortMode = g80CA0D7[0];
-  sub_8034A38();
+  gCardSortContext.cards = sCardShop.unkD2 + 1;
+  gCardSortContext.cardCount = NUM_TRUE_CARDS;
+  gCardSortContext.sortMode = g80CA0D7[0];
+  SortCardsAccordingToContext();
   //sub_802DFE4();
   sCardShop.unk724 = 4;
   sCardShop.firstVisibleRow = 114;
@@ -1677,10 +1677,10 @@ static void sub_802DFE4 (void) {
 }
 
 static void sub_802DFF8 (u8 arg0) {
-  gUnk2022EB0.cards = sCardShop.unkD2 + 1;
-  gUnk2022EB0.cardCount = NUM_TRUE_CARDS;
-  gUnk2022EB0.sortMode = g80CA0D7[arg0];
-  sub_8034A38();
+  gCardSortContext.cards = sCardShop.unkD2 + 1;
+  gCardSortContext.cardCount = NUM_TRUE_CARDS;
+  gCardSortContext.sortMode = g80CA0D7[arg0];
+  SortCardsAccordingToContext();
   //sub_802DFE4();
   sCardShop.unk724 = 4;
   sCardShop.firstVisibleRow = 114;

@@ -75,7 +75,7 @@ struct StatMod {
 struct CardInfo {
   u8* name;                   /*0x0*/
   u8* unk4;                   /*0x4*/
-  u8* unk8;                   /*0x8*/
+  u8* description;            /*0x8*/ // effect summary or flavor text
   u32 cost;                   /*0xC*/
   u16 id;                     /*0x10*/ /*TODO: rename to cardId/cardID?*/
   u16 atk;                    /*0x12*/
@@ -98,7 +98,7 @@ extern struct CardInfo gCardInfo;
 void sub_800B288 (unsigned char);
 void SetFinalStat (struct StatMod*);
 void SetCardInfo (unsigned short);
-void sub_800B538 (unsigned short*);
+void SetCardInfoWithWarning (unsigned short*);
 void sub_800B618 (void *r6); //TODO: change type
 void sub_800BCB0 (void *src); //TODO: change type
 

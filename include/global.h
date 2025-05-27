@@ -75,37 +75,38 @@ enum {
   DUEL_TRUNK_ANTE_YES
 };
 
-//rename to CARD_SORT since the same numbers are used for deck, and card shop sorting
+// the same numbers are used for trunk, deck, and card shop sorting
 enum {
-  TRUNK_SORT_NUMBER,
-  TRUNK_SORT_NAME,
-  TRUNK_SORT_ATTACK,
-  TRUNK_SORT_DEFENSE,
-  TRUNK_SORT_TYPE,
-  TRUNK_SORT_SUMMON, //TODO: attribute?
-  TRUNK_SORT_QTY,
-  TRUNK_SORT_COST,
-  TRUNK_SORT_STARS,
-  TRUNK_SORT_EFFECT,
-  TRUNK_SORT_EXIT
+  CARD_SORT_NUMBER,
+  CARD_SORT_NAME,
+  CARD_SORT_ATTACK,
+  CARD_SORT_DEFENSE,
+  CARD_SORT_TYPE,
+  CARD_SORT_SUMMON, //TODO: attribute?
+  CARD_SORT_QTY,
+  CARD_SORT_COST,
+  CARD_SORT_STARS,
+  CARD_SORT_EFFECT,
+  CARD_SORT_EXIT
 };
 
 #define TRUNK_CARD_LIMIT 250
 #define DECK_SIZE 40
 //^TODO: change to MAX_DECK_SIZE, DECK_MAX_SIZE, or _COUNT? (or MIN? in vanilla it has to be exactly 40)
-struct UnkStruct_2020E10
+
+struct TrunkMenu
 {
-    s16 unk0; //current card position in trunk?
+    s16 currentPos; //current card position in trunk?
     u8 sortMode;
-    u8 unk3;    //show: nothing, atk/def, attribute(summon), cost,
+    u8 displayMode;    //show: nothing, atk/def, attribute(summon), cost,
     u8 cursorState;
     u8 filler5[7];
-    u16 unkC[NUM_TRUE_CARDS]; //sortedCards
+    u16 cards[NUM_TRUE_CARDS]; //sortedCards
 };
 
-extern struct UnkStruct_2020E10 gTrunkData; //todo: rename to gTrunkMenuData?
+extern struct TrunkMenu gTrunkMenu;
 
-struct UnkStruct_2022EB0
+struct CardSortContext
 {
     u16* cards;
     u8 filler_4[4];
@@ -113,13 +114,15 @@ struct UnkStruct_2022EB0
     u8 sortMode;
 };
 
+// used to determine behaviour reaching end of list?
+// trunk wraps around, deck just stops further scrolling
 struct UnkStruct_2021AB4
 {
-    u16 unk0;
-    u16 unk2;
+    u16 currentPos;
+    u16 lastValidIndex;
 };
 
-extern struct UnkStruct_2022EB0 gUnk2022EB0;
+extern struct CardSortContext gCardSortContext;
 extern struct UnkStruct_2021AB4 gUnk2021AB4;
 extern unsigned char gTrunkCardQty[];
 extern unsigned char gTotalCardQty[];

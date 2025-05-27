@@ -34,7 +34,7 @@ extern u8 gCardColors[];
 extern u8 gCardMagicEffect[];
 extern u8 gCardMonsterEffects[];
 extern u8 gCardTrapEffect[];
-extern u8 gUnk8DFB654[];
+extern u8 gDuelistLevelTooLowText[];
 extern unsigned short gUnk_808ECD0[];
 extern unsigned short gUnk_808ECF0[];
 extern u8 *gAttributeIconTiles[][NUM_LANGUAGES];
@@ -105,7 +105,7 @@ static void sub_800B384(void)
 {
     gCardInfo.name = sub_800BD14(CARD_NONE);
     gCardInfo.unk4 = sub_800BD14(CARD_NONE);
-    gCardInfo.unk8 = gUnk8F985E0[CARD_NONE];
+    gCardInfo.description = gUnk8F985E0[CARD_NONE];
     gCardInfo.cost = 0;
     gCardInfo.id = CARD_NONE;
     gCardInfo.atk = 0xFFFF;
@@ -140,7 +140,7 @@ void SetCardInfo(unsigned short id)
     gCardInfo.unk1E = gUnk8094CC3[id];
     gCardInfo.name = sub_800BD14(id);
     gCardInfo.unk4 = sub_800BD14(id);
-    gCardInfo.unk8 = gUnk8F985E0[id];
+    gCardInfo.description = gUnk8F985E0[id];
 }
 
 //unused?
@@ -163,11 +163,11 @@ static void sub_800B524 (u8 val, s8 val2)
     gUnk201CB39 = val2;
 }
 
-void sub_800B538 (unsigned short* id)
+void SetCardInfoWithWarning (unsigned short* id)
 {
     SetCardInfo(*id);
     if (gCardInfo.cost > GetDuelistLevel())
-        gCardInfo.unk8 = gUnk8DFB654;
+        gCardInfo.description = gDuelistLevelTooLowText;
 }
 
 static unsigned short GetStageModifiedStat(unsigned short stat, s8 stage)
@@ -1147,7 +1147,7 @@ static void sub_800BF28 (void) {
 static unsigned SelectionMenu (void)
 {
     unsigned keepProcessing, r5 = 1;
-    gTrunkData.cursorState = 0;
+    gTrunkMenu.cursorState = 0;
 
     sub_800C0D8();
     sub_800C208();
@@ -1161,21 +1161,21 @@ static unsigned SelectionMenu (void)
         switch (TrunkSubmenuProcessInput())
         {
         case 0x40:
-            gTrunkData.cursorState = g8DFF498[gTrunkData.cursorState];
+            gTrunkMenu.cursorState = g8DFF498[gTrunkMenu.cursorState];
             sub_800C208();
             PlayMusic(SFX_MOVE_CURSOR);
             SetVBlankCallback(LoadOam);
             WaitForVBlank();
             break;
         case 0x80:
-            gTrunkData.cursorState = g8DFF49B[gTrunkData.cursorState];
+            gTrunkMenu.cursorState = g8DFF49B[gTrunkMenu.cursorState];
             sub_800C208();
             PlayMusic(SFX_MOVE_CURSOR);
             SetVBlankCallback(LoadOam);
             WaitForVBlank();
             break;
         case 1:
-            switch (gTrunkData.cursorState)
+            switch (gTrunkMenu.cursorState)
             {
             case DUEL_TRUNK_CURSOR_DETAILS:
                 sub_800C1BC();
@@ -1210,7 +1210,7 @@ static unsigned SelectionMenu (void)
 static unsigned char LowLevelAntePrompt (void)
 {
     unsigned keepProcessing, selectNo = 1;
-    gTrunkData.cursorState = 0;
+    gTrunkMenu.cursorState = 0;
 
     sub_800C3C4();
     sub_800C264();
@@ -1224,21 +1224,21 @@ static unsigned char LowLevelAntePrompt (void)
         switch (TrunkSubmenuProcessInput())
         {
         case 0x40:
-            gTrunkData.cursorState = g8DFF4A4[gTrunkData.cursorState];
+            gTrunkMenu.cursorState = g8DFF4A4[gTrunkMenu.cursorState];
             sub_800C264();
             PlayMusic(SFX_MOVE_CURSOR);
             SetVBlankCallback(LoadOam);
             WaitForVBlank();
             break;
         case 0x80:
-            gTrunkData.cursorState = g8DFF4A6[gTrunkData.cursorState];
+            gTrunkMenu.cursorState = g8DFF4A6[gTrunkMenu.cursorState];
             sub_800C264();
             PlayMusic(SFX_MOVE_CURSOR);
             SetVBlankCallback(LoadOam);
             WaitForVBlank();
             break;
         case 1:
-            switch (gTrunkData.cursorState)
+            switch (gTrunkMenu.cursorState)
             {
             case 0:
                 PlayMusic(SFX_SELECT);
@@ -1343,7 +1343,7 @@ static void sub_800C208 (void)
 	.align 2, 0\n\
 _0800C24C: .4byte 0x02018430 @oambuff + i (cursor icon?)\n\
 _0800C250: .4byte 0x08DFF49E\n\
-_0800C254: .4byte gTrunkData\n\
+_0800C254: .4byte gTrunkMenu\n\
 _0800C258: .4byte 0x08DFF4A1\n\
 _0800C25C: .4byte 0x0000C120\n\
 _0800C260: .4byte 0x40000800");
@@ -1390,7 +1390,7 @@ static void sub_800C264 (void)
 	.align 2, 0\n\
 _0800C2A8: .4byte 0x02018430\n\
 _0800C2AC: .4byte 0x08DFF4A8\n\
-_0800C2B0: .4byte gTrunkData\n\
+_0800C2B0: .4byte gTrunkMenu\n\
 _0800C2B4: .4byte 0x08DFF4AA\n\
 _0800C2B8: .4byte 0x0000C120\n\
 _0800C2BC: .4byte 0x40000800");
@@ -1420,7 +1420,7 @@ static unsigned char TrySelectingAnte (void) {
 
 static void sub_800C32C (void)
 {
-    gTrunkData.cursorState = 0;
+    gTrunkMenu.cursorState = 0;
     sub_800C430();
     PlayMusic(SFX_FORBIDDEN);
     sub_800C530();
@@ -1440,7 +1440,7 @@ static void sub_800C32C (void)
 static void sub_800C378(void)
 {
 
-    gTrunkData.cursorState = 0;
+    gTrunkMenu.cursorState = 0;
     sub_800C494();
     PlayMusic(SFX_FORBIDDEN);
     sub_800C530();
@@ -1525,7 +1525,7 @@ _0800C554: .4byte 0x40F008A0");
 
 static unsigned NoAntePrompt (void) {
   unsigned noAnte, keepProcessing;
-  gTrunkData.cursorState = DUEL_TRUNK_ANTE_NO;
+  gTrunkMenu.cursorState = DUEL_TRUNK_ANTE_NO;
   noAnte = 1;
   sub_800C608();
   sub_800C7A0();
@@ -1539,21 +1539,21 @@ static unsigned NoAntePrompt (void) {
       switch (TrunkSubmenuProcessInput())
       {
       case 0x40:
-          gTrunkData.cursorState = g8DFF4AC[gTrunkData.cursorState];
+          gTrunkMenu.cursorState = g8DFF4AC[gTrunkMenu.cursorState];
           PlayMusic(SFX_MOVE_CURSOR);
           sub_800C7A0();
           SetVBlankCallback(LoadOam);
           WaitForVBlank();
           break;
       case 0x80:
-          gTrunkData.cursorState = g8DFF4AE[gTrunkData.cursorState];
+          gTrunkMenu.cursorState = g8DFF4AE[gTrunkMenu.cursorState];
           PlayMusic(SFX_MOVE_CURSOR);
           sub_800C7A0();
           SetVBlankCallback(LoadOam);
           WaitForVBlank();
           break;
       case 1:
-          switch (gTrunkData.cursorState)
+          switch (gTrunkMenu.cursorState)
           {
           case DUEL_TRUNK_ANTE_YES:
               noAnte = 0;
@@ -1657,7 +1657,7 @@ static void sub_800C7A0 (void)
 	.align 2, 0\n\
 _0800C7E4: .4byte 0x02018430\n\
 _0800C7E8: .4byte 0x08DFF4B0\n\
-_0800C7EC: .4byte gTrunkData\n\
+_0800C7EC: .4byte gTrunkMenu\n\
 _0800C7F0: .4byte 0x08DFF4B2\n\
 _0800C7F4: .4byte 0x0000C120\n\
 _0800C7F8: .4byte 0x40000800");

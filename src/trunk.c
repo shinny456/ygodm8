@@ -11,14 +11,14 @@ static void sub_80087D0 (void);
 static void sub_80087E4 (void);
 static void sub_8008804 (void);
 static void sub_8008818 (void);
-static void sub_800882C (void);
+static void InitTrunkMenu (void);
 static void Trunk_A_Submenu (void);
-static void sub_80088F0 (void);
-static void sub_8008924 (void);
-static void sub_8008958 (void);
-static void sub_80089B4 (void);
-static void sub_80089D0 (void);
-static void sub_80089EC (void);
+static void MoveCursorUpInTrunkSubmenu (void);
+static void MoveCursorDownInTrunkSubmenu (void);
+static void SelectDetailsInTrunkSubmenu (void);
+static void SelectAddToDeckInTrunkSubmenu (void);
+static void SelectRemoveFromDeckInTrunkSubmenu (void);
+static void SetCursorOam (void);
 void sub_8008A48 (void);
 static void sub_8008A5C (void);
 
@@ -29,13 +29,13 @@ void sub_800ABB4 (void);
 
 void WaitForVBlank(void);
 unsigned short sub_800901C(unsigned char);
-void sub_80090E8(void);
-void sub_8009110(void);
-void sub_8009140(void);
-void sub_800916C(void);
-void sub_800919C(void);
-void sub_80091C0(void);
-void sub_80091EC(unsigned char);
+void GoUpOnePosition(void);
+void GoDownOnePosition(void);
+void GoUpFiftyPositions(void);
+void GoDownFiftyPositions(void);
+void ToggleTrunkDisplayMode(void);
+void ToggleSortMode(void);
+void ApplyNewSortMode(unsigned char);
 void sub_08009224(void);
 void sub_800B3E4(unsigned short);
 
@@ -43,15 +43,15 @@ u32 GetDuelistLevel(void);
 void SetCardInfo(unsigned short id);
 unsigned char GetPlayerDeckSize(void);
 unsigned char TryRemoveCardFromDeck(unsigned short id);
-void sub_801D960(unsigned short id);
-void sub_801D9B8(unsigned short);
+void RemoveAllCopiesOfCardFromDeck(unsigned short id);
+void RemoveOneCopyOfCardFromDeck(unsigned short);
 void AddCardToDeck(unsigned short);
 unsigned char GetDeckCardQty(unsigned short);
 
 
 unsigned char sub_801F098(unsigned short id);
 
-void sub_8034A38(void);
+void SortCardsAccordingToContext(void); // sort the cards referenced by gCardSortContext according to its sortMode
 
 extern unsigned short gPressedButtons; //0x02020DF8
 extern unsigned char gTotalCardQty[];
@@ -82,8 +82,8 @@ extern unsigned char *gTypeIconTiles[][NUM_LANGUAGES];
 extern unsigned char *gAttributeIconTiles[][NUM_LANGUAGES];
 extern unsigned char gUnk_8DF8142[]; //cursor y coords
 extern unsigned char gUnk_8DF8145[]; //cursor x coords
-extern unsigned char gUnk_8DF813C[]; //cursor state change when pressing up
-extern unsigned char gUnk_8DF813F[]; //cursor state change when pressing down
+extern unsigned char gNextUpOptionInTrunkSubmenu[];
+extern unsigned char gNextDownOptionInTrunkSubmenu[];
 
 extern unsigned char *g201CB30;
 extern unsigned short *g201CB34;
@@ -97,7 +97,7 @@ void sub_800A3D8 (unsigned char);
 void sub_800AA58 (unsigned char);
 void sub_800ABD0 (void);
 
-void sub_800B538 (unsigned short* id);
+void SetCardInfoWithWarning (unsigned short* id);
 void sub_800ABA8 (void);
 void sub_8009364 (void);
 
@@ -123,10 +123,9 @@ void SortingMenuMain (void);
 void sub_800ABE4 (void);
 void sub_0800ABE0 (void);
 
-//TODO: rename to TrunkMenuMain?
-void TrunkMenu (void) {
+void TrunkMenuMain (void) {
   unsigned keepProcessing = 1;
-  sub_800882C();
+  InitTrunkMenu();
   while (keepProcessing) {
     switch ((unsigned short)TrunkProcessInput()) {
       case 0x40:
@@ -287,7 +286,7 @@ static void sub_8008818 (void) {
   sub_800A3D8(7);
 }
 
-static void sub_800882C (void) {
+static void InitTrunkMenu (void) {
   TrunkMenuDefaultSort();
   sub_800A3D8(0);
   sub_800A3D8(2);
@@ -298,9 +297,9 @@ static void sub_800882C (void) {
 
 static void Trunk_A_Submenu (void) {
   unsigned keepProcessing;
-  gTrunkData.cursorState = TRUNK_CURSOR_DETAILS;
+  gTrunkMenu.cursorState = TRUNK_CURSOR_DETAILS;
   sub_8009364();
-  sub_80089EC();
+  SetCursorOam();
   LoadCharblock1();
   SetVBlankCallback(sub_8008A5C);
   WaitForVBlank();
@@ -312,21 +311,21 @@ static void Trunk_A_Submenu (void) {
         keepProcessing = 0;
         break;
       case 0x40:
-        sub_80088F0();
+        MoveCursorUpInTrunkSubmenu();
         break;
       case 0x80:
-        sub_8008924();
+        MoveCursorDownInTrunkSubmenu();
         break;
       case 1:
-        switch (gTrunkData.cursorState) {
+        switch (gTrunkMenu.cursorState) {
           case TRUNK_CURSOR_DETAILS:
-            sub_8008958();
+            SelectDetailsInTrunkSubmenu();
             break;
           case TRUNK_CURSOR_ADD_CARD:
-            sub_80089B4();
+            SelectAddToDeckInTrunkSubmenu();
             break;
           case TRUNK_CURSOR_REMOVE_CARD:
-            sub_80089D0();
+            SelectRemoveFromDeckInTrunkSubmenu();
             break;
         }
         break;
@@ -339,27 +338,27 @@ static void Trunk_A_Submenu (void) {
   sub_8008A48();
 }
 
-static void sub_80088F0 (void) { //pressing up
-  gTrunkData.cursorState = gUnk_8DF813C[gTrunkData.cursorState];
-  sub_80089EC();
+static void MoveCursorUpInTrunkSubmenu (void) {
+  gTrunkMenu.cursorState = gNextUpOptionInTrunkSubmenu[gTrunkMenu.cursorState];
+  SetCursorOam();
   PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(LoadOam);
   WaitForVBlank();
 }
 
-static void sub_8008924 (void) { //pressing down
-  gTrunkData.cursorState = gUnk_8DF813F[gTrunkData.cursorState];
-  sub_80089EC();
+static void MoveCursorDownInTrunkSubmenu (void) {
+  gTrunkMenu.cursorState = gNextDownOptionInTrunkSubmenu[gTrunkMenu.cursorState];
+  SetCursorOam();
   PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(LoadOam);
   WaitForVBlank();
 }
 
-static void sub_8008958 (void) { //trunk menu card details
+static void SelectDetailsInTrunkSubmenu (void) {
   gStatMod.card = sub_800901C(2);
   gStatMod.field = FIELD_ARENA;
   gStatMod.stage = 0;
-  sub_800B538(&gStatMod.card);
+  SetCardInfoWithWarning(&gStatMod.card);
   PlayMusic(SFX_SELECT);
   sub_801F6B0();
   sub_800A3D8(0);
@@ -367,34 +366,34 @@ static void sub_8008958 (void) { //trunk menu card details
   sub_800AA58(1);
   sub_800ABA8();
   sub_8009364();
-  sub_80089EC();
+  SetCursorOam();
   SetVBlankCallback(sub_8008A5C);
   WaitForVBlank();
   LoadCharblock1();
 }
 
-static void sub_80089B4 (void) {
+static void SelectAddToDeckInTrunkSubmenu (void) {
   RunTrunkTask(7);
   sub_800A3D8(3);
   sub_800ABD0();
   sub_800AA58(6);
 }
 
-static void sub_80089D0 (void) {
+static void SelectRemoveFromDeckInTrunkSubmenu (void) {
   RunTrunkTask(8);
   sub_800A3D8(3);
   sub_800ABD0();
   sub_800AA58(6);
 }
 
-static void sub_80089EC (void) { //SetCursorOam
+static void SetCursorOam (void) {
   u32 *oam = (u32*)&gOamBuffer[6 * 4]; //todo
-  oam[0] = gUnk_8DF8142[gTrunkData.cursorState] |
-           gUnk_8DF8145[gTrunkData.cursorState] << 16 |
+  oam[0] = gUnk_8DF8142[gTrunkMenu.cursorState] |
+           gUnk_8DF8145[gTrunkMenu.cursorState] << 16 |
            0x40000000; //sprite size bits
   oam[1] = 0xC120;
-  oam[2] = gUnk_8DF8142[gTrunkData.cursorState] |
-           gUnk_8DF8145[gTrunkData.cursorState] << 16 |
+  oam[2] = gUnk_8DF8142[gTrunkMenu.cursorState] |
+           gUnk_8DF8145[gTrunkMenu.cursorState] << 16 |
            0x40000800;
   oam[3] = 0x120;
 }
@@ -534,8 +533,8 @@ void sub_8008C34 (void) {
   for (i = 0; gUnk_8090470[i]; i++) {
     int r7 = 1;
     if (gUnk_8090470[i] < 801)
-      if (r7 > 250 - gTrunkCardQty[gUnk_8090470[i]])
-        gTrunkCardQty[gUnk_8090470[i]] = 250;
+      if (r7 > TRUNK_CARD_LIMIT - gTrunkCardQty[gUnk_8090470[i]])
+        gTrunkCardQty[gUnk_8090470[i]] = TRUNK_CARD_LIMIT;
       else
         gTrunkCardQty[gUnk_8090470[i]]++;
   }
@@ -601,7 +600,7 @@ static inline void sub_8008D88_inline (unsigned short id, unsigned char arg1) {
     else
       gTrunkCardQty[id]--;
   else if (GetDeckCardQty(id))
-    sub_801D9B8(id);
+    RemoveOneCopyOfCardFromDeck(id);
 }
 
 void RemoveCardFromTrunkOrDeck (unsigned short id) {
@@ -640,7 +639,7 @@ _08008DB2:\n\
 	cmp r0, #0\n\
 	beq _08008DC4\n\
 	adds r0, r4, #0\n\
-	bl sub_801D9B8\n\
+	bl RemoveOneCopyOfCardFromDeck\n\
 _08008DC4:\n\
 	pop {r4}\n\
 	pop {r0}\n\
@@ -650,7 +649,7 @@ _08008DC4:\n\
 
 void RemoveCardFromDeckAndTrunk (unsigned short id) {
   gTrunkCardQty[id] = 0;
-  sub_801D960(id);
+  RemoveAllCopiesOfCardFromDeck(id);
 }
 
 //leftover debug function
@@ -683,34 +682,34 @@ static void TryAddSelectedCardToDeck (void) {
   }
 }
 
-void sub_8008EA8 (void) {
-  unsigned removalFailed = 0;
+void TryRemoveSelectedCardFromDeck (void) {
+  unsigned removalFailed = FALSE;
   unsigned short id = sub_800901C(2);
-  if (!GetDeckCardQty(id) || TryRemoveCardFromDeck(id) != 1)
-    removalFailed = 1;
-  if (removalFailed == 1) {
+  if (GetDeckCardQty(id) == 0 || TryRemoveCardFromDeck(id) != 1)
+    removalFailed = TRUE;
+  if (removalFailed == TRUE) {
     PlayMusic(SFX_FORBIDDEN);
     while (gPressedButtons & DPAD_LEFT)
       WaitForVBlank();
   }
   else {
-    if (gTrunkCardQty[id] < 250)
+    if (gTrunkCardQty[id] < TRUNK_CARD_LIMIT)
       gTrunkCardQty[id]++;
     else
-      gTrunkCardQty[id] = 250;
+      gTrunkCardQty[id] = TRUNK_CARD_LIMIT;
     PlayMusic(SFX_SELECT);
   }
 }
 
 void InitTrunkData (void) {
   unsigned short cardId;
-  gTrunkData.unk0 = 0;
-  gTrunkData.unk3 = 1;
-  gTrunkData.sortMode = TRUNK_SORT_NUMBER;
+  gTrunkMenu.currentPos = 0;
+  gTrunkMenu.displayMode = 1;
+  gTrunkMenu.sortMode = CARD_SORT_NUMBER;
   for (cardId = 0; cardId < NUM_CARDS; cardId++)
     gTotalCardQty[cardId] = gTrunkCardQty[cardId] + GetDeckCardQty(cardId);
   for (cardId = 0; cardId < NUM_TRUE_CARDS; cardId++)
-    gTrunkData.unkC[cardId] = cardId + 1;
+    gTrunkMenu.cards[cardId] = cardId + 1;
 }
 
 void RunTrunkTask (unsigned char task)
@@ -724,28 +723,28 @@ void RunTrunkTask (unsigned char task)
         InitTrunkData();
         break;
     case 3:
-        sub_80090E8();
+        GoUpOnePosition();
         break;
     case 2:
-        sub_8009110();
+        GoDownOnePosition();
         break;
     case 4:
-        sub_800916C();
+        GoDownFiftyPositions();
         break;
     case 5:
-        sub_8009140();
+        GoUpFiftyPositions();
         break;
     case 6:
-        sub_800919C();
+        ToggleTrunkDisplayMode();
         break;
     case 7:
         TryAddSelectedCardToDeck();
         break;
     case 8:
-        sub_8008EA8();
+        TryRemoveSelectedCardFromDeck();
         break;
     case 10:
-        sub_80091C0();
+        ToggleSortMode();
         break;
     case 9:
         sub_08009224();
@@ -753,18 +752,18 @@ void RunTrunkTask (unsigned char task)
     }
 }
 
-unsigned char sub_8009010 (void) {
-  return gTrunkData.unk3;
+unsigned char GetTrunkMenuDisplayMode (void) {
+  return gTrunkMenu.displayMode;
 }
 
 // get nth card on screen?
 unsigned short sub_800901C (unsigned char n) {
-  signed short r2 = gTrunkData.unk0 + n - 2;
+  signed short r2 = gTrunkMenu.currentPos + n - 2;
   if (r2 >= NUM_TRUE_CARDS)
     r2 -= NUM_TRUE_CARDS;
   else if (r2 < 0)
     r2 += NUM_TRUE_CARDS;
-  return gTrunkData.unkC[r2];
+  return gTrunkMenu.cards[r2];
 }
 
 unsigned char GetTrunkCardQuantity (unsigned short cardId) {
@@ -773,76 +772,76 @@ unsigned char GetTrunkCardQuantity (unsigned short cardId) {
 
 //unused?
 static unsigned char GetCurrentSortMode (void) {
-  return gTrunkData.sortMode;
+  return gTrunkMenu.sortMode;
 }
 
 void sub_800907C (void) {
-  gUnk2021AB4.unk0 = gTrunkData.unk0;
-  gUnk2021AB4.unk2 = NUM_TRUE_CARDS - 1;
+  gUnk2021AB4.currentPos = gTrunkMenu.currentPos;
+  gUnk2021AB4.lastValidIndex = NUM_TRUE_CARDS - 1;
 }
 
 void AddCardToTrunk (unsigned short cardId) {
-  if (gTrunkCardQty[cardId] < 250)
+  if (gTrunkCardQty[cardId] < TRUNK_CARD_LIMIT)
     gTrunkCardQty[cardId]++;
   else
-    gTrunkCardQty[cardId] = 250;
+    gTrunkCardQty[cardId] = TRUNK_CARD_LIMIT;
 }
 
 void TrunkMenuDefaultSort (void)
 {
-  gUnk2022EB0.cards = gTrunkData.unkC;
-  gUnk2022EB0.cardCount = NUM_TRUE_CARDS;
-  gUnk2022EB0.sortMode = gUnk_8DFA6A8[gTrunkData.sortMode];
-  sub_8034A38(); //one of sorting funcs?
+  gCardSortContext.cards = gTrunkMenu.cards;
+  gCardSortContext.cardCount = NUM_TRUE_CARDS;
+  gCardSortContext.sortMode = gUnk_8DFA6A8[gTrunkMenu.sortMode];
+  SortCardsAccordingToContext();
 }
 
-void sub_80090E8 (void) {
-  if (--gTrunkData.unk0 < 0)
-    gTrunkData.unk0 += NUM_TRUE_CARDS;
+void GoUpOnePosition (void) {
+  if (--gTrunkMenu.currentPos < 0)
+    gTrunkMenu.currentPos += NUM_TRUE_CARDS;
   PlayMusic(SFX_MOVE_CURSOR);
 }
 
-void sub_8009110 (void) {
-  if (++gTrunkData.unk0 > NUM_TRUE_CARDS - 1)
-    gTrunkData.unk0 -= NUM_TRUE_CARDS;
+void GoDownOnePosition (void) {
+  if (++gTrunkMenu.currentPos > NUM_TRUE_CARDS - 1)
+    gTrunkMenu.currentPos -= NUM_TRUE_CARDS;
   PlayMusic(SFX_MOVE_CURSOR);
 }
 
-void sub_8009140 (void) {
-  gTrunkData.unk0 -= 50;
-  if (gTrunkData.unk0 < 0)
-    gTrunkData.unk0 += NUM_TRUE_CARDS;
+void GoUpFiftyPositions (void) {
+  gTrunkMenu.currentPos -= 50;
+  if (gTrunkMenu.currentPos < 0)
+    gTrunkMenu.currentPos += NUM_TRUE_CARDS;
   PlayMusic(SFX_MOVE_CURSOR);
 }
 
-void sub_800916C (void) {
-  gTrunkData.unk0 += 50;
-  if (gTrunkData.unk0 > NUM_TRUE_CARDS - 1)
-    gTrunkData.unk0 -= NUM_TRUE_CARDS;
+void GoDownFiftyPositions (void) {
+  gTrunkMenu.currentPos += 50;
+  if (gTrunkMenu.currentPos > NUM_TRUE_CARDS - 1)
+    gTrunkMenu.currentPos -= NUM_TRUE_CARDS;
   PlayMusic(SFX_MOVE_CURSOR);
 }
 
-void sub_800919C (void) {
-  if (++gTrunkData.unk3 > 3)
-    gTrunkData.unk3 = 0;
+void ToggleTrunkDisplayMode (void) {
+  if (++gTrunkMenu.displayMode > 3)
+    gTrunkMenu.displayMode = 0;
   PlayMusic(SFX_MOVE_CURSOR);
 }
 
-void sub_80091C0(void)
+void ToggleSortMode(void)
 {
-    if (++gTrunkData.sortMode >= TRUNK_SORT_EXIT)
-      gTrunkData.sortMode = TRUNK_SORT_NUMBER;
-    sub_80091EC(gTrunkData.sortMode);
+    if (++gTrunkMenu.sortMode >= CARD_SORT_EXIT)
+      gTrunkMenu.sortMode = CARD_SORT_NUMBER;
+    ApplyNewSortMode(gTrunkMenu.sortMode);
     PlayMusic(SFX_MOVE_CURSOR);
 }
 
-void sub_80091EC(unsigned char val)
+void ApplyNewSortMode(unsigned char val)
 {
-    gUnk2022EB0.cards = gTrunkData.unkC;
-    gUnk2022EB0.cardCount = NUM_TRUE_CARDS;
-    gUnk2022EB0.sortMode = gUnk_8DFA6A8[val];
-    sub_8034A38();
-    gTrunkData.unk0 = 0;
+    gCardSortContext.cards = gTrunkMenu.cards;
+    gCardSortContext.cardCount = NUM_TRUE_CARDS;
+    gCardSortContext.sortMode = gUnk_8DFA6A8[val];
+    SortCardsAccordingToContext();
+    gTrunkMenu.currentPos = 0;
 }
 
 void sub_08009224(void){}

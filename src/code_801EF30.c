@@ -6,7 +6,7 @@ void sub_801E27C (void);
 void sub_801E66C (void);
 void sub_801F060 (void);
 void sub_801EED8 (u8);
-u8 sub_801DB24 (void);
+u8 GetDeckMenuDisplayMode (void);
 void sub_801E9EC (void);
 void sub_801EB4C (void);
 void sub_801ED58 (void);
@@ -71,7 +71,7 @@ void sub_801EF30 (u8 arg0) {
       sub_801E27C();
       sub_801E66C();
       sub_801F060();
-      sub_801EED8(gPlayerDeck.sortMode);
+      sub_801EED8(gDeckMenu.sortMode);
       sub_800A5F0(1);
       break;
     case 3:
@@ -85,7 +85,7 @@ void sub_801EF30 (u8 arg0) {
     case 7:
       sub_801E66C();
       sub_801F060();
-      sub_801EED8(gPlayerDeck.sortMode);
+      sub_801EED8(gDeckMenu.sortMode);
       sub_800A5F0(3);
       break;
   }
@@ -114,7 +114,7 @@ void sub_801F01C (u8 arg0, u16* arg1) {
 }
 
 void sub_801F060 (void) {
-  switch (sub_801DB24()) {
+  switch (GetDeckMenuDisplayMode()) {
     case 1:
       sub_801E9EC();
       break;
@@ -158,7 +158,7 @@ u8 sub_801F0F0 (u16 cardId, u16* arg1) {
 
 void sub_801F120 (void) {
   unsigned keepProcessing;
-  gPlayerDeck.sortCursorState = gPlayerDeck.sortMode;
+  gDeckMenu.sortCursorState = gDeckMenu.sortMode;
   sub_801DF40();
   sub_801F320();
   LoadCharblock1();
@@ -198,11 +198,11 @@ void sub_801F120 (void) {
 }
 
 void sub_801F1C0 (void) {
-  gPlayerDeck.sortCursorState = g8E00AEC[gPlayerDeck.sortCursorState];
-  if (gPlayerDeck.sortCursorState < 10)
-    sub_801EED8(gPlayerDeck.sortCursorState);
+  gDeckMenu.sortCursorState = g8E00AEC[gDeckMenu.sortCursorState];
+  if (gDeckMenu.sortCursorState < 10)
+    sub_801EED8(gDeckMenu.sortCursorState);
   else
-    sub_801EED8(gPlayerDeck.sortMode);
+    sub_801EED8(gDeckMenu.sortMode);
   sub_801F320();
   PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(LoadOam);
@@ -211,11 +211,11 @@ void sub_801F1C0 (void) {
 }
 
 void sub_801F210 (void) {
-  gPlayerDeck.sortCursorState = g8E00AF7[gPlayerDeck.sortCursorState];
-  if (gPlayerDeck.sortCursorState < 10)
-    sub_801EED8(gPlayerDeck.sortCursorState);
+  gDeckMenu.sortCursorState = g8E00AF7[gDeckMenu.sortCursorState];
+  if (gDeckMenu.sortCursorState < 10)
+    sub_801EED8(gDeckMenu.sortCursorState);
   else
-    sub_801EED8(gPlayerDeck.sortMode);
+    sub_801EED8(gDeckMenu.sortMode);
   sub_801F320();
   PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(LoadOam);
@@ -224,11 +224,11 @@ void sub_801F210 (void) {
 }
 
 void sub_801F260 (void) {
-  gPlayerDeck.sortCursorState = g8E00B02[gPlayerDeck.sortCursorState];
-  if (gPlayerDeck.sortCursorState < 10)
-    sub_801EED8(gPlayerDeck.sortCursorState);
+  gDeckMenu.sortCursorState = g8E00B02[gDeckMenu.sortCursorState];
+  if (gDeckMenu.sortCursorState < 10)
+    sub_801EED8(gDeckMenu.sortCursorState);
   else
-    sub_801EED8(gPlayerDeck.sortMode);
+    sub_801EED8(gDeckMenu.sortMode);
   sub_801F320();
   PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(LoadOam);
@@ -237,11 +237,11 @@ void sub_801F260 (void) {
 }
 
 void sub_801F2B0 (void) {
-  gPlayerDeck.sortCursorState = g8E00B0D[gPlayerDeck.sortCursorState];
-  if (gPlayerDeck.sortCursorState < 10)
-    sub_801EED8(gPlayerDeck.sortCursorState);
+  gDeckMenu.sortCursorState = g8E00B0D[gDeckMenu.sortCursorState];
+  if (gDeckMenu.sortCursorState < 10)
+    sub_801EED8(gDeckMenu.sortCursorState);
   else
-    sub_801EED8(gPlayerDeck.sortMode);
+    sub_801EED8(gDeckMenu.sortMode);
   sub_801F320();
   PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(LoadOam);
@@ -251,17 +251,17 @@ void sub_801F2B0 (void) {
 
 void sub_801F300 (void) {
   PlayMusic(SFX_SELECT);
-  if (gPlayerDeck.sortCursorState < 10) {
-    gPlayerDeck.sortMode = gPlayerDeck.sortCursorState;
-    DeckMenuSortBy(gPlayerDeck.sortMode);
+  if (gDeckMenu.sortCursorState < 10) {
+    gDeckMenu.sortMode = gDeckMenu.sortCursorState;
+    DeckMenuSortBy(gDeckMenu.sortMode);
   }
 }
 
 void sub_801F320 (void) {
   u32* oam = (u32*)&gOamBuffer[6];
-  oam[0] = g8E00B18[gPlayerDeck.sortCursorState] | g8E00B23[gPlayerDeck.sortCursorState] << 16 | 0x40000000;
+  oam[0] = g8E00B18[gDeckMenu.sortCursorState] | g8E00B23[gDeckMenu.sortCursorState] << 16 | 0x40000000;
   oam[1] = 0xC120;
-  oam[2] = g8E00B18[gPlayerDeck.sortCursorState] | g8E00B23[gPlayerDeck.sortCursorState] << 16 | 0x40000800;
+  oam[2] = g8E00B18[gDeckMenu.sortCursorState] | g8E00B23[gDeckMenu.sortCursorState] << 16 | 0x40000800;
   oam[3] = 0x120;
 }
 

@@ -5941,7 +5941,7 @@ _08032F2C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08032F3C: .4byte gUnk2022EB0
+_08032F3C: .4byte gCardSortContext
 _08032F40: .4byte gTrunkCardQty
 _08032F44: .4byte 0x08E0CC20
 _08032F48: .4byte gCardAtks
@@ -6034,7 +6034,7 @@ _08032FE4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08032FF4: .4byte gUnk2022EB0
+_08032FF4: .4byte gCardSortContext
 _08032FF8: .4byte 0x02022120
 _08032FFC: .4byte 0x08E0CC20
 _08033000: .4byte gCardAtks
@@ -6127,7 +6127,7 @@ _0803309C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080330AC: .4byte gUnk2022EB0
+_080330AC: .4byte gCardSortContext
 _080330B0: .4byte 0x02022B80
 _080330B4: .4byte 0x08E0CC20
 _080330B8: .4byte gCardAtks
@@ -6205,7 +6205,7 @@ _08033138:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08033148: .4byte gUnk2022EB0
+_08033148: .4byte gCardSortContext
 _0803314C: .4byte 0x08E0CC20
 _08033150: .4byte gCardAtks
 _08033154: .4byte 0x0000FFFF
@@ -6297,7 +6297,7 @@ _080331EC:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080331FC: .4byte gUnk2022EB0
+_080331FC: .4byte gCardSortContext
 _08033200: .4byte gTotalCardQty
 _08033204: .4byte 0x08E0CC20
 _08033208: .4byte gCardAtks
@@ -6390,7 +6390,7 @@ _080332A4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080332B4: .4byte gUnk2022EB0
+_080332B4: .4byte gCardSortContext
 _080332B8: .4byte gTrunkCardQty
 _080332BC: .4byte 0x08E0CC20
 _080332C0: .4byte gCardDefs
@@ -6483,7 +6483,7 @@ _0803335C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803336C: .4byte gUnk2022EB0
+_0803336C: .4byte gCardSortContext
 _08033370: .4byte 0x02022120
 _08033374: .4byte 0x08E0CC20
 _08033378: .4byte gCardDefs
@@ -6576,7 +6576,7 @@ _08033414:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08033424: .4byte gUnk2022EB0
+_08033424: .4byte gCardSortContext
 _08033428: .4byte 0x02022B80
 _0803342C: .4byte 0x08E0CC20
 _08033430: .4byte gCardDefs
@@ -6654,7 +6654,7 @@ _080334B0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080334C0: .4byte gUnk2022EB0
+_080334C0: .4byte gCardSortContext
 _080334C4: .4byte 0x08E0CC20
 _080334C8: .4byte gCardDefs
 _080334CC: .4byte 0x0000FFFF
@@ -6746,7 +6746,7 @@ _08033564:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08033574: .4byte gUnk2022EB0
+_08033574: .4byte gCardSortContext
 _08033578: .4byte gTotalCardQty
 _0803357C: .4byte 0x08E0CC20
 _08033580: .4byte gCardDefs
@@ -6836,7 +6836,7 @@ _08033616:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08033624: .4byte gUnk2022EB0
+_08033624: .4byte gCardSortContext
 _08033628: .4byte gTrunkCardQty
 _0803362C: .4byte 0x08E0CC20
 _08033630: .4byte gCardTypes
@@ -6925,7 +6925,7 @@ _080336C2:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080336D0: .4byte gUnk2022EB0
+_080336D0: .4byte gCardSortContext
 _080336D4: .4byte 0x02022120
 _080336D8: .4byte 0x08E0CC20
 _080336DC: .4byte gCardTypes
@@ -7014,7 +7014,7 @@ _0803376E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803377C: .4byte gUnk2022EB0
+_0803377C: .4byte gCardSortContext
 _08033780: .4byte 0x02022B80
 _08033784: .4byte 0x08E0CC20
 _08033788: .4byte gCardTypes
@@ -7088,7 +7088,7 @@ _080337FE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803380C: .4byte gUnk2022EB0
+_0803380C: .4byte gCardSortContext
 _08033810: .4byte 0x08E0CC20
 _08033814: .4byte gCardTypes
 
@@ -7176,7 +7176,7 @@ _080338A6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080338B4: .4byte gUnk2022EB0
+_080338B4: .4byte gCardSortContext
 _080338B8: .4byte gTotalCardQty
 _080338BC: .4byte 0x08E0CC20
 _080338C0: .4byte gCardTypes
@@ -7269,7 +7269,7 @@ _0803395A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08033968: .4byte gUnk2022EB0
+_08033968: .4byte gCardSortContext
 _0803396C: .4byte gTrunkCardQty
 _08033970: .4byte 0x08E0CC20
 _08033974: .4byte gCardAttributes
@@ -7362,7 +7362,7 @@ _08033A0E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08033A1C: .4byte gUnk2022EB0
+_08033A1C: .4byte gCardSortContext
 _08033A20: .4byte 0x02022120
 _08033A24: .4byte 0x08E0CC20
 _08033A28: .4byte gCardAttributes
@@ -7455,7 +7455,7 @@ _08033AC2:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08033AD0: .4byte gUnk2022EB0
+_08033AD0: .4byte gCardSortContext
 _08033AD4: .4byte 0x02022B80
 _08033AD8: .4byte 0x08E0CC20
 _08033ADC: .4byte gCardAttributes
@@ -7533,7 +7533,7 @@ _08033B5A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08033B68: .4byte gUnk2022EB0
+_08033B68: .4byte gCardSortContext
 _08033B6C: .4byte 0x08E0CC20
 _08033B70: .4byte gCardAttributes
 
@@ -7625,7 +7625,7 @@ _08033C0A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08033C18: .4byte gUnk2022EB0
+_08033C18: .4byte gCardSortContext
 _08033C1C: .4byte gTotalCardQty
 _08033C20: .4byte 0x08E0CC20
 _08033C24: .4byte gCardAttributes
@@ -7698,7 +7698,7 @@ _08033C98:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08033CA8: .4byte gUnk2022EB0
+_08033CA8: .4byte gCardSortContext
 _08033CAC: .4byte 0x08E0CC20
 _08033CB0: .4byte gCardCosts
 
@@ -7785,7 +7785,7 @@ _08033D40:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08033D50: .4byte gUnk2022EB0
+_08033D50: .4byte gCardSortContext
 _08033D54: .4byte gTrunkCardQty
 _08033D58: .4byte 0x08E0CC20
 _08033D5C: .4byte gCardCosts
@@ -7873,7 +7873,7 @@ _08033DEC:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08033DFC: .4byte gUnk2022EB0
+_08033DFC: .4byte gCardSortContext
 _08033E00: .4byte 0x02022120
 _08033E04: .4byte 0x08E0CC20
 _08033E08: .4byte gCardCosts
@@ -7961,7 +7961,7 @@ _08033E98:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08033EA8: .4byte gUnk2022EB0
+_08033EA8: .4byte gCardSortContext
 _08033EAC: .4byte 0x02022B80
 _08033EB0: .4byte 0x08E0CC20
 _08033EB4: .4byte gCardCosts
@@ -8034,7 +8034,7 @@ _08033F28:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08033F38: .4byte gUnk2022EB0
+_08033F38: .4byte gCardSortContext
 _08033F3C: .4byte 0x08E0CC20
 _08033F40: .4byte gCardCosts
 
@@ -8121,7 +8121,7 @@ _08033FD0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08033FE0: .4byte gUnk2022EB0
+_08033FE0: .4byte gCardSortContext
 _08033FE4: .4byte gTotalCardQty
 _08033FE8: .4byte 0x08E0CC20
 _08033FEC: .4byte gCardCosts
@@ -8193,7 +8193,7 @@ _0803405E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803406C: .4byte gUnk2022EB0
+_0803406C: .4byte gCardSortContext
 _08034070: .4byte 0x08E0CC20
 _08034074: .4byte gTrunkCardQty
 
@@ -8276,7 +8276,7 @@ _08034100:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08034110: .4byte gUnk2022EB0
+_08034110: .4byte gCardSortContext
 _08034114: .4byte 0x08E0CC20
 _08034118: .4byte 0x02021AF0
 _0803411C: .4byte 0x02022120
@@ -8377,7 +8377,7 @@ _080341C8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080341D8: .4byte gUnk2022EB0
+_080341D8: .4byte gCardSortContext
 _080341DC: .4byte 0x08E0CC20
 _080341E0: .4byte 0x02021AF0
 _080341E4: .4byte 0x02022120
@@ -8452,7 +8452,7 @@ _08034262:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08034270: .4byte gUnk2022EB0
+_08034270: .4byte gCardSortContext
 _08034274: .4byte 0x08E0CC20
 _08034278: .4byte gCardLevels
 
@@ -8538,7 +8538,7 @@ _08034306:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08034314: .4byte gUnk2022EB0
+_08034314: .4byte gCardSortContext
 _08034318: .4byte gTrunkCardQty
 _0803431C: .4byte 0x08E0CC20
 _08034320: .4byte gCardLevels
@@ -8625,7 +8625,7 @@ _080343AE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080343BC: .4byte gUnk2022EB0
+_080343BC: .4byte gCardSortContext
 _080343C0: .4byte 0x02022120
 _080343C4: .4byte 0x08E0CC20
 _080343C8: .4byte gCardLevels
@@ -8712,7 +8712,7 @@ _08034456:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08034464: .4byte gUnk2022EB0
+_08034464: .4byte gCardSortContext
 _08034468: .4byte 0x02022B80
 _0803446C: .4byte 0x08E0CC20
 _08034470: .4byte gCardLevels
@@ -8784,7 +8784,7 @@ _080344E2:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080344F0: .4byte gUnk2022EB0
+_080344F0: .4byte gCardSortContext
 _080344F4: .4byte 0x08E0CC20
 _080344F8: .4byte gCardLevels
 
@@ -8870,7 +8870,7 @@ _08034586:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08034594: .4byte gUnk2022EB0
+_08034594: .4byte gCardSortContext
 _08034598: .4byte gTotalCardQty
 _0803459C: .4byte 0x08E0CC20
 _080345A0: .4byte gCardLevels
@@ -8943,7 +8943,7 @@ _08034616:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08034624: .4byte gUnk2022EB0
+_08034624: .4byte gCardSortContext
 _08034628: .4byte 0x08E0CC20
 
 	THUMB_FUNC_START sub_803462C
@@ -9013,7 +9013,7 @@ _0803469A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080346A8: .4byte gUnk2022EB0
+_080346A8: .4byte gCardSortContext
 _080346AC: .4byte 0x08E0CC20
 _080346B0: .4byte gTotalCardQty
 
@@ -9105,7 +9105,7 @@ _08034746:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08034754: .4byte gUnk2022EB0
+_08034754: .4byte gCardSortContext
 _08034758: .4byte 0x08E0CC20
 _0803475C: .4byte gTotalCardQty
 _08034760: .4byte gCardMonsterEffects
@@ -9184,7 +9184,7 @@ _080347E6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080347F4: .4byte gUnk2022EB0
+_080347F4: .4byte gCardSortContext
 _080347F8: .4byte 0x08E0CC20
 _080347FC: .4byte gCardMonsterEffects
 _08034800: .4byte gUnk8094CC3
@@ -9278,7 +9278,7 @@ _0803489C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080348AC: .4byte gUnk2022EB0
+_080348AC: .4byte gCardSortContext
 _080348B0: .4byte 0x08E0CC20
 _080348B4: .4byte gUnk8094CC3
 _080348B8: .4byte 0x02022B80
@@ -9375,7 +9375,7 @@ _08034960:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08034970: .4byte gUnk2022EB0
+_08034970: .4byte gCardSortContext
 _08034974: .4byte 0x08E0CC20
 _08034978: .4byte gUnk8094CC3
 _0803497C: .4byte 0x02022120
@@ -9396,8 +9396,8 @@ _08034990: .4byte 0x00000000
 	.byte 0x38, 0xBC, 0x98, 0x46, 0xA1, 0x46, 0xAA, 0x46, 0xF0, 0xBC, 0x01, 0xBC, 0x00, 0x47, 0x00, 0x00
 	.byte 0xB0, 0x2E, 0x02, 0x02, 0x20, 0xCC, 0xE0, 0x08
 
-	THUMB_FUNC_START sub_8034A38
-sub_8034A38: @ 0x08034A38
+	THUMB_FUNC_START SortCardsAccordingToContext
+SortCardsAccordingToContext: @ 0x08034A38
 	push {r4, r5, lr}
 	ldr r4, _08034A80
 	ldrb r0, [r4, #0xa]
@@ -9434,7 +9434,7 @@ _08034A7A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08034A80: .4byte gUnk2022EB0
+_08034A80: .4byte gCardSortContext
 _08034A84: .4byte 0x08E0CC28
 _08034A88: .4byte 0x08E0CC20
 
@@ -9459,7 +9459,7 @@ _08034AAC:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08034AB0: .4byte gUnk2022EB0
+_08034AB0: .4byte gCardSortContext
 _08034AB4: .4byte 0x08E0CC24
 
 	THUMB_FUNC_START sub_8034AB8
@@ -9491,7 +9491,7 @@ _08034AE2:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08034AE8: .4byte gUnk2022EB0
+_08034AE8: .4byte gCardSortContext
 _08034AEC: .4byte 0x08E0CC20
 
 	THUMB_FUNC_START sub_8034AF0
@@ -9534,7 +9534,7 @@ _08034B30:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08034B38: .4byte gUnk2022EB0
+_08034B38: .4byte gCardSortContext
 _08034B3C: .4byte 0x080CDEC4
 _08034B40: .4byte 0x08E0CC20
 
@@ -9592,7 +9592,7 @@ _08034B9C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08034BA8: .4byte gUnk2022EB0
+_08034BA8: .4byte gCardSortContext
 _08034BAC: .4byte 0x080D0444
 _08034BB0: .4byte 0x08E0CC20
 _08034BB4: .4byte gLanguage
@@ -9631,7 +9631,7 @@ _08034BEE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08034BF4: .4byte gUnk2022EB0
+_08034BF4: .4byte gCardSortContext
 _08034BF8: .4byte 0x08E0CC20
 _08034BFC: .4byte 0x080CEB44
 
@@ -9668,7 +9668,7 @@ _08034C32:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08034C38: .4byte gUnk2022EB0
+_08034C38: .4byte gCardSortContext
 _08034C3C: .4byte 0x08E0CC20
 _08034C40: .4byte 0x080CF184
 
@@ -9705,7 +9705,7 @@ _08034C76:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08034C7C: .4byte gUnk2022EB0
+_08034C7C: .4byte gCardSortContext
 _08034C80: .4byte 0x08E0CC20
 _08034C84: .4byte 0x080CF7C4
 
@@ -9742,7 +9742,7 @@ _08034CBA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08034CC0: .4byte gUnk2022EB0
+_08034CC0: .4byte gCardSortContext
 _08034CC4: .4byte 0x08E0CC20
 _08034CC8: .4byte 0x080CFE04
 
@@ -9784,7 +9784,7 @@ _08034D08:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08034D10: .4byte gUnk2022EB0
+_08034D10: .4byte gCardSortContext
 _08034D14: .4byte 0x08E0CC20
 
 	THUMB_FUNC_START sub_8034D18
@@ -9841,7 +9841,7 @@ _08034D70:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08034D7C: .4byte gUnk2022EB0
+_08034D7C: .4byte gCardSortContext
 _08034D80: .4byte 0x080D0444
 _08034D84: .4byte 0x08E0CC20
 _08034D88: .4byte gLanguage
@@ -9938,7 +9938,7 @@ sub_8034E1C: @ 0x08034E1C
 	strb r2, [r0, #0xa]
 	bx lr
 	.align 2, 0
-_08034E2C: .4byte gUnk2022EB0
+_08034E2C: .4byte gCardSortContext
 
 //trunk_sort funcs end??
 

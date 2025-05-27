@@ -249,12 +249,12 @@ g8DF811C:
 
 
 //trunk?
-    .global gUnk_8DF813C
-gUnk_8DF813C:
+    .global gNextUpOptionInTrunkSubmenu
+gNextUpOptionInTrunkSubmenu:
     .incbin "baserom.gba", 0xDF813C, 0x3
 
-    .global gUnk_8DF813F
-gUnk_8DF813F:
+    .global gNextDownOptionInTrunkSubmenu
+gNextDownOptionInTrunkSubmenu:
     .incbin "baserom.gba", 0xDF813F, 0x3
 
     .global gUnk_8DF8142

@@ -113,7 +113,7 @@ sub_801E9EC: @ 0x0801E9EC
 	mov sl, r0
 _0801E9FC:
 	adds r0, r6, #0
-	bl sub_801DAF8
+	bl GetSelectedCardWithOffset
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl SetCardInfo
@@ -287,7 +287,7 @@ sub_801EB4C: @ 0x0801EB4C
 	mov r8, r0
 _0801EB5C:
 	mov r0, r8
-	bl sub_801DAF8
+	bl GetSelectedCardWithOffset
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl SetCardInfo
@@ -556,7 +556,7 @@ _0801ED72:
 	movs r6, #1
 _0801ED80:
 	adds r0, r5, #0
-	bl sub_801DAF8
+	bl GetSelectedCardWithOffset
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl SetCardInfo
