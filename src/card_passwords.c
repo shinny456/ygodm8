@@ -1,8 +1,5 @@
 #include "global.h"
 
-
-// TODO: rename file to card_password.c?
-
 static const unsigned char sCardPasswords[][8] = {
   [CARD_NONE] = {15, 15, 15, 15, 15, 15, 15, 14},
   [BLUE_EYES_WHITE_DRAGON] = {8, 9, 6, 3, 1, 1, 3, 9},
@@ -844,7 +841,7 @@ extern u8 g8E11684[];
 extern u8 gCardPasswordDigits[];
 extern u16 gPressedButtons;
 void sub_802D90C(u16, u8);
-void sub_80258E8(void);
+void FadeInBlendEffect(void);
 u16 sub_803F04C (u8);
 u32 sub_8056014(u16);
 
@@ -918,7 +915,7 @@ void CardPasswordMain (void)
         PlayMusic(SFX_FORBIDDEN);
 
     end:
-    sub_80258E8();
+    FadeInBlendEffect();
 }
 
 static void sub_8055D04 (void)

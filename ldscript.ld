@@ -489,8 +489,8 @@ SECTIONS
     g80C1D6E = 0x80C1D6E;
     g80C1D71 = 0x80C1D71;
     gSorlTurnsRemainingTextIds = 0x80C1D80;
-    gE01248 = 0x8E01248;
-    gE01328 = 0x8E01328;
+    gCursorSpritesStaticFrames = 0x8E01248;
+    gCursorSpritesAnimatedFrames = 0x8E01328;
     gLowLevelAnte = 0x80C1D84;
     gNumRequiredTributes = 0x8E0D9B4;
     gE04810 = 0x8E04810;
@@ -658,7 +658,7 @@ SECTIONS
     g8090920 = 0x8090920;
     g8090B94 = 0x8090B94;
     g8090B98 = 0x8090B98;
-    gE0119C = 0x8E0119C;
+    gCardPasswordDigitSprites = 0x8E0119C;
     g80C1DD4 = 0x80C1DD4;
     g80C61B8 = 0x80C61B8;
     g80C58C0 = 0x80C58C0;
