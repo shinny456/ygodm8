@@ -33,7 +33,7 @@ void sub_0801F62C (void);
 void RunPlayerDeckTask (unsigned char);
 void RunTrunkTask (unsigned char);
 void sub_0801F5EC (void);
-void sub_802612C (void);
+void UpdateFilteredInput_NoRepeat (void);
 unsigned char GetPlayerDeckSize (void);
 void DeckMenuSort (void);
 void sub_801F5F0 (void);
@@ -50,7 +50,7 @@ void sub_801F614 (void);
 unsigned short GetSelectedCardWithOffset (unsigned char);
 
 extern unsigned short gNewButtons;
-extern unsigned short gUnk2021DCC;
+extern unsigned short gFilteredInput;
 extern unsigned short gPressedButtons;
 extern unsigned short gRepeatedOrNewButtons;
 extern unsigned char gE00AD4[];
@@ -132,50 +132,52 @@ void DeckMenuMain (void) {
   sub_801F4A0(2);
 }
 
+// used for general pause menu (selecting between Status/Deck/Trunk)
 static unsigned short ProcessInput (void) { // same code as the one in trunk.c
   unsigned char i;
-  unsigned short r2;
+  unsigned short mask;
   unsigned short ret = 0;
-  sub_802612C();
-  r2 = 1;
+  UpdateFilteredInput_NoRepeat();
+  mask = 0x1;
   for (i = 0; i < 10; i++) {
-    if (r2 & gNewButtons)
-      ret = r2 & gNewButtons;
-    r2 <<= 1;
+    if (mask & gNewButtons)
+      ret = mask & gNewButtons;
+    mask <<= 1;
   }
-  r2 = 0x10;
+  mask = 0x10;
   for (i = 0; i < 4; i++) {
-    if (r2 & gUnk2021DCC)
-      ret = r2 & gUnk2021DCC;
-    r2 <<= 1;
+    if (mask & gFilteredInput)
+      ret = mask & gFilteredInput;
+    mask <<= 1;
   }
-  if (gUnk2021DCC & 0x40 && gPressedButtons & 0x100)
+  if (gFilteredInput & DPAD_UP && gPressedButtons & R_BUTTON)
     ret = 0x140;
-  if (gUnk2021DCC & 0x80 && gPressedButtons & 0x100)
+  if (gFilteredInput & DPAD_DOWN && gPressedButtons & R_BUTTON)
     ret = 0x180;
   return ret;
 }
 
-int sub_801D368 (void) {
+// used for actual deck adjustment menu
+int ProcessInputDeckAdjustmentMenu (void) {
   unsigned char i;
-  unsigned short r2;
+  unsigned short mask;
   unsigned short ret = 0;
-  sub_802612C();
-  r2 = 1;
+  UpdateFilteredInput_NoRepeat(); // pointless since we read gRepeatedOrNewButtons below instead of gFilteredInput -- devs should have used WithRepeat version?
+  mask = 0x1;
   for (i = 0; i < 10; i++) {
-    if (r2 & gNewButtons)
-      ret = r2 & gNewButtons;
-    r2 <<= 1;
+    if (mask & gNewButtons)
+      ret = mask & gNewButtons;
+    mask <<= 1;
   }
-  r2 = 0x10;
+  mask = 0x10;
   for (i = 0; i < 4; i++) {
-    if (r2 & gRepeatedOrNewButtons)
-      ret = r2 & gRepeatedOrNewButtons;
-    r2 <<= 1;
+    if (mask & gRepeatedOrNewButtons)
+      ret = mask & gRepeatedOrNewButtons;
+    mask <<= 1;
   }
-  if (gRepeatedOrNewButtons & DPAD_UP && gPressedButtons & 0x100)
+  if (gRepeatedOrNewButtons & DPAD_UP && gPressedButtons & R_BUTTON)
     ret = 0x140;
-  if (gRepeatedOrNewButtons & DPAD_DOWN && gPressedButtons & 0x100)
+  if (gRepeatedOrNewButtons & DPAD_DOWN && gPressedButtons & R_BUTTON)
     ret = 0x180;
   return ret;
 }
@@ -237,7 +239,7 @@ static void sub_801D4B8 (void) {
   WaitForVBlank();
   keepProcessing = 1;
   while (keepProcessing) {
-    switch (sub_801D368()) {
+    switch (ProcessInputDeckAdjustmentMenu()) {
       case 0x40:
         sub_801D548();
         break;

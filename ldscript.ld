@@ -113,8 +113,8 @@ SECTIONS
     gCardPasswordDigits = 0x02021DC0;
 
     /*menu_input (menu_button_input?)*/
-    gUnk2021DC8 = 0x02021DC8;
-    gUnk2021DCC = 0x02021DCC;
+    gInputRepeatTimer = 0x02021DC8;
+    gFilteredInput = 0x02021DCC;
 
 
 

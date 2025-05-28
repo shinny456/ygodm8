@@ -48,12 +48,12 @@ void LoadBlendingRegs (void);
 void LoadPalettes(void);
 void SetVBlankCallback (void (*)(void));
 void WaitForVBlank (void);
-void sub_802618C (void);
+void UpdateFilteredInput_WithRepeat (void);
 extern unsigned char gCardPasswordDigits[];
 extern unsigned short gBLDCNT;
 extern unsigned short gBLDY;
 extern unsigned short gNewButtons;
-extern unsigned short gUnk2021DCC;
+extern unsigned short gFilteredInput;
 extern unsigned short gOamBuffer[];
 
 struct Oam {
@@ -80,7 +80,7 @@ unsigned PasswordTerminalMain (void) {
   InitPasswordTerminal();
   while (keepProcessing) {
     switch (ProcessInput()) {
-      case 0x40:
+      case DPAD_UP:
         ResetNumpadDigitAnimation();
         HandleInputUp();
         UpdateNumpadCursorSprite();
@@ -90,7 +90,7 @@ unsigned PasswordTerminalMain (void) {
         WaitForVBlank();
         RefreshSprites();
         break;
-      case 0x80:
+      case DPAD_DOWN:
         ResetNumpadDigitAnimation();
         HandleInputDown();
         UpdateNumpadCursorSprite();
@@ -100,7 +100,7 @@ unsigned PasswordTerminalMain (void) {
         WaitForVBlank();
         RefreshSprites();
         break;
-      case 0x20:
+      case DPAD_LEFT:
         ResetNumpadDigitAnimation();
         HandleInputLeft();
         UpdateNumpadCursorSprite();
@@ -110,7 +110,7 @@ unsigned PasswordTerminalMain (void) {
         WaitForVBlank();
         RefreshSprites();
         break;
-      case 0x10:
+      case DPAD_RIGHT:
         ResetNumpadDigitAnimation();
         HandleInputRight();
         UpdateNumpadCursorSprite();
@@ -120,7 +120,7 @@ unsigned PasswordTerminalMain (void) {
         WaitForVBlank();
         RefreshSprites();
         break;
-      case 0x200:
+      case L_BUTTON:
         ResetCurrentNumpadDigit();
         UpdateDisplayDigitSprite();
         MoveCurrentDisplayDigitLeft();
@@ -132,7 +132,7 @@ unsigned PasswordTerminalMain (void) {
         WaitForVBlank();
         RefreshSprites();
         break;
-      case 0x100:
+      case R_BUTTON:
         ResetCurrentNumpadDigit();
         UpdateDisplayDigitSprite();
         MoveCurrentDisplayDigitRight();
@@ -144,7 +144,7 @@ unsigned PasswordTerminalMain (void) {
         WaitForVBlank();
         RefreshSprites();
         break;
-      case 1:
+      case A_BUTTON:
         if (GetCurrentNumpadButton() == BUTTON_OK) {
           keepProcessing = 0;
           ret = 1;
@@ -177,7 +177,7 @@ unsigned PasswordTerminalMain (void) {
           break;
         }
         break;
-      case 2:
+      case B_BUTTON:
         ResetCurrentNumpadDigit();
         UpdateDisplayDigitSprite();
         MoveCurrentDisplayDigitLeft();
@@ -189,8 +189,8 @@ unsigned PasswordTerminalMain (void) {
         WaitForVBlank();
         RefreshSprites();
         break;
-      case 4:
-      case 8:
+      case SELECT_BUTTON:
+      case START_BUTTON:
         ResetNumpadDigitAnimation();
         SetButtonToOK();
         UpdateDisplayDigitSprite();
@@ -227,22 +227,22 @@ unsigned PasswordTerminalMain (void) {
 static unsigned short ProcessInput (void) {
   unsigned char i;
   unsigned short ret = 0;
-  unsigned short r2;
-  sub_802618C();
-  r2 = 1;
-  if (gNewButtons & KEYS_MASK) {
+  unsigned short mask;
+  UpdateFilteredInput_WithRepeat();
+  mask = 0x1;
+  if (gNewButtons & ANY_BUTTON) {
     for (i = 0; i < 10; i++) {
-      if (r2 & gNewButtons)
-        ret = r2;
-      r2 <<= 1;
+      if (mask & gNewButtons)
+        ret = mask;
+      mask <<= 1;
     }
   }
-  r2 = 0x10;
-  if (gUnk2021DCC & 0x3F0) {
+  mask = 0x10;
+  if (gFilteredInput & (L_BUTTON | R_BUTTON | DPAD_ANY)) {
     for (i = 0; i < 6; i++) {
-      if (r2 & gUnk2021DCC)
-        ret = r2;
-      r2 <<= 1;
+      if (mask & gFilteredInput)
+        ret = mask;
+      mask <<= 1;
     }
   }
   return ret;

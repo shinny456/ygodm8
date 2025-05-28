@@ -12,7 +12,7 @@ void sub_801EB4C (void);
 void sub_801ED58 (void);
 void sub_801E928 (void);
 void sub_801F390 (void);
-int sub_801D368 (void);
+int ProcessInputDeckAdjustmentMenu (void);
 u8 sub_801F0F0 (u16, u16*);
 int GetDeckCardQty (u16);
 void sub_801DF40 (void);
@@ -167,7 +167,7 @@ void sub_801F120 (void) {
   WaitForVBlank();
   keepProcessing = 1;
   while (keepProcessing == 1) {
-    switch (sub_801D368()) {
+    switch (ProcessInputDeckAdjustmentMenu()) {
       case 0x40:
         sub_801F1C0();
         break;

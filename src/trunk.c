@@ -109,9 +109,9 @@ void RunPlayerDeckTask (unsigned char);
 
 extern unsigned short gRepeatedOrNewButtons;
 extern unsigned short gNewButtons;
-extern unsigned short gUnk2021DCC;
+extern unsigned short gFilteredInput;
 
-void sub_802612C (void);
+void UpdateFilteredInput_NoRepeat (void);
 int TrunkProcessInput (void);
 
 
@@ -197,7 +197,7 @@ int TrunkProcessInput (void) {
   unsigned char i;
   unsigned short r2;
   unsigned short ret = 0;
-  sub_802612C();
+  UpdateFilteredInput_NoRepeat();
   r2 = 1;
   for (i = 0; i < 10; i++) {
     if (r2 & gNewButtons)
@@ -206,13 +206,13 @@ int TrunkProcessInput (void) {
   }
   r2 = 0x10;
   for (i = 0; i < 4; i++) {
-    if (r2 & gUnk2021DCC)
-      ret = r2 & gUnk2021DCC;
+    if (r2 & gFilteredInput)
+      ret = r2 & gFilteredInput;
     r2 <<= 1;
   }
-  if (gUnk2021DCC & 0x40 && gPressedButtons & 0x100)
+  if (gFilteredInput & DPAD_UP && gPressedButtons & R_BUTTON)
     ret = 0x140;
-  if (gUnk2021DCC & 0x80 && gPressedButtons & 0x100)
+  if (gFilteredInput & DPAD_DOWN && gPressedButtons & R_BUTTON)
     ret = 0x180;
   return ret;
 }
@@ -232,9 +232,9 @@ int TrunkSubmenuProcessInput (void) {
       ret = buttonMask & gRepeatedOrNewButtons;
     buttonMask <<= 1;
   }
-  if (gRepeatedOrNewButtons & DPAD_UP && gPressedButtons & 0x100)
+  if (gRepeatedOrNewButtons & DPAD_UP && gPressedButtons & R_BUTTON)
     ret = 0x140;
-  if (gRepeatedOrNewButtons & DPAD_DOWN && gPressedButtons & 0x100)
+  if (gRepeatedOrNewButtons & DPAD_DOWN && gPressedButtons & R_BUTTON)
     ret = 0x180;
   return ret;
 }

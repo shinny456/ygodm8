@@ -1097,7 +1097,7 @@ void sub_8042E80 (void) {
 
 void sub_8042F04 (void) {
   sub_8042E80();
-  while (gPressedButtons & 0x200)
+  while (gPressedButtons & L_BUTTON)
     WaitForVBlank();
   REG_DISPCNT = DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON;
   WaitForVBlank();

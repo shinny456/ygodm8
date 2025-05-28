@@ -719,7 +719,7 @@ extern u16 gRepeatedOrNewButtons;
 
 
 
-void sub_802618C(void);
+void UpdateFilteredInput_WithRepeat(void);
 void sub_8022ABC(void);
 void sub_80229C0(void);
 void sub_8023A14(void);
@@ -866,7 +866,7 @@ void LinkDuelMenu (void) {
 }
 
 static unsigned short ProcessInput (void) {
-  sub_802618C();
+  UpdateFilteredInput_WithRepeat();
   if (gNewButtons & A_BUTTON)
     return 1;
   if (gNewButtons & B_BUTTON)

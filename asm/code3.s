@@ -20345,7 +20345,7 @@ _0803E6EE:
 	THUMB_FUNC_START sub_803E6F8
 sub_803E6F8: @ 0x0803E6F8
 	push {lr}
-	bl sub_802612C
+	bl UpdateFilteredInput_NoRepeat
 	ldr r0, _0803E710
 	ldrh r1, [r0]
 	movs r0, #1
@@ -20404,7 +20404,7 @@ _0803E748:
 	lsls r0, r0, #1
 	b _0803E7C8
 	.align 2, 0
-_0803E768: .4byte gUnk2021DCC
+_0803E768: .4byte gFilteredInput
 _0803E76C: .4byte gPressedButtons
 _0803E770:
 	ldrh r1, [r2]
@@ -20462,7 +20462,7 @@ _0803E7C8:
 	THUMB_FUNC_START sub_803E7CC
 sub_803E7CC: @ 0x0803E7CC
 	push {lr}
-	bl sub_802618C
+	bl UpdateFilteredInput_WithRepeat
 	ldr r0, _0803E7E4
 	ldrh r1, [r0]
 	movs r0, #1
@@ -20506,7 +20506,7 @@ _0803E810:
 	movs r0, #0x40
 	b _0803E84A
 	.align 2, 0
-_0803E820: .4byte gUnk2021DCC
+_0803E820: .4byte gFilteredInput
 _0803E824:
 	movs r0, #0x80
 	ands r0, r1
@@ -20884,7 +20884,7 @@ _0803EAF6:
 	THUMB_FUNC_START sub_803EB00
 sub_803EB00: @ 0x0803EB00
 	push {lr}
-	bl sub_802612C
+	bl UpdateFilteredInput_NoRepeat
 	ldr r0, _0803EB18
 	ldrh r1, [r0]
 	movs r0, #1
@@ -20943,7 +20943,7 @@ _0803EB50:
 	lsls r0, r0, #1
 	b _0803EBD0
 	.align 2, 0
-_0803EB70: .4byte gUnk2021DCC
+_0803EB70: .4byte gFilteredInput
 _0803EB74: .4byte gPressedButtons
 _0803EB78:
 	ldrh r1, [r2]
@@ -21001,7 +21001,7 @@ _0803EBD0:
 	THUMB_FUNC_START sub_803EBD4
 sub_803EBD4: @ 0x0803EBD4
 	push {lr}
-	bl sub_802618C
+	bl UpdateFilteredInput_WithRepeat
 	ldr r0, _0803EBEC
 	ldrh r1, [r0]
 	movs r0, #1
@@ -21045,7 +21045,7 @@ _0803EC18:
 	movs r0, #0x40
 	b _0803EC52
 	.align 2, 0
-_0803EC28: .4byte gUnk2021DCC
+_0803EC28: .4byte gFilteredInput
 _0803EC2C:
 	movs r0, #0x80
 	ands r0, r1

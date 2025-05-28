@@ -79,7 +79,7 @@ extern void (*g8E0CE68[])(void);
 extern u16 gNewButtons;
 extern u16 gRepeatedOrNewButtons;
 extern u16 gPressedButtons;
-extern u16 gUnk2021DCC;
+extern u16 gFilteredInput;
 
 void sub_8039F40 (void);
 void sub_80389B4 (void);
@@ -134,8 +134,8 @@ void sub_8036D5C (u16, u8);
 void sub_8039E44 (void);
 void sub_8039EDC (void);
 
-void sub_802612C (void);
-void sub_802618C (void);
+void UpdateFilteredInput_NoRepeat (void);
+void UpdateFilteredInput_WithRepeat (void);
 void sub_8039E60 (void);
 void sub_8034E1C (void);
 void sub_8034A8C (void);
@@ -591,7 +591,7 @@ static void sub_8036080 (void) {
 }
 
 static unsigned short sub_8036150 (void) {
-  sub_802612C();
+  UpdateFilteredInput_NoRepeat();
   if (gNewButtons & A_BUTTON)
     return NEW_A_BUTTON;
   if (gNewButtons & B_BUTTON)
@@ -602,23 +602,23 @@ static unsigned short sub_8036150 (void) {
     return NEW_START_BUTTON;
   if (gNewButtons & SELECT_BUTTON)
     return NEW_SELECT_BUTTON;
-  if (gUnk2021DCC & 0x40 && gPressedButtons & 0x100)
+  if (gFilteredInput & DPAD_UP && gPressedButtons & R_BUTTON)
     return 0x140;
-  if (gUnk2021DCC & 0x80 && gPressedButtons & 0x100)
+  if (gFilteredInput & DPAD_DOWN && gPressedButtons & R_BUTTON)
     return 0x180;
-  if (gUnk2021DCC & 0x40)
-    return 0x40;
-  if (gUnk2021DCC & 0x80)
-    return 0x80;
-  if (gUnk2021DCC & 0x20)
-    return 0x20;
-  if (gUnk2021DCC & 0x10)
-    return 0x10;
+  if (gFilteredInput & DPAD_UP)
+    return DPAD_UP;
+  if (gFilteredInput & DPAD_DOWN)
+    return DPAD_DOWN;
+  if (gFilteredInput & DPAD_LEFT)
+    return DPAD_LEFT;
+  if (gFilteredInput & DPAD_RIGHT)
+    return DPAD_RIGHT;
   return 0;
 }
 
 static unsigned short sub_8036224 (void) {
-  sub_802618C();
+  UpdateFilteredInput_WithRepeat();
   if (gNewButtons & A_BUTTON)
     return NEW_A_BUTTON;
   if (gNewButtons & B_BUTTON)
@@ -627,14 +627,14 @@ static unsigned short sub_8036224 (void) {
     return NEW_L_BUTTON;
   if (gNewButtons & START_BUTTON)
     return NEW_START_BUTTON;
-  if (gUnk2021DCC & 0x40)
-    return 0x40;
-  if (gUnk2021DCC & 0x80)
-    return 0x80;
-  if (gUnk2021DCC & 0x20)
-    return 0x20;
-  if (gUnk2021DCC & 0x10)
-    return 0x10;
+  if (gFilteredInput & DPAD_UP)
+    return DPAD_UP;
+  if (gFilteredInput & DPAD_DOWN)
+    return DPAD_DOWN;
+  if (gFilteredInput & DPAD_LEFT)
+    return DPAD_LEFT;
+  if (gFilteredInput & DPAD_RIGHT)
+    return DPAD_RIGHT;
   return 0;
 }
 

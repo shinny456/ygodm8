@@ -699,8 +699,7 @@
 #define DPAD_DOWN       0x0080
 #define R_BUTTON        0x0100
 #define L_BUTTON        0x0200
-#define KEYS_MASK       0x03FF
-//TODO: ^rename to ANY_BUTTON?
+#define ANY_BUTTON      0x03FF
 #define KEY_INTR_ENABLE 0x0400
 #define KEY_OR_INTR     0x0000
 #define KEY_AND_INTR    0x8000

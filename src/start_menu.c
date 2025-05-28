@@ -402,7 +402,7 @@ static void sub_8005CB8 (void) {
   gBLDY = 8;
   LoadBlendingRegs();
   WaitForVBlank();
-  while (!(gNewButtons & KEYS_MASK))
+  while (!(gNewButtons & ANY_BUTTON))
     WaitForVBlank();
   WaitForVBlank();
 }

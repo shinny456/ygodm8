@@ -40,7 +40,7 @@ static void VBlankCbTryStartNewGameEnd (void);
 static void LoadVramAndOam (void);
 static void sub_8035B3C (void);
 
-void sub_802612C (void);
+void UpdateFilteredInput_NoRepeat (void);
 unsigned char sub_800AC64 (void);
 void sub_800ACE8 (unsigned char);
 void sub_800AF68 (void);
@@ -259,19 +259,19 @@ static unsigned char SwitchToOptionContinue (void) {
 }
 
 static unsigned short ProcessInput (void) {
-  unsigned char button;
-  unsigned short buttonMask;
-  unsigned short newButton = 0;
-  sub_802612C();
-  buttonMask = 1;
-  if (gNewButtons & KEYS_MASK) {
-    for (button = 0; button < NUM_BUTTONS; button++) {
-      if (gNewButtons & buttonMask)
-        newButton = buttonMask;
-      buttonMask <<= 1;
+  unsigned char i;
+  unsigned short mask;
+  unsigned short ret = 0;
+  UpdateFilteredInput_NoRepeat();
+  mask = 1;
+  if (gNewButtons & ANY_BUTTON) {
+    for (i = 0; i < NUM_BUTTONS; i++) {
+      if (gNewButtons & mask)
+        ret = mask;
+      mask <<= 1;
     }
   }
-  return newButton;
+  return ret;
 }
 
 static void CopyBgGfx (void) {
