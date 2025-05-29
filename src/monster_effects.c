@@ -139,7 +139,7 @@ static void EffectCatapultTurtle(void)
     else
         SetPlayerLifePointsToSubtract(totalAtk);
 
-    HandleDuelAction();
+    HandleAtkAndLifePointsAction();
     CheckLoserFlags();
 
     if (!gHideEffectText)
@@ -388,7 +388,7 @@ static void EffectMysticLamp(void)
     else
         SetPlayerLifePointsToSubtract(gCardInfo.atk);
 
-    HandleDuelAction();
+    HandleAtkAndLifePointsAction();
     CheckLoserFlags();
 
     if (!gHideEffectText)
@@ -410,7 +410,7 @@ static void EffectLeghul(void)
     else
         SetPlayerLifePointsToSubtract(gCardInfo.atk);
 
-    HandleDuelAction();
+    HandleAtkAndLifePointsAction();
     CheckLoserFlags();
 
     if (!gHideEffectText)
@@ -459,7 +459,7 @@ static void EffectObeliskTheTormentor(void)
     else
         SetPlayerLifePointsToSubtract(4000);
 
-    HandleDuelAction();
+    HandleAtkAndLifePointsAction();
     CheckLoserFlags();
 
     if (!gHideEffectText)
@@ -711,7 +711,7 @@ static void EffectReflectBounder(void)
         else
             SetPlayerLifePointsToSubtract(gCardInfo.atk);
 
-        HandleDuelAction();
+        HandleAtkAndLifePointsAction();
         CheckLoserFlags();
     }
 
@@ -830,7 +830,7 @@ static void EffectExarionUniverse (void)
     else
         SetPlayerLifePointsToSubtract(gCardInfo.atk);
 
-    HandleDuelAction();
+    HandleAtkAndLifePointsAction();
     CheckLoserFlags();
 
     DecrementPermStage(gTurnZones[gMonEffect.row][gMonEffect.zone]);
@@ -1890,12 +1890,12 @@ static void EffectPuppetMaster(void)
         if (WhoseTurn() == DUEL_PLAYER)
         {
             SetPlayerLifePointsToSubtract(1000);
-            HandleDuelAction();
+            HandleAtkAndLifePointsAction();
         }
         else
         {
             SetOpponentLifePointsToSubtract(1000);
-            HandleDuelAction();
+            HandleAtkAndLifePointsAction();
         }
         CheckLoserFlags();
         GetGraveCardAndClearGrave(0);  //this returns something
@@ -1979,7 +1979,7 @@ _08047A1C:\n\
 	movs r0, #0xfa\n\
 	lsls r0, r0, #2\n\
 	bl SetPlayerLifePointsToSubtract\n\
-	bl HandleDuelAction\n\
+	bl HandleAtkAndLifePointsAction\n\
 	b _08047A4C\n\
 	.align 2, 0\n\
 _08047A34: .4byte gTurnZones+0x28\n\
@@ -1989,7 +1989,7 @@ _08047A40:\n\
 	movs r0, #0xfa\n\
 	lsls r0, r0, #2\n\
 	bl SetOpponentLifePointsToSubtract\n\
-	bl HandleDuelAction\n\
+	bl HandleAtkAndLifePointsAction\n\
 _08047A4C:\n\
 	bl CheckLoserFlags\n\
 	movs r0, #0\n\
@@ -2133,7 +2133,7 @@ static void EffectPenguinTorpedo(void)
     else
         SetPlayerLifePointsToSubtract(gCardInfo.atk);
 
-    HandleDuelAction();
+    HandleAtkAndLifePointsAction();
     CheckLoserFlags();
 
     if (!gHideEffectText)
@@ -2156,11 +2156,11 @@ static void EffectBerserkDragon(void)
         {
             FlipCardFaceUp(gTurnZones[1][i]);
             if (turn == DUEL_PLAYER)
-                SetDuelActionAttack(gMonEffect.zone, 4 - i);
+                SetAttackAction(gMonEffect.zone, 4 - i);
             else
-                SetDuelActionAttack(i, 4 - gMonEffect.zone);
+                SetAttackAction(i, 4 - gMonEffect.zone);
 
-            HandleDuelAction();
+            HandleAtkAndLifePointsAction();
             CheckGraveyardAndLoserFlags();
             if (turn != DUEL_PLAYER)
                 gUnk2023EA0.unk18 = 0;
@@ -2246,7 +2246,7 @@ static void EffectFairysGift(void)
     else
         SetOpponentLifePointsToAdd(1000);
 
-    HandleDuelAction();
+    HandleAtkAndLifePointsAction();
 
     if (!gHideEffectText)
     {
@@ -2565,7 +2565,7 @@ static void EffectLadyOfFaith(void)
     else
         SetOpponentLifePointsToAdd(500);
 
-    HandleDuelAction();
+    HandleAtkAndLifePointsAction();
 
     if (!gHideEffectText)
     {
@@ -2581,7 +2581,7 @@ static void EffectFireReaper(void)
     else
         SetPlayerLifePointsToSubtract(50);
 
-    HandleDuelAction();
+    HandleAtkAndLifePointsAction();
     CheckLoserFlags();
 
     if (!gHideEffectText)
@@ -2675,7 +2675,7 @@ static void EffectHourglassOfLife(void)
     else
         SetOpponentLifePointsToSubtract(1000);
 
-    HandleDuelAction();
+    HandleAtkAndLifePointsAction();
     CheckLoserFlags();
 
     if (!gHideEffectText)
@@ -2705,13 +2705,13 @@ static void EffectTheWingedDragonOfRaBattleMode(void)
     if (WhoseTurn() == DUEL_PLAYER)
     {
         SetOpponentLifePointsToSubtract(gDuelLifePoints[DUEL_PLAYER] - 1);
-        HandleDuelAction();
+        HandleAtkAndLifePointsAction();
         gDuelLifePoints[DUEL_PLAYER] = 1;
     }
     else
     {
         SetPlayerLifePointsToSubtract(gDuelLifePoints[DUEL_OPPONENT] - 1);
-        HandleDuelAction();
+        HandleAtkAndLifePointsAction();
         gDuelLifePoints[DUEL_OPPONENT] = 1;
     }
     CheckLoserFlags();
@@ -2848,7 +2848,7 @@ static void EffectSkullMarkLadyBug(void)
     else
         SetOpponentLifePointsToAdd(500);
 
-    HandleDuelAction();
+    HandleAtkAndLifePointsAction();
 
     ClearZoneAndSendMonToGraveyard(gTurnZones[gMonEffect.row][gMonEffect.zone], 0);
 
@@ -2910,7 +2910,7 @@ static void EffectDesVolstgalph(void)
     else
         SetPlayerLifePointsToSubtract(500);
 
-    HandleDuelAction();
+    HandleAtkAndLifePointsAction();
     CheckLoserFlags();
 
     if (!gHideEffectText)
@@ -2946,7 +2946,7 @@ static void EffectTheWingedDragonOfRaPhoenixMode(void)
     else
         SetOpponentLifePointsToSubtract(1000);
 
-    HandleDuelAction();
+    HandleAtkAndLifePointsAction();
     CheckLoserFlags();
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)

@@ -146,7 +146,7 @@ SECTIONS
     g2023E7B = 0x2023E7B;
 
 
-    g2023E80 = 0x02023E80;
+    sActionData = 0x02023E80;
     gUnk2023EA0 = 0x02023EA0;
     gDuel = 0x02023EC0;
     gTurnDuelistBattleState = 0x02023FC0;

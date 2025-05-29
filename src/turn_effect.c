@@ -459,12 +459,12 @@ static void sub_802B770 (void) {
   FlipCardFaceUp(gTurnZones[g2021DE0.unk2][g2021DE0.unk3]);
   if (g2021DE0.turn == ACTIVE_DUELIST) {
     SetPlayerLifePointsToSubtract(1000);
-    HandleDuelAction();
+    HandleAtkAndLifePointsAction();
     CheckLoserFlags();
   }
   else {
     SetOpponentLifePointsToSubtract(1000);
-    HandleDuelAction();
+    HandleAtkAndLifePointsAction();
     CheckLoserFlags();
   }
   if (!gHideEffectText) {
@@ -489,12 +489,12 @@ static void EffectLavaGolemLifePoints (void) {
   FlipCardFaceUp(gTurnZones[2][g2021DE0.unk3]);
   if (g2021DE0.turn == ACTIVE_DUELIST) {
     SetPlayerLifePointsToSubtract(700);
-    HandleDuelAction();
+    HandleAtkAndLifePointsAction();
     CheckLoserFlags();
   }
   else {
     SetOpponentLifePointsToSubtract(700);
-    HandleDuelAction();
+    HandleAtkAndLifePointsAction();
     CheckLoserFlags();
   }
   if (!gHideEffectText) {

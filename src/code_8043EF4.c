@@ -340,8 +340,8 @@ void sub_8044570 (void) {
       gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
       gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp = 1;
       gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
-      sub_803F8E0(gDuelCursor.currentX);
-      HandleDuelAction();
+      SetAttackActionDirectAttack(gDuelCursor.currentX);
+      HandleAtkAndLifePointsAction();
       CheckGraveyardAndLoserFlags();
       gDuelCursor.state = 0;
       sub_801BC00();
@@ -450,8 +450,8 @@ void sub_8044840 (void) {
       gFixedZones[gDuelCursor.destY][gDuelCursor.destX]->isFaceUp = 1;
       gFixedZones[gDuelCursor.destY][gDuelCursor.destX]->isLocked = 1;
       gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp = 1;
-      SetDuelActionAttack(gDuelCursor.destX, gDuelCursor.currentX);
-      HandleDuelAction();
+      SetAttackAction(gDuelCursor.destX, gDuelCursor.currentX);
+      HandleAtkAndLifePointsAction();
       CheckGraveyardAndLoserFlags();
       gDuelCursor.state = 0;
       SetCursorToCardDest();
