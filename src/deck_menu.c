@@ -288,7 +288,7 @@ static void sub_801D57C (void) {
 static void sub_801D5B0 (void) {
   SetCardInfo(GetSelectedCardWithOffset(2));
   PlayMusic(SFX_SELECT);
-  sub_801F6B0();
+  ShowCardDetailView();
   sub_801EF30(0);
   sub_801EF30(2);
   sub_801F4A0(1);

@@ -360,7 +360,7 @@ static void SelectDetailsInTrunkSubmenu (void) {
   gStatMod.stage = 0;
   SetCardInfoWithWarning(&gStatMod.card);
   PlayMusic(SFX_SELECT);
-  sub_801F6B0();
+  ShowCardDetailView();
   sub_800A3D8(0);
   sub_800A3D8(2);
   sub_800AA58(1);

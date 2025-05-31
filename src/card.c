@@ -1291,7 +1291,7 @@ static void sub_800C1BC (void)
 {
     SetCardInfo(sub_800901C(2));
     PlayMusic(SFX_SELECT);
-    sub_801F6B0();
+    ShowCardDetailView();
     sub_800D904(0);
     sub_800D904(2);
     sub_800AA58(1);

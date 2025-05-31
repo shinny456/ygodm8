@@ -430,7 +430,7 @@ void sub_801F658 (void) {
   REG_BLDY = 4;
 }
 /*
-void sub_801F6B0 (void) {
+void ShowCardDetailView (void) {
   u8 i;
   u8* text;
   u8 buffer[144];
@@ -576,7 +576,7 @@ void sub_801F6B0 (void) {
 }*/
 
 NAKED
-void sub_801F6B0 (void) {
+void ShowCardDetailView (void) {
   asm_unified("push {r4, r5, r6, r7, lr}\n\
 	mov r7, sl\n\
 	mov r6, sb\n\
@@ -1110,7 +1110,7 @@ void DisplayMoneyRewardText (void);
 int GetCardsDrawn (u8 arg0);
 u16 RandRangeU16 (u16, u16);
 u16 sub_801FFE0 (void);
-void sub_802D90C (u16, u8);
+void AddCardQtyToShop2 (u16, u8);
 u16 sub_8020050 (void);
 void sub_80201AC (u8);
 void sub_802018C (u8);
@@ -1157,7 +1157,7 @@ void HandleWin (void) {
       duelText.unk0 = gDuelData.unk14[i];
       DisplayDuelText(&duelText);
       SetCardInfo(gDuelData.unk14[i]);
-      sub_801F6B0();
+      ShowCardDetailView();
     }
   }
   if (gDuelType == DUEL_TYPE_INGAME)
@@ -1304,7 +1304,7 @@ u16 sub_801FFE0 (void) {
 void AddCardDropsToShop (void) {
   u32 i;
   for (i = 0; i < 3; i++)
-    sub_802D90C(sub_8020050(), 1);
+    AddCardQtyToShop2(sub_8020050(), 1);
 }
 
 // TODO: is >= problematic here?

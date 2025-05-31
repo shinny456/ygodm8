@@ -641,7 +641,7 @@ static unsigned short sub_8036224 (void) {
 static void sub_80362A8 (void) {
   PlayMusic(SFX_SELECT);
   SetCardInfo(sub_8036C3C(2));
-  sub_801F6B0();
+  ShowCardDetailView();
   sub_8039E60();
 }
 

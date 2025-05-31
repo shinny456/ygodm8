@@ -93,7 +93,7 @@ void BMenuMain (void) {
             gStatMod.field = gDuel.field;
             gStatMod.stage = GetFinalStage(gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]);
             SetFinalStat(&gStatMod);
-            sub_801F6B0();
+            ShowCardDetailView();
             UpdateAllDuelGfx();
           }
           else {

@@ -1,6 +1,13 @@
 #include "global.h"
 
-static const unsigned char sCardPasswords[][8] = {
+#define NUM_PASSWORD_DIGITS 8
+
+enum {
+  RESULT_MATCH = 10,
+  RESULT_MISMATCH = 11,
+};
+
+static const unsigned char sCardPasswords[][NUM_PASSWORD_DIGITS] = {
   [CARD_NONE] = {15, 15, 15, 15, 15, 15, 15, 14},
   [BLUE_EYES_WHITE_DRAGON] = {8, 9, 6, 3, 1, 1, 3, 9},
   [MYSTICAL_ELF] = {1, 5, 0, 2, 5, 8, 4, 4},
@@ -806,27 +813,27 @@ static const unsigned char sCardPasswords[][8] = {
 
 const unsigned char gE11654[] = {15, 15, 15, 15, 15, 15, 15, 15};
 //const unsigned char g8E1165C[][8] = ;
-extern unsigned char g8E1165C[][8];
+extern unsigned char g8E1165C[][NUM_PASSWORD_DIGITS];
 struct PasswordData
 {
     u16 cardId;
-    u8 unk2;
-    u8 digits[8]; //TODO: NUM_PASSWORD_DIGITS?
+    u8 result; // 10 = match, 11 = mismatch
+    u8 digits[NUM_PASSWORD_DIGITS];
 };
 
 extern struct PasswordData sPasswordData;
 
-static void sub_8055D04 (void);
+static void CheckForSpecialPassword1 (void);
 static u8 sub_8055D78 (u16);
-static void sub_8055DEC (void);
-static u8 sub_8055E60 (u16);
-static u8 sub_8055ED4 (u16);
-static unsigned char sub_8055F1C (const unsigned char*, const unsigned char*);
-static void sub_8055F48 (void);
-static void sub_08055F64 (u16);
-static void sub_8055F68 (u16);
-static void sub_8055FEC (u16);
-static void sub_8056048 (u16);
+static void CheckForSpecialPassword2 (void);
+static u8 PasswordMatchesSpecialCode2 (u16);
+static u8 PasswordMatchesCard (u16);
+static unsigned char ComparePasswords (const unsigned char*, const unsigned char*);
+static void ResetPasswordDigits (void);
+static void EmptyFunc_08055F64 (u16);
+static void TryPlaySuccessSfx (u16);
+static void ApplySpecialPasswordFlag1 (u16);
+static void ApplySpecialPasswordFlag2 (u16);
 
 
 extern u8 g2024520[];
@@ -835,41 +842,40 @@ extern u8 g202458C[];
 extern u8 g2024590;
 
 
-extern u8 g8E11664[][8];
+extern u8 g8E11664[][NUM_PASSWORD_DIGITS];
 extern u8 g8E1167C[];
 extern u8 g8E11684[];
 extern u8 gCardPasswordDigits[];
 extern u16 gPressedButtons;
-void sub_802D90C(u16, u8);
+void AddCardQtyToShop2(u16, u8);
 void FadeInBlendEffect(void);
 u16 sub_803F04C (u8);
 u32 sub_8056014(u16);
 
-
-static inline unsigned char sub_8055F1C_inline (const unsigned char *a, const unsigned char *b) {
-  u8 i, r5 = 10;
-  for (i = 0; i < 8; i++)
-    if (*a++ != *b++)
-      r5 = 11;
-  return r5;
+static inline unsigned char ComparePasswords_Inline (const unsigned char *input, const unsigned char *password) {
+  u8 i, ret = RESULT_MATCH;
+  for (i = 0; i < NUM_PASSWORD_DIGITS; i++)
+    if (*input++ != *password++)
+      ret = RESULT_MISMATCH;
+  return ret;
 }
 
-static void sub_8055C04 (void)
+static void SearchForMatchingCard (void)
 {
     sPasswordData.cardId = 0;
-    while (1)
+    while (TRUE)
     {
-        switch (sub_8055ED4(sPasswordData.cardId))
+        switch (PasswordMatchesCard(sPasswordData.cardId))
         {
         case 1:
             break;
         case 0:
-            sPasswordData.unk2 = 11;
+            sPasswordData.result = RESULT_MISMATCH;
             return;
         default:
-            if (sub_8055F1C(sPasswordData.digits, sCardPasswords[sPasswordData.cardId]) == 10)
+            if (ComparePasswords(sPasswordData.digits, sCardPasswords[sPasswordData.cardId]) == RESULT_MATCH)
             {
-                sPasswordData.unk2 = 10;
+                sPasswordData.result = RESULT_MATCH;
                 return;
             }
         }
@@ -882,34 +888,38 @@ void CardPasswordMain (void)
     int i;
 
     PasswordTerminalMain();
-    for (i = 0; i < 8; i++)
+    for (i = 0; i < NUM_PASSWORD_DIGITS; i++)
       sPasswordData.digits[i] = gCardPasswordDigits[i];
-    sub_8055C04();
-    if (sPasswordData.unk2 == 10)
+    SearchForMatchingCard();
+    if (sPasswordData.result == RESULT_MATCH)
     {
         SetCardInfo(sPasswordData.cardId);
         PlayMusic(SFX_CODE_ENTRY_SUCCESS);
-        sub_801F6B0();
-        sub_802D90C(sPasswordData.cardId, 1);
+        ShowCardDetailView();
+        AddCardQtyToShop2(sPasswordData.cardId, 1);
         goto end;
     }
-    sub_8055D04();
-    if (sPasswordData.unk2 == 10)
+
+    // one of special reshef sprite or Marik/Phoenix Mode flag?
+    CheckForSpecialPassword1();
+    if (sPasswordData.result == RESULT_MATCH)
     {
         if (!sub_8056014(sPasswordData.cardId))
         {
-            sub_8055FEC(sPasswordData.cardId);
-            sub_08055F64(sPasswordData.cardId);
+            ApplySpecialPasswordFlag1(sPasswordData.cardId);
+            EmptyFunc_08055F64(sPasswordData.cardId);
         }
         else
             PlayMusic(SFX_FORBIDDEN);
         goto end;
     }
-    sub_8055DEC();
-    if (sPasswordData.unk2 == 10)
+
+    // one of special reshef sprite or Marik/Phoenix Mode flag?
+    CheckForSpecialPassword2();
+    if (sPasswordData.result == RESULT_MATCH)
     {
-        sub_8056048(sPasswordData.cardId);
-        sub_8055F68(sPasswordData.cardId);
+        ApplySpecialPasswordFlag2(sPasswordData.cardId);
+        TryPlaySuccessSfx(sPasswordData.cardId);
     }
     else
         PlayMusic(SFX_FORBIDDEN);
@@ -918,24 +928,24 @@ void CardPasswordMain (void)
     FadeInBlendEffect();
 }
 
-static void sub_8055D04 (void)
+static void CheckForSpecialPassword1 (void)
 {
     u8 i;
 
     sPasswordData.cardId = 0;
-    while (1)
+    while (TRUE)
     {
         switch (sub_8055D78(sPasswordData.cardId))
         {
         case 1:
             break;
         case 0:
-            sPasswordData.unk2 = 11;
+            sPasswordData.result = RESULT_MISMATCH;
             return;
         default:
-            if (sub_8055F1C_inline(sPasswordData.digits, g8E1165C[sPasswordData.cardId]) == 10)
+            if (ComparePasswords_Inline(sPasswordData.digits, g8E1165C[sPasswordData.cardId]) == RESULT_MATCH)
             {
-                sPasswordData.unk2 = 10;
+                sPasswordData.result = RESULT_MATCH;
                 return;
             }
         }
@@ -945,31 +955,31 @@ static void sub_8055D04 (void)
 
 static u8 sub_8055D78(u16 cardId)
 {
-    if (sub_8055F1C_inline(g8E1167C, g8E1165C[cardId]) == 10)
+    if (ComparePasswords_Inline(g8E1167C, g8E1165C[cardId]) == RESULT_MATCH)
         return 0;
-    if (sub_8055F1C_inline(g8E11684, g8E1165C[cardId]) == 10)
+    if (ComparePasswords_Inline(g8E11684, g8E1165C[cardId]) == RESULT_MATCH)
         return 1;
     return 2;
 }
 
-static void sub_8055DEC (void)
+static void CheckForSpecialPassword2 (void)
 {
     u8 i;
 
     sPasswordData.cardId = 0;
-    while (1)
+    while (TRUE)
     {
-        switch (sub_8055E60(sPasswordData.cardId))
+        switch (PasswordMatchesSpecialCode2(sPasswordData.cardId))
         {
         case 1:
             break;
         case 0:
-            sPasswordData.unk2 = 11;
+            sPasswordData.result = RESULT_MISMATCH;
             return;
         default:
-            if (sub_8055F1C_inline(sPasswordData.digits, g8E11664[sPasswordData.cardId]) == 10)
+            if (ComparePasswords_Inline(sPasswordData.digits, g8E11664[sPasswordData.cardId]) == RESULT_MATCH)
             {
-                sPasswordData.unk2 = 10;
+                sPasswordData.result = RESULT_MATCH;
                 return;
             }
         }
@@ -977,44 +987,39 @@ static void sub_8055DEC (void)
     }
 }
 
-static u8 sub_8055E60 (u16 cardId)
+static u8 PasswordMatchesSpecialCode2 (u16 cardId)
 {
-    if (sub_8055F1C_inline(g8E1167C, g8E11664[cardId]) == 10)
+    if (ComparePasswords_Inline(g8E1167C, g8E11664[cardId]) == RESULT_MATCH)
         return 0;
-    if (sub_8055F1C_inline(g8E11684, g8E11664[cardId]) == 10)
+    if (ComparePasswords_Inline(g8E11684, g8E11664[cardId]) == RESULT_MATCH)
         return 1;
     return 2;
 }
 
-static u8 sub_8055ED4 (u16 cardId)
+static u8 PasswordMatchesCard (u16 cardId)
 {
-    if (sub_8055F1C(g8E1167C, sCardPasswords[cardId]) == 10)
+    if (ComparePasswords(g8E1167C, sCardPasswords[cardId]) == RESULT_MATCH)
         return 0;
-    if (sub_8055F1C(g8E11684, sCardPasswords[cardId]) == 10)
+    if (ComparePasswords(g8E11684, sCardPasswords[cardId]) == RESULT_MATCH)
         return 1;
     return 2;
 }
 
-static unsigned char sub_8055F1C (const unsigned char *a, const unsigned char *b) {
-  u8 i, r5 = 10;
-  for (i = 0; i < 8; i++)
-    if (*a++ != *b++)
-      r5 = 11;
-  return r5;
+static unsigned char ComparePasswords (const unsigned char *a, const unsigned char *b) {
+  return ComparePasswords_Inline(a, b);
 }
 
-static void sub_8055F48 (void)
+static void ResetPasswordDigits (void)
 {
     u8 i;
-
     for (i = 0; i < 8; i++)
       sPasswordData.digits[i] = 0;
 }
 
-static void sub_08055F64(u16 cardId) {
+static void EmptyFunc_08055F64(u16 cardId) {
 }
 
-static void sub_8055F68(u16 cardId) {
+static void TryPlaySuccessSfx(u16 cardId) {
   switch (cardId) {
     case 0:
       PlayMusic(SFX_CODE_ENTRY_SUCCESS);
@@ -1041,7 +1046,7 @@ void sub_8055FD0 (void) {
     g202458C[i] = 0;
 }
 
-static void sub_8055FEC (u16 arg0) {
+static void ApplySpecialPasswordFlag1 (u16 arg0) {
   g202458C[arg0 >> 3] |= sub_803F04C(arg0 & 7);
 }
 
@@ -1083,7 +1088,7 @@ u32 sub_8056014 (u16 arg0) {
 static void sub_8056044 (void) {
 }
 
-static void sub_8056048 (u16 arg0) {
+static void ApplySpecialPasswordFlag2 (u16 arg0) {
   g2024588[arg0 >> 3] |= sub_803F04C(arg0 & 7);
 }
 

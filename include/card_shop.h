@@ -3,7 +3,7 @@
 
 void CardShopBuyMain (void);
 void CardShopSellMain (void);
-void sub_802D90C (unsigned short, unsigned char);
+void AddCardQtyToShop2 (unsigned short, unsigned char);
 void InitNewGameShopCards (void);
 
 #endif // GUARD_CARD_SHOP_H

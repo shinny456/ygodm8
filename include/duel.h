@@ -211,7 +211,7 @@ void ActivateCardEffectText(void);
 
 void ResetCardEffectTextData(void);
 void SetCardEffectTextType(u8);
-void sub_801F6B0(void);
+void ShowCardDetailView(void);
 
 
 

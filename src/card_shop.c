@@ -71,7 +71,7 @@ static void OpenConfirmBuyMenu (void);
 static void TryMoveUpInConfirmBuyMenu (void);
 static void TryMoveDownInConfirmBuyMenu (void);
 static void SelectOptionInConfirmBuyMenu (void);
-static unsigned char sub_802D9AC (u16, u8);
+static unsigned char ShopHasSpaceForCardQty2 (u16, u8);
 static unsigned char sub_802D9D0 (u16, u8);
 static void MoveCursorLeftInBuyShop (void);
 static void MoveCursorRightInBuyShop (void);
@@ -805,7 +805,7 @@ static void SelectDetailsInConfirmSellMenu (void) {
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   SetCardInfo(cardId);
   PlayMusic(SFX_SELECT);
-  sub_801F6B0();
+  ShowCardDetailView();
   gShopSelectedCard.cardId = cardId;
   gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   ScalePriceToQty();
@@ -1268,7 +1268,7 @@ static void SelectDetailsInConfirmBuyMenu (void) {
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   SetCardInfo(cardId);
   PlayMusic(SFX_SELECT);
-  sub_801F6B0();
+  ShowCardDetailView();
   gShopSelectedCard.cardId = cardId;
   gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   ScalePriceToQty();
@@ -1324,11 +1324,11 @@ static void SelectOptionInConfirmBuyMenu (void) {
   }
 }
 
-void sub_802D90C (unsigned short cardId, unsigned char qty) {
+void AddCardQtyToShop2 (unsigned short cardId, unsigned char qty) {
   // this could be calling an inline func
   if ((u16)(cardId - 1) >= 800)
     return;
-  if (sub_802D9AC(cardId, qty) == 1)
+  if (ShopHasSpaceForCardQty2(cardId, qty) == 1)
     gShopCardQty[cardId] += qty;
   else
     gShopCardQty[cardId] = SHOP_MAX_CARD_QTY;
@@ -1345,7 +1345,7 @@ static void sub_802D95C (u16 cardId, u8 qty) {
     gShopCardQty[cardId] = 0;
 }
 
-static unsigned char sub_802D9AC (u16 cardId, u8 qty) {
+static unsigned char ShopHasSpaceForCardQty2 (u16 cardId, u8 qty) {
   if (qty > SHOP_MAX_CARD_QTY - gShopCardQty[cardId])
     return 0;
   return 1;

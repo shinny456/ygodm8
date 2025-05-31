@@ -20543,7 +20543,7 @@ sub_803E850: @ 0x0803E850
 	movs r0, #2
 	bl sub_8037798
 	bl SetCardInfo
-	bl sub_801F6B0
+	bl ShowCardDetailView
 	bl sub_803B9D4
 	pop {r0}
 	bx r0
@@ -21082,7 +21082,7 @@ sub_803EC58: @ 0x0803EC58
 	movs r0, #2
 	bl sub_80383E4
 	bl SetCardInfo
-	bl sub_801F6B0
+	bl ShowCardDetailView
 	bl sub_803D4AC
 	movs r0, #0
 	pop {r1}
