@@ -461,12 +461,12 @@ static void EffectMessengerOfPeaceLifePoints (void) {
   FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
   if (gActiveEffect.turn == ACTIVE_DUELIST) {
     SetPlayerLifePointsToSubtract(1000);
-    HandleDuelAction();
+    HandleAtkAndLifePointsAction();
     CheckLoserFlags();
   }
   else {
     SetOpponentLifePointsToSubtract(1000);
-    HandleDuelAction();
+    HandleAtkAndLifePointsAction();
     CheckLoserFlags();
   }
   if (!gHideEffectText) {
@@ -491,12 +491,12 @@ static void EffectLavaGolemLifePoints (void) {
   FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
   if (gActiveEffect.turn == ACTIVE_DUELIST) {
     SetPlayerLifePointsToSubtract(700);
-    HandleDuelAction();
+    HandleAtkAndLifePointsAction();
     CheckLoserFlags();
   }
   else {
     SetOpponentLifePointsToSubtract(700);
-    HandleDuelAction();
+    HandleAtkAndLifePointsAction();
     CheckLoserFlags();
   }
   if (!gHideEffectText) {

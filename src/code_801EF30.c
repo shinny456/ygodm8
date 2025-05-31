@@ -57,9 +57,9 @@ extern u8 g80B96B8[];
 extern u8 g80B96BC[];
 
 extern struct OamData gOamBuffer[];
-extern u8 g201CB58;
-extern u8 g201CB59;
-extern u16 g201CB60[2][2240];
+extern u8 g201CB58; //current page index?
+extern u8 g201CB59; //sNumPages
+extern u16 g201CB60[2][2240]; //2 -> NUM_DESCRIPTION_PAGES?
 extern u16 gNewButtons;
 
 void sub_801EF30 (u8 arg0) {
@@ -518,7 +518,7 @@ void ShowCardDetailView (void) {
         i++;
       }
       buffer[i] = 0;
-      CopyStringTilesToVRAMBuffer(g201CB60[g201CB58], buffer, 0x901);
+      CopyStringTilesToVRAMBuffer(g201CB60[g201CB58], buffer, 0x901); //TODO: rename function since it's not copied to the regular VRAM buffer?
       text++;
     }
   }

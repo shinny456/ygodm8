@@ -32,7 +32,7 @@ extern void (*g8DFF7F0[])(void);
 extern void (*g8E00330[])(void);
 extern void (*g8E00150[])(void);
 
-extern unsigned char gWhoseTurn; // rename to gActiveTurn/gCurrentTurn?
+extern unsigned char gWhoseTurn; // rename to gActiveTurn/gCurrentTurn? (or ActiveDuelist?)
 
 struct DuelCard
 {
@@ -220,9 +220,9 @@ void CheckGraveyardAndLoserFlags(void);
 
 
 //TODO: change name to duel command for all these functions?
-void HandleDuelAction(void);
+void HandleAtkAndLifePointsAction(void);
 void CheckLoserFlags(void);
-void SetDuelActionAttack(s32, s32);
+void SetAttackAction(s32, s32);
 void SetPlayerLifePointsToAdd(u32);
 void SetOpponentLifePointsToAdd(u32);
 void SetPlayerLifePointsToSubtract(u32); //sub player life points
@@ -341,29 +341,7 @@ bool32 IsTrapTriggered(void);
 
 u16 GetGraveCardAndClearGrave2(u8);
 
-struct Unk2023E80 {
-  unsigned short playerCardId;
-  unsigned short playerCardAttack;
-  unsigned short playerCardDefense;
-  unsigned short playerLifePoints;
-  unsigned char playerCardAttribute;
-  unsigned char playerMonsterRow;
-  unsigned char unkA; //playerMonsterCol/Zone
-  unsigned short opponentCardId;
-  unsigned short opponentCardAttack;
-  unsigned short opponentCardDefense;
-  unsigned short opponentLifePoints;
-  unsigned char opponentCardAttribute;
-  unsigned char opponentMonsterRow;
-  unsigned char unk16;
-  unsigned char filler17;
-//--------------
-  unsigned char action;
-  unsigned char flags;
-  unsigned char unk1A;
-  unsigned char unk1B;
-};
-extern struct Unk2023E80 g2023E80;
+
 
 struct Unk2023EA0 {
   struct {
@@ -453,7 +431,7 @@ extern u16 gRitualComponents[][4]; //ritual
 
 void BlockTurnSummoning(u8);
 void LockMonsterCardsInRow(u8);
-void sub_803F8E0(int);
+void SetAttackActionDirectAttack(int);
 
 struct DuelDeck
 {

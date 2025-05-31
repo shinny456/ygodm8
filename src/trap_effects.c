@@ -516,7 +516,7 @@ static void EffectGoblinFan(u16 lp)
     else
         SetOpponentLifePointsToSubtract(lp);
 
-    HandleDuelAction();
+    HandleAtkAndLifePointsAction();
     CheckLoserFlags();
 
     ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
@@ -537,7 +537,7 @@ static void EffectBadReactionToSimochi(u16 lp)
     else
         SetOpponentLifePointsToSubtract(lp);
 
-    HandleDuelAction();
+    HandleAtkAndLifePointsAction();
     CheckLoserFlags();
 
     ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);

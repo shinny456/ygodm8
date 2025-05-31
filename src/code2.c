@@ -255,8 +255,8 @@ static void sub_800E58C(void)
     gTurnZones[row2][col2]->isDefending = FALSE;
     gTurnZones[row2][col2]->isFaceUp = TRUE;
     gTurnZones[row2][col2]->isLocked = TRUE;
-    sub_803F8E0(4 - col2);
-    HandleDuelAction();
+    SetAttackActionDirectAttack(4 - col2);
+    HandleAtkAndLifePointsAction();
     CheckGraveyardAndLoserFlags();
 }
 
@@ -268,8 +268,8 @@ static void sub_800E5E4(void)
     gTurnZones[row2][col2]->isDefending = FALSE;
     gTurnZones[row2][col2]->isFaceUp = TRUE;
     gTurnZones[row2][col2]->isLocked = TRUE;
-    sub_803F8E0(4 - col2);
-    HandleDuelAction();
+    SetAttackActionDirectAttack(4 - col2);
+    HandleAtkAndLifePointsAction();
     CheckGraveyardAndLoserFlags();
 }
 
@@ -284,8 +284,8 @@ static void sub_800E63C(void)
     gTurnZones[row2][col2]->isFaceUp = TRUE;
     gTurnZones[row2][col2]->isLocked = TRUE;
     gTurnZones[row3][col3]->isFaceUp = TRUE;
-    SetDuelActionAttack(col3, 4 - col2);
-    HandleDuelAction();
+    SetAttackAction(col3, 4 - col2);
+    HandleAtkAndLifePointsAction();
     CheckGraveyardAndLoserFlags();
 }
 
@@ -300,8 +300,8 @@ static void sub_800E6B8(void)
     gTurnZones[row2][col2]->isFaceUp = TRUE;
     gTurnZones[row2][col2]->isLocked = TRUE;
     gTurnZones[row3][col3]->isFaceUp = TRUE;
-    SetDuelActionAttack(col3, 4 - col2);
-    HandleDuelAction();
+    SetAttackAction(col3, 4 - col2);
+    HandleAtkAndLifePointsAction();
     CheckGraveyardAndLoserFlags();
 }
 
@@ -949,7 +949,7 @@ static void sub_800F248(void)
     gUnk_8DFF6A4->unk2294++;
 }
 
-// priority of discard action 
+// priority of discard action
 static void sub_800F298(void)
 {
     u8 row2 = sAI_Command.unk2 >> 4;
@@ -8246,7 +8246,7 @@ static u8 sub_801B2B8 (void) {
 static u8 sub_801B304 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  if (GetTypeGroup(gTurnZones[row2][col2]->id) == TYPE_GROUP_SPELL 
+  if (GetTypeGroup(gTurnZones[row2][col2]->id) == TYPE_GROUP_SPELL
   && GetSpellType(gTurnZones[row2][col2]->id) == SPELL_TYPE_INVALID) {
     SetCardInfo(gTurnZones[row2][col2]->id);
     if (gCardInfo.unk1E)
@@ -8327,6 +8327,11 @@ static u8 sub_801B56C (void) {
   SetCardInfo(gTurnZones[row2][col2]->id);
   if (gCardInfo.unk1E && GetTypeGroup(gTurnZones[row2][col2]->id) == TYPE_GROUP_SPELL)
     GetSpellType(gTurnZones[row2][col2]->id);
+  //TODO: replace with ?
+  /*
+  if (gCardInfo.unk1E && GetTypeGroup(gZones[row2][col2]->id) == TYPE_GROUP_SPELL && GetSpellType(gZones[row2][col2]->id) == SOMETHING)
+    ;
+  */
   return 0;
 }
 

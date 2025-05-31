@@ -4,7 +4,36 @@
 #define FLAG_GRAVEYARD_OPPONENT 2
 #define FLAG_LOSER_PLAYER 4
 #define FLAG_LOSER_OPPONENT 16
+/*
+enum {
+  ATK_ACTION_ATTACK = 1,
+  ATK_
+};
+*/
 
+struct Unk2023E80 {
+  unsigned short playerCardId;
+  unsigned short playerCardAtkOrLifePointsMod;
+  unsigned short playerCardDefense;
+  unsigned short playerLifePoints;
+  unsigned char playerCardAttribute;
+  unsigned char playerMonsterRow;
+  unsigned char unkA; //playerMonsterCol/Zone
+  unsigned short opponentCardId;
+  unsigned short opponentCardAtkOrLifePointsMod;
+  unsigned short opponentCardDefense;
+  unsigned short opponentLifePoints;
+  unsigned char opponentCardAttribute;
+  unsigned char opponentMonsterRow;
+  unsigned char unk16;
+  unsigned char filler17;
+//--------------
+  unsigned char id;
+  unsigned char flags;
+  unsigned char unk1A;
+  unsigned char unk1B;
+};
+extern struct Unk2023E80 sActionData;
 
 /*
 unsigned char g8E0CFC0[] = {
@@ -14,12 +43,12 @@ unsigned char g8E0CFC0[] = {
 */
 
 static void sub_0803F330 (void);
-static void sub_803F334 (void);
-static void sub_803F374 (void);
-static void AddPlayerLifePoints (void);
-static void sub_803F3D4 (void);
-static void sub_803F400 (void);
-static void sub_803F420 (void);
+static void PlayerDirectAttack (void);
+static void OpponentDirectAttack (void);
+static void IncreasePlayerLifePoints (void);
+static void DecreasePlayerLifePoints (void);
+static void IncreaseOpponentLifePoints (void);
+static void DecreaseOpponentLifePoints (void);
 static void SetFlagPlayerGraveyard (void);
 static void SetFlagOpponentGraveyard (void);
 static void UpdateLifePointsAfterAction (void);
@@ -92,22 +121,22 @@ u16 sub_803F04C (unsigned char arg0) {
 
 // split?
 static inline void SetLoserFlag_inline (unsigned char arg0) {
-  g2023E80.flags |= g8E0CFC0[arg0];
+  sActionData.flags |= g8E0CFC0[arg0];
 }
 
-static void sub_803F05C (void) {
+static void AttackAtkPositionMonster (void) {
   sub_803FD3C();
   if (sub_803FA94() != 1)
     return;
-  if (g2023E80.playerCardAttack >= g2023E80.opponentCardAttack) {
-    if (g2023E80.playerCardAttack > g2023E80.opponentCardAttack) {
+  if (sActionData.playerCardAtkOrLifePointsMod >= sActionData.opponentCardAtkOrLifePointsMod) {
+    if (sActionData.playerCardAtkOrLifePointsMod > sActionData.opponentCardAtkOrLifePointsMod) {
       SetFlagOpponentGraveyard();
-      if (g2023E80.opponentLifePoints <= g2023E80.playerCardAttack - g2023E80.opponentCardAttack) {
-        g2023E80.opponentLifePoints = 0;
-        SetLoserFlag_inline(g2023E80.unk1B);
+      if (sActionData.opponentLifePoints <= sActionData.playerCardAtkOrLifePointsMod - sActionData.opponentCardAtkOrLifePointsMod) {
+        sActionData.opponentLifePoints = 0;
+        SetLoserFlag_inline(sActionData.unk1B);
       }
       else
-        g2023E80.opponentLifePoints -= g2023E80.playerCardAttack - g2023E80.opponentCardAttack;
+        sActionData.opponentLifePoints -= sActionData.playerCardAtkOrLifePointsMod - sActionData.opponentCardAtkOrLifePointsMod;
       gUnk2023EA0.unk18 = 1;
     }
     else {
@@ -118,22 +147,22 @@ static void sub_803F05C (void) {
   }
   else {
     SetFlagPlayerGraveyard();
-    if (g2023E80.playerLifePoints <= g2023E80.opponentCardAttack - g2023E80.playerCardAttack) {
-      g2023E80.playerLifePoints = 0;
-      SetLoserFlag_inline(g2023E80.unk1A);
+    if (sActionData.playerLifePoints <= sActionData.opponentCardAtkOrLifePointsMod - sActionData.playerCardAtkOrLifePointsMod) {
+      sActionData.playerLifePoints = 0;
+      SetLoserFlag_inline(sActionData.unk1A);
     }
     else
-      g2023E80.playerLifePoints -= g2023E80.opponentCardAttack - g2023E80.playerCardAttack;
+      sActionData.playerLifePoints -= sActionData.opponentCardAtkOrLifePointsMod - sActionData.playerCardAtkOrLifePointsMod;
     gUnk2023EA0.unk18 = 3;
   }
 }
 
-static void sub_803F108 (void) {
+static void PlayerAttackDefendingMonster (void) {
   sub_803FD3C();
   if (sub_803FAFC() != 1)
     return;
-  if (g2023E80.playerCardAttack >= g2023E80.opponentCardDefense) {
-    if (g2023E80.playerCardAttack > g2023E80.opponentCardDefense) {
+  if (sActionData.playerCardAtkOrLifePointsMod >= sActionData.opponentCardDefense) {
+    if (sActionData.playerCardAtkOrLifePointsMod > sActionData.opponentCardDefense) {
       SetFlagOpponentGraveyard();
       gUnk2023EA0.unk18 = 4;
     }
@@ -141,28 +170,28 @@ static void sub_803F108 (void) {
       gUnk2023EA0.unk18 = 5;
   }
   else {
-    if (g2023E80.playerLifePoints <= g2023E80.opponentCardDefense - g2023E80.playerCardAttack) {
-      g2023E80.playerLifePoints = 0;
-      SetLoserFlag_inline(g2023E80.unk1A);
+    if (sActionData.playerLifePoints <= sActionData.opponentCardDefense - sActionData.playerCardAtkOrLifePointsMod) {
+      sActionData.playerLifePoints = 0;
+      SetLoserFlag_inline(sActionData.unk1A);
     }
     else
-      g2023E80.playerLifePoints -= g2023E80.opponentCardDefense - g2023E80.playerCardAttack;
+      sActionData.playerLifePoints -= sActionData.opponentCardDefense - sActionData.playerCardAtkOrLifePointsMod;
     gUnk2023EA0.unk18 = 6;
   }
 }
 
-static void sub_803F180 (void) {
+static void OpponentAttackDefendingMonster (void) {
   sub_803FD3C();
   if (sub_803FB64() != 1)
     return;
-  if (g2023E80.playerCardDefense >= g2023E80.opponentCardAttack) {
-    if (g2023E80.playerCardDefense > g2023E80.opponentCardAttack) {
-      if (g2023E80.opponentLifePoints <= g2023E80.playerCardDefense - g2023E80.opponentCardAttack) {
-        g2023E80.opponentLifePoints = 0;
-        SetLoserFlag_inline(g2023E80.unk1B);
+  if (sActionData.playerCardDefense >= sActionData.opponentCardAtkOrLifePointsMod) {
+    if (sActionData.playerCardDefense > sActionData.opponentCardAtkOrLifePointsMod) {
+      if (sActionData.opponentLifePoints <= sActionData.playerCardDefense - sActionData.opponentCardAtkOrLifePointsMod) {
+        sActionData.opponentLifePoints = 0;
+        SetLoserFlag_inline(sActionData.unk1B);
       }
       else
-        g2023E80.opponentLifePoints -= g2023E80.playerCardDefense - g2023E80.opponentCardAttack;
+        sActionData.opponentLifePoints -= sActionData.playerCardDefense - sActionData.opponentCardAtkOrLifePointsMod;
       gUnk2023EA0.unk18 = 7;
     }
     else
@@ -175,60 +204,59 @@ static void sub_803F180 (void) {
 }
 
 static void sub_803F1F4 (void) {
-  gUnk2023EA0.unk0[0].cardId = g2023E80.playerCardId;
-  gUnk2023EA0.unk0[0].cardAttribute = g2023E80.playerCardAttribute;
-  gUnk2023EA0.unk0[0].cardAttack = g2023E80.playerCardAttack;
-  gUnk2023EA0.unk0[0].cardDefense = g2023E80.playerCardDefense;
-  gUnk2023EA0.unk0[1].cardId = g2023E80.opponentCardId;
-  gUnk2023EA0.unk0[1].cardAttribute = g2023E80.opponentCardAttribute;
-  gUnk2023EA0.unk0[1].cardAttack = g2023E80.opponentCardAttack;
-  gUnk2023EA0.unk0[1].cardDefense = g2023E80.opponentCardDefense;
+  gUnk2023EA0.unk0[0].cardId = sActionData.playerCardId;
+  gUnk2023EA0.unk0[0].cardAttribute = sActionData.playerCardAttribute;
+  gUnk2023EA0.unk0[0].cardAttack = sActionData.playerCardAtkOrLifePointsMod;
+  gUnk2023EA0.unk0[0].cardDefense = sActionData.playerCardDefense;
+  gUnk2023EA0.unk0[1].cardId = sActionData.opponentCardId;
+  gUnk2023EA0.unk0[1].cardAttribute = sActionData.opponentCardAttribute;
+  gUnk2023EA0.unk0[1].cardAttack = sActionData.opponentCardAtkOrLifePointsMod;
+  gUnk2023EA0.unk0[1].cardDefense = sActionData.opponentCardDefense;
 }
 
 void CheckGraveyardAndLoserFlags (void) {
-  if (g2023E80.flags & FLAG_GRAVEYARD_PLAYER)
-    ClearZoneAndSendMonToGraveyard2(gFixedZones[g2023E80.playerMonsterRow][g2023E80.unkA], 0);
-  if (g2023E80.flags & FLAG_GRAVEYARD_OPPONENT)
-    ClearZoneAndSendMonToGraveyard2(gFixedZones[g2023E80.opponentMonsterRow][g2023E80.unk16], 1);
-  if (g2023E80.flags & FLAG_LOSER_PLAYER)
+  if (sActionData.flags & FLAG_GRAVEYARD_PLAYER)
+    ClearZoneAndSendMonToGraveyard2(gFixedZones[sActionData.playerMonsterRow][sActionData.unkA], 0);
+  if (sActionData.flags & FLAG_GRAVEYARD_OPPONENT)
+    ClearZoneAndSendMonToGraveyard2(gFixedZones[sActionData.opponentMonsterRow][sActionData.unk16], 1);
+  if (sActionData.flags & FLAG_LOSER_PLAYER)
     DeclareLoser(0);
-  if (g2023E80.flags & FLAG_LOSER_OPPONENT)
+  if (sActionData.flags & FLAG_LOSER_OPPONENT)
     DeclareLoser(1);
 }
 
-//HandleDuelAction/PerformDuelAction? (BattleAction?) damage?
-void HandleDuelAction (void) {
-  g2023E80.flags = 0;
-  switch (g2023E80.action) {
+void HandleAtkAndLifePointsAction (void) {
+  sActionData.flags = 0;
+  switch (sActionData.id) {
     case 1:
-      sub_803F05C();
+      AttackAtkPositionMonster();
       break;
     case 2:
-      sub_803F108();
+      PlayerAttackDefendingMonster();
       break;
     case 3:
       sub_0803F330();
       break;
     case 4:
-      sub_803F334();
+      PlayerDirectAttack();
       break;
     case 5:
-      sub_803F180();
+      OpponentAttackDefendingMonster();
       break;
     case 6:
-      sub_803F374();
+      OpponentDirectAttack();
       break;
     case 7:
-      AddPlayerLifePoints();
+      IncreasePlayerLifePoints();
       break;
     case 8:
-      sub_803F3D4();
+      DecreasePlayerLifePoints();
       break;
     case 9:
-      sub_803F420();
+      DecreaseOpponentLifePoints();
       break;
     case 10:
-      sub_803F400();
+      IncreaseOpponentLifePoints();
       break;
   }
   UpdateLifePointsAfterAction();
@@ -238,302 +266,296 @@ void HandleDuelAction (void) {
 static void sub_0803F330 (void) {
 }
 
-static void sub_803F334 (void) {
+static void PlayerDirectAttack (void) {
   sub_803FD3C();
-  if (g2023E80.opponentLifePoints <= g2023E80.playerCardAttack) {
-    g2023E80.opponentLifePoints = 0;
-    SetLoserFlag_inline(g2023E80.unk1B);
+  if (sActionData.opponentLifePoints <= sActionData.playerCardAtkOrLifePointsMod) {
+    sActionData.opponentLifePoints = 0;
+    SetLoserFlag_inline(sActionData.unk1B);
   }
   else
-    g2023E80.opponentLifePoints -= g2023E80.playerCardAttack;
+    sActionData.opponentLifePoints -= sActionData.playerCardAtkOrLifePointsMod;
   gUnk2023EA0.unk18 = 10;
 }
 
-static void sub_803F374 (void) {
+static void OpponentDirectAttack (void) {
   sub_803FD3C();
-  if (g2023E80.playerLifePoints <= g2023E80.opponentCardAttack) {
-    g2023E80.playerLifePoints = 0;
-    SetLoserFlag_inline(g2023E80.unk1A);
+  if (sActionData.playerLifePoints <= sActionData.opponentCardAtkOrLifePointsMod) {
+    sActionData.playerLifePoints = 0;
+    SetLoserFlag_inline(sActionData.unk1A);
   }
   else
-    g2023E80.playerLifePoints-= g2023E80.opponentCardAttack;
+    sActionData.playerLifePoints-= sActionData.opponentCardAtkOrLifePointsMod;
   gUnk2023EA0.unk18 = 15;
 }
 
-static void AddPlayerLifePoints (void) {
-  if (g2023E80.playerLifePoints + g2023E80.playerCardAttack > 65000)
-    g2023E80.playerLifePoints = 65000;
+static void IncreasePlayerLifePoints (void) {
+  if (sActionData.playerLifePoints + sActionData.playerCardAtkOrLifePointsMod > 65000)
+    sActionData.playerLifePoints = 65000;
   else
-    g2023E80.playerLifePoints += g2023E80.playerCardAttack;
+    sActionData.playerLifePoints += sActionData.playerCardAtkOrLifePointsMod;
 }
 
-static void sub_803F3D4 (void) {
-  if (g2023E80.playerLifePoints - g2023E80.playerCardAttack <= 0) {
-    g2023E80.playerLifePoints = 0;
-    SetLoserFlag_inline(g2023E80.unk1A);
+static void DecreasePlayerLifePoints (void) {
+  if (sActionData.playerLifePoints - sActionData.playerCardAtkOrLifePointsMod <= 0) {
+    sActionData.playerLifePoints = 0;
+    SetLoserFlag_inline(sActionData.unk1A);
   }
   else
-    g2023E80.playerLifePoints -= g2023E80.playerCardAttack;
+    sActionData.playerLifePoints -= sActionData.playerCardAtkOrLifePointsMod;
 }
 
-static void sub_803F400 (void) {
-  if (g2023E80.opponentLifePoints + g2023E80.opponentCardAttack > 65000)
-    g2023E80.opponentLifePoints = 65000;
+static void IncreaseOpponentLifePoints (void) {
+  if (sActionData.opponentLifePoints + sActionData.opponentCardAtkOrLifePointsMod > 65000)
+    sActionData.opponentLifePoints = 65000;
   else
-    g2023E80.opponentLifePoints += g2023E80.opponentCardAttack;
+    sActionData.opponentLifePoints += sActionData.opponentCardAtkOrLifePointsMod;
 }
 
-static void sub_803F420 (void) {
-  if (g2023E80.opponentLifePoints - g2023E80.opponentCardAttack <= 0) {
-    g2023E80.opponentLifePoints = 0;
-    SetLoserFlag_inline(g2023E80.unk1B);
+static void DecreaseOpponentLifePoints (void) {
+  if (sActionData.opponentLifePoints - sActionData.opponentCardAtkOrLifePointsMod <= 0) {
+    sActionData.opponentLifePoints = 0;
+    SetLoserFlag_inline(sActionData.unk1B);
   }
   else
-    g2023E80.opponentLifePoints -= g2023E80.opponentCardAttack;
+    sActionData.opponentLifePoints -= sActionData.opponentCardAtkOrLifePointsMod;
 }
 
 static void SetFlagPlayerGraveyard (void) {
-  g2023E80.flags |= FLAG_GRAVEYARD_PLAYER;
+  sActionData.flags |= FLAG_GRAVEYARD_PLAYER;
 }
 
 static void SetFlagOpponentGraveyard (void) {
-  g2023E80.flags |= FLAG_GRAVEYARD_OPPONENT;
+  sActionData.flags |= FLAG_GRAVEYARD_OPPONENT;
 }
 
 static void UpdateLifePointsAfterAction (void) {
-  gDuelLifePoints[g2023E80.unk1A] = g2023E80.playerLifePoints;
-  gUnk2023EA0.unk0[0].lifePointsAfterDamage = g2023E80.playerLifePoints;
-  gDuelLifePoints[g2023E80.unk1B] = g2023E80.opponentLifePoints;
-  gUnk2023EA0.unk0[1].lifePointsAfterDamage = g2023E80.opponentLifePoints;
+  gDuelLifePoints[sActionData.unk1A] = sActionData.playerLifePoints;
+  gUnk2023EA0.unk0[0].lifePointsAfterDamage = sActionData.playerLifePoints;
+  gDuelLifePoints[sActionData.unk1B] = sActionData.opponentLifePoints;
+  gUnk2023EA0.unk0[1].lifePointsAfterDamage = sActionData.opponentLifePoints;
 }
 
 static void SetLoserFlag (unsigned char arg0) {
-  g2023E80.flags |= g8E0CFC0[arg0];
+  sActionData.flags |= g8E0CFC0[arg0];
 }
 
 void CheckLoserFlags (void) {
-  if (g2023E80.flags & FLAG_LOSER_PLAYER)
+  if (sActionData.flags & FLAG_LOSER_PLAYER)
     DeclareLoser(DUEL_PLAYER);
-  if (g2023E80.flags & FLAG_LOSER_OPPONENT)
+  if (sActionData.flags & FLAG_LOSER_OPPONENT)
     DeclareLoser(DUEL_OPPONENT);
 }
 
-// SetActionDirectAttackFromPlayer
-// direct attack from player
-static void sub_803F4F0 (unsigned char arg0) {
-  g2023E80.action = 4;
-  g2023E80.unk1A = 0;
-  g2023E80.unk1B = 1;
-  g2023E80.playerCardId = gFixedZones[2][arg0]->id;
-  gStatMod.card = gFixedZones[2][arg0]->id;
+static void SetActionPlayerDirectAttack (unsigned char fixedZoneId) {
+  sActionData.id = 4;
+  sActionData.unk1A = 0;
+  sActionData.unk1B = 1;
+  sActionData.playerCardId = gFixedZones[2][fixedZoneId]->id;
+  gStatMod.card = gFixedZones[2][fixedZoneId]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gFixedZones[2][arg0]);
+  gStatMod.stage = GetFinalStage(gFixedZones[2][fixedZoneId]);
   SetFinalStat(&gStatMod);
-  g2023E80.playerCardAttack = gCardInfo.atk;
-  g2023E80.playerCardDefense = gCardInfo.def;
-  g2023E80.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
+  sActionData.playerCardAtkOrLifePointsMod = gCardInfo.atk;
+  sActionData.playerCardDefense = gCardInfo.def;
+  sActionData.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
   gUnk2023EA0.unk0[0].initialLifePoints = gDuelLifePoints[DUEL_PLAYER];
-  g2023E80.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
+  sActionData.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
   gUnk2023EA0.unk0[1].initialLifePoints = gDuelLifePoints[DUEL_OPPONENT];
-  g2023E80.unkA = arg0;
-  g2023E80.playerMonsterRow = 2;
+  sActionData.unkA = fixedZoneId;
+  sActionData.playerMonsterRow = 2;
 }
 
-// direct attack from opponent
-static void sub_803F574 (unsigned char arg0) {
-  g2023E80.action = 6;
-  g2023E80.unk1A = 0;
-  g2023E80.unk1B = 1;
-  g2023E80.opponentCardId = gFixedZones[1][arg0]->id;
-  gStatMod.card = gFixedZones[1][arg0]->id;
+static void SetActionOpponentDirectAttack (unsigned char fixedZoneId) {
+  sActionData.id = 6;
+  sActionData.unk1A = 0;
+  sActionData.unk1B = 1;
+  sActionData.opponentCardId = gFixedZones[1][fixedZoneId]->id;
+  gStatMod.card = gFixedZones[1][fixedZoneId]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gFixedZones[1][arg0]);
+  gStatMod.stage = GetFinalStage(gFixedZones[1][fixedZoneId]);
   SetFinalStat(&gStatMod);
-  g2023E80.opponentCardAttack = gCardInfo.atk;
-  g2023E80.opponentCardDefense = gCardInfo.def;
-  g2023E80.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
+  sActionData.opponentCardAtkOrLifePointsMod = gCardInfo.atk;
+  sActionData.opponentCardDefense = gCardInfo.def;
+  sActionData.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
   gUnk2023EA0.unk0[0].initialLifePoints = gDuelLifePoints[DUEL_PLAYER];
-  g2023E80.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
+  sActionData.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
   gUnk2023EA0.unk0[1].initialLifePoints = gDuelLifePoints[DUEL_OPPONENT];
-  g2023E80.unk16 = arg0;
-  g2023E80.opponentMonsterRow = 1;
+  sActionData.unk16 = fixedZoneId;
+  sActionData.opponentMonsterRow = 1;
 }
 
-// attack atk position monster
-static void sub_803F604 (unsigned char arg0, unsigned char arg1) {
-  g2023E80.action = 1;
-  g2023E80.unk1A = 0;
-  g2023E80.unk1B = 1;
-  g2023E80.playerCardId = gFixedZones[2][arg0]->id;
-  gStatMod.card = gFixedZones[2][arg0]->id;
+static void SetActionAttackAtkPositionMonster (unsigned char playerFixedZoneId, unsigned char opponentFixedZoneId) {
+  sActionData.id = 1;
+  sActionData.unk1A = 0;
+  sActionData.unk1B = 1;
+  sActionData.playerCardId = gFixedZones[2][playerFixedZoneId]->id;
+  gStatMod.card = gFixedZones[2][playerFixedZoneId]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gFixedZones[2][arg0]);
+  gStatMod.stage = GetFinalStage(gFixedZones[2][playerFixedZoneId]);
   SetFinalStat(&gStatMod);
-  g2023E80.playerCardAttack = gCardInfo.atk;
-  g2023E80.playerCardDefense = gCardInfo.def;
-  g2023E80.playerCardAttribute = gCardInfo.attribute;
-  g2023E80.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
+  sActionData.playerCardAtkOrLifePointsMod = gCardInfo.atk;
+  sActionData.playerCardDefense = gCardInfo.def;
+  sActionData.playerCardAttribute = gCardInfo.attribute;
+  sActionData.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
   gUnk2023EA0.unk0[0].initialLifePoints = gDuelLifePoints[DUEL_PLAYER];
-  g2023E80.unkA = arg0;
-  g2023E80.playerMonsterRow = 2;
-  g2023E80.opponentCardId = gFixedZones[1][arg1]->id;
-  gStatMod.card = gFixedZones[1][arg1]->id;
+  sActionData.unkA = playerFixedZoneId;
+  sActionData.playerMonsterRow = 2;
+  sActionData.opponentCardId = gFixedZones[1][opponentFixedZoneId]->id;
+  gStatMod.card = gFixedZones[1][opponentFixedZoneId]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gFixedZones[1][arg1]);
+  gStatMod.stage = GetFinalStage(gFixedZones[1][opponentFixedZoneId]);
   SetFinalStat(&gStatMod);
-  g2023E80.opponentCardAttack = gCardInfo.atk;
-  g2023E80.opponentCardDefense = gCardInfo.def;
-  g2023E80.opponentCardAttribute = gCardInfo.attribute;
-  g2023E80.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
+  sActionData.opponentCardAtkOrLifePointsMod = gCardInfo.atk;
+  sActionData.opponentCardDefense = gCardInfo.def;
+  sActionData.opponentCardAttribute = gCardInfo.attribute;
+  sActionData.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
   gUnk2023EA0.unk0[1].initialLifePoints = gDuelLifePoints[DUEL_OPPONENT];
-  g2023E80.unk16 = arg1;
-  g2023E80.opponentMonsterRow = 1;
+  sActionData.unk16 = opponentFixedZoneId;
+  sActionData.opponentMonsterRow = 1;
 }
 
-// player attacks defending monster
-static void sub_803F6F8 (unsigned char arg0, unsigned char arg1) {
-  g2023E80.action = 2;
-  g2023E80.unk1A = 0;
-  g2023E80.unk1B = 1;
-  g2023E80.playerCardId = gFixedZones[2][arg0]->id;
-  gStatMod.card = gFixedZones[2][arg0]->id;
+static void SetActionPlayerAttackDefendingMonster (unsigned char playerFixedZoneId, unsigned char opponentFixedZoneId) {
+  sActionData.id = 2;
+  sActionData.unk1A = 0;
+  sActionData.unk1B = 1;
+  sActionData.playerCardId = gFixedZones[2][playerFixedZoneId]->id;
+  gStatMod.card = gFixedZones[2][playerFixedZoneId]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gFixedZones[2][arg0]);
+  gStatMod.stage = GetFinalStage(gFixedZones[2][playerFixedZoneId]);
   SetFinalStat(&gStatMod);
-  g2023E80.playerCardAttack = gCardInfo.atk;
-  g2023E80.playerCardDefense = gCardInfo.def;
-  g2023E80.playerCardAttribute = gCardInfo.attribute;
-  g2023E80.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
+  sActionData.playerCardAtkOrLifePointsMod = gCardInfo.atk;
+  sActionData.playerCardDefense = gCardInfo.def;
+  sActionData.playerCardAttribute = gCardInfo.attribute;
+  sActionData.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
   gUnk2023EA0.unk0[0].initialLifePoints = gDuelLifePoints[DUEL_PLAYER];
-  g2023E80.unkA = arg0;
-  g2023E80.playerMonsterRow = 2;
-  g2023E80.opponentCardId = gFixedZones[1][arg1]->id;
-  gStatMod.card = gFixedZones[1][arg1]->id;
+  sActionData.unkA = playerFixedZoneId;
+  sActionData.playerMonsterRow = 2;
+  sActionData.opponentCardId = gFixedZones[1][opponentFixedZoneId]->id;
+  gStatMod.card = gFixedZones[1][opponentFixedZoneId]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gFixedZones[1][arg1]);
+  gStatMod.stage = GetFinalStage(gFixedZones[1][opponentFixedZoneId]);
   SetFinalStat(&gStatMod);
-  g2023E80.opponentCardAttack = gCardInfo.atk;
-  g2023E80.opponentCardDefense = gCardInfo.def;
-  g2023E80.opponentCardAttribute = gCardInfo.attribute;
-  g2023E80.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
+  sActionData.opponentCardAtkOrLifePointsMod = gCardInfo.atk;
+  sActionData.opponentCardDefense = gCardInfo.def;
+  sActionData.opponentCardAttribute = gCardInfo.attribute;
+  sActionData.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
   gUnk2023EA0.unk0[1].initialLifePoints = gDuelLifePoints[DUEL_OPPONENT];
-  g2023E80.unk16 = arg1;
-  g2023E80.opponentMonsterRow = 1;
+  sActionData.unk16 = opponentFixedZoneId;
+  sActionData.opponentMonsterRow = 1;
 }
 
-//Opponent attacks defending monster
-static void sub_803F7EC (unsigned char arg0, unsigned char arg1) {
-  g2023E80.action = 5;
-  g2023E80.unk1A = 0;
-  g2023E80.unk1B = 1;
-  g2023E80.playerCardId = gFixedZones[2][arg0]->id;
-  gStatMod.card = gFixedZones[2][arg0]->id;
+static void SetActionOpponentAttackDefendingMonster (unsigned char playerFixedZoneId, unsigned char opponentFixedZoneId) {
+  sActionData.id = 5;
+  sActionData.unk1A = 0;
+  sActionData.unk1B = 1;
+  sActionData.playerCardId = gFixedZones[2][playerFixedZoneId]->id;
+  gStatMod.card = gFixedZones[2][playerFixedZoneId]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gFixedZones[2][arg0]);
+  gStatMod.stage = GetFinalStage(gFixedZones[2][playerFixedZoneId]);
   SetFinalStat(&gStatMod);
-  g2023E80.playerCardAttack = gCardInfo.atk;
-  g2023E80.playerCardDefense = gCardInfo.def;
-  g2023E80.playerCardAttribute = gCardInfo.attribute;
-  g2023E80.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
+  sActionData.playerCardAtkOrLifePointsMod = gCardInfo.atk;
+  sActionData.playerCardDefense = gCardInfo.def;
+  sActionData.playerCardAttribute = gCardInfo.attribute;
+  sActionData.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
   gUnk2023EA0.unk0[0].initialLifePoints = gDuelLifePoints[DUEL_PLAYER];
-  g2023E80.unkA = arg0;
-  g2023E80.playerMonsterRow = 2;
-  g2023E80.opponentCardId = gFixedZones[1][arg1]->id;
-  gStatMod.card = gFixedZones[1][arg1]->id;
+  sActionData.unkA = playerFixedZoneId;
+  sActionData.playerMonsterRow = 2;
+  sActionData.opponentCardId = gFixedZones[1][opponentFixedZoneId]->id;
+  gStatMod.card = gFixedZones[1][opponentFixedZoneId]->id;
   gStatMod.field = gDuel.field;
-  gStatMod.stage = GetFinalStage(gFixedZones[1][arg1]);
+  gStatMod.stage = GetFinalStage(gFixedZones[1][opponentFixedZoneId]);
   SetFinalStat(&gStatMod);
-  g2023E80.opponentCardAttack = gCardInfo.atk;
-  g2023E80.opponentCardDefense = gCardInfo.def;
-  g2023E80.opponentCardAttribute = gCardInfo.attribute;
-  g2023E80.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
+  sActionData.opponentCardAtkOrLifePointsMod = gCardInfo.atk;
+  sActionData.opponentCardDefense = gCardInfo.def;
+  sActionData.opponentCardAttribute = gCardInfo.attribute;
+  sActionData.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
   gUnk2023EA0.unk0[1].initialLifePoints = gDuelLifePoints[DUEL_OPPONENT];
-  g2023E80.unk16 = arg1;
-  g2023E80.opponentMonsterRow = 1;
+  sActionData.unk16 = opponentFixedZoneId;
+  sActionData.opponentMonsterRow = 1;
 }
 
-// SetDuelActionDirectAttack
-void sub_803F8E0 (int arg0) {
-  unsigned char arg0_u8 = arg0; //TODO: implicit decl somewhere else?
+void SetAttackActionDirectAttack (int attackerFixedZoneId) {
+  unsigned char attackerFixedZoneId_uchar = attackerFixedZoneId;
   switch (WhoseTurn()) {
     case 0:
-      sub_803F4F0(arg0);
+      SetActionPlayerDirectAttack(attackerFixedZoneId_uchar);
       break;
     case 1:
-      sub_803F574(arg0);
+      SetActionOpponentDirectAttack(attackerFixedZoneId_uchar);
       break;
   }
 }
 
-void SetDuelActionAttack (int arg0, int arg1) {
+//TODO: this deals with attacking another monster card, not direct attack
+void SetAttackAction (int arg0, int arg1) {
   unsigned char arg0_u8 = arg0;
   unsigned char arg1_u8 = arg1;
   switch (WhoseTurn()) {
     case DUEL_PLAYER:
       if (gFixedZones[1][arg1_u8]->isDefending)
-        sub_803F6F8(arg0_u8, arg1_u8);
+        SetActionPlayerAttackDefendingMonster(arg0_u8, arg1_u8);
       else
-        sub_803F604(arg0_u8, arg1_u8);
+        SetActionAttackAtkPositionMonster(arg0_u8, arg1_u8);
       break;
     case DUEL_OPPONENT:
       if (!gFixedZones[2][arg0_u8]->isDefending)
-        sub_803F604(arg0_u8, arg1_u8);
+        SetActionAttackAtkPositionMonster(arg0_u8, arg1_u8);
       else
-        sub_803F7EC(arg0_u8, arg1_u8);
+        SetActionOpponentAttackDefendingMonster(arg0_u8, arg1_u8);
       break;
   }
 }
 
-void SetPlayerLifePointsToAdd (u32 lifePoints) {
-  g2023E80.action = 7;
-  g2023E80.unk1A = 0;
-  g2023E80.unk1B = 1;
-  g2023E80.playerCardAttack = lifePoints;
-  g2023E80.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
-  g2023E80.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
+void SetPlayerLifePointsToAdd (unsigned lifePoints) {
+  sActionData.id = 7;
+  sActionData.unk1A = 0;
+  sActionData.unk1B = 1;
+  sActionData.playerCardAtkOrLifePointsMod = lifePoints;
+  sActionData.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
+  sActionData.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
 }
 
-void SetPlayerLifePointsToSubtract (u32 lifePoints) {
-  g2023E80.action = 8;
-  g2023E80.unk1A = 0;
-  g2023E80.unk1B = 1;
-  g2023E80.playerCardAttack = lifePoints;
-  g2023E80.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
-  g2023E80.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
+void SetPlayerLifePointsToSubtract (unsigned lifePoints) {
+  sActionData.id = 8;
+  sActionData.unk1A = 0;
+  sActionData.unk1B = 1;
+  sActionData.playerCardAtkOrLifePointsMod = lifePoints;
+  sActionData.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
+  sActionData.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
 }
 
-void SetOpponentLifePointsToAdd (u32 lifePoints) {
-  g2023E80.action = 10;
-  g2023E80.unk1A = 0;
-  g2023E80.unk1B = 1;
-  g2023E80.opponentCardAttack = lifePoints;
-  g2023E80.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
-  g2023E80.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
+void SetOpponentLifePointsToAdd (unsigned lifePoints) {
+  sActionData.id = 10;
+  sActionData.unk1A = 0;
+  sActionData.unk1B = 1;
+  sActionData.opponentCardAtkOrLifePointsMod = lifePoints;
+  sActionData.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
+  sActionData.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
 }
 
-void SetOpponentLifePointsToSubtract (u32 lifePoints) {
-  g2023E80.action = 9;
-  g2023E80.unk1A = 0;
-  g2023E80.unk1B = 1;
-  g2023E80.opponentCardAttack = lifePoints;
-  g2023E80.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
-  g2023E80.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
+void SetOpponentLifePointsToSubtract (unsigned lifePoints) {
+  sActionData.id = 9;
+  sActionData.unk1A = 0;
+  sActionData.unk1B = 1;
+  sActionData.opponentCardAtkOrLifePointsMod = lifePoints;
+  sActionData.playerLifePoints = gDuelLifePoints[DUEL_PLAYER];
+  sActionData.opponentLifePoints = gDuelLifePoints[DUEL_OPPONENT];
 }
 
 // TODO: function doesn't return anything
 static unsigned char sub_803FA08 (void) {
   gUnk2023EA0.unk18 = 16;
   SetFlagOpponentGraveyard();
-  if (g2023E80.playerCardAttack < g2023E80.opponentCardAttack)
+  if (sActionData.playerCardAtkOrLifePointsMod < sActionData.opponentCardAtkOrLifePointsMod)
     return;
-  if (g2023E80.playerCardAttack <= g2023E80.opponentCardAttack)
+  if (sActionData.playerCardAtkOrLifePointsMod <= sActionData.opponentCardAtkOrLifePointsMod)
     return;
-  if (g2023E80.opponentLifePoints <= g2023E80.playerCardAttack - g2023E80.opponentCardAttack) {
-    g2023E80.opponentLifePoints = 0;
-    SetLoserFlag(g2023E80.unk1B);
+  if (sActionData.opponentLifePoints <= sActionData.playerCardAtkOrLifePointsMod - sActionData.opponentCardAtkOrLifePointsMod) {
+    sActionData.opponentLifePoints = 0;
+    SetLoserFlag(sActionData.unk1B);
   }
   else
-    g2023E80.opponentLifePoints -= g2023E80.playerCardAttack - g2023E80.opponentCardAttack;
+    sActionData.opponentLifePoints -= sActionData.playerCardAtkOrLifePointsMod - sActionData.opponentCardAtkOrLifePointsMod;
 }
 
 // TODO: function doesn't return anything
@@ -541,16 +563,16 @@ static unsigned char sub_803FA08 (void) {
 static unsigned char sub_803FA4C (void) {
   gUnk2023EA0.unk18 = 17;
   SetFlagPlayerGraveyard();
-  if (g2023E80.playerCardAttack > g2023E80.opponentCardAttack)
+  if (sActionData.playerCardAtkOrLifePointsMod > sActionData.opponentCardAtkOrLifePointsMod)
     return;
-  if (g2023E80.playerCardAttack >= g2023E80.opponentCardAttack)
+  if (sActionData.playerCardAtkOrLifePointsMod >= sActionData.opponentCardAtkOrLifePointsMod)
     return;
-  if (g2023E80.playerLifePoints <= g2023E80.opponentCardAttack - g2023E80.playerCardAttack) {
-    g2023E80.playerLifePoints = 0;
-    SetLoserFlag(g2023E80.unk1A);
+  if (sActionData.playerLifePoints <= sActionData.opponentCardAtkOrLifePointsMod - sActionData.playerCardAtkOrLifePointsMod) {
+    sActionData.playerLifePoints = 0;
+    SetLoserFlag(sActionData.unk1A);
   }
   else
-    g2023E80.playerLifePoints -= g2023E80.opponentCardAttack - g2023E80.playerCardAttack;
+    sActionData.playerLifePoints -= sActionData.opponentCardAtkOrLifePointsMod - sActionData.playerCardAtkOrLifePointsMod;
 }
 
 //TODO: create constants: e.g. ATTACKER_ATTR_BEATS_DEFENDER
@@ -565,7 +587,7 @@ static inline unsigned char sub_803FBCC_inline (unsigned char a, unsigned char b
 }
 
 static unsigned char sub_803FA94 (void) {
-  unsigned char r4 = sub_803FBCC_inline(g2023E80.playerCardAttribute, g2023E80.opponentCardAttribute);
+  unsigned char r4 = sub_803FBCC_inline(sActionData.playerCardAttribute, sActionData.opponentCardAttribute);
   switch (r4) {
     case 0:
       sub_803FA08();
@@ -580,7 +602,7 @@ static unsigned char sub_803FA94 (void) {
 }
 
 static unsigned char sub_803FAFC (void) {
-  unsigned char r4 = sub_803FBCC_inline(g2023E80.playerCardAttribute, g2023E80.opponentCardAttribute);
+  unsigned char r4 = sub_803FBCC_inline(sActionData.playerCardAttribute, sActionData.opponentCardAttribute);
   switch (r4) {
     case 0:
       sub_803FC10();
@@ -595,7 +617,7 @@ static unsigned char sub_803FAFC (void) {
 }
 
 static unsigned char sub_803FB64 (void) {
-  unsigned char r4 = sub_803FBCC_inline(g2023E80.playerCardAttribute, g2023E80.opponentCardAttribute);
+  unsigned char r4 = sub_803FBCC_inline(sActionData.playerCardAttribute, sActionData.opponentCardAttribute);
   switch (r4) {
     case 0:
       sub_803FC64();
@@ -630,27 +652,27 @@ static unsigned char sub_803FC10 (void) {
 static unsigned char sub_803FC24 (void) {
   gUnk2023EA0.unk18 = 17;
   SetFlagPlayerGraveyard();
-  if (g2023E80.playerCardAttack >= g2023E80.opponentCardDefense)
+  if (sActionData.playerCardAtkOrLifePointsMod >= sActionData.opponentCardDefense)
     return;
-  if (g2023E80.playerLifePoints <= g2023E80.opponentCardDefense - g2023E80.playerCardAttack) {
-    g2023E80.playerLifePoints = 0;
-    SetLoserFlag(g2023E80.unk1A);
+  if (sActionData.playerLifePoints <= sActionData.opponentCardDefense - sActionData.playerCardAtkOrLifePointsMod) {
+    sActionData.playerLifePoints = 0;
+    SetLoserFlag(sActionData.unk1A);
   }
   else
-    g2023E80.playerLifePoints -= g2023E80.opponentCardDefense - g2023E80.playerCardAttack;
+    sActionData.playerLifePoints -= sActionData.opponentCardDefense - sActionData.playerCardAtkOrLifePointsMod;
 }
 
 static unsigned char sub_803FC64 (void) {
   gUnk2023EA0.unk18 = 16;
   SetFlagOpponentGraveyard();
-  if (g2023E80.playerCardDefense <= g2023E80.opponentCardAttack)
+  if (sActionData.playerCardDefense <= sActionData.opponentCardAtkOrLifePointsMod)
     return;
-  if (g2023E80.opponentLifePoints <= g2023E80.playerCardDefense - g2023E80.opponentCardAttack) {
-    g2023E80.opponentLifePoints = 0;
-    SetLoserFlag(g2023E80.unk1B);
+  if (sActionData.opponentLifePoints <= sActionData.playerCardDefense - sActionData.opponentCardAtkOrLifePointsMod) {
+    sActionData.opponentLifePoints = 0;
+    SetLoserFlag(sActionData.unk1B);
   }
   else
-    g2023E80.opponentLifePoints -= g2023E80.opponentCardDefense - g2023E80.playerCardAttack;
+    sActionData.opponentLifePoints -= sActionData.opponentCardDefense - sActionData.playerCardAtkOrLifePointsMod;
 }*/
 
 NAKED
@@ -677,7 +699,7 @@ unsigned char sub_803FC24 (void) {
 	b _0803FC5C\n\
 	.align 2, 0\n\
 _0803FC50: .4byte 0x02023EA0\n\
-_0803FC54: .4byte g2023E80\n\
+_0803FC54: .4byte sActionData\n\
 _0803FC58:\n\
 	subs r1, r4, r1\n\
 	strh r1, [r3, #6]\n\
@@ -712,7 +734,7 @@ unsigned char sub_803FC64 (void) {
 	b _0803FCA0\n\
 	.align 2, 0\n\
 _0803FC94: .4byte 0x02023EA0\n\
-_0803FC98: .4byte g2023E80\n\
+_0803FC98: .4byte sActionData\n\
 _0803FC9C:\n\
 	subs r1, r4, r1\n\
 	strh r1, [r3, #0x12]\n\
@@ -1107,7 +1129,7 @@ void DecrementSorlTurns (unsigned char currPlayer) {
 }
 
 struct {
-  u32 a;
+  unsigned a;
   u16 b;
 } extern gOamBuffer[];
 
@@ -1115,7 +1137,7 @@ extern u16 gE0D0F0[];
 extern u16 g80DFDA4[];
 
 
-u32 sub_804402C (unsigned char);
+unsigned sub_804402C (unsigned char);
 u16 sub_8043FFC (unsigned char);
 
 
