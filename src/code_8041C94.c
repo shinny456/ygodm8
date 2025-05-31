@@ -52,55 +52,55 @@ void sub_80428EC(u8);
 
 
 void sub_8041C94 (u8* arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4) {
-  struct Textbox test;
-  test.textCursor = 0;
-  test.tileCursor = 0;
-  test.mode = 0;
-  test.unkC = arg0;
-  test.blinkFrameCounter = 0;
-  test.glyphOffset = 0;
-  test.unk14 = arg1;
-  test.unk16 = arg2;
-  test.unk18 = arg3;
-  test.unk1A = arg4;
+  struct Textbox textbox;
+  textbox.textCursor = 0;
+  textbox.tileCursor = 0;
+  textbox.mode = 0;
+  textbox.unkC = arg0;
+  textbox.blinkFrameCounter = 0;
+  textbox.glyphOffset = 0;
+  textbox.unk14 = arg1;
+  textbox.unk16 = arg2;
+  textbox.unk18 = arg3;
+  textbox.unk1A = arg4;
   sub_8041B38();
-  RunTextRenderTask(&test);
+  RunTextRenderTask(&textbox);
   UpdateDuelGfxExceptField();
 }
 
 void sub_8041CCC (u16 arg0, u16 arg1) {
-  struct Textbox test;
+  struct Textbox textbox;
   u8* temp = g8F1B80C[arg0];
-  test.textCursor = 0;
-  test.tileCursor = 0;
-  test.mode = 0;
-  test.unkC = temp;
-  test.blinkFrameCounter = 0;
-  test.glyphOffset = 0;
-  test.unk14 = arg0;
-  test.unk16 = arg1;
-  test.unk18 = 0;
-  test.unk1A = 0;
+  textbox.textCursor = 0;
+  textbox.tileCursor = 0;
+  textbox.mode = 0;
+  textbox.unkC = temp;
+  textbox.blinkFrameCounter = 0;
+  textbox.glyphOffset = 0;
+  textbox.unk14 = arg0;
+  textbox.unk16 = arg1;
+  textbox.unk18 = 0;
+  textbox.unk1A = 0;
   sub_8041B38();
-  RunTextRenderTask(&test);
+  RunTextRenderTask(&textbox);
   UpdateDuelGfxExceptField();
 }
 
 void sub_8041D14 (u16 arg0, u16 arg1) {
-  struct Textbox test;
+  struct Textbox textbox;
   u8* temp = gText_TrapWasTriggered;
-  test.textCursor = 0;
-  test.tileCursor = 0;
-  test.mode = 0;
-  test.unkC = temp;
-  test.blinkFrameCounter = 0;
-  test.glyphOffset = 0;
-  test.unk14 = arg0;
-  test.unk16 = arg1;
-  test.unk18 = 0;
-  test.unk1A = 0;
+  textbox.textCursor = 0;
+  textbox.tileCursor = 0;
+  textbox.mode = 0;
+  textbox.unkC = temp;
+  textbox.blinkFrameCounter = 0;
+  textbox.glyphOffset = 0;
+  textbox.unk14 = arg0;
+  textbox.unk16 = arg1;
+  textbox.unk18 = 0;
+  textbox.unk1A = 0;
   sub_8041B38();
-  RunTextRenderTask(&test);
+  RunTextRenderTask(&textbox);
   UpdateDuelGfxExceptField();
 }
 
@@ -207,32 +207,32 @@ void DisplayCardNameInInfoBar (void) {
 }
 
 void DisplayCardAtkDefInInfoBar (void) {
-  u8 r5 = 0;
-  sub_800DDA0(gCardInfo.atk, 0);
-  if (gCardInfo.atk != 0xFFFF && g2021BD0[0] == 10) {
-    r5 = 1;
+  u8 i = 0;
+  ConvertU16ToDecimalDigits(gCardInfo.atk, DIGIT_FLAG_NONE);
+  if (gCardInfo.atk != 0xFFFF && gDecimalDigitsU16[0] == DIGIT_UNUSED) {
+    i = 1;
     CopySwordTile(gBgVram.cbb0 + 0x83C0);
   }
-  for (; r5 < 5; r5++) {
-    sub_8020968(gBgVram.cbb0 + 0x83C0 + r5 * 32, g2021BD0[r5][g8E0D5B0], 0x801);
+  for (; i < MAX_U16_DIGITS; i++) {
+    sub_8020968(gBgVram.cbb0 + 0x83C0 + i * 32, gDecimalDigitsU16[i][g8E0D5B0], 0x801);
   }
-  r5 = 0;
-  sub_800DDA0(gCardInfo.def, 0);
-  if (gCardInfo.def != 0xFFFF && g2021BD0[0] == 10) {
-    r5 = 1;
+  i = 0;
+  ConvertU16ToDecimalDigits(gCardInfo.def, DIGIT_FLAG_NONE);
+  if (gCardInfo.def != 0xFFFF && gDecimalDigitsU16[0] == DIGIT_UNUSED) {
+    i = 1;
     CopyShieldTile(gBgVram.cbb0 + 0x8460);
   }
-  for (; r5 < 5; r5++)
-    sub_8020968(gBgVram.cbb0 + 0x8460 + r5 * 32, g2021BD0[r5][g8E0D5B0], 0x801);
+  for (; i < MAX_U16_DIGITS; i++)
+    sub_8020968(gBgVram.cbb0 + 0x8460 + i * 32, gDecimalDigitsU16[i][g8E0D5B0], 0x801);
 }
 
 void DisplayCardLevelInInfoBar (void) {
   if (gCardInfo.level) {
     u8 i;
     CopyStarTile(gBgVram.cbb0 + 0x8040);
-    sub_800DDA0(gCardInfo.level, 1);
+    ConvertU16ToDecimalDigits(gCardInfo.level, DIGIT_FLAG_ALIGN_LEFT);
     for (i = 0; i < 2; i++)
-      sub_8020968(gBgVram.cbb0 + 0x8040 + (i + 1) * 32, g2021BD0[i][g8E0D5B0], 0x801);
+      sub_8020968(gBgVram.cbb0 + 0x8040 + (i + 1) * 32, gDecimalDigitsU16[i][g8E0D5B0], 0x801);
   }
   else {
     CpuCopy16(gBgVram.cbb0 + 0x8000, gBgVram.cbb0 + 0x8040, 32);

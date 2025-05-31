@@ -26,9 +26,9 @@ extern u32 gUnk_8938618[]; //fix type?
 extern u32 gUnk_89385D8[]; //fix type?
 extern const u8* gUnk_8E00E30[];
 
-void sub_800DDA0(u16, u8);
+void ConvertU16ToDecimalDigits(u16, u8);
 
-extern u8 g2021BD0[]; // digit buffer
+extern u8 gDecimalDigitsU16[]; // digit buffer
 extern u8 g2021B50[]; //TODO: fix type?
 extern u8 g2021B10[]; //TODO: fix type?
 extern u8 g2021B90[]; //TODO: fix type?
@@ -75,15 +75,15 @@ static void CopyTypeIcon (void) {
 
 static void CopyAtkDigits (void) {
   u8 i;
-  sub_800DDA0(gCardInfo.atk, 0);
+  ConvertU16ToDecimalDigits(gCardInfo.atk, DIGIT_FLAG_NONE);
   for (i = 0; i < 5; i++) {
-    if (g2021BD0[i] != 10) {
-      CpuCopy32(&gUnk_89385D8[(g2021BD0[i] + 2) * 16], g2021B50, 64);
+    if (gDecimalDigitsU16[i] != 10) {
+      CpuCopy32(&gUnk_89385D8[(gDecimalDigitsU16[i] + 2) * 16], g2021B50, 64);
       CpuCopy32(gUnk_8E01364 + (i + 0x72) * 32, g2021B10, 64);
       sub_800DD4C();
       CpuCopy32(g2021B90, gUnk_8E01364 + (i + 0x72) * 32, 64);
     }
-    else if (i == 0 && g2021BD0[4] != 10) {
+    else if (i == 0 && gDecimalDigitsU16[4] != 10) {
       CpuCopy32(gUnk_8938618, g2021B50, 64);
       CpuCopy32(gUnk_8E01364 + 0xE40, g2021B10, 64);
       sub_800DD4C();
@@ -94,15 +94,15 @@ static void CopyAtkDigits (void) {
 
 static void CopyDefDigits (void) {
   u8 i;
-  sub_800DDA0(gCardInfo.def, 0);
+  ConvertU16ToDecimalDigits(gCardInfo.def, DIGIT_FLAG_NONE);
   for (i = 0; i < 5; i++) {
-    if (g2021BD0[i] != 10) {
-      CpuCopy32(&gUnk_89385D8[(g2021BD0[i] + 2) * 16], g2021B50, 64);
+    if (gDecimalDigitsU16[i] != 10) {
+      CpuCopy32(&gUnk_89385D8[(gDecimalDigitsU16[i] + 2) * 16], g2021B50, 64);
       CpuCopy32(gUnk_8E01364 + (i + 0x77) * 32, g2021B10, 64);
       sub_800DD4C();
       CpuCopy32(g2021B90, gUnk_8E01364 + (i + 0x77) * 32, 64);
     }
-    else if (i == 0 && g2021BD0[4] != 10) {
+    else if (i == 0 && gDecimalDigitsU16[4] != 10) {
       CpuCopy32(gUnk_89385D8, g2021B50, 64);
       CpuCopy32(gUnk_8E01364 + 0xEE0, g2021B10, 64);
       sub_800DD4C();

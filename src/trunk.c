@@ -1008,9 +1008,9 @@ void sub_8009784 (void) {
   CopyStringTilesToVRAMBuffer(gVr.a + 0x8020, g8090B94, 0x801);
   CopyStringTilesToVRAMBuffer(gVr.a + 0x8040, g8090B98, 0x901);
   gVr.b[0x5C2F] = 0x5001;
-  sub_800DDA0(GetDeckCapacity(), 0);
+  ConvertU16ToDecimalDigits(GetDeckCapacity(), DIGIT_FLAG_NONE);
   for (i = 0; i < 5; i++)
-    gVr.b[0x5C30 + i] = g2021BD0[i] + 0x5209;
+    gVr.b[0x5C30 + i] = gDecimalDigitsU16[i] + 0x5209;
   gVr.b[0x5C38] = 0x5001;
   gVr.b[0x5C39] = 0x520D;
   gVr.b[0x5C3A] = 0x5209;

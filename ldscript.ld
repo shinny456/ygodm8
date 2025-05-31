@@ -81,7 +81,7 @@ SECTIONS
     g2021B10 = 0x2021B10;
     g2021B50 = 0x2021B50;
     g2021B90 = 0x2021B90;
-    g2021BE0 = 0x2021BE0;
+    gDecimalDigitsU64 = 0x2021BE0;
     g2021BF8 = 0x02021BF8;
     sAI_Command = 0x02021C00;
     gHideEffectText = 0x02021C08;
@@ -210,7 +210,7 @@ SECTIONS
     gTrapEffectData = 0x020245A0;
     gWhoseTurn = 0x020245A8;
     g20245AC = 0x20245AC;
-    g2021BD0 = 0x2021BD0;
+    gDecimalDigitsU16 = 0x2021BD0;
 
     g3000400 = 0x3000400;
     g3000C00 = 0x3000C00;

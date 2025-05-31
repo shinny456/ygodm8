@@ -918,7 +918,7 @@ sub_8023CC0: @ 0x08023CC0
 	lsls r4, r4, #0x18
 	lsrs r4, r4, #0x18
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	ldr r1, _08023D0C
 	lsls r4, r4, #0xc
 	ldr r3, _08023D10
@@ -962,7 +962,7 @@ sub_8023D20: @ 0x08023D20
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	ldr r1, _08023D70
 	lsls r4, r4, #0xc
 	ldr r3, _08023D74
@@ -1007,7 +1007,7 @@ sub_8023D7C: @ 0x08023D7C
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	ldr r1, _08023DCC
 	lsls r4, r4, #0xc
 	ldr r3, _08023DD0
@@ -10666,7 +10666,7 @@ sub_80390B8: @ 0x080390B8
 	ldr r0, _08039124
 	ldrh r0, [r0, #0x10]
 	movs r1, #1
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	ldr r2, _08039128
 	ldrb r0, [r2]
 	adds r0, #7
@@ -10823,7 +10823,7 @@ sub_80391F8: @ 0x080391F8
 	mov sl, r1
 	ldrh r0, [r1, #0x12]
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	ldr r0, _080392F0
 	adds r0, r4, r0
 	ldrb r6, [r0]
@@ -10875,7 +10875,7 @@ sub_80391F8: @ 0x080391F8
 	mov r1, sl
 	ldrh r0, [r1, #0x14]
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	adds r4, #1
 	lsls r4, r4, #5
 	add r4, sb
@@ -11262,7 +11262,7 @@ sub_8039534: @ 0x08039534
 	ldr r0, _0803961C
 	ldrh r0, [r0, #0xc]
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	adds r5, #1
 	lsls r5, r5, #5
 	add r5, sb
@@ -12715,7 +12715,7 @@ sub_803A264: @ 0x0803A264
 	adds r0, r0, r5
 	ldrb r0, [r0]
 	movs r1, #1
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	ldr r2, _0803A2D0
 	ldrb r0, [r2]
 	adds r0, #7
@@ -12769,7 +12769,7 @@ sub_803A2D4: @ 0x0803A2D4
 	adds r0, r0, r5
 	ldrb r0, [r0]
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	ldr r2, _0803A348
 	ldrb r0, [r2, #2]
 	adds r0, #7
@@ -13608,7 +13608,7 @@ sub_803AA14: @ 0x0803AA14
 	beq _0803AA98
 	adds r0, r1, #0
 	movs r1, #1
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	ldr r2, _0803AA94
 	ldrb r0, [r2]
 	adds r0, #7
@@ -13812,7 +13812,7 @@ sub_803AC2C: @ 0x0803AC2C
 	adds r0, r0, r5
 	ldrb r0, [r0]
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	ldr r2, _0803ACAC
 	ldrb r0, [r2, #2]
 	adds r0, #7
@@ -13878,7 +13878,7 @@ sub_803ACC4: @ 0x0803ACC4
 	beq _0803ADDC
 	ldrh r0, [r1, #0x12]
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	ldr r0, _0803ADC4
 	adds r0, r4, r0
 	ldrb r6, [r0]
@@ -13930,7 +13930,7 @@ sub_803ACC4: @ 0x0803ACC4
 	mov r1, sl
 	ldrh r0, [r1, #0x14]
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	adds r4, #1
 	lsls r4, r4, #5
 	add r4, sb
@@ -14429,7 +14429,7 @@ sub_803B0E4: @ 0x0803B0E4
 	strh r4, [r3, #2]
 	ldrh r0, [r5, #0xc]
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	lsls r0, r6, #5
 	ldr r1, _0803B1D8
 	adds r0, r0, r1
@@ -16575,7 +16575,7 @@ sub_803C4A4: @ 0x0803C4A4
 	beq _0803C528
 	adds r0, r1, #0
 	movs r1, #1
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	ldr r2, _0803C524
 	ldrb r0, [r2]
 	adds r0, #7
@@ -16779,7 +16779,7 @@ sub_803C6BC: @ 0x0803C6BC
 	adds r0, r0, r5
 	ldrb r0, [r0]
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	ldr r2, _0803C73C
 	ldrb r0, [r2, #2]
 	adds r0, #7
@@ -16845,7 +16845,7 @@ sub_803C754: @ 0x0803C754
 	beq _0803C86C
 	ldrh r0, [r1, #0x12]
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	ldr r0, _0803C854
 	adds r0, r4, r0
 	ldrb r6, [r0]
@@ -16897,7 +16897,7 @@ sub_803C754: @ 0x0803C754
 	mov r1, sl
 	ldrh r0, [r1, #0x14]
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	adds r4, #1
 	lsls r4, r4, #5
 	add r4, sb
@@ -17396,7 +17396,7 @@ sub_803CB74: @ 0x0803CB74
 	strh r4, [r3, #2]
 	ldrh r0, [r5, #0xc]
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	lsls r0, r6, #5
 	ldr r1, _0803CC68
 	adds r0, r0, r1

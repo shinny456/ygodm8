@@ -95,8 +95,8 @@ void sub_801EFC0 (u16 cardId, u16* arg1) {
   u8 i;
   if (cardId != CARD_NONE) {
     for (i = 0; i < 4; i++) {
-      sub_800DDA0(cardId, 1);
-      *arg1++ = g2021BD0[i] + 0x5009;
+      ConvertU16ToDecimalDigits(cardId, DIGIT_FLAG_ALIGN_LEFT);
+      *arg1++ = gDecimalDigitsU16[i] + 0x5009;
     }
   }
   else {
