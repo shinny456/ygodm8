@@ -387,7 +387,7 @@ void sub_801BC00 (void) {
   struct DuelText duelText;
   if (gDuelType == DUEL_TYPE_LINK) {
     sub_80240BC(&duelText);
-    duelText.textId = 24;
+    duelText.textId = TEXT_LINKING;
     sub_802408C(&duelText);
     g2021D98 = 4;
     sub_8024548();
@@ -675,7 +675,7 @@ static void sub_801BFB0 (unsigned char arg0) {
 	lsrs r4, r4, #0x18\n\
 	movs r0, #0\n\
 	movs r1, #3\n\
-	bl sub_8056258\n\
+	bl RandRangeU8\n\
 	lsls r0, r0, #0x18\n\
 	ldr r1, _0801BFEC\n\
 	lsrs r0, r0, #0x16\n\
@@ -1301,17 +1301,17 @@ static void sub_801C870 (unsigned char arg0) {
   else
     arg0 = 124;
   temp = 0x3C;
-  sub_800DDA0(gE008B4->unk0, 0);
+  ConvertU16ToDecimalDigits(gE008B4->unk0, DIGIT_FLAG_NONE);
   for (i = 0; i < 7; i++) {
     if (i < 2) {
       gOamBuffer[i * 4] = gE00880[i + 10]->oam->attr0 | temp;
       gOamBuffer[i * 4 + 1] = gE00880[i + 10]->oam->attr1 | arg0;
       gOamBuffer[i * 4 + 2] = gE00880[i + 10]->oam->attr2;
     }
-    else if (g2021BD0[i - 2] != 10) {
-      gOamBuffer[i * 4] = gE00880[g2021BD0[i - 2]]->oam->attr0 | temp;
-      gOamBuffer[i * 4 + 1] = gE00880[g2021BD0[i - 2]]->oam->attr1 | arg0;
-      gOamBuffer[i * 4 + 2] = gE00880[g2021BD0[i - 2]]->oam->attr2;
+    else if (gDecimalDigitsU16[i - 2] != 10) {
+      gOamBuffer[i * 4] = gE00880[gDecimalDigitsU16[i - 2]]->oam->attr0 | temp;
+      gOamBuffer[i * 4 + 1] = gE00880[gDecimalDigitsU16[i - 2]]->oam->attr1 | arg0;
+      gOamBuffer[i * 4 + 2] = gE00880[gDecimalDigitsU16[i - 2]]->oam->attr2;
     }
     else {
       gOamBuffer[i * 4] = 0xA0;

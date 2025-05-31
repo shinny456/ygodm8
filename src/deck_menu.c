@@ -33,24 +33,24 @@ void sub_0801F62C (void);
 void RunPlayerDeckTask (unsigned char);
 void RunTrunkTask (unsigned char);
 void sub_0801F5EC (void);
-void sub_802612C (void);
+void UpdateFilteredInput_NoRepeat (void);
 unsigned char GetPlayerDeckSize (void);
 void DeckMenuSort (void);
 void sub_801F5F0 (void);
 void ToggleDeckSortMode (void);
 void sub_801DE5C (void);
-void sub_801DC04 (unsigned char);
-void sub_801DC64 (unsigned char);
-void sub_801DCC8 (void);
+void TryMovePosDownByAmount (unsigned char);
+void TryMovePosUpByAmount (unsigned char);
+void ToggleDeckDisplayMode (void);
 void sub_0801DCEC (void);
 unsigned char DecreaseDeckCardCount (unsigned char);
 extern unsigned short gStarterDeck[];
 
 void sub_801F614 (void);
-unsigned short sub_801DAF8 (unsigned char);
+unsigned short GetSelectedCardWithOffset (unsigned char);
 
 extern unsigned short gNewButtons;
-extern unsigned short gUnk2021DCC;
+extern unsigned short gFilteredInput;
 extern unsigned short gPressedButtons;
 extern unsigned short gRepeatedOrNewButtons;
 extern unsigned char gE00AD4[];
@@ -132,50 +132,52 @@ void DeckMenuMain (void) {
   sub_801F4A0(2);
 }
 
+// used for general pause menu (selecting between Status/Deck/Trunk)
 static unsigned short ProcessInput (void) { // same code as the one in trunk.c
   unsigned char i;
-  unsigned short r2;
+  unsigned short mask;
   unsigned short ret = 0;
-  sub_802612C();
-  r2 = 1;
+  UpdateFilteredInput_NoRepeat();
+  mask = 0x1;
   for (i = 0; i < 10; i++) {
-    if (r2 & gNewButtons)
-      ret = r2 & gNewButtons;
-    r2 <<= 1;
+    if (mask & gNewButtons)
+      ret = mask & gNewButtons;
+    mask <<= 1;
   }
-  r2 = 0x10;
+  mask = 0x10;
   for (i = 0; i < 4; i++) {
-    if (r2 & gUnk2021DCC)
-      ret = r2 & gUnk2021DCC;
-    r2 <<= 1;
+    if (mask & gFilteredInput)
+      ret = mask & gFilteredInput;
+    mask <<= 1;
   }
-  if (gUnk2021DCC & 0x40 && gPressedButtons & 0x100)
+  if (gFilteredInput & DPAD_UP && gPressedButtons & R_BUTTON)
     ret = 0x140;
-  if (gUnk2021DCC & 0x80 && gPressedButtons & 0x100)
+  if (gFilteredInput & DPAD_DOWN && gPressedButtons & R_BUTTON)
     ret = 0x180;
   return ret;
 }
 
-int sub_801D368 (void) {
+// used for actual deck adjustment menu
+int ProcessInputDeckAdjustmentMenu (void) {
   unsigned char i;
-  unsigned short r2;
+  unsigned short mask;
   unsigned short ret = 0;
-  sub_802612C();
-  r2 = 1;
+  UpdateFilteredInput_NoRepeat(); // pointless since we read gRepeatedOrNewButtons below instead of gFilteredInput -- devs should have used WithRepeat version?
+  mask = 0x1;
   for (i = 0; i < 10; i++) {
-    if (r2 & gNewButtons)
-      ret = r2 & gNewButtons;
-    r2 <<= 1;
+    if (mask & gNewButtons)
+      ret = mask & gNewButtons;
+    mask <<= 1;
   }
-  r2 = 0x10;
+  mask = 0x10;
   for (i = 0; i < 4; i++) {
-    if (r2 & gRepeatedOrNewButtons)
-      ret = r2 & gRepeatedOrNewButtons;
-    r2 <<= 1;
+    if (mask & gRepeatedOrNewButtons)
+      ret = mask & gRepeatedOrNewButtons;
+    mask <<= 1;
   }
-  if (gRepeatedOrNewButtons & DPAD_UP && gPressedButtons & 0x100)
+  if (gRepeatedOrNewButtons & DPAD_UP && gPressedButtons & R_BUTTON)
     ret = 0x140;
-  if (gRepeatedOrNewButtons & DPAD_DOWN && gPressedButtons & 0x100)
+  if (gRepeatedOrNewButtons & DPAD_DOWN && gPressedButtons & R_BUTTON)
     ret = 0x180;
   return ret;
 }
@@ -237,7 +239,7 @@ static void sub_801D4B8 (void) {
   WaitForVBlank();
   keepProcessing = 1;
   while (keepProcessing) {
-    switch (sub_801D368()) {
+    switch (ProcessInputDeckAdjustmentMenu()) {
       case 0x40:
         sub_801D548();
         break;
@@ -284,9 +286,9 @@ static void sub_801D57C (void) {
 }
 
 static void sub_801D5B0 (void) {
-  SetCardInfo(sub_801DAF8(2));
+  SetCardInfo(GetSelectedCardWithOffset(2));
   PlayMusic(SFX_SELECT);
-  sub_801F6B0();
+  ShowCardDetailView();
   sub_801EF30(0);
   sub_801EF30(2);
   sub_801F4A0(1);
@@ -405,25 +407,25 @@ void RemoveCardFromDeckAtIndex (unsigned char);
 void SubtractCostFromDeckCapacity (unsigned);
 void AddCardToTrunk (unsigned short);
 unsigned char GetCardIndexInDeck (unsigned short);
-void sub_8034A38 (void);
+void SortCardsAccordingToContext (void);
 void CalculateCurrentDeckCost (void);
 
-void sub_801D7D0 (void) {
-  unsigned short cardId = sub_801DAF8(2);
+void TryMoveSelectedCardToTrunk (void) {
+  unsigned short cardId = GetSelectedCardWithOffset(2);
   if (!cardId) {
     PlayMusic(SFX_FORBIDDEN);
     return;
   }
   SetCardInfo(cardId);
   AddCardToTrunk(cardId);
-  RemoveCardFromDeckAtIndex(gPlayerDeck.unk4); // s8 to unsigned char conversion
-  if (gPlayerDeck.unk4 >= gPlayerDeck.count) {
-    unsigned char temp = gPlayerDeck.unk4 - gPlayerDeck.count + 1;
-    if (gPlayerDeck.unk4) {
-      if (temp <= gPlayerDeck.unk4)
-        gPlayerDeck.unk4 -= temp;
+  RemoveCardFromDeckAtIndex(gDeckMenu.currentPos); // s8 to unsigned char conversion
+  if (gDeckMenu.currentPos >= gDeckMenu.cardCount) {
+    unsigned char temp = gDeckMenu.currentPos - gDeckMenu.cardCount + 1;
+    if (gDeckMenu.currentPos) {
+      if (temp <= gDeckMenu.currentPos)
+        gDeckMenu.currentPos -= temp;
       else
-        gPlayerDeck.unk4 = 0;
+        gDeckMenu.currentPos = 0;
       PlayMusic(SFX_MOVE_CURSOR);
     }
     else if (GetPlayerDeckSize()) {
@@ -441,18 +443,18 @@ unsigned char TryRemoveCardFromDeck (unsigned short cardId) {
   unsigned char deckIndex;
   SetCardInfo(cardId);
   deckIndex = GetCardIndexInDeck(cardId);
-  if (deckIndex < gPlayerDeck.count) {
+  if (deckIndex < gDeckMenu.cardCount) {
     RemoveCardFromDeckAtIndex(deckIndex);
     SubtractCostFromDeckCapacity(gCardInfo.cost);
     removalSucceeded = 1;
   }
-  if (gPlayerDeck.unk4 >= gPlayerDeck.count) {
-    unsigned char deckIndex = gPlayerDeck.unk4 - gPlayerDeck.count + 1;
-    if (gPlayerDeck.unk4) {
-      if (deckIndex <= gPlayerDeck.unk4)
-        gPlayerDeck.unk4 -= deckIndex;
+  if (gDeckMenu.currentPos >= gDeckMenu.cardCount) {
+    unsigned char deckIndex = gDeckMenu.currentPos - gDeckMenu.cardCount + 1;
+    if (gDeckMenu.currentPos) {
+      if (deckIndex <= gDeckMenu.currentPos)
+        gDeckMenu.currentPos -= deckIndex;
       else
-        gPlayerDeck.unk4 = 0;
+        gDeckMenu.currentPos = 0;
       PlayMusic(SFX_MOVE_CURSOR);
     }
     else if (GetPlayerDeckSize()) {
@@ -468,34 +470,33 @@ extern unsigned char gE00AE0[];
 
 void ToggleDeckSortMode (void) {
   unsigned char temp;
-  if (++gPlayerDeck.sortMode > 9)
-    gPlayerDeck.sortMode = 0;
-  temp = gPlayerDeck.sortMode;
-  gUnk2022EB0.cards = gPlayerDeck.cards;
-  gUnk2022EB0.cardCount = gPlayerDeck.count;
-  gUnk2022EB0.sortMode = gE00AE0[temp];
-  sub_8034A38();
-  gPlayerDeck.unk4 = 0;
+  if (++gDeckMenu.sortMode > 9)
+    gDeckMenu.sortMode = 0;
+  temp = gDeckMenu.sortMode;
+  gCardSortContext.cards = gDeckMenu.cards;
+  gCardSortContext.cardCount = gDeckMenu.cardCount;
+  gCardSortContext.sortMode = gE00AE0[temp];
+  SortCardsAccordingToContext();
+  gDeckMenu.currentPos = 0;
 }
 
-// remove all copies
-void sub_801D960 (unsigned short id) {
+void RemoveAllCopiesOfCardFromDeck (unsigned short id) {
   unsigned i, j;
   for (i = 0; i < 40; i++)
-    if (gPlayerDeck.cards[i] == id)
-      gPlayerDeck.cards[i] = CARD_NONE;
+    if (gDeckMenu.cards[i] == id)
+      gDeckMenu.cards[i] = CARD_NONE;
   i = 0;
   j = 39;
   while (i < j) {
-    if (gPlayerDeck.cards[i] != CARD_NONE)
+    if (gDeckMenu.cards[i] != CARD_NONE)
       i++;
     else {
-      if (gPlayerDeck.cards[j] == CARD_NONE) {
+      if (gDeckMenu.cards[j] == CARD_NONE) {
         j--;
       }
       else {
-        gPlayerDeck.cards[i] = gPlayerDeck.cards[j];
-        gPlayerDeck.cards[j] = CARD_NONE;
+        gDeckMenu.cards[i] = gDeckMenu.cards[j];
+        gDeckMenu.cards[j] = CARD_NONE;
         i++;
         j--;
       }
@@ -503,26 +504,25 @@ void sub_801D960 (unsigned short id) {
   }
 }
 
-// remove one copy
-void sub_801D9B8 (unsigned short id) {
+void RemoveOneCopyOfCardFromDeck (unsigned short id) {
   unsigned i, j;
   for (i = 0; i < 40; i++)
-    if (gPlayerDeck.cards[i] == id) {
-      gPlayerDeck.cards[i] = CARD_NONE;
+    if (gDeckMenu.cards[i] == id) {
+      gDeckMenu.cards[i] = CARD_NONE;
       break;
     }
   i = 0;
   j = 39;
   while (i < j) {
-    if (gPlayerDeck.cards[i] != CARD_NONE)
+    if (gDeckMenu.cards[i] != CARD_NONE)
       i++;
     else {
-      if (gPlayerDeck.cards[j] == CARD_NONE) {
+      if (gDeckMenu.cards[j] == CARD_NONE) {
         j--;
       }
       else {
-        gPlayerDeck.cards[i] = gPlayerDeck.cards[j];
-        gPlayerDeck.cards[j] = CARD_NONE;
+        gDeckMenu.cards[i] = gDeckMenu.cards[j];
+        gDeckMenu.cards[j] = CARD_NONE;
         i++;
         j--;
       }
@@ -532,20 +532,20 @@ void sub_801D9B8 (unsigned short id) {
 
 void InitDeckData (void) {
   unsigned i;
-  gPlayerDeck.sortMode = 0;
-  gPlayerDeck.unk4 = 0;
-  gPlayerDeck.unk6 = 1;
-  gPlayerDeck.count = 0;
+  gDeckMenu.sortMode = 0;
+  gDeckMenu.currentPos = 0;
+  gDeckMenu.displayMode = 1;
+  gDeckMenu.cardCount = 0;
   for (i = 0; i < 40; i++)
-    if (gPlayerDeck.cards[i])
-      gPlayerDeck.count++;
+    if (gDeckMenu.cards[i])
+      gDeckMenu.cardCount++;
   CalculateCurrentDeckCost();
 }
 
 void InitNewGameDeck (void) {
   unsigned i;
   for (i = 0; i < 40; i++)
-    gPlayerDeck.cards[i] = gStarterDeck[i];
+    gDeckMenu.cards[i] = gStarterDeck[i];
 }
 
 enum {
@@ -563,22 +563,22 @@ void RunPlayerDeckTask (unsigned char task) {
       InitDeckData();
       break;
     case 2:
-      sub_801DC04(1);
+      TryMovePosDownByAmount(1);
       break;
     case 3:
-      sub_801DC64(1);
+      TryMovePosUpByAmount(1);
       break;
     case 4:
-      sub_801DC04(10);
+      TryMovePosDownByAmount(10);
       break;
     case 5:
-      sub_801DC64(10);
+      TryMovePosUpByAmount(10);
       break;
     case 6:
-      sub_801DCC8();
+      ToggleDeckDisplayMode();
       break;
     case 7:
-      sub_801D7D0();
+      TryMoveSelectedCardToTrunk();
       break;
     case 8:
       sub_0801DCEC();
@@ -586,42 +586,43 @@ void RunPlayerDeckTask (unsigned char task) {
   }
 }
 
-unsigned short sub_801DAF8 (unsigned char arg0) {
-  int temp = gPlayerDeck.unk4 + arg0 - 2;
+// pass offset=2 to get selected card; offset=0 gives first card visible in viewport?
+unsigned short GetSelectedCardWithOffset (unsigned char offset) {
+  int temp = gDeckMenu.currentPos + offset - 2;
   if (temp < 0)
     return CARD_NONE;
   if (temp < 40)
-    return gPlayerDeck.cards[temp];
+    return gDeckMenu.cards[temp];
   return CARD_NONE;
 }
 
-unsigned char sub_801DB24 (void) {
-  return gPlayerDeck.unk6;
+unsigned char GetDeckMenuDisplayMode (void) {
+  return gDeckMenu.displayMode;
 }
 
 void sub_801DB30 (void) {
-  gUnk2021AB4.unk0 = gPlayerDeck.unk4;
-  gUnk2021AB4.unk2 = gPlayerDeck.count - 1;
+  gUnk2021AB4.currentPos = gDeckMenu.currentPos;
+  gUnk2021AB4.lastValidIndex = gDeckMenu.cardCount - 1;
 }
 
 unsigned char GetPlayerDeckSize (void) {
-  return gPlayerDeck.count;
+  return gDeckMenu.cardCount;
 }
 
 unsigned GetPlayerDeckCost (void) {
-  return gPlayerDeck.cost;
+  return gDeckMenu.cost;
 }
 
 void AddCardToDeck (unsigned short cardId) {
-  gPlayerDeck.cards[gPlayerDeck.count] = cardId;
-  gPlayerDeck.count++;
+  gDeckMenu.cards[gDeckMenu.cardCount] = cardId;
+  gDeckMenu.cardCount++;
   CalculateCurrentDeckCost();
 }
 
 unsigned char GetDeckCardQty (unsigned short cardId) {
   unsigned char i, qty = 0;
   for (i = 0; i < 40; i++)
-    if (gPlayerDeck.cards[i] == cardId)
+    if (gDeckMenu.cards[i] == cardId)
       qty++;
   return qty;
 }
@@ -629,23 +630,23 @@ unsigned char GetDeckCardQty (unsigned short cardId) {
 unsigned char IsDeckFull (void) {
   unsigned char i;
   for (i = 0; i < 40; i++)
-    if (gPlayerDeck.cards[i] == CARD_NONE)
+    if (gDeckMenu.cards[i] == CARD_NONE)
       return 0;
   return 1;
 }
 
 s32 IsCostWithinCapacity (void) {
-  if (GetDeckCapacity() < gPlayerDeck.cost)
+  if (GetDeckCapacity() < gDeckMenu.cost)
     return 0;
   return 1;
 }
 
-void sub_801DC04 (unsigned char arg0) {
-  if (gPlayerDeck.unk4 != gPlayerDeck.count - 1) {
-    if (arg0 < gPlayerDeck.count - gPlayerDeck.unk4)
-      gPlayerDeck.unk4 += arg0;
+void TryMovePosDownByAmount (unsigned char amt) {
+  if (gDeckMenu.currentPos != gDeckMenu.cardCount - 1) {
+    if (amt < gDeckMenu.cardCount - gDeckMenu.currentPos)
+      gDeckMenu.currentPos += amt;
     else
-      gPlayerDeck.unk4 = gPlayerDeck.count - 1;
+      gDeckMenu.currentPos = gDeckMenu.cardCount - 1;
     PlayMusic(SFX_MOVE_CURSOR);
   }
   else {
@@ -655,12 +656,12 @@ void sub_801DC04 (unsigned char arg0) {
   }
 }
 
-void sub_801DC64 (unsigned char arg0) {
-  if (gPlayerDeck.unk4) {
-    if (arg0 <= gPlayerDeck.unk4)
-      gPlayerDeck.unk4 -= arg0;
+void TryMovePosUpByAmount (unsigned char amt) {
+  if (gDeckMenu.currentPos) {
+    if (amt <= gDeckMenu.currentPos)
+      gDeckMenu.currentPos -= amt;
     else
-      gPlayerDeck.unk4 = 0;
+      gDeckMenu.currentPos = 0;
     PlayMusic(SFX_MOVE_CURSOR);
   }
   else if (GetPlayerDeckSize()){
@@ -670,9 +671,9 @@ void sub_801DC64 (unsigned char arg0) {
   }
 }
 
-void sub_801DCC8 (void) {
-  if (++gPlayerDeck.unk6 > 3)
-    gPlayerDeck.unk6 = 0;
+void ToggleDeckDisplayMode (void) {
+  if (++gDeckMenu.displayMode > 3)
+    gDeckMenu.displayMode = 0;
   PlayMusic(SFX_MOVE_CURSOR);
 }
 
@@ -681,57 +682,57 @@ void sub_0801DCEC (void) {
 
 void CalculateCurrentDeckCost (void) {
   unsigned char i;
-  gPlayerDeck.cost = 0;
-  for (i = 0; i < gPlayerDeck.count; i++) {
-    SetCardInfo(gPlayerDeck.cards[i]);
-    gPlayerDeck.cost += gCardInfo.cost;
+  gDeckMenu.cost = 0;
+  for (i = 0; i < gDeckMenu.cardCount; i++) {
+    SetCardInfo(gDeckMenu.cards[i]);
+    gDeckMenu.cost += gCardInfo.cost;
   }
 }
 
 void SubtractCostFromDeckCapacity (unsigned subtractCost) {
-  if (subtractCost > gPlayerDeck.cost)
-    gPlayerDeck.cost = 0;
+  if (subtractCost > gDeckMenu.cost)
+    gDeckMenu.cost = 0;
   else
-    gPlayerDeck.cost -= subtractCost;
+    gDeckMenu.cost -= subtractCost;
 }
 
 unsigned char GetCardIndexInDeck (unsigned short cardId) {
-  unsigned char index;
-  for (index = 0; index < gPlayerDeck.count && gPlayerDeck.cards[index] != cardId; index++)
+  unsigned char i;
+  for (i = 0; i < gDeckMenu.cardCount && gDeckMenu.cards[i] != cardId; i++)
     ;
-  return index;
+  return i;
 }
 
 // shuffle all later cards "up" by one to fill the gap
 void RemoveCardFromDeckAtIndex (unsigned char i) {
-  for (; i < gPlayerDeck.count - 1; i++)
-    gPlayerDeck.cards[i] = gPlayerDeck.cards[i + 1];
-  gPlayerDeck.cards[gPlayerDeck.count - 1] = CARD_NONE;
+  for (; i < gDeckMenu.cardCount - 1; i++)
+    gDeckMenu.cards[i] = gDeckMenu.cards[i + 1];
+  gDeckMenu.cards[gDeckMenu.cardCount - 1] = CARD_NONE;
   DecreaseDeckCardCount(1);
 }
 
 void DeckMenuSortBy (unsigned char arg0) {
-  gUnk2022EB0.cards = gPlayerDeck.cards;
-  gUnk2022EB0.cardCount = gPlayerDeck.count;
-  gUnk2022EB0.sortMode = gE00AE0[arg0];
-  sub_8034A38();
-  gPlayerDeck.unk4 = 0;
+  gCardSortContext.cards = gDeckMenu.cards;
+  gCardSortContext.cardCount = gDeckMenu.cardCount;
+  gCardSortContext.sortMode = gE00AE0[arg0];
+  SortCardsAccordingToContext();
+  gDeckMenu.currentPos = 0;
 }
 
 void DeckMenuSort (void) {
-  gUnk2022EB0.cards = gPlayerDeck.cards;
-  gUnk2022EB0.cardCount = gPlayerDeck.count;
-  gUnk2022EB0.sortMode = gE00AE0[gPlayerDeck.sortMode];
-  sub_8034A38();
+  gCardSortContext.cards = gDeckMenu.cards;
+  gCardSortContext.cardCount = gDeckMenu.cardCount;
+  gCardSortContext.sortMode = gE00AE0[gDeckMenu.sortMode];
+  SortCardsAccordingToContext();
 }
 
 unsigned char DecreaseDeckCardCount (unsigned char amt) {
-  if (gPlayerDeck.count < amt) {
-    amt = gPlayerDeck.count;
-    gPlayerDeck.count = 0;
+  if (gDeckMenu.cardCount < amt) {
+    amt = gDeckMenu.cardCount;
+    gDeckMenu.cardCount = 0;
   }
   else
-    gPlayerDeck.count -= amt;
+    gDeckMenu.cardCount -= amt;
   return amt;
 }
 
@@ -865,7 +866,7 @@ void sub_801E27C (void) {
   CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[32], g80B954C, 0x801);
   CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[64], g80B9550, 0x901);
   gBgVram.cbb1[0x385E] = 0x5001;
-  sub_800DDA0(GetDeckCapacity(), 0);
+  ConvertU16ToDecimalDigits(GetDeckCapacity(), DIGIT_FLAG_NONE);
   for (i = 0; i < 5; i++)
     //see sub_800CCAC
 }*/
@@ -996,7 +997,7 @@ _0801E30E:\n\
 	lsls r0, r0, #0x10\n\
 	lsrs r0, r0, #0x10\n\
 	movs r1, #0\n\
-	bl sub_800DDA0\n\
+	bl ConvertU16ToDecimalDigits\n\
   \n\
 	movs r4, #0\n\
 	ldr r0, _0801E4B8\n\
@@ -1327,7 +1328,7 @@ void sub_801E66C (void) {
     unsigned r5;
     unsigned r4;
     unsigned short cardId;
-    SetCardInfo(sub_801DAF8(i));
+    SetCardInfo(GetSelectedCardWithOffset(i));
     r5 = 0;
     if (i > 1) {
       r5 = 2;
@@ -1380,7 +1381,7 @@ void sub_801E66C (void) {
 	mov sl, r1\n\
 _0801E6AA:\n\
 	adds r0, r6, #0\n\
-	bl sub_801DAF8\n\
+	bl GetSelectedCardWithOffset\n\
 	lsls r0, r0, #0x10\n\
 	lsrs r0, r0, #0x10\n\
 	bl SetCardInfo\n\
@@ -1428,7 +1429,7 @@ _0801E6C6:\n\
 	lsls r0, r0, #0x10\n\
 	lsrs r0, r0, #0x10\n\
 	movs r1, #0\n\
-	bl sub_800DDA0\n\
+	bl ConvertU16ToDecimalDigits\n\
 	bl sub_800A508\n\
 	lsls r0, r0, #0x10\n\
 	lsrs r2, r0, #0x10\n\
@@ -1457,7 +1458,7 @@ _0801E732:\n\
 	lsls r0, r0, #0x18\n\
 	lsrs r0, r0, #0x18\n\
 	movs r1, #0\n\
-	bl sub_800DDA0\n\
+	bl ConvertU16ToDecimalDigits\n\
 	bl sub_800A528\n\
 	lsls r0, r0, #0x10\n\
 	lsrs r2, r0, #0x10\n\
@@ -1594,7 +1595,7 @@ void sub_801E9EC (void) {
   unsigned char i, j;
   for (i = 0; i < 5; i++) {
     unsigned char r7;
-    SetCardInfo(sub_801DAF8(i));
+    SetCardInfo(GetSelectedCardWithOffset(i));
     r7 = 0;
     if (i > 1) {
       r7 = 2;
@@ -1605,13 +1606,13 @@ void sub_801E9EC (void) {
       //r5 = i * 2
       //r4 = (i * 3 + (r7 + 3)) * 32
       gVr.b[(i * 3 + (r7 + 3)) * 32 + 0x7C14] = 0x5002;
-      sub_800DDA0(gCardInfo.atk, 0);
+      ConvertU16ToDecimalDigits(gCardInfo.atk, DIGIT_FLAG_NONE);
       for (j = 0; j < 5; j++)
-        gVr.b[(i * 3 + (r7 + 3)) * 32 + 0x7C15 + j] = g2021BD0[j] + 0x2009;
+        gVr.b[(i * 3 + (r7 + 3)) * 32 + 0x7C15 + j] = gDecimalDigitsU16[j] + 0x2009;
       gVr.b[(i * 3 + (r7 + 4)) * 32 + 0x7C14] = 0x5003;
-      sub_800DDA0(gCardInfo.def, 0);
+      ConvertU16ToDecimalDigits(gCardInfo.def, DIGIT_FLAG_NONE);
       for (j = 0; j < 5; j++)
-        gVr.b[(i * 3 + (r7 + 4)) * 32 + 0x7C15 + j] = g2021BD0[j] + 0x1009;
+        gVr.b[(i * 3 + (r7 + 4)) * 32 + 0x7C15 + j] = gDecimalDigitsU16[j] + 0x1009;
     }
     else {
       for (j = 0; j < 6; j++)

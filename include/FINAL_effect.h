@@ -8,7 +8,7 @@
 #define FLAG_L (1 << 4)
 #define FLAG_FINAL_ALL (FLAG_F | FLAG_I | FLAG_N | FLAG_A | FLAG_L)
 
-void WinConditionFINAL (void);
+void CheckWinConditionFINAL (void);
 int GetFINAL_Flags (void);
 int GetFINAL_Flag (unsigned short cardId);
 

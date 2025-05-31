@@ -53,8 +53,8 @@ struct DuelistBattleState
 {
     u16 graveyard;
     u8 sorlTurns : 2;
-    u8 defenseBlocked : 1; // stop defence active this turn
-    u8 unkThree : 1; // something that causes all monsters to get locked?
+    u8 defenseBlocked : 1; // Stop Defence active this turn
+    u8 summoningBlocked : 1; // Jam Breeding Machine active this turn?
 };
 
 struct Duel
@@ -141,7 +141,7 @@ enum SpellType
 void InitDuelZonePtrs(int unused);
 //*********************
 
-void sub_8040508(u8);
+void UnblockSummoning(u8);
 
 //this seems to disable traps too. see how it's used in spell_effects.c
 extern u8 gHideEffectText; // TODO: rename to gHideDuelText? gDisableDuelTextAndTraps
@@ -156,19 +156,19 @@ struct MonEffect
 struct SpellEffect
 {
     u16 id;
-    u8 unk2;
-    u8 unk3;
-    u8 unk4;
-    u8 unk5;
+    u8 originRow; // activated card row
+    u8 originCol; // activated card col
+    u8 targetRow; // target monster row (equip)
+    u8 targetCol; // target monster col (equip)
 };
 
 struct TrapEffect
 {
-    u16 id;
-    u8 unk2;
-    u8 unk3;
-    u8 trapZoneId;
-    u8 unk5;
+    u16 originCardId; // id of card that triggered the trap, NOT the trap itself
+    u8 originRow; // row of card that triggered the trap, NOT the trap itself
+    u8 originCol; // col of card that triggered the trap, NOT the trap itself
+    u8 trapZoneCol; // zone with trap that's being checked or has been triggered
+    u8 trapCardId; // id of triggered trap card
 };
 
 extern struct MonEffect gMonEffect;
@@ -186,7 +186,7 @@ struct CardEffectTextData
     u16 unk4;
     u16 unk6;
     u16 textId;
-    u8 unkA;
+    u8 unkA; // card effect text type?
 };
 extern struct CardEffectTextData gCardEffectTextData;
 
@@ -211,7 +211,7 @@ void ActivateCardEffectText(void);
 
 void ResetCardEffectTextData(void);
 void SetCardEffectTextType(u8);
-void sub_801F6B0(void);
+void ShowCardDetailView(void);
 
 
 
@@ -334,7 +334,7 @@ void InitSorlTurns(u8);
 void ResetNumTributes(void);
 s32 WhoseTurn(void); //8058744
 
-s32 sub_8056258(u8, u8);
+s32 RandRangeU8(u8, u8);
 
 bool32 IsTrapTriggered(void);
 
@@ -404,7 +404,7 @@ struct DuelData
     struct Duelist duelist; //duelistData?
 };
 
-extern u32 gUnk02024254;
+extern u32 gLifePointsOutsideDuel;
 extern struct DuelData gDuelData;
 
 
@@ -412,14 +412,14 @@ extern u16 gAnte;
 
 extern struct {
   unsigned cost;
-  s8 unk4; // current position
+  s8 currentPos; // what index is selected/hovered by cursor
   u8 sortMode;
-  u8 unk6; //show: nothing, atk/def, attribute(summon), cost,
+  u8 displayMode; //show: nothing, atk/def, attribute(summon), cost,
   u8 sortCursorState;
-  u8 count; //TODO: cardCount?
+  u8 cardCount;
   u8 filler9;
   unsigned short cards[40]; //TODO: sortedCards?
-} gPlayerDeck; //TODO: rename to gDeckMenuData?
+} gDeckMenu;
 
 
 
@@ -429,7 +429,7 @@ extern u16 gRitualComponents[][4]; //ritual
 //[][2] == sacrifice 2
 //[][3] == sacrifice 3
 
-void sub_80404F0(u8);
+void BlockTurnSummoning(u8);
 void LockMonsterCardsInRow(u8);
 void SetAttackActionDirectAttack(int);
 
@@ -552,7 +552,7 @@ void sub_802712C(void);
 
 
 void ResetLfsrStateBit(void);
-void sub_80554EC(void);
+void InitFlags(void);
 void sub_8055FD0(void);
 void sub_801FB44(u8*);
 
@@ -590,7 +590,7 @@ void sub_8024354(void);
 extern u8 g3000C6C;
 
 void sub_803EEFC (u8, const u16*, u16);
-extern u8 g2021BD0[];
+extern u8 gDecimalDigitsU16[];
 void sub_801CF08(void);
 void sub_8041CCC (u16, u16);
 void sub_8041D14 (u16, u16);
@@ -649,12 +649,13 @@ void sub_8044EC8 (u16*, u16, u16, int);
 void sub_8044F80 (u16*, u16, u16, int);
 void sub_80411EC (struct OamData*);
 
+// card with active effect? or cursor?
 extern struct Unk2021DE0 {
-  u16 unk0;
-  u8 unk2;
-  u8 unk3;
+  u16 cardId;
+  u8 turnRow; // uses 6/7 as graveyard indexes
+  u8 col;
   u8 turn;
-} g2021DE0;
+} gActiveEffect;
 
 void sub_802ACC0(void);
 

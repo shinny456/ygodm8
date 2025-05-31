@@ -1898,7 +1898,7 @@ static void EffectPuppetMaster(void)
             HandleAtkAndLifePointsAction();
         }
         CheckLoserFlags();
-        GetGraveCardAndClearGrave(0);  //this returns something
+        GetGraveCardAndClearGrave(ACTIVE_DUELIST);  //this returns something
 
         zone = FirstEmptyZoneInRow(gTurnZones[2]);
 
@@ -2143,7 +2143,7 @@ static void EffectPenguinTorpedo(void)
     }
 }
 
-static void EffectBerserkDragon(void)
+static void EffectBerserkDragonPowerDown(void)
 {
     u8 i, turn = WhoseTurn();
 
@@ -2830,7 +2830,7 @@ static void EffectBarrelDragon(void)
     {
         if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == MAX_ZONES_IN_ROW)
             break;
-        if (sub_8056258(0, 1) == 1)
+        if (RandRangeU8(0, 1) == 1)
             ClearZoneAndSendMonToGraveyard(gTurnZones[1][(u8)HighestAtkMonInRowExceptGodCards(gTurnZones[1])], 1);
     }
 
@@ -3126,7 +3126,7 @@ void (*const gMonEffects[])(void) = {
   EffectPuppetMaster,
   EffectTheWingedDragonOfRaPhoenixMode,
   EffectPenguinTorpedo,
-  EffectBerserkDragon,
+  EffectBerserkDragonPowerDown,
   EffectFGD,
   EffectChironTheMage,
   sub_8048C18,

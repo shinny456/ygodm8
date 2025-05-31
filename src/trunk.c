@@ -2,23 +2,23 @@
 
 
 
-static void sub_800876C (void);
-static void sub_8008780 (void);
-static void sub_8008794 (void);
-static void sub_80087A8 (void);
-static void sub_80087BC (void);
-static void sub_80087D0 (void);
-static void sub_80087E4 (void);
-static void sub_8008804 (void);
-static void sub_8008818 (void);
-static void sub_800882C (void);
+static void PressUpInTrunkMenu (void);
+static void PressRUpInTrunkMenu (void);
+static void PressDownInTrunkMenu (void);
+static void PressRDownInTrunkMenu (void);
+static void PressRightInTrunkMenu (void);
+static void PressLeftInTrunkMenu (void);
+static void PressBInTrunkMenu (void);
+static void PressLInTrunkMenu (void);
+static void PressSelectInTrunkMenu (void);
+static void InitTrunkMenu (void);
 static void Trunk_A_Submenu (void);
-static void sub_80088F0 (void);
-static void sub_8008924 (void);
-static void sub_8008958 (void);
-static void sub_80089B4 (void);
-static void sub_80089D0 (void);
-static void sub_80089EC (void);
+static void MoveCursorUpInTrunkSubmenu (void);
+static void MoveCursorDownInTrunkSubmenu (void);
+static void SelectDetailsInTrunkSubmenu (void);
+static void SelectAddToDeckInTrunkSubmenu (void);
+static void SelectRemoveFromDeckInTrunkSubmenu (void);
+static void SetCursorOam (void);
 void sub_8008A48 (void);
 static void sub_8008A5C (void);
 
@@ -28,30 +28,30 @@ void sub_800ABB4 (void);
 
 
 void WaitForVBlank(void);
-unsigned short sub_800901C(unsigned char);
-void sub_80090E8(void);
-void sub_8009110(void);
-void sub_8009140(void);
-void sub_800916C(void);
-void sub_800919C(void);
-void sub_80091C0(void);
-void sub_80091EC(unsigned char);
-void sub_08009224(void);
+unsigned short GetNthCardOnScreen(unsigned char);
+void GoUpOnePosition(void);
+void GoDownOnePosition(void);
+void GoUpFiftyPositions(void);
+void GoDownFiftyPositions(void);
+void ToggleTrunkDisplayMode(void);
+void ToggleSortMode(void);
+void ApplyNewSortMode(unsigned char);
+void QuitTrunkMenu(void);
 void sub_800B3E4(unsigned short);
 
 u32 GetDuelistLevel(void);
 void SetCardInfo(unsigned short id);
 unsigned char GetPlayerDeckSize(void);
 unsigned char TryRemoveCardFromDeck(unsigned short id);
-void sub_801D960(unsigned short id);
-void sub_801D9B8(unsigned short);
+void RemoveAllCopiesOfCardFromDeck(unsigned short id);
+void RemoveOneCopyOfCardFromDeck(unsigned short);
 void AddCardToDeck(unsigned short);
 unsigned char GetDeckCardQty(unsigned short);
 
 
 unsigned char sub_801F098(unsigned short id);
 
-void sub_8034A38(void);
+void SortCardsAccordingToContext(void); // sort the cards referenced by gCardSortContext according to its sortMode
 
 extern unsigned short gPressedButtons; //0x02020DF8
 extern unsigned char gTotalCardQty[];
@@ -82,8 +82,8 @@ extern unsigned char *gTypeIconTiles[][NUM_LANGUAGES];
 extern unsigned char *gAttributeIconTiles[][NUM_LANGUAGES];
 extern unsigned char gUnk_8DF8142[]; //cursor y coords
 extern unsigned char gUnk_8DF8145[]; //cursor x coords
-extern unsigned char gUnk_8DF813C[]; //cursor state change when pressing up
-extern unsigned char gUnk_8DF813F[]; //cursor state change when pressing down
+extern unsigned char gNextUpOptionInTrunkSubmenu[];
+extern unsigned char gNextDownOptionInTrunkSubmenu[];
 
 extern unsigned char *g201CB30;
 extern unsigned short *g201CB34;
@@ -97,7 +97,7 @@ void sub_800A3D8 (unsigned char);
 void sub_800AA58 (unsigned char);
 void sub_800ABD0 (void);
 
-void sub_800B538 (unsigned short* id);
+void SetCardInfoWithWarning (unsigned short* id);
 void sub_800ABA8 (void);
 void sub_8009364 (void);
 
@@ -109,9 +109,9 @@ void RunPlayerDeckTask (unsigned char);
 
 extern unsigned short gRepeatedOrNewButtons;
 extern unsigned short gNewButtons;
-extern unsigned short gUnk2021DCC;
+extern unsigned short gFilteredInput;
 
-void sub_802612C (void);
+void UpdateFilteredInput_NoRepeat (void);
 int TrunkProcessInput (void);
 
 
@@ -123,68 +123,67 @@ void SortingMenuMain (void);
 void sub_800ABE4 (void);
 void sub_0800ABE0 (void);
 
-//TODO: rename to TrunkMenuMain?
-void TrunkMenu (void) {
+void TrunkMenuMain (void) {
   unsigned keepProcessing = 1;
-  sub_800882C();
+  InitTrunkMenu();
   while (keepProcessing) {
     switch ((unsigned short)TrunkProcessInput()) {
-      case 0x40:
-        sub_800876C();
+      case DPAD_UP:
+        PressUpInTrunkMenu();
         sub_800ABB4();
         sub_800AA58(4);
         break;
-      case 0x140:
-        sub_8008780();
+      case DPAD_UP | R_BUTTON:
+        PressRUpInTrunkMenu();
         sub_800ABB4();
         sub_800AA58(4);
         break;
-      case 0x80:
-        sub_8008794();
+      case DPAD_DOWN:
+        PressDownInTrunkMenu();
         sub_800ABB4();
         sub_800AA58(4);
         break;
-      case 0x180:
-        sub_80087A8();
+      case DPAD_DOWN | R_BUTTON:
+        PressRDownInTrunkMenu();
         sub_800ABB4();
         sub_800AA58(4);
         break;
-      case 0x10:
-        sub_80087BC();
+      case DPAD_RIGHT:
+        PressRightInTrunkMenu();
         sub_800ABD0();
         sub_800AA58(6);
         break;
-      case 0x20:
-        sub_80087D0();
+      case DPAD_LEFT:
+        PressLeftInTrunkMenu();
         sub_800ABD0();
         sub_800AA58(6);
         break;
-      case 0x200:
-        sub_8008804();
+      case L_BUTTON:
+        PressLInTrunkMenu();
         sub_800ABB4();
         sub_800AA58(4);
         break;
-      case 1:
+      case A_BUTTON:
         Trunk_A_Submenu();
         sub_800AA58(7);
         break;
-      case 2:
-        sub_80087E4();
+      case B_BUTTON:
+        PressBInTrunkMenu();
         keepProcessing = 0;
         sub_0800ABA4();
         sub_800AA58(2);
         break;
-      case 8:
+      case START_BUTTON:
         SortingMenuMain();
         sub_800A3D8(8);
         sub_800AA58(8);
         break;
-      case 4:
-        sub_8008818();
+      case SELECT_BUTTON:
+        PressSelectInTrunkMenu();
         sub_800AA58(9);
         sub_800ABE4();
         break;
-      case 0:
+      case 0: // no action?
       default:
         sub_800A3D8(5);
         sub_0800ABE0();
@@ -198,7 +197,7 @@ int TrunkProcessInput (void) {
   unsigned char i;
   unsigned short r2;
   unsigned short ret = 0;
-  sub_802612C();
+  UpdateFilteredInput_NoRepeat();
   r2 = 1;
   for (i = 0; i < 10; i++) {
     if (r2 & gNewButtons)
@@ -207,13 +206,13 @@ int TrunkProcessInput (void) {
   }
   r2 = 0x10;
   for (i = 0; i < 4; i++) {
-    if (r2 & gUnk2021DCC)
-      ret = r2 & gUnk2021DCC;
+    if (r2 & gFilteredInput)
+      ret = r2 & gFilteredInput;
     r2 <<= 1;
   }
-  if (gUnk2021DCC & 0x40 && gPressedButtons & 0x100)
+  if (gFilteredInput & DPAD_UP && gPressedButtons & R_BUTTON)
     ret = 0x140;
-  if (gUnk2021DCC & 0x80 && gPressedButtons & 0x100)
+  if (gFilteredInput & DPAD_DOWN && gPressedButtons & R_BUTTON)
     ret = 0x180;
   return ret;
 }
@@ -233,61 +232,61 @@ int TrunkSubmenuProcessInput (void) {
       ret = buttonMask & gRepeatedOrNewButtons;
     buttonMask <<= 1;
   }
-  if (gRepeatedOrNewButtons & DPAD_UP && gPressedButtons & 0x100)
+  if (gRepeatedOrNewButtons & DPAD_UP && gPressedButtons & R_BUTTON)
     ret = 0x140;
-  if (gRepeatedOrNewButtons & DPAD_DOWN && gPressedButtons & 0x100)
+  if (gRepeatedOrNewButtons & DPAD_DOWN && gPressedButtons & R_BUTTON)
     ret = 0x180;
   return ret;
 }
 
-static void sub_800876C (void) {
+static void PressUpInTrunkMenu (void) {
   RunTrunkTask(3);
   sub_800A3D8(3);
 }
 
-static void sub_8008780 (void) {
+static void PressRUpInTrunkMenu (void) {
   RunTrunkTask(5);
   sub_800A3D8(3);
 }
 
-static void sub_8008794 (void) {
+static void PressDownInTrunkMenu (void) {
   RunTrunkTask(2);
   sub_800A3D8(3);
 }
 
-static void sub_80087A8 (void) {
+static void PressRDownInTrunkMenu (void) {
   RunTrunkTask(4);
   sub_800A3D8(3);
 }
 
-static void sub_80087BC (void) {
+static void PressRightInTrunkMenu (void) {
   RunTrunkTask(7);
   sub_800A3D8(3);
 }
 
-static void sub_80087D0 (void) {
+static void PressLeftInTrunkMenu (void) {
   RunTrunkTask(8);
   sub_800A3D8(3);
 }
 
-static void sub_80087E4 (void) {
+static void PressBInTrunkMenu (void) {
   RunTrunkTask(9);
   sub_800A3D8(1);
   RunPlayerDeckTask(8);
   PlayMusic(SFX_CANCEL);
 }
 
-static void sub_8008804 (void) {
+static void PressLInTrunkMenu (void) {
   RunTrunkTask(6);
   sub_800A3D8(4);
 }
 
-static void sub_8008818 (void) {
+static void PressSelectInTrunkMenu (void) {
   RunTrunkTask(10);
   sub_800A3D8(7);
 }
 
-static void sub_800882C (void) {
+static void InitTrunkMenu (void) {
   TrunkMenuDefaultSort();
   sub_800A3D8(0);
   sub_800A3D8(2);
@@ -298,9 +297,9 @@ static void sub_800882C (void) {
 
 static void Trunk_A_Submenu (void) {
   unsigned keepProcessing;
-  gTrunkData.cursorState = TRUNK_CURSOR_DETAILS;
+  gTrunkMenu.cursorState = TRUNK_CURSOR_DETAILS;
   sub_8009364();
-  sub_80089EC();
+  SetCursorOam();
   LoadCharblock1();
   SetVBlankCallback(sub_8008A5C);
   WaitForVBlank();
@@ -308,25 +307,25 @@ static void Trunk_A_Submenu (void) {
   keepProcessing = 1;
   while (keepProcessing) {
     switch (TrunkSubmenuProcessInput()) {
-      case 2:
+      case B_BUTTON:
         keepProcessing = 0;
         break;
-      case 0x40:
-        sub_80088F0();
+      case DPAD_UP:
+        MoveCursorUpInTrunkSubmenu();
         break;
-      case 0x80:
-        sub_8008924();
+      case DPAD_DOWN:
+        MoveCursorDownInTrunkSubmenu();
         break;
-      case 1:
-        switch (gTrunkData.cursorState) {
+      case A_BUTTON:
+        switch (gTrunkMenu.cursorState) {
           case TRUNK_CURSOR_DETAILS:
-            sub_8008958();
+            SelectDetailsInTrunkSubmenu();
             break;
           case TRUNK_CURSOR_ADD_CARD:
-            sub_80089B4();
+            SelectAddToDeckInTrunkSubmenu();
             break;
           case TRUNK_CURSOR_REMOVE_CARD:
-            sub_80089D0();
+            SelectRemoveFromDeckInTrunkSubmenu();
             break;
         }
         break;
@@ -339,62 +338,62 @@ static void Trunk_A_Submenu (void) {
   sub_8008A48();
 }
 
-static void sub_80088F0 (void) { //pressing up
-  gTrunkData.cursorState = gUnk_8DF813C[gTrunkData.cursorState];
-  sub_80089EC();
+static void MoveCursorUpInTrunkSubmenu (void) {
+  gTrunkMenu.cursorState = gNextUpOptionInTrunkSubmenu[gTrunkMenu.cursorState];
+  SetCursorOam();
   PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(LoadOam);
   WaitForVBlank();
 }
 
-static void sub_8008924 (void) { //pressing down
-  gTrunkData.cursorState = gUnk_8DF813F[gTrunkData.cursorState];
-  sub_80089EC();
+static void MoveCursorDownInTrunkSubmenu (void) {
+  gTrunkMenu.cursorState = gNextDownOptionInTrunkSubmenu[gTrunkMenu.cursorState];
+  SetCursorOam();
   PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(LoadOam);
   WaitForVBlank();
 }
 
-static void sub_8008958 (void) { //trunk menu card details
-  gStatMod.card = sub_800901C(2);
+static void SelectDetailsInTrunkSubmenu (void) {
+  gStatMod.card = GetNthCardOnScreen(2);
   gStatMod.field = FIELD_ARENA;
   gStatMod.stage = 0;
-  sub_800B538(&gStatMod.card);
+  SetCardInfoWithWarning(&gStatMod.card);
   PlayMusic(SFX_SELECT);
-  sub_801F6B0();
+  ShowCardDetailView();
   sub_800A3D8(0);
   sub_800A3D8(2);
   sub_800AA58(1);
   sub_800ABA8();
   sub_8009364();
-  sub_80089EC();
+  SetCursorOam();
   SetVBlankCallback(sub_8008A5C);
   WaitForVBlank();
   LoadCharblock1();
 }
 
-static void sub_80089B4 (void) {
+static void SelectAddToDeckInTrunkSubmenu (void) {
   RunTrunkTask(7);
   sub_800A3D8(3);
   sub_800ABD0();
   sub_800AA58(6);
 }
 
-static void sub_80089D0 (void) {
+static void SelectRemoveFromDeckInTrunkSubmenu (void) {
   RunTrunkTask(8);
   sub_800A3D8(3);
   sub_800ABD0();
   sub_800AA58(6);
 }
 
-static void sub_80089EC (void) { //SetCursorOam
+static void SetCursorOam (void) {
   u32 *oam = (u32*)&gOamBuffer[6 * 4]; //todo
-  oam[0] = gUnk_8DF8142[gTrunkData.cursorState] |
-           gUnk_8DF8145[gTrunkData.cursorState] << 16 |
+  oam[0] = gUnk_8DF8142[gTrunkMenu.cursorState] |
+           gUnk_8DF8145[gTrunkMenu.cursorState] << 16 |
            0x40000000; //sprite size bits
   oam[1] = 0xC120;
-  oam[2] = gUnk_8DF8142[gTrunkData.cursorState] |
-           gUnk_8DF8145[gTrunkData.cursorState] << 16 |
+  oam[2] = gUnk_8DF8142[gTrunkMenu.cursorState] |
+           gUnk_8DF8145[gTrunkMenu.cursorState] << 16 |
            0x40000800;
   oam[3] = 0x120;
 }
@@ -534,8 +533,8 @@ void sub_8008C34 (void) {
   for (i = 0; gUnk_8090470[i]; i++) {
     int r7 = 1;
     if (gUnk_8090470[i] < 801)
-      if (r7 > 250 - gTrunkCardQty[gUnk_8090470[i]])
-        gTrunkCardQty[gUnk_8090470[i]] = 250;
+      if (r7 > TRUNK_CARD_LIMIT - gTrunkCardQty[gUnk_8090470[i]])
+        gTrunkCardQty[gUnk_8090470[i]] = TRUNK_CARD_LIMIT;
       else
         gTrunkCardQty[gUnk_8090470[i]]++;
   }
@@ -601,7 +600,7 @@ static inline void sub_8008D88_inline (unsigned short id, unsigned char arg1) {
     else
       gTrunkCardQty[id]--;
   else if (GetDeckCardQty(id))
-    sub_801D9B8(id);
+    RemoveOneCopyOfCardFromDeck(id);
 }
 
 void RemoveCardFromTrunkOrDeck (unsigned short id) {
@@ -640,7 +639,7 @@ _08008DB2:\n\
 	cmp r0, #0\n\
 	beq _08008DC4\n\
 	adds r0, r4, #0\n\
-	bl sub_801D9B8\n\
+	bl RemoveOneCopyOfCardFromDeck\n\
 _08008DC4:\n\
 	pop {r4}\n\
 	pop {r0}\n\
@@ -650,7 +649,7 @@ _08008DC4:\n\
 
 void RemoveCardFromDeckAndTrunk (unsigned short id) {
   gTrunkCardQty[id] = 0;
-  sub_801D960(id);
+  RemoveAllCopiesOfCardFromDeck(id);
 }
 
 //leftover debug function
@@ -663,7 +662,7 @@ static void SetTrunkCardsTo50 (void) {
 
 static void TryAddSelectedCardToDeck (void) {
   unsigned isCardRejected = 0;
-  unsigned short cardId = sub_800901C(2);
+  unsigned short cardId = GetNthCardOnScreen(2);
   if (gTrunkCardQty[cardId] && GetPlayerDeckSize() < DECK_SIZE && sub_801F098(cardId) == 1) {
     SetCardInfo(cardId);
     if (GetDuelistLevel() < gCardInfo.cost)
@@ -683,34 +682,34 @@ static void TryAddSelectedCardToDeck (void) {
   }
 }
 
-void sub_8008EA8 (void) {
-  unsigned removalFailed = 0;
-  unsigned short id = sub_800901C(2);
-  if (!GetDeckCardQty(id) || TryRemoveCardFromDeck(id) != 1)
-    removalFailed = 1;
-  if (removalFailed == 1) {
+void TryRemoveSelectedCardFromDeck (void) {
+  unsigned removalFailed = FALSE;
+  unsigned short id = GetNthCardOnScreen(2);
+  if (GetDeckCardQty(id) == 0 || TryRemoveCardFromDeck(id) != 1)
+    removalFailed = TRUE;
+  if (removalFailed == TRUE) {
     PlayMusic(SFX_FORBIDDEN);
     while (gPressedButtons & DPAD_LEFT)
       WaitForVBlank();
   }
   else {
-    if (gTrunkCardQty[id] < 250)
+    if (gTrunkCardQty[id] < TRUNK_CARD_LIMIT)
       gTrunkCardQty[id]++;
     else
-      gTrunkCardQty[id] = 250;
+      gTrunkCardQty[id] = TRUNK_CARD_LIMIT;
     PlayMusic(SFX_SELECT);
   }
 }
 
 void InitTrunkData (void) {
   unsigned short cardId;
-  gTrunkData.unk0 = 0;
-  gTrunkData.unk3 = 1;
-  gTrunkData.sortMode = TRUNK_SORT_NUMBER;
+  gTrunkMenu.currentPos = 0;
+  gTrunkMenu.displayMode = 1;
+  gTrunkMenu.sortMode = CARD_SORT_NUMBER;
   for (cardId = 0; cardId < NUM_CARDS; cardId++)
     gTotalCardQty[cardId] = gTrunkCardQty[cardId] + GetDeckCardQty(cardId);
   for (cardId = 0; cardId < NUM_TRUE_CARDS; cardId++)
-    gTrunkData.unkC[cardId] = cardId + 1;
+    gTrunkMenu.cards[cardId] = cardId + 1;
 }
 
 void RunTrunkTask (unsigned char task)
@@ -724,47 +723,47 @@ void RunTrunkTask (unsigned char task)
         InitTrunkData();
         break;
     case 3:
-        sub_80090E8();
+        GoUpOnePosition();
         break;
     case 2:
-        sub_8009110();
+        GoDownOnePosition();
         break;
     case 4:
-        sub_800916C();
+        GoDownFiftyPositions();
         break;
     case 5:
-        sub_8009140();
+        GoUpFiftyPositions();
         break;
     case 6:
-        sub_800919C();
+        ToggleTrunkDisplayMode();
         break;
     case 7:
         TryAddSelectedCardToDeck();
         break;
     case 8:
-        sub_8008EA8();
+        TryRemoveSelectedCardFromDeck();
         break;
     case 10:
-        sub_80091C0();
+        ToggleSortMode();
         break;
     case 9:
-        sub_08009224();
+        QuitTrunkMenu();
         break;
     }
 }
 
-unsigned char sub_8009010 (void) {
-  return gTrunkData.unk3;
+unsigned char GetTrunkMenuDisplayMode (void) {
+  return gTrunkMenu.displayMode;
 }
 
-// get nth card on screen?
-unsigned short sub_800901C (unsigned char n) {
-  signed short r2 = gTrunkData.unk0 + n - 2;
-  if (r2 >= NUM_TRUE_CARDS)
-    r2 -= NUM_TRUE_CARDS;
-  else if (r2 < 0)
-    r2 += NUM_TRUE_CARDS;
-  return gTrunkData.unkC[r2];
+// 5 cards are visible at a time, with the middle/selected card being at n=2
+unsigned short GetNthCardOnScreen (unsigned char n) {
+  signed short wrappedIndex = gTrunkMenu.currentPos + n - 2;
+  if (wrappedIndex >= NUM_TRUE_CARDS)
+    wrappedIndex -= NUM_TRUE_CARDS;
+  else if (wrappedIndex < 0)
+    wrappedIndex += NUM_TRUE_CARDS;
+  return gTrunkMenu.cards[wrappedIndex];
 }
 
 unsigned char GetTrunkCardQuantity (unsigned short cardId) {
@@ -773,79 +772,79 @@ unsigned char GetTrunkCardQuantity (unsigned short cardId) {
 
 //unused?
 static unsigned char GetCurrentSortMode (void) {
-  return gTrunkData.sortMode;
+  return gTrunkMenu.sortMode;
 }
 
 void sub_800907C (void) {
-  gUnk2021AB4.unk0 = gTrunkData.unk0;
-  gUnk2021AB4.unk2 = NUM_TRUE_CARDS - 1;
+  gUnk2021AB4.currentPos = gTrunkMenu.currentPos;
+  gUnk2021AB4.lastValidIndex = NUM_TRUE_CARDS - 1;
 }
 
 void AddCardToTrunk (unsigned short cardId) {
-  if (gTrunkCardQty[cardId] < 250)
+  if (gTrunkCardQty[cardId] < TRUNK_CARD_LIMIT)
     gTrunkCardQty[cardId]++;
   else
-    gTrunkCardQty[cardId] = 250;
+    gTrunkCardQty[cardId] = TRUNK_CARD_LIMIT;
 }
 
 void TrunkMenuDefaultSort (void)
 {
-  gUnk2022EB0.cards = gTrunkData.unkC;
-  gUnk2022EB0.cardCount = NUM_TRUE_CARDS;
-  gUnk2022EB0.sortMode = gUnk_8DFA6A8[gTrunkData.sortMode];
-  sub_8034A38(); //one of sorting funcs?
+  gCardSortContext.cards = gTrunkMenu.cards;
+  gCardSortContext.cardCount = NUM_TRUE_CARDS;
+  gCardSortContext.sortMode = gUnk_8DFA6A8[gTrunkMenu.sortMode];
+  SortCardsAccordingToContext();
 }
 
-void sub_80090E8 (void) {
-  if (--gTrunkData.unk0 < 0)
-    gTrunkData.unk0 += NUM_TRUE_CARDS;
+void GoUpOnePosition (void) {
+  if (--gTrunkMenu.currentPos < 0)
+    gTrunkMenu.currentPos += NUM_TRUE_CARDS;
   PlayMusic(SFX_MOVE_CURSOR);
 }
 
-void sub_8009110 (void) {
-  if (++gTrunkData.unk0 > NUM_TRUE_CARDS - 1)
-    gTrunkData.unk0 -= NUM_TRUE_CARDS;
+void GoDownOnePosition (void) {
+  if (++gTrunkMenu.currentPos > NUM_TRUE_CARDS - 1)
+    gTrunkMenu.currentPos -= NUM_TRUE_CARDS;
   PlayMusic(SFX_MOVE_CURSOR);
 }
 
-void sub_8009140 (void) {
-  gTrunkData.unk0 -= 50;
-  if (gTrunkData.unk0 < 0)
-    gTrunkData.unk0 += NUM_TRUE_CARDS;
+void GoUpFiftyPositions (void) {
+  gTrunkMenu.currentPos -= 50;
+  if (gTrunkMenu.currentPos < 0)
+    gTrunkMenu.currentPos += NUM_TRUE_CARDS;
   PlayMusic(SFX_MOVE_CURSOR);
 }
 
-void sub_800916C (void) {
-  gTrunkData.unk0 += 50;
-  if (gTrunkData.unk0 > NUM_TRUE_CARDS - 1)
-    gTrunkData.unk0 -= NUM_TRUE_CARDS;
+void GoDownFiftyPositions (void) {
+  gTrunkMenu.currentPos += 50;
+  if (gTrunkMenu.currentPos > NUM_TRUE_CARDS - 1)
+    gTrunkMenu.currentPos -= NUM_TRUE_CARDS;
   PlayMusic(SFX_MOVE_CURSOR);
 }
 
-void sub_800919C (void) {
-  if (++gTrunkData.unk3 > 3)
-    gTrunkData.unk3 = 0;
+void ToggleTrunkDisplayMode (void) {
+  if (++gTrunkMenu.displayMode > 3)
+    gTrunkMenu.displayMode = 0;
   PlayMusic(SFX_MOVE_CURSOR);
 }
 
-void sub_80091C0(void)
+void ToggleSortMode(void)
 {
-    if (++gTrunkData.sortMode >= TRUNK_SORT_EXIT)
-      gTrunkData.sortMode = TRUNK_SORT_NUMBER;
-    sub_80091EC(gTrunkData.sortMode);
+    if (++gTrunkMenu.sortMode >= CARD_SORT_EXIT)
+      gTrunkMenu.sortMode = CARD_SORT_NUMBER;
+    ApplyNewSortMode(gTrunkMenu.sortMode);
     PlayMusic(SFX_MOVE_CURSOR);
 }
 
-void sub_80091EC(unsigned char val)
+void ApplyNewSortMode(unsigned char val)
 {
-    gUnk2022EB0.cards = gTrunkData.unkC;
-    gUnk2022EB0.cardCount = NUM_TRUE_CARDS;
-    gUnk2022EB0.sortMode = gUnk_8DFA6A8[val];
-    sub_8034A38();
-    gTrunkData.unk0 = 0;
+    gCardSortContext.cards = gTrunkMenu.cards;
+    gCardSortContext.cardCount = NUM_TRUE_CARDS;
+    gCardSortContext.sortMode = gUnk_8DFA6A8[val];
+    SortCardsAccordingToContext();
+    gTrunkMenu.currentPos = 0;
 }
 
-void sub_08009224(void){}
+void QuitTrunkMenu(void){}
 
 extern u32 gUnk_808918C[];
 extern unsigned char gUnk_808C1C0[];
@@ -1009,9 +1008,9 @@ void sub_8009784 (void) {
   CopyStringTilesToVRAMBuffer(gVr.a + 0x8020, g8090B94, 0x801);
   CopyStringTilesToVRAMBuffer(gVr.a + 0x8040, g8090B98, 0x901);
   gVr.b[0x5C2F] = 0x5001;
-  sub_800DDA0(GetDeckCapacity(), 0);
+  ConvertU16ToDecimalDigits(GetDeckCapacity(), DIGIT_FLAG_NONE);
   for (i = 0; i < 5; i++)
-    gVr.b[0x5C30 + i] = g2021BD0[i] + 0x5209;
+    gVr.b[0x5C30 + i] = gDecimalDigitsU16[i] + 0x5209;
   gVr.b[0x5C38] = 0x5001;
   gVr.b[0x5C39] = 0x520D;
   gVr.b[0x5C3A] = 0x5209;

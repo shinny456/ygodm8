@@ -2,8 +2,8 @@
 
 // RNG module uses LFSR (Linear Feedback Shift Register)
 
-extern u32 g2024594; // main rng state/seed
-extern u32 g2024598; // backup
+extern u32 gLfsrState; // main rng state/seed
+extern u32 gLfsrStateBackup;
 u8 LfsrNextBit (void);
 
 // consumes 16 bits (0-65536)
@@ -26,7 +26,7 @@ u16 LfsrNextWord (void) {
 
 // reset bit stream for reproducability
 void ResetLfsrStateBit (void) {
-  g2024594 = 1;
+  gLfsrState = 1;
 }
 
 // consumes 8 bits (0–255)
@@ -41,34 +41,33 @@ u8 LfsrNextByte (void) {
 
 // core bit generator: returns a single pseudorandom bit
 u8 LfsrNextBit (void) {
-  if (g2024594 & 0x80000000) {
-    g2024594 = (g2024594 ^ 0x10000) << 1 | 1;
+  if (gLfsrState & 0x80000000) {
+    gLfsrState = (gLfsrState ^ 0x10000) << 1 | 1;
     return 1;
   }
-  g2024594 <<= 1;
+  gLfsrState <<= 1;
   return 0;
 }
 
 /*
-int sub_8056258 (u8 arg0, u8 arg1) {
+int RandRangeU8 (u8 min, u8 max) {
   u8 r4, i;
-  int r7;
-  if (arg0 == arg1)
-    return arg0;
+  int temp;
+  if (min == max)
+    return min;
   r4 = 0;
   i = 0;
-  r7 = arg1 - arg0;
+  temp = max - min;
   for (; i < 8; i++) {
     r4 <<= 1;
     r4 |= LfsrNextBit();
   }
-  return (u8)(r4 % (r7 + 1) + arg0);
+  return (u8)(r4 % (temp + 1) + min);
 }*/
 
-// TODO: rename to RandRangeU8 -- but being used in asm/code3.o atm
 // generates u8 in range
 NAKED
-int sub_8056258 (u8 min, u8 max) {
+int RandRangeU8 (u8 min, u8 max) {
   asm_unified("push {r4, r5, r6, r7, lr}\n\
 	lsls r0, r0, #0x18\n\
 	lsrs r6, r0, #0x18\n\
@@ -114,11 +113,11 @@ u16 RandRangeU16 (u16 min, u16 max) {
 
 // backup current state and use a new seed
 void SaveLfsrState (u32 seed) {
-  g2024598 = g2024594;
-  g2024594 = seed;
+  gLfsrStateBackup = gLfsrState;
+  gLfsrState = seed;
 }
 
 // restore state from backup
 void RestoreLfsrState (void) {
-  g2024594 = g2024598;
+  gLfsrState = gLfsrStateBackup;
 }

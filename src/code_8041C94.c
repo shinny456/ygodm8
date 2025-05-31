@@ -1,19 +1,19 @@
 #include "global.h"
 
 
-struct Test8041240 {
-  u32 unk0;
-  u32 unk4;
-  u8 unk8;
+struct Textbox {
+  u32 textCursor;
+  u32 tileCursor;
+  u8 mode;
   u8 filler9[3];
   u8* unkC;
-  u16 unk10;
-  u16 unk12;
+  u16 blinkFrameCounter;
+  u16 cardId;
   u16 unk14;
   u16 unk16;
   u16 unk18;
   u16 unk1A;
-  u8 unk1C;
+  u8 glyphOffset;
 };
 
 extern u8 g8E0D588[][5];
@@ -22,14 +22,14 @@ extern s16 g8E0D5A6[];
 extern u16 gBG2VOFS;
 extern u8 g8E0D5A1[];
 extern u8* g8F1B80C[];
-extern u8* g8E0D584;
+extern u8* gText_TrapWasTriggered;
 extern u16 g8E0D5B0[];
-extern u8 g8E0D5C7[];
+extern u8 gText_Facedown[];
 extern u8 g8E0D617[];
 
 
 void sub_8041B38 (void);
-void sub_8041BE8 (struct Test8041240*);
+void RunTextRenderTask (struct Textbox*);
 void UpdateDuelGfxExceptField (void);
 void WaitForVBlank (void);
 void sub_8040FDC (void);
@@ -52,55 +52,55 @@ void sub_80428EC(u8);
 
 
 void sub_8041C94 (u8* arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4) {
-  struct Test8041240 test;
-  test.unk0 = 0;
-  test.unk4 = 0;
-  test.unk8 = 0;
-  test.unkC = arg0;
-  test.unk10 = 0;
-  test.unk1C = 0;
-  test.unk14 = arg1;
-  test.unk16 = arg2;
-  test.unk18 = arg3;
-  test.unk1A = arg4;
+  struct Textbox textbox;
+  textbox.textCursor = 0;
+  textbox.tileCursor = 0;
+  textbox.mode = 0;
+  textbox.unkC = arg0;
+  textbox.blinkFrameCounter = 0;
+  textbox.glyphOffset = 0;
+  textbox.unk14 = arg1;
+  textbox.unk16 = arg2;
+  textbox.unk18 = arg3;
+  textbox.unk1A = arg4;
   sub_8041B38();
-  sub_8041BE8(&test);
+  RunTextRenderTask(&textbox);
   UpdateDuelGfxExceptField();
 }
 
 void sub_8041CCC (u16 arg0, u16 arg1) {
-  struct Test8041240 test;
+  struct Textbox textbox;
   u8* temp = g8F1B80C[arg0];
-  test.unk0 = 0;
-  test.unk4 = 0;
-  test.unk8 = 0;
-  test.unkC = temp;
-  test.unk10 = 0;
-  test.unk1C = 0;
-  test.unk14 = arg0;
-  test.unk16 = arg1;
-  test.unk18 = 0;
-  test.unk1A = 0;
+  textbox.textCursor = 0;
+  textbox.tileCursor = 0;
+  textbox.mode = 0;
+  textbox.unkC = temp;
+  textbox.blinkFrameCounter = 0;
+  textbox.glyphOffset = 0;
+  textbox.unk14 = arg0;
+  textbox.unk16 = arg1;
+  textbox.unk18 = 0;
+  textbox.unk1A = 0;
   sub_8041B38();
-  sub_8041BE8(&test);
+  RunTextRenderTask(&textbox);
   UpdateDuelGfxExceptField();
 }
 
 void sub_8041D14 (u16 arg0, u16 arg1) {
-  struct Test8041240 test;
-  u8* temp = g8E0D584;
-  test.unk0 = 0;
-  test.unk4 = 0;
-  test.unk8 = 0;
-  test.unkC = temp;
-  test.unk10 = 0;
-  test.unk1C = 0;
-  test.unk14 = arg0;
-  test.unk16 = arg1;
-  test.unk18 = 0;
-  test.unk1A = 0;
+  struct Textbox textbox;
+  u8* temp = gText_TrapWasTriggered;
+  textbox.textCursor = 0;
+  textbox.tileCursor = 0;
+  textbox.mode = 0;
+  textbox.unkC = temp;
+  textbox.blinkFrameCounter = 0;
+  textbox.glyphOffset = 0;
+  textbox.unk14 = arg0;
+  textbox.unk16 = arg1;
+  textbox.unk18 = 0;
+  textbox.unk1A = 0;
   sub_8041B38();
-  sub_8041BE8(&test);
+  RunTextRenderTask(&textbox);
   UpdateDuelGfxExceptField();
 }
 
@@ -207,32 +207,32 @@ void DisplayCardNameInInfoBar (void) {
 }
 
 void DisplayCardAtkDefInInfoBar (void) {
-  u8 r5 = 0;
-  sub_800DDA0(gCardInfo.atk, 0);
-  if (gCardInfo.atk != 0xFFFF && g2021BD0[0] == 10) {
-    r5 = 1;
+  u8 i = 0;
+  ConvertU16ToDecimalDigits(gCardInfo.atk, DIGIT_FLAG_NONE);
+  if (gCardInfo.atk != 0xFFFF && gDecimalDigitsU16[0] == DIGIT_UNUSED) {
+    i = 1;
     CopySwordTile(gBgVram.cbb0 + 0x83C0);
   }
-  for (; r5 < 5; r5++) {
-    sub_8020968(gBgVram.cbb0 + 0x83C0 + r5 * 32, g2021BD0[r5][g8E0D5B0], 0x801);
+  for (; i < MAX_U16_DIGITS; i++) {
+    sub_8020968(gBgVram.cbb0 + 0x83C0 + i * 32, gDecimalDigitsU16[i][g8E0D5B0], 0x801);
   }
-  r5 = 0;
-  sub_800DDA0(gCardInfo.def, 0);
-  if (gCardInfo.def != 0xFFFF && g2021BD0[0] == 10) {
-    r5 = 1;
+  i = 0;
+  ConvertU16ToDecimalDigits(gCardInfo.def, DIGIT_FLAG_NONE);
+  if (gCardInfo.def != 0xFFFF && gDecimalDigitsU16[0] == DIGIT_UNUSED) {
+    i = 1;
     CopyShieldTile(gBgVram.cbb0 + 0x8460);
   }
-  for (; r5 < 5; r5++)
-    sub_8020968(gBgVram.cbb0 + 0x8460 + r5 * 32, g2021BD0[r5][g8E0D5B0], 0x801);
+  for (; i < MAX_U16_DIGITS; i++)
+    sub_8020968(gBgVram.cbb0 + 0x8460 + i * 32, gDecimalDigitsU16[i][g8E0D5B0], 0x801);
 }
 
 void DisplayCardLevelInInfoBar (void) {
   if (gCardInfo.level) {
     u8 i;
     CopyStarTile(gBgVram.cbb0 + 0x8040);
-    sub_800DDA0(gCardInfo.level, 1);
+    ConvertU16ToDecimalDigits(gCardInfo.level, DIGIT_FLAG_ALIGN_LEFT);
     for (i = 0; i < 2; i++)
-      sub_8020968(gBgVram.cbb0 + 0x8040 + (i + 1) * 32, g2021BD0[i][g8E0D5B0], 0x801);
+      sub_8020968(gBgVram.cbb0 + 0x8040 + (i + 1) * 32, gDecimalDigitsU16[i][g8E0D5B0], 0x801);
   }
   else {
     CpuCopy16(gBgVram.cbb0 + 0x8000, gBgVram.cbb0 + 0x8040, 32);
@@ -250,7 +250,7 @@ void DisplayCardAttrTypeInInfoBar (void) {
 
 void DisplayCardFacedownIndicatorInInfoBar (void) {
   if (!CanOpponentSeeCard(gDuelCursor.currentY, gDuelCursor.currentX))
-    CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x8600, g8E0D5C7, 0x801);
+    CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x8600, gText_Facedown, 0x801);
   else
     CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x8600, g8E0D617, 0x801);
 }

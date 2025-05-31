@@ -62,12 +62,12 @@ struct Unk2022EC0 {
   u8 unkFBF;
 } extern g2022EC0;
 
-struct Unk8E0CC20 {
-  u16 unk0;
-  u64 unk4;
+struct SortableEntry {
+  u16 cardId;
+  u64 sortKey;
 };
 
-extern struct Unk8E0CC20 *g8E0CC20;
+extern struct SortableEntry *gSortableEntries;
 
 
 extern u8 g2023E68;
@@ -79,7 +79,7 @@ extern void (*g8E0CE68[])(void);
 extern u16 gNewButtons;
 extern u16 gRepeatedOrNewButtons;
 extern u16 gPressedButtons;
-extern u16 gUnk2021DCC;
+extern u16 gFilteredInput;
 
 void sub_8039F40 (void);
 void sub_80389B4 (void);
@@ -134,8 +134,8 @@ void sub_8036D5C (u16, u8);
 void sub_8039E44 (void);
 void sub_8039EDC (void);
 
-void sub_802612C (void);
-void sub_802618C (void);
+void UpdateFilteredInput_NoRepeat (void);
+void UpdateFilteredInput_WithRepeat (void);
 void sub_8039E60 (void);
 void sub_8034E1C (void);
 void sub_8034A8C (void);
@@ -591,7 +591,7 @@ static void sub_8036080 (void) {
 }
 
 static unsigned short sub_8036150 (void) {
-  sub_802612C();
+  UpdateFilteredInput_NoRepeat();
   if (gNewButtons & A_BUTTON)
     return NEW_A_BUTTON;
   if (gNewButtons & B_BUTTON)
@@ -602,23 +602,23 @@ static unsigned short sub_8036150 (void) {
     return NEW_START_BUTTON;
   if (gNewButtons & SELECT_BUTTON)
     return NEW_SELECT_BUTTON;
-  if (gUnk2021DCC & 0x40 && gPressedButtons & 0x100)
+  if (gFilteredInput & DPAD_UP && gPressedButtons & R_BUTTON)
     return 0x140;
-  if (gUnk2021DCC & 0x80 && gPressedButtons & 0x100)
+  if (gFilteredInput & DPAD_DOWN && gPressedButtons & R_BUTTON)
     return 0x180;
-  if (gUnk2021DCC & 0x40)
-    return 0x40;
-  if (gUnk2021DCC & 0x80)
-    return 0x80;
-  if (gUnk2021DCC & 0x20)
-    return 0x20;
-  if (gUnk2021DCC & 0x10)
-    return 0x10;
+  if (gFilteredInput & DPAD_UP)
+    return DPAD_UP;
+  if (gFilteredInput & DPAD_DOWN)
+    return DPAD_DOWN;
+  if (gFilteredInput & DPAD_LEFT)
+    return DPAD_LEFT;
+  if (gFilteredInput & DPAD_RIGHT)
+    return DPAD_RIGHT;
   return 0;
 }
 
 static unsigned short sub_8036224 (void) {
-  sub_802618C();
+  UpdateFilteredInput_WithRepeat();
   if (gNewButtons & A_BUTTON)
     return NEW_A_BUTTON;
   if (gNewButtons & B_BUTTON)
@@ -627,21 +627,21 @@ static unsigned short sub_8036224 (void) {
     return NEW_L_BUTTON;
   if (gNewButtons & START_BUTTON)
     return NEW_START_BUTTON;
-  if (gUnk2021DCC & 0x40)
-    return 0x40;
-  if (gUnk2021DCC & 0x80)
-    return 0x80;
-  if (gUnk2021DCC & 0x20)
-    return 0x20;
-  if (gUnk2021DCC & 0x10)
-    return 0x10;
+  if (gFilteredInput & DPAD_UP)
+    return DPAD_UP;
+  if (gFilteredInput & DPAD_DOWN)
+    return DPAD_DOWN;
+  if (gFilteredInput & DPAD_LEFT)
+    return DPAD_LEFT;
+  if (gFilteredInput & DPAD_RIGHT)
+    return DPAD_RIGHT;
   return 0;
 }
 
 static void sub_80362A8 (void) {
   PlayMusic(SFX_SELECT);
   SetCardInfo(sub_8036C3C(2));
-  sub_801F6B0();
+  ShowCardDetailView();
   sub_8039E60();
 }
 
@@ -719,125 +719,125 @@ static void sub_8036448 (void) {
 
 static void sub_8036458 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u16 r1 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r1;
-    g8E0CC20[i].unk4 = 800 - r1;
+    gSortableEntries[i].cardId = r1;
+    gSortableEntries[i].sortKey = 800 - r1;
     if (g2022EC0.unk0[r1] || g2022EC0.unk321[r1])
-      g8E0CC20[i].unk4 += 800;
+      gSortableEntries[i].sortKey += 800;
   }
 }
 
 static void sub_8036500 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r3 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r3;
+    gSortableEntries[i].cardId = r3;
     temp = (g2022EC0.unk0[r3] + g2022EC0.unk321[r3]) * 800 + 800;
-    g8E0CC20[i].unk4 = temp - r3;
+    gSortableEntries[i].sortKey = temp - r3;
   }
 }
 
 static void sub_803658C (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r4;
+    gSortableEntries[i].cardId = r4;
     temp = (gCardAtks[r4] + 1 & 0xFFFF) * 800 + 800;
-    g8E0CC20[i].unk4 = temp - r4;
+    gSortableEntries[i].sortKey = temp - r4;
     if (g2022EC0.unk0[r4] || g2022EC0.unk321[r4])
-      g8E0CC20[i].unk4 += 0x031FFCE0;
+      gSortableEntries[i].sortKey += 0x031FFCE0;
   }
 }
 
 static void sub_8036644 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r4;
+    gSortableEntries[i].cardId = r4;
     temp = (gCardDefs[r4] + 1 & 0xFFFF) * 800 + 800;
-    g8E0CC20[i].unk4 = temp - r4;
+    gSortableEntries[i].sortKey = temp - r4;
     if (g2022EC0.unk0[r4] || g2022EC0.unk321[r4])
-      g8E0CC20[i].unk4 += 0x031FFCE0;
+      gSortableEntries[i].sortKey += 0x031FFCE0;
   }
 }
 
 static void sub_80366FC (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r4;
+    gSortableEntries[i].cardId = r4;
     temp = (23 - gCardTypes[r4]) * 800 + 800;
-    g8E0CC20[i].unk4 = temp - r4;
+    gSortableEntries[i].sortKey = temp - r4;
     if (g2022EC0.unk0[r4] || g2022EC0.unk321[r4])
-      g8E0CC20[i].unk4 += 0x4B00;
+      gSortableEntries[i].sortKey += 0x4B00;
   }
 }
 
 static void sub_80367B0 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r4;
+    gSortableEntries[i].cardId = r4;
     temp = (256 - gCardAttributes[r4] & 0xFF) * 800 + 800;
-    g8E0CC20[i].unk4 = temp - r4;
+    gSortableEntries[i].sortKey = temp - r4;
     if (g2022EC0.unk0[r4] || g2022EC0.unk321[r4])
-      g8E0CC20[i].unk4 += 0x32000;
+      gSortableEntries[i].sortKey += 0x32000;
   }
 }
 
 static void sub_8036868 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u16 r4 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r4;
-    g8E0CC20[i].unk4 = 800 - g80D0444[gLanguage][r4];
+    gSortableEntries[i].cardId = r4;
+    gSortableEntries[i].sortKey = 800 - g80D0444[gLanguage][r4];
     if (g2022EC0.unk0[r4] || g2022EC0.unk321[r4])
-      g8E0CC20[i].unk4 += 0x320;
+      gSortableEntries[i].sortKey += 0x320;
   }
 }
 
 static void sub_8036920 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r4;
+    gSortableEntries[i].cardId = r4;
     temp = gCardLevels[r4] * 800 + 800;
-    g8E0CC20[i].unk4 = temp - r4;
+    gSortableEntries[i].sortKey = temp - r4;
     if (g2022EC0.unk0[r4] || g2022EC0.unk321[r4])
-      g8E0CC20[i].unk4 += 0x28A0;
+      gSortableEntries[i].sortKey += 0x28A0;
   }
 }
 
 static void sub_80369D0 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u32 temp;
     u16 r4 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r4;
+    gSortableEntries[i].cardId = r4;
     temp = gCardCosts[r4] * 800 + 800;
-    g8E0CC20[i].unk4 = temp - r4;
+    gSortableEntries[i].sortKey = temp - r4;
     if (g2022EC0.unk0[r4] || g2022EC0.unk321[r4])
-      g8E0CC20[i].unk4 += 0x03200000;
+      gSortableEntries[i].sortKey += 0x03200000;
   }
 }
 
 static void sub_8036A80 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u16 r4 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r4;
-    g8E0CC20[i].unk4 = 800 - r4;
+    gSortableEntries[i].cardId = r4;
+    gSortableEntries[i].sortKey = 800 - r4;
     if (gCardMonsterEffects[r4] || gUnk8094CC3[r4])
-      g8E0CC20[i].unk4 += 0x320;
+      gSortableEntries[i].sortKey += 0x320;
     if (g2022EC0.unk0[r4] || g2022EC0.unk321[r4])
-      g8E0CC20[i].unk4 += 0x640;
+      gSortableEntries[i].sortKey += 0x640;
   }
 }
 
@@ -849,11 +849,11 @@ static void sub_8036B54 (void) {
     g2022EC0.unkFA4++;
   }
   sub_8034E1C();
-  gUnk2022EB0.cardCount = 800;
+  gCardSortContext.cardCount = 800;
   g8E0CE18[g2022EC0.unkFAA]();
   sub_8034A8C();
-  for (ii = 0; ii < gUnk2022EB0.cardCount; ii++)
-    g2022EC0.unk964[ii] = g8E0CC20[ii].unk0;
+  for (ii = 0; ii < gCardSortContext.cardCount; ii++)
+    g2022EC0.unk964[ii] = gSortableEntries[ii].cardId;
 }
 
 static void sub_8036BE8 (void) {
@@ -985,11 +985,11 @@ static void sub_8036E44 (void) {
 static void sub_8036E64 (void) {
   u32 i;
   sub_8034E1C();
-  gUnk2022EB0.cardCount = 800;
+  gCardSortContext.cardCount = 800;
   g8E0CE18[g2022EC0.unkFAA]();
   sub_8034A8C();
-  for (i = 0; i < gUnk2022EB0.cardCount; i++)
-    g2022EC0.unk964[i] = g8E0CC20[i].unk0;
+  for (i = 0; i < gCardSortContext.cardCount; i++)
+    g2022EC0.unk964[i] = gSortableEntries[i].cardId;
 }
 
 static void sub_8036ECC (void) {
@@ -1064,114 +1064,114 @@ static void sub_803702C (void) {
 
 static void sub_8037088 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u16 r1 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r1;
-    g8E0CC20[i].unk4 = 800 - r1;
+    gSortableEntries[i].cardId = r1;
+    gSortableEntries[i].sortKey = 800 - r1;
     if (g2022EC0.unk642[r1])
-      g8E0CC20[i].unk4 += 800;
+      gSortableEntries[i].sortKey += 800;
   }
 }
 
 static void sub_8037110 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r2 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r2;
+    gSortableEntries[i].cardId = r2;
     temp = (gCardAtks[r2] + 1 & 0xFFFF) * 800 + 800;
-    g8E0CC20[i].unk4 = temp - r2;
+    gSortableEntries[i].sortKey = temp - r2;
     if (g2022EC0.unk642[r2])
-      g8E0CC20[i].unk4 += 0x031FFCE0;
+      gSortableEntries[i].sortKey += 0x031FFCE0;
   }
 }
 
 static void sub_80371C0 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r2 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r2;
+    gSortableEntries[i].cardId = r2;
     temp = (gCardDefs[r2] + 1 & 0xFFFF) * 800 + 800;
-    g8E0CC20[i].unk4 = temp - r2;
+    gSortableEntries[i].sortKey = temp - r2;
     if (g2022EC0.unk642[r2])
-      g8E0CC20[i].unk4 += 0x031FFCE0;
+      gSortableEntries[i].sortKey += 0x031FFCE0;
   }
 }
 
 static void sub_8037270 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r4;
+    gSortableEntries[i].cardId = r4;
     temp = (23 - gCardTypes[r4]) * 800 + 800;
-    g8E0CC20[i].unk4 = temp - r4;
+    gSortableEntries[i].sortKey = temp - r4;
     if (g2022EC0.unk642[r4])
-      g8E0CC20[i].unk4 += 0x4B00;
+      gSortableEntries[i].sortKey += 0x4B00;
   }
 }
 
 static void sub_803731C (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r4;
+    gSortableEntries[i].cardId = r4;
     temp = (256 - gCardAttributes[r4] & 0xFF) * 800 + 800;
-    g8E0CC20[i].unk4 = temp - r4;
+    gSortableEntries[i].sortKey = temp - r4;
     if (g2022EC0.unk642[r4])
-      g8E0CC20[i].unk4 += 0x32000;
+      gSortableEntries[i].sortKey += 0x32000;
   }
 }
 
 static void sub_80373CC (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u16 r4 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r4;
-    g8E0CC20[i].unk4 = 800 - g80D0444[gLanguage][r4];
+    gSortableEntries[i].cardId = r4;
+    gSortableEntries[i].sortKey = 800 - g80D0444[gLanguage][r4];
     if (g2022EC0.unk642[r4])
-      g8E0CC20[i].unk4 += 0x320;
+      gSortableEntries[i].sortKey += 0x320;
   }
 }
 
 static void sub_803747C (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r4;
+    gSortableEntries[i].cardId = r4;
     temp = gCardLevels[r4] * 800 + 800;
-    g8E0CC20[i].unk4 = temp - r4;
+    gSortableEntries[i].sortKey = temp - r4;
     if (g2022EC0.unk642[r4])
-      g8E0CC20[i].unk4 += 0x28A0;
+      gSortableEntries[i].sortKey += 0x28A0;
   }
 }
 
 static void sub_8037524 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u32 temp;
     u16 r4 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r4;
+    gSortableEntries[i].cardId = r4;
     temp = gCardCosts[r4] * 800 + 800;
-    g8E0CC20[i].unk4 = temp - r4;
+    gSortableEntries[i].sortKey = temp - r4;
     if (g2022EC0.unk642[r4])
-      g8E0CC20[i].unk4 += 0x03200000;
+      gSortableEntries[i].sortKey += 0x03200000;
   }
 }
 
 static void sub_80375CC (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u16 r4 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r4;
-    g8E0CC20[i].unk4 = 800 - r4;
+    gSortableEntries[i].cardId = r4;
+    gSortableEntries[i].sortKey = 800 - r4;
     if (gCardMonsterEffects[r4] || gUnk8094CC3[r4])
-      g8E0CC20[i].unk4 += 0x320;
+      gSortableEntries[i].sortKey += 0x320;
     if (g2022EC0.unk642[r4])
-      g8E0CC20[i].unk4 += 0x640;
+      gSortableEntries[i].sortKey += 0x640;
   }
 }
 
@@ -1184,11 +1184,11 @@ static void sub_803769C (void) {
       g2022EC0.unkFB4++;
   }
   sub_8034E1C();
-  gUnk2022EB0.cardCount = 800;
+  gCardSortContext.cardCount = 800;
   g8E0CE40[g2022EC0.unkFBA]();
   sub_8034A8C();
-  for (ii = 0; ii < gUnk2022EB0.cardCount; ii++)
-    g2022EC0.unk964[ii] = g8E0CC20[ii].unk0;
+  for (ii = 0; ii < gCardSortContext.cardCount; ii++)
+    g2022EC0.unk964[ii] = gSortableEntries[ii].cardId;
 }
 
 void sub_8037740 (void) {
@@ -1312,21 +1312,21 @@ void sub_80379B8 (void) {
 void sub_80379D8 (void) {
   u32 i;
   sub_8034E1C();
-  gUnk2022EB0.cardCount = 800;
+  gCardSortContext.cardCount = 800;
   g8E0CE40[g2022EC0.unkFBA]();
   sub_8034A8C();
-  for (i = 0; i < gUnk2022EB0.cardCount; i++)
-    g2022EC0.unk964[i] = g8E0CC20[i].unk0;
+  for (i = 0; i < gCardSortContext.cardCount; i++)
+    g2022EC0.unk964[i] = gSortableEntries[i].cardId;
 }
 
 void sub_8037A40 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r3 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r3;
+    gSortableEntries[i].cardId = r3;
     temp = g2022EC0.unk642[r3] * 800 + 800;
-    g8E0CC20[i].unk4 = temp - r3;
+    gSortableEntries[i].sortKey = temp - r3;
   }
 }
 
@@ -1402,114 +1402,114 @@ void sub_8037C1C (void) {
 
 void sub_8037C78 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u16 r1 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r1;
-    g8E0CC20[i].unk4 = 800 - r1;
+    gSortableEntries[i].cardId = r1;
+    gSortableEntries[i].sortKey = 800 - r1;
     if (g2022EC0.unk321[r1])
-      g8E0CC20[i].unk4 += 800;
+      gSortableEntries[i].sortKey += 800;
   }
 }
 
 void sub_8037D00 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r2 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r2;
+    gSortableEntries[i].cardId = r2;
     temp = (gCardAtks[r2] + 1 & 0xFFFF) * 800 + 800;
-    g8E0CC20[i].unk4 = temp - r2;
+    gSortableEntries[i].sortKey = temp - r2;
     if (g2022EC0.unk321[r2])
-      g8E0CC20[i].unk4 += 0x031FFCE0;
+      gSortableEntries[i].sortKey += 0x031FFCE0;
   }
 }
 
 void sub_8037DB0 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r2 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r2;
+    gSortableEntries[i].cardId = r2;
     temp = (gCardDefs[r2] + 1 & 0xFFFF) * 800 + 800;
-    g8E0CC20[i].unk4 = temp - r2;
+    gSortableEntries[i].sortKey = temp - r2;
     if (g2022EC0.unk321[r2])
-      g8E0CC20[i].unk4 += 0x031FFCE0;
+      gSortableEntries[i].sortKey += 0x031FFCE0;
   }
 }
 
 void sub_8037E60 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r4;
+    gSortableEntries[i].cardId = r4;
     temp = (23 - gCardTypes[r4]) * 800 + 800;
-    g8E0CC20[i].unk4 = temp - r4;
+    gSortableEntries[i].sortKey = temp - r4;
     if (g2022EC0.unk321[r4])
-      g8E0CC20[i].unk4 += 0x4B00;
+      gSortableEntries[i].sortKey += 0x4B00;
   }
 }
 
 void sub_8037F0C (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r4;
+    gSortableEntries[i].cardId = r4;
     temp = (256 - gCardAttributes[r4] & 0xFF) * 800 + 800;
-    g8E0CC20[i].unk4 = temp - r4;
+    gSortableEntries[i].sortKey = temp - r4;
     if (g2022EC0.unk321[r4])
-      g8E0CC20[i].unk4 += 0x32000;
+      gSortableEntries[i].sortKey += 0x32000;
   }
 }
 
 void sub_8037FBC (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u16 r4 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r4;
-    g8E0CC20[i].unk4 = 800 - g80D0444[gLanguage][r4];
+    gSortableEntries[i].cardId = r4;
+    gSortableEntries[i].sortKey = 800 - g80D0444[gLanguage][r4];
     if (g2022EC0.unk321[r4])
-      g8E0CC20[i].unk4 += 0x320;
+      gSortableEntries[i].sortKey += 0x320;
   }
 }
 
 void sub_8038070 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     int temp;
     u16 r4 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r4;
+    gSortableEntries[i].cardId = r4;
     temp = gCardLevels[r4] * 800 + 800;
-    g8E0CC20[i].unk4 = temp - r4;
+    gSortableEntries[i].sortKey = temp - r4;
     if (g2022EC0.unk321[r4])
-      g8E0CC20[i].unk4 += 0x28A0;
+      gSortableEntries[i].sortKey += 0x28A0;
   }
 }
 
 void sub_8038118 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u32 temp;
     u16 r4 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r4;
+    gSortableEntries[i].cardId = r4;
     temp = gCardCosts[r4] * 800 + 800;
-    g8E0CC20[i].unk4 = temp - r4;
+    gSortableEntries[i].sortKey = temp - r4;
     if (g2022EC0.unk321[r4])
-      g8E0CC20[i].unk4 += 0x03200000;
+      gSortableEntries[i].sortKey += 0x03200000;
   }
 }
 
 void sub_80381C0 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u16 r4 = g2022EC0.unk964[i];
-    g8E0CC20[i].unk0 = r4;
-    g8E0CC20[i].unk4 = 800 - r4;
+    gSortableEntries[i].cardId = r4;
+    gSortableEntries[i].sortKey = 800 - r4;
     if (gCardMonsterEffects[r4] || gUnk8094CC3[r4])
-      g8E0CC20[i].unk4 += 0x320;
+      gSortableEntries[i].sortKey += 0x320;
     if (g2022EC0.unk321[r4])
-      g8E0CC20[i].unk4 += 0x640;
+      gSortableEntries[i].sortKey += 0x640;
   }
 }
 
@@ -1522,11 +1522,11 @@ void sub_8038290 (void) {
       g2022EC0.unkFAC++;
   }
   sub_8034E1C();
-  gUnk2022EB0.cardCount = 800;
+  gCardSortContext.cardCount = 800;
   g8E0CE68[g2022EC0.unkFB2]();
   sub_8034A8C();
-  for (ii = 0; ii < gUnk2022EB0.cardCount; ii++)
-    g2022EC0.unk964[ii] = g8E0CC20[ii].unk0;
+  for (ii = 0; ii < gCardSortContext.cardCount; ii++)
+    g2022EC0.unk964[ii] = gSortableEntries[ii].cardId;
 }
 
 void sub_8038330 (void) {
@@ -1669,21 +1669,21 @@ void sub_803865C (void) {
 void sub_803867C (void) {
   u32 i;
   sub_8034E1C();
-  gUnk2022EB0.cardCount = 800;
+  gCardSortContext.cardCount = 800;
   g8E0CE68[g2022EC0.unkFB2]();
   sub_8034A8C();
-  for (i = 0; i < gUnk2022EB0.cardCount; i++)
-    g2022EC0.unk964[i] = g8E0CC20[i].unk0;
+  for (i = 0; i < gCardSortContext.cardCount; i++)
+    g2022EC0.unk964[i] = gSortableEntries[i].cardId;
 }
 
 void sub_80386E4 (void) {
   u32 i;
-  for (i = 0; i < gUnk2022EB0.cardCount; i++) {
+  for (i = 0; i < gCardSortContext.cardCount; i++) {
     u16 r3 = g2022EC0.unk964[i];
     int temp;
-    g8E0CC20[i].unk0 = r3;
+    gSortableEntries[i].cardId = r3;
     temp = g2022EC0.unk321[r3] * 800 + 800;
-    g8E0CC20[i].unk4 = temp - r3;
+    gSortableEntries[i].sortKey = temp - r3;
   }
 }
 

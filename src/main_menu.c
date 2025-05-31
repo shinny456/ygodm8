@@ -41,7 +41,7 @@ static void sub_8024B84 (struct GameMenuData* menuData);
 void sub_8024ECC (struct GameMenuData* menuData);
 void FadeToBlack (void);
 
-void sub_802618C (void);
+void UpdateFilteredInput_WithRepeat (void);
 void sub_8024F40 (struct GameMenuData* menuData);
 void sub_8024F6C (struct GameMenuData* menuData);
 void sub_8024FB8 (struct GameMenuData* menuData);
@@ -53,7 +53,7 @@ void sub_8025108 (); //takes a u8 *?
 
 extern u8 g2021C8C[]; //change type?
 extern u16 gNewButtons;
-extern u16 gUnk2021DCC;
+extern u16 gFilteredInput;
 
 struct OamStuff {
   u16 unk0;
@@ -138,19 +138,19 @@ void GameMenuMain (void) {
 }
 
 static unsigned short ProcessInput (void) {
-  sub_802618C();
+  UpdateFilteredInput_WithRepeat();
   if (gNewButtons & A_BUTTON)
-    return 1;
+    return A_BUTTON;
   if (gNewButtons & B_BUTTON)
-    return 2;
-  if (gUnk2021DCC & 0x40)
-    return 0x40;
-  if (gUnk2021DCC & 0x80)
-    return 0x80;
-  if (gUnk2021DCC & 0x20)
-    return 0x20;
-  if (gUnk2021DCC & 0x10)
-    return 0x10;
+    return B_BUTTON;
+  if (gFilteredInput & DPAD_UP)
+    return DPAD_UP;
+  if (gFilteredInput & DPAD_DOWN)
+    return DPAD_DOWN;
+  if (gFilteredInput & DPAD_LEFT)
+    return DPAD_LEFT;
+  if (gFilteredInput & DPAD_RIGHT)
+    return DPAD_RIGHT;
   return 0;
 }
 

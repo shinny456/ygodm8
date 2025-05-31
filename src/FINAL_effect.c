@@ -4,11 +4,11 @@
 #include "duel.h"
 #include "constants/card_ids.h"
 
-static void sub_803EFF8 (void);
+static void HandleFINALWin (void);
 
-void WinConditionFINAL (void) {
+void CheckWinConditionFINAL (void) {
   if ((GetFINAL_Flags() & FLAG_FINAL_ALL) == FLAG_FINAL_ALL)
-    sub_803EFF8();
+    HandleFINALWin();
 }
 
 int GetFINAL_Flags (void) {
@@ -40,7 +40,7 @@ int GetFINAL_Flag (unsigned short cardId) {
   return flag;
 }
 
-static void sub_803EFF8 (void) {
+static void HandleFINALWin (void) {
   unsigned char unused[12];
   unsigned char loser;
   if (WhoseTurn() == DUEL_PLAYER)
@@ -49,7 +49,7 @@ static void sub_803EFF8 (void) {
     loser = DUEL_PLAYER;
   DeclareLoser(loser);
   ResetCardEffectTextData();
-  gCardEffectTextData.textId = 0x12;
+  gCardEffectTextData.textId = TEXT_DESTINY_BOARD_MESSAGE;
   SetCardEffectTextType(6);
   ActivateCardEffectText();
 }

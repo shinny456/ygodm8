@@ -7,7 +7,7 @@ extern u8 gLanguage;
 
 
 void sub_8057854(void);
-void sub_80082C0(void);
+void InitButtonMaps(void);
 void sub_80595C4(void);
 void m4aSoundMode(u32);
 void sub_800AEC4(void);
@@ -25,7 +25,7 @@ int AgbMain (void)
     gUnk2021D00 = 0;
     gLanguage = 0;
     sub_8057854();
-    sub_80082C0();
+    InitButtonMaps();
     REG_IME = 0;
     REG_IE = INTR_FLAG_VBLANK | INTR_FLAG_GAMEPAK;
     REG_DISPSTAT = DISPSTAT_VBLANK_INTR;

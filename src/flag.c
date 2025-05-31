@@ -3,7 +3,7 @@
 extern unsigned char gFlags[]; // 50 * 8 flags: gFlags[NUM_FLAGS / 8 (CHAR_BIT?)]
 extern u8 g8E0FD44[];
 
-void sub_80554EC (void) {
+void InitFlags (void) {
   u8 i;
   for (i = 0; i < 50; i++)
     gFlags[i] = 0;

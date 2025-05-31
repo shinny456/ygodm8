@@ -21,7 +21,7 @@ extern u16 g8E0D91A[];
 extern u16 g80F1880[][30];
 extern u16 g80F1D30[][30];
 extern u16 g80F30E0[];
-extern unsigned char g8E0D828[];
+extern unsigned char gText_AttackDefendTributeEffect[];
 
 void InitBMenu (unsigned char);
 void sub_80428EC (unsigned char);
@@ -35,9 +35,8 @@ void UpdateDuelGfxExceptField (void);
 
 extern u16 g80F13D0[][30];
 extern unsigned char g8DF811C[];
-extern unsigned char g8E0D668[];
-extern unsigned char g8E0D753[];
-
+extern unsigned char gText_Deckcards[];
+extern unsigned char gText_DetailsTurnEndDiscard[];
 
 u16 sub_08007FEC(unsigned char, unsigned char, u16);
 void sub_800800C(unsigned char, unsigned char, u16, u16);
@@ -94,7 +93,7 @@ void BMenuMain (void) {
             gStatMod.field = gDuel.field;
             gStatMod.stage = GetFinalStage(gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]);
             SetFinalStat(&gStatMod);
-            sub_801F6B0();
+            ShowCardDetailView();
             UpdateAllDuelGfx();
           }
           else {
@@ -115,7 +114,7 @@ void BMenuMain (void) {
               PlayMusic(SFX_DISCARD);
               ClearZoneAndSendMonToGraveyard2(gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX], 0);
               UpdateDuelGfxExceptField();
-              sub_8029820();
+              TryActivatingPermanentEffects();
             }
           else {
             PlayMusic(SFX_FORBIDDEN);
@@ -572,7 +571,7 @@ _080426FC:\n\
 	ldr r0, _08042780\n\
 	ldrh r0, [r0]\n\
 	movs r1, #0\n\
-	bl sub_800DDA0\n\
+	bl ConvertU16ToDecimalDigits\n\
 	movs r6, #0\n\
 	ldr r1, _08042784\n\
 	adds r7, r5, r1\n\
@@ -624,7 +623,7 @@ _08042790:\n\
 	ldr r0, _080427F4\n\
 	ldrh r0, [r0, #2]\n\
 	movs r1, #0\n\
-	bl sub_800DDA0\n\
+	bl ConvertU16ToDecimalDigits\n\
 	movs r6, #0\n\
 	ldr r7, _080427F8\n\
 	ldr r5, _080427FC\n\
@@ -675,7 +674,7 @@ _08042804:\n\
 	movs r0, #0\n\
 _08042806:\n\
 	movs r1, #0\n\
-	bl sub_800DDA0\n\
+	bl ConvertU16ToDecimalDigits\n\
   \n\
   \n\
 	movs r6, #0\n\
@@ -723,7 +722,7 @@ _08042864:\n\
 	movs r0, #0\n\
 _08042866:\n\
 	movs r1, #0\n\
-	bl sub_800DDA0\n\
+	bl ConvertU16ToDecimalDigits\n\
 	movs r6, #0\n\
 	ldr r7, _080428E0\n\
 	ldr r5, _080428E4\n\
@@ -797,8 +796,8 @@ void InitBMenu (unsigned char arg0) {
   for (i = 0; i < 18; i++)
     CpuCopy32(g80F13D0[i], gBgVram.cbb0 + 0xE800 + i * 64, 64);
   CpuCopy16(g80F30E0, gBgVram.cbb0 + 0x87A0, 128);
-  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x8820, g8E0D668, 0x801);
-  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x8B00, g8E0D753, 0x901);
+  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x8820, gText_Deckcards, 0x801);
+  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x8B00, gText_DetailsTurnEndDiscard, 0x901);
 
   sb = sub_08007FEC(0, 0, 0xE800);
   r8 = sub_08007FEC(20, 1, 0xE800) & 0xFF00;
@@ -878,13 +877,13 @@ void InitBMenu (unsigned char arg0) {
   buffer[i] = 0;
   CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x9280, buffer, 0x901);
 
-  sub_800DDA0(gDuelLifePoints[DUEL_PLAYER], 0);
+  ConvertU16ToDecimalDigits(gDuelLifePoints[DUEL_PLAYER], DIGIT_FLAG_NONE);
   for (i = 0; i < 5; i++) {
-    *(u16*)(gBgVram.cbb0 + (0x75AC - i) * 2) = g2021BD0[4 - i] + 65 | 0x3000;
+    *(u16*)(gBgVram.cbb0 + (0x75AC - i) * 2) = gDecimalDigitsU16[4 - i] + 65 | 0x3000;
   }
-  sub_800DDA0(gDuelLifePoints[DUEL_OPPONENT], 0);
+  ConvertU16ToDecimalDigits(gDuelLifePoints[DUEL_OPPONENT], DIGIT_FLAG_NONE);
   for (i = 0; i < 5; i++) {
-    *(u16*)(gBgVram.cbb0 + (0x74EC - i) * 2) = g2021BD0[4 - i] + 65 | 0x3000;
+    *(u16*)(gBgVram.cbb0 + (0x74EC - i) * 2) = gDecimalDigitsU16[4 - i] + 65 | 0x3000;
   }
   r4two = GetCardsDrawn(0);
   r0 = (unsigned char)NumCardsInDeck(0);
@@ -892,10 +891,10 @@ void InitBMenu (unsigned char arg0) {
     r0 -= r4two;
   else
     r0 = 0;
-  sub_800DDA0(r0, 0);
+  ConvertU16ToDecimalDigits(r0, DIGIT_FLAG_NONE);
 
   for (i = 0; i < 2; i++)
-    *(u16*)(gBgVram.cbb0 + (0x758A - i) * 2) = g2021BD0[4 - i] + 65 | 0x3000;
+    *(u16*)(gBgVram.cbb0 + (0x758A - i) * 2) = gDecimalDigitsU16[4 - i] + 65 | 0x3000;
 
   r4two = GetCardsDrawn(1);
   r0 = (unsigned char)NumCardsInDeck(1);
@@ -903,9 +902,9 @@ void InitBMenu (unsigned char arg0) {
     r0 -= r4two;
   else
     r0 = 0;
-  sub_800DDA0(r0, 0);
+  ConvertU16ToDecimalDigits(r0, DIGIT_FLAG_NONE);
   for (i = 0; i < 2; i++)
-    *(u16*)(gBgVram.cbb0 + (0x74CA - i) * 2) = g2021BD0[4 - i] + 65 | 0x3000;
+    *(u16*)(gBgVram.cbb0 + (0x74CA - i) * 2) = gDecimalDigitsU16[4 - i] + 65 | 0x3000;
   sub_80428EC(arg0);
   WaitForVBlank();
   sub_8041014();
@@ -1018,7 +1017,7 @@ void sub_8042ADC (unsigned char arg0) {
     sub_800800C(i + 14, 5, 0xE800, (g8DF811C[i] + 121) | r7);
     sub_800800C(i + 14, 6, 0xE800, (g8DF811C[i] + 123) | r7);
   }
-  CopyStringTilesToVRAMBuffer(gVr.a + 0x8820, g8E0D828, 0x901);
+  CopyStringTilesToVRAMBuffer(gVr.a + 0x8820, gText_AttackDefendTributeEffect, 0x901);
   sub_8042C64(arg0);
   WaitForVBlank();
   REG_WIN1H = 0xCD4;
@@ -1063,19 +1062,19 @@ void sub_8042D14 (void) {
       }
       else
         SetCardInfo(CARD_NONE);
-      sub_800DDA0(gCardInfo.atk, 0);
-      *r4++ = g2021BD0[0] + 0x303D;
-      *r4++ = g2021BD0[1] + 0x303D;
-      *r4++ = g2021BD0[2] + 0x303D;
-      *r4++ = g2021BD0[3] + 0x303D;
-      *r4 = g2021BD0[4] + 0x303D;
+      ConvertU16ToDecimalDigits(gCardInfo.atk, DIGIT_FLAG_NONE);
+      *r4++ = gDecimalDigitsU16[0] + 0x303D;
+      *r4++ = gDecimalDigitsU16[1] + 0x303D;
+      *r4++ = gDecimalDigitsU16[2] + 0x303D;
+      *r4++ = gDecimalDigitsU16[3] + 0x303D;
+      *r4 = gDecimalDigitsU16[4] + 0x303D;
       r4 += 28;
-      sub_800DDA0(gCardInfo.def, 0);
-      *r4++ = g2021BD0[0] + 0x303D;
-      *r4++ = g2021BD0[1] + 0x303D;
-      *r4++ = g2021BD0[2] + 0x303D;
-      *r4++ = g2021BD0[3] + 0x303D;
-      *r4 = g2021BD0[4] + 0x303D;
+      ConvertU16ToDecimalDigits(gCardInfo.def, DIGIT_FLAG_NONE);
+      *r4++ = gDecimalDigitsU16[0] + 0x303D;
+      *r4++ = gDecimalDigitsU16[1] + 0x303D;
+      *r4++ = gDecimalDigitsU16[2] + 0x303D;
+      *r4++ = gDecimalDigitsU16[3] + 0x303D;
+      *r4 = gDecimalDigitsU16[4] + 0x303D;
     }
   }
 }
@@ -1098,7 +1097,7 @@ void sub_8042E80 (void) {
 
 void sub_8042F04 (void) {
   sub_8042E80();
-  while (gPressedButtons & 0x200)
+  while (gPressedButtons & L_BUTTON)
     WaitForVBlank();
   REG_DISPCNT = DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON;
   WaitForVBlank();

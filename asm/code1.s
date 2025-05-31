@@ -280,7 +280,7 @@ sub_800CFD0: @ 0x0800CFD0
 	movs r7, #0
 _0800CFEC:
 	adds r0, r7, #0
-	bl sub_800901C
+	bl GetNthCardOnScreen
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl sub_800DA48
@@ -288,7 +288,7 @@ _0800CFEC:
 	lsrs r0, r0, #0x10
 	str r0, [sp, #0x30]
 	adds r0, r7, #0
-	bl sub_800901C
+	bl GetNthCardOnScreen
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl SetCardInfo
@@ -303,7 +303,7 @@ _0800D01C:
 	ldr r1, _0800D09C
 	ldrh r0, [r1, #0x10]
 	movs r1, #1
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	movs r3, #0
 	lsls r2, r7, #1
 	mov r8, r2
@@ -475,7 +475,7 @@ _0800D16C:
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #1
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	movs r3, #0
 	ldr r5, _0800D254
 	mov r2, r8
@@ -507,7 +507,7 @@ _0800D19C:
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	movs r3, #0
 	ldr r6, _0800D254
 	mov r2, r8
@@ -637,7 +637,7 @@ _0800D2C8:
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	movs r3, #0
 	ldr r6, _0800D354
 	ldr r5, _0800D358
@@ -661,7 +661,7 @@ _0800D2E2:
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	movs r3, #0
 	ldr r6, _0800D354
 	ldr r5, _0800D364
@@ -862,7 +862,7 @@ sub_800D484: @ 0x0800D484
 	mov sl, r0
 _0800D494:
 	adds r0, r6, #0
-	bl sub_800901C
+	bl GetNthCardOnScreen
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl SetCardInfo
@@ -888,7 +888,7 @@ _0800D4B0:
 	ldr r0, _0800D568
 	ldrh r0, [r0, #0x12]
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	movs r2, #0
 	adds r3, r5, #0
 	adds r5, r7, #4
@@ -927,7 +927,7 @@ _0800D4E6:
 	ldr r0, _0800D568
 	ldrh r0, [r0, #0x14]
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	movs r2, #0
 	ldr r6, _0800D55C
 	ldr r7, _0800D56C
@@ -983,7 +983,7 @@ sub_800D580: @ 0x0800D580
 	mov r8, r0
 _0800D590:
 	mov r0, r8
-	bl sub_800901C
+	bl GetNthCardOnScreen
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl SetCardInfo
@@ -1302,14 +1302,14 @@ _0800D7B4:
 	mov r1, sb
 	strh r1, [r0]
 	adds r0, r5, #0
-	bl sub_800901C
+	bl GetNthCardOnScreen
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl SetCardInfo
 	ldr r0, _0800D8A0
 	ldrh r0, [r0, #0xc]
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	movs r3, #0
 	adds r5, #1
 	ldr r7, _0800D870
@@ -1439,7 +1439,7 @@ _0800D944:
 	bl sub_800A5F0
 	b _0800D99E
 	.align 2, 0
-_0800D968: .4byte gTrunkData
+_0800D968: .4byte gTrunkMenu
 _0800D96C:
 	bl sub_800CFD0
 	b _0800D988
@@ -1457,7 +1457,7 @@ _0800D988:
 	bl sub_800A5F0
 	b _0800D99E
 	.align 2, 0
-_0800D994: .4byte gTrunkData
+_0800D994: .4byte gTrunkMenu
 _0800D998:
 	movs r0, #3
 	bl sub_800A5F0
@@ -1517,7 +1517,7 @@ _0800DA0C: .4byte 0x080AE6D0
 	THUMB_FUNC_START sub_800DA10
 sub_800DA10: @ 0x0800DA10
 	push {lr}
-	bl sub_8009010
+	bl GetTrunkMenuDisplayMode
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #1
@@ -1632,7 +1632,7 @@ _0800DACA:
 	beq _0800DB1E
 	b _0800DB30
 	.align 2, 0
-_0800DAE4: .4byte gTrunkData
+_0800DAE4: .4byte gTrunkMenu
 _0800DAE8: .4byte sub_800DD1C
 _0800DAEC:
 	cmp r0, #8
@@ -1701,7 +1701,7 @@ sub_800DB4C: @ 0x0800DB4C
 	bl sub_800A380
 	b _0800DB7A
 	.align 2, 0
-_0800DB6C: .4byte gTrunkData
+_0800DB6C: .4byte gTrunkMenu
 _0800DB70: .4byte 0x08DFF4B4
 _0800DB74:
 	ldrb r0, [r2, #2]
@@ -1736,7 +1736,7 @@ sub_800DB9C: @ 0x0800DB9C
 	bl sub_800A380
 	b _0800DBCA
 	.align 2, 0
-_0800DBBC: .4byte gTrunkData
+_0800DBBC: .4byte gTrunkMenu
 _0800DBC0: .4byte 0x08DFF4BF
 _0800DBC4:
 	ldrb r0, [r2, #2]
@@ -1771,7 +1771,7 @@ sub_800DBEC: @ 0x0800DBEC
 	bl sub_800A380
 	b _0800DC1A
 	.align 2, 0
-_0800DC0C: .4byte gTrunkData
+_0800DC0C: .4byte gTrunkMenu
 _0800DC10: .4byte 0x08DFF4CA
 _0800DC14:
 	ldrb r0, [r2, #2]
@@ -1806,7 +1806,7 @@ sub_800DC3C: @ 0x0800DC3C
 	bl sub_800A380
 	b _0800DC6A
 	.align 2, 0
-_0800DC5C: .4byte gTrunkData
+_0800DC5C: .4byte gTrunkMenu
 _0800DC60: .4byte 0x08DFF4D5
 _0800DC64:
 	ldrb r0, [r2, #2]
@@ -1835,12 +1835,12 @@ sub_800DC8C: @ 0x0800DC8C
 	bhi _0800DCA4
 	strb r1, [r0, #2]
 	ldrb r0, [r0, #2]
-	bl sub_80091EC
+	bl ApplyNewSortMode
 _0800DCA4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800DCA8: .4byte gTrunkData
+_0800DCA8: .4byte gTrunkMenu
 
 	THUMB_FUNC_START sub_800DCAC
 sub_800DCAC: @ 0x0800DCAC
@@ -1881,7 +1881,7 @@ sub_800DCAC: @ 0x0800DCAC
 	.align 2, 0
 _0800DCF0: .4byte gOamBuffer+0x30
 _0800DCF4: .4byte 0x08DFF4E0
-_0800DCF8: .4byte gTrunkData
+_0800DCF8: .4byte gTrunkMenu
 _0800DCFC: .4byte 0x08DFF4EB
 _0800DD00: .4byte 0x0000C120
 _0800DD04: .4byte 0x40000800

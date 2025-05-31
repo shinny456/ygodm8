@@ -71,7 +71,7 @@ static void OpenConfirmBuyMenu (void);
 static void TryMoveUpInConfirmBuyMenu (void);
 static void TryMoveDownInConfirmBuyMenu (void);
 static void SelectOptionInConfirmBuyMenu (void);
-static unsigned char sub_802D9AC (u16, u8);
+static unsigned char ShopHasSpaceForCardQty2 (u16, u8);
 static unsigned char sub_802D9D0 (u16, u8);
 static void MoveCursorLeftInBuyShop (void);
 static void MoveCursorRightInBuyShop (void);
@@ -238,7 +238,7 @@ void CopyStarTile (void*);
 void CopySwordTile (void*);
 void CopyShieldTile (void*);
 
-int sub_8045410 (u16);
+int GetNumRequiredTributes (u16);
 void sub_800800C(u8, u8, u16, u16);
 u16 sub_08007FEC(u8, u8, u16);
 extern u8 g8DF811C[];
@@ -246,12 +246,12 @@ void sub_8008BF8 (void * dest);
 int GetDeckCardQty (u16);
 void ScalePriceToQty (void);
 extern void* g8E1168C[];
-void sub_8034A38 (void);
+void SortCardsAccordingToContext (void);
 void CopyAttributeIconTiles (u8 attribute, void * dest);
 void CopyAttributeIconPal (u8 attribute, void * dest);
 void CopyTypeIconTiles (u8 type, void * dest);
 void CopyTypeIconPal (u8 type, void * dest);
-extern u8 g2021BE0[];
+extern u8 gDecimalDigitsU64[];
 extern unsigned long long gMoney;
 
 void CardShopBuyMain (void) {
@@ -805,7 +805,7 @@ static void SelectDetailsInConfirmSellMenu (void) {
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   SetCardInfo(cardId);
   PlayMusic(SFX_SELECT);
-  sub_801F6B0();
+  ShowCardDetailView();
   gShopSelectedCard.cardId = cardId;
   gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   ScalePriceToQty();
@@ -920,10 +920,10 @@ static void SetNextSortModeInSellShop (void) {
   // this part could be a macro or (static) inline func
   // sub_802D190
   temp = sCardShop.currentSortMode;
-  gUnk2022EB0.cards = sCardShop.unkD2 + 1;
-  gUnk2022EB0.cardCount = NUM_TRUE_CARDS;
-  gUnk2022EB0.sortMode = g80C9D84[temp];
-  sub_8034A38();
+  gCardSortContext.cards = sCardShop.unkD2 + 1;
+  gCardSortContext.cardCount = NUM_TRUE_CARDS;
+  gCardSortContext.sortMode = g80C9D84[temp];
+  SortCardsAccordingToContext();
   sub_802DFE4();
   sCardShop.firstVisibleRow = 114;
 }
@@ -949,10 +949,10 @@ static void InitSellShop (void) {
     sCardShop.unkD2[i] = i;
 
   // sub_802D190
-  gUnk2022EB0.cards = sCardShop.unkD2 + 1;
-  gUnk2022EB0.cardCount = NUM_TRUE_CARDS;
-  gUnk2022EB0.sortMode = g80C9D84[0];
-  sub_8034A38();
+  gCardSortContext.cards = sCardShop.unkD2 + 1;
+  gCardSortContext.cardCount = NUM_TRUE_CARDS;
+  gCardSortContext.sortMode = g80C9D84[0];
+  SortCardsAccordingToContext();
   sub_802DFE4();
   sCardShop.firstVisibleRow = 114;
   // sub_802D190 end
@@ -998,10 +998,10 @@ static void sub_802D174 (void) {
 }
 
 static void sub_802D190 (u8 sortOption) {
-  gUnk2022EB0.cards = sCardShop.unkD2 + 1;
-  gUnk2022EB0.cardCount = NUM_TRUE_CARDS;
-  gUnk2022EB0.sortMode = g80C9D84[sortOption];
-  sub_8034A38();
+  gCardSortContext.cards = sCardShop.unkD2 + 1;
+  gCardSortContext.cardCount = NUM_TRUE_CARDS;
+  gCardSortContext.sortMode = g80C9D84[sortOption];
+  SortCardsAccordingToContext();
   sub_802DFE4();
   sCardShop.firstVisibleRow = 114;
 }
@@ -1268,7 +1268,7 @@ static void SelectDetailsInConfirmBuyMenu (void) {
   cardId = *sCardShop.unk0[sCardShop.cursorRow][sCardShop.cursorColumn];
   SetCardInfo(cardId);
   PlayMusic(SFX_SELECT);
-  sub_801F6B0();
+  ShowCardDetailView();
   gShopSelectedCard.cardId = cardId;
   gShopSelectedCard.shopQty = gShopTempCardQty[cardId];
   ScalePriceToQty();
@@ -1324,11 +1324,11 @@ static void SelectOptionInConfirmBuyMenu (void) {
   }
 }
 
-void sub_802D90C (unsigned short cardId, unsigned char qty) {
+void AddCardQtyToShop2 (unsigned short cardId, unsigned char qty) {
   // this could be calling an inline func
   if ((u16)(cardId - 1) >= 800)
     return;
-  if (sub_802D9AC(cardId, qty) == 1)
+  if (ShopHasSpaceForCardQty2(cardId, qty) == 1)
     gShopCardQty[cardId] += qty;
   else
     gShopCardQty[cardId] = SHOP_MAX_CARD_QTY;
@@ -1345,7 +1345,7 @@ static void sub_802D95C (u16 cardId, u8 qty) {
     gShopCardQty[cardId] = 0;
 }
 
-static unsigned char sub_802D9AC (u16 cardId, u8 qty) {
+static unsigned char ShopHasSpaceForCardQty2 (u16 cardId, u8 qty) {
   if (qty > SHOP_MAX_CARD_QTY - gShopCardQty[cardId])
     return 0;
   return 1;
@@ -1526,10 +1526,10 @@ static void SetNextSortModeInBuyShop (void) {
   // this part could be a macro or (static) inline func
   // sub_802DFF8
   temp = sCardShop.currentSortMode;
-  gUnk2022EB0.cards = sCardShop.unkD2 + 1;
-  gUnk2022EB0.cardCount = NUM_TRUE_CARDS;
-  gUnk2022EB0.sortMode = g80CA0D7[temp];
-  sub_8034A38();
+  gCardSortContext.cards = sCardShop.unkD2 + 1;
+  gCardSortContext.cardCount = NUM_TRUE_CARDS;
+  gCardSortContext.sortMode = g80CA0D7[temp];
+  SortCardsAccordingToContext();
   //sub_802DFE4();
   sCardShop.unk724 = 4;
   sCardShop.firstVisibleRow = 114;
@@ -1566,10 +1566,10 @@ static void InitBuyShop (void) {
     sCardShop.unkD2[i] = i;
 
   // sub_802DFF8
-  gUnk2022EB0.cards = sCardShop.unkD2 + 1;
-  gUnk2022EB0.cardCount = NUM_TRUE_CARDS;
-  gUnk2022EB0.sortMode = g80CA0D7[0];
-  sub_8034A38();
+  gCardSortContext.cards = sCardShop.unkD2 + 1;
+  gCardSortContext.cardCount = NUM_TRUE_CARDS;
+  gCardSortContext.sortMode = g80CA0D7[0];
+  SortCardsAccordingToContext();
   //sub_802DFE4();
   sCardShop.unk724 = 4;
   sCardShop.firstVisibleRow = 114;
@@ -1677,10 +1677,10 @@ static void sub_802DFE4 (void) {
 }
 
 static void sub_802DFF8 (u8 arg0) {
-  gUnk2022EB0.cards = sCardShop.unkD2 + 1;
-  gUnk2022EB0.cardCount = NUM_TRUE_CARDS;
-  gUnk2022EB0.sortMode = g80CA0D7[arg0];
-  sub_8034A38();
+  gCardSortContext.cards = sCardShop.unkD2 + 1;
+  gCardSortContext.cardCount = NUM_TRUE_CARDS;
+  gCardSortContext.sortMode = g80CA0D7[arg0];
+  SortCardsAccordingToContext();
   //sub_802DFE4();
   sCardShop.unk724 = 4;
   sCardShop.firstVisibleRow = 114;
@@ -1860,12 +1860,12 @@ _0802E310: .4byte 0x0000160C");
 static void sub_802E314 (void) {
   u16* ptr;
   u8 i;
-  sub_800DEAC(gMoney, 0);
+  ConvertU64ToDecimalDigits(gMoney, 0);
 
   ptr = ((struct Sbb*)&gBgVram)->sbb14[12] + 27;
-  for (i = 0; i < 16 && g2021BE0[18 - i] != 10; i++) {
+  for (i = 0; i < 16 && gDecimalDigitsU64[18 - i] != 10; i++) {
     *ptr &= 0xF000;
-    *ptr |= g2021BE0[18 - i] + 0x195;
+    *ptr |= gDecimalDigitsU64[18 - i] + 0x195;
     ptr--;
   }
 
@@ -1891,12 +1891,12 @@ static void sub_802E314 (void) {
 static void sub_802E404 (void) {
   u16* ptr;
   u8 i;
-  sub_800DEAC(gShopSelectedCard.buyPrice, 0);
+  ConvertU64ToDecimalDigits(gShopSelectedCard.buyPrice, 0);
 
   ptr = ((struct Sbb*)&gBgVram)->sbb14[2] + 27;
-  for (i = 0; i < 16 && g2021BE0[18 - i] != 10; i++) {
+  for (i = 0; i < 16 && gDecimalDigitsU64[18 - i] != 10; i++) {
     *ptr &= 0xF000;
-    *ptr |= g2021BE0[18 - i] + 0x195;
+    *ptr |= gDecimalDigitsU64[18 - i] + 0x195;
     ptr--;
   }
 
@@ -1922,12 +1922,12 @@ static void sub_802E404 (void) {
 static void sub_802E4F4 (void) {
   u16* ptr;
   u8 i;
-  sub_800DEAC(gShopSelectedCard.sellPrice, 0);
+  ConvertU64ToDecimalDigits(gShopSelectedCard.sellPrice, 0);
 
   ptr = ((struct Sbb*)&gBgVram)->sbb14[2] + 27;
-  for (i = 0; i < 16 && g2021BE0[18 - i] != 10; i++) {
+  for (i = 0; i < 16 && gDecimalDigitsU64[18 - i] != 10; i++) {
     *ptr &= 0xF000;
-    *ptr |= g2021BE0[18 - i] + 0x195;
+    *ptr |= gDecimalDigitsU64[18 - i] + 0x195;
     ptr--;
   }
 
@@ -1966,12 +1966,12 @@ static void sub_802E5E4 (void) {
     r8 = 0;
     diff = money - cost;
   }
-  sub_800DEAC(diff, 0);
+  ConvertU64ToDecimalDigits(diff, 0);
 
   ptr = ((struct Sbb*)&gBgVram)->sbb14[4] + 27;
-  for (i = 0; i < 16 && g2021BE0[18 - i] != 10; i++) {
+  for (i = 0; i < 16 && gDecimalDigitsU64[18 - i] != 10; i++) {
     *ptr &= 0xF000;
-    *ptr |= g2021BE0[18 - i] + 0x195;
+    *ptr |= gDecimalDigitsU64[18 - i] + 0x195;
     ptr--;
   }
   if (r8 == 1) {
@@ -2009,13 +2009,13 @@ static void sub_802E72C (void) {
     temp2 = gMoney + temp;
   else
     temp2 = 9999999999999;
-  sub_800DEAC(temp2, 0);
+  ConvertU64ToDecimalDigits(temp2, 0);
 
 
   ptr = ((struct Sbb*)&gBgVram)->sbb14[4] + 27;
-  for (i = 0; i < 16 && g2021BE0[18 - i] != 10; i++) {
+  for (i = 0; i < 16 && gDecimalDigitsU64[18 - i] != 10; i++) {
     *ptr &= 0xF000;
-    *ptr |= g2021BE0[18 - i] + 0x195;
+    *ptr |= gDecimalDigitsU64[18 - i] + 0x195;
     ptr--;
   }
   if (r0 == 1) {
@@ -2085,12 +2085,12 @@ static void sub_802E868 (void) {
 static void sub_802EA74 (void) {
   u16* ptr;
   u8 i;
-  sub_800DEAC(gMoney, 0);
+  ConvertU64ToDecimalDigits(gMoney, 0);
 
   ptr = gBgVram.sbb1F[1] + 23;
-  for (i = 0; i < 16 && g2021BE0[18 - i] != 10; i++) {
+  for (i = 0; i < 16 && gDecimalDigitsU64[18 - i] != 10; i++) {
     *ptr &= 0xF000;
-    *ptr |= g2021BE0[18 - i] + 0x195;
+    *ptr |= gDecimalDigitsU64[18 - i] + 0x195;
     ptr--;
   }
 
@@ -2128,10 +2128,10 @@ static void sub_802EB64 (void) {
     *ptr-- |= 0x1A3;
 
     i = 6;
-    sub_800DEAC(gShopSelectedCard.buyPrice, 0);
-    for (j = 0; j < 16 && g2021BE0[18 - j] != 10; j++, i++) {
+    ConvertU64ToDecimalDigits(gShopSelectedCard.buyPrice, 0);
+    for (j = 0; j < 16 && gDecimalDigitsU64[18 - j] != 10; j++, i++) {
       *ptr &= 0xF000;
-      *ptr |= g2021BE0[18 - j] + 0x195;
+      *ptr |= gDecimalDigitsU64[18 - j] + 0x195;
       ptr--;
     }
 
@@ -2170,10 +2170,10 @@ static void sub_802ECCC (void) {
     *ptr-- |= 0x1A3;
 
     i = 6;
-    sub_800DEAC(gShopSelectedCard.sellPrice, 0);
-    for (j = 0; j < 16 && g2021BE0[18 - j] != 10; j++, i++) {
+    ConvertU64ToDecimalDigits(gShopSelectedCard.sellPrice, 0);
+    for (j = 0; j < 16 && gDecimalDigitsU64[18 - j] != 10; j++, i++) {
       *ptr &= 0xF000;
-      *ptr |= g2021BE0[18 - j] + 0x195;
+      *ptr |= gDecimalDigitsU64[18 - j] + 0x195;
       ptr--;
     }
 
@@ -2225,9 +2225,9 @@ static void sub_802EE34 (void) {
     *ptr-- = paletteBank << 12 | 0x1A3;
 
     i += 6;
-    sub_800DEAC(diff, 0);
-    for (j = 0; j < 16 && g2021BE0[18 - j] != 10; j++, i++) {
-      *ptr = paletteBank << 12 | g2021BE0[18 - j] + 0x195;
+    ConvertU64ToDecimalDigits(diff, 0);
+    for (j = 0; j < 16 && gDecimalDigitsU64[18 - j] != 10; j++, i++) {
+      *ptr = paletteBank << 12 | gDecimalDigitsU64[18 - j] + 0x195;
       ptr--;
     }
 
@@ -2273,11 +2273,11 @@ static void sub_802EFFC (void) {
     *ptr-- |= 0x1A3;
 
     i += 6;
-    sub_800DEAC(temp, 0);
+    ConvertU64ToDecimalDigits(temp, 0);
 
-    for (j = 0; j < 16 && g2021BE0[18 - j] != 10; j++, i++) {
+    for (j = 0; j < 16 && gDecimalDigitsU64[18 - j] != 10; j++, i++) {
       *ptr = *ptr & 0xF000;
-      *ptr |= g2021BE0[18 - j] + 0x195;
+      *ptr |= gDecimalDigitsU64[18 - j] + 0x195;
       ptr--;
     }
 
@@ -2314,9 +2314,9 @@ static void sub_802F1B4 (void) {
   u8 i = 0;
 
   if (gCardInfo.id != CARD_NONE) {
-    sub_800DEAC(gShopHoveredCard.unk0, 1);
-    for (i = 0; i < 16 && g2021BE0[i] != 10; i++) {
-      *ptr = 0xFFFFD000 | g2021BE0[i] + 0x195; // problematic part
+    ConvertU64ToDecimalDigits(gShopHoveredCard.unk0, 1);
+    for (i = 0; i < 16 && gDecimalDigitsU64[i] != 10; i++) {
+      *ptr = 0xFFFFD000 | gDecimalDigitsU64[i] + 0x195; // problematic part
       ptr++
     }
     *ptr++ = 0xD183;
@@ -2341,7 +2341,7 @@ static void sub_802F1B4 (void) {
 	ldr r1, [r0, #4]\n\
 	ldr r0, [r0]\n\
 	movs r2, #1\n\
-	bl sub_800DEAC\n\
+	bl ConvertU64ToDecimalDigits\n\
 	ldr r1, _0802F240 @ =0x02021BE0\n\
 	ldrb r0, [r1]\n\
 	cmp r0, #0xa\n\
@@ -2421,7 +2421,7 @@ static void sub_802F250 (void) {
 	ldr r1, [r0, #0xc]\n\
 	ldr r0, [r0, #8]\n\
 	movs r2, #1\n\
-	bl sub_800DEAC\n\
+	bl ConvertU64ToDecimalDigits\n\
 	ldr r1, _0802F2DC @ =0x02021BE0\n\
 	ldrb r0, [r1]\n\
 	cmp r0, #0xa\n\
@@ -2531,7 +2531,7 @@ static void sub_802F2EC (void) {
 	adds r0, r0, r1\n\
 	ldrb r0, [r0]\n\
 	movs r1, #1\n\
-	bl sub_800DDA0\n\
+	bl ConvertU16ToDecimalDigits\n\
 	movs r1, #0\n\
 	ldr r2, _0802F3AC\n\
 	ldrb r0, [r2]\n\
@@ -2603,7 +2603,7 @@ static void sub_802F3B8 (void) {
 	beq _0802F452\n\
 	ldrh r0, [r3, #0x12]\n\
 	movs r1, #0\n\
-	bl sub_800DDA0\n\
+	bl ConvertU16ToDecimalDigits\n\
 	ldr r1, _0802F428\n\
 	ldr r0, _0802F42C\n\
 	adds r3, r0, #0\n\
@@ -2690,7 +2690,7 @@ _0802F470:\n\
 	beq _0802F508\n\
 	adds r0, r1, #0\n\
 	movs r1, #0\n\
-	bl sub_800DDA0\n\
+	bl ConvertU16ToDecimalDigits\n\
 	ldr r1, _0802F4E0\n\
 	ldr r6, _0802F4E4\n\
 	adds r3, r6, #0\n\
@@ -2783,12 +2783,12 @@ static void sub_802F530 (void) {
     *ptr &= 0xF000;
   }
   else {
-    sub_800DDA0(gCardInfo.level, 1);
+    ConvertU16ToDecimalDigits(gCardInfo.level, DIGIT_FLAG_ALIGN_LEFT);
     *ptr++ = 0xA1A0;
     *ptr &= 0xF000;
-    *ptr++ |= g2021BD0[0] + 0x195;
+    *ptr++ |= gDecimalDigitsU16[0] + 0x195;
     *ptr &= 0xF000;
-    *ptr |= g2021BD0[1] + 0x195;
+    *ptr |= gDecimalDigitsU16[1] + 0x195;
   }
 }
 
@@ -2801,7 +2801,7 @@ static void sub_802F5B0 (void) {
   CpuFill16(0, gBgVram.sbb1E[24] + 16, 0x1E0);
 
   r4 = 0;
-  i = sub_8020698(gCardInfo.name);
+  i = GetLanguageStringOffset(gCardInfo.name);
   r5 = 0;
   while (r5 < 15 && gCardInfo.name[i] && gCardInfo.name[i] != '$') {
     if (gCardInfo.name[i] > 127) {
@@ -2830,10 +2830,10 @@ static void sub_802F66C (void) {
     }
   }
   else {
-    sub_800DDA0(gCardInfo.id, 1);
+    ConvertU16ToDecimalDigits(gCardInfo.id, DIGIT_FLAG_ALIGN_LEFT);
     for (i = 0; i < 4; i++) {
       *ptr &= 0xF000;
-      *ptr++ |= g2021BD0[i] + 0x195;
+      *ptr++ |= gDecimalDigitsU16[i] + 0x195;
     }
   }
 }
@@ -2858,10 +2858,10 @@ static void sub_802F6E8 (void) {
     *ptr &= 0xF000;
     *ptr++ |= 0x182;
     i = 7;
-    sub_800DDA0(gPlayerTempCardQty[gCardInfo.id], 1);
-    for (j = 0; j < 3 && g2021BD0[j] != 10; j++, i++) {
+    ConvertU16ToDecimalDigits(gPlayerTempCardQty[gCardInfo.id], DIGIT_FLAG_ALIGN_LEFT);
+    for (j = 0; j < 3 && gDecimalDigitsU16[j] != 10; j++, i++) {
       *ptr &= 0xF000;
-      *ptr++ |= g2021BD0[j] + 0x195;
+      *ptr++ |= gDecimalDigitsU16[j] + 0x195;
     }
   }
   for (; i < 10; i++)
@@ -2888,10 +2888,10 @@ static void sub_802F7F0 (void) {
     *ptr &= 0xF000;
     *ptr++ |= 0x182;
     i = 7;
-    sub_800DDA0(GetDeckCardQty(gCardInfo.id), 1);
-    for (j = 0; j < 3 && g2021BD0[j] != 10; j++, i++) {
+    ConvertU16ToDecimalDigits(GetDeckCardQty(gCardInfo.id), DIGIT_FLAG_ALIGN_LEFT);
+    for (j = 0; j < 3 && gDecimalDigitsU16[j] != 10; j++, i++) {
       *ptr &= 0xF000;
-      *ptr++ |= g2021BD0[j] + 0x195;
+      *ptr++ |= gDecimalDigitsU16[j] + 0x195;
     }
   }
   for (; i < 10; i++)
@@ -2903,10 +2903,10 @@ static void sub_802F8F8 (void) {
   u8 i = 0;
 
   if (gCardInfo.id != CARD_NONE) {
-    for (i = 0; i < 5 && g2021BD0[5 - i] != 10; i++) {
-      sub_800DDA0(gCardInfo.cost, 0);
+    for (i = 0; i < 5 && gDecimalDigitsU16[5 - i] != 10; i++) {
+      ConvertU16ToDecimalDigits(gCardInfo.cost, DIGIT_FLAG_NONE);
       *ptr &= 0xF000;
-      *ptr |= g2021BD0[4 - i] + 0x195;
+      *ptr |= gDecimalDigitsU16[4 - i] + 0x195;
       ptr--;
     }
     for (; i < 4; i++)
@@ -3271,7 +3271,7 @@ static void CopyAttributeIconTile (u8* arg0, u16 cardId) {
 
 //almost same as sub_80576EC
 static void CopyNumTributesTile (u8* arg0, u16 cardId) {
-  u8 numTributes = sub_8045410(cardId);
+  u8 numTributes = GetNumRequiredTributes(cardId);
   if (numTributes)
     CpuCopy16(g89A7ADE[numTributes], arg0, 64);
 }
@@ -3282,13 +3282,13 @@ static void sub_802FF78 (u8* arg0, u16 cardId) {
   if (gCardInfo.spellEffect != 2)
     return;
   if (gCardInfo.atk / 100 > 99)
-    sub_800DDA0(99, 0);
+    ConvertU16ToDecimalDigits(99, DIGIT_FLAG_NONE);
   else
-    sub_800DDA0(gCardInfo.atk / 100, 0);
+    ConvertU16ToDecimalDigits(gCardInfo.atk / 100, DIGIT_FLAG_NONE);
   arg0 += 0x200;
-  CpuCopy16(g89A81DE[g2021BD0[3]], arg0, 0x40);
+  CpuCopy16(g89A81DE[gDecimalDigitsU16[3]], arg0, 0x40);
   arg0 += 0x40;
-  CpuCopy16(g89A7F1E[g2021BD0[4]], arg0, 0x40);
+  CpuCopy16(g89A7F1E[gDecimalDigitsU16[4]], arg0, 0x40);
 }
 
 static void sub_802FFF0 (u8* arg0, u16 cardId) {
@@ -3296,13 +3296,13 @@ static void sub_802FFF0 (u8* arg0, u16 cardId) {
   if (gCardInfo.spellEffect != 2)
     return;
   if (gCardInfo.def / 100 > 99)
-    sub_800DDA0(99, 0);
+    ConvertU16ToDecimalDigits(99, DIGIT_FLAG_NONE);
   else
-    sub_800DDA0(gCardInfo.def / 100, 0);
+    ConvertU16ToDecimalDigits(gCardInfo.def / 100, DIGIT_FLAG_NONE);
   arg0 += 0x280;
-  CpuCopy16(g89A875E[g2021BD0[3]], arg0, 0x40);
+  CpuCopy16(g89A875E[gDecimalDigitsU16[3]], arg0, 0x40);
   arg0 += 0x40;
-  CpuCopy16(g89A849E[g2021BD0[4]], arg0, 0x40);
+  CpuCopy16(g89A849E[gDecimalDigitsU16[4]], arg0, 0x40);
 }
 
 static void sub_8030068 (void) {

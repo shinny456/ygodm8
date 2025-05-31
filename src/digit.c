@@ -18,86 +18,89 @@ static void sub_800DD88 (unsigned char* src, unsigned char* dest) {
       *dest = *src;
 }
 
-//TODO: replace 4,5 and 18,19 with MAX_U16_DIGITS and MAX_U64_DIGITS or something similar.
-//Get digits from number
-//first bit of arg 1 determines whether to align left?
-//second bit of arg 1 determines whether to display leading 0s
-void sub_800DDA0 (unsigned short arg0, unsigned char arg1) {
-  unsigned char sb = 0;
-  unsigned char r4 = 0;
-  unsigned short r7 = 10000;
-  unsigned char r2;
-  unsigned short r1;
-  for (r2 = 0; r2 < 5; r2++)
-    g2021BD0[r2] = 10;
-  if (arg0 != 0xFFFF) {
-    if (arg1 & 1)
-      g2021BD0[0] = 0;
-    for (; sb < 5; sb++, arg0 -= r1 * r7, r7 /= 10) {
-      r1 = arg0 / r7;
-      if (r1)
-        g2021BD0[r4] = r1;
-      else if (r4) {
-        if (g2021BD0[r4 - 1] != 10)
-          g2021BD0[r4] = r1;
-        else if (r4 == 4)
-          g2021BD0[4] = r1;
+void ConvertU16ToDecimalDigits (u16 val, u8 flags) {
+  u8 digitIndex = 0;
+  u8 outputIndex = 0;
+  u16 powerOf10 = 10000;
+  u8 i;
+  u16 digit;
+
+  // clear buffer
+  for (i = 0; i < MAX_U16_DIGITS; i++)
+    gDecimalDigitsU16[i] = DIGIT_UNUSED;
+
+  if (val != 0xFFFF) {
+    if (flags & DIGIT_FLAG_ALIGN_LEFT)
+      gDecimalDigitsU16[0] = 0;
+    for (; digitIndex < MAX_U16_DIGITS; digitIndex++, val -= digit * powerOf10, powerOf10 /= 10) {
+      digit = val / powerOf10;
+      if (digit)
+        gDecimalDigitsU16[outputIndex] = digit;
+      else if (outputIndex) {
+        if (gDecimalDigitsU16[outputIndex - 1] != DIGIT_UNUSED)
+          gDecimalDigitsU16[outputIndex] = digit;
+        else if (outputIndex == MAX_U16_DIGITS - 1)
+          gDecimalDigitsU16[MAX_U16_DIGITS - 1] = digit;
       }
-      if (!r1) {
-        if (!r4) {
-          if (!(arg1 & 1))
-            r4 = 1;
+      if (!digit) {
+        if (!outputIndex) {
+          if (!(flags & DIGIT_FLAG_ALIGN_LEFT))
+            outputIndex = 1;
         }
-        else if (g2021BD0[r4 - 1] != 10 || !(arg1 & 1))
-          r4++;
+        else if (gDecimalDigitsU16[outputIndex - 1] != DIGIT_UNUSED || !(flags & 1))
+          outputIndex++;
       }
       else
-        r4++;
+        outputIndex++;
     }
   }
-  if (!(arg1 & 2))
-    return;
-  for (r2 = 0; r2 < 5; r2++)
-    if (g2021BD0[r2] == 10)
-      g2021BD0[r2] = 0;
+
+  if (flags & DIGIT_FLAG_DISPLAY_LEADING_ZEROES) {
+    for (i = 0; i < MAX_U16_DIGITS; i++)
+      if (gDecimalDigitsU16[i] == 10)
+        gDecimalDigitsU16[i] = 0;
+  }
 }
 
-//same as above but for unsigned long long?
-void sub_800DEAC (unsigned long long arg0, unsigned char arg1) {
-  unsigned char sb = 0;
-  unsigned char r4 = 0;
-  unsigned long long r56;
-  unsigned char r2;
-  unsigned long long r1;
-  for (r2 = 0; r2 < 19; r2++)
-    g2021BE0[r2] = 10;
-  if (arg1 & 1)
-    g2021BE0[0] = 0;
-  r56 = 1000000000000000000;
-  for (; sb < 19; sb++, arg0 -= r1 * r56, r56 /= 10) {
-    r1 = arg0 / r56;
-    if (r1)
-      g2021BE0[r4] = r1;
-    else if (r4) {
-      if (g2021BE0[r4 - 1] != 10)
-        g2021BE0[r4] = r1;
-      else if (r4 == 18)
-        g2021BE0[18] = r1;
+void ConvertU64ToDecimalDigits (u64 val, u8 flags) {
+  u8 digitIndex = 0;
+  u8 outputIndex = 0;
+  u64 powerOf10;
+  u8 i;
+  u64 digit;
+
+  // clear buffer
+  for (i = 0; i < MAX_U64_DIGITS; i++)
+    gDecimalDigitsU64[i] = DIGIT_UNUSED;
+
+  if (flags & DIGIT_FLAG_ALIGN_LEFT)
+    gDecimalDigitsU64[0] = 0;
+
+  powerOf10 = 1000000000000000000;
+  for (; digitIndex < MAX_U64_DIGITS; digitIndex++, val -= digit * powerOf10, powerOf10 /= 10) {
+    digit = val / powerOf10;
+    if (digit)
+      gDecimalDigitsU64[outputIndex] = digit;
+    else if (outputIndex) {
+      if (gDecimalDigitsU64[outputIndex - 1] != DIGIT_UNUSED)
+        gDecimalDigitsU64[outputIndex] = digit;
+      else if (outputIndex == MAX_U64_DIGITS - 1)
+        gDecimalDigitsU64[MAX_U64_DIGITS - 1] = digit;
     }
-    if (!r1) {
-      if (!r4) {
-        if (!(arg1 & 1))
-          r4 = 1;
+    if (!digit) {
+      if (!outputIndex) {
+        if (!(flags & DIGIT_FLAG_ALIGN_LEFT))
+          outputIndex = 1;
       }
-      else if (g2021BE0[r4 - 1] != 10 || !(arg1 & 1))
-        r4++;
+      else if (gDecimalDigitsU64[outputIndex - 1] != DIGIT_UNUSED || !(flags & 1))
+        outputIndex++;
     }
     else
-      r4++;
+      outputIndex++;
   }
-  if (!(arg1 & 2))
-    return;
-  for (r2 = 0; r2 < 19; r2++)
-    if (g2021BE0[r2] == 10)
-      g2021BE0[r2] = 0;
+  if (flags & DIGIT_FLAG_DISPLAY_LEADING_ZEROES) {
+    for (i = 0; i < MAX_U64_DIGITS; i++)
+      if (gDecimalDigitsU64[i] == DIGIT_UNUSED)
+        gDecimalDigitsU64[i] = 0;
+  }
 }

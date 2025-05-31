@@ -15,8 +15,8 @@ static void sub_8021C98 (void);
 static void sub_8021CD0 (void);
 static void nullsub_8021CDC (void);
 static unsigned char sub_8021CFC (void);
-static void StartPlayerTurn (void);
-static void StartOpponentTurn (void);
+static void StartPlayerLinkTurn (void);
+static void StartOpponentLinkTurn (void);
 static void sub_8021FF8 (void);
 static void InitLinkDuel (void);
 static void OnLinkDuelEnd (void);
@@ -38,10 +38,10 @@ void sub_804078C(void);
 void WaitForVBlank(void);
 void sub_8040FDC(void);
 
-void sub_8040524(unsigned char);
+void UnblockTurnSummoning(unsigned char);
 void UpdateDuelZonePtrs(unsigned char);
 void CheckWinConditionExodia();    //implicit declaration shenanigans
-void ActivateMonsterAutoEffects(void);
+void TryEvolveMothCards(void);
 void PlayerTurnMain(void);
 void AI_Main(void);
 void FlipAtkPosCardsFaceUp(unsigned char);
@@ -50,7 +50,7 @@ void DecrementSorlTurns(unsigned char);
 void UnlockCardsInRow(unsigned char);
 void SetDuelType(unsigned char);
 void ClearDuelDecks(void);
-void sub_8043E14(unsigned char, u16);
+void InitDuelDeck(unsigned char, u16);
 void ShuffleDuelDeck(unsigned char);
 void InitBoard(void);
 void sub_8041090();
@@ -87,12 +87,12 @@ void DuelMain (void) {
     sub_8040FDC();
     ResetDuelTextData(&duelText);
     if (turn == DUEL_PLAYER) {
-      duelText.textId = 0;
+      duelText.textId = TEXT_PLAYER_TURN;
       DisplayDuelText(&duelText);
     }
     else
       OpponentTurnTextAndVoice();
-    sub_8040524(ACTIVE_DUELIST);
+    UnblockTurnSummoning(ACTIVE_DUELIST);
     ResetNumTributes();
     UpdateDuelZonePtrs(turn);
     if (NumEmptyZonesInRow(gTurnZones[4]) > 0) {
@@ -106,7 +106,7 @@ void DuelMain (void) {
     if (IsDuelOver() == TRUE)
       break;
     TryDisplaySorlTurnsRemainingText();
-    ActivateMonsterAutoEffects();
+    TryEvolveMothCards();
     if (turn == DUEL_PLAYER)
       PlayerTurnMain();
     else
@@ -138,11 +138,11 @@ static void InitIngameDuel (void) {
   gDuelData.winMusic = gUnk8E00B30[gDuelData.opponent]->winMusic;
   gDuelData.lossMusic = gUnk8E00B30[gDuelData.opponent]->lossMusic;
   ClearDuelDecks();
-  sub_8043E14(0, 0);
-  sub_8043E14(1, gDuelData.opponent);
+  InitDuelDeck(DUEL_PLAYER, 0);
+  InitDuelDeck(DUEL_OPPONENT, gDuelData.opponent);
   for (i = 0; i < 2; i++)
     ShuffleDuelDeck(i);
-  if (!sub_8056258(0, 1))
+  if (!RandRangeU8(0, 1))
     gWhoseTurn = DUEL_PLAYER;
   else
     gWhoseTurn = DUEL_OPPONENT;
@@ -330,7 +330,7 @@ void sub_802417C(void);
 s32 GetCardsDrawn(unsigned char);
 void IncreaseDeckCapacity(u32);
 void SaveGame(void);
-void InitDuelDeck(unsigned char, u16*);
+void InitCardsForDuelDeck(unsigned char, u16*);
 void SetWhoseTurnToPlayer(void);
 
 void LinkDuelMain (void) {
@@ -348,21 +348,21 @@ void LinkDuelMain (void) {
     UpdateDuelGfxExceptField();
     sub_80240BC(&duelText);
     if (turn == DUEL_PLAYER) {
-      duelText.textId = 0;
+      duelText.textId = TEXT_PLAYER_TURN;
       sub_802405C(&duelText);
     }
     else {
-      duelText.textId = 23;
+      duelText.textId = TEXT_OPPONENT_LINK_TURN;
       sub_802405C(&duelText);
     }
     sub_8022080();
-    sub_8040524(ACTIVE_DUELIST);
+    UnblockTurnSummoning(ACTIVE_DUELIST);
     ResetNumTributes();
     UpdateDuelZonePtrs(turn);
     if (turn == DUEL_PLAYER)
-      StartPlayerTurn();
+      StartPlayerLinkTurn();
     else
-      StartOpponentTurn();
+      StartOpponentLinkTurn();
     if (IsDuelOver() == TRUE) break;
     ReturnMonstersToOwner();
     FlipAtkPosCardsFaceUp(2);
@@ -379,7 +379,7 @@ void LinkDuelMain (void) {
   OnLinkDuelEnd();
 }
 
-static void StartPlayerTurn (void) {
+static void StartPlayerLinkTurn (void) {
   struct DuelText duelText;
   g3000C38.unk32 = 0;
   if (NumEmptyZonesInRow(gTurnZones[4]) > 0) {
@@ -388,7 +388,7 @@ static void StartPlayerTurn (void) {
       g2021D98 = 3;
       sub_8024548();
       sub_80240BC(&duelText);
-      duelText.textId = 24;
+      duelText.textId = TEXT_LINKING;
       sub_802408C(&duelText);
       do {
         sub_8024354();
@@ -403,21 +403,21 @@ static void StartPlayerTurn (void) {
   if (IsDuelOver() == TRUE)
     return;
   TryDisplaySorlTurnsRemainingText();
-  ActivateMonsterAutoEffects();
+  TryEvolveMothCards();
   PlayerTurnMain();
   if (IsDuelOver() == TRUE)
     return;
   g2021D98 = 3;
   sub_8024548();
   sub_80240BC(&duelText);
-  duelText.textId = 24;
+  duelText.textId = TEXT_LINKING;
   sub_802408C(&duelText);
   do {
     sub_8024354();
   } while (g3000C6C);
 }
 
-static void StartOpponentTurn (void) {
+static void StartOpponentLinkTurn (void) {
   struct DuelText duelText; //unused
   struct DuelCursor curPos = gDuelCursor;
   bool32 r4 = 0;
@@ -540,7 +540,7 @@ void sub_8022080 (void) {
   if (gDuelType != DUEL_TYPE_LINK)
     return;
   sub_80240BC(&duelText);
-  duelText.textId = 24;
+  duelText.textId = TEXT_LINKING;
   sub_802408C(&duelText);
   do {
     sub_802432C();
@@ -556,21 +556,21 @@ static void LinkDuelWin (void) {
   FadeOutMusic(4);
   if (gDuelLifePoints[DUEL_OPPONENT] == 0) {
     ResetDuelTextData(&duelText);
-    duelText.textId = 19;
+    duelText.textId = TEXT_OPPONENT_OUT_OF_LP;
     DisplayDuelText(&duelText);
   }
   else if (NumCardsInDeck(1) < GetCardsDrawn(1)) {
     ResetDuelTextData(&duelText);
-    duelText.textId = 21;
+    duelText.textId = TEXT_OPPONENT_DECK_OUT;
     DisplayDuelText(&duelText);
   }
   if (gDuelData.unk2d) {
     PlayMusic(gDuelData.winMusic);
     ResetDuelTextData(&duelText);
-    duelText.textId = 2;
+    duelText.textId = TEXT_DUEL_VICTORY;
     DisplayDuelText(&duelText);
     ResetDuelTextData(&duelText);
-    duelText.textId = 6;
+    duelText.textId = TEXT_CAPACITY_INCREASED;
     duelText.rewardAmount = gDuelData.capacityYield;
     DisplayDuelText(&duelText);
   }
@@ -583,21 +583,21 @@ static void LinkDuelLoss (void) {
   FadeOutMusic(4);
   if (gDuelLifePoints[DUEL_PLAYER] == 0) {
     ResetDuelTextData(&duelText);
-    duelText.textId = 20;
+    duelText.textId = TEXT_PLAYER_OUT_OF_LP;
     DisplayDuelText(&duelText);
   }
   else if (NumCardsInDeck(0) < GetCardsDrawn(0)) {
     ResetDuelTextData(&duelText);
-    duelText.textId = 22;
+    duelText.textId = TEXT_PLAYER_DECK_OUT;
     DisplayDuelText(&duelText);
   }
   if (gDuelData.unk2d) {
     PlayMusic(gDuelData.lossMusic);
     ResetDuelTextData(&duelText);
-    duelText.textId = 3;
+    duelText.textId = TEXT_DUEL_LOSS;
     DisplayDuelText(&duelText);
     ResetDuelTextData(&duelText);
-    duelText.textId = 6;
+    duelText.textId = TEXT_CAPACITY_INCREASED;
     duelText.rewardAmount = 5;
     DisplayDuelText(&duelText);
   }
@@ -632,7 +632,7 @@ static void sub_8022234 (void) {
   gDuelData.winMusic = 43;
   gDuelData.lossMusic = 44;
   ClearDuelDecks();
-  InitDuelDeck(DUEL_PLAYER, gPlayerDeck.cards);
+  InitCardsForDuelDeck(DUEL_PLAYER, gDeckMenu.cards);
   ShuffleDuelDeck(0);
   SetWhoseTurnToPlayer();
 }
@@ -700,7 +700,7 @@ void sub_8022B7C(unsigned char);
 void sub_8022AA0(void);
 void sub_8023AE4(void);
 void sub_8023A98(void);
-void TrunkMenu(void);
+void TrunkMenuMain(void);
 void sub_8022A94(unsigned char);
 u32 IsPlayerDeckNonempty(void);
 
@@ -719,7 +719,7 @@ extern u16 gRepeatedOrNewButtons;
 
 
 
-void sub_802618C(void);
+void UpdateFilteredInput_WithRepeat(void);
 void sub_8022ABC(void);
 void sub_80229C0(void);
 void sub_8023A14(void);
@@ -761,7 +761,7 @@ void LinkDuelMenu (void) {
     }
     else if (gLinkDuelMenuData.unk9 == 2) { //ACTION_OPEN_TRUNK
       PlayMusic(SFX_SELECT);
-      TrunkMenu();
+      TrunkMenuMain();
       sub_8022B7C(0);
       sub_8022A24();
       sub_8022A94(0);
@@ -866,7 +866,7 @@ void LinkDuelMenu (void) {
 }
 
 static unsigned short ProcessInput (void) {
-  sub_802618C();
+  UpdateFilteredInput_WithRepeat();
   if (gNewButtons & A_BUTTON)
     return 1;
   if (gNewButtons & B_BUTTON)

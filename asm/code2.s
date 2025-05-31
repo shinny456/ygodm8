@@ -113,7 +113,7 @@ sub_801E9EC: @ 0x0801E9EC
 	mov sl, r0
 _0801E9FC:
 	adds r0, r6, #0
-	bl sub_801DAF8
+	bl GetSelectedCardWithOffset
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl SetCardInfo
@@ -142,7 +142,7 @@ _0801EA18:
 	strh r1, [r0]
 	ldrh r0, [r2, #0x12]
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	movs r2, #0
 	adds r3, r7, #4
 	adds r7, r6, #1
@@ -180,7 +180,7 @@ _0801EA52:
 	ldr r0, _0801EAB8
 	ldrh r0, [r0, #0x14]
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	movs r2, #0
 	ldr r6, _0801EAB4
 	ldr r3, _0801EAC4
@@ -287,7 +287,7 @@ sub_801EB4C: @ 0x0801EB4C
 	mov r8, r0
 _0801EB5C:
 	mov r0, r8
-	bl sub_801DAF8
+	bl GetSelectedCardWithOffset
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl SetCardInfo
@@ -556,7 +556,7 @@ _0801ED72:
 	movs r6, #1
 _0801ED80:
 	adds r0, r5, #0
-	bl sub_801DAF8
+	bl GetSelectedCardWithOffset
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl SetCardInfo
@@ -616,7 +616,7 @@ _0801ED80:
 	strh r2, [r0]
 	ldrh r0, [r3, #0xc]
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	movs r3, #0
 	adds r7, r5, #1
 	ldr r6, _0801EE2C
@@ -981,7 +981,7 @@ _08020396:
 	ldr r0, _080203F8
 	ldrh r0, [r0]
 	movs r1, #0
-	bl sub_800DDA0
+	bl ConvertU16ToDecimalDigits
 	ldr r2, _080203FC
 	ldrb r0, [r2]
 	ldr r1, _08020400

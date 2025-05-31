@@ -6,13 +6,13 @@ void sub_801E27C (void);
 void sub_801E66C (void);
 void sub_801F060 (void);
 void sub_801EED8 (u8);
-u8 sub_801DB24 (void);
+u8 GetDeckMenuDisplayMode (void);
 void sub_801E9EC (void);
 void sub_801EB4C (void);
 void sub_801ED58 (void);
 void sub_801E928 (void);
 void sub_801F390 (void);
-int sub_801D368 (void);
+int ProcessInputDeckAdjustmentMenu (void);
 u8 sub_801F0F0 (u16, u16*);
 int GetDeckCardQty (u16);
 void sub_801DF40 (void);
@@ -71,7 +71,7 @@ void sub_801EF30 (u8 arg0) {
       sub_801E27C();
       sub_801E66C();
       sub_801F060();
-      sub_801EED8(gPlayerDeck.sortMode);
+      sub_801EED8(gDeckMenu.sortMode);
       sub_800A5F0(1);
       break;
     case 3:
@@ -85,7 +85,7 @@ void sub_801EF30 (u8 arg0) {
     case 7:
       sub_801E66C();
       sub_801F060();
-      sub_801EED8(gPlayerDeck.sortMode);
+      sub_801EED8(gDeckMenu.sortMode);
       sub_800A5F0(3);
       break;
   }
@@ -95,8 +95,8 @@ void sub_801EFC0 (u16 cardId, u16* arg1) {
   u8 i;
   if (cardId != CARD_NONE) {
     for (i = 0; i < 4; i++) {
-      sub_800DDA0(cardId, 1);
-      *arg1++ = g2021BD0[i] + 0x5009;
+      ConvertU16ToDecimalDigits(cardId, DIGIT_FLAG_ALIGN_LEFT);
+      *arg1++ = gDecimalDigitsU16[i] + 0x5009;
     }
   }
   else {
@@ -114,7 +114,7 @@ void sub_801F01C (u8 arg0, u16* arg1) {
 }
 
 void sub_801F060 (void) {
-  switch (sub_801DB24()) {
+  switch (GetDeckMenuDisplayMode()) {
     case 1:
       sub_801E9EC();
       break;
@@ -158,7 +158,7 @@ u8 sub_801F0F0 (u16 cardId, u16* arg1) {
 
 void sub_801F120 (void) {
   unsigned keepProcessing;
-  gPlayerDeck.sortCursorState = gPlayerDeck.sortMode;
+  gDeckMenu.sortCursorState = gDeckMenu.sortMode;
   sub_801DF40();
   sub_801F320();
   LoadCharblock1();
@@ -167,7 +167,7 @@ void sub_801F120 (void) {
   WaitForVBlank();
   keepProcessing = 1;
   while (keepProcessing == 1) {
-    switch (sub_801D368()) {
+    switch (ProcessInputDeckAdjustmentMenu()) {
       case 0x40:
         sub_801F1C0();
         break;
@@ -198,11 +198,11 @@ void sub_801F120 (void) {
 }
 
 void sub_801F1C0 (void) {
-  gPlayerDeck.sortCursorState = g8E00AEC[gPlayerDeck.sortCursorState];
-  if (gPlayerDeck.sortCursorState < 10)
-    sub_801EED8(gPlayerDeck.sortCursorState);
+  gDeckMenu.sortCursorState = g8E00AEC[gDeckMenu.sortCursorState];
+  if (gDeckMenu.sortCursorState < 10)
+    sub_801EED8(gDeckMenu.sortCursorState);
   else
-    sub_801EED8(gPlayerDeck.sortMode);
+    sub_801EED8(gDeckMenu.sortMode);
   sub_801F320();
   PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(LoadOam);
@@ -211,11 +211,11 @@ void sub_801F1C0 (void) {
 }
 
 void sub_801F210 (void) {
-  gPlayerDeck.sortCursorState = g8E00AF7[gPlayerDeck.sortCursorState];
-  if (gPlayerDeck.sortCursorState < 10)
-    sub_801EED8(gPlayerDeck.sortCursorState);
+  gDeckMenu.sortCursorState = g8E00AF7[gDeckMenu.sortCursorState];
+  if (gDeckMenu.sortCursorState < 10)
+    sub_801EED8(gDeckMenu.sortCursorState);
   else
-    sub_801EED8(gPlayerDeck.sortMode);
+    sub_801EED8(gDeckMenu.sortMode);
   sub_801F320();
   PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(LoadOam);
@@ -224,11 +224,11 @@ void sub_801F210 (void) {
 }
 
 void sub_801F260 (void) {
-  gPlayerDeck.sortCursorState = g8E00B02[gPlayerDeck.sortCursorState];
-  if (gPlayerDeck.sortCursorState < 10)
-    sub_801EED8(gPlayerDeck.sortCursorState);
+  gDeckMenu.sortCursorState = g8E00B02[gDeckMenu.sortCursorState];
+  if (gDeckMenu.sortCursorState < 10)
+    sub_801EED8(gDeckMenu.sortCursorState);
   else
-    sub_801EED8(gPlayerDeck.sortMode);
+    sub_801EED8(gDeckMenu.sortMode);
   sub_801F320();
   PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(LoadOam);
@@ -237,11 +237,11 @@ void sub_801F260 (void) {
 }
 
 void sub_801F2B0 (void) {
-  gPlayerDeck.sortCursorState = g8E00B0D[gPlayerDeck.sortCursorState];
-  if (gPlayerDeck.sortCursorState < 10)
-    sub_801EED8(gPlayerDeck.sortCursorState);
+  gDeckMenu.sortCursorState = g8E00B0D[gDeckMenu.sortCursorState];
+  if (gDeckMenu.sortCursorState < 10)
+    sub_801EED8(gDeckMenu.sortCursorState);
   else
-    sub_801EED8(gPlayerDeck.sortMode);
+    sub_801EED8(gDeckMenu.sortMode);
   sub_801F320();
   PlayMusic(SFX_MOVE_CURSOR);
   SetVBlankCallback(LoadOam);
@@ -251,17 +251,17 @@ void sub_801F2B0 (void) {
 
 void sub_801F300 (void) {
   PlayMusic(SFX_SELECT);
-  if (gPlayerDeck.sortCursorState < 10) {
-    gPlayerDeck.sortMode = gPlayerDeck.sortCursorState;
-    DeckMenuSortBy(gPlayerDeck.sortMode);
+  if (gDeckMenu.sortCursorState < 10) {
+    gDeckMenu.sortMode = gDeckMenu.sortCursorState;
+    DeckMenuSortBy(gDeckMenu.sortMode);
   }
 }
 
 void sub_801F320 (void) {
   u32* oam = (u32*)&gOamBuffer[6];
-  oam[0] = g8E00B18[gPlayerDeck.sortCursorState] | g8E00B23[gPlayerDeck.sortCursorState] << 16 | 0x40000000;
+  oam[0] = g8E00B18[gDeckMenu.sortCursorState] | g8E00B23[gDeckMenu.sortCursorState] << 16 | 0x40000000;
   oam[1] = 0xC120;
-  oam[2] = g8E00B18[gPlayerDeck.sortCursorState] | g8E00B23[gPlayerDeck.sortCursorState] << 16 | 0x40000800;
+  oam[2] = g8E00B18[gDeckMenu.sortCursorState] | g8E00B23[gDeckMenu.sortCursorState] << 16 | 0x40000800;
   oam[3] = 0x120;
 }
 
@@ -430,7 +430,7 @@ void sub_801F658 (void) {
   REG_BLDY = 4;
 }
 /*
-void sub_801F6B0 (void) {
+void ShowCardDetailView (void) {
   u8 i;
   u8* text;
   u8 buffer[144];
@@ -576,7 +576,7 @@ void sub_801F6B0 (void) {
 }*/
 
 NAKED
-void sub_801F6B0 (void) {
+void ShowCardDetailView (void) {
   asm_unified("push {r4, r5, r6, r7, lr}\n\
 	mov r7, sl\n\
 	mov r6, sb\n\
@@ -1110,7 +1110,7 @@ void DisplayMoneyRewardText (void);
 int GetCardsDrawn (u8 arg0);
 u16 RandRangeU16 (u16, u16);
 u16 sub_801FFE0 (void);
-void sub_802D90C (u16, u8);
+void AddCardQtyToShop2 (u16, u8);
 u16 sub_8020050 (void);
 void sub_80201AC (u8);
 void sub_802018C (u8);
@@ -1129,23 +1129,23 @@ void HandleWin (void) {
   if (!gDuelLifePoints[DUEL_OPPONENT]) {
     FadeOutMusic(4);
     ResetDuelTextData(&duelText);
-    duelText.textId = 19;
+    duelText.textId = TEXT_OPPONENT_OUT_OF_LP;
     DisplayDuelText(&duelText);
   }
   else if (NumCardsInDeck(1) < GetCardsDrawn(1)) {
     FadeOutMusic(4);
     ResetDuelTextData(&duelText);
-    duelText.textId = 21;
+    duelText.textId = TEXT_OPPONENT_DECK_OUT;
     DisplayDuelText(&duelText);
   }
   if (gDuelData.unk2d) {
     u8 i;
     PlayMusic(gDuelData.winMusic);
     ResetDuelTextData(&duelText);
-    duelText.textId = 2;
+    duelText.textId = TEXT_DUEL_VICTORY;
     DisplayDuelText(&duelText);
     ResetDuelTextData(&duelText);
-    duelText.textId = 6;
+    duelText.textId = TEXT_CAPACITY_INCREASED;
     duelText.rewardAmount = gDuelData.capacityYield;
     DisplayDuelText(&duelText);
     DisplayMoneyRewardText();
@@ -1153,15 +1153,15 @@ void HandleWin (void) {
       if (!gDuelData.unk14[i])
         break;
       ResetDuelTextData(&duelText);
-      duelText.textId = 5;
+      duelText.textId = TEXT_CARD_OBTAINED;
       duelText.unk0 = gDuelData.unk14[i];
       DisplayDuelText(&duelText);
       SetCardInfo(gDuelData.unk14[i]);
-      sub_801F6B0();
+      ShowCardDetailView();
     }
   }
-  if (!gDuelType /*== DUEL_TYPE_INGAME*/)
-    sub_8048CEC();
+  if (gDuelType == DUEL_TYPE_INGAME)
+    CapLifePointsAfterDuel();
 }
 
 void HandleLoss (void) {
@@ -1171,19 +1171,19 @@ void HandleLoss (void) {
   if (!gDuelLifePoints[DUEL_PLAYER]) {
     FadeOutMusic(4);
     ResetDuelTextData(&duelText);
-    duelText.textId = 20;
+    duelText.textId = TEXT_PLAYER_OUT_OF_LP;
     DisplayDuelText(&duelText);
   }
   else if (NumCardsInDeck(0) < GetCardsDrawn(0)) {
     FadeOutMusic(4);
     ResetDuelTextData(&duelText);
-    duelText.textId = 22;
+    duelText.textId = TEXT_PLAYER_DECK_OUT;
     DisplayDuelText(&duelText);
   }
   if (gDuelData.unk2d) {
     PlayMusic(gDuelData.lossMusic);
     ResetDuelTextData(&duelText);
-    duelText.textId = 3;
+    duelText.textId = TEXT_DUEL_LOSS;
     DisplayDuelText(&duelText);
   }
 }
@@ -1249,23 +1249,23 @@ void DisplayMoneyRewardText (void) {
   struct DuelText duelText;
   ResetDuelTextData(&duelText);
   if (!gDuelData.moneyReward) {
-    duelText.textId = 12;
+    duelText.textId = TEXT_NO_MONEY_OBTAINED;
     duelText.rewardAmount = gDuelData.moneyReward;
   }
   else if (gDuelData.moneyReward <= 9999) {
-    duelText.textId = 8;
+    duelText.textId = TEXT_MONEY_OBTAINED;
     duelText.rewardAmount = gDuelData.moneyReward;
   }
   else if (gDuelData.moneyReward <= 99999999) {
-    duelText.textId = 9;
+    duelText.textId = TEXT_ABOUT_DOMINO_OBTAINED;
     duelText.rewardAmount = gDuelData.moneyReward / 10000;
   }
   else if (gDuelData.moneyReward <= 999999999999) {
-    duelText.textId = 10;
+    duelText.textId = TEXT_ABOUT_MILLION_OBTAINED;
     duelText.rewardAmount = gDuelData.moneyReward / 100000000;
   }
   else {
-    duelText.textId = 11;
+    duelText.textId = TEXT_ABOUT_BILLION_OBTAINED;
     duelText.rewardAmount = gDuelData.moneyReward / 1000000000000;
   }
   DisplayDuelText(&duelText);
@@ -1304,7 +1304,7 @@ u16 sub_801FFE0 (void) {
 void AddCardDropsToShop (void) {
   u32 i;
   for (i = 0; i < 3; i++)
-    sub_802D90C(sub_8020050(), 1);
+    AddCardQtyToShop2(sub_8020050(), 1);
 }
 
 // TODO: is >= problematic here?

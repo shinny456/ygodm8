@@ -30,7 +30,7 @@ u16 GetGraveCardAndClearGrave2 (u8 turn) {
 }
 
 void PlaceMonsterCardInZone (u16 *zone, u16 card) {
-  if (GetTypeGroup(card) == 1)
+  if (GetTypeGroup(card) == TYPE_GROUP_MONSTER)
     *zone = card;
 }
 

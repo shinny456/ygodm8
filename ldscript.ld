@@ -44,8 +44,8 @@ SECTIONS
     g201CB60 = 0x201CB60;
     g201EE60 = 0x0201EE60;
     g201EE61 = 0x0201EE61;
-    g201EE70 = 0x201EE70;
-    g201EEE0 = 0x201EEE0;
+    gCardNameWorkingBuffer = 0x201EE70;
+    gCardNameRenderBuffer = 0x201EEE0;
 
     . = 0x02020A00;
     .ewram : {
@@ -67,7 +67,7 @@ SECTIONS
     g2020E00 = 0x2020E00;
     gRepeatedButtonsCounter = 0x2020E04;
 
-    gTrunkData = 0x02020E10;
+    gTrunkMenu = 0x02020E10;
     gTotalCardQty = 0x02021460;
     gTrunkCardQty = 0x02021790;
     gUnk2021AB4 = 0x02021AB4;
@@ -81,14 +81,14 @@ SECTIONS
     g2021B10 = 0x2021B10;
     g2021B50 = 0x2021B50;
     g2021B90 = 0x2021B90;
-    g2021BE0 = 0x2021BE0;
+    gDecimalDigitsU64 = 0x2021BE0;
     g2021BF8 = 0x02021BF8;
     sAI_Command = 0x02021C00;
     gHideEffectText = 0x02021C08;
     gCardEffectTextData = 0x02021C10;
     gDeckCapacity = 0x02021C1C;
     gDuelistLevel = 0x02021C20;
-    gPlayerDeck = 0x02021C30;
+    gDeckMenu = 0x02021C30;
     g2021C8C = 0x02021C8C;
     g2021C90 = 0x2021C90;
     gLanguage = 0x02021CF8;
@@ -113,8 +113,8 @@ SECTIONS
     gCardPasswordDigits = 0x02021DC0;
 
     /*menu_input (menu_button_input?)*/
-    gUnk2021DC8 = 0x02021DC8;
-    gUnk2021DCC = 0x02021DCC;
+    gInputRepeatTimer = 0x02021DC8;
+    gFilteredInput = 0x02021DCC;
 
 
 
@@ -125,7 +125,7 @@ SECTIONS
     g2021DD8 = 0x2021DD8;
 
     /*permanent_effect but also used in turn_effect (might be one file)*/
-    g2021DE0 = 0x2021DE0;
+    gActiveEffect = 0x2021DE0;
 
     /*card_shop*/
     gShopCardQty = 0x2021DF0;
@@ -135,7 +135,7 @@ SECTIONS
 
 
     /*card_sort*/
-    gUnk2022EB0 = 0x02022EB0;
+    gCardSortContext = 0x02022EB0;
 
 
     /*trade_menu*/
@@ -184,7 +184,7 @@ SECTIONS
     gBG2Y_H = 0x202421C;
 
     gMonEffect = 0x02024250;
-    gUnk02024254 = 0x02024254;
+    gLifePointsOutsideDuel = 0x02024254;
 
     gDuelLifePoints = 0x02024258;
 
@@ -202,14 +202,15 @@ SECTIONS
     g202458C = 0x202458C;
     g2024590 = 0x2024590;
 
-    g2024594 = 0x2024594;
-    g2024598 = 0x2024598;
+    /* rng */
+    gLfsrState = 0x2024594;
+    gLfsrStateBackup = 0x2024598;
 
 
     gTrapEffectData = 0x020245A0;
     gWhoseTurn = 0x020245A8;
     g20245AC = 0x20245AC;
-    g2021BD0 = 0x2021BD0;
+    gDecimalDigitsU16 = 0x2021BD0;
 
     g3000400 = 0x3000400;
     g3000C00 = 0x3000C00;
@@ -303,10 +304,10 @@ SECTIONS
 
         src/FINAL_effect.o(.text);
         src/code_803F02C.o(.text);
-        src/code_8040C6C.o(.text);
+        src/textbox.o(.text);
         src/code_8041C94.o(.text);
         src/code_80421CC.o(.text);
-        src/code_8042F44.o(.text);
+        src/duel_util.o(.text);
         src/code_8043EF4.o(.text);
 
         src/code_8044E50.o(.text);
@@ -381,7 +382,7 @@ SECTIONS
     gUnk8094CC3 = 0x8094CC3;
     gUnk8094FE4 = 0x8094FE4;
     gUnk8F985E0 = 0x8F985E0;
-    gUnk8DFB654 = 0x8DFB654; /*duelist level too low text*/
+    gDuelistLevelTooLowText = 0x8DFB654;
     gUnk8E00B30 = 0x8E00B30;
     gDuelTextStrings = 0x8FA2BAC;
     gMyTurnStrings = 0x8FA2C14;
@@ -401,8 +402,8 @@ SECTIONS
     g809508C = 0x809508C;
     g8DFCF0C = 0x8DFCF0C;
     g8DFDB90 = 0x8DFDB90;
-    g8DFF4A4 = 0x8DFF4A4;
-    g8DFF4A6 = 0x8DFF4A6;
+    gNextUpOptionLowLevelAnteWarningMenu = 0x8DFF4A4;
+    gNextDownOptionLowLevelAnteWarningMenu = 0x8DFF4A6;
     g80ADEFC = 0x80ADEFC;
     g80AE02C = 0x80AE02C;
     g80AE1A8 = 0x80AE1A8;
@@ -489,8 +490,8 @@ SECTIONS
     g80C1D6E = 0x80C1D6E;
     g80C1D71 = 0x80C1D71;
     gSorlTurnsRemainingTextIds = 0x80C1D80;
-    gE01248 = 0x8E01248;
-    gE01328 = 0x8E01328;
+    gCursorSpritesStaticFrames = 0x8E01248;
+    gCursorSpritesAnimatedFrames = 0x8E01328;
     gLowLevelAnte = 0x80C1D84;
     gNumRequiredTributes = 0x8E0D9B4;
     gE04810 = 0x8E04810;
@@ -577,7 +578,7 @@ SECTIONS
     g80B92D8 = 0x80B92D8;
     g8E0CDF0 = 0x8E0CDF0;
     g8E0CE00 = 0x8E0CE00;
-    g8E0CC20 = 0x8E0CC20;
+    gSortableEntries = 0x8E0CC20;
     g80D0444 = 0x80D0444;
     g8E0CE18 = 0x8E0CE18;
     g80DD6FE = 0x80DD6FE;
@@ -622,8 +623,8 @@ SECTIONS
     g80DD674 = 0x80DD674;
     g80DD678 = 0x80DD678;
     g8E0CE90 = 0x8E0CE90;
-    g8E0C6B0 = 0x8E0C6B0;
-    g8E0C6B8 = 0x8E0C6B8;
+    gMothsAbleToEvolve = 0x8E0C6B0;
+    gNextMothEvolution = 0x8E0C6B8;
     g8E0C6C0 = 0x8E0C6C0;
     g8E0C800 = 0x8E0C800;
     g8E0D954 = 0x8E0D954;
@@ -658,7 +659,7 @@ SECTIONS
     g8090920 = 0x8090920;
     g8090B94 = 0x8090B94;
     g8090B98 = 0x8090B98;
-    gE0119C = 0x8E0119C;
+    gCardPasswordDigitSprites = 0x8E0119C;
     g80C1DD4 = 0x80C1DD4;
     g80C61B8 = 0x80C61B8;
     g80C58C0 = 0x80C58C0;
@@ -733,7 +734,7 @@ SECTIONS
     g8E0FD44 = 0x8E0FD44;
     g8E0C940 = 0x8E0C940;
     g8E0CA80 = 0x8E0CA80;
-    g8E0CBC0 = 0x8E0CBC0;
+    gCardAttributeStrings = 0x8E0CBC0;
     g8E0CBF0 = 0x8E0CBF0;
     g80C7DDC = 0x80C7DDC;
     g80C9D84 = 0x80C9D84;
@@ -791,21 +792,21 @@ SECTIONS
     g8E0D130 = 0x8E0D130;
     gFieldTileMapPtrs = 0x8E0D114;
     gNumTributesRequiredStrings = 0x8E0D41C;
-    gE0D15D = 0x8E0D15D;
-    g8E0D1D0 = 0x8E0D1D0;
+    gSpaces = 0x8E0D15D;
+    gFontTileGlyphs = 0x8E0D1D0;
     gE0D14C = 0x8E0D14C;
     g80F2C30 = 0x80F2C30;
     g8F1B80C = 0x8F1B80C;
-    g8E0D584 = 0x8E0D584;
+    gText_TrapWasTriggered = 0x8E0D584; /* "[X] was the trap. But% it had no effect on [Y] */
     g8E0D5A1 = 0x8E0D5A1;
     g8E0D5A6 = 0x8E0D5A6;
     g8E0D588 = 0x8E0D588;
     g8E0D5B0 = 0x8E0D5B0;
-    g8E0D5C7 = 0x8E0D5C7;
+    gText_Facedown = 0x8E0D5C7;
     g8E0D617 = 0x8E0D617;
     g80F30E0 = 0x80F30E0;
-    g8E0D668 = 0x8E0D668;
-    g8E0D753 = 0x8E0D753;
+    gText_Deckcards = 0x8E0D668;
+    gText_DetailsTurnEndDiscard = 0x8E0D753;
     g80F13D0 = 0x80F13D0;
     g80B9620 = 0x80B9620;
     g80B96AA = 0x80B96AA;
@@ -829,7 +830,7 @@ SECTIONS
     g8E0D92A = 0x8E0D92A;
     g8E0D92E = 0x8E0D92E;
     g80F1880 = 0x80F1880;
-    g8E0D828 = 0x8E0D828;
+    gText_AttackDefendTributeEffect = 0x8E0D828;
     g8E0D91A = 0x8E0D91A;
     g80F1D30 = 0x80F1D30;
     g8E0D934 = 0x8E0D934;
@@ -857,7 +858,7 @@ SECTIONS
     g8E0CD80 = 0x8E0CD80;
     g8E0CDA8 = 0x8E0CDA8;
     g8E0CDAC = 0x8E0CDAC;
-    g8E0CC24 = 0x8E0CC24;
+    gSortRangeStack = 0x8E0CC24;
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :

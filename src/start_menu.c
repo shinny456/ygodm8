@@ -45,7 +45,7 @@ extern u16 gOamBuffer[];
 void InitTrunkData (void);
 void InitDeckData (void);
 void StatusMenu (void);
-void TrunkMenu (void);
+void TrunkMenuMain (void);
 bool8 IsDeckFull (void);
 bool32 IsCostWithinCapacity (void);
 u32 IsPlayerDeckNonempty (void);
@@ -105,7 +105,7 @@ static void StartMenuMain (void) {
       case 1:
         if (gNewButtons & A_BUTTON) {
           PlayMusic(SFX_SELECT);
-          TrunkMenu();
+          TrunkMenuMain();
           LoadStartMenuGraphics();
         }
         break;
@@ -402,7 +402,7 @@ static void sub_8005CB8 (void) {
   gBLDY = 8;
   LoadBlendingRegs();
   WaitForVBlank();
-  while (!(gNewButtons & KEYS_MASK))
+  while (!(gNewButtons & ANY_BUTTON))
     WaitForVBlank();
   WaitForVBlank();
 }

@@ -14,7 +14,7 @@ static void sub_8021664 (u32*, u16);
 static void sub_8021688 (u32*, u16);
 static void sub_80216D0 (u32* arg0);
 
-unsigned short sub_8020698 (const unsigned char* name)
+unsigned short GetLanguageStringOffset (const unsigned char* name)
 {
     u8 r4;
     u16 i = 0;

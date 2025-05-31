@@ -49,17 +49,17 @@ void LoadPalettes (void) {
   CpuCopy16(gPaletteBuffer, (void*)PLTT, BG_PLTT_SIZE + OBJ_PLTT_SIZE);
 }
 
-static inline void Foo (void *src, void* dest, int size) {
+static inline void Copy16 (void *src, void* dest, int size) {
   CpuCopy16(src, dest, size);
 }
 
 void LoadVRAM (void) {
-  Foo(gBgVram.cbb0, (void*)BG_CHAR_ADDR(0), BG_CHAR_SIZE);
-  Foo(gBgVram.cbb1, (void*)BG_CHAR_ADDR(1), BG_CHAR_SIZE);
-  Foo(gBgVram.cbb2, (void*)BG_CHAR_ADDR(2), BG_CHAR_SIZE);
-  Foo(gBgVram.sbb18, (void*)BG_CHAR_ADDR(3), BG_CHAR_SIZE);
-  Foo(gBgVram.cbb4, (void*)BG_CHAR_ADDR(4), BG_CHAR_SIZE);
-  Foo(gBgVram.cbb5, (void*)BG_CHAR_ADDR(5), BG_CHAR_SIZE);
+  Copy16(gBgVram.cbb0, (void*)BG_CHAR_ADDR(0), BG_CHAR_SIZE);
+  Copy16(gBgVram.cbb1, (void*)BG_CHAR_ADDR(1), BG_CHAR_SIZE);
+  Copy16(gBgVram.cbb2, (void*)BG_CHAR_ADDR(2), BG_CHAR_SIZE);
+  Copy16(gBgVram.sbb18, (void*)BG_CHAR_ADDR(3), BG_CHAR_SIZE);
+  Copy16(gBgVram.cbb4, (void*)BG_CHAR_ADDR(4), BG_CHAR_SIZE);
+  Copy16(gBgVram.cbb5, (void*)BG_CHAR_ADDR(5), BG_CHAR_SIZE);
 }
 
 void LoadAffineRegs (void) {
@@ -74,39 +74,39 @@ void LoadAffineRegs (void) {
 }
 
 void LoadBgVRAM (void) {
-  Foo(gBgVram.cbb0, (void*)BG_CHAR_ADDR(0), BG_CHAR_SIZE);
-  Foo(gBgVram.cbb1, (void*)BG_CHAR_ADDR(1), BG_CHAR_SIZE);
-  Foo(gBgVram.cbb2, (void*)BG_CHAR_ADDR(2), BG_CHAR_SIZE);
-  Foo(gBgVram.sbb18, (void*)BG_CHAR_ADDR(3), BG_CHAR_SIZE);
+  Copy16(gBgVram.cbb0, (void*)BG_CHAR_ADDR(0), BG_CHAR_SIZE);
+  Copy16(gBgVram.cbb1, (void*)BG_CHAR_ADDR(1), BG_CHAR_SIZE);
+  Copy16(gBgVram.cbb2, (void*)BG_CHAR_ADDR(2), BG_CHAR_SIZE);
+  Copy16(gBgVram.sbb18, (void*)BG_CHAR_ADDR(3), BG_CHAR_SIZE);
 }
 
 void LoadCharblock0 (void) {
-  Foo(gBgVram.cbb0, (void*)BG_CHAR_ADDR(0), BG_CHAR_SIZE);
+  Copy16(gBgVram.cbb0, (void*)BG_CHAR_ADDR(0), BG_CHAR_SIZE);
 }
 
 void LoadCharblock1 (void) {
-  Foo(gBgVram.cbb1, (void*)BG_CHAR_ADDR(1), BG_CHAR_SIZE);
+  Copy16(gBgVram.cbb1, (void*)BG_CHAR_ADDR(1), BG_CHAR_SIZE);
 }
 
 void LoadCharblock2 (void) {
-  Foo(gBgVram.cbb2, (void*)BG_CHAR_ADDR(2), BG_CHAR_SIZE);
+  Copy16(gBgVram.cbb2, (void*)BG_CHAR_ADDR(2), BG_CHAR_SIZE);
 }
 
 void LoadCharblock3 (void) {
-  Foo(gBgVram.sbb18, (void*)BG_CHAR_ADDR(3), BG_CHAR_SIZE);
+  Copy16(gBgVram.sbb18, (void*)BG_CHAR_ADDR(3), BG_CHAR_SIZE);
 }
 
 void LoadObjVRAM (void) {
-  Foo(gBgVram.cbb4, (void*)BG_CHAR_ADDR(4), BG_CHAR_SIZE);
-  Foo(gBgVram.cbb5, (void*)BG_CHAR_ADDR(5), BG_CHAR_SIZE);
+  Copy16(gBgVram.cbb4, (void*)BG_CHAR_ADDR(4), BG_CHAR_SIZE);
+  Copy16(gBgVram.cbb5, (void*)BG_CHAR_ADDR(5), BG_CHAR_SIZE);
 }
 
 void LoadCharblock4 (void) {
-  Foo(gBgVram.cbb4, (void*)BG_CHAR_ADDR(4), BG_CHAR_SIZE);
+  Copy16(gBgVram.cbb4, (void*)BG_CHAR_ADDR(4), BG_CHAR_SIZE);
 }
 
 void LoadCharblock5 (void) {
-  Foo(gBgVram.cbb5, (void*)BG_CHAR_ADDR(5), BG_CHAR_SIZE);
+  Copy16(gBgVram.cbb5, (void*)BG_CHAR_ADDR(5), BG_CHAR_SIZE);
 }
 
 void DisableDisplay (void) {

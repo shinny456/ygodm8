@@ -2,35 +2,40 @@
 
 extern u16 gPressedButtons;
 extern u16 gNewButtons;
-extern u16 gUnk2021DCC;
-extern u8 gUnk2021DC8;
+extern u16 gFilteredInput;
+extern u8 gInputRepeatTimer;
 
-void sub_802612C (void) {
-  if (gNewButtons & KEYS_MASK) {
-    gUnk2021DCC = gNewButtons;
-    gUnk2021DC8 = 20;
+// suppress held-button repeats
+void UpdateFilteredInput_NoRepeat (void) {
+  if (gNewButtons & ANY_BUTTON) {
+    // store new button presses and set a 20-frame delay
+    gFilteredInput = gNewButtons;
+    gInputRepeatTimer = 20;
   }
-  else if (gUnk2021DC8) {
-    gUnk2021DCC = 0;
-    gUnk2021DC8--;
+  else if (gInputRepeatTimer) {
+    // no new press, but delay is still active
+    gFilteredInput = 0;
+    gInputRepeatTimer--;
   }
   else {
-    gUnk2021DCC = gPressedButtons;
-    gUnk2021DC8 = 0;
+    // delay expires, fall back to held buttons
+    gFilteredInput = gPressedButtons;
+    gInputRepeatTimer = 0; // don't re-activate held buttons
   }
 }
 
-void sub_802618C (void) {
-  if (gNewButtons & KEYS_MASK) {
-    gUnk2021DCC = gNewButtons;
-    gUnk2021DC8 = 20;
+// allow held-button repeats (every 4 frames) after an initial 20 frame window
+void UpdateFilteredInput_WithRepeat (void) {
+  if (gNewButtons & ANY_BUTTON) {
+    gFilteredInput = gNewButtons;
+    gInputRepeatTimer = 20;
   }
-  else if (gUnk2021DC8) {
-    gUnk2021DCC = 0;
-    gUnk2021DC8--;
+  else if (gInputRepeatTimer) {
+    gFilteredInput = 0;
+    gInputRepeatTimer--;
   }
   else {
-    gUnk2021DCC = gPressedButtons;
-    gUnk2021DC8 = 3;
+    gFilteredInput = gPressedButtons;
+    gInputRepeatTimer = 3; // held buttons act like new input every 4 frames
   }
 }

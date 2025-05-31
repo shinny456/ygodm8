@@ -28,8 +28,8 @@ static void sub_80358F8 (void);
 static void CopySpriteTilesAndPalette (void);
 static void sub_8035988 (void);
 static void sub_8035994 (unsigned char, const struct Unk8E0CD80*, unsigned short*); //TODO change oam type?
-static void sub_80359D0 (void);
-static void sub_80359F0 (void);
+static void SetArrowTilemapToYes (void);
+static void SetArrowTilemapToNo (void);
 static void VBlankCbInitGfxRegs (void);
 static void VBlankCbTitleScreen (void);
 static void VBlankCbOptionSwitch (void);
@@ -40,7 +40,7 @@ static void VBlankCbTryStartNewGameEnd (void);
 static void LoadVramAndOam (void);
 static void sub_8035B3C (void);
 
-void sub_802612C (void);
+void UpdateFilteredInput_NoRepeat (void);
 unsigned char sub_800AC64 (void);
 void sub_800ACE8 (unsigned char);
 void sub_800AF68 (void);
@@ -122,7 +122,7 @@ static unsigned char TryStartNewGame (void) {
   PlayMusic(SFX_CODE_ENTRY_SUCCESS);
   SetVBlankCallback(VBlankCbTryStartNewGame);
   WaitForVBlank();
-  sub_80359F0(); // set arrow tilemap entry to No
+  SetArrowTilemapToNo();
   LoadCharblock3();
   keepProcessing = 1;
   while (keepProcessing == 1) {
@@ -136,14 +136,14 @@ static unsigned char TryStartNewGame (void) {
         break;
       case NEW_DPAD_UP:
         choseNo = 1;
-        sub_80359F0();
+        SetArrowTilemapToNo();
         PlayMusic(SFX_MOVE_CURSOR);
         WaitForVBlank();
         LoadCharblock3();
         break;
       case NEW_DPAD_DOWN:
         choseNo = 0;
-        sub_80359D0(); //set arrow tilemap entry to Yes
+        SetArrowTilemapToYes();
         PlayMusic(SFX_MOVE_CURSOR);
         WaitForVBlank();
         LoadCharblock3();
@@ -259,19 +259,19 @@ static unsigned char SwitchToOptionContinue (void) {
 }
 
 static unsigned short ProcessInput (void) {
-  unsigned char button;
-  unsigned short buttonMask;
-  unsigned short newButton = 0;
-  sub_802612C();
-  buttonMask = 1;
-  if (gNewButtons & KEYS_MASK) {
-    for (button = 0; button < NUM_BUTTONS; button++) {
-      if (gNewButtons & buttonMask)
-        newButton = buttonMask;
-      buttonMask <<= 1;
+  unsigned char i;
+  unsigned short mask;
+  unsigned short ret = 0;
+  UpdateFilteredInput_NoRepeat();
+  mask = 1;
+  if (gNewButtons & ANY_BUTTON) {
+    for (i = 0; i < NUM_BUTTONS; i++) {
+      if (gNewButtons & mask)
+        ret = mask;
+      mask <<= 1;
     }
   }
-  return newButton;
+  return ret;
 }
 
 static void CopyBgGfx (void) {
@@ -422,12 +422,12 @@ static void sub_8035994 (unsigned char arg0, const struct Unk8E0CD80* arg1, unsi
   }
 }
 
-static void sub_80359D0 (void) {
+static void SetArrowTilemapToYes (void) {
   gVr.b[0x796D] = 0;
   gVr.b[0x798D] = 1;
 }
 
-static void sub_80359F0 (void) {
+static void SetArrowTilemapToNo (void) {
   gVr.b[0x796D] = 1;
   gVr.b[0x798D] = 0;
 }
