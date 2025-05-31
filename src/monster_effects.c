@@ -2830,7 +2830,7 @@ static void EffectBarrelDragon(void)
     {
         if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == MAX_ZONES_IN_ROW)
             break;
-        if (sub_8056258(0, 1) == 1)
+        if (RandRangeU8(0, 1) == 1)
             ClearZoneAndSendMonToGraveyard(gTurnZones[1][(u8)HighestAtkMonInRowExceptGodCards(gTurnZones[1])], 1);
     }
 

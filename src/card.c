@@ -988,7 +988,7 @@ void sub_800BDA0(void)
 static void sub_800BF28 (void);
 static unsigned SelectionMenu (void);
 static void sub_800C0D8 (void);
-static void sub_800C1BC (void);
+static void SelectDetailsWhenChoosingCard (void);
 static void sub_800C208 (void);
 static void sub_800C264 (void);
 static unsigned char TrySelectingAnte (void);
@@ -1019,7 +1019,7 @@ extern unsigned short gUnk_808D050[][30];
 extern u8 g80AE02C[];
 extern u8 g80AE1A8[];
 extern u8 g80AE370[];
-unsigned short sub_800901C(u8);
+unsigned short GetNthCardOnScreen(u8);
 void sub_800ABA8(void);
 void sub_8035038(unsigned short);
 void InitTrunkData(void);
@@ -1038,8 +1038,8 @@ void sub_0800ABE0(void);
 
 extern u8 g8DFF498[];
 extern u8 g8DFF49B[];
-extern u8 g8DFF4A4[];
-extern u8 g8DFF4A6[];
+extern u8 gNextUpOptionLowLevelAnteWarningMenu[];
+extern u8 gNextDownOptionLowLevelAnteWarningMenu[];
 int GetTrunkCardQty(unsigned short);
 void SetVBlankCallback(void (*)(void));
 void WaitForVBlank(void);
@@ -1160,25 +1160,25 @@ static unsigned SelectionMenu (void)
     {
         switch (TrunkSubmenuProcessInput())
         {
-        case 0x40:
+        case DPAD_UP:
             gTrunkMenu.cursorState = g8DFF498[gTrunkMenu.cursorState];
             sub_800C208();
             PlayMusic(SFX_MOVE_CURSOR);
             SetVBlankCallback(LoadOam);
             WaitForVBlank();
             break;
-        case 0x80:
+        case DPAD_DOWN:
             gTrunkMenu.cursorState = g8DFF49B[gTrunkMenu.cursorState];
             sub_800C208();
             PlayMusic(SFX_MOVE_CURSOR);
             SetVBlankCallback(LoadOam);
             WaitForVBlank();
             break;
-        case 1:
+        case A_BUTTON:
             switch (gTrunkMenu.cursorState)
             {
             case DUEL_TRUNK_CURSOR_DETAILS:
-                sub_800C1BC();
+                SelectDetailsWhenChoosingCard();
                 break;
             case DUEL_TRUNK_CURSOR_ANTE:
                 if (!TrySelectingAnte())
@@ -1194,7 +1194,7 @@ static unsigned SelectionMenu (void)
                 break;
             }
             break;
-        case 2:
+        case B_BUTTON:
             PlayMusic(SFX_CANCEL);
             keepProcessing = 0;
             break;
@@ -1223,28 +1223,28 @@ static unsigned char LowLevelAntePrompt (void)
     {
         switch (TrunkSubmenuProcessInput())
         {
-        case 0x40:
-            gTrunkMenu.cursorState = g8DFF4A4[gTrunkMenu.cursorState];
+        case DPAD_UP:
+            gTrunkMenu.cursorState = gNextUpOptionLowLevelAnteWarningMenu[gTrunkMenu.cursorState];
             sub_800C264();
             PlayMusic(SFX_MOVE_CURSOR);
             SetVBlankCallback(LoadOam);
             WaitForVBlank();
             break;
-        case 0x80:
-            gTrunkMenu.cursorState = g8DFF4A6[gTrunkMenu.cursorState];
+        case DPAD_DOWN:
+            gTrunkMenu.cursorState = gNextDownOptionLowLevelAnteWarningMenu[gTrunkMenu.cursorState];
             sub_800C264();
             PlayMusic(SFX_MOVE_CURSOR);
             SetVBlankCallback(LoadOam);
             WaitForVBlank();
             break;
-        case 1:
+        case A_BUTTON:
             switch (gTrunkMenu.cursorState)
             {
-            case 0:
+            case 0: // NO
                 PlayMusic(SFX_SELECT);
                 keepProcessing = 0;
                 break;
-            case 1:
+            case 1: // YES
                 PlayMusic(SFX_TRANSITION_TRUNK_TO_DUEL);
                 selectNo = 0;
                 keepProcessing = 0;
@@ -1254,7 +1254,7 @@ static unsigned char LowLevelAntePrompt (void)
                 break;
             }
             break;
-        case 2:
+        case B_BUTTON:
             PlayMusic(SFX_CANCEL);
             keepProcessing = 0;
             break;
@@ -1287,9 +1287,9 @@ static void sub_800C0D8(void)
     CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[32]/*fix*/, g80ADEFC, 0x900);
 }
 
-static void sub_800C1BC (void)
+static void SelectDetailsWhenChoosingCard (void)
 {
-    SetCardInfo(sub_800901C(2));
+    SetCardInfo(GetNthCardOnScreen(2));
     PlayMusic(SFX_SELECT);
     ShowCardDetailView();
     sub_800D904(0);
@@ -1398,7 +1398,7 @@ _0800C2BC: .4byte 0x40000800");
 
 static unsigned char TrySelectingAnte (void) {
   unsigned selectionFailed = 1;
-  unsigned short cardId = sub_800901C(2);
+  unsigned short cardId = GetNthCardOnScreen(2);
   if (GetTrunkCardQty(cardId) < 2)
     sub_800C32C(); // one of a kind card can't be made an ante
   else if (IsGodCard(cardId) == 1)
@@ -1867,8 +1867,8 @@ void sub_800CFD0 (void) {
   CpuFill32(0, gVr.a + 0xE300 / 2, 0x1900);
   for (i = 0; i < 5; i++) {
     unsigned r4;
-    unsigned short sp30 = sub_800DA48(sub_800901C(i));
-    SetCardInfo(sub_800901C(i));
+    unsigned short sp30 = sub_800DA48(GetNthCardOnScreen(i));
+    SetCardInfo(GetNthCardOnScreen(i));
     r4 = 0;
     if (i > 1) {
       r4 = 2;

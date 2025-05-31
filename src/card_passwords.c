@@ -852,7 +852,7 @@ void FadeInBlendEffect(void);
 u16 sub_803F04C (u8);
 u32 sub_8056014(u16);
 
-static inline unsigned char ComparePasswords_Inline (const unsigned char *input, const unsigned char *password) {
+static inline unsigned char ComparePasswords_inline (const unsigned char *input, const unsigned char *password) {
   u8 i, ret = RESULT_MATCH;
   for (i = 0; i < NUM_PASSWORD_DIGITS; i++)
     if (*input++ != *password++)
@@ -943,7 +943,7 @@ static void CheckForSpecialPassword1 (void)
             sPasswordData.result = RESULT_MISMATCH;
             return;
         default:
-            if (ComparePasswords_Inline(sPasswordData.digits, g8E1165C[sPasswordData.cardId]) == RESULT_MATCH)
+            if (ComparePasswords_inline(sPasswordData.digits, g8E1165C[sPasswordData.cardId]) == RESULT_MATCH)
             {
                 sPasswordData.result = RESULT_MATCH;
                 return;
@@ -955,9 +955,9 @@ static void CheckForSpecialPassword1 (void)
 
 static u8 sub_8055D78(u16 cardId)
 {
-    if (ComparePasswords_Inline(g8E1167C, g8E1165C[cardId]) == RESULT_MATCH)
+    if (ComparePasswords_inline(g8E1167C, g8E1165C[cardId]) == RESULT_MATCH)
         return 0;
-    if (ComparePasswords_Inline(g8E11684, g8E1165C[cardId]) == RESULT_MATCH)
+    if (ComparePasswords_inline(g8E11684, g8E1165C[cardId]) == RESULT_MATCH)
         return 1;
     return 2;
 }
@@ -977,7 +977,7 @@ static void CheckForSpecialPassword2 (void)
             sPasswordData.result = RESULT_MISMATCH;
             return;
         default:
-            if (ComparePasswords_Inline(sPasswordData.digits, g8E11664[sPasswordData.cardId]) == RESULT_MATCH)
+            if (ComparePasswords_inline(sPasswordData.digits, g8E11664[sPasswordData.cardId]) == RESULT_MATCH)
             {
                 sPasswordData.result = RESULT_MATCH;
                 return;
@@ -989,9 +989,9 @@ static void CheckForSpecialPassword2 (void)
 
 static u8 PasswordMatchesSpecialCode2 (u16 cardId)
 {
-    if (ComparePasswords_Inline(g8E1167C, g8E11664[cardId]) == RESULT_MATCH)
+    if (ComparePasswords_inline(g8E1167C, g8E11664[cardId]) == RESULT_MATCH)
         return 0;
-    if (ComparePasswords_Inline(g8E11684, g8E11664[cardId]) == RESULT_MATCH)
+    if (ComparePasswords_inline(g8E11684, g8E11664[cardId]) == RESULT_MATCH)
         return 1;
     return 2;
 }
@@ -1006,7 +1006,7 @@ static u8 PasswordMatchesCard (u16 cardId)
 }
 
 static unsigned char ComparePasswords (const unsigned char *a, const unsigned char *b) {
-  return ComparePasswords_Inline(a, b);
+  return ComparePasswords_inline(a, b);
 }
 
 static void ResetPasswordDigits (void)

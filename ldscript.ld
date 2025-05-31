@@ -44,8 +44,8 @@ SECTIONS
     g201CB60 = 0x201CB60;
     g201EE60 = 0x0201EE60;
     g201EE61 = 0x0201EE61;
-    g201EE70 = 0x201EE70;
-    g201EEE0 = 0x201EEE0;
+    gCardNameWorkingBuffer = 0x201EE70;
+    gCardNameRenderBuffer = 0x201EEE0;
 
     . = 0x02020A00;
     .ewram : {
@@ -202,8 +202,9 @@ SECTIONS
     g202458C = 0x202458C;
     g2024590 = 0x2024590;
 
-    g2024594 = 0x2024594;
-    g2024598 = 0x2024598;
+    /* rng */
+    gLfsrState = 0x2024594;
+    gLfsrStateBackup = 0x2024598;
 
 
     gTrapEffectData = 0x020245A0;
@@ -303,10 +304,10 @@ SECTIONS
 
         src/FINAL_effect.o(.text);
         src/code_803F02C.o(.text);
-        src/code_8040C6C.o(.text);
+        src/textbox.o(.text);
         src/code_8041C94.o(.text);
         src/code_80421CC.o(.text);
-        src/code_8042F44.o(.text);
+        src/duel_util.o(.text);
         src/code_8043EF4.o(.text);
 
         src/code_8044E50.o(.text);
@@ -401,8 +402,8 @@ SECTIONS
     g809508C = 0x809508C;
     g8DFCF0C = 0x8DFCF0C;
     g8DFDB90 = 0x8DFDB90;
-    g8DFF4A4 = 0x8DFF4A4;
-    g8DFF4A6 = 0x8DFF4A6;
+    gNextUpOptionLowLevelAnteWarningMenu = 0x8DFF4A4;
+    gNextDownOptionLowLevelAnteWarningMenu = 0x8DFF4A6;
     g80ADEFC = 0x80ADEFC;
     g80AE02C = 0x80AE02C;
     g80AE1A8 = 0x80AE1A8;
@@ -791,8 +792,8 @@ SECTIONS
     g8E0D130 = 0x8E0D130;
     gFieldTileMapPtrs = 0x8E0D114;
     gNumTributesRequiredStrings = 0x8E0D41C;
-    gE0D15D = 0x8E0D15D;
-    g8E0D1D0 = 0x8E0D1D0;
+    gSpaces = 0x8E0D15D;
+    gFontTileGlyphs = 0x8E0D1D0;
     gE0D14C = 0x8E0D14C;
     g80F2C30 = 0x80F2C30;
     g8F1B80C = 0x8F1B80C;

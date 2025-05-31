@@ -280,7 +280,7 @@ sub_800CFD0: @ 0x0800CFD0
 	movs r7, #0
 _0800CFEC:
 	adds r0, r7, #0
-	bl sub_800901C
+	bl GetNthCardOnScreen
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl sub_800DA48
@@ -288,7 +288,7 @@ _0800CFEC:
 	lsrs r0, r0, #0x10
 	str r0, [sp, #0x30]
 	adds r0, r7, #0
-	bl sub_800901C
+	bl GetNthCardOnScreen
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl SetCardInfo
@@ -862,7 +862,7 @@ sub_800D484: @ 0x0800D484
 	mov sl, r0
 _0800D494:
 	adds r0, r6, #0
-	bl sub_800901C
+	bl GetNthCardOnScreen
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl SetCardInfo
@@ -983,7 +983,7 @@ sub_800D580: @ 0x0800D580
 	mov r8, r0
 _0800D590:
 	mov r0, r8
-	bl sub_800901C
+	bl GetNthCardOnScreen
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl SetCardInfo
@@ -1302,7 +1302,7 @@ _0800D7B4:
 	mov r1, sb
 	strh r1, [r0]
 	adds r0, r5, #0
-	bl sub_800901C
+	bl GetNthCardOnScreen
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl SetCardInfo

@@ -163,7 +163,7 @@ void sub_8044160 (u8 arg0) {
 u8 GetNumRequiredRitualTributes(u16);
 void HandlePlayerMonsterRowAction (void);
 void HandlePlayerBackrowAction (void);
-void DisplayNumRequiredTributesText (u8);
+void DisplayNumRequiredTributesTextbox (u8);
 void sub_80442AC (void);
 void SelectZone (struct DuelCard *zone);
 void CopySelectedCardToZone (struct DuelCard *zone);
@@ -210,7 +210,7 @@ void sub_80441D0 (void) {
         }
         else {
           PlayMusic(SFX_FORBIDDEN);
-          DisplayNumRequiredTributesText(numTributes);
+          DisplayNumRequiredTributesTextbox(numTributes);
         }
       }
       break;
@@ -223,7 +223,7 @@ void sub_80441D0 (void) {
         u8 numTributes = sub_8045390(gFixedZones[4][gDuelCursor.currentX]->id);
         if (numTributes) {
           PlayMusic(SFX_FORBIDDEN);
-          DisplayNumRequiredTributesText(numTributes);
+          DisplayNumRequiredTributesTextbox(numTributes);
         }
         else {
           PlayMusic(SFX_SELECT);

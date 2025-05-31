@@ -1,8 +1,6 @@
 #include "global.h"
 
-// name this file duel_util.c?
-
-void InitDuelDeck (unsigned char, unsigned short*);
+void InitCardsForDuelDeck (unsigned char, unsigned short*);
 
 int HighestAtkMonInRow (struct DuelCard** zonePtr) {
   unsigned char zoneIndex = 0;
@@ -334,10 +332,7 @@ s32 GetLastCardMatchZoneId (struct DuelCard** zonePtr, unsigned short cardId) {
 }
 
 unsigned ZoneHasUnlockedMonsterCard (struct DuelCard* zone) {
-  unsigned ret = 0;
-  if (zone->id != CARD_NONE && GetTypeGroup(zone->id) == TYPE_GROUP_MONSTER && !zone->isLocked)
-    ret = 1;
-  return ret;
+  return zone->id != CARD_NONE && GetTypeGroup(zone->id) == TYPE_GROUP_MONSTER && !zone->isLocked;
 }
 
 unsigned sub_8043714 (struct DuelCard* zone) {
@@ -352,31 +347,19 @@ unsigned sub_8043714 (struct DuelCard* zone) {
 }
 
 unsigned ZoneHasTrapCard (struct DuelCard* zone) {
-  unsigned ret = 0;
-  if (zone->id != CARD_NONE && GetTypeGroup(zone->id) == TYPE_GROUP_TRAP)
-    ret = 1;
-  return ret;
+  return zone->id != CARD_NONE && GetTypeGroup(zone->id) == TYPE_GROUP_TRAP;
 }
 
 unsigned sub_804376C (struct DuelCard* zone) {
-  unsigned ret = 0;
-  if (GetTypeGroup(zone->id) == TYPE_GROUP_SPELL && GetSpellType(zone->id) == SPELL_TYPE_EQUIP)
-    ret = 1;
-  return ret;
+  return GetTypeGroup(zone->id) == TYPE_GROUP_SPELL && GetSpellType(zone->id) == SPELL_TYPE_EQUIP;
 }
 
 unsigned sub_8043790 (struct DuelCard* zone) {
-  unsigned ret = 0;
-  if (GetTypeGroup(zone->id) == TYPE_GROUP_SPELL && GetSpellType(zone->id) == SPELL_TYPE_NORMAL)
-    ret = 1;
-  return ret;
+  return GetTypeGroup(zone->id) == TYPE_GROUP_SPELL && GetSpellType(zone->id) == SPELL_TYPE_NORMAL;
 }
 
 unsigned ZoneHasRitualCard (struct DuelCard* zone) {
-  unsigned ret = 0;
-  if (zone->id != CARD_NONE && GetTypeGroup(zone->id) == TYPE_GROUP_RITUAL)
-    ret = 1;
-  return ret;
+  return zone->id != CARD_NONE && GetTypeGroup(zone->id) == TYPE_GROUP_RITUAL;
 }
 
 int GetNumCardsInRow (unsigned char turnRow) {
@@ -682,8 +665,8 @@ void ShuffleDuelDeck (unsigned char arg0) {
   if (!temp)
     return;
   for (i = 0; i < 200; i++) {
-    unsigned char temp3 = sub_8056258(0, temp - 1);
-    unsigned char temp4 = sub_8056258(0, temp - 1);
+    unsigned char temp3 = RandRangeU8(0, temp - 1);
+    unsigned char temp4 = RandRangeU8(0, temp - 1);
     unsigned short temp2 = gDuelDecks[arg0].cards[temp3];
     gDuelDecks[arg0].cards[temp3] = gDuelDecks[arg0].cards[temp4];
     gDuelDecks[arg0].cards[temp4] = temp2;
@@ -700,14 +683,14 @@ void ClearDuelDecks (void) {
   }
 }
 
-void sub_8043E14 (unsigned char arg0, unsigned char arg1) {
-  if (!arg1)
-    InitDuelDeck(arg0, gDeckMenu.cards);
+void InitDuelDeck (unsigned char duelist, unsigned char duelistId) {
+  if (!duelistId)
+    InitCardsForDuelDeck(duelist, gDeckMenu.cards); // player deck
   else
-    InitDuelDeck(arg0, gDuelData.duelist.deck);
+    InitCardsForDuelDeck(duelist, gDuelData.duelist.deck);
 }
 
-void InitDuelDeck (unsigned char duelist, unsigned short* deck) {
+void InitCardsForDuelDeck (unsigned char duelist, unsigned short* deck) {
   unsigned i;
   for (i = 0; i < 40; i++)
     gDuelDecks[duelist].cards[i] = *deck++;

@@ -2,15 +2,15 @@
 
 
 
-static void sub_800876C (void);
-static void sub_8008780 (void);
-static void sub_8008794 (void);
-static void sub_80087A8 (void);
-static void sub_80087BC (void);
-static void sub_80087D0 (void);
-static void sub_80087E4 (void);
-static void sub_8008804 (void);
-static void sub_8008818 (void);
+static void PressUpInTrunkMenu (void);
+static void PressRUpInTrunkMenu (void);
+static void PressDownInTrunkMenu (void);
+static void PressRDownInTrunkMenu (void);
+static void PressRightInTrunkMenu (void);
+static void PressLeftInTrunkMenu (void);
+static void PressBInTrunkMenu (void);
+static void PressLInTrunkMenu (void);
+static void PressSelectInTrunkMenu (void);
 static void InitTrunkMenu (void);
 static void Trunk_A_Submenu (void);
 static void MoveCursorUpInTrunkSubmenu (void);
@@ -28,7 +28,7 @@ void sub_800ABB4 (void);
 
 
 void WaitForVBlank(void);
-unsigned short sub_800901C(unsigned char);
+unsigned short GetNthCardOnScreen(unsigned char);
 void GoUpOnePosition(void);
 void GoDownOnePosition(void);
 void GoUpFiftyPositions(void);
@@ -36,7 +36,7 @@ void GoDownFiftyPositions(void);
 void ToggleTrunkDisplayMode(void);
 void ToggleSortMode(void);
 void ApplyNewSortMode(unsigned char);
-void sub_08009224(void);
+void QuitTrunkMenu(void);
 void sub_800B3E4(unsigned short);
 
 u32 GetDuelistLevel(void);
@@ -128,62 +128,62 @@ void TrunkMenuMain (void) {
   InitTrunkMenu();
   while (keepProcessing) {
     switch ((unsigned short)TrunkProcessInput()) {
-      case 0x40:
-        sub_800876C();
+      case DPAD_UP:
+        PressUpInTrunkMenu();
         sub_800ABB4();
         sub_800AA58(4);
         break;
-      case 0x140:
-        sub_8008780();
+      case DPAD_UP | R_BUTTON:
+        PressRUpInTrunkMenu();
         sub_800ABB4();
         sub_800AA58(4);
         break;
-      case 0x80:
-        sub_8008794();
+      case DPAD_DOWN:
+        PressDownInTrunkMenu();
         sub_800ABB4();
         sub_800AA58(4);
         break;
-      case 0x180:
-        sub_80087A8();
+      case DPAD_DOWN | R_BUTTON:
+        PressRDownInTrunkMenu();
         sub_800ABB4();
         sub_800AA58(4);
         break;
-      case 0x10:
-        sub_80087BC();
+      case DPAD_RIGHT:
+        PressRightInTrunkMenu();
         sub_800ABD0();
         sub_800AA58(6);
         break;
-      case 0x20:
-        sub_80087D0();
+      case DPAD_LEFT:
+        PressLeftInTrunkMenu();
         sub_800ABD0();
         sub_800AA58(6);
         break;
-      case 0x200:
-        sub_8008804();
+      case L_BUTTON:
+        PressLInTrunkMenu();
         sub_800ABB4();
         sub_800AA58(4);
         break;
-      case 1:
+      case A_BUTTON:
         Trunk_A_Submenu();
         sub_800AA58(7);
         break;
-      case 2:
-        sub_80087E4();
+      case B_BUTTON:
+        PressBInTrunkMenu();
         keepProcessing = 0;
         sub_0800ABA4();
         sub_800AA58(2);
         break;
-      case 8:
+      case START_BUTTON:
         SortingMenuMain();
         sub_800A3D8(8);
         sub_800AA58(8);
         break;
-      case 4:
-        sub_8008818();
+      case SELECT_BUTTON:
+        PressSelectInTrunkMenu();
         sub_800AA58(9);
         sub_800ABE4();
         break;
-      case 0:
+      case 0: // no action?
       default:
         sub_800A3D8(5);
         sub_0800ABE0();
@@ -239,49 +239,49 @@ int TrunkSubmenuProcessInput (void) {
   return ret;
 }
 
-static void sub_800876C (void) {
+static void PressUpInTrunkMenu (void) {
   RunTrunkTask(3);
   sub_800A3D8(3);
 }
 
-static void sub_8008780 (void) {
+static void PressRUpInTrunkMenu (void) {
   RunTrunkTask(5);
   sub_800A3D8(3);
 }
 
-static void sub_8008794 (void) {
+static void PressDownInTrunkMenu (void) {
   RunTrunkTask(2);
   sub_800A3D8(3);
 }
 
-static void sub_80087A8 (void) {
+static void PressRDownInTrunkMenu (void) {
   RunTrunkTask(4);
   sub_800A3D8(3);
 }
 
-static void sub_80087BC (void) {
+static void PressRightInTrunkMenu (void) {
   RunTrunkTask(7);
   sub_800A3D8(3);
 }
 
-static void sub_80087D0 (void) {
+static void PressLeftInTrunkMenu (void) {
   RunTrunkTask(8);
   sub_800A3D8(3);
 }
 
-static void sub_80087E4 (void) {
+static void PressBInTrunkMenu (void) {
   RunTrunkTask(9);
   sub_800A3D8(1);
   RunPlayerDeckTask(8);
   PlayMusic(SFX_CANCEL);
 }
 
-static void sub_8008804 (void) {
+static void PressLInTrunkMenu (void) {
   RunTrunkTask(6);
   sub_800A3D8(4);
 }
 
-static void sub_8008818 (void) {
+static void PressSelectInTrunkMenu (void) {
   RunTrunkTask(10);
   sub_800A3D8(7);
 }
@@ -307,16 +307,16 @@ static void Trunk_A_Submenu (void) {
   keepProcessing = 1;
   while (keepProcessing) {
     switch (TrunkSubmenuProcessInput()) {
-      case 2:
+      case B_BUTTON:
         keepProcessing = 0;
         break;
-      case 0x40:
+      case DPAD_UP:
         MoveCursorUpInTrunkSubmenu();
         break;
-      case 0x80:
+      case DPAD_DOWN:
         MoveCursorDownInTrunkSubmenu();
         break;
-      case 1:
+      case A_BUTTON:
         switch (gTrunkMenu.cursorState) {
           case TRUNK_CURSOR_DETAILS:
             SelectDetailsInTrunkSubmenu();
@@ -355,7 +355,7 @@ static void MoveCursorDownInTrunkSubmenu (void) {
 }
 
 static void SelectDetailsInTrunkSubmenu (void) {
-  gStatMod.card = sub_800901C(2);
+  gStatMod.card = GetNthCardOnScreen(2);
   gStatMod.field = FIELD_ARENA;
   gStatMod.stage = 0;
   SetCardInfoWithWarning(&gStatMod.card);
@@ -662,7 +662,7 @@ static void SetTrunkCardsTo50 (void) {
 
 static void TryAddSelectedCardToDeck (void) {
   unsigned isCardRejected = 0;
-  unsigned short cardId = sub_800901C(2);
+  unsigned short cardId = GetNthCardOnScreen(2);
   if (gTrunkCardQty[cardId] && GetPlayerDeckSize() < DECK_SIZE && sub_801F098(cardId) == 1) {
     SetCardInfo(cardId);
     if (GetDuelistLevel() < gCardInfo.cost)
@@ -684,7 +684,7 @@ static void TryAddSelectedCardToDeck (void) {
 
 void TryRemoveSelectedCardFromDeck (void) {
   unsigned removalFailed = FALSE;
-  unsigned short id = sub_800901C(2);
+  unsigned short id = GetNthCardOnScreen(2);
   if (GetDeckCardQty(id) == 0 || TryRemoveCardFromDeck(id) != 1)
     removalFailed = TRUE;
   if (removalFailed == TRUE) {
@@ -747,7 +747,7 @@ void RunTrunkTask (unsigned char task)
         ToggleSortMode();
         break;
     case 9:
-        sub_08009224();
+        QuitTrunkMenu();
         break;
     }
 }
@@ -756,14 +756,14 @@ unsigned char GetTrunkMenuDisplayMode (void) {
   return gTrunkMenu.displayMode;
 }
 
-// get nth card on screen?
-unsigned short sub_800901C (unsigned char n) {
-  signed short r2 = gTrunkMenu.currentPos + n - 2;
-  if (r2 >= NUM_TRUE_CARDS)
-    r2 -= NUM_TRUE_CARDS;
-  else if (r2 < 0)
-    r2 += NUM_TRUE_CARDS;
-  return gTrunkMenu.cards[r2];
+// 5 cards are visible at a time, with the middle/selected card being at n=2
+unsigned short GetNthCardOnScreen (unsigned char n) {
+  signed short wrappedIndex = gTrunkMenu.currentPos + n - 2;
+  if (wrappedIndex >= NUM_TRUE_CARDS)
+    wrappedIndex -= NUM_TRUE_CARDS;
+  else if (wrappedIndex < 0)
+    wrappedIndex += NUM_TRUE_CARDS;
+  return gTrunkMenu.cards[wrappedIndex];
 }
 
 unsigned char GetTrunkCardQuantity (unsigned short cardId) {
@@ -844,7 +844,7 @@ void ApplyNewSortMode(unsigned char val)
     gTrunkMenu.currentPos = 0;
 }
 
-void sub_08009224(void){}
+void QuitTrunkMenu(void){}
 
 extern u32 gUnk_808918C[];
 extern unsigned char gUnk_808C1C0[];

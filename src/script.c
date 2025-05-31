@@ -210,7 +210,7 @@ static void sub_80527E8(struct ScriptCtx *script)
         }
         break;
     case 0x24:
-        script->pointer += sub_8020698(&script->currentScript.start[script->pointer]);
+        script->pointer += GetLanguageStringOffset(&script->currentScript.start[script->pointer]);
         break;
     case 0x40:
         switch (script->currentScript.start[++script->pointer])
@@ -555,7 +555,7 @@ static void sub_80531FC (struct ScriptCtx* script) {
   int i;
   SetCardInfo(script->unk20);
   script->unk78 = 0;
-  script->unk78 += sub_8020698(gCardInfo.name);
+  script->unk78 += GetLanguageStringOffset(gCardInfo.name);
   for (i = 0; i < 80 && gCardInfo.name[i] && gCardInfo.name[i] != '$'; i++) {
     script->unk22[i] = gCardInfo.name[script->unk78];
     script->unk78++;

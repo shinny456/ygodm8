@@ -1,19 +1,19 @@
 #include "global.h"
 
 
-struct Test8041240 {
-  u32 unk0;
-  u32 unk4;
-  u8 unk8;
+struct Textbox {
+  u32 textCursor;
+  u32 tileCursor;
+  u8 mode;
   u8 filler9[3];
   u8* unkC;
-  u16 unk10;
-  u16 unk12;
+  u16 blinkFrameCounter;
+  u16 cardId;
   u16 unk14;
   u16 unk16;
   u16 unk18;
   u16 unk1A;
-  u8 unk1C;
+  u8 glyphOffset;
 };
 
 extern u8 g8E0D588[][5];
@@ -29,7 +29,7 @@ extern u8 g8E0D617[];
 
 
 void sub_8041B38 (void);
-void sub_8041BE8 (struct Test8041240*);
+void RunTextRenderTask (struct Textbox*);
 void UpdateDuelGfxExceptField (void);
 void WaitForVBlank (void);
 void sub_8040FDC (void);
@@ -52,55 +52,55 @@ void sub_80428EC(u8);
 
 
 void sub_8041C94 (u8* arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4) {
-  struct Test8041240 test;
-  test.unk0 = 0;
-  test.unk4 = 0;
-  test.unk8 = 0;
+  struct Textbox test;
+  test.textCursor = 0;
+  test.tileCursor = 0;
+  test.mode = 0;
   test.unkC = arg0;
-  test.unk10 = 0;
-  test.unk1C = 0;
+  test.blinkFrameCounter = 0;
+  test.glyphOffset = 0;
   test.unk14 = arg1;
   test.unk16 = arg2;
   test.unk18 = arg3;
   test.unk1A = arg4;
   sub_8041B38();
-  sub_8041BE8(&test);
+  RunTextRenderTask(&test);
   UpdateDuelGfxExceptField();
 }
 
 void sub_8041CCC (u16 arg0, u16 arg1) {
-  struct Test8041240 test;
+  struct Textbox test;
   u8* temp = g8F1B80C[arg0];
-  test.unk0 = 0;
-  test.unk4 = 0;
-  test.unk8 = 0;
+  test.textCursor = 0;
+  test.tileCursor = 0;
+  test.mode = 0;
   test.unkC = temp;
-  test.unk10 = 0;
-  test.unk1C = 0;
+  test.blinkFrameCounter = 0;
+  test.glyphOffset = 0;
   test.unk14 = arg0;
   test.unk16 = arg1;
   test.unk18 = 0;
   test.unk1A = 0;
   sub_8041B38();
-  sub_8041BE8(&test);
+  RunTextRenderTask(&test);
   UpdateDuelGfxExceptField();
 }
 
 void sub_8041D14 (u16 arg0, u16 arg1) {
-  struct Test8041240 test;
+  struct Textbox test;
   u8* temp = gText_TrapWasTriggered;
-  test.unk0 = 0;
-  test.unk4 = 0;
-  test.unk8 = 0;
+  test.textCursor = 0;
+  test.tileCursor = 0;
+  test.mode = 0;
   test.unkC = temp;
-  test.unk10 = 0;
-  test.unk1C = 0;
+  test.blinkFrameCounter = 0;
+  test.glyphOffset = 0;
   test.unk14 = arg0;
   test.unk16 = arg1;
   test.unk18 = 0;
   test.unk1A = 0;
   sub_8041B38();
-  sub_8041BE8(&test);
+  RunTextRenderTask(&test);
   UpdateDuelGfxExceptField();
 }
 

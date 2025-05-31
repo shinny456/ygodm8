@@ -334,7 +334,7 @@ void InitSorlTurns(u8);
 void ResetNumTributes(void);
 s32 WhoseTurn(void); //8058744
 
-s32 sub_8056258(u8, u8);
+s32 RandRangeU8(u8, u8);
 
 bool32 IsTrapTriggered(void);
 

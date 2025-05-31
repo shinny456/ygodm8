@@ -185,7 +185,7 @@ void sub_8008288 (void) {
   g201CB24 = sub_800842C;
 }
 
-void sub_80082C0 (void) {
+void InitButtonMaps (void) {
   gPressedButtons = 0;
   gNewButtons = 0;
   gRepeatedOrNewButtons = 0;

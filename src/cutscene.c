@@ -644,10 +644,10 @@ static void sub_8000CC8 (void) {
   g8DF7590->unk82 = 128;
   g8DF7590->unk84 = 128;
   for (i = 0; i < 14; i++) {
-    g8DF7590->unk48[i] = sub_8056258(0, 240);
-    g8DF7590->unk56[i] = sub_8056258(0, 160);
-    g8DF7590->unk64[i] = sub_8056258(1, 4);
-    g8DF7590->unk72[i] = sub_8056258(1, 4);
+    g8DF7590->unk48[i] = RandRangeU8(0, 240);
+    g8DF7590->unk56[i] = RandRangeU8(0, 160);
+    g8DF7590->unk64[i] = RandRangeU8(1, 4);
+    g8DF7590->unk72[i] = RandRangeU8(1, 4);
   }
 }
 
@@ -2741,12 +2741,12 @@ static void sub_8003D10 (void) {
 
 
   if (g8DF7594->unk1FC % 4 == 0) {
-    g8DF7594->unk190[g8DF7594->unk1FC % 24 / 4] = g8DF7594->unk1AA + (u8)sub_8056258(64, 80);
-    g8DF7594->unk15A[6 + g8DF7594->unk1FC % 24 / 4] = (g8DF7594->unk1AC & 0x1FF) + (u8)sub_8056258(40, 80);
-    g8DF7594->unk196[g8DF7594->unk1FC % 24 / 4] = g8DF7594->unk1BC + (u8)sub_8056258(64, 80);
-    g8DF7594->unk15A[12 + g8DF7594->unk1FC % 24 / 4] = (g8DF7594->unk1BE & 0x1FF) + (u8)sub_8056258(40, 80);
-    g8DF7594->unk19C[g8DF7594->unk1FC % 24 / 4] = g8DF7594->unk1CE + (u8)sub_8056258(64, 80);
-    g8DF7594->unk15A[18 + g8DF7594->unk1FC % 24 / 4] = (g8DF7594->unk1D0 & 0x1FF) + (u8)sub_8056258(40, 80);
+    g8DF7594->unk190[g8DF7594->unk1FC % 24 / 4] = g8DF7594->unk1AA + (u8)RandRangeU8(64, 80);
+    g8DF7594->unk15A[6 + g8DF7594->unk1FC % 24 / 4] = (g8DF7594->unk1AC & 0x1FF) + (u8)RandRangeU8(40, 80);
+    g8DF7594->unk196[g8DF7594->unk1FC % 24 / 4] = g8DF7594->unk1BC + (u8)RandRangeU8(64, 80);
+    g8DF7594->unk15A[12 + g8DF7594->unk1FC % 24 / 4] = (g8DF7594->unk1BE & 0x1FF) + (u8)RandRangeU8(40, 80);
+    g8DF7594->unk19C[g8DF7594->unk1FC % 24 / 4] = g8DF7594->unk1CE + (u8)RandRangeU8(64, 80);
+    g8DF7594->unk15A[18 + g8DF7594->unk1FC % 24 / 4] = (g8DF7594->unk1D0 & 0x1FF) + (u8)RandRangeU8(40, 80);
   }
 
   for (i = 0; i < 3; i++) {
@@ -2953,7 +2953,7 @@ static void sub_8003D10 (void) {
 _08003E64:\n\
 	movs r0, #0x40\n\
 	movs r1, #0x50\n\
-	bl sub_8056258\n\
+	bl RandRangeU8\n\
 	adds r5, r0, #0\n\
 	mov r0, sl\n\
 	ldr r4, [r0]\n\
@@ -2979,7 +2979,7 @@ _08003E64:\n\
   \n\
 	movs r0, #0x28\n\
 	movs r1, #0x50\n\
-	bl sub_8056258\n\
+	bl RandRangeU8\n\
 	adds r4, r0, #0\n\
 	mov r6, sl\n\
 	ldr r5, [r6]\n\
@@ -3012,7 +3012,7 @@ _08003E64:\n\
   \n\
 	movs r0, #0x40\n\
 	movs r1, #0x50\n\
-	bl sub_8056258\n\
+	bl RandRangeU8\n\
 	adds r5, r0, #0\n\
 	mov r0, sl\n\
 	ldr r4, [r0]\n\
@@ -3038,7 +3038,7 @@ _08003E64:\n\
   \n\
 	movs r0, #0x28\n\
 	movs r1, #0x50\n\
-	bl sub_8056258\n\
+	bl RandRangeU8\n\
 	adds r4, r0, #0\n\
 	mov r0, sl\n\
 	ldr r5, [r0]\n\
@@ -3070,7 +3070,7 @@ _08003E64:\n\
   \n\
 	movs r0, #0x40\n\
 	movs r1, #0x50\n\
-	bl sub_8056258\n\
+	bl RandRangeU8\n\
 	adds r5, r0, #0\n\
 	mov r2, sl\n\
 	ldr r4, [r2]\n\
@@ -3096,7 +3096,7 @@ _08003E64:\n\
   \n\
 	movs r0, #0x28\n\
 	movs r1, #0x50\n\
-	bl sub_8056258\n\
+	bl RandRangeU8\n\
 	adds r4, r0, #0\n\
 	mov r3, sl\n\
 	ldr r5, [r3]\n\

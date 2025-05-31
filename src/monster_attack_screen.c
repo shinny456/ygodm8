@@ -675,7 +675,7 @@ static void sub_801BFB0 (unsigned char arg0) {
 	lsrs r4, r4, #0x18\n\
 	movs r0, #0\n\
 	movs r1, #3\n\
-	bl sub_8056258\n\
+	bl RandRangeU8\n\
 	lsls r0, r0, #0x18\n\
 	ldr r1, _0801BFEC\n\
 	lsrs r0, r0, #0x16\n\

@@ -1,38 +1,47 @@
 #include "global.h"
 
-
-struct Test8041240 {
-  u32 unk0;
-  u32 unk4;
-  unsigned char unk8;
+struct Textbox {
+  u32 textCursor; // index into textBuffer
+  u32 tileCursor;
+  unsigned char mode; // player name, card desc, card name, etc
   unsigned char filler9[3];
-  unsigned char* unkC;
-  u16 unk10;
-  u16 unk12;
+  unsigned char* textBuffer; // ptr to text data
+  u16 blinkFrameCounter; // indicator blinks when dialogue can be advanced
+  u16 cardId;
   u16 unk14;
   u16 unk16;
   u16 unk18;
   u16 unk1A;
-  unsigned char unk1C;
+  unsigned char glyphOffset; // used to iterate substrings?
+};
+
+enum TextboxToken {
+  MODE_TEXT, // normal text, no token
+  MODE_WAIT_INPUT,
+  MODE_CARD_NAME,
+  MODE_3, // unused?
+  MODE_PLAYER_NAME,
+  MODE_CARD_DESCRIPTION,
+  MODE_CLEAR_TEXTBOX_AND_ADVANCE,
 };
 
 extern u16 gNewButtons;
 extern u32* gFieldTilePtrs[];
 extern u16* g8E0D130[];
-extern const unsigned char gE0D15D[]; // all spaces. empty duel text box before displaying actual text.
+extern const unsigned char gSpaces[]; // all spaces. empty duel text box before displaying actual text.
 extern u16 (*gFieldTileMapPtrs[])[31];
 extern struct OamData gOamBuffer[];
-extern unsigned char g201EE70[];
-extern unsigned char g201EEE0[];
+extern unsigned char gCardNameWorkingBuffer[]; // working buffer for handling layout and wrap
+extern unsigned char gCardNameRenderBuffer[]; // final render buffer for glyph blitting loop
 extern unsigned char* gNumTributesRequiredStrings[];
 extern const s16 sin_cos_table[];
-extern unsigned char g8E0D1D0[];
+extern unsigned char gFontTileGlyphs[];
 extern u16 g80F2C30[][30];
 extern unsigned char gE0D14C[];
 
 void sub_8041B38 (void);
-void sub_8041BE8 (struct Test8041240*);
-static void sub_8041C68 (struct Test8041240*);
+void RunTextRenderTask (struct Textbox*);
+static void ClearTextboxAndAdvance (struct Textbox*);
 void HuffUnComp (void*, void*);
 
 s16 fix_mul (s16, s16);
@@ -232,188 +241,190 @@ void sub_80411D4 (void) {
   LoadPalettes();
 }
 
-void sub_80411EC (struct OamData* arg0) {
-  arg0->y = 192;
-  arg0->x = 448;
-  arg0->shape = 0;
-  arg0->size = 0;
-  arg0->tileNum = 0;
-  arg0->priority = 3;
-  arg0->hflip = 0;
-  arg0->vflip = 0;
-  arg0->affineMode = 0;
+void sub_80411EC (struct OamData* oam) {
+  oam->y = 192;
+  oam->x = 448;
+  oam->shape = 0;
+  oam->size = 0;
+  oam->tileNum = 0;
+  oam->priority = 3;
+  oam->hflip = 0;
+  oam->vflip = 0;
+  oam->affineMode = 0;
 }
 
-void DisplayNumRequiredTributesText (unsigned char numTributes) {
-  struct Test8041240 test;
+void DisplayNumRequiredTributesTextbox (unsigned char numTributes) {
+  struct Textbox textbox;
   unsigned char* string = gNumTributesRequiredStrings[numTributes - 1];
-  test.unk0 = 0;
-  test.unk4 = 0;
-  test.unk8 = 0;
-  test.unkC = string;
-  test.unk10 = 0;
-  test.unk1C = 0;
-  test.unk14 = 0;
-  test.unk16 = 0;
-  test.unk18 = 0;
-  test.unk1A = 0;
+  textbox.textCursor = 0;
+  textbox.tileCursor = 0;
+  textbox.mode = 0;
+  textbox.textBuffer = string;
+  textbox.blinkFrameCounter = 0;
+  textbox.glyphOffset = 0;
+  textbox.unk14 = 0;
+  textbox.unk16 = 0;
+  textbox.unk18 = 0;
+  textbox.unk1A = 0;
   sub_8041B38();
-  sub_8041BE8(&test);
+  RunTextRenderTask(&textbox);
   UpdateDuelGfxExceptField();
 }
 
-void sub_8041284 (struct Test8041240* arg0) {
-  switch (arg0->unkC[arg0->unk0]) {
+// processes control tokens from raw text (followed by a #)
+// e.g. "$0#5% you saw it too%#0didn't you?#1..."
+void RenderNextTextToken (struct Textbox* textbox) {
+  switch (textbox->textBuffer[textbox->textCursor]) {
     case '#':
-      arg0->unk0++;
-      switch (arg0->unkC[arg0->unk0]) {
-        case '0':
-          arg0->unk0++;
-          if (arg0->unk4 % 28)
-            arg0->unk4 = (arg0->unk4 / 28 + 1) * 28;
-          if (arg0->unk4 > 84)
-            arg0->unk4 = 84;
+      textbox->textCursor++;
+      switch (textbox->textBuffer[textbox->textCursor]) {
+        case '0': // line break
+          textbox->textCursor++;
+          if (textbox->tileCursor % 28)
+            textbox->tileCursor = (textbox->tileCursor / 28 + 1) * 28;
+          if (textbox->tileCursor > 84)
+            textbox->tileCursor = 84;
           break;
         case '1':
-          arg0->unk8 = 1;
+          textbox->mode = MODE_WAIT_INPUT;
           break;
         case '2':
-          arg0->unk8 = 2;
-          arg0->unk0++;
-          arg0->unk1C = 0;
-          arg0->unk12 = arg0->unk14;
+          textbox->mode = MODE_CARD_NAME;
+          textbox->textCursor++;
+          textbox->glyphOffset = 0;
+          textbox->cardId = textbox->unk14;
           break;
         case '3':
-          arg0->unk8 = 2;
-          arg0->unk0++;
-          arg0->unk1C = 0;
-          arg0->unk12 = arg0->unk16;
+          textbox->mode = MODE_CARD_NAME;
+          textbox->textCursor++;
+          textbox->glyphOffset = 0;
+          textbox->cardId = textbox->unk16;
           break;
         case '4':
-          arg0->unk8 = 6;
+          textbox->mode = MODE_CLEAR_TEXTBOX_AND_ADVANCE;
           break;
         case '5':
-          arg0->unk1C = 0;
-          arg0->unk8 = 4;
-          arg0->unk0++;
+          textbox->glyphOffset = 0;
+          textbox->mode = MODE_PLAYER_NAME;
+          textbox->textCursor++;
           break;
         case '6':
-          arg0->unk1C = 0;
-          arg0->unk8 = 5;
-          arg0->unk12 = arg0->unk18;
-          arg0->unk0++;
+          textbox->glyphOffset = 0;
+          textbox->mode = MODE_CARD_DESCRIPTION;
+          textbox->cardId = textbox->unk18;
+          textbox->textCursor++;
           break;
         case '7':
-          arg0->unk1C = 0;
-          arg0->unk8 = 5;
-          arg0->unk12 = arg0->unk1A;
-          arg0->unk0++;
+          textbox->glyphOffset = 0;
+          textbox->mode = MODE_CARD_DESCRIPTION;
+          textbox->cardId = textbox->unk1A;
+          textbox->textCursor++;
           break;
         case '8':
           {
             u32 i;
-            for (i = arg0->unkC[arg0->unk0 + 1]; i; i--)
+            for (i = textbox->textBuffer[textbox->textCursor + 1]; i; i--)
               WaitForVBlank();
           }
-          arg0->unk0 += 2;
+          textbox->textCursor += 2;
           break;
       }
       break;
     case '$':
-      arg0->unk0 += sub_8020698(arg0->unkC + arg0->unk0);
+      textbox->textCursor += GetLanguageStringOffset(textbox->textBuffer + textbox->textCursor);
       break;
     default:
       //macroize this? (basically the same code is in script.c)
       {
         u16 r3;
-        if (arg0->unkC[arg0->unk0] & 0x80) {
-          r3 = arg0->unkC[arg0->unk0 + 1] << 8;
-          r3 |= arg0->unkC[arg0->unk0];
-          arg0->unk0 += 2;
+        if (textbox->textBuffer[textbox->textCursor] & 0x80) {
+          r3 = textbox->textBuffer[textbox->textCursor + 1] << 8;
+          r3 |= textbox->textBuffer[textbox->textCursor];
+          textbox->textCursor += 2;
         }
-        else switch (arg0->unkC[arg0->unk0]) {
+        else switch (textbox->textBuffer[textbox->textCursor]) {
           case ' ': case '!': case '"': case '%': case '\'':
             case ',': case '-': case '.': case ':': case ';': case '?':
             case 'A' ... 'Z': case 'a' ... 'z':
-                r3 = gUnk_8E00E30[arg0->unkC[arg0->unk0] - ' '][1];
+                r3 = gUnk_8E00E30[textbox->textBuffer[textbox->textCursor] - ' '][1];
                 r3 <<= 8;
-                r3 |= gUnk_8E00E30[arg0->unkC[arg0->unk0] - ' '][0];
-                arg0->unk0++;
+                r3 |= gUnk_8E00E30[textbox->textBuffer[textbox->textCursor] - ' '][0];
+                textbox->textCursor++;
                 break;
             default:
                 r3 = gUnk_8E00E30[0][1];
                 r3 <<= 8;
                 r3 |= gUnk_8E00E30[0][0];
-                arg0->unk0++;
+                textbox->textCursor++;
                 break;
         }
-        if (arg0->unk4 % 2)
-          sub_8020968(gBgVram.cbb0 + 0x88C0 + arg0->unk4 / 2 * 128, r3, 0x101);
+        if (textbox->tileCursor % 2)
+          sub_8020968(gBgVram.cbb0 + 0x88C0 + textbox->tileCursor / 2 * 128, r3, 0x101);
         else
-          sub_8020968(gBgVram.cbb0 + 0x88A0 + arg0->unk4 / 2 * 128, r3, 0x101);
-        arg0->unk4++;
+          sub_8020968(gBgVram.cbb0 + 0x88A0 + textbox->tileCursor / 2 * 128, r3, 0x101);
+        textbox->tileCursor++;
       }
       break;
   }
 }
 
 //waiting for player to press A, B, or R to close text box.
-void sub_80415B8 (struct Test8041240* arg0) {
+void WaitForTextBoxAdvanceInput (struct Textbox* textbox) {
   if (gNewButtons & (A_BUTTON | B_BUTTON | R_BUTTON)) {
     PlayMusic(SFX_DIALOGUE);
-    arg0->unk0++;
-    arg0->unk4 = 0;
-    arg0->unk10 = 0;
-    arg0->unk8 = 0;
-    CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gE0D15D, 0x101);
+    textbox->textCursor++;
+    textbox->tileCursor = 0;
+    textbox->blinkFrameCounter = 0;
+    textbox->mode = 0;
+    CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gSpaces, 0x101);
   }
   else {
-    switch (arg0->unk10++) {
+    switch (textbox->blinkFrameCounter++) {
       case 0:
-        if (arg0->unk4 % 2)
-          sub_8020968(gBgVram.cbb0 + 0x88C0 + arg0->unk4 / 2 * 128, 0xA081, 0x101);
+        if (textbox->tileCursor % 2)
+          sub_8020968(gBgVram.cbb0 + 0x88C0 + textbox->tileCursor / 2 * 128, 0xA081, 0x101);
         else
-          sub_8020968(gBgVram.cbb0 + 0x88A0 + arg0->unk4 / 2 * 128, 0xA081, 0x101);
+          sub_8020968(gBgVram.cbb0 + 0x88A0 + textbox->tileCursor / 2 * 128, 0xA081, 0x101);
         break;
       case 15:
-        if (arg0->unk4 % 2)
-          sub_8020968(gBgVram.cbb0 + 0x88C0 + arg0->unk4 / 2 * 128, 0x4081, 0x101);
+        if (textbox->tileCursor % 2)
+          sub_8020968(gBgVram.cbb0 + 0x88C0 + textbox->tileCursor / 2 * 128, 0x4081, 0x101);
         else
-          sub_8020968(gBgVram.cbb0 + 0x88A0 + arg0->unk4 / 2 * 128, 0x4081, 0x101);
+          sub_8020968(gBgVram.cbb0 + 0x88A0 + textbox->tileCursor / 2 * 128, 0x4081, 0x101);
         break;
       case 29:
-        arg0->unk10 = 0;
+        textbox->blinkFrameCounter = 0;
         break;
     }
   }
 }
 
-void sub_8041690 (struct Test8041240* arg0) {
-  u16 i;
+void RenderNextCardNameChar (struct Textbox* textbox) {
+  u16 unused;
   u32 r8;
   u16 r3;
   u16 r5;
   u16 r4;
   u16 r2;
   u16 sb;
-  if (!arg0->unk1C) {
-    SetCardInfo(arg0->unk12);
+  if (!textbox->glyphOffset) {
+    SetCardInfo(textbox->cardId);
     r8 = 25;
     if (gLanguage == GERMAN) {
-      if (arg0->unk12 == MACHINE_CONVERSION_FACTORY)
+      if (textbox->cardId == MACHINE_CONVERSION_FACTORY)
         r8 = 26;
-      if (arg0->unk12 == MAN_EATING_TREASURE_CHEST)
+      if (textbox->cardId == MAN_EATING_TREASURE_CHEST)
         r8 = 27;
     }
     for (r3 = 0; r3 < 112; r3++)
-      g201EE70[r3] = g201EEE0[r3] = 0;
-    r3 = sub_8020698(gCardInfo.name);
+      gCardNameWorkingBuffer[r3] = gCardNameRenderBuffer[r3] = 0;
+    r3 = GetLanguageStringOffset(gCardInfo.name);
     r5 = 0;
     r4 = 0;
     r2 = 0;
     while (gCardInfo.name[r3] && gCardInfo.name[r3] != '$') {
       if (gCardInfo.name[r3] > 127) {
-        g201EE70[r4] = gCardInfo.name[r3];
+        gCardNameWorkingBuffer[r4] = gCardInfo.name[r3];
         r4++;
         r3++;
       }
@@ -421,100 +432,100 @@ void sub_8041690 (struct Test8041240* arg0) {
         r5 = r4;
         sb = r2;
       }
-      g201EE70[r4] = gCardInfo.name[r3];
+      gCardNameWorkingBuffer[r4] = gCardInfo.name[r3];
       r4++;
       r3++;
       r2++;
     }
     if (r2 > r8) {
-      g201EE70[r5] = 0;
+      gCardNameWorkingBuffer[r5] = 0;
       r4 = r5 + 1;
-      strcpy(g201EEE0, g201EE70);
+      strcpy(gCardNameRenderBuffer, gCardNameWorkingBuffer);
       for (r2 = sb; r2 < 28; r2++) {
-        g201EEE0[r5] = ' ';
+        gCardNameRenderBuffer[r5] = ' ';
         r5++;
       }
-      strcpy(g201EEE0 + r5, g201EE70 + r4);
+      strcpy(gCardNameRenderBuffer + r5, gCardNameWorkingBuffer + r4);
     }
     else {
-      strcpy(g201EEE0, g201EE70);
+      strcpy(gCardNameRenderBuffer, gCardNameWorkingBuffer);
     }
   }
-  if (g201EEE0[arg0->unk1C] <= 127) {
-    r3 = gUnk_8E00E30[g201EEE0[arg0->unk1C] - ' '][1];
+  if (gCardNameRenderBuffer[textbox->glyphOffset] <= 127) {
+    r3 = gUnk_8E00E30[gCardNameRenderBuffer[textbox->glyphOffset] - ' '][1];
     r3 <<= 8;
-    r3 |= gUnk_8E00E30[g201EEE0[arg0->unk1C] - ' '][0];
-    arg0->unk1C++;
+    r3 |= gUnk_8E00E30[gCardNameRenderBuffer[textbox->glyphOffset] - ' '][0];
+    textbox->glyphOffset++;
   }
   else {
-    r3 = g201EEE0[arg0->unk1C + 1];
+    r3 = gCardNameRenderBuffer[textbox->glyphOffset + 1];
     r3 <<= 8;
-    r3 |= g201EEE0[arg0->unk1C];
-    arg0->unk1C += 2;
+    r3 |= gCardNameRenderBuffer[textbox->glyphOffset];
+    textbox->glyphOffset += 2;
   }
-  if (arg0->unk4 % 2)
-    sub_8020968(gBgVram.cbb0 + 0x88C0 + arg0->unk4 / 2 * 128, r3, 0x101);
+  if (textbox->tileCursor % 2)
+    sub_8020968(gBgVram.cbb0 + 0x88C0 + textbox->tileCursor / 2 * 128, r3, 0x101);
   else
-    sub_8020968(gBgVram.cbb0 + 0x88A0 + arg0->unk4 / 2 * 128, r3, 0x101);
-  arg0->unk4++;
-  if (!g201EEE0[arg0->unk1C])
-    arg0->unk8 = 0;
+    sub_8020968(gBgVram.cbb0 + 0x88A0 + textbox->tileCursor / 2 * 128, r3, 0x101);
+  textbox->tileCursor++;
+  if (!gCardNameRenderBuffer[textbox->glyphOffset])
+    textbox->mode = 0;
 }
 
-void sub_8041884 (struct Test8041240* arg0) {
+void RenderNextPlayerNameChar (struct Textbox* textbox) {
   u16 r3;
-  if (gPlayerName[arg0->unk1C] <= 127) {
-    r3 = gUnk_8E00E30[gPlayerName[arg0->unk1C] - ' '][1];
+  if (gPlayerName[textbox->glyphOffset] <= 127) {
+    r3 = gUnk_8E00E30[gPlayerName[textbox->glyphOffset] - ' '][1];
     r3 <<= 8;
-    r3 |= gUnk_8E00E30[gPlayerName[arg0->unk1C] - ' '][0];
-    arg0->unk1C++;
+    r3 |= gUnk_8E00E30[gPlayerName[textbox->glyphOffset] - ' '][0];
+    textbox->glyphOffset++;
   }
   else {
-    r3 = gPlayerName[arg0->unk1C + 1];
+    r3 = gPlayerName[textbox->glyphOffset + 1];
     r3 <<= 8;
-    r3 |= gPlayerName[arg0->unk1C];
-    arg0->unk1C += 2;
+    r3 |= gPlayerName[textbox->glyphOffset];
+    textbox->glyphOffset += 2;
   }
-  if (arg0->unk4 % 2)
-    sub_8020968(gBgVram.cbb0 + 0x88C0 + arg0->unk4 / 2 * 128, r3, 0x101);
+  if (textbox->tileCursor % 2)
+    sub_8020968(gBgVram.cbb0 + 0x88C0 + textbox->tileCursor / 2 * 128, r3, 0x101);
   else
-    sub_8020968(gBgVram.cbb0 + 0x88A0 + arg0->unk4 / 2 * 128, r3, 0x101);
-  arg0->unk4++;
-  if (!gPlayerName[arg0->unk1C])
-    arg0->unk8 = 0;
+    sub_8020968(gBgVram.cbb0 + 0x88A0 + textbox->tileCursor / 2 * 128, r3, 0x101);
+  textbox->tileCursor++;
+  if (!gPlayerName[textbox->glyphOffset])
+    textbox->mode = 0;
 }
 
-void sub_8041924 (struct Test8041240* arg0) {
+void RenderNextCardDescChar (struct Textbox* textbox) {
   u16 r3;
   unsigned char* r0;
-  if (!arg0->unk1C) {
-    sub_800DDA0(arg0->unk12, 0);
-    while (g2021BD0[arg0->unk1C] == 10)
-      arg0->unk1C++;
+  if (!textbox->glyphOffset) {
+    sub_800DDA0(textbox->cardId, 0);
+    while (g2021BD0[textbox->glyphOffset] == 10)
+      textbox->glyphOffset++;
   }
-  if (arg0->unk4 % 2) {
-    sub_8020968(gBgVram.cbb0 + 0x88C0 + arg0->unk4 / 2 * 128,
-                g8E0D1D0[g2021BD0[arg0->unk1C] * 2 + 1] << 8 | g8E0D1D0[g2021BD0[arg0->unk1C] * 2],
+  if (textbox->tileCursor % 2) {
+    sub_8020968(gBgVram.cbb0 + 0x88C0 + textbox->tileCursor / 2 * 128,
+                gFontTileGlyphs[g2021BD0[textbox->glyphOffset] * 2 + 1] << 8 | gFontTileGlyphs[g2021BD0[textbox->glyphOffset] * 2],
                 0x101);
   }
   else {
-    sub_8020968(gBgVram.cbb0 + 0x88A0 + arg0->unk4 / 2 * 128,
-                g8E0D1D0[g2021BD0[arg0->unk1C] * 2 + 1] << 8 | g8E0D1D0[g2021BD0[arg0->unk1C] * 2],
+    sub_8020968(gBgVram.cbb0 + 0x88A0 + textbox->tileCursor / 2 * 128,
+                gFontTileGlyphs[g2021BD0[textbox->glyphOffset] * 2 + 1] << 8 | gFontTileGlyphs[g2021BD0[textbox->glyphOffset] * 2],
                 0x101);
   }
-  arg0->unk4++;
-  if (++arg0->unk1C == 5)
-    arg0->unk8 = 0;
+  textbox->tileCursor++;
+  if (++textbox->glyphOffset == 5)
+    textbox->mode = 0;
 }
 
-static inline void sub_8041B38_inline (void) {
+static inline void InitTextboxDisplay_inline (void) {
   unsigned char i;
   // copying 4 bytes past source buffer g80F2C30?
   for (i = 0; i < 18; i++)
     CpuCopy32(g80F2C30[i], gBgVram.cbb0 + 0xE800 + i * 64, 64);
 
   CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x87A0, gE0D14C, 0x801); 
-  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gE0D15D, 0x101); //empty text box
+  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gSpaces, 0x101); //empty text box
   WaitForVBlank();
   sub_8041014();
   REG_WINOUT = 30;
@@ -526,26 +537,26 @@ static inline void sub_8041B38_inline (void) {
   REG_DISPCNT = DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON | DISPCNT_WIN1_ON;
 }
 
-static inline void sub_8041BE8_inline (struct Test8041240* test) {
-  while (test->unkC[test->unk0]) {
-    switch (test->unk8) {
-      case 0:
-        sub_8041284(test);
+static inline void RunTextRenderTask_inline (struct Textbox* textbox) {
+  while (textbox->textBuffer[textbox->textCursor]) {
+    switch (textbox->mode) {
+      case MODE_TEXT:
+        RenderNextTextToken(textbox);
         break;
-      case 1:
-        sub_80415B8(test);
+      case MODE_WAIT_INPUT:
+        WaitForTextBoxAdvanceInput(textbox);
         break;
-      case 6:
-        sub_8041C68(test);
+      case MODE_CLEAR_TEXTBOX_AND_ADVANCE:
+        ClearTextboxAndAdvance(textbox);
         break;
-      case 2:
-        sub_8041690(test);
+      case MODE_CARD_NAME:
+        RenderNextCardNameChar(textbox);
         break;
-      case 4:
-        sub_8041884(test);
+      case MODE_PLAYER_NAME:
+        RenderNextPlayerNameChar(textbox);
         break;
-      case 5:
-        sub_8041924(test);
+      case MODE_CARD_DESCRIPTION:
+        RenderNextCardDescChar(textbox);
         break;
     }
     WaitForVBlank();
@@ -554,19 +565,19 @@ static inline void sub_8041BE8_inline (struct Test8041240* test) {
 }
 
 void sub_80419EC (unsigned char* arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4) {
-  struct Test8041240 test;
-  test.unk0 = 0;
-  test.unk4 = 0;
-  test.unk8 = 0;
-  test.unkC = arg0;
-  test.unk10 = 0;
-  test.unk1C = 0;
-  test.unk14 = arg1;
-  test.unk16 = arg2;
-  test.unk18 = arg3;
-  test.unk1A = arg4;
-  sub_8041B38_inline();
-  sub_8041BE8_inline(&test);
+  struct Textbox textbox;
+  textbox.textCursor = 0;
+  textbox.tileCursor = 0;
+  textbox.mode = 0;
+  textbox.textBuffer = arg0;
+  textbox.blinkFrameCounter = 0;
+  textbox.glyphOffset = 0;
+  textbox.unk14 = arg1;
+  textbox.unk16 = arg2;
+  textbox.unk18 = arg3;
+  textbox.unk1A = arg4;
+  InitTextboxDisplay_inline();
+  RunTextRenderTask_inline(&textbox);
 }
 
 void sub_8041B38 (void) {
@@ -576,7 +587,7 @@ void sub_8041B38 (void) {
     CpuCopy32(g80F2C30[i], gBgVram.cbb0 + 0xE800 + i * 64, 64);
 
   CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x87A0, gE0D14C, 0x801); 
-  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gE0D15D, 0x101); //empty text box
+  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gSpaces, 0x101); //empty text box
   WaitForVBlank();
   sub_8041014();
   REG_WINOUT = 30;
@@ -588,37 +599,14 @@ void sub_8041B38 (void) {
   REG_DISPCNT = DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON | DISPCNT_WIN1_ON;
 }
 
-void sub_8041BE8 (struct Test8041240* test) {
-  while (test->unkC[test->unk0]) {
-    switch (test->unk8) {
-      case 0:
-        sub_8041284(test);
-        break;
-      case 1:
-        sub_80415B8(test);
-        break;
-      case 6:
-        sub_8041C68(test);
-        break;
-      case 2:
-        sub_8041690(test);
-        break;
-      case 4:
-        sub_8041884(test);
-        break;
-      case 5:
-        sub_8041924(test);
-        break;
-    }
-    WaitForVBlank();
-    sub_8041014();
-  }
+void RunTextRenderTask (struct Textbox* textbox) {
+  RunTextRenderTask_inline(textbox);
 }
 
-static void sub_8041C68 (struct Test8041240* arg0) {
-  arg0->unk0++;
-  arg0->unk4 = 0;
-  arg0->unk10 = 0;
-  arg0->unk8 = 0;
-  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gE0D15D, 0x101);
+static void ClearTextboxAndAdvance (struct Textbox* textbox) {
+  textbox->textCursor++;
+  textbox->tileCursor = 0;
+  textbox->blinkFrameCounter = 0;
+  textbox->mode = 0;
+  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gSpaces, 0x101);
 }

@@ -2137,9 +2137,9 @@ void sub_804F2F0 (void) {
       sub_804F62C_inline(i, gOverworld.objects[i].direction);
       gOverworld.objects[i].unk1A--;
     }
-    else if (!sub_8056258(0, 20)) {
-      gOverworld.objects[i].direction = sub_8056258(0, 3);
-      gOverworld.objects[i].unk1A = sub_8056258(5, 20) * 4;
+    else if (!RandRangeU8(0, 20)) {
+      gOverworld.objects[i].direction = RandRangeU8(0, 3);
+      gOverworld.objects[i].unk1A = RandRangeU8(5, 20) * 4;
     }
   }
 }

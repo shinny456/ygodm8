@@ -1477,7 +1477,7 @@ sub_802417C: @ 0x0802417C
 	bl sub_80325D4
 	movs r0, #0
 	movs r1, #1
-	bl sub_8056258
+	bl RandRangeU8
 	ldr r4, _080241E4
 	strb r0, [r4]
 	ldr r1, _080241E8
@@ -1555,7 +1555,7 @@ sub_802421C: @ 0x0802421C
 	bl sub_80325D4
 	movs r0, #0
 	movs r1, #1
-	bl sub_8056258
+	bl RandRangeU8
 	adds r1, r0, #0
 	ldr r0, _0802427C @ =0x03000C78
 	strb r1, [r0]
@@ -1618,7 +1618,7 @@ sub_80242A0: @ 0x080242A0
 	bl sub_80325D4
 	movs r0, #0
 	movs r1, #1
-	bl sub_8056258
+	bl RandRangeU8
 	adds r1, r0, #0
 	ldr r0, _08024300 @ =0x03000C78
 	strb r1, [r0]

@@ -22,7 +22,7 @@ extern s8 g8E0F6AC[];
 u16 RandRangeU16 (u16, u16);
 void RestoreLfsrState (void);
 void LfsrNextByte (void);
-int sub_8056258 (u8, u8);
+int RandRangeU8 (u8, u8);
 void sub_805787C (int);
 
 
@@ -309,7 +309,7 @@ void sub_80540B0 (struct ScriptCtx* script) {
   temp |= gUnk_8E0CD14[3];
   SaveLfsrState(temp);
   LfsrNextByte();
-  text = GetCurrentLanguageString(g8E0F4F4[sub_8056258(0, 3)]);
+  text = GetCurrentLanguageString(g8E0F4F4[RandRangeU8(0, 3)]);
 
   for (r4 = 0, r5 = 0; r5 < 80 && text[r4] && text[r4] != '$'; r4++, r5++) {
     if (text[r4] > 127) {
@@ -336,7 +336,7 @@ void sub_8054150 (struct ScriptCtx* script) {
   SaveLfsrState(temp);
   LfsrNextByte();
   LfsrNextByte();
-  text = GetCurrentLanguageString(g8E0F504[sub_8056258(0, 8)]);
+  text = GetCurrentLanguageString(g8E0F504[RandRangeU8(0, 8)]);
 
   for (r4 = 0, r5 = 0; r5 < 80 && text[r4] && text[r4] != '$'; r4++, r5++) {
     if (text[r4] > 127) {
@@ -365,7 +365,7 @@ void sub_80541F4 (struct ScriptCtx* script) {
   for (r5 = 0; r5 < 3; r5++)
     LfsrNextByte();
 
-  text = GetCurrentLanguageString(g8E0F528[sub_8056258(0, 5)]);
+  text = GetCurrentLanguageString(g8E0F528[RandRangeU8(0, 5)]);
 
   for (r5 = 0, r1 = 0; r1 < 80 && text[r5] && text[r5] != '$'; r5++, r1++) {
     if (text[r5] > 127) {
@@ -394,7 +394,7 @@ void sub_805429C (struct ScriptCtx* script) {
   for (r5 = 0; r5 < 4; r5++)
     LfsrNextByte();
 
-  text = g8E0F540[sub_8056258(0, 20)];
+  text = g8E0F540[RandRangeU8(0, 20)];
 
   for (r5 = 0; r5 < 80 && text[r5]; r5 +=2) {
     script->unk22[r5] = text[r5];
@@ -420,7 +420,7 @@ void sub_8054320 (struct ScriptCtx* script) {
   for (r5 = 0; r5 < 5; r5++)
     LfsrNextByte();
 
-  text = g8E0F594[sub_8056258(0, 20)];
+  text = g8E0F594[RandRangeU8(0, 20)];
 
   for (r5 = 0; r5< 80 && text[r5]; r5 +=2) {
     script->unk22[r5] = text[r5];
@@ -446,7 +446,7 @@ void sub_80543A4 (struct ScriptCtx* script) {
   for (r5 = 0; r5 < 6; r5++)
     LfsrNextByte();
 
-  text = GetCurrentLanguageString(g8E0F5E8[sub_8056258(0, 5)]);
+  text = GetCurrentLanguageString(g8E0F5E8[RandRangeU8(0, 5)]);
 
   for (r5 = 0, r1 = 0; r1 < 80 && text[r5] && text[r5] != '$'; r5++, r1++) {
     if (text[r5] > 127) {
@@ -475,7 +475,7 @@ void sub_805444C (struct ScriptCtx* script) {
   for (r5 = 0; r5 < 7; r5++)
     LfsrNextByte();
 
-  text = GetCurrentLanguageString(g8E0F600[sub_8056258(0, 5)]);
+  text = GetCurrentLanguageString(g8E0F600[RandRangeU8(0, 5)]);
 
   for (r5 = 0, r1 = 0; r1 < 80 && text[r5] && text[r5] != '$'; r5++, r1++) {
     if (text[r5] > 127) {
@@ -504,7 +504,7 @@ void sub_80544F4 (struct ScriptCtx* script) {
   for (r5 = 0; r5 < 8; r5++)
     LfsrNextByte();
 
-  text = GetCurrentLanguageString(g8E0F4F4[sub_8056258(0, 3)]);
+  text = GetCurrentLanguageString(g8E0F4F4[RandRangeU8(0, 3)]);
 
   for (r5 = 0, r1 = 0; r1 < 80 && text[r5] && text[r5] != '$'; r5++, r1++) {
     if (text[r5] > 127) {
@@ -533,7 +533,7 @@ void sub_805459C (struct ScriptCtx* script) {
   for (r5 = 0; r5 < 9; r5++)
     LfsrNextByte();
 
-  text = GetCurrentLanguageString(g8E0F528[sub_8056258(0, 5)]);
+  text = GetCurrentLanguageString(g8E0F528[RandRangeU8(0, 5)]);
 
   for (r5 = 0, r1 = 0; r1 < 80 && text[r5] && text[r5] != '$'; r5++, r1++) {
     if (text[r5] > 127) {
@@ -761,7 +761,7 @@ void sub_80547D0 (struct ScriptCtx* script) {
   for (r5 = 0; r5 < 11; r5++)
     LfsrNextByte();
 
-  text = GetCurrentLanguageString(g8E0F4F4[sub_8056258(0, 3)]);
+  text = GetCurrentLanguageString(g8E0F4F4[RandRangeU8(0, 3)]);
 
   for (r5 = 0, r1 = 0; r1 < 80 && text[r5] && text[r5] != '$'; r5++, r1++) {
     if (text[r5] > 127) {
@@ -790,7 +790,7 @@ void sub_8054878 (struct ScriptCtx* script) {
   for (r5 = 0; r5 < 12; r5++)
     LfsrNextByte();
 
-  text = GetCurrentLanguageString(g8E0F504[sub_8056258(0, 8)]);
+  text = GetCurrentLanguageString(g8E0F504[RandRangeU8(0, 8)]);
 
   for (r5 = 0, r1 = 0; r1 < 80 && text[r5] && text[r5] != '$'; r5++, r1++) {
     if (text[r5] > 127) {

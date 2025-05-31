@@ -28,8 +28,8 @@ static void sub_80358F8 (void);
 static void CopySpriteTilesAndPalette (void);
 static void sub_8035988 (void);
 static void sub_8035994 (unsigned char, const struct Unk8E0CD80*, unsigned short*); //TODO change oam type?
-static void sub_80359D0 (void);
-static void sub_80359F0 (void);
+static void SetArrowTilemapToYes (void);
+static void SetArrowTilemapToNo (void);
 static void VBlankCbInitGfxRegs (void);
 static void VBlankCbTitleScreen (void);
 static void VBlankCbOptionSwitch (void);
@@ -122,7 +122,7 @@ static unsigned char TryStartNewGame (void) {
   PlayMusic(SFX_CODE_ENTRY_SUCCESS);
   SetVBlankCallback(VBlankCbTryStartNewGame);
   WaitForVBlank();
-  sub_80359F0(); // set arrow tilemap entry to No
+  SetArrowTilemapToNo();
   LoadCharblock3();
   keepProcessing = 1;
   while (keepProcessing == 1) {
@@ -136,14 +136,14 @@ static unsigned char TryStartNewGame (void) {
         break;
       case NEW_DPAD_UP:
         choseNo = 1;
-        sub_80359F0();
+        SetArrowTilemapToNo();
         PlayMusic(SFX_MOVE_CURSOR);
         WaitForVBlank();
         LoadCharblock3();
         break;
       case NEW_DPAD_DOWN:
         choseNo = 0;
-        sub_80359D0(); //set arrow tilemap entry to Yes
+        SetArrowTilemapToYes();
         PlayMusic(SFX_MOVE_CURSOR);
         WaitForVBlank();
         LoadCharblock3();
@@ -422,12 +422,12 @@ static void sub_8035994 (unsigned char arg0, const struct Unk8E0CD80* arg1, unsi
   }
 }
 
-static void sub_80359D0 (void) {
+static void SetArrowTilemapToYes (void) {
   gVr.b[0x796D] = 0;
   gVr.b[0x798D] = 1;
 }
 
-static void sub_80359F0 (void) {
+static void SetArrowTilemapToNo (void) {
   gVr.b[0x796D] = 1;
   gVr.b[0x798D] = 0;
 }

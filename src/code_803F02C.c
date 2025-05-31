@@ -1239,7 +1239,7 @@ static unsigned char ProcessInput (void) {
 
 
 void UpdateDuelGfxExceptField (void);
-void sub_80082C0 (void);
+void InitButtonMaps (void);
 void DisplayCardInfoBar (void);
 void sub_8041E70 (unsigned char, unsigned char);
 void MoveCursorUp (void);
@@ -1264,7 +1264,7 @@ void PlayerTurnMain (void) {
   TryActivatingPermanentEffects();
   if (IsDuelOver() == TRUE)
     return;
-  sub_80082C0();
+  InitButtonMaps();
   while (IsDuelOver() != TRUE && gIsPlayerTurnOver != TRUE) {
     unsigned char y = gDuelCursor.currentY;
     switch (ProcessInput()) {

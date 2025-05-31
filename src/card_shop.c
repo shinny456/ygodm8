@@ -2801,7 +2801,7 @@ static void sub_802F5B0 (void) {
   CpuFill16(0, gBgVram.sbb1E[24] + 16, 0x1E0);
 
   r4 = 0;
-  i = sub_8020698(gCardInfo.name);
+  i = GetLanguageStringOffset(gCardInfo.name);
   r5 = 0;
   while (r5 < 15 && gCardInfo.name[i] && gCardInfo.name[i] != '$') {
     if (gCardInfo.name[i] > 127) {

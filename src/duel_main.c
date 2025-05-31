@@ -50,7 +50,7 @@ void DecrementSorlTurns(unsigned char);
 void UnlockCardsInRow(unsigned char);
 void SetDuelType(unsigned char);
 void ClearDuelDecks(void);
-void sub_8043E14(unsigned char, u16);
+void InitDuelDeck(unsigned char, u16);
 void ShuffleDuelDeck(unsigned char);
 void InitBoard(void);
 void sub_8041090();
@@ -138,11 +138,11 @@ static void InitIngameDuel (void) {
   gDuelData.winMusic = gUnk8E00B30[gDuelData.opponent]->winMusic;
   gDuelData.lossMusic = gUnk8E00B30[gDuelData.opponent]->lossMusic;
   ClearDuelDecks();
-  sub_8043E14(0, 0);
-  sub_8043E14(1, gDuelData.opponent);
+  InitDuelDeck(DUEL_PLAYER, 0);
+  InitDuelDeck(DUEL_OPPONENT, gDuelData.opponent);
   for (i = 0; i < 2; i++)
     ShuffleDuelDeck(i);
-  if (!sub_8056258(0, 1))
+  if (!RandRangeU8(0, 1))
     gWhoseTurn = DUEL_PLAYER;
   else
     gWhoseTurn = DUEL_OPPONENT;
@@ -330,7 +330,7 @@ void sub_802417C(void);
 s32 GetCardsDrawn(unsigned char);
 void IncreaseDeckCapacity(u32);
 void SaveGame(void);
-void InitDuelDeck(unsigned char, u16*);
+void InitCardsForDuelDeck(unsigned char, u16*);
 void SetWhoseTurnToPlayer(void);
 
 void LinkDuelMain (void) {
@@ -632,7 +632,7 @@ static void sub_8022234 (void) {
   gDuelData.winMusic = 43;
   gDuelData.lossMusic = 44;
   ClearDuelDecks();
-  InitDuelDeck(DUEL_PLAYER, gDeckMenu.cards);
+  InitCardsForDuelDeck(DUEL_PLAYER, gDeckMenu.cards);
   ShuffleDuelDeck(0);
   SetWhoseTurnToPlayer();
 }
