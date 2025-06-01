@@ -1950,13 +1950,13 @@ void sub_80572A8 (unsigned char* arg0, struct DuelCard* arg1) {
   if (gCardInfo.spellEffect != 2 /*TODO: SPELL_EFFECT_NONE_MONSTER*/)
     return;
   if (gCardInfo.atk / 100 > 99)
-    ConvertU16ToDecimalDigits(99, DIGIT_FLAG_NONE);
+    ConvertU16ToDigitArray(99, DIGIT_FLAG_NONE);
   else
-    ConvertU16ToDecimalDigits(gCardInfo.atk / 100, DIGIT_FLAG_NONE);
+    ConvertU16ToDigitArray(gCardInfo.atk / 100, DIGIT_FLAG_NONE);
   arg0 += 0x800;
-  CpuCopy16(g89A81DE + gDecimalDigitsU16[3] * 64, arg0, 0x40);
+  CpuCopy16(g89A81DE + gDigitArrayU16[3] * 64, arg0, 0x40);
   arg0 += 0x40;
-  CpuCopy16(g89A7F1E[gDecimalDigitsU16[4]], arg0, 0x40);
+  CpuCopy16(g89A7F1E[gDigitArrayU16[4]], arg0, 0x40);
 }
 
 void sub_805733C (unsigned char* arg0, struct DuelCard* arg1) {
@@ -1967,13 +1967,13 @@ void sub_805733C (unsigned char* arg0, struct DuelCard* arg1) {
   if (gCardInfo.spellEffect != 2 /*TODO: SPELL_EFFECT_NONE_MONSTER*/)
     return;
   if (gCardInfo.def / 100 > 99)
-    ConvertU16ToDecimalDigits(99, DIGIT_FLAG_NONE);
+    ConvertU16ToDigitArray(99, DIGIT_FLAG_NONE);
   else
-    ConvertU16ToDecimalDigits(gCardInfo.def / 100, DIGIT_FLAG_NONE);
+    ConvertU16ToDigitArray(gCardInfo.def / 100, DIGIT_FLAG_NONE);
   arg0 += 0x880;
-  CpuCopy16(g89A875E[gDecimalDigitsU16[3]], arg0, 0x40);
+  CpuCopy16(g89A875E[gDigitArrayU16[3]], arg0, 0x40);
   arg0 += 0x40;
-  CpuCopy16(g89A849E[gDecimalDigitsU16[4]], arg0, 0x40);
+  CpuCopy16(g89A849E[gDigitArrayU16[4]], arg0, 0x40);
 }
 
 void sub_80573D0 (unsigned char* arg0, unsigned short cardId) {

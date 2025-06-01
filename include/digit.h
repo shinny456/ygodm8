@@ -14,7 +14,7 @@ enum DigitFlags {
 
 
 void sub_800DD4C (void);
-void ConvertU16ToDecimalDigits (unsigned short, unsigned char);
-void ConvertU64ToDecimalDigits (unsigned long long, unsigned char);
+void ConvertU16ToDigitArray (unsigned short, unsigned char);
+void ConvertU64ToDigitArray (unsigned long long, unsigned char);
 
 #endif // GUARD_DIGIT_H

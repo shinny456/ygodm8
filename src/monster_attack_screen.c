@@ -1301,17 +1301,17 @@ static void sub_801C870 (unsigned char arg0) {
   else
     arg0 = 124;
   temp = 0x3C;
-  ConvertU16ToDecimalDigits(gE008B4->unk0, DIGIT_FLAG_NONE);
+  ConvertU16ToDigitArray(gE008B4->unk0, DIGIT_FLAG_NONE);
   for (i = 0; i < 7; i++) {
     if (i < 2) {
       gOamBuffer[i * 4] = gE00880[i + 10]->oam->attr0 | temp;
       gOamBuffer[i * 4 + 1] = gE00880[i + 10]->oam->attr1 | arg0;
       gOamBuffer[i * 4 + 2] = gE00880[i + 10]->oam->attr2;
     }
-    else if (gDecimalDigitsU16[i - 2] != 10) {
-      gOamBuffer[i * 4] = gE00880[gDecimalDigitsU16[i - 2]]->oam->attr0 | temp;
-      gOamBuffer[i * 4 + 1] = gE00880[gDecimalDigitsU16[i - 2]]->oam->attr1 | arg0;
-      gOamBuffer[i * 4 + 2] = gE00880[gDecimalDigitsU16[i - 2]]->oam->attr2;
+    else if (gDigitArrayU16[i - 2] != 10) {
+      gOamBuffer[i * 4] = gE00880[gDigitArrayU16[i - 2]]->oam->attr0 | temp;
+      gOamBuffer[i * 4 + 1] = gE00880[gDigitArrayU16[i - 2]]->oam->attr1 | arg0;
+      gOamBuffer[i * 4 + 2] = gE00880[gDigitArrayU16[i - 2]]->oam->attr2;
     }
     else {
       gOamBuffer[i * 4] = 0xA0;

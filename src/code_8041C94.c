@@ -208,31 +208,31 @@ void DisplayCardNameInInfoBar (void) {
 
 void DisplayCardAtkDefInInfoBar (void) {
   u8 i = 0;
-  ConvertU16ToDecimalDigits(gCardInfo.atk, DIGIT_FLAG_NONE);
-  if (gCardInfo.atk != 0xFFFF && gDecimalDigitsU16[0] == DIGIT_UNUSED) {
+  ConvertU16ToDigitArray(gCardInfo.atk, DIGIT_FLAG_NONE);
+  if (gCardInfo.atk != 0xFFFF && gDigitArrayU16[0] == DIGIT_UNUSED) {
     i = 1;
     CopySwordTile(gBgVram.cbb0 + 0x83C0);
   }
   for (; i < MAX_U16_DIGITS; i++) {
-    sub_8020968(gBgVram.cbb0 + 0x83C0 + i * 32, gDecimalDigitsU16[i][g8E0D5B0], 0x801);
+    sub_8020968(gBgVram.cbb0 + 0x83C0 + i * 32, gDigitArrayU16[i][g8E0D5B0], 0x801);
   }
   i = 0;
-  ConvertU16ToDecimalDigits(gCardInfo.def, DIGIT_FLAG_NONE);
-  if (gCardInfo.def != 0xFFFF && gDecimalDigitsU16[0] == DIGIT_UNUSED) {
+  ConvertU16ToDigitArray(gCardInfo.def, DIGIT_FLAG_NONE);
+  if (gCardInfo.def != 0xFFFF && gDigitArrayU16[0] == DIGIT_UNUSED) {
     i = 1;
     CopyShieldTile(gBgVram.cbb0 + 0x8460);
   }
   for (; i < MAX_U16_DIGITS; i++)
-    sub_8020968(gBgVram.cbb0 + 0x8460 + i * 32, gDecimalDigitsU16[i][g8E0D5B0], 0x801);
+    sub_8020968(gBgVram.cbb0 + 0x8460 + i * 32, gDigitArrayU16[i][g8E0D5B0], 0x801);
 }
 
 void DisplayCardLevelInInfoBar (void) {
   if (gCardInfo.level) {
     u8 i;
     CopyStarTile(gBgVram.cbb0 + 0x8040);
-    ConvertU16ToDecimalDigits(gCardInfo.level, DIGIT_FLAG_ALIGN_LEFT);
+    ConvertU16ToDigitArray(gCardInfo.level, DIGIT_FLAG_ALIGN_LEFT);
     for (i = 0; i < 2; i++)
-      sub_8020968(gBgVram.cbb0 + 0x8040 + (i + 1) * 32, gDecimalDigitsU16[i][g8E0D5B0], 0x801);
+      sub_8020968(gBgVram.cbb0 + 0x8040 + (i + 1) * 32, gDigitArrayU16[i][g8E0D5B0], 0x801);
   }
   else {
     CpuCopy16(gBgVram.cbb0 + 0x8000, gBgVram.cbb0 + 0x8040, 32);

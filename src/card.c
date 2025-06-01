@@ -815,16 +815,16 @@ static void sub_800BC24(void)
     u8 i;
     u8* vram;
 
-    ConvertU16ToDecimalDigits(gCardInfo.cost, DIGIT_FLAG_NONE);
+    ConvertU16ToDigitArray(gCardInfo.cost, DIGIT_FLAG_NONE);
     vram = &gBgVram.cbb1[128*32];
 
     for (i = 0; i < 10; i++)
     {
-        if (gDecimalDigitsU16[i - 5] == 10 || i < 5)
+        if (gDigitArrayU16[i - 5] == 10 || i < 5)
             sub_8020968(vram, 0x4081, 0x101);
         else
         {
-            s32 arg1 = ((gDecimalDigitsU16[i - 5] + 0x824F) & 0xFF << 8) | ((gDecimalDigitsU16[i - 5] + 0x824F) & 0xFF00 >> 8);
+            s32 arg1 = ((gDigitArrayU16[i - 5] + 0x824F) & 0xFF << 8) | ((gDigitArrayU16[i - 5] + 0x824F) & 0xFF00 >> 8);
             sub_8020968(vram, arg1, 0x101);
         }
 
@@ -844,7 +844,7 @@ static void sub_800BC24(void)
 	ldr r0, _0800BC50\n\
 	ldrh r0, [r0, #0xc]\n\
 	movs r1, #0\n\
-	bl ConvertU16ToDecimalDigits\n\
+	bl ConvertU16ToDigitArray\n\
 	ldr r5, _0800BC54\n\
 	movs r4, #0\n\
 _0800BC34:\n\
@@ -1806,10 +1806,10 @@ void sub_800CCAC(void)
     CopyStringTilesToVRAMBuffer(gVr.a + 0x8020, g80AEA74, 0x801);
     CopyStringTilesToVRAMBuffer(gVr.a + 0x8040, g80AEA78, 0x901);
     gVr.b[0x5C2F] = 0x5001; //slash
-    ConvertU16ToDecimalDigits(GetDeckCapacity(), DIGIT_FLAG_NONE);
+    ConvertU16ToDigitArray(GetDeckCapacity(), DIGIT_FLAG_NONE);
 
     for (i = 0; i < 5; i++)
-      gVr.b[i + 0x5C30] = gDecimalDigitsU16[i] + 0x5209; //deck capacity digits
+      gVr.b[i + 0x5C30] = gDigitArrayU16[i] + 0x5209; //deck capacity digits
     gVr.b[0x5C38] = 0x5001; //slash
     gVr.b[0x5C39] = 0x520D; //4
     gVr.b[0x5C3A] = 0x5209; //0

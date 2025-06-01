@@ -590,7 +590,7 @@ void sub_8024354(void);
 extern u8 g3000C6C;
 
 void sub_803EEFC (u8, const u16*, u16);
-extern u8 gDecimalDigitsU16[];
+extern u8 gDigitArrayU16[];
 void sub_801CF08(void);
 void sub_8041CCC (u16, u16);
 void sub_8041D14 (u16, u16);

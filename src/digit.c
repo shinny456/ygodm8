@@ -18,7 +18,7 @@ static void sub_800DD88 (unsigned char* src, unsigned char* dest) {
       *dest = *src;
 }
 
-void ConvertU16ToDecimalDigits (u16 val, u8 flags) {
+void ConvertU16ToDigitArray (u16 val, u8 flags) {
   u8 digitIndex = 0;
   u8 outputIndex = 0;
   u16 powerOf10 = 10000;
@@ -27,27 +27,27 @@ void ConvertU16ToDecimalDigits (u16 val, u8 flags) {
 
   // clear buffer
   for (i = 0; i < MAX_U16_DIGITS; i++)
-    gDecimalDigitsU16[i] = DIGIT_UNUSED;
+    gDigitArrayU16[i] = DIGIT_UNUSED;
 
   if (val != 0xFFFF) {
     if (flags & DIGIT_FLAG_ALIGN_LEFT)
-      gDecimalDigitsU16[0] = 0;
+      gDigitArrayU16[0] = 0;
     for (; digitIndex < MAX_U16_DIGITS; digitIndex++, val -= digit * powerOf10, powerOf10 /= 10) {
       digit = val / powerOf10;
       if (digit)
-        gDecimalDigitsU16[outputIndex] = digit;
+        gDigitArrayU16[outputIndex] = digit;
       else if (outputIndex) {
-        if (gDecimalDigitsU16[outputIndex - 1] != DIGIT_UNUSED)
-          gDecimalDigitsU16[outputIndex] = digit;
+        if (gDigitArrayU16[outputIndex - 1] != DIGIT_UNUSED)
+          gDigitArrayU16[outputIndex] = digit;
         else if (outputIndex == MAX_U16_DIGITS - 1)
-          gDecimalDigitsU16[MAX_U16_DIGITS - 1] = digit;
+          gDigitArrayU16[MAX_U16_DIGITS - 1] = digit;
       }
       if (!digit) {
         if (!outputIndex) {
           if (!(flags & DIGIT_FLAG_ALIGN_LEFT))
             outputIndex = 1;
         }
-        else if (gDecimalDigitsU16[outputIndex - 1] != DIGIT_UNUSED || !(flags & 1))
+        else if (gDigitArrayU16[outputIndex - 1] != DIGIT_UNUSED || !(flags & 1))
           outputIndex++;
       }
       else
@@ -57,12 +57,12 @@ void ConvertU16ToDecimalDigits (u16 val, u8 flags) {
 
   if (flags & DIGIT_FLAG_DISPLAY_LEADING_ZEROES) {
     for (i = 0; i < MAX_U16_DIGITS; i++)
-      if (gDecimalDigitsU16[i] == 10)
-        gDecimalDigitsU16[i] = 0;
+      if (gDigitArrayU16[i] == DIGIT_UNUSED)
+        gDigitArrayU16[i] = 0;
   }
 }
 
-void ConvertU64ToDecimalDigits (u64 val, u8 flags) {
+void ConvertU64ToDigitArray (u64 val, u8 flags) {
   u8 digitIndex = 0;
   u8 outputIndex = 0;
   u64 powerOf10;
@@ -71,36 +71,37 @@ void ConvertU64ToDecimalDigits (u64 val, u8 flags) {
 
   // clear buffer
   for (i = 0; i < MAX_U64_DIGITS; i++)
-    gDecimalDigitsU64[i] = DIGIT_UNUSED;
+    gDigitArrayU64[i] = DIGIT_UNUSED;
 
   if (flags & DIGIT_FLAG_ALIGN_LEFT)
-    gDecimalDigitsU64[0] = 0;
+    gDigitArrayU64[0] = 0;
 
   powerOf10 = 1000000000000000000;
   for (; digitIndex < MAX_U64_DIGITS; digitIndex++, val -= digit * powerOf10, powerOf10 /= 10) {
     digit = val / powerOf10;
     if (digit)
-      gDecimalDigitsU64[outputIndex] = digit;
+      gDigitArrayU64[outputIndex] = digit;
     else if (outputIndex) {
-      if (gDecimalDigitsU64[outputIndex - 1] != DIGIT_UNUSED)
-        gDecimalDigitsU64[outputIndex] = digit;
+      if (gDigitArrayU64[outputIndex - 1] != DIGIT_UNUSED)
+        gDigitArrayU64[outputIndex] = digit;
       else if (outputIndex == MAX_U64_DIGITS - 1)
-        gDecimalDigitsU64[MAX_U64_DIGITS - 1] = digit;
+        gDigitArrayU64[MAX_U64_DIGITS - 1] = digit;
     }
     if (!digit) {
       if (!outputIndex) {
         if (!(flags & DIGIT_FLAG_ALIGN_LEFT))
           outputIndex = 1;
       }
-      else if (gDecimalDigitsU64[outputIndex - 1] != DIGIT_UNUSED || !(flags & 1))
+      else if (gDigitArrayU64[outputIndex - 1] != DIGIT_UNUSED || !(flags & 1))
         outputIndex++;
     }
     else
       outputIndex++;
   }
+  
   if (flags & DIGIT_FLAG_DISPLAY_LEADING_ZEROES) {
     for (i = 0; i < MAX_U64_DIGITS; i++)
-      if (gDecimalDigitsU64[i] == DIGIT_UNUSED)
-        gDecimalDigitsU64[i] = 0;
+      if (gDigitArrayU64[i] == DIGIT_UNUSED)
+        gDigitArrayU64[i] = 0;
   }
 }

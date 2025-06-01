@@ -499,18 +499,18 @@ void RenderNextCardDescChar (struct Textbox* textbox) {
   u16 r3;
   unsigned char* r0;
   if (!textbox->glyphOffset) {
-    ConvertU16ToDecimalDigits(textbox->cardId, DIGIT_FLAG_NONE);
-    while (gDecimalDigitsU16[textbox->glyphOffset] == 10)
+    ConvertU16ToDigitArray(textbox->cardId, DIGIT_FLAG_NONE);
+    while (gDigitArrayU16[textbox->glyphOffset] == DIGIT_UNUSED)
       textbox->glyphOffset++;
   }
   if (textbox->tileCursor % 2) {
     sub_8020968(gBgVram.cbb0 + 0x88C0 + textbox->tileCursor / 2 * 128,
-                gFontTileGlyphs[gDecimalDigitsU16[textbox->glyphOffset] * 2 + 1] << 8 | gFontTileGlyphs[gDecimalDigitsU16[textbox->glyphOffset] * 2],
+                gFontTileGlyphs[gDigitArrayU16[textbox->glyphOffset] * 2 + 1] << 8 | gFontTileGlyphs[gDigitArrayU16[textbox->glyphOffset] * 2],
                 0x101);
   }
   else {
     sub_8020968(gBgVram.cbb0 + 0x88A0 + textbox->tileCursor / 2 * 128,
-                gFontTileGlyphs[gDecimalDigitsU16[textbox->glyphOffset] * 2 + 1] << 8 | gFontTileGlyphs[gDecimalDigitsU16[textbox->glyphOffset] * 2],
+                gFontTileGlyphs[gDigitArrayU16[textbox->glyphOffset] * 2 + 1] << 8 | gFontTileGlyphs[gDigitArrayU16[textbox->glyphOffset] * 2],
                 0x101);
   }
   textbox->tileCursor++;

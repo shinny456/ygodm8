@@ -571,7 +571,7 @@ _080426FC:\n\
 	ldr r0, _08042780\n\
 	ldrh r0, [r0]\n\
 	movs r1, #0\n\
-	bl ConvertU16ToDecimalDigits\n\
+	bl ConvertU16ToDigitArray\n\
 	movs r6, #0\n\
 	ldr r1, _08042784\n\
 	adds r7, r5, r1\n\
@@ -623,7 +623,7 @@ _08042790:\n\
 	ldr r0, _080427F4\n\
 	ldrh r0, [r0, #2]\n\
 	movs r1, #0\n\
-	bl ConvertU16ToDecimalDigits\n\
+	bl ConvertU16ToDigitArray\n\
 	movs r6, #0\n\
 	ldr r7, _080427F8\n\
 	ldr r5, _080427FC\n\
@@ -674,7 +674,7 @@ _08042804:\n\
 	movs r0, #0\n\
 _08042806:\n\
 	movs r1, #0\n\
-	bl ConvertU16ToDecimalDigits\n\
+	bl ConvertU16ToDigitArray\n\
   \n\
   \n\
 	movs r6, #0\n\
@@ -722,7 +722,7 @@ _08042864:\n\
 	movs r0, #0\n\
 _08042866:\n\
 	movs r1, #0\n\
-	bl ConvertU16ToDecimalDigits\n\
+	bl ConvertU16ToDigitArray\n\
 	movs r6, #0\n\
 	ldr r7, _080428E0\n\
 	ldr r5, _080428E4\n\
@@ -877,13 +877,13 @@ void InitBMenu (unsigned char arg0) {
   buffer[i] = 0;
   CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x9280, buffer, 0x901);
 
-  ConvertU16ToDecimalDigits(gDuelLifePoints[DUEL_PLAYER], DIGIT_FLAG_NONE);
+  ConvertU16ToDigitArray(gDuelLifePoints[DUEL_PLAYER], DIGIT_FLAG_NONE);
   for (i = 0; i < 5; i++) {
-    *(u16*)(gBgVram.cbb0 + (0x75AC - i) * 2) = gDecimalDigitsU16[4 - i] + 65 | 0x3000;
+    *(u16*)(gBgVram.cbb0 + (0x75AC - i) * 2) = gDigitArrayU16[4 - i] + 65 | 0x3000;
   }
-  ConvertU16ToDecimalDigits(gDuelLifePoints[DUEL_OPPONENT], DIGIT_FLAG_NONE);
+  ConvertU16ToDigitArray(gDuelLifePoints[DUEL_OPPONENT], DIGIT_FLAG_NONE);
   for (i = 0; i < 5; i++) {
-    *(u16*)(gBgVram.cbb0 + (0x74EC - i) * 2) = gDecimalDigitsU16[4 - i] + 65 | 0x3000;
+    *(u16*)(gBgVram.cbb0 + (0x74EC - i) * 2) = gDigitArrayU16[4 - i] + 65 | 0x3000;
   }
   r4two = GetCardsDrawn(0);
   r0 = (unsigned char)NumCardsInDeck(0);
@@ -891,10 +891,10 @@ void InitBMenu (unsigned char arg0) {
     r0 -= r4two;
   else
     r0 = 0;
-  ConvertU16ToDecimalDigits(r0, DIGIT_FLAG_NONE);
+  ConvertU16ToDigitArray(r0, DIGIT_FLAG_NONE);
 
   for (i = 0; i < 2; i++)
-    *(u16*)(gBgVram.cbb0 + (0x758A - i) * 2) = gDecimalDigitsU16[4 - i] + 65 | 0x3000;
+    *(u16*)(gBgVram.cbb0 + (0x758A - i) * 2) = gDigitArrayU16[4 - i] + 65 | 0x3000;
 
   r4two = GetCardsDrawn(1);
   r0 = (unsigned char)NumCardsInDeck(1);
@@ -902,9 +902,9 @@ void InitBMenu (unsigned char arg0) {
     r0 -= r4two;
   else
     r0 = 0;
-  ConvertU16ToDecimalDigits(r0, DIGIT_FLAG_NONE);
+  ConvertU16ToDigitArray(r0, DIGIT_FLAG_NONE);
   for (i = 0; i < 2; i++)
-    *(u16*)(gBgVram.cbb0 + (0x74CA - i) * 2) = gDecimalDigitsU16[4 - i] + 65 | 0x3000;
+    *(u16*)(gBgVram.cbb0 + (0x74CA - i) * 2) = gDigitArrayU16[4 - i] + 65 | 0x3000;
   sub_80428EC(arg0);
   WaitForVBlank();
   sub_8041014();
@@ -1062,19 +1062,19 @@ void sub_8042D14 (void) {
       }
       else
         SetCardInfo(CARD_NONE);
-      ConvertU16ToDecimalDigits(gCardInfo.atk, DIGIT_FLAG_NONE);
-      *r4++ = gDecimalDigitsU16[0] + 0x303D;
-      *r4++ = gDecimalDigitsU16[1] + 0x303D;
-      *r4++ = gDecimalDigitsU16[2] + 0x303D;
-      *r4++ = gDecimalDigitsU16[3] + 0x303D;
-      *r4 = gDecimalDigitsU16[4] + 0x303D;
+      ConvertU16ToDigitArray(gCardInfo.atk, DIGIT_FLAG_NONE);
+      *r4++ = gDigitArrayU16[0] + 0x303D;
+      *r4++ = gDigitArrayU16[1] + 0x303D;
+      *r4++ = gDigitArrayU16[2] + 0x303D;
+      *r4++ = gDigitArrayU16[3] + 0x303D;
+      *r4 = gDigitArrayU16[4] + 0x303D;
       r4 += 28;
-      ConvertU16ToDecimalDigits(gCardInfo.def, DIGIT_FLAG_NONE);
-      *r4++ = gDecimalDigitsU16[0] + 0x303D;
-      *r4++ = gDecimalDigitsU16[1] + 0x303D;
-      *r4++ = gDecimalDigitsU16[2] + 0x303D;
-      *r4++ = gDecimalDigitsU16[3] + 0x303D;
-      *r4 = gDecimalDigitsU16[4] + 0x303D;
+      ConvertU16ToDigitArray(gCardInfo.def, DIGIT_FLAG_NONE);
+      *r4++ = gDigitArrayU16[0] + 0x303D;
+      *r4++ = gDigitArrayU16[1] + 0x303D;
+      *r4++ = gDigitArrayU16[2] + 0x303D;
+      *r4++ = gDigitArrayU16[3] + 0x303D;
+      *r4 = gDigitArrayU16[4] + 0x303D;
     }
   }
 }

@@ -55,7 +55,7 @@ void RemoveCardFromTrunkOrDeck(unsigned);
 extern u8 g2021B10[];
 extern u8 g2021B50[];
 extern u8 g2021B90[];
-extern u8 gDecimalDigitsU64[];
+extern u8 gDigitArrayU64[];
 void HuffUnComp (void*, void*);
 
 enum {
