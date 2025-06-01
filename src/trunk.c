@@ -321,10 +321,10 @@ static void Trunk_A_Submenu (void) {
           case TRUNK_CURSOR_DETAILS:
             SelectDetailsInTrunkSubmenu();
             break;
-          case TRUNK_CURSOR_ADD_CARD:
+          case TRUNK_CURSOR_MOVE_TO_DECK:
             SelectAddToDeckInTrunkSubmenu();
             break;
-          case TRUNK_CURSOR_REMOVE_CARD:
+          case TRUNK_CURSOR_MOVE_TO_TRUNK:
             SelectRemoveFromDeckInTrunkSubmenu();
             break;
         }
