@@ -1,21 +1,5 @@
 #include "global.h"
 
-
-struct Textbox {
-  u32 textCursor;
-  u32 tileCursor;
-  u8 mode;
-  u8 filler9[3];
-  u8* unkC;
-  u16 blinkFrameCounter;
-  u16 cardId;
-  u16 unk14;
-  u16 unk16;
-  u16 unk18;
-  u16 unk1A;
-  u8 glyphOffset;
-};
-
 extern u8 g8E0D588[][5];
 extern u8 g20240E4;
 extern s16 g8E0D5A6[];
@@ -51,12 +35,12 @@ u32 CanOpponentSeeCard (u8, u8);
 void sub_80428EC(u8);
 
 
-void sub_8041C94 (u8* arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4) {
+void sub_8041C94 (u8* textPtr, u16 arg1, u16 arg2, u16 arg3, u16 arg4) {
   struct Textbox textbox;
   textbox.textCursor = 0;
   textbox.tileCursor = 0;
   textbox.mode = 0;
-  textbox.unkC = arg0;
+  textbox.textBuffer = textPtr;
   textbox.blinkFrameCounter = 0;
   textbox.glyphOffset = 0;
   textbox.unk14 = arg1;
@@ -74,7 +58,7 @@ void sub_8041CCC (u16 arg0, u16 arg1) {
   textbox.textCursor = 0;
   textbox.tileCursor = 0;
   textbox.mode = 0;
-  textbox.unkC = temp;
+  textbox.textBuffer = temp;
   textbox.blinkFrameCounter = 0;
   textbox.glyphOffset = 0;
   textbox.unk14 = arg0;
@@ -92,7 +76,7 @@ void sub_8041D14 (u16 arg0, u16 arg1) {
   textbox.textCursor = 0;
   textbox.tileCursor = 0;
   textbox.mode = 0;
-  textbox.unkC = temp;
+  textbox.textBuffer = temp;
   textbox.blinkFrameCounter = 0;
   textbox.glyphOffset = 0;
   textbox.unk14 = arg0;

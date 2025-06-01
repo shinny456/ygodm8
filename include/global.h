@@ -17,6 +17,7 @@
 #include "compression.h"
 #include "deck_menu.h"
 #include "text.h"
+#include "textbox.h"
 #include "duel_main.h"
 
 #include "duel.h"

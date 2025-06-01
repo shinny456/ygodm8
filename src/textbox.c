@@ -1,20 +1,5 @@
 #include "global.h"
 
-struct Textbox {
-  u32 textCursor; // index into textBuffer
-  u32 tileCursor;
-  unsigned char mode; // player name, card desc, card name, etc
-  unsigned char filler9[3];
-  unsigned char* textBuffer; // ptr to text data
-  u16 blinkFrameCounter; // indicator blinks when dialogue can be advanced
-  u16 cardId;
-  u16 unk14;
-  u16 unk16;
-  u16 unk18;
-  u16 unk1A;
-  unsigned char glyphOffset; // used to iterate substrings?
-};
-
 enum TextboxToken {
   MODE_TEXT, // normal text, no token
   MODE_WAIT_INPUT,
