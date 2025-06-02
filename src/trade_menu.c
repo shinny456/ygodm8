@@ -369,27 +369,27 @@ static void sub_8035E14 (void) {
   while (stopProcessing != 1) {
     unsigned short temp2;
     switch (sub_8036150()) {
-      case 0x40:
+      case NEW_DPAD_UP:
         sub_8036CB0(1);
         PlayMusic(SFX_MOVE_CURSOR);
         sub_8039C68();
         break;
-      case 0x80:
+      case NEW_DPAD_DOWN:
         sub_8036C84(1);
         PlayMusic(SFX_MOVE_CURSOR);
         sub_8039CE8();
         break;
-      case 0x140:
+      case NEW_DPAD_UP | REPEAT_R_BUTTON:
         sub_8036CB0(0x32);
         PlayMusic(SFX_MOVE_CURSOR);
         sub_8039BDC();
         break;
-      case 0x180:
+      case NEW_DPAD_DOWN | REPEAT_R_BUTTON:
         sub_8036C84(0x32);
         PlayMusic(SFX_MOVE_CURSOR);
         sub_8039BDC();
         break;
-      case 0x20:
+      case NEW_DPAD_LEFT:
           temp2 = sub_8036C3C(2);
           if (!sub_80384BC(temp2, 1)) {
             sub_8038574(temp2, 1);
@@ -404,7 +404,7 @@ static void sub_8035E14 (void) {
           }
         
         break;
-      case 0x10:
+      case NEW_DPAD_RIGHT:
           temp2 = sub_8036C3C(2);
           if (sub_8036E14(temp2) > 1) {
             sub_8036DBC(temp2, 1);
@@ -422,25 +422,25 @@ static void sub_8035E14 (void) {
           }
         
         break;
-      case 1:
+      case NEW_A_BUTTON:
         sub_8035FC0();
         sub_8039D9C();
         break;
-      case 2:
+      case NEW_B_BUTTON:
         stopProcessing = 1;
         PlayMusic(SFX_CANCEL);
         WaitForVBlank();
         break;
-      case 0x200:
+      case NEW_L_BUTTON:
         sub_8036FCC();
         PlayMusic(SFX_MOVE_CURSOR);
         sub_8039B88();
         break;
-      case 8:
+      case NEW_START_BUTTON:
         sub_8036080();
         sub_8038CE0();
         break;
-      case 4:
+      case NEW_SELECT_BUTTON:
         sub_8036E24();
         sub_8036E64();
         sub_8036CD4();
@@ -462,37 +462,37 @@ static void sub_8035FC0 (void) {
   keepProcessing = 0;
   while (keepProcessing != 1) {
     switch (sub_8036224()) {
-      case 0x40:
+      case REPEAT_DPAD_UP:
         sub_8036ECC();
         PlayMusic(SFX_MOVE_CURSOR);
         sub_8039E44();
         break;
-      case 0x80:
+      case REPEAT_DPAD_DOWN:
         sub_8036EEC();
         PlayMusic(SFX_MOVE_CURSOR);
         sub_8039E44();
         break;
-      case 0x20:
+      case REPEAT_DPAD_LEFT:
         sub_8036F0C();
         PlayMusic(SFX_MOVE_CURSOR);
         sub_8039E44();
         break;
-      case 0x10:
+      case REPEAT_DPAD_RIGHT:
         sub_8036F2C();
         PlayMusic(SFX_MOVE_CURSOR);
         sub_8039E44();
         break;
-      case 1:
+      case NEW_A_BUTTON:
         g8E0CE00[g2023E68]();
         if (g2023E68 == 3)
           keepProcessing = 1;
         break;
-      case 2:
+      case NEW_B_BUTTON:
         keepProcessing = 1;
         PlayMusic(SFX_CANCEL);
         WaitForVBlank();
         break;
-      case 0x200:
+      case NEW_L_BUTTON:
         sub_8036FCC();
         PlayMusic(SFX_MOVE_CURSOR);
         sub_8039B88();
@@ -514,7 +514,7 @@ static void sub_8036080 (void) {
   stopProcessing = 0;
   while (stopProcessing != 1) {
     switch (sub_8036224()) {
-      case 0x40:
+      case REPEAT_DPAD_UP:
         sub_8036F4C();
         switch (g2022EC0.unkFA8) {
           case 10:
@@ -526,7 +526,7 @@ static void sub_8036080 (void) {
         PlayMusic(SFX_MOVE_CURSOR);
         sub_8039F40();
         break;
-      case 0x80:
+      case REPEAT_DPAD_DOWN:
         sub_8036F6C();
         switch (g2022EC0.unkFA8) {
           case 10:
@@ -538,7 +538,7 @@ static void sub_8036080 (void) {
         PlayMusic(SFX_MOVE_CURSOR);
         sub_8039F40();
         break;
-      case 0x20:
+      case REPEAT_DPAD_LEFT:
         sub_8036F8C();
         switch (g2022EC0.unkFA8) {
           case 10:
@@ -550,7 +550,7 @@ static void sub_8036080 (void) {
         PlayMusic(SFX_MOVE_CURSOR);
         sub_8039F40();
         break;
-      case 0x10:
+      case REPEAT_DPAD_RIGHT:
         sub_8036FAC();
         switch (g2022EC0.unkFA8) {
           case 10:
@@ -562,7 +562,7 @@ static void sub_8036080 (void) {
         PlayMusic(SFX_MOVE_CURSOR);
         sub_8039F40();
         break;
-      case 1:
+      case NEW_A_BUTTON:
        switch (g2022EC0.unkFA8) {
           case 10:
             g2022EC0.unkFAA = r6;
@@ -576,8 +576,8 @@ static void sub_8036080 (void) {
         WaitForVBlank();
         stopProcessing = 1;
         break;
-      case 2:
-      case 8:
+      case NEW_B_BUTTON:
+      case NEW_START_BUTTON:
         PlayMusic(SFX_CANCEL);
         g2022EC0.unkFAA = r6;
         WaitForVBlank();
@@ -603,17 +603,17 @@ static unsigned short sub_8036150 (void) {
   if (gNewButtons & SELECT_BUTTON)
     return NEW_SELECT_BUTTON;
   if (gFilteredInput & DPAD_UP && gPressedButtons & R_BUTTON)
-    return 0x140;
+    return NEW_DPAD_UP | R_BUTTON;
   if (gFilteredInput & DPAD_DOWN && gPressedButtons & R_BUTTON)
-    return 0x180;
+    return NEW_DPAD_DOWN | R_BUTTON;
   if (gFilteredInput & DPAD_UP)
-    return DPAD_UP;
+    return NEW_DPAD_UP;
   if (gFilteredInput & DPAD_DOWN)
-    return DPAD_DOWN;
+    return NEW_DPAD_DOWN;
   if (gFilteredInput & DPAD_LEFT)
-    return DPAD_LEFT;
+    return NEW_DPAD_LEFT;
   if (gFilteredInput & DPAD_RIGHT)
-    return DPAD_RIGHT;
+    return NEW_DPAD_RIGHT;
   return 0;
 }
 
@@ -628,13 +628,13 @@ static unsigned short sub_8036224 (void) {
   if (gNewButtons & START_BUTTON)
     return NEW_START_BUTTON;
   if (gFilteredInput & DPAD_UP)
-    return DPAD_UP;
+    return REPEAT_DPAD_UP;
   if (gFilteredInput & DPAD_DOWN)
-    return DPAD_DOWN;
+    return REPEAT_DPAD_DOWN;
   if (gFilteredInput & DPAD_LEFT)
-    return DPAD_LEFT;
+    return REPEAT_DPAD_LEFT;
   if (gFilteredInput & DPAD_RIGHT)
-    return DPAD_RIGHT;
+    return REPEAT_DPAD_RIGHT;
   return 0;
 }
 

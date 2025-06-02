@@ -1038,8 +1038,8 @@ void sub_0800ABE0(void);
 
 extern u8 g8DFF498[];
 extern u8 g8DFF49B[];
-extern u8 gNextUpOptionLowLevelAnteWarningMenu[];
-extern u8 gNextDownOptionLowLevelAnteWarningMenu[];
+extern u8 gNextUpOptionLowLevelAnteWarningPrompt[];
+extern u8 gNextDownOptionLowLevelAnteWarningPrompt[];
 int GetTrunkCardQty(unsigned short);
 void SetVBlankCallback(void (*)(void));
 void WaitForVBlank(void);
@@ -1160,21 +1160,21 @@ static unsigned SelectionMenu (void)
     {
         switch (TrunkSubmenuProcessInput())
         {
-        case DPAD_UP:
+        case REPEAT_DPAD_UP:
             gTrunkMenu.cursorState = g8DFF498[gTrunkMenu.cursorState];
             sub_800C208();
             PlayMusic(SFX_MOVE_CURSOR);
             SetVBlankCallback(LoadOam);
             WaitForVBlank();
             break;
-        case DPAD_DOWN:
+        case REPEAT_DPAD_DOWN:
             gTrunkMenu.cursorState = g8DFF49B[gTrunkMenu.cursorState];
             sub_800C208();
             PlayMusic(SFX_MOVE_CURSOR);
             SetVBlankCallback(LoadOam);
             WaitForVBlank();
             break;
-        case A_BUTTON:
+        case NEW_A_BUTTON:
             switch (gTrunkMenu.cursorState)
             {
             case DUEL_TRUNK_CURSOR_DETAILS:
@@ -1194,7 +1194,7 @@ static unsigned SelectionMenu (void)
                 break;
             }
             break;
-        case B_BUTTON:
+        case NEW_B_BUTTON:
             PlayMusic(SFX_CANCEL);
             keepProcessing = 0;
             break;
@@ -1223,21 +1223,21 @@ static unsigned char LowLevelAntePrompt (void)
     {
         switch (TrunkSubmenuProcessInput())
         {
-        case DPAD_UP:
-            gTrunkMenu.cursorState = gNextUpOptionLowLevelAnteWarningMenu[gTrunkMenu.cursorState];
+        case REPEAT_DPAD_UP:
+            gTrunkMenu.cursorState = gNextUpOptionLowLevelAnteWarningPrompt[gTrunkMenu.cursorState];
             sub_800C264();
             PlayMusic(SFX_MOVE_CURSOR);
             SetVBlankCallback(LoadOam);
             WaitForVBlank();
             break;
-        case DPAD_DOWN:
-            gTrunkMenu.cursorState = gNextDownOptionLowLevelAnteWarningMenu[gTrunkMenu.cursorState];
+        case REPEAT_DPAD_DOWN:
+            gTrunkMenu.cursorState = gNextDownOptionLowLevelAnteWarningPrompt[gTrunkMenu.cursorState];
             sub_800C264();
             PlayMusic(SFX_MOVE_CURSOR);
             SetVBlankCallback(LoadOam);
             WaitForVBlank();
             break;
-        case A_BUTTON:
+        case NEW_A_BUTTON:
             switch (gTrunkMenu.cursorState)
             {
             case 0: // NO
@@ -1254,7 +1254,7 @@ static unsigned char LowLevelAntePrompt (void)
                 break;
             }
             break;
-        case B_BUTTON:
+        case NEW_B_BUTTON:
             PlayMusic(SFX_CANCEL);
             keepProcessing = 0;
             break;

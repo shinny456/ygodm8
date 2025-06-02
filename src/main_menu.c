@@ -140,17 +140,17 @@ void GameMenuMain (void) {
 static unsigned short ProcessInput (void) {
   UpdateFilteredInput_WithRepeat();
   if (gNewButtons & A_BUTTON)
-    return A_BUTTON;
+    return REPEAT_A_BUTTON;
   if (gNewButtons & B_BUTTON)
-    return B_BUTTON;
+    return REPEAT_B_BUTTON;
   if (gFilteredInput & DPAD_UP)
-    return DPAD_UP;
+    return REPEAT_DPAD_UP;
   if (gFilteredInput & DPAD_DOWN)
-    return DPAD_DOWN;
+    return REPEAT_DPAD_DOWN;
   if (gFilteredInput & DPAD_LEFT)
-    return DPAD_LEFT;
+    return REPEAT_DPAD_LEFT;
   if (gFilteredInput & DPAD_RIGHT)
-    return DPAD_RIGHT;
+    return REPEAT_DPAD_RIGHT;
   return 0;
 }
 

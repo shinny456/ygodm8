@@ -868,25 +868,25 @@ void LinkDuelMenu (void) {
 static unsigned short ProcessInput (void) {
   UpdateFilteredInput_WithRepeat();
   if (gNewButtons & A_BUTTON)
-    return 1;
+    return NEW_A_BUTTON;
   if (gNewButtons & B_BUTTON)
-    return 2;
+    return NEW_B_BUTTON;
   if (gNewButtons & SELECT_BUTTON)
-    return 4;
+    return NEW_SELECT_BUTTON;
   if (gNewButtons & START_BUTTON)
-    return 8;
+    return NEW_START_BUTTON;
   if (gRepeatedOrNewButtons & DPAD_UP)
-    return 0x40;
+    return REPEAT_DPAD_UP;
   if (gRepeatedOrNewButtons & DPAD_DOWN)
-    return 0x80;
-  if ((gRepeatedOrNewButtons & DPAD_LEFT) && (gPressedButtons & 0x100))
-    return 0x120;
-  if ((gRepeatedOrNewButtons & DPAD_RIGHT) && (gPressedButtons & 0x100))
-    return 0x110;
+    return REPEAT_DPAD_DOWN;
+  if ((gRepeatedOrNewButtons & DPAD_LEFT) && (gPressedButtons & R_BUTTON))
+    return REPEAT_DPAD_LEFT | REPEAT_R_BUTTON;
+  if ((gRepeatedOrNewButtons & DPAD_RIGHT) && (gPressedButtons & R_BUTTON))
+    return REPEAT_DPAD_RIGHT | REPEAT_R_BUTTON;
   if (gRepeatedOrNewButtons & DPAD_LEFT)
-    return 0x20;
+    return REPEAT_DPAD_LEFT;
   if (gRepeatedOrNewButtons & DPAD_RIGHT)
-    return 0x10;
+    return REPEAT_DPAD_RIGHT;
   return 0;
 }
 

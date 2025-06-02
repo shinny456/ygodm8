@@ -402,8 +402,8 @@ SECTIONS
     g809508C = 0x809508C;
     g8DFCF0C = 0x8DFCF0C;
     g8DFDB90 = 0x8DFDB90;
-    gNextUpOptionLowLevelAnteWarningMenu = 0x8DFF4A4;
-    gNextDownOptionLowLevelAnteWarningMenu = 0x8DFF4A6;
+    gNextUpOptionLowLevelAnteWarningPrompt = 0x8DFF4A4;
+    gNextDownOptionLowLevelAnteWarningPrompt = 0x8DFF4A6;
     g80ADEFC = 0x80ADEFC;
     g80AE02C = 0x80AE02C;
     g80AE1A8 = 0x80AE1A8;

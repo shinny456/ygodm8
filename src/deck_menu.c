@@ -139,7 +139,7 @@ static unsigned short ProcessInput (void) { // same code as the one in trunk.c
   unsigned short ret = 0;
   UpdateFilteredInput_NoRepeat();
   mask = 0x1;
-  for (i = 0; i < 10; i++) {
+  for (i = 0; i < NUM_BUTTONS; i++) {
     if (mask & gNewButtons)
       ret = mask & gNewButtons;
     mask <<= 1;
@@ -151,9 +151,9 @@ static unsigned short ProcessInput (void) { // same code as the one in trunk.c
     mask <<= 1;
   }
   if (gFilteredInput & DPAD_UP && gPressedButtons & R_BUTTON)
-    ret = 0x140;
+    ret = NEW_DPAD_UP | R_BUTTON;
   if (gFilteredInput & DPAD_DOWN && gPressedButtons & R_BUTTON)
-    ret = 0x180;
+    ret = NEW_DPAD_DOWN | R_BUTTON;
   return ret;
 }
 
@@ -164,7 +164,7 @@ int ProcessInputDeckAdjustmentMenu (void) {
   unsigned short ret = 0;
   UpdateFilteredInput_NoRepeat(); // pointless since we read gRepeatedOrNewButtons below instead of gFilteredInput -- devs should have used WithRepeat version?
   mask = 0x1;
-  for (i = 0; i < 10; i++) {
+  for (i = 0; i < NUM_BUTTONS; i++) {
     if (mask & gNewButtons)
       ret = mask & gNewButtons;
     mask <<= 1;
@@ -176,9 +176,9 @@ int ProcessInputDeckAdjustmentMenu (void) {
     mask <<= 1;
   }
   if (gRepeatedOrNewButtons & DPAD_UP && gPressedButtons & R_BUTTON)
-    ret = 0x140;
+    ret = REPEAT_DPAD_UP | R_BUTTON;
   if (gRepeatedOrNewButtons & DPAD_DOWN && gPressedButtons & R_BUTTON)
-    ret = 0x180;
+    ret = REPEAT_DPAD_DOWN | R_BUTTON;
   return ret;
 }
 

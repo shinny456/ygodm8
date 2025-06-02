@@ -128,57 +128,57 @@ void TrunkMenuMain (void) {
   InitTrunkMenu();
   while (keepProcessing) {
     switch ((unsigned short)TrunkProcessInput()) {
-      case DPAD_UP:
+      case REPEAT_DPAD_UP:
         PressUpInTrunkMenu();
         sub_800ABB4();
         sub_800AA58(4);
         break;
-      case DPAD_UP | R_BUTTON:
+      case REPEAT_DPAD_UP | REPEAT_R_BUTTON:
         PressRUpInTrunkMenu();
         sub_800ABB4();
         sub_800AA58(4);
         break;
-      case DPAD_DOWN:
+      case REPEAT_DPAD_DOWN:
         PressDownInTrunkMenu();
         sub_800ABB4();
         sub_800AA58(4);
         break;
-      case DPAD_DOWN | R_BUTTON:
+      case REPEAT_DPAD_DOWN | REPEAT_R_BUTTON:
         PressRDownInTrunkMenu();
         sub_800ABB4();
         sub_800AA58(4);
         break;
-      case DPAD_RIGHT:
+      case REPEAT_DPAD_RIGHT:
         PressRightInTrunkMenu();
         sub_800ABD0();
         sub_800AA58(6);
         break;
-      case DPAD_LEFT:
+      case REPEAT_DPAD_LEFT:
         PressLeftInTrunkMenu();
         sub_800ABD0();
         sub_800AA58(6);
         break;
-      case L_BUTTON:
+      case NEW_L_BUTTON:
         PressLInTrunkMenu();
         sub_800ABB4();
         sub_800AA58(4);
         break;
-      case A_BUTTON:
+      case NEW_A_BUTTON:
         Trunk_A_Submenu();
         sub_800AA58(7);
         break;
-      case B_BUTTON:
+      case NEW_B_BUTTON:
         PressBInTrunkMenu();
         keepProcessing = 0;
         sub_0800ABA4();
         sub_800AA58(2);
         break;
-      case START_BUTTON:
+      case NEW_START_BUTTON:
         SortingMenuMain();
         sub_800A3D8(8);
         sub_800AA58(8);
         break;
-      case SELECT_BUTTON:
+      case NEW_SELECT_BUTTON:
         PressSelectInTrunkMenu();
         sub_800AA58(9);
         sub_800ABE4();
@@ -195,47 +195,47 @@ void TrunkMenuMain (void) {
 
 int TrunkProcessInput (void) {
   unsigned char i;
-  unsigned short r2;
+  unsigned short mask;
   unsigned short ret = 0;
   UpdateFilteredInput_NoRepeat();
-  r2 = 1;
-  for (i = 0; i < 10; i++) {
-    if (r2 & gNewButtons)
-      ret = r2 & gNewButtons;
-    r2 <<= 1;
+  mask = 1;
+  for (i = 0; i < NUM_BUTTONS; i++) {
+    if (mask & gNewButtons)
+      ret = mask & gNewButtons;
+    mask <<= 1;
   }
-  r2 = 0x10;
+  mask = 0x10;
   for (i = 0; i < 4; i++) {
-    if (r2 & gFilteredInput)
-      ret = r2 & gFilteredInput;
-    r2 <<= 1;
+    if (mask & gFilteredInput)
+      ret = mask & gFilteredInput;
+    mask <<= 1;
   }
   if (gFilteredInput & DPAD_UP && gPressedButtons & R_BUTTON)
-    ret = 0x140;
+    ret = REPEAT_DPAD_UP | REPEAT_R_BUTTON;
   if (gFilteredInput & DPAD_DOWN && gPressedButtons & R_BUTTON)
-    ret = 0x180;
+    ret = REPEAT_DPAD_DOWN | REPEAT_R_BUTTON;
   return ret;
 }
 
 int TrunkSubmenuProcessInput (void) {
   unsigned char i;
   unsigned short ret = 0;
-  unsigned short buttonMask = 1;
-  for (i = 0; i < 10; i++) {
-    if (buttonMask & gNewButtons)
-      ret = buttonMask & gNewButtons;
-    buttonMask <<= 1;
+  unsigned short mask = 1;
+  for (i = 0; i < NUM_BUTTONS; i++) {
+    if (mask & gNewButtons)
+      ret = mask & gNewButtons;
+    mask <<= 1;
   }
-  buttonMask = 0x10;
+  mask = 0x10;
   for (i = 0; i < 4; i++) {
-    if (buttonMask & gRepeatedOrNewButtons)
-      ret = buttonMask & gRepeatedOrNewButtons;
-    buttonMask <<= 1;
+    if (mask & gRepeatedOrNewButtons)
+      ret = mask & gRepeatedOrNewButtons;
+    mask <<= 1;
   }
   if (gRepeatedOrNewButtons & DPAD_UP && gPressedButtons & R_BUTTON)
-    ret = 0x140;
+    ret = REPEAT_DPAD_UP | REPEAT_R_BUTTON;
   if (gRepeatedOrNewButtons & DPAD_DOWN && gPressedButtons & R_BUTTON)
-    ret = 0x180;
+    ret = REPEAT_DPAD_DOWN | REPEAT_R_BUTTON;
   return ret;
 }
 
@@ -307,16 +307,16 @@ static void Trunk_A_Submenu (void) {
   keepProcessing = 1;
   while (keepProcessing) {
     switch (TrunkSubmenuProcessInput()) {
-      case B_BUTTON:
+      case NEW_B_BUTTON:
         keepProcessing = 0;
         break;
-      case DPAD_UP:
+      case REPEAT_DPAD_UP:
         MoveCursorUpInTrunkSubmenu();
         break;
-      case DPAD_DOWN:
+      case REPEAT_DPAD_DOWN:
         MoveCursorDownInTrunkSubmenu();
         break;
-      case A_BUTTON:
+      case NEW_A_BUTTON:
         switch (gTrunkMenu.cursorState) {
           case TRUNK_CURSOR_DETAILS:
             SelectDetailsInTrunkSubmenu();

@@ -80,7 +80,7 @@ unsigned PasswordTerminalMain (void) {
   InitPasswordTerminal();
   while (keepProcessing) {
     switch (ProcessInput()) {
-      case DPAD_UP:
+      case REPEAT_DPAD_UP:
         ResetNumpadDigitAnimation();
         HandleInputUp();
         UpdateNumpadCursorSprite();
@@ -90,7 +90,7 @@ unsigned PasswordTerminalMain (void) {
         WaitForVBlank();
         RefreshSprites();
         break;
-      case DPAD_DOWN:
+      case REPEAT_DPAD_DOWN:
         ResetNumpadDigitAnimation();
         HandleInputDown();
         UpdateNumpadCursorSprite();
@@ -100,7 +100,7 @@ unsigned PasswordTerminalMain (void) {
         WaitForVBlank();
         RefreshSprites();
         break;
-      case DPAD_LEFT:
+      case REPEAT_DPAD_LEFT:
         ResetNumpadDigitAnimation();
         HandleInputLeft();
         UpdateNumpadCursorSprite();
@@ -110,7 +110,7 @@ unsigned PasswordTerminalMain (void) {
         WaitForVBlank();
         RefreshSprites();
         break;
-      case DPAD_RIGHT:
+      case REPEAT_DPAD_RIGHT:
         ResetNumpadDigitAnimation();
         HandleInputRight();
         UpdateNumpadCursorSprite();
@@ -120,7 +120,7 @@ unsigned PasswordTerminalMain (void) {
         WaitForVBlank();
         RefreshSprites();
         break;
-      case L_BUTTON:
+      case NEW_L_BUTTON:
         ResetCurrentNumpadDigit();
         UpdateDisplayDigitSprite();
         MoveCurrentDisplayDigitLeft();
@@ -132,7 +132,7 @@ unsigned PasswordTerminalMain (void) {
         WaitForVBlank();
         RefreshSprites();
         break;
-      case R_BUTTON:
+      case NEW_R_BUTTON:
         ResetCurrentNumpadDigit();
         UpdateDisplayDigitSprite();
         MoveCurrentDisplayDigitRight();
@@ -144,7 +144,7 @@ unsigned PasswordTerminalMain (void) {
         WaitForVBlank();
         RefreshSprites();
         break;
-      case A_BUTTON:
+      case NEW_A_BUTTON:
         if (GetCurrentNumpadButton() == BUTTON_OK) {
           keepProcessing = 0;
           ret = 1;
@@ -177,7 +177,7 @@ unsigned PasswordTerminalMain (void) {
           break;
         }
         break;
-      case B_BUTTON:
+      case NEW_B_BUTTON:
         ResetCurrentNumpadDigit();
         UpdateDisplayDigitSprite();
         MoveCurrentDisplayDigitLeft();
@@ -189,8 +189,8 @@ unsigned PasswordTerminalMain (void) {
         WaitForVBlank();
         RefreshSprites();
         break;
-      case SELECT_BUTTON:
-      case START_BUTTON:
+      case NEW_SELECT_BUTTON:
+      case NEW_START_BUTTON:
         ResetNumpadDigitAnimation();
         SetButtonToOK();
         UpdateDisplayDigitSprite();
@@ -231,7 +231,7 @@ static unsigned short ProcessInput (void) {
   UpdateFilteredInput_WithRepeat();
   mask = 0x1;
   if (gNewButtons & ANY_BUTTON) {
-    for (i = 0; i < 10; i++) {
+    for (i = 0; i < NUM_BUTTONS; i++) {
       if (mask & gNewButtons)
         ret = mask;
       mask <<= 1;
