@@ -1863,7 +1863,7 @@ static void sub_802E314 (void) {
   ConvertU64ToDigitArray(gMoney, DIGIT_FLAG_NONE);
 
   ptr = ((struct Sbb*)&gBgVram)->sbb14[12] + 27;
-  for (i = 0; i < 16 && gDigitArrayU64[18 - i] != 10; i++) {
+  for (i = 0; i < 16 && gDigitArrayU64[18 - i] != DIGIT_UNUSED; i++) {
     *ptr &= 0xF000;
     *ptr |= gDigitArrayU64[18 - i] + 0x195;
     ptr--;
@@ -1894,7 +1894,7 @@ static void sub_802E404 (void) {
   ConvertU64ToDigitArray(gShopSelectedCard.buyPrice, DIGIT_FLAG_NONE);
 
   ptr = ((struct Sbb*)&gBgVram)->sbb14[2] + 27;
-  for (i = 0; i < 16 && gDigitArrayU64[18 - i] != 10; i++) {
+  for (i = 0; i < 16 && gDigitArrayU64[18 - i] != DIGIT_UNUSED; i++) {
     *ptr &= 0xF000;
     *ptr |= gDigitArrayU64[18 - i] + 0x195;
     ptr--;
@@ -1925,7 +1925,7 @@ static void sub_802E4F4 (void) {
   ConvertU64ToDigitArray(gShopSelectedCard.sellPrice, DIGIT_FLAG_NONE);
 
   ptr = ((struct Sbb*)&gBgVram)->sbb14[2] + 27;
-  for (i = 0; i < 16 && gDigitArrayU64[18 - i] != 10; i++) {
+  for (i = 0; i < 16 && gDigitArrayU64[18 - i] != DIGIT_UNUSED; i++) {
     *ptr &= 0xF000;
     *ptr |= gDigitArrayU64[18 - i] + 0x195;
     ptr--;
@@ -1969,7 +1969,7 @@ static void sub_802E5E4 (void) {
   ConvertU64ToDigitArray(diff, DIGIT_FLAG_NONE);
 
   ptr = ((struct Sbb*)&gBgVram)->sbb14[4] + 27;
-  for (i = 0; i < 16 && gDigitArrayU64[18 - i] != 10; i++) {
+  for (i = 0; i < 16 && gDigitArrayU64[18 - i] != DIGIT_UNUSED; i++) {
     *ptr &= 0xF000;
     *ptr |= gDigitArrayU64[18 - i] + 0x195;
     ptr--;
@@ -2013,7 +2013,7 @@ static void sub_802E72C (void) {
 
 
   ptr = ((struct Sbb*)&gBgVram)->sbb14[4] + 27;
-  for (i = 0; i < 16 && gDigitArrayU64[18 - i] != 10; i++) {
+  for (i = 0; i < 16 && gDigitArrayU64[18 - i] != DIGIT_UNUSED; i++) {
     *ptr &= 0xF000;
     *ptr |= gDigitArrayU64[18 - i] + 0x195;
     ptr--;
@@ -2088,7 +2088,7 @@ static void sub_802EA74 (void) {
   ConvertU64ToDigitArray(gMoney, DIGIT_FLAG_NONE);
 
   ptr = gBgVram.sbb1F[1] + 23;
-  for (i = 0; i < 16 && gDigitArrayU64[18 - i] != 10; i++) {
+  for (i = 0; i < 16 && gDigitArrayU64[18 - i] != DIGIT_UNUSED; i++) {
     *ptr &= 0xF000;
     *ptr |= gDigitArrayU64[18 - i] + 0x195;
     ptr--;
@@ -2129,7 +2129,7 @@ static void sub_802EB64 (void) {
 
     i = 6;
     ConvertU64ToDigitArray(gShopSelectedCard.buyPrice, DIGIT_FLAG_NONE);
-    for (j = 0; j < 16 && gDigitArrayU64[18 - j] != 10; j++, i++) {
+    for (j = 0; j < 16 && gDigitArrayU64[18 - j] != DIGIT_UNUSED; j++, i++) {
       *ptr &= 0xF000;
       *ptr |= gDigitArrayU64[18 - j] + 0x195;
       ptr--;
@@ -2171,7 +2171,7 @@ static void sub_802ECCC (void) {
 
     i = 6;
     ConvertU64ToDigitArray(gShopSelectedCard.sellPrice, DIGIT_FLAG_NONE);
-    for (j = 0; j < 16 && gDigitArrayU64[18 - j] != 10; j++, i++) {
+    for (j = 0; j < 16 && gDigitArrayU64[18 - j] != DIGIT_UNUSED; j++, i++) {
       *ptr &= 0xF000;
       *ptr |= gDigitArrayU64[18 - j] + 0x195;
       ptr--;
@@ -2226,7 +2226,7 @@ static void sub_802EE34 (void) {
 
     i += 6;
     ConvertU64ToDigitArray(diff, DIGIT_FLAG_NONE);
-    for (j = 0; j < 16 && gDigitArrayU64[18 - j] != 10; j++, i++) {
+    for (j = 0; j < 16 && gDigitArrayU64[18 - j] != DIGIT_UNUSED; j++, i++) {
       *ptr = paletteBank << 12 | gDigitArrayU64[18 - j] + 0x195;
       ptr--;
     }
@@ -2275,7 +2275,7 @@ static void sub_802EFFC (void) {
     i += 6;
     ConvertU64ToDigitArray(temp, DIGIT_FLAG_NONE);
 
-    for (j = 0; j < 16 && gDigitArrayU64[18 - j] != 10; j++, i++) {
+    for (j = 0; j < 16 && gDigitArrayU64[18 - j] != DIGIT_UNUSED; j++, i++) {
       *ptr = *ptr & 0xF000;
       *ptr |= gDigitArrayU64[18 - j] + 0x195;
       ptr--;
@@ -2314,8 +2314,8 @@ static void sub_802F1B4 (void) {
   u8 i = 0;
 
   if (gCardInfo.id != CARD_NONE) {
-    ConvertU64ToDigitArray(gShopHoveredCard.unk0, DIGIT_FLAG_LEFT_ALIGN);
-    for (i = 0; i < 16 && gDigitArrayU64[i] != 10; i++) {
+    ConvertU64ToDigitArray(gShopHoveredCard.unk0, DIGIT_FLAG_ALIGN_LEFT);
+    for (i = 0; i < 16 && gDigitArrayU64[i] != DIGIT_UNUSED; i++) {
       *ptr = 0xFFFFD000 | gDigitArrayU64[i] + 0x195; // problematic part
       ptr++
     }
@@ -2859,7 +2859,7 @@ static void sub_802F6E8 (void) {
     *ptr++ |= 0x182;
     i = 7;
     ConvertU16ToDigitArray(gPlayerTempCardQty[gCardInfo.id], DIGIT_FLAG_ALIGN_LEFT);
-    for (j = 0; j < 3 && gDigitArrayU16[j] != 10; j++, i++) {
+    for (j = 0; j < 3 && gDigitArrayU16[j] != DIGIT_UNUSED; j++, i++) {
       *ptr &= 0xF000;
       *ptr++ |= gDigitArrayU16[j] + 0x195;
     }
@@ -2889,7 +2889,7 @@ static void sub_802F7F0 (void) {
     *ptr++ |= 0x182;
     i = 7;
     ConvertU16ToDigitArray(GetDeckCardQty(gCardInfo.id), DIGIT_FLAG_ALIGN_LEFT);
-    for (j = 0; j < 3 && gDigitArrayU16[j] != 10; j++, i++) {
+    for (j = 0; j < 3 && gDigitArrayU16[j] != DIGIT_UNUSED; j++, i++) {
       *ptr &= 0xF000;
       *ptr++ |= gDigitArrayU16[j] + 0x195;
     }
@@ -2903,7 +2903,7 @@ static void sub_802F8F8 (void) {
   u8 i = 0;
 
   if (gCardInfo.id != CARD_NONE) {
-    for (i = 0; i < 5 && gDigitArrayU16[5 - i] != 10; i++) {
+    for (i = 0; i < 5 && gDigitArrayU16[5 - i] != DIGIT_UNUSED; i++) {
       ConvertU16ToDigitArray(gCardInfo.cost, DIGIT_FLAG_NONE);
       *ptr &= 0xF000;
       *ptr |= gDigitArrayU16[4 - i] + 0x195;

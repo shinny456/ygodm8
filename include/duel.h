@@ -153,13 +153,16 @@ struct MonEffect
     u8 zone;
 };
 
+// origin/target are not consistent between direct spells and targeted spells
+// For direct: origin = row1, col1
+// For targeted: target = row1, col1; origin = row2, col2
 struct SpellEffect
 {
     u16 id;
-    u8 originRow; // activated card row
-    u8 originCol; // activated card col
-    u8 targetRow; // target monster row (equip)
-    u8 targetCol; // target monster col (equip)
+    u8 row1; // origin (spell) row for direct spell effects; target (monster) row for targeted spell effects
+    u8 col1; // origin (spell) col for direct spell effects; target (monster) col for targeted spell effects
+    u8 row2; // origin (spell) row for targeted spell effects
+    u8 col2; // origin (spell) col for targeted spell effects
 };
 
 struct TrapEffect

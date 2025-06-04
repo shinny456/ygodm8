@@ -18,7 +18,7 @@ void UpdateDuelGfxExceptField (void);
 void TryEvolveMothCards (void) {
   unsigned char unused[12];
   unsigned char i;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     unsigned char temp = CheckForMothEvolution(gTurnZones[2][i]->id);
     if (temp > 3)
       continue;
@@ -69,7 +69,7 @@ static unsigned sub_802A478 (void);
 static void CheckAllCardsForPermanentEffects (void) {
   unsigned char i;
   gActiveEffect.turnRow = 4;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     gActiveEffect.col = i;
     gActiveEffect.cardId = gTurnHands[ACTIVE_DUELIST][gActiveEffect.col]->id;
     if (!gHideEffectText)
@@ -87,7 +87,7 @@ static void CheckAllCardsForPermanentEffects (void) {
   }
 
   gActiveEffect.turnRow = 5;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     gActiveEffect.col = i;
     gActiveEffect.cardId = gTurnHands[INACTIVE_DUELIST][gActiveEffect.col]->id;
     if (!gHideEffectText)
@@ -138,7 +138,7 @@ static void CheckAllCardsForPermanentEffects (void) {
   }
 
   gActiveEffect.turnRow = 2;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     gActiveEffect.col = i;
     gActiveEffect.cardId = gTurnZones[gActiveEffect.turnRow][i]->id;
     if (!gHideEffectText)
@@ -156,7 +156,7 @@ static void CheckAllCardsForPermanentEffects (void) {
   }
 
   gActiveEffect.turnRow = 1;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     gActiveEffect.col = i;
     gActiveEffect.cardId = gTurnZones[gActiveEffect.turnRow][i]->id;
     if (!gHideEffectText)
@@ -174,7 +174,7 @@ static void CheckAllCardsForPermanentEffects (void) {
   }
 
   gActiveEffect.turnRow = 3;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     gActiveEffect.col = i;
     gActiveEffect.cardId = gTurnZones[gActiveEffect.turnRow][i]->id;
     if (!gHideEffectText)
@@ -192,7 +192,7 @@ static void CheckAllCardsForPermanentEffects (void) {
   }
 
   gActiveEffect.turnRow = 0;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     gActiveEffect.col = i;
     gActiveEffect.cardId = gTurnZones[gActiveEffect.turnRow][i]->id;
     if (!gHideEffectText)
@@ -215,10 +215,10 @@ static void EffectJinzo (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       SetCardInfo(gTurnZones[3][i]->id);
       if (gCardInfo.trapEffect)
-        ClearZoneAndSendMonToGraveyard(gTurnZones[3][i], 0);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[3][i], ACTIVE_DUELIST);
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = JINZO;
@@ -227,10 +227,10 @@ static void EffectJinzo (void) {
   }
   else if (gActiveEffect.turnRow == 2) {
     FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       SetCardInfo(gTurnZones[0][i]->id);
       if (gCardInfo.trapEffect)
-        ClearZoneAndSendMonToGraveyard(gTurnZones[0][i], 1);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[0][i], INACTIVE_DUELIST);
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = JINZO;
@@ -243,7 +243,7 @@ static void EffectSliferTheSkyDragon (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnHands[INACTIVE_DUELIST][i]->id == CARD_NONE)
         continue;
       IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
@@ -257,7 +257,7 @@ static void EffectSliferTheSkyDragon (void) {
   }
   else if (gActiveEffect.turnRow == 2) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnHands[ACTIVE_DUELIST][i]->id == CARD_NONE)
         continue;
       IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
@@ -275,7 +275,7 @@ static void EffectDragonCaptureJar (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 0) {
     FlipCardFaceUp(gTurnZones[0][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       // Inferred bug: IsGodCard checks the spell/trap row, therefore slifer is locked too
       if (IsCardLocked(gTurnZones[0][i]) == 1 || IsGodCard(gTurnZones[0][i]->id) == 1)
         continue;
@@ -290,7 +290,7 @@ static void EffectDragonCaptureJar (void) {
   }
   else if (gActiveEffect.turnRow == 3) {
     FlipCardFaceUp(gTurnZones[3][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       // Inferred bug: IsGodCard checks the spell/trap row, therefore slifer is locked too
       if (IsCardLocked(gTurnZones[2][i]) == 1 || IsGodCard(gTurnZones[3][i]->id) == 1)
         continue;
@@ -309,7 +309,7 @@ static void EffectPumpkingTheKingOfGhosts (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id == ARMORED_ZOMBIE)
         IncrementTempStage(gTurnZones[1][i]);
       else if (gTurnZones[1][i]->id == DRAGON_ZOMBIE)
@@ -324,7 +324,7 @@ static void EffectPumpkingTheKingOfGhosts (void) {
   }
   else if (gActiveEffect.turnRow == 2) {
     FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id == ARMORED_ZOMBIE)
         IncrementTempStage(gTurnZones[2][i]);
       else if (gTurnZones[2][i]->id == DRAGON_ZOMBIE)
@@ -344,7 +344,7 @@ static void sub_80278A4 (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id == HARPIES_PET_DRAGON)
         IncrementTempStage(gTurnZones[1][i]);
     }
@@ -355,7 +355,7 @@ static void sub_80278A4 (void) {
   }
   else if (gActiveEffect.turnRow == 2) {
     FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id == HARPIES_PET_DRAGON)
         IncrementTempStage(gTurnZones[2][i]);
     }
@@ -370,7 +370,7 @@ static void EffectHarpieLadySisters (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id == HARPIES_PET_DRAGON) {
         IncrementTempStage(gTurnZones[1][i]);
         IncrementTempStage(gTurnZones[1][i]);
@@ -383,7 +383,7 @@ static void EffectHarpieLadySisters (void) {
   }
   else if (gActiveEffect.turnRow == 2) {
     FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id == HARPIES_PET_DRAGON) {
         IncrementTempStage(gTurnZones[2][i]);
         IncrementTempStage(gTurnZones[2][i]);
@@ -400,7 +400,7 @@ static void EffectMysticalElf (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id == BLUE_EYES_WHITE_DRAGON)
         IncrementTempStage(gTurnZones[1][i]);
     }
@@ -411,7 +411,7 @@ static void EffectMysticalElf (void) {
   }
   else if (gActiveEffect.turnRow == 2) {
     FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id == BLUE_EYES_WHITE_DRAGON)
         IncrementTempStage(gTurnZones[2][i]);
     }
@@ -426,7 +426,7 @@ static void EffectDungeonTamer (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id == DUNGEON_WORM)
         IncrementTempStage(gTurnZones[1][i]);
     }
@@ -437,7 +437,7 @@ static void EffectDungeonTamer (void) {
   }
   else if (gActiveEffect.turnRow == 2) {
     FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id == DUNGEON_WORM)
         IncrementTempStage(gTurnZones[2][i]);
     }
@@ -452,7 +452,7 @@ static void EffectMammothGraveyard (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id != CARD_NONE)
         DecrementTempStage(gTurnZones[2][i]);
     }
@@ -463,7 +463,7 @@ static void EffectMammothGraveyard (void) {
   }
   else if (gActiveEffect.turnRow == 2) {
     FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id != CARD_NONE)
         DecrementTempStage(gTurnZones[1][i]);
     }
@@ -512,7 +512,7 @@ static void EffectWodanTheResidentOfTheForest (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[1][i]))
         continue;
       SetCardInfo(gTurnZones[1][i]->id);
@@ -526,7 +526,7 @@ static void EffectWodanTheResidentOfTheForest (void) {
   }
   else if (gActiveEffect.turnRow == 2) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[2][i]))
         continue;
       SetCardInfo(gTurnZones[2][i]->id);
@@ -544,7 +544,7 @@ static void EffectSwampBattleguard (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id != CARD_NONE)
         if (gTurnZones[1][i]->id == LAVA_BATTLEGUARD)
           IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
@@ -556,7 +556,7 @@ static void EffectSwampBattleguard (void) {
   }
   else if (gActiveEffect.turnRow == 2) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id != CARD_NONE)
         if (gTurnZones[2][i]->id == LAVA_BATTLEGUARD)
           IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
@@ -572,7 +572,7 @@ static void EffectLavaBattleguard (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id != CARD_NONE)
         if (gTurnZones[1][i]->id == SWAMP_BATTLEGUARD)
           IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
@@ -584,7 +584,7 @@ static void EffectLavaBattleguard (void) {
   }
   else if (gActiveEffect.turnRow == 2) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id != CARD_NONE)
         if (gTurnZones[2][i]->id == SWAMP_BATTLEGUARD)
           IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
@@ -600,7 +600,7 @@ static void EffectMWarrior1 (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id != CARD_NONE)
         if (gTurnZones[1][i]->id == M_WARRIOR_2)
           IncrementTempStage(gTurnZones[1][i]);
@@ -612,7 +612,7 @@ static void EffectMWarrior1 (void) {
   }
   else if (gActiveEffect.turnRow == 2) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id != CARD_NONE)
         if (gTurnZones[2][i]->id == M_WARRIOR_2)
           IncrementTempStage(gTurnZones[2][i]);
@@ -628,7 +628,7 @@ static void EffectMWarrior2 (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id != CARD_NONE)
         if (gTurnZones[1][i]->id == M_WARRIOR_1)
           IncrementTempStage(gTurnZones[1][i]);
@@ -640,7 +640,7 @@ static void EffectMWarrior2 (void) {
   }
   else if (gActiveEffect.turnRow == 2) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id != CARD_NONE)
         if (gTurnZones[2][i]->id == M_WARRIOR_1)
           IncrementTempStage(gTurnZones[2][i]);
@@ -656,7 +656,7 @@ static void EffectLabyrinthTank (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id != CARD_NONE && IsCardFaceUp(gTurnZones[1][i]))
         if (gTurnZones[1][i]->id == LABYRINTH_WALL)
           IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
@@ -668,7 +668,7 @@ static void EffectLabyrinthTank (void) {
   }
   else if (gActiveEffect.turnRow == 2) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id != CARD_NONE && IsCardFaceUp(gTurnZones[2][i]))
         if (gTurnZones[2][i]->id == LABYRINTH_WALL)
           IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
@@ -685,7 +685,7 @@ static void EffectHoshiningen (void) {
   if (gActiveEffect.turnRow != 1 && gActiveEffect.turnRow != 2)
     return;
   FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if (gTurnZones[1][i]->id == CARD_NONE)
       continue;
     SetCardInfo(gTurnZones[1][i]->id);
@@ -694,7 +694,7 @@ static void EffectHoshiningen (void) {
     else if (gCardInfo.attribute == ATTRIBUTE_LIGHT)
       IncrementTempStage(gTurnZones[1][i]);
   }
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if (gTurnZones[2][i]->id == CARD_NONE)
       continue;
     SetCardInfo(gTurnZones[2][i]->id);
@@ -714,7 +714,7 @@ static void EffectWitchsApprentice (void) {
   if (gActiveEffect.turnRow != 1 && gActiveEffect.turnRow != 2)
     return;
   FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if (gTurnZones[1][i]->id == CARD_NONE)
       continue;
     SetCardInfo(gTurnZones[1][i]->id);
@@ -723,7 +723,7 @@ static void EffectWitchsApprentice (void) {
     else if (gCardInfo.attribute == ATTRIBUTE_LIGHT)
       DecrementTempStage(gTurnZones[1][i]);
   }
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if (gTurnZones[2][i]->id == CARD_NONE)
       continue;
     SetCardInfo(gTurnZones[2][i]->id);
@@ -743,14 +743,14 @@ static void EffectInsectQueen (void) {
   if (gActiveEffect.turnRow != 1 && gActiveEffect.turnRow != 2)
     return;
   FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if (gTurnZones[1][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[1][i]))
       continue;
     SetCardInfo(gTurnZones[1][i]->id);
     if (gCardInfo.type == TYPE_INSECT)
       IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
   }
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if (gTurnZones[2][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[2][i]))
       continue;
     SetCardInfo(gTurnZones[2][i]->id);
@@ -768,7 +768,7 @@ static void EffectBusterBlader (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[2][i]))
         continue;
       SetCardInfo(gTurnZones[2][i]->id);
@@ -785,7 +785,7 @@ static void EffectBusterBlader (void) {
   }
   else if (gActiveEffect.turnRow == 2) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[1][i]))
         continue;
       SetCardInfo(gTurnZones[1][i]->id);
@@ -807,7 +807,7 @@ static void EffectMasterOfDragonSoldier (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[1][i]))
         continue;
       SetCardInfo(gTurnZones[1][i]->id);
@@ -820,7 +820,7 @@ static void EffectMasterOfDragonSoldier (void) {
     }
   }
   else if (gActiveEffect.turnRow == 2) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
       if (gTurnZones[2][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[2][i]))
         continue;
@@ -858,7 +858,7 @@ static void EffectMessengerOfPeace (void) {
   if (gActiveEffect.turnRow && gActiveEffect.turnRow != 3)
     return;
   FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if (gTurnZones[1][i]->id == CARD_NONE)
       continue;
     gStatMod.card = gTurnZones[1][i]->id;
@@ -868,7 +868,7 @@ static void EffectMessengerOfPeace (void) {
     if (gCardInfo.atk >= 1500)
       LockCard(gTurnZones[1][i]);
   }
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if (gTurnZones[2][i]->id == CARD_NONE)
       continue;
     gStatMod.card = gTurnZones[2][i]->id;
@@ -892,7 +892,7 @@ static void EffectLavaGolemSummon (void) {
   for (i = 0, j = 0; j < 5 && i < 2; j++) {
     u16 cardId = gTurnZones[1][j]->id;
     if (cardId != CARD_NONE && IsGodCard(cardId) != 1 && cardId != LAVA_GOLEM) {
-      ClearZoneAndSendMonToGraveyard(gTurnZones[1][j], 1);
+      ClearZoneAndSendMonToGraveyard(gTurnZones[1][j], INACTIVE_DUELIST);
       i++;
     }
   }
@@ -954,12 +954,12 @@ static void sub_8028ED8 (void) {
   if (gActiveEffect.turnRow != 1 && gActiveEffect.turnRow != 2)
     return;
   FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     SetCardInfo(gTurnZones[1][i]->id);
     if (gCardInfo.type == TYPE_DRAGON)
       IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
   }
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     SetCardInfo(gTurnZones[2][i]->id);
     if (gCardInfo.type == TYPE_DRAGON)
       IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
@@ -1027,14 +1027,14 @@ static void EffectMachineKing (void) {
   if (gActiveEffect.turnRow != 1 && gActiveEffect.turnRow != 2)
     return;
   FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if (gTurnZones[1][i]->id == CARD_NONE)
       continue;
     SetCardInfo(gTurnZones[1][i]->id);
     if (gCardInfo.type == TYPE_MACHINE)
       IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
   }
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if (gTurnZones[2][i]->id == CARD_NONE)
       continue;
     SetCardInfo(gTurnZones[2][i]->id);
@@ -1052,7 +1052,7 @@ static void EffectPerfectMachineKing (void) {
   if (gActiveEffect.turnRow != 1 && gActiveEffect.turnRow != 2)
     return;
   FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if (gTurnZones[1][i]->id == CARD_NONE)
       continue;
     SetCardInfo(gTurnZones[1][i]->id);
@@ -1061,7 +1061,7 @@ static void EffectPerfectMachineKing (void) {
       IncrementTempStage(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
     }
   }
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if (gTurnZones[2][i]->id == CARD_NONE)
       continue;
     SetCardInfo(gTurnZones[2][i]->id);
@@ -1080,7 +1080,7 @@ static void EffectCommandAngel (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE)
         continue;
       SetCardInfo(gTurnZones[1][i]->id);
@@ -1095,7 +1095,7 @@ static void EffectCommandAngel (void) {
   }
   else if (gActiveEffect.turnRow == 2) {
     FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE)
         continue;
       SetCardInfo(gTurnZones[2][i]->id);
@@ -1114,7 +1114,7 @@ static void EffectNightmarePenguin (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE)
         continue;
       SetCardInfo(gTurnZones[1][i]->id);
@@ -1132,7 +1132,7 @@ static void EffectNightmarePenguin (void) {
   }
   else if (gActiveEffect.turnRow == 2) {
     FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE)
         continue;
       SetCardInfo(gTurnZones[2][i]->id);
@@ -1224,12 +1224,12 @@ static void EffectSpiritMessageDestroy (void) {
   unsigned char i;
   struct DuelCard* zone;
   if (gActiveEffect.turnRow == 0) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       u16 id;
       zone = gTurnZones[0][i];
       id = zone->id;
       if (id != CARD_NONE && GetFINAL_Flag(id) & (FLAG_I | FLAG_N | FLAG_A | FLAG_L))
-        ClearZoneAndSendMonToGraveyard(zone, 1);
+        ClearZoneAndSendMonToGraveyard(zone, INACTIVE_DUELIST);
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gActiveEffect.cardId;
@@ -1237,10 +1237,10 @@ static void EffectSpiritMessageDestroy (void) {
     }
   }
   else if (gActiveEffect.turnRow == 3) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       zone = gTurnZones[3][i];
       if (zone->id != CARD_NONE && GetFINAL_Flag(zone->id) & (FLAG_I | FLAG_N | FLAG_A | FLAG_L))
-        ClearZoneAndSendMonToGraveyard(zone, 0);
+        ClearZoneAndSendMonToGraveyard(zone, ACTIVE_DUELIST);
     }
     if (!gHideEffectText) {
       gCardEffectTextData.cardId = gActiveEffect.cardId;
@@ -1425,7 +1425,7 @@ static unsigned char ConditionJinzo (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     if (gActiveEffect.col == GetFirstCardMatchZoneId(gTurnZones[1], JINZO))
-      for (i = 0; i < 5; i++) {
+      for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
         if (gTurnZones[3][i]->id == CARD_NONE)
           continue;
         SetCardInfo(gTurnZones[3][i]->id);
@@ -1437,7 +1437,7 @@ static unsigned char ConditionJinzo (void) {
   }
   else if (gActiveEffect.turnRow == 2) {
     if (gActiveEffect.col == GetFirstCardMatchZoneId(gTurnZones[2], JINZO))
-      for (i = 0; i < 5; i++) {
+      for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
         if (gTurnZones[0][i]->id == CARD_NONE)
           continue;
         SetCardInfo(gTurnZones[0][i]->id);
@@ -1454,7 +1454,7 @@ static unsigned char ConditionPumpkingTheKingOfGhosts (void) {
   u32 ret = 0;
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id == ARMORED_ZOMBIE) {
         ret = 1;
         break;
@@ -1470,7 +1470,7 @@ static unsigned char ConditionPumpkingTheKingOfGhosts (void) {
     }
   }
   else if (gActiveEffect.turnRow == 2) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id == ARMORED_ZOMBIE) {
         ret = 1;
         break;
@@ -1492,7 +1492,7 @@ static unsigned char ConditionWodanTheResidentOfTheForest (void) {
   u32 ret = 0;
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[1][i]))
         continue;
       SetCardInfo(gTurnZones[1][i]->id);
@@ -1503,7 +1503,7 @@ static unsigned char ConditionWodanTheResidentOfTheForest (void) {
     }
   }
   else if (gActiveEffect.turnRow == 2) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[2][i]))
         continue;
       SetCardInfo(gTurnZones[2][i]->id);
@@ -1520,7 +1520,7 @@ static unsigned char ConditionSwampBattleguard (void) {
   u32 ret = 0;
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE)
         continue;
       if (gTurnZones[1][i]->id == LAVA_BATTLEGUARD) {
@@ -1530,7 +1530,7 @@ static unsigned char ConditionSwampBattleguard (void) {
     }
   }
   else if (gActiveEffect.turnRow == 2) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE)
         continue;
       if (gTurnZones[2][i]->id == LAVA_BATTLEGUARD) {
@@ -1546,7 +1546,7 @@ static unsigned char ConditionLavaBattleguard (void) {
   u32 ret = 0;
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE)
         continue;
       if (gTurnZones[1][i]->id == SWAMP_BATTLEGUARD) {
@@ -1556,7 +1556,7 @@ static unsigned char ConditionLavaBattleguard (void) {
     }
   }
   else if (gActiveEffect.turnRow == 2) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE)
         continue;
       if (gTurnZones[2][i]->id == SWAMP_BATTLEGUARD) {
@@ -1572,7 +1572,7 @@ static unsigned char ConditionMWarrior1 (void) {
   u32 ret = 0;
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE)
         continue;
       if (gTurnZones[1][i]->id == M_WARRIOR_2) {
@@ -1582,7 +1582,7 @@ static unsigned char ConditionMWarrior1 (void) {
     }
   }
   else if (gActiveEffect.turnRow == 2) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE)
         continue;
       if (gTurnZones[2][i]->id == M_WARRIOR_2) {
@@ -1598,7 +1598,7 @@ static unsigned char ConditionMWarrior2 (void) {
   u32 ret = 0;
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE)
         continue;
       if (gTurnZones[1][i]->id == M_WARRIOR_1) {
@@ -1608,7 +1608,7 @@ static unsigned char ConditionMWarrior2 (void) {
     }
   }
   else if (gActiveEffect.turnRow == 2) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE)
         continue;
       if (gTurnZones[2][i]->id == M_WARRIOR_1) {
@@ -1624,7 +1624,7 @@ static unsigned char ConditionLabyrinthTank (void) {
   u32 ret = 0;
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[1][i]))
         continue;
       if (gTurnZones[1][i]->id == LABYRINTH_WALL) {
@@ -1634,7 +1634,7 @@ static unsigned char ConditionLabyrinthTank (void) {
     }
   }
   else if (gActiveEffect.turnRow == 2) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[2][i]))
         continue;
       if (gTurnZones[2][i]->id == LABYRINTH_WALL) {
@@ -1651,7 +1651,7 @@ static unsigned char sub_8029E34 (void) {
   u32 ret = 0;
   unsigned char i;
   if (gActiveEffect.turnRow == 1 || gActiveEffect.turnRow == 2) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE)
         continue;
       SetCardInfo(gTurnZones[1][i]->id);
@@ -1665,7 +1665,7 @@ static unsigned char sub_8029E34 (void) {
       }
     }
     if (!ret) {
-      for (i = 0; i < 5; i++) {
+      for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
         if (gTurnZones[2][i]->id == CARD_NONE)
           continue;
         SetCardInfo(gTurnZones[2][i]->id);
@@ -1688,7 +1688,7 @@ static unsigned char sub_8029EBC (void) {
   u32 ret = 0;
   unsigned char i;
   if (gActiveEffect.turnRow == 1 || gActiveEffect.turnRow == 2) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE)
         continue;
       SetCardInfo(gTurnZones[1][i]->id);
@@ -1702,7 +1702,7 @@ static unsigned char sub_8029EBC (void) {
       }
     }
     if (!ret) {
-      for (i = 0; i < 5; i++) {
+      for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
         if (gTurnZones[2][i]->id == CARD_NONE)
           continue;
         SetCardInfo(gTurnZones[2][i]->id);
@@ -1724,7 +1724,7 @@ static unsigned char ConditionBusterBlader (void) {
   u32 ret = 0;
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[2][i]))
         continue;
       SetCardInfo(gTurnZones[2][i]->id);
@@ -1740,7 +1740,7 @@ static unsigned char ConditionBusterBlader (void) {
     }
   }
   else if (gActiveEffect.turnRow == 2) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE || !IsCardFaceUp(gTurnZones[1][i]))
         continue;
       SetCardInfo(gTurnZones[1][i]->id);
@@ -1762,7 +1762,7 @@ static unsigned char ConditionThunderNyanNyan (void) {
   u32 ret = 0;
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE)
         continue;
       SetCardInfo(gTurnZones[1][i]->id);
@@ -1773,7 +1773,7 @@ static unsigned char ConditionThunderNyanNyan (void) {
     }
   }
   else if (gActiveEffect.turnRow == 2) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE)
         continue;
       SetCardInfo(gTurnZones[2][i]->id);
@@ -1791,7 +1791,7 @@ static unsigned char ConditionMessengerOfPeace (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 0) {
     if (gActiveEffect.col == GetFirstCardMatchZoneId(gTurnZones[0], gActiveEffect.cardId)) {
-      for (i = 0; i < 5; i++) {
+      for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
         if (gTurnZones[1][i]->id == CARD_NONE || IsCardLocked(gTurnZones[1][i]) == 1)
           continue;
         gStatMod.card = gTurnZones[1][i]->id;
@@ -1804,7 +1804,7 @@ static unsigned char ConditionMessengerOfPeace (void) {
         }
       }
       if (!ret) {
-        for (i = 0; i < 5; i++) {
+        for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
           if (gTurnZones[2][i]->id == CARD_NONE || IsCardLocked(gTurnZones[2][i]) == 1)
             continue;
           gStatMod.card = gTurnZones[2][i]->id;
@@ -1821,7 +1821,7 @@ static unsigned char ConditionMessengerOfPeace (void) {
   }
   else if (gActiveEffect.turnRow == 3) {
     if (gActiveEffect.col == GetFirstCardMatchZoneId(gTurnZones[3], gActiveEffect.cardId)) {
-      for (i = 0; i < 5; i++) {
+      for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
         if (gTurnZones[1][i]->id == CARD_NONE || IsCardLocked(gTurnZones[1][i]) == 1)
           continue;
         gStatMod.card = gTurnZones[1][i]->id;
@@ -1834,7 +1834,7 @@ static unsigned char ConditionMessengerOfPeace (void) {
         }
       }
       if (!ret) {
-        for (i = 0; i < 5; i++) {
+        for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
           if (gTurnZones[2][i]->id == CARD_NONE || IsCardLocked(gTurnZones[2][i]) == 1)
             continue;
           gStatMod.card = gTurnZones[2][i]->id;
@@ -1861,12 +1861,12 @@ static unsigned char ConditionMasterOfDragonSoldier (void) {
   if (gActiveEffect.turnRow != 1 && gActiveEffect.turnRow != 2)
     return 0;
   count = 0;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     SetCardInfo(gTurnZones[1][i]->id);
     if (gCardInfo.type == TYPE_DRAGON)
       count++;
   }
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     SetCardInfo(gTurnZones[2][i]->id);
     if (gCardInfo.type == TYPE_DRAGON)
       count++;
@@ -1901,7 +1901,7 @@ static unsigned char ConditionTheWingedDragonOfRaPhoenixMode (void) {
 static unsigned char ConditionCommandAngel (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE)
         continue;
       SetCardInfo(gTurnZones[1][i]->id);
@@ -1911,7 +1911,7 @@ static unsigned char ConditionCommandAngel (void) {
     }
   }
   else if (gActiveEffect.turnRow == 2) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE)
         continue;
       SetCardInfo(gTurnZones[2][i]->id);
@@ -1926,7 +1926,7 @@ static unsigned char ConditionCommandAngel (void) {
 static unsigned char ConditionNightmarePenguin (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[1][i]->id == CARD_NONE)
         continue;
       SetCardInfo(gTurnZones[1][i]->id);
@@ -1937,7 +1937,7 @@ static unsigned char ConditionNightmarePenguin (void) {
     }
   }
   else if (gActiveEffect.turnRow == 2) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       if (gTurnZones[2][i]->id == CARD_NONE)
         continue;
       SetCardInfo(gTurnZones[2][i]->id);
@@ -1977,11 +1977,11 @@ static unsigned char ConditionSliferTheSkyDragon (void) {
   // was implicitly declared and called with only 1 argument
   // but best to keep the UB local to this function
   if (gActiveEffect.turnRow == 1) {
-    if (NumCardMatchesInRow(gTurnHands[INACTIVE_DUELIST], cardId) < 5)
+    if (NumCardMatchesInRow(gTurnHands[INACTIVE_DUELIST], cardId) < MAX_ZONES_IN_ROW)
       ret = 1;
   }
   else if (gActiveEffect.turnRow == 2)
-    if (NumCardMatchesInRow(gTurnHands[ACTIVE_DUELIST], cardId) < 5)
+    if (NumCardMatchesInRow(gTurnHands[ACTIVE_DUELIST], cardId) < MAX_ZONES_IN_ROW)
       ret = 1;
   return ret;
 }
@@ -1991,7 +1991,7 @@ static unsigned char ConditionDragonCaptureJar (void) {
   if (gActiveEffect.turnRow == 0) {
     if (gActiveEffect.col == GetFirstCardMatchZoneId(gTurnZones[0], DRAGON_CAPTURE_JAR)) {
       unsigned char i;
-      for (i = 0; i < 5; i++) {
+      for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
         if (IsCardLocked(gTurnZones[2][i]) == 1)
           continue;
         SetCardInfo(gTurnZones[2][i]->id);
@@ -2066,11 +2066,11 @@ static unsigned char ConditionMonsterTamer (void) {
 static unsigned char sub_802A6A4 (void) {
   u32 ret = 0;
   if (gActiveEffect.turnRow == 1) {
-    if (NumEmptyZonesInRow(gTurnZones[2]) < 5)
+    if (NumEmptyZonesInRow(gTurnZones[2]) < MAX_ZONES_IN_ROW)
       ret = 1;
   }
   else if (gActiveEffect.turnRow == 2)
-    if (NumEmptyZonesInRow(gTurnZones[1]) < 5)
+    if (NumEmptyZonesInRow(gTurnZones[1]) < MAX_ZONES_IN_ROW)
       ret = 1;
   return ret;
 }
@@ -2128,7 +2128,7 @@ static unsigned char ConditionLavaGolem (void) {
   if (gActiveEffect.turnRow == 4) {
     unsigned char i;
     u32 count = 0;
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
       u16 cardId = gTurnZones[1][i]->id;
       if (cardId != CARD_NONE && IsGodCard(cardId) != 1 && cardId != LAVA_GOLEM)
         count++;
@@ -2142,11 +2142,11 @@ static unsigned char ConditionLavaGolem (void) {
 static unsigned char sub_802A7D4 (void) {
   u32 ret = 0;
   if (gActiveEffect.turnRow == 1) {
-    if (NumEmptyZonesInRow(gTurnZones[2]) < 5)
+    if (NumEmptyZonesInRow(gTurnZones[2]) < MAX_ZONES_IN_ROW)
       ret = 1;
   }
   else if (gActiveEffect.turnRow == 2)
-    if (NumEmptyZonesInRow(gTurnZones[1]) < 5)
+    if (NumEmptyZonesInRow(gTurnZones[1]) < MAX_ZONES_IN_ROW)
       ret = 1;
   return ret;
 }
@@ -2167,7 +2167,7 @@ static unsigned char ConditionJamBreedingMachineBlockSummoning (void) {
   if (gActiveEffect.turnRow == 3) {
     if (gActiveEffect.col == GetFirstCardMatchZoneId(gTurnZones[3], JAM_BREEDING_MACHINE)) {
       unsigned char i;
-      for (i = 0; i < 5; i++) {
+      for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
         struct DuelCard* zone = gTurnZones[4][i];
         if (zone->id != CARD_NONE && GetTypeGroup(zone->id) == TYPE_GROUP_MONSTER && IsCardLocked(zone) != 1) {
           ret = 1;

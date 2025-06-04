@@ -225,10 +225,10 @@ static bool8 ConditionAcidTrapHole(void)
 
 static void EffectWideSpreadRuin(void)
 {
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], INACTIVE_DUELIST);
     if (!IsGodCard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]->id))
     {
-        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], 0);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], ACTIVE_DUELIST);
 
         if (!gHideEffectText)
         {
@@ -252,10 +252,10 @@ static void EffectWideSpreadRuin(void)
 
 static void EffectHouseOfAdhesiveTape(void)
 {
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], INACTIVE_DUELIST);
     if (!IsGodCard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]->id))
     {
-        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], 0);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], ACTIVE_DUELIST);
 
         if (!gHideEffectText)
         {
@@ -279,10 +279,10 @@ static void EffectHouseOfAdhesiveTape(void)
 
 static void EffectEatgaboon(void)
 {
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], INACTIVE_DUELIST);
     if (!IsGodCard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]->id))
     {
-        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], 0);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], ACTIVE_DUELIST);
 
         if (!gHideEffectText)
         {
@@ -306,10 +306,10 @@ static void EffectEatgaboon(void)
 
 static void EffectBearTrap(void)
 {
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], INACTIVE_DUELIST);
     if (!IsGodCard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]->id))
     {
-        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], 0);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], ACTIVE_DUELIST);
 
         if (!gHideEffectText)
         {
@@ -333,10 +333,10 @@ static void EffectBearTrap(void)
 
 static void EffectInvisibleWire(void)
 {
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], INACTIVE_DUELIST);
     if (!IsGodCard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]->id))
     {
-        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], 0);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], ACTIVE_DUELIST);
 
         if (!gHideEffectText)
         {
@@ -360,10 +360,10 @@ static void EffectInvisibleWire(void)
 
 static void EffectAcidTrapHole(void)
 {
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], INACTIVE_DUELIST);
     if (!IsGodCard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol]->id))
     {
-        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], 0);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], ACTIVE_DUELIST);
 
         if (!gHideEffectText)
         {
@@ -391,10 +391,10 @@ static void EffectAntiRaigeki(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (!IsGodCard(gTurnZones[2][i]->id))
-            ClearZoneAndSendMonToGraveyard(gTurnZones[2][i], 0);
+            ClearZoneAndSendMonToGraveyard(gTurnZones[2][i], ACTIVE_DUELIST);
 
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
-    ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], INACTIVE_DUELIST);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], ACTIVE_DUELIST);
 
     if (!gHideEffectText)
     {
@@ -408,7 +408,7 @@ static void EffectInfiniteDismissal(void)
     gTurnZones[2][gTrapEffectData.originCol]->isFaceUp = TRUE;
     gTurnZones[2][gTrapEffectData.originCol]->isLocked = TRUE;
 
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], INACTIVE_DUELIST);
 
     if (!gHideEffectText)
     {
@@ -424,7 +424,7 @@ static void EffectAmazonArchers(void)
     gTurnZones[2][gTrapEffectData.originCol]->isFaceUp = TRUE;
     gTurnZones[2][gTrapEffectData.originCol]->isLocked = TRUE;
 
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], INACTIVE_DUELIST);
 
     if (!gHideEffectText)
     {
@@ -519,8 +519,8 @@ static void EffectGoblinFan(u16 lp)
     HandleAtkAndLifePointsAction();
     CheckLoserFlags();
 
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
-    ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], INACTIVE_DUELIST);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], ACTIVE_DUELIST);
 
     if (!gHideEffectText)
     {
@@ -540,8 +540,8 @@ static void EffectBadReactionToSimochi(u16 lp)
     HandleAtkAndLifePointsAction();
     CheckLoserFlags();
 
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
-    ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], INACTIVE_DUELIST);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], ACTIVE_DUELIST);
 
     if (!gHideEffectText)
     {
@@ -553,8 +553,8 @@ static void EffectBadReactionToSimochi(u16 lp)
 
 static void EffectReverseTrap(void)
 {
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
-    ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], INACTIVE_DUELIST);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[gTrapEffectData.originRow][gTrapEffectData.originCol], ACTIVE_DUELIST);
 
     if (!gHideEffectText)
     {
@@ -574,9 +574,9 @@ static void EffectTorrentialTribute(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (!IsGodCard(gTurnZones[2][i]->id))
-            ClearZoneAndSendMonToGraveyard(gTurnZones[2][i], 0);
+            ClearZoneAndSendMonToGraveyard(gTurnZones[2][i], ACTIVE_DUELIST);
 
-    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], 1);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[0][gTrapEffectData.trapZoneCol], INACTIVE_DUELIST);
 
     if (!gHideEffectText)
     {

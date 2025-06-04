@@ -6,7 +6,7 @@ int HighestAtkMonInRow (struct DuelCard** zonePtr) {
   unsigned char zoneIndex = 0;
   signed char i;
   int highestAtk = -1;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if ((*zonePtr)->id == CARD_NONE) {
       zonePtr++;
       continue;
@@ -28,7 +28,7 @@ int HighestAtkMonInRowExceptGodCards (struct DuelCard** zonePtr) {
   unsigned char zoneIndex = 0;
   signed char i;
   int highestAtk = -1;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if ((*zonePtr)->id == CARD_NONE) {
       zonePtr++;
       continue;
@@ -54,7 +54,7 @@ int HighestAtkUnlockedMonInRow (struct DuelCard** zonePtr) {
   unsigned char zoneIndex = 0;
   signed char i;
   int highestAtk = -1;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if ((*zonePtr)->id == CARD_NONE) {
       zonePtr++;
       continue;
@@ -80,7 +80,7 @@ int HighestAtkFaceUpMonInRow (struct DuelCard** zonePtr) {
   unsigned char zoneIndex = 0;
   signed char i;
   int highestAtk = -1;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if ((*zonePtr)->id == CARD_NONE) {
       zonePtr++;
       continue;
@@ -106,7 +106,7 @@ int HighestAtkMonOfTypeInRow (struct DuelCard** zonePtr, unsigned char type) {
   unsigned char zoneIndex = 0;
   signed char i;
   int highestAtk = -1;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if ((*zonePtr)->id == CARD_NONE) {
       zonePtr++;
       continue;
@@ -130,7 +130,7 @@ int HighestAtkMonOfTypeInRow (struct DuelCard** zonePtr, unsigned char type) {
 
 unsigned char NumLowerAtkMonInRow (unsigned char turnRow, unsigned short atk) {
   unsigned char i, count = 0;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if (gTurnZones[turnRow][i]->id == CARD_NONE || !gTurnZones[turnRow][i]->isFaceUp)
       continue;
     gStatMod.card = gTurnZones[turnRow][i]->id;
@@ -155,7 +155,7 @@ unsigned char GetNumFaceUpLockedCardsInRow (unsigned char row) {
 unsigned GetTotalAtkAndDefInRow (unsigned char turnRow) {
   unsigned total = 0;
   unsigned char i;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if (GetTypeGroup(gTurnZones[turnRow][i]->id) != 1)
       continue;
     gStatMod.card = gTurnZones[turnRow][i]->id;
@@ -170,7 +170,7 @@ unsigned GetTotalAtkAndDefInRow (unsigned char turnRow) {
 unsigned GetTotalFaceUpAtkAndDefInRow (unsigned char turnRow) {
   unsigned total = 0;
   unsigned char i;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if (GetTypeGroup(gTurnZones[turnRow][i]->id) != 1 || !gTurnZones[turnRow][i]->isFaceUp)
       continue;
     gStatMod.card = gTurnZones[turnRow][i]->id;
@@ -198,7 +198,7 @@ int NumCardMatchesInRow (struct DuelCard** zonePtr, unsigned short cardId) {
 int sub_8043418 (struct DuelCard** zonePtr, unsigned short cardId) {
   signed char count = 0;
   unsigned char i;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     unsigned short currentCardId = (*zonePtr++)->id;
     if (IsGodCard(currentCardId) == TRUE)
       currentCardId = CARD_NONE;
@@ -388,7 +388,7 @@ unsigned GetNumFaceDownCardsInRow (unsigned char turnRow) {
 
 unsigned sub_80438A0 (unsigned char turnRow) {
   unsigned char i, count = 0;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     SetCardInfo(gTurnZones[turnRow][i]->id);
     if (gCardInfo.spellEffect == 2)
       count++;
@@ -406,7 +406,7 @@ unsigned GetNumCardsDefendingInRow (unsigned char turnRow) {
 
 int NumMatchingTypeInRow (unsigned char turnRow, unsigned char type) {
   unsigned char i, count = 0;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if (gTurnZones[turnRow][i]->id == CARD_NONE)
       continue;
     SetCardInfo(gTurnZones[turnRow][i]->id);
@@ -418,7 +418,7 @@ int NumMatchingTypeInRow (unsigned char turnRow, unsigned char type) {
 
 unsigned NumFaceUpMatchingTypeInRow (unsigned char turnRow, unsigned char type) {
   unsigned char i, count = 0;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if (gTurnZones[turnRow][i]->id == CARD_NONE || !gTurnZones[turnRow][i]->isFaceUp)
       continue;
     SetCardInfo(gTurnZones[turnRow][i]->id);
@@ -430,7 +430,7 @@ unsigned NumFaceUpMatchingTypeInRow (unsigned char turnRow, unsigned char type) 
 
 unsigned NumFaceUpMatchingAttributeInRow (unsigned char turnRow, unsigned char attribute) {
   unsigned char i, count = 0;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if (gTurnZones[turnRow][i]->id == CARD_NONE || !gTurnZones[turnRow][i]->isFaceUp)
       continue;
     SetCardInfo(gTurnZones[turnRow][i]->id);
@@ -442,7 +442,7 @@ unsigned NumFaceUpMatchingAttributeInRow (unsigned char turnRow, unsigned char a
 
 unsigned GetNumCardsUnlockedInRow (unsigned char turnRow) {
   unsigned char i, count = 0;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if (gTurnZones[turnRow][i]->id != CARD_NONE && !gTurnZones[turnRow][i]->isLocked)
       count++;
   }
@@ -647,7 +647,7 @@ void TryDrawingCard (unsigned turn) {
   unsigned char i;
   unsigned short cardDrawn;
   unsigned char turn_u8 = turn;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if (gDuel.hands[turn_u8][i].id != CARD_NONE)
       continue;
     cardDrawn = DrawTopDeckCard(turn_u8);

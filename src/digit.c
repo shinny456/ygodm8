@@ -18,12 +18,12 @@ static void sub_800DD88 (unsigned char* src, unsigned char* dest) {
       *dest = *src;
 }
 
-void ConvertU16ToDigitArray (u16 val, u8 flags) {
-  u8 digitIndex = 0;
-  u8 outputIndex = 0;
-  u16 powerOf10 = 10000;
-  u8 i;
-  u16 digit;
+void ConvertU16ToDigitArray (unsigned short val, unsigned char flags) {
+  unsigned char digitIndex = 0;
+  unsigned char outputIndex = 0;
+  unsigned short powerOf10 = 10000;
+  unsigned char i;
+  unsigned short digit;
 
   // clear buffer
   for (i = 0; i < MAX_U16_DIGITS; i++)
@@ -62,12 +62,12 @@ void ConvertU16ToDigitArray (u16 val, u8 flags) {
   }
 }
 
-void ConvertU64ToDigitArray (u64 val, u8 flags) {
-  u8 digitIndex = 0;
-  u8 outputIndex = 0;
-  u64 powerOf10;
-  u8 i;
-  u64 digit;
+void ConvertU64ToDigitArray (unsigned long long val, unsigned char flags) {
+  unsigned char digitIndex = 0;
+  unsigned char outputIndex = 0;
+  unsigned long long powerOf10;
+  unsigned char i;
+  unsigned long long digit;
 
   // clear buffer
   for (i = 0; i < MAX_U64_DIGITS; i++)

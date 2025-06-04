@@ -131,7 +131,7 @@ static void EffectCatapultTurtle(void)
             gStatMod.stage = GetFinalStage(gTurnZones[2][i]);
             SetFinalStat(&gStatMod);
             totalAtk += gCardInfo.atk;
-            ClearZoneAndSendMonToGraveyard(gTurnZones[2][i], 0);
+            ClearZoneAndSendMonToGraveyard(gTurnZones[2][i], ACTIVE_DUELIST);
         }
     }
     if (WhoseTurn() == DUEL_PLAYER)
@@ -276,11 +276,11 @@ static void EffectBeastKingOfTheSwamps(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (IsGodCard(gTurnZones[1][i]->id) != TRUE)
-            ClearZoneAndSendMonToGraveyard(gTurnZones[1][i], 1);
+            ClearZoneAndSendMonToGraveyard(gTurnZones[1][i], INACTIVE_DUELIST);
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (IsGodCard(gTurnZones[2][i]->id) != TRUE)
-            ClearZoneAndSendMonToGraveyard(gTurnZones[2][i], 0);
+            ClearZoneAndSendMonToGraveyard(gTurnZones[2][i], ACTIVE_DUELIST);
 
     if (!gHideEffectText)
     {
@@ -452,7 +452,7 @@ static void EffectObeliskTheTormentor(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (IsWingedDragonOfRa(gTurnZones[1][i]->id) != TRUE)
-            ClearZoneAndSendMonToGraveyard(gTurnZones[1][i], 1);
+            ClearZoneAndSendMonToGraveyard(gTurnZones[1][i], INACTIVE_DUELIST);
 
     if (WhoseTurn() == DUEL_PLAYER)
         SetOpponentLifePointsToSubtract(4000);
@@ -632,7 +632,7 @@ static void EffectValkyrionTheMagnaWarrior(void)
 
 static void EffectBeastOfGilfer(void)
 {
-    if (NumEmptyZonesInRow(gTurnZones[1]) < 5)
+    if (NumEmptyZonesInRow(gTurnZones[1]) < MAX_ZONES_IN_ROW)
     {
         u8 i;
 
@@ -640,7 +640,7 @@ static void EffectBeastOfGilfer(void)
             if (gTurnZones[1][i]->id != CARD_NONE)
                 DecrementPermStage(gTurnZones[1][i]);
     }
-    ClearZoneAndSendMonToGraveyard(gTurnZones[gMonEffect.row][gMonEffect.zone], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[gMonEffect.row][gMonEffect.zone], ACTIVE_DUELIST);
 
     if (!gHideEffectText)
     {
@@ -715,7 +715,7 @@ static void EffectReflectBounder(void)
         CheckLoserFlags();
     }
 
-    ClearZoneAndSendMonToGraveyard(gTurnZones[gMonEffect.row][gMonEffect.zone], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[gMonEffect.row][gMonEffect.zone], ACTIVE_DUELIST);
 
     if (!gHideEffectText)
     {
@@ -750,13 +750,13 @@ static void EffectParasiteParacide(void)
 
 static void EffectPinchHopper(void)
 {
-    ClearZoneAndSendMonToGraveyard(gTurnZones[gMonEffect.row][gMonEffect.zone], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[gMonEffect.row][gMonEffect.zone], ACTIVE_DUELIST);
 
     if (sub_8043584(gTurnZones[4], 10) > 0)
     {
         u8 zone = HighestAtkMonOfTypeInRow(gTurnZones[4], TYPE_INSECT);
 
-        if (zone != 5)
+        if (zone != MAX_ZONES_IN_ROW)
         {
             CopyCard(gTurnZones[gMonEffect.row][gMonEffect.zone], gTurnZones[4][zone]);
             gTurnZones[gMonEffect.row][gMonEffect.zone]->isFaceUp = TRUE;
@@ -849,7 +849,7 @@ static inline u32 RemoveSpellCard(struct DuelCard* zone)
         SetCardInfo(zone->id);
         if (gCardInfo.type == TYPE_SPELL)
         {
-            ClearZoneAndSendMonToGraveyard(zone, 1);
+            ClearZoneAndSendMonToGraveyard(zone, INACTIVE_DUELIST);
             return 1;
         }
 
@@ -859,10 +859,10 @@ static inline u32 RemoveSpellCard(struct DuelCard* zone)
 
 static void EffectDarkPaladin(void)
 {
-    if (NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) < 5 && NumMatchingTypeInRow(0, TYPE_SPELL) > 0)
+    if (NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) < MAX_ZONES_IN_ROW && NumMatchingTypeInRow(0, TYPE_SPELL) > 0)
     {
         u8 i;
-        ClearZoneAndSendMonToGraveyard(gTurnHands[ACTIVE_DUELIST][(u8)FirstNonEmptyZoneInRow(gTurnHands[ACTIVE_DUELIST])], 0);
+        ClearZoneAndSendMonToGraveyard(gTurnHands[ACTIVE_DUELIST][(u8)FirstNonEmptyZoneInRow(gTurnHands[ACTIVE_DUELIST])], ACTIVE_DUELIST);
         for (i = 0; i < MAX_ZONES_IN_ROW &&?; i++)
         {
             if (gTurnZones[0][i]->id != CARD_NONE)
@@ -870,7 +870,7 @@ static void EffectDarkPaladin(void)
                 SetCardInfo(gTurnZones[0][i]->id);
                 if (gCardInfo.type == TYPE_SPELL)
                 {
-                    ClearZoneAndSendMonToGraveyard(gTurnZones[0][i], 1);
+                    ClearZoneAndSendMonToGraveyard(gTurnZones[0][i], INACTIVE_DUELIST);
                     break;
                 }
             }
@@ -1560,8 +1560,8 @@ static void EffectXYDragonCannon(void)
 
         if (found)
         {
-            ClearZoneAndSendMonToGraveyard(gTurnZones[0][i], 1);
-            ClearZoneAndSendMonToGraveyard(gTurnHands[ACTIVE_DUELIST][(u8)FirstNonEmptyZoneInRow(gTurnHands[ACTIVE_DUELIST])], 0);
+            ClearZoneAndSendMonToGraveyard(gTurnZones[0][i], INACTIVE_DUELIST);
+            ClearZoneAndSendMonToGraveyard(gTurnHands[ACTIVE_DUELIST][(u8)FirstNonEmptyZoneInRow(gTurnHands[ACTIVE_DUELIST])], ACTIVE_DUELIST);
         }
     }
 
@@ -1714,7 +1714,7 @@ _0804789C: .4byte gCardEffectTextData");
 /*
 static void EffectYZTankDragon(void)
 {
-    if (NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) < 5)
+    if (NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) < MAX_ZONES_IN_ROW)
     {
         u8 i, i2, r8;
         u16 r7 = 0;
@@ -1737,8 +1737,8 @@ static void EffectYZTankDragon(void)
 
         if (r8)
         {
-            ClearZoneAndSendMonToGraveyard(gTurnZones[1][i2], 1);
-            ClearZoneAndSendMonToGraveyard(gTurnHands[ACTIVE_DUELIST][(u8)FirstNonEmptyZoneInRow(gTurnHands[ACTIVE_DUELIST])], 0);
+            ClearZoneAndSendMonToGraveyard(gTurnZones[1][i2], INACTIVE_DUELIST);
+            ClearZoneAndSendMonToGraveyard(gTurnHands[ACTIVE_DUELIST][(u8)FirstNonEmptyZoneInRow(gTurnHands[ACTIVE_DUELIST])], ACTIVE_DUELIST);
         }
     }
 
@@ -1868,8 +1868,8 @@ static void EffectXYZDragonCannon(void)
     {
         if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) < MAX_ZONES_IN_ROW)
         {
-            ClearZoneAndSendMonToGraveyard(gTurnZones[1][(u8)HighestAtkMonInRowExceptGodCards(gTurnZones[1])], 1);
-            ClearZoneAndSendMonToGraveyard(gTurnHands[ACTIVE_DUELIST][(u8)FirstNonEmptyZoneInRow(gTurnHands[ACTIVE_DUELIST])], 0);
+            ClearZoneAndSendMonToGraveyard(gTurnZones[1][(u8)HighestAtkMonInRowExceptGodCards(gTurnZones[1])], INACTIVE_DUELIST);
+            ClearZoneAndSendMonToGraveyard(gTurnHands[ACTIVE_DUELIST][(u8)FirstNonEmptyZoneInRow(gTurnHands[ACTIVE_DUELIST])], ACTIVE_DUELIST);
         }
     }
 
@@ -2183,14 +2183,14 @@ static void EffectFGD(void)
     {
         zone = gTurnZones[0][i];
         if (zone->id != CARD_NONE)
-            ClearZoneAndSendMonToGraveyard(zone, 1);
+            ClearZoneAndSendMonToGraveyard(zone, INACTIVE_DUELIST);
     }
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     {
         zone = gTurnZones[1][i];
         if (zone->id != CARD_NONE && IsGodCard(zone->id) != TRUE)
-            ClearZoneAndSendMonToGraveyard(zone, 1);
+            ClearZoneAndSendMonToGraveyard(zone, INACTIVE_DUELIST);
     }
 
     if (!gHideEffectText)
@@ -2226,7 +2226,7 @@ static void EffectReaperOfTheCards(void)
             SetCardInfo(gTurnZones[0][i]->id);
             if (gCardInfo.trapEffect)
             {
-                ClearZoneAndSendMonToGraveyard(gTurnZones[0][i], 1);
+                ClearZoneAndSendMonToGraveyard(gTurnZones[0][i], INACTIVE_DUELIST);
                 break;
             }
         }
@@ -2335,7 +2335,7 @@ static void EffectFlameSwordsman(void)
     {
         SetCardInfo(gTurnZones[1][i]->id);
         if (gCardInfo.type == TYPE_DINOSAUR)
-            ClearZoneAndSendMonToGraveyard(gTurnZones[1][i], 1);
+            ClearZoneAndSendMonToGraveyard(gTurnZones[1][i], INACTIVE_DUELIST);
     }
 
     if (!gHideEffectText)
@@ -2365,7 +2365,7 @@ static void EffectBattleOx(void)
     {
         SetCardInfo(gTurnZones[1][i]->id);
         if (gCardInfo.attribute == ATTRIBUTE_PYRO)
-            ClearZoneAndSendMonToGraveyard(gTurnZones[1][i], 1);
+            ClearZoneAndSendMonToGraveyard(gTurnZones[1][i], INACTIVE_DUELIST);
     }
 
     if (!gHideEffectText)
@@ -2411,7 +2411,7 @@ static void EffectMammothGraveyard(void)
 static void EffectGoddessOfWhim(void)
 {
     TryDrawingCard(WhoseTurn());
-    ClearZoneAndSendMonToGraveyard(gTurnZones[2][gMonEffect.zone], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[2][gMonEffect.zone], ACTIVE_DUELIST);
 
     if (!gHideEffectText)
     {
@@ -2440,7 +2440,7 @@ static void EffectDragonSeeker(void)
     {
         SetCardInfo(gTurnZones[1][i]->id);
         if (!IsGodCard(gCardInfo.id) && gCardInfo.type == TYPE_DRAGON)
-            ClearZoneAndSendMonToGraveyard(gTurnZones[1][i], 1);
+            ClearZoneAndSendMonToGraveyard(gTurnZones[1][i], INACTIVE_DUELIST);
     }
 
     if (!gHideEffectText)
@@ -2453,9 +2453,9 @@ static void EffectDragonSeeker(void)
 static void EffectFiendsHand(void)
 {
     if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) != MAX_ZONES_IN_ROW)
-        ClearZoneAndSendMonToGraveyard(gTurnZones[1][(u8)HighestAtkMonInRowExceptGodCards(gTurnZones[1])], 1);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[1][(u8)HighestAtkMonInRowExceptGodCards(gTurnZones[1])], INACTIVE_DUELIST);
 
-    ClearZoneAndSendMonToGraveyard(gTurnZones[gMonEffect.row][gMonEffect.zone], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[gMonEffect.row][gMonEffect.zone], ACTIVE_DUELIST);
 
     if (!gHideEffectText)
     {
@@ -2756,7 +2756,7 @@ static void EffectZombyraTheDark (void)
     if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) != MAX_ZONES_IN_ROW)
     {
         u8 zone = HighestAtkMonInRowExceptGodCards(gTurnZones[1]);
-        ClearZoneAndSendMonToGraveyard(gTurnZones[1][zone], 1);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[1][zone], INACTIVE_DUELIST);
         DecrementPermStage(gTurnZones[gMonEffect.row][gMonEffect.zone]);
     }
 
@@ -2776,7 +2776,7 @@ static void EffectGilfordTheLightning(void)
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
         if (!IsGodCard(gTurnZones[1][i]->id))
-            ClearZoneAndSendMonToGraveyard(gTurnZones[1][i], 1);
+            ClearZoneAndSendMonToGraveyard(gTurnZones[1][i], INACTIVE_DUELIST);
 
     if (!gHideEffectText)
     {
@@ -2811,7 +2811,7 @@ static void EffectJinzo(void)
         {
             SetCardInfo(gTurnZones[0][i]->id);
             if (gCardInfo.trapEffect)
-                ClearZoneAndSendMonToGraveyard(gTurnZones[0][i], 1);
+                ClearZoneAndSendMonToGraveyard(gTurnZones[0][i], INACTIVE_DUELIST);
         }
     }
 
@@ -2831,7 +2831,7 @@ static void EffectBarrelDragon(void)
         if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == MAX_ZONES_IN_ROW)
             break;
         if (RandRangeU8(0, 1) == 1)
-            ClearZoneAndSendMonToGraveyard(gTurnZones[1][(u8)HighestAtkMonInRowExceptGodCards(gTurnZones[1])], 1);
+            ClearZoneAndSendMonToGraveyard(gTurnZones[1][(u8)HighestAtkMonInRowExceptGodCards(gTurnZones[1])], INACTIVE_DUELIST);
     }
 
     if (!gHideEffectText)
@@ -2850,7 +2850,7 @@ static void EffectSkullMarkLadyBug(void)
 
     HandleAtkAndLifePointsAction();
 
-    ClearZoneAndSendMonToGraveyard(gTurnZones[gMonEffect.row][gMonEffect.zone], 0);
+    ClearZoneAndSendMonToGraveyard(gTurnZones[gMonEffect.row][gMonEffect.zone], ACTIVE_DUELIST);
 
     if (!gHideEffectText)
     {
@@ -2903,7 +2903,7 @@ static void EffectLegendaryFiend(void)
 static void EffectDesVolstgalph(void)
 {
     if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) < MAX_ZONES_IN_ROW)
-        ClearZoneAndSendMonToGraveyard(gTurnZones[1][(u8)HighestAtkMonInRowExceptGodCards(gTurnZones[1])], 1);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[1][(u8)HighestAtkMonInRowExceptGodCards(gTurnZones[1])], INACTIVE_DUELIST);
 
     if (WhoseTurn() == DUEL_PLAYER)
         SetOpponentLifePointsToSubtract(500);
@@ -2950,7 +2950,7 @@ static void EffectTheWingedDragonOfRaPhoenixMode(void)
     CheckLoserFlags();
 
     for (i = 0; i < MAX_ZONES_IN_ROW; i++)
-        ClearZoneAndSendMonToGraveyard(gTurnZones[1][i], 1);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[1][i], INACTIVE_DUELIST);
 
     if (!gHideEffectText)
     {
@@ -2962,7 +2962,7 @@ static void EffectTheWingedDragonOfRaPhoenixMode(void)
 static void EffectChironTheMage(void)
 {
     if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) < MAX_ZONES_IN_ROW)
-        ClearZoneAndSendMonToGraveyard(gTurnZones[1][(u8)HighestAtkMonInRowExceptGodCards(gTurnZones[1])], 1);
+        ClearZoneAndSendMonToGraveyard(gTurnZones[1][(u8)HighestAtkMonInRowExceptGodCards(gTurnZones[1])], INACTIVE_DUELIST);
 
     if (!gHideEffectText)
     {

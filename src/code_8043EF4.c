@@ -331,7 +331,7 @@ void sub_8044570 (void) {
     gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
     UpdateDuelGfxExceptField();
   }
-  else if (NumEmptyZonesInRow(gTurnZones[1]) == 5) { // Direct Attack
+  else if (NumEmptyZonesInRow(gTurnZones[1]) == MAX_ZONES_IN_ROW) { // Direct Attack
     gTrapEffectData.originRow = gDuelCursor.currentY;
     gTrapEffectData.originCol = gDuelCursor.currentX;
     gTrapEffectData.originCardId = gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->id;
@@ -376,8 +376,8 @@ void HandlePlayerBackrowAction (void) {
     case SPELL_TYPE_NORMAL: // immediate effect
       gDuelCursor.state = 0;
       gSpellEffectData.id = id;
-      gSpellEffectData.originRow = gDuelCursor.currentY;
-      gSpellEffectData.originCol = gDuelCursor.currentX;
+      gSpellEffectData.row1 = gDuelCursor.currentY;
+      gSpellEffectData.col1 = gDuelCursor.currentX;
       ActivateSpellEffect();
       if (gTurnDuelistBattleState[ACTIVE_DUELIST]->summoningBlocked)
         LockMonsterCardsInRow(4);
@@ -401,7 +401,8 @@ void HandlePlayerBackrowAction (void) {
   sub_8041E70(gDuelCursor.destY, gDuelCursor.currentY);
 }
 
-void sub_80447A8 (void) {
+// equip spells (and Elegant Egotist, Metalmorph, etc.) must target a monster to activate
+void TrySelectSpellTarget (void) {
   if (gDuelCursor.currentY != 2) {
     PlayMusic(SFX_FORBIDDEN);
     WaitForVBlank();
@@ -418,10 +419,10 @@ void sub_80447A8 (void) {
     SetCardInfo(gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->id);
     if (GetTypeGroup(gCardInfo.id) == TYPE_GROUP_MONSTER) {
       gSpellEffectData.id = gFixedZones[gDuelCursor.destY][gDuelCursor.destX]->id;
-      gSpellEffectData.targetRow = gDuelCursor.destY;
-      gSpellEffectData.targetCol = gDuelCursor.destX;
-      gSpellEffectData.originRow = gDuelCursor.currentY;
-      gSpellEffectData.originCol = gDuelCursor.currentX;
+      gSpellEffectData.row2 = gDuelCursor.destY;
+      gSpellEffectData.col2 = gDuelCursor.destX;
+      gSpellEffectData.row1 = gDuelCursor.currentY;
+      gSpellEffectData.col1 = gDuelCursor.currentX;
       ActivateSpellEffect();
     }
     gDuelCursor.state = 0;
@@ -431,7 +432,7 @@ void sub_80447A8 (void) {
   }
 }
 
-void sub_8044840 (void) {
+void TryAttackWithMonster (void) {
   if (gDuelCursor.currentY != 1) {
     PlayMusic(SFX_FORBIDDEN);
     WaitForVBlank();
@@ -554,10 +555,10 @@ void HandleAButtonAction (void) {
       TryPlaceSelectedCardOnField();
       break;
     case 2: //EQUIP_SPELL_SELECTED
-      sub_80447A8();
+      TrySelectSpellTarget();
       break;
     case 4:
-      sub_8044840();
+      TryAttackWithMonster();
       break;
   }
 }

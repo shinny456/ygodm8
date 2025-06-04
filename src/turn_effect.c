@@ -45,14 +45,13 @@ void sub_802AEB4 (void) {
   *oam++ = 0;
 }
 
-//TODO: rename to turn_effect.c
 static void TryActivatingTurnEffect (void);
 static unsigned sub_802BBF0 (void);
 
 static void CheckAllCardsForTurnEffects (void) {
   unsigned char i;
   gActiveEffect.turnRow = 4;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     gActiveEffect.col = i;
     gActiveEffect.cardId = gTurnHands[ACTIVE_DUELIST][gActiveEffect.col]->id;
     if (!gHideEffectText)
@@ -69,7 +68,7 @@ static void CheckAllCardsForTurnEffects (void) {
     }
   }
   gActiveEffect.turnRow = 5;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     gActiveEffect.col = i;
     gActiveEffect.cardId = gTurnHands[INACTIVE_DUELIST][gActiveEffect.col]->id;
     if (!gHideEffectText)
@@ -119,7 +118,7 @@ static void CheckAllCardsForTurnEffects (void) {
   }
 
   gActiveEffect.turnRow = 2;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     gActiveEffect.col = i;
     gActiveEffect.cardId = gTurnZones[gActiveEffect.turnRow][i]->id;
     if (!gHideEffectText)
@@ -137,7 +136,7 @@ static void CheckAllCardsForTurnEffects (void) {
   }
 
   gActiveEffect.turnRow = 1;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     gActiveEffect.col = i;
     gActiveEffect.cardId = gTurnZones[gActiveEffect.turnRow][i]->id;
     if (!gHideEffectText)
@@ -155,7 +154,7 @@ static void CheckAllCardsForTurnEffects (void) {
   }
 
   gActiveEffect.turnRow = 3;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     gActiveEffect.col = i;
     gActiveEffect.cardId = gTurnZones[gActiveEffect.turnRow][i]->id;
     if (!gHideEffectText)
@@ -174,7 +173,7 @@ static void CheckAllCardsForTurnEffects (void) {
   }
 
   gActiveEffect.turnRow = 0;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     gActiveEffect.col = i;
     gActiveEffect.cardId = gTurnZones[gActiveEffect.turnRow][i]->id;
     if (!gHideEffectText)
@@ -476,9 +475,9 @@ static void EffectMessengerOfPeaceLifePoints (void) {
 }
 
 static void EffectHelpoemer (void) {
-  if (gActiveEffect.turnRow != 7 || NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) == 5)
+  if (gActiveEffect.turnRow != 7 || NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) == MAX_ZONES_IN_ROW)
     return;
-  ClearZoneAndSendMonToGraveyard(gTurnHands[ACTIVE_DUELIST][(unsigned char)FirstNonEmptyZoneInRow(gTurnHands[ACTIVE_DUELIST])], 0);
+  ClearZoneAndSendMonToGraveyard(gTurnHands[ACTIVE_DUELIST][(unsigned char)FirstNonEmptyZoneInRow(gTurnHands[ACTIVE_DUELIST])], ACTIVE_DUELIST);
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = gActiveEffect.cardId;
     ActivateCardEffectText();
@@ -515,7 +514,7 @@ static void sub_802B8B8 (void) {
 }
 
 static void EffectViserDes (void) {
-  if (gActiveEffect.turnRow != 2 || NumEmptyZonesInRow(gTurnZones[1]) == 5)
+  if (gActiveEffect.turnRow != 2 || NumEmptyZonesInRow(gTurnZones[1]) == MAX_ZONES_IN_ROW)
     return;
   FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
   DecrementPermStage(gTurnZones[1][(unsigned char)HighestAtkMonInRow(gTurnZones[1])]);
@@ -529,9 +528,9 @@ static void sub_802B91C (void) {
 }
 
 static void EffectNewdoria (void) {
-  if (gActiveEffect.turnRow != 6 || NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == 5)
+  if (gActiveEffect.turnRow != 6 || NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == MAX_ZONES_IN_ROW)
     return;
-  ClearZoneAndSendMonToGraveyard(gTurnZones[1][(unsigned char)HighestAtkMonInRowExceptGodCards(gTurnZones[1])], 1);
+  ClearZoneAndSendMonToGraveyard(gTurnZones[1][(unsigned char)HighestAtkMonInRowExceptGodCards(gTurnZones[1])], INACTIVE_DUELIST);
   GetGraveCardAndClearGrave(ACTIVE_DUELIST);
   if (!gHideEffectText) {
     gCardEffectTextData.cardId = gActiveEffect.cardId;
@@ -700,7 +699,7 @@ static unsigned char ConditionCastleOfDarkIllusions (void) {
     if (gDuel.field != FIELD_YAMI)
       ret = 1;
     else if (gActiveEffect.col == GetFirstCardMatchZoneId(gTurnZones[1], CASTLE_OF_DARK_ILLUSIONS))
-      for (i = 0; i < 5; i++) {
+      for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
         if (gTurnZones[1][i]->id == CARD_NONE)
           continue;
         if (i == gActiveEffect.col)
@@ -715,7 +714,7 @@ static unsigned char ConditionCastleOfDarkIllusions (void) {
     if (gDuel.field != FIELD_YAMI)
       ret = 1;
     else if (gActiveEffect.col == GetFirstCardMatchZoneId(gTurnZones[2], CASTLE_OF_DARK_ILLUSIONS))
-      for (i = 0; i < 5; i++) {
+      for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
         if (gTurnZones[2][i]->id == CARD_NONE)
           continue;
         if (i == gActiveEffect.col)
@@ -888,7 +887,7 @@ static unsigned char ConditionJamBreedingMachineSummon (void) {
 }
 
 static unsigned char ConditionViserDes (void) {
-  if (gActiveEffect.turnRow == 2 && NumEmptyZonesInRow(gTurnZones[1]) < 5)
+  if (gActiveEffect.turnRow == 2 && NumEmptyZonesInRow(gTurnZones[1]) < MAX_ZONES_IN_ROW)
     return 1;
   return 0;
 }
@@ -898,7 +897,7 @@ static unsigned char sub_802BD98 (void) {
 }
 
 static unsigned char ConditionNewdoria (void) {
-  if (gActiveEffect.turnRow == 6 && NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) != 5)
+  if (gActiveEffect.turnRow == 6 && NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) != MAX_ZONES_IN_ROW)
     return 1;
   return 0;
 }

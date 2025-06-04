@@ -820,7 +820,7 @@ static void sub_800BC24(void)
 
     for (i = 0; i < 10; i++)
     {
-        if (gDigitArrayU16[i - 5] == 10 || i < 5)
+        if (gDigitArrayU16[i - 5] == DIGIT_UNUSED || i < 5)
             sub_8020968(vram, 0x4081, 0x101);
         else
         {
