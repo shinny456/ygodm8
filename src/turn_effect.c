@@ -222,7 +222,7 @@ static void EffectCastleOfDarkIllusions (void) {
   }
 }
 
-static void EffectDestinyBoard (void) {
+static void EffectDestinyBoard_NewLetter (void) {
   unsigned char zone;
   unsigned short flags;
 
@@ -255,7 +255,7 @@ static void EffectDestinyBoard (void) {
   }
 }
 
-static void EffectJamBreedingMachineSummon (void) {
+static void EffectJamBreedingMachine_Summon (void) {
   if (gActiveEffect.turnRow != 3)
     return;
   FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
@@ -379,82 +379,82 @@ static void TryActivatingTurnEffect (void) {
   g8E0C940[gCardInfo.unk1E]();
 }
 
-static void sub_802B70C (void) {
+static void EmptyFunc_802B70C (void) {
 }
 
-static void sub_802B710 (void) {
+static void EmptyFunc_802B710 (void) {
 }
 
-static void sub_802B714 (void) {
+static void EmptyFunc_802B714 (void) {
 }
 
-static void sub_802B718 (void) {
+static void EmptyFunc_802B718 (void) {
 }
 
-static void sub_802B71C (void) {
+static void EmptyFunc_802B71C (void) {
 }
 
-static void sub_802B720 (void) {
+static void EmptyFunc_802B720 (void) {
 }
 
-static void sub_802B724 (void) {
+static void EmptyFunc_802B724 (void) {
 }
 
-static void sub_802B728 (void) {
+static void EmptyFunc_802B728 (void) {
 }
 
-static void sub_802B72C (void) {
+static void EmptyFunc_802B72C (void) {
 }
 
-static void sub_802B730 (void) {
+static void EmptyFunc_802B730 (void) {
 }
 
-static void sub_802B734 (void) {
+static void EmptyFunc_802B734 (void) {
 }
 
-static void sub_802B738 (void) {
+static void EmptyFunc_802B738 (void) {
 }
 
-static void sub_802B73C (void) {
+static void EmptyFunc_802B73C (void) {
 }
 
-static void sub_802B740 (void) {
+static void EmptyFunc_802B740 (void) {
 }
 
-static void sub_802B744 (void) {
+static void EmptyFunc_802B744 (void) {
 }
 
-static void sub_802B748 (void) {
+static void EmptyFunc_802B748 (void) {
 }
 
-static void sub_802B74C (void) {
+static void EmptyFunc_802B74C (void) {
 }
 
-static void sub_802B750 (void) {
+static void EmptyFunc_802B750 (void) {
 }
 
-static void sub_802B754 (void) {
+static void EmptyFunc_802B754 (void) {
 }
 
-static void sub_802B758 (void) {
+static void EmptyFunc_802B758 (void) {
 }
 
-static void sub_802B75C (void) {
+static void EmptyFunc_802B75C (void) {
 }
 
-static void sub_802B760 (void) {
+static void EmptyFunc_802B760 (void) {
 }
 
-static void sub_802B764 (void) {
+static void EmptyFunc_802B764 (void) {
 }
 
-static void sub_802B768 (void) {
+static void EmptyFunc_802B768 (void) {
 }
 
-static void sub_802B76C (void) {
+static void EmptyFunc_802B76C (void) {
 }
 
-static void EffectMessengerOfPeaceLifePoints (void) {
+static void EffectMessengerOfPeace_SubtractLifePoints (void) {
   if (gActiveEffect.turnRow != 3)
     return;
   FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
@@ -484,7 +484,7 @@ static void EffectHelpoemer (void) {
   }
 }
 
-static void EffectLavaGolemLifePoints (void) {
+static void EffectLavaGolem_SubtractLifePoints (void) {
   if (gActiveEffect.turnRow != 2)
     return;
   FlipCardFaceUp(gTurnZones[2][gActiveEffect.col]);
@@ -504,13 +504,13 @@ static void EffectLavaGolemLifePoints (void) {
   }
 }
 
-static void sub_802B8B0 (void) {
+static void EmptyFunc_802B8B0 (void) {
 }
 
-static void sub_802B8B4 (void) {
+static void EmptyFunc_802B8B4 (void) {
 }
 
-static void sub_802B8B8 (void) {
+static void EmptyFunc_802B8B8 (void) {
 }
 
 static void EffectViserDes (void) {
@@ -524,7 +524,7 @@ static void EffectViserDes (void) {
   }
 }
 
-static void sub_802B91C (void) {
+static void EmptyFunc_802B91C (void) {
 }
 
 static void EffectNewdoria (void) {
@@ -538,19 +538,19 @@ static void EffectNewdoria (void) {
   }
 }
 
-static void sub_802B978 (void) {
+static void EmptyFunc_802B978 (void) {
 }
 
-static void sub_802B97C (void) {
+static void EmptyFunc_802B97C (void) {
 }
 
-static void sub_802B980 (void) {
+static void EmptyFunc_802B980 (void) {
 }
 
-static void sub_802B984 (void) {
+static void EmptyFunc_802B984 (void) {
 }
 
-static void EffectBerserkDragon_AttackOpponentMonsters (void) {
+static void EffectBerserkDragon_PowerDown (void) {
   if (gActiveEffect.turnRow != 1)
     return;
   FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
@@ -561,10 +561,10 @@ static void EffectBerserkDragon_AttackOpponentMonsters (void) {
   }
 }
 
-static void sub_802B9F0 (void) {
+static void EmptyFunc_802B9F0 (void) {
 }
 
-static void EffectExodiaNecross (void) {
+static void EffectExodiaNecross_PowerUp (void) {
   struct DuelCard* ptr;
   if (gActiveEffect.turnRow != 2)
     return;
@@ -577,16 +577,16 @@ static void EffectExodiaNecross (void) {
   }
 }
 
-static void sub_802BA40 (void) {
+static void EmptyFunc_802BA40 (void) {
 }
 
-static void sub_802BA44 (void) {
+static void EmptyFunc_802BA44 (void) {
 }
 
-static void sub_802BA48 (void) {
+static void EmptyFunc_802BA48 (void) {
 }
 
-static void sub_802BA4C (void) {
+static void EmptyFunc_802BA4C (void) {
 }
 
 static void EffectSatelliteCannon (void) {
@@ -607,88 +607,88 @@ static void EffectSatelliteCannon (void) {
   }
 }
 
-static void sub_802BAB4 (void) {
+static void EmptyFunc_802BAB4 (void) {
 }
 
-static void sub_802BAB8 (void) {
+static void EmptyFunc_802BAB8 (void) {
 }
 
-static void sub_802BABC (void) {
+static void EmptyFunc_802BABC (void) {
 }
 
-static void sub_802BAC0 (void) {
+static void EmptyFunc_802BAC0 (void) {
 }
 
-static void sub_802BAC4 (void) {
+static void EmptyFunc_802BAC4 (void) {
 }
 
-static void sub_802BAC8 (void) {
+static void EmptyFunc_802BAC8 (void) {
 }
 
-static void sub_802BACC (void) {
+static void EmptyFunc_802BACC (void) {
 }
 
-static void sub_802BAD0 (void) {
+static void EmptyFunc_802BAD0 (void) {
 }
 
-static void sub_802BAD4 (void) {
+static void EmptyFunc_802BAD4 (void) {
 }
 
-static void sub_802BAD8 (void) {
+static void EmptyFunc_802BAD8 (void) {
 }
 
-static void sub_802BADC (void) {
+static void EmptyFunc_802BADC (void) {
 }
 
-static void sub_802BAE0 (void) {
+static void EmptyFunc_802BAE0 (void) {
 }
 
-static void sub_802BAE4 (void) {
+static void EmptyFunc_802BAE4 (void) {
 }
 
-static void sub_802BAE8 (void) {
+static void EmptyFunc_802BAE8 (void) {
 }
 
-static void sub_802BAEC (void) {
+static void EmptyFunc_802BAEC (void) {
 }
 
-static void sub_802BAF0 (void) {
+static void EmptyFunc_802BAF0 (void) {
 }
 
-static void sub_802BAF4 (void) {
+static void EmptyFunc_802BAF4 (void) {
 }
 
-static void sub_802BAF8 (void) {
+static void EmptyFunc_802BAF8 (void) {
 }
 
-static void sub_802BAFC (void) {
+static void EmptyFunc_802BAFC (void) {
 }
 
-static void sub_802BB00 (void) {
+static void EmptyFunc_802BB00 (void) {
 }
 
-static void sub_802BB04 (void) {
+static void EmptyFunc_802BB04 (void) {
 }
 
-static void sub_802BB08 (void) {
+static void EmptyFunc_802BB08 (void) {
 }
 
-static void sub_802BB0C (void) {
+static void EmptyFunc_802BB0C (void) {
 }
 
-static void sub_802BB10 (void) {
+static void EmptyFunc_802BB10 (void) {
 }
 
-static void sub_802BB14 (void) {
+static void EmptyFunc_802BB14 (void) {
 }
 
-static void sub_802BB18 (void) {
+static void EmptyFunc_802BB18 (void) {
 }
 
-static void sub_802BB1C (void) {
+static void EmptyFunc_802BB1C (void) {
 }
 
-static void sub_802BB20 (void) {
+static void EmptyFunc_802BB20 (void) {
 }
 
 static unsigned char ConditionCastleOfDarkIllusions (void) {
@@ -833,7 +833,7 @@ static unsigned char sub_802BC80 (void) {
   return 0;
 }
 
-// condition: messenger of peace?
+// condition for a backrow that activates at start of own turn -- MessengerOfPeace lp burn?
 static unsigned char sub_802BC84 (void) {
   unsigned char ret = 0;
   if (gActiveEffect.turnRow == 3 &&
@@ -842,7 +842,7 @@ static unsigned char sub_802BC84 (void) {
   return ret;
 }
 
-static unsigned char ConditionDestinyBoardNewLetter (void) {
+static unsigned char ConditionDestinyBoard_NewLetter (void) {
   unsigned char ret = 0;
   if (gActiveEffect.turnRow == 3 &&
       gActiveEffect.col == GetFirstCardMatchZoneId(gTurnZones[3], DESTINY_BOARD) &&
@@ -852,18 +852,12 @@ static unsigned char ConditionDestinyBoardNewLetter (void) {
 }
 
 static unsigned char ConditionHelpoemer (void) {
-  unsigned char ret = 0;
-  if (gActiveEffect.turnRow == 7 && NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) <= 2)
-    ret = 1;
-  return ret;
+  return gActiveEffect.turnRow == 7 && NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) <= 2;
 }
 
 // condition: lava golem lp burn?
 static unsigned char sub_802BD14 (void) {
-  unsigned char ret = 0;
-  if (gActiveEffect.turnRow == 2)
-    ret = 1;
-  return ret;
+  return gActiveEffect.turnRow == 2;
 }
 
 static unsigned char sub_802BD28 (void) {
@@ -878,7 +872,7 @@ static unsigned char sub_802BD30 (void) {
   return 0;
 }
 
-static unsigned char ConditionJamBreedingMachineSummon (void) {
+static unsigned char ConditionJamBreedingMachine_Summon (void) {
   if (gActiveEffect.turnRow == 3 &&
       NumEmptyZonesInRow(gTurnZones[2]) != 0 &&
       gActiveEffect.col == GetFirstCardMatchZoneId(gTurnZones[3], JAM_BREEDING_MACHINE))
@@ -954,7 +948,7 @@ static unsigned char sub_802BE38 (void) {
   return 0;
 }
 
-static unsigned char ConditionExodiaNecrossPowerUp (void) {
+static unsigned char ConditionExodiaNecross_PowerUp (void) {
   if (gActiveEffect.turnRow == 2 && GetExodiaFlag(gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard))
     return 1;
   return 0;

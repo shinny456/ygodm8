@@ -74,7 +74,8 @@ static void EffectTimeWizard(void)
     }
 }
 
-static void EffectCastleOfDarkIllusions(void)
+// Leftover from TSC; real version in permanent_effect
+static void FAKE_EffectCastleOfDarkIllusions(void)
 {
     u8 i;
 
@@ -96,7 +97,8 @@ static void EffectCastleOfDarkIllusions(void)
     }
 }
 
-static void EffectPumpkingTheKingOfGhosts(void)
+// Leftover from TSC; real version in permanent_effect
+static void FAKE_EffectPumpkingTheKingOfGhosts(void)
 {
     u8 i;
 
@@ -173,7 +175,8 @@ static void EffectTrapMaster(void)
     }
 }
 
-static void EffectDarkMagicianGirl(void)
+// Leftover from TSC; real version in permanent_effect
+static void FAKE_EffectDarkMagicianGirl(void)
 {
     if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == DARK_MAGICIAN)
         IncrementPermStage(gTurnZones[gMonEffect.row][gMonEffect.zone]);
@@ -229,7 +232,8 @@ static void EffectDoron(void)
     }
 }
 
-static void EffectLabyrinthTank(void)
+// Leftover from TSC; real version in permanent_effect
+static void FAKE_EffectLabyrinthTank(void)
 {
     u8 i;
 
@@ -336,7 +340,8 @@ static void EffectToadMaster(void)
     }
 }
 
-static void EffectHoshiningen(void)
+// Leftover from TSC; real version in permanent_effect
+static void FAKE_EffectHoshiningen(void)
 {
     u8 i;
 
@@ -356,7 +361,8 @@ static void EffectHoshiningen(void)
     }
 }
 
-static void EffectWitchsApprentice(void)
+// Leftover from TSC; real version in permanent_effect
+static void FAKE_EffectWitchsApprentice(void)
 {
     u8 i;
 
@@ -420,8 +426,8 @@ static void EffectLeghul(void)
     }
 }
 
-// Leftover from TSC; Moved to permanent effect
-static void EffectInsectQueen(void)
+// Leftover from TSC; real version in permanent_effect
+static void FAKE_EffectInsectQueen(void)
 {
     u8 i;
 
@@ -469,8 +475,8 @@ static void EffectObeliskTheTormentor(void)
     }
 }
 
-// Leftover from TSC; Moved to permanent effect
-static void EffectSliferTheSkyDragon(void)
+// Leftover from TSC; real version in permanent_effect
+static void FAKE_EffectSliferTheSkyDragon(void)
 {
     u8 i;
 
@@ -491,7 +497,8 @@ static void EffectSliferTheSkyDragon(void)
     }
 }
 
-static void EffectDarkMagicianGirl2(void)
+// Leftover from TSC; real version in permanent_effect
+static void FAKE_EffectDarkMagicianGirl2(void)
 {
     if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == DARK_MAGICIAN)
         IncrementPermStage(gTurnZones[gMonEffect.row][gMonEffect.zone]);
@@ -674,6 +681,7 @@ static void EffectDarkNecrofear(void)
     }
 }
 
+// fake? power up perm stage for each dragon on opponent field
 static void sub_8046D38(void)
 {
     if (NumEmptyZonesInRow(gTurnZones[1]) != MAX_ZONES_IN_ROW)
@@ -2143,7 +2151,7 @@ static void EffectPenguinTorpedo(void)
     }
 }
 
-static void EffectBerserkDragon_AttackOpponentMonsters(void)
+static void EffectBerserkDragon_AttackAll(void)
 {
     u8 i, turn = WhoseTurn();
 
@@ -2209,10 +2217,10 @@ void ActivateMonsterEffect (void)
 }
 
 //unused?
-static void sub_8047D5C (void) {
+static void EmptyFunc_8047D5C (void) {
 }
 
-static void sub_8047D60 (void) {
+static void EmptyFunc_8047D60 (void) {
 }
 
 static void EffectReaperOfTheCards(void)
@@ -2266,7 +2274,8 @@ static void EffectSkelengel(void)
     }
 }
 
-static void EffectHarpieLady(void)
+// Leftover from TSC; real version in permanent_effect
+static void FAKE_EffectHarpieLady(void)
 {
     u8 i;
 
@@ -2283,7 +2292,8 @@ static void EffectHarpieLady(void)
     }
 }
 
-static void EffectHarpieLadySisters(void)
+// Leftover from TSC; real version in permanent_effect
+static void FAKE_EffectHarpieLadySisters(void)
 {
     u8 i;
 
@@ -2299,7 +2309,8 @@ static void EffectHarpieLadySisters(void)
     }
 }
 
-static void EffectMysticalElf(void)
+// Leftover from TSC; real version in permanent_effect
+static void FAKE_EffectMysticalElf(void)
 {
     u8 i;
 
@@ -2375,7 +2386,8 @@ static void EffectBattleOx(void)
     }
 }
 
-static void EffectMonsterTamer(void)
+// Leftover from TSC; real version in permanent_effect
+static void FAKE_EffectMonsterTamer(void)
 {
     u8 i;
 
@@ -2393,7 +2405,8 @@ static void EffectMonsterTamer(void)
     }
 }
 
-static void EffectMammothGraveyard(void)
+// Leftover from TSC; real version in permanent_effect
+static void FAKE_EffectMammothGraveyard(void)
 {
     u8 i;
 
@@ -2492,7 +2505,8 @@ static void EffectElectricLizard(void)
     }
 }
 
-static void EffectWodanTheResidentOfTheForest(void)
+// Leftover from TSC; real version in permanent_effect
+static void FAKE_EffectWodanTheResidentOfTheForest(void)
 {
     u8 i;
 
@@ -2510,7 +2524,8 @@ static void EffectWodanTheResidentOfTheForest(void)
     }
 }
 
-static void EffectMWarrior1(void)
+// Leftover from TSC; real version in permanent_effect
+static void FAKE_EffectMWarrior1(void)
 {
     u8 i;
 
@@ -2526,7 +2541,8 @@ static void EffectMWarrior1(void)
     }
 }
 
-static void EffectMWarrior2(void)
+// Leftover from TSC; real version in permanent_effect
+static void FAKE_EffectMWarrior2(void)
 {
     u8 i;
 
@@ -2618,7 +2634,8 @@ static void EffectMonsterEye(void)
     }
 }
 
-static void EffectSwampBattleGuard(void)
+// Leftover from TSC; real version in permanent_effect
+static void FAKE_EffectSwampBattleGuard(void)
 {
     u8 i;
 
@@ -2634,7 +2651,8 @@ static void EffectSwampBattleGuard(void)
     }
 }
 
-static void EffectLavaBattleGuard(void)
+// Leftover from TSC; real version in permanent_effect
+static void FAKE_EffectLavaBattleGuard(void)
 {
     u8 i;
 
@@ -2723,19 +2741,20 @@ static void EffectTheWingedDragonOfRaBattleMode(void)
     }
 }
 
-static void sub_80486EC (void) {
+static void EmptyFunc_80486EC (void) {
 }
 
-static void sub_80486F0 (void) {
+static void EmptyFunc_80486F0 (void) {
 }
 
-static void sub_80486F4 (void) {
+static void EmptyFunc_80486F4 (void) {
 }
 
-static void sub_80486F8 (void) {
+static void EmptyFunc_80486F8 (void) {
 }
 
-static void sub_80486FC(void)
+// Leftover from TSC; real version in permanent_effect
+static void FAKE_EffectCyberHarpie(void)
 {
     u8 i;
 
@@ -2767,7 +2786,7 @@ static void EffectZombyraTheDark (void)
     }
 }
 
-static void sub_80487BC (void) {
+static void EmptyFunc_80487BC (void) {
 }
 
 static void EffectGilfordTheLightning(void)
@@ -2801,7 +2820,8 @@ static void EffectMysticalBeastSerket(void)
     }
 }
 
-static void EffectJinzo(void)
+// Leftover from TSC; real version in permanent_effect
+static void FAKE_EffectJinzo(void)
 {
     if (NumEmptyZonesInRow(gTurnZones[0]) != MAX_ZONES_IN_ROW)
     {
@@ -2871,6 +2891,7 @@ static void EffectRocketWarrior(void)
     }
 }
 
+// fake? perm power up for each dragon on own field
 static void sub_80489F0(void)
 {
     u8 i;
@@ -2920,7 +2941,7 @@ static void EffectDesVolstgalph(void)
     }
 }
 
-static void sub_8048B10 (void) {
+static void EmptyFunc_8048B10 (void) {
 }
 
 static void EffectByserShock(void)
@@ -2937,7 +2958,8 @@ static void EffectByserShock(void)
     }
 }
 
-static void EffectTheWingedDragonOfRaPhoenixMode(void)
+// Leftover from TSC; real version in permanent_effect
+static void FAKE_EffectTheWingedDragonOfRaPhoenixMode_Resurrect(void)
 {
     u8 i;
 
@@ -2971,80 +2993,80 @@ static void EffectChironTheMage(void)
     }
 }
 
-static void sub_8048C18 (void) {
+static void EmptyFunc_8048C18 (void) {
 }
 
-static void sub_8048C1C (void) {
+static void EmptyFunc_8048C1C (void) {
 }
 
-static void sub_8048C20 (void) {
+static void EmptyFunc_8048C20 (void) {
 }
 
-static void sub_8048C24 (void) {
+static void EmptyFunc_8048C24 (void) {
 }
 
-static void sub_8048C28 (void) {
+static void EmptyFunc_8048C28 (void) {
 }
 
-static void sub_8048C2C (void) {
+static void EmptyFunc_8048C2C (void) {
 }
 
-static void sub_8048C30 (void) {
+static void EmptyFunc_8048C30 (void) {
 }
 
-static void sub_8048C34 (void) {
+static void EmptyFunc_8048C34 (void) {
 }
 
-static void sub_8048C38 (void) {
+static void EmptyFunc_8048C38 (void) {
 }
 
-static void sub_8048C3C (void) {
+static void EmptyFunc_8048C3C (void) {
 }
 
-static void sub_8048C40 (void) {
+static void EmptyFunc_8048C40 (void) {
 }
 
-static void sub_8048C44 (void) {
+static void EmptyFunc_8048C44 (void) {
 }
 
-static void sub_8048C48 (void) {
+static void EmptyFunc_8048C48 (void) {
 }
 
-static void sub_8048C4C (void) {
+static void EmptyFunc_8048C4C (void) {
 }
 
-static void sub_8048C50 (void) {
+static void EmptyFunc_8048C50 (void) {
 }
 
-static void sub_8048C54 (void) {
+static void EmptyFunc_8048C54 (void) {
 }
 
-static void sub_8048C58 (void) {
+static void EmptyFunc_8048C58 (void) {
 }
 
-static void sub_8048C5C (void) {
+static void EmptyFunc_8048C5C (void) {
 }
 
 //TODO: use monster_effect constants, rename to gMonsterEffects?
 void (*const gMonEffects[])(void) = {
-  sub_8047D60,
+  EmptyFunc_8047D60,
   EffectReaperOfTheCards,
   EffectFairysGift,
   EffectRelinquished,
   EffectThousandEyesRestrict,
   EffectSkelengel,
-  EffectHarpieLady,
-  EffectHarpieLadySisters,
+  FAKE_EffectHarpieLady,
+  FAKE_EffectHarpieLadySisters,
   EffectTimeWizard,
-  EffectCastleOfDarkIllusions,
-  EffectMysticalElf,
+  FAKE_EffectCastleOfDarkIllusions,
+  FAKE_EffectMysticalElf,
   EffectCurseOfDragon,
   EffectFlameSwordsman,
   EffectGiantSoldierOfStone,
   EffectBattleOx,
-  EffectMonsterTamer,
-  EffectPumpkingTheKingOfGhosts,
-  EffectMammothGraveyard,
+  FAKE_EffectMonsterTamer,
+  FAKE_EffectPumpkingTheKingOfGhosts,
+  FAKE_EffectMammothGraveyard,
   EffectCatapultTurtle,
   EffectGoddessOfWhim,
   EffectSpiritOfTheMountain,
@@ -3053,10 +3075,10 @@ void (*const gMonEffects[])(void) = {
   EffectFiendsHand,
   EffectIllusionistFacelessMage,
   EffectElectricLizard,
-  EffectDarkMagicianGirl,
-  EffectWodanTheResidentOfTheForest,
-  EffectMWarrior1,
-  EffectMWarrior2,
+  FAKE_EffectDarkMagicianGirl,
+  FAKE_EffectWodanTheResidentOfTheForest,
+  FAKE_EffectMWarrior1,
+  FAKE_EffectMWarrior2,
   EffectRedArcheryGirl,
   EffectLadyOfFaith,
   EffectFireReaper,
@@ -3064,30 +3086,30 @@ void (*const gMonEffects[])(void) = {
   EffectGyakutennoMegami,
   EffectMonsterEye,
   EffectDoron,
-  EffectSwampBattleGuard,
-  EffectLavaBattleGuard,
+  FAKE_EffectSwampBattleGuard,
+  FAKE_EffectLavaBattleGuard,
   EffectTrent,
-  EffectLabyrinthTank,
+  FAKE_EffectLabyrinthTank,
   EffectSpiritOfTheBooks,
   EffectHourglassOfLife,
   EffectBeastKingOfTheSwamps,
   EffectNemuriko,
   EffectToadMaster,
-  EffectHoshiningen,
+  FAKE_EffectHoshiningen,
   EffectInvitationToADarkSleep,
-  EffectWitchsApprentice,
+  FAKE_EffectWitchsApprentice,
   EffectMysticLamp,
   EffectLeghul,
-  EffectInsectQueen,
+  FAKE_EffectInsectQueen,
   EffectObeliskTheTormentor,
-  EffectSliferTheSkyDragon,
+  FAKE_EffectSliferTheSkyDragon,
   EffectTheWingedDragonOfRaBattleMode,
-  sub_80486EC,
-  sub_80486F0,
-  sub_80486F4,
-  sub_80486F8,
-  sub_80486FC,
-  EffectDarkMagicianGirl2,
+  EmptyFunc_80486EC,
+  EmptyFunc_80486F0,
+  EmptyFunc_80486F4,
+  EmptyFunc_80486F8,
+  FAKE_EffectCyberHarpie,
+  FAKE_EffectDarkMagicianGirl2,
   EffectAlphaTheMagnetWarrior,
   EffectBetaTheMagnetWarrior,
   EffectGammaTheMagnetWarrior,
@@ -3095,10 +3117,10 @@ void (*const gMonEffects[])(void) = {
   EffectBeastOfGilfer,
   EffectDarkNecrofear,
   EffectZombyraTheDark,
-  sub_80487BC,
+  EmptyFunc_80487BC,
   EffectGilfordTheLightning,
   EffectMysticalBeastSerket,
-  EffectJinzo,
+  FAKE_EffectJinzo,
   sub_8046D38,
   EffectBarrelDragon,
   EffectReflectBounder,
@@ -3113,7 +3135,7 @@ void (*const gMonEffects[])(void) = {
   EffectDesVolstgalph,
   EffectExarionUniverse,
   EffectDarkPaladin,
-  sub_8048B10,
+  EmptyFunc_8048B10,
   EffectByserShock,
   EffectKingsKnight,
   EffectXHeadCannon,
@@ -3124,27 +3146,27 @@ void (*const gMonEffects[])(void) = {
   EffectYZTankDragon,
   EffectXYZDragonCannon,
   EffectPuppetMaster,
-  EffectTheWingedDragonOfRaPhoenixMode,
+  FAKE_EffectTheWingedDragonOfRaPhoenixMode_Resurrect,
   EffectPenguinTorpedo,
-  EffectBerserkDragon_AttackOpponentMonsters,
+  EffectBerserkDragon_AttackAll,
   EffectFGD,
   EffectChironTheMage,
-  sub_8048C18,
-  sub_8048C1C,
-  sub_8048C20,
-  sub_8048C24,
-  sub_8048C28,
-  sub_8048C2C,
-  sub_8048C30,
-  sub_8048C34,
-  sub_8048C38,
-  sub_8048C3C,
-  sub_8048C40,
-  sub_8048C44,
-  sub_8048C48,
-  sub_8048C4C,
-  sub_8048C50,
-  sub_8048C54,
-  sub_8048C58,
-  sub_8048C5C
+  EmptyFunc_8048C18,
+  EmptyFunc_8048C1C,
+  EmptyFunc_8048C20,
+  EmptyFunc_8048C24,
+  EmptyFunc_8048C28,
+  EmptyFunc_8048C2C,
+  EmptyFunc_8048C30,
+  EmptyFunc_8048C34,
+  EmptyFunc_8048C38,
+  EmptyFunc_8048C3C,
+  EmptyFunc_8048C40,
+  EmptyFunc_8048C44,
+  EmptyFunc_8048C48,
+  EmptyFunc_8048C4C,
+  EmptyFunc_8048C50,
+  EmptyFunc_8048C54,
+  EmptyFunc_8048C58,
+  EmptyFunc_8048C5C
 };

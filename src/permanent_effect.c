@@ -853,7 +853,7 @@ static void sub_8028B10 (void) {
   }
 }
 
-static void EffectMessengerOfPeace (void) {
+static void EffectMessengerOfPeace_LockMonsters (void) {
   unsigned char i;
   if (gActiveEffect.turnRow && gActiveEffect.turnRow != 3)
     return;
@@ -884,7 +884,7 @@ static void EffectMessengerOfPeace (void) {
   }
 }
 
-static void EffectLavaGolemSummon (void) {
+static void EffectLavaGolem_Summon (void) {
   u32 i;
   unsigned char j, zone;
   if (gActiveEffect.turnRow != 4)
@@ -976,7 +976,7 @@ static void sub_8028ED8 (void) {
   }
 }
 
-static void EffectTheWingedDragonOfRaPhoenixMode (void) {
+static void EffectTheWingedDragonOfRaPhoenixMode_Resurrect (void) {
   unsigned char emptyZone;
   if (gActiveEffect.turnRow == 7) {
     if (gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard != THE_WINGED_DRAGON_OF_RA_PHOENIX_MODE)
@@ -1201,7 +1201,7 @@ static void EffectDarkFlareKnight (void) {
   }
 }
 
-static void EffectExodiaNecrossDestroy (void) {
+static void EffectExodiaNecross_DestroySelf (void) {
   if (gActiveEffect.turnRow == 1) {
     if (!GetExodiaFlag(gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard))
       ClearZoneAndSendMonToGraveyard(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col], INACTIVE_DUELIST);
@@ -1220,7 +1220,7 @@ static void EffectExodiaNecrossDestroy (void) {
   }
 }
 
-static void EffectSpiritMessageDestroy (void) {
+static void EffectSpiritMessage_DestroySelf (void) {
   unsigned char i;
   struct DuelCard* zone;
   if (gActiveEffect.turnRow == 0) {
@@ -1290,7 +1290,7 @@ static void sub_80298B8 (void) {
 static void sub_80298BC (void) {
 }
 
-static void EffectJamBreedingMachineBlockSummoning (void) {
+static void EffectJamBreedingMachine_BlockSummoning (void) {
   if (gActiveEffect.turnRow != 3)
     return;
   FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
@@ -1322,15 +1322,15 @@ static void sub_802993C (void) {
 }
 
 static void sub_8029940 (void) {
-  EffectSpiritMessageDestroy();
+  EffectSpiritMessage_DestroySelf();
 }
 
 static void sub_802994C (void) {
-  EffectSpiritMessageDestroy();
+  EffectSpiritMessage_DestroySelf();
 }
 
 static void sub_8029958 (void) {
-  EffectSpiritMessageDestroy();
+  EffectSpiritMessage_DestroySelf();
 }
 
 static void sub_8029964 (void) {
@@ -1786,7 +1786,7 @@ static unsigned char ConditionThunderNyanNyan (void) {
   return ret;
 }
 
-static unsigned char ConditionMessengerOfPeace (void) {
+static unsigned char ConditionMessengerOfPeace_LockMonsters (void) {
   u32 ret = 0;
   unsigned char i;
   if (gActiveEffect.turnRow == 0) {
@@ -1882,7 +1882,7 @@ static unsigned char ConditionMasterOfDragonSoldier (void) {
   return 1;
 }
 
-static unsigned char ConditionTheWingedDragonOfRaPhoenixMode (void) {
+static unsigned char ConditionTheWingedDragonOfRaPhoenixMode_Resurrect (void) {
   if (gActiveEffect.turnRow == 7) {
     if (gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard != THE_WINGED_DRAGON_OF_RA_PHOENIX_MODE)
       return 0;
@@ -2123,7 +2123,7 @@ static unsigned char sub_802A768 (void) {
   return 0;
 }
 
-static unsigned char ConditionLavaGolem (void) {
+static unsigned char ConditionLavaGolem_Summon (void) {
   u32 ret = 0;
   if (gActiveEffect.turnRow == 4) {
     unsigned char i;
@@ -2162,7 +2162,7 @@ static unsigned char sub_802A808 (void) {
   return 0;
 }
 
-static unsigned char ConditionJamBreedingMachineBlockSummoning (void) {
+static unsigned char ConditionJamBreedingMachine_BlockSummoning (void) {
   u32 ret = 0;
   if (gActiveEffect.turnRow == 3) {
     if (gActiveEffect.col == GetFirstCardMatchZoneId(gTurnZones[3], JAM_BREEDING_MACHINE)) {
@@ -2229,7 +2229,7 @@ static unsigned char sub_802A94C (void) {
   return 0;
 }
 
-static unsigned char ConditionExodiaNecrossDestroy (void) {
+static unsigned char ConditionExodiaNecross_DestroySelf (void) {
   if (gActiveEffect.turnRow == 1) {
     if (!GetExodiaFlag(gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard))
       return 1;
@@ -2239,7 +2239,7 @@ static unsigned char ConditionExodiaNecrossDestroy (void) {
   return 0;
 }
 
-static unsigned char ConditionSpiritMessageDestroy1 (void) {
+static unsigned char ConditionSpiritMessage1_DestroySelf (void) {
   if (gActiveEffect.turnRow == 0) {
     if (!NumCardMatchesInRow(gTurnZones[0], DESTINY_BOARD))
       return 1;
@@ -2249,7 +2249,7 @@ static unsigned char ConditionSpiritMessageDestroy1 (void) {
   return 0;
 }
 
-static unsigned char ConditionSpiritMessageDestroy2 (void) {
+static unsigned char ConditionSpiritMessage2_DestroySelf (void) {
   if (gActiveEffect.turnRow == 0) {
     if (!NumCardMatchesInRow(gTurnZones[0], DESTINY_BOARD))
       return 1;
@@ -2259,7 +2259,7 @@ static unsigned char ConditionSpiritMessageDestroy2 (void) {
   return 0;
 }
 
-static unsigned char ConditionSpiritMessageDestroy3 (void) {
+static unsigned char ConditionSpiritMessage3_DestroySelf (void) {
   if (gActiveEffect.turnRow == 0) {
     if (!NumCardMatchesInRow(gTurnZones[0], DESTINY_BOARD))
       return 1;
@@ -2269,7 +2269,7 @@ static unsigned char ConditionSpiritMessageDestroy3 (void) {
   return 0;
 }
 
-static unsigned char ConditionSpiritMessageDestroy4 (void) {
+static unsigned char ConditionSpiritMessage4_DestroySelf (void) {
   if (gActiveEffect.turnRow == 0) {
     if (!NumCardMatchesInRow(gTurnZones[0], DESTINY_BOARD))
       return 1;
