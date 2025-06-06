@@ -59,7 +59,7 @@ static void sub_8020664 (void) {
     loser = DUEL_PLAYER;
   DeclareLoser(loser);
   ResetCardEffectTextData();
-  gCardEffectTextData.textId = TEXT_ALL_EXODIA_PIECES;
+  gCardEffectTextData.textId = DUEL_TEXT_ALL_EXODIA_PIECES;
   SetCardEffectTextType(5);
   ActivateCardEffectText();
 }

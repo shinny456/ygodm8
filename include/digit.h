@@ -4,7 +4,7 @@
 #define MAX_U16_DIGITS 5
 #define MAX_U64_DIGITS 19
 
-#define DIGIT_UNUSED 10
+#define DIGIT_TERMINATOR 10
 
 enum DigitFlags {
   DIGIT_FLAG_NONE = 0x0,
@@ -14,7 +14,7 @@ enum DigitFlags {
 
 
 void sub_800DD4C (void);
-void ConvertU16ToDigitArray (unsigned short, unsigned char);
-void ConvertU64ToDigitArray (unsigned long long, unsigned char);
+void ConvertU16ToDigitBuffer (unsigned short, unsigned char);
+void ConvertU64ToDigitBuffer (unsigned long long, unsigned char);
 
 #endif // GUARD_DIGIT_H

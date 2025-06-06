@@ -3077,7 +3077,7 @@ static void sub_801304C (void) {}
 // Dark-Piercing Light?
 static void sub_8013050 (void) {
   u8 i;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gTurnZones[1][i]->id != CARD_NONE && !gTurnZones[1][i]->isFaceUp) {
       gUnk_8DFF6A4->unk2298 = 0x7FFFFFF1;
       return;
@@ -3460,7 +3460,7 @@ static void sub_801381C (void) {}
 // Inexperienced spy
 static void sub_8013820 (void) {
   u8 i;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gTurnHands[INACTIVE_DUELIST][i]->id != CARD_NONE && !gTurnHands[INACTIVE_DUELIST][i]->isFaceUp) {
       gUnk_8DFF6A4->unk2298 = 0x7FFFFFF0;
       return;
@@ -5052,7 +5052,7 @@ static void sub_8016464 (void) {
     return;
   }
   numCards = 0;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gTurnZones[1][i]->id != CARD_NONE && IsGodCard(gTurnZones[1][i]->id) == 1)
       numCards++;
   if (numNonEmptyZones == numCards)
@@ -5070,7 +5070,7 @@ static void sub_80164F4 (void) {
     return;
   }
   numCards = 0;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gTurnZones[1][i]->id != CARD_NONE && IsGodCard(gTurnZones[1][i]->id) == 1)
       numCards++;
   if (numNonEmptyZones == numCards)
@@ -5083,7 +5083,7 @@ static void sub_8016584 (void) {
   u8 i;
   u8 numCards = 0;
   if (gDuel.field == FIELD_YAMI) {
-    for (i = 0; i < 5; i++)
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++)
       if (gTurnZones[2][i]->id == CARD_NONE && gTurnZones[2][i]->isFaceUp)
         numCards++;
     if (!numCards) {
@@ -5099,7 +5099,7 @@ static void sub_8016604 (void) {
   u8 i;
   u8 numCards = 0;
   u32 totalAtk;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gMonEffect.zone != i && gTurnZones[2][i]->id != CARD_NONE &&
       gTurnZones[2][i]->id != CATAPULT_TURTLE && !gTurnZones[2][i]->isLocked)
         numCards++;
@@ -5289,10 +5289,10 @@ static void sub_8016D7C (void) {
     return;
   }
   numCards = 0;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gTurnZones[1][i]->id != CARD_NONE && !IsCardFaceUp(gTurnZones[1][i]))
       numCards++;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gTurnZones[0][i]->id != CARD_NONE && !IsCardFaceUp(gTurnZones[0][i]))
       numCards++;
   if (!numCards) {
@@ -5301,7 +5301,7 @@ static void sub_8016D7C (void) {
   }
   col2 = sAI_Command.unk2 & 0xF;
   numCards = 0;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (i != col2 && gTurnZones[2][i]->id != CARD_NONE && !IsCardFaceUp(gTurnZones[2][i]))
       numCards++;
   if (numCards) {
@@ -5318,7 +5318,7 @@ static void sub_8016E98 (void) {
     return;
   }
   numCards = 0;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gTurnZones[0][i]->id != CARD_NONE && IsCardFaceUp(gTurnZones[0][i]) == TRUE)
       numCards++;
   if (!numCards)
@@ -5334,7 +5334,7 @@ static void sub_8016F30 (void) {
     return;
   }
   numCards = 0;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gTurnZones[0][i]->id != CARD_NONE && !IsCardFaceUp(gTurnZones[0][i]))
       numCards++;
   if (!numCards)
@@ -5350,7 +5350,7 @@ static void sub_8016FC8 (void) {
     return;
   }
   numCards = 0;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gTurnZones[1][i]->id != CARD_NONE && !IsCardFaceUp(gTurnZones[1][i]))
       numCards++;
   if (!numCards)
@@ -6184,7 +6184,7 @@ static void sub_801825C (void) {}
 
 static void sub_8018260 (void) {
   u8 i, numCards = 0;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gTurnHands[INACTIVE_DUELIST][i]->id != CARD_NONE)
       numCards++;
   if (!numCards)

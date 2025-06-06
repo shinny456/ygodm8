@@ -26,9 +26,9 @@ extern u32 gUnk_8938618[]; //fix type?
 extern u32 gUnk_89385D8[]; //fix type?
 extern const u8* gUnk_8E00E30[];
 
-void ConvertU16ToDigitArray(u16, u8);
+void ConvertU16ToDigitBuffer(u16, u8);
 
-extern u8 gDigitArrayU16[]; // digit buffer
+extern u8 gDigitBufferU16[];
 extern u8 g2021B50[]; //TODO: fix type?
 extern u8 g2021B10[]; //TODO: fix type?
 extern u8 g2021B90[]; //TODO: fix type?
@@ -75,15 +75,15 @@ static void CopyTypeIcon (void) {
 
 static void CopyAtkDigits (void) {
   u8 i;
-  ConvertU16ToDigitArray(gCardInfo.atk, DIGIT_FLAG_NONE);
+  ConvertU16ToDigitBuffer(gCardInfo.atk, DIGIT_FLAG_NONE);
   for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
-    if (gDigitArrayU16[i] != DIGIT_UNUSED) {
-      CpuCopy32(&gUnk_89385D8[(gDigitArrayU16[i] + 2) * 16], g2021B50, 64);
+    if (gDigitBufferU16[i] != DIGIT_TERMINATOR) {
+      CpuCopy32(&gUnk_89385D8[(gDigitBufferU16[i] + 2) * 16], g2021B50, 64);
       CpuCopy32(gUnk_8E01364 + (i + 0x72) * 32, g2021B10, 64);
       sub_800DD4C();
       CpuCopy32(g2021B90, gUnk_8E01364 + (i + 0x72) * 32, 64);
     }
-    else if (i == 0 && gDigitArrayU16[4] != DIGIT_UNUSED) {
+    else if (i == 0 && gDigitBufferU16[4] != DIGIT_TERMINATOR) {
       CpuCopy32(gUnk_8938618, g2021B50, 64);
       CpuCopy32(gUnk_8E01364 + 0xE40, g2021B10, 64);
       sub_800DD4C();
@@ -94,15 +94,15 @@ static void CopyAtkDigits (void) {
 
 static void CopyDefDigits (void) {
   u8 i;
-  ConvertU16ToDigitArray(gCardInfo.def, DIGIT_FLAG_NONE);
+  ConvertU16ToDigitBuffer(gCardInfo.def, DIGIT_FLAG_NONE);
   for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
-    if (gDigitArrayU16[i] != DIGIT_UNUSED) {
-      CpuCopy32(&gUnk_89385D8[(gDigitArrayU16[i] + 2) * 16], g2021B50, 64);
+    if (gDigitBufferU16[i] != DIGIT_TERMINATOR) {
+      CpuCopy32(&gUnk_89385D8[(gDigitBufferU16[i] + 2) * 16], g2021B50, 64);
       CpuCopy32(gUnk_8E01364 + (i + 0x77) * 32, g2021B10, 64);
       sub_800DD4C();
       CpuCopy32(g2021B90, gUnk_8E01364 + (i + 0x77) * 32, 64);
     }
-    else if (i == 0 && gDigitArrayU16[4] != DIGIT_UNUSED) {
+    else if (i == 0 && gDigitBufferU16[4] != DIGIT_TERMINATOR) {
       CpuCopy32(gUnk_89385D8, g2021B50, 64);
       CpuCopy32(gUnk_8E01364 + 0xEE0, g2021B10, 64);
       sub_800DD4C();

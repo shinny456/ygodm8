@@ -866,7 +866,7 @@ void sub_801E27C (void) {
   CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[32], g80B954C, 0x801);
   CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[64], g80B9550, 0x901);
   gBgVram.cbb1[0x385E] = 0x5001;
-  ConvertU16ToDigitArray(GetDeckCapacity(), DIGIT_FLAG_NONE);
+  ConvertU16ToDigitBuffer(GetDeckCapacity(), DIGIT_FLAG_NONE);
   for (i = 0; i < 5; i++)
     //see sub_800CCAC
 }*/
@@ -997,7 +997,7 @@ _0801E30E:\n\
 	lsls r0, r0, #0x10\n\
 	lsrs r0, r0, #0x10\n\
 	movs r1, #0\n\
-	bl ConvertU16ToDigitArray\n\
+	bl ConvertU16ToDigitBuffer\n\
   \n\
 	movs r4, #0\n\
 	ldr r0, _0801E4B8\n\
@@ -1429,7 +1429,7 @@ _0801E6C6:\n\
 	lsls r0, r0, #0x10\n\
 	lsrs r0, r0, #0x10\n\
 	movs r1, #0\n\
-	bl ConvertU16ToDigitArray\n\
+	bl ConvertU16ToDigitBuffer\n\
 	bl sub_800A508\n\
 	lsls r0, r0, #0x10\n\
 	lsrs r2, r0, #0x10\n\
@@ -1458,7 +1458,7 @@ _0801E732:\n\
 	lsls r0, r0, #0x18\n\
 	lsrs r0, r0, #0x18\n\
 	movs r1, #0\n\
-	bl ConvertU16ToDigitArray\n\
+	bl ConvertU16ToDigitBuffer\n\
 	bl sub_800A528\n\
 	lsls r0, r0, #0x10\n\
 	lsrs r2, r0, #0x10\n\
@@ -1606,13 +1606,13 @@ void sub_801E9EC (void) {
       //r5 = i * 2
       //r4 = (i * 3 + (r7 + 3)) * 32
       gVr.b[(i * 3 + (r7 + 3)) * 32 + 0x7C14] = 0x5002;
-      ConvertU16ToDigitArray(gCardInfo.atk, DIGIT_FLAG_NONE);
+      ConvertU16ToDigitBuffer(gCardInfo.atk, DIGIT_FLAG_NONE);
       for (j = 0; j < 5; j++)
-        gVr.b[(i * 3 + (r7 + 3)) * 32 + 0x7C15 + j] = gDigitArrayU16[j] + 0x2009;
+        gVr.b[(i * 3 + (r7 + 3)) * 32 + 0x7C15 + j] = gDigitBufferU16[j] + 0x2009;
       gVr.b[(i * 3 + (r7 + 4)) * 32 + 0x7C14] = 0x5003;
-      ConvertU16ToDigitArray(gCardInfo.def, DIGIT_FLAG_NONE);
+      ConvertU16ToDigitBuffer(gCardInfo.def, DIGIT_FLAG_NONE);
       for (j = 0; j < 5; j++)
-        gVr.b[(i * 3 + (r7 + 4)) * 32 + 0x7C15 + j] = gDigitArrayU16[j] + 0x1009;
+        gVr.b[(i * 3 + (r7 + 4)) * 32 + 0x7C15 + j] = gDigitBufferU16[j] + 0x1009;
     }
     else {
       for (j = 0; j < 6; j++)

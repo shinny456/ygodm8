@@ -6,14 +6,14 @@ extern s16 g8E0D5A6[];
 extern u16 gBG2VOFS;
 extern u8 g8E0D5A1[];
 extern u8* g8F1B80C[];
-extern u8* gText_TrapWasTriggered;
+extern u8* gText_TrapHadNoEffect;
 extern u16 g8E0D5B0[];
 extern u8 gText_Facedown[];
 extern u8 g8E0D617[];
 
 
 void sub_8041B38 (void);
-void RunTextRenderTask (struct Textbox*);
+void RunTextRenderTask (struct DuelTextbox*);
 void UpdateDuelGfxExceptField (void);
 void WaitForVBlank (void);
 void sub_8040FDC (void);
@@ -36,7 +36,7 @@ void sub_80428EC(u8);
 
 
 void sub_8041C94 (u8* textPtr, u16 arg1, u16 arg2, u16 arg3, u16 arg4) {
-  struct Textbox textbox;
+  struct DuelTextbox textbox;
   textbox.textCursor = 0;
   textbox.tileCursor = 0;
   textbox.mode = 0;
@@ -53,7 +53,7 @@ void sub_8041C94 (u8* textPtr, u16 arg1, u16 arg2, u16 arg3, u16 arg4) {
 }
 
 void sub_8041CCC (u16 arg0, u16 arg1) {
-  struct Textbox textbox;
+  struct DuelTextbox textbox;
   u8* temp = g8F1B80C[arg0];
   textbox.textCursor = 0;
   textbox.tileCursor = 0;
@@ -71,8 +71,8 @@ void sub_8041CCC (u16 arg0, u16 arg1) {
 }
 
 void sub_8041D14 (u16 arg0, u16 arg1) {
-  struct Textbox textbox;
-  u8* temp = gText_TrapWasTriggered;
+  struct DuelTextbox textbox;
+  u8* temp = gText_TrapHadNoEffect;
   textbox.textCursor = 0;
   textbox.tileCursor = 0;
   textbox.mode = 0;
@@ -192,31 +192,31 @@ void DisplayCardNameInInfoBar (void) {
 
 void DisplayCardAtkDefInInfoBar (void) {
   u8 i = 0;
-  ConvertU16ToDigitArray(gCardInfo.atk, DIGIT_FLAG_NONE);
-  if (gCardInfo.atk != 0xFFFF && gDigitArrayU16[0] == DIGIT_UNUSED) {
+  ConvertU16ToDigitBuffer(gCardInfo.atk, DIGIT_FLAG_NONE);
+  if (gCardInfo.atk != 0xFFFF && gDigitBufferU16[0] == DIGIT_TERMINATOR) {
     i = 1;
     CopySwordTile(gBgVram.cbb0 + 0x83C0);
   }
   for (; i < MAX_U16_DIGITS; i++) {
-    sub_8020968(gBgVram.cbb0 + 0x83C0 + i * 32, gDigitArrayU16[i][g8E0D5B0], 0x801);
+    sub_8020968(gBgVram.cbb0 + 0x83C0 + i * 32, gDigitBufferU16[i][g8E0D5B0], 0x801);
   }
   i = 0;
-  ConvertU16ToDigitArray(gCardInfo.def, DIGIT_FLAG_NONE);
-  if (gCardInfo.def != 0xFFFF && gDigitArrayU16[0] == DIGIT_UNUSED) {
+  ConvertU16ToDigitBuffer(gCardInfo.def, DIGIT_FLAG_NONE);
+  if (gCardInfo.def != 0xFFFF && gDigitBufferU16[0] == DIGIT_TERMINATOR) {
     i = 1;
     CopyShieldTile(gBgVram.cbb0 + 0x8460);
   }
   for (; i < MAX_U16_DIGITS; i++)
-    sub_8020968(gBgVram.cbb0 + 0x8460 + i * 32, gDigitArrayU16[i][g8E0D5B0], 0x801);
+    sub_8020968(gBgVram.cbb0 + 0x8460 + i * 32, gDigitBufferU16[i][g8E0D5B0], 0x801);
 }
 
 void DisplayCardLevelInInfoBar (void) {
   if (gCardInfo.level) {
     u8 i;
     CopyStarTile(gBgVram.cbb0 + 0x8040);
-    ConvertU16ToDigitArray(gCardInfo.level, DIGIT_FLAG_ALIGN_LEFT);
+    ConvertU16ToDigitBuffer(gCardInfo.level, DIGIT_FLAG_ALIGN_LEFT);
     for (i = 0; i < 2; i++)
-      sub_8020968(gBgVram.cbb0 + 0x8040 + (i + 1) * 32, gDigitArrayU16[i][g8E0D5B0], 0x801);
+      sub_8020968(gBgVram.cbb0 + 0x8040 + (i + 1) * 32, gDigitBufferU16[i][g8E0D5B0], 0x801);
   }
   else {
     CpuCopy16(gBgVram.cbb0 + 0x8000, gBgVram.cbb0 + 0x8040, 32);

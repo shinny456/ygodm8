@@ -1,32 +1,32 @@
 #include "global.h"
 
-enum TextboxToken {
+enum DuelTextboxToken {
   MODE_TEXT, // normal text, no token
   MODE_WAIT_INPUT,
   MODE_CARD_NAME,
   MODE_3, // unused?
   MODE_PLAYER_NAME,
-  MODE_CARD_DESCRIPTION,
+  MODE_CARD_DESCRIPTION, // description isn't needed for duel textboxes, maybe something else?
   MODE_CLEAR_TEXTBOX_AND_ADVANCE,
 };
 
 extern u16 gNewButtons;
 extern u32* gFieldTilePtrs[];
-extern u16* g8E0D130[];
-extern const unsigned char gSpaces[]; // all spaces. empty duel text box before displaying actual text.
+extern u16* gFieldPalettePtrs[];
+extern const unsigned char gText_Spaces[]; // all spaces. empty duel text box before displaying actual text.
 extern u16 (*gFieldTileMapPtrs[])[31];
 extern struct OamData gOamBuffer[];
 extern unsigned char gCardNameWorkingBuffer[]; // working buffer for handling layout and wrap
 extern unsigned char gCardNameRenderBuffer[]; // final render buffer for glyph blitting loop
-extern unsigned char* gNumTributesRequiredStrings[];
+extern unsigned char* gText_NumTributesRequired[];
 extern const s16 sin_cos_table[];
 extern unsigned char gFontTileGlyphs[];
 extern u16 g80F2C30[][30];
 extern unsigned char gE0D14C[];
 
 void sub_8041B38 (void);
-void RunTextRenderTask (struct Textbox*);
-static void ClearTextboxAndAdvance (struct Textbox*);
+void RunTextRenderTask (struct DuelTextbox*);
+static void ClearTextboxAndAdvance (struct DuelTextbox*);
 void HuffUnComp (void*, void*);
 
 s16 fix_mul (s16, s16);
@@ -122,7 +122,7 @@ void sub_8040EF0 (void) {
   field = gDuel.field;
   REG_BG2CNT = BGCNT_PRIORITY(2) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(27) | BGCNT_TXT256x512;
   HuffUnComp(gFieldTilePtrs[field], gBgVram.cbb0);
-  CpuCopy16(g8E0D130[field], gPaletteBuffer, 96);
+  CpuCopy16(gFieldPalettePtrs[field], gPaletteBuffer, 96);
 
   // copying 64 bytes from 62 byte array? (sub_8044D34 does it right i think)
   // this results in the last tile-column of the background being made up of tiles meant for the next row.
@@ -157,6 +157,7 @@ void sub_8040FDC (void) {
   CpuCopy16(gPaletteBuffer + 0x50, (u16*)PLTT + 0x50, 0x40);
 }
 
+// flush textbox tiles to VRAM?
 void sub_8041014 (void) {
   CpuCopy32(gBgVram.cbb0 + 0x87A0, (unsigned char*)BG_VRAM + 0x87A0, 0x1D00);
   CpuCopy32(gBgVram.cbb0 + 0xE800, (unsigned char*)BG_VRAM + 0xE800, 0x480);
@@ -210,7 +211,7 @@ void SetDuelFieldGfx (unsigned char field) {
   unsigned char i;
   REG_BG2CNT = 0x9B02;
   HuffUnComp(gFieldTilePtrs[field], gBgVram.cbb0);
-  CpuCopy16(g8E0D130[field], gPaletteBuffer, 96);
+  CpuCopy16(gFieldPalettePtrs[field], gPaletteBuffer, 96);
   // copying 64 bytes from 62 byte array? (see sub_8040EF0 comment)
   // TODO: i < 38; pass size of 62 to CpuCopy16
   for (i = 0; i < 40; i++)
@@ -239,8 +240,8 @@ void sub_80411EC (struct OamData* oam) {
 }
 
 void DisplayNumRequiredTributesTextbox (unsigned char numTributes) {
-  struct Textbox textbox;
-  unsigned char* string = gNumTributesRequiredStrings[numTributes - 1];
+  struct DuelTextbox textbox;
+  unsigned char* string = gText_NumTributesRequired[numTributes - 1];
   textbox.textCursor = 0;
   textbox.tileCursor = 0;
   textbox.mode = 0;
@@ -258,7 +259,7 @@ void DisplayNumRequiredTributesTextbox (unsigned char numTributes) {
 
 // processes control tokens from raw text (followed by a #)
 // e.g. "$0#5% you saw it too%#0didn't you?#1..."
-void RenderNextTextToken (struct Textbox* textbox) {
+void RenderNextTextToken (struct DuelTextbox* textbox) {
   switch (textbox->textBuffer[textbox->textCursor]) {
     case '#':
       textbox->textCursor++;
@@ -354,14 +355,14 @@ void RenderNextTextToken (struct Textbox* textbox) {
 }
 
 //waiting for player to press A, B, or R to close text box.
-void WaitForTextBoxAdvanceInput (struct Textbox* textbox) {
+void WaitForTextboxAdvanceInput (struct DuelTextbox* textbox) {
   if (gNewButtons & (A_BUTTON | B_BUTTON | R_BUTTON)) {
     PlayMusic(SFX_DIALOGUE);
     textbox->textCursor++;
     textbox->tileCursor = 0;
     textbox->blinkFrameCounter = 0;
     textbox->mode = 0;
-    CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gSpaces, 0x101);
+    CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gText_Spaces, 0x101);
   }
   else {
     switch (textbox->blinkFrameCounter++) {
@@ -384,8 +385,7 @@ void WaitForTextBoxAdvanceInput (struct Textbox* textbox) {
   }
 }
 
-void RenderNextCardNameChar (struct Textbox* textbox) {
-  u16 unused;
+void RenderNextCardNameChar (struct DuelTextbox* textbox) {
   u32 r8;
   u16 r3;
   u16 r5;
@@ -457,7 +457,7 @@ void RenderNextCardNameChar (struct Textbox* textbox) {
     textbox->mode = 0;
 }
 
-void RenderNextPlayerNameChar (struct Textbox* textbox) {
+void RenderNextPlayerNameChar (struct DuelTextbox* textbox) {
   u16 r3;
   if (gPlayerName[textbox->glyphOffset] <= 127) {
     r3 = gUnk_8E00E30[gPlayerName[textbox->glyphOffset] - ' '][1];
@@ -480,22 +480,20 @@ void RenderNextPlayerNameChar (struct Textbox* textbox) {
     textbox->mode = 0;
 }
 
-void RenderNextCardDescChar (struct Textbox* textbox) {
-  u16 r3;
-  unsigned char* r0;
+void RenderNextCardDescChar (struct DuelTextbox* textbox) {
   if (!textbox->glyphOffset) {
-    ConvertU16ToDigitArray(textbox->cardId, DIGIT_FLAG_NONE);
-    while (gDigitArrayU16[textbox->glyphOffset] == DIGIT_UNUSED)
+    ConvertU16ToDigitBuffer(textbox->cardId, DIGIT_FLAG_NONE);
+    while (gDigitBufferU16[textbox->glyphOffset] == DIGIT_TERMINATOR)
       textbox->glyphOffset++;
   }
   if (textbox->tileCursor % 2) {
     sub_8020968(gBgVram.cbb0 + 0x88C0 + textbox->tileCursor / 2 * 128,
-                gFontTileGlyphs[gDigitArrayU16[textbox->glyphOffset] * 2 + 1] << 8 | gFontTileGlyphs[gDigitArrayU16[textbox->glyphOffset] * 2],
+                gFontTileGlyphs[gDigitBufferU16[textbox->glyphOffset] * 2 + 1] << 8 | gFontTileGlyphs[gDigitBufferU16[textbox->glyphOffset] * 2],
                 0x101);
   }
   else {
     sub_8020968(gBgVram.cbb0 + 0x88A0 + textbox->tileCursor / 2 * 128,
-                gFontTileGlyphs[gDigitArrayU16[textbox->glyphOffset] * 2 + 1] << 8 | gFontTileGlyphs[gDigitArrayU16[textbox->glyphOffset] * 2],
+                gFontTileGlyphs[gDigitBufferU16[textbox->glyphOffset] * 2 + 1] << 8 | gFontTileGlyphs[gDigitBufferU16[textbox->glyphOffset] * 2],
                 0x101);
   }
   textbox->tileCursor++;
@@ -510,7 +508,7 @@ static inline void InitTextboxDisplay_inline (void) {
     CpuCopy32(g80F2C30[i], gBgVram.cbb0 + 0xE800 + i * 64, 64);
 
   CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x87A0, gE0D14C, 0x801); 
-  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gSpaces, 0x101); //empty text box
+  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gText_Spaces, 0x101); //empty text box
   WaitForVBlank();
   sub_8041014();
   REG_WINOUT = 30;
@@ -522,14 +520,14 @@ static inline void InitTextboxDisplay_inline (void) {
   REG_DISPCNT = DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON | DISPCNT_WIN1_ON;
 }
 
-static inline void RunTextRenderTask_inline (struct Textbox* textbox) {
+static inline void RunTextRenderTask_inline (struct DuelTextbox* textbox) {
   while (textbox->textBuffer[textbox->textCursor]) {
     switch (textbox->mode) {
       case MODE_TEXT:
         RenderNextTextToken(textbox);
         break;
       case MODE_WAIT_INPUT:
-        WaitForTextBoxAdvanceInput(textbox);
+        WaitForTextboxAdvanceInput(textbox);
         break;
       case MODE_CLEAR_TEXTBOX_AND_ADVANCE:
         ClearTextboxAndAdvance(textbox);
@@ -550,7 +548,7 @@ static inline void RunTextRenderTask_inline (struct Textbox* textbox) {
 }
 
 void sub_80419EC (unsigned char* arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4) {
-  struct Textbox textbox;
+  struct DuelTextbox textbox;
   textbox.textCursor = 0;
   textbox.tileCursor = 0;
   textbox.mode = 0;
@@ -572,7 +570,7 @@ void sub_8041B38 (void) {
     CpuCopy32(g80F2C30[i], gBgVram.cbb0 + 0xE800 + i * 64, 64);
 
   CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x87A0, gE0D14C, 0x801); 
-  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gSpaces, 0x101); //empty text box
+  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gText_Spaces, 0x101); //empty text box
   WaitForVBlank();
   sub_8041014();
   REG_WINOUT = 30;
@@ -584,14 +582,14 @@ void sub_8041B38 (void) {
   REG_DISPCNT = DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON | DISPCNT_WIN1_ON;
 }
 
-void RunTextRenderTask (struct Textbox* textbox) {
+void RunTextRenderTask (struct DuelTextbox* textbox) {
   RunTextRenderTask_inline(textbox);
 }
 
-static void ClearTextboxAndAdvance (struct Textbox* textbox) {
+static void ClearTextboxAndAdvance (struct DuelTextbox* textbox) {
   textbox->textCursor++;
   textbox->tileCursor = 0;
   textbox->blinkFrameCounter = 0;
   textbox->mode = 0;
-  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gSpaces, 0x101);
+  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gText_Spaces, 0x101);
 }

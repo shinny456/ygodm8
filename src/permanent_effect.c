@@ -25,7 +25,7 @@ void TryEvolveMothCards (void) {
     gTurnZones[2][i]->id = gNextMothEvolution[temp];
     ResetCardEffectTextData();
     SetCardEffectTextType(10);
-    gCardEffectTextData.textId = TEXT_TRANSFORMED_INTO;
+    gCardEffectTextData.textId = DUEL_TEXT_TRANSFORMED_INTO;
     gCardEffectTextData.cardId = gMothsAbleToEvolve[temp];
     gCardEffectTextData.cardId2 = gNextMothEvolution[temp];
     ActivateCardEffectText();
@@ -66,7 +66,7 @@ void sub_802712C (void) {
 static void TryActivatingPermanentEffect (void);
 static unsigned sub_802A478 (void);
 
-static void CheckAllCardsForPermanentEffects (void) {
+static void CheckBoardForPermanentEffects (void) {
   unsigned char i;
   gActiveEffect.turnRow = 4;
   for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
@@ -1258,7 +1258,7 @@ void TryActivatingPermanentEffects (void) {
   ResetTempStagesForAllCards();
   if (!gHideEffectText)
     UpdateDuelGfxExceptField();
-  CheckAllCardsForPermanentEffects();
+  CheckBoardForPermanentEffects();
   if (!gHideEffectText)
     sub_802AE44();
 }

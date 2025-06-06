@@ -128,7 +128,7 @@ int HighestAtkMonOfTypeInRow (struct DuelCard** zonePtr, unsigned char type) {
   return (signed char)zoneIndex;
 }
 
-unsigned char NumLowerAtkMonInRow (unsigned char turnRow, unsigned short atk) {
+unsigned char NumFaceUpHigherAtkMonsInRow (unsigned char turnRow, unsigned short atk) {
   unsigned char i, count = 0;
   for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if (gTurnZones[turnRow][i]->id == CARD_NONE || !gTurnZones[turnRow][i]->isFaceUp)
@@ -145,7 +145,7 @@ unsigned char NumLowerAtkMonInRow (unsigned char turnRow, unsigned short atk) {
 
 unsigned char GetNumFaceUpLockedCardsInRow (unsigned char row) {
   unsigned char i, count = 0;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gTurnZones[row][i]->id != CARD_NONE && gTurnZones[row][i]->isFaceUp)
       if (gTurnZones[row][i]->isLocked)
         count++;
@@ -185,7 +185,7 @@ unsigned GetTotalFaceUpAtkAndDefInRow (unsigned char turnRow) {
 int NumCardMatchesInRow (struct DuelCard** zonePtr, unsigned short cardId) {
   signed char count = 0;
   unsigned char i;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if ((*zonePtr++)->id == cardId)
       count++;
   return count;
@@ -210,7 +210,7 @@ int sub_8043418 (struct DuelCard** zonePtr, unsigned short cardId) {
 
 int FirstNonEmptyZoneInRow (struct DuelCard** zonePtr) {
   signed char i;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if ((*zonePtr++)->id != CARD_NONE)
       return i;
   return 0;
@@ -229,7 +229,7 @@ int LastNonEmptyZoneInRow (struct DuelCard** zonePtr) {
 // bug?: it increments the zone pointer before calling IsGodCard
 int sub_80434B8 (struct DuelCard** zonePtr) {
   signed char i;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if ((*zonePtr++)->id != CARD_NONE && IsGodCard((*zonePtr++)->id) != 1)
       return i;
   return 0;
@@ -277,7 +277,7 @@ int sub_8043584 (struct DuelCard** zonePtr, unsigned char type) {
 
 signed char FirstEmptyZoneInRow (struct DuelCard** zonePtr) {
   unsigned char i;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if ((*zonePtr++)->id == CARD_NONE)
       return i;
   return 0;
@@ -293,7 +293,7 @@ signed char LastEmptyZoneInRow (struct DuelCard** zonePtr) {
 
 signed char GetFirstNonEmptyMonZoneId (struct DuelCard** zonePtr) {
   signed char i;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (GetTypeGroup((*zonePtr++)->id) == TYPE_GROUP_MONSTER)
       return i;
   return 0;
@@ -309,7 +309,7 @@ signed char GetLastNonEmptyMonZoneId (struct DuelCard** zonePtr) {
 
 unsigned RowHasCardMatch (struct DuelCard** zonePtr, unsigned short cardId) {
   signed char i;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if ((*zonePtr++)->id == cardId)
       return 1;
   return 0;
@@ -317,7 +317,7 @@ unsigned RowHasCardMatch (struct DuelCard** zonePtr, unsigned short cardId) {
 
 s32 GetFirstCardMatchZoneId (struct DuelCard** zonePtr, unsigned short cardId) {
   signed char i;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if ((*zonePtr++)->id == cardId)
       return i;
   return 0;
@@ -325,7 +325,7 @@ s32 GetFirstCardMatchZoneId (struct DuelCard** zonePtr, unsigned short cardId) {
 
 s32 GetLastCardMatchZoneId (struct DuelCard** zonePtr, unsigned short cardId) {
   signed char i;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if ((*zonePtr--)->id == cardId)
       return i;
   return 0;
@@ -364,7 +364,7 @@ unsigned ZoneHasRitualCard (struct DuelCard* zone) {
 
 int GetNumCardsInRow (unsigned char turnRow) {
   unsigned char i, count = 0;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gTurnZones[turnRow][i]->id != CARD_NONE)
       count++;
   return count;
@@ -372,7 +372,7 @@ int GetNumCardsInRow (unsigned char turnRow) {
 
 unsigned GetNumFaceUpCardsInRow (unsigned char turnRow) {
   unsigned char i, count = 0;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gTurnZones[turnRow][i]->id != CARD_NONE && gTurnZones[turnRow][i]->isFaceUp)
       count++;
   return count;
@@ -380,7 +380,7 @@ unsigned GetNumFaceUpCardsInRow (unsigned char turnRow) {
 
 unsigned GetNumFaceDownCardsInRow (unsigned char turnRow) {
   unsigned char i, count = 0;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gTurnZones[turnRow][i]->id != CARD_NONE && !gTurnZones[turnRow][i]->isFaceUp)
       count++;
   return count;
@@ -398,7 +398,7 @@ unsigned sub_80438A0 (unsigned char turnRow) {
 
 unsigned GetNumCardsDefendingInRow (unsigned char turnRow) {
   unsigned char i, count = 0;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gTurnZones[turnRow][i]->id != CARD_NONE && gTurnZones[turnRow][i]->isDefending)
       count++;
   return count;

@@ -18,7 +18,7 @@ static void ReturnMonsterToOpponent (struct DuelCard *zone) {
 
 void ReturnMonstersToOwner (void) {
   u8 i;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gTurnZones[2][i]->id != CARD_NONE && gTurnZones[2][i]->willChangeSides)
       ReturnMonsterToOpponent(gTurnZones[2][i]);
 }

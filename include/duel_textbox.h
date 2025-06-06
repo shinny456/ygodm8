@@ -1,7 +1,7 @@
-#ifndef GUARD_TEXTBOX_H
-#define GUARD_TEXTBOX_H
+#ifndef GUARD_DUEL_TEXTBOX_H
+#define GUARD_DUEL_TEXTBOX_H
 
-struct Textbox {
+struct DuelTextbox {
   u32 textCursor; // index into textBuffer
   u32 tileCursor;
   u8 mode; // player name, card desc, card name, etc
@@ -16,4 +16,4 @@ struct Textbox {
   u8 glyphOffset; // used to iterate substrings?
 };
 
-#endif // GUARD_TEXTBOX_H
+#endif // GUARD_DUEL_TEXTBOX_H

@@ -87,7 +87,7 @@ void DuelMain (void) {
     sub_8040FDC();
     ResetDuelTextData(&duelText);
     if (turn == DUEL_PLAYER) {
-      duelText.textId = TEXT_PLAYER_TURN;
+      duelText.textId = DUEL_TEXT_PLAYER_TURN;
       DisplayDuelText(&duelText);
     }
     else
@@ -348,11 +348,11 @@ void LinkDuelMain (void) {
     UpdateDuelGfxExceptField();
     sub_80240BC(&duelText);
     if (turn == DUEL_PLAYER) {
-      duelText.textId = TEXT_PLAYER_TURN;
+      duelText.textId = DUEL_TEXT_PLAYER_TURN;
       sub_802405C(&duelText);
     }
     else {
-      duelText.textId = TEXT_OPPONENT_LINK_TURN;
+      duelText.textId = DUEL_TEXT_OPPONENT_LINK_TURN;
       sub_802405C(&duelText);
     }
     sub_8022080();
@@ -388,7 +388,7 @@ static void StartPlayerLinkTurn (void) {
       g2021D98 = 3;
       sub_8024548();
       sub_80240BC(&duelText);
-      duelText.textId = TEXT_LINKING;
+      duelText.textId = DUEL_TEXT_LINKING;
       sub_802408C(&duelText);
       do {
         sub_8024354();
@@ -410,7 +410,7 @@ static void StartPlayerLinkTurn (void) {
   g2021D98 = 3;
   sub_8024548();
   sub_80240BC(&duelText);
-  duelText.textId = TEXT_LINKING;
+  duelText.textId = DUEL_TEXT_LINKING;
   sub_802408C(&duelText);
   do {
     sub_8024354();
@@ -540,7 +540,7 @@ void sub_8022080 (void) {
   if (gDuelType != DUEL_TYPE_LINK)
     return;
   sub_80240BC(&duelText);
-  duelText.textId = TEXT_LINKING;
+  duelText.textId = DUEL_TEXT_LINKING;
   sub_802408C(&duelText);
   do {
     sub_802432C();
@@ -556,21 +556,21 @@ static void LinkDuelWin (void) {
   FadeOutMusic(4);
   if (gDuelLifePoints[DUEL_OPPONENT] == 0) {
     ResetDuelTextData(&duelText);
-    duelText.textId = TEXT_OPPONENT_OUT_OF_LP;
+    duelText.textId = DUEL_TEXT_OPPONENT_OUT_OF_LP;
     DisplayDuelText(&duelText);
   }
   else if (NumCardsInDeck(1) < GetCardsDrawn(1)) {
     ResetDuelTextData(&duelText);
-    duelText.textId = TEXT_OPPONENT_DECK_OUT;
+    duelText.textId = DUEL_TEXT_OPPONENT_DECK_OUT;
     DisplayDuelText(&duelText);
   }
   if (gDuelData.unk2d) {
     PlayMusic(gDuelData.winMusic);
     ResetDuelTextData(&duelText);
-    duelText.textId = TEXT_DUEL_VICTORY;
+    duelText.textId = DUEL_TEXT_DUEL_VICTORY;
     DisplayDuelText(&duelText);
     ResetDuelTextData(&duelText);
-    duelText.textId = TEXT_CAPACITY_INCREASED;
+    duelText.textId = DUEL_TEXT_CAPACITY_INCREASED;
     duelText.rewardAmount = gDuelData.capacityYield;
     DisplayDuelText(&duelText);
   }
@@ -583,21 +583,21 @@ static void LinkDuelLoss (void) {
   FadeOutMusic(4);
   if (gDuelLifePoints[DUEL_PLAYER] == 0) {
     ResetDuelTextData(&duelText);
-    duelText.textId = TEXT_PLAYER_OUT_OF_LP;
+    duelText.textId = DUEL_TEXT_PLAYER_OUT_OF_LP;
     DisplayDuelText(&duelText);
   }
   else if (NumCardsInDeck(0) < GetCardsDrawn(0)) {
     ResetDuelTextData(&duelText);
-    duelText.textId = TEXT_PLAYER_DECK_OUT;
+    duelText.textId = DUEL_TEXT_PLAYER_DECK_OUT;
     DisplayDuelText(&duelText);
   }
   if (gDuelData.unk2d) {
     PlayMusic(gDuelData.lossMusic);
     ResetDuelTextData(&duelText);
-    duelText.textId = TEXT_DUEL_LOSS;
+    duelText.textId = DUEL_TEXT_DUEL_LOSS;
     DisplayDuelText(&duelText);
     ResetDuelTextData(&duelText);
-    duelText.textId = TEXT_CAPACITY_INCREASED;
+    duelText.textId = DUEL_TEXT_CAPACITY_INCREASED;
     duelText.rewardAmount = 5;
     DisplayDuelText(&duelText);
   }

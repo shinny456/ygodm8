@@ -2143,7 +2143,7 @@ static void EffectPenguinTorpedo(void)
     }
 }
 
-static void EffectBerserkDragonPowerDown(void)
+static void EffectBerserkDragon_AttackOpponentMonsters(void)
 {
     u8 i, turn = WhoseTurn();
 
@@ -3126,7 +3126,7 @@ void (*const gMonEffects[])(void) = {
   EffectPuppetMaster,
   EffectTheWingedDragonOfRaPhoenixMode,
   EffectPenguinTorpedo,
-  EffectBerserkDragonPowerDown,
+  EffectBerserkDragon_AttackOpponentMonsters,
   EffectFGD,
   EffectChironTheMage,
   sub_8048C18,

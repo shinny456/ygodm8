@@ -26,7 +26,7 @@ void ActivateCardEffectText (void) {
   struct DuelText duelText;
   if (gDuelType == DUEL_TYPE_LINK) {
     sub_80240BC(&duelText);
-    duelText.textId = TEXT_LINKING;
+    duelText.textId = DUEL_TEXT_LINKING;
     sub_802408C(&duelText);
     g2021D98 = 5;
     sub_8024548();

@@ -287,7 +287,7 @@ _08009ACC:
 	ldr r1, _08009B4C
 	ldrh r0, [r1, #0x10]
 	movs r1, #1
-	bl ConvertU16ToDigitArray
+	bl ConvertU16ToDigitBuffer
 	movs r3, #0
 	lsls r2, r7, #1
 	mov r8, r2
@@ -466,7 +466,7 @@ _08009C1C:
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #1
-	bl ConvertU16ToDigitArray
+	bl ConvertU16ToDigitBuffer
 	movs r3, #0
 	ldr r6, _08009D14
 	mov r2, r8
@@ -497,7 +497,7 @@ _08009C5E:
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #0
-	bl ConvertU16ToDigitArray
+	bl ConvertU16ToDigitBuffer
 	movs r3, #0
 	ldr r6, _08009D14
 	mov r4, r8
@@ -630,7 +630,7 @@ _08009D88:
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	movs r1, #0
-	bl ConvertU16ToDigitArray
+	bl ConvertU16ToDigitBuffer
 	movs r3, #0
 	ldr r7, _08009E28
 	ldr r6, _08009E2C
@@ -658,7 +658,7 @@ _08009DAA:
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #0
-	bl ConvertU16ToDigitArray
+	bl ConvertU16ToDigitBuffer
 	movs r3, #0
 	ldr r7, _08009E28
 	ldr r6, _08009E38
@@ -886,7 +886,7 @@ _08009F84:
 	ldr r0, _0800A03C
 	ldrh r0, [r0, #0x12]
 	movs r1, #0
-	bl ConvertU16ToDigitArray
+	bl ConvertU16ToDigitBuffer
 	movs r2, #0
 	adds r3, r5, #0
 	adds r5, r7, #4
@@ -925,7 +925,7 @@ _08009FBA:
 	ldr r0, _0800A03C
 	ldrh r0, [r0, #0x14]
 	movs r1, #0
-	bl ConvertU16ToDigitArray
+	bl ConvertU16ToDigitBuffer
 	movs r2, #0
 	ldr r6, _0800A030
 	ldr r7, _0800A040
@@ -1307,7 +1307,7 @@ _0800A288:
 	ldr r0, _0800A374
 	ldrh r0, [r0, #0xc]
 	movs r1, #0
-	bl ConvertU16ToDigitArray
+	bl ConvertU16ToDigitBuffer
 	movs r3, #0
 	adds r5, #1
 	ldr r7, _0800A344

@@ -35,13 +35,13 @@ extern unsigned char gSharedMem[];
 
 static void sub_80562F4 (void) {
   unsigned char i;
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if (gFixedZones[0][i]->isFaceUp)
       sub_80573D0(gBgVram.cbb0 + 0x10000 + g8E116BC[i] * 32, gFixedZones[0][i]->id);
     else
       CopyFaceDownCardTiles(gBgVram.cbb0 + 0x10000 + g8E116BC[i] * 32);
   }
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     if (gFixedZones[1][i]->isFaceUp) {
       sub_80573D0(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32, gFixedZones[1][i]->id);
       sub_80576EC(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32, gFixedZones[1][i]->id);
@@ -55,7 +55,7 @@ static void sub_80562F4 (void) {
     if (gFixedZones[1][i]->isLocked)
       sub_8057620(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 5] * 32);
   }
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     sub_80573D0(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 10] * 32, gFixedZones[2][i]->id);
     if (gFixedZones[2][i]->isLocked)
       sub_8057620(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 10] * 32);
@@ -67,13 +67,13 @@ static void sub_80562F4 (void) {
     if (!gFixedZones[2][i]->isFaceUp)
       sub_8057698(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 10] * 32);
   }
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     sub_80573D0(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 15] * 32, gFixedZones[3][i]->id);
     sub_8057718(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 15] * 32, gFixedZones[3][i]->id);
     if (!gFixedZones[3][i]->isFaceUp)
       sub_8057698(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 15] * 32);
   }
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
     sub_80573D0(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 20] * 32, gFixedZones[4][i]->id);
     sub_80576B4(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 20] * 32, gFixedZones[4][i]->id);
     sub_80576EC(gBgVram.cbb0 + 0x10000 + g8E116BC[i + 20] * 32, gFixedZones[4][i]->id);
@@ -1950,13 +1950,13 @@ void sub_80572A8 (unsigned char* arg0, struct DuelCard* arg1) {
   if (gCardInfo.spellEffect != 2 /*TODO: SPELL_EFFECT_NONE_MONSTER*/)
     return;
   if (gCardInfo.atk / 100 > 99)
-    ConvertU16ToDigitArray(99, DIGIT_FLAG_NONE);
+    ConvertU16ToDigitBuffer(99, DIGIT_FLAG_NONE);
   else
-    ConvertU16ToDigitArray(gCardInfo.atk / 100, DIGIT_FLAG_NONE);
+    ConvertU16ToDigitBuffer(gCardInfo.atk / 100, DIGIT_FLAG_NONE);
   arg0 += 0x800;
-  CpuCopy16(g89A81DE + gDigitArrayU16[3] * 64, arg0, 0x40);
+  CpuCopy16(g89A81DE + gDigitBufferU16[3] * 64, arg0, 0x40);
   arg0 += 0x40;
-  CpuCopy16(g89A7F1E[gDigitArrayU16[4]], arg0, 0x40);
+  CpuCopy16(g89A7F1E[gDigitBufferU16[4]], arg0, 0x40);
 }
 
 void sub_805733C (unsigned char* arg0, struct DuelCard* arg1) {
@@ -1967,13 +1967,13 @@ void sub_805733C (unsigned char* arg0, struct DuelCard* arg1) {
   if (gCardInfo.spellEffect != 2 /*TODO: SPELL_EFFECT_NONE_MONSTER*/)
     return;
   if (gCardInfo.def / 100 > 99)
-    ConvertU16ToDigitArray(99, DIGIT_FLAG_NONE);
+    ConvertU16ToDigitBuffer(99, DIGIT_FLAG_NONE);
   else
-    ConvertU16ToDigitArray(gCardInfo.def / 100, DIGIT_FLAG_NONE);
+    ConvertU16ToDigitBuffer(gCardInfo.def / 100, DIGIT_FLAG_NONE);
   arg0 += 0x880;
-  CpuCopy16(g89A875E[gDigitArrayU16[3]], arg0, 0x40);
+  CpuCopy16(g89A875E[gDigitBufferU16[3]], arg0, 0x40);
   arg0 += 0x40;
-  CpuCopy16(g89A849E[gDigitArrayU16[4]], arg0, 0x40);
+  CpuCopy16(g89A849E[gDigitBufferU16[4]], arg0, 0x40);
 }
 
 void sub_80573D0 (unsigned char* arg0, unsigned short cardId) {
@@ -2176,7 +2176,7 @@ static void sub_8057718 (unsigned char* arg0, unsigned short cardId) {
 //unused?
 static void sub_8057744 (void) {
   unsigned char i, j;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     for (j = 0; j < 5; j++)
       if (gFixedZones[i][j]->id != CARD_NONE)
         sub_80574A8(j, i);
@@ -2190,7 +2190,7 @@ void sub_80577A4 (void) {
   unsigned char i, j;
   sub_80562F4();
   CpuCopy16(g89A781C, gPaletteBuffer + 256, 320);
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     for (j = 0; j < 5; j++)
       if (gFixedZones[i][j]->id != CARD_NONE)
         sub_80574A8(j, i);
@@ -2198,7 +2198,7 @@ void sub_80577A4 (void) {
 
 void sub_8057808 (void) {
   unsigned char i, j;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     for (j = 0; j < 5; j++)
       if (gFixedZones[i][j]->id != CARD_NONE)
         sub_80574A8(j, i);

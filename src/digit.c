@@ -18,7 +18,7 @@ static void sub_800DD88 (unsigned char* src, unsigned char* dest) {
       *dest = *src;
 }
 
-void ConvertU16ToDigitArray (unsigned short val, unsigned char flags) {
+void ConvertU16ToDigitBuffer (unsigned short val, unsigned char flags) {
   unsigned char digitIndex = 0;
   unsigned char outputIndex = 0;
   unsigned short powerOf10 = 10000;
@@ -27,27 +27,27 @@ void ConvertU16ToDigitArray (unsigned short val, unsigned char flags) {
 
   // clear buffer
   for (i = 0; i < MAX_U16_DIGITS; i++)
-    gDigitArrayU16[i] = DIGIT_UNUSED;
+    gDigitBufferU16[i] = DIGIT_TERMINATOR;
 
   if (val != 0xFFFF) {
     if (flags & DIGIT_FLAG_ALIGN_LEFT)
-      gDigitArrayU16[0] = 0;
+      gDigitBufferU16[0] = 0;
     for (; digitIndex < MAX_U16_DIGITS; digitIndex++, val -= digit * powerOf10, powerOf10 /= 10) {
       digit = val / powerOf10;
       if (digit)
-        gDigitArrayU16[outputIndex] = digit;
+        gDigitBufferU16[outputIndex] = digit;
       else if (outputIndex) {
-        if (gDigitArrayU16[outputIndex - 1] != DIGIT_UNUSED)
-          gDigitArrayU16[outputIndex] = digit;
+        if (gDigitBufferU16[outputIndex - 1] != DIGIT_TERMINATOR)
+          gDigitBufferU16[outputIndex] = digit;
         else if (outputIndex == MAX_U16_DIGITS - 1)
-          gDigitArrayU16[MAX_U16_DIGITS - 1] = digit;
+          gDigitBufferU16[MAX_U16_DIGITS - 1] = digit;
       }
       if (!digit) {
         if (!outputIndex) {
           if (!(flags & DIGIT_FLAG_ALIGN_LEFT))
             outputIndex = 1;
         }
-        else if (gDigitArrayU16[outputIndex - 1] != DIGIT_UNUSED || !(flags & 1))
+        else if (gDigitBufferU16[outputIndex - 1] != DIGIT_TERMINATOR || !(flags & 1))
           outputIndex++;
       }
       else
@@ -57,12 +57,12 @@ void ConvertU16ToDigitArray (unsigned short val, unsigned char flags) {
 
   if (flags & DIGIT_FLAG_DISPLAY_LEADING_ZEROES) {
     for (i = 0; i < MAX_U16_DIGITS; i++)
-      if (gDigitArrayU16[i] == DIGIT_UNUSED)
-        gDigitArrayU16[i] = 0;
+      if (gDigitBufferU16[i] == DIGIT_TERMINATOR)
+        gDigitBufferU16[i] = 0;
   }
 }
 
-void ConvertU64ToDigitArray (unsigned long long val, unsigned char flags) {
+void ConvertU64ToDigitBuffer (unsigned long long val, unsigned char flags) {
   unsigned char digitIndex = 0;
   unsigned char outputIndex = 0;
   unsigned long long powerOf10;
@@ -71,28 +71,28 @@ void ConvertU64ToDigitArray (unsigned long long val, unsigned char flags) {
 
   // clear buffer
   for (i = 0; i < MAX_U64_DIGITS; i++)
-    gDigitArrayU64[i] = DIGIT_UNUSED;
+    gDigitBufferU64[i] = DIGIT_TERMINATOR;
 
   if (flags & DIGIT_FLAG_ALIGN_LEFT)
-    gDigitArrayU64[0] = 0;
+    gDigitBufferU64[0] = 0;
 
   powerOf10 = 1000000000000000000;
   for (; digitIndex < MAX_U64_DIGITS; digitIndex++, val -= digit * powerOf10, powerOf10 /= 10) {
     digit = val / powerOf10;
     if (digit)
-      gDigitArrayU64[outputIndex] = digit;
+      gDigitBufferU64[outputIndex] = digit;
     else if (outputIndex) {
-      if (gDigitArrayU64[outputIndex - 1] != DIGIT_UNUSED)
-        gDigitArrayU64[outputIndex] = digit;
+      if (gDigitBufferU64[outputIndex - 1] != DIGIT_TERMINATOR)
+        gDigitBufferU64[outputIndex] = digit;
       else if (outputIndex == MAX_U64_DIGITS - 1)
-        gDigitArrayU64[MAX_U64_DIGITS - 1] = digit;
+        gDigitBufferU64[MAX_U64_DIGITS - 1] = digit;
     }
     if (!digit) {
       if (!outputIndex) {
         if (!(flags & DIGIT_FLAG_ALIGN_LEFT))
           outputIndex = 1;
       }
-      else if (gDigitArrayU64[outputIndex - 1] != DIGIT_UNUSED || !(flags & 1))
+      else if (gDigitBufferU64[outputIndex - 1] != DIGIT_TERMINATOR || !(flags & 1))
         outputIndex++;
     }
     else
@@ -101,7 +101,7 @@ void ConvertU64ToDigitArray (unsigned long long val, unsigned char flags) {
   
   if (flags & DIGIT_FLAG_DISPLAY_LEADING_ZEROES) {
     for (i = 0; i < MAX_U64_DIGITS; i++)
-      if (gDigitArrayU64[i] == DIGIT_UNUSED)
-        gDigitArrayU64[i] = 0;
+      if (gDigitBufferU64[i] == DIGIT_TERMINATOR)
+        gDigitBufferU64[i] = 0;
   }
 }

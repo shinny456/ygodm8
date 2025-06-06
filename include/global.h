@@ -17,7 +17,7 @@
 #include "compression.h"
 #include "deck_menu.h"
 #include "text.h"
-#include "textbox.h"
+#include "duel_textbox.h"
 #include "duel_main.h"
 
 #include "duel.h"
@@ -45,7 +45,7 @@
 
 #include "constants/card_ids.h"
 #include "constants/music_ids.h"
-#include "constants/text_ids.h"
+#include "constants/duel_text_ids.h"
 
 void FadeOutMusic (unsigned);
 void sub_8034FEC (unsigned);
@@ -56,7 +56,7 @@ void RemoveCardFromTrunkOrDeck(unsigned);
 extern u8 g2021B10[];
 extern u8 g2021B50[];
 extern u8 g2021B90[];
-extern u8 gDigitArrayU64[];
+extern u8 gDigitBufferU64[];
 void HuffUnComp (void*, void*);
 
 enum {

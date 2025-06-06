@@ -48,7 +48,7 @@ void sub_802AEB4 (void) {
 static void TryActivatingTurnEffect (void);
 static unsigned sub_802BBF0 (void);
 
-static void CheckAllCardsForTurnEffects (void) {
+static void CheckBoardForTurnEffects (void) {
   unsigned char i;
   gActiveEffect.turnRow = 4;
   for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
@@ -197,7 +197,7 @@ static void EffectCastleOfDarkIllusions (void) {
 
   gDuel.field = FIELD_YAMI;
   if (gActiveEffect.turnRow == 1) {
-    for (i = 0; i < 5; i++)
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++)
       if (gTurnZones[1][i]->id != CARD_NONE)
         FlipCardFaceDown(gTurnZones[1][i]);
 
@@ -209,7 +209,7 @@ static void EffectCastleOfDarkIllusions (void) {
     }
   }
   else if (gActiveEffect.turnRow == 2) {
-    for (i = 0; i < 5; i++)
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++)
       if (gTurnZones[2][i]->id != CARD_NONE)
         FlipCardFaceDown(gTurnZones[2][i]);
 
@@ -369,7 +369,7 @@ void TryActivatingTurnEffects (void) {
     sub_802ADA4(); //Init sweeping cursor gfx
   }
   ResetTempStagesForAllCards();
-  CheckAllCardsForTurnEffects();
+  CheckBoardForTurnEffects();
 }
 
 static void TryActivatingTurnEffect (void) {
@@ -550,7 +550,7 @@ static void sub_802B980 (void) {
 static void sub_802B984 (void) {
 }
 
-static void EffectBerserkDragonPowerDown (void) {
+static void EffectBerserkDragon_AttackOpponentMonsters (void) {
   if (gActiveEffect.turnRow != 1)
     return;
   FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);

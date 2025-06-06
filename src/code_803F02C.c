@@ -827,70 +827,70 @@ void InitBoard (void) {
 
 void InitDuelZonePtrs (int unused) {
   unsigned char i;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     gFixedZones[0][i] = &gDuel.board[0][4-i];
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     gFixedZones[1][i] = &gDuel.board[1][4-i];
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     gFixedZones[2][i] = &gDuel.board[2][i];
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     gFixedZones[3][i] = &gDuel.board[3][i];
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     gFixedZones[4][i] = &gDuel.hands[DUEL_PLAYER][i];
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     gTurnZones[0][i] = &gDuel.board[0][i];
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     gTurnZones[1][i] = &gDuel.board[1][i];
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     gTurnZones[2][i] = &gDuel.board[2][i];
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     gTurnZones[3][i] = &gDuel.board[3][i];
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     gTurnZones[4][i] = &gDuel.hands[DUEL_PLAYER][i];
   gTurnDuelistBattleState[ACTIVE_DUELIST] = &gDuel.duelistbattleState[DUEL_PLAYER];
   gTurnDuelistBattleState[INACTIVE_DUELIST] = &gDuel.duelistbattleState[DUEL_OPPONENT];
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     gTurnHands[ACTIVE_DUELIST][i] = &gDuel.hands[DUEL_PLAYER][i];
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     gTurnHands[INACTIVE_DUELIST][i] = &gDuel.hands[DUEL_OPPONENT][i];
 }
 
 void UpdateDuelZonePtrs (unsigned char turn) {
   unsigned char i;
   if (turn == ACTIVE_DUELIST) {
-    for (i = 0; i < 5; i++)
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++)
       gTurnZones[0][i] = &gDuel.board[0][i];
-    for (i = 0; i < 5; i++)
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++)
       gTurnZones[1][i] = &gDuel.board[1][i];
-    for (i = 0; i < 5; i++)
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++)
       gTurnZones[2][i] = &gDuel.board[2][i];
-    for (i = 0; i < 5; i++)
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++)
       gTurnZones[3][i] = &gDuel.board[3][i];
-    for (i = 0; i < 5; i++)
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++)
       gTurnZones[4][i] = &gDuel.hands[DUEL_PLAYER][i];
     gTurnDuelistBattleState[ACTIVE_DUELIST] = &gDuel.duelistbattleState[DUEL_PLAYER];
     gTurnDuelistBattleState[INACTIVE_DUELIST] = &gDuel.duelistbattleState[DUEL_OPPONENT];
-    for (i = 0; i < 5; i++)
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++)
       gTurnHands[ACTIVE_DUELIST][i] = &gDuel.hands[DUEL_PLAYER][i];
-    for (i = 0; i < 5; i++)
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++)
       gTurnHands[INACTIVE_DUELIST][i] = &gDuel.hands[DUEL_OPPONENT][i];
   }
   else {
-    for (i = 0; i < 5; i++)
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++)
       gTurnZones[0][i] = &gDuel.board[3][i];
-    for (i = 0; i < 5; i++)
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++)
       gTurnZones[1][i] = &gDuel.board[2][i];
-    for (i = 0; i < 5; i++)
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++)
       gTurnZones[2][i] = &gDuel.board[1][i];
-    for (i = 0; i < 5; i++)
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++)
       gTurnZones[3][i] = &gDuel.board[0][i];
-    for (i = 0; i < 5; i++)
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++)
       gTurnZones[4][i] = &gDuel.hands[DUEL_OPPONENT][i];
     gTurnDuelistBattleState[ACTIVE_DUELIST] = &gDuel.duelistbattleState[DUEL_OPPONENT];
     gTurnDuelistBattleState[INACTIVE_DUELIST] = &gDuel.duelistbattleState[DUEL_PLAYER];
-    for (i = 0; i < 5; i++)
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++)
       gTurnHands[ACTIVE_DUELIST][i] = &gDuel.hands[DUEL_OPPONENT][i];
-    for (i = 0; i < 5; i++)
+    for (i = 0; i < MAX_ZONES_IN_ROW; i++)
       gTurnHands[INACTIVE_DUELIST][i] = &gDuel.hands[DUEL_PLAYER][i];
   }
 }
@@ -1027,14 +1027,14 @@ void UnblockTurnSummoning (unsigned char currPlayer) {
 
 void LockMonsterCardsInRow (unsigned char turnRow) {
   unsigned char i;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gTurnZones[turnRow][i]->id != CARD_NONE && GetTypeGroup(gTurnZones[turnRow][i]->id) == TYPE_GROUP_MONSTER)
       gTurnZones[turnRow][i]->isLocked = 1;
 }
 
 void UnlockCardsInRow (unsigned char turnRow) {
   unsigned char i;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gTurnZones[turnRow][i]->id != CARD_NONE)
       gTurnZones[turnRow][i]->isLocked = 0;
 }
@@ -1042,7 +1042,7 @@ void UnlockCardsInRow (unsigned char turnRow) {
 // unused?
 void sub_80405C4 (void) {
   unsigned char i, j;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     for (j = 0; j < 5; j++)
       if (gTurnZones[i][j]->id != CARD_NONE)
         gTurnZones[i][j]->isLocked = 0;
@@ -1050,7 +1050,7 @@ void sub_80405C4 (void) {
 
 void FlipAtkPosCardsFaceUp (unsigned char turnRow) {
   unsigned char i;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < MAX_ZONES_IN_ROW; i++)
     if (gTurnZones[turnRow][i]->id != CARD_NONE && !gTurnZones[turnRow][i]->isDefending)
       gTurnZones[turnRow][i]->isFaceUp = 1;
 }

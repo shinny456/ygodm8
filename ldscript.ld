@@ -81,7 +81,7 @@ SECTIONS
     g2021B10 = 0x2021B10;
     g2021B50 = 0x2021B50;
     g2021B90 = 0x2021B90;
-    gDigitArrayU64 = 0x2021BE0;
+    gDigitBufferU64 = 0x2021BE0;
     g2021BF8 = 0x02021BF8;
     sAI_Command = 0x02021C00;
     gHideEffectText = 0x02021C08;
@@ -210,7 +210,7 @@ SECTIONS
     gTrapEffectData = 0x020245A0;
     gWhoseTurn = 0x020245A8;
     g20245AC = 0x20245AC;
-    gDigitArrayU16 = 0x2021BD0;
+    gDigitBufferU16 = 0x2021BD0;
 
     g3000400 = 0x3000400;
     g3000C00 = 0x3000C00;
@@ -304,7 +304,7 @@ SECTIONS
 
         src/FINAL_effect.o(.text);
         src/code_803F02C.o(.text);
-        src/textbox.o(.text);
+        src/duel_textbox.o(.text);
         src/code_8041C94.o(.text);
         src/code_80421CC.o(.text);
         src/duel_util.o(.text);
@@ -789,15 +789,15 @@ SECTIONS
     g80CDE8A = 0x80CDE8A;
     g80CD830 = 0x80CD830;
     gFieldTilePtrs = 0x8E0D0F8;
-    g8E0D130 = 0x8E0D130;
+    gFieldPalettePtrs = 0x8E0D130;
     gFieldTileMapPtrs = 0x8E0D114;
-    gNumTributesRequiredStrings = 0x8E0D41C;
-    gSpaces = 0x8E0D15D;
+    gText_NumTributesRequired = 0x8E0D41C;
+    gText_Spaces = 0x8E0D15D;
     gFontTileGlyphs = 0x8E0D1D0;
     gE0D14C = 0x8E0D14C;
     g80F2C30 = 0x80F2C30;
     g8F1B80C = 0x8F1B80C;
-    gText_TrapWasTriggered = 0x8E0D584; /* "[X] was the trap. But% it had no effect on [Y] */
+    gText_TrapHadNoEffect = 0x8E0D584; /* "[X] was the trap. But it had no effect on [Y] */
     g8E0D5A1 = 0x8E0D5A1;
     g8E0D5A6 = 0x8E0D5A6;
     g8E0D588 = 0x8E0D588;

@@ -49,7 +49,7 @@ static void HandleFINALWin (void) {
     loser = DUEL_PLAYER;
   DeclareLoser(loser);
   ResetCardEffectTextData();
-  gCardEffectTextData.textId = TEXT_DESTINY_BOARD_MESSAGE;
+  gCardEffectTextData.textId = DUEL_TEXT_DESTINY_BOARD_COMPLETE;
   SetCardEffectTextType(6);
   ActivateCardEffectText();
 }
