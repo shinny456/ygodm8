@@ -2306,7 +2306,7 @@ static void EffectFinalDestiny (void) {
 }
 
 // Leftover from TSC; real version in permanent_effect
-static void FAKE_EffectMessengerOfPeace (void) {
+static void TSC_EffectMessengerOfPeace (void) {
   u8 i;
 
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
@@ -2806,7 +2806,7 @@ void (*const gSpellEffects[])(void) = {
   EffectGravediggerGhoul,
   EffectHeavyStorm,
   EffectFinalDestiny,
-  FAKE_EffectMessengerOfPeace,
+  TSC_EffectMessengerOfPeace,
   EffectDarknessApproaches,
   EmptyFunc_804D5A4,
   EmptyFunc_804D5A8,

@@ -75,7 +75,7 @@ static void EffectTimeWizard(void)
 }
 
 // Leftover from TSC; real version in permanent_effect
-static void FAKE_EffectCastleOfDarkIllusions(void)
+static void TSC_EffectCastleOfDarkIllusions(void)
 {
     u8 i;
 
@@ -98,7 +98,7 @@ static void FAKE_EffectCastleOfDarkIllusions(void)
 }
 
 // Leftover from TSC; real version in permanent_effect
-static void FAKE_EffectPumpkingTheKingOfGhosts(void)
+static void TSC_EffectPumpkingTheKingOfGhosts(void)
 {
     u8 i;
 
@@ -176,7 +176,7 @@ static void EffectTrapMaster(void)
 }
 
 // Leftover from TSC; real version in permanent_effect
-static void FAKE_EffectDarkMagicianGirl(void)
+static void TSC_EffectDarkMagicianGirl(void)
 {
     if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == DARK_MAGICIAN)
         IncrementPermStage(gTurnZones[gMonEffect.row][gMonEffect.zone]);
@@ -233,7 +233,7 @@ static void EffectDoron(void)
 }
 
 // Leftover from TSC; real version in permanent_effect
-static void FAKE_EffectLabyrinthTank(void)
+static void TSC_EffectLabyrinthTank(void)
 {
     u8 i;
 
@@ -341,7 +341,7 @@ static void EffectToadMaster(void)
 }
 
 // Leftover from TSC; real version in permanent_effect
-static void FAKE_EffectHoshiningen(void)
+static void TSC_EffectHoshiningen(void)
 {
     u8 i;
 
@@ -362,7 +362,7 @@ static void FAKE_EffectHoshiningen(void)
 }
 
 // Leftover from TSC; real version in permanent_effect
-static void FAKE_EffectWitchsApprentice(void)
+static void TSC_EffectWitchsApprentice(void)
 {
     u8 i;
 
@@ -427,7 +427,7 @@ static void EffectLeghul(void)
 }
 
 // Leftover from TSC; real version in permanent_effect
-static void FAKE_EffectInsectQueen(void)
+static void TSC_EffectInsectQueen(void)
 {
     u8 i;
 
@@ -476,7 +476,7 @@ static void EffectObeliskTheTormentor(void)
 }
 
 // Leftover from TSC; real version in permanent_effect
-static void FAKE_EffectSliferTheSkyDragon(void)
+static void TSC_EffectSliferTheSkyDragon(void)
 {
     u8 i;
 
@@ -498,7 +498,7 @@ static void FAKE_EffectSliferTheSkyDragon(void)
 }
 
 // Leftover from TSC; real version in permanent_effect
-static void FAKE_EffectDarkMagicianGirl2(void)
+static void TSC_EffectDarkMagicianGirl2(void)
 {
     if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == DARK_MAGICIAN)
         IncrementPermStage(gTurnZones[gMonEffect.row][gMonEffect.zone]);
@@ -2275,7 +2275,7 @@ static void EffectSkelengel(void)
 }
 
 // Leftover from TSC; real version in permanent_effect
-static void FAKE_EffectHarpieLady(void)
+static void TSC_EffectHarpieLady(void)
 {
     u8 i;
 
@@ -2293,7 +2293,7 @@ static void FAKE_EffectHarpieLady(void)
 }
 
 // Leftover from TSC; real version in permanent_effect
-static void FAKE_EffectHarpieLadySisters(void)
+static void TSC_EffectHarpieLadySisters(void)
 {
     u8 i;
 
@@ -2310,7 +2310,7 @@ static void FAKE_EffectHarpieLadySisters(void)
 }
 
 // Leftover from TSC; real version in permanent_effect
-static void FAKE_EffectMysticalElf(void)
+static void TSC_EffectMysticalElf(void)
 {
     u8 i;
 
@@ -2387,7 +2387,7 @@ static void EffectBattleOx(void)
 }
 
 // Leftover from TSC; real version in permanent_effect
-static void FAKE_EffectMonsterTamer(void)
+static void TSC_EffectMonsterTamer(void)
 {
     u8 i;
 
@@ -2406,7 +2406,7 @@ static void FAKE_EffectMonsterTamer(void)
 }
 
 // Leftover from TSC; real version in permanent_effect
-static void FAKE_EffectMammothGraveyard(void)
+static void TSC_EffectMammothGraveyard(void)
 {
     u8 i;
 
@@ -2506,7 +2506,7 @@ static void EffectElectricLizard(void)
 }
 
 // Leftover from TSC; real version in permanent_effect
-static void FAKE_EffectWodanTheResidentOfTheForest(void)
+static void TSC_EffectWodanTheResidentOfTheForest(void)
 {
     u8 i;
 
@@ -2525,7 +2525,7 @@ static void FAKE_EffectWodanTheResidentOfTheForest(void)
 }
 
 // Leftover from TSC; real version in permanent_effect
-static void FAKE_EffectMWarrior1(void)
+static void TSC_EffectMWarrior1(void)
 {
     u8 i;
 
@@ -2542,7 +2542,7 @@ static void FAKE_EffectMWarrior1(void)
 }
 
 // Leftover from TSC; real version in permanent_effect
-static void FAKE_EffectMWarrior2(void)
+static void TSC_EffectMWarrior2(void)
 {
     u8 i;
 
@@ -2635,7 +2635,7 @@ static void EffectMonsterEye(void)
 }
 
 // Leftover from TSC; real version in permanent_effect
-static void FAKE_EffectSwampBattleGuard(void)
+static void TSC_EffectSwampBattleGuard(void)
 {
     u8 i;
 
@@ -2652,7 +2652,7 @@ static void FAKE_EffectSwampBattleGuard(void)
 }
 
 // Leftover from TSC; real version in permanent_effect
-static void FAKE_EffectLavaBattleGuard(void)
+static void TSC_EffectLavaBattleGuard(void)
 {
     u8 i;
 
@@ -2754,7 +2754,7 @@ static void EmptyFunc_80486F8 (void) {
 }
 
 // Leftover from TSC; real version in permanent_effect
-static void FAKE_EffectCyberHarpie(void)
+static void TSC_EffectCyberHarpie(void)
 {
     u8 i;
 
@@ -2821,7 +2821,7 @@ static void EffectMysticalBeastSerket(void)
 }
 
 // Leftover from TSC; real version in permanent_effect
-static void FAKE_EffectJinzo(void)
+static void TSC_EffectJinzo(void)
 {
     if (NumEmptyZonesInRow(gTurnZones[0]) != MAX_ZONES_IN_ROW)
     {
@@ -2959,7 +2959,7 @@ static void EffectByserShock(void)
 }
 
 // Leftover from TSC; real version in permanent_effect
-static void FAKE_EffectTheWingedDragonOfRaPhoenixMode_Resurrect(void)
+static void TSC_EffectTheWingedDragonOfRaPhoenixMode_Resurrect(void)
 {
     u8 i;
 
@@ -3055,18 +3055,18 @@ void (*const gMonEffects[])(void) = {
   EffectRelinquished,
   EffectThousandEyesRestrict,
   EffectSkelengel,
-  FAKE_EffectHarpieLady,
-  FAKE_EffectHarpieLadySisters,
+  TSC_EffectHarpieLady,
+  TSC_EffectHarpieLadySisters,
   EffectTimeWizard,
-  FAKE_EffectCastleOfDarkIllusions,
-  FAKE_EffectMysticalElf,
+  TSC_EffectCastleOfDarkIllusions,
+  TSC_EffectMysticalElf,
   EffectCurseOfDragon,
   EffectFlameSwordsman,
   EffectGiantSoldierOfStone,
   EffectBattleOx,
-  FAKE_EffectMonsterTamer,
-  FAKE_EffectPumpkingTheKingOfGhosts,
-  FAKE_EffectMammothGraveyard,
+  TSC_EffectMonsterTamer,
+  TSC_EffectPumpkingTheKingOfGhosts,
+  TSC_EffectMammothGraveyard,
   EffectCatapultTurtle,
   EffectGoddessOfWhim,
   EffectSpiritOfTheMountain,
@@ -3075,10 +3075,10 @@ void (*const gMonEffects[])(void) = {
   EffectFiendsHand,
   EffectIllusionistFacelessMage,
   EffectElectricLizard,
-  FAKE_EffectDarkMagicianGirl,
-  FAKE_EffectWodanTheResidentOfTheForest,
-  FAKE_EffectMWarrior1,
-  FAKE_EffectMWarrior2,
+  TSC_EffectDarkMagicianGirl,
+  TSC_EffectWodanTheResidentOfTheForest,
+  TSC_EffectMWarrior1,
+  TSC_EffectMWarrior2,
   EffectRedArcheryGirl,
   EffectLadyOfFaith,
   EffectFireReaper,
@@ -3086,30 +3086,30 @@ void (*const gMonEffects[])(void) = {
   EffectGyakutennoMegami,
   EffectMonsterEye,
   EffectDoron,
-  FAKE_EffectSwampBattleGuard,
-  FAKE_EffectLavaBattleGuard,
+  TSC_EffectSwampBattleGuard,
+  TSC_EffectLavaBattleGuard,
   EffectTrent,
-  FAKE_EffectLabyrinthTank,
+  TSC_EffectLabyrinthTank,
   EffectSpiritOfTheBooks,
   EffectHourglassOfLife,
   EffectBeastKingOfTheSwamps,
   EffectNemuriko,
   EffectToadMaster,
-  FAKE_EffectHoshiningen,
+  TSC_EffectHoshiningen,
   EffectInvitationToADarkSleep,
-  FAKE_EffectWitchsApprentice,
+  TSC_EffectWitchsApprentice,
   EffectMysticLamp,
   EffectLeghul,
-  FAKE_EffectInsectQueen,
+  TSC_EffectInsectQueen,
   EffectObeliskTheTormentor,
-  FAKE_EffectSliferTheSkyDragon,
+  TSC_EffectSliferTheSkyDragon,
   EffectTheWingedDragonOfRaBattleMode,
   EmptyFunc_80486EC,
   EmptyFunc_80486F0,
   EmptyFunc_80486F4,
   EmptyFunc_80486F8,
-  FAKE_EffectCyberHarpie,
-  FAKE_EffectDarkMagicianGirl2,
+  TSC_EffectCyberHarpie,
+  TSC_EffectDarkMagicianGirl2,
   EffectAlphaTheMagnetWarrior,
   EffectBetaTheMagnetWarrior,
   EffectGammaTheMagnetWarrior,
@@ -3120,7 +3120,7 @@ void (*const gMonEffects[])(void) = {
   EmptyFunc_80487BC,
   EffectGilfordTheLightning,
   EffectMysticalBeastSerket,
-  FAKE_EffectJinzo,
+  TSC_EffectJinzo,
   sub_8046D38,
   EffectBarrelDragon,
   EffectReflectBounder,
@@ -3146,7 +3146,7 @@ void (*const gMonEffects[])(void) = {
   EffectYZTankDragon,
   EffectXYZDragonCannon,
   EffectPuppetMaster,
-  FAKE_EffectTheWingedDragonOfRaPhoenixMode_Resurrect,
+  TSC_EffectTheWingedDragonOfRaPhoenixMode_Resurrect,
   EffectPenguinTorpedo,
   EffectBerserkDragon_AttackAll,
   EffectFGD,
