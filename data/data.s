@@ -95,16 +95,16 @@ gUnk_8064038:
 
 // worldmap.c start
 
-    .global gWorldMapBgTileset
-gWorldMapBgTileset:
+    .global gWorldMapTiles
+gWorldMapTiles:
     .incbin "baserom.gba", 0x64058, 0x2518
 
-    .global gWorldMapBgPalette
-gWorldMapBgPalette:
+    .global gWorldMapPalette
+gWorldMapPalette:
     .incbin "baserom.gba", 0x66570, 0x180
 
-    .global gUnk_80666F0
-gUnk_80666F0:
+    .global gWorldMapTilemap
+gWorldMapTilemap:
     .incbin "baserom.gba", 0x666F0, 0x4B0
 
     .global gUnk_8066BA0
@@ -335,52 +335,52 @@ gUnk_80746C0:
 gUnk_80746F8:
     .incbin "baserom.gba", 0x746F8, 0xC38
 
-    .global gUnk_8075330
-gUnk_8075330:
+    .global sText_ClockTowerSquare
+sText_ClockTowerSquare:
     .incbin "baserom.gba", 0x75330, 0x68
 
-    .global gUnk_8075398
-gUnk_8075398:
+    .global sText_DominoStation
+sText_DominoStation:
     .incbin "baserom.gba", 0x75398, 0x24
 
-    .global gUnk_80753BC
-gUnk_80753BC:
+    .global sText_EgyptExhibition
+sText_EgyptExhibition:
     .incbin "baserom.gba", 0x753BC, 0x2C
 
-    .global gUnk_80753E8
-gUnk_80753E8:
+    .global sText_DominoPier
+sText_DominoPier:
     .incbin "baserom.gba", 0x753E8, 0x24
 
-    .global gUnk_807540C
-gUnk_807540C:
+    .global sText_Italy
+sText_Italy:
     .incbin "baserom.gba", 0x7540C, 0x1C
 
-    .global gUnk_8075428
-gUnk_8075428:
+    .global sText_China
+sText_China:
     .incbin "baserom.gba", 0x75428, 0x18
 
-    .global gUnk_8075440
-gUnk_8075440:
+    .global sText_Canada
+sText_Canada:
     .incbin "baserom.gba", 0x75440, 0x1C
 
-    .global gUnk_807545C
-gUnk_807545C:
+    .global sText_Galapagos
+sText_Galapagos:
     .incbin "baserom.gba", 0x7545C, 0x20
 
-    .global gUnk_807547C
-gUnk_807547C:
+    .global sText_PegasusIsland
+sText_PegasusIsland:
     .incbin "baserom.gba", 0x7547C, 0x28
 
-    .global gUnk_80754A4
-gUnk_80754A4:
+    .global sText_Dungeon
+sText_Dungeon:
     .incbin "baserom.gba", 0x754A4, 0x20
 
-    .global gUnk_80754C4
-gUnk_80754C4:
+    .global sText_PegasusCastle
+sText_PegasusCastle:
     .incbin "baserom.gba", 0x754C4, 0x28
 
-    .global gUnk_80754EC
-gUnk_80754EC:
+    .global sText_HallOfEternity
+sText_HallOfEternity:
     .incbin "baserom.gba", 0x754EC, 0x28
 // worldmap.c end
 

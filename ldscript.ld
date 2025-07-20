@@ -1,11 +1,15 @@
 OUTPUT_ARCH(arm)
 
+UNK2C5 = 0x2C5;
+UNK12 = 0x12;
+
 SECTIONS
 {
     /* bss*/
     gPaletteBuffer = 0x02000000;
     gBgVram = 0x02000400;
     gVr = 0x02000400;
+    gVramBuffer = 0x02000400;
     gOamBuffer = 0x02018400;
     gSharedMem = 0x02018800;
     /*^these are possibly defined in share.c, because the next symbol is g201CB20, which is in that file*/
@@ -34,16 +38,17 @@ SECTIONS
     g201CB3C = 0x201CB3C;
     g201CB40 = 0x201CB40;
     g201CB44 = 0x201CB44;
-    
+
     g201CB50 = 0x201CB50;
     */
 
-    
+
     g201CB58 = 0x201CB58;
     g201CB59 = 0x201CB59;
     g201CB60 = 0x201CB60;
     g201EE60 = 0x0201EE60;
     g201EE61 = 0x0201EE61;
+    g201EE68 = 0x201EE68;
     gCardNameWorkingBuffer = 0x201EE70;
     gCardNameRenderBuffer = 0x201EEE0;
 
@@ -57,7 +62,7 @@ SECTIONS
     g2020DC8 = 0x02020DC8;
     g2020DCC = 0x02020DCC;
     g2020DD0 = 0x02020DD0;
-    
+
     gPlayerName = 0x02020DE0;
 
 
@@ -211,6 +216,7 @@ SECTIONS
     gWhoseTurn = 0x020245A8;
     g20245AC = 0x20245AC;
     gDigitBufferU16 = 0x2021BD0;
+    g2025840 = 0x2025840;
 
     g3000400 = 0x3000400;
     g3000C00 = 0x3000C00;
@@ -296,7 +302,7 @@ SECTIONS
 
         src/card_sort.o(.text);
         asm/code3.o(.text5);
-
+        src/code_8034E30.o(.text);
         src/title_screen.o(.text);
         src/trade_menu.o(.text);
         asm/code3.o(.text6);
@@ -859,6 +865,10 @@ SECTIONS
     g8E0CDA8 = 0x8E0CDA8;
     g8E0CDAC = 0x8E0CDAC;
     gSortRangeStack = 0x8E0CC24;
+    g80D29D0 = 0x80D29D0;
+    g8AFBD0C = 0x8AFBD0C;
+    g8AFBDE4 = 0x8AFBDE4;
+    g80D2D00 = 0x80D2D00;
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :

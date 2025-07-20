@@ -6,6 +6,7 @@
 #include "gba/macro.h"
 #include "gba/defines.h"
 #include "gba/syscall.h"
+#include "gba/m4a_internal.h"
 
 
 #include "cutscene.h"
@@ -46,6 +47,10 @@
 #include "constants/card_ids.h"
 #include "constants/music_ids.h"
 #include "constants/duel_text_ids.h"
+
+extern unsigned char UNK12[];
+extern unsigned char UNK2C5[];
+extern unsigned char gVramBuffer[];
 
 void FadeOutMusic (unsigned);
 void sub_8034FEC (unsigned);

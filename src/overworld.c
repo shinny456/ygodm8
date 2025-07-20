@@ -1,7 +1,5 @@
 #include "global.h"
 
-#define SHRT_MAX 0x7FFF // from limits.h
-
 static void sub_804E288 (void);
 static void SetBg3Regs (void);
 static void SetBg2Regs (void);

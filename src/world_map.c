@@ -4,7 +4,9 @@ unsigned char g2020DC8; //where the player came from
 unsigned char g2020DCC; //where the player is going
 unsigned char g2020DD0; //world map state (how many places are unlocked)
 
-static void sub_8004F90 (unsigned char, unsigned char);
+static void LoadWorldMapGfx (unsigned char, unsigned char);
+extern unsigned char gWorldMapTiles[];
+extern unsigned short gWorldMapPalette[];
 
 
 extern struct Unk8DF76F8 {
@@ -30,24 +32,23 @@ extern struct Unk_8DF7A28 {
 } * gUnk_8DF7A28;
 
 extern unsigned char gSharedMem[];
-extern u16 gWorldMapBgPalette[];
-extern u32 gWorldMapBgTileset[];
+
 extern u32 gUnk_80746F8[];
-extern u16 gUnk_80666F0[][30];
+extern u16 gWorldMapTilemap[][30];
 extern u16 gUnk_8073BA0[][30];
 extern u16 gUnk_8066BA0[][320];
-extern unsigned char gUnk_8075330[];
-extern unsigned char gUnk_8075398[];
-extern unsigned char gUnk_80753BC[];
-extern unsigned char gUnk_80753E8[];
-extern unsigned char gUnk_807540C[];
-extern unsigned char gUnk_8075428[];
-extern unsigned char gUnk_8075440[];
-extern unsigned char gUnk_807545C[];
-extern unsigned char gUnk_807547C[];
-extern unsigned char gUnk_80754A4[];
-extern unsigned char gUnk_80754C4[];
-extern unsigned char gUnk_80754EC[];
+extern unsigned char sText_ClockTowerSquare[];
+extern unsigned char sText_DominoStation[];
+extern unsigned char sText_EgyptExhibition[];
+extern unsigned char sText_DominoPier[];
+extern unsigned char sText_Italy[];
+extern unsigned char sText_China[];
+extern unsigned char sText_Canada[];
+extern unsigned char sText_Galapagos[];
+extern unsigned char sText_PegasusIsland[];
+extern unsigned char sText_Dungeon[];
+extern unsigned char sText_PegasusCastle[];
+extern unsigned char sText_HallOfEternity[];
 
 extern u16 gUnk_80741B8[];
 extern u16 gUnk_8072EA0[];
@@ -68,7 +69,7 @@ void ClearGraphicsBuffers (void);
 void WorldMapMain (void) {
   unsigned char r4 = sub_80056CC(g2020DC8);
   unsigned char r7 = g2020DD0 & 0xF;
-  sub_8004F90(r4, r7);
+  LoadWorldMapGfx(r4, r7);
   PlayMusic(MUSIC_WORLD_MAP);
   while (!(gNewButtons & 3)) {
     if (gPressedButtons & 0xF0) {
@@ -124,7 +125,7 @@ void WorldMapMain (void) {
 	ands r7, r0\n\
 	adds r0, r4, #0\n\
 	adds r1, r7, #0\n\
-	bl sub_8004F90\n\
+	bl LoadWorldMapGfx\n\
 	movs r0, #3\n\
 	bl PlayMusic\n\
 	ldr r6, _08004E98\n\
@@ -252,8 +253,8 @@ _08004F88: .4byte gNewButtons\n\
 _08004F8C: .4byte 0x02020DCC");
 }
 
-static void sub_8004F90 (unsigned char arg0, unsigned char arg1) {
-  u16 i;
+static void LoadWorldMapGfx (unsigned char arg0, unsigned char arg1) {
+  unsigned short i;
   for (i = 0; i < 0x4314; i++)
     gSharedMem[i] = 0;
   ClearGraphicsBuffers();
@@ -261,30 +262,30 @@ static void sub_8004F90 (unsigned char arg0, unsigned char arg1) {
   LoadPalettes();
   LoadVRAM();
   DisableDisplay();
-  LZ77UnCompWram(gWorldMapBgTileset, gBgVram.cbb0);
+  LZ77UnCompWram(gWorldMapTiles, gVramBuffer);
   for (i = 0; i < 20; i++)
-    DmaCopy16(3, gUnk_80666F0[i], gBgVram.cbb0 + 0x9800 + i * 64, 60);
+    DmaCopy16(3, gWorldMapTilemap[i], gVramBuffer + 0x9800 + i * 64, 60);
   for (i = 0; i < 2; i++)
-    DmaCopy16(3, gUnk_8073BA0[i], gBgVram.cbb0 + 0xA014 + i * 64, 60);
+    DmaCopy16(3, gUnk_8073BA0[i], gVramBuffer + 0xA014 + i * 64, 60);
   for (i = 0; i < 6; i++)
-    CpuCopy16(gUnk_8066BA0[i], gBgVram.cbb0 + 0x10000 + i * 0x400, 640);
-  LZ77UnCompWram(gUnk_80746F8, gBgVram.cbb5);
+    CpuCopy16(gUnk_8066BA0[i], gVramBuffer + 0x10000 + i * 0x400, 640);
+  LZ77UnCompWram(gUnk_80746F8, gVramBuffer + 0x14000);
 
-  // Location text
-  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x20, gUnk_8075330, 0x901); // Clock Tower Square
-  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x520, gUnk_8075398, 0x901);
-  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0xA20, gUnk_80753BC, 0x901);
-  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0xF20, gUnk_80753E8, 0x901);
-  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x1420, gUnk_807540C, 0x901);
-  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x1920, gUnk_8075428, 0x901);
-  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x1E20, gUnk_8075440, 0x901);
-  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x2320, gUnk_807545C, 0x901);
-  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x2820, gUnk_807547C, 0x901);
-  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x2D20, gUnk_80754A4, 0x901);
-  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x3220, gUnk_80754C4, 0x901);
-  CopyStringTilesToVRAMBuffer(((struct Cbb*)&gBgVram)->cbb3 + 0x3720, gUnk_80754EC, 0x901);
+  // Location names
+  CopyStringTilesToVRAMBuffer(gVramBuffer + 0xC020, sText_ClockTowerSquare, 0x901);
+  CopyStringTilesToVRAMBuffer(gVramBuffer + 0xC520, sText_DominoStation, 0x901);
+  CopyStringTilesToVRAMBuffer(gVramBuffer + 0xCA20, sText_EgyptExhibition, 0x901);
+  CopyStringTilesToVRAMBuffer(gVramBuffer + 0xCF20, sText_DominoPier, 0x901);
+  CopyStringTilesToVRAMBuffer(gVramBuffer + 0xD420, sText_Italy, 0x901);
+  CopyStringTilesToVRAMBuffer(gVramBuffer + 0xD920, sText_China, 0x901);
+  CopyStringTilesToVRAMBuffer(gVramBuffer + 0xDE20, sText_Canada, 0x901);
+  CopyStringTilesToVRAMBuffer(gVramBuffer + 0xE320, sText_Galapagos, 0x901);
+  CopyStringTilesToVRAMBuffer(gVramBuffer + 0xE820, sText_PegasusIsland, 0x901);
+  CopyStringTilesToVRAMBuffer(gVramBuffer + 0xED20, sText_Dungeon, 0x901);
+  CopyStringTilesToVRAMBuffer(gVramBuffer + 0xF220, sText_PegasusCastle, 0x901);
+  CopyStringTilesToVRAMBuffer(gVramBuffer + 0xF720, sText_HallOfEternity, 0x901);
 
-  CpuCopy16(gWorldMapBgPalette, gPaletteBuffer, 0x180);
+  CpuCopy16(gWorldMapPalette, gPaletteBuffer, 0x180);
   CpuCopy16(gUnk_80741B8, gPaletteBuffer + 0xF0, 0x20);
   CpuCopy16(gUnk_8072EA0, gPaletteBuffer + 0x100, 0x100);
   CpuCopy16(gUnk_80741D8, gPaletteBuffer + 0x180, 0x20);
