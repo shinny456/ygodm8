@@ -1,9 +1,30 @@
 #include "global.h"
 
 static unsigned char CheckForMothEvolution (u16);
-extern u16 gNextMothEvolution[];
-extern u16 gMothsAbleToEvolve[];
-extern void (*g8E0C6C0[]) (void);
+
+enum MothEvolution {
+  MOTH_EVO_PETIT_MOTH,
+  MOTH_EVO_LARVAE_MOTH,
+  MOTH_EVO_COCOON_OF_EVOLUTION,
+  MOTH_EVO_GREAT_MOTH,
+  NUM_MOTH_EVO
+};
+
+CONST_DATA unsigned short sMothsAbleToEvolve[NUM_MOTH_EVO] = {
+  [MOTH_EVO_PETIT_MOTH] = PETIT_MOTH,
+  [MOTH_EVO_LARVAE_MOTH] = LARVAE_MOTH,
+  [MOTH_EVO_COCOON_OF_EVOLUTION] = COCOON_OF_EVOLUTION,
+  [MOTH_EVO_GREAT_MOTH] = GREAT_MOTH
+};
+
+CONST_DATA unsigned short sNextMothEvolution[NUM_MOTH_EVO] = {
+  [MOTH_EVO_PETIT_MOTH] = LARVAE_MOTH,
+  [MOTH_EVO_LARVAE_MOTH] = COCOON_OF_EVOLUTION,
+  [MOTH_EVO_COCOON_OF_EVOLUTION] = GREAT_MOTH,
+  [MOTH_EVO_GREAT_MOTH] = PERFECTLY_ULTIMATE_GREAT_MOTH
+};
+
+extern void (*sPermanentEffects[]) (void);
 extern unsigned char (*g8E0C800[]) (void);
 extern unsigned char g2021DD8;
 void sub_802ACC0 (void);
@@ -19,25 +40,25 @@ void TryEvolveMothCards (void) {
   unsigned char unused[12];
   unsigned char i;
   for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
-    unsigned char temp = CheckForMothEvolution(gTurnZones[2][i]->id);
-    if (temp > 3)
-      continue;
-    gTurnZones[2][i]->id = gNextMothEvolution[temp];
-    ResetCardEffectTextData();
-    SetCardEffectTextType(10);
-    gCardEffectTextData.textId = DUEL_TEXT_TRANSFORMED_INTO;
-    gCardEffectTextData.cardId = gMothsAbleToEvolve[temp];
-    gCardEffectTextData.cardId2 = gNextMothEvolution[temp];
-    ActivateCardEffectText();
+    enum MothEvolution mothEvo = CheckForMothEvolution(gTurnZones[2][i]->id);
+    if (mothEvo < NUM_MOTH_EVO) {
+      gTurnZones[2][i]->id = sNextMothEvolution[mothEvo];
+      ResetCardEffectTextData();
+      SetCardEffectTextType(10);
+      gCardEffectTextData.textId = DUEL_TEXT_TRANSFORMED_INTO;
+      gCardEffectTextData.cardId = sMothsAbleToEvolve[mothEvo];
+      gCardEffectTextData.cardId2 = sNextMothEvolution[mothEvo];
+      ActivateCardEffectText();
+    }
   }
 }
 
-// returns 0-3 if able to evolve, 4 if unable
-static unsigned char CheckForMothEvolution (u16 cardId) {
-  unsigned char i;
-  for (i = 0; i < 4 && cardId != gMothsAbleToEvolve[i]; i++)
-    ;
-  return i;
+static enum MothEvolution CheckForMothEvolution (u16 cardId) {
+  enum MothEvolution mothEvo;
+  for (mothEvo = 0; mothEvo < NUM_MOTH_EVO; mothEvo++)
+    if (cardId == sMothsAbleToEvolve[mothEvo])
+      break;
+  return mothEvo;
 }
 
 static void sub_80270E0 (unsigned char arg0) {
@@ -1267,7 +1288,7 @@ static void TryActivatingPermanentEffect (void) {
   ResetCardEffectTextData();
   SetCardEffectTextType(8);
   SetCardInfo(gActiveEffect.cardId);
-  g8E0C6C0[gCardInfo.unk1E]();
+  sPermanentEffects[gCardInfo.unk1E]();
 }
 
 static void sub_8029898 (void) {
@@ -1318,7 +1339,7 @@ static void sub_8029934 (void) {
 static void sub_8029938 (void) {
 }
 
-static void sub_802993C (void) {  
+static void sub_802993C (void) {
 }
 
 static void sub_8029940 (void) {
@@ -2078,10 +2099,10 @@ static unsigned char sub_802A6A4 (void) {
 // condition: DarkMagicianGirl or ToonDarkMagicianGirl
 static unsigned char sub_802A6D8 (void) {
   u32 ret = 0;
-  if (gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == DARK_MAGICIAN || 
+  if (gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == DARK_MAGICIAN ||
     gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
     ret = 1;
-  else if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == DARK_MAGICIAN || 
+  else if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == DARK_MAGICIAN ||
     gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
     ret = 1;
   return ret;
@@ -2090,10 +2111,10 @@ static unsigned char sub_802A6D8 (void) {
 // condition: DarkMagicianGirl or ToonDarkMagicianGirl
 static unsigned char sub_802A704 (void) {
   u32 ret = 0;
-  if (gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == DARK_MAGICIAN || 
+  if (gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == DARK_MAGICIAN ||
     gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
     ret = 1;
-  else if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == DARK_MAGICIAN || 
+  else if (gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == DARK_MAGICIAN ||
     gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == MAGICIAN_OF_BLACK_CHAOS)
     ret = 1;
   return ret;

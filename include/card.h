@@ -1,6 +1,7 @@
 #ifndef GUARD_CARD_H
 #define GUARD_CARD_H
 
+//TODO: CARD_TYPE_
 enum CardType {
   TYPE_NONE,
   TYPE_DRAGON,
@@ -29,6 +30,7 @@ enum CardType {
   NUM_CARD_TYPES
 };
 
+//TODO: CARD_TYPE_GROUP
 enum {
   TYPE_GROUP_NONE,
   TYPE_GROUP_MONSTER,
@@ -37,6 +39,7 @@ enum {
   TYPE_GROUP_RITUAL
 };
 
+//CARD_ATTRIBUTE
 enum CardAttribute {
   ATTRIBUTE_NONE,
   ATTRIBUTE_SHADOW,
@@ -74,7 +77,7 @@ struct StatMod {
 
 struct CardInfo {
   u8* name;                   /*0x0*/
-  u8* unk4;                   /*0x4*/
+  u8* nameUnused;                   /*0x4*/
   u8* description;            /*0x8*/ // effect summary or flavor text
   u32 cost;                   /*0xC*/
   u16 id;                     /*0x10*/ /*TODO: rename to cardId/cardID?*/

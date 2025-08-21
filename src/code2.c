@@ -74,7 +74,6 @@ struct UnkStr //AI data?
     u8 filler1A8[0x35A];
     struct Bruhh unk504[0x3B2];
     u16 unk2294;
-    u16 unk2296; //unused?
     u32 unk2298;
     u32 unk229C;
     struct Bruhh unk22A0[2][2];
@@ -7144,7 +7143,7 @@ void CheckWinConditionExodia (void);
 
 
 void AI_Main (void) {
-  u8 i;
+  unsigned char i;
   TryActivatingTurnEffects();
   if (IsDuelOver() == TRUE)
     return;

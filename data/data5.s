@@ -299,8 +299,8 @@ gUnk_8DFA6A8:
 gUnk_DFA6B2:
     .incbin "baserom.gba", 0xDFA6B2, 0x1BD6
 
-    .global g8DFC288 /*card name ptrs*/
-g8DFC288:
+    .global gCardNames /*card name ptrs*/
+gCardNames:
     .incbin "baserom.gba", 0xDFC288, 0x3210
 //end of card.c?
 

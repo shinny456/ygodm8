@@ -1,6 +1,8 @@
 #ifndef GUARD_GLOBAL_H
 #define GUARD_GLOBAL_H
 
+#define CONST_DATA
+
 #include "gba/types.h"
 #include "gba/io_reg.h"
 #include "gba/macro.h"

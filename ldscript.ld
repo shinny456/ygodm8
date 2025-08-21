@@ -629,9 +629,9 @@ SECTIONS
     g80DD674 = 0x80DD674;
     g80DD678 = 0x80DD678;
     g8E0CE90 = 0x8E0CE90;
-    gMothsAbleToEvolve = 0x8E0C6B0;
-    gNextMothEvolution = 0x8E0C6B8;
-    g8E0C6C0 = 0x8E0C6C0;
+    sMothsAbleToEvolve = 0x8E0C6B0;
+    sNextMothEvolution = 0x8E0C6B8;
+    sPermanentEffects = 0x8E0C6C0;
     g8E0C800 = 0x8E0C800;
     g8E0D954 = 0x8E0D954;
     g8E0D958 = 0x8E0D958;

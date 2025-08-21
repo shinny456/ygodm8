@@ -379,79 +379,79 @@ static void TryActivatingTurnEffect (void) {
   g8E0C940[gCardInfo.unk1E]();
 }
 
-static void EmptyFunc_802B70C (void) {
+static void EffectNone (void) {
 }
 
-static void EmptyFunc_802B710 (void) {
+static void EffectJinzo (void) {
 }
 
-static void EmptyFunc_802B714 (void) {
+static void EffectSliferTheSkyDragon (void) {
 }
 
-static void EmptyFunc_802B718 (void) {
+static void EffectDragonCaptureJar (void) {
 }
 
-static void EmptyFunc_802B71C (void) {
+static void EffectPumpkingTheKingOfGhosts (void) {
 }
 
-static void EmptyFunc_802B720 (void) {
+static void Effect_HARPIE_LADY (void) {
 }
 
-static void EmptyFunc_802B724 (void) {
+static void EffectHARPIE_LADY_SISTERS (void) {
 }
 
-static void EmptyFunc_802B728 (void) {
+static void EffectCYBER_HARPIE (void) {
 }
 
-static void EmptyFunc_802B72C (void) {
+static void EffectMYSTICAL_ELF (void) {
 }
 
-static void EmptyFunc_802B730 (void) {
+static void EffectMONSTER_TAMER (void) {
 }
 
-static void EmptyFunc_802B734 (void) {
+static void EffectMAMMOTH_GRAVEYARD (void) {
 }
 
-static void EmptyFunc_802B738 (void) {
+static void EffectDARK_MAGICIAN_GIRL (void) {
 }
 
-static void EmptyFunc_802B73C (void) {
+static void EffectTOON_DARK_MAGICIAN_GIRL (void) {
 }
 
-static void EmptyFunc_802B740 (void) {
+static void EffectWODAN_THE_RESIDENT_OF_THE_FOREST (void) {
 }
 
-static void EmptyFunc_802B744 (void) {
+static void EffectSWAMP_BATTLEGUARD (void) {
 }
 
-static void EmptyFunc_802B748 (void) {
+static void EffectLAVA_BATTLEGUARD (void) {
 }
 
-static void EmptyFunc_802B74C (void) {
+static void EffectM_WARRIOR_1 (void) {
 }
 
-static void EmptyFunc_802B750 (void) {
+static void EffectM_WARRIOR_2 (void) {
 }
 
-static void EmptyFunc_802B754 (void) {
+static void EffectLABYRINTH_TANK (void) {
 }
 
-static void EmptyFunc_802B758 (void) {
+static void EffectHOSHININGEN (void) {
 }
 
-static void EmptyFunc_802B75C (void) {
+static void EffectWITCHS_APPRENTICE (void) {
 }
 
-static void EmptyFunc_802B760 (void) {
+static void EffectINSECT_QUEEN (void) {
 }
 
-static void EmptyFunc_802B764 (void) {
+static void EffectBUSTER_BLADER (void) {
 }
 
-static void EmptyFunc_802B768 (void) {
+static void EffectMASTER_OF_DRAGON_SOLDIER (void) {
 }
 
-static void EmptyFunc_802B76C (void) {
+static void EffectTHUNDER_NYAN_NYAN (void) {
 }
 
 static void EffectMessengerOfPeace_SubtractLifePoints (void) {
@@ -504,13 +504,13 @@ static void EffectLavaGolem_SubtractLifePoints (void) {
   }
 }
 
-static void EmptyFunc_802B8B0 (void) {
+static void EffectDARK_JEROID (void) {
 }
 
-static void EmptyFunc_802B8B4 (void) {
+static void EffectBLADE_KNIGHT (void) {
 }
 
-static void EmptyFunc_802B8B8 (void) {
+static void EffectDARK_PALADIN (void) {
 }
 
 static void EffectViserDes (void) {
@@ -524,7 +524,7 @@ static void EffectViserDes (void) {
   }
 }
 
-static void EmptyFunc_802B91C (void) {
+static void EffectTHE_WINGED_DRAGON_OF_RA_PHOENIX_MODE (void) {
 }
 
 static void EffectNewdoria (void) {
@@ -538,16 +538,16 @@ static void EffectNewdoria (void) {
   }
 }
 
-static void EmptyFunc_802B978 (void) {
+static void EffectMACHINE_KING (void) {
 }
 
-static void EmptyFunc_802B97C (void) {
+static void EffectPERFECT_MACHINE_KING (void) {
 }
 
-static void EmptyFunc_802B980 (void) {
+static void EffectCOMMAND_ANGEL (void) {
 }
 
-static void EmptyFunc_802B984 (void) {
+static void EffectNIGHTMARE_PENGUIN (void) {
 }
 
 static void EffectBerserkDragon_PowerDown (void) {
@@ -561,7 +561,7 @@ static void EffectBerserkDragon_PowerDown (void) {
   }
 }
 
-static void EmptyFunc_802B9F0 (void) {
+static void EffectDARK_FLARE_KNIGHT (void) {
 }
 
 static void EffectExodiaNecross_PowerUp (void) {
@@ -577,16 +577,16 @@ static void EffectExodiaNecross_PowerUp (void) {
   }
 }
 
-static void EmptyFunc_802BA40 (void) {
+static void EffectSPIRIT_MESSAGE_I (void) {
 }
 
-static void EmptyFunc_802BA44 (void) {
+static void EffectSPIRIT_MESSAGE_N (void) {
 }
 
-static void EmptyFunc_802BA48 (void) {
+static void EffectSPIRIT_MESSAGE_A (void) {
 }
 
-static void EmptyFunc_802BA4C (void) {
+static void EffectSPIRIT_MESSAGE_L (void) {
 }
 
 static void EffectSatelliteCannon (void) {
@@ -1097,6 +1097,7 @@ unsigned char* GetCardAttributeString (unsigned char attribute) {
   return gCardAttributeStrings[attribute];
 }
 
-u32* sub_802BF60 (unsigned char arg0) {
+//unused?
+static u32* sub_802BF60 (unsigned char arg0) {
   return g8E0CBF0[arg0];
 }

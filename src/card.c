@@ -15,7 +15,7 @@ static void sub_800BA04 (void);
 static void sub_800BC24 (void);
 static void sub_800BCC4 (void);
 static void sub_800BCEC (void);
-static unsigned char* sub_800BD14 (unsigned short);
+static unsigned char* GetCardName (unsigned short);
 
 
 extern unsigned short g08097C94[];
@@ -51,7 +51,7 @@ extern u8 gUnk8DFBDE8[]; //italian and spanish type/summon/cost tiles (Type is s
 void *GetCardAttributeString(u8 attribute);
 void *GetCardTypeString(u8 type);
 
-extern u8* g8DFC288[];
+extern u8* gCardNames[];
 extern u8* g8DFCF0C[];
 extern unsigned short gUnk8097D94[][31]; //248x160p (31x20t) tilemap
 extern u32 g0809553C[]; //tileset
@@ -103,8 +103,8 @@ void SetFinalStat(struct StatMod* ptr)
 //unused?
 static void sub_800B384(void)
 {
-    gCardInfo.name = sub_800BD14(CARD_NONE);
-    gCardInfo.unk4 = sub_800BD14(CARD_NONE);
+    gCardInfo.name = GetCardName(CARD_NONE);
+    gCardInfo.nameUnused = GetCardName(CARD_NONE);
     gCardInfo.description = gUnk8F985E0[CARD_NONE];
     gCardInfo.cost = 0;
     gCardInfo.id = CARD_NONE;
@@ -138,8 +138,8 @@ void SetCardInfo(unsigned short id)
     gCardInfo.trapEffect = gCardTrapEffect[id];
     gCardInfo.ritualEffect = gUnk8094C37[gCardInfo.spellEffect];
     gCardInfo.unk1E = gUnk8094CC3[id];
-    gCardInfo.name = sub_800BD14(id);
-    gCardInfo.unk4 = sub_800BD14(id);
+    gCardInfo.name = GetCardName(id);
+    gCardInfo.nameUnused = GetCardName(id);
     gCardInfo.description = gUnk8F985E0[id];
 }
 
@@ -924,9 +924,9 @@ static void sub_800BCEC(void)  //print type name
     CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[68*32], GetCardTypeString(gCardInfo.type), 0x901);
 }
 
-static u8 *sub_800BD14(unsigned short cardId)
+static u8 *GetCardName(unsigned short cardId)
 {
-    return g8DFC288[cardId];
+    return gCardNames[cardId];
 }
 
 //unused? Japanese card names?
