@@ -15,7 +15,7 @@ struct MapState {
 extern const struct MapState gMapStates[];
 void sub_804EF84 (u16, u16, u16);
 u16 sub_80520E0(u8 x, u8 y);
-u32 sub_8052174 (u16);
+u32 IsImpassable (u16);
 u32 sub_80521AC (u16);
 extern u8 g2021D6C[]; // only used in unused function?
 
@@ -85,7 +85,7 @@ static void sub_80524D8 (u16 arg0) {
 // unused
 static void sub_8052510 (void) {
   if (gOverworld.objects[0].motionState == 1) {
-    if (!sub_8052174(sub_80520E0(gOverworld.objects[0].x, gOverworld.objects[0].y))) {
+    if (!IsImpassable(sub_80520E0(gOverworld.objects[0].x, gOverworld.objects[0].y))) {
       g2021D6C[0] = 0;
       g2021D6C[1] = 0;
       g2021D6C[2] = 1;

@@ -1,6 +1,8 @@
 #ifndef GUARD_DUEL_H
 #define GUARD_DUEL_H
 
+//TODO: GetTypeGroup -> GetCardTypeGroup
+
 enum {
   DUEL_PLAYER,
   DUEL_OPPONENT
@@ -22,21 +24,18 @@ enum {
   NUM_FIELDS
 };
 
+//TODO: MAX_NUM_ZONES_IN_ROW?
 #define MAX_ZONES_IN_ROW 5
 
 extern void (*const gMonEffects[])(void);
 extern void (*const gSpellEffects[])(void);
-extern void (*g8DFF55C[])(void);
-extern void (*g8DFFA48[])(void);
-extern void (*g8DFF7F0[])(void);
-extern void (*g8E00330[])(void);
-extern void (*g8E00150[])(void);
+
 
 extern unsigned char gWhoseTurn; // rename to gActiveTurn/gCurrentTurn? (or ActiveDuelist?)
 
 struct DuelCard
 {
-    u16 id;
+    u16 id; //TODO: cardId because it can be accessed indirectly via a pointer, so it helps to clarify
     s8 permStage;
     s8 tempStage;
     u8 unk4; // something to do with special summoning? CoH/BC/Ra=2, otherwise mostly 0
@@ -332,9 +331,6 @@ u16 GetGraveCardAndClearGrave(u8);
 
 void InitSorlTurns(u8);
 
-
-
-void ResetNumTributes(void);
 s32 WhoseTurn(void); //8058744
 
 s32 RandRangeU8(u8, u8);
@@ -512,38 +508,14 @@ extern struct BgVram gBgVram;
 extern unsigned short gPaletteBuffer[];
 
 extern u16 g2021BF8;
-int sub_8045390(u16);
+
 bool32 ZoneHasUnlockedMonsterCard(struct DuelCard*);
 
 void ClearZoneAndSendMonToGraveyard2 (struct DuelCard *zone, u8 player);
 
-void LoadObjVRAM(void);
-void LoadBgVRAM(void);
-void LoadCharblock0(void);
-void LoadCharblock1(void);
-void LoadCharblock2(void);
-void LoadCharblock3(void);
-void LoadCharblock4(void);
-void LoadCharblock5(void);
-void LoadPalettes(void);
-void LoadVRAM(void);
+
 void SetVBlankCallback(void (*)(void));
 void WaitForVBlank (void);
-void LoadBgOffsets (void);
-void LoadOam (void);
-void LoadBlendingRegs (void);
-void LoadAffineRegs (void);
-extern u16 gBG3VOFS;
-extern u16 gBG3HOFS;
-extern u16 gBG2HOFS;
-extern u16 gBG2VOFS;
-extern u16 gBG0VOFS;
-extern u16 gBG0HOFS;
-extern u16 gBG1VOFS;
-extern u16 gBG1HOFS;
-extern u16 gBLDCNT;
-extern u16 gBLDALPHA;
-extern u16 gBLDY;
 
 void ClearPlayerName(void);
 void InitTrunkCards(void);
@@ -566,12 +538,12 @@ u32 GetTotalAtkAndDefInRow (u8);
 extern u8 gCurrentTurnOpponent[];
 u32 GetNumCardsUnlockedInRow (u8);
 u32 sub_80438A0 (u8);
-u32 GetNumCardsDefendingInRow (u8);     //implicit decl? (just create a u8 return variable)
-u32 GetTotalFaceUpAtkAndDefInRow (u8);     //implicit decl? (just create a u8 return variable)
+u32 GetNumCardsDefendingInRow (u8);
+u32 GetTotalFaceUpAtkAndDefInRow (u8);
 u32 GetNumFaceUpCardsInRow (u8);
-u32 NumFaceUpMatchingTypeInRow (u8, u8); //implicit decl? (^)
-u32 NumFaceUpMatchingAttributeInRow (u8, u8);  //^
-int HighestAtkFaceUpMonInRow (struct DuelCard**); //implicit decl? (^)
+u32 NumFaceUpMatchingTypeInRow (u8, u8);
+u32 NumFaceUpMatchingAttributeInRow (u8, u8);
+int HighestAtkFaceUpMonInRow (struct DuelCard**);
 u8 sub_803FBCC (u8, u8);
 bool32 IsCardLocked (struct DuelCard *zone);
 bool32 sub_8043714 (struct DuelCard *zone);
@@ -581,7 +553,6 @@ bool32 sub_8043790 (struct DuelCard *zone);
 bool32 ZoneHasRitualCard (struct DuelCard *zone);
 
 
-void DisableDisplay (void);
 
 void sub_80240BC(struct DuelText*);
 void sub_802405C(struct DuelText*);

@@ -10,11 +10,77 @@ enum DuelTextboxToken {
   MODE_CLEAR_TEXTBOX_AND_ADVANCE,
 };
 
+
+extern const unsigned char gFieldArenaTiles[];
+extern const unsigned char gFieldForestTiles[];
+extern const unsigned char gFieldWastelandTiles[];
+extern const unsigned char gFieldMountainTiles[];
+extern const unsigned char gFieldSogenTiles[];
+extern const unsigned char gFieldUmiTiles[];
+extern const unsigned char gFieldYamiTiles[];
+
+//TODO: 1D array also works (as with any other tilemap)
+extern const unsigned short gFieldArenaTilemap[][31];
+extern const unsigned short gFieldForestTilemap[][31];
+extern const unsigned short gFieldWastelandTilemap[][31];
+extern const unsigned short gFieldMountainTilemap[][31];
+extern const unsigned short gFieldSogenTilemap[][31];
+extern const unsigned short gFieldUmiTilemap[][31];
+extern const unsigned short gFieldYamiTilemap[][31];
+
+extern const unsigned short gFieldArenaPalette[];
+extern const unsigned short gFieldForestPalette[];
+extern const unsigned short gFieldWastelandPalette[];
+extern const unsigned short gFieldMountainPalette[];
+extern const unsigned short gFieldSogenPalette[];
+extern const unsigned short gFieldUmiPalette[];
+extern const unsigned short gFieldYamiPalette[];
+
+static const unsigned char* CONST_DATA gFieldTilePtrs[] = {
+  gFieldArenaTiles,
+  gFieldForestTiles,
+  gFieldWastelandTiles,
+  gFieldMountainTiles,
+  gFieldSogenTiles,
+  gFieldUmiTiles,
+  gFieldYamiTiles
+};
+
+static const unsigned short (* CONST_DATA gFieldTileMapPtrs[])[31] = {
+  gFieldArenaTilemap,
+  gFieldForestTilemap,
+  gFieldWastelandTilemap,
+  gFieldMountainTilemap,
+  gFieldSogenTilemap,
+  gFieldUmiTilemap,
+  gFieldYamiTilemap
+};
+
+static const unsigned short * CONST_DATA gFieldPalettePtrs[] = {
+  gFieldArenaPalette,
+  gFieldForestPalette,
+  gFieldWastelandPalette,
+  gFieldMountainPalette,
+  gFieldSogenPalette,
+  gFieldUmiPalette,
+  gFieldYamiPalette
+};
+
+extern CONST_DATA unsigned char gE0D14C[] /*= _("　　　　　　　　")*/;
+
+ // all spaces. empty duel text box before displaying actual text.
+extern CONST_DATA unsigned char gText_Spaces[] /*= _(
+  "                            "
+  "                            "
+  "                            "
+  "                             "
+)*/;
+
+
 extern u16 gNewButtons;
-extern u32* gFieldTilePtrs[];
-extern u16* gFieldPalettePtrs[];
-extern const unsigned char gText_Spaces[]; // all spaces. empty duel text box before displaying actual text.
-extern u16 (*gFieldTileMapPtrs[])[31];
+
+
+
 extern struct OamData gOamBuffer[];
 extern unsigned char gCardNameWorkingBuffer[]; // working buffer for handling layout and wrap
 extern unsigned char gCardNameRenderBuffer[]; // final render buffer for glyph blitting loop
@@ -22,12 +88,12 @@ extern unsigned char* gText_NumTributesRequired[];
 extern const s16 sin_cos_table[];
 extern unsigned char gFontTileGlyphs[];
 extern u16 g80F2C30[][30];
-extern unsigned char gE0D14C[];
+
 
 void sub_8041B38 (void);
 void RunTextRenderTask (struct DuelTextbox*);
 static void ClearTextboxAndAdvance (struct DuelTextbox*);
-void HuffUnComp (void*, void*);
+
 
 s16 fix_mul (s16, s16);
 s16 fix_inverse (s16);
@@ -128,7 +194,7 @@ void sub_8040EF0 (void) {
   // this results in the last tile-column of the background being made up of tiles meant for the next row.
   // however the last column is never seen on screen
   // copies past array (2D array) by copying 40 rows (there are only 38 rows)
-  // is this UB? 
+  // is this UB?
   // TODO: i < 38; pass size of 62 to CpuCopy16
   for (i = 0; i < 40; i++)
     CpuCopy16(gFieldTileMapPtrs[field][i], gBgVram.cbb0 + 0xD800 + i * 64, 64);
@@ -501,13 +567,17 @@ void RenderNextCardDescChar (struct DuelTextbox* textbox) {
     textbox->mode = 0;
 }
 
+//TODO: rename sub_8041B38 to be the same
 static inline void InitTextboxDisplay_inline (void) {
   unsigned char i;
   // copying 4 bytes past source buffer g80F2C30?
   for (i = 0; i < 18; i++)
     CpuCopy32(g80F2C30[i], gBgVram.cbb0 + 0xE800 + i * 64, 64);
 
-  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x87A0, gE0D14C, 0x801); 
+  /*This is tile data for duel textbox border; it's all spaces so nothing appears*/
+  /*It appears that they considered having such a border at one point*/
+  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x87A0, gE0D14C, 0x801);
+
   CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gText_Spaces, 0x101); //empty text box
   WaitForVBlank();
   sub_8041014();
@@ -569,7 +639,7 @@ void sub_8041B38 (void) {
   for (i = 0; i < 18; i++)
     CpuCopy32(g80F2C30[i], gBgVram.cbb0 + 0xE800 + i * 64, 64);
 
-  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x87A0, gE0D14C, 0x801); 
+  CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x87A0, gE0D14C, 0x801);
   CopyStringTilesToVRAMBuffer(gBgVram.cbb0 + 0x88A0, gText_Spaces, 0x101); //empty text box
   WaitForVBlank();
   sub_8041014();

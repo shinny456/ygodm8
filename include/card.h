@@ -85,6 +85,7 @@ struct CardInfo {
   u16 def;                    /*0x14*/
   u8 type;                    /*0x16*/
   u8 attribute;               /*0x17*/
+  //TODO:level -> stars?
   u8 level;                   /*0x18*/
   u8 color;                   /*0x19*/
   //TODO: spellEffectId? monsterEffectId? etc...

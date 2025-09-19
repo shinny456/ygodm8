@@ -1,22 +1,29 @@
 #include "global.h"
 
+//TODO: change 120 constants to 240 / 2? (SCREEN_WIDTH?)
+//TODO: rename file to movement.c, interaction.c?
+
 void sub_8051A44 (u8, u8, s16*);
 void sub_8051C14 (u8, u8, s16*);
 void TryTalking (void);
 void TryDueling (void);
 void sub_8052088 (u8);
-u16 sub_80520E0 (u8, u8);
-unsigned sub_8052174 (u16);
-unsigned sub_8052194 (u16);
+unsigned IsImpassable (u16);
+
 void TryWalking (u8);
 void TryRunning (u8);
-unsigned sub_805222C (int, u8, u8);
+
 
 static s8 sub_8051DAC (u8, u8, u8);
 static void sub_8052108 (u8*, u8*);
 
-//TODO: rename file to movement.c, interaction.c?
-extern u8 g8E0E3C0[]; // which direction the npc should face when the player talks to them (gFacePlayer)
+
+CONST_DATA enum Direction sDirectionFacePlayer[] = {
+  [DIRECTION_DOWN] = DIRECTION_UP,
+  [DIRECTION_LEFT] = DIRECTION_RIGHT,
+  [DIRECTION_UP] = DIRECTION_DOWN,
+  [DIRECTION_RIGHT] = DIRECTION_LEFT
+};
 
 extern s16 gHorizontalDisplacements[];
 extern u16 g8E0E3CC[];
@@ -33,7 +40,7 @@ void sub_804EEAC (struct OamData* arg0, u16 arg1);
 void sub_804EE84 (struct OamData* arg0, int arg1, int arg2);
 void sub_805236C (void);
 
-// restrict player from going further than the specified coords
+// restrict object from going further than the specified coords
 static inline u8 sub_8052244_inline (int unused, u8 x, u8 y) {
   if (x > 223)
     return 0;
@@ -55,7 +62,7 @@ static s8 sub_8051958 (u8 newXPos, u8 newYPos, u8 direction, u8 obj) {
       if (sub_8051DAC(temp, temp2, obj) == -1) {
         temp = g8E0E3D4[i][direction] + newXPos;
         temp2 = g8E0E3EC[i][direction] + newYPos;
-        if ((unsigned char)sub_8052174(gOverworld.unk23C[temp2 * 120 + temp]) != 1)
+        if ((unsigned char)IsImpassable(gOverworld.unk23C[temp2 * 120 + temp]) != 1)
           return i + 1;
       }
     }
@@ -102,7 +109,7 @@ static s8 sub_8051B28 (u8 newXPos, u8 newYPos, u8 direction, u8 obj) {
       if (sub_8051DAC(temp, temp2, obj) == -1) {
         temp = g8E0E428[i][direction] + newXPos;
         temp2 = g8E0E45E[i][direction] + newYPos;
-        if (sub_8052174(g20244AC[temp2 * 120 + temp]) != 1)
+        if (IsImpassable(g20244AC[temp2 * 120 + temp]) != 1)
           return i + 1;
       }
     }
@@ -204,7 +211,7 @@ _08051B92:\n\
 	lsls r1, r1, #1\n\
 	adds r1, r1, r0\n\
 	ldrh r0, [r1]\n\
-	bl sub_8052174\n\
+	bl IsImpassable\n\
 	lsls r0, r0, #0x18\n\
 	lsrs r0, r0, #0x18\n\
 	ldr r3, [sp]\n\
@@ -278,8 +285,8 @@ static void sub_8051D20 (u8 obj, u8 direction) {
   x = gOverworld.objects[obj].x;
   y = gOverworld.objects[obj].y;
   gOverworld.objects[obj].unkC = gOverworld.unk23C[y * 120 + x];
-  sub_8052088(obj);
-  // TODO: hmmm... this only accesses the lower and upper bytes of x
+  sub_8052088(obj); // set y modifier based on collision data (elevation stuff)
+  // TODO: hmmm... second arg only accesses the lower and upper bytes of updated x
   sub_8052108(pos, (u8*)&gOverworld.objects[obj].x);
 }
 
@@ -400,7 +407,7 @@ void TryTalking (void) {
     return;
   PlayMusic(SFX_DIALOGUE);
   if (gOverworld.objects[objId].facePlayer)
-    gOverworld.objects[objId].direction = g8E0E3C0[gOverworld.objects[0].direction];
+    gOverworld.objects[objId].direction = sDirectionFacePlayer[gOverworld.objects[0].direction];
   sub_804F19C(objId);
   sub_804DF5C(objId);
   sub_804EF10();
@@ -417,7 +424,7 @@ void TryDueling (void) {
     return;
   PlayMusic(SFX_DIALOGUE);
   if (gOverworld.objects[objId].facePlayer)
-    gOverworld.objects[objId].direction = g8E0E3C0[gOverworld.objects[0].direction];
+    gOverworld.objects[objId].direction = sDirectionFacePlayer[gOverworld.objects[0].direction];
   sub_804F19C(objId);
   sub_804DF5C(objId);
   sub_804EF10();
@@ -426,9 +433,7 @@ void TryDueling (void) {
 }
 
 static inline u8 sub_805222C_inline (int unused, u8 x, u8 y) {
-  if (x > 119)
-    return 0;
-  if (y > 79)
+  if (x >= 120 || y >= 80)
     return 0;
   return 1;
 }
@@ -438,7 +443,7 @@ void sub_8052088 (u8 obj) {
     u8 y = gOverworld.objects[obj].y;
     u8 x = gOverworld.objects[obj].x;
     u16 temp = gOverworld.unk23C[y * 120 + x];
-    gOverworld.objects[obj].unk8 = (temp & 254) >> 1; //todo: what's this doing?
+    gOverworld.objects[obj].unk8 = (temp & 254) >> 1; //y modifier (7 bits)
   }
 }
 
@@ -450,8 +455,12 @@ u16 sub_80520E0 (u8 x, u8 y) {
 static void sub_8052108 (u8* arg0, u8* arg1) {
   s8 sp[2];
   sub_804EEAC(gOamBuffer + 0, gOverworld.objects[0].unkC);
-  sp[0] = (arg1[0] - arg0[0]) * 2;
-  sp[1] = (arg1[1] - arg0[1]) * 2;
+  sp[0] = (arg1[0] - arg0[0]) * 2; 
+  
+  //arg1[1] is the top byte of new x coord (which is always 0); did they intend to use new y coord instead?
+  //implementation defined behavior: when arg0[1] (old y) is > 64 since it results in a value
+  //that doesn't fit in signed char (a value less than 128)
+  sp[1] = (arg1[1] - arg0[1]) * 2; 
   sp[1] -= gOverworld.objects[0].unk8;
   sub_804EE84(gOamBuffer + 0, arg0[0] * 2 + sp[0], arg0[1] * 2 + sp[1]);
 }*/
@@ -511,10 +520,18 @@ _0805216C: .4byte gOamBuffer\n\
 _08052170: .4byte gOverworld");
 }
 
-unsigned sub_8052174 (u16 arg0) {
-  if (arg0 & 0xE000)
+#define COLLISION_IMPASSABLE 1
+#define COLLISION_CONNECTION 0x700
+//PASSABLE_NORMAL?
+#define COLLISION_PASSABLE 0x1000
+#define COLLISION_CONNECTED_MAP 0x2000
+#define COLLISION_WORLD_MAP 0x4000
+#define COLLISION_UNUSED 0x8000
+
+unsigned IsImpassable (u16 arg0) {
+  if (arg0 & (0x2000 | 0x4000 | 0x8000))
     return 0;
-  if (arg0 & 1)
+  if (arg0 & COLLISION_IMPASSABLE)
     return 1;
   return 0;
 }

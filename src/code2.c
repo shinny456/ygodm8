@@ -1,12 +1,12 @@
 #include "global.h"
 
-//TODO: rename file to duel_ai
+//TODO: rename file to duel_ai or just ai.c and move to duel/ directory
 
-static unsigned char g201CB3C;
+static unsigned char g201CB3C; //sCurrentSpellEffectId
 static unsigned char sFiller201CB3D[2];
-static unsigned char g201CB40;
+static unsigned char g201CB40; //same as above but seems to be unused?
 static unsigned char sFiller201CB41[2];
-static unsigned char g201CB44;
+static unsigned char g201CB44; //sCurrentMonsterEffectId
 
 struct AI_Command
 {
@@ -43,6 +43,17 @@ extern u8 g80B0C20[];
 
 
 
+extern void (*g8DFF55C[])(void);
+
+/*spell effect funcs*/
+extern void (*g8DFF7F0[])(void); // Before spell activation funcs
+extern void (*g8DFFA48[])(void); // After spell activation funcs
+
+/*monster effect funcs*/
+extern void (*g8E00150[])(void);
+extern void (*g8E00330[])(void);
+
+
 
 
 static inline u16 foo2 (void) {
@@ -56,15 +67,6 @@ struct Bruhh
     u32 c;
 };
 
-/*struct Breh
-{
-    u16 a;
-    u16 b;
-    u32 c;
-    u32 d;
-    u32 e;
-};*/
-
 struct UnkStr //AI data?
 {
     struct Duel duel;
@@ -74,9 +76,9 @@ struct UnkStr //AI data?
     u8 filler1A8[0x35A];
     struct Bruhh unk504[0x3B2];
     u16 unk2294;
-    u32 unk2298;
-    u32 unk229C;
-    struct Bruhh unk22A0[2][2];
+    unsigned long unk2298;
+    unsigned long unk229C;
+    struct Bruhh unk22A0[2][2]; //unused?
 };
 
 extern struct UnkStr *gUnk_8DFF6A4;
@@ -658,6 +660,7 @@ static u16 sub_800EF0C(void)
     return r2.a;
 }
 
+//unused?
 static void sub_800EF7C(u8 sb)
 {
     u16 i;
@@ -677,6 +680,7 @@ static void sub_800EF7C(u8 sb)
     gUnk_8DFF6A4->unk22A0[sb][1].a = r2.a;
     gUnk_8DFF6A4->unk22A0[sb][1].c = r2.c;
 }
+//unused?
 /*
 static void sub_800F014(void)
 {
@@ -958,7 +962,7 @@ static void sub_800F298(void)
     SetCardInfo(cardId);
     if (gCardInfo.spellEffect == 2)
     {
-        switch (sub_8045390(cardId))
+        switch (GetMonsterNumRequiredTributes(cardId))
         {
         case 0:
             if (GetExodiaFlag(cardId) && NumCardMatchesInRow(&gTurnZones[row2][col2], cardId) < 2)
@@ -1003,7 +1007,7 @@ static void sub_800F46C(void)
     SetCardInfo(cardId);
     if (gCardInfo.spellEffect == 2)
     {
-        switch (sub_8045390(cardId))
+        switch (GetMonsterNumRequiredTributes(cardId))
         {
         case 0:
             if (GetExodiaFlag(cardId) && NumCardMatchesInRow(&gTurnZones[row2][col2], cardId) < 2)
@@ -1050,7 +1054,7 @@ static void sub_800F640(void)
         gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     else if (ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) != 1)
         gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-    else if (sub_8045390(gTurnZones[row2][col2]->id) != 0)
+    else if (GetMonsterNumRequiredTributes(gTurnZones[row2][col2]->id) != 0)
         gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     else if (GetExodiaFlag(gTurnZones[row2][col2]->id) && NumCardMatchesInRow(gTurnZones[row2], gTurnZones[row2][col2]->id) < 2)
         sub_800F830();
@@ -1118,7 +1122,7 @@ static void sub_800F95C (void) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (sub_8045390(gTurnZones[row2][col2]->id))
+  else if (GetMonsterNumRequiredTributes(gTurnZones[row2][col2]->id))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (gTurnZones[row3][col3]->id == CARD_NONE)
     gUnk_8DFF6A4->unk2298 = 0x7F3D9A1C;
@@ -1156,7 +1160,7 @@ static void sub_800FB00(void)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (sub_8045390(gTurnZones[row2][col2]->id) != 1)
+  else if (GetMonsterNumRequiredTributes(gTurnZones[row2][col2]->id) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1188,7 +1192,7 @@ static void sub_800FC64 (void) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (sub_8045390(gTurnZones[row2][col2]->id) != 1)
+  else if (GetMonsterNumRequiredTributes(gTurnZones[row2][col2]->id) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1223,7 +1227,7 @@ static void sub_800FDC8 (void) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (sub_8045390(gTurnZones[row2][col2]->id) != 2)
+  else if (GetMonsterNumRequiredTributes(gTurnZones[row2][col2]->id) != 2)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1268,7 +1272,7 @@ static void sub_800FFB0 (void) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (sub_8045390(gTurnZones[row2][col2]->id) != 2)
+  else if (GetMonsterNumRequiredTributes(gTurnZones[row2][col2]->id) != 2)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1315,7 +1319,7 @@ static void sub_8010198 (void) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (sub_8045390(gTurnZones[row2][col2]->id) != 3)
+  else if (GetMonsterNumRequiredTributes(gTurnZones[row2][col2]->id) != 3)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -1370,7 +1374,7 @@ static void sub_80103DC (void) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (sub_8045390(gTurnZones[row2][col2]->id) != 3)
+  else if (GetMonsterNumRequiredTributes(gTurnZones[row2][col2]->id) != 3)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else if (ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) != 1)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -2590,6 +2594,7 @@ static void sub_80123BC (void) {
   gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
 }
 
+//darkness approaches
 static void sub_801245C (void) {
   u8 i;
   for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
@@ -2620,7 +2625,7 @@ static void sub_80124F8 (void) {
   g8DFF7F0[gCardInfo.spellEffect]();
 }
 
-static void sub_8012548 (void) {
+static void Check_SpellEffectNone (void) {
   gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
 }
 
@@ -2644,7 +2649,7 @@ static void sub_80125D4 (void) {
   gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
 }
 
-static void sub_80125F0 (void) {
+static void Check_Forest (void) {
   gUnk_8DFF6A4->unk2298 = GetTotalAtkAndDefInRow(2);
 }
 
@@ -3046,6 +3051,7 @@ static void sub_8012F5C (void) {
   gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
 }
 
+//stop defense
 static void sub_8012F78 (void) {
   if (!GetNumCardsDefendingInRow(1))
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -3480,6 +3486,7 @@ static void sub_8013884 (void) {
 
 static void sub_80138C8 (void) {}
 
+//restructer revolution
 static void sub_80138CC (void) {
   u8 numNonEmptyZones = 5 - NumEmptyZonesInRow(gTurnHands[INACTIVE_DUELIST]);
   if (!numNonEmptyZones)
@@ -3613,7 +3620,7 @@ static void sub_8013CD8 (void) {
 }
 
 static void sub_8013D1C (void) {}
-
+//heavy storm
 static void sub_8013D20 (void) {
   if (NumEmptyZonesAndGodCardsInRow(gTurnZones[2]) != MAX_ZONES_IN_ROW)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -3625,6 +3632,7 @@ static void sub_8013D20 (void) {
 
 static void sub_8013D9C (void) {}
 
+//final destiny
 static void sub_8013DA0 (void) {
   if (NumEmptyZonesAndGodCardsInRow(gTurnZones[2]) != MAX_ZONES_IN_ROW)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -5310,6 +5318,7 @@ static void sub_8016D7C (void) {
   gUnk_8DFF6A4->unk2298 = 0x7FF5516D;
 }
 
+//XY_DRAGON Cannon?
 static void sub_8016E98 (void) {
   u8 i, numCards;
   if (NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) == MAX_ZONES_IN_ROW) {
@@ -5326,6 +5335,7 @@ static void sub_8016E98 (void) {
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFF3;
 }
 
+//XZ_Tank Cannon?
 static void sub_8016F30 (void) {
   u8 i, numCards;
   if (NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) == MAX_ZONES_IN_ROW) {
@@ -5819,7 +5829,7 @@ static void sub_8017674 (void) {}
 
 static void sub_8017678 (void) {
   u8 turn = WhoseTurn();
-  if (65000 - gDuelLifePoints[turn] < 1000)
+  if (65000 - gDuelLifePoints[turn] < 1000) //TODO: MAX_LIFE_POINTS
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EEE8FA3;
@@ -6181,6 +6191,8 @@ static void sub_8018218 (void) {
 
 static void sub_801825C (void) {}
 
+//Monster eye
+//Improvement: this checks all cards, count face down cards only instead
 static void sub_8018260 (void) {
   u8 i, numCards = 0;
   for (i = 0; i < MAX_ZONES_IN_ROW; i++)
@@ -6970,7 +6982,7 @@ static void sub_801999C (void) {
 }
 
 // unused?
-u32 sub_80199B8 (void) {
+static u32 sub_80199B8 (void) {
   u8 i;
   u32 ret = 0;
   for (i = 0; i < MAX_ZONES_IN_ROW; i++) {
@@ -6996,7 +7008,7 @@ u32 sub_80199B8 (void) {
       if (!IsCardFaceUp(opponentMonZone))
         ret += gE00534[2];
       else {
-        // GNU C
+        //TODO: this is GNU C
         opponentMonAtk = ({gStatMod.card = opponentMonZone->id;
         gStatMod.field = gDuel.field;
         gStatMod.stage = GetFinalStage(opponentMonZone);
@@ -7308,6 +7320,8 @@ static u8 sub_801A104 (void) {
   return 0;
 }
 
+//tributeless summon (tribute summons are also considered normal summons, so Normal Summon would be confusing here)
+//0 tribute summon?
 static u8 sub_801A158 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
@@ -7315,7 +7329,7 @@ static u8 sub_801A158 (void) {
   u8 col3 = sAI_Command.unk3 & 0xF;
   SetCardInfo(gTurnZones[row2][col2]->id);
   if (gCardInfo.unk1E || ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) != 1
-   || sub_8045390(gTurnZones[row2][col2]->id)
+   || GetMonsterNumRequiredTributes(gTurnZones[row2][col2]->id)
    || (gTurnZones[row3][col3]->id != CARD_NONE && IsCardLocked(gTurnZones[row3][col3])))
       return 0;
   return 1;
@@ -7328,12 +7342,12 @@ static u8 sub_801A1D4 (void) {
   u8 col3 = sAI_Command.unk3 & 0xF;
   SetCardInfo(gTurnZones[row2][col2]->id);
   if (!gCardInfo.unk1E || ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) != 1
-   || sub_8045390(gTurnZones[row2][col2]->id)
+   || GetMonsterNumRequiredTributes(gTurnZones[row2][col2]->id)
    || (gTurnZones[row3][col3]->id != CARD_NONE && IsCardLocked(gTurnZones[row3][col3])))
       return 0;
   return 1;
 }
-
+//1 tribute summon
 static u8 sub_801A250 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
@@ -7341,7 +7355,7 @@ static u8 sub_801A250 (void) {
   u8 col3 = sAI_Command.unk3 & 0xF;
   SetCardInfo(gTurnZones[row2][col2]->id);
   if (!gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE
-   && sub_8045390(gTurnZones[row2][col2]->id) == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) == 1)
+   && GetMonsterNumRequiredTributes(gTurnZones[row2][col2]->id) == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) == 1)
       return 1;
   return 0;
 }
@@ -7353,11 +7367,11 @@ static u8 sub_801A2C4 (void) {
   u8 col3 = sAI_Command.unk3 & 0xF;
   SetCardInfo(gTurnZones[row2][col2]->id);
   if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE
-   && sub_8045390(gTurnZones[row2][col2]->id) == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) == 1)
+   && GetMonsterNumRequiredTributes(gTurnZones[row2][col2]->id) == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) == TRUE)
       return 1;
   return 0;
 }
-
+//2 tribute summon
 static u8 sub_801A338 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
@@ -7367,7 +7381,7 @@ static u8 sub_801A338 (void) {
   u8 col4 = sAI_Command.unk4 & 0xF;
   SetCardInfo(gTurnZones[row2][col2]->id);
   if (!gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE
-   && sub_8045390(gTurnZones[row2][col2]->id) == 2 && ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) == 1
+   && GetMonsterNumRequiredTributes(gTurnZones[row2][col2]->id) == 2 && ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) == TRUE
    && ZoneHasUnlockedMonsterCard(gTurnZones[row4][col4]) == 1)
       return 1;
   return 0;
@@ -7382,12 +7396,12 @@ static u8 sub_801A3E0 (void) {
   u8 col4 = sAI_Command.unk4 & 0xF;
   SetCardInfo(gTurnZones[row2][col2]->id);
   if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE
-   && sub_8045390(gTurnZones[row2][col2]->id) == 2 && ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) == 1
+   && GetMonsterNumRequiredTributes(gTurnZones[row2][col2]->id) == 2 && ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) == TRUE
    && ZoneHasUnlockedMonsterCard(gTurnZones[row4][col4]) == 1)
       return 1;
   return 0;
 }
-
+//3 tribute summon
 static u8 sub_801A488 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
@@ -7399,7 +7413,7 @@ static u8 sub_801A488 (void) {
   u8 col5 = sAI_Command.unk5 & 0xF;
   SetCardInfo(gTurnZones[row2][col2]->id);
   if (!gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE
-   && sub_8045390(gTurnZones[row2][col2]->id) == 3 && ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) == 1
+   && GetMonsterNumRequiredTributes(gTurnZones[row2][col2]->id) == 3 && ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) == 1
    && ZoneHasUnlockedMonsterCard(gTurnZones[row4][col4]) == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row5][col5]) == 1)
       return 1;
   return 0;
@@ -7416,12 +7430,12 @@ static u8 sub_801A55C (void) {
   u8 col5 = sAI_Command.unk5 & 0xF;
   SetCardInfo(gTurnZones[row2][col2]->id);
   if (gCardInfo.unk1E && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE
-   && sub_8045390(gTurnZones[row2][col2]->id) == 3 && ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) == 1
+   && GetMonsterNumRequiredTributes(gTurnZones[row2][col2]->id) == 3 && ZoneHasUnlockedMonsterCard(gTurnZones[row3][col3]) == 1
    && ZoneHasUnlockedMonsterCard(gTurnZones[row4][col4]) == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row5][col5]) == 1)
       return 1;
   return 0;
 }
-
+//switch to defense pos
 static u8 sub_801A630 (void) {
   u8 r5 = 0;
   u8 row2;
@@ -7468,11 +7482,11 @@ static u8 sub_801A738 (void) {
     return 1;
   return 0;
 }
-
+//direct attack (trap not triggered)
 static u8 sub_801A784 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns) {
+  if (GetDuelistStatus(WhoseTurn()) != DUELIST_STATUS_CANNOT_ATTACK && !gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns) {
     SetCardInfo(gTurnZones[row2][col2]->id);
     if (!gCardInfo.unk1E) {
       gTrapEffectData.originRow = row2;
@@ -7489,7 +7503,7 @@ static u8 sub_801A784 (void) {
 static u8 sub_801A814 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  if (GetDuelistStatus(WhoseTurn()) && !gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns) {
+  if (GetDuelistStatus(WhoseTurn()) != DUELIST_STATUS_CANNOT_ATTACK && !gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns) {
     SetCardInfo(gTurnZones[row2][col2]->id);
     if (gCardInfo.unk1E) {
       gTrapEffectData.originRow = row2;
@@ -7502,7 +7516,7 @@ static u8 sub_801A814 (void) {
   }
   return 0;
 }
-
+//targeted face up attack (trap not triggered)
 static u8 sub_801A8A4 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
@@ -7543,6 +7557,7 @@ static u8 sub_801A974 (void) {
   return 0;
 }
 
+//targeted face down attack (trap not triggered)
 /*
 static u8 sub_801AA44 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
@@ -7758,6 +7773,7 @@ _0801ABD6:\n\
 	bx r1");
 }
 
+//direct attack (trap triggered)
 static u8 sub_801ABE4 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
@@ -7767,7 +7783,7 @@ static u8 sub_801ABE4 (void) {
       gTrapEffectData.originRow = row2;
       gTrapEffectData.originCol = col2;
       gTrapEffectData.originCardId = gTurnZones[row2][col2]->id;
-      if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
+      if (IsTrapTriggered() == TRUE && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
           !GetNumCardsInRow(1))
         return 1;
     }
@@ -7784,14 +7800,14 @@ static u8 sub_801AC74 (void) {
       gTrapEffectData.originRow = row2;
       gTrapEffectData.originCol = col2;
       gTrapEffectData.originCardId = gTurnZones[row2][col2]->id;
-      if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
+      if (IsTrapTriggered() == TRUE && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
           !GetNumCardsInRow(1))
         return 1;
     }
   }
   return 0;
 }
-
+//targeted face up attack (trap triggered)
 static u8 sub_801AD04 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
@@ -7803,7 +7819,7 @@ static u8 sub_801AD04 (void) {
       gTrapEffectData.originRow = row2;
       gTrapEffectData.originCol = col2;
       gTrapEffectData.originCardId = gTurnZones[row2][col2]->id;
-      if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
+      if (IsTrapTriggered() == TRUE && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
           gTurnZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gTurnZones[row3][col3]->id) == 1 &&
           gTurnZones[row3][col3]->isFaceUp)
         return 1;
@@ -7823,7 +7839,7 @@ static u8 sub_801ADD4 (void) {
       gTrapEffectData.originRow = row2;
       gTrapEffectData.originCol = col2;
       gTrapEffectData.originCardId = gTurnZones[row2][col2]->id;
-      if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
+      if (IsTrapTriggered() == TRUE && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
           gTurnZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gTurnZones[row3][col3]->id) == 1 &&
           gTurnZones[row3][col3]->isFaceUp)
         return 1;
@@ -7831,7 +7847,7 @@ static u8 sub_801ADD4 (void) {
   }
   return 0;
 }
-
+//targeted face down attack (trap triggered)
 /*
 static u8 sub_801AEA4 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
@@ -7843,7 +7859,7 @@ static u8 sub_801AEA4 (void) {
     gTrapEffectData.unk2 = row2;
     gTrapEffectData.unk3 = col2;
     gTrapEffectData.id = gTurnZones[row2][col2]->id;
-    if (IsTrapTriggered() != 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
+    if (IsTrapTriggered() == 1 && ZoneHasUnlockedMonsterCard(gTurnZones[row2][col2]) == TRUE &&
         gTurnZones[row3][col3]->id != CARD_NONE && GetTypeGroup(gTurnZones[row3][col3]->id) == 1 &&
         !gTurnZones[row3][col3]->isFaceUp)
       return 1;
@@ -8054,7 +8070,7 @@ static u8 sub_801B044 (void) {
 static u8 sub_801B048 (void) {
   return 1;
 }
-
+//activate monster effect
 static u8 sub_801B04C (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
@@ -8067,7 +8083,7 @@ static u8 sub_801B084 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
   SetCardInfo(gTurnZones[row2][col2]->id);
-  if (!gCardInfo.unk1E && ZoneHasTrapCard(gTurnZones[row2][col2]) == 1 &&
+  if (!gCardInfo.unk1E && ZoneHasTrapCard(gTurnZones[row2][col2]) == TRUE &&
       GetFINAL_Flag(gTurnZones[row2][col2]->id) < 1)
     return 1;
   return 0;
@@ -8076,7 +8092,7 @@ static u8 sub_801B084 (void) {
 static u8 sub_801B0DC (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
-  if (ZoneHasTrapCard(gTurnZones[row2][col2]) != 1 || GetFINAL_Flag(gTurnZones[row2][col2]->id) < 1)
+  if (ZoneHasTrapCard(gTurnZones[row2][col2]) != TRUE || GetFINAL_Flag(gTurnZones[row2][col2]->id) < 1)
     return 0;
   return 1;
 }
@@ -8090,7 +8106,7 @@ static u8 sub_801B120 (void) {
     return 1;
   return 0;
 }
-
+//activate equip spell
 static u8 sub_801B178 (void) {
   u8 row2 = sAI_Command.unk2 >> 4;
   u8 col2 = sAI_Command.unk2 & 0xF;
@@ -8274,7 +8290,7 @@ static u8 sub_801B3AC (void) {
     gTrapEffectData.originRow = row2;
     gTrapEffectData.originCol = col2;
     gTrapEffectData.originCardId = gTurnZones[row2][col2]->id;
-    if (IsTrapTriggered() == 1)
+    if (IsTrapTriggered() == TRUE)
       return 1;
   }
   return 0;
@@ -8413,4 +8429,159 @@ void (*g8DFF55C[])(void) = {
   sub_800EAB0,
   sub_800EDF8
 };*/
+
+//Before spell activation funcs
+void (*g8DFF7F0[])(void) = {
+  Check_SpellEffectNone,
+  sub_8012580,
+  sub_80125B8,
+  Check_Forest,
+  sub_8012648,
+  sub_80126A0,
+  sub_80126F8,
+  sub_8012750,
+  sub_80127A8,
+  sub_8012800,
+  sub_8012878,
+  sub_80128F0,
+  sub_8012968,
+  sub_80129E0,
+  sub_8012A58,
+  sub_8012AB4,
+  sub_8012B10,
+  sub_8012B6C,
+  sub_8012BCC,
+  sub_8012C2C,
+  sub_8012CA0,
+  sub_8011940,
+  sub_8012CE8,
+  sub_8012D00,
+  sub_8012D18,
+  sub_8012D30,
+  sub_8012D48,
+  sub_8012D60,
+  sub_8012D78,
+  sub_8012D90,
+  sub_8012DA8,
+  sub_8012DC0,
+  sub_8012DD8,
+  sub_8012DF0,
+  sub_8012E08,
+  sub_8012E20,
+  sub_8012E38,
+  sub_8012E50,
+  sub_8012E68,
+  sub_8012E80,
+  sub_8012E98,
+  sub_8012EB0,
+  sub_8012EC8,
+  sub_8012EE0,
+  sub_8012EF8,
+  sub_8012F10,
+  sub_8012F28,
+  sub_8012F40,
+  sub_8012F78,
+  sub_8012FBC,
+  sub_8013004,
+  sub_8013050,
+  sub_80130B0,
+  sub_8011A30,
+  sub_8013144,
+  sub_801317C,
+  sub_80131B4,
+  sub_80131EC,
+  sub_8013224,
+  sub_801325C,
+  sub_8013294,
+  sub_80132CC,
+  sub_8013304,
+  sub_801333C,
+  sub_8013374,
+  sub_8011AB0,
+  sub_80133B0,
+  sub_80133C0,
+  sub_80133D0,
+  sub_8011C04,
+  sub_80133E4,
+  sub_80133F4,
+  sub_8013404,
+  sub_8013414,
+  sub_8013424,
+  sub_8013434,
+  sub_8013444,
+  sub_80134AC,
+  sub_80134C4,
+  sub_80134DC,
+  sub_80134F4,
+  sub_8011D80,
+  sub_8013510,
+  sub_80135A4,
+  sub_80135B4,
+  sub_80135C4,
+  sub_80135D4,
+  sub_80135E4,
+  sub_80135F4,
+  sub_8013604,
+  sub_8013614,
+  sub_8013624,
+  sub_8013634,
+  sub_8013644,
+  sub_8011E44,
+  sub_8012060,
+  sub_801365C,
+  sub_80136BC,
+  sub_8013708,
+  sub_80120E8,
+  sub_8013720,
+  sub_80121B8,
+  sub_801373C,
+  sub_8013788,
+  sub_80137D4,
+  sub_8013820,
+  sub_8012240,
+  sub_8013884,
+  sub_80138CC,
+  sub_801395C,
+  sub_80139A8,
+  sub_80139F4,
+  sub_8013A68,
+  sub_8013ADC,
+  sub_8013AEC,
+  sub_8013B24,
+  sub_8013B98,
+  sub_8013C08,
+  sub_8013C40,
+  sub_8013C58,
+  sub_8013CA0,
+  sub_8013CD8,
+  sub_8013D20,
+  sub_8013DA0,
+  sub_80123BC,
+  sub_801245C,
+  sub_8013E28,
+  sub_8013E60,
+  sub_8013E98,
+  sub_8013ED0,
+  sub_8013F08,
+  sub_8013F40,
+  sub_8013F78,
+  sub_8013FB0,
+  sub_8013FC8,
+  sub_8014000,
+  sub_8014038,
+  sub_8014070,
+  sub_80140A8,
+  sub_80140E0,
+  sub_8014118,
+  sub_8014150,
+  sub_8014188,
+  sub_80141C0,
+  sub_80141F8,
+  sub_8014230,
+  sub_8014268,
+  sub_80142A0,
+  sub_80142D8,
+  sub_8014310
+};
+
 

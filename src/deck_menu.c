@@ -627,7 +627,7 @@ unsigned char GetDeckCardQty (unsigned short cardId) {
   return qty;
 }
 
-unsigned char IsDeckFull (void) {
+unsigned char IsPlayerDeckFull (void) {
   unsigned char i;
   for (i = 0; i < 40; i++)
     if (gDeckMenu.cards[i] == CARD_NONE)

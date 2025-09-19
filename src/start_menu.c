@@ -11,20 +11,6 @@ static void DisplayIncompleteDeckMessage (void);
 static void sub_8005CB8 (void);
 static void InitStartMenuData (void);
 
-extern u16 gBG2HOFS;
-extern u16 gBG2VOFS;
-extern u16 gBG3HOFS;
-extern u16 gBG3VOFS;
-extern u16 gBG0HOFS;
-extern u16 gBG0VOFS;
-extern u16 gBG1HOFS;
-extern u16 gBG1VOFS;
-extern u16 gBLDCNT;
-extern u16 gBLDY;
-void LoadBgOffsets (void);
-void LoadBlendingRegs (void);
-
-
 extern u32 gStartMenuCursorTiles[];
 extern u32 gStartMenuBgTiles[];
 extern u16 gUnk_80798F4[][30];
@@ -46,14 +32,11 @@ void InitTrunkData (void);
 void InitDeckData (void);
 void StatusMenu (void);
 void TrunkMenuMain (void);
-bool8 IsDeckFull (void);
+bool8 IsPlayerDeckFull (void);
 bool32 IsCostWithinCapacity (void);
 u32 IsPlayerDeckNonempty (void);
 
 
-void LoadOam (void);
-void WaitForVBlank (void);
-void DisableDisplay (void);
 
 extern u16 gNewButtons;
 
@@ -62,19 +45,18 @@ extern u16 gStartMenuCursorPalette[];
 extern u16 gUnk_8079444[][30];
 extern u16 gUnk_8079424[];
 void ClearGraphicsBuffers (void);
-void DisableDisplay (void);
 
 static void StartMenuMain (void) {
   u8 cursorState = 0;
   while (1) {
     if (gNewButtons & B_BUTTON) {
-      if (!IsDeckFull()) { //TODO: rename to IsPlayerDeckFull
+      if (!IsPlayerDeckFull()) {
         PlayMusic(SFX_FORBIDDEN);
         DisplayIncompleteDeckMessage();
         sub_8005BE0();
       }
       else if (IsCostWithinCapacity()) {
-        if (IsDeckFull() != TRUE || IsCostWithinCapacity() != TRUE)
+        if (IsPlayerDeckFull() != TRUE || IsCostWithinCapacity() != TRUE)
           goto here;
         else
           break;

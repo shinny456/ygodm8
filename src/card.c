@@ -60,7 +60,7 @@ extern unsigned short g809508C[][30];
 
 
 
-//functions that print the big cards during an attack in a duel?
+//functions that display the big cards during an attack in a duel?
 static void sub_800B200 (void) {
   unsigned short i;
   PrintCard();
@@ -1403,7 +1403,7 @@ static unsigned char TrySelectingAnte (void) {
     sub_800C32C(); // one of a kind card can't be made an ante
   else if (IsGodCard(cardId) == 1)
     sub_800C378();
-  else if (!IsGoodAnte(cardId)) {
+  else if (!IsNormalAnte(cardId)) {
     if (!LowLevelAntePrompt()) {
       selectionFailed = 0;
       gAnte = cardId;

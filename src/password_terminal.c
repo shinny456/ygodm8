@@ -44,8 +44,6 @@ static void InitializeTerminalDisplay (void);
 static void RefreshGraphicsAndSprites (void);
 static void RefreshSprites (void);
 
-void LoadBlendingRegs (void);
-void LoadPalettes(void);
 void SetVBlankCallback (void (*)(void));
 void WaitForVBlank (void);
 void UpdateFilteredInput_WithRepeat (void);

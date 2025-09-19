@@ -368,15 +368,22 @@ SECTIONS
         data/data3.o(.rodata2);
         src/data/decks.o(.rodata);
         data/data4.o(.rodata);
+        src/ante.o(.rodata);
+        data/data4.o(.rodata2);
         src/monster_effects.o(.rodata);
         src/spell_effects.o(.rodata);
-        data/data4.o(.rodata2);
+        data/data4.o(.rodata3);
 
         *libgcc.a:*.o(.rodata);
 
         data/data5.o(.rodata);
         src/code_803F02C.o(.rodata);
         data/data5.o(.rodata2);
+        src/code_803F02C.o(.data);
+        src/duel_textbox.o(.data);
+        data/data5.o(.rodata4);
+        src/code_80421CC.o(.data);
+        data/data5.o(.rodata5);
         src/card_passwords.o(.rodata);
         data/data5.o(.rodata3);
         src/turn.o(.rodata);
@@ -498,8 +505,7 @@ SECTIONS
     gSorlTurnsRemainingTextIds = 0x80C1D80;
     gCursorSpritesStaticFrames = 0x8E01248;
     gCursorSpritesAnimatedFrames = 0x8E01328;
-    gLowLevelAnte = 0x80C1D84;
-    gNumRequiredTributes = 0x8E0D9B4;
+    sNumRequiredTributes = 0x8E0D9B4;
     gE04810 = 0x8E04810;
     gE06810 = 0x8E06810;
     gE08810 = 0x8E08810;
@@ -525,13 +531,9 @@ SECTIONS
     g8DFF7F0 = 0x8DFF7F0;
     g8E00330 = 0x8E00330;
     g8E00150 = 0x8E00150;
-    gE0CFDC = 0x8E0CFDC;
     gE0CFF4 = 0x8E0CFF4;
     g80DF790 = 0x80DF790;
     g8E0D08C = 0x8E0D08C;
-    g8E0D0BE = 0x8E0D0BE;
-    g8E0D0D7 = 0x8E0D0D7;
-    gE0D0F0 = 0x8E0D0F0;
     g80DFDA4 = 0x80DFDA4;
     gDFBA4 = 0x80DFBA4;
     g80F09D0 = 0x80F09D0;
@@ -636,10 +638,10 @@ SECTIONS
     g8E0D954 = 0x8E0D954;
     g8E0D958 = 0x8E0D958;
     g8E0D95C = 0x8E0D95C;
-    g8E0D81A = 0x8E0D81A;
-    g8E0D81D = 0x8E0D81D;
-    g8E0D820 = 0x8E0D820;
-    g8E0D823 = 0x8E0D823;
+    gNextUpB_MenuOption = 0x8E0D81A;
+    gNextDownB_MenuOption = 0x8E0D81D;
+    gNextRightB_MenuOption = 0x8E0D820;
+    gNextLeftB_MenuOption = 0x8E0D823;
 
     g82A8E4C = 0x82A8E4C;
     g82A906C = 0x82A906C;
@@ -712,7 +714,7 @@ SECTIONS
     g8E0E494 = 0x8E0E494;
     g8E0E428 = 0x8E0E428;
     g8E0E45E = 0x8E0E45E;
-    g8E0E3C0 = 0x8E0E3C0;
+    sDirectionFacePlayer = 0x8E0E3C0;
     gMapStates = 0x8103314;
     g8FA31C0 = 0x8FA31C0;
     g8FA3360 = 0x8FA3360;
@@ -794,9 +796,7 @@ SECTIONS
     g80CDE96 = 0x80CDE96;
     g80CDE8A = 0x80CDE8A;
     g80CD830 = 0x80CD830;
-    gFieldTilePtrs = 0x8E0D0F8;
-    gFieldPalettePtrs = 0x8E0D130;
-    gFieldTileMapPtrs = 0x8E0D114;
+
     gText_NumTributesRequired = 0x8E0D41C;
     gText_Spaces = 0x8E0D15D;
     gFontTileGlyphs = 0x8E0D1D0;

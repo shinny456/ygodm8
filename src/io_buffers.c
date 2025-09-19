@@ -1,29 +1,30 @@
 #include "global.h"
 
-//rename to gfx buffers or something similar?
+//TODO: rename to gfx_reg_buffers.c
 
-extern u16 gBG0HOFS;
-extern u16 gBG0VOFS;
-extern u16 gBG1HOFS;
-extern u16 gBG1VOFS;
-extern u16 gBG2HOFS;
-extern u16 gBG2VOFS;
-extern u16 gBG3HOFS;
-extern u16 gBG3VOFS;
-extern u16 gBLDCNT;
-extern u16 gBLDALPHA;
-extern u16 gBLDY;
-extern u16 gBG2PA;
-extern u16 gBG2PB;
-extern u16 gBG2PC;
-extern u16 gBG2PD;
-extern u16 gBG2X_L;
-extern u16 gBG2X_H;
-extern u16 gBG2Y_L;
-extern u16 gBG2Y_H;
+extern u8 gOamBuffer[]; //TODO
 
-extern u8 gOamBuffer[];
+unsigned short gBG0HOFS;
+unsigned short gBG0VOFS;
+unsigned short gBG1HOFS;
+unsigned short gBG1VOFS;
+unsigned short gBG2HOFS;
+unsigned short gBG2VOFS;
+unsigned short gBG3HOFS;
+unsigned short gBG3VOFS;
+unsigned short gBG2PA;
+unsigned short gBG2PB;
+unsigned short gBG2PC;
+unsigned short gBG2PD;
+unsigned short gBG2X_L;
+unsigned short gBG2X_H;
+unsigned short gBG2Y_L;
+unsigned short gBG2Y_H;
+unsigned short gBLDCNT;
+unsigned short gBLDALPHA;
+unsigned short gBLDY;
 
+//TODO: LoadBgOffsetRegs
 void LoadBgOffsets (void) {
   REG_BG0HOFS = gBG0HOFS;
   REG_BG0VOFS = gBG0VOFS;
@@ -41,6 +42,7 @@ void LoadBlendingRegs (void) {
   REG_BLDY = gBLDY;
 }
 
+//TODO: OAM (
 void LoadOam (void) {
   CpuFastCopy(gOamBuffer, (void*)OAM, OAM_SIZE);
 }
@@ -49,7 +51,7 @@ void LoadPalettes (void) {
   CpuCopy16(gPaletteBuffer, (void*)PLTT, BG_PLTT_SIZE + OBJ_PLTT_SIZE);
 }
 
-static inline void Copy16 (void *src, void* dest, int size) {
+static inline void Copy16 (void* src, void* dest, int size) {
   CpuCopy16(src, dest, size);
 }
 
@@ -96,6 +98,7 @@ void LoadCharblock3 (void) {
   Copy16(gBgVram.sbb18, (void*)BG_CHAR_ADDR(3), BG_CHAR_SIZE);
 }
 
+//TODO: LoadObjectVRAM?
 void LoadObjVRAM (void) {
   Copy16(gBgVram.cbb4, (void*)BG_CHAR_ADDR(4), BG_CHAR_SIZE);
   Copy16(gBgVram.cbb5, (void*)BG_CHAR_ADDR(5), BG_CHAR_SIZE);
@@ -110,11 +113,11 @@ void LoadCharblock5 (void) {
 }
 
 void DisableDisplay (void) {
-  *(u16*)BG_PLTT = 0;
+  *(unsigned short*)BG_PLTT = 0;
   REG_DISPCNT = 0;
 }
 
 //unused?
-void sub_8045728 (void) {
+static void sub_8045728 (void) {
   CpuFastCopy(&gOamBuffer[0x290], (void*)(OAM + 0x290), 0x168);
 }

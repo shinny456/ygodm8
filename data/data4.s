@@ -378,7 +378,14 @@ gUnk_80BED20:
 
     .global gC18BC
 gC18BC:
-    .incbin "baserom.gba", 0xC18BC, 0x1E508
+    .incbin "baserom.gba", 0xC18BC, 0x4C8
+
+
+.section .rodata2
+    .incbin "baserom.gba", 0xC1DD2, 0x2 @TODO: filler (padding between files)
+    .global g80C1DD4
+g80C1DD4:
+    .incbin "baserom.gba", 0xC1DD4, 0x1DFF0
 
     .global gFieldArenaTiles
 gFieldArenaTiles:
@@ -469,7 +476,7 @@ g80F09D0:
     .incbin "baserom.gba", 0xF09D0, 0x1245C
 
 
-.section .rodata2
+.section .rodata3
     .global gUnk08103264 //u16 []
 gUnk08103264:
     .incbin "baserom.gba", 0x103264, 0x4F99B0

@@ -42,6 +42,8 @@ struct ScriptCtx {
   u8 unk86;
 };
 
+//TODO: change terminology from Map to Location?
+
 //overworld structs
 struct Map //MapHeader?
 {
@@ -102,6 +104,7 @@ struct Overworld
     u8 background;//backgroundType? 0 = normal map, 1 = reshef map, 2 = goemon map
 };
 
+//TODO: ObjectDirection?
 enum Direction {
   DIRECTION_DOWN,
   DIRECTION_LEFT,

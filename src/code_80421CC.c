@@ -1,30 +1,103 @@
 #include "global.h"
 
-extern unsigned char g8E0D81A[];
-extern unsigned char g8E0D81D[];
-extern unsigned char g8E0D820[];
-extern unsigned char g8E0D823[];
+//TODO: rename to something other than B menu
+enum B_MenuOption {
+  B_MENU_DETAILS,
+  B_MENU_TURN_END,
+  B_MENU_DISCARD
+};
 
-extern unsigned char g8E0D934[];
+enum MonsterAction {
+  MONSTER_ACTION_ATTACK,
+  MONSTER_ACTION_DEFEND,
+  MONSTER_ACTION_TRIBUTE,
+  MONSTER_ACTION_EFFECT
+};
 
-extern unsigned char g8E0D922[];
-extern unsigned char g8E0D926[];
-extern unsigned char g8E0D92A[];
-extern unsigned char g8E0D92E[];
+extern unsigned short g80F13D0[][30];
+extern unsigned short g80F1880[][30];
+extern unsigned short g80F1D30[][30];
+extern unsigned short g80F30E0[];
+extern unsigned char g8DF811C[];
+extern unsigned short g8E0D814[];
+extern unsigned char gText_AttackDefendTributeEffect[]; //E0D828
+extern unsigned short g8E0D91A[];
+
+extern enum B_MenuOption gNextUpB_MenuOption[];
+extern enum B_MenuOption gNextDownB_MenuOption[];
+extern enum B_MenuOption gNextRightB_MenuOption[];
+extern enum B_MenuOption gNextLeftB_MenuOption[];
+/*
+static CONST_DATA enum B_MenuOption gNextUpB_MenuOption[] = {
+  [B_MENU_DETAILS] = B_MENU_DETAILS,
+  [B_MENU_TURN_END] = B_MENU_DETAILS,
+  [B_MENU_DISCARD] = B_MENU_DISCARD
+};
+
+static CONST_DATA enum B_MenuOption gNextDownB_MenuOption[] = {
+  [B_MENU_DETAILS] = B_MENU_TURN_END,
+  [B_MENU_TURN_END] = B_MENU_TURN_END,
+  [B_MENU_DISCARD] = B_MENU_TURN_END
+};
+
+static CONST_DATA enum B_MenuOption gNextRightB_MenuOption[] = {
+  [B_MENU_DETAILS] = B_MENU_DISCARD,
+  [B_MENU_TURN_END] = B_MENU_DISCARD,
+  [B_MENU_DISCARD] = B_MENU_DISCARD
+};
+
+static CONST_DATA enum B_MenuOption gNextLeftB_MenuOption[] = {
+  [B_MENU_DETAILS] = B_MENU_DETAILS,
+  [B_MENU_TURN_END] = B_MENU_TURN_END,
+  [B_MENU_DISCARD] = B_MENU_DETAILS
+};
+*/
+static CONST_DATA enum MonsterAction gNextUpMonsterAction[] = {
+  [MONSTER_ACTION_ATTACK] = MONSTER_ACTION_ATTACK,
+  [MONSTER_ACTION_DEFEND] = MONSTER_ACTION_ATTACK,
+  [MONSTER_ACTION_TRIBUTE] = MONSTER_ACTION_TRIBUTE,
+  [MONSTER_ACTION_EFFECT] = MONSTER_ACTION_TRIBUTE
+};
+
+static CONST_DATA enum MonsterAction gNextDownMonsterAction[] = {
+  [MONSTER_ACTION_ATTACK] = MONSTER_ACTION_DEFEND,
+  [MONSTER_ACTION_DEFEND] = MONSTER_ACTION_DEFEND,
+  [MONSTER_ACTION_TRIBUTE] = MONSTER_ACTION_EFFECT,
+  [MONSTER_ACTION_EFFECT] = MONSTER_ACTION_EFFECT
+};
+
+static CONST_DATA enum MonsterAction gNextRightMonsterAction[] = {
+  [MONSTER_ACTION_ATTACK] = MONSTER_ACTION_TRIBUTE,
+  [MONSTER_ACTION_DEFEND] = MONSTER_ACTION_EFFECT,
+  [MONSTER_ACTION_TRIBUTE] = MONSTER_ACTION_TRIBUTE,
+  [MONSTER_ACTION_EFFECT] = MONSTER_ACTION_EFFECT
+};
+
+static CONST_DATA enum MonsterAction gNextLeftMonsterAction[] = {
+  [MONSTER_ACTION_ATTACK] = MONSTER_ACTION_ATTACK,
+  [MONSTER_ACTION_DEFEND] = MONSTER_ACTION_DEFEND,
+  [MONSTER_ACTION_TRIBUTE] = MONSTER_ACTION_ATTACK,
+  [MONSTER_ACTION_EFFECT] = MONSTER_ACTION_DEFEND
+};
+
+extern unsigned char g8E0D934[] /* = _("0123456789　");*/;
+
+static void InitBMenu (unsigned char);
+static void sub_80428EC (unsigned char);
+static void sub_8042ADC (unsigned char);
+static void sub_8042C64 (unsigned char);
+
 
 extern u16 gRepeatedOrNewButtons;
 extern u16 gPressedButtons;
 extern unsigned char gIsPlayerTurnOver;
 
-extern u16 g8E0D814[];
-extern u16 g8E0D91A[];
-extern u16 g80F1880[][30];
-extern u16 g80F1D30[][30];
-extern u16 g80F30E0[];
-extern unsigned char gText_AttackDefendTributeEffect[];
 
-void InitBMenu (unsigned char);
-void sub_80428EC (unsigned char);
+
+
+
+
+void sub_8041050 (void);
 void sub_8041014 (void);
 u32 CanPlayerSeeCard (unsigned char y, unsigned char x);
 
@@ -33,58 +106,59 @@ void UpdateAllDuelGfx (void);
 void UpdateDuelGfxExceptField (void);
 
 
-extern u16 g80F13D0[][30];
-extern unsigned char g8DF811C[];
+
 extern unsigned char gText_Deckcards[];
-extern unsigned char gText_DetailsTurnEndDiscard[];
+extern unsigned char gText_DetailsTurnEndDiscard[] /*= _(
+  "{ENG}"
+    "Details   "
+    "Turn end  "
+    "Discard   "
+  "{FRE}"
+  //...
+)*/;
 
 u16 sub_08007FEC(unsigned char, unsigned char, u16);
 void sub_800800C(unsigned char, unsigned char, u16, u16);
 s32 GetCardsDrawn(unsigned char);
-void sub_8042ADC (unsigned char);
-void sub_8042C64 (unsigned char);
-void sub_8041050 (void);
 
-enum {
-  B_MENU_DETAILS,
-  B_MENU_END_TURN,
-  B_MENU_DISCARD
-};
+
+
+
 
 void BMenuMain (void) {
-  unsigned char r4 = B_MENU_DETAILS;
+  enum B_MenuOption cursorState = B_MENU_DETAILS;
   InitBMenu(0);
   while (1) {
     if (gRepeatedOrNewButtons & DPAD_UP) {
       PlayMusic(SFX_MOVE_CURSOR);
-      r4 = g8E0D81A[r4];
-      sub_80428EC(r4);
+      cursorState = gNextUpB_MenuOption[cursorState];
+      sub_80428EC(cursorState);
       WaitForVBlank();
       sub_8041014();
     }
     else if (gRepeatedOrNewButtons & DPAD_DOWN) {
       PlayMusic(SFX_MOVE_CURSOR);
-      r4 = g8E0D81D[r4];
-      sub_80428EC(r4);
+      cursorState = gNextDownB_MenuOption[cursorState];
+      sub_80428EC(cursorState);
       WaitForVBlank();
       sub_8041014();
     }
     else if (gRepeatedOrNewButtons & DPAD_RIGHT) {
       PlayMusic(SFX_MOVE_CURSOR);
-      r4 = g8E0D820[r4];
-      sub_80428EC(r4);
+      cursorState = gNextRightB_MenuOption[cursorState];
+      sub_80428EC(cursorState);
       WaitForVBlank();
       sub_8041014();
     }
     else if (gRepeatedOrNewButtons & DPAD_LEFT) {
       PlayMusic(SFX_MOVE_CURSOR);
-      r4 = g8E0D823[r4];
-      sub_80428EC(r4);
+      cursorState = gNextLeftB_MenuOption[cursorState];
+      sub_80428EC(cursorState);
       WaitForVBlank();
       sub_8041014();
     }
     else if (gNewButtons & A_BUTTON) {
-      switch (r4) {
+      switch (cursorState) {
         case B_MENU_DETAILS:
           if (CanPlayerSeeCard(gDuelCursor.currentY, gDuelCursor.currentX) == 1
           && GetTypeGroup(gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->id)) {
@@ -101,7 +175,7 @@ void BMenuMain (void) {
             UpdateDuelGfxExceptField();
           }
           return;
-        case B_MENU_END_TURN:
+        case B_MENU_TURN_END:
           PlayMusic(SFX_SELECT);
           gIsPlayerTurnOver = 1;
           UpdateDuelGfxExceptField();
@@ -135,7 +209,7 @@ void BMenuMain (void) {
 }
 
 NAKED
-void InitBMenu (unsigned char arg0) {
+static void InitBMenu (unsigned char arg0) {
   asm_unified("push {r4, r5, r6, r7, lr}\n\
 	mov r7, sl\n\
 	mov r6, sb\n\
@@ -787,7 +861,7 @@ _080428E8: .4byte 0x02021BD0");
 }
 
 /*
-void InitBMenu (unsigned char arg0) {
+static void InitBMenu (unsigned char arg0) {
   u16 r0;
   unsigned char i, r4, r4two;
   u16 sb, r8;
@@ -921,7 +995,7 @@ union N {
   u16 b[0x2000];
 }extern gVr;
 
-void sub_80428EC (unsigned char arg0) {
+static void sub_80428EC (unsigned char arg0) {
   unsigned char i;
   for (i = 0; i < 3; i++) {
     if (arg0 != i) {
@@ -939,40 +1013,41 @@ void sub_80428EC (unsigned char arg0) {
   }
 }
 
-unsigned sub_80429A0 (void) {
+//unused?
+static unsigned sub_80429A0 (void) {
   return 1;
 }
 
-unsigned sub_80429A4 (void) {
-  unsigned char r4 = 0;
+unsigned HandlePlayerMonsterAction (void) {
+  enum MonsterAction cursorState = MONSTER_ACTION_ATTACK;
   sub_8042ADC(0);
   while (1) {
     while (1) {
       if (gRepeatedOrNewButtons & DPAD_UP) {
         PlayMusic(SFX_MOVE_CURSOR);
-        r4 = g8E0D922[r4];
+        cursorState = gNextUpMonsterAction[cursorState];
       }
       else if (gRepeatedOrNewButtons & DPAD_DOWN) {
         PlayMusic(SFX_MOVE_CURSOR);
-        r4 = g8E0D926[r4];
+        cursorState = gNextDownMonsterAction[cursorState];
       }
       else if (gRepeatedOrNewButtons & DPAD_LEFT) {
         PlayMusic(SFX_MOVE_CURSOR);
-        r4 = g8E0D92E[r4];
+        cursorState = gNextLeftMonsterAction[cursorState];
       }
       else if (gRepeatedOrNewButtons & DPAD_RIGHT) {
         PlayMusic(SFX_MOVE_CURSOR);
-        r4 = g8E0D92A[r4];
+        cursorState = gNextRightMonsterAction[cursorState];
       }
       else
         break;
-      sub_8042C64(r4);
+      sub_8042C64(cursorState);
       WaitForVBlank();
       sub_8041014();
     }
     if (gNewButtons & A_BUTTON) {
-      switch (r4) {
-        case 0:
+      switch (cursorState) {
+        case MONSTER_ACTION_ATTACK:
           return 1;
         case 1:
           return 2;
@@ -986,8 +1061,8 @@ unsigned sub_80429A4 (void) {
       PlayMusic(SFX_CANCEL);
       return 5;
     }
-    if (r4 < 2) {
-      if (r4 == 0)
+    if (cursorState < 2) {
+      if (cursorState == 0)
         gTurnZones[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 0;
       else
         gTurnZones[gDuelCursor.currentY][gDuelCursor.currentX]->isDefending = 1;
@@ -998,7 +1073,7 @@ unsigned sub_80429A4 (void) {
   }
 }
 
-void sub_8042ADC (unsigned char arg0) {
+static void sub_8042ADC (unsigned char arg0) {
   unsigned char i;
   unsigned short r7;
   for (i = 0; i < 18; i++)
@@ -1029,7 +1104,7 @@ void sub_8042ADC (unsigned char arg0) {
   REG_DISPCNT = DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_OBJ_ON | DISPCNT_WIN0_ON | DISPCNT_WIN1_ON;
 }
 
-void sub_8042C64 (unsigned char arg0) {
+static void sub_8042C64 (unsigned char arg0) {
   unsigned char i;
   for (i = 0; i < 4; i++) {
     if (arg0 != i) {
@@ -1047,7 +1122,7 @@ void sub_8042C64 (unsigned char arg0) {
   }
 }
 
-void sub_8042D14 (void) {
+static void sub_8042D14 (void) {
   unsigned char i, j;
   for (i = 0; i < 64; i++)
     CpuCopy32(g80F1D30[i], gVr.a + 0xF000 + i * 64, 64);
@@ -1079,7 +1154,7 @@ void sub_8042D14 (void) {
   }
 }
 
-void sub_8042E80 (void) {
+static void sub_8042E80 (void) {
   sub_8042D14();
   CopyStringTilesToVRAMBuffer(gVr.a + 0x87A0, g8E0D934, 0x801);
   REG_BG0CNT = 0x9E08;

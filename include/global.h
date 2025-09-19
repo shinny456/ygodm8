@@ -37,6 +37,8 @@
 #include "permanent_effect.h"
 #include "turn_effect.h"
 #include "card_shop.h"
+#include "tribute.h"
+#include "gfx_reg_buffers.h"
 #include "monster_effect.h"
 #include "life_points.h"
 #include "spell_effect.h"
@@ -64,7 +66,7 @@ extern u8 g2021B10[];
 extern u8 g2021B50[];
 extern u8 g2021B90[];
 extern u8 gDigitBufferU64[];
-void HuffUnComp (void*, void*);
+void HuffUnComp (const void *src, void*);
 
 enum {
   TRUNK_CURSOR_DETAILS,
@@ -179,7 +181,7 @@ void sub_800B288 (u8);
 #define REPEAT_R_BUTTON R_BUTTON     
 #define REPEAT_L_BUTTON L_BUTTON     
 
-
+//TODO: "Init" can be ambiguous: Initialize vs Initiate
 
 /*NOTES:
 Card details:

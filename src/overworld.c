@@ -1930,7 +1930,7 @@ static void sub_804EE6C (void) {
 }
 
 void sub_804EE84 (struct OamData* arg0, u8 arg1, u8 arg2) {
-  arg0->y = arg2 + 232;
+  arg0->y = arg2 + 232; //-24??
   arg0->x = arg1 - 16;
 }
 

@@ -1,6 +1,6 @@
 #ifndef GUARD_ANTE_H
 #define GUARD_ANTE_H
 
-unsigned IsGoodAnte (unsigned short); //TODO: rename to IsNormalAnte?
+unsigned IsNormalAnte (unsigned short);
 
 #endif // GUARD_ANTE_H

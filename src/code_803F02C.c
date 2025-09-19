@@ -795,9 +795,32 @@ void sub_803FD48 (void) {
   gUnk2023EA0.unk18 = g80DF790[gUnk2023EA0.unk18];
 }
 
-extern u16 g8E0D08C[][5];
-extern unsigned char g8E0D0BE[][5];
-extern unsigned char g8E0D0D7[][5];
+
+
+
+static CONST_DATA unsigned short g8E0D08C[][5] = {
+  CARD_NONE, CARD_NONE, CARD_NONE, CARD_NONE, CARD_NONE,
+  CARD_NONE, CARD_NONE, CARD_NONE, CARD_NONE, CARD_NONE,
+  CARD_NONE, CARD_NONE, CARD_NONE, CARD_NONE, CARD_NONE,
+  CARD_NONE, CARD_NONE, CARD_NONE, CARD_NONE, CARD_NONE,
+  CARD_NONE, CARD_NONE, CARD_NONE, CARD_NONE, CARD_NONE
+};
+
+static CONST_DATA unsigned char g8E0D0BE[][5] = {
+  FALSE, FALSE, FALSE, FALSE, FALSE,
+  FALSE, FALSE, FALSE, FALSE, FALSE,
+  FALSE, FALSE, FALSE, FALSE, FALSE,
+  FALSE, FALSE, FALSE, FALSE, FALSE,
+  FALSE, FALSE, FALSE, FALSE, FALSE
+};
+
+static CONST_DATA unsigned char g8E0D0D7[][5] = {
+  FALSE, FALSE, FALSE, FALSE, FALSE,
+  FALSE, FALSE, FALSE, FALSE, FALSE,
+  FALSE, FALSE, FALSE, FALSE, FALSE,
+  FALSE, FALSE, FALSE, FALSE, FALSE,
+  FALSE, FALSE, FALSE, FALSE, FALSE
+};
 
 void InitBoard (void) {
   unsigned char i, j;
@@ -1133,31 +1156,44 @@ struct {
   u16 b;
 } extern gOamBuffer[];
 
-extern u16 gE0D0F0[];
+// tile indexes, only the last one is used
+static CONST_DATA unsigned short gE0D0F0[] = {
+  0x200,
+  0x208,
+  0x280,
+  0x180
+};
+
 extern u16 g80DFDA4[];
 
-
-unsigned sub_804402C (unsigned char);
-u16 sub_8043FFC (unsigned char);
+//TODO: use this enum for gOamBuffer index too?
+enum CursorCorner {
+  BOARD_CURSOR_TOP_LEFT,
+  BOARD_CURSOR_TOP_RIGHT,
+  BOARD_CURSOR_BOTTOM_LEFT,
+  BOARD_CURSOR_BOTTOM_RIGHT
+};
+unsigned GetBoardCursorCornerYCoord (enum CursorCorner);
+u16 GetBoardCursorCornerXCoord (enum CursorCorner);
 
 
 // cursor oam data (same tile is used for all 4 corners, with HV flips)
 void sub_804078C (void) {
   u16 ight;
   //top left
-  gOamBuffer[0].a = ((sub_804402C(0) & 0xFF) | ((sub_8043FFC(0) << 16 & 0x01FF0000))) | 0x80000000;
+  gOamBuffer[0].a = ((GetBoardCursorCornerYCoord(BOARD_CURSOR_TOP_LEFT) & 0xFF) | ((GetBoardCursorCornerXCoord(BOARD_CURSOR_TOP_LEFT) << 16 & 0x01FF0000))) | 0x80000000;
   gOamBuffer[0].b = gE0D0F0[3] | 0xA800;
 
   // top right
-  gOamBuffer[1].a = ((sub_804402C(1) & 0xFF) | ((sub_8043FFC(1) << 16 & 0x01FF0000))) | 0x90000000;
+  gOamBuffer[1].a = ((GetBoardCursorCornerYCoord(BOARD_CURSOR_TOP_RIGHT) & 0xFF) | ((GetBoardCursorCornerXCoord(BOARD_CURSOR_TOP_RIGHT) << 16 & 0x01FF0000))) | 0x90000000;
   gOamBuffer[1].b = gE0D0F0[3] | 0xA800;
 
   // bottom left
-  gOamBuffer[2].a = ((sub_804402C(2) & 0xFF) | ((sub_8043FFC(2) << 16 & 0x01FF0000))) | 0xA0000000;
+  gOamBuffer[2].a = ((GetBoardCursorCornerYCoord(BOARD_CURSOR_BOTTOM_LEFT) & 0xFF) | ((GetBoardCursorCornerXCoord(BOARD_CURSOR_BOTTOM_LEFT) << 16 & 0x01FF0000))) | 0xA0000000;
   gOamBuffer[2].b = gE0D0F0[3] | 0xA800;
 
   // bottom right
-  gOamBuffer[3].a = ((sub_804402C(3) & 0xFF) | ((sub_8043FFC(3) << 16 & 0x01FF0000))) | 0xB0000000;
+  gOamBuffer[3].a = ((GetBoardCursorCornerYCoord(BOARD_CURSOR_BOTTOM_RIGHT) & 0xFF) | ((GetBoardCursorCornerXCoord(BOARD_CURSOR_BOTTOM_RIGHT) << 16 & 0x01FF0000))) | 0xB0000000;
   ight = gE0D0F0[3];
   gOamBuffer[3].b = ight | 0xA800;
 }
@@ -1208,7 +1244,7 @@ void sub_80408FC (void) {
   sub_804078C();
 }
 
-// CopyDuelCard?
+// CopyDuelCard? or DuelCopyCard?
 void CopyCard (struct DuelCard *dst, struct DuelCard *src) {
   dst->id = src->id;
   SetPermStage(dst, PermStage(src));
@@ -1347,8 +1383,7 @@ extern u16 g80F0A50[][30];
 void sub_800800C(unsigned char, unsigned char, u16, u16);
 u16 sub_08007FEC(unsigned char, unsigned char, u16);
 void sub_8008BF8 (void * dest);
-extern u16 gBG1HOFS;
-extern u16 gBG1VOFS;
+
 
 
 // init bg1 (bg1 is used for B button menu and card stats at the bottom, alpha blended)

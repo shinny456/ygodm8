@@ -131,8 +131,8 @@ gUnk_8DF7A18:
     .global gUnk_8DF7A28
 gUnk_8DF7A28:
     .4byte gSharedMem
-    
-    
+
+
 // world_map.c end
 
 
@@ -231,7 +231,7 @@ gUnk_8DF8114:
     .4byte gSharedMem
 
 // naming_screen.c end
-    
+
     //unused?
     .global g8DF8118
 g8DF8118:
@@ -267,7 +267,7 @@ gUnk_8DF8142:
     .global gUnk_8DF8145
 gUnk_8DF8145:
     .incbin "baserom.gba", 0xDF8145, 3
-    
+
     .global gUnk_8DF8148
 gUnk_8DF8148:
     .incbin "baserom.gba", 0xDF8148, 0x2200
@@ -559,20 +559,26 @@ gE0C1B0:
     .global gUnk_8E0CD14
 gUnk_8E0CD14:
     .incbin "baserom.gba", 0xE0CD14, 0x2B0
-    
-    
+
+
     .section .rodata2
-    
+
     .global gE0CFDC
 gE0CFDC:
-    .incbin "baserom.gba", 0xE0CFDC, 0x2D70
+    .incbin "baserom.gba", 0xE0CFDC, 0xB0
+
+    .section .rodata4
+
+    .incbin "baserom.gba", 0xE0D14C, 0x7D6
     
-    
+    .section .rodata5
+    .incbin "baserom.gba", 0xE0D932, 0x241A
+
     .section .rodata3
     .global gE1165C
 gE1165C:
     .incbin "baserom.gba", 0xE1165C, 0xD0
-    
+
     .global gUnk_8E1172C
 gUnk_8E1172C:
     .incbin "baserom.gba", 0xE1172C, 0xC

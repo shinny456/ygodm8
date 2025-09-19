@@ -1,7 +1,7 @@
 #include "global.h"
 
 //are field graphics repeated?
-extern u8* g8E0D960[];
+extern unsigned char* g8E0D960[];
 extern u16* g8E0D998[];
 extern u16 (*g8E0D97C[])[31];
 
@@ -9,7 +9,7 @@ void sub_803EE44 (void);
 void sub_8044D34 (void);
 void sub_8044DAC (void);
 void sub_8044DC8 (void);
-void HuffUnComp (void*, void*);
+
 
 void sub_8043EF4 (void) {
   gDuelCursor.currentX = 4 - gDuelCursor.currentX;
@@ -73,19 +73,19 @@ void MoveCursorLeft (void) {
 
 
 extern s8 g8E0D954[];
-extern u8 g8E0D958[];
-extern u8 g8E0D95C[];
+extern unsigned char g8E0D958[];
+extern unsigned char g8E0D95C[];
 
 
-u16 sub_8043FFC (u8 arg0) {
-  return sub_80575E0(gDuelCursor.currentX, gDuelCursor.currentY) + g8E0D954[arg0];
+//TODO: use CursorCorner enum
+u16 GetBoardCursorCornerXCoord (unsigned char corner) {
+  return sub_80575E0(gDuelCursor.currentX, gDuelCursor.currentY) + g8E0D954[corner];
+}
+unsigned char GetBoardCursorCornerYCoord (unsigned char corner) {
+  return sub_8057600(gDuelCursor.currentX, gDuelCursor.currentY) + g8E0D958[corner];
 }
 
-u8 sub_804402C (u8 arg0) {
-  return sub_8057600(gDuelCursor.currentX, gDuelCursor.currentY) + g8E0D958[arg0];
-}
-
-// TODO/UB?: doesn't return a value; only way to match?
+// TODO/UB?: doesn't return a value; only way to match? (might be UB only if return value is used?)
 int InitDuelCursor (void) {
   gDuelCursor.state = 0;
   gDuelCursor.currentX = 0;
@@ -94,7 +94,7 @@ int InitDuelCursor (void) {
   gDuelCursor.destY = 4;
 }
 
-u32 CanPlayerSeeCard (u8 y, u8 x) {
+u32 CanPlayerSeeCard (unsigned char y, unsigned char x) {
   switch (y) {
     case 0:
     case 1:
@@ -106,7 +106,7 @@ u32 CanPlayerSeeCard (u8 y, u8 x) {
   }
 }
 
-u32 CanOpponentSeeCard (u8 y, u8 x) {
+u32 CanOpponentSeeCard (unsigned char y, unsigned char x) {
   if (gFixedZones[y][x]->id == CARD_NONE)
     return 1;
   switch (y) {
@@ -138,7 +138,7 @@ void sub_8044148 (void) {
   gDuelCursor.unk5 = g8E0D95C[gDuelCursor.unk5];
 }
 
-void sub_8044160 (u8 arg0) {
+void sub_8044160 (unsigned char arg0) {
   switch (arg0) {
     case 0:
       break;
@@ -159,19 +159,16 @@ void sub_8044160 (u8 arg0) {
   }
 }
 
-
-u8 GetNumRequiredRitualTributes(u16);
-void HandlePlayerMonsterRowAction (void);
+void MonsterActionMenu (void);
 void HandlePlayerBackrowAction (void);
-void DisplayNumRequiredTributesTextbox (u8);
+void DisplayNumRequiredTributesTextbox (unsigned char);
 void sub_80442AC (void);
 void SelectZone (struct DuelCard *zone);
 void CopySelectedCardToZone (struct DuelCard *zone);
 void DisplayCardInfoBar (void);
-void sub_8041E70 (u8, u8);
+void sub_8041E70 (unsigned char, unsigned char);
 void CheckWinConditionExodia (void);
-void IncNumTributes (void);
-u32 sub_80429A4 (void);
+u32 HandlePlayerMonsterAction (void);
 void sub_8044570 (void);
 void UpdateDuelGfxExceptField (void);
 void sub_801BC00 (void);
@@ -191,7 +188,7 @@ void sub_80441D0 (void) {
     case 2:
       if (gFixedZones[2][gDuelCursor.currentX]->id != CARD_NONE && !gFixedZones[2][gDuelCursor.currentX]->isLocked) {
         PlayMusic(SFX_SELECT);
-        HandlePlayerMonsterRowAction();
+        MonsterActionMenu();
       }
       else {
         PlayMusic(SFX_FORBIDDEN);
@@ -204,10 +201,9 @@ void sub_80441D0 (void) {
         WaitForVBlank();
       }
       else {
-        u8 numTributes = GetNumRequiredRitualTributes(gFixedZones[3][gDuelCursor.currentX]->id);
-        if (!numTributes) {
+        unsigned char numTributes = GetRitualNumRequiredTributes(gFixedZones[3][gDuelCursor.currentX]->id);
+        if (!numTributes)
           HandlePlayerBackrowAction();
-        }
         else {
           PlayMusic(SFX_FORBIDDEN);
           DisplayNumRequiredTributesTextbox(numTributes);
@@ -220,7 +216,7 @@ void sub_80441D0 (void) {
         WaitForVBlank();
       }
       else {
-        u8 numTributes = sub_8045390(gFixedZones[4][gDuelCursor.currentX]->id);
+        unsigned char numTributes = GetMonsterNumRequiredTributes(gFixedZones[4][gDuelCursor.currentX]->id);
         if (numTributes) {
           PlayMusic(SFX_FORBIDDEN);
           DisplayNumRequiredTributesTextbox(numTributes);
@@ -260,8 +256,8 @@ void sub_80442AC (void) {
   sub_8041E70(gDuelCursor.destY, gDuelCursor.currentY);
 }
 
-void HandlePlayerMonsterRowAction (void) {
-  switch (sub_80429A4()) {
+void MonsterActionMenu (void) {
+  switch (HandlePlayerMonsterAction()) {
     case 1:
       sub_8044570();
       break;
@@ -280,7 +276,7 @@ void HandlePlayerMonsterRowAction (void) {
       break;
     case 3:
       PlayMusic(SFX_TRIBUTE);
-      IncNumTributes();
+      IncrementNumTributes();
       ClearZoneAndSendMonToGraveyard2(gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX], 0);
       UpdateDuelGfxExceptField();
       TryActivatingPermanentEffects();
@@ -325,7 +321,7 @@ void HandlePlayerMonsterRowAction (void) {
 
 
 void sub_8044570 (void) {
-  u8 turn = WhoseTurn();
+  unsigned char turn = WhoseTurn();
   if (GetDuelistStatus(turn) == DUELIST_STATUS_CANNOT_ATTACK || gTurnDuelistBattleState[ACTIVE_DUELIST]->sorlTurns) { // attacking forbidden
     PlayMusic(SFX_FORBIDDEN);
     gFixedZones[gDuelCursor.currentY][gDuelCursor.currentX]->isLocked = 1;
@@ -517,7 +513,7 @@ void OpenBMenu (void) {
 }
 
 void sub_8044A30 (void) {
-  u8 currY;
+  unsigned char currY;
   PlayMusic(SFX_CANCEL);
   currY = gDuelCursor.currentY;
   gDuelCursor.state = 0;
@@ -527,7 +523,7 @@ void sub_8044A30 (void) {
 }
 
 void sub_8044A5C (void) {
-  u8 currY;
+  unsigned char currY;
   PlayMusic(SFX_CANCEL);
   currY = gDuelCursor.currentY;
   gDuelCursor.state = 0;
@@ -537,7 +533,7 @@ void sub_8044A5C (void) {
 }
 
 void sub_8044A88 (void) {
-  u8 currY;
+  unsigned char currY;
   PlayMusic(SFX_CANCEL);
   currY = gDuelCursor.currentY;
   gDuelCursor.state = 0;
@@ -581,7 +577,7 @@ void HandleBButtonAction (void) {
 }
 
 void sub_8044B2C (void) {
-  u8 r4;
+  unsigned char r4;
   PlayMusic(SFX_SELECT);
   sub_8044D00();
   r4 = 1;
@@ -791,9 +787,9 @@ _08044CFC: .4byte 0x0000FEFF");
 }
 /*
 void sub_8044B90 (void) {
-  u8 i;
+  unsigned char i;
   const unsigned char arr[] = {0x10, 0x3C, 0x68, 0x94, 0xC0}; //opponent hand coords
-  u8* ptr;
+  unsigned char* ptr;
   for (i = 0; i < 5; i++) {
     u16 cardId = gTurnHands[INACTIVE_DUELIST][4 - i]->id;
     if (cardId == CARD_NONE)
@@ -824,7 +820,7 @@ void sub_8044D00 (void) {
 }
 
 void sub_8044D34 (void) {
-  u8 i;
+  unsigned char i;
   HuffUnComp(g8E0D960[gDuel.field], gBgVram.cbb0);
   for (i = 0; i < 20; i++)
     CpuCopy16(g8E0D97C[gDuel.field][i], gBgVram.cbb0 + 0xF800 + i * 64, 62);

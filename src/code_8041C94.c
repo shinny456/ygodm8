@@ -3,7 +3,6 @@
 extern u8 g8E0D588[][5];
 extern u8 g20240E4;
 extern s16 g8E0D5A6[];
-extern u16 gBG2VOFS;
 extern u8 g8E0D5A1[];
 extern u8* g8F1B80C[];
 extern u8* gText_TrapHadNoEffect;

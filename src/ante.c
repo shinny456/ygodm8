@@ -1,13 +1,51 @@
 #include "global.h"
 
-//TODO: rename file to ante.c
+static const unsigned short sLowLevelAnte[] = {
+  SKULL_SERVANT,
+  DARK_PLANT,
+  ANCIENT_JAR,
+  KEY_MACE,
+  CYCLON_LASER,
+  JAM_BREEDING_MACHINE,
+  CHANGE_SLIME,
+  ELEGANT_EGOTIST,
+  MOOYAN_CURRY,
+  SPARKS,
+  DARK_PIERCING_LIGHT,
+  ZONE_EATER,
+  STEEL_SCORPION,
+  DANCING_ELF,
+  OOGUCHI,
+  BAT,
+  MAGICIAN_OF_FAITH,
+  ARMED_NINJA,
+  SINISTER_SERPENT,
+  AMEBA,
+  MILUS_RADIANT,
+  GRIGGLE,
+  BONE_MOUSE,
+  POT_THE_TRICK,
+  GRAVEDIGGER_GHOUL,
+  QUEENS_DOUBLE,
+  MAGICAL_LABYRINTH,
+  CURSEBREAKER,
+  METALMORPH,
+  HOUSE_OF_ADHESIVE_TAPE,
+  GOBLIN_FAN,
+  BAD_REACTION_TO_SIMOCHI,
+  REVERSE_TRAP,
+  FAKE_TRAP,
+  INFINITE_DISMISSAL,
+  SEVEN_COMPLETED,
+  THE_UNHAPPY_MAIDEN,
+  THE_INEXPERIENCED_SPY,
+  CARD_NONE
+};
 
-extern unsigned short gLowLevelAnte[];
-
-unsigned IsGoodAnte (unsigned short cardId) {
+unsigned IsNormalAnte (unsigned short cardId) {
   unsigned short i;
-  for (i = 0; gLowLevelAnte[i] != CARD_NONE; i++)
-    if (gLowLevelAnte[i] == cardId)
-      return 0;
-  return 1;
+  for (i = 0; sLowLevelAnte[i] != CARD_NONE; i++)
+    if (sLowLevelAnte[i] == cardId)
+      return FALSE;
+  return TRUE;
 }

@@ -335,6 +335,8 @@ unsigned ZoneHasUnlockedMonsterCard (struct DuelCard* zone) {
   return zone->id != CARD_NONE && GetTypeGroup(zone->id) == TYPE_GROUP_MONSTER && !zone->isLocked;
 }
 
+//TODO: (name is greater than 31 chars, should be fine since all we have to do is make sure the first 31 chars don't match any other func name)
+//ZoneHasUnlockedFaceDownEffectMonster 
 unsigned sub_8043714 (struct DuelCard* zone) {
   unsigned ret = 0;
   if (zone->id != CARD_NONE) {
@@ -350,6 +352,7 @@ unsigned ZoneHasTrapCard (struct DuelCard* zone) {
   return zone->id != CARD_NONE && GetTypeGroup(zone->id) == TYPE_GROUP_TRAP;
 }
 
+//ZoneHasEquipSpell
 unsigned sub_804376C (struct DuelCard* zone) {
   return GetTypeGroup(zone->id) == TYPE_GROUP_SPELL && GetSpellType(zone->id) == SPELL_TYPE_EQUIP;
 }

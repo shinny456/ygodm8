@@ -1,32 +1,46 @@
 #include "global.h"
 
-extern u8 gNumTributes;
+unsigned char gNumTributes;
+
+/*static*/ CONST_DATA signed char sNumRequiredTributes[] = {
+  [0] = 0,
+  [1] = 0,
+  [2] = 0,
+  [3] = 0,
+  [4] = 0,
+  [5] = 1,
+  [6] = 1,
+  [7] = 2,
+  [8] = 2,
+  [9] = 3,
+  [10] = 3,
+  [11] = 3,
+  [12] = 3
+};
+
 void ResetNumTributes (void) {
   gNumTributes = 0;
 }
 
-void IncNumTributes (void) {
+void IncrementNumTributes (void) {
   gNumTributes++;
 }
 
-extern s8 gNumRequiredTributes[];
-int sub_8045390 (u16 card) {
-  if (GetTypeGroup(card) == TYPE_GROUP_MONSTER) {
+int GetMonsterNumRequiredTributes (unsigned short cardId) {
+  if (GetTypeGroup(cardId) == TYPE_GROUP_MONSTER) {
     int requiredTributes;
-    SetCardInfo(card);
-    requiredTributes = gNumRequiredTributes[gCardInfo.level] - gNumTributes;
+    SetCardInfo(cardId);
+    requiredTributes = sNumRequiredTributes[gCardInfo.level] - gNumTributes;
     if (requiredTributes < 0)
       requiredTributes = 0;
-    //TODO: the function probably returns a u8 but it's declared 
-    //      as int when called elsewhere
-    return (u8)requiredTributes; 
+    return (unsigned char)requiredTributes;
   }
   return 0;
 }
 
-u8 GetNumRequiredRitualTributes (u16 card) {
-  if (GetTypeGroup(card) == TYPE_GROUP_RITUAL) {
-    int requiredTributes = GetRitualNumTributes(card) - gNumTributes;
+unsigned char GetRitualNumRequiredTributes (unsigned short cardId) {
+  if (GetTypeGroup(cardId) == TYPE_GROUP_RITUAL) {
+    int requiredTributes = GetRitualNumTributes(cardId) - gNumTributes;
     if (requiredTributes < 0)
       requiredTributes = 0;
     return requiredTributes;
@@ -34,7 +48,7 @@ u8 GetNumRequiredRitualTributes (u16 card) {
   return 0;
 }
 
-int GetNumRequiredTributes (u16 card) {
-  SetCardInfo(card);
-  return gNumRequiredTributes[gCardInfo.level];
+int GetNumRequiredTributes (unsigned short cardId) {
+  SetCardInfo(cardId);
+  return sNumRequiredTributes[gCardInfo.level];
 }

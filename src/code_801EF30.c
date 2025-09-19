@@ -1291,7 +1291,7 @@ void AddAnteCardToTrunk (void) {
 u16 sub_801FFE0 (void) {
   u16 random;
   struct CardDrop* cardDrops;
-  if (IsGoodAnte(gAnte) == TRUE)
+  if (IsNormalAnte(gAnte) == TRUE)
     cardDrops = gDuelData.duelist.goodDrops;
   else
     cardDrops = gDuelData.duelist.badDrops;

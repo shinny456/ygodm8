@@ -237,7 +237,7 @@ void MosaicEffect (void) {
   u16 mos;
 
   for (i = 0; i < 128; i++)
-    gOamBuffer[i * 2] |= 0x1000; //oam buffer nested structs?
+    gOamBuffer[i * 2] |= 0x1000;
 
   SetVBlankCallback(sub_8021C98);
   WaitForVBlank();
@@ -694,7 +694,7 @@ void sub_8022A24(void);
 void LinkDuelInitDeckCapacity(int);
 void sub_8023998(void);
 unsigned char LfsrNextByte(void);
-bool8 IsDeckFull(void);
+bool8 IsPlayerDeckFull(void);
 s32 IsCostWithinCapacity(void);
 void sub_8022B7C(unsigned char);
 void sub_8022AA0(void);
@@ -744,7 +744,7 @@ void LinkDuelMenu (void) {
   while (1) {
     LfsrNextByte();
     if (gLinkDuelMenuData.unk9 == 1) { //ACTION_EXIT
-      if (IsDeckFull() != 1) {
+      if (IsPlayerDeckFull() != 1) {
         sub_8022B7C(5);
         sub_8022AA0();
         PlayMusic(SFX_FORBIDDEN);
@@ -782,7 +782,7 @@ void LinkDuelMenu (void) {
         sub_8023998();
       }
     else if (gLinkDuelMenuData.unk9 == 4)
-      if (IsDeckFull() != 1) {
+      if (IsPlayerDeckFull() != 1) {
         sub_8022B7C(5);
         sub_8022AA0();
         PlayMusic(SFX_FORBIDDEN);

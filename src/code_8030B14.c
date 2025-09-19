@@ -57,7 +57,6 @@ void sub_8030B8C (void) {
         sub_803281C();
       }
       else {
-        // TODO: double check semantics for u8 = u16 assignment
         g3000C38.unk26 += *g3000C38.unk18 = g3000C38.unk1C;
         g3000C38.unk4++;
         g3000C38.unk18++;
