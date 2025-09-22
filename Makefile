@@ -15,6 +15,8 @@ BUILD_NAME := ygodm8
 CC1      := tools/agbcc/bin/agbcc$(EXE)
 CC1_OLD  := tools/agbcc/bin/old_agbcc$(EXE)
 
+PREPROC   := tools/preproc/preproc$(EXE)
+
 CPPFLAGS := -I tools/agbcc/include -I tools/agbcc -iquote include -Wno-trigraphs -nostdinc
 CFLAGS   := -mthumb-interwork -Wimplicit -Werror -O2 -fhex-asm -fshort-enums -fprologue-bugfix
 ASFLAGS  := -mcpu=arm7tdmi
@@ -57,6 +59,11 @@ SUBDIRS := $(sort $(dir $(ALL_OBJS)))
 #### Recipes ####
 $(shell mkdir -p $(SUBDIRS))
 
+all: $(PREPROC) $(ROM)
+
+$(PREPROC): tools/preproc/*.cpp
+	$(CXX) $^ -o $(PREPROC)
+
 $(ROM): $(ELF)
 	$(OBJCOPY) -O binary --pad-to 0x9000000 $< $@
 
@@ -65,7 +72,7 @@ $(ELF): $(ALL_OBJS) $(LDSCRIPT)
 
 $(C_BUILDDIR)/%.o: $(C_SUBDIR)/%.c
 	$(CPP) $(CPPFLAGS) $< -o $(C_BUILDDIR)/$*.i
-	$(CC1) $(CFLAGS) $(C_BUILDDIR)/$*.i -o $(C_BUILDDIR)/$*.s
+	@$(PREPROC) $(C_BUILDDIR)/$*.i charmap.txt | $(CC1) $(CFLAGS) -o $(C_BUILDDIR)/$*.s
 	@echo ".text\\n\\t.align\\t2, 0\\n" >> $(C_BUILDDIR)/$*.s
 	$(AS) $(ASFLAGS) $(C_BUILDDIR)/$*.s -o $@
 
@@ -79,5 +86,5 @@ clean:
 	rm -f $(ROM) $(ELF) $(MAP)
 	rm -r $(BUILD_DIR)/
 
-compare: $(ROM)
+compare: all
 	sha1sum -c $(BUILD_NAME).sha1

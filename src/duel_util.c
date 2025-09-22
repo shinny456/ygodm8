@@ -609,8 +609,7 @@ _08043BBC: .4byte gRepeatedOrNewButtons\n\
 _08043BC0: .4byte 0x00000385\n\
 _08043BC4: .4byte gNewButtons");
 }
-
-// unused?
+//Debug_
 void sub_8043BC8 (struct Temp* arg0) {
   gTurnZones[gDuelCursor.currentY][gDuelCursor.currentX]->id = arg0->unk2;
   gTurnZones[gDuelCursor.currentY][gDuelCursor.currentX]->isFaceUp = 1;
@@ -629,6 +628,7 @@ void sub_8043CAC (void) {
 
 void sub_8043CB8 (void) {}
 
+//debug menu that lets you place any card anywhere on the board
 void sub_8043CBC (void) {
   struct Temp temp = {1, 1};
   sub_8041B38();

@@ -221,9 +221,9 @@ void CFile::TryConvertString()
     }
 
     if (noTerminator)
-        std::printf(" }");
+        std::printf("}");
     else
-        std::printf("0xFF }");
+        std::printf("0}");
 }
 
 bool CFile::CheckIdentifier(const std::string& ident)

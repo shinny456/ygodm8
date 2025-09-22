@@ -80,7 +80,9 @@ static CONST_DATA enum MonsterAction gNextLeftMonsterAction[] = {
   [MONSTER_ACTION_EFFECT] = MONSTER_ACTION_DEFEND
 };
 
-extern unsigned char g8E0D934[] /* = _("0123456789　");*/;
+static CONST_DATA unsigned char sFillerE0D932[2] = {0};
+
+static CONST_DATA unsigned char g8E0D934[] = _("0123456789　"); //digits for L Button screen (atk/def stat screen)
 
 static void InitBMenu (unsigned char);
 static void sub_80428EC (unsigned char);

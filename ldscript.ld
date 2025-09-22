@@ -839,7 +839,6 @@ SECTIONS
     gText_AttackDefendTributeEffect = 0x8E0D828;
     g8E0D91A = 0x8E0D91A;
     g80F1D30 = 0x80F1D30;
-    g8E0D934 = 0x8E0D934;
     g8E0D960 = 0x8E0D960;
     g8E0D97C = 0x8E0D97C;
     g8E0D998 = 0x8E0D998;

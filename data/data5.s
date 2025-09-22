@@ -572,7 +572,7 @@ gE0CFDC:
     .incbin "baserom.gba", 0xE0D14C, 0x7D6
     
     .section .rodata5
-    .incbin "baserom.gba", 0xE0D932, 0x241A
+    .incbin "baserom.gba", 0xE0D94B, 0x2401
 
     .section .rodata3
     .global gE1165C
