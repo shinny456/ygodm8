@@ -68,6 +68,14 @@ extern u8 g2021B90[];
 extern u8 gDigitBufferU64[];
 void HuffUnComp (const void *src, void*);
 
+//TODO: use this enum for gOamBuffer index too (in sub_804078C)?
+enum CursorCorner {
+  BOARD_CURSOR_TOP_LEFT,
+  BOARD_CURSOR_TOP_RIGHT,
+  BOARD_CURSOR_BOTTOM_LEFT,
+  BOARD_CURSOR_BOTTOM_RIGHT
+};
+
 enum {
   TRUNK_CURSOR_DETAILS,
   TRUNK_CURSOR_MOVE_TO_DECK,
@@ -147,6 +155,31 @@ void ClearCbb0Buffer (void);
 void ClearCbb1Buffer (void);
 void ClearCbb3Buffer (void);
 void sub_800B288 (u8);
+
+extern const unsigned char g80F31D0[];
+extern const unsigned char g80F543C[];
+extern const unsigned char g80F7AE8[];
+extern const unsigned char g80FA27C[];
+extern const unsigned char g80FC7FC[];
+extern const unsigned char g80FE9D8[];
+extern const unsigned char g8100C88[];
+
+extern const unsigned short g80F4B08[][31];
+extern const unsigned short g80F71B4[][31];
+extern const unsigned short g80F9948[][31];
+extern const unsigned short g80FBEC8[][31];
+extern const unsigned short g80FE0A4[][31];
+extern const unsigned short g8100354[][31];
+extern const unsigned short g81024F0[][31];
+
+extern const unsigned short g80F4AA8[];
+extern const unsigned short g80F7154[];
+extern const unsigned short g80F98E8[];
+extern const unsigned short g80FBE68[];
+extern const unsigned short g80FE044[];
+extern const unsigned short g81002F4[];
+extern const unsigned short g8102490[];
+
 
 
 #define asm_comment(x) asm volatile("@ -- " x " -- ")

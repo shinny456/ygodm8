@@ -1,9 +1,54 @@
 #include "global.h"
 
-//are field graphics repeated?
-extern unsigned char* g8E0D960[];
-extern u16* g8E0D998[];
-extern u16 (*g8E0D97C[])[31];
+//static CONST_DATA signed char sFiller_8E0D953[] = {0};
+
+static CONST_DATA signed char g8E0D954[] = {
+  [BOARD_CURSOR_TOP_LEFT] = - 17,
+  [BOARD_CURSOR_TOP_RIGHT] = 17,
+  [BOARD_CURSOR_BOTTOM_LEFT] = - 17,
+  [BOARD_CURSOR_BOTTOM_RIGHT] = 17
+};
+
+static CONST_DATA signed char g8E0D958[] = {
+  [BOARD_CURSOR_TOP_LEFT] = -16,
+  [BOARD_CURSOR_TOP_RIGHT] = -16,
+  [BOARD_CURSOR_BOTTOM_LEFT] = 16,
+  [BOARD_CURSOR_BOTTOM_RIGHT] = 16
+};
+
+static CONST_DATA unsigned char g8E0D95C[] = {1, 1, 0, 0};
+
+// opponent hand field graphics (R button screen)
+static const unsigned char* CONST_DATA g8E0D960[] = {
+  [FIELD_ARENA] = g80F31D0,
+  [FIELD_FOREST] = g80F543C,
+  [FIELD_WASTELAND] = g80F7AE8,
+  [FIELD_MOUNTAIN] = g80FA27C,
+  [FIELD_SOGEN] = g80FC7FC,
+  [FIELD_UMI] = g80FE9D8,
+  [FIELD_YAMI] = g8100C88
+};
+
+static const unsigned short (* CONST_DATA g8E0D97C[])[31] = {
+  [FIELD_ARENA] = g80F4B08,
+  [FIELD_FOREST] = g80F71B4,
+  [FIELD_WASTELAND] = g80F9948,
+  [FIELD_MOUNTAIN] = g80FBEC8,
+  [FIELD_SOGEN] = g80FE0A4,
+  [FIELD_UMI] = g8100354,
+  [FIELD_YAMI] = g81024F0
+};
+
+static const unsigned short * CONST_DATA g8E0D998[] = {
+  [FIELD_ARENA] = g80F4AA8,
+  [FIELD_FOREST] = g80F7154,
+  [FIELD_WASTELAND] = g80F98E8,
+  [FIELD_MOUNTAIN] = g80FBE68,
+  [FIELD_SOGEN] = g80FE044,
+  [FIELD_UMI] = g81002F4,
+  [FIELD_YAMI] = g8102490
+};
+
 
 void sub_803EE44 (void);
 void sub_8044D34 (void);
@@ -44,7 +89,7 @@ void sub_8043EF4 (void) {
       break;
   }
 }
-
+//TODO: BoardMoveCursorUp? MoveBoardCursorUp?
 void MoveCursorUp (void) {
   PlayMusic(SFX_MOVE_CURSOR);
   if (gDuelCursor.currentY == 0)
@@ -71,17 +116,10 @@ void MoveCursorLeft (void) {
   gDuelCursor.currentX--;
 }
 
-
-extern s8 g8E0D954[];
-extern unsigned char g8E0D958[];
-extern unsigned char g8E0D95C[];
-
-
-//TODO: use CursorCorner enum
-u16 GetBoardCursorCornerXCoord (unsigned char corner) {
+unsigned short GetBoardCursorCornerXCoord (enum CursorCorner corner) {
   return sub_80575E0(gDuelCursor.currentX, gDuelCursor.currentY) + g8E0D954[corner];
 }
-unsigned char GetBoardCursorCornerYCoord (unsigned char corner) {
+unsigned char GetBoardCursorCornerYCoord (enum CursorCorner corner) {
   return sub_8057600(gDuelCursor.currentX, gDuelCursor.currentY) + g8E0D958[corner];
 }
 

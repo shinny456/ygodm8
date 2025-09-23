@@ -13,6 +13,7 @@ enum {
   INACTIVE_DUELIST
 };
 
+//TODO: FIELD -> DUEL_FIELD
 enum {
   FIELD_ARENA,
   FIELD_FOREST,
@@ -601,13 +602,14 @@ void IncrementTempStage (struct DuelCard*);
 void DecrementTempStage (struct DuelCard*);
 u32 GetExodiaFlag(u16);
 
+//TODO: DuelBoardCursor?
 struct DuelCursor {
-  u8 currentX; //sourceRow
+  u8 currentX; //sourceRow  (boardXCoord?)
   u8 currentY; //sourceColumn
   u8 destX;    //targetRow?
   u8 destY;    //targetColumn?
   u8 state;    // 0 = default, 1 = ?, 2 = selecting equip target, 4 = ?
-  u8 unk5;
+  u8 unk5; //seems to be unused?
   u8 filler6;
 };
 

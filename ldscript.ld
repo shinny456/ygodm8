@@ -361,6 +361,8 @@ SECTIONS
 
         data/data.o(.rodata);
         src/data/starter_trunk.o(.rodata);
+        
+        . = ALIGN(4); src/trunk.o(.rodata);
         data/data2.o(.rodata);
         src/data/cards_data.o(.rodata);
         data/data3.o(.rodata);
@@ -383,6 +385,11 @@ SECTIONS
         src/duel_textbox.o(.data);
         data/data5.o(.rodata4);
         src/code_80421CC.o(.data);
+        src/duel_util.o(.data);
+        src/code_8043EF4.o(.data);
+        src/tribute.o(.data);
+        
+        . = ALIGN(4); src/overworld.o(.data);
         data/data5.o(.rodata5);
         src/card_passwords.o(.rodata);
         data/data5.o(.rodata3);
@@ -637,7 +644,7 @@ SECTIONS
     g8E0C800 = 0x8E0C800;
     g8E0D954 = 0x8E0D954;
     g8E0D958 = 0x8E0D958;
-    g8E0D95C = 0x8E0D95C;
+
     gNextUpB_MenuOption = 0x8E0D81A;
     gNextDownB_MenuOption = 0x8E0D81D;
     gNextRightB_MenuOption = 0x8E0D820;
@@ -663,7 +670,7 @@ SECTIONS
     g8E0E08C = 0x8E0E08C;
     g8FC4440 = 0x8FC4440;
     g8FC452C = 0x8FC452C;
-    g80907E4 = 0x80907E4;
+
     g8090920 = 0x8090920;
     g8090B94 = 0x8090B94;
     g8090B98 = 0x8090B98;
@@ -839,7 +846,6 @@ SECTIONS
     gText_AttackDefendTributeEffect = 0x8E0D828;
     g8E0D91A = 0x8E0D91A;
     g80F1D30 = 0x80F1D30;
-    g8E0D960 = 0x8E0D960;
     g8E0D97C = 0x8E0D97C;
     g8E0D998 = 0x8E0D998;
     g8E17F70 = 0x8E17F70;
@@ -868,6 +874,33 @@ SECTIONS
     g8AFBD0C = 0x8AFBD0C;
     g8AFBDE4 = 0x8AFBDE4;
     g80D2D00 = 0x80D2D00;
+    g80F31D0 = 0x80F31D0;
+    g80F543C = 0x80F543C;
+    g80F7AE8 = 0x80F7AE8;
+    g80FA27C = 0x80FA27C;
+    g80FC7FC = 0x80FC7FC;
+    g80FE9D8 = 0x80FE9D8;
+    g8100C88 = 0x8100C88;
+    g80F4B08 = 0x80F4B08;
+    g80F71B4 = 0x80F71B4;
+    g80F9948 = 0x80F9948;
+    g80FBEC8 = 0x80FBEC8;
+    g80FE0A4 = 0x80FE0A4;
+    g8100354 = 0x8100354;
+    g81024F0 = 0x81024F0;
+
+    g80F4AA8 = 0x80F4AA8;
+    g80F7154 = 0x80F7154;
+    g80F98E8 = 0x80F98E8;
+    g80FBE68 = 0x80FBE68;
+    g80FE044 = 0x80FE044;
+    g81002F4 = 0x81002F4;
+    g8102490 = 0x8102490;
+
+
+
+
+
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :

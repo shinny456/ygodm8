@@ -1166,13 +1166,7 @@ static CONST_DATA unsigned short gE0D0F0[] = {
 
 extern u16 g80DFDA4[];
 
-//TODO: use this enum for gOamBuffer index too?
-enum CursorCorner {
-  BOARD_CURSOR_TOP_LEFT,
-  BOARD_CURSOR_TOP_RIGHT,
-  BOARD_CURSOR_BOTTOM_LEFT,
-  BOARD_CURSOR_BOTTOM_RIGHT
-};
+
 unsigned GetBoardCursorCornerYCoord (enum CursorCorner);
 u16 GetBoardCursorCornerXCoord (enum CursorCorner);
 

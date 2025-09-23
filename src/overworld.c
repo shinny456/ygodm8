@@ -1,5 +1,98 @@
 #include "global.h"
 
+static CONST_DATA unsigned short g8E0D9C4[][3] = {
+  {0, 0, 4},
+  {0xE, 0, 4},
+  {0x15, 0, 4},
+  {0x18, 0, 4},
+  {0x1C, 0, 4},
+  {0x1F, 0, 4},
+  {0x22, 0, 4},
+  {0x25, 0, 4},
+  {0x28, 0, 4},
+  {0x2B, 0, 4},
+  {0x32, 0, 4},
+  {0x38, 0, 4},
+  {0x3B, 0, 4}
+};
+//which frame to display of overworld sprite when walking
+static CONST_DATA unsigned char gUnk8E0DA12[] = {
+  [0] = 0,
+  [1] = 0,
+  [2] = 0,
+  [3] = 0,
+  [4] = 1,
+  [5] = 1,
+  [6] = 1,
+  [7] = 1,
+  [8] = 1,
+  [9] = 0,
+  [10] = 0,
+  [11] = 0,
+  [12] = 0,
+  [13] = 0,
+  [14] = 2,
+  [15] = 2,
+  [16] = 2,
+  [17] = 2,
+  [18] = 2,
+  [19] = 0
+};
+
+static CONST_DATA unsigned char g8E0DA26[] = {
+  [0] = 0,
+  [1] = 0,
+  [2] = 0,
+  [3] = 0,
+  [4] = 1,
+  [5] = 1,
+  [6] = 1,
+  [7] = 1,
+  [8] = 1,
+  [9] = 1,
+  [10] = 1,
+  [11] = 1,
+  [12] = 0,
+  [13] = 0,
+  [14] = 0,
+  [15] = 0,
+  [16] = 0,
+  [17] = 2,
+  [18] = 2,
+  [19] = 2,
+  [20] = 2,
+  [21] = 2,
+  [22] = 2,
+  [23] = 2,
+  [24] = 2,
+  [25] = 0
+};
+
+static CONST_DATA unsigned char gUnk8E0DA40[] = {
+  [0] = 0,
+  [1] = 0,
+  [2] = 0,
+  [3] = 0,
+  [4] = 2,
+  [5] = 2,
+  [6] = 2,
+  [7] = 2,
+  [8] = 2,
+  [9] = 1,
+  [10] = 1,
+  [11] = 1,
+  [12] = 1,
+  [13] = 1,
+  [14] = 0
+};
+
+static CONST_DATA unsigned char gE0DA4F[] = {0, 1, 2, 3, 12, 13, 14};
+/*static CONST_DATA*/extern unsigned char g8E0DA56[];// = {};
+/*static CONST_DATA*/extern unsigned char g8E0DA9C[];
+extern s8 g8E0DB04[];
+extern s8 g8E0DB0C[];
+
+
 static void sub_804E288 (void);
 static void SetBg3Regs (void);
 static void SetBg2Regs (void);
@@ -26,8 +119,8 @@ void sub_8045284 (u16*, u16, u16);
 void sub_804F508 (void);
 void TryRunning (u8);
 
-extern u8 g8E0DA9C[];
-extern u8 g8E0DA56[];
+
+
 extern u8 g82AD2B6[];
 extern u16 gUnk08103284[];
 extern u8 g82AD20C[];
@@ -35,7 +128,7 @@ unsigned sub_805222C (u8, s16, s16);
 u32 sub_8052194 (u16);
 
 
-
+//enum OverworldAction?
 enum {
   UNK0,
   WALK_UP,
@@ -59,7 +152,7 @@ extern u16 gPressedButtons;
 extern u16 gRepeatedOrNewButtons;
 extern u8 g82A906C[];
 extern u8 g82A8E4C[];
-extern u8 gUnk8E0DA40[];
+
 extern u16 g81032D2[];
 extern u8 gE0DA4F[];
 extern struct OamData gOamBuffer[];
@@ -861,7 +954,7 @@ static void TryInitiatingWorldMap (void) {
 void OverworldMain (void) {
   if (!CheckFlag(0x2b)) {
     NamingScreenMain();
-    StartCutscene(8); // INTRO_CUTSCENE
+    StartCutscene(8); // CUTSCENE_INTRO
     SetFlag(0x2b);
     SaveGame();
   }
@@ -2142,8 +2235,7 @@ void sub_804F2F0 (void) {
   }
 }
 
-extern s8 g8E0DB04[];
-extern s8 g8E0DB0C[];
+
 void sub_8051C14(u8, u8, s16*);
 
 static inline void sub_804F678_inline (u8 objId, u8 arg1) {

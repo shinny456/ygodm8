@@ -1,6 +1,74 @@
 #include "global.h"
 
+static const unsigned char g80907E4[] = _(
+  "{ENG}"
+    "Details   "
+    "Move to Deck        "
+    "Return to Trunk     "
+  "{FRE}"
+    "Détails   "
+    "Mettre dans le Deck "
+    "Remettre dans coffre"
+  "{GER}"
+    "Details   "
+    "In das Deck         "
+    "Zurück zu Stamm     "
+  "{ITA}"
+    "Dettagli  "
+    "Vai a Deck          "
+    "Torna a Tronco      "
+  "{SPA}"
+    "Detalles  "
+    "Mover a la Deck     "
+    "Devolver al tronco  "
+  "{JAP}"
+    "ディテール     "
+    "デッキへ送る　       "
+    "かばんへもどす"
+);
 
+extern const unsigned char g8090920[]; /*= _(
+  "{ENG}"
+    "Reorder       "
+    "No.   Name      "
+    "ATK   DEF       "
+    "Type  Summon    "
+    "Qty.    Cost    "
+    "Stars     Exit    Effect    "
+  "{FRE}"
+    "Réorganiser   "
+    "N°    Nom       "
+    "ATK   DEF       "
+    "Type  Invoquer  "
+    "Qté     Coût    "
+    "Étoiles   Quitter Effect    "
+  "{GER}"
+    "Nachbestellen "
+    "Nr.   Name      "
+    "AGR   VTG       "
+    "Typ   Rufen     "
+    "Menge   Kosten  "
+    "Sterne    Beenden Effect    "
+  "{ITA}"
+    "Riordina      "
+    "N°    Nome      "
+    "ATT   DIF       "
+    "Tipo  Evoca     "
+    "Quant.  Costo   "
+    "Stelle    Esci    Effect    "
+  "{SPA}"
+    "Reorganizar   "
+    "NúmeroNombre    "
+    "ATAQUEDEFENDER  "
+    "Tipo  Llamar    "
+    "CantidadCoste   "
+    "Estrellas Salir   Effect    "
+  "{JAP}"
+);*/
+
+
+extern unsigned char g8090B94[];
+extern unsigned char g8090B98[];
 
 static void PressUpInTrunkMenu (void);
 static void PressRUpInTrunkMenu (void);
@@ -897,7 +965,7 @@ void sub_8009228 (void)
 
 extern unsigned short gUnk_808C240[][30];
 extern unsigned char g8DF811C[];
-extern unsigned char g80907E4[];
+
 
 unsigned short sub_08007FEC(unsigned char, unsigned char, unsigned short);
 void sub_800800C(unsigned char, unsigned char, unsigned short, unsigned short);
@@ -922,9 +990,7 @@ void sub_8009364 (void) {
 
 
 extern unsigned short gUnk_808C6F0[][30];
-extern unsigned char g8090920[];
-extern unsigned char g8090B94[];
-extern unsigned char g8090B98[];
+
 
 void sub_8009448(void)
 {

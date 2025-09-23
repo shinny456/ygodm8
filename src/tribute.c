@@ -2,7 +2,7 @@
 
 unsigned char gNumTributes;
 
-/*static*/ CONST_DATA signed char sNumRequiredTributes[] = {
+static CONST_DATA signed char sNumRequiredTributes[] = {
   [0] = 0,
   [1] = 0,
   [2] = 0,

@@ -456,6 +456,11 @@ unsigned GetNumCardsUnlockedInRow (unsigned char turnRow) {
 
 // split?--------------------------
 
+static CONST_DATA unsigned char sFiller_8E0D94B[] = {0};
+static CONST_DATA unsigned char s8E0D94C[] = _("＞");
+static CONST_DATA unsigned char sFiller_8E0D94F[] = {0};
+static CONST_DATA unsigned char s8E0D950[] = _("　");
+
 void sub_8041B38 (void);
 void sub_8041D54 (void);
 

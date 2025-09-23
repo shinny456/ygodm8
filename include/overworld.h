@@ -145,7 +145,7 @@ struct MapData
 extern struct Overworld gOverworld;
 extern u16* gMapCollisions[]; //gMapCollisionData
 extern struct MapData** gMapData[]; //0xE19274
-extern u8 gUnk8E0DA12[]; //frames
+
 extern u8* gUnk8E11790[];
 extern u16 gUnk08103264[];
 extern u16 g8103284[];
@@ -200,7 +200,7 @@ void sub_80512E0(struct ScriptCtx *script, u8);
 
 void PlayOverworldMusic (void);
 
-extern u16 g8E0D9C4[][3]; //change to struct
+
 void sub_804F750(u8);
 
 void sub_80523EC(u16, u16, u16);
