@@ -1112,10 +1112,7 @@ u16 RandRangeU16 (u16, u16);
 u16 sub_801FFE0 (void);
 void AddCardQtyToShop2 (u16, u8);
 u16 sub_8020050 (void);
-void sub_80201AC (u8);
-void sub_802018C (u8);
-void sub_80201CC (void);
-void sub_80201E4 (void);
+
 
 
 
@@ -1316,68 +1313,3 @@ u16 sub_8020050 (void) {
   return cardDrops->card;
 }
 
-
-
-// nonsensical 2d array?
-// these funcs seem to be unused.
-// UB: these funcs access g80BE630 out of bounds.
-extern const u8 g80BE630[];
-extern const u8 g80BE631[];
-extern const u8 g80BE632[];
-extern struct {u16 unk0, unk2;} g2021C90[][1];
-
-
-u8 sub_8020084 (void) {
-  u32 i;
-  u8 r3 = 0;
-  for (i = 0; g80BE630[i] != 0xFF; i++) {
-    if (g2021C90[g80BE630[i]][1].unk0 < 5)
-      return r3;
-  }
-  r3++;
-  for (i = 0; g80BE631[i] != 0xFF; i++) {
-    if (g2021C90[g80BE631[i]][1].unk0 < 5)
-      return r3;
-  }
-  r3++;
-  for (i = 0; g80BE632[i] != 0xFF; i++) {
-   if (g2021C90[g80BE632[i]][1].unk0 < 5)
-      return r3;
-  }
-  r3++;
-  return r3;
-}
-
-void sub_802012C (u8 arg0, u8 unused, u8 arg2) {
-  if (arg0 > 24)
-    return;
-  if (arg2 == 1)
-    sub_802018C(arg0);
-  else
-    sub_80201AC(arg0);
-}
-
-void sub_8020150 (u8 arg0) {
-  if (arg0 == 1)
-    sub_80201CC();
-  else
-    sub_80201E4();
-}
-
-void sub_8020168 (void) {
-  u32 i;
-  g2021C90[0][0].unk0 = 0;
-  g2021C90[0][0].unk2 = 0;
-  for (i = 0; i < 25; i++) {
-    g2021C90[i + 1][0].unk0 = 0;
-    g2021C90[i + 1][0].unk2 = 0;
-  }
-}
-
-void sub_8020188 (void) {
-}
-
-void sub_802018C (unsigned char arg0) {
-  if (g2021C90[1][arg0].unk0 <= 999)
-    g2021C90[1][arg0].unk0++;
-}

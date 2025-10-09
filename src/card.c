@@ -42,8 +42,7 @@ extern u8 *gTypeIconTiles[][NUM_LANGUAGES];
 extern u8 gStarTile[];
 extern u8 gSwordTile[];
 extern u8 gShieldTile[];
-extern u8 gUnk_80AEB00[];
-extern u8 gUnk_80AEB30[];
+
 extern unsigned short gUnk_808E820[][30];
 extern u8 gUnk8DFB8A8[]; //french summon/cost tiles
 extern u8 gUnk8DFBAE8[]; //german type/summon/cost tiles
@@ -985,6 +984,23 @@ void sub_800BDA0(void)
 
 // split? duel_trunk_menu.c
 
+static const unsigned char gUnk_80AEB00[] = __(
+  "{ENG}"
+    "Cost "
+  "{FRE}"
+    "Coût "
+  "{GER}"
+    "Kost."
+  "{ITA}"
+    "Costo"
+  "{SPA}"
+    "Coste"
+  "{JAP}"
+    "コスト"
+);
+//static const unsigned char sFiller_80AEB2D[3] = {0};
+static const unsigned char gUnk_80AEB30[] = __("0123456789");
+
 static void sub_800BF28 (void);
 static unsigned SelectionMenu (void);
 static void sub_800C0D8 (void);
@@ -1004,12 +1020,12 @@ static void sub_800C608 (void);
 static void sub_800C7A0 (void);
 static void sub_800C7FC (void);
 
-extern u32 gUnk_808918C[];
-extern u8 gUnk_808C1C0[];
+extern u32 gTrunkMenuTileset[];
+extern u8 gTrunkMenuBgPalette[];
 extern u8 g8DFA6B4[];
 extern u8 g8DFAB54[];
 extern u8 g8DFAFF4[];
-extern unsigned short gUnk_808B860[][30];
+extern unsigned short gTrunkMenuBgTilemap[][30];
 extern u8 g80AE544[];
 extern u8 g8DFF4AC[]; //NoAntePrompt press up cursor state
 extern u8 g8DFF4AE[]; //NoAntePrompt press down cursor state
@@ -1674,11 +1690,12 @@ static void sub_800C7FC (void)
     REG_BLDCNT |= 8; //todo
 }
 
+//same function as sub_8009228
 void sub_800C834 (void)
 {
     u8 i;
 
-    LZ77UnCompWram(gUnk_808918C, gBgVram.cbb0);
+    LZ77UnCompWram(gTrunkMenuTileset, gBgVram.cbb0);
 
     switch (gLanguage)
     {
@@ -1709,9 +1726,9 @@ void sub_800C834 (void)
     }
 
     for (i = 0; i < 20; i++)
-        CpuCopy32(gUnk_808B860[i], &((struct Sbb*)&gBgVram)->sbb7[i], 60);
+        CpuCopy32(gTrunkMenuBgTilemap[i], &((struct Sbb*)&gBgVram)->sbb7[i], 60);
 
-    CpuCopy32(gUnk_808C1C0, gPaletteBuffer, 128);
+    CpuCopy32(gTrunkMenuBgPalette, gPaletteBuffer, 128);
     CpuFill16(0, gBgVram.sbb18, 32);
 }
 
@@ -1817,8 +1834,8 @@ void sub_800CCAC(void)
 /*
 void sub_800CD88 (void) {
   unsigned char i, r4, r7;
-  CpuCopy32(gUnk_808ECD0, gPaletteBuffer + 0xA0, 32);
-  CpuCopy32(gUnk_808ECF0, gPaletteBuffer + 0x80, 32);
+  CpuCopy32(gUnk_808ECD0, gPaletteBuffer + 0x50, 32);
+  CpuCopy32(gUnk_808ECF0, gPaletteBuffer + 0x40, 32);
   CpuCopy32(gStarTile, gVr.a + 0xC020, 32);
   CpuCopy32(gSwordTile, gVr.a + 0xC040, 32);
   CpuCopy32(gShieldTile, gVr.a + 0xC060, 32);
@@ -1838,44 +1855,413 @@ void sub_800CD88 (void) {
   }
   CpuFill16(0, gVr.b + 0x7C00, 0x800);
   for (i = 0; i < 20; i++)
-    CpuCopy32(gUnk_808E820[i], gVr.b + 0x7C00, 60);
+    CpuCopy32(gUnk_808E820[i], gVr.b + 0x7C00 + i * 32, 60);
   //r8 = gVr.b
   for (r7 = 0; r7 < 5; r7++) {
-    //sp4 = r7 * 4 + 1
+    //sp4 = r7 + 1 (r7++)
     //ip = r7 * 3
     //sb = r7 * 40
     //sl = r7 * 40 + 0x50F8
     for (i = 0; i < 7; i++) {
       unsigned char r6 = 0;
+      int r3;
       if (r7 > 1) {
         r6 = 2;
         if (r7 == 2)
           r6 = 1;
       }
       //r3 = i * 2
-      gVr.b[(r6 + 3 + r7 * 3) * 32 + 0x7C02 + i * 2] = i * 4 + (r7 * 40 + 0x50F8);
-      gVr.b[(r6 + 3 + r7 * 3) * 32 + 0x7C03 + i * 2] = i * 4 + (r7 * 40 + 0x50F8) +1;
-      gVr.b[(r6 + 4 + r7 * 3) * 32 + 0x7C02 + i * 2] = i * 4 + (r7 * 40 + 0x50F8) +2;
-      gVr.b[(r6 + 4 + r7 * 3) * 32 + 0x7C03 + i * 2] = i * 4 + (r7 * 40 + 0x50F8) +3;
+      //r2 = (r6 + 3 + ip) * 32
+      //sp8 = r2 + 0x7C02 + r3
+      gVr.b[0x7C02 + (r6 + 3 + r7 * 3) * 32 + i * 2] = i * 4 + 0x50F8 + r7 * 40;
+      gVr.b[0x7C03 + (r6 + 3 + r7 * 3) * 32 + i * 2] = i * 4 + 0x50F8 + r7 * 40 +1;
+      gVr.b[0x7C02 + (r6 + 4 + r7 * 3) * 32 + i * 2] = i * 4 + 0x50F8 + r7 * 40 +2;
+      gVr.b[0x7C03 + (r6 + 4 + r7 * 3) * 32 + i * 2] = i * 4 + 0x50F8 + r7 * 40 +3;
     }
   }
+}*/
+
+NAKED
+void sub_800CD88 (void) {
+  asm_unified("  push {r4, r5, r6, r7, lr}\n\
+	mov r7, sl\n\
+	mov r6, sb\n\
+	mov r5, r8\n\
+	push {r5, r6, r7}\n\
+	sub sp, #0xc\n\
+	ldr r0, _0800CE50\n\
+	ldr r4, _0800CE54\n\
+	ldr r5, _0800CE58\n\
+	adds r1, r4, #0\n\
+	adds r2, r5, #0\n\
+	bl CpuSet\n\
+	ldr r0, _0800CE5C\n\
+	subs r4, #0x20\n\
+	adds r1, r4, #0\n\
+	adds r2, r5, #0\n\
+	bl CpuSet\n\
+	ldr r0, _0800CE60\n\
+	ldr r4, _0800CE64\n\
+	adds r1, r4, #0\n\
+	adds r2, r5, #0\n\
+	bl CpuSet\n\
+	ldr r0, _0800CE68\n\
+	adds r1, r4, #0\n\
+	adds r1, #0x20\n\
+	adds r2, r5, #0\n\
+	bl CpuSet\n\
+	ldr r0, _0800CE6C\n\
+	adds r1, r4, #0\n\
+	adds r1, #0x40\n\
+	adds r2, r5, #0\n\
+	bl CpuSet\n\
+	adds r0, r4, #0\n\
+	adds r0, #0x60\n\
+	ldr r1, _0800CE70\n\
+	ldr r2, _0800CE74\n\
+	bl CopyStringTilesToVRAMBuffer\n\
+	movs r1, #0x80\n\
+	lsls r1, r1, #1\n\
+	adds r0, r4, r1\n\
+	ldr r1, _0800CE78\n\
+	ldr r2, _0800CE7C\n\
+	bl CopyStringTilesToVRAMBuffer\n\
+	movs r5, #0\n\
+	ldr r4, _0800CE80\n\
+_0800CDF0:\n\
+	ldr r6, _0800CE84\n\
+	lsls r1, r5, #2\n\
+	adds r0, r1, r5\n\
+	ldrb r2, [r6]\n\
+	adds r0, r0, r2\n\
+	lsls r0, r0, #2\n\
+	adds r0, r0, r4\n\
+	ldr r0, [r0]\n\
+	adds r1, #0x13\n\
+	lsls r1, r1, #5\n\
+	ldr r2, _0800CE88\n\
+	adds r1, r1, r2\n\
+	ldr r2, _0800CE8C\n\
+	bl CpuSet\n\
+	adds r0, r5, #1\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r5, r0, #0x18\n\
+	cmp r5, #0xb\n\
+	bls _0800CDF0\n\
+	movs r4, #0\n\
+	movs r5, #0\n\
+	ldr r7, _0800CE90\n\
+_0800CE1E:\n\
+	adds r0, r5, #0\n\
+	subs r0, #0x15\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r0, r0, #0x18\n\
+	cmp r0, #2\n\
+	bhi _0800CE98\n\
+	lsls r0, r5, #2\n\
+	adds r0, r0, r5\n\
+	ldrb r1, [r6]\n\
+	adds r0, r0, r1\n\
+	lsls r0, r0, #2\n\
+	adds r0, r0, r7\n\
+	ldr r0, [r0]\n\
+	adds r1, r4, #0\n\
+	adds r1, #0x43\n\
+	lsls r1, r1, #5\n\
+	ldr r2, _0800CE88\n\
+	adds r1, r1, r2\n\
+	ldr r2, _0800CE94\n\
+	bl CpuSet\n\
+	adds r0, r4, #0\n\
+	adds r0, #8\n\
+	b _0800CEB8\n\
+	.align 2, 0\n\
+_0800CE50: .4byte gUnk_808ECD0\n\
+_0800CE54: .4byte 0x020000A0\n\
+_0800CE58: .4byte 0x04000008\n\
+_0800CE5C: .4byte gUnk_808ECF0\n\
+_0800CE60: .4byte gStarTile\n\
+_0800CE64: .4byte 0x0200C420\n\
+_0800CE68: .4byte gSwordTile\n\
+_0800CE6C: .4byte gShieldTile\n\
+_0800CE70: .4byte gUnk_80AEB00\n\
+_0800CE74: .4byte 0x00000801\n\
+_0800CE78: .4byte gUnk_80AEB30\n\
+_0800CE7C: .4byte 0x00001801\n\
+_0800CE80: .4byte gAttributeIconTiles\n\
+_0800CE84: .4byte gLanguage\n\
+_0800CE88: .4byte 0x0200C400\n\
+_0800CE8C: .4byte 0x04000020\n\
+_0800CE90: .4byte gTypeIconTiles\n\
+_0800CE94: .4byte 0x04000040\n\
+_0800CE98:\n\
+	lsls r0, r5, #2\n\
+	adds r0, r0, r5\n\
+	ldrb r2, [r6]\n\
+	adds r0, r0, r2\n\
+	lsls r0, r0, #2\n\
+	adds r0, r0, r7\n\
+	ldr r0, [r0]\n\
+	adds r1, r4, #0\n\
+	adds r1, #0x43\n\
+	lsls r1, r1, #5\n\
+	ldr r2, _0800CFA4\n\
+	adds r1, r1, r2\n\
+	ldr r2, _0800CFA8\n\
+	bl CpuSet\n\
+	adds r0, r4, #4\n\
+_0800CEB8:\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r4, r0, #0x18\n\
+	adds r0, r5, #1\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r5, r0, #0x18\n\
+	cmp r5, #0x17\n\
+	bls _0800CE1E\n\
+	mov r1, sp\n\
+	movs r0, #0\n\
+	strh r0, [r1]\n\
+	ldr r1, _0800CFAC\n\
+	ldr r2, _0800CFB0\n\
+	mov r0, sp\n\
+	bl CpuSet\n\
+	movs r5, #0\n\
+_0800CED8:\n\
+	lsls r0, r5, #4\n\
+	subs r0, r0, r5\n\
+	lsls r0, r0, #2\n\
+	ldr r1, _0800CFB4\n\
+	adds r0, r0, r1\n\
+	lsls r1, r5, #6\n\
+	ldr r4, _0800CFAC\n\
+	adds r1, r1, r4\n\
+	ldr r2, _0800CFB8\n\
+	bl CpuSet\n\
+	adds r0, r5, #1\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r5, r0, #0x18\n\
+	cmp r5, #0x13\n\
+	bls _0800CED8\n\
+	movs r7, #0\n\
+	ldr r0, _0800CFBC\n\
+	adds r0, r0, r4\n\
+	mov r8, r0\n\
+_0800CF00:\n\
+	movs r5, #0\n\
+	lsls r1, r7, #1\n\
+	lsls r0, r7, #2\n\
+	adds r2, r7, #1\n\
+	str r2, [sp, #4]\n\
+	adds r1, r1, r7\n\
+	mov ip, r1\n\
+	adds r0, r0, r7\n\
+	lsls r0, r0, #3\n\
+	mov sb, r0\n\
+	ldr r0, _0800CFC0\n\
+	add r0, sb\n\
+	mov sl, r0\n\
+_0800CF1A:\n\
+	movs r6, #0\n\
+	cmp r7, #1\n\
+	bls _0800CF28\n\
+	movs r6, #2\n\
+	cmp r7, #2\n\
+	bne _0800CF28\n\
+	movs r6, #1\n\
+_0800CF28:\n\
+	lsls r3, r5, #1\n\
+	adds r2, r6, #3\n\
+	add r2, ip\n\
+	lsls r2, r2, #5\n\
+	ldr r0, _0800CFC4\n\
+	adds r1, r2, r0\n\
+	adds r1, r3, r1\n\
+	lsls r1, r1, #1\n\
+	add r1, r8\n\
+	str r1, [sp, #8]\n\
+	lsls r4, r5, #2\n\
+	ldr r1, _0800CFC0\n\
+	adds r0, r4, r1\n\
+	add r0, sb\n\
+	ldr r1, [sp, #8]\n\
+	strh r0, [r1]\n\
+	ldr r0, _0800CFC8\n\
+	adds r2, r2, r0\n\
+	adds r2, r3, r2\n\
+	lsls r2, r2, #1\n\
+	add r2, r8\n\
+	add r4, sl\n\
+	adds r0, r4, #1\n\
+	strh r0, [r2]\n\
+	adds r2, r6, #4\n\
+	add r2, ip\n\
+	lsls r2, r2, #5\n\
+	ldr r1, _0800CFC4\n\
+	adds r0, r2, r1\n\
+	adds r0, r3, r0\n\
+	lsls r0, r0, #1\n\
+	add r0, r8\n\
+	adds r1, r4, #2\n\
+	strh r1, [r0]\n\
+	ldr r0, _0800CFC8\n\
+	adds r2, r2, r0\n\
+	adds r3, r3, r2\n\
+	lsls r3, r3, #1\n\
+	add r3, r8\n\
+	adds r4, #3\n\
+	strh r4, [r3]\n\
+	adds r0, r5, #1\n\
+	lsls r0, r0, #0x18\n\
+	lsrs r5, r0, #0x18\n\
+	cmp r5, #6\n\
+	bls _0800CF1A\n\
+	ldr r1, [sp, #4]\n\
+	lsls r0, r1, #0x18\n\
+	lsrs r7, r0, #0x18\n\
+	cmp r7, #4\n\
+	bls _0800CF00\n\
+	ldr r0, _0800CFCC\n\
+	bl CopyMiniCardPalette\n\
+	add sp, #0xc\n\
+	pop {r3, r4, r5}\n\
+	mov r8, r3\n\
+	mov sb, r4\n\
+	mov sl, r5\n\
+	pop {r4, r5, r6, r7}\n\
+	pop {r0}\n\
+	bx r0\n\
+	.align 2, 0\n\
+_0800CFA4: .4byte 0x0200C400\n\
+_0800CFA8: .4byte 0x04000020\n\
+_0800CFAC: .4byte 0x0200FC00\n\
+_0800CFB0: .4byte 0x01000400\n\
+_0800CFB4: .4byte gUnk_808E820\n\
+_0800CFB8: .4byte 0x0400000F\n\
+_0800CFBC: .4byte 0xFFFF0800\n\
+_0800CFC0: .4byte 0x000050F8\n\
+_0800CFC4: .4byte 0x00007C02\n\
+_0800CFC8: .4byte 0x00007C03\n\
+_0800CFCC: .4byte 0x02000200");
 }
 
+unsigned short sub_800DA48 (unsigned short);
+unsigned char GetTrunkCardQuantity (unsigned short);
+unsigned char GetDeckCardQty (unsigned short);
+unsigned short GetPlayerDeckCost (void);
+unsigned char GetPlayerDeckSize (void);
+void sub_800907C (void);
+void sub_800A544 (void);
+extern struct OamData gOamBuffer[];
 
+/*
+// only need to fix a regswap to match
 void sub_800CFD0 (void) {
-  unsigned char i;
-  CpuFill32(0, gVr.a + 0xE300 / 2, 0x1900);
+  unsigned char sp[41]; //(20 actual characters * 2 bytes + null terminator)
+  unsigned char i; //r7
+  unsigned char r3;
+  struct OamData* oam;
+  unsigned char r6;
+  unsigned r6_2;
+  const unsigned char* cardName;
+  unsigned short sp30;
+  unsigned char r4_2;
+  unsigned char r4;
+
+  CpuFill32(0, gVr.b + 0xDF00 / 2, 0x1900);
   for (i = 0; i < 5; i++) {
-    unsigned r4;
-    unsigned short sp30 = sub_800DA48(GetNthCardOnScreen(i));
+    sp30 = sub_800DA48(GetNthCardOnScreen(i));
     SetCardInfo(GetNthCardOnScreen(i));
-    r4 = 0;
+    r4 = 0; //above current (selected) card
     if (i > 1) {
-      r4 = 2;
+      r4 = 2; //below current (selected) card
       if (i == 2)
-        r4 = 1;
+        r4 = 1; //selected card
     }
+    ConvertU16ToDigitBuffer(gCardInfo.id, 1);
+    //r8 = i * 2
+    //sb = r4 + 2
+    //sl = i * 4
+    //sp38 = r4 + 3
+    //sp3C = r4 + 4
+    //sp44 = i / 4
+    //sp40 = i * 8
+    //sp48 = i * 32
+    //sp34 = i + 1 (i++)
+    //r6 = gVr
+
+    //r2 = (i * 3 + r4 + 2) * 32;
+    for (r3 = 0; r3 < 4; r3++) //_0800D062
+      gVr.b[0x7C01 + r3 + (i * 96 + (r4 + 2) * 32)] = gDigitBufferU16[r3] + 9 | 0x5000;
+    
+    //****reg swap here*******
+    cardName = gCardInfo.name;
+    cardName = GetCurrentLanguageString(cardName);
+    
+    r6 = 0, r3 = 0, r4_2 = 0;
+    while (cardName[r3] != 0 && cardName[r3] != 0x24) {
+      if (cardName[r3] <= 127) {
+        if (r6 < 20) {
+          sp[r4_2] = cardName[r3];
+          r4_2++;
+        }
+        r3++;
+      }
+      else {
+        if (r6 < 20) {
+          sp[r4_2] = cardName[r3];
+          sp[r4_2 + 1] = cardName[r3 + 1];
+          r4_2 += 2;
+        }
+        r3 += 2;
+      }
+      r6++;
+    }
+    sp[r4_2] = 0;
+    r6_2 = (i * 0x280 + 0xF80);
+    CopyStringTilesToVRAMBuffer(gVr.b + 0x6000 + r6_2, sp, 0x901);
+
+    //r2 = (i * 3 + r4 + 2) * 32;
+    for (r3 = 0; r3 < 12; r3++) {
+      if (r3 < gCardInfo.level)
+        gVr.b[0x7C10 - r3 + ((r4 + 2) * 32 + i * 96)] = 0x5001;
+      else
+        gVr.b[0x7C10 - r3 + ((r4 + 2) * 32 + i * 96)] = 0x5000;
+    }
+    ConvertU16ToDigitBuffer(GetTrunkCardQuantity(gCardInfo.id), 1);
+
+    //r2 = (i * 3 + r4 + 3) * 32;
+    for (r3 = 0; r3 < 3; r3++)
+      gVr.b[0x7C17 + r3 + ((r4 + 3) * 32 + i * 96)] = gDigitBufferU16[r3] + 9 | sp30;
+    ConvertU16ToDigitBuffer(GetDeckCardQty(gCardInfo.id), 0);
+
+    //r2 = (i * 3 + r4 + 4) * 32;
+    for (r3 = 0; r3 < 3; r3++)
+      gVr.b[0x7C17 + r3 + ((r4 + 4) * 32 + i * 96)] = gDigitBufferU16[r3 + 2] + 9 | 0x5000;
+    sub_80573D0(gVr.b + ((i % 4 * 256) | (i / 4 * 4096) + 0x10400) / 2, gCardInfo.id);
+    oam = gOamBuffer + i;
+    oam->shape = 0; //TODO: use define
+    oam->size = 2; //^
+    if (i == 2)
+      oam->objMode = 1; //^
+    else
+      oam->objMode = 0; //^
+    oam->bpp = 1; //^
+    oam->priority = 2;
+    oam->y = i * 32 + 12;
+    oam->x = 210;
+    oam->tileNum = i % 4 * 8 + 32 + i / 4 * 128;
   }
   //_0800D2C8
+  ConvertU16ToDigitBuffer(GetPlayerDeckCost(), 0);
+  for (r3 = 0; r3 < 5; r3++)
+    gVr.b[0x5C2A + r3] = gDigitBufferU16[r3] + 0x5209;
+  ConvertU16ToDigitBuffer(GetPlayerDeckSize(), 0);
+  for (r3 = 0; r3 < 2; r3++)
+    gVr.b[0x5C36 + r3] = gDigitBufferU16[r3 + 3] + 0x5209;
+  sub_800907C();
+  sub_800A544();
 }
+/*
+r8 = (i * 3 + r1 + 3) * 32
+sb = 0x00007C10
 */

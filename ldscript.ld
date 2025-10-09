@@ -252,6 +252,9 @@ SECTIONS
         src/card.o(.text); /*second part is duel_trunk_menu?*/
 
         asm/code1.o(.text);
+        src/duel_trunk_menu.o(.text);
+        asm/code1.o(.text2);
+        
         src/digit.o(.text);
         src/compression.o(.text);
         src/code2.o(.text);
@@ -261,7 +264,7 @@ SECTIONS
         src/deck_menu.o(.text);
         asm/code2.o(.text);
         src/code_801EF30.o(.text);
-        asm/code2.o(.text2);
+        src/code_22.o(.text);
 
         src/main.o(.text);
         src/exodia.o(.text);
@@ -362,12 +365,15 @@ SECTIONS
         data/data.o(.rodata);
         src/data/starter_trunk.o(.rodata);
         
-        . = ALIGN(4); src/trunk.o(.rodata);
+        . = ALIGN(4); src/trunk.o(.rodata); /*TODO: remove align*/
         data/data2.o(.rodata);
         src/data/cards_data.o(.rodata);
         data/data3.o(.rodata);
-        src/compression.o(.rodata);
+        src/card.o(.rodata); /*TODO: move to duel_trunk_menu.c*/
         data/data3.o(.rodata2);
+        src/compression.o(.rodata);
+        src/code2.o(.rodata);
+        data/data3.o(.rodata3);
         src/data/decks.o(.rodata);
         data/data4.o(.rodata);
         src/ante.o(.rodata);
@@ -671,7 +677,7 @@ SECTIONS
     g8FC4440 = 0x8FC4440;
     g8FC452C = 0x8FC452C;
 
-    g8090920 = 0x8090920;
+
     g8090B94 = 0x8090B94;
     g8090B98 = 0x8090B98;
     gCardPasswordDigitSprites = 0x8E0119C;
@@ -896,12 +902,30 @@ SECTIONS
     g80FE044 = 0x80FE044;
     g81002F4 = 0x81002F4;
     g8102490 = 0x8102490;
-
-
-
-
-
-
+    g8E00DDA = 0x8E00DDA;
+    g80BE634 = 0x80BE634;
+    
+    gE00DF4 = 0x8E00DF4;
+    gE00DF8 = 0x8E00DF8;
+    gE00DFC = 0x8E00DFC;
+    gE00E00 = 0x8E00E00;
+    gE00E04 = 0x8E00E04;
+    gE00E08 = 0x8E00E08;
+    gE00E0C = 0x8E00E0C;
+    gE00E10 = 0x8E00E10;
+    gE00E14 = 0x8E00E14;
+    gE00E18 = 0x8E00E18;
+    gE00E1C = 0x8E00E1C;
+    gE00E20 = 0x8E00E20;
+    gE00E24 = 0x8E00E24;
+    gE00E28 = 0x8E00E28;
+    gE00E2C = 0x8E00E2C;
+    g80AE6D0 = 0x80AE6D0;
+    g8DFF4B4 = 0x8DFF4B4;
+    g8DFF4BF = 0x8DFF4BF;
+    g8DFF4CA = 0x8DFF4CA;
+    g8DFF4D5 = 0x8DFF4D5;
+    
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :
     {

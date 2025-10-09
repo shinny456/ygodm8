@@ -180,18 +180,17 @@ void CFile::TryConvertString()
 
     SkipWhitespace();
 
-    std::printf("{ ");
-
     while (1)
     {
         SkipWhitespace();
 
         if (m_buffer[m_pos] == '"')
         {
+            std::printf("\"");            
             unsigned char s[kMaxStringLength];
             int length;
             StringParser stringParser(m_buffer, m_size);
-
+            
             try
             {
                 m_pos += stringParser.ParseString(m_pos, s, length);
@@ -202,7 +201,8 @@ void CFile::TryConvertString()
             }
 
             for (int i = 0; i < length; i++)
-                printf("0x%02X, ", s[i]);
+                printf("\\x%02X", s[i]);
+            std::printf("\"");
         }
         else if (m_buffer[m_pos] == ')')
         {
@@ -220,10 +220,8 @@ void CFile::TryConvertString()
         }
     }
 
-    if (noTerminator)
-        std::printf("}");
-    else
-        std::printf("0}");
+    if (!noTerminator)
+        std::printf("\"\\0\"");
 }
 
 bool CFile::CheckIdentifier(const std::string& ident)

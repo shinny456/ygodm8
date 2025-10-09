@@ -536,7 +536,7 @@ int GetNumCardsInRow (u8);
 u32 GetTotalAtkAndDefInRow (u8);
 
 
-extern u8 gCurrentTurnOpponent[];
+
 u32 GetNumCardsUnlockedInRow (u8);
 u32 sub_80438A0 (u8);
 u32 GetNumCardsDefendingInRow (u8);

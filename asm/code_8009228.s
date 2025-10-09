@@ -1750,12 +1750,12 @@ sub_800A658: @ 0x0800A658
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800A6A4: .4byte 0x08091C68
+_0800A6A4: .4byte 0x08091C68 @scroll-thumb palette
 _0800A6A8: .4byte 0x02000362
-_0800A6AC: .4byte 0x08090C68
+_0800A6AC: .4byte 0x08090C68 @scroll-bar tiles? (there seem to be some unused scrollbar (specifically scrolltrack) tiles)
 _0800A6B0: .4byte 0x02014800
 _0800A6B4: .4byte 0x04000400
-_0800A6B8: .4byte 0x08091D28
+_0800A6B8: .4byte 0x08091D28 @sub menu cursor palette
 _0800A6BC: .4byte 0x08091CA8
 _0800A6C0: .4byte 0xFFFFE000
 _0800A6C4: .4byte 0xFFFFE400

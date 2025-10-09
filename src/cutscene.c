@@ -1588,7 +1588,7 @@ static void sub_8001CE4 (void) {
 }
 
 static void sub_8001D58 (void) {
-  PlayMusic(MUSIC_NONE);
+  PlayMusic(SOUND_NONE);
   sub_8002E98();
   g8DF7594->unk0 = 0;
   while (1) {

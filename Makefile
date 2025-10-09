@@ -85,6 +85,7 @@ $(DATA_ASM_BUILDDIR)/%.o: $(DATA_ASM_SUBDIR)/%.s
 clean:
 	rm -f $(ROM) $(ELF) $(MAP)
 	rm -r $(BUILD_DIR)/
+	rm -f tools/preproc/preproc
 
 compare: all
 	sha1sum -c $(BUILD_NAME).sha1

@@ -605,6 +605,7 @@ void sub_801DB30 (void) {
   gUnk2021AB4.lastValidIndex = gDeckMenu.cardCount - 1;
 }
 
+//TODO: GetPlayerDeckCount?
 unsigned char GetPlayerDeckSize (void) {
   return gDeckMenu.cardCount;
 }
@@ -833,17 +834,17 @@ void sub_801DF40(void)
     CopyStringTilesToVRAMBuffer(&gBgVram.cbb1[32], g80B92D8, 0x900);
 }
 
-extern unsigned gUnk_808918C[];
+extern unsigned gTrunkMenuTileset[];
 extern unsigned char g8DFAA14[];
 extern unsigned char g8DFAEB4[];
 extern unsigned char g8DFB354[];
 extern unsigned char g8DFB494[];
-extern unsigned short gUnk_808C1C0[];
+extern unsigned short gTrunkMenuBgPalette[];
 extern unsigned short gUnk_808BD10[][30];
 /*
 void sub_801E27C (void) {
   unsigned char i;
-  LZ77UnCompWram(gUnk_808918C, gBgVram.cbb0);
+  LZ77UnCompWram(gTrunkMenuTileset, gBgVram.cbb0);
   switch (gLanguage) {
     case FRENCH:
       CpuFastSet(g8DFAA14, &gBgVram.cbb0[320], 0x50);
@@ -858,7 +859,7 @@ void sub_801E27C (void) {
       CpuFastSet(g8DFB494, &gBgVram.cbb0[320], 0x50);
       break;
   }
-  CpuCopy32(gUnk_808C1C0, gPaletteBuffer, 128);
+  CpuCopy32(gTrunkMenuBgPalette, gPaletteBuffer, 128);
   for (i = 0; i < 20; i++)
     CpuCopy32(gUnk_808BD10[i], &((struct Sbb*)&gBgVram)->sbb7[i], 60);
   CpuFill16(0, &((struct Sbb*)&gBgVram)->sbb10[i], 32);
@@ -893,7 +894,7 @@ void sub_801E27C (void) {
 	beq _0801E2BA\n\
 	b _0801E2FA\n\
 	.align 2, 0\n\
-_0801E2A4: .4byte gUnk_808918C\n\
+_0801E2A4: .4byte gTrunkMenuTileset\n\
 _0801E2A8: .4byte 0x02000400\n\
 _0801E2AC: .4byte gLanguage\n\
 _0801E2B0:\n\
@@ -1118,7 +1119,7 @@ _0801E444:\n\
 	b _0801E53C\n\
 	.align 2, 0\n\
 _0801E474: .4byte 0x08DFB494\n\
-_0801E478: .4byte gUnk_808C1C0\n\
+_0801E478: .4byte gTrunkMenuBgPalette\n\
 _0801E47C: .4byte 0x02000000\n\
 _0801E480: .4byte 0x04000020\n\
 _0801E484: .4byte gUnk_808BD10\n\

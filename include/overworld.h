@@ -42,7 +42,7 @@ struct ScriptCtx {
   u8 unk86;
 };
 
-//TODO: change terminology from Map to Location?
+//TODO: change terminology from Map to Location? (struct OverworldLocation)
 
 //overworld structs
 struct Map //MapHeader?

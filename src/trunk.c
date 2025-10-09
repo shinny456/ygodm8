@@ -1,5 +1,6 @@
 #include "global.h"
 
+// Extra spaces used so that all languages (except Japanese) use the same tilemap?
 static const unsigned char g80907E4[] = _(
   "{ENG}"
     "Details   "
@@ -27,49 +28,98 @@ static const unsigned char g80907E4[] = _(
     "かばんへもどす"
 );
 
-extern const unsigned char g8090920[]; /*= _(
+//static const unsigned char sFiller_809091F = 0; //TODO: 4byte align other strings?
+
+static const unsigned char g8090920[] = __(
   "{ENG}"
     "Reorder       "
     "No.   Name      "
     "ATK   DEF       "
     "Type  Summon    "
     "Qty.    Cost    "
-    "Stars     Exit    Effect    "
+    "Stars     "
+    "Exit    Effect    "
   "{FRE}"
     "Réorganiser   "
     "N°    Nom       "
     "ATK   DEF       "
     "Type  Invoquer  "
     "Qté     Coût    "
-    "Étoiles   Quitter Effect    "
+    "Étoiles   "
+    "Quitter Effect    "
   "{GER}"
     "Nachbestellen "
     "Nr.   Name      "
     "AGR   VTG       "
     "Typ   Rufen     "
     "Menge   Kosten  "
-    "Sterne    Beenden Effect    "
+    "Sterne    "
+    "Beenden Effect    "
   "{ITA}"
     "Riordina      "
     "N°    Nome      "
     "ATT   DIF       "
     "Tipo  Evoca     "
     "Quant.  Costo   "
-    "Stelle    Esci    Effect    "
+    "Stelle    "
+    "Esci    Effect    "
   "{SPA}"
     "Reorganizar   "
     "NúmeroNombre    "
     "ATAQUEDEFENDER  "
     "Tipo  Llamar    "
     "CantidadCoste   "
-    "Estrellas Salir   Effect    "
+    "Estrellas "
+    "Salir   Effect    "
   "{JAP}"
-);*/
+    "ならび順変こう"
+    "番号" "名前"
+    "攻げき力　" "守備力"
+    "種族" "召喚魔族　"
+    "枚数　" "コスト"
+    "星"
+    "もどる" "効果　"
+);
 
+static const unsigned char g8090B94[] = __("／");
 
-extern unsigned char g8090B94[];
-extern unsigned char g8090B98[];
+//static const unsigned char sFiller_8090B97 = 0;
 
+static const unsigned char g8090B98[] = __(
+  "{ENG}"
+    "No" "NM" "AT" "DF" "TY" "SU" "QT" "CS" "ST" "EF"
+  "{FRE}" 
+    "N°" "NM" "AT" "DF" "TY" "IN" "QT" "CT" "ET" "EF"
+  "{GER}"
+    "Nr" "NM" "AG" "DF" "TY" "RF" "MG" "KS" "ST" "EF"
+  "{ITA}"
+    "N°" "NM" "AT" "DF" "TI" "EV" "QT" "CS" "ST" "EF"
+  "{SPA}"
+    "Nú" "NO" "AT" "DE" "TI" "LL" "CA" "CO" "ES" "EF"
+  "{JAP}"
+    "№" "名" "攻" "守" "族" "召" "枚" "コ" "星" "効"
+);
+
+static const unsigned char g8090C20[] = __(
+  "{ENG}"
+    "Cost "
+  "{FRE}"
+    "Coût "
+  "{GER}"
+    "Kost."
+  "{ITA}"
+    "Costo"
+  "{SPA}"
+    "Coste"
+  "{JAP}"
+    "コスト"
+);
+
+//static const unsigned char sFiller_8090C4D[3] = {0};
+
+static const unsigned char g8090C50[] = __("0123456789");
+
+//TODO: rename to TrunkMenuEtc... (TrunkMenuHandlePress?)
 static void PressUpInTrunkMenu (void);
 static void PressRUpInTrunkMenu (void);
 static void PressDownInTrunkMenu (void);
@@ -121,11 +171,11 @@ unsigned char sub_801F098(unsigned short id);
 
 void SortCardsAccordingToContext(void); // sort the cards referenced by gCardSortContext according to its sortMode
 
-extern unsigned short gPressedButtons; //0x02020DF8
+extern unsigned short gPressedButtons;
 extern unsigned char gTotalCardQty[];
-extern unsigned char gTrunkCardQty[]; //2021790
+extern unsigned char gTrunkCardQty[];
 
-extern struct CardInfo gCardInfo; //2021AD0
+extern struct CardInfo gCardInfo;
 
 
 extern const unsigned char gStarterTrunk[];
@@ -594,11 +644,13 @@ _08008CA0:\n\
 	pop {r0}\n\
 	bx r0");
 }
+
+//unused. debug function?
 /*
 void sub_8008C34 (void) {
   int i;
   SetMoney(gMoney / 2);
-  for (i = 0; gUnk_8090470[i]; i++) {
+  for (i = 0; gUnk_8090470[i] != CARD_NONE; i++) {
     int r7 = 1;
     if (gUnk_8090470[i] < 801)
       if (r7 > TRUNK_CARD_LIMIT - gTrunkCardQty[gUnk_8090470[i]])
@@ -606,7 +658,6 @@ void sub_8008C34 (void) {
       else
         gTrunkCardQty[gUnk_8090470[i]]++;
   }
-
 }*/
 
 void InitTrunkCards(void)
@@ -912,21 +963,23 @@ void ApplyNewSortMode(unsigned char val)
     gTrunkMenu.currentPos = 0;
 }
 
-void QuitTrunkMenu(void){}
+void QuitTrunkMenu(void){
+}
 
-extern u32 gUnk_808918C[];
-extern unsigned char gUnk_808C1C0[];
-extern unsigned char g8DFA6B4[];
-extern unsigned char g8DFAB54[];
-extern unsigned char g8DFAFF4[];
-extern unsigned short gUnk_808B860[][30];
+extern unsigned char gTrunkMenuTileset[]; //TODO: rename; also used in Deck menu
+extern unsigned char gTrunkMenuBgPalette[]; //TODO: rename; also used in Deck menu
+extern unsigned char g8DFA6B4[]; //french trunk tiles (top left corner "Trunk)
+extern unsigned char g8DFAB54[]; //german
+extern unsigned char g8DFAFF4[]; //italian and spanish
+extern unsigned short gTrunkMenuBgTilemap[][30];
 
-// Same exact function as sub_800C834
+// Same exact function as sub_800C834 (in duel_trunk_menu)
+// regular trunk menu copy background gfx data to vram and pal buffer
 void sub_8009228 (void)
 {
     unsigned char i;
 
-    LZ77UnCompWram(gUnk_808918C, gBgVram.cbb0);
+    LZ77UnCompWram(gTrunkMenuTileset, gBgVram.cbb0);
 
     switch (gLanguage)
     {
@@ -957,13 +1010,13 @@ void sub_8009228 (void)
     }
 
     for (i = 0; i < 20; i++)
-        CpuCopy32(gUnk_808B860[i], &((struct Sbb*)&gBgVram)->sbb7[i], 60);
+        CpuCopy32(gTrunkMenuBgTilemap[i], &((struct Sbb*)&gBgVram)->sbb7[i], 60);
 
-    CpuCopy32(gUnk_808C1C0, gPaletteBuffer, 0x80);
+    CpuCopy32(gTrunkMenuBgPalette, gPaletteBuffer, 0x80);
     CpuFill16(0, gBgVram.sbb18, 32);
 }
 
-extern unsigned short gUnk_808C240[][30];
+extern unsigned short gUnk_808C240[][30]; //A menu tilemap (Details/Move To Deck/Return To Trunk)
 extern unsigned char g8DF811C[];
 
 
@@ -989,7 +1042,7 @@ void sub_8009364 (void) {
 }
 
 
-extern unsigned short gUnk_808C6F0[][30];
+extern unsigned short gUnk_808C6F0[][30]; //sort menu tilemap
 
 
 void sub_8009448(void)

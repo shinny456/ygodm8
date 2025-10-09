@@ -6,16 +6,13 @@ gUnk_94C37:
 // end of card.c?
 
 //duel_trunk_menu?
-    .global gUnk_80AEB00
-gUnk_80AEB00:
-    .incbin "baserom.gba", 0xAEB00, 0x30
+
+    .section .rodata2
 
     .global gUnk_80AEB30
 gUnk_80AEB30:
-    .incbin "baserom.gba", 0xAEB30, 0x20C
+    .incbin "baserom.gba", 0xAEB45, 0x1f7 @AEB48: array of strings of japanese names of some characters (yugi etc..)
 
 
-    .section .rodata2
-    .global gCurrentTurnOpponent
-gCurrentTurnOpponent:
-    .incbin "baserom.gba", 0xAED54, 0xA96C
+    .section .rodata3
+    .incbin "baserom.gba", 0xAED56, 0xA96A

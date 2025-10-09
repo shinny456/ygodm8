@@ -19,15 +19,28 @@ extern unsigned short g80F1880[][30];
 extern unsigned short g80F1D30[][30];
 extern unsigned short g80F30E0[];
 extern unsigned char g8DF811C[];
-extern unsigned short g8E0D814[];
-extern unsigned char gText_AttackDefendTributeEffect[]; //E0D828
+
+
 extern unsigned short g8E0D91A[];
 
-extern enum B_MenuOption gNextUpB_MenuOption[];
-extern enum B_MenuOption gNextDownB_MenuOption[];
-extern enum B_MenuOption gNextRightB_MenuOption[];
-extern enum B_MenuOption gNextLeftB_MenuOption[];
 /*
+static CONST_DATA unsigned char gText_DetailsTurnEndDiscard[] = __(
+  "{ENG}"
+    "Details   Turn end  Discard   "
+  "{FRE}"
+    "Détails   FinDuTour Défausser "
+  "{GER}"
+    "Details   Zug-Ende  Ablegen   "
+  "{ITA}"
+    "Dettagli  Fine TurnoScarta    "
+  "{SPA}"
+    "Detalles  Fin turno Desechar  "
+  "{JAP}"
+    "ディテール" "ターン終わり" "すてる"
+);*/
+
+static CONST_DATA unsigned short g8E0D814[] = {0xE844, 0xE8C4, 0xE85C};
+
 static CONST_DATA enum B_MenuOption gNextUpB_MenuOption[] = {
   [B_MENU_DETAILS] = B_MENU_DETAILS,
   [B_MENU_TURN_END] = B_MENU_DETAILS,
@@ -51,7 +64,24 @@ static CONST_DATA enum B_MenuOption gNextLeftB_MenuOption[] = {
   [B_MENU_TURN_END] = B_MENU_TURN_END,
   [B_MENU_DISCARD] = B_MENU_DETAILS
 };
-*/
+
+static CONST_DATA unsigned char gText_AttackDefendTributeEffect[] = __(
+  "{ENG}"
+    "Attack  Defend  Tribute     Effect      "
+  "{FRE}"
+    "Attaque Défense Tribut      Effet       "
+  "{GER}"
+    "Angriff Verteid.Tribut      Effekt      "
+  "{ITA}"
+    "Attacca Difendi Tributo     Effetto     "
+  "{SPA}"
+    "Atacar  DefenderTributo     Efecto      "
+  "{JAP}"
+    "こうげき" "守備　" "生けにえ" "効果　"
+);
+
+static CONST_DATA unsigned short gE0D91A[] = {0xE8C4, 0xE944, 0xE8D8, 0xE958};
+
 static CONST_DATA enum MonsterAction gNextUpMonsterAction[] = {
   [MONSTER_ACTION_ATTACK] = MONSTER_ACTION_ATTACK,
   [MONSTER_ACTION_DEFEND] = MONSTER_ACTION_ATTACK,
@@ -80,9 +110,7 @@ static CONST_DATA enum MonsterAction gNextLeftMonsterAction[] = {
   [MONSTER_ACTION_EFFECT] = MONSTER_ACTION_DEFEND
 };
 
-static CONST_DATA unsigned char sFillerE0D932[2] = {0};
-
-static CONST_DATA unsigned char g8E0D934[] = _("0123456789　"); //digits for L Button screen (atk/def stat screen)
+static CONST_DATA unsigned char g8E0D934[] = __("0123456789　"); //digits for L Button screen (atk/def stat screen)
 
 static void InitBMenu (unsigned char);
 static void sub_80428EC (unsigned char);
@@ -110,14 +138,6 @@ void UpdateDuelGfxExceptField (void);
 
 
 extern unsigned char gText_Deckcards[];
-extern unsigned char gText_DetailsTurnEndDiscard[] /*= _(
-  "{ENG}"
-    "Details   "
-    "Turn end  "
-    "Discard   "
-  "{FRE}"
-  //...
-)*/;
 
 u16 sub_08007FEC(unsigned char, unsigned char, u16);
 void sub_800800C(unsigned char, unsigned char, u16, u16);

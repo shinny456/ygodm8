@@ -5,7 +5,7 @@
 enum MusicIds
 {
   // music
-  MUSIC_NONE = 0x0,                        // None (stops all music)
+  SOUND_NONE = 0x0,                        // None (stops all music)
   MUSIC_TITLE_SCREEN = 0x1,                // Track 1: Title Screen
   MUSIC_2 = 0x2,                           // no effect
   MUSIC_WORLD_MAP = 0x3,                   // Track 2: World Map
@@ -124,17 +124,17 @@ enum MusicIds
   MUSIC_114 = 0x72,                     //
   MUSIC_115 = 0x73,                     //
   MUSIC_116 = 0x74,                     //
-  MUSIC_117 = 0x75,                     // Joey voice: something about Red Eyes Black Dragon
+  SFX_JOEY_RED_EYES_VOICE = 0x75,                     // Joey voice: something about Red Eyes Black Dragon
   MUSIC_118 = 0x76,                     //
-  MUSIC_119 = 0x77,                     //
+  SFX_KAIBA_BLUE_EYES_VOICE = 0x77,
   MUSIC_120 = 0x78,                     // no effect
   MUSIC_121 = 0x79,                     //
   MUSIC_122 = 0x7A,                     //
   MUSIC_123 = 0x7B,                     //
   MUSIC_124 = 0x7C,                     // Yami Yugi voice: It's my turn
-  MUSIC_125 = 0x7D,                     //
+  SFX_ATEM_BLACK_LUSTER_SOLDIER_VOICE = 0x7D,
   MUSIC_126 = 0x7E,                     //
-  MUSIC_127 = 0x7F,                     //
+  SFX_YUGI_DARK_MAGICIAN_VOICE = 0x7F,                     //
   MUSIC_128 = 0x80,                     //
   MUSIC_129 = 0x81,                     // no music
   MUSIC_130 = 0x82,                     //

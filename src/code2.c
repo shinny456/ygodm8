@@ -8,10 +8,12 @@ static unsigned char g201CB40; //same as above but seems to be unused?
 static unsigned char sFiller201CB41[2];
 static unsigned char g201CB44; //sCurrentMonsterEffectId
 
+static const unsigned char sCurrentTurnOpponent[] = {1, 0}; //TODO: use enum
+
 struct AI_Command
 {
     u16 action; //actionID?
-    u8 unk2;
+    u8 unk2; //board coordinate (lower 4 bits is column (zone), upper 4 bits is row)
     u8 unk3;
     u8 unk4;
     u8 unk5;
@@ -37,11 +39,6 @@ extern u8 gE00534[];
 extern u8 gE00538[];
 extern u8 gE0053F[];
 extern u8 gE00546[];
-
-extern u8 g80B0B20[];
-extern u8 g80B0C20[];
-
-
 
 extern void (*g8DFF55C[])(void);
 
@@ -78,7 +75,7 @@ struct UnkStr //AI data?
     u16 unk2294;
     unsigned long unk2298;
     unsigned long unk229C;
-    struct Bruhh unk22A0[2][2]; //unused?
+    struct Bruhh unk22A0[2][2]; //unused? (used by unused functions)
 };
 
 extern struct UnkStr *gUnk_8DFF6A4;
@@ -641,6 +638,7 @@ static void sub_800EE94(void)
     }
 }
 
+//Get highest priority action
 static u16 sub_800EF0C(void)
 {
     u16 i;
@@ -2777,7 +2775,7 @@ static void sub_8012A08 (void) {
 }
 
 static void sub_8012A58 (void) {
-  if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 50)
+  if (gDuelLifePoints[sCurrentTurnOpponent[WhoseTurn()]] <= 50)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF99743;
@@ -2786,7 +2784,7 @@ static void sub_8012A58 (void) {
 static void sub_8012AB0 (void) {}
 
 static void sub_8012AB4 (void) {
-  if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 100)
+  if (gDuelLifePoints[sCurrentTurnOpponent[WhoseTurn()]] <= 100)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF99743;
@@ -2795,7 +2793,7 @@ static void sub_8012AB4 (void) {
 static void sub_8012B0C (void) {}
 
 static void sub_8012B10 (void) {
-  if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 200)
+  if (gDuelLifePoints[sCurrentTurnOpponent[WhoseTurn()]] <= 200)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF99743;
@@ -2804,7 +2802,7 @@ static void sub_8012B10 (void) {
 static void sub_8012B68 (void) {}
 
 static void sub_8012B6C (void) {
-  if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 500)
+  if (gDuelLifePoints[sCurrentTurnOpponent[WhoseTurn()]] <= 500)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF99743;
@@ -2813,7 +2811,7 @@ static void sub_8012B6C (void) {
 static void sub_8012BC8 (void) {}
 
 static void sub_8012BCC (void) {
-  if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 1000)
+  if (gDuelLifePoints[sCurrentTurnOpponent[WhoseTurn()]] <= 1000)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF99743;
@@ -3491,7 +3489,7 @@ static void sub_80138CC (void) {
   u8 numNonEmptyZones = 5 - NumEmptyZonesInRow(gTurnHands[INACTIVE_DUELIST]);
   if (!numNonEmptyZones)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= numNonEmptyZones * 200)
+  else if (gDuelLifePoints[sCurrentTurnOpponent[WhoseTurn()]] <= numNonEmptyZones * 200)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFEF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
@@ -5128,7 +5126,7 @@ static void sub_8016604 (void) {
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
     return;
   }
-  if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= totalAtk)
+  if (gDuelLifePoints[sCurrentTurnOpponent[WhoseTurn()]] <= totalAtk)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFEE;
@@ -5162,7 +5160,7 @@ static void sub_80167DC (void) {
   SetFinalStat(&gStatMod);
   if (!gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= gCardInfo.atk)
+  else if (gDuelLifePoints[sCurrentTurnOpponent[WhoseTurn()]] <= gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFEB;
@@ -5177,7 +5175,7 @@ static void sub_80168A0 (void) {
   SetFinalStat(&gStatMod);
   if (!gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= gCardInfo.atk)
+  else if (gDuelLifePoints[sCurrentTurnOpponent[WhoseTurn()]] <= gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFEA;
@@ -5185,9 +5183,9 @@ static void sub_80168A0 (void) {
 
 // Ra battle mode?
 static void sub_8016964 (void) {
-  if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] < gDuelLifePoints[WhoseTurn()])
+  if (gDuelLifePoints[sCurrentTurnOpponent[WhoseTurn()]] < gDuelLifePoints[WhoseTurn()])
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
-  else if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] == gDuelLifePoints[WhoseTurn()])
+  else if (gDuelLifePoints[sCurrentTurnOpponent[WhoseTurn()]] == gDuelLifePoints[WhoseTurn()])
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFE7;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
@@ -5208,7 +5206,7 @@ static void sub_80169FC (void) {
       gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
       return;
     }
-    if (gCardInfo.atk >= gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]]) {
+    if (gCardInfo.atk >= gDuelLifePoints[sCurrentTurnOpponent[WhoseTurn()]]) {
       gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
       return;
     }
@@ -5281,7 +5279,7 @@ static void sub_8016CB8 (void) {
   SetFinalStat(&gStatMod);
   if (!gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= gCardInfo.atk)
+  else if (gDuelLifePoints[sCurrentTurnOpponent[WhoseTurn()]] <= gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFED;
@@ -5419,7 +5417,7 @@ static void sub_80171D8 (void) {
   SetFinalStat(&gStatMod);
   if (!gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= gCardInfo.atk)
+  else if (gDuelLifePoints[sCurrentTurnOpponent[WhoseTurn()]] <= gCardInfo.atk)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFEC;
@@ -6165,7 +6163,7 @@ static void sub_8018114 (void) {
 static void sub_8018170 (void) {}
 
 static void sub_8018174 (void) {
-  if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 50)
+  if (gDuelLifePoints[sCurrentTurnOpponent[WhoseTurn()]] <= 50)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7EEC6CBA;
@@ -6376,7 +6374,7 @@ static void sub_8018830 (void) {}
 
 // Obelisk?
 static void sub_8018834 (void) {
-  if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 4000)
+  if (gDuelLifePoints[sCurrentTurnOpponent[WhoseTurn()]] <= 4000)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF99741;
@@ -6692,7 +6690,7 @@ static void sub_8019128 (void) {}
 static void sub_801912C (void) {
   if (NumEmptyZonesAndGodCardsInRow(gTurnZones[1]) == MAX_ZONES_IN_ROW)
     gUnk_8DFF6A4->unk2298 = 0x7EDE89F9;
-  else if (gDuelLifePoints[gCurrentTurnOpponent[WhoseTurn()]] <= 500)
+  else if (gDuelLifePoints[sCurrentTurnOpponent[WhoseTurn()]] <= 500)
     gUnk_8DFF6A4->unk2298 = 0x7FFFFFFF;
   else
     gUnk_8DFF6A4->unk2298 = 0x7FF77458;
@@ -7206,8 +7204,26 @@ struct AttackVoicing {
     u16 soundId;
 };
 
-extern const struct AttackVoicing gB0AE8[];
-extern const struct AttackVoicing gB0B18[];
+enum {
+  DUELIST_NONE,
+  DUELIST_YUGI,
+  DUELIST_ATEM, //TODO: YAMI_YUGI?
+  DUELIST_KAIBA,
+  DUELIST_JOEY,
+  DUELIST_EVIL_JOEY = 0x95 //TODO: YAMI_JOEY? DARK_JOEY?
+};
+
+extern const struct AttackVoicing gB0AE8[];/* = {
+  {.duelistId = DUELIST_KAIBA, .cardId = BLUE_EYES_WHITE_DRAGON, .soundId = SFX_KAIBA_BLUE_EYES_VOICE},
+  {.duelistId = DUELIST_JOEY, .cardId = RED_EYES_B_DRAGON, .soundId = SFX_JOEY_RED_EYES_VOICE},
+  {.duelistId = DUELIST_EVIL_JOEY, .cardId = RED_EYES_B_DRAGON, .soundId = SFX_JOEY_RED_EYES_VOICE},
+  {.duelistId = DUELIST_ATEM, .cardId = BLACK_LUSTER_SOLDIER, .soundId = SFX_ATEM_BLACK_LUSTER_SOLDIER_VOICE},
+  {.duelistId = DUELIST_YUGI, .cardId = DARK_MAGICIAN, .soundId = SFX_YUGI_DARK_MAGICIAN_VOICE},
+  {.duelistId = DUELIST_NONE, .cardId = CARD_NONE, .soundId = SOUND_NONE}
+};*/
+extern const struct AttackVoicing gB0B18[]; /*{
+  {.duelistId = DUELIST_NONE, .cardId = CARD_NONE, .soundId = SOUND_NONE}
+};*/
 
 static void sub_801A008 (struct AttackVoicing*);
 static void sub_801A028 (struct AttackVoicing*);
@@ -8362,6 +8378,10 @@ static u8 sub_801B5BC (u8 arg0, u16* cardId) {
 
 // ***********split?**************
 
+extern u8 g80B0B20[];
+extern u8 g80B0C20[];
+
+//some kind of crc check?
 // unused?
 static unsigned short sub_801B5F0 (int arg0, u8* arg1) {
   unsigned short ret = 0xFFFF;

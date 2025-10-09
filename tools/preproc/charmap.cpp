@@ -171,6 +171,7 @@ Lhs CharmapReader::ReadLhs()
                 break;
             case '\\':
                 lhs.type = LhsType::Char;
+                break;
             case '"':
                 RaiseError("cannot escape double quote");
                 break;

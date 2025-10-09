@@ -1974,7 +1974,7 @@ void sub_805733C (unsigned char* arg0, struct DuelCard* arg1) {
   CpuCopy16(g89A849E[gDigitBufferU16[4]], arg0, 0x40);
 }
 
-void sub_80573D0 (unsigned char* arg0, unsigned short cardId) {
+void sub_80573D0 (void* arg0, unsigned short cardId) {
   SetCardInfo(cardId);
   LZ77UnCompWram(g8E17F70[cardId], gSharedMem);
   sub_80565F0(arg0, gSharedMem, gUnk_8E17F48[gCardInfo.color]);

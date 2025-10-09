@@ -883,20 +883,20 @@ gUnk_8089154:
 
 
 //trunk?
-    .global gUnk_808918C
-gUnk_808918C:
+    .global gTrunkMenuTileset
+gTrunkMenuTileset:
     .incbin "baserom.gba", 0x8918C, 0x26D4
 
-    .global gUnk_808B860
-gUnk_808B860:
+    .global gTrunkMenuBgTilemap
+gTrunkMenuBgTilemap:
     .incbin "baserom.gba", 0x8B860, 0x4B0
 
     .global gUnk_808BD10
 gUnk_808BD10:
     .incbin "baserom.gba", 0x8BD10, 0x4B0
 
-    .global gUnk_808C1C0
-gUnk_808C1C0:
+    .global gTrunkMenuBgPalette
+gTrunkMenuBgPalette:
     .incbin "baserom.gba", 0x8C1C0, 0x80
 
     .global gUnk_808C240
@@ -955,6 +955,4 @@ gUnk_808ECD0:
 gUnk_808ECF0:
     .incbin "baserom.gba", 0x8ECF0, 0x1780
 
-    .global gUnk_8090470
-gUnk_8090470:
-    .incbin "baserom.gba", 0x90470, 0x52
+    
