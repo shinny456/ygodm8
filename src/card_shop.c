@@ -12,8 +12,8 @@
 #define SHOP_SORT_MODE_MENU_OPTION_EXIT 10
 
 struct {
-  unsigned short* unk0[SHOP_BOARD_NUM_ROWS][SHOP_BOARD_NUM_COLS]; // ptr to start of visible card shop grid?
-  unsigned short unk8C[SHOP_BOARD_NUM_ROWS][SHOP_BOARD_NUM_COLS]; // something shop grid?
+  unsigned short* unk0[SHOP_BOARD_NUM_ROWS][SHOP_BOARD_NUM_COLS];
+  unsigned short unk8C[SHOP_BOARD_NUM_ROWS][SHOP_BOARD_NUM_COLS];
   unsigned short unkD2[806]; //805 is divisible by 35 (7x5 which are the slot dimensions of the card shop board)
   s16 firstVisibleRow; // this is always at least one row higher than the cursor can reach
   s16 numRows; // 800/7~=114.2, hence 115 total rows to fit all 800 cards (indexed at 0-114)

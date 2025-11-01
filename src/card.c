@@ -8,6 +8,439 @@ static signed char sFiller201CB3A[2];
 struct StatMod gStatMod;
 struct CardInfo gCardInfo;
 
+// it seems that they forgot to add const when adding the gfx for languages other than english
+// so they end up in the .data section
+
+extern const unsigned short g808FF90[];
+extern const unsigned short g808FFB0[];
+extern const unsigned short g808FFD0[];
+extern const unsigned short g808FFF0[];
+extern const unsigned short g8090010[];
+extern const unsigned short g8090030[];
+extern const unsigned short g8090050[];
+extern const unsigned short g8090070[];
+extern const unsigned short g8090090[];
+extern const unsigned short g80900B0[];
+extern const unsigned short g80900D0[];
+extern const unsigned short g80900F0[];
+extern const unsigned short g8090110[];
+extern const unsigned short g8090130[];
+extern const unsigned short g8090150[];
+extern const unsigned short g8090170[];
+extern const unsigned short g8090190[];
+extern const unsigned short g80901B0[];
+extern const unsigned short g80901D0[];
+extern const unsigned short g80901F0[];
+extern const unsigned short g8090210[];
+extern const unsigned short g8090230[];
+extern const unsigned short g8090250[];
+extern const unsigned short g80903D0[]; //black palette
+extern const unsigned char g80903F0[]; //black tile
+extern const unsigned char g808ED10[];
+extern const unsigned char g808ED90[];
+extern const unsigned char g808EE10[];
+extern const unsigned char g808EE90[];
+extern const unsigned char g808EF10[];
+extern const unsigned char g808EF90[];
+extern const unsigned char g808F010[];
+extern const unsigned char g808F090[];
+extern const unsigned char g808F110[];
+extern const unsigned char g808F190[];
+extern const unsigned char g808F210[];
+extern const unsigned char g808F290[];
+extern const unsigned char g808F310[];
+extern const unsigned char g808F390[];
+extern const unsigned char g808F410[];
+extern const unsigned char g808F490[];
+extern const unsigned char g808F510[];
+extern const unsigned char g808F590[];
+extern const unsigned char g808F610[];
+extern const unsigned char g808F690[];
+extern const unsigned char g808F710[];
+extern const unsigned char g8DF8148[];
+extern const unsigned char g8DF8248[];
+extern const unsigned char g8DF8348[];
+extern const unsigned char g8DF8448[];
+extern const unsigned char g808F810[];
+extern const unsigned char g8DF8548[];
+extern const unsigned char g8DF8648[];
+extern const unsigned char g8DF8748[];
+extern const unsigned char g8DF8848[];
+extern const unsigned char g808F910[];
+extern const unsigned char g8DF8948[];
+extern const unsigned char g8DF8A48[];
+extern const unsigned char g8DF8B48[];
+extern const unsigned char g8DF8C48[];
+extern const unsigned short g8090270[];
+extern const unsigned short g8090290[];
+extern const unsigned short g80902B0[];
+extern const unsigned short g80902D0[];
+extern const unsigned short g80902F0[];
+extern const unsigned short g8090310[];
+extern const unsigned short g8090330[];
+extern const unsigned short g8090350[];
+extern const unsigned short g8090370[];
+extern const unsigned short g8090390[];
+extern const unsigned short g80903B0[];
+extern const unsigned char g808FA10[];
+extern const unsigned char g8DF8D48[];
+extern const unsigned char g8DF8DC8[];
+extern const unsigned char g8DF8E48[];
+extern const unsigned char g8DF8EC8[];
+extern const unsigned char g808FA90[];
+extern const unsigned char g8DF8F48[];
+extern const unsigned char g8DF8FC8[];
+extern const unsigned char g8DF9048[];
+extern const unsigned char g8DF90C8[];
+extern const unsigned char g808FB10[];
+extern const unsigned char g8DF9148[];
+extern const unsigned char g8DF91C8[];
+extern const unsigned char g8DF9248[];
+extern const unsigned char g8DF92C8[];
+extern const unsigned char g808FB90[];
+extern const unsigned char g8DF9348[];
+extern const unsigned char g8DF93C8[];
+extern const unsigned char g8DF9448[];
+extern const unsigned char g8DF94C8[];
+extern const unsigned char g808FC10[];
+extern const unsigned char g8DF9548[];
+extern const unsigned char g8DF95C8[];
+extern const unsigned char g8DF9648[];
+extern const unsigned char g8DF96C8[];
+extern const unsigned char g808FC90[];
+extern const unsigned char g8DF9748[];
+extern const unsigned char g8DF97C8[];
+extern const unsigned char g8DF9848[];
+extern const unsigned char g8DF98C8[];
+extern const unsigned char g808FD10[];
+extern const unsigned char g8DF9948[];
+extern const unsigned char g8DF99C8[];
+extern const unsigned char g8DF9A48[];
+extern const unsigned char g8DF9AC8[];
+extern const unsigned char g808FD90[];
+extern const unsigned char g8DF9B48[];
+extern const unsigned char g8DF9BC8[];
+extern const unsigned char g8DF9C48[];
+extern const unsigned char g8DF9CC8[];
+extern const unsigned char g808FE10[];
+extern const unsigned char g8DF9D48[];
+extern const unsigned char g8DF9DC8[];
+extern const unsigned char g8DF9E48[];
+extern const unsigned char g8DF9EC8[];
+extern const unsigned char g808FE90[];
+extern const unsigned char g8DF9F48[];
+extern const unsigned char g8DF9FC8[];
+extern const unsigned char g8DFA048[];
+extern const unsigned char g8DFA0C8[];
+extern const unsigned char g808FF10[];
+extern const unsigned char g8DFA148[];
+extern const unsigned char g8DFA1C8[];
+extern const unsigned char g8DFA248[];
+extern const unsigned char g8DFA2C8[];
+
+
+
+//TODO: gCardType... attribute etc...
+const unsigned short * CONST_DATA gTypeIconPalettes[] = {
+  [TYPE_NONE] = g80903D0,
+  [TYPE_DRAGON] = g808FF90,
+  [TYPE_MAGICIAN] = g808FFB0,
+  [TYPE_ZOMBIE] = g808FFD0,
+  [TYPE_WARRIOR] = g808FFF0,
+  [TYPE_BEAST_WARRIOR] = g8090010,
+  [TYPE_BEAST] = g8090030,
+  [TYPE_WING_BEAST] = g8090050,
+  [TYPE_FIEND] = g8090070,
+  [TYPE_FAIRY] = g8090090,
+  [TYPE_INSECT] = g80900B0,
+  [TYPE_DINOSAUR] = g80900D0,
+  [TYPE_REPTILE] = g80900F0,
+  [TYPE_FISH] = g8090110,
+  [TYPE_SEA_DRAGON] = g8090130,
+  [TYPE_MACHINE] = g8090150,
+  [TYPE_THUNDER] = g8090170,
+  [TYPE_AQUA] = g8090190,
+  [TYPE_PYRO] = g80901B0,
+  [TYPE_ROCK] = g80901D0,
+  [TYPE_PLANT] = g80901F0,
+  [TYPE_SPELL] = g8090210,
+  [TYPE_TRAP] = g8090230,
+  [TYPE_RITUAL] = g8090250
+};
+
+const unsigned char * CONST_DATA gTypeIconTiles[][NUM_LANGUAGES] = {
+  [TYPE_NONE] = {
+    [ENGLISH] = g80903F0,
+    [FRENCH] = g80903F0,
+    [GERMAN] = g80903F0,
+    [ITALIAN] = g80903F0,
+    [SPANISH] = g80903F0
+  },
+  [TYPE_DRAGON] = {
+    [ENGLISH] = g808ED10,
+    [FRENCH] = g808ED10,
+    [GERMAN] = g808ED10,
+    [ITALIAN] = g808ED10,
+    [SPANISH] = g808ED10
+  },
+  [TYPE_MAGICIAN] = {
+    [ENGLISH] = g808ED90,
+    [FRENCH] = g808ED90,
+    [GERMAN] = g808ED90,
+    [ITALIAN] = g808ED90,
+    [SPANISH] = g808ED90
+  },
+  [TYPE_ZOMBIE] = {
+    [ENGLISH] = g808EE10,
+    [FRENCH] = g808EE10,
+    [GERMAN] = g808EE10,
+    [ITALIAN] = g808EE10,
+    [SPANISH] = g808EE10
+  },
+  [TYPE_WARRIOR] = {
+    [ENGLISH] = g808EE90,
+    [FRENCH] = g808EE90,
+    [GERMAN] = g808EE90,
+    [ITALIAN] = g808EE90,
+    [SPANISH] = g808EE90
+  },
+  [TYPE_BEAST_WARRIOR] = {
+    [ENGLISH] = g808EF10,
+    [FRENCH] = g808EF10,
+    [GERMAN] = g808EF10,
+    [ITALIAN] = g808EF10,
+    [SPANISH] = g808EF10
+  },
+  [TYPE_BEAST] = {
+    [ENGLISH] = g808EF90,
+    [FRENCH] = g808EF90,
+    [GERMAN] = g808EF90,
+    [ITALIAN] = g808EF90,
+    [SPANISH] = g808EF90
+  },
+  [TYPE_WING_BEAST] = {
+    [ENGLISH] = g808F010,
+    [FRENCH] = g808F010,
+    [GERMAN] = g808F010,
+    [ITALIAN] = g808F010,
+    [SPANISH] = g808F010
+  },
+  [TYPE_FIEND] = {
+    [ENGLISH] = g808F090,
+    [FRENCH] = g808F090,
+    [GERMAN] = g808F090,
+    [ITALIAN] = g808F090,
+    [SPANISH] = g808F090
+  },
+  [TYPE_FAIRY] = {
+    [ENGLISH] = g808F110,
+    [FRENCH] = g808F110,
+    [GERMAN] = g808F110,
+    [ITALIAN] = g808F110,
+    [SPANISH] = g808F110
+  },
+  [TYPE_INSECT] = {
+    [ENGLISH] = g808F190,
+    [FRENCH] = g808F190,
+    [GERMAN] = g808F190,
+    [ITALIAN] = g808F190,
+    [SPANISH] = g808F190
+  },
+  [TYPE_DINOSAUR] = {
+    [ENGLISH] = g808F210,
+    [FRENCH] = g808F210,
+    [GERMAN] = g808F210,
+    [ITALIAN] = g808F210,
+    [SPANISH] = g808F210
+  },
+  [TYPE_REPTILE] = {
+    [ENGLISH] = g808F290,
+    [FRENCH] = g808F290,
+    [GERMAN] = g808F290,
+    [ITALIAN] = g808F290,
+    [SPANISH] = g808F290
+  },
+  [TYPE_FISH] = {
+    [ENGLISH] = g808F310,
+    [FRENCH] = g808F310,
+    [GERMAN] = g808F310,
+    [ITALIAN] = g808F310,
+    [SPANISH] = g808F310
+  },
+  [TYPE_SEA_DRAGON] = {
+    [ENGLISH] = g808F390,
+    [FRENCH] = g808F390,
+    [GERMAN] = g808F390,
+    [ITALIAN] = g808F390,
+    [SPANISH] = g808F390
+  },
+  [TYPE_MACHINE] = {
+    [ENGLISH] = g808F410,
+    [FRENCH] = g808F410,
+    [GERMAN] = g808F410,
+    [ITALIAN] = g808F410,
+    [SPANISH] = g808F410
+  },
+  [TYPE_THUNDER] = {
+    [ENGLISH] = g808F490,
+    [FRENCH] = g808F490,
+    [GERMAN] = g808F490,
+    [ITALIAN] = g808F490,
+    [SPANISH] = g808F490
+  },
+  [TYPE_AQUA] = {
+    [ENGLISH] = g808F510,
+    [FRENCH] = g808F510,
+    [GERMAN] = g808F510,
+    [ITALIAN] = g808F510,
+    [SPANISH] = g808F510
+  },
+  [TYPE_PYRO] = {
+    [ENGLISH] = g808F590,
+    [FRENCH] = g808F590,
+    [GERMAN] = g808F590,
+    [ITALIAN] = g808F590,
+    [SPANISH] = g808F590
+  },
+  [TYPE_ROCK] = {
+    [ENGLISH] = g808F610,
+    [FRENCH] = g808F610,
+    [GERMAN] = g808F610,
+    [ITALIAN] = g808F610,
+    [SPANISH] = g808F610
+  },
+  [TYPE_PLANT] = {
+    [ENGLISH] = g808F690,
+    [FRENCH] = g808F690,
+    [GERMAN] = g808F690,
+    [ITALIAN] = g808F690,
+    [SPANISH] = g808F690
+  },
+  [TYPE_SPELL] = {
+    [ENGLISH] = g808F710,
+    [FRENCH] = g8DF8148,
+    [GERMAN] = g8DF8248,
+    [ITALIAN] = g8DF8348,
+    [SPANISH] = g8DF8448
+  },
+  [TYPE_TRAP] = {
+    [ENGLISH] = g808F810,
+    [FRENCH] = g8DF8548,
+    [GERMAN] = g8DF8648,
+    [ITALIAN] = g8DF8748,
+    [SPANISH] = g8DF8848
+  },
+  [TYPE_RITUAL] = {
+    [ENGLISH] = g808F910,
+    [FRENCH] = g8DF8948,
+    [GERMAN] = g8DF8A48,
+    [ITALIAN] = g8DF8B48,
+    [SPANISH] = g8DF8C48
+  }
+};
+
+const unsigned short * CONST_DATA gAttributeIconPalettes[] = {
+  [ATTRIBUTE_NONE] = g80903D0,
+  [ATTRIBUTE_SHADOW] = g8090270,
+  [ATTRIBUTE_LIGHT] = g8090290,
+  [ATTRIBUTE_FIEND] = g80902B0,
+  [ATTRIBUTE_DREAM] = g80902D0,
+  [ATTRIBUTE_PYRO] = g80902F0,
+  [ATTRIBUTE_FOREST] = g8090310,
+  [ATTRIBUTE_WIND] = g8090330,
+  [ATTRIBUTE_EARTH] = g8090350,
+  [ATTRIBUTE_THUNDER] = g8090370,
+  [ATTRIBUTE_AQUA] = g8090390,
+  [ATTRIBUTE_DIVINE] = g80903B0
+};
+
+const unsigned char * CONST_DATA gAttributeIconTiles[][NUM_LANGUAGES] = {
+  [ATTRIBUTE_NONE] = {
+    [ENGLISH] = g80903F0,
+    [FRENCH] = g80903F0,
+    [GERMAN] = g80903F0,
+    [ITALIAN] = g80903F0,
+    [SPANISH] = g80903F0
+  },
+  [ATTRIBUTE_SHADOW] = {
+    [ENGLISH] = g808FA10,
+    [FRENCH] = g8DF8D48,
+    [GERMAN] = g8DF8DC8,
+    [ITALIAN] = g8DF8E48,
+    [SPANISH] = g8DF8EC8
+  },
+  [ATTRIBUTE_LIGHT] = {
+    [ENGLISH] = g808FA90,
+    [FRENCH] = g8DF8F48,
+    [GERMAN] = g8DF8FC8,
+    [ITALIAN] = g8DF9048,
+    [SPANISH] = g8DF90C8
+  },
+  [ATTRIBUTE_FIEND] = {
+    [ENGLISH] = g808FB10,
+    [FRENCH] = g8DF9148,
+    [GERMAN] = g8DF91C8,
+    [ITALIAN] = g8DF9248,
+    [SPANISH] = g8DF92C8
+  },
+  [ATTRIBUTE_DREAM] = {
+    [ENGLISH] = g808FB90,
+    [FRENCH] = g8DF9348,
+    [GERMAN] = g8DF93C8,
+    [ITALIAN] = g8DF9448,
+    [SPANISH] = g8DF94C8
+  },
+  [ATTRIBUTE_PYRO] = {
+    [ENGLISH] = g808FC10,
+    [FRENCH] = g8DF9548,
+    [GERMAN] = g8DF95C8,
+    [ITALIAN] = g8DF9648,
+    [SPANISH] = g8DF96C8
+  },
+  [ATTRIBUTE_FOREST] = {
+    [ENGLISH] = g808FC90,
+    [FRENCH] = g8DF9748,
+    [GERMAN] = g8DF97C8,
+    [ITALIAN] = g8DF9848,
+    [SPANISH] = g8DF98C8
+  },
+  [ATTRIBUTE_WIND] = {
+    [ENGLISH] = g808FD10,
+    [FRENCH] = g8DF9948,
+    [GERMAN] = g8DF99C8,
+    [ITALIAN] = g8DF9A48,
+    [SPANISH] = g8DF9AC8
+  },
+  [ATTRIBUTE_EARTH] = {
+    [ENGLISH] = g808FD90,
+    [FRENCH] = g8DF9B48,
+    [GERMAN] = g8DF9BC8,
+    [ITALIAN] = g8DF9C48,
+    [SPANISH] = g8DF9CC8
+  },
+  [ATTRIBUTE_THUNDER] = {
+    [ENGLISH] = g808FE10,
+    [FRENCH] = g8DF9D48,
+    [GERMAN] = g8DF9DC8,
+    [ITALIAN] = g8DF9E48,
+    [SPANISH] = g8DF9EC8
+  },
+  [ATTRIBUTE_AQUA] = {
+    [ENGLISH] = g808FE90,
+    [FRENCH] = g8DF9F48,
+    [GERMAN] = g8DF9FC8,
+    [ITALIAN] = g8DFA048,
+    [SPANISH] = g8DFA0C8
+  },
+  [ATTRIBUTE_DIVINE] = {
+    [ENGLISH] = g808FF10,
+    [FRENCH] = g8DFA148,
+    [GERMAN] = g8DFA1C8,
+    [ITALIAN] = g8DFA248,
+    [SPANISH] = g8DFA2C8
+  }
+};
+
 static void sub_800B2B0 (void);
 static unsigned short GetStageModifiedStat(unsigned short stat, s8 stageMod);
 static unsigned short GetFieldModifiedStat(unsigned short stat, u8 fieldMod);
@@ -37,8 +470,8 @@ extern u8 gCardTrapEffect[];
 extern u8 gDuelistLevelTooLowText[];
 extern unsigned short gUnk_808ECD0[];
 extern unsigned short gUnk_808ECF0[];
-extern u8 *gAttributeIconTiles[][NUM_LANGUAGES];
-extern u8 *gTypeIconTiles[][NUM_LANGUAGES];
+
+
 extern u8 gStarTile[];
 extern u8 gSwordTile[];
 extern u8 gShieldTile[];
@@ -171,7 +604,7 @@ void SetCardInfoWithWarning (unsigned short* id)
 
 static unsigned short GetStageModifiedStat(unsigned short stat, s8 stage)
 {
-    int finalStat = stage * 500 + stat;
+    long finalStat = stage * 500 + stat;
 
     if (finalStat <= 0)
         stat = 0;
@@ -946,12 +1379,13 @@ void ScalePriceToQty(void)
     sub_800BDA0();
 }
 
-extern u64 g8DFDB90[];
+extern u64 g8DFDB90[]; //base card prices
 
 // TODO: rename to ScaleBuyPriceToQty -- dependency in code3.s
 // the more of a card the shop has, the lower the buying price
 void sub_800BD44(void)
 {
+    //TODO: mess around with equivalent arithmetic to see if it matches?
     u8 val = gShopSelectedCard.shopQty - 1;
 
     if (val < 250)
@@ -984,7 +1418,7 @@ void sub_800BDA0(void)
 
 // split? duel_trunk_menu.c
 
-static const unsigned char gUnk_80AEB00[] = __(
+const unsigned char gUnk_80AEB00[] = __(
   "{ENG}"
     "Cost "
   "{FRE}"
@@ -2192,11 +2626,11 @@ void sub_800CFD0 (void) {
     //r2 = (i * 3 + r4 + 2) * 32;
     for (r3 = 0; r3 < 4; r3++) //_0800D062
       gVr.b[0x7C01 + r3 + (i * 96 + (r4 + 2) * 32)] = gDigitBufferU16[r3] + 9 | 0x5000;
-    
+
     //****reg swap here*******
     cardName = gCardInfo.name;
     cardName = GetCurrentLanguageString(cardName);
-    
+
     r6 = 0, r3 = 0, r4_2 = 0;
     while (cardName[r3] != 0 && cardName[r3] != 0x24) {
       if (cardName[r3] <= 127) {
@@ -2261,6 +2695,10 @@ void sub_800CFD0 (void) {
   sub_800907C();
   sub_800A544();
 }
+
+
+
+
 /*
 r8 = (i * 3 + r1 + 3) * 32
 sb = 0x00007C10

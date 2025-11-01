@@ -1,6 +1,6 @@
 #include "global.h"
 
-// TODO: macroize if (!HideEffectText) statements? same in other effect files.
+// TODO: macroize if (!HideEffectText) statement? same in other effect files.
 
 static void EffectRelinquished(void)
 {
@@ -2891,7 +2891,7 @@ static void EffectRocketWarrior(void)
     }
 }
 
-// fake? perm power up for each dragon on own field
+// TSC master of dragon soldier?
 static void sub_80489F0(void)
 {
     u8 i;
@@ -2958,8 +2958,7 @@ static void EffectByserShock(void)
     }
 }
 
-// Leftover from TSC; real version in permanent_effect
-static void TSC_EffectTheWingedDragonOfRaPhoenixMode_Resurrect(void)
+static void EffectTheWingedDragonOfRaPhoenixMode (void)
 {
     u8 i;
 
@@ -3146,7 +3145,7 @@ void (*const gMonEffects[])(void) = {
   EffectYZTankDragon,
   EffectXYZDragonCannon,
   EffectPuppetMaster,
-  TSC_EffectTheWingedDragonOfRaPhoenixMode_Resurrect,
+  EffectTheWingedDragonOfRaPhoenixMode,
   EffectPenguinTorpedo,
   EffectBerserkDragon_AttackAll,
   EffectFGD,

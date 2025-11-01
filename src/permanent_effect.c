@@ -232,7 +232,7 @@ static void CheckBoardForPermanentEffects (void) {
   sub_8034FEC(0x177);
 }
 
-static void EffectJinzo (void) {
+static void Jinzo (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
@@ -260,7 +260,7 @@ static void EffectJinzo (void) {
   }
 }
 
-static void EffectSliferTheSkyDragon (void) {
+static void SliferTheSkyDragon (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
@@ -292,7 +292,7 @@ static void EffectSliferTheSkyDragon (void) {
   }
 }
 
-static void EffectDragonCaptureJar (void) {
+static void DragonCaptureJar (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 0) {
     FlipCardFaceUp(gTurnZones[0][gActiveEffect.col]);
@@ -326,7 +326,7 @@ static void EffectDragonCaptureJar (void) {
   }
 }
 
-static void EffectPumpkingTheKingOfGhosts (void) {
+static void PumpkingTheKingOfGhosts (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
@@ -387,7 +387,7 @@ static void sub_80278A4 (void) {
   }
 }
 
-static void EffectHarpieLadySisters (void) {
+static void HarpieLadySisters (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
@@ -417,7 +417,7 @@ static void EffectHarpieLadySisters (void) {
   }
 }
 
-static void EffectMysticalElf (void) {
+static void MysticalElf (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
@@ -443,7 +443,7 @@ static void EffectMysticalElf (void) {
   }
 }
 
-static void EffectDungeonTamer (void) {
+static void DungeonTamer (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
@@ -469,7 +469,7 @@ static void EffectDungeonTamer (void) {
   }
 }
 
-static void EffectMammothGraveyard (void) {
+static void MammothGraveyard (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
@@ -529,7 +529,7 @@ static void sub_8027D2C (void) {
   }
 }
 
-static void EffectWodanTheResidentOfTheForest (void) {
+static void WodanTheResidentOfTheForest (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
@@ -561,7 +561,7 @@ static void EffectWodanTheResidentOfTheForest (void) {
   }
 }
 
-static void EffectSwampBattleguard (void) {
+static void SwampBattleguard (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
@@ -589,7 +589,7 @@ static void EffectSwampBattleguard (void) {
   }
 }
 
-static void EffectLavaBattleguard (void) {
+static void LavaBattleguard (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
@@ -617,7 +617,7 @@ static void EffectLavaBattleguard (void) {
   }
 }
 
-static void EffectMWarrior1 (void) {
+static void MWarrior1 (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
@@ -645,7 +645,7 @@ static void EffectMWarrior1 (void) {
   }
 }
 
-static void EffectMWarrior2 (void) {
+static void MWarrior2 (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
@@ -673,7 +673,7 @@ static void EffectMWarrior2 (void) {
   }
 }
 
-static void EffectLabyrinthTank (void) {
+static void LabyrinthTank (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
@@ -701,7 +701,7 @@ static void EffectLabyrinthTank (void) {
   }
 }
 
-static void EffectHoshiningen (void) {
+static void Hoshiningen (void) {
   unsigned char i;
   if (gActiveEffect.turnRow != 1 && gActiveEffect.turnRow != 2)
     return;
@@ -730,7 +730,7 @@ static void EffectHoshiningen (void) {
   }
 }
 
-static void EffectWitchsApprentice (void) {
+static void WitchsApprentice (void) {
   unsigned char i;
   if (gActiveEffect.turnRow != 1 && gActiveEffect.turnRow != 2)
     return;
@@ -759,7 +759,7 @@ static void EffectWitchsApprentice (void) {
   }
 }
 
-static void EffectInsectQueen (void) {
+static void InsectQueen (void) {
   unsigned char i;
   if (gActiveEffect.turnRow != 1 && gActiveEffect.turnRow != 2)
     return;
@@ -785,7 +785,7 @@ static void EffectInsectQueen (void) {
 }
 
 // power up for each face-up dragon on opponent field/gy
-static void EffectBusterBlader (void) {
+static void BusterBlader (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
@@ -824,7 +824,7 @@ static void EffectBusterBlader (void) {
 }
 
 // power up for each face-up dragon on own field
-static void EffectMasterOfDragonSoldier (void) {
+static void MasterOfDragonSoldier (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
@@ -874,7 +874,7 @@ static void sub_8028B10 (void) {
   }
 }
 
-static void EffectMessengerOfPeace_LockMonsters (void) {
+static void MessengerOfPeace_LockMonsters (void) {
   unsigned char i;
   if (gActiveEffect.turnRow && gActiveEffect.turnRow != 3)
     return;
@@ -905,7 +905,7 @@ static void EffectMessengerOfPeace_LockMonsters (void) {
   }
 }
 
-static void EffectLavaGolem_Summon (void) {
+static void LavaGolem_Summon (void) {
   u32 i;
   unsigned char j, zone;
   if (gActiveEffect.turnRow != 4)
@@ -927,7 +927,7 @@ static void EffectLavaGolem_Summon (void) {
   }
 }
 
-static void EffectDarkJeroid (void) {
+static void DarkJeroid (void) {
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
     DecrementTempStage(gTurnZones[2][(unsigned char)HighestAtkMonInRow(gTurnZones[2])]);
@@ -946,7 +946,7 @@ static void EffectDarkJeroid (void) {
   }
 }
 
-static void EffectBladeKnight (void) {
+static void BladeKnight (void) {
   if (gActiveEffect.turnRow == 1) {
     if (NumEmptyZonesInRow(gTurnHands[INACTIVE_DUELIST]) < 4)
       return;
@@ -969,8 +969,7 @@ static void EffectBladeKnight (void) {
   }
 }
 
-// power up for each dragon on the field/gy on either side -- doesn't belong to any cards?
-static void sub_8028ED8 (void) {
+static void DarkPaladin (void) {
   unsigned char i;
   if (gActiveEffect.turnRow != 1 && gActiveEffect.turnRow != 2)
     return;
@@ -997,7 +996,7 @@ static void sub_8028ED8 (void) {
   }
 }
 
-static void EffectTheWingedDragonOfRaPhoenixMode_Resurrect (void) {
+static void TheWingedDragonOfRaPhoenixMode_Resurrect (void) {
   unsigned char emptyZone;
   if (gActiveEffect.turnRow == 7) {
     if (gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard != THE_WINGED_DRAGON_OF_RA_PHOENIX_MODE)
@@ -1043,7 +1042,7 @@ static void EffectTheWingedDragonOfRaPhoenixMode_Resurrect (void) {
   }
 }
 
-static void EffectMachineKing (void) {
+static void MachineKing (void) {
   unsigned char i;
   if (gActiveEffect.turnRow != 1 && gActiveEffect.turnRow != 2)
     return;
@@ -1068,7 +1067,7 @@ static void EffectMachineKing (void) {
   }
 }
 
-static void EffectPerfectMachineKing (void) {
+static void PerfectMachineKing (void) {
   unsigned char i;
   if (gActiveEffect.turnRow != 1 && gActiveEffect.turnRow != 2)
     return;
@@ -1097,7 +1096,7 @@ static void EffectPerfectMachineKing (void) {
   }
 }
 
-static void EffectCommandAngel (void) {
+static void CommandAngel (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
@@ -1131,7 +1130,7 @@ static void EffectCommandAngel (void) {
   }
 }
 
-static void EffectNightmarePenguin (void) {
+static void NightmarePenguin (void) {
   unsigned char i;
   if (gActiveEffect.turnRow == 1) {
     FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
@@ -1171,7 +1170,7 @@ static void EffectNightmarePenguin (void) {
   }
 }
 
-static void EffectDarkFlareKnight (void) {
+static void DarkFlareKnight (void) {
   struct DuelCard* zone;
   u16 graveyard;
   if (gActiveEffect.turnRow == 7) {
@@ -1222,7 +1221,7 @@ static void EffectDarkFlareKnight (void) {
   }
 }
 
-static void EffectExodiaNecross_DestroySelf (void) {
+static void ExodiaNecross_DestroySelf (void) {
   if (gActiveEffect.turnRow == 1) {
     if (!GetExodiaFlag(gTurnDuelistBattleState[INACTIVE_DUELIST]->graveyard))
       ClearZoneAndSendMonToGraveyard(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col], INACTIVE_DUELIST);
@@ -1311,7 +1310,7 @@ static void sub_80298B8 (void) {
 static void sub_80298BC (void) {
 }
 
-static void EffectJamBreedingMachine_BlockSummoning (void) {
+static void JamBreedingMachine_BlockSummoning (void) {
   if (gActiveEffect.turnRow != 3)
     return;
   FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);

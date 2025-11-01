@@ -953,6 +953,255 @@ gUnk_808ECD0:
 
     .global gUnk_808ECF0
 gUnk_808ECF0:
-    .incbin "baserom.gba", 0x8ECF0, 0x1780
+    .incbin "baserom.gba", 0x8ECF0, 0x20
 
-    
+  .global g808ED10
+g808ED10:
+.incbin "baserom.gba", 0x08ED10, 0x80
+  .global g808ED90
+g808ED90:
+.incbin "baserom.gba", 0x08ED90, 0x80
+  .global g808EE10
+g808EE10:
+.incbin "baserom.gba", 0x08EE10, 0x80
+  .global g808EE90
+g808EE90:
+.incbin "baserom.gba", 0x08EE90, 0x80
+  .global g808EF10
+g808EF10:
+.incbin "baserom.gba", 0x08EF10, 0x80
+  .global g808EF90
+g808EF90:
+.incbin "baserom.gba", 0x08EF90, 0x80
+  .global g808F010
+g808F010:
+.incbin "baserom.gba", 0x08F010, 0x80
+  .global g808F090
+g808F090:
+.incbin "baserom.gba", 0x08F090, 0x80
+  .global g808F110
+g808F110:
+.incbin "baserom.gba", 0x08F110, 0x80
+  .global g808F190
+g808F190:
+.incbin "baserom.gba", 0x08F190, 0x80
+  .global g808F210
+g808F210:
+.incbin "baserom.gba", 0x08F210, 0x80
+  .global g808F290
+g808F290:
+.incbin "baserom.gba", 0x08F290, 0x80
+  .global g808F310
+g808F310:
+.incbin "baserom.gba", 0x08F310, 0x80
+  .global g808F390
+g808F390:
+.incbin "baserom.gba", 0x08F390, 0x80
+  .global g808F410
+g808F410:
+.incbin "baserom.gba", 0x08F410, 0x80
+  .global g808F490
+g808F490:
+.incbin "baserom.gba", 0x08F490, 0x80
+  .global g808F510
+g808F510:
+.incbin "baserom.gba", 0x08F510, 0x80
+  .global g808F590
+g808F590:
+.incbin "baserom.gba", 0x08F590, 0x80
+  .global g808F610
+g808F610:
+.incbin "baserom.gba", 0x08F610, 0x80
+  .global g808F690
+g808F690:
+.incbin "baserom.gba", 0x08F690, 0x80
+  .global g808F710
+g808F710:
+.incbin "baserom.gba", 0x08F710, 0x100
+  .global g808F810
+g808F810:
+.incbin "baserom.gba", 0x08F810, 0x100
+  .global g808F910
+g808F910:
+.incbin "baserom.gba", 0x08F910, 0x100
+
+
+.global g808FA10
+g808FA10:
+.incbin "baserom.gba", 0x08FA10, 0x80
+
+.global g808FA90
+g808FA90:
+.incbin "baserom.gba", 0x08FA90, 0x80
+
+.global g808FB10
+g808FB10:
+.incbin "baserom.gba", 0x08FB10, 0x80
+
+.global g808FB90
+g808FB90:
+.incbin "baserom.gba", 0x08FB90, 0x80
+
+.global g808FC10
+g808FC10:
+.incbin "baserom.gba", 0x08FC10, 0x80
+
+.global g808FC90
+g808FC90:
+.incbin "baserom.gba", 0x08FC90, 0x80
+
+.global g808FD10
+g808FD10:
+.incbin "baserom.gba", 0x08FD10, 0x80
+
+.global g808FD90
+g808FD90:
+.incbin "baserom.gba", 0x08FD90, 0x80
+
+.global g808FE10
+g808FE10:
+.incbin "baserom.gba", 0x08FE10, 0x80
+
+.global g808FE90
+g808FE90:
+.incbin "baserom.gba", 0x08FE90, 0x80
+
+.global g808FF10
+g808FF10:
+.incbin "baserom.gba", 0x08FF10, 0x80
+
+  .global g808FF90
+g808FF90:
+  .incbin "baserom.gba", 0x8FF90, 0x20
+
+  .global g808FFB0
+g808FFB0:
+  .incbin "baserom.gba", 0x8FFB0, 0x20
+
+  .global g808FFD0
+g808FFD0:
+  .incbin "baserom.gba", 0x8FFD0, 0x20
+
+  .global g808FFF0
+g808FFF0:
+  .incbin "baserom.gba", 0x8FFF0, 0x20
+  
+  .global g8090010
+g8090010:
+  .incbin "baserom.gba", 0x90010, 0x20
+
+  .global g8090030
+g8090030:
+  .incbin "baserom.gba", 0x90030, 0x20
+
+  .global g8090050
+g8090050:
+  .incbin "baserom.gba", 0x90050, 0x20
+
+  .global g8090070
+g8090070:
+  .incbin "baserom.gba", 0x90070, 0x20
+
+  .global g8090090
+g8090090:
+  .incbin "baserom.gba", 0x90090, 0x20
+
+  .global g80900B0
+g80900B0:
+  .incbin "baserom.gba", 0x900B0, 0x20
+
+  .global g80900D0
+g80900D0:
+  .incbin "baserom.gba", 0x900D0, 0x20
+
+  .global g80900F0
+g80900F0:
+  .incbin "baserom.gba", 0x900F0, 0x20
+
+  .global g8090110
+g8090110:
+  .incbin "baserom.gba", 0x90110, 0x20
+
+  .global g8090130
+g8090130:
+  .incbin "baserom.gba", 0x90130, 0x20
+
+  .global g8090150
+g8090150:
+  .incbin "baserom.gba", 0x90150, 0x20
+
+  .global g8090170
+g8090170:
+  .incbin "baserom.gba", 0x90170, 0x20
+
+  .global g8090190
+g8090190:
+  .incbin "baserom.gba", 0x90190, 0x20
+
+  .global g80901B0
+g80901B0:
+  .incbin "baserom.gba", 0x901B0, 0x20
+
+  .global g80901D0
+g80901D0:
+  .incbin "baserom.gba", 0x901D0, 0x20
+
+  .global g80901F0
+g80901F0:
+  .incbin "baserom.gba", 0x901F0, 0x20
+
+  .global g8090210
+g8090210:
+  .incbin "baserom.gba", 0x90210, 0x20
+
+  .global g8090230
+g8090230:
+  .incbin "baserom.gba", 0x90230, 0x20
+
+  .global g8090250
+g8090250:
+  .incbin "baserom.gba", 0x90250, 0x20
+
+  .global g8090270
+g8090270:
+.incbin "baserom.gba", 0x090270, 0x20
+.global g8090290
+g8090290:
+.incbin "baserom.gba", 0x090290, 0x20
+.global g80902B0
+g80902B0:
+.incbin "baserom.gba", 0x0902B0, 0x20
+.global g80902D0
+g80902D0:
+.incbin "baserom.gba", 0x0902D0, 0x20
+.global g80902F0
+g80902F0:
+.incbin "baserom.gba", 0x0902F0, 0x20
+.global g8090310
+g8090310:
+.incbin "baserom.gba", 0x090310, 0x20
+.global g8090330
+g8090330:
+.incbin "baserom.gba", 0x090330, 0x20
+.global g8090350
+g8090350:
+.incbin "baserom.gba", 0x090350, 0x20
+.global g8090370
+g8090370:
+.incbin "baserom.gba", 0x090370, 0x20
+.global g8090390
+g8090390:
+.incbin "baserom.gba", 0x090390, 0x20
+.global g80903B0
+g80903B0:
+.incbin "baserom.gba", 0x0903B0, 0x20
+
+  
+  .global g80903D0
+g80903D0:
+  .incbin "baserom.gba", 0x903D0, 0x20
+  
+  .global g80903F0
+g80903F0:
+  .incbin "baserom.gba", 0x903F0, 0x80
+@90470

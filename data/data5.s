@@ -261,35 +261,196 @@ gNextDownOptionInTrunkSubmenu:
 gUnk_8DF8142:
     .incbin "baserom.gba", 0xDF8142, 0x3
 
-//trunk end?
-
 
     .global gUnk_8DF8145
 gUnk_8DF8145:
     .incbin "baserom.gba", 0xDF8145, 3
-
-    .global gUnk_8DF8148
-gUnk_8DF8148:
-    .incbin "baserom.gba", 0xDF8148, 0x2200
-
+//trunk end?
 
 // card.c?
+    .global g8DF8148
+g8DF8148:
+    .incbin "baserom.gba", 0xDF8148, 0x100
 
-    .global gTypeIconPalettes
-gTypeIconPalettes:
-    .incbin "baserom.gba", 0xDFA348, 0x60
+  .global g8DF8248
+g8DF8248:
+.incbin "baserom.gba", 0xDF8248, 0x100
+  .global g8DF8348
+g8DF8348:
+.incbin "baserom.gba", 0xDF8348, 0x100
+  .global g8DF8448
+g8DF8448:
+.incbin "baserom.gba", 0xDF8448, 0x100
+  .global g8DF8548
+g8DF8548:
+.incbin "baserom.gba", 0xDF8548, 0x100
+  .global g8DF8648
+g8DF8648:
+.incbin "baserom.gba", 0xDF8648, 0x100
+  .global g8DF8748
+g8DF8748:
+.incbin "baserom.gba", 0xDF8748, 0x100
+  .global g8DF8848
+g8DF8848:
+.incbin "baserom.gba", 0xDF8848, 0x100
+  .global g8DF8948
+g8DF8948:
+.incbin "baserom.gba", 0xDF8948, 0x100
+  .global g8DF8A48
+g8DF8A48:
+.incbin "baserom.gba", 0xDF8A48, 0x100
+  .global g8DF8B48
+g8DF8B48:
+.incbin "baserom.gba", 0xDF8B48, 0x100
+  .global g8DF8C48
+g8DF8C48:
+.incbin "baserom.gba", 0xDF8C48, 0x100
 
-    .global gTypeIconTiles
-gTypeIconTiles:
-    .incbin "baserom.gba", 0xDFA3A8, 0x1E0
+.global g8DF8D48
+g8DF8D48:
+.incbin "baserom.gba", 0xDF8D48, 0x80
+.global g8DF8DC8
+g8DF8DC8:
+.incbin "baserom.gba", 0xDF8DC8, 0x80
+.global g8DF8E48
+g8DF8E48:
+.incbin "baserom.gba", 0xDF8E48, 0x80
+.global g8DF8EC8
+g8DF8EC8:
+.incbin "baserom.gba", 0xDF8EC8, 0x80
 
-    .global gAttributeIconPalettes
-gAttributeIconPalettes:
-    .incbin "baserom.gba", 0xDFA588, 0x30
+.global g8DF8F48
+g8DF8F48:
+.incbin "baserom.gba", 0xDF8F48, 0x80
+.global g8DF8FC8
+g8DF8FC8:
+.incbin "baserom.gba", 0xDF8FC8, 0x80
+.global g8DF9048
+g8DF9048:
+.incbin "baserom.gba", 0xDF9048, 0x80
+.global g8DF90C8
+g8DF90C8:
+.incbin "baserom.gba", 0xDF90C8, 0x80
 
-    .global gAttributeIconTiles
-gAttributeIconTiles:
-    .incbin "baserom.gba", 0xDFA5B8, 0xF0
+.global g8DF9148
+g8DF9148:
+.incbin "baserom.gba", 0xDF9148, 0x80
+.global g8DF91C8
+g8DF91C8:
+.incbin "baserom.gba", 0xDF91C8, 0x80
+.global g8DF9248
+g8DF9248:
+.incbin "baserom.gba", 0xDF9248, 0x80
+.global g8DF92C8
+g8DF92C8:
+.incbin "baserom.gba", 0xDF92C8, 0x80
+
+.global g8DF9348
+g8DF9348:
+.incbin "baserom.gba", 0xDF9348, 0x80
+.global g8DF93C8
+g8DF93C8:
+.incbin "baserom.gba", 0xDF93C8, 0x80
+.global g8DF9448
+g8DF9448:
+.incbin "baserom.gba", 0xDF9448, 0x80
+.global g8DF94C8
+g8DF94C8:
+.incbin "baserom.gba", 0xDF94C8, 0x80
+
+.global g8DF9548
+g8DF9548:
+.incbin "baserom.gba", 0xDF9548, 0x80
+.global g8DF95C8
+g8DF95C8:
+.incbin "baserom.gba", 0xDF95C8, 0x80
+.global g8DF9648
+g8DF9648:
+.incbin "baserom.gba", 0xDF9648, 0x80
+.global g8DF96C8
+g8DF96C8:
+.incbin "baserom.gba", 0xDF96C8, 0x80
+
+.global g8DF9748
+g8DF9748:
+.incbin "baserom.gba", 0xDF9748, 0x80
+.global g8DF97C8
+g8DF97C8:
+.incbin "baserom.gba", 0xDF97C8, 0x80
+.global g8DF9848
+g8DF9848:
+.incbin "baserom.gba", 0xDF9848, 0x80
+.global g8DF98C8
+g8DF98C8:
+.incbin "baserom.gba", 0xDF98C8, 0x80
+
+.global g8DF9948
+g8DF9948:
+.incbin "baserom.gba", 0xDF9948, 0x80
+.global g8DF99C8
+g8DF99C8:
+.incbin "baserom.gba", 0xDF99C8, 0x80
+.global g8DF9A48
+g8DF9A48:
+.incbin "baserom.gba", 0xDF9A48, 0x80
+.global g8DF9AC8
+g8DF9AC8:
+.incbin "baserom.gba", 0xDF9AC8, 0x80
+
+.global g8DF9B48
+g8DF9B48:
+.incbin "baserom.gba", 0xDF9B48, 0x80
+.global g8DF9BC8
+g8DF9BC8:
+.incbin "baserom.gba", 0xDF9BC8, 0x80
+.global g8DF9C48
+g8DF9C48:
+.incbin "baserom.gba", 0xDF9C48, 0x80
+.global g8DF9CC8
+g8DF9CC8:
+.incbin "baserom.gba", 0xDF9CC8, 0x80
+
+.global g8DF9D48
+g8DF9D48:
+.incbin "baserom.gba", 0xDF9D48, 0x80
+.global g8DF9DC8
+g8DF9DC8:
+.incbin "baserom.gba", 0xDF9DC8, 0x80
+.global g8DF9E48
+g8DF9E48:
+.incbin "baserom.gba", 0xDF9E48, 0x80
+.global g8DF9EC8
+g8DF9EC8:
+.incbin "baserom.gba", 0xDF9EC8, 0x80
+
+.global g8DF9F48
+g8DF9F48:
+.incbin "baserom.gba", 0xDF9F48, 0x80
+.global g8DF9FC8
+g8DF9FC8:
+.incbin "baserom.gba", 0xDF9FC8, 0x80
+.global g8DFA048
+g8DFA048:
+.incbin "baserom.gba", 0xDFA048, 0x80
+.global g8DFA0C8
+g8DFA0C8:
+.incbin "baserom.gba", 0xDFA0C8, 0x80
+
+.global g8DFA148
+g8DFA148:
+.incbin "baserom.gba", 0xDFA148, 0x80
+.global g8DFA1C8
+g8DFA1C8:
+.incbin "baserom.gba", 0xDFA1C8, 0x80
+.global g8DFA248
+g8DFA248:
+.incbin "baserom.gba", 0xDFA248, 0x80
+.global g8DFA2C8
+g8DFA2C8:
+.incbin "baserom.gba", 0xDFA2C8, 0x80
+
+
+.section .card
 
     .global gUnk_8DFA6A8
 gUnk_8DFA6A8:
@@ -297,7 +458,11 @@ gUnk_8DFA6A8:
 
     .global gUnk_DFA6B2
 gUnk_DFA6B2:
-    .incbin "baserom.gba", 0xDFA6B2, 0x1BD6
+    .incbin "baserom.gba", 0xDFA6B2, 0xF4A
+
+    .global g8DFB5FC
+g8DFB5FC:
+    .incbin "baserom.gba", 0xDFB5FC, 0xC8C
 
     .global gCardNames /*card name ptrs*/
 gCardNames:

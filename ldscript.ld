@@ -365,7 +365,7 @@ SECTIONS
         data/data.o(.rodata);
         src/data/starter_trunk.o(.rodata);
         
-        . = ALIGN(4); src/trunk.o(.rodata); /*TODO: remove align*/
+        src/trunk.o(.rodata);
         data/data2.o(.rodata);
         src/data/cards_data.o(.rodata);
         data/data3.o(.rodata);
@@ -385,6 +385,8 @@ SECTIONS
         *libgcc.a:*.o(.rodata);
 
         data/data5.o(.rodata);
+        src/card.o(.data);
+        data/data5.o(.card);
         src/code_803F02C.o(.rodata);
         data/data5.o(.rodata2);
         src/code_803F02C.o(.data);

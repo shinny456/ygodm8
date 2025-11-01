@@ -222,7 +222,7 @@ static void EffectCastleOfDarkIllusions (void) {
   }
 }
 
-static void EffectDestinyBoard_NewLetter (void) {
+static void EffectDestinyBoard (void) {
   unsigned char zone;
   unsigned short flags;
 
@@ -255,7 +255,7 @@ static void EffectDestinyBoard_NewLetter (void) {
   }
 }
 
-static void EffectJamBreedingMachine_Summon (void) {
+static void EffectJamBreedingMachine (void) {
   if (gActiveEffect.turnRow != 3)
     return;
   FlipCardFaceUp(gTurnZones[gActiveEffect.turnRow][gActiveEffect.col]);
@@ -308,8 +308,7 @@ static void EffectMirageKnight (void) {
   }
 }
 
-// resurrect from own gy to own field -- Vampire Lord or Different Dimension Dragon?
-static void sub_802B560 (void) {
+static void EffectVampireLord (void) {
   u16 temp;
   struct DuelCard* ptr;
 
@@ -335,8 +334,7 @@ static void sub_802B560 (void) {
   }
 }
 
-// resurrect from own gy to own field -- Vampire Lord or Different Dimension Dragon?
-static void sub_802B604 (void) {
+static void EffectDifferentDimensionDragon (void) {
   u16 temp;
   struct DuelCard* ptr;
 
@@ -454,6 +452,8 @@ static void EffectMASTER_OF_DRAGON_SOLDIER (void) {
 static void EffectTHUNDER_NYAN_NYAN (void) {
 }
 
+//TODO: remove the subtractlifepoints part since it can be deduced from the fact that it's
+//in turn_effect.c (same with lava golem)
 static void EffectMessengerOfPeace_SubtractLifePoints (void) {
   if (gActiveEffect.turnRow != 3)
     return;
@@ -550,7 +550,7 @@ static void EffectCOMMAND_ANGEL (void) {
 static void EffectNIGHTMARE_PENGUIN (void) {
 }
 
-static void EffectBerserkDragon_PowerDown (void) {
+static void EffectBerserkDragon (void) {
   if (gActiveEffect.turnRow != 1)
     return;
   FlipCardFaceUp(gTurnZones[1][gActiveEffect.col]);
@@ -733,108 +733,107 @@ static unsigned sub_802BBF0 (void) {
   return g8E0CA80[gCardInfo.unk1E]();
 }
 
-static unsigned char sub_802BC20 (void) {
+static unsigned char ConditionEffectNone (void) {
   return 0;
 }
 
-static unsigned char sub_802BC24 (void) {
+static unsigned char ConditionJinzo (void) {
   return 0;
 }
 
-static unsigned char sub_802BC28 (void) {
+static unsigned char ConditionSliferTheSkyDragon (void) {
   return 0;
 }
 
-static unsigned char sub_802BC2C (void) {
+static unsigned char ConditionDRAGON_CAPTURE_JAR (void) {
   return 0;
 }
 
-static unsigned char sub_802BC30 (void) {
+static unsigned char ConditionPUMPKING_THE_KING_OF_GHOSTS (void) {
   return 0;
 }
 
-static unsigned char sub_802BC34 (void) {
+static unsigned char ConditionHARPIE_LADY (void) {
   return 0;
 }
 
-static unsigned char sub_802BC38 (void) {
+static unsigned char ConditionHARPIE_LADY_SISTERS (void) {
   return 0;
 }
 
-static unsigned char sub_802BC3C (void) {
+static unsigned char ConditionCYBER_HARPIE (void) {
   return 0;
 }
 
-static unsigned char sub_802BC40 (void) {
+static unsigned char ConditionMYSTICAL_ELF (void) {
   return 0;
 }
 
-static unsigned char sub_802BC44 (void) {
+static unsigned char ConditionMONSTER_TAMER (void) {
   return 0;
 }
 
-static unsigned char sub_802BC48 (void) {
+static unsigned char ConditionMAMMOTH_GRAVEYARD (void) {
   return 0;
 }
 
-static unsigned char sub_802BC4C (void) {
+static unsigned char ConditionDARK_MAGICIAN_GIRL (void) {
   return 0;
 }
 
-static unsigned char sub_802BC50 (void) {
+static unsigned char ConditionTOON_DARK_MAGICIAN_GIRL (void) {
   return 0;
 }
 
-static unsigned char sub_802BC54 (void) {
+static unsigned char ConditionWODAN_THE_RESIDENT_OF_THE_FOREST (void) {
   return 0;
 }
 
-static unsigned char sub_802BC58 (void) {
+static unsigned char ConditionSWAMP_BATTLEGUARD (void) {
   return 0;
 }
 
-static unsigned char sub_802BC5C (void) {
+static unsigned char ConditionLAVA_BATTLEGUARD (void) {
   return 0;
 }
 
-static unsigned char sub_802BC60 (void) {
+static unsigned char ConditionM_WARRIOR_1 (void) {
   return 0;
 }
 
-static unsigned char sub_802BC64 (void) {
+static unsigned char ConditionM_WARRIOR_2 (void) {
   return 0;
 }
 
-static unsigned char sub_802BC68 (void) {
+static unsigned char ConditionLABYRINTH_TANK (void) {
   return 0;
 }
 
-static unsigned char sub_802BC6C (void) {
+static unsigned char ConditionHOSHININGEN (void) {
   return 0;
 }
 
-static unsigned char sub_802BC70 (void) {
+static unsigned char ConditionWITCHS_APPRENTICE (void) {
   return 0;
 }
 
-static unsigned char sub_802BC74 (void) {
+static unsigned char ConditionINSECT_QUEEN (void) {
   return 0;
 }
 
-static unsigned char sub_802BC78 (void) {
+static unsigned char ConditionBUSTER_BLADER (void) {
   return 0;
 }
 
-static unsigned char sub_802BC7C (void) {
+static unsigned char ConditionMASTER_OF_DRAGON_SOLDIER (void) {
   return 0;
 }
 
-static unsigned char sub_802BC80 (void) {
+static unsigned char ConditionTHUNDER_NYAN_NYAN (void) {
   return 0;
 }
 
-// condition for a backrow that activates at start of own turn -- MessengerOfPeace lp burn?
-static unsigned char sub_802BC84 (void) {
+static unsigned char ConditionMESSENGER_OF_PEACE (void) {
   unsigned char ret = 0;
   if (gActiveEffect.turnRow == 3 &&
       gActiveEffect.col == GetFirstCardMatchZoneId(gTurnZones[3], gActiveEffect.cardId))
@@ -855,20 +854,19 @@ static unsigned char ConditionHelpoemer (void) {
   return gActiveEffect.turnRow == 7 && NumEmptyZonesInRow(gTurnHands[ACTIVE_DUELIST]) <= 2;
 }
 
-// condition: lava golem lp burn?
-static unsigned char sub_802BD14 (void) {
+static unsigned char ConditionLAVA_GOLEM (void) {
   return gActiveEffect.turnRow == 2;
 }
 
-static unsigned char sub_802BD28 (void) {
+static unsigned char ConditionDARK_JEROID (void) {
   return 0;
 }
 
-static unsigned char sub_802BD2C (void) {
+static unsigned char ConditionBLADE_KNIGHT (void) {
   return 0;
 }
 
-static unsigned char sub_802BD30 (void) {
+static unsigned char ConditionDARK_PALADIN (void) {
   return 0;
 }
 
@@ -886,7 +884,7 @@ static unsigned char ConditionViserDes (void) {
   return 0;
 }
 
-static unsigned char sub_802BD98 (void) {
+static unsigned char ConditionTHE_WINGED_DRAGON_OF_RA_PHOENIX_MODE (void) {
   return 0;
 }
 
@@ -896,42 +894,39 @@ static unsigned char ConditionNewdoria (void) {
   return 0;
 }
 
-static unsigned char sub_802BDC4 (void) {
+static unsigned char ConditionMACHINE_KING (void) {
   return 0;
 }
 
-static unsigned char sub_802BDC8 (void) {
+static unsigned char ConditionPERFECT_MACHINE_KING (void) {
   return 0;
 }
 
-static unsigned char sub_802BDCC (void) {
+static unsigned char ConditionCOMMAND_ANGEL (void) {
   return 0;
 }
 
-static unsigned char sub_802BDD0 (void) {
+static unsigned char ConditionNIGHTMARE_PENGUIN (void) {
   return 0;
 }
 
-// condition is opponent turn only: probably one of Helpoemer or Berserk Dragon
-static unsigned char sub_802BDD4 (void) {
+static unsigned char ConditionBERSERK_DRAGON (void) {
   if (gActiveEffect.turnRow == 1)
     return 1;
   return 0;
 }
 
-// condition is opponent turn only: probably one of Helpoemer or Berserk Dragon
-static unsigned char sub_802BDE8 (void) {
+static unsigned char ConditionMIRAGE_KNIGHT (void) {
   if (gActiveEffect.turnRow == 1)
     return 1;
   return 0;
 }
 
-static unsigned char sub_802BDFC (void) {
+static unsigned char ConditionDARK_FLARE_KNIGHT (void) {
   return 0;
 }
 
-// condition for Vampire Lord or Different Dimension Dragon?
-static unsigned char sub_802BE00 (void) {
+static unsigned char ConditionVAMPIRE_LORD (void) {
   if (gActiveEffect.turnRow == 6 &&
       gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == gActiveEffect.cardId &&
       NumEmptyZonesInRow(gTurnZones[2]) > 0)
@@ -939,8 +934,7 @@ static unsigned char sub_802BE00 (void) {
   return 0;
 }
 
-// condition for Vampire Lord or Different Dimension Dragon?
-static unsigned char sub_802BE38 (void) {
+static unsigned char ConditionDIFFERENT_DIMENSION_DRAGON (void) {
   if (gActiveEffect.turnRow == 6 &&
       gTurnDuelistBattleState[ACTIVE_DUELIST]->graveyard == gActiveEffect.cardId &&
       NumEmptyZonesInRow(gTurnZones[2]) > 0)
@@ -954,19 +948,19 @@ static unsigned char ConditionExodiaNecross_PowerUp (void) {
   return 0;
 }
 
-static unsigned char sub_802BE9C (void) {
+static unsigned char ConditionSPIRIT_MESSAGE_I (void) {
   return 0;
 }
 
-static unsigned char sub_802BEA0 (void) {
+static unsigned char ConditionSPIRIT_MESSAGE_N (void) {
   return 0;
 }
 
-static unsigned char sub_802BEA4 (void) {
+static unsigned char ConditionSPIRIT_MESSAGE_A (void) {
   return 0;
 }
 
-static unsigned char sub_802BEA8 (void) {
+static unsigned char ConditionSPIRIT_MESSAGE_L (void) {
   return 0;
 }
 
@@ -1087,9 +1081,117 @@ static unsigned char sub_802BF48 (void) {
 static unsigned char sub_802BF4C (void) {
   return 0;
 }
+/*
+static void (*g8E0C940[]) (void) = {
+  [PERMANENT_EFFECT_NONE] = EffectNone,
+  [PERMANENT_EFFECT_JINZO] = EffectJinzo,
+  [PERMANENT_EFFECT_SLIFER_THE_SKY_DRAGON] = EffectSliferTheSkyDragon,
+  [PERMANENT_EFFECT_DRAGON_CAPTURE_JAR] = EffectDragonCaptureJar,
+  [PERMANENT_EFFECT_CASTLE_OF_DARK_ILLUSIONS] = EffectCastleOfDarkIllusions,
+  [PERMANENT_EFFECT_PUMPKING_THE_KING_OF_GHOSTS] = EffectPumpkingTheKingOfGhosts,
+  [PERMANENT_EFFECT_HARPIE_LADY] = Effect_HARPIE_LADY,
+  [PERMANENT_EFFECT_HARPIE_LADY_SISTERS] = EffectHARPIE_LADY_SISTERS,
+  [PERMANENT_EFFECT_CYBER_HARPIE] = EffectCYBER_HARPIE,
+  [PERMANENT_EFFECT_MYSTICAL_ELF] = EffectMYSTICAL_ELF,
+  [PERMANENT_EFFECT_MONSTER_TAMER] = EffectMONSTER_TAMER,
+  [PERMANENT_EFFECT_MAMMOTH_GRAVEYARD] = EffectMAMMOTH_GRAVEYARD,
+  [PERMANENT_EFFECT_DARK_MAGICIAN_GIRL] = EffectDARK_MAGICIAN_GIRL,
+  [PERMANENT_EFFECT_TOON_DARK_MAGICIAN_GIRL] = EffectTOON_DARK_MAGICIAN_GIRL,
+  [PERMANENT_EFFECT_WODAN_THE_RESIDENT_OF_THE_FOREST] = EffectWODAN_THE_RESIDENT_OF_THE_FOREST,
+  [PERMANENT_EFFECT_SWAMP_BATTLEGUARD] = EffectSWAMP_BATTLEGUARD,
+  [PERMANENT_EFFECT_LAVA_BATTLEGUARD] = EffectLAVA_BATTLEGUARD,
+  [PERMANENT_EFFECT_M_WARRIOR_1] = EffectM_WARRIOR_1,
+  [PERMANENT_EFFECT_M_WARRIOR_2] = EffectM_WARRIOR_2,
+  [PERMANENT_EFFECT_LABYRINTH_TANK] = EffectLABYRINTH_TANK,
+  [PERMANENT_EFFECT_HOSHININGEN] = EffectHOSHININGEN,
+  [PERMANENT_EFFECT_WITCHS_APPRENTICE] = EffectWITCHS_APPRENTICE,
+  [PERMANENT_EFFECT_INSECT_QUEEN] = EffectINSECT_QUEEN,
+  [PERMANENT_EFFECT_BUSTER_BLADER] = EffectBUSTER_BLADER,
+  [PERMANENT_EFFECT_MASTER_OF_DRAGON_SOLDIER] = EffectMASTER_OF_DRAGON_SOLDIER,
+  [PERMANENT_EFFECT_THUNDER_NYAN_NYAN] = EffectTHUNDER_NYAN_NYAN,
+  [PERMANENT_EFFECT_MESSENGER_OF_PEACE] = EffectMessengerOfPeace_SubtractLifePoints,
+  [PERMANENT_EFFECT_DESTINY_BOARD] = EffectDestinyBoard,
+  [PERMANENT_EFFECT_HELPOEMER] = EffectHelpoemer,
+  [PERMANENT_EFFECT_LAVA_GOLEM] = EffectLavaGolem_SubtractLifePoints,
+  [PERMANENT_EFFECT_DARK_JEROID] = EffectDARK_JEROID,
+  [PERMANENT_EFFECT_BLADE_KNIGHT] = EffectBLADE_KNIGHT,
+  [PERMANENT_EFFECT_DARK_PALADIN] = EffectDARK_PALADIN,
+  [PERMANENT_EFFECT_JAM_BREEDING_MACHINE] = EffectJamBreedingMachine,
+  [PERMANENT_EFFECT_VISER_DES] = EffectViserDes,
+  [PERMANENT_EFFECT_THE_WINGED_DRAGON_OF_RA_PHOENIX_MODE] = EffectTHE_WINGED_DRAGON_OF_RA_PHOENIX_MODE,
+  [PERMANENT_EFFECT_NEWDORIA] = EffectNewdoria,
+  [PERMANENT_EFFECT_MACHINE_KING] = EffectMACHINE_KING,
+  [PERMANENT_EFFECT_PERFECT_MACHINE_KING] = EffectPERFECT_MACHINE_KING,
+  [PERMANENT_EFFECT_COMMAND_ANGEL] = EffectCOMMAND_ANGEL,
+  [PERMANENT_EFFECT_NIGHTMARE_PENGUIN] = EffectNIGHTMARE_PENGUIN,
+  [PERMANENT_EFFECT_BERSERK_DRAGON] = EffectBerserkDragon,
+  [PERMANENT_EFFECT_MIRAGE_KNIGHT] = EffectMirageKnight,
+  [PERMANENT_EFFECT_DARK_FLARE_KNIGHT] = EffectDARK_FLARE_KNIGHT,
+  [PERMANENT_EFFECT_VAMPIRE_LORD] = EffectVampireLord,
+  [PERMANENT_EFFECT_DIFFERENT_DIMENSION_DRAGON] = EffectDifferentDimensionDragon,
+  [PERMANENT_EFFECT_EXODIA_NECROSS] = EffectExodiaNecross_PowerUp,
+  [PERMANENT_EFFECT_SPIRIT_MESSAGE_I] = EffectSPIRIT_MESSAGE_I,
+  [PERMANENT_EFFECT_SPIRIT_MESSAGE_N] = EffectSPIRIT_MESSAGE_N,
+  [PERMANENT_EFFECT_SPIRIT_MESSAGE_A] = EffectSPIRIT_MESSAGE_A,
+  [PERMANENT_EFFECT_SPIRIT_MESSAGE_L] = EffectSPIRIT_MESSAGE_L,
+  [PERMANENT_EFFECT_SATELLITE_CANNON] = EffectSatelliteCannon
+};
 
-
-
+static unsigned char (*g8E0CA80[]) (void) = {
+  [PERMANENT_EFFECT_NONE] = ConditionEffectNone,
+  [PERMANENT_EFFECT_JINZO] = ConditionJINZO,
+  [PERMANENT_EFFECT_SLIFER_THE_SKY_DRAGON] = ConditionSLIFER_THE_SKY_DRAGON,
+  [PERMANENT_EFFECT_DRAGON_CAPTURE_JAR] = ConditionDRAGON_CAPTURE_JAR,
+  [PERMANENT_EFFECT_CASTLE_OF_DARK_ILLUSIONS] = ConditionCASTLE_OF_DARK_ILLUSIONS,
+  [PERMANENT_EFFECT_PUMPKING_THE_KING_OF_GHOSTS] = ConditionPUMPKING_THE_KING_OF_GHOSTS,
+  [PERMANENT_EFFECT_HARPIE_LADY] = ConditionHARPIE_LADY,
+  [PERMANENT_EFFECT_HARPIE_LADY_SISTERS] = ConditionHARPIE_LADY_SISTERS,
+  [PERMANENT_EFFECT_CYBER_HARPIE] = ConditionCYBER_HARPIE,
+  [PERMANENT_EFFECT_MYSTICAL_ELF] = ConditionMYSTICAL_ELF,
+  [PERMANENT_EFFECT_MONSTER_TAMER] = ConditionMONSTER_TAMER,
+  [PERMANENT_EFFECT_MAMMOTH_GRAVEYARD] = ConditionMAMMOTH_GRAVEYARD,
+  [PERMANENT_EFFECT_DARK_MAGICIAN_GIRL] = ConditionDARK_MAGICIAN_GIRL,
+  [PERMANENT_EFFECT_TOON_DARK_MAGICIAN_GIRL] = ConditionTOON_DARK_MAGICIAN_GIRL,
+  [PERMANENT_EFFECT_WODAN_THE_RESIDENT_OF_THE_FOREST] = ConditionWODAN_THE_RESIDENT_OF_THE_FOREST,
+  [PERMANENT_EFFECT_SWAMP_BATTLEGUARD] = ConditionSWAMP_BATTLEGUARD,
+  [PERMANENT_EFFECT_LAVA_BATTLEGUARD] = ConditionLAVA_BATTLEGUARD,
+  [PERMANENT_EFFECT_M_WARRIOR_1] = ConditionM_WARRIOR_1,
+  [PERMANENT_EFFECT_M_WARRIOR_2] = ConditionM_WARRIOR_2,
+  [PERMANENT_EFFECT_LABYRINTH_TANK] = ConditionLABYRINTH_TANK,
+  [PERMANENT_EFFECT_HOSHININGEN] = ConditionHOSHININGEN,
+  [PERMANENT_EFFECT_WITCHS_APPRENTICE] = ConditionWITCHS_APPRENTICE,
+  [PERMANENT_EFFECT_INSECT_QUEEN] = ConditionINSECT_QUEEN,
+  [PERMANENT_EFFECT_BUSTER_BLADER] = ConditionBUSTER_BLADER,
+  [PERMANENT_EFFECT_MASTER_OF_DRAGON_SOLDIER] = ConditionMASTER_OF_DRAGON_SOLDIER,
+  [PERMANENT_EFFECT_THUNDER_NYAN_NYAN] = ConditionTHUNDER_NYAN_NYAN,
+  [PERMANENT_EFFECT_MESSENGER_OF_PEACE] = ConditionMESSENGER_OF_PEACE,
+  [PERMANENT_EFFECT_DESTINY_BOARD] = ConditionDESTINY_BOARD,
+  [PERMANENT_EFFECT_HELPOEMER] = ConditionHELPOEMER,
+  [PERMANENT_EFFECT_LAVA_GOLEM] = ConditionLAVA_GOLEM,
+  [PERMANENT_EFFECT_DARK_JEROID] = ConditionDARK_JEROID,
+  [PERMANENT_EFFECT_BLADE_KNIGHT] = ConditionBLADE_KNIGHT,
+  [PERMANENT_EFFECT_DARK_PALADIN] = ConditionDARK_PALADIN,
+  [PERMANENT_EFFECT_JAM_BREEDING_MACHINE] = ConditionJAM_BREEDING_MACHINE,
+  [PERMANENT_EFFECT_VISER_DES] = ConditionVISER_DES,
+  [PERMANENT_EFFECT_THE_WINGED_DRAGON_OF_RA_PHOENIX_MODE] = ConditionTHE_WINGED_DRAGON_OF_RA_PHOENIX_MODE,
+  [PERMANENT_EFFECT_NEWDORIA] = ConditionNEWDORIA,
+  [PERMANENT_EFFECT_MACHINE_KING] = ConditionMACHINE_KING,
+  [PERMANENT_EFFECT_PERFECT_MACHINE_KING] = ConditionPERFECT_MACHINE_KING,
+  [PERMANENT_EFFECT_COMMAND_ANGEL] = ConditionCOMMAND_ANGEL,
+  [PERMANENT_EFFECT_NIGHTMARE_PENGUIN] = ConditionNIGHTMARE_PENGUIN,
+  [PERMANENT_EFFECT_BERSERK_DRAGON] = ConditionBERSERK_DRAGON,
+  [PERMANENT_EFFECT_MIRAGE_KNIGHT] = ConditionMIRAGE_KNIGHT,
+  [PERMANENT_EFFECT_DARK_FLARE_KNIGHT] = ConditionDARK_FLARE_KNIGHT,
+  [PERMANENT_EFFECT_VAMPIRE_LORD] = ConditionVAMPIRE_LORD,
+  [PERMANENT_EFFECT_DIFFERENT_DIMENSION_DRAGON] = ConditionDIFFERENT_DIMENSION_DRAGON,
+  [PERMANENT_EFFECT_EXODIA_NECROSS] = ConditionEXODIA_NECROSS,
+  [PERMANENT_EFFECT_SPIRIT_MESSAGE_I] = ConditionSPIRIT_MESSAGE_I,
+  [PERMANENT_EFFECT_SPIRIT_MESSAGE_N] = ConditionSPIRIT_MESSAGE_N,
+  [PERMANENT_EFFECT_SPIRIT_MESSAGE_A] = ConditionSPIRIT_MESSAGE_A,
+  [PERMANENT_EFFECT_SPIRIT_MESSAGE_L] = ConditionSPIRIT_MESSAGE_L,
+  [PERMANENT_EFFECT_SATELLITE_CANNON] = ConditionSATELLITE_CANNON
+};
+*/
 
 
 // split? 
