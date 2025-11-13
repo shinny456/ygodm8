@@ -126,6 +126,8 @@ unsigned short sub_800DA88 (void) {
   return 0x5000;
 }
 
+//almost the same as SortingMenuMain in regular trunk
+//the functions below are also repeated (the data is duplicated too, so the arrays are different)
 void sub_800DAA4 (void) {
   unsigned keepProcessing;
   gTrunkMenu.cursorState = gTrunkMenu.sortMode;

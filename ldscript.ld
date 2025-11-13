@@ -245,9 +245,11 @@ SECTIONS
 
         src/trunk.o(.text);
         asm/code_8009228.o(.text);
+        src/code_8009E3C.o(.text);
+        asm/code_8009228.o(.text2);
         src/code_800AC64.o(.text);
 
-        asm/code_8009228.o(.text2);
+        asm/code_8009228.o(.text3);
 
         src/card.o(.text); /*second part is duel_trunk_menu?*/
 
@@ -927,6 +929,14 @@ SECTIONS
     g8DFF4BF = 0x8DFF4BF;
     g8DFF4CA = 0x8DFF4CA;
     g8DFF4D5 = 0x8DFF4D5;
+    g8091CA8 = 0x8091CA8;
+    g8091D28 = 0x8091D28;
+    g8DFB610 = 0x8DFB610;
+    g8DFB61B = 0x8DFB61B;
+    g8DFB626 = 0x8DFB626;
+    g8DFB631 = 0x8DFB631;
+    g8DFB63C = 0x8DFB63C;
+    g8DFB647 = 0x8DFB647;
     
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :
